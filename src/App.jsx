@@ -1,20 +1,54 @@
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+//Layouts
+import MainLayout from "@/layouts/MainLayout";
+import SideLayout from "@/layouts/CRM/SideLayout";
+
+//CRM
+import MainCRM from "@/pages/CRM/MainCRM";
+import DataTable from "./pages/CRM/components/Table/DataTable";
+
+//Leads
+import MainLeads from "./pages/Leads/MainLeads";
+import Stages from "./pages/Leads/components/Stages";
+
+//actions
+import { getLeads } from "./lib/actions";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about" className="bg-red-900">
-          About Us
-        </Link>
-      </div>
-    ),
-  },
-  {
-    path: "about",
-    element: <div>About</div>,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/crm",
+        element: <SideLayout />,
+        children: [
+          {
+            path: "/crm/homepage",
+            element: <MainCRM />,
+            children: [
+              {
+                index: true,
+                // loader: getLeads,
+                element: <DataTable />,
+              },
+            ],
+          },
+          {
+            path: "/crm/leads",
+            element: <MainLeads />,
+            children: [
+              {
+                index: true,
+                element: <Stages />,
+                // loader: getSteps,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ]);
 
