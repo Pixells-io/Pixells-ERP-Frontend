@@ -15,6 +15,9 @@ import Stages from "./pages/Leads/components/Stages";
 //actions
 import { getLeads } from "./lib/actions";
 
+//Not Found
+import NotFound from "./components/NotFound";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +52,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <NotFound />,
   },
 ]);
 
