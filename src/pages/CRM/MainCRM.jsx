@@ -8,7 +8,6 @@ import { IonIcon } from "@ionic/react";
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
 
 function MainCRM() {
-  // console.log(`${import.meta.env.VITE_SERVER_URL}person/get-lead`);
   return (
     <div className="flex w-full">
       <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Outlet,
-  useRouteLoaderData,
   useLoaderData,
   useNavigation,
   redirect,
@@ -9,8 +8,11 @@ import {
 
 import TopMenuCRM from "./components/TopMenuCRM";
 import MenuCRM from "./components/MenuCRM";
+import FormNewLead from "./components/Form/FormNewLead";
 
 function SideLayout() {
+  const services = useLoaderData();
+  const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4">
@@ -25,11 +27,7 @@ function SideLayout() {
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
-            {/* <FormNewLead
-                            csrf={csrf}
-                            navigation={navigation}
-                            services={services}
-                        /> */}
+            <FormNewLead navigation={navigation} services={services} />
           </div>
 
           <div className="border-b border-gris2 my-4"></div>
@@ -44,3 +42,16 @@ function SideLayout() {
 }
 
 export default SideLayout;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewLead(data);
+  console.log(validation);
+
+  // if (validation) {
+  //     return validation;
+  // }
+
+  // return redirect("/crm/homepage");
+}

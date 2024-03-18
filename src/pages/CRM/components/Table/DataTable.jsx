@@ -168,7 +168,8 @@ import {
 // ];
 
 function DataTable() {
-  //   const { data } = useLoaderData();
+  const { data } = useLoaderData();
+  console.log(data);
   //   const [initialData, setInitialData] = React.useState(data);
   //   const [leads, setLeads] = React.useState(initialData);
   const leads = [];
