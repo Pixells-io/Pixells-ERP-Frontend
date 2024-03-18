@@ -23,7 +23,7 @@ function SideLayout() {
 
         {/*bottom block */}
         <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-8">
-          <p className="font-semibold text-lg">Menu</p>
+          <p className="font-semibold text-lg font-poppins text-grisHeading">Menu</p>
 
           {/*menu top */}
           <div className="flex flex-col gap-4">

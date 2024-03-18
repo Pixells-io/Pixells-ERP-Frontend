@@ -11,6 +11,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu, CalendarDays, MessageCircle, Bell } from "lucide-react";
 import IconLucide from "@/components/IconLucide";
+import { IonIcon } from "@ionic/react";
+import { calendar, chatbubble, notifications, menu } from "ionicons/icons";
 
 const iconosMenu = [
   { name: "project manager", icono: "Flag" },
@@ -27,10 +29,10 @@ const iconosMenu = [
 function MainLayout() {
   return (
     <div className="flex flex-col h-screen min-h-0">
-      <div className="flex justify-between items-center p-4">
+      <div className="flex justify-between items-center p-3">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Menu />
+            <IonIcon icon={menu} size="large" className="text-grisHeading"></IonIcon>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4">
             <DropdownMenuItem>
@@ -41,13 +43,13 @@ function MainLayout() {
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
             <div>
-              <CalendarDays />
+              <IonIcon icon={calendar} size="large" className="text-primario"></IonIcon>
             </div>
             <div>
-              <MessageCircle />
+              <IonIcon icon={chatbubble} size="large" className="text-primario"></IonIcon>
             </div>
             <div>
-              <Bell />
+              <IonIcon icon={notifications} size="large" className="text-primario"></IonIcon>
             </div>
           </div>
           <DropdownMenu>
