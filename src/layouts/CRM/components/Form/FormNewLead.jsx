@@ -42,7 +42,7 @@ const contactInputs = [
     placeholder: "Contact Midde Name",
   },
   {
-    name: "last_name",
+    name: "contact_last_name",
     type: "text",
     placeholder: "Contact Last Name",
   },

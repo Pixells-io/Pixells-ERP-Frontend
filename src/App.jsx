@@ -42,7 +42,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 loader: getLeads,
-                // element: <DataTable />,
+                element: <DataTable />,
               },
             ],
           },

@@ -132,5 +132,5 @@ export async function Action({ request }) {
   //     return validation;
   // }
 
-  // return redirect("/crm/progress");
+  return redirect("/crm/progress");
 }

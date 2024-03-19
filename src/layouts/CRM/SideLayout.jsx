@@ -8,7 +8,9 @@ import {
 
 import TopMenuCRM from "./components/TopMenuCRM";
 import MenuCRM from "./components/MenuCRM";
+
 import FormNewLead from "./components/Form/FormNewLead";
+import { saveNewLead } from "./utils";
 
 function SideLayout() {
   const services = useLoaderData();
@@ -23,7 +25,9 @@ function SideLayout() {
 
         {/*bottom block */}
         <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-8">
-          <p className="font-semibold text-lg font-poppins text-grisHeading">Menu</p>
+          <p className="font-semibold text-lg font-poppins text-grisHeading">
+            Menu
+          </p>
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
@@ -53,5 +57,5 @@ export async function Action({ request }) {
   //     return validation;
   // }
 
-  // return redirect("/crm/homepage");
+  return redirect("/crm/homepage");
 }

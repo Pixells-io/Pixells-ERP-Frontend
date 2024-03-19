@@ -3,7 +3,6 @@ export async function getServices() {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}services/get-services`
     );
-    console.log(`from action: ${response}`);
     return response.json();
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
