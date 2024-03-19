@@ -30,22 +30,28 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
+        id: "side_services",
         path: "/crm",
         element: <SideLayout />,
         loader: getServices,
         action: newLead,
         children: [
           {
-            path: "/crm/homepage",
+            index: true,
+            loader: getLeads,
             element: <MainCRM />,
-            children: [
-              {
-                index: true,
-                loader: getLeads,
-                element: <DataTable />,
-              },
-            ],
           },
+          // {
+          //   path: "/crm/homepage",
+          //   element: <MainCRM />,
+          //   children: [
+          //     {
+          //       index: true,
+          //       loader: getLeads,
+          //       element: <DataTable />,
+          //     },
+          //   ],
+          // },
           {
             path: "/crm/leads",
             element: <MainLeads />,

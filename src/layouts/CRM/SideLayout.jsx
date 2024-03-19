@@ -57,5 +57,5 @@ export async function Action({ request }) {
   //     return validation;
   // }
 
-  return redirect("/crm/homepage");
+  return redirect("/crm");
 }

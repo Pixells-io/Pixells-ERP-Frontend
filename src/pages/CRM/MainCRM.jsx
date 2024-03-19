@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Outlet } from "react-router-dom";
+import { useLoaderData, useRouteLoaderData, Outlet } from "react-router-dom";
 
 import StatisticsBlock from "./components/StatisticsBlocks";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
+import DataTable from "./components/Table/DataTable";
 
 function MainCRM() {
+  const { data: loaderLeads } = useLoaderData();
+  const { data: loaderServices } = useRouteLoaderData("side_services");
+
+  const [leads, setLeads] = useState(loaderLeads);
+  const [services, setServices] = useState(loaderServices);
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">
@@ -31,9 +38,13 @@ function MainCRM() {
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
-            <div>4 service</div>
+            <div>
+              {services.length} {services.length > 1 ? "services" : "service"}
+            </div>
             <div className="text-2xl">&bull;</div>
-            <div>9 costumers</div>
+            <div>
+              {leads.length} {leads.length > 1 ? "customers" : "customer"}
+            </div>
           </div>
         </div>
 
@@ -52,6 +63,7 @@ function MainCRM() {
         </div> */}
 
         <div>+ New Client</div>
+        <DataTable services={services} />
         <Outlet />
       </div>
     </div>

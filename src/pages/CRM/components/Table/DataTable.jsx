@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useLoaderData } from "react-router-dom";
 
@@ -42,7 +42,7 @@ import {
   searchOutline,
 } from "ionicons/icons";
 
-// import { pusherClient } from "@/lib/pusher";
+import { pusherClient } from "@/lib/pusher";
 
 // const data = [
 //     {
@@ -167,25 +167,24 @@ import {
 //     },
 // ];
 
-function DataTable() {
+function DataTable({ services }) {
   const { data } = useLoaderData();
-  console.log(data);
-  const [initialData, setInitialData] = React.useState(data);
-  const [leads, setLeads] = React.useState(initialData);
-  const [columnFilters, setColumnFilters] = React.useState([]);
-  const [position, setPosition] = React.useState("");
+  const [initialData, setInitialData] = useState(data);
+  const [leads, setLeads] = useState(initialData);
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [filter, setFilter] = useState("");
 
-  // React.useEffect(() => {
-  //     pusherClient.subscribe("get-lead-table");
+  useEffect(() => {
+    pusherClient.subscribe("get-lead-table");
 
-  //     pusherClient.bind("fill-table", ({ message }) => {
-  //         setLeads(message.original.data);
-  //     });
+    pusherClient.bind("fill-table", ({ message }) => {
+      setLeads(message.original.data);
+    });
 
-  //     return () => {
-  //         pusherClient.unsubscribe("get-lead-table");
-  //     };
-  // }, []);
+    return () => {
+      pusherClient.unsubscribe("get-lead-table");
+    };
+  }, []);
 
   const table = useReactTable({
     data: leads,
@@ -202,20 +201,21 @@ function DataTable() {
   return (
     <div className="bg-[#FBFBFB] px-4">
       <div className="flex gap-4 justify-end items-center py-4">
-        {position !== "" && (
+        {filter !== "" && (
           <Button
             className="relative bg-[#E8E8E8] text-[#44444F] hover:bg-blue-200 hover:text-white text-[10px] h-6 w-16"
             onClick={() => {
               table.getColumn("service")?.setFilterValue("");
-              setPosition("");
+              setFilter("");
             }}
           >
-            {position}{" "}
+            {filter}{" "}
             <span className="absolute flex justify-center items-center p-0 w-4 h-4 border-[1px] text-blue-400 border-blue-400 rounded-full -top-1 -right-1">
               <IonIcon icon={close} size="large"></IonIcon>
             </span>
           </Button>
         )}
+
         <div className="flex gap-4 items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -230,31 +230,24 @@ function DataTable() {
               <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
-                value={position}
+                value={filter}
                 onValueChange={(event) => {
-                  setPosition(event);
-                  // console.log(table.getColumn("service"));
+                  setFilter(event);
                   table.getColumn("service")?.setFilterValue(event);
                 }}
               >
-                <DropdownMenuRadioItem value="Immigration">
-                  Immigration
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="Entity">
-                  Entity
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="Audit">
-                  Audit
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="Perritos">
-                  Perritos
-                </DropdownMenuRadioItem>
+                {services.map((service, i) => (
+                  <DropdownMenuRadioItem key={i} value={service.name}>
+                    {service.name}
+                  </DropdownMenuRadioItem>
+                ))}
                 <DropdownMenuRadioItem value="">
                   Clear filter
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+
           <Button
             variant="outline "
             className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
@@ -286,6 +279,7 @@ function DataTable() {
           />
         </div>
       </div>
+
       <div className="">
         <Table className="">
           <TableHeader>

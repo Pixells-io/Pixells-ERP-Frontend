@@ -1,16 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import { appsSharp, disc, person } from "ionicons/icons";
 
 function MenuCRM() {
+  const location = useLocation();
   return (
     <div className="flex flex-col gap-4">
       <NavLink
-        to="/crm/homepage"
+        to="/crm"
         className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
+          isActive && location.pathname === "/crm"
+            ? "text-blue-500"
+            : "text-gris2"
         }
       >
         <div className="flex items-center gap-6 ">

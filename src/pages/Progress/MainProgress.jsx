@@ -18,6 +18,7 @@ import IconLucide from "@/components/IconLucide";
 
 import FormService from "./components/FormService";
 import { saveService } from "./util";
+import DataTable from "@/components/DataTable";
 
 const service = [
   { name: "Immigration", icon: "Globe", colorIcon: "#00A259" },
@@ -37,7 +38,7 @@ function Main() {
   const services = useLoaderData();
   // const data = useActionData();
   const navigation = useNavigation();
-  // console.log(services);
+  // console.log(services.data);
   return (
     <div className="flex w-full">
       <div className="w-full bg-gris p-4 ml-4 rounded-lg space-y-4 overflow-x-auto">
@@ -67,13 +68,13 @@ function Main() {
         {/* services */}
         <div className="flex gap-4">
           <div className="flex gap-4">
-            {service.map(({ icon, colorIcon, name }, i) => (
+            {services.data.map(({ icon, colorIcon, name }, i) => (
               <NavLink key={i} to={name.toLowerCase()}>
                 <div
                   className={`text-[${colorIcon}] flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2`}
                 >
                   <div className="ml-2">
-                    <IconLucide name={icon} size={22} color={colorIcon} />
+                    {/* <IconLucide name={icon} size={22} color={colorIcon} /> */}
                   </div>
                   <div className="flex items-center gap-4">
                     <p
@@ -111,6 +112,8 @@ function Main() {
             </div>
           ))}
         </div>
+
+        <DataTable />
 
         {/* stages */}
         <Outlet />
