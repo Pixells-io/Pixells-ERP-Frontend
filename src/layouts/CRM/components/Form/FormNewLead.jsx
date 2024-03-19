@@ -64,11 +64,6 @@ const categoryInputs = [
     type: "text",
     placeholder: "Channel",
   },
-  {
-    name: "service_interest",
-    type: "text",
-    placeholder: "Service Interest",
-  },
 ];
 
 function FormNewLead({ navigation, services }) {
@@ -104,8 +99,6 @@ function FormNewLead({ navigation, services }) {
           method="post"
         >
           <FormSelect />
-
-          <FromMultiSelect services={services} />
 
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
             <div className="text-[#696974] text-lg font-normal">
@@ -152,6 +145,7 @@ function FormNewLead({ navigation, services }) {
                   placeholder={input.placeholder}
                 />
               ))}
+              <FromMultiSelect services={services} />
             </div>
           </div>
         </Form>
