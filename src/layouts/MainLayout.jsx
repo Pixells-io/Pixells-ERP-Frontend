@@ -38,6 +38,9 @@ function MainLayout() {
             <DropdownMenuItem>
               <NavLink to="/crm">CRM</NavLink>
             </DropdownMenuItem>
+            <DropdownMenuItem>
+              <NavLink to="/organization">Organization</NavLink>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <div className="flex justify-evenly items-center gap-16">

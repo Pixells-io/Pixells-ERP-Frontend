@@ -31,6 +31,7 @@ module.exports = {
         blancoBox: "#E8E8E8",
         blancoForms: "#F6F6F6",
         blancoBg: "#FBFBFB",
+        grisBg: "#F2F2F2",
         gris: "#F6F6F6",
         gris2: "#696974",
         border: "hsl(var(--border))",
