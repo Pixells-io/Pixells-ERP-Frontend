@@ -12,6 +12,7 @@ import DataTable from "./pages/CRM/components/Table/DataTable";
 import MainLeads from "./pages/Leads/MainLeads";
 import Stages from "./pages/Leads/components/Stages";
 import Login from "./layouts/Login/LoginLayout";
+import MainOrganization from "./pages/Organization/MainOrganization";
 
 //Progres
 import MainProgress, {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/organization",
+    element: <MainOrganization />,
   },
   {
     path: "/*",
