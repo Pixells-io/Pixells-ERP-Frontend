@@ -18,7 +18,7 @@ function ProposalForm({ modal, setModal }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Proposal Form</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>

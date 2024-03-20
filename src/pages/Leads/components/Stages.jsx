@@ -15,17 +15,24 @@ function Stages() {
   const { data } = useLoaderData();
   const [initialData, setInitialData] = useState(data);
   const [stages, setStages] = useState(initialData);
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState({
+    prospect: false,
+    followup: false,
+    proposal: false,
+    // closing: false,
+    // pay: false,
+    // kickoff: false,
+  });
   return (
     <div className="flex gap-2 overflow-scroll">
       {/* modal on drop drag */}
-      <ProspectForm modal={modal} setModal={setModal} />
+      <ProspectForm modal={modal.prospect} setModal={setModal} />
+      <FollowUpForm modal={modal.followup} setModal={setModal} />
+      <ProposalForm modal={modal.proposal} setModal={setModal} />
+      {/* <ClosingForm modal={modal.closing} setModal={setModal} /> */}
+      {/* <PayForm modal={modal.pay} setModal={setModal} /> */}
+      {/* <KickOffForm modal={modal.kickoff} setModal={setModal} /> */}
       {/* <PotentialForm modal={modal} setModal={setModal} /> */}
-      {/* <FollowUpForm modal={modal} setModal={setModal} /> */}
-      {/* <ProposalForm modal={modal} setModal={setModal} /> */}
-      {/* <ClosingForm modal={modal} setModal={setModal} /> */}
-      {/* <PayForm modal={modal} setModal={setModal} /> */}
-      {/* <KickOffForm modal={modal} setModal={setModal} /> */}
 
       {/* Stages */}
       <div className="flex gap-2">
