@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useLoaderData } from "react-router-dom";
+import Stage from "./Stage";
 
 import ProspectForm from "./Forms/ProspectForm";
 import PotentialForm from "./Forms/PotentialForm";
@@ -11,14 +12,14 @@ import PayForm from "./Forms/PayForm";
 import KickOffForm from "./Forms/KickOffForm";
 
 function Stages() {
-  // const { data } = useLoaderData();
-  // const [initialData, setInitialData] = React.useState(data);
-  // const [stages, setStages] = React.useState(initialData);
-  const [modal, setModal] = React.useState(false);
+  const { data } = useLoaderData();
+  const [initialData, setInitialData] = useState(data);
+  const [stages, setStages] = useState(initialData);
+  const [modal, setModal] = useState(false);
   return (
     <div className="flex gap-2 overflow-scroll">
       {/* modal on drop drag */}
-      {/* <ProspectForm modal={modal} setModal={setModal} /> */}
+      <ProspectForm modal={modal} setModal={setModal} />
       {/* <PotentialForm modal={modal} setModal={setModal} /> */}
       {/* <FollowUpForm modal={modal} setModal={setModal} /> */}
       {/* <ProposalForm modal={modal} setModal={setModal} /> */}
@@ -26,17 +27,17 @@ function Stages() {
       {/* <PayForm modal={modal} setModal={setModal} /> */}
       {/* <KickOffForm modal={modal} setModal={setModal} /> */}
 
-      {/* steps */}
+      {/* Stages */}
       <div className="flex gap-2">
-        {/* {stages?.map((step, i) => (
-            <Step
-                key={step.id}
-                setModal={setModal}
-                name={step.name}
-                stepId={step.id}
-                leads={step.leads}
-            />
-        ))} */}
+        {stages?.map((stage, i) => (
+          <Stage
+            key={stage.id}
+            setModal={setModal}
+            name={stage.name}
+            stageId={stage.id}
+            leads={stage.leads}
+          />
+        ))}
       </div>
     </div>
   );

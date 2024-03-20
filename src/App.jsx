@@ -11,6 +11,7 @@ import DataTable from "./pages/CRM/components/Table/DataTable";
 //Leads
 import MainLeads from "./pages/Leads/MainLeads";
 import Stages from "./pages/Leads/components/Stages";
+import { getSteps } from "./pages/Leads/utils";
 
 //Login
 import Login from "./layouts/Login/LoginLayout";
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Stages />,
-                // loader: getSteps,
+                loader: getSteps,
               },
             ],
           },
@@ -95,17 +96,17 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MainOrganization/>
+            element: <MainOrganization />,
           },
           {
             path: "/organization/access",
-            element: <MainAccess/>
+            element: <MainAccess />,
           },
           {
             path: "/organization/create-user",
-            element: <FormCreateUser/>
-          }
-        ]
+            element: <FormCreateUser />,
+          },
+        ],
       },
     ],
   },
