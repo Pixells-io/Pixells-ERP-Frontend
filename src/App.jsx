@@ -11,10 +11,16 @@ import DataTable from "./pages/CRM/components/Table/DataTable";
 //Leads
 import MainLeads from "./pages/Leads/MainLeads";
 import Stages from "./pages/Leads/components/Stages";
-import Login from "./layouts/Login/LoginLayout";
-import MainOrganization from "./pages/Organization/MainOrganization";
 
-//Progres
+//Login
+import Login from "./layouts/Login/LoginLayout";
+
+//Organization
+import SideLayoutOrganization from "./layouts/Organization/components/SideLayout";
+import MainOrganization from "./pages/Organization/User/MainOrganization";
+import MainAccess from "./pages/Organization/Access/MainAccess";
+
+//Progress
 import MainProgress, {
   Action as newService,
 } from "./pages/Progress/MainProgress";
@@ -24,6 +30,7 @@ import { getLeads, getServices } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
+import FormCreateUser from "./pages/Organization/User/FormCreateUser";
 
 const router = createBrowserRouter([
   {
@@ -82,15 +89,29 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/organization",
+        element: <SideLayoutOrganization />,
+        children: [
+          {
+            index: true,
+            element: <MainOrganization/>
+          },
+          {
+            path: "/organization/access",
+            element: <MainAccess/>
+          },
+          {
+            path: "/organization/create-user",
+            element: <FormCreateUser/>
+          }
+        ]
+      },
     ],
   },
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/organization",
-    element: <MainOrganization />,
   },
   {
     path: "/*",

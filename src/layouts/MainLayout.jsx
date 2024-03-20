@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu, CalendarDays, MessageCircle, Bell } from "lucide-react";
 import IconLucide from "@/components/IconLucide";
 import { IonIcon } from "@ionic/react";
-import { calendar, chatbubble, notifications, menu } from "ionicons/icons";
+import { calendar, chatbubble, notifications, menu, flag, personCircle, disc } from "ionicons/icons";
 
 const iconosMenu = [
   { name: "project manager", icono: "Flag" },
@@ -36,10 +36,14 @@ function MainLayout() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4">
             <DropdownMenuItem>
-              <NavLink to="/crm">CRM</NavLink>
+              <NavLink to="/crm" className="p-5 bg-blancoBox rounded-2xl">
+                 <IonIcon icon={disc} size="large" className="text-grisText"></IonIcon>
+              </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <NavLink to="/organization">Organization</NavLink>
+              <NavLink to="/organization" className="p-5 bg-blancoBox rounded-2xl">
+                <IonIcon icon={personCircle} className="text-grisText" size="large"></IonIcon>
+              </NavLink>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
