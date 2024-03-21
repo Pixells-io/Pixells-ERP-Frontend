@@ -11,7 +11,11 @@ import DataTable from "./pages/CRM/components/Table/DataTable";
 //Leads
 import MainLeads from "./pages/Leads/MainLeads";
 import Stages from "./pages/Leads/components/Stages";
-import { getSteps } from "./pages/Leads/utils";
+import { getLeadById, getSteps } from "./pages/Leads/utils";
+
+//Lead :id
+import MainLead from "./pages/Leads/Lead/MainLead";
+import SidelayoutLead from "./pages/Leads/Lead/SidelayoutLead";
 
 //Login
 import Login from "./layouts/Login/LoginLayout";
@@ -87,6 +91,18 @@ const router = createBrowserRouter([
             //         element: <Stages />,
             //     },
             // ],
+          },
+        ],
+      },
+      //Lead ID
+      {
+        path: "/crm/leads/:id",
+        element: <SidelayoutLead />,
+        // loader: getLeadById,
+        children: [
+          {
+            index: true,
+            element: <MainLead />,
           },
         ],
       },

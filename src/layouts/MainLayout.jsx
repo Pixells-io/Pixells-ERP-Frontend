@@ -12,7 +12,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu, CalendarDays, MessageCircle, Bell } from "lucide-react";
 import IconLucide from "@/components/IconLucide";
 import { IonIcon } from "@ionic/react";
-import { calendar, chatbubble, notifications, menu, flag, personCircle, disc } from "ionicons/icons";
+import {
+  calendar,
+  chatbubble,
+  notifications,
+  menu,
+  flag,
+  personCircle,
+  disc,
+} from "ionicons/icons";
 
 const iconosMenu = [
   { name: "project manager", icono: "Flag" },
@@ -29,20 +37,35 @@ const iconosMenu = [
 function MainLayout() {
   return (
     <div className="flex flex-col h-screen min-h-0">
-      <div className="flex justify-between items-center p-3">
+      <div className="flex justify-between items-center p-3 h-[56px]">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <IonIcon icon={menu} size="large" className="text-grisHeading"></IonIcon>
+            <IonIcon
+              icon={menu}
+              size="large"
+              className="text-grisHeading"
+            ></IonIcon>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4">
             <DropdownMenuItem>
               <NavLink to="/crm" className="p-5 bg-blancoBox rounded-2xl">
-                 <IonIcon icon={disc} size="large" className="text-grisText"></IonIcon>
+                <IonIcon
+                  icon={disc}
+                  size="large"
+                  className="text-grisText"
+                ></IonIcon>
               </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <NavLink to="/organization" className="p-5 bg-blancoBox rounded-2xl">
-                <IonIcon icon={personCircle} className="text-grisText" size="large"></IonIcon>
+              <NavLink
+                to="/organization"
+                className="p-5 bg-blancoBox rounded-2xl"
+              >
+                <IonIcon
+                  icon={personCircle}
+                  className="text-grisText"
+                  size="large"
+                ></IonIcon>
               </NavLink>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -50,13 +73,25 @@ function MainLayout() {
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
             <div>
-              <IonIcon icon={calendar} size="large" className="text-primario"></IonIcon>
+              <IonIcon
+                icon={calendar}
+                size="large"
+                className="text-primario"
+              ></IonIcon>
             </div>
             <div>
-              <IonIcon icon={chatbubble} size="large" className="text-primario"></IonIcon>
+              <IonIcon
+                icon={chatbubble}
+                size="large"
+                className="text-primario"
+              ></IonIcon>
             </div>
             <div>
-              <IonIcon icon={notifications} size="large" className="text-primario"></IonIcon>
+              <IonIcon
+                icon={notifications}
+                size="large"
+                className="text-primario"
+              ></IonIcon>
             </div>
           </div>
           <DropdownMenu>

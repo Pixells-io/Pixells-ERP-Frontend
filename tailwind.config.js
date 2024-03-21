@@ -34,6 +34,7 @@ module.exports = {
         grisBg: "#F2F2F2",
         gris: "#F6F6F6",
         gris2: "#696974",
+        grisDisabled: "#D7D7D7",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
