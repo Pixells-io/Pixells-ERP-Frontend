@@ -9,9 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menu, CalendarDays, MessageCircle, Bell } from "lucide-react";
-import IconLucide from "@/components/IconLucide";
-import { IonIcon } from "@ionic/react";
+
 import {
   calendar,
   chatbubble,
@@ -21,18 +19,7 @@ import {
   personCircle,
   disc,
 } from "ionicons/icons";
-
-const iconosMenu = [
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-  { name: "project manager", icono: "Flag" },
-];
+import { IonIcon } from "@ionic/react";
 
 function MainLayout() {
   return (
@@ -48,28 +35,64 @@ function MainLayout() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4">
             <DropdownMenuItem>
-              <NavLink to="/crm" className="p-5 bg-blancoBox rounded-2xl">
-                <IonIcon
-                  icon={disc}
-                  size="large"
-                  className="text-grisText"
-                ></IonIcon>
-              </NavLink>
+              <div className="flex flex-col">
+                <NavLink
+                  to="/crm"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
+                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
+                  }
+                >
+                  <IonIcon icon={disc} className="w-10 h-10"></IonIcon>
+                  <p className="hidden group-hover:flex text-[10px]">CRM</p>
+                </NavLink>
+              </div>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <NavLink
-                to="/organization"
-                className="p-5 bg-blancoBox rounded-2xl"
-              >
-                <IonIcon
-                  icon={personCircle}
-                  className="text-grisText"
-                  size="large"
-                ></IonIcon>
-              </NavLink>
+              <div className="flex flex-col">
+                <NavLink
+                  to="/organization"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
+                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
+                  }
+                >
+                  <IonIcon
+                    icon={personCircle}
+                    className="w-10 h-10"
+                    size="large"
+                  ></IonIcon>
+                  <p className="hidden group-hover:flex text-[10px]">Users</p>
+                </NavLink>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <div className="flex flex-col">
+                <NavLink
+                  to="/project-manager"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
+                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
+                  }
+                >
+                  <IonIcon
+                    icon={flag}
+                    className="w-10 h-10"
+                    size="large"
+                  ></IonIcon>
+                  <p className="hidden group-hover:flex text-[10px] text-ellipsis">
+                    Project Manager
+                  </p>
+                </NavLink>
+              </div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* notification center */}
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
             <div>
@@ -94,6 +117,8 @@ function MainLayout() {
               ></IonIcon>
             </div>
           </div>
+
+          {/* Avatar Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>

@@ -1,6 +1,5 @@
 import React from "react";
-import { useParams, useLoaderData } from "react-router-dom";
-
+import { useOutletContext } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   card,
@@ -16,9 +15,8 @@ import {
 } from "ionicons/icons";
 
 function MainLead() {
-  // const data = useLoaderData()
-  // const { id } = useParams();
-  // console.log(id);
+  const [lead, services, info] = useOutletContext();
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">

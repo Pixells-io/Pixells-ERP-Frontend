@@ -24,7 +24,7 @@ function Stages() {
     // kickoff: false,
   });
   return (
-    <div className="flex gap-2 overflow-scroll">
+    <div className="flex gap-2 overflow-auto">
       {/* modal on drop drag */}
       <ProspectForm modal={modal.prospect} setModal={setModal} />
       <FollowUpForm modal={modal.followup} setModal={setModal} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 
 import { IonIcon } from "@ionic/react";
@@ -8,6 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function SidelayoutLead() {
+  const { data: lead, services, extra_information: info } = useLoaderData();
+
+  function Capitalize(string) {
+    return (string = string[0].toUpperCase() + string.slice(1));
+  }
+
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4 w-[280px] shrink-0">
@@ -29,7 +35,7 @@ function SidelayoutLead() {
                   Business Name
                 </p>
                 <span className="text-grisSubText text-xs">
-                  Original Constructor
+                  {Capitalize(info?.business_name)}
                 </span>
               </div>
               <div>
@@ -37,19 +43,24 @@ function SidelayoutLead() {
                   Contact Name
                 </p>
                 <span className="text-grisSubText text-xs">
-                  Pedro Valenzuela
+                  {Capitalize(info?.contact_name)}{" "}
+                  {Capitalize(info?.contact_middle_name)}{" "}
+                  {Capitalize(info?.contact_last_name)}
                 </span>
               </div>
               <div>
                 <p className="text-grisText text-[15px] font-medium">
-                  Celphone
+                  Cellphone
                 </p>
-                <span className="text-grisSubText text-xs">456 780 342</span>
+                <span className="text-grisSubText text-xs">
+                  {info?.contact_phone} <br />
+                  {info?.business_phone}
+                </span>
               </div>
               <div>
                 <p className="text-grisText text-[15px] font-medium">Email</p>
                 <span className="text-grisSubText text-xs">
-                  pedrito@gmai.com
+                  {info?.contact_email}
                 </span>
               </div>
             </div>
@@ -69,10 +80,15 @@ function SidelayoutLead() {
               </p>
 
               <div className="flex gap-2 overflow-auto">
-                <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
-                  Immigration
-                </Badge>
-                <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
+                {services?.map((service, i) => (
+                  <Badge
+                    key={i}
+                    className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0"
+                  >
+                    {service?.name}
+                  </Badge>
+                ))}
+                {/* <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
                   Entity
                 </Badge>
                 <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
@@ -83,7 +99,7 @@ function SidelayoutLead() {
                 </Badge>
                 <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
                   Pay Roll
-                </Badge>
+                </Badge> */}
               </div>
             </div>
 
@@ -119,18 +135,18 @@ function SidelayoutLead() {
 
             <div>
               <p className="font-semibold text-lg font-poppins text-grisHeading">
-                Way of Contact
+                Comments
               </p>
               <span className="text-grisSubText text-xs">
                 A statement or a piece of writing that tells what something or
-                someone is like: [ C ] Your description of Della was hilarious.
-                [ U ] Boats.
+                someone is like: [C] Your description of Della was hilarious.
+                [U] Boats.
               </span>
             </div>
           </div>
         </div>
       </div>
-      <Outlet />
+      <Outlet context={[lead, services, info]} />
     </div>
   );
 }

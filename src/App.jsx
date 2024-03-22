@@ -11,6 +11,7 @@ import DataTable from "./pages/CRM/components/Table/DataTable";
 //Leads
 import MainLeads from "./pages/Leads/MainLeads";
 import Stages from "./pages/Leads/components/Stages";
+import Timeline from "./pages/Leads/Timeline";
 import { getLeadById, getSteps } from "./pages/Leads/utils";
 
 //Lead :id
@@ -29,6 +30,10 @@ import MainAccess from "./pages/Organization/Access/MainAccess";
 import MainProgress, {
   Action as newService,
 } from "./pages/Progress/MainProgress";
+
+// Project Manager
+import SideLayoutPManager from "./layouts/PManager/SideLayoutPManager";
+import MainPManager from "./pages/PManager/MainPManager";
 
 //actions
 import { getLeads, getServices } from "./lib/actions";
@@ -74,6 +79,10 @@ const router = createBrowserRouter([
                 element: <Stages />,
                 loader: getSteps,
               },
+              {
+                path: "/crm/leads/timeline",
+                element: <Timeline />,
+              },
             ],
           },
           {
@@ -98,7 +107,7 @@ const router = createBrowserRouter([
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
-        // loader: getLeadById,
+        loader: getLeadById,
         children: [
           {
             index: true,
@@ -121,6 +130,16 @@ const router = createBrowserRouter([
           {
             path: "/organization/create-user",
             element: <FormCreateUser />,
+          },
+        ],
+      },
+      {
+        path: "/project-manager",
+        element: <SideLayoutPManager />,
+        children: [
+          {
+            index: true,
+            element: <MainPManager />,
           },
         ],
       },
