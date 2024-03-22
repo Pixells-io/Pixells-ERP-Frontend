@@ -34,6 +34,7 @@ import MainProgress, {
 // Project Manager
 import SideLayoutPManager from "./layouts/PManager/SideLayoutPManager";
 import MainPManager from "./pages/PManager/MainPManager";
+import Board from "./pages/PManager/Board";
 
 //actions
 import { getLeads, getServices } from "./lib/actions";
@@ -138,8 +139,14 @@ const router = createBrowserRouter([
         element: <SideLayoutPManager />,
         children: [
           {
-            index: true,
+            path: "/project-manager",
             element: <MainPManager />,
+            children: [
+              {
+                index: true,
+                element: <Board />,
+              },
+            ],
           },
         ],
       },

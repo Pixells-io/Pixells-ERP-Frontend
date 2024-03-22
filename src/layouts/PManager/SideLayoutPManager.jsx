@@ -9,7 +9,15 @@ import {
 } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { appsSharp, disc, flag, person } from "ionicons/icons";
+import {
+  appsSharp,
+  checkmarkCircle,
+  disc,
+  flag,
+  megaphone,
+  person,
+  syncCircle,
+} from "ionicons/icons";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 
@@ -32,14 +40,6 @@ function SideLayoutPManager() {
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
-            {/* <FormNewLead navigation={navigation} services={services} /> */}
-          </div>
-
-          <div className="border-b border-gris2 my-4"></div>
-
-          {/* menu bottom */}
-          {/* <MenuCRM /> */}
-          <div className="flex flex-col gap-4">
             <NavLink
               to="/crm"
               className={({ isActive }) =>
@@ -52,8 +52,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={flag} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium text-base ">CRM</p>
-                  <p className="font-medium text-[10px]">Homepage</p>
+                  <p className="font-medium text-base ">Increase sales</p>
+                  <p className="font-medium text-[10px]">Comercial Objective</p>
                 </div>
               </div>
             </NavLink>
@@ -67,8 +67,29 @@ function SideLayoutPManager() {
                 <IonIcon icon={flag} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium ">Leads</p>
-                  <p className="font-medium text-[10px]">Dashboard</p>
+                  <p className="font-medium ">Upgrade facilities</p>
+                  <p className="font-medium text-[10px]">General Objective</p>
+                </div>
+              </div>
+            </NavLink>
+            <NavLink
+              to="/crm/progress"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500" : "text-gris2"
+              }
+            >
+              <div className="flex items-center gap-6">
+                <IonIcon
+                  icon={flag}
+                  size="large"
+                  className="shrink-0"
+                ></IonIcon>
+
+                <div className="w-full truncate">
+                  <p className="font-medium truncate ">
+                    Improve internal work on projects
+                  </p>
+                  <p className="font-medium text-[10px]">RRHH Objective</p>
                 </div>
               </div>
             </NavLink>
@@ -79,11 +100,75 @@ function SideLayoutPManager() {
               }
             >
               <div className="flex items-center gap-6 ">
-                <IonIcon icon={flag} size="large"></IonIcon>
+                <IonIcon
+                  icon={flag}
+                  size="large"
+                  className="shrink-0"
+                ></IonIcon>
+
+                <div className="w-full truncate">
+                  <p className="font-medium truncate">
+                    Improve our financial lorem ipsum
+                  </p>
+                  <p className="font-medium text-[10px]">Financial Objective</p>
+                </div>
+              </div>
+            </NavLink>
+          </div>
+
+          {/* separator */}
+          <div className="border-b border-gris2 my-4"></div>
+
+          {/* menu bottom */}
+          <div className="flex flex-col gap-4">
+            <NavLink
+              to="/crm"
+              className={({ isActive }) =>
+                isActive && location.pathname === "/crm"
+                  ? "text-blue-500"
+                  : "text-gris2"
+              }
+            >
+              <div className="flex items-center gap-6 ">
+                <IonIcon icon={megaphone} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium ">Progress</p>
-                  <p className="font-medium text-[10px]">Dashboard</p>
+                  <p className="font-medium text-base ">Today</p>
+                  <p className="font-medium text-[10px]">Activities</p>
+                </div>
+              </div>
+            </NavLink>
+            <NavLink
+              to="/crm"
+              className={({ isActive }) =>
+                isActive && location.pathname === "/crm"
+                  ? "text-blue-500"
+                  : "text-gris2"
+              }
+            >
+              <div className="flex items-center gap-6 ">
+                <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
+
+                <div>
+                  <p className="font-medium text-base ">Activities</p>
+                  <p className="font-medium text-[10px]">Summary</p>
+                </div>
+              </div>
+            </NavLink>
+            <NavLink
+              to="/crm"
+              className={({ isActive }) =>
+                isActive && location.pathname === "/crm"
+                  ? "text-blue-500"
+                  : "text-gris2"
+              }
+            >
+              <div className="flex items-center gap-6 ">
+                <IonIcon icon={syncCircle} size="large"></IonIcon>
+
+                <div>
+                  <p className="font-medium text-base ">Status</p>
+                  <p className="font-medium text-[10px]">Activities</p>
                 </div>
               </div>
             </NavLink>

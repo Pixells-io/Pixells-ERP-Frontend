@@ -61,6 +61,7 @@ function MainLead() {
           </div>
         </div>
 
+        {/* icons line */}
         <div className="flex justify-center items-center gap-4">
           <div className="bg-primario w-8 h-8 rounded-full flex justify-center items-center">
             <IonIcon icon={person} className="w-6 h-6 text-grisBg"></IonIcon>
@@ -118,6 +119,7 @@ function MainLead() {
           </h2>
         </div>
 
+        {/* cards */}
         <div className="flex flex-col bg-blancoBg w-full h-full overflow-auto  items-center">
           {/* <div className="h-12 bg-red-900">1</div> */}
           <div className="my-6 shrink-0 flex flex-col w-[510px] h-[112px] bg-gris shadow-sm drop-shadow-sm rounded-lg">
