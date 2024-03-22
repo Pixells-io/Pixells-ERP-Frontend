@@ -35,7 +35,7 @@ import MainProgress, {
 import SideLayoutPManager from "./layouts/PManager/SideLayoutPManager";
 import MainPManager from "./pages/PManager/MainPManager";
 import Board from "./pages/PManager/Board";
-
+import CsfView from "./pages/PManager/CsfView";
 //actions
 import { getLeads, getServices } from "./lib/actions";
 
@@ -145,6 +145,10 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Board />,
+              },
+              {
+                path: "/project-manager/csf",
+                element: <CsfView />,
               },
             ],
           },
