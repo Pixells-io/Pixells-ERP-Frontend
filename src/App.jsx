@@ -32,12 +32,19 @@ import MainProgress, {
 } from "./pages/Progress/MainProgress";
 
 // Project Manager
-import SideLayoutPManager from "./layouts/PManager/SideLayoutPManager";
-import MainPManager from "./pages/PManager/MainPManager";
+import SideLayoutPManager, {
+  Action as newObjective,
+} from "./layouts/PManager/SideLayoutPManager";
+import MainPManager, { Action as newGoal } from "./pages/PManager/MainPManager";
 import Board from "./pages/PManager/Board";
 import CsfView from "./pages/PManager/CsfView";
+import Projects from "./pages/PManager/Projects";
+import Today from "./pages/PManager/Today";
+import Activities from "./pages/PManager/Activities";
+import Status from "./pages/PManager/Status";
+
 //actions
-import { getLeads, getServices } from "./lib/actions";
+import { getLeads, getObjectives, getServices } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
@@ -137,9 +144,23 @@ const router = createBrowserRouter([
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,
+        loader: getObjectives,
+        action: newObjective,
         children: [
           {
-            path: "/project-manager",
+            index: true,
+            element: <Today />,
+          },
+          {
+            path: "/project-manager/activities",
+            element: <Activities />,
+          },
+          {
+            path: "/project-manager/status",
+            element: <Status />,
+          },
+          {
+            path: "/project-manager/:id",
             element: <MainPManager />,
             children: [
               {
@@ -147,8 +168,12 @@ const router = createBrowserRouter([
                 element: <Board />,
               },
               {
-                path: "/project-manager/csf",
+                path: "/project-manager/:id/csf",
                 element: <CsfView />,
+              },
+              {
+                path: "/project-manager/:id/projects",
+                element: <Projects />,
               },
             ],
           },

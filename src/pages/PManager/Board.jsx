@@ -192,7 +192,10 @@ function Board() {
               <AccordionContent>
                 <div className="">
                   {client?.activities.map((item, i) => (
-                    <div className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12">
+                    <div
+                      key={i}
+                      className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
+                    >
                       <div></div>
                       <div className="col-span-2 flex justify-end items-center gap-2">
                         <p className="text-2xl text-red-500">&bull;</p>

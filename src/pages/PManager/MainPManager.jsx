@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, redirect } from "react-router-dom";
 
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-import { Button } from "@/components/ui/button";
+import GoalForm from "./components/Form/GoalForm";
+import { saveNewGoal } from "./utils";
 
 function MainPManager() {
   return (
@@ -57,14 +58,7 @@ function MainPManager() {
 
         {/* buttons and filters */}
 
-        <div>
-          <Button
-            variant="ghost"
-            className="text-primario text-base font-semibold"
-          >
-            + New Goal
-          </Button>
-        </div>
+        <GoalForm />
 
         <div className="flex gap-4">
           <NavLink
@@ -106,3 +100,16 @@ function MainPManager() {
 }
 
 export default MainPManager;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewGoal(data);
+  console.log(validation);
+
+  // if (validation) {
+  //     return validation;
+  // }
+
+  return redirect("/project-manager/board");
+}

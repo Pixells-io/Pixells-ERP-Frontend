@@ -9,20 +9,17 @@ import {
 } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  appsSharp,
-  checkmarkCircle,
-  disc,
-  flag,
-  megaphone,
-  person,
-  syncCircle,
-} from "ionicons/icons";
+import { checkmarkCircle, flag, megaphone, syncCircle } from "ionicons/icons";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
+import ObjectiveLink from "./components/ObjectiveLink";
+import NewObjectiveForm from "./components/Form/NewObjectiveForm";
+
+import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
-  const services = useLoaderData();
+  const objectives = useLoaderData();
+  console.log(objectives.data);
   const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
@@ -38,82 +35,13 @@ function SideLayoutPManager() {
             Menu
           </p>
 
+          <NewObjectiveForm />
+
           {/*menu top */}
           <div className="flex flex-col gap-4">
-            <NavLink
-              to="/crm"
-              className={({ isActive }) =>
-                isActive && location.pathname === "/crm"
-                  ? "text-blue-500"
-                  : "text-gris2"
-              }
-            >
-              <div className="flex items-center gap-6 ">
-                <IonIcon icon={flag} size="large"></IonIcon>
-
-                <div>
-                  <p className="font-medium text-base ">Increase sales</p>
-                  <p className="font-medium text-[10px]">Comercial Objective</p>
-                </div>
-              </div>
-            </NavLink>
-            <NavLink
-              to="/crm/leads"
-              className={({ isActive }) =>
-                isActive ? "text-blue-500" : "text-gris2"
-              }
-            >
-              <div className="flex items-center gap-6 ">
-                <IonIcon icon={flag} size="large"></IonIcon>
-
-                <div>
-                  <p className="font-medium ">Upgrade facilities</p>
-                  <p className="font-medium text-[10px]">General Objective</p>
-                </div>
-              </div>
-            </NavLink>
-            <NavLink
-              to="/crm/progress"
-              className={({ isActive }) =>
-                isActive ? "text-blue-500" : "text-gris2"
-              }
-            >
-              <div className="flex items-center gap-6">
-                <IonIcon
-                  icon={flag}
-                  size="large"
-                  className="shrink-0"
-                ></IonIcon>
-
-                <div className="w-full truncate">
-                  <p className="font-medium truncate ">
-                    Improve internal work on projects
-                  </p>
-                  <p className="font-medium text-[10px]">RRHH Objective</p>
-                </div>
-              </div>
-            </NavLink>
-            <NavLink
-              to="/crm/progress"
-              className={({ isActive }) =>
-                isActive ? "text-blue-500" : "text-gris2"
-              }
-            >
-              <div className="flex items-center gap-6 ">
-                <IonIcon
-                  icon={flag}
-                  size="large"
-                  className="shrink-0"
-                ></IonIcon>
-
-                <div className="w-full truncate">
-                  <p className="font-medium truncate">
-                    Improve our financial lorem ipsum
-                  </p>
-                  <p className="font-medium text-[10px]">Financial Objective</p>
-                </div>
-              </div>
-            </NavLink>
+            {objectives?.data.map((objective, i) => (
+              <ObjectiveLink key={i} objective={objective} />
+            ))}
           </div>
 
           {/* separator */}
@@ -122,9 +50,9 @@ function SideLayoutPManager() {
           {/* menu bottom */}
           <div className="flex flex-col gap-4">
             <NavLink
-              to="/crm"
+              to="/project-manager"
               className={({ isActive }) =>
-                isActive && location.pathname === "/crm"
+                isActive && location.pathname === "/project-manager"
                   ? "text-blue-500"
                   : "text-gris2"
               }
@@ -139,11 +67,9 @@ function SideLayoutPManager() {
               </div>
             </NavLink>
             <NavLink
-              to="/crm"
+              to="/project-manager/activities"
               className={({ isActive }) =>
-                isActive && location.pathname === "/crm"
-                  ? "text-blue-500"
-                  : "text-gris2"
+                isActive ? "text-blue-500" : "text-gris2"
               }
             >
               <div className="flex items-center gap-6 ">
@@ -156,11 +82,9 @@ function SideLayoutPManager() {
               </div>
             </NavLink>
             <NavLink
-              to="/crm"
+              to="/project-manager/status"
               className={({ isActive }) =>
-                isActive && location.pathname === "/crm"
-                  ? "text-blue-500"
-                  : "text-gris2"
+                isActive ? "text-blue-500" : "text-gris2"
               }
             >
               <div className="flex items-center gap-6 ">
@@ -181,3 +105,16 @@ function SideLayoutPManager() {
 }
 
 export default SideLayoutPManager;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewObjective(data);
+  console.log(validation);
+
+  // if (validation) {
+  //     return validation;
+  // }
+
+  return redirect("/project-manager");
+}
