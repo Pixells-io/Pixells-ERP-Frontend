@@ -9,6 +9,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import CsfForm from "./components/Form/CsfForm";
 
 const DATA = [
   {
@@ -162,7 +163,7 @@ const HEADERS = [
   { name: "ACTIONS" },
 ];
 
-function Board() {
+function Board({ goal }) {
   return (
     <div className="flex flex-col bg-blancoBg h-full overflow-auto p-4">
       <div className="grid grid-cols-10 text-right">
@@ -176,6 +177,11 @@ function Board() {
             </p>
           </div>
         ))}
+      </div>
+      <div className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12">
+        <div className="col-span-10">
+          <CsfForm goalId={goal.id} objectiveId={goal.strategic_objetive_id} />
+        </div>
       </div>
       <div>
         {DATA?.map((client, i) => (

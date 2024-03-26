@@ -37,16 +37,23 @@ import MainProgress, {
 import SideLayoutPManager, {
   Action as newObjective,
 } from "./layouts/PManager/SideLayoutPManager";
-import MainPManager, { Action as newGoal } from "./pages/PManager/MainPManager";
+import MainPManager, { multiFormAction } from "./pages/PManager/MainPManager";
 import Board from "./pages/PManager/Board";
 import CsfView from "./pages/PManager/CsfView";
 import Projects from "./pages/PManager/Projects";
 import Today from "./pages/PManager/Today";
 import Activities from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
+import Boards, { Action as newCsf } from "./pages/PManager/Boards";
 
 //actions
-import { getAreas, getLeads, getObjectives, getServices } from "./lib/actions";
+import {
+  getAreas,
+  getGoals,
+  getLeads,
+  getObjectives,
+  getServices,
+} from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
@@ -171,10 +178,12 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
+            action: multiFormAction,
             children: [
               {
                 index: true,
-                element: <Board />,
+                loader: getGoals,
+                element: <Boards />,
               },
               {
                 path: "/project-manager/:id/csf",

@@ -1,13 +1,14 @@
 import React from "react";
-import { NavLink, Outlet, redirect } from "react-router-dom";
+import { NavLink, Outlet, redirect, useParams } from "react-router-dom";
 
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import GoalForm from "./components/Form/GoalForm";
-import { saveNewGoal } from "./utils";
+import { saveNewCsf, saveNewGoal } from "./utils";
 
 function MainPManager() {
+  const params = useParams();
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -58,7 +59,7 @@ function MainPManager() {
 
         {/* buttons and filters */}
 
-        <GoalForm />
+        <GoalForm objectiveId={params.id} />
 
         <div className="flex gap-4">
           <NavLink
@@ -101,15 +102,34 @@ function MainPManager() {
 
 export default MainPManager;
 
-export async function Action({ request }) {
-  const data = await request.formData();
+export async function multiFormAction({ params, request }) {
+  const paramId = params.id;
+  const formData = await request.formData();
+  const action = formData.get("action");
 
-  const validation = await saveNewGoal(data);
-  console.log(validation);
+  switch (action) {
+    case "goal":
+      return await saveNewGoal(formData, paramId);
+      break;
 
-  // if (validation) {
-  //     return validation;
-  // }
-
-  return redirect("/project-manager/board");
+    case "csf":
+      return await saveNewCsf(formData);
+      break;
+    default:
+      break;
+  }
 }
+
+// export async function Action({ params, request }) {
+//   console.log(params);
+//   const data = await request.formData();
+
+//   const validation = await saveNewGoal(data, params.id);
+//   console.log(validation);
+
+//   // if (validation) {
+//   //     return validation;
+//   // }
+
+//   return redirect(`/project-manager/${params.id}`);
+// }

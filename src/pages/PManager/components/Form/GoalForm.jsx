@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-function GoalForm() {
+function GoalForm({ objectiveId }) {
   return (
     <div>
       <Dialog>
@@ -28,7 +28,7 @@ function GoalForm() {
               <Form
                 className="flex flex-col gap-8"
                 id="goal-form"
-                action="/project-manager"
+                action={`/project-manager/${objectiveId}`}
                 method="post"
               >
                 <Input
@@ -36,6 +36,7 @@ function GoalForm() {
                   placeholder="Nombre de la Meta"
                   className="rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0"
                 />
+                <Input className="hidden" name="action" value="goal" readOnly />
               </Form>
             </div>
           </DialogHeader>
