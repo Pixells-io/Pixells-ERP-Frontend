@@ -23,7 +23,9 @@ import Login from "./layouts/Login/LoginLayout";
 
 //Organization
 import SideLayoutOrganization from "./layouts/Organization/components/SideLayout";
-import MainOrganization from "./pages/Organization/User/MainOrganization";
+import MainOrganization, {
+  Action as newArea,
+} from "./pages/Organization/User/MainOrganization";
 import MainAccess from "./pages/Organization/Access/MainAccess";
 
 //Progress
@@ -44,11 +46,12 @@ import Activities from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 
 //actions
-import { getLeads, getObjectives, getServices } from "./lib/actions";
+import { getAreas, getLeads, getObjectives, getServices } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
 import FormCreateUser from "./pages/Organization/User/FormCreateUser";
+import FormCreatePosition from "./pages/Organization/User/FormCreatePosition";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +129,7 @@ const router = createBrowserRouter([
       {
         path: "/organization",
         element: <SideLayoutOrganization />,
+        action: newArea,
         children: [
           {
             index: true,
@@ -138,6 +142,11 @@ const router = createBrowserRouter([
           {
             path: "/organization/create-user",
             element: <FormCreateUser />,
+          },
+          {
+            path: "/organization/create-position",
+            element: <FormCreatePosition />,
+            loader: getAreas,
           },
         ],
       },

@@ -1,8 +1,11 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import { useLoaderData } from "react-router-dom";
 
-function FormCreateUser() {
+function FormCreatePosition() {
+    const {data} = useLoaderData();
+
     return (
         <div className="flex w-full">
             <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">
@@ -33,35 +36,46 @@ function FormCreateUser() {
                 </div>
                 <div>
                     <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-                        New User
+                        New Position
                     </h2>
                 </div>
                 {/*USER BOX CREATE*/}
                 <div className="bg-white rounded-xl p-4">
                     <div className="bg-blancoForms p-5 rounded-2xl">
-                        <span className="text-roboto text-grisText text-sm font-medium">Personal Information</span>
+                        <span className="text-roboto text-grisText text-sm font-medium">General Information</span>
                         <div className="flex pt-4">
-                            <div className="w-4/6">
+                            <div>
                                 <div className="flex">
                                     <div className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="name" placeholder="Name" />
+                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="area_id">
+                                            <option value="" selected>Area</option>
+                                            {data?.map((input, i) => (
+                                                <option value={input.id}>{input.nombre} </option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="last_name" placeholder="Last Name" />
+                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="puesto_nombre_1">
+                                            <option value="" selected>Type</option>
+                                            <option value="Operador">Operador</option>
+                                            <option value="Analista">Analista</option>
+                                            <option value="Técnico">Técnico</option>
+                                            <option value="Líder">Líder</option>
+                                            <option value="Ing.">Ing.</option>
+                                            <option value="Coordinador">Coordinador</option>
+                                            <option value="Gerente">Gerente</option>
+                                            <option value="Director">Director</option>
+                                        </select>
                                     </div>
                                     <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="second_last_name" placeholder="Second Last Name" />
-                                    </div>
-                                </div>
-                                <div className="flex mt-2">
-                                    <div className="pr-4">
-                                        <input type="date" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="date_of_birth" placeholder="Date of Birth" />
+                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="puesto_nombre_2" placeholder="Position Name" />
                                     </div>
                                     <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="city_of_birth" placeholder="City of Birth" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="state_of_birth" placeholder="State of Birth" />
+                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="acceso_a_permiso">
+                                            <option value="" selected>Permission Access</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="flex  w-full">
@@ -77,15 +91,6 @@ function FormCreateUser() {
                                         <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
                                         <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="nss" placeholder="NSS" />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="w-2/6">
-                                <div>
-                                    <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-60" name="curp" placeholder="CURP" />
-                                </div>
-                                <div className="flex w-60">
-                                        <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
-                                        <input type="date" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4 ml-4" name="vigencia" placeholder="Vigencia" />
                                 </div>
                             </div>
                         </div>
@@ -179,4 +184,4 @@ function FormCreateUser() {
         </div>
     );
 }
-export default FormCreateUser;
+export default FormCreatePosition;

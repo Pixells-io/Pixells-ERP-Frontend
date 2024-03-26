@@ -7,7 +7,7 @@ function FormInput({ name, type, placeholder }) {
       name={name}
       type={type}
       placeholder={placeholder}
-      className="border-0 border-b-2 focus:border-blue-500 rounded-none bg-[#F6F6F6] !ring-0 !ring-offset-0"
+      className="border-0 border-b-2 focus:border-primarioBotones rounded-none bg-transparent !ring-0 !ring-offset-0"
     />
   );
 }
