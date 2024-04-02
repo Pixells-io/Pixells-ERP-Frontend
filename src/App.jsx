@@ -38,13 +38,12 @@ import SideLayoutPManager, {
   Action as newObjective,
 } from "./layouts/PManager/SideLayoutPManager";
 import MainPManager, { multiFormAction } from "./pages/PManager/MainPManager";
-import Board from "./pages/PManager/Board";
 import CsfView from "./pages/PManager/CsfView";
 import Projects from "./pages/PManager/Projects";
 import Today from "./pages/PManager/Today";
 import Activities from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
-import Boards, { Action as newCsf } from "./pages/PManager/Boards";
+import Boards from "./pages/PManager/Boards";
 
 //actions
 import {

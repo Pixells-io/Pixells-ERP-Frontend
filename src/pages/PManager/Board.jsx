@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import CsfForm from "./components/Form/CsfForm";
+import TaskForm from "./components/Form/TaskForm";
 
 const DATA = [
   {
@@ -192,75 +193,78 @@ function Board({ goal }) {
                   {client?.csf}
                 </p>
                 <span className="bg-blancoBg w-6 h-6 flex justify-center items-center rounded-full text-sm font-medium text-grisHeading">
-                  {client?.activities.length}
+                  {client?.activities?.length}
                 </span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="">
-                  {client?.activities.map((item, i) => (
-                    <div
-                      key={i}
-                      className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
-                    >
-                      <div></div>
-                      <div className="col-span-2 flex justify-end items-center gap-2">
-                        <p className="text-2xl text-red-500">&bull;</p>
-                        <p className="text-grisHeading text-[12px] font-normal">
-                          {item.activity}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-grisHeading text-[12px] font-normal pr-4">
-                          {item.type}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-center px-2">
-                        <p className="text-grisHeading text-[8px] font-normal text-right w-full">
-                          80%
-                        </p>
-                        <Progress
-                          value={80}
-                          className="h-[4px] bg-grisDisabled fill-primario"
-                        />
-                      </div>
-                      <div>
-                        <p className="text-grisHeading text-[12px] font-normal">
-                          15 Feb 2024
-                        </p>
-                      </div>
-                      <div>
-                        <div className="flex justify-end gap-2">
-                          <div className="">
-                            <Avatar className="w-6 h-6">
-                              <AvatarImage src="https://github.com/shadcn.png" />
-                              <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                          </div>
-                          <div>
-                            <Avatar className="w-6 h-6">
-                              <AvatarImage src="https://github.com/shadcn.png" />
-                              <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                          </div>
+                <div className="grid grid-cols-10 items-center border-b-[1px] px-1 h-12">
+                  <div className="flex justify-end col-span-2">
+                    <TaskForm />
+                  </div>
+                </div>
+                {client?.activities.map((item, i) => (
+                  <div
+                    key={i}
+                    className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
+                  >
+                    <div></div>
+                    <div className="col-span-2 flex justify-end items-center gap-2">
+                      <p className="text-2xl text-red-500">&bull;</p>
+                      <p className="text-grisHeading text-[12px] font-normal">
+                        {item.activity}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-grisHeading text-[12px] font-normal pr-4">
+                        {item.type}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center px-2">
+                      <p className="text-grisHeading text-[8px] font-normal text-right w-full">
+                        80%
+                      </p>
+                      <Progress
+                        value={80}
+                        className="h-[4px] bg-grisDisabled fill-primario"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-grisHeading text-[12px] font-normal">
+                        15 Feb 2024
+                      </p>
+                    </div>
+                    <div>
+                      <div className="flex justify-end gap-2">
+                        <div className="">
+                          <Avatar className="w-6 h-6">
+                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <div>
+                          <Avatar className="w-6 h-6">
+                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
                         </div>
                       </div>
-                      <div>
-                        <p className="text-grisHeading text-[11px] font-semibold">
-                          <Badge className="bg-orange-200 text-[#FAA364]">
-                            {item.status}
-                          </Badge>
-                        </p>
-                      </div>
-                      <div className="flex justify-center pl-10">
-                        <Avatar className="w-6 h-6">
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                      </div>
-                      <div>ACTIONS</div>
                     </div>
-                  ))}
-                </div>
+                    <div>
+                      <Badge className="bg-orange-200 hover:bg-orange-100 text-[#FAA364]">
+                        <p className=" text-[11px] font-semibold">
+                          {item.status}
+                        </p>
+                      </Badge>
+                    </div>
+                    <div className="flex justify-center pl-10">
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>ACTIONS</div>
+                  </div>
+                ))}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

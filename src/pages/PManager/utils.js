@@ -41,3 +41,5 @@ export async function saveNewCsf(data) {
 
   return response;
 }
+
+export async function saveNewTask() {}

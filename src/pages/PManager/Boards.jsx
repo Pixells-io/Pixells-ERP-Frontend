@@ -1,14 +1,15 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Board from "./Board";
-import { saveNewCsf } from "./utils";
 
 function Boards() {
+  const params = useParams();
   const goals = useLoaderData();
+  const tabDefault = goals?.data[0]?.name;
 
   return (
-    <Tabs defaultValue="account" className="w-full">
+    <Tabs defaultValue={tabDefault} className="w-full">
       <TabsList>
         {goals?.data?.map((goal, i) => (
           <TabsTrigger key={i} value={goal.name}>
@@ -30,16 +31,3 @@ function Boards() {
 }
 
 export default Boards;
-
-export async function Action({}) {
-  const data = await request.formData();
-
-  const validation = await saveNewCsf(data);
-  console.log(validation);
-
-  // if (validation) {
-  //     return validation;
-  // }
-
-  return redirect(`/project-manager/${params.id}`);
-}

@@ -110,11 +110,10 @@ export async function multiFormAction({ params, request }) {
   switch (action) {
     case "goal":
       return await saveNewGoal(formData, paramId);
-      break;
 
     case "csf":
       return await saveNewCsf(formData);
-      break;
+
     default:
       break;
   }

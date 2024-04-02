@@ -19,7 +19,7 @@ import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
   const objectives = useLoaderData();
-  console.log(objectives.data);
+  // console.log(objectives.data);
   const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
