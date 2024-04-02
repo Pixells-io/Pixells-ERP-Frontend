@@ -27,6 +27,10 @@ import MainOrganization, {
   Action as newArea,
 } from "./pages/Organization/User/MainOrganization";
 import MainAccess from "./pages/Organization/Access/MainAccess";
+import FormCreateUser from "./pages/Organization/User/FormCreateUser";
+import FormCreatePosition, {
+  Action as newPosition,
+} from "./pages/Organization/User/FormCreatePosition";
 
 //Progress
 import MainProgress, {
@@ -52,12 +56,11 @@ import {
   getLeads,
   getObjectives,
   getServices,
+  multiLoaderOrganization,
 } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
-import FormCreateUser from "./pages/Organization/User/FormCreateUser";
-import FormCreatePosition from "./pages/Organization/User/FormCreatePosition";
 
 const router = createBrowserRouter([
   {
@@ -148,11 +151,13 @@ const router = createBrowserRouter([
           {
             path: "/organization/create-user",
             element: <FormCreateUser />,
+            loader: multiLoaderOrganization,
           },
           {
             path: "/organization/create-position",
             element: <FormCreatePosition />,
             loader: getAreas,
+            action: newPosition
           },
         ],
       },
