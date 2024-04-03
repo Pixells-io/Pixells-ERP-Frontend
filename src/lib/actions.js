@@ -56,6 +56,20 @@ export async function getGoals({ params }) {
   }
 }
 
+export async function getServiceSteps({ params }) {
+  const serviceId = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }process-services/get-process/${serviceId}`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 /*Organization Functions*/
 export async function getAreas() {
   try {

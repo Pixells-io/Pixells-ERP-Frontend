@@ -11,6 +11,8 @@ import MenuCRM from "./components/MenuCRM";
 
 import FormNewLead from "./components/Form/FormNewLead";
 import { saveNewLead } from "./utils";
+import FormNewSale from "./components/Form/FormNewSale";
+import FormNewClient from "./components/Form/FormNewClient";
 
 function SideLayout() {
   const services = useLoaderData();
@@ -32,6 +34,8 @@ function SideLayout() {
           {/*menu top */}
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
+            <FormNewClient />
+            <FormNewSale />
           </div>
 
           <div className="border-b border-gris2 my-4"></div>

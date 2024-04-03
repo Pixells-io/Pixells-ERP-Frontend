@@ -8,6 +8,8 @@ import { IonIcon } from "@ionic/react";
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
 import DataTable from "./components/Table/DataTable";
 
+import Table from "@/components/DataTable";
+
 function MainCRM() {
   const { data: loaderLeads } = useLoaderData();
   const { data: loaderServices } = useRouteLoaderData("side_services");
@@ -62,8 +64,8 @@ function MainCRM() {
           ))}
         </div> */}
 
-        <div>+ New Client</div>
-        <DataTable services={services} />
+        {/* <DataTable services={services} /> */}
+        <Table filters={services} />
         <Outlet />
       </div>
     </div>

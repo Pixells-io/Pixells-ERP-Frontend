@@ -9,14 +9,14 @@ import MainCRM from "@/pages/CRM/MainCRM";
 import DataTable from "./pages/CRM/components/Table/DataTable";
 
 //Leads
-import MainLeads from "./pages/Leads/MainLeads";
-import Stages from "./pages/Leads/components/Stages";
-import Timeline from "./pages/Leads/Timeline";
-import { getLeadById, getSteps } from "./pages/Leads/utils";
+import MainLeads from "./pages/CRM/Leads/MainLeads";
+import Stages from "./pages/CRM/Leads/components/Stages";
+import Timeline from "./pages/CRM/Leads/Timeline";
+import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
 
 //Lead :id
-import MainLead from "./pages/Leads/Lead/MainLead";
-import SidelayoutLead from "./pages/Leads/Lead/SidelayoutLead";
+import MainLead from "./pages/CRM/Leads/Lead/MainLead";
+import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Login
 import Login from "./layouts/Login/LoginLayout";
@@ -31,7 +31,10 @@ import MainAccess from "./pages/Organization/Access/MainAccess";
 //Progress
 import MainProgress, {
   Action as newService,
-} from "./pages/Progress/MainProgress";
+} from "./pages/CRM/Progress/MainProgress";
+import StepsProgress, {
+  Action as newStepService,
+} from "./pages/CRM/Progress/StepsProgress";
 
 // Project Manager
 import SideLayoutPManager, {
@@ -52,6 +55,7 @@ import {
   getLeads,
   getObjectives,
   getServices,
+  getServiceSteps,
 } from "./lib/actions";
 
 //Not Found
@@ -64,6 +68,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
+      // crm
       {
         id: "side_services",
         path: "/crm",
@@ -107,20 +112,22 @@ const router = createBrowserRouter([
             element: <MainProgress />,
             loader: getServices,
             action: newService,
-            // children: [
-            //     {
-            //         index: true,
-            //         element: <Stages />,
-            //     },
-            //     {
-            //         path: ":id",
-            //         element: <Stages />,
-            //     },
-            // ],
+            children: [
+              {
+                path: "/crm/progress/:id",
+                element: <StepsProgress />,
+                loader: getServiceSteps,
+                action: newStepService,
+              },
+              //     {
+              //         path: ":id",
+              //         element: <Stages />,
+              //     },
+            ],
           },
         ],
       },
-      //Lead ID
+      // crm - lead id
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
@@ -132,6 +139,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // organization
       {
         path: "/organization",
         element: <SideLayoutOrganization />,
@@ -156,6 +164,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // project manager
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,

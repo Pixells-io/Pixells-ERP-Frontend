@@ -64,6 +64,7 @@ function FormService({ csrf, submitting }) {
             <Label htmlFor="csrf"></Label>
             <Input id="csfr" name="csrf" defaultValue={csrf} />
           </div>
+          <Input className="hidden" name="action" value="service" readOnly />
         </Form>
         <DialogFooter>
           <Button form="service-form" disabled={submitting}>

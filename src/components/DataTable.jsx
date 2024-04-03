@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { useLoaderData } from "react-router-dom";
+
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -9,6 +11,9 @@ import {
   chevronForwardCircle,
   close,
   searchOutline,
+  bookmark,
+  chatbubbleEllipses,
+  informationCircle,
 } from "ionicons/icons";
 
 import {
@@ -65,31 +70,74 @@ const statusFilter = [
   { name: "onreview", id: 3 },
 ];
 
+// const columns = [
+//   {
+//     accessorKey: "task",
+//     header: "Task",
+//     cell: (props) => <p>{props.getValue()}</p>,
+//   },
+//   {
+//     accessorKey: "status",
+//     header: "Status",
+//     cell: (props) => <p>{props.getValue()}</p>,
+//   },
+//   {
+//     accessorKey: "date",
+//     header: "Date",
+//     cell: (props) => <p>{props.getValue()?.toLocaleTimeString()}</p>,
+//   },
+//   {
+//     accessorKey: "notes",
+//     header: "Notes",
+//     cell: (props) => <p>{props.getValue()}</p>,
+//   },
+// ];
+
 const columns = [
   {
-    accessorKey: "task",
-    header: "Task",
-    cell: (props) => <p>{props.getValue()}</p>,
+    accessorKey: "bussines_name",
+    header: "COMPANY",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: (props) => <p>{props.getValue()}</p>,
+    accessorKey: "service",
+    header: "SERVICE",
+    cell: ({ row }) => {
+      const services = row.getValue("service");
+      const serviceStrings = services.map((service) => service.name).join(", ");
+      // console.log(serviceStrings);
+      return serviceStrings;
+    },
   },
   {
-    accessorKey: "date",
-    header: "Date",
-    cell: (props) => <p>{props.getValue()?.toLocaleTimeString()}</p>,
+    accessorKey: "contact",
+    header: "CONTACT",
   },
   {
-    accessorKey: "notes",
-    header: "Notes",
-    cell: (props) => <p>{props.getValue()}</p>,
+    accessorKey: "phone",
+    header: "PHONE",
+  },
+  {
+    accessorKey: "email",
+    header: "EMAIL",
+  },
+  {
+    accessorKey: "actions",
+    header: "ACTIONS",
+    cell: () => {
+      return (
+        <div className="flex gap-2 text-[#696974]">
+          <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+          <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
+          <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+        </div>
+      );
+    },
   },
 ];
 
-function DataTable() {
-  const [data, setData] = useState(DATA);
+function DataTable({ filters }) {
+  const loaderData = useLoaderData();
+  const [data, setData] = useState(loaderData.data);
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
 
@@ -112,11 +160,11 @@ function DataTable() {
           <Button
             className="relative bg-[#E8E8E8] text-[#44444F] hover:bg-blue-200 hover:text-white text-[10px] h-6 w-16"
             onClick={() => {
-              table.getColumn("status")?.setFilterValue("");
+              table.getColumn("service")?.setFilterValue("");
               setFilter("");
             }}
           >
-            {filter}{" "}
+            {filter}
             <span className="absolute flex justify-center items-center p-0 w-4 h-4 border-[1px] text-blue-400 border-blue-400 rounded-full -top-1 -right-1">
               <IonIcon icon={close} size="large"></IonIcon>
             </span>
@@ -129,7 +177,7 @@ function DataTable() {
               variant="outline"
               className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
             >
-              Status
+              Service
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full">
@@ -139,10 +187,10 @@ function DataTable() {
               value={filter}
               onValueChange={(event) => {
                 setFilter(event);
-                table.getColumn("status")?.setFilterValue(event);
+                table.getColumn("service")?.setFilterValue(event);
               }}
             >
-              {statusFilter.map((filter, i) => (
+              {filters.map((filter, i) => (
                 <DropdownMenuRadioItem key={i} value={filter.name}>
                   {filter.name}
                 </DropdownMenuRadioItem>
@@ -164,10 +212,10 @@ function DataTable() {
           <Input
             id="search"
             className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
-            placeholder="SEARCH TASKS"
-            value={table.getColumn("task")?.getFilterValue() ?? ""}
+            placeholder="SEARCH EMAILS"
+            value={table.getColumn("email")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("task")?.setFilterValue(event.target.value)
+              table.getColumn("email")?.setFilterValue(event.target.value)
             }
           />
         </div>
