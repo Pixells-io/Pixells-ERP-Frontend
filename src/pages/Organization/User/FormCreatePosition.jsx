@@ -1,10 +1,171 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import { useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
+import InputRouter from "../../../layouts/Masters/FormComponents/input";
+import SelectRouter from "../../../layouts/Masters/FormComponents/select";
+import { Button } from "@/components/ui/button";
+import { saveNewPosition } from "../utils";
 
 function FormCreatePosition() {
     const {data} = useLoaderData();
+    const selectBasic = [
+        {
+            label: "Yes",
+            value: "1",
+        },
+        {
+            label: "No",
+            value: "0",
+        },
+    ];
+
+    const positionNames = [
+        {
+            label: "Operator",
+            value: "Operator",
+        },
+        {
+            label: "Analyst",
+            value: "Analyst",
+        },
+        {
+            label: "Technical",
+            value: "Technical",
+        },
+        {
+            label: "Leader",
+            value: "Leader",
+        },
+        {
+            label: "Engineer",
+            value: "Engineer",
+        },
+        {
+            label: "Coordinator",
+            value: "Coordinator",
+        },
+        {
+            label: "Manager",
+            value: "Manager",
+        },
+        {
+            label: "Director",
+            value: "Director",
+        },
+    ];
+
+    const experienceYears = [
+        {
+            label: "0",
+            value: "0"
+        },
+        {
+            label: "1-3",
+            value: "1-3"
+        },
+        {
+            label: "4-6",
+            value: "4-6"
+        },
+        {
+            label: "7-10",
+            value: "7-10"
+        },
+        {
+            label: "11-15",
+            value: "11-15"
+        },
+        {
+            label: "15+",
+            value: "15+"
+        }
+    ];
+
+    const academyGrade = [
+        {
+            label: "Elementary School",
+            value: "Elementary School"
+        },
+        {
+            label: "Middle School",
+            value: "Middle School"
+        },
+        {
+            label: "High School",
+            value: "High School"
+        },
+        {
+            label: "University",
+            value: "University"
+        }
+    ];
+
+    const languageOptions = [
+        {
+            label: "English",
+            value: "English"
+        },
+        {
+            label: "French",
+            value: "French"
+        },
+        {
+            label: "Dutch",
+            value: "Dutch"
+        },
+        {
+            label: "Portuguese",
+            value: "Portuguese"
+        },
+        {
+            label: "Chinese",
+            value: "Chinese"
+        },
+    ]
+
+    const positionType = [
+        {
+            label: "Camp",
+            value: "Camp"
+        },
+        {
+            label: "Trip",
+            value: "Trip",
+        }
+    ]
+
+    const workingDay = [
+        {
+            label: "Monday-Friday",
+            value: "Monday-Friday"
+        },
+        {
+            label: "Monday-Saturday",
+            value: "Monday-Saturday"
+        },
+        {
+            label: "Monday-Sunday",
+            value: "Monday-Sunday"
+        }
+    ]
+
+    const selectArea = [];
+
+    arrayFill(data, selectArea);
+
+    function arrayFill(data, array) {
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+    
+            array.push({
+                label: element.nombre,
+                value: element.id,
+                placeholder: "0"
+            })
+            
+        }
+    }
 
     return (
         <div className="flex w-full">
@@ -41,147 +202,252 @@ function FormCreatePosition() {
                 </div>
                 {/*USER BOX CREATE*/}
                 <div className="bg-white rounded-xl p-4">
-                    <div className="bg-blancoForms p-5 rounded-2xl">
-                        <span className="text-roboto text-grisText text-sm font-medium">General Information</span>
-                        <div className="flex pt-4">
-                            <div>
-                                <div className="flex">
-                                    <div className="pr-4">
-                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="area_id">
-                                            <option value="" selected>Area</option>
-                                            {data?.map((input, i) => (
-                                                <option value={input.id}>{input.nombre} </option>
-                                            ))}
-                                        </select>
+                    <Form
+                        id="position-form"
+                        action="/organization/create-position"
+                        method="post">
+                            <div className="bg-blancoForms p-5 rounded-2xl">
+                            <span className="text-roboto text-grisText text-sm font-medium">General Information</span>
+                            <div className="flex pt-4">
+                                <div>
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"area_id"}
+                                                placeholder={"Select Area"}
+                                                options={selectArea}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"position_type"}
+                                                placeholder={"Position Type"}
+                                                options={positionNames}
+                                            />
+                                        </div>
+                                        <div  className="pr-4">
+                                            <InputRouter
+                                                name={"position_name"}
+                                                type={"text"}
+                                                placeholder={"Position Name"}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"permision_access"}
+                                                placeholder={"Permission Access"}
+                                                options={selectBasic}
+                                            />
+                                        </div>
                                     </div>
-                                    <div  className="pr-4">
-                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="puesto_nombre_1">
-                                            <option value="" selected>Type</option>
-                                            <option value="Operador">Operador</option>
-                                            <option value="Analista">Analista</option>
-                                            <option value="Técnico">Técnico</option>
-                                            <option value="Líder">Líder</option>
-                                            <option value="Ing.">Ing.</option>
-                                            <option value="Coordinador">Coordinador</option>
-                                            <option value="Gerente">Gerente</option>
-                                            <option value="Director">Director</option>
-                                        </select>
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="puesto_nombre_2" placeholder="Position Name" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <select  className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="acceso_a_permiso">
-                                            <option value="" selected>Permission Access</option>
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex  w-full">
-                                    <div className="flex w-52">
-                                        <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
-                                    </div>
-                                    <div className="flex w-52 ml-4">
-                                        <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="rfc" placeholder="RFC" />
-                                    </div>
-                                    <div className="flex w-52 ml-4">
-                                        <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="curp" placeholder="CURP" />
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="nss" placeholder="NSS" />
+                                    <div className="flex  w-full">
+                                        <div className="flex w-52">
+                                            <SelectRouter
+                                                name={"boss_id"}
+                                                placeholder={"Boss Position"}
+                                                options={selectArea}
+                                            />
+                                        </div>
+                                        <div className="flex w-52 ml-4">
+                                            <SelectRouter
+                                                name={"coordinate_id"}
+                                                placeholder={"Coordinate Position"}
+                                                options={selectArea}
+                                            />
+                                        </div>
+                                        <div className="flex w-full ml-4 mr-4">
+                                            <InputRouter
+                                                name={"objetive"}
+                                                type={"text"}
+                                                placeholder={"Objetive of the positions"}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex">
-                            <div className="flex w-52">
-                                <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="enfermedades_cronicas" placeholder="Enfermedades Cronicas" />
-                                <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4 ml-4" name="blood_type" placeholder="Type of Blood" />
-                            </div>
-                            <div className="flex w-52 ml-4">
-                                <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="alergic" placeholder="alergia" />
-                                <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4 ml-4" name="especificar" placeholder="especificar" />
+                        {/*Authority of the Position*/}
+                        <div className="bg-blancoForms p-4 mt-10 rounded-xl">
+                            <span className="text-roboto text-grisText text-sm font-medium">Authority of the Position</span>
+                            <div className="flex">
+                                <div className="pr-4 w-52">
+                                <InputRouter
+                                    name={"authority"}
+                                    type={"text"}
+                                    placeholder={"Authority Name"}
+                                />
+                                </div>
+                                <div  className="pr-4 w-52 flex justify-center">
+                                    <label htmlFor="">
+                                        <input type="checkbox" />
+                                        <span className="text-grisSubText text-sm ml-2">Total</span>
+                                    </label>
+                                </div>
+                                <div  className="pr-4 w-52 flex justify-center">
+                                    <label htmlFor="">
+                                        <input type="checkbox" />
+                                        <span className="text-grisSubText text-sm ml-2">Shared</span>
+                                    </label>
+                                </div>
+                                <div  className="pr-4">
+                                    <SelectRouter
+                                        name={"authority_cordinate_id"}
+                                        placeholder={"With"}
+                                        options={selectArea}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {/*Adress Card*/}
-                    <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-                        <span className="text-roboto text-grisText text-sm font-medium">Domicilio</span>
-                        <div className="flex pt-4">
-                            <div className="w-4/6">
-                                <div className="flex">
-                                    <div className="w-52">
-                                    <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-52" name="calle" placeholder="Calle" />
-                                    </div>
-                                    <div className="w-52 flex">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4" name="ext" placeholder="Ext." />
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-2/4 ml-4" name="int" placeholder="Int" />
-                                    </div>
-                                    <div className="w-52">
+                        {/*Responsability of the position*/}
+                        <div className="bg-blancoForms p-4 mt-10 rounded-xl">
+                            <span className="text-roboto text-grisText text-sm font-medium">Responsability of the Position</span>
+                            <div className="flex">
+                                <div className="pr-4 w-2/4">
+                                    <InputRouter
+                                        name={"responsability"}
+                                        type={"text"}
+                                        placeholder={"Responsability"}
+                                    />
+                                </div>
+                                <div  className="pr-4 w-52 flex justify-center">
+                                    <label htmlFor="">
+                                        <InputRouter type="checkbox" name={"total_check"} />
+                                        <span className="text-grisSubText text-sm ml-2">Total</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
+                        {/*Description of the position*/}
+                        <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
+                            <span className="text-roboto text-grisText text-sm font-medium">Description of the position</span>
+                            <div className="flex pt-4">
+                                <div className="w-full">
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"experience_years"}
+                                                placeholder={"Experience Years"}
+                                                options={experienceYears}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-52 flex justify-center">
+                                            <InputRouter
+                                                name={"experience_sector"}
+                                                type={"text"}
+                                                placeholder={"Sector of Experience"}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-52 flex justify-center">
+                                            <InputRouter
+                                                name={"experience_description"}
+                                                type={"text"}
+                                                placeholder={"Describe the Experience"}
+                                            />
+                                        </div>
                                     </div>
-                                    <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-36" name="cp" placeholder="C.P." />
-                                    <input type="file" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-20" name="curp" placeholder="CURP" />
-                                </div>
-                                <div className="flex mt-2">
-                                    <div className="pr-4">
-                                        <input type="date" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="colonia" placeholder="Colonia" />
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"academy"}
+                                                placeholder={"Required Studies"}
+                                                options={academyGrade}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-52 flex justify-center">
+                                            <InputRouter
+                                                name={"name_studies"}
+                                                type={"text"}
+                                                placeholder={"Describe the Studies"}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-24 flex justify-center">
+                                            <SelectRouter
+                                                name={"home_office"}
+                                                placeholder={"Home Office"}
+                                                options={selectBasic}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-24 flex justify-center">
+                                            <SelectRouter
+                                                name={"position_work_type"}
+                                                placeholder={"Type of Work"}
+                                                options={positionType}
+                                            />
+                                        </div>
                                     </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="ciudad" placeholder="Ciudad" />
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"language"}
+                                                placeholder={"Language"}
+                                                options={languageOptions}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-24 flex justify-center">
+                                            <InputRouter
+                                                name={"language_percent"}
+                                                type={"number"}
+                                                placeholder={"%"}
+                                            />
+                                        </div>
                                     </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="estado" placeholder="Estado" />
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <SelectRouter
+                                                name={"working_day"}
+                                                placeholder={"Working Day"}
+                                                options={workingDay}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-24 flex justify-center">
+                                            <InputRouter
+                                                name={"start"}
+                                                type={"time"}
+                                                placeholder={"Start"}
+                                            />
+                                        </div>
+                                        <div  className="pr-4 w-24 flex justify-center">
+                                            <InputRouter
+                                                name={"end"}
+                                                type={"time"}
+                                                placeholder={"End"}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="pr-4 w-52">
+                                            <InputRouter
+                                                name={"knowledge_1"}
+                                                type={"text"}
+                                                placeholder={"Knowledge"}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {/*Emergency Contact*/}
-                    <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-                        <span className="text-roboto text-grisText text-sm font-medium">Contacto de Emergencia</span>
-                        <div className="flex pt-4">
-                            <div className="w-4/6">
-                                <div className="flex">
-                                    <div className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="nombre" placeholder="Nombre" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-20" name="apellido_p" placeholder="Paterno" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-20" name="apellido_m" placeholder="Materno" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-36" name="parentesco" placeholder="Parentesco" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="text" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-36" name="telefono" placeholder="Telefono" />
-                                    </div>
-                                </div>
+
+                        {/*Description of the position*/}
+                        <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
+                            <div className="flex pt-4">
+                                <Button form="position-form">
+                                    Save Position
+                                </Button>
                             </div>
                         </div>
-                    </div>
-                    {/*Password*/}
-                    <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-                        <span className="text-roboto text-grisText text-sm font-medium">Password</span>
-                        <div className="flex pt-4">
-                            <div className="w-4/6">
-                                <div className="flex">
-                                    <div className="pr-4">
-                                        <input type="password" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="password" placeholder="Password" />
-                                    </div>
-                                    <div  className="pr-4">
-                                        <input type="password" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="password_2" placeholder="Confirm the Password" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </Form>
                 </div>
             </div>
         </div>
     );
 }
 export default FormCreatePosition;
+
+export async function Action({request}) {
+    const data = await request.formData();
+
+    const validation = await saveNewPosition(data)
+
+    //return redirect("/organization");
+}

@@ -150,11 +150,8 @@ export default MainOrganization;
 
 export async function Action({request}) {
     const data = await request.formData();
-    console.log(data);
     
     const validation = await saveNewArea(data)
-    
-    console.log(validation)
 
     return redirect("/organization")
 }

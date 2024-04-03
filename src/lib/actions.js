@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 export async function getServices() {
   try {
     const response = await fetch(
@@ -80,4 +82,21 @@ export async function getAreas() {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function getPosition() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-puestos`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderOrganization() {
+  const [areas, positions] = await Promise.all([getAreas(), getPosition()]);
+
+  return json({ areas, positions });
 }
