@@ -13,7 +13,7 @@ function StatisticsBlock() {
             size="large"
             className="text-gris2"
           ></IonIcon>
-          <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
+          <IonIcon icon={ellipsisHorizontal} className="text-gris2" size="large"></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">$13,500.00</div>
         <div className="flex justify-between">
@@ -22,7 +22,7 @@ function StatisticsBlock() {
             <span className="text-xs">This Month</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-green-200 text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
               +40%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -33,7 +33,7 @@ function StatisticsBlock() {
       <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
         <div className="flex justify-between">
           <IonIcon icon={walk} size="large" className="text-gris2"></IonIcon>
-          <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
+          <IonIcon icon={ellipsisHorizontal} className="text-gris2" size="large"></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">05</div>
         <div className="flex justify-between">
@@ -42,7 +42,7 @@ function StatisticsBlock() {
             <span className="text-xs">This Month</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-green-200 text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
               +10%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -57,7 +57,7 @@ function StatisticsBlock() {
             size="large"
             className="text-gris2"
           ></IonIcon>
-          <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
+          <IonIcon icon={ellipsisHorizontal} className="text-gris2" size="large"></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">13</div>
         <div className="flex justify-between">
@@ -66,7 +66,7 @@ function StatisticsBlock() {
             <span className="text-xs">This Month</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-green-200 text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>

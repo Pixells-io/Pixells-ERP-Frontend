@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   attachOutline,
   calendarOutline,
-  chevronBackCircle,
-  chevronForwardCircle,
+  chevronBack,
+  chevronForward,
   ellipsisHorizontal,
   listCircleOutline,
 } from "ionicons/icons";
@@ -18,12 +18,11 @@ function Status() {
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
         <div className="flex gap-4 items-center">
-          <div className="flex gap-2 text-gris2">
-            <IonIcon icon={chevronBackCircle} className="w-12 h-12"></IonIcon>
-            <IonIcon
-              icon={chevronForwardCircle}
-              className="w-12 h-12"
-            ></IonIcon>
+          <div className="w-12 h-12">
+              <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+          </div>
+          <div className="w-12 h-12">
+              <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
           </div>
           <div>project-manager </div>
         </div>

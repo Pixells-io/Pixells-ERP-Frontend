@@ -63,9 +63,7 @@ function MainCRM() {
             />
           ))}
         </div> */}
-
-        {/* <DataTable services={services} /> */}
-        <Table filters={services} />
+        <DataTable services={services} />
         <Outlet />
       </div>
     </div>

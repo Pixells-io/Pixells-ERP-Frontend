@@ -199,7 +199,7 @@ function DataTable({ services }) {
   });
 
   return (
-    <div className="bg-[#FBFBFB] px-4">
+    <div className="bg-[#FBFBFB] rounded-xl px-4">
       <div className="flex gap-4 justify-end items-center py-4">
         {filter !== "" && (
           <Button
