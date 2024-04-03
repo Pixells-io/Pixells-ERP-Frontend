@@ -666,10 +666,9 @@ function FormCreateUser() {
                                         <div  className="pr-4">
                                             <InputRouter
                                                 name={"confirm_password"}
-                                                placeholder={"City of Birth"}
-                                                type={"text"}
+                                                placeholder={"********"}
+                                                type={"password"}
                                             />
-                                            <input type="password" className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-48" name="password_2" placeholder="Confirm the Password" />
                                         </div>
                                     </div>
                                 </div>

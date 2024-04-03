@@ -4,6 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
+import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
 import { Button } from "@/components/ui/button";
 import { saveNewPosition } from "../utils";
 
@@ -208,60 +209,58 @@ function FormCreatePosition() {
                         method="post">
                             <div className="bg-blancoForms p-5 rounded-2xl">
                             <span className="text-roboto text-grisText text-sm font-medium">General Information</span>
-                            <div className="flex pt-4">
-                                <div>
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
-                                            <SelectRouter
-                                                name={"area_id"}
-                                                placeholder={"Select Area"}
-                                                options={selectArea}
-                                            />
-                                        </div>
-                                        <div  className="pr-4 w-52">
-                                            <SelectRouter
-                                                name={"position_type"}
-                                                placeholder={"Position Type"}
-                                                options={positionNames}
-                                            />
-                                        </div>
-                                        <div  className="pr-4">
-                                            <InputRouter
-                                                name={"position_name"}
-                                                type={"text"}
-                                                placeholder={"Position Name"}
-                                            />
-                                        </div>
-                                        <div  className="pr-4 w-52">
-                                            <SelectRouter
-                                                name={"permision_access"}
-                                                placeholder={"Permission Access"}
-                                                options={selectBasic}
-                                            />
-                                        </div>
+                            <div className="pt-4 w-full pr-8">
+                                <div className="flex w-full">
+                                    <div className="pr-4 w-1/4">
+                                        <SelectRouter
+                                            name={"area_id"}
+                                            placeholder={"Select Area"}
+                                            options={selectArea}
+                                        />
                                     </div>
-                                    <div className="flex  w-full">
-                                        <div className="flex w-52">
-                                            <SelectRouter
-                                                name={"boss_id"}
-                                                placeholder={"Boss Position"}
-                                                options={selectArea}
-                                            />
-                                        </div>
-                                        <div className="flex w-52 ml-4">
-                                            <SelectRouter
-                                                name={"coordinate_id"}
-                                                placeholder={"Coordinate Position"}
-                                                options={selectArea}
-                                            />
-                                        </div>
-                                        <div className="flex w-full ml-4 mr-4">
-                                            <InputRouter
-                                                name={"objetive"}
-                                                type={"text"}
-                                                placeholder={"Objetive of the positions"}
-                                            />
-                                        </div>
+                                    <div  className="pr-4  w-1/4">
+                                        <SelectRouter
+                                            name={"position_type"}
+                                            placeholder={"Position Type"}
+                                            options={positionNames}
+                                        />
+                                    </div>
+                                    <div  className="pr-4  w-1/4">
+                                        <InputRouter
+                                            name={"position_name"}
+                                            type={"text"}
+                                            placeholder={"Position Name"}
+                                        />
+                                    </div>
+                                    <div  className="pr-4  w-1/4">
+                                        <SelectRouter
+                                            name={"permision_access"}
+                                            placeholder={"Permission Access"}
+                                            options={selectBasic}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex w-full">
+                                    <div className="pr-4 w-1/4">
+                                        <SelectRouter
+                                            name={"boss_id"}
+                                            placeholder={"Boss Position"}
+                                            options={selectArea}
+                                        />
+                                    </div>
+                                    <div className="pr-4 w-1/4">
+                                        <SelectRouter
+                                            name={"coordinate_id"}
+                                            placeholder={"Coordinate Position"}
+                                            options={selectArea}
+                                        />
+                                    </div>
+                                    <div className="flex w-2/4">
+                                        <InputRouter
+                                            name={"objetive"}
+                                            type={"text"}
+                                            placeholder={"Objetive of the positions"}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -270,26 +269,26 @@ function FormCreatePosition() {
                         <div className="bg-blancoForms p-4 mt-10 rounded-xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Authority of the Position</span>
                             <div className="flex">
-                                <div className="pr-4 w-52">
+                                <div className="pr-4 w-1/4">
                                 <InputRouter
                                     name={"authority"}
                                     type={"text"}
                                     placeholder={"Authority Name"}
                                 />
                                 </div>
-                                <div  className="pr-4 w-52 flex justify-center">
-                                    <label htmlFor="">
-                                        <input type="checkbox" />
-                                        <span className="text-grisSubText text-sm ml-2">Total</span>
-                                    </label>
+                                <div  className="pr-4 w-1/4 m-auto flex justify-center">
+                                    <CheckboxRouter
+                                        name="total"
+                                        label="Total"
+                                    />
                                 </div>
-                                <div  className="pr-4 w-52 flex justify-center">
-                                    <label htmlFor="">
-                                        <input type="checkbox" />
-                                        <span className="text-grisSubText text-sm ml-2">Shared</span>
-                                    </label>
+                                <div  className="pr-4 w-1/4 flex m-auto justify-center">
+                                        <CheckboxRouter
+                                            name="shared"
+                                            label="Shared"
+                                        />
                                 </div>
-                                <div  className="pr-4">
+                                <div  className="pr-4 w-1/4">
                                     <SelectRouter
                                         name={"authority_cordinate_id"}
                                         placeholder={"With"}
@@ -309,11 +308,8 @@ function FormCreatePosition() {
                                         placeholder={"Responsability"}
                                     />
                                 </div>
-                                <div  className="pr-4 w-52 flex justify-center">
-                                    <label htmlFor="">
-                                        <InputRouter type="checkbox" name={"total_check"} />
-                                        <span className="text-grisSubText text-sm ml-2">Total</span>
-                                    </label>
+                                <div  className="pr-4">
+
                                 </div>
                             </div>
                         </div>
@@ -321,24 +317,24 @@ function FormCreatePosition() {
                         {/*Description of the position*/}
                         <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Description of the position</span>
-                            <div className="flex pt-4">
+                            <div className="flex pt-4 w-full pr-8">
                                 <div className="w-full">
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-1/3">
                                             <SelectRouter
                                                 name={"experience_years"}
                                                 placeholder={"Experience Years"}
                                                 options={experienceYears}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-52 flex justify-center">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"experience_sector"}
                                                 type={"text"}
                                                 placeholder={"Sector of Experience"}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-52 flex justify-center">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"experience_description"}
                                                 type={"text"}
@@ -346,29 +342,29 @@ function FormCreatePosition() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-2/6">
                                             <SelectRouter
                                                 name={"academy"}
                                                 placeholder={"Required Studies"}
                                                 options={academyGrade}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-52 flex justify-center">
+                                        <div  className="pr-4 w-2/6">
                                             <InputRouter
                                                 name={"name_studies"}
                                                 type={"text"}
                                                 placeholder={"Describe the Studies"}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-24 flex justify-center">
+                                        <div  className="pr-4 w-1/6">
                                             <SelectRouter
                                                 name={"home_office"}
                                                 placeholder={"Home Office"}
                                                 options={selectBasic}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-24 flex justify-center">
+                                        <div  className="pr-4 w-1/6">
                                             <SelectRouter
                                                 name={"position_work_type"}
                                                 placeholder={"Type of Work"}
@@ -376,15 +372,15 @@ function FormCreatePosition() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-2/6">
                                             <SelectRouter
                                                 name={"language"}
                                                 placeholder={"Language"}
                                                 options={languageOptions}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-24 flex justify-center">
+                                        <div  className="pr-4 w-1/6">
                                             <InputRouter
                                                 name={"language_percent"}
                                                 type={"number"}
@@ -392,22 +388,22 @@ function FormCreatePosition() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-2/6">
                                             <SelectRouter
                                                 name={"working_day"}
                                                 placeholder={"Working Day"}
                                                 options={workingDay}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-24 flex justify-center">
+                                        <div  className="pr-4 w-1/6">
                                             <InputRouter
                                                 name={"start"}
                                                 type={"time"}
                                                 placeholder={"Start"}
                                             />
                                         </div>
-                                        <div  className="pr-4 w-24 flex justify-center">
+                                        <div  className="pr-4 w-1/6">
                                             <InputRouter
                                                 name={"end"}
                                                 type={"time"}
@@ -415,8 +411,8 @@ function FormCreatePosition() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex">
-                                        <div className="pr-4 w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"knowledge_1"}
                                                 type={"text"}
