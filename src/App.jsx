@@ -18,6 +18,10 @@ import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
+// CRM Services
+import MainServices from "./pages/CRM/Services/MainServices";
+import MainService from "./pages/CRM/Services/MainService";
+
 //Login
 import Login from "./layouts/Login/LoginLayout";
 
@@ -96,6 +100,7 @@ const router = createBrowserRouter([
           //   ],
           // },
           {
+            //crm leads
             path: "/crm/leads",
             element: <MainLeads />,
             children: [
@@ -110,6 +115,7 @@ const router = createBrowserRouter([
               },
             ],
           },
+          // crm progress
           {
             path: "/crm/progress",
             element: <MainProgress />,
@@ -127,6 +133,15 @@ const router = createBrowserRouter([
               //         element: <Stages />,
               //     },
             ],
+          },
+          //crm services
+          {
+            path: "/crm/services",
+            element: <MainServices />,
+          },
+          {
+            path: "/crm/services/:id",
+            element: <MainService />,
           },
         ],
       },

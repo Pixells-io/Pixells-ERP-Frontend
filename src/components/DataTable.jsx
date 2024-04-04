@@ -70,74 +70,74 @@ const statusFilter = [
   { name: "onreview", id: 3 },
 ];
 
-// const columns = [
-//   {
-//     accessorKey: "task",
-//     header: "Task",
-//     cell: (props) => <p>{props.getValue()}</p>,
-//   },
-//   {
-//     accessorKey: "status",
-//     header: "Status",
-//     cell: (props) => <p>{props.getValue()}</p>,
-//   },
-//   {
-//     accessorKey: "date",
-//     header: "Date",
-//     cell: (props) => <p>{props.getValue()?.toLocaleTimeString()}</p>,
-//   },
-//   {
-//     accessorKey: "notes",
-//     header: "Notes",
-//     cell: (props) => <p>{props.getValue()}</p>,
-//   },
-// ];
-
 const columns = [
   {
-    accessorKey: "bussines_name",
-    header: "COMPANY",
+    accessorKey: "task",
+    header: "Task",
+    cell: (props) => <p>{props.getValue()}</p>,
   },
   {
-    accessorKey: "service",
-    header: "SERVICE",
-    cell: ({ row }) => {
-      const services = row.getValue("service");
-      const serviceStrings = services.map((service) => service.name).join(", ");
-      // console.log(serviceStrings);
-      return serviceStrings;
-    },
+    accessorKey: "status",
+    header: "Status",
+    cell: (props) => <p>{props.getValue()}</p>,
   },
   {
-    accessorKey: "contact",
-    header: "CONTACT",
+    accessorKey: "date",
+    header: "Date",
+    cell: (props) => <p>{props.getValue()?.toLocaleTimeString()}</p>,
   },
   {
-    accessorKey: "phone",
-    header: "PHONE",
-  },
-  {
-    accessorKey: "email",
-    header: "EMAIL",
-  },
-  {
-    accessorKey: "actions",
-    header: "ACTIONS",
-    cell: () => {
-      return (
-        <div className="flex gap-2 text-[#696974]">
-          <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
-          <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-          <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
-        </div>
-      );
-    },
+    accessorKey: "notes",
+    header: "Notes",
+    cell: (props) => <p>{props.getValue()}</p>,
   },
 ];
 
+// const columns = [
+//   {
+//     accessorKey: "bussines_name",
+//     header: "COMPANY",
+//   },
+//   {
+//     accessorKey: "service",
+//     header: "SERVICE",
+//     cell: ({ row }) => {
+//       const services = row.getValue("service");
+//       const serviceStrings = services.map((service) => service.name).join(", ");
+//       // console.log(serviceStrings);
+//       return serviceStrings;
+//     },
+//   },
+//   {
+//     accessorKey: "contact",
+//     header: "CONTACT",
+//   },
+//   {
+//     accessorKey: "phone",
+//     header: "PHONE",
+//   },
+//   {
+//     accessorKey: "email",
+//     header: "EMAIL",
+//   },
+//   {
+//     accessorKey: "actions",
+//     header: "ACTIONS",
+//     cell: () => {
+//       return (
+//         <div className="flex gap-2 text-[#696974]">
+//           <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+//           <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
+//           <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+//         </div>
+//       );
+//     },
+//   },
+// ];
+
 function DataTable({ filters }) {
   const loaderData = useLoaderData();
-  const [data, setData] = useState(loaderData.data);
+  const [data, setData] = useState(DATA);
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
 
@@ -190,7 +190,7 @@ function DataTable({ filters }) {
                 table.getColumn("service")?.setFilterValue(event);
               }}
             >
-              {filters.map((filter, i) => (
+              {statusFilter?.map((filter, i) => (
                 <DropdownMenuRadioItem key={i} value={filter.name}>
                   {filter.name}
                 </DropdownMenuRadioItem>

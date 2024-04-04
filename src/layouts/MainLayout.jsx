@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,10 +18,53 @@ import {
   flag,
   personCircle,
   disc,
+  barChart,
+  people,
+  ticket,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
+const MENU = [
+  {
+    path: "/organization",
+    name: "organization",
+    icon: personCircle,
+  },
+  {
+    path: "/project-manager",
+    name: "project manager",
+    icon: flag,
+  },
+  {
+    path: "/crm",
+    name: "CRM",
+    icon: disc,
+  },
+  {
+    path: "/chat",
+    name: "chat",
+    icon: chatbubble,
+  },
+  {
+    path: "/analytics",
+    name: "analytics",
+    icon: barChart,
+  },
+  {
+    path: "/org-development",
+    name: "org dev",
+    icon: people,
+  },
+  {
+    path: "/tickets",
+    name: "ticket",
+    icon: ticket,
+  },
+];
+
 function MainLayout() {
+  const location = useLocation();
+  console.log(location);
   return (
     <div className="flex flex-col h-screen min-h-0">
       <div className="flex justify-between items-center p-3 h-[56px]">
@@ -33,62 +76,34 @@ function MainLayout() {
               className="text-grisHeading"
             ></IonIcon>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4">
-            <DropdownMenuItem>
-              <div className="flex flex-col">
-                <NavLink
-                  to="/crm"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
-                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
-                  }
-                >
-                  <IonIcon icon={disc} className="w-10 h-10"></IonIcon>
-                  <p className="hidden group-hover:flex text-[10px]">CRM</p>
-                </NavLink>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <div className="flex flex-col">
-                <NavLink
-                  to="/organization"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
-                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
-                  }
-                >
-                  <IonIcon
-                    icon={personCircle}
-                    className="w-10 h-10"
-                    size="large"
-                  ></IonIcon>
-                  <p className="hidden group-hover:flex text-[10px]">Users</p>
-                </NavLink>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <div className="flex flex-col">
-                <NavLink
-                  to="/project-manager"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
-                      : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
-                  }
-                >
-                  <IonIcon
-                    icon={flag}
-                    className="w-10 h-10"
-                    size="large"
-                  ></IonIcon>
-                  <p className="hidden group-hover:flex text-[10px] text-ellipsis">
-                    Project Manager
-                  </p>
-                </NavLink>
-              </div>
-            </DropdownMenuItem>
+          <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4 ">
+            {MENU.map((item, i) => (
+              <DropdownMenuItem key={i} className="focus:bg-transparent">
+                <div className="flex flex-col">
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
+                        : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
+                    }
+                  >
+                    <IonIcon icon={item.icon} className="w-10 h-10"></IonIcon>
+                    {location?.pathname === item.path ? (
+                      <div className="text-[10px] w-11 truncate">
+                        <p className="text-center">{item.name}</p>
+                      </div>
+                    ) : (
+                      <div className="hidden group-hover:flex text-[10px] w-11 truncate ">
+                        <p className="group-hover:flex group-hover:mx-auto">
+                          {item.name}
+                        </p>
+                      </div>
+                    )}
+                  </NavLink>
+                </div>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
 
