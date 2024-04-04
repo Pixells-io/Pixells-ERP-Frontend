@@ -64,14 +64,14 @@ function Main() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className=" font-poppins font-bold text-2xl text-[#44444F]">
+            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
               PROGRESS DASHBOARD
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
-            <div>4 services</div>
+            <div className="text-xs">4 services</div>
             <div className="text-2xl">&bull;</div>
-            <div>9 Leads</div>
+            <div className="text-xs">9 Leads</div>
           </div>
         </div>
 

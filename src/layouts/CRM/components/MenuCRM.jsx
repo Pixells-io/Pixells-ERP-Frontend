@@ -28,7 +28,7 @@ function MenuCRM() {
 
           <div>
             <p className="font-medium text-base ">CRM</p>
-            <p className="font-medium text-[10px]">Homepage</p>
+            <p className="font-medium text-base">Homepage</p>
           </div>
         </div>
       </NavLink>

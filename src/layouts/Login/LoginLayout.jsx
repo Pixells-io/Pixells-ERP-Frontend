@@ -80,13 +80,13 @@ function Login() {
         </div>
         <div className="bg-grisBg bottom-0 absolute inset-x-0">
             <div className="flex w-screen mt-3 mb-3">
-                <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-sm text-grisText">
+                <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-xs text-grisText">
                     <span>Copyright © 2024 Pixells Inc. </span>
                 </div>
-                <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-sm text-grisText">
+                <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-xs text-grisText">
                     <span>Todos los derechos reservados </span>
                 </div>
-                <div className="w-1/10 p-1 pr-6 pl-6 text-sm border-2 border-transparent text-grisText">
+                <div className="w-1/10 p-1 pr-6 pl-6 border-2 border-transparent text-xs text-grisText">
                     <span>Política de privacidad</span>
                 </div>
                 <div className="w-7/10">
