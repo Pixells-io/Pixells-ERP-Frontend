@@ -35,16 +35,16 @@ function MainCRM() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-2xl text-[#44444F]">
+            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
               CRM HOMEPAGE
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
-            <div>
+            <div className="text-xs">
               {services.length} {services.length > 1 ? "services" : "service"}
             </div>
             <div className="text-2xl">&bull;</div>
-            <div>
+            <div className="text-xs">
               {leads.length} {leads.length > 1 ? "customers" : "customer"}
             </div>
           </div>

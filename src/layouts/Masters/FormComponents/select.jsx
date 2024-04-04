@@ -1,15 +1,27 @@
 import * as React from "react";
 
-import Select from "react-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function SelectRouter({ options, name, placeholder }) {
   return (
-    <Select
-      className="bg-transparent text-sm text-grisSubText border-b border-grisText p-3 outline-0 w-full"
-      name={name}
-      options={options}
-      placeholder={placeholder}
-    />
+    <Select name={name}>
+      <SelectTrigger className="bg-transparent w-full text-xs font-roboto !ring-0 !ring-offset-0 text-grisSubText font-light border-0 border-b rounded-none m-4 border-gris2">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option, i) => (
+          <SelectItem key={i} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
 

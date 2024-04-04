@@ -11,7 +11,7 @@ function TopMenuCRM() {
         <div className="flex items-center gap-6 text-grisText">
           <IonIcon icon={grid} size="large"></IonIcon>
           <div>
-            <p className="text-lg font-medium text-grisText font-roboto">Homepage</p>
+            <p className="text-base font-medium text-grisText font-roboto">Homepage</p>
           </div>
         </div>
       </NavLink>
@@ -19,7 +19,7 @@ function TopMenuCRM() {
         <div className="flex items-center gap-6 text-grisText">
           <IonIcon icon={searchOutline} size="large"></IonIcon>
           <div>
-            <p className="text-lg font-medium text-grisText font-roboto">Search</p>
+            <p className="text-base font-medium text-grisText font-roboto">Search</p>
           </div>
         </div>
       </NavLink>
