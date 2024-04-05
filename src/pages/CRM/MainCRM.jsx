@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-
 import { useLoaderData, useRouteLoaderData, Outlet } from "react-router-dom";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import StatisticsBlock from "./components/StatisticsBlocks";
+import DataTable from "./components/Table/DataTable";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
-import DataTable from "./components/Table/DataTable";
 
 import Table from "@/components/DataTable";
 
@@ -63,7 +64,19 @@ function MainCRM() {
             />
           ))}
         </div> */}
-        <DataTable services={services} />
+
+        <Tabs defaultValue="account" className="">
+          <TabsList>
+            <TabsTrigger value="account">Leads</TabsTrigger>
+            <TabsTrigger value="password">Clients</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account" className="">
+            <DataTable services={services} />
+          </TabsContent>
+          <TabsContent value="password">
+            <Table />
+          </TabsContent>
+        </Tabs>
         <Outlet />
       </div>
     </div>

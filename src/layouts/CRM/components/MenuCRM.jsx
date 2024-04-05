@@ -5,6 +5,7 @@ import { IonIcon } from "@ionic/react";
 import {
   appsSharp,
   disc,
+  documentText,
   folder,
   mail,
   person,
@@ -14,13 +15,13 @@ import {
 function MenuCRM() {
   const location = useLocation();
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <NavLink
         to="/crm"
         className={({ isActive }) =>
           isActive && location.pathname === "/crm"
-            ? "text-blue-500"
-            : "text-gris2"
+            ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
+            : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
         }
       >
         <div className="flex items-center gap-6 ">
@@ -28,10 +29,11 @@ function MenuCRM() {
 
           <div>
             <p className="font-medium text-base ">CRM</p>
-            <p className="font-medium text-base">Homepage</p>
+            <p className="font-medium text-[10px] text-grisSubText">Homepage</p>
           </div>
         </div>
       </NavLink>
+
       <NavLink
         to="/crm/leads"
         className={({ isActive }) =>
@@ -43,7 +45,9 @@ function MenuCRM() {
 
           <div>
             <p className="font-medium ">Leads</p>
-            <p className="font-medium text-[10px]">Dashboard</p>
+            <p className="font-medium text-[10px] text-grisSubText">
+              Dashboard
+            </p>
           </div>
         </div>
       </NavLink>
@@ -54,17 +58,35 @@ function MenuCRM() {
         }
       >
         <div className="flex items-center gap-6 ">
-          <IonIcon icon={appsSharp} size="large"></IonIcon>
+          <IonIcon icon={appsSharp} size="large" text-grisSubText></IonIcon>
 
           <div>
             <p className="font-medium ">Progress</p>
-            <p className="font-medium text-[10px]">Dashboard</p>
+            <p className="font-medium text-[10px] text-grisSubText">
+              Dashboard
+            </p>
           </div>
         </div>
       </NavLink>
 
       <NavLink
-        to="/crm/post-sales"
+        to="/crm/agreements"
+        className={({ isActive }) =>
+          isActive ? "text-blue-500" : "text-gris2"
+        }
+      >
+        <div className="flex items-center gap-6 ">
+          <IonIcon icon={documentText} size="large"></IonIcon>
+
+          <div>
+            <p className="font-medium ">Agreemnets</p>
+            <p className="font-medium text-[10px] text-grisSubText">Console</p>
+          </div>
+        </div>
+      </NavLink>
+
+      <NavLink
+        to="/crm/after-sales"
         className={({ isActive }) =>
           isActive ? "text-blue-500" : "text-gris2"
         }
@@ -73,8 +95,8 @@ function MenuCRM() {
           <IonIcon icon={settings} size="large"></IonIcon>
 
           <div>
-            <p className="font-medium ">Post-sales</p>
-            <p className="font-medium text-[10px]">Service</p>
+            <p className="font-medium ">After sales</p>
+            <p className="font-medium text-[10px] text-grisSubText">Service</p>
           </div>
         </div>
       </NavLink>
@@ -90,7 +112,9 @@ function MenuCRM() {
 
           <div>
             <p className="font-medium ">Services</p>
-            <p className="font-medium text-[10px]">Administration</p>
+            <p className="font-medium text-[10px] text-grisSubText">
+              Administration
+            </p>
           </div>
         </div>
       </NavLink>
@@ -106,7 +130,7 @@ function MenuCRM() {
 
           <div>
             <p className="font-medium ">Email</p>
-            <p className="font-medium text-[10px]">Console</p>
+            <p className="font-medium text-[10px] text-grisSubText">Console</p>
           </div>
         </div>
       </NavLink>

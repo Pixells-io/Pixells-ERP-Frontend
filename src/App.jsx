@@ -22,6 +22,9 @@ import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 import MainServices from "./pages/CRM/Services/MainServices";
 import MainService from "./pages/CRM/Services/MainService";
 
+//CRM Email
+import MainEmail from "./pages/CRM/Email/MainEmail";
+
 //Login
 import Login from "./layouts/Login/LoginLayout";
 
@@ -83,22 +86,12 @@ const router = createBrowserRouter([
         loader: getServices,
         action: newLead,
         children: [
+          //crm home
           {
             index: true,
             loader: getLeads,
             element: <MainCRM />,
           },
-          // {
-          //   path: "/crm/homepage",
-          //   element: <MainCRM />,
-          //   children: [
-          //     {
-          //       index: true,
-          //       loader: getLeads,
-          //       element: <DataTable />,
-          //     },
-          //   ],
-          // },
           {
             //crm leads
             path: "/crm/leads",
@@ -128,10 +121,6 @@ const router = createBrowserRouter([
                 loader: getServiceSteps,
                 action: newStepService,
               },
-              //     {
-              //         path: ":id",
-              //         element: <Stages />,
-              //     },
             ],
           },
           //crm services
@@ -142,6 +131,12 @@ const router = createBrowserRouter([
           {
             path: "/crm/services/:id",
             element: <MainService />,
+          },
+
+          //crm email
+          {
+            path: "/crm/email",
+            element: <MainEmail />,
           },
         ],
       },
@@ -157,6 +152,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       // organization
       {
         path: "/organization",
@@ -184,6 +180,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       // project manager
       {
         path: "/project-manager",
