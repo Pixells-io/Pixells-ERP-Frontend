@@ -21,6 +21,12 @@ import {
   barChart,
   people,
   ticket,
+  person,
+  grid,
+  bookmark,
+  toggle,
+  desktop,
+  logOut,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -134,14 +140,14 @@ function MainLayout() {
           </div>
 
           {/* Avatar Dropdown */}
-          <DropdownMenu>
+          <DropdownMenu className="">
             <DropdownMenuTrigger>
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="mr-4">
+            <DropdownMenuContent className="mr-4 bg-blancoBg">
               <DropdownMenuLabel>
                 <div className="flex gap-4 p-2">
                   <div>
@@ -151,21 +157,44 @@ function MainLayout() {
                     </Avatar>
                   </div>
                   <div>
-                    <p>Don Fomularo</p>
-                    <p className="text-sm">donfomularo@gmail.com</p>
+                    <p className="text-grisText font-semibold text-base">
+                      Don Fomularo
+                    </p>
+                    <p className="text-[12px] text-grisSubText">
+                      donfomularo@gmail.com
+                    </p>
                   </div>
                 </div>
               </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-blancoBox" />
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={person} className="h-5 w-5"></IonIcon>
+                My Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
+                Notifications
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>My Profile</DropdownMenuItem>
-              <DropdownMenuItem>Notifications</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Dashboards</DropdownMenuItem>
-              <DropdownMenuItem>Saved</DropdownMenuItem>
-              <DropdownMenuItem>Dark Mode</DropdownMenuItem>
-              <DropdownMenuItem>Downloads</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-400">
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
+                Dashboards
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
+                Saved
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={toggle} className="h-5 w-5"></IonIcon>
+                Dark Mode
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+                <IonIcon icon={desktop} className="h-5 w-5"></IonIcon>
+                Downloads
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-blancoBox" />
+              <DropdownMenuItem className="flex gap-4 ml-4 text-[#D7586B]">
+                <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
                 Log Out
               </DropdownMenuItem>
             </DropdownMenuContent>
