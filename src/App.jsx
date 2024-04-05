@@ -25,6 +25,9 @@ import MainService from "./pages/CRM/Services/MainService";
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
 
+//CRM Agreements
+import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
+
 //Login
 import Login from "./layouts/Login/LoginLayout";
 
@@ -137,6 +140,11 @@ const router = createBrowserRouter([
           {
             path: "/crm/email",
             element: <MainEmail />,
+          },
+          //crm agreements
+          {
+            path: "/crm/agreements",
+            element: <MainAgreements />,
           },
         ],
       },

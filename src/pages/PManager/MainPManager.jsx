@@ -15,10 +15,18 @@ function MainPManager() {
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
           <div className="w-12 h-12">
-              <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+            <IonIcon
+              icon={chevronBack}
+              size="large"
+              className="bg-blancoBox p-1 rounded-3xl"
+            ></IonIcon>
           </div>
           <div className="w-12 h-12">
-              <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+            <IonIcon
+              icon={chevronForward}
+              size="large"
+              className="bg-blancoBox p-1 rounded-3xl"
+            ></IonIcon>
           </div>
           <div>project-manager</div>
         </div>
@@ -61,9 +69,9 @@ function MainPManager() {
 
         <div className="flex gap-4">
           <NavLink
-            to="/project-manager"
+            to={`/project-manager/${params.id}`}
             className={({ isActive }) =>
-              isActive && location.pathname === "/project-manager"
+              isActive && location.pathname === `/project-manager/${params.id}`
                 ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
                 : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
             }
@@ -71,9 +79,10 @@ function MainPManager() {
             Board
           </NavLink>
           <NavLink
-            to="/project-manager/csf"
+            to={`/project-manager/${params.id}/csf`}
             className={({ isActive }) =>
-              isActive
+              isActive &&
+              location.pathname === `/project-manager/${params.id}/csf`
                 ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
                 : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
             }
@@ -81,9 +90,10 @@ function MainPManager() {
             CSF
           </NavLink>
           <NavLink
-            to="/project-manager/projects"
+            to={`/project-manager/${params.id}/projects`}
             className={({ isActive }) =>
-              isActive
+              isActive &&
+              location.pathname === `/project-manager/${params.id}/projects`
                 ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
                 : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
             }

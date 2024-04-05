@@ -12,128 +12,68 @@ import {
   settings,
 } from "ionicons/icons";
 
+const MENU_ITEMS = [
+  { path: "/crm", name: "CRM", subname: "Homepage", icon: disc },
+  { path: "/crm/leads", name: "Leads", subname: "Dashboard", icon: person },
+  {
+    path: "/crm/progress",
+    name: "Progress",
+    subname: "Homepage",
+    icon: appsSharp,
+  },
+  {
+    path: "/crm/agreements",
+    name: "Agreements",
+    subname: "Console",
+    icon: documentText,
+  },
+  {
+    path: "/crm/after-sales",
+    name: "After sales",
+    subname: "Service",
+    icon: settings,
+  },
+  {
+    path: "/crm/services",
+    name: "Services",
+    subname: "Administration",
+    icon: folder,
+  },
+  { path: "/crm/email", name: "Email", subname: "Console", icon: mail },
+];
+
 function MenuCRM() {
   const location = useLocation();
   return (
     <div className="flex flex-col gap-4 w-full">
-      <NavLink
-        to="/crm"
-        className={({ isActive }) =>
-          isActive && location.pathname === "/crm"
-            ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
-            : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={disc} size="large"></IonIcon>
+      {MENU_ITEMS?.map((item, i) => (
+        <NavLink
+          key={i}
+          to={`${item.path}`}
+          className={
+            item.path === "/crm"
+              ? ({ isActive }) =>
+                  isActive && location.pathname === "/crm"
+                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
+                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
+              : ({ isActive }) =>
+                  isActive
+                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
+                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
+          }
+        >
+          <div className="flex items-center gap-6 ">
+            <IonIcon icon={item.icon} size="large"></IonIcon>
 
-          <div>
-            <p className="font-medium text-base ">CRM</p>
-            <p className="font-medium text-[10px] text-grisSubText">Homepage</p>
+            <div>
+              <p className="font-medium text-base ">{item.name}</p>
+              <p className="font-medium text-[10px] text-grisSubText">
+                {item.subname}
+              </p>
+            </div>
           </div>
-        </div>
-      </NavLink>
-
-      <NavLink
-        to="/crm/leads"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={person} size="large"></IonIcon>
-
-          <div>
-            <p className="font-medium ">Leads</p>
-            <p className="font-medium text-[10px] text-grisSubText">
-              Dashboard
-            </p>
-          </div>
-        </div>
-      </NavLink>
-      <NavLink
-        to="/crm/progress"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={appsSharp} size="large" text-grisSubText></IonIcon>
-
-          <div>
-            <p className="font-medium ">Progress</p>
-            <p className="font-medium text-[10px] text-grisSubText">
-              Dashboard
-            </p>
-          </div>
-        </div>
-      </NavLink>
-
-      <NavLink
-        to="/crm/agreements"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={documentText} size="large"></IonIcon>
-
-          <div>
-            <p className="font-medium ">Agreemnets</p>
-            <p className="font-medium text-[10px] text-grisSubText">Console</p>
-          </div>
-        </div>
-      </NavLink>
-
-      <NavLink
-        to="/crm/after-sales"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={settings} size="large"></IonIcon>
-
-          <div>
-            <p className="font-medium ">After sales</p>
-            <p className="font-medium text-[10px] text-grisSubText">Service</p>
-          </div>
-        </div>
-      </NavLink>
-
-      <NavLink
-        to="/crm/services"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={folder} size="large"></IonIcon>
-
-          <div>
-            <p className="font-medium ">Services</p>
-            <p className="font-medium text-[10px] text-grisSubText">
-              Administration
-            </p>
-          </div>
-        </div>
-      </NavLink>
-
-      <NavLink
-        to="/crm/email"
-        className={({ isActive }) =>
-          isActive ? "text-blue-500" : "text-gris2"
-        }
-      >
-        <div className="flex items-center gap-6 ">
-          <IonIcon icon={mail} size="large"></IonIcon>
-
-          <div>
-            <p className="font-medium ">Email</p>
-            <p className="font-medium text-[10px] text-grisSubText">Console</p>
-          </div>
-        </div>
-      </NavLink>
+        </NavLink>
+      ))}
     </div>
   );
 }

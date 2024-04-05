@@ -171,7 +171,13 @@ function Board({ goal }) {
         {HEADERS?.map((header, i) => (
           <div
             key={i}
-            className={header?.name === "ACTIVITY" ? "col-span-2" : ""}
+            className={
+              header?.name === "ACTIVITY"
+                ? "col-span-2"
+                : "" || header?.name === "CSF"
+                ? "text-left pl-2"
+                : ""
+            }
           >
             <p className="text-gris2 text-sm font-semibold px-2">
               {header.name}

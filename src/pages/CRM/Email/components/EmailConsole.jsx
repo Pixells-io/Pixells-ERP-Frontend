@@ -73,29 +73,3 @@ function EmailConsole() {
 }
 
 export default EmailConsole;
-
-<div className="grid grid-cols-12 w-full">
-  <div className="col-span-2 flex flex-col gap-2">
-    {/* console buttons */}
-    <div>
-      <p>Inbox</p>
-    </div>
-    <div>
-      <p>Sent</p>
-    </div>
-    <div>
-      <p>Starred</p>
-    </div>
-    <div>
-      <p>Draft</p>
-    </div>
-    <div>
-      <p>Spam</p>
-    </div>
-    <div>
-      <p>Trash</p>
-    </div>
-  </div>
-
-  <div className="col-span-10">hola</div>
-</div>;

@@ -2,10 +2,9 @@ import React from "react";
 
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import AgreementsConsole from "./components/AgreementsConsole";
 
-import EmailConsole from "./components/EmailConsole";
-
-function MainEmail() {
+function MainAgreements() {
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -31,7 +30,7 @@ function MainEmail() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-              EMAIL CONSOLE
+              AGREEMENTS CONSOLE
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
@@ -45,9 +44,9 @@ function MainEmail() {
 
         <div className="flex items-center gap-3">
           <div className="flex justify-center items-center h-6 bg-primarioBotones rounded-xl px-4">
-            <p className="text-[10px] text-white font-semibold">Emails</p>
+            <p className="text-[10px] text-white font-semibold">Templates</p>
           </div>
-          <div className="flex justify-center items-center h-6 bg-blancoBox2 rounded-xl px-4">
+          <div className="hidden justify-center items-center h-6 bg-blancoBox2 rounded-xl px-4">
             <p className="text-[10px] text-grisHeading font-semibold">
               Templates
             </p>
@@ -59,10 +58,10 @@ function MainEmail() {
           ></IonIcon>
         </div>
 
-        <EmailConsole />
+        <AgreementsConsole />
       </div>
     </div>
   );
 }
 
-export default MainEmail;
+export default MainAgreements;

@@ -9,14 +9,17 @@ function Boards() {
   const tabDefault = goals?.data[0]?.name;
 
   return (
-    <Tabs defaultValue={tabDefault} className="w-full">
-      <TabsList>
+    <Tabs defaultValue={tabDefault} className="w-full bg-blancoBg">
+      <TabsList className="bg-blancoBg flex gap-2 w-fit rounded-none">
         {goals?.data?.map((goal, i) => (
-          <TabsTrigger key={i} value={goal.name}>
+          <TabsTrigger
+            key={i}
+            value={goal.name}
+            className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+          >
             {goal.name}
           </TabsTrigger>
         ))}
-        <TabsTrigger value="password">Password</TabsTrigger>
       </TabsList>
       {goals?.data?.map((goal, i) => (
         <div key={i} className="flex w-full">
@@ -25,7 +28,6 @@ function Boards() {
           </TabsContent>
         </div>
       ))}
-      <TabsContent value="password">Change your password here.</TabsContent>
     </Tabs>
   );
 }
