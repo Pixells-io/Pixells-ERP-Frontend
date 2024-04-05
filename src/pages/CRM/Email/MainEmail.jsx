@@ -2,6 +2,7 @@ import React from "react";
 
 import { IonIcon } from "@ionic/react";
 import {
+  addCircleOutline,
   chevronBack,
   chevronForward,
   ellipsisVertical,
@@ -45,6 +46,22 @@ function MainEmail() {
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">43 activities</div>
           </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="flex justify-center items-center h-6 bg-primarioBotones rounded-xl px-4">
+            <p className="text-[10px] text-white font-semibold">Emails</p>
+          </div>
+          <div className="flex justify-center items-center h-6 bg-blancoBox2 rounded-xl px-4">
+            <p className="text-[10px] text-grisHeading font-semibold">
+              Templates
+            </p>
+          </div>
+          <IonIcon
+            icon={addCircleOutline}
+            size="large"
+            className="text-primarioBotones"
+          ></IonIcon>
         </div>
 
         <EmailConsole />
