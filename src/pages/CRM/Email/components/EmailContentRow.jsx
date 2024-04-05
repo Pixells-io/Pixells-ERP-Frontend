@@ -20,7 +20,7 @@ function EmailContentRow() {
             <p className="text-[13px] text-grisText font-medium">
               Amazon México
             </p>
-            <span className="text-[10px] text-grisSubText font-normal">
+            <span className="text-[10px] text-grisSubText font-normal line-clamp-none">
               contact@amazon.com
             </span>
           </div>
