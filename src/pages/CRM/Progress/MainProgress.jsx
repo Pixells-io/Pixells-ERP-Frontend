@@ -77,15 +77,15 @@ function Main() {
 
         {/* services */}
         <div className="flex gap-4">
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-full overflow-scroll">
             {services.data.map((service, i) => (
               <NavLink
                 key={i}
                 to={`/crm/progress/${service.id}`}
                 className={({ isActive }) =>
                   isActive
-                    ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2`
-                    : `flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2`
+                    ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2 shrink-0`
+                    : `flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2 shrink-0`
                 }
               >
                 <div className="flex ml-2">
