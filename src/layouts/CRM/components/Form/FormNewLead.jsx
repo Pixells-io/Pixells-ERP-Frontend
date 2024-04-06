@@ -66,7 +66,7 @@ const categoryInputs = [
   },
 ];
 
-function FormNewLead({ navigation, services }) {
+function FormNewLead({ services }) {
   useEffect(() => {
     if (navigation.state === "idle") {
       setOpen(false);
@@ -150,10 +150,10 @@ function FormNewLead({ navigation, services }) {
           </div>
         </Form>
         <DialogFooter>
-          <Button form="lead-form" disabled={navigation.state === "submitting"}>
+          <Button form="lead-form" disabled={navigation.state === "submitting"} className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">
             {navigation.state === "submitting"
               ? "Submitting..."
-              : "Create New Lead"}
+              : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

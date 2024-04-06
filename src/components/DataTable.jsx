@@ -175,7 +175,7 @@ function DataTable({ filters }) {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
+              className="rounded-3xl border-[1px] border-[#44444F] bg-transparent text-[10px] h-6 w-16"
             >
               Service
             </Button>
@@ -227,7 +227,7 @@ function DataTable({ filters }) {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-[#696974] text-sm font-semibold">
                     {header.column.columnDef.header}
                   </TableHead>
                 ))}

@@ -16,18 +16,17 @@ function ServicesBlocks() {
           <IonIcon icon={folder} size="large" className="text-gris2"></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-gris2"
-            size="large"
+            className="text-grisSubText text-xl"
           ></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">7</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">Active</span>
-            <span className="text-xs">Services</span>
+            <span className="text-xs text-grisSubText">Services</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -35,7 +34,7 @@ function ServicesBlocks() {
         </div>
       </div>
 
-      <div className="h-full border-l border border-grisText"></div>
+      <div className="h-full"></div>
 
       <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
         <div className="flex justify-between">
@@ -46,18 +45,17 @@ function ServicesBlocks() {
           ></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-gris2"
-            size="large"
+            className="text-grisSubText text-xl"
           ></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">$700.00</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">Immigration</span>
-            <span className="text-xs">Service</span>
+            <span className="text-xs text-grisSubText">Service</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -74,18 +72,17 @@ function ServicesBlocks() {
           ></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-gris2"
-            size="large"
+            className="text-grisSubText text-xl"
           ></IonIcon>
         </div>
         <div className="text-blue-500 font-bold text-xl">$450.00</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">Pay Roll</span>
-            <span className="text-xs">Service</span>
+            <span className="text-xs text-grisSubText">Service</span>
           </div>
           <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
+            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>

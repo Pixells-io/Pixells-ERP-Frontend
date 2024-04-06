@@ -14,7 +14,7 @@ import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
 
-//Lead :id
+//Lead
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
@@ -40,7 +40,9 @@ import MainOrganization, {
   Action as newArea,
 } from "./pages/Organization/User/MainOrganization";
 import MainAccess from "./pages/Organization/Access/MainAccess";
-import FormCreateUser from "./pages/Organization/User/FormCreateUser";
+import FormCreateUser, {
+  Action as newUser,
+} from "./pages/Organization/User/FormCreateUser";
 import FormCreatePosition, {
   Action as newPosition,
 } from "./pages/Organization/User/FormCreatePosition";
@@ -187,6 +189,7 @@ const router = createBrowserRouter([
             path: "/organization/create-user",
             element: <FormCreateUser />,
             loader: multiLoaderOrganization,
+            action: newUser,
           },
           {
             path: "/organization/create-position",

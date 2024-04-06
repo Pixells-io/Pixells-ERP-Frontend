@@ -9,13 +9,13 @@ function Boards() {
   const tabDefault = goals?.data[0]?.name;
 
   return (
-    <Tabs defaultValue={tabDefault} className="w-full bg-blancoBg">
-      <TabsList className="bg-blancoBg flex gap-2 w-fit rounded-none">
+    <Tabs defaultValue={tabDefault} className="w-full bg-blancoBg rounded-xl">
+      <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
         {goals?.data?.map((goal, i) => (
           <TabsTrigger
             key={i}
             value={goal.name}
-            className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+            className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones  data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
           >
             {goal.name}
           </TabsTrigger>

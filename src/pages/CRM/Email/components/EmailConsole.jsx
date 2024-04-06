@@ -28,12 +28,12 @@ function EmailConsole() {
       <Tabs defaultValue="inbox" className="w-full">
         <div className="grid grid-cols-12 w-full h-full">
           <TabsList className="col-span-2 flex flex-col gap-2 justify-normal bg-transparent h-full">
-            <div className="flex flex-col gap-2 border-r pr-2 h-full ">
+            <div className="flex flex-col gap-2 pr-2 h-full items-center">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
                   key={i}
                   value={tab.name}
-                  className="text-sm text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none data-[state=active]:text-primarioBotones"
+                  className="text-sm text-grisText py-1 data-[state=active]:bg-blancoBox data-[state=active]:sm-none data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
                 >
                   <div className="flex pl-3 gap-2 items-center w-24">
                     <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>
@@ -49,7 +49,7 @@ function EmailConsole() {
             value="inbox"
             className="col-span-10 overflow-scroll h-full"
           >
-            <EmailContent />
+            <EmailContent/>
           </TabsContent>
           <TabsContent value="sent" className="col-span-10">
             Sent here.

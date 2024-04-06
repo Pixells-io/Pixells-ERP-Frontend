@@ -3,8 +3,12 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
-import { Form, useLoaderData } from "react-router-dom";
+import FileRouter from "../../../layouts/Masters/FormComponents/file";
+import UserImage from "../../../layouts/Masters/FormComponents/userImage";
+import { Form, useLoaderData, redirect } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { saveNewUser } from "../utils";
 
 function FormCreateUser() {
 
@@ -13,16 +17,29 @@ function FormCreateUser() {
     const selectArea = [];
     const selectPosition = [];
 
-    arrayFill(areas, selectArea);
-    arrayFill(positions, selectPosition);
+    arrayFillAreas(areas, selectArea);
+    arrayFillPositions(positions, selectPosition);
 
-    function arrayFill(data, array) {
+    function arrayFillAreas(data, array) {
 
         let dataParse = data.data;
 
         dataParse.forEach(element => {
             array.push({
                 label: element.nombre,
+                value: element.id,
+                placeholder: "0"
+            });
+        });
+    }
+
+    function arrayFillPositions(data, array) {
+
+        let dataParse = data.data;
+
+        dataParse.forEach(element => {
+            array.push({
+                label: element.position_name,
                 value: element.id,
                 placeholder: "0"
             });
@@ -188,28 +205,35 @@ function FormCreateUser() {
                 <Form
                     id="user-form"
                     action="/organization/create-user"
-                    method="post">
+                    method="post"
+                    encType="multipart/form-data">
                     <div className="bg-white rounded-xl p-4">
+                        <div className="w-1/4">
+                            <UserImage
+                                name={"user_image"}
+                                label={"User Image"}
+                            />
+                        </div>
                         <div className="bg-blancoForms p-5 rounded-2xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Personal Information</span>
                             <div className="flex pt-4">
-                                <div className="w-4/6">
+                                <div className="w-4/6 pr-8">
                                     <div className="flex">
-                                        <div className="pr-4">
+                                        <div className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"name"}
                                                 placeholder={"Name"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"last_name"}
                                                 placeholder={"Last Name"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"second_last_name"}
                                                 placeholder={"Second Last Name"}
@@ -218,21 +242,21 @@ function FormCreateUser() {
                                         </div>
                                     </div>
                                     <div className="flex mt-2">
-                                        <div className="pr-4">
+                                        <div className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"date_of_birth"}
                                                 placeholder={"Date of Birth"}
                                                 type={"date"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"city_of_birth"}
                                                 placeholder={"City of Birth"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"state_of_birth"}
                                                 placeholder={"State of Birth"}
@@ -241,21 +265,21 @@ function FormCreateUser() {
                                         </div>
                                     </div>
                                     <div className="flex mt-2">
-                                        <div className="pr-4">
+                                        <div className="pr-4 w-1/3">
                                             <SelectRouter
                                                 name={"genre"}
                                                 placeholder={"Genre"}
                                                 options={genreSelect}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <SelectRouter
                                                 name={"civil_status"}
                                                 placeholder={"Civil Status"}
                                                 options={civilStatus}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/3">
                                             <InputRouter
                                                 name={"childrens"}
                                                 placeholder={"Children"}
@@ -264,14 +288,14 @@ function FormCreateUser() {
                                         </div>
                                     </div>
                                     <div className="flex mt-2">
-                                        <div className="pr-4">
+                                        <div className="pr-4  w-1/3">
                                             <InputRouter
                                                 name={"phone"}
                                                 placeholder={"Phone"}
                                                 type={"number"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4  w-1/3">
                                             <InputRouter
                                                 name={"personal_email"}
                                                 placeholder={"Personal Email"}
@@ -279,64 +303,75 @@ function FormCreateUser() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex  w-full">
-                                        <div className="flex w-52">
-                                            <InputRouter
-                                                name={"curp_file"}
-                                                placeholder={"Curp"}
-                                                type={"file"}
-                                            />
-                                            <InputRouter
-                                                name={"curp_text"}
-                                                placeholder={"Curp"}
-                                                type={"text"}
-                                            />
+                                    <div className="flex mt-2">
+                                        <div className="pr-4  w-1/3 flex">
+                                            <div className="w-1/2">
+                                                <FileRouter
+                                                    name={'curp_file'}
+                                                    label={'CURP'}
+                                                />
+                                            </div>
+                                            <div className="PR-4 w-1/2">                              
+                                                <InputRouter
+                                                    name={"curp_text"}
+                                                    placeholder={"Curp"}
+                                                    type={"text"}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="flex w-52 ml-4">
-                                            <InputRouter
-                                                name={"rfc_file"}
-                                                placeholder={"Rfc"}
-                                                type={"file"}
-                                            />
-                                            <InputRouter
-                                                name={"rfc_text"}
-                                                placeholder={"Rfc"}
-                                                type={"text"}
-                                            />
+                                        <div className="pl-4 pr-4  w-1/3 flex">
+                                            <div className="w-1/2">
+                                                <FileRouter
+                                                    name={'rfc_file'}
+                                                    label={'RFC'}
+                                                />
+                                            </div>
+                                            <div className="w-1/2">                              
+                                                <InputRouter
+                                                    name={"rfc_text"}
+                                                    placeholder={"Rfc"}
+                                                    type={"text"}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="flex w-52 ml-4">
-                                            <InputRouter
-                                                name={"nss_file"}
-                                                placeholder={"NSS"}
-                                                type={"file"}
-                                            />
-                                            <InputRouter
-                                                name={"nss_text"}
-                                                placeholder={"NSS"}
-                                                type={"text"}
-                                            />
+                                        <div className="pl-4 pr-4 w-1/3 flex">
+                                            <div className="w-1/2">
+                                                <FileRouter
+                                                    name={'nss_file'}
+                                                    label={'NSS'}
+                                                />
+                                            </div>
+                                            <div className="w-1/2">                              
+                                                <InputRouter
+                                                    name={"nss_text"}
+                                                    placeholder={"NSS"}
+                                                    type={"text"}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="w-2/6">
                                     <div>
-                                        <InputRouter
-                                            name={"birth_file"}
-                                            placeholder={"Birth Document"}
-                                            type={"file"}
+                                        <FileRouter
+                                            name={'birth_certificade'}
+                                            label={'Birth Certificate'}
                                         />
                                     </div>
-                                    <div className="flex w-60">
-                                        <InputRouter
-                                            name={"id_file"}
-                                            placeholder={"ID"}
-                                            type={"file"}
-                                        />
-                                        <InputRouter
-                                            name={"id_date"}
-                                            placeholder={"Id Date"}
-                                            type={"date"}
-                                        />
+                                    <div className="flex pt-4 pr-6">
+                                        <div className="w-1/2">
+                                            <FileRouter
+                                                name={'id_file'}
+                                                label={'ID'}
+                                            />
+                                        </div>
+                                        <div className="w-1/2">
+                                            <InputRouter
+                                                name={"id_date"}
+                                                placeholder={"Id Date"}
+                                                type={"date"}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -345,29 +380,29 @@ function FormCreateUser() {
                         <div className="bg-blancoForms p-4 mt-10 rounded-xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Health Information</span>
                             <div className="flex pt-4">
-                                <div className="flex">
-                                    <div className="pr-4">
+                                <div className="flex w-full pr-8">
+                                    <div className="pr-4 w-1/4">
                                         <SelectRouter
                                             name={"chronic_diseases"}
                                             placeholder={"Chronic Diseases"}
                                             options={selectBasics}
                                         />
                                     </div>
-                                    <div className="pr-4">
+                                    <div className="pr-4 w-1/4">
                                         <SelectRouter
                                             name={"alergic"}
                                             placeholder={"Alergic"}
                                             options={selectBasics}
                                         />
                                     </div>
-                                    <div className="pr-4">
+                                    <div className="pr-4 w-1/4">
                                         <InputRouter
                                             name={"specify_allergy"}
                                             placeholder={"Specify the Allergy"}
                                             type={"text"}
                                         />
                                     </div>
-                                    <div className="pr-4">
+                                    <div className="pr-4 w-1/4">
                                         <SelectRouter
                                             name={"blood"}
                                             placeholder={"Type of Blood"}
@@ -382,55 +417,60 @@ function FormCreateUser() {
                             <span className="text-roboto text-grisText text-sm font-medium">Address Information</span>
                             <div className="flex pt-4">
                                 <div className="">
-                                    <div className="flex">
-                                        <div className="w-52">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-1/4">
                                             <InputRouter
                                                 name={"street"}
                                                 placeholder={"Street"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div className="w-52 flex">
-                                            <InputRouter
-                                                name={"ext"}
-                                                placeholder={"Ext"}
-                                                type={"text"}
-                                            />
-                                            <InputRouter
-                                                name={"int"}
-                                                placeholder={"In"}
-                                                type={"text"}
-                                            />
+                                        <div className="pr-4 w-1/4 flex">
+                                            <div className="w-1/2">
+                                                <InputRouter
+                                                    name={"ext"}
+                                                    placeholder={"Ext"}
+                                                    type={"text"}
+                                                />
+                                            </div>
+                                            <div className="pl-4 w-1/2">
+                                                <InputRouter
+                                                    name={"int"}
+                                                    placeholder={"Int"}
+                                                    type={"text"}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className="w-52">
+                                        <div className="pr-4 w-1/4">
                                             <InputRouter
                                                 name={"cp"}
                                                 placeholder={"CP"}
                                                 type={"text"}
                                             />
-                                            <InputRouter
-                                                name={"address_voucher"}
-                                                placeholder={"Address Voucher"}
-                                                type={"file"}
+                                        </div>
+                                        <div className="pr-4 pl-4 w-1/4">
+                                            <FileRouter
+                                                name={'address_voucher'}
+                                                label={'Adress Voucher'}
                                             />
                                         </div>
                                     </div>
                                     <div className="flex mt-2">
-                                        <div className="pr-4">
+                                        <div className="pr-4 w-1/4">
                                             <InputRouter
                                                 name={"discrict"}
                                                 placeholder={"Discrict"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4  w-1/4">
                                             <InputRouter
                                                 name={"city"}
                                                 placeholder={"City"}
                                                 type={"text"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4  w-1/4">
                                             <InputRouter
                                                 name={"state"}
                                                 placeholder={"State"}
@@ -490,26 +530,25 @@ function FormCreateUser() {
                         <div className="bg-blancoForms p-4 mt-10 rounded-xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Academic Information</span>
                             <div className="flex pt-4">
-                                <div className="flex">
-                                    <div className="pr-4">
+                                <div className="flex w-full">
+                                    <div className="pr-4 w-1/3">
                                         <InputRouter
                                             name={"company_experience"}
                                             placeholder={"Company"}
                                             type={"text"}
                                         />
                                     </div>
-                                    <div className="pr-4">
+                                    <div className="pr-4 w-1/3">
                                         <InputRouter
                                             name={"position_experience"}
                                             placeholder={"Position"}
                                             type={"text"}
                                         />
                                     </div>
-                                    <div className="pr-4">
-                                        <InputRouter
-                                            name={"academic_voucher"}
-                                            placeholder={"Academic Voucher"}
-                                            type={"file"}
+                                    <div className="pr-4 pl-4 w-1/3">
+                                        <FileRouter
+                                            name={'academic_voucher'}
+                                            label={'Academic Voucher'}
                                         />
                                     </div>
                                 </div>
@@ -518,22 +557,22 @@ function FormCreateUser() {
                         {/*Working Information*/}
                         <div className="bg-blancoForms p-4 mt-10 rounded-xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Working Information</span>
-                            <div className="flex pt-4">
-                                <div className="pr-4">
+                            <div className="flex w-full pt-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"academic_grade"}
                                         placeholder={"Academic Grade"}
                                         options={academyGrade}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"specify_academic"}
                                         placeholder={"Specify the Academic Grade"}
                                         type={"text"}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"years_experience"}
                                         placeholder={"Years of Experience"}
@@ -542,44 +581,44 @@ function FormCreateUser() {
                                 </div>
                             </div>
                             <div className="flex pt-4">
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"working_center"}
                                         placeholder={"Working Center"}
                                         type={"text"}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"income_date"}
                                         placeholder={"Income Date"}
                                         type={"date"}
                                     />
                                 </div>
-                                <div className="pr-4">
-                                    <InputRouter
-                                        name={"cv"}
-                                        placeholder={"cv"}
-                                        type={"file"}
+                                <div className="pr-4 pl-4 w-1/3">
+                                    <FileRouter
+                                        name={'cv'}
+                                        label={'CV'}
                                     />
+                                    
                                 </div>
                             </div>
                             <div className="flex pt-4">
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"area"}
                                         placeholder={"Area"}
                                         options={selectArea}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"boss"}
                                         placeholder={"Boss"}
                                         options={selectArea}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"position"}
                                         placeholder={"Position"}
@@ -588,14 +627,14 @@ function FormCreateUser() {
                                 </div>
                             </div>
                             <div className="flex pt-4">
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"monthly_pay"}
                                         placeholder={"Monthly Pay"}
                                         type={"number"}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
                                         name={"income_date"}
                                         placeholder={"Income Date"}
@@ -604,44 +643,46 @@ function FormCreateUser() {
                                 </div>
                             </div>
                             <div className="flex pt-4">
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"contract"}
                                         placeholder={"Type of Contract"}
                                         options={contracts}
                                     />
                                 </div>
-                                <div className="pr-4">
-                                    <InputRouter
-                                        name={"start_contract"}
-                                        placeholder={"Start Contract"}
-                                        type={"date"}
-                                    />
-                                </div>
-                                <div className="pr-4">
-                                    <InputRouter
-                                        name={"end_contract"}
-                                        placeholder={"End Contract"}
-                                        type={"date"}
-                                    />
+                                <div className="pr-4 w-1/3 flex">
+                                    <div className="w-1/2">
+                                        <InputRouter
+                                            name={"start_contract"}
+                                            placeholder={"Start Contract"}
+                                            type={"date"}
+                                        />
+                                    </div>
+                                    <div className="w-1/2 pl-4">
+                                        <InputRouter
+                                            name={"end_contract"}
+                                            placeholder={"End Contract"}
+                                            type={"date"}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex pt-4">
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"bank"}
                                         placeholder={"Bank"}
                                         options={banks}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <InputRouter
-                                        name={"Bank Account"}
-                                        placeholder={"bank_account"}
+                                        name={"bank_account"}
+                                        placeholder={"bank Account"}
                                         type={"text"}
                                     />
                                 </div>
-                                <div className="pr-4">
+                                <div className="pr-4 w-1/3">
                                     <SelectRouter
                                         name={"regulation"}
                                         placeholder={"Regulation"}
@@ -654,16 +695,16 @@ function FormCreateUser() {
                         <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
                             <span className="text-roboto text-grisText text-sm font-medium">Password</span>
                             <div className="flex pt-4">
-                                <div className="w-4/6">
-                                    <div className="flex">
-                                        <div className="pr-4">
+                                <div className="w-full">
+                                    <div className="flex w-full">
+                                        <div className="pr-4 w-1/4">
                                             <InputRouter
                                                 name={"password"}
                                                 placeholder={"********"}
                                                 type={"password"}
                                             />
                                         </div>
-                                        <div  className="pr-4">
+                                        <div  className="pr-4 w-1/4">
                                             <InputRouter
                                                 name={"confirm_password"}
                                                 placeholder={"********"}
@@ -675,9 +716,25 @@ function FormCreateUser() {
                             </div>
                         </div>
                     </div>
+                    {/*Submit Button*/}
+                    <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
+                        <div className="flex pt-4">
+                            <Button form="user-form">
+                                Save User
+                            </Button>
+                        </div>
+                    </div>
                 </Form>
             </div>
         </div>
     );
 }
 export default FormCreateUser;
+
+export async function Action({request}) {
+    const data = await request.formData();
+
+    const validation = await saveNewUser(data)
+
+    //return redirect("/organization");
+}

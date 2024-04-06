@@ -5,7 +5,7 @@ function InputRouter({ type, name, placeholder }) {
   return (
     <Input
       type={type}
-      className="bg-transparent w-full text-xs font-roboto text-grisSubText !ring-0 !ring-offset-0 font-light border-0 border-b rounded-none m-4 border-gris2"
+      className="bg-transparent w-full text-xs font-roboto text-grisSubText !ring-0 !ring-offset-0 font-light border-0 border-b rounded-none m-4 border-gris2 focus:border-primarioBotones"
       name={name}
       placeholder={placeholder}
     />

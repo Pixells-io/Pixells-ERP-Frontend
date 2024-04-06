@@ -11,7 +11,7 @@ import {
 function FormSelect() {
   return (
     <Select name="type">
-      <SelectTrigger className="border-0 border-b-2 focus:border-blue-500 rounded-lg bg-[#F6F6F6] !ring-0 !ring-offset-0 p-4 text-gris2">
+      <SelectTrigger className="border-0 border-b-2 rounded-none focus:border-blue-500 bg-[#F6F6F6] !ring-0 !ring-offset-0 p-4 text-gris2">
         <SelectValue placeholder="Type" />
       </SelectTrigger>
       <SelectContent>

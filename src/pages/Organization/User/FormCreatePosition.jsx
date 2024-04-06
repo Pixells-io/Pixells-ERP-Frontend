@@ -445,5 +445,5 @@ export async function Action({request}) {
 
     const validation = await saveNewPosition(data)
 
-    //return redirect("/organization");
+    return redirect("/organization");
 }

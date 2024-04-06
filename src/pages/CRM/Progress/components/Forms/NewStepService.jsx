@@ -46,8 +46,7 @@ function NewStepService({ serviceId, submitting }) {
         <DialogHeader>
           <DialogTitle>Create Step</DialogTitle>
           <DialogDescription>
-            Create a Step by giving it a name, description and type... PONER EL
-            NOMNBRE DEL SERVICIO
+            Create a Step by giving it a name, description and type... PONER NOMBRE DEL SERVICIO AQUI
           </DialogDescription>
         </DialogHeader>
         <Form
@@ -65,7 +64,7 @@ function NewStepService({ serviceId, submitting }) {
               placeholder="Step description"
             />
             <Select name="category">
-              <SelectTrigger className="border-0 border-b-2 focus:border-blue-500 rounded-lg bg-[#F6F6F6] !ring-0 !ring-offset-0 p-4 text-gris2">
+              <SelectTrigger className="border-0 border-b border-grisSubText focus:border-blue-500   bg-[#F6F6F6] !ring-0 !ring-offset-0 p-4 text-gris2">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -83,8 +82,8 @@ function NewStepService({ serviceId, submitting }) {
           </div>
         </Form>
         <DialogFooter>
-          <Button form="service-step-form" disabled={submitting}>
-            {submitting ? "Submitting..." : "Create Service"}
+          <Button form="service-step-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones" disabled={submitting}>
+            {submitting ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

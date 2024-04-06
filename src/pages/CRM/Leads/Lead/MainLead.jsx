@@ -22,14 +22,15 @@ function MainLead() {
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
-          <div className="flex gap-2 text-gris2">
-            <IonIcon icon={chevronBackCircle} className="w-12 h-12"></IonIcon>
-            <IonIcon
-              icon={chevronForwardCircle}
-              className="w-12 h-12"
-            ></IonIcon>
-          </div>
-          <div>crm</div>
+            <div className="flex gap-2  text-gris2">
+                <div className="w-12 h-12">
+                    <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+                </div>
+                <div className="w-12 h-12">
+                    <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+                </div>
+            </div>
+            <div className="font-roboto text-sm text-grisText">crm</div>
         </div>
 
         {/* top content */}

@@ -17,13 +17,15 @@ function MainLeads() {
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
-          <div className="w-12 h-12">
-              <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-          </div>
-          <div className="w-12 h-12">
-              <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-          </div>
-          <div>crm</div>
+            <div className="flex gap-2  text-gris2">
+                <div className="w-12 h-12">
+                    <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+                </div>
+                <div className="w-12 h-12">
+                    <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
+                </div>
+            </div>
+            <div className="font-roboto text-sm text-grisText">crm</div>
         </div>
 
         {/* top content */}
@@ -40,7 +42,7 @@ function MainLeads() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <div
             className={`flex items-center space-evenly gap-4 bg-grisHeading rounded-full px-2 py-1 w-fit`}
           >
@@ -64,13 +66,13 @@ function MainLeads() {
             </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 ml-72">
             <NavLink
               to="/crm/leads"
               className={({ isActive }) =>
                 isActive && location.pathname === "/crm/leads"
-                  ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
+                  ? `h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4 flex items-center`
+                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[11px] font-medium rounded-xl px-4 flex items-center`
               }
             >
               Dashboard
@@ -79,21 +81,11 @@ function MainLeads() {
               to="/crm/leads/timeline"
               className={({ isActive }) =>
                 isActive
-                  ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
+                  ? `h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4 flex items-center`
+                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[11px] font-medium rounded-xl px-4 flex items-center`
               }
             >
               Timeline
-            </NavLink>
-            <NavLink
-              to="/crm/leads/projects"
-              className={({ isActive }) =>
-                isActive
-                  ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
-              }
-            >
-              Projects
             </NavLink>
           </div>
         </div>

@@ -24,7 +24,7 @@ function AgreementsConsole() {
                 <TabsTrigger
                   key={i}
                   value={tab.name}
-                  className="text-sm text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none data-[state=active]:text-primarioBotones"
+                  className="text-sm py-1 text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none  data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
                 >
                   <div className="flex pl-3 gap-2 items-center w-32">
                     <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>

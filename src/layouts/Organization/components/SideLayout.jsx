@@ -20,7 +20,7 @@ function SideLayoutOrganization() {
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 w-[300px]">
+        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 w-[280px]">
           <TopMenuOrganization />
         </div>
 

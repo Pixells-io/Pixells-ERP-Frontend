@@ -12,12 +12,12 @@ const areaInputs = [
     {
         name: "nombre",
         type: "text",
-        placeholder: "Name of the Area",
+        placeholder: "Name of the area",
     },
     {
         name: "descripcion",
         type: "text",
-        placeholder: "Description of the Area",
+        placeholder: "Description of the area",
     },
     {
         name: "procesos_del_area",
@@ -48,19 +48,16 @@ function MainOrganization() {
     return (
         <div className="flex w-full">
             <Dialog open={modal} onOpenChange={setModal}>
-                <DialogContent className="sm:max-w-[425px] overflow-auto h-[650px]">
+                <DialogContent className="sm:max-w-[425px] overflow-auto">
                     <DialogHeader>
-                        <DialogTitle className="font-poppins">Hola</DialogTitle>
+                        <DialogTitle className="font-poppins">Create Area</DialogTitle>
                     </DialogHeader>
                     <Form
                     id="area-form"
-                    className="flex flex-col gap-4"
+                    className="flex flex-col gap-0 h-auto"
                     action="/organization"
                     method="post">
                         <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-                            <div className="text-[#696974] text-lg font-normal">
-                                Business Information
-                            </div>
                             <div className="flex flex-col font-light gap-4 pb-4">
                                 {areaInputs?.map((input, i) => (
                                     <FormInput
@@ -73,14 +70,14 @@ function MainOrganization() {
                             </div>
                         </div>
                     </Form>
-                    <DialogFooter>
-                        <Button form="area-form">
-                            Save Area
+                    <DialogFooter className="h-auto">
+                        <Button form="area-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">
+                            Save
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
-            <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">
+            <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
                 {/* navigation inside */}
                 <div className="flex gap-4 items-center">
                     <div className="flex gap-2  text-gris2">
@@ -91,19 +88,19 @@ function MainOrganization() {
                             <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
                         </div>
                     </div>
-                    <div className="font-roboto text-grisText">organization</div>
+                    <div className="font-roboto text-sm text-grisText">organization</div>
                 </div>
                 {/* top content */}
                 <div className="flex items-center gap-4">
                     <div>
-                        <h2 className="font-poppins font-bold text-2xl text-[#44444F]">
+                        <h2 className="font-poppins font-bold text-xl text-[#44444F]">
                             USER MANAGEMENT
                         </h2>
                     </div>
                     <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
-                        <div>4 service</div>
+                        <div className="text-xs">4 service</div>
                         <div className="text-2xl">&bull;</div>
-                        <div>9 costumers</div>
+                        <div className="text-xs">9 costumers</div>
                     </div>
                 </div>
                 {/*button create reg*/}
@@ -134,8 +131,8 @@ function MainOrganization() {
                     <div className="flex">
                         <div>
                             <span className="text-sm font-medium font-roboto text-blue-500 border-b-2 border-blue-500 p-3">USERS</span>
-                            <span className="text-sm font-medium font-roboto text-grisSubText border-b-2 border-slate-300 p-3">POSITIONS</span>
-                            <span className="text-sm font-medium font-roboto text-grisSubText border-b-2 border-slate-300 p-3">AREAS</span>
+                            <span className="text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3">POSITIONS</span>
+                            <span className="text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3">AREAS</span>
                         </div>
                         <div>
                             
