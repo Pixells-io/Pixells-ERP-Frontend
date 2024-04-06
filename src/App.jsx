@@ -18,6 +18,9 @@ import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
+//Client :id
+import MainClient from "./pages/CRM/Clients/MainClient";
+
 // CRM Services
 import MainServices from "./pages/CRM/Services/MainServices";
 import MainService from "./pages/CRM/Services/MainService";
@@ -145,6 +148,11 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements",
             element: <MainAgreements />,
+          },
+          //crm client :id
+          {
+            path: "/crm/client/:id",
+            element: <MainClient />,
           },
         ],
       },

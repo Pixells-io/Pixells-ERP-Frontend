@@ -1,16 +1,16 @@
 import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { globe } from "ionicons/icons";
+import { globeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 const TABS = [
-  { id: 1, name: "immigration", icon: globe },
-  { id: 2, name: "bookeeping", icon: globe },
-  { id: 3, name: "Tax Prep.", icon: globe },
-  { id: 4, name: "adutis", icon: globe },
-  { id: 5, name: "Pay Roll", icon: globe },
-  { id: 6, name: "Plan Infor.", icon: globe },
+  { id: 1, name: "immigration", icon: globeOutline },
+  { id: 2, name: "bookeeping", icon: globeOutline },
+  { id: 3, name: "Tax Prep.", icon: globeOutline },
+  { id: 4, name: "adutis", icon: globeOutline },
+  { id: 5, name: "Pay Roll", icon: globeOutline },
+  { id: 6, name: "Plan Infor.", icon: globeOutline },
 ];
 
 function AgreementsConsole() {
