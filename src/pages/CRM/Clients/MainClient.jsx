@@ -8,8 +8,9 @@ function MainClient() {
       <div className="flex w-full overflow-auto">
         <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden"></div>
       </div>
+
       {/* right sidebar */}
-      <div className="flex flex-col bg-gris items-center py-4 ml-4 rounded-lg space-y-4 w-[310px] overflow-hidden shrink-0">
+      <div className="flex flex-col bg-gris items-center py-4 ml-4 rounded-lg space-y-4 w-[310px] overflow-scroll shrink-0">
         <div className="flex flex-col gap-5 rounded-lg bg-blancoBox2 w-72 p-4">
           <div className="flex ">
             <div>

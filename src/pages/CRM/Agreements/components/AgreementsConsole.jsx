@@ -8,7 +8,7 @@ const TABS = [
   { id: 1, name: "immigration", icon: globeOutline },
   { id: 2, name: "bookeeping", icon: globeOutline },
   { id: 3, name: "Tax Prep.", icon: globeOutline },
-  { id: 4, name: "adutis", icon: globeOutline },
+  { id: 4, name: "audits", icon: globeOutline },
   { id: 5, name: "Pay Roll", icon: globeOutline },
   { id: 6, name: "Plan Infor.", icon: globeOutline },
 ];
