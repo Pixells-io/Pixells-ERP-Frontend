@@ -202,11 +202,10 @@ function FormCreateUser() {
                     </h2>
                 </div>
                 {/*USER BOX CREATE*/}
-                <Form
-                    id="user-form"
-                    action="/organization/create-user"
+                <form
+                    action="https://demoback.pixells.io/api/organization/store-user"
                     method="post"
-                    encType="multipart/form-data">
+                    enctype="multipart/form-data">
                     <div className="bg-white rounded-xl p-4">
                         <div className="w-1/4">
                             <UserImage
@@ -719,12 +718,12 @@ function FormCreateUser() {
                     {/*Submit Button*/}
                     <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
                         <div className="flex pt-4">
-                            <Button form="user-form">
-                                Save User
-                            </Button>
+                            <button type="submit">
+                                Save
+                            </button>
                         </div>
                     </div>
-                </Form>
+                </form>
             </div>
         </div>
     );
