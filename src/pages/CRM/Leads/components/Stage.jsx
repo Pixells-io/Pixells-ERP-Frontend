@@ -1,10 +1,11 @@
 import React from "react";
+
 import Lead from "./Lead";
 
-function Stage({ name, stageId, leads, setModal }) {
+function Stage({ name, stageId, leads, setModal, setLeadId }) {
   return (
     <div className="flex flex-col gap-2 w-[200px] h-full">
-      <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-[#00A259] rounded-lg gap-2 h-16">
+      <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-primarioBotones rounded-lg gap-2 h-16 pb-3 pt-1">
         <div>
           <p className="text-base text-grisText">{name}</p>
         </div>
@@ -22,9 +23,11 @@ function Stage({ name, stageId, leads, setModal }) {
           onDrop={(event) => {
             event.preventDefault();
             event.stopPropagation();
+            const data = event.dataTransfer.getData("text");
+            setLeadId(data);
             // console.log(event);
+            // console.log(data);
             // console.log("ondrop");
-            // console.log(event.target);
             // console.log(event.currentTarget);
 
             switch (stageId) {

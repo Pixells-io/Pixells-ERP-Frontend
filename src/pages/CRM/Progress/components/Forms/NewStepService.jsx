@@ -1,6 +1,5 @@
-import React from "react";
-
-import { Form } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,8 +34,17 @@ const CATEGORIES = [
 ];
 
 function NewStepService({ serviceId, submitting }) {
+  const navigation = useNavigation();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setOpen(false);
+    }
+  }, [navigation.state]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
           <Plus size={32} className="text-blue-500" />
@@ -46,7 +54,8 @@ function NewStepService({ serviceId, submitting }) {
         <DialogHeader>
           <DialogTitle>Create Step</DialogTitle>
           <DialogDescription>
-            Create a Step by giving it a name, description and type... PONER NOMBRE DEL SERVICIO AQUI
+            Create a Step by giving it a name, description and type... PONER
+            NOMBRE DEL SERVICIO AQUI
           </DialogDescription>
         </DialogHeader>
         <Form
@@ -82,7 +91,11 @@ function NewStepService({ serviceId, submitting }) {
           </div>
         </Form>
         <DialogFooter>
-          <Button form="service-step-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones" disabled={submitting}>
+          <Button
+            form="service-step-form"
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            disabled={submitting}
+          >
             {submitting ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>

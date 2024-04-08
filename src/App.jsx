@@ -9,7 +9,9 @@ import MainCRM from "@/pages/CRM/MainCRM";
 import DataTable from "./pages/CRM/components/Table/DataTable";
 
 //Leads
-import MainLeads from "./pages/CRM/Leads/MainLeads";
+import MainLeads, {
+  multiFormAction as ActionsLeads,
+} from "./pages/CRM/Leads/MainLeads";
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
@@ -104,6 +106,7 @@ const router = createBrowserRouter([
             //crm leads
             path: "/crm/leads",
             element: <MainLeads />,
+            action: ActionsLeads,
             children: [
               {
                 index: true,

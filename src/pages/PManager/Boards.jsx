@@ -15,7 +15,7 @@ function Boards() {
           <TabsTrigger
             key={i}
             value={goal.name}
-            className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones  data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+            className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
           >
             {goal.name}
           </TabsTrigger>

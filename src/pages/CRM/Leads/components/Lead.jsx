@@ -6,26 +6,19 @@ import { chatbubbleEllipses } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
 function Lead({ lead, index, stageId, setModal }) {
-  console.log(lead.id);
+  // console.log(lead.id);
   return (
-    <li className="cursor-grab active:cursor-grabbing">
-      <Link to={`/crm/leads/${lead.id}`}>
-        <div
-          className="bg-white p-2 rounded-lg"
-          draggable
-          onDragStart={() => {}}
-          // onDragOver={(event) => {
-          //     event.preventDefault();
-          //     event.stopPropagation();
-          //     console.log(event);
-          // }}
-          // onDragLeave={(event) => {
-          //     event.stopPropagation();
-          //     console.log(event);
-          //     console.log("ondragleave");
-          // }}
-        >
-          <div className="flex flex-col gap-1">
+    <li
+      className="cursor-grab active:cursor-grabbing"
+      id={lead.id}
+      draggable
+      onDragStart={(event) => {
+        event.dataTransfer.setData("text", event.target.id);
+      }}
+    >
+      <Link to={`/crm/leads/${lead.id}`} id={lead.id}>
+        <div className="bg-white p-2 rounded-lg">
+          <div className="flex flex-col gap-2">
             <p className="text-[13px] text-grisText border-b-[1px] border-[#D7D7D7]">
               {lead.business_name}
             </p>
@@ -35,10 +28,7 @@ function Lead({ lead, index, stageId, setModal }) {
             </div>
 
             <div className="text-[10px] text-grisHeading line-clamp-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam aut
-              commodi, tenetur esse eos reiciendis quod sequi ipsam quasi saepe
-              iure animi sit illum voluptas amet quae perferendis, dolorum
-              nesciunt.
+              New Lead
             </div>
 
             <div className="flex w-full justify-between items-center">
@@ -72,3 +62,14 @@ function Lead({ lead, index, stageId, setModal }) {
 }
 
 export default Lead;
+
+// onDragOver={(event) => {
+//     event.preventDefault();
+//     event.stopPropagation();
+//     console.log(event);
+// }}
+// onDragLeave={(event) => {
+//     event.stopPropagation();
+//     console.log(event);
+//     console.log("ondragleave");
+// }}
