@@ -66,14 +66,14 @@ const categoryInputs = [
   },
 ];
 
-function FormNewLead({ services }) {
+function FormNewLead({ services, navigation }) {
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     if (navigation.state === "idle") {
       setOpen(false);
     }
   }, [navigation.state]);
-
-  const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -150,10 +150,12 @@ function FormNewLead({ services }) {
           </div>
         </Form>
         <DialogFooter>
-          <Button form="lead-form" disabled={navigation.state === "submitting"} className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">
-            {navigation.state === "submitting"
-              ? "Submitting..."
-              : "Save"}
+          <Button
+            form="lead-form"
+            disabled={navigation.state === "submitting"}
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>
