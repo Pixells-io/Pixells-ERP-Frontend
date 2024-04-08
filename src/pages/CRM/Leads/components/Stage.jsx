@@ -25,20 +25,28 @@ function Stage({ name, stageId, leads, setModal, setLeadId }) {
             event.stopPropagation();
             const data = event.dataTransfer.getData("text");
             setLeadId(data);
-            // console.log(event);
-            // console.log(data);
-            // console.log("ondrop");
-            // console.log(event.currentTarget);
 
             switch (stageId) {
               case 1:
                 setModal((prev) => ({ ...prev, prospect: true }));
                 break;
               case 2:
-                setModal((prev) => ({ ...prev, followup: true }));
+                setModal((prev) => ({ ...prev, potential: true }));
                 break;
               case 3:
+                setModal((prev) => ({ ...prev, followup: true }));
+                break;
+              case 4:
                 setModal((prev) => ({ ...prev, proposal: true }));
+                break;
+              case 5:
+                setModal((prev) => ({ ...prev, closing: true }));
+                break;
+              case 6:
+                setModal((prev) => ({ ...prev, pay: true }));
+                break;
+              case 7:
+                setModal((prev) => ({ ...prev, kickoff: true }));
                 break;
               default:
                 break;
@@ -47,11 +55,16 @@ function Stage({ name, stageId, leads, setModal, setLeadId }) {
           onDragOver={(event) => {
             event.preventDefault();
             event.stopPropagation();
-            // console.log("drag over");
+            console.log("drag over");
           }}
         >
           {leads?.map((lead, i) => (
-            <Lead key={lead.id} lead={lead} setModal={setModal} />
+            <Lead
+              key={lead.id}
+              lead={lead}
+              setModal={setModal}
+              stageName={name}
+            />
           ))}
         </ul>
       </div>
@@ -60,3 +73,8 @@ function Stage({ name, stageId, leads, setModal, setLeadId }) {
 }
 
 export default Stage;
+
+// console.log(event);
+// console.log(data);
+// console.log("ondrop");
+// console.log(event.currentTarget);

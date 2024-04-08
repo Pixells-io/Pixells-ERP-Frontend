@@ -9,7 +9,14 @@ import {
   ellipsisVertical,
   globeOutline,
 } from "ionicons/icons";
-import { prospectLeadForm } from "./utils";
+import {
+  closingLeadForm,
+  followupLeadForm,
+  payLeadForm,
+  potencialLeadForm,
+  proposalLeadForm,
+  prospectLeadForm,
+} from "./utils";
 
 function MainLeads() {
   const location = useLocation();
@@ -115,11 +122,25 @@ export async function multiFormAction({ request }) {
     case "prospect":
       return await prospectLeadForm(data);
 
-    case "csf":
-      return console.log("hola 2");
+    case "potencial":
+      return await potencialLeadForm(data);
+
+    case "followup":
+      return await followupLeadForm(data);
+
+    case "proposal":
+      return await proposalLeadForm(data);
+
+    case "closing":
+      return await closingLeadForm(data);
+
+    case "pay":
+      return await payLeadForm(data);
+
+    case "onboarding":
+      return await payLeadForm(data);
 
     default:
-      return console.log("hola default");
       break;
   }
 }

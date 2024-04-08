@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,12 +8,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import FormInput from "./Inputs/FormInput";
 
-function ProposalForm({ modal, setModal }) {
+function ProposalForm({ modal, setModal, leadId }) {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal({ prospect: false });
+    }
+  }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="sm:max-w-[425px]">
@@ -23,34 +29,65 @@ function ProposalForm({ modal, setModal }) {
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              Email
-            </Label>
-            <Input id="email" type="email" className="col-span-3" />
+        <Form
+          id="proposal-leads-form"
+          className="flex flex-col gap-2"
+          action="/crm/leads"
+          method="post"
+        >
+          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
+            <div className="flex flex-col font-light gap-4 pb-4">
+              <div>
+                <FormInput
+                  name="confirm_email"
+                  type="email"
+                  placeholder="Confirm Email"
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="subject"
+                  type="date"
+                  placeholder="Day of Contact"
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="comments"
+                  type="text"
+                  placeholder="Type your message here."
+                />
+              </div>
+              <div>
+                <FormInput name="document" type="file" />
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="lead_id"
+                value={leadId}
+                hidden
+                readOnly
+              />
+              <input
+                type="text"
+                name="action"
+                value="proposal"
+                readOnly
+                hidden
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="subject" className="text-right">
-              Subject
-            </Label>
-            <Input id="subject" type="date" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="comment" className="text-right">
-              Comment
-            </Label>
-            <Input id="comment" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="file" className="text-right">
-              File
-            </Label>
-            <Input id="file" type="file" className="col-span-3" />
-          </div>
-        </div>
+        </Form>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button
+            form="proposal-leads-form"
+            disabled={navigation.state === "submitting"}
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+          </Button>{" "}
         </DialogFooter>
       </DialogContent>
     </Dialog>

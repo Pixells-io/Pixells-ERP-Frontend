@@ -5,7 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
-function Lead({ lead, index, stageId, setModal }) {
+function Lead({ lead, index, stageId, setModal, stageName }) {
   // console.log(lead.id);
   return (
     <li
@@ -28,7 +28,7 @@ function Lead({ lead, index, stageId, setModal }) {
             </div>
 
             <div className="text-[10px] text-grisHeading line-clamp-5">
-              New Lead
+              {stageName}
             </div>
 
             <div className="flex w-full justify-between items-center">

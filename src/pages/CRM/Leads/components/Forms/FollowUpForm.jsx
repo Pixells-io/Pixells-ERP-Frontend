@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,18 +9,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import FormInput from "./Inputs/FormInput";
+import FormSelect from "./Inputs/FormSelect";
 
-function FollowUpForm({ modal, setModal }) {
+function FollowUpForm({ modal, setModal, leadId }) {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal({ prospect: false });
+    }
+  }, [navigation.state]);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="sm:max-w-[425px]">
@@ -30,49 +29,65 @@ function FollowUpForm({ modal, setModal }) {
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-4 py-4">
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="type" className="">
-              Type of Contact
-            </Label>
-            <Select id="type" name="type">
-              <SelectTrigger className="border-0 border-b-2 focus:border-blue-500 rounded-lg bg-[#F6F6F6] !ring-0 !ring-offset-0 p-4 text-gris2">
-                <SelectValue placeholder="Type of Cantact" className="w-full" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">Call</SelectItem>
-                <SelectItem value="2">Face to Face</SelectItem>
-                <SelectItem value="3">Email</SelectItem>
-                <SelectItem value="4">WhatsApp</SelectItem>
-                <SelectItem value="5">Instagram</SelectItem>
-                <SelectItem value="6">Facebook</SelectItem>
-              </SelectContent>
-            </Select>
+        <Form
+          id="followup-leads-form"
+          className="flex flex-col gap-2"
+          action="/crm/leads"
+          method="post"
+        >
+          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
+            <div className="flex flex-col font-light gap-4 pb-4">
+              <div>
+                <FormSelect />
+              </div>
+              <div>
+                <FormInput
+                  name="date_of_contact"
+                  type="date"
+                  placeholder="Day of Contact"
+                />
+              </div>
+              <div>
+                <FormInput
+                  name="comments"
+                  type="text"
+                  placeholder="Type your message here."
+                />
+              </div>
+              <div>
+                <FormInput name="document" type="file" />
+              </div>
+              <div>
+                <FormInput name="next_step" type="number" />
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="lead_id"
+                value={leadId}
+                hidden
+                readOnly
+              />
+              <input
+                type="text"
+                name="action"
+                value="followup"
+                readOnly
+                hidden
+              />
+            </div>
           </div>
+        </Form>
 
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="date" className="">
-              Day of Contact
-            </Label>
-            <Input id="date" type="date" className="" />
-          </div>
-
-          <div className="flex flex-col gap-4 w-full">
-            <Label htmlFor="message" className="">
-              Comment
-            </Label>
-            <Textarea placeholder="Type your message here." id="message" />
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="file" className="">
-              File
-            </Label>
-            <Input id="file" type="file" className="" />
-          </div>
-        </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button
+            form="followup-leads-form"
+            disabled={navigation.state === "submitting"}
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+          </Button>{" "}
         </DialogFooter>
       </DialogContent>
     </Dialog>

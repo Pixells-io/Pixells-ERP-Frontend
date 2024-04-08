@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,55 +8,62 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-function PotentialForm({ modal, setModal }) {
+import FormInput from "./Inputs/FormInput";
+
+function PotentialForm({ modal, setModal, leadId }) {
+  const navigation = useNavigation();
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Potential Grade Form</DialogTitle>
+          <DialogTitle>Potencial Grade Form</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="one" className="text-right">
-              Field One
-            </Label>
-            <Input id="one" className="col-span-3" />
+        <Form
+          id="potencial-leads-form"
+          className="flex flex-col gap-2"
+          action="/crm/leads"
+          method="post"
+        >
+          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
+            <div className="flex flex-col font-light gap-4 pb-4">
+              <div>
+                <FormInput name="payment_recurrency" />
+              </div>
+              <div>
+                <FormInput name="total_ammount" />
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="lead_id"
+                value={leadId}
+                hidden
+                readOnly
+              />
+              <input
+                type="text"
+                name="action"
+                value="potencial"
+                readOnly
+                hidden
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="two" className="text-right">
-              Field Two
-            </Label>
-            <Input id="two" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="three" className="text-right">
-              Field Three
-            </Label>
-            <Input id="three" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="four" className="text-right">
-              Field Four
-            </Label>
-            <Input id="four" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="five" className="text-right">
-              Field Five
-            </Label>
-            <Input id="five" className="col-span-3" />
-          </div>
-        </div>
+        </Form>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button
+            form="potencial-leads-form"
+            disabled={navigation.state === "submitting"}
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

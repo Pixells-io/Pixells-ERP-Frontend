@@ -16,17 +16,17 @@ import KickOffForm from "./Forms/KickOffForm";
 
 function Stages() {
   const { data } = useLoaderData();
-  // console.log(data);
   const [initialData, setInitialData] = useState(data);
   const [stages, setStages] = useState(initialData);
   const [leadId, setLeadId] = useState("");
   const [modal, setModal] = useState({
     prospect: false,
+    potential: false,
     followup: false,
     proposal: false,
-    // closing: false,
-    // pay: false,
-    // kickoff: false,
+    closing: false,
+    pay: false,
+    kickoff: false,
   });
 
   useEffect(() => {
@@ -49,12 +49,29 @@ function Stages() {
         setModal={setModal}
         leadId={leadId}
       />
-      <FollowUpForm modal={modal.followup} setModal={setModal} />
-      <ProposalForm modal={modal.proposal} setModal={setModal} />
-      {/* <ClosingForm modal={modal.closing} setModal={setModal} /> */}
-      {/* <PayForm modal={modal.pay} setModal={setModal} /> */}
-      {/* <KickOffForm modal={modal.kickoff} setModal={setModal} /> */}
-      {/* <PotentialForm modal={modal} setModal={setModal} /> */}
+      <PotentialForm
+        modal={modal.potential}
+        setModal={setModal}
+        leadId={leadId}
+      />
+      <FollowUpForm
+        modal={modal.followup}
+        setModal={setModal}
+        leadId={leadId}
+      />
+      <ProposalForm
+        modal={modal.proposal}
+        setModal={setModal}
+        leadId={leadId}
+      />
+      <ClosingForm modal={modal.closing} setModal={setModal} leadId={leadId} />
+      <PayForm modal={modal.pay} setModal={setModal} leadId={leadId} />
+      <KickOffForm
+        modal={modal.kickoff}
+        setModal={setModal}
+        leadId={leadId}
+        leads={data[6].leads}
+      />
 
       {/* Stages */}
       <div className="flex gap-2">
