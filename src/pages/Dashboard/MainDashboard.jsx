@@ -12,6 +12,7 @@ import Activities from "./Components/Activities";
 import { Calendar } from "@/components/ui/calendar"
 import TimeManagement from "./Components/TimeManagement";
 import GeneralMetrics from "./Components/Metrics";
+import CustomersGrowth from "./Components/CustomersGrowth";
 
 function MainDashboard() {
 
@@ -114,7 +115,7 @@ function MainDashboard() {
                     </div>
                     <div className="p-4">
                         <span className="font-poppins text-xl font-semibold text-grisHeading" >CUSTOMERS GROWTH</span>
-                        {/* La imagen va aqui :) */}
+                        <CustomersGrowth/>
                     </div>
                 </div>
             </div>
