@@ -419,17 +419,14 @@ function FormCreatePosition() {
                                                 placeholder={"Knowledge"}
                                             />
                                         </div>
+                                        <div className="w-2/3 text-end">
+                                            <br/>
+                                            <Button form="position-form" className="font-roboto font-semibold text-sm p-4 text-white justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">
+                                                Save Position
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/*Description of the position*/}
-                        <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-                            <div className="flex pt-4">
-                                <Button form="position-form">
-                                    Save Position
-                                </Button>
                             </div>
                         </div>
                     </Form>

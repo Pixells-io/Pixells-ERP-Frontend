@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
+import { addCircleOutline, chevronBack, chevronForward, searchOutline } from "ionicons/icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Form, Link, redirect,useLoaderData } from "react-router-dom";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -11,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const areaInputs = [
     {
@@ -136,33 +138,47 @@ function MainOrganization() {
                 {/*component accion*/ }
                 <div className="bg-white rounded-xl p-7">
                     <div className="flex">
-                        <div>
-                            <Tabs defaultValue="users" className="">
-                                <TabsList className="bg-transparent">
-                                    <TabsTrigger className="rounded-none text-sm font-medium font-roboto text-blue-500 border-b-2 border-blue-500 p-3" value="users">USERS</TabsTrigger>
-                                    <TabsTrigger className="rounded-none text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3" value="positions">POSITIONS</TabsTrigger>
-                                    <TabsTrigger className="active:text-red-500 rounded-none text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3" value="areas">AREAS</TabsTrigger>
-                                </TabsList>
-                                <TabsContent value="users" className="">
-                                    <UsersTable
-                                        users={users.data}
-                                    />
-                                </TabsContent>
-                                <TabsContent value="positions">
-                                    <PositionsTable
-                                        positions={positions.data}
-                                    />
-                                </TabsContent>
-                                <TabsContent value="areas">
-                                    <AreasTable
-                                        areas={areas.data}
-                                    />
-                                </TabsContent>
-                            </Tabs>
-                        </div>
-                        <div>
-                            
-                        </div>
+                        <Tabs defaultValue="users" className="w-full">
+                            <TabsList className="bg-transparent w-full mb-3">
+                                <div className="flex w-full">
+                                    <div className="w-4/5">
+                                        <TabsTrigger className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3" value="users">USERS</TabsTrigger>
+                                        <TabsTrigger className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3" value="positions">POSITIONS</TabsTrigger>
+                                        <TabsTrigger className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3" value="areas">AREAS</TabsTrigger>
+                                    </div>
+                                    <div className="w-1/5">
+                                    <div className="flex items-end rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
+                                        <Label htmlFor="search">
+                                            <IonIcon
+                                            icon={searchOutline}
+                                            className="text-[#696974] w-6 h-6 stroke-1"
+                                            ></IonIcon>
+                                        </Label>
+                                        <Input
+                                            id="search"
+                                            className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
+                                            placeholder="SEARCH EMAILS"
+                                        />
+                                    </div>
+                                    </div>
+                                </div>
+                            </TabsList>
+                            <TabsContent value="users">
+                                <UsersTable
+                                    users={users.data}
+                                />
+                            </TabsContent>
+                            <TabsContent value="positions">
+                                <PositionsTable
+                                    positions={positions.data}
+                                />
+                            </TabsContent>
+                            <TabsContent value="areas">
+                                <AreasTable
+                                    areas={areas.data}
+                                />
+                            </TabsContent>
+                        </Tabs>
                     </div>
                 </div>
             </div>
