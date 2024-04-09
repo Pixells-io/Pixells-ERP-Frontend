@@ -40,10 +40,60 @@ function AgreementsConsole() {
             <TabsContent
               key={i}
               value={tab.name}
-              className="col-span-10 overflow-scroll h-full"
+              className="col-span-10 overflow-visible h-full"
             >
-              Content of {tab.name}
               <div className="flex gap-6">
+                <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
+                  <div className="h-full p-2">
+                    <div className="h-full bg-blancoBg"></div>
+                  </div>
+                  <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
+                    <p className="flex text-[10px] text-grisHeading">
+                      Acuse Cita para renovar licencia.pdf
+                    </p>
+                    <div className="flex justify-around text-[8px] text-grisSubText line-clamp-none">
+                      <span>2 pages</span>
+                      <span>&bull;</span>
+                      <span>XLSX</span>
+                      <span>&bull;</span>
+                      <span>134 KB</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
+                  <div className="h-full p-2">
+                    <div className="h-full bg-blancoBg"></div>
+                  </div>
+                  <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
+                    <p className="flex text-[10px] text-grisHeading">
+                      Acuse Cita para renovar licencia.pdf
+                    </p>
+                    <div className="flex justify-around text-[8px] text-grisSubText line-clamp-none">
+                      <span>2 pages</span>
+                      <span>&bull;</span>
+                      <span>XLSX</span>
+                      <span>&bull;</span>
+                      <span>134 KB</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
+                  <div className="h-full p-2">
+                    <div className="h-full bg-blancoBg"></div>
+                  </div>
+                  <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
+                    <p className="flex text-[10px] text-grisHeading">
+                      Acuse Cita para renovar licencia.pdf
+                    </p>
+                    <div className="flex justify-around text-[8px] text-grisSubText line-clamp-none">
+                      <span>2 pages</span>
+                      <span>&bull;</span>
+                      <span>XLSX</span>
+                      <span>&bull;</span>
+                      <span>134 KB</span>
+                    </div>
+                  </div>
+                </div>
                 <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
                   <div className="h-full p-2">
                     <div className="h-full bg-blancoBg"></div>

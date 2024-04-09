@@ -72,24 +72,48 @@ const statusFilter = [
 
 const columns = [
   {
-    accessorKey: "task",
-    header: "Task",
-    cell: (props) => <p>{props.getValue()}</p>,
+    accessorKey: "service",
+    header: "SERVICE",
+    cell: (props) => <p>Inmmigration</p>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: (props) => <p>{props.getValue()}</p>,
+    accessorKey: "sub-service",
+    header: "SUB-SERVICE",
+    cell: (props) => <p>Sub-service 1, Sub-service 2</p>,
   },
   {
-    accessorKey: "date",
-    header: "Date",
-    cell: (props) => <p>{props.getValue()?.toLocaleTimeString()}</p>,
+    accessorKey: "responsible",
+    header: "RESPONSIBLE",
+    cell: (props) => <p>Jenny</p>,
   },
   {
-    accessorKey: "notes",
-    header: "Notes",
-    cell: (props) => <p>{props.getValue()}</p>,
+    id: "User",
+    header: "USERS",
+    cell: () => {
+       return (
+          <img width={35} className="rounded-full" src="https://github.com/shadcn.png" />
+       );
+     },
+  },
+  {
+    accessorKey: "e-mail",
+    header: "E-Mail",
+    cell: (props) => <p>inmigration@irbusiness.com</p>,
+  },
+  {
+    accessorKey: "actions",
+    header: "ACTIONS",
+    id: "Actions",
+    header: "ACTION",
+    cell: () => {
+       return (
+         <div className="flex gap-2 text-[#696974]">
+           <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+           <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
+           <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+         </div>
+       );
+     },
   },
 ];
 

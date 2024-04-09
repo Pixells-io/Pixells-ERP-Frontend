@@ -73,7 +73,7 @@ function MainCRM() {
           ))}
         </div> */}
 
-        <Tabs defaultValue="account" className="bg-blancoBg rounded-lg">
+        <Tabs defaultValue="account" className="bg-blancoBg rounded-lg pt-2">
           <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
             <TabsTrigger
               value="account"
@@ -88,7 +88,7 @@ function MainCRM() {
               Clients
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="account" className="p-2">
+          <TabsContent value="account" className="p-2 mt-[-60px] ">
             <DataTable services={services} />
           </TabsContent>
           <TabsContent className="w-full overflow-auto" value="password">

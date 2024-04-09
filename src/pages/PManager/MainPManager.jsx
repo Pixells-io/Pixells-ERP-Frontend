@@ -44,10 +44,10 @@ function MainPManager() {
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
             <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-              Tomar Objetivo aqui
+              Strategic Objectives
             </h2>
             <span className="font-medium text-xs text-grisText">
-              Categoria del objetivo
+              Strategic Category
             </span>
           </div>
           <div className="flex gap-2 text-[#8F8F8F] self-start">
