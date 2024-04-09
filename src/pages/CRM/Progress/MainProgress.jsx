@@ -66,7 +66,7 @@ function Main() {
         <div className="flex items-center gap-4">
             <div>
                 <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-                    USER MANAGEMENT
+                    PROGRESS DASHBOARD
                 </h2>
             </div>
             <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
