@@ -97,20 +97,21 @@ function MainDashboard() {
                     </div>
                 </div>
                 <div className="bg-[#F0F0F0] rounded-2xl flex">
-                    <div className="w-1/4 p-4">
+                    <div className=" p-4">
                         <span className="font-poppins text-xl font-semibold text-grisHeading" >TIME MANAGEMENT</span>
                         <div>
                             <TimeManagement/>
                         </div>
                     </div>
-                    <div className="w-1/4 p-4">
+                    <div className=" p-4">
                         <span className="font-poppins text-xl font-semibold text-grisHeading" >METRICS</span>
                         <div className="pt-2">
                             <GeneralMetrics/>
                         </div>
                     </div>
-                    <div className="w-2/4 p-4">
+                    <div className="p-4">
                         <span className="font-poppins text-xl font-semibold text-grisHeading" >CUSTOMERS GROWTH</span>
+                        {/* La imagen va aqui :) */}
                     </div>
                 </div>
             </div>

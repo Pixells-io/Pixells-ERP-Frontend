@@ -9,7 +9,7 @@ import {
 
 function GeneralMetrics() {
     return (
-        <div className="bg-blancoBox w-32 rounded-xl w-full p-2">
+        <div className="bg-blancoBox w-[338px] rounded-xl w-full p-2">
             <div className="bg-[#F0F0F0] rounded-md p-2">
                 <div className="flex justify-between border-b pb-3 border-[#D7D7D7]">
                     <div className="m-auto">
@@ -42,6 +42,7 @@ function GeneralMetrics() {
                     </div>
                     <div className="m-auto">
                         <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
+
                     </div>
                 </div>
             </div>
