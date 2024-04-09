@@ -65,7 +65,7 @@ export async function loginUser(data) {
     password: data.password,
   };
 
-  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/login`, {
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}login`, {
     method: "POST",
     body: JSON.stringify(info),
   });
