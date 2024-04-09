@@ -3,6 +3,9 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
+  pieChart,
+  calendar,
+  listCircle
 } from "ionicons/icons";
 import Time from "./Components/Time";
 import Activities from "./Components/Activities";
@@ -69,21 +72,21 @@ function MainDashboard() {
                                         subTitle="Today"
                                         percent="20"
                                         number="17"
-                                        icon="calendar"
+                                        icon={calendar}
                                     />
                                     <Activities
                                         title="Progress"
                                         subTitle="This Week"
                                         percent="20"
                                         number="80"
-                                        icon="pieChart"
+                                        icon={pieChart}
                                     />
                                     <Activities
                                         title="Activities"
                                         subTitle="Today"
                                         percent="20"
                                         number="17"
-                                        icon="listCircle"
+                                        icon={listCircle}
                                     />
                                 </div>
                             </div>

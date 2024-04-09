@@ -8,7 +8,7 @@ function Activities({title, subTitle, percent, number, icon}) {
         <div className="bg-blancoBox w-48 rounded-md p-3">
             <div>
             <IonIcon
-                icon={{icon}}
+                icon={icon}
                 size="large"
                 className="text-gris2"
             ></IonIcon>
