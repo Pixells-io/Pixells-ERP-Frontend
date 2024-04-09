@@ -10,7 +10,7 @@ import {
 function CustomersGrowth() {
     return (
         <div className="p-1 mt-2 bg-blancoBox rounded-xl">
-            <img src="/public/img/logos/dashboard.png" alt="" />
+            <img src="/img/logos/dashboard.png" alt="" />
         </div>
     );
 }
