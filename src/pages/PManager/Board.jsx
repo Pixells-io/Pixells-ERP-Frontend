@@ -152,6 +152,7 @@ const DATA = [
     ],
   },
 ];
+
 const HEADERS = [
   { name: "CSF" },
   { name: "ACTIVITY" },
