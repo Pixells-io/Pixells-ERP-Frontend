@@ -45,7 +45,7 @@ function MainCRM() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-              USER HOMEPAGE
+              CRM HOMEPAGE
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
@@ -92,7 +92,7 @@ function MainCRM() {
             <DataTable services={services} />
           </TabsContent>
           <TabsContent className="w-full overflow-auto" value="password">
-            <Table className="w-full"/>
+            <Table className="w-full" />
           </TabsContent>
         </Tabs>
       </div>
