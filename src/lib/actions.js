@@ -95,8 +95,23 @@ export async function getPosition() {
   }
 }
 
-export async function multiLoaderOrganization() {
-  const [areas, positions] = await Promise.all([getAreas(), getPosition()]);
+export async function getUsers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-users`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 
-  return json({ areas, positions });
+export async function multiLoaderOrganization() {
+  const [areas, positions, users] = await Promise.all([
+    getAreas(),
+    getPosition(),
+    getUsers(),
+  ]);
+
+  return json({ areas, positions, users });
 }

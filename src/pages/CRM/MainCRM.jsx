@@ -91,11 +91,10 @@ function MainCRM() {
           <TabsContent value="account" className="p-2">
             <DataTable services={services} />
           </TabsContent>
-          <TabsContent value="password">
-            <Table />
+          <TabsContent className="w-full overflow-auto" value="password">
+            <Table className="w-full"/>
           </TabsContent>
         </Tabs>
-        <Outlet />
       </div>
     </div>
   );

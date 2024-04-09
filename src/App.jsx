@@ -82,12 +82,17 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
+import MainDashboard from "./pages/Dashboard/MainDashboard";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
+      {
+        index: true,
+        element: <MainDashboard/>
+      },
       // crm
       {
         id: "side_services",
@@ -182,6 +187,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            loader: multiLoaderOrganization,
             element: <MainOrganization />,
           },
           {

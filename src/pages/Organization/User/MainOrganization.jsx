@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect,useLoaderData } from "react-router-dom";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import { saveNewArea } from "../utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import UsersTable from "./Tables/Users";
+import PositionsTable from "./Tables/Positions";
+import AreasTable from "./Tables/Areas";
 
 const areaInputs = [
     {
@@ -44,6 +48,9 @@ const areaInputs = [
 function MainOrganization() {
     const [modal, setModal] = useState(false);
 
+    const { users } = useLoaderData();
+    const { positions } = useLoaderData();
+    const { areas } = useLoaderData();
 
     return (
         <div className="flex w-full">
@@ -130,9 +137,28 @@ function MainOrganization() {
                 <div className="bg-white rounded-xl p-7">
                     <div className="flex">
                         <div>
-                            <span className="text-sm font-medium font-roboto text-blue-500 border-b-2 border-blue-500 p-3">USERS</span>
-                            <span className="text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3">POSITIONS</span>
-                            <span className="text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3">AREAS</span>
+                            <Tabs defaultValue="users" className="">
+                                <TabsList className="bg-transparent">
+                                    <TabsTrigger className="rounded-none text-sm font-medium font-roboto text-blue-500 border-b-2 border-blue-500 p-3" value="users">USERS</TabsTrigger>
+                                    <TabsTrigger className="rounded-none text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3" value="positions">POSITIONS</TabsTrigger>
+                                    <TabsTrigger className="active:text-red-500 rounded-none text-sm font-normal font-roboto text-grisSubText border-b-2 border-slate-300 p-3" value="areas">AREAS</TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="users" className="">
+                                    <UsersTable
+                                        users={users.data}
+                                    />
+                                </TabsContent>
+                                <TabsContent value="positions">
+                                    <PositionsTable
+                                        positions={positions.data}
+                                    />
+                                </TabsContent>
+                                <TabsContent value="areas">
+                                    <AreasTable
+                                        areas={areas.data}
+                                    />
+                                </TabsContent>
+                            </Tabs>
                         </div>
                         <div>
                             
