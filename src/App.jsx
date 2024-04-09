@@ -82,12 +82,17 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
+import MainClients from "./pages/Clients/MainClients";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
+      {
+        path: "/clients",
+        element: <MainClients />,
+      },
       // crm
       {
         id: "side_services",
