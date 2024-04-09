@@ -82,6 +82,7 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
+import MainDashboard from "./pages/Dashboard/MainDashboard";
 import MainClients from "./pages/Clients/MainClients";
 
 const router = createBrowserRouter([
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
+      {
+        index: true,
+        element: <MainDashboard />,
+      },
       {
         path: "/clients",
         element: <MainClients />,
@@ -187,6 +192,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            loader: multiLoaderOrganization,
             element: <MainOrganization />,
           },
           {

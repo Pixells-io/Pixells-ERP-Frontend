@@ -59,9 +59,21 @@ export async function saveNewPosition(data) {
   return response;
 }
 
-export async function saveNewUser(data) {
-  console.log(data.get("user_image"));
+export async function loginUser(data) {
+  const info = {
+    email: data.email,
+    password: data.password,
+  };
 
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/login`, {
+    method: "POST",
+    body: JSON.stringify(info),
+  });
+
+  return response;
+}
+
+export async function saveNewUser(data) {
   const user = {
     user_image: data.get("user_image"),
     name: data.get("name"),

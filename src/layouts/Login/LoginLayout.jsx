@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useRef} from "react";
 import { IonIcon } from "@ionic/react";
 import { arrowForwardCircle } from "ionicons/icons";
 import {useState} from "react";
+import { loginUser } from "@/pages/Organization/utils";
 
 function Login() {
+
+    const passwordInputRef = useRef(null)
 
     const initialFormData = Object.freeze({
         email: "",
@@ -46,8 +49,11 @@ function Login() {
         let regex = new RegExp("@");
 
         if (regex.test(formData.email)) {
-            console.log(formData.email)
-            setIsOpen((isOpen) => true);   
+            setIsOpen((isOpen) => true);
+            setTimeout(() => {
+                passwordInputRef.current.focus();
+            }, 500);
+
         }else{
             setIsOpen((isOpen) => false);  
         }
@@ -55,25 +61,25 @@ function Login() {
 
     const submitFunction = (e) => {
         e.preventDefault()
-        console.log(formData)
 
+        const validation = loginUser(formData);
     }
 
   return (
     <div className="flex items-center justify-center h-screen bg-blancoBg">
         <div className="p-20">
             <div className="text-center">
-                <span className="text-grisText text-2xl font-roboto font-light">Sign in to Oruga</span>
+                <span className="text-grisText text-2xl font-roboto font-light">Sign in to IRB</span>
             </div>
             <div className="border-solid border border-grisText rounded-3xl flex h-10 mt-4 w-96">
-                <input type="text" className="rounded-3xl pl-5 text-sm font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg" onKeyPress={emailChange} onChange={emailChange} placeholder="Email"/>
+                <input type="text" className="rounded-3xl pl-5 outline-none text-sm font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg" onKeyPress={emailChange} onChange={emailChange} placeholder="Email"/>
                 {isOpen == false &&
                     <IonIcon icon={arrowForwardCircle} className="text-grisText size-6 flex m-auto w-1/5" onClick={showPassword}></IonIcon>
                 }
             </div>
             {isOpen &&
                 <div className="border-solid border border-grisText rounded-3xl flex h-10 mt-4 w-96">
-                    <input type="password" className="rounded-3xl pl-5 text-sm font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg" onChange={paswordChange} placeholder="Password"/>
+                    <input type="password" ref={passwordInputRef} className="rounded-3xl pl-5 text-sm outline-none font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg" onChange={paswordChange} placeholder="Password"/>
                     <IonIcon icon={arrowForwardCircle} className="text-grisText size-6 flex m-auto w-1/5" onClick={submitFunction}></IonIcon>
                 </div>
             }
