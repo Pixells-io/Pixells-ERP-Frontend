@@ -5,6 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 
 function Customer({ customer }) {
+  // console.log(customer);
   return (
     <li className="cursor-grab active:cursor-grabbing">
       <div
@@ -13,12 +14,12 @@ function Customer({ customer }) {
         onDragOver={(event) => {
           event.preventDefault();
           event.stopPropagation();
-          console.log(event);
+          // console.log(event);
         }}
         onDragLeave={(event) => {
           event.stopPropagation();
-          console.log(event);
-          console.log("ondragleave");
+          // console.log(event);
+          // console.log("ondragleave");
         }}
       >
         <div className="flex flex-col gap-1">

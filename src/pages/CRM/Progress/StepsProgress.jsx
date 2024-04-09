@@ -12,7 +12,7 @@ function StepsProgress() {
   return (
     <div className="flex gap-2">
       {steps?.map((step, i) => (
-        <Step key={i} stepInfo={step} />
+        <Step key={i} stepInfo={step} fields={step.fields} />
       ))}
       <NewStepService serviceId={id} />
     </div>

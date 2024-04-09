@@ -33,6 +33,14 @@ import MainEmail from "./pages/CRM/Email/MainEmail";
 //CRM Agreements
 import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
 
+//CRM Progress
+import MainProgress, {
+  Action as newService,
+} from "./pages/CRM/Progress/MainProgress";
+import StepsProgress, {
+  Action as newStepService,
+} from "./pages/CRM/Progress/StepsProgress";
+
 //Login
 import Login from "./layouts/Login/LoginLayout";
 
@@ -48,14 +56,6 @@ import FormCreateUser, {
 import FormCreatePosition, {
   Action as newPosition,
 } from "./pages/Organization/User/FormCreatePosition";
-
-//Progress
-import MainProgress, {
-  Action as newService,
-} from "./pages/CRM/Progress/MainProgress";
-import StepsProgress, {
-  Action as newStepService,
-} from "./pages/CRM/Progress/StepsProgress";
 
 // Project Manager
 import SideLayoutPManager, {
