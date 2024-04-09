@@ -9,7 +9,10 @@ function Boards() {
   const tabDefault = goals?.data[0]?.name;
 
   return (
-    <Tabs defaultValue={tabDefault} className="w-full bg-blancoBg rounded-xl">
+    <Tabs
+      defaultValue={tabDefault}
+      className="w-full bg-blancoBg rounded-xl overflow-scroll"
+    >
       <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
         {goals?.data?.map((goal, i) => (
           <TabsTrigger

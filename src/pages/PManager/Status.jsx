@@ -19,15 +19,25 @@ function Status() {
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
-            <div className="flex gap-2  text-gris2">
-                <div className="w-12 h-12">
-                    <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-                </div>
-                <div className="w-12 h-12">
-                    <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-                </div>
+          <div className="flex gap-2  text-gris2">
+            <div className="w-12 h-12">
+              <IonIcon
+                icon={chevronBack}
+                size="large"
+                className="bg-blancoBox p-1 rounded-3xl"
+              ></IonIcon>
             </div>
-            <div className="font-roboto text-sm text-grisText">project manager</div>
+            <div className="w-12 h-12">
+              <IonIcon
+                icon={chevronForward}
+                size="large"
+                className="bg-blancoBox p-1 rounded-3xl"
+              ></IonIcon>
+            </div>
+          </div>
+          <div className="font-roboto text-sm text-grisText">
+            project manager
+          </div>
         </div>
 
         {/* top content */}
@@ -71,6 +81,59 @@ function Status() {
                 <p className="font-bold text-sm text-center text-[#F5F5F5] py-1">
                   VENCIDAS
                 </p>
+              </div>
+              <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-2 py-3">
+                <div className="flex justify-between items-center">
+                  <p className="font-poppins text-[15px] font-semibold">
+                    Actividad 1
+                  </p>
+                  <IonIcon
+                    icon={ellipsisHorizontal}
+                    className="w-5 h-5 text-grisDisabled"
+                  ></IonIcon>
+                </div>
+                <div className="flex items-center gap-2 text-grisText">
+                  <IonIcon
+                    icon={listCircleOutline}
+                    className="w-5 h-5"
+                  ></IonIcon>
+                  <p className="text-[12px] font-normal">Proyecto Macro</p>
+                </div>
+                <div className="flex items-center gap-4 text-grisText">
+                  <div className="flex">
+                    <IonIcon icon={attachOutline} className="w-5 h-5"></IonIcon>
+                    <p className="text-[12px]">12</p>
+                  </div>
+                  <div className="flex items-center gap-2 bg-[#F1F1F5] rounded-full px-4 py-1">
+                    <IonIcon
+                      icon={calendarOutline}
+                      className="w-5 h-5"
+                    ></IonIcon>
+                    <p className="text-[12px]">05 Dic 24</p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="self-end text-[8px] text-[#CCCCCC] pr-2">
+                    {progress}%
+                  </p>
+                  <Progress value={progress} className="h-1" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
               </div>
               <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-2 py-3">
                 <div className="flex justify-between items-center">
@@ -193,6 +256,113 @@ function Status() {
                 <p className="font-bold text-sm text-center text-[#F5F5F5] py-1">
                   COMPLETADAS
                 </p>
+              </div>
+              <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-2 py-3">
+                <div className="flex justify-between items-center">
+                  <p className="font-poppins text-[15px] font-semibold">
+                    Actividad 1
+                  </p>
+                  <IonIcon
+                    icon={ellipsisHorizontal}
+                    className="w-5 h-5 text-grisDisabled"
+                  ></IonIcon>
+                </div>
+                <div className="flex items-center gap-2 text-grisText">
+                  <IonIcon
+                    icon={listCircleOutline}
+                    className="w-5 h-5"
+                  ></IonIcon>
+                  <p className="text-[12px] font-normal">Proyecto Macro</p>
+                </div>
+                <div className="flex items-center gap-4 text-grisText">
+                  <div className="flex">
+                    <IonIcon icon={attachOutline} className="w-5 h-5"></IonIcon>
+                    <p className="text-[12px]">12</p>
+                  </div>
+                  <div className="flex items-center gap-2 bg-[#F1F1F5] rounded-full px-4 py-1">
+                    <IonIcon
+                      icon={calendarOutline}
+                      className="w-5 h-5"
+                    ></IonIcon>
+                    <p className="text-[12px]">05 Dic 24</p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="self-end text-[8px] text-[#CCCCCC] pr-2">
+                    {progress}%
+                  </p>
+                  <Progress value={progress} className="h-1" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
+              </div>
+
+              <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-2 py-3">
+                <div className="flex justify-between items-center">
+                  <p className="font-poppins text-[15px] font-semibold">
+                    Actividad 1
+                  </p>
+                  <IonIcon
+                    icon={ellipsisHorizontal}
+                    className="w-5 h-5 text-grisDisabled"
+                  ></IonIcon>
+                </div>
+                <div className="flex items-center gap-2 text-grisText">
+                  <IonIcon
+                    icon={listCircleOutline}
+                    className="w-5 h-5"
+                  ></IonIcon>
+                  <p className="text-[12px] font-normal">Proyecto Macro</p>
+                </div>
+                <div className="flex items-center gap-4 text-grisText">
+                  <div className="flex">
+                    <IonIcon icon={attachOutline} className="w-5 h-5"></IonIcon>
+                    <p className="text-[12px]">12</p>
+                  </div>
+                  <div className="flex items-center gap-2 bg-[#F1F1F5] rounded-full px-4 py-1">
+                    <IonIcon
+                      icon={calendarOutline}
+                      className="w-5 h-5"
+                    ></IonIcon>
+                    <p className="text-[12px]">05 Dic 24</p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="self-end text-[8px] text-[#CCCCCC] pr-2">
+                    {progress}%
+                  </p>
+                  <Progress value={progress} className="h-1" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
               </div>
               <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-2 py-3">
                 <div className="flex justify-between items-center">
