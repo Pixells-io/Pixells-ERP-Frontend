@@ -11,7 +11,8 @@ function SidelayoutLead() {
   const { data: lead, services, extra_information: info } = useLoaderData();
 
   function Capitalize(string) {
-    return (string = string[0].toUpperCase() + string.slice(1));
+    if (string == undefined) return "";
+    return (string = string[0]?.toUpperCase() + string?.slice(1));
   }
 
   return (
