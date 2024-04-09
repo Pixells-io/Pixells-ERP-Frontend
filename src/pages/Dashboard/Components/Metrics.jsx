@@ -19,7 +19,7 @@ function GeneralMetrics() {
                 <div className="flex justify-between border-b pt-1 pb-3 border-[#D7D7D7]">
                     <div className="flex w-2/6">
                         <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={notifications} className="text-2xl text-grisText"></IonIcon>
+                            <IonIcon icon={notifications} className="text-xl text-grisText pt-1"></IonIcon>
                         </div>
                         <div className="w-2/4">
                             <span className="text-xs font-medium font-roboto text-grisText">23</span>
@@ -33,10 +33,10 @@ function GeneralMetrics() {
                         <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
                     </div>
                 </div>
-                <div className="flex justify-between border-b pt-1 pb-3 border-[#D7D7D7]">
+                <div className="flex justify-between border-b pt-3 pb-3 border-[#D7D7D7]">
                     <div className="flex w-2/6">
                         <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={mail} className="text-2xl text-grisText"></IonIcon>
+                            <IonIcon icon={mail} className="text-xl text-grisText pt-1"></IonIcon>
                         </div>
                         <div className="w-2/4">
                             <span className="text-xs font-medium font-roboto text-grisText">16</span>
@@ -50,10 +50,10 @@ function GeneralMetrics() {
                         <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
                     </div>
                 </div>
-                <div className="flex justify-between border-b pt-1 pb-3 border-[#D7D7D7]">
+                <div className="flex justify-between border-b pt-3 pb-3 border-[#D7D7D7]">
                     <div className="flex w-2/6">
                         <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={chatbubble} className="text-2xl text-grisText"></IonIcon>
+                            <IonIcon icon={chatbubble} className="text-xl text-grisText pt-1"></IonIcon>
                         </div>
                         <div className="w-2/4">
                             <span className="text-xs font-medium font-roboto text-grisText">7</span>
