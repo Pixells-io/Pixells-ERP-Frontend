@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Outlet,
   useLoaderData,
@@ -19,6 +19,7 @@ import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
   const objectives = useLoaderData();
+  const [objectiveCtx, setObjectivesCtx] = useState(objectives);
   // console.log(objectives.data);
   const navigation = useNavigation();
   return (
@@ -99,7 +100,7 @@ function SideLayoutPManager() {
           </div>
         </div>
       </div>
-      <Outlet />
+      <Outlet context={[objectiveCtx, setObjectivesCtx]} />
     </div>
   );
 }

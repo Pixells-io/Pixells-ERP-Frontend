@@ -42,4 +42,32 @@ export async function saveNewCsf(data) {
   return response;
 }
 
-export async function saveNewTask() {}
+export async function saveNewTask(data) {
+  const task = {
+    name: data.get("name"),
+    description: data.get("description"),
+    type: Number(data.get("type")),
+    user_id: data.get("userId"),
+    priority: Number(data.get("priority")),
+    repeat: data.get("repeat"),
+    //start date
+    //end date
+    //fce_id  int
+    sequence: data.get("sequence"),
+  };
+
+  console.log(task);
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/create-task`,
+    {
+      method: "POST",
+      body: JSON.stringify(task),
+    }
+  );
+  console.log(response);
+
+  return response;
+}

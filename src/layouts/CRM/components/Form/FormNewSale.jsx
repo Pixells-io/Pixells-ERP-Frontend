@@ -15,7 +15,7 @@ import {
 
 function FormNewSale() {
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
@@ -23,7 +23,7 @@ function FormNewSale() {
         >
           <IonIcon icon={add} size="large"></IonIcon>
           <p className="text-base font-medium text-gris2 group-hover:text-blue-500 mr-2">
-            New Client
+            New Sale
           </p>
         </Button>
       </DialogTrigger>
@@ -32,9 +32,7 @@ function FormNewSale() {
           <DialogTitle className="font-poppins">Create New Client</DialogTitle>
         </DialogHeader>
 
-        <DialogFooter>
-
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );

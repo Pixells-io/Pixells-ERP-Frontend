@@ -1,28 +1,50 @@
 import React from "react";
-import { NavLink, Outlet, redirect, useParams } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  redirect,
+  useLoaderData,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import GoalForm from "./components/Form/GoalForm";
-import { saveNewCsf, saveNewGoal } from "./utils";
+import { saveNewCsf, saveNewGoal, saveNewTask } from "./utils";
 
 function MainPManager() {
   const params = useParams();
+  const [objectivesCtx, setObjectivesCtx] = useOutletContext();
+  const objectiveInfo = objectivesCtx?.data?.find(
+    (obj, i) => obj.id === Number(params.id)
+  );
+  console.log(objectivesCtx);
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
-            <div className="flex gap-2  text-gris2">
-                <div className="w-12 h-12">
-                    <IonIcon icon={chevronBack} size="large" className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-                </div>
-                <div className="w-12 h-12">
-                    <IonIcon icon={chevronForward} size="large"  className="bg-blancoBox p-1 rounded-3xl"></IonIcon>
-                </div>
+          <div className="flex gap-2  text-gris2">
+            <div className="w-12 h-12">
+              <IonIcon
+                icon={chevronBack}
+                size="large"
+                className="bg-blancoBox p-1 rounded-3xl"
+              ></IonIcon>
             </div>
-            <div className="font-roboto text-sm text-grisText">project manager</div>
+            <div className="w-12 h-12">
+              <IonIcon
+                icon={chevronForward}
+                size="large"
+                className="bg-blancoBox p-1 rounded-3xl"
+              ></IonIcon>
+            </div>
+          </div>
+          <div className="font-roboto text-sm text-grisText">
+            project manager
+          </div>
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
@@ -32,7 +54,9 @@ function MainPManager() {
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
-            <div className="text-xs">4 objectives</div>
+            <div className="text-xs">
+              {objectivesCtx?.data?.length} objectives
+            </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
             <div className="text-2xl">&bull;</div>
@@ -44,7 +68,7 @@ function MainPManager() {
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
             <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-              Strategic Objectives
+              {objectiveInfo?.name}
             </h2>
             <span className="font-medium text-xs text-grisText">
               Strategic Category
@@ -115,6 +139,9 @@ export async function multiFormAction({ params, request }) {
 
     case "csf":
       return await saveNewCsf(formData);
+
+    case "task":
+      return await saveNewTask(formData);
 
     default:
       break;
