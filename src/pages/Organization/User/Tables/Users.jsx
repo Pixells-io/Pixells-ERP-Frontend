@@ -7,14 +7,18 @@ import {
     getCoreRowModel,
   } from "@tanstack/react-table";
 
+
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 
 import { IonIcon } from "@ionic/react";
 import {
-
+  informationCircle,
+  chatbubbleEllipses,
   searchOutline,
+  bookmark,
 } from "ionicons/icons";
 
 
@@ -31,7 +35,7 @@ function UsersTable({ users }) {
         id: "Name",
         header: "NAME",
       }),
-      columnHelper.accessor((row) => `${row.user_status}`, {
+      columnHelper.accessor((row) => `${row.status}`, {
         id: "Status",
         header: "STATUS",
       }),
@@ -47,14 +51,25 @@ function UsersTable({ users }) {
         id: "Phone",
         header: "PHONE",
       }),
-      columnHelper.accessor((row) => `${row.personal_email}`, {
+      columnHelper.accessor((row) => `${row.email}`, {
         id: "Email",
         header: "EMAIL",
       }),
-      columnHelper.accessor((row) => `"Hola"`, {
+      {
+        accessorKey: "actions",
+        header: "ACTIONS",
         id: "Actions",
         header: "ACTION",
-      }),
+        cell: () => {
+           return (
+             <div className="flex gap-2 text-[#696974]">
+               <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+               <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
+               <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+             </div>
+           );
+         },
+      },
     ];
 
   const table = useReactTable({
@@ -65,30 +80,7 @@ function UsersTable({ users }) {
 
   return (
     <div className="relative w-full overflow-auto">
-        <div className="flex pt-3 pb-6">
-            <div className="w-3/5">
 
-            </div>
-            <div className="w-2/5">
-                <div className="flex items-end rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
-                    <Label htmlFor="search">
-                        <IonIcon
-                        icon={searchOutline}
-                        className="text-[#696974] w-6 h-6 stroke-1"
-                        ></IonIcon>
-                    </Label>
-                    <Input
-                        id="search"
-                        className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
-                        placeholder="SEARCH EMAILS"
-                        value={table.getColumn("email")?.getFilterValue() ?? ""}
-                        onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
-                        }
-                    />
-                </div>
-            </div>
-        </div>
         <table className="w-full caption-bottom text-sm" >
           <thead className="[&_tr]:border-b" >
             {table.getHeaderGroups().map((headerGroup) => {

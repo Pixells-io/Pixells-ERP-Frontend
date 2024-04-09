@@ -710,17 +710,14 @@ function FormCreateUser() {
                                                 type={"password"}
                                             />
                                         </div>
+                                        <div className="w-2/4 text-end pr-5">
+                                            <button type="submit" className="font-roboto font-semibold text-sm p-4 text-white justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">
+                                                Save
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {/*Submit Button*/}
-                    <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-                        <div className="flex pt-4">
-                            <button type="submit">
-                                Save
-                            </button>
                         </div>
                     </div>
                 </form>

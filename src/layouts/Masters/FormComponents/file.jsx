@@ -18,7 +18,7 @@ function FileRouter({ name, label }) {
 
   return (
     <div>
-        <div {...getRootProps()} className="bg-indigo-100 text-center pt-4 pb-4 text-primario rounded-2xl border-2 border-dashed border-primario">
+        <div {...getRootProps()} className="bg-[#DEE5F5] text-center font-light pt-4 pb-4 text-primario rounded-2xl border-2 border-dashed border-primario">
             <input {...getInputProps()} name={name} />
             {
                 isDragActive ? <p> Drop the {label} here... </p> : <p> {label} </p>
