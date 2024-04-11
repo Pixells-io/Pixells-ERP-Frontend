@@ -1,5 +1,6 @@
 import { json } from "react-router-dom";
 
+/*SERVICES ACTIONS*/
 export async function getServices() {
   try {
     const response = await fetch(
@@ -11,6 +12,50 @@ export async function getServices() {
   }
 }
 
+export async function getCategories() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-categories`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getPackages() {}
+
+export async function getCategoriesAndServices() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-categories-with-services`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderServices() {
+  const [services, categories, packages, positions, categoriesServices] =
+    await Promise.all([
+      getServices(),
+      getCategories(),
+      getPackages(),
+      getPosition(),
+      getCategoriesAndServices(),
+    ]);
+
+  return json({
+    services,
+    categories,
+    packages,
+    positions,
+    categoriesServices,
+  });
+}
+
+/*CRM ACTIONS*/
 export async function getLeads() {
   try {
     const response = await fetch(

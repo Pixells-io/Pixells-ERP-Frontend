@@ -24,7 +24,9 @@ import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 import MainClient from "./pages/CRM/Clients/MainClient";
 
 // CRM Services
-import MainServices from "./pages/CRM/Services/MainServices";
+import MainServices, {
+  Action as NewFunction
+} from "./pages/CRM/Services/MainServices";
 import MainService from "./pages/CRM/Services/MainService";
 
 //CRM Email
@@ -57,6 +59,9 @@ import FormCreatePosition, {
   Action as newPosition,
 } from "./pages/Organization/User/FormCreatePosition";
 
+import NewCategoryForm from "./pages/CRM/Services/components/Forms/NewCategoryForm";
+
+
 // Project Manager
 import SideLayoutPManager, {
   Action as newObjective,
@@ -76,6 +81,7 @@ import {
   getLeads,
   getObjectives,
   getServices,
+  multiLoaderServices,
   getServiceSteps,
   multiLoaderOrganization,
 } from "./lib/actions";
@@ -148,6 +154,8 @@ const router = createBrowserRouter([
           {
             path: "/crm/services",
             element: <MainServices />,
+            action: NewFunction,
+            loader: multiLoaderServices,
           },
           {
             path: "/crm/services/:id",

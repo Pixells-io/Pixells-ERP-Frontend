@@ -8,15 +8,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { IonIcon } from "@ionic/react";
-import { personAdd, addCircleOutline } from "ionicons/icons";
-
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
-import FromMultiSelect from "@/layouts/CRM/components/Form/FromMultiSelect";
-import FormSelect from "@/layouts/CRM/components/Form/FormSelect";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const businessInputs = [
   {
@@ -30,18 +25,13 @@ const businessInputs = [
     placeholder: "Description",
   },
   {
-    name: "sub_services",
-    type: "text",
-    placeholder: "Sub-service",
+    name: "color",
+    type: "color",
+    placeholder: "Color",
   },
 ];
 
 const contactInputs = [
-  {
-    name: "responsable",
-    type: "text",
-    placeholder: "Select responsible",
-  },
   {
     name: "participants",
     type: "text",
@@ -62,47 +52,63 @@ const categoryInputs = [
   },
 ];
 
-function NewServiceForm({ navigation, services }) {
-  // useEffect(() => {
-  //   if (navigation.state === "idle") {
-  //     setOpen(false);
-  //   }
-  // }, [navigation.state]);
+function NewServiceForm({ modalServices, setModalServices, categories, positions }) {
 
-  const [open, setOpen] = useState(false);
+  const selectCategories = [];
+  const selectResponsible = [];
+
+  arrayFillCategories(categories, selectCategories);
+  arrayFillResponsible(positions, selectResponsible);
+
+  function arrayFillCategories(data, array) {
+    let dataParse = data.data;
+
+    dataParse.forEach(element => {
+      array.push({
+        label: element.name,
+        value: element.id,
+        placeholder: element.name
+      });
+    });
+  }
+
+  function arrayFillResponsible(data, array) {
+    let dataParse = data.data;
+
+    dataParse.forEach(element => {
+      array.push({
+        label: element.position_name,
+        value: element.id,
+        placeholder: element.position_name
+      });
+    });
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="w-full flex justify-start gap-6 p-0 text-gris2"
-        >
-          <div className="flex items-center gap-3">
-            <IonIcon
-              icon={addCircleOutline}
-              size="large"
-              className="text-primarioBotones"
-            ></IonIcon>
-          </div>
-        </Button>
-      </DialogTrigger>
+    <Dialog open={modalServices} onOpenChange={setModalServices}>
       <DialogContent className="sm:max-w-[425px] overflow-auto h-[650px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create New Service</DialogTitle>
         </DialogHeader>
         <Form
-          id="lead-form"
+          id="service-form"
           className="flex flex-col gap-4"
-          action="/crm"
+          action="/crm/services"
           method="post"
         >
-          {/* <FormSelect /> */}
-
+          <input type="hidden" name="type" value={1} />
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
             <div className="text-[#696974] text-lg font-normal">
               Service Information
             </div>
             <div className="flex flex-col font-light gap-4 pb-4">
+              <div className="ml-[-15px] pr-4">
+                <SelectRouter
+                    name={"category"}
+                    placeholder={"Category"}
+                    options={selectCategories}
+                />
+              </div>
               {businessInputs?.map((input, i) => (
                 <FormInput
                   key={i}
@@ -119,6 +125,13 @@ function NewServiceForm({ navigation, services }) {
               Responsible
             </div>
             <div className="flex flex-col font-light gap-4 pb-4">
+            <div className="ml-[-15px] pr-4">
+                <SelectRouter
+                    name={"position_id"}
+                    placeholder={"Position"}
+                    options={selectResponsible}
+                />
+              </div>
               {contactInputs?.map((input, i) => (
                 <FormInput
                   key={i}
@@ -143,17 +156,11 @@ function NewServiceForm({ navigation, services }) {
                   placeholder={input.placeholder}
                 />
               ))}
-              {/* <FromMultiSelect services={services} /> */}
             </div>
           </div>
         </Form>
         <DialogFooter>
-          <Button className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Create</Button>
-          {/* <Button form="lead-form" disabled={navigation.state === "submitting"}>
-            {navigation.state === "submitting"
-              ? "Submitting..."
-              : "Create New Lead"}
-          </Button> */}
+          <Button  form="service-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

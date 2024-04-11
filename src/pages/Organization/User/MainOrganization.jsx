@@ -147,19 +147,19 @@ function MainOrganization() {
                                         <TabsTrigger className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3" value="areas">AREAS</TabsTrigger>
                                     </div>
                                     <div className="w-1/5">
-                                    <div className="flex items-end rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
-                                        <Label htmlFor="search">
-                                            <IonIcon
-                                            icon={searchOutline}
-                                            className="text-[#696974] w-6 h-6 stroke-1"
-                                            ></IonIcon>
-                                        </Label>
-                                        <Input
-                                            id="search"
-                                            className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
-                                            placeholder="SEARCH EMAILS"
-                                        />
-                                    </div>
+                                        <div className="flex items-end rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
+                                            <Label htmlFor="search">
+                                                <IonIcon
+                                                icon={searchOutline}
+                                                className="text-[#696974] w-6 h-6 stroke-1"
+                                                ></IonIcon>
+                                            </Label>
+                                            <Input
+                                                id="search"
+                                                className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
+                                                placeholder="SEARCH EMAILS"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </TabsList>

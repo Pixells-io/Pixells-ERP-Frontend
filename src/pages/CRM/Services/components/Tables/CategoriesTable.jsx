@@ -7,59 +7,43 @@ import {
     getCoreRowModel,
   } from "@tanstack/react-table";
 
-
 import { IonIcon } from "@ionic/react";
 import {
   informationCircle,
   chatbubbleEllipses,
-  searchOutline,
   bookmark,
 } from "ionicons/icons";
-
-
-function UsersTable({ users }) {
+function CategoriesTable({ categories }) {
+    
     const columnHelper = createColumnHelper();
 
-    const data = users;
+    const data = categories;
     
     const columns = [
-      columnHelper.accessor((row) => `${row.name} ${row.last_name} ${row.second_last_name}`, {
-        id: "Name",
+      columnHelper.accessor((row) => `${row.name}`, {
+        id: "name",
         header: "NAME",
       }),
-      columnHelper.accessor((row) => `${row.status}`, {
-        id: "Status",
-        header: "STATUS",
+      columnHelper.accessor((row) => `${row.description}`, {
+        id: "description",
+        header: "DESCRIPTION",
       }),
-      columnHelper.accessor((row) => `${row.area}`, {
-        id: "Area",
-        header: "AREA",
-      }),
-      columnHelper.accessor((row) => `${row.position}`, {
-        id: "Position",
-        header: "POSITION",
-      }),
-      columnHelper.accessor((row) => `${row.phone}`, {
-        id: "Phone",
-        header: "PHONE",
-      }),
-      columnHelper.accessor((row) => `${row.email}`, {
-        id: "Email",
-        header: "EMAIL",
+      columnHelper.accessor((row) => `${row.created_at}`, {
+        id: "created",
+        header: "CREATED",
       }),
       {
         accessorKey: "actions",
         header: "ACTIONS",
-        id: "Actions",
         cell: () => {
-           return (
-             <div className="flex gap-2 text-[#696974]">
-               <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
-               <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-               <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
-             </div>
-           );
-         },
+          return (
+            <div className="flex gap-2 text-[#696974]">
+              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+              <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
+              <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+            </div>
+          );
+        },
       },
     ];
 
@@ -71,7 +55,6 @@ function UsersTable({ users }) {
 
   return (
     <div className="relative w-full overflow-auto">
-
         <table className="w-full caption-bottom text-sm" >
           <thead className="[&_tr]:border-b" >
             {table.getHeaderGroups().map((headerGroup) => {
@@ -114,4 +97,4 @@ function UsersTable({ users }) {
   );
 }
 
-export default UsersTable;
+export default CategoriesTable;
