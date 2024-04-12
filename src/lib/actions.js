@@ -23,7 +23,16 @@ export async function getCategories() {
   }
 }
 
-export async function getPackages() {}
+export async function getPackages() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-packages`
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 
 export async function getCategoriesAndServices() {
   try {

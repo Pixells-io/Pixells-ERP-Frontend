@@ -58,9 +58,14 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
                         {category.category["name"]}
                     </div>
                     <div className="flex flex-col font-light gap-4 pb-4">
-                        <SelectServices
-                            data={category[0].services}
-                        />
+                      <div className="flex grid gap-2 grid-cols-4">
+                        {category[0].services ?.map((service, i) => (
+                          <SelectServices
+                            service={service}
+                            key={i}
+                          /> 
+                        ))}
+                      </div>
                     </div>
                 </div>
             ))}

@@ -24,6 +24,7 @@ import ServicesTable from "./components/Tables/ServicesTable";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import NewPackageForm from "./components/Forms/NewPackageForm";
+import PackagesTable from "./components/Tables/PackagesTable";
 
 function MainServices() {
 
@@ -35,7 +36,7 @@ function MainServices() {
   const [modalPackages, setModalPackages] = useState(false);
 
   /* Get Info */
-  const { categories, positions, services, categoriesServices } = useLoaderData();
+  const { categories, positions, services, categoriesServices, packages } = useLoaderData();
 
   return (
 
@@ -150,7 +151,9 @@ function MainServices() {
                 />
               </TabsContent>
               <TabsContent value="packages">
-
+                <PackagesTable
+                  packages={packages.data}
+                />
               </TabsContent>
           </Tabs>
         <Outlet />
