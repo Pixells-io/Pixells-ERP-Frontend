@@ -160,7 +160,7 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
           </div>
         </Form>
         <DialogFooter>
-          <Button  form="service-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
+          <Button form="service-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

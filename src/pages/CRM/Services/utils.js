@@ -37,3 +37,28 @@ export async function saveService(data) {
 
   return response;
 }
+
+export async function savePackage(data) {
+  const services = [];
+
+  for (const [key, value] of data.entries()) {
+    if (key === "service") {
+      services.push(Number(value));
+    }
+  }
+
+  const info = {
+    name: data.get("name"),
+    service: services,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/store-package`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+    }
+  );
+
+  return response;
+}

@@ -12,7 +12,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import ServicesBlocks from "./components/ServicesBlocks";
 import NewServiceForm from "./components/Forms/NewServiceForm";
 
-import { saveCategory, saveService  } from "./utils";
+import { saveCategory, saveService, savePackage } from "./utils";
 
 import {
   createColumnHelper,
@@ -40,7 +40,7 @@ function MainServices() {
   return (
 
     <div className="flex w-full overflow-auto">
-        <NewServiceForm
+      <NewServiceForm
           modalServices={modalServices}
           setModalServices={setModalServices}
           categories={categories}
@@ -178,7 +178,8 @@ export async function Action({request}) {
 
       break;
     case "3":
-      
+      //Package Case
+        await savePackage(data);
       break;
   
     default:

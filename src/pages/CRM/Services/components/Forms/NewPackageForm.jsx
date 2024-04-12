@@ -25,12 +25,12 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
 
   return (
     <Dialog open={modalPackage} onOpenChange={setModalPackage}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto ">
+      <DialogContent className="sm:max-w-[480px] overflow-auto ">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create New Package</DialogTitle>
         </DialogHeader>
         <Form
-          id="category-services-form"
+          id="package-services-form"
           className="flex flex-col gap-4"
           action="/crm/services"
           method="post"
@@ -73,7 +73,7 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
 
         </Form>
         <DialogFooter>
-          <Button form="category-services-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
+          <Button form="package-services-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

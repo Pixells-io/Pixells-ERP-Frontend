@@ -3,17 +3,17 @@ import React, { useState, useEffect } from "react";
 
 function SelectServices({ data }) {
 
+  const [isactive,setActive] = useState(false)
+
   return (
-    <div>
+    <div className="flex grid grid-cols-4">
         {data?.map((service, i) => (
-                <label htmlFor={service.id}>
-                    <input type="radio" id={service.id} name="service[]" value={service.id} />
-                    <div className="bg-transparent border-2 font-roboto text-xs font-medium text-grisSubText rounded-2xl py-2 px-3 border-grisSubText hover:text-[#00A9B3] hover:border-[#00A9B3] hover:bg-[#00A9B326] set-data:bg-[#00A9B326]">
-                        <span>
-                            {service.name}
-                        </span>
-                    </div>
-                </label>
+            <label htmlFor={service.id} onClick={()=>setActive(isactive?false:true)} className= {`${isactive?'text-[#00A9B3] border-[#00A9B3] bg-[#00A9B326]':'bg-transparent  text-grisSubText  border-grisSubText'} font-roboto text-xs font-medium truncate border-2 rounded-2xl py-2 px-3 `}>
+                <input type="checkbox" id={service.id} name="service" value={service.id} />
+                    <span  title={service.name}>
+                        {service.name}
+                    </span>
+            </label>
         ))}
     </div>
   );
