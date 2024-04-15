@@ -45,10 +45,9 @@ import MainProgress, {
 import StepsProgress, {
   Action as newStepService,
 } from "./pages/CRM/Progress/StepsProgress";
-import MainClients from "./pages/Clients/MainClients";
 
 //Login
-import Login from "./layouts/Login/LoginLayout";
+import Login, { action as loginAction } from "./layouts/Login/LoginLayout";
 
 //Organization
 import SideLayoutOrganization from "./layouts/Organization/components/SideLayout";
@@ -78,6 +77,7 @@ import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 
 // Chat
+import LayoutChat from "./layouts/Chat/LayoutChat";
 import MainChat from "./pages/Chat/MainChat";
 
 // Clients
@@ -97,8 +97,6 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
-import MainDashboard from "./pages/Dashboard/MainDashboard";
-import LayoutChat from "./layouts/Chat/LayoutChat";
 
 const router = createBrowserRouter([
   {
@@ -286,6 +284,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    action: loginAction,
   },
   {
     path: "/*",

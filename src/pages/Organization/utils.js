@@ -61,8 +61,10 @@ export async function saveNewPosition(data) {
 
 export async function loginUser(data) {
   const info = {
-    email: data.email,
-    password: data.password,
+    email: data.get("email"),
+    // email: data.email,
+    password: data.get("password"),
+    // password: data.password,
   };
 
   const response = await fetch(`${import.meta.env.VITE_SERVER_URL}login`, {
@@ -70,7 +72,7 @@ export async function loginUser(data) {
     body: JSON.stringify(info),
   });
 
-  return response;
+  return response.json();
 }
 
 export async function saveNewUser(data) {

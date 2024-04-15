@@ -70,7 +70,7 @@ const MENU = [
 
 function MainLayout() {
   const location = useLocation();
-  // console.log(location);
+
   return (
     <div className="flex flex-col h-screen min-h-0">
       <div className="flex justify-between items-center p-3 h-[56px]">
