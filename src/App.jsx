@@ -28,7 +28,7 @@ import MainClient from "./pages/CRM/Clients/MainClient";
 
 // CRM Services
 import MainServices, {
-  Action as NewFunction
+  Action as NewFunction,
 } from "./pages/CRM/Services/MainServices";
 import MainService from "./pages/CRM/Services/MainService";
 
@@ -65,7 +65,6 @@ import FormCreatePosition, {
 
 import NewCategoryForm from "./pages/CRM/Services/components/Forms/NewCategoryForm";
 
-
 // Project Manager
 import SideLayoutPManager, {
   Action as newObjective,
@@ -77,6 +76,12 @@ import Today from "./pages/PManager/Today";
 import Activities from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
+
+// Chat
+import MainChat from "./pages/Chat/MainChat";
+
+// Clients
+import MainClients from "./pages/Clients/MainClients";
 
 //actions
 import {
@@ -92,7 +97,8 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
-
+import MainDashboard from "./pages/Dashboard/MainDashboard";
+import LayoutChat from "./layouts/Chat/LayoutChat";
 
 const router = createBrowserRouter([
   {
@@ -265,6 +271,14 @@ const router = createBrowserRouter([
               },
             ],
           },
+        ],
+      },
+      {
+        path: "/chat",
+        element: <LayoutChat />,
+        children: [
+          { index: true, element: <MainChat /> },
+          { path: "/chat/:id" },
         ],
       },
     ],
