@@ -4,6 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "@/layouts/MainLayout";
 import SideLayout, { Action as newLead } from "@/layouts/CRM/SideLayout";
 
+//DASHBOARD
+import MainDashboard from "./pages/Dashboard/MainDashboard";
+
 //CRM
 import MainCRM from "@/pages/CRM/MainCRM";
 import DataTable from "./pages/CRM/components/Table/DataTable";
@@ -42,6 +45,7 @@ import MainProgress, {
 import StepsProgress, {
   Action as newStepService,
 } from "./pages/CRM/Progress/StepsProgress";
+import MainClients from "./pages/Clients/MainClients";
 
 //Login
 import Login from "./layouts/Login/LoginLayout";
@@ -88,8 +92,7 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
-import MainDashboard from "./pages/Dashboard/MainDashboard";
-import MainClients from "./pages/Clients/MainClients";
+
 
 const router = createBrowserRouter([
   {
@@ -206,6 +209,7 @@ const router = createBrowserRouter([
           {
             path: "/organization/access",
             element: <MainAccess />,
+            loader: multiLoaderOrganization,
           },
           {
             path: "/organization/create-user",

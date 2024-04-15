@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLoaderData, Outlet } from "react-router-dom";
+import {  useLoaderData, Outlet } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import {
@@ -13,11 +13,6 @@ import ServicesBlocks from "./components/ServicesBlocks";
 import NewServiceForm from "./components/Forms/NewServiceForm";
 
 import { saveCategory, saveService, savePackage } from "./utils";
-
-import {
-  createColumnHelper,
-  useReactTable,
-} from "@tanstack/react-table";
 import NewCategoryForm from "./components/Forms/NewCategoryForm";
 import CategoriesTable from "./components/Tables/CategoriesTable";
 import ServicesTable from "./components/Tables/ServicesTable";

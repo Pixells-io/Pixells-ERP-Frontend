@@ -69,13 +69,7 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
                     </div>
                 </div>
             ))}
-            <div>
-                
-            </div>
           </div>
-
-            
-
         </Form>
         <DialogFooter>
           <Button form="package-services-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>

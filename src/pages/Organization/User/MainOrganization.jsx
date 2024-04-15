@@ -50,9 +50,7 @@ const areaInputs = [
 function MainOrganization() {
     const [modal, setModal] = useState(false);
 
-    const { users } = useLoaderData();
-    const { positions } = useLoaderData();
-    const { areas } = useLoaderData();
+    const { users, positions, areas } = useLoaderData();
 
     return (
         <div className="flex w-full">
