@@ -40,7 +40,7 @@ function SideLayoutPManager() {
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
-            {objectives?.data.map((objective, i) => (
+            {objectives?.data?.map((objective, i) => (
               <ObjectiveLink key={i} objective={objective} />
             ))}
           </div>

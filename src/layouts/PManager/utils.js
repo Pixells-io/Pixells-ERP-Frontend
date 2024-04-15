@@ -5,7 +5,7 @@ export async function saveNewObjective(data) {
       description: data.get("area"),
     };
 
-    console.log(objective);
+    // console.log(objective);
 
     // validaciones?
 
@@ -19,7 +19,7 @@ export async function saveNewObjective(data) {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
 
     return response;
   } catch (error) {

@@ -230,3 +230,5 @@ export async function multiLoaderOrganization() {
 
   return json({ areas, positions, users });
 }
+
+export async function getUserByToken(token) {}

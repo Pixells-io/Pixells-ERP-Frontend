@@ -116,6 +116,7 @@ const router = createBrowserRouter([
         id: "side_services",
         path: "/crm",
         element: <SideLayout />,
+        errorElement: <NotFound />,
         loader: getServices,
         action: newLead,
         children: [
@@ -203,6 +204,7 @@ const router = createBrowserRouter([
       {
         path: "/organization",
         element: <SideLayoutOrganization />,
+        errorElement: <NotFound />,
         action: newArea,
         children: [
           {
@@ -234,6 +236,7 @@ const router = createBrowserRouter([
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,
+        errorElement: <NotFound />,
         loader: getObjectives,
         action: newObjective,
         children: [

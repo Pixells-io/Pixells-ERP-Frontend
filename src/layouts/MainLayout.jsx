@@ -78,8 +78,8 @@ function MainLayout() {
     async function getUser() {}
     const user = getUser(token);
     let activeToken = true;
-    if (token == undefined) navigate("/login");
-    if (!activeToken) navigate("/login");
+    if (token == undefined) return navigate("/login");
+    if (!activeToken) return navigate("/login");
   }, []);
 
   return (
