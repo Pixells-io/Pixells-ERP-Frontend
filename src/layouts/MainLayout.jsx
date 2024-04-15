@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +29,7 @@ import {
   logOut,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import Cookies from "js-cookie";
 
 const MENU = [
   {
@@ -69,7 +70,13 @@ const MENU = [
 ];
 
 function MainLayout() {
+  const navigate = useNavigate();
   const location = useLocation();
+  const token = Cookies.get("token");
+
+  useEffect(() => {
+    if (token == undefined) return navigate("/login");
+  }, []);
 
   return (
     <div className="flex flex-col h-screen min-h-0">

@@ -236,7 +236,7 @@ function DataTable({ services }) {
                   table.getColumn("service")?.setFilterValue(event);
                 }}
               >
-                {services.map((service, i) => (
+                {services?.map((service, i) => (
                   <DropdownMenuRadioItem key={i} value={service.name}>
                     {service.name}
                   </DropdownMenuRadioItem>

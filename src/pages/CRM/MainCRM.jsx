@@ -50,11 +50,11 @@ function MainCRM() {
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
             <div className="text-xs">
-              {services.length} {services.length > 1 ? "services" : "service"}
+              {services?.length} {services?.length > 1 ? "services" : "service"}
             </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">
-              {leads.length} {leads.length > 1 ? "customers" : "customer"}
+              {leads?.length} {leads?.length > 1 ? "customers" : "customer"}
             </div>
           </div>
         </div>

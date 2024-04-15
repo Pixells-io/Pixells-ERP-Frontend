@@ -1,10 +1,16 @@
+import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
 /*SERVICES ACTIONS*/
 export async function getServices() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}services/get-services`
+      `${import.meta.env.VITE_SERVER_URL}services/get-services`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -68,7 +74,12 @@ export async function multiLoaderServices() {
 export async function getLeads() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}person/get-lead`
+      `${import.meta.env.VITE_SERVER_URL}person/get-lead`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
