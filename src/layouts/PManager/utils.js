@@ -14,6 +14,9 @@ export async function saveNewObjective(data) {
       {
         method: "POST",
         body: JSON.stringify(objective),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
       }
     );
     console.log(response);

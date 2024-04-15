@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export async function saveService(data) {
   console.log(data);
   const service = {
@@ -17,7 +19,7 @@ export async function saveService(data) {
       method: "POST",
       body: JSON.stringify(service),
       headers: {
-        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     }
   );
@@ -53,7 +55,7 @@ export async function saveNewServiceStep(id, data) {
       method: "POST",
       body: JSON.stringify(step),
       headers: {
-        "Content-Type": "application/json",
+        Authorization: "Bearer " + Cookies.get("token"),
       },
     }
   );

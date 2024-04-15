@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export async function saveNewArea(data) {
   const area = {
     nombre: data.get("nombre"),
@@ -13,6 +15,9 @@ export async function saveNewArea(data) {
     {
       method: "POST",
       body: JSON.stringify(area),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 
@@ -53,6 +58,9 @@ export async function saveNewPosition(data) {
     {
       method: "POST",
       body: JSON.stringify(position),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 
@@ -70,6 +78,9 @@ export async function loginUser(data) {
   const response = await fetch(`${import.meta.env.VITE_SERVER_URL}login`, {
     method: "POST",
     body: JSON.stringify(info),
+    headers: {
+      Authorization: "Bearer " + Cookies.get("token"),
+    },
   });
 
   return response.json();
@@ -144,6 +155,9 @@ export async function saveNewUser(data) {
     {
       method: "POST",
       attributes: JSON.stringify(user),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 

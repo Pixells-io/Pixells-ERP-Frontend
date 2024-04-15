@@ -21,7 +21,12 @@ export async function getServices() {
 export async function getCategories() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}services/get-categories`
+      `${import.meta.env.VITE_SERVER_URL}services/get-categories`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -32,7 +37,12 @@ export async function getCategories() {
 export async function getPackages() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}services/get-packages`
+      `${import.meta.env.VITE_SERVER_URL}services/get-packages`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -43,7 +53,12 @@ export async function getPackages() {
 export async function getCategoriesAndServices() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}services/get-categories-with-services`
+      `${import.meta.env.VITE_SERVER_URL}services/get-categories-with-services`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -90,7 +105,12 @@ export async function getLeads() {
 export async function getProcessLeads() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}person/get-process-lead`
+      `${import.meta.env.VITE_SERVER_URL}person/get-process-lead`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -101,7 +121,12 @@ export async function getProcessLeads() {
 export async function getObjectives() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive`
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -115,7 +140,12 @@ export async function getGoals({ params }) {
     const response = await fetch(
       `${
         import.meta.env.VITE_SERVER_URL
-      }project-manager/get-goal/${objectiveId}/0`
+      }project-manager/get-goal/${objectiveId}/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -129,7 +159,12 @@ export async function getServiceSteps({ params }) {
     const response = await fetch(
       `${
         import.meta.env.VITE_SERVER_URL
-      }process-services/get-process/${serviceId}`
+      }process-services/get-process/${serviceId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -141,7 +176,12 @@ export async function getServiceSteps({ params }) {
 export async function getAreas() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/get-areas`
+      `${import.meta.env.VITE_SERVER_URL}organization/get-areas`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -152,7 +192,12 @@ export async function getAreas() {
 export async function getPosition() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/get-puestos`
+      `${import.meta.env.VITE_SERVER_URL}organization/get-puestos`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -163,7 +208,12 @@ export async function getPosition() {
 export async function getUsers() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/get-users`
+      `${import.meta.env.VITE_SERVER_URL}organization/get-users`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {

@@ -1,9 +1,15 @@
 import { format } from "date-fns";
+import Cookies from "js-cookie";
 
 export async function getSteps() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}person/get-process-leads`
+      `${import.meta.env.VITE_SERVER_URL}person/get-process-leads`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -14,7 +20,12 @@ export async function getSteps() {
 export async function getLeadById({ params }) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}person/get-lead/${params.id}`
+      `${import.meta.env.VITE_SERVER_URL}person/get-lead/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
     );
     return response.json();
   } catch (error) {
@@ -40,6 +51,9 @@ export async function prospectLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(prospect),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -63,6 +77,9 @@ export async function potencialLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(potencial),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -92,6 +109,9 @@ export async function followupLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(followup),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -117,6 +137,9 @@ export async function proposalLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(proposal),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -143,6 +166,9 @@ export async function closingLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(closing),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -167,6 +193,9 @@ export async function payLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(pay),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -195,6 +224,9 @@ export async function onboardingLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(onboarding),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);

@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export async function saveCategory(data) {
   const category = {
     name: data.get("name"),
@@ -9,6 +11,9 @@ export async function saveCategory(data) {
     {
       method: "POST",
       body: JSON.stringify(category),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 
@@ -32,6 +37,9 @@ export async function saveService(data) {
     {
       method: "POST",
       body: JSON.stringify(service),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 
@@ -57,6 +65,9 @@ export async function savePackage(data) {
     {
       method: "POST",
       body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
 

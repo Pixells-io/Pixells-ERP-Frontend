@@ -75,7 +75,11 @@ function MainLayout() {
   const token = Cookies.get("token");
 
   useEffect(() => {
-    if (token == undefined) return navigate("/login");
+    async function getUser() {}
+    const user = getUser(token);
+    let activeToken = true;
+    if (token == undefined) navigate("/login");
+    if (!activeToken) navigate("/login");
   }, []);
 
   return (

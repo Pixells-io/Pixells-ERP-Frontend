@@ -27,6 +27,9 @@ export async function saveNewLead(data) {
     {
       method: "POST",
       body: JSON.stringify(person),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
