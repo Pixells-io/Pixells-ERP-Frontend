@@ -70,8 +70,8 @@ export async function saveNewPosition(data) {
 export async function loginUser(data) {
   const info = {
     email: data.get("email"),
-    // email: data.email,
     password: data.get("password"),
+    // email: data.email,
     // password: data.password,
   };
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { IonIcon } from "@ionic/react";
-import { arrowForwardCircle } from "ionicons/icons";
-import { useState } from "react";
-import { loginUser } from "@/pages/Organization/utils";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, redirect, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+
+import { IonIcon } from "@ionic/react";
+import { arrowForwardCircle } from "ionicons/icons";
+
+import { loginUser } from "@/pages/Organization/utils";
 import { getUserByToken } from "@/lib/actions";
 
 function Login() {
@@ -18,7 +19,7 @@ function Login() {
       setUser(user);
     }
     fetchData();
-    if (token?.length > 0 || user.code == 201) return navigate("/");
+    if (token !== undefined || user.code == 201) return navigate("/");
   }, []);
 
   const passwordInputRef = useRef(null);
