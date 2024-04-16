@@ -85,6 +85,29 @@ export async function multiLoaderServices() {
   });
 }
 
+/* MULTILOADER CHAT */
+export async function getChats() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}chat/get-chats`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderChat() {
+  const [chats, users] = await Promise.all([getChats(), getUsers()]);
+
+  return json({ chats, users });
+}
+
 /*CRM ACTIONS*/
 export async function getLeads() {
   try {

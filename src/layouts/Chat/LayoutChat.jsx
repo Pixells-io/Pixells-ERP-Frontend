@@ -7,7 +7,9 @@ import ChatList from "./Components/Internal/ChatList";
 
 function LayoutChat() {
 
-  const { users } = useLoaderData();
+  const { users, chats } = useLoaderData();
+
+  console.log(chats);
 
   return (
     <div className="flex h-full px-4 font-roboto pb-4">

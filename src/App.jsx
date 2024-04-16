@@ -93,6 +93,7 @@ import {
   multiLoaderServices,
   getServiceSteps,
   multiLoaderOrganization,
+  multiLoaderChat,
 } from "./lib/actions";
 
 //Not Found
@@ -276,7 +277,7 @@ const router = createBrowserRouter([
       {
         path: "/chat",
         element: <LayoutChat />,
-        loader: multiLoaderOrganization,
+        loader: multiLoaderChat,
         action: ChatFunction,
         children: [
           { index: true, element: <MainChat /> },

@@ -16,7 +16,5 @@ export async function SearchAction(data) {
     }
   );
 
-  console.log(response);
-
   return response;
 }
