@@ -231,4 +231,18 @@ export async function multiLoaderOrganization() {
   return json({ areas, positions, users });
 }
 
-export async function getUserByToken(token) {}
+export async function getUserByToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/get-user`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

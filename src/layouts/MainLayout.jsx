@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -30,6 +30,7 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import Cookies from "js-cookie";
+import { getUserByToken } from "@/lib/actions";
 
 const MENU = [
   {
@@ -70,16 +71,18 @@ const MENU = [
 ];
 
 function MainLayout() {
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const token = Cookies.get("token");
 
   useEffect(() => {
-    async function getUser() {}
-    const user = getUser(token);
-    let activeToken = true;
-    if (token == undefined) return navigate("/login");
-    if (!activeToken) return navigate("/login");
+    async function fetchData() {
+      const user = await getUserByToken();
+      setUser(user);
+    }
+    fetchData();
+    if (token == undefined || user.status == 500) return navigate("/login");
   }, []);
 
   return (
