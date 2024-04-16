@@ -79,7 +79,9 @@ import MainClients from "./pages/Clients/MainClients";
 
 // Chat
 import LayoutChat from "./layouts/Chat/LayoutChat";
-import MainChat from "./pages/Chat/MainChat";
+import MainChat, {
+  Action as ChatFunction,
+} from "./pages/Chat/MainChat";
 
 //actions
 import {
@@ -274,6 +276,8 @@ const router = createBrowserRouter([
       {
         path: "/chat",
         element: <LayoutChat />,
+        loader: multiLoaderOrganization,
+        action: ChatFunction,
         children: [
           { index: true, element: <MainChat /> },
           { path: "/chat/:id" },

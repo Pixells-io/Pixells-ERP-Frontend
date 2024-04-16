@@ -1,11 +1,14 @@
 import React from "react";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
 
 function LayoutChat() {
+
+  const { users } = useLoaderData();
+
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col rounded-xl bg-gris gap-4 w-[450px] shrink-0">
@@ -17,7 +20,9 @@ function LayoutChat() {
                 <TabsTrigger className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3" value="meta">META</TabsTrigger>
             </TabsList>
             <TabsContent value="internal" className="h-full">
-                <InternalSearch/>
+                <InternalSearch 
+                  users={users.data}
+                />
                 <div className="py-3 my-3 h-full px-10 bg-[#FBFBFB]">
                   <ChatList/>
                 </div>
