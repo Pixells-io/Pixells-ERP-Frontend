@@ -18,8 +18,6 @@ export async function saveNewLead(data) {
     service_id: services,
   };
 
-  console.log(person);
-
   // validaciones?
 
   const response = await fetch(

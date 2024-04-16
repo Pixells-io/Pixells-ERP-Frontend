@@ -1,4 +1,5 @@
 import React from "react";
+import { SearchAction } from "@/layouts/Chat/utils";
 
 function MainChat() {
   return (
@@ -11,3 +12,15 @@ function MainChat() {
 }
 
 export default MainChat;
+
+export async function Action({request}) {
+
+  const data = await request.formData();
+
+  const validation = SearchAction(data);
+
+  console.log(validation)
+
+  return 1;
+  
+}
