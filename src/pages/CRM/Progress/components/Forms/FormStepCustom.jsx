@@ -4,10 +4,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Form } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const FIELD_NUMBER = [
   { type: "1", value: "text" },
@@ -19,35 +21,47 @@ const FIELD_NUMBER = [
 ];
 
 function FormStepCustom({ fields, modal, setModal }) {
-  // console.log(fields);
+  console.log(fields);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-          <Form>
-            <div className="flex flex-col">
-              {fields?.map((field, i) => {
-                return (
-                  <input
-                    required={Number(field.nullable) === 0 ? true : false}
-                    placeholder={field.visible_name}
-                    name={field.name}
-                    type={
-                      FIELD_NUMBER.find(
-                        (number) => number.type == field.rendering
-                      ).value
-                    }
-                  />
-                );
-              })}
-            </div>
-          </Form>
+      <DialogContent className="p-0">
+        <DialogHeader className="bg-blancoForms h-12 px-4 py-4 flex justify-center rounded-t-xl">
+          <DialogTitle className="text-grisHeading font-poppins font-semibold text-sm">
+            Envío de correo
+          </DialogTitle>
         </DialogHeader>
+        <DialogDescription className="px-4">
+          <div className="flex px-4 rounded-full bg-[#F0F0F0] text-grisSubText text-[10px] font-light w-fit">
+            diego@irb.tax
+          </div>
+        </DialogDescription>
+        <Form
+          className="
+        px-4 pb-4"
+        >
+          <div className="flex flex-col gap-4">
+            {fields?.map((field, i) => {
+              return (
+                <input
+                  className="placeholder:text-[10px] placeholder:font-light placeholder:text-grisSubText p-3 border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b rounded-none bg-transparent !ring-0 !ring-offset-0"
+                  required={Number(field.nullable) === 0 ? true : false}
+                  placeholder={field.visible_name}
+                  name={field.name}
+                  type={
+                    FIELD_NUMBER.find(
+                      (number) => number.type == field.rendering
+                    ).value
+                  }
+                />
+              );
+            })}
+          </div>
+        </Form>
+        <DialogFooter className="p-4">
+          <Button type="submit" className="bg-primarioBotones">
+            Send Email
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

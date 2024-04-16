@@ -10,10 +10,12 @@ function StepsProgress() {
   const { data: steps } = useLoaderData();
   console.log(steps);
   return (
-    <div className="flex gap-2">
-      {steps?.map((step, i) => (
-        <Step key={i} stepInfo={step} fields={step.fields} />
-      ))}
+    <div className="flex shrink-0">
+      <div className="flex gap-2 overflow-scroll">
+        {steps?.map((step, i) => (
+          <Step key={i} stepInfo={step} fields={step.fields} />
+        ))}
+      </div>
       <NewStepService serviceId={id} />
     </div>
   );
