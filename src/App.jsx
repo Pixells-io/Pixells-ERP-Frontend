@@ -75,13 +75,11 @@ import Today from "./pages/PManager/Today";
 import Activities from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
+import MainClients from "./pages/Clients/MainClients";
 
 // Chat
 import LayoutChat from "./layouts/Chat/LayoutChat";
 import MainChat from "./pages/Chat/MainChat";
-
-// Clients
-import MainClients from "./pages/Clients/MainClients";
 
 //actions
 import {
@@ -199,7 +197,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       // organization
       {
         path: "/organization",
@@ -231,7 +228,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       // project manager
       {
         path: "/project-manager",
@@ -274,6 +270,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      //Chat
       {
         path: "/chat",
         element: <LayoutChat />,
@@ -288,10 +285,6 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     action: loginAction,
-  },
-  {
-    path: "/*",
-    element: <NotFound />,
   },
 ]);
 

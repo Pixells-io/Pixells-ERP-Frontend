@@ -84,7 +84,7 @@ function AccordionModule(area) {
                             {permision?.map((permiso, i) => (
                                 <div className="flex border-b border[#D7D7D7] py-4">
                                     <div className="w-1/6 pl-8">
-                                        <span className="font-roboto text-grisHeading text-sm font-normal">
+                                        <span className="font-roboto text-grisHeading uppercase text-sm font-normal">
                                             {permiso.name}
                                         </span>
                                     </div>
