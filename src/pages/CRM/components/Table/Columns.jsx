@@ -6,6 +6,8 @@ import {
   chatbubbleEllipses,
   informationCircle,
 } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export const columns = [
   {
@@ -51,10 +53,16 @@ export const columns = [
   {
     accessorKey: "actions",
     header: "ACTIONS",
-    cell: () => {
+    cell: ({ row }) => {
+      console.log(row.original.id);
       return (
-        <div className="flex gap-2 text-[#696974]">
-          <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+        <div className="flex items-center gap-2 text-[#696974]">
+          <Link
+            to={`/crm/leads/${row?.original?.id}`}
+            className="flex items-center"
+          >
+            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+          </Link>
           <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
           <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
         </div>

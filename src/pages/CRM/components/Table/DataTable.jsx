@@ -169,6 +169,7 @@ import { pusherClient } from "@/lib/pusher";
 
 function DataTable({ services }) {
   const { data } = useLoaderData();
+  // console.log(data);
   const [initialData, setInitialData] = useState(data);
   const [leads, setLeads] = useState(initialData);
   const [columnFilters, setColumnFilters] = useState([]);

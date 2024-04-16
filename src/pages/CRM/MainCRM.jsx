@@ -77,15 +77,15 @@ function MainCRM() {
           <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
             <TabsTrigger
               value="account"
-              className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
             >
-              Leads
+              LEADS
             </TabsTrigger>
             <TabsTrigger
               value="password"
-              className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
             >
-              Clients
+              CLIENTS
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account" className="p-2 mt-[-60px] ">

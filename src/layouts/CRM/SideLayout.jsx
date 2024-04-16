@@ -34,7 +34,7 @@ function SideLayout() {
           {/*menu top */}
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
-            <FormNewClient />
+            {/* <FormNewClient /> */}
             <FormNewSale />
           </div>
 
