@@ -1,12 +1,26 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { IonIcon } from "@ionic/react";
 import { arrowForwardCircle } from "ionicons/icons";
 import { useState } from "react";
 import { loginUser } from "@/pages/Organization/utils";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { getUserByToken } from "@/lib/actions";
 
 function Login() {
+  const [user, setUser] = useState("");
+  const navigate = useNavigate();
+  const token = Cookies.get("token");
+
+  useEffect(() => {
+    async function fetchData() {
+      const user = await getUserByToken();
+      setUser(user);
+    }
+    fetchData();
+    if (token?.length > 0 || user.code == 201) return navigate("/");
+  }, []);
+
   const passwordInputRef = useRef(null);
 
   const initialFormData = Object.freeze({
@@ -137,7 +151,6 @@ export default Login;
 export async function action({ request }) {
   const formData = await request.formData();
   const response = await loginUser(formData);
-
   if (response.code === 201) {
     Cookies.set("token", response.access_token, { expires: 0.5 });
     return redirect("/");
