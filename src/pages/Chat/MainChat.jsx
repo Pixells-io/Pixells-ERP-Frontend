@@ -46,8 +46,10 @@ function MainChat() {
     let msg = inputMsg.current.value;
     let chat = chatPusher[0].id;
 
-    //SEND THE MESSAGE
-    storeMensagge(chat, msg);
+    if (msg != "") {
+      //SEND THE MESSAGE
+      storeMensagge(chat, msg); 
+    }
 
     //CLEAN THE MESSAGE
     inputMsg.current.value = "";
