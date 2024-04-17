@@ -1,8 +1,10 @@
+import Cookies from "js-cookie";
+
 export async function saveNewObjective(data) {
   try {
     const objective = {
       name: data.get("objetivo"),
-      description: data.get("area"),
+      description: Number(data.get("area")),
     };
 
     // console.log(objective);

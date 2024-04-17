@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { flag } from "ionicons/icons";
 
-function ObjectiveLink({ objective }) {
+function ObjectiveLink({ objective, areas }) {
+  const objectiveArea = areas?.data?.find(
+    (area) => area?.id == objective?.description
+  );
+  // console.log(objectiveArea);
   return (
     <NavLink
       to={`/project-manager/${objective.id}`}
@@ -16,7 +20,7 @@ function ObjectiveLink({ objective }) {
           <p className="font-medium text-base truncate w-44">
             {objective.name}
           </p>
-          <p className="font-medium text-[10px]">Comercial Objective</p>
+          <p className="font-medium text-[10px]">{objectiveArea?.nombre}</p>
         </div>
       </div>
     </NavLink>

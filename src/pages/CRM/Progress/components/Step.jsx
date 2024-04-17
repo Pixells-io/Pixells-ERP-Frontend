@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import Customer from "./Customer";
 import FormStepCustom from "./Forms/FormStepCustom";
 
-function Step({ stepInfo }) {
+function Step({ stepInfo, services }) {
   const { customers, fields, step } = stepInfo;
   const [modal, setModal] = useState(false);
-  // console.log(stepInfo);
   return (
     <>
-      <FormStepCustom fields={fields} modal={modal} setModal={setModal} />
+      <FormStepCustom
+        service={services}
+        fields={fields}
+        step={step}
+        modal={modal}
+        setModal={setModal}
+      />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
         <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-[#00A259] rounded-lg gap-2 h-16">
           <div>
@@ -26,7 +31,7 @@ function Step({ stepInfo }) {
           onDrop={(event) => {
             event.preventDefault();
             event.stopPropagation();
-            console.log(event.target);
+            // console.log(event.target);
             // console.log("ondrop");
             setModal(true);
           }}

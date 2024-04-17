@@ -165,7 +165,7 @@ const HEADERS = [
   { name: "ACTIONS" },
 ];
 
-function Board({ goal }) {
+function Board({ goal, users, csfs }) {
   return (
     <div className="flex flex-col bg-blancoBg h-full overflow-auto p-4">
       <div className="grid grid-cols-10 text-right">
@@ -188,16 +188,21 @@ function Board({ goal }) {
       </div>
       <div className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12">
         <div className="col-span-10">
+          <input
+            type="text"
+            placeholder="+ CRITICAL SUCCES FACTOR"
+            className="flex w-full"
+          />
           <CsfForm goalId={goal.id} objectiveId={goal.strategic_objetive_id} />
         </div>
       </div>
       <div>
-        {DATA?.map((client, i) => (
+        {csfs?.map((client, i) => (
           <Accordion key={i} type="single" collapsible className="">
-            <AccordionItem value={`item-${client.id}`}>
+            <AccordionItem value={`item-${client?.id}`}>
               <AccordionTrigger className="bg-grisBg px-4 justify-normal gap-2">
                 <p className="text-sm font-medium text-grisHeading">
-                  {client?.csf}
+                  {client?.name}
                 </p>
                 <span className="bg-blancoBg w-6 h-6 flex justify-center items-center rounded-full text-sm font-medium text-grisHeading">
                   {client?.activities?.length}
@@ -206,10 +211,10 @@ function Board({ goal }) {
               <AccordionContent>
                 <div className="grid grid-cols-10 items-center border-b-[1px] px-1 h-12">
                   <div className="flex justify-end col-span-2">
-                    <TaskForm />
+                    <TaskForm users={users} csfId={client.id} />
                   </div>
                 </div>
-                {client?.activities.map((item, i) => (
+                {client?.activities?.map((item, i) => (
                   <div
                     key={i}
                     className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
@@ -218,12 +223,12 @@ function Board({ goal }) {
                     <div className="col-span-2 flex justify-end items-center gap-2">
                       <p className="text-2xl text-red-500">&bull;</p>
                       <p className="text-grisHeading text-[12px] font-normal">
-                        {item.activity}
+                        {item?.activity}
                       </p>
                     </div>
                     <div>
                       <p className="text-grisHeading text-[12px] font-normal pr-4">
-                        {item.type}
+                        {item?.type}
                       </p>
                     </div>
                     <div className="flex flex-col items-center px-2">
@@ -259,7 +264,7 @@ function Board({ goal }) {
                     <div>
                       <Badge className="bg-orange-200 hover:bg-orange-100 text-[#FAA364]">
                         <p className=" text-[11px] font-semibold">
-                          {item.status}
+                          {item?.status}
                         </p>
                       </Badge>
                     </div>

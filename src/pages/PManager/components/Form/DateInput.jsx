@@ -1,8 +1,5 @@
-"use client";
-
 import * as React from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,11 +13,12 @@ import {
 import { IonIcon } from "@ionic/react";
 import { calendarOutline } from "ionicons/icons";
 
-export default function DateInput() {
+export default function DateInput({ name }) {
+  const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState();
 
   return (
-    <Popover>
+    <Popover modal={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"ghost"}
@@ -30,7 +28,14 @@ export default function DateInput() {
           )}
         >
           <IonIcon className="w-3 h-3" icon={calendarOutline}></IonIcon>
-          {date ? format(date, "PP") : <span>Fecha inicio</span>}
+          <input type="date" name={name} value={date} className="hidden" />
+          {date ? (
+            format(date, "PP")
+          ) : name === "start_date" ? (
+            <span>Fecha inicio</span>
+          ) : (
+            <span>Fecha fin</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

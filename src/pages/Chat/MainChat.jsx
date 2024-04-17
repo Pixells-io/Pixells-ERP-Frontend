@@ -13,14 +13,12 @@ function MainChat() {
 
 export default MainChat;
 
-export async function Action({request}) {
-
+export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = SearchAction(data);
+  const validation = await SearchAction(data);
 
-  console.log(validation)
+  console.log(validation);
 
-  return 1;
-  
+  return validation;
 }

@@ -5,8 +5,10 @@ import Board from "./Board";
 
 function Boards() {
   const params = useParams();
-  const goals = useLoaderData();
+  const { goals, users, csfs } = useLoaderData();
   const tabDefault = goals?.data[0]?.name;
+
+  console.log(csfs);
 
   return (
     <Tabs
@@ -27,7 +29,7 @@ function Boards() {
       {goals?.data?.map((goal, i) => (
         <div key={i} className="flex w-full">
           <TabsContent value={goal.name} className="w-full">
-            <Board goal={goal} />
+            <Board goal={goal} users={users.data} csfs={csfs.data} />
           </TabsContent>
         </div>
       ))}

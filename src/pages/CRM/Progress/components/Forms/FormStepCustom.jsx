@@ -20,25 +20,23 @@ const FIELD_NUMBER = [
   { type: "6", value: "number" },
 ];
 
-function FormStepCustom({ fields, modal, setModal }) {
-  console.log(fields);
+function FormStepCustom({ fields, modal, setModal, step, service }) {
+  // console.log(service);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
         <DialogHeader className="bg-blancoForms h-12 px-4 py-4 flex justify-center rounded-t-xl">
           <DialogTitle className="text-grisHeading font-poppins font-semibold text-sm">
-            Envío de correo
+            <span className="font-light">Donde estas</span> &gt; {step?.name}{" "}
+            &bull; <span>{service.name}</span>
           </DialogTitle>
         </DialogHeader>
         <DialogDescription className="px-4">
-          <div className="flex px-4 rounded-full bg-[#F0F0F0] text-grisSubText text-[10px] font-light w-fit">
+          <span className="flex px-4 rounded-full bg-[#F0F0F0] text-grisSubText text-[10px] font-light w-fit">
             diego@irb.tax
-          </div>
+          </span>
         </DialogDescription>
-        <Form
-          className="
-        px-4 pb-4"
-        >
+        <Form className="px-4 pb-4">
           <div className="flex flex-col gap-4">
             {fields?.map((field, i) => {
               return (

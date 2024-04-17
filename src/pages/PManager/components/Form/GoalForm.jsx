@@ -1,5 +1,5 @@
-import React from "react";
-import { Form } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
 import {
   Dialog,
@@ -14,9 +14,18 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 function GoalForm({ objectiveId }) {
+  const navigation = useNavigation();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setOpen(false);
+    }
+  }, [navigation.state]);
+
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="text-primarioBotones text-base font-semibold">
           + New Goal
         </DialogTrigger>

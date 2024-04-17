@@ -41,7 +41,7 @@ function Main() {
   const services = useLoaderData();
   // const data = useActionData();
   const navigation = useNavigation();
-  // console.log(services.data);
+  console.log(services.data);
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -117,7 +117,7 @@ function Main() {
           </div>
         </div>
 
-        <Outlet />
+        <Outlet context={{ services }} />
       </div>
     </div>
   );

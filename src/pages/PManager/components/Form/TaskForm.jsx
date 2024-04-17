@@ -25,9 +25,11 @@ import DateInput from "./DateInput";
 import { IonIcon } from "@ionic/react";
 import { personOutline, repeatOutline } from "ionicons/icons";
 
-function TaskForm() {
+function TaskForm({ users, csfId }) {
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
+
+  // console.log(users);
 
   return (
     <div>
@@ -43,7 +45,7 @@ function TaskForm() {
             <Form
               className="flex flex-col gap-2"
               id="task-form"
-              // action={`/project-manager/${objectiveId}`}
+              action={`/project-manager/${csfId}`}
               method="post"
             >
               {/* selector de task */}
@@ -121,10 +123,15 @@ function TaskForm() {
                       </div>
                     </SelectTrigger>
                     <SelectContent className="text-grisText">
-                      <SelectItem value="1">Pedro</SelectItem>
-                      <SelectItem value="2">Juan</SelectItem>
-                      <SelectItem value="3">Diego</SelectItem>
-                      <SelectItem value="4">Victor</SelectItem>
+                      {users?.map((user, i) => (
+                        <SelectItem key={user.id} value={user.id}>
+                          <p>
+                            {user.name}
+                            {user.last_name} {user.second_last_name}
+                          </p>
+                        </SelectItem>
+                      ))}
+                      <SelectItem value="900">Pedro</SelectItem>
                     </SelectContent>
                   </Select>
                   <div className="col-span-2"></div>
@@ -148,7 +155,7 @@ function TaskForm() {
                   {repeticion && repeticion === "1" ? (
                     <>
                       <div className="col-span-2">
-                        <DateInput />
+                        <DateInput name={"start_date"} />
                       </div>
                       <div className="col-span-4">
                         <Textarea
@@ -161,10 +168,10 @@ function TaskForm() {
                   ) : (
                     <>
                       <div className="col-span-2">
-                        <DateInput />
+                        <DateInput name={"start_date"} />
                       </div>
                       <div className="col-span-2">
-                        <DateInput />
+                        <DateInput name={"end_date"} />
                       </div>
 
                       <Select name="sequence">
@@ -197,6 +204,7 @@ function TaskForm() {
               )}
 
               <Input className="hidden" name="action" value="task" readOnly />
+              <Input className="hidden" name="fce_id" value={csfId} readOnly />
             </Form>
           </DialogHeader>
           <DialogFooter>

@@ -79,9 +79,7 @@ import MainClients from "./pages/Clients/MainClients";
 
 // Chat
 import LayoutChat from "./layouts/Chat/LayoutChat";
-import MainChat, {
-  Action as ChatFunction,
-} from "./pages/Chat/MainChat";
+import MainChat, { Action as ChatFunction } from "./pages/Chat/MainChat";
 
 //actions
 import {
@@ -94,6 +92,8 @@ import {
   getServiceSteps,
   multiLoaderOrganization,
   multiLoaderChat,
+  multiLoaderCSF,
+  multiLoaderSideLayoutPM,
 } from "./lib/actions";
 
 //Not Found
@@ -235,8 +235,8 @@ const router = createBrowserRouter([
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,
-        errorElement: <NotFound />,
-        loader: getObjectives,
+        // errorElement: <NotFound />,
+        loader: multiLoaderSideLayoutPM,
         action: newObjective,
         children: [
           {
@@ -258,7 +258,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                loader: getGoals,
+                loader: multiLoaderCSF,
                 element: <Boards />,
               },
               {
