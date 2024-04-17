@@ -79,7 +79,7 @@ import MainClients from "./pages/Clients/MainClients";
 
 // Chat
 import LayoutChat from "./layouts/Chat/LayoutChat";
-import MainChat, { Action as ChatFunction } from "./pages/Chat/MainChat";
+import MainChat from "./pages/Chat/MainChat";
 
 //actions
 import {
