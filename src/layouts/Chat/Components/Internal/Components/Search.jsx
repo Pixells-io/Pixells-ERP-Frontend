@@ -1,6 +1,7 @@
 import React, { useRef }from "react";
 import Select from 'react-select';
 import { Form } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Search(users) {
 
@@ -21,23 +22,33 @@ function Search(users) {
     }
 
   return (
-    <Form
-    id="search-chat"
-    action="/chat"
-    method="POST"
-    >
-        <input type="hidden" value={1} name="function" />
-        <Select
-            options={selectUser}
-            placeholder="SEARCH"
-            name="chat"
-            className="rounded-2xl"
-        />
-        <button form="search-chat">Hol</button>
-    </Form>
+    <Select
+        options={selectUser}
+        placeholder="SEARCH"
+        name="chat"
+        className="rounded-2xl"
+        onChange={searchChat}
+    />
   );
 }
 
 export default Search;
 
+export async function searchChat(e)
+{
+    const info = {
+        chat: e.value,
+    };
+
+    const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/search`,
+    {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+        },
+    }
+    );
+}
 
