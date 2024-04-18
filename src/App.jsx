@@ -118,7 +118,7 @@ const router = createBrowserRouter([
         id: "side_services",
         path: "/crm",
         element: <SideLayout />,
-        errorElement: <NotFound />,
+        // errorElement: <NotFound />,
         loader: getServices,
         action: newLead,
         children: [
@@ -132,6 +132,7 @@ const router = createBrowserRouter([
             //crm leads
             path: "/crm/leads",
             element: <MainLeads />,
+            loader: getLeads,
             action: ActionsLeads,
             children: [
               {

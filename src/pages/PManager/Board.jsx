@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Accordion,
@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import CsfForm from "./components/Form/CsfForm";
 import TaskForm from "./components/Form/TaskForm";
+import { Form, useSubmit } from "react-router-dom";
 
 const DATA = [
   {
@@ -166,8 +167,20 @@ const HEADERS = [
 ];
 
 function Board({ goal, users, csfs }) {
+  const submit = useSubmit();
+  const [csfInput, setCsfInput] = useState("");
+  console.log(csfs);
+
+  function onInputEnter(e) {
+    console.log(e.currentTarget);
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      setCsfInput("");
+    }
+  }
+
   return (
-    <div className="flex flex-col bg-blancoBg h-full overflow-auto p-4">
+    <div className="flex flex-col bg-blancoBg h-full overflow-auto p-4 gap-4">
       <div className="grid grid-cols-10 text-right">
         {HEADERS?.map((header, i) => (
           <div
@@ -188,15 +201,28 @@ function Board({ goal, users, csfs }) {
       </div>
       <div className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12">
         <div className="col-span-10">
-          <input
-            type="text"
-            placeholder="+ CRITICAL SUCCES FACTOR"
-            className="flex w-full"
-          />
-          <CsfForm goalId={goal.id} objectiveId={goal.strategic_objetive_id} />
+          <Form
+            onKeyDown={onInputEnter}
+            id="csf-form"
+            action={`/project-manager/${goal.strategic_objetive_id}`}
+            method="post"
+            name="csf"
+          >
+            <input
+              type="text"
+              name="csf"
+              placeholder="+ CRITICAL SUCCES FACTOR"
+              className="flex w-full px-2 bg-blancoBg placeholder:text-grisSubText placeholder:text-sm placeholder:font-normal"
+              value={csfInput}
+              onChange={(e) => setCsfInput(e.target.value)}
+            />
+            <input className="hidden" name="action" value="csf" readOnly />
+            <input className="hidden" name="goalId" value={goal.id} readOnly />
+          </Form>
+          {/* <CsfForm goalId={goal.id} objectiveId={goal.strategic_objetive_id} /> */}
         </div>
       </div>
-      <div>
+      <div className="h-full overflow-auto">
         {csfs?.map((client, i) => (
           <Accordion key={i} type="single" collapsible className="">
             <AccordionItem value={`item-${client?.id}`}>
@@ -205,7 +231,7 @@ function Board({ goal, users, csfs }) {
                   {client?.name}
                 </p>
                 <span className="bg-blancoBg w-6 h-6 flex justify-center items-center rounded-full text-sm font-medium text-grisHeading">
-                  {client?.activities?.length}
+                  {client?.activities?.length >= 0 ? 0 : 1}
                 </span>
               </AccordionTrigger>
               <AccordionContent>

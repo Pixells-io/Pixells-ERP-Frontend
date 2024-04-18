@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export async function saveNewLead(data) {
   const services = [];
   for (const [key, value] of data.entries()) {
