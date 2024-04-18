@@ -176,6 +176,25 @@ export async function getGoals({ params }) {
   }
 }
 
+export async function getCSF({ params }) {
+  const objectiveId = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }project-manager/get-fce/${objectiveId}/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getServiceSteps({ params }) {
   const serviceId = params.id;
   try {
@@ -268,4 +287,20 @@ export async function getUserByToken() {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function multiLoaderCSF({ params }) {
+  const [goals, users, csfs] = await Promise.all([
+    getGoals({ params }),
+    getUsers(),
+    getCSF({ params }),
+  ]);
+
+  return json({ goals, users, csfs });
+}
+
+export async function multiLoaderSideLayoutPM() {
+  const [objectives, areas] = await Promise.all([getObjectives(), getAreas()]);
+
+  return json({ objectives, areas });
 }

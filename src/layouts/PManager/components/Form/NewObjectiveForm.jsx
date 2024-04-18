@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,20 +20,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
-const areas = [
-  { id: 103, name: "Finance" },
-  { id: 215, name: "Marketing" },
-  { id: 428, name: "HR" },
-  { id: 511, name: "IT" },
-  { id: 637, name: "Operations" },
-];
+function NewObjectiveForm({ open, setOpen, areas }) {
+  const navigation = useNavigation();
 
-function NewObjectiveForm() {
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setOpen(false);
+    }
+  }, [navigation.state]);
+
+  // console.log(areas);
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="w-5 h-5 border-2 text-primarioBotones border-primarioBotones rounded-full flex items-center justify-center">
           +
         </DialogTrigger>
@@ -63,7 +64,7 @@ function NewObjectiveForm() {
                       <SelectLabel>Seleccionar un Área</SelectLabel>
                       {areas?.map((area, i) => (
                         <SelectItem key={i} value={area.id.toString()}>
-                          {area.name}
+                          {area.nombre}
                         </SelectItem>
                       ))}
                     </SelectGroup>

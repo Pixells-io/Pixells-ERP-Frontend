@@ -18,10 +18,11 @@ import NewObjectiveForm from "./components/Form/NewObjectiveForm";
 import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
-  const objectives = useLoaderData();
-  const [objectiveCtx, setObjectivesCtx] = useState(objectives);
-  // console.log(objectives.data);
+  const [open, setOpen] = useState(false);
   const navigation = useNavigation();
+  const { objectives, areas } = useLoaderData();
+  const [objectiveCtx, setObjectivesCtx] = useState(objectives);
+
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4 w-[280px] shrink-0">
@@ -36,12 +37,12 @@ function SideLayoutPManager() {
             Strategic Objectives
           </p>
 
-          <NewObjectiveForm />
+          <NewObjectiveForm areas={areas?.data} open={open} setOpen={setOpen} />
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
             {objectives?.data?.map((objective, i) => (
-              <ObjectiveLink key={i} objective={objective} />
+              <ObjectiveLink key={i} objective={objective} areas={areas} />
             ))}
           </div>
 

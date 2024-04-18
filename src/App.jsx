@@ -92,6 +92,8 @@ import {
   getServiceSteps,
   multiLoaderOrganization,
   multiLoaderChat,
+  multiLoaderCSF,
+  multiLoaderSideLayoutPM,
 } from "./lib/actions";
 
 //Not Found
@@ -234,8 +236,8 @@ const router = createBrowserRouter([
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,
-        errorElement: <NotFound />,
-        loader: getObjectives,
+        // errorElement: <NotFound />,
+        loader: multiLoaderSideLayoutPM,
         action: newObjective,
         children: [
           {
@@ -257,7 +259,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                loader: getGoals,
+                loader: multiLoaderCSF,
                 element: <Boards />,
               },
               {
@@ -279,7 +281,7 @@ const router = createBrowserRouter([
         loader: multiLoaderChat,
         children: [
           { index: true },
-          { path: "/chat/:id", element: <MainChat/>, loader: getChat },
+          { path: "/chat/:id", element: <MainChat />, loader: getChat },
         ],
       },
     ],

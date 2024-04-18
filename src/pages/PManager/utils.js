@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export async function saveNewGoal(data, id) {
   const goal = {
     name: data.get("goal"),
@@ -13,6 +15,9 @@ export async function saveNewGoal(data, id) {
     {
       method: "POST",
       body: JSON.stringify(goal),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -35,6 +40,9 @@ export async function saveNewCsf(data) {
     {
       method: "POST",
       body: JSON.stringify(csf),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);
@@ -50,9 +58,9 @@ export async function saveNewTask(data) {
     user_id: data.get("userId"),
     priority: Number(data.get("priority")),
     repeat: data.get("repeat"),
-    //start date
-    //end date
-    //fce_id  int
+    start_date: data.get("star_date"),
+    end_date: data.get("end_date"),
+    fce_id: Number(data.get("fce_id")),
     sequence: data.get("sequence"),
   };
 
@@ -65,6 +73,9 @@ export async function saveNewTask(data) {
     {
       method: "POST",
       body: JSON.stringify(task),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
     }
   );
   console.log(response);

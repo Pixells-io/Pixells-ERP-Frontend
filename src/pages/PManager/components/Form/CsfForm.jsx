@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 function CsfForm({ goalId, objectiveId }) {
+  // console.log(goalId);
+  // console.log(objectiveId);
   return (
     <Dialog>
       <DialogTrigger asChild>
