@@ -5,7 +5,8 @@ import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
 import { useLoaderData } from "react-router-dom";
 import { storeMensagge } from "./utils";
-import { pusherClient } from "@/lib/pusher";
+import Echo from "laravel-echo";
+import Cookies from "js-cookie";
 
 function MainChat() {
   const { data } = useLoaderData();
@@ -14,7 +15,29 @@ function MainChat() {
   const [chatPusher, setChatPusher] = useState(initialData);
 
   useEffect(() => {
-    pusherClient.subscribe('private-get-chat');
+
+    let p = new Echo({
+      broadcaster: 'pusher',
+      key: "c0b005198f54bf82285b",
+      wsHost: 'https://demoback.pixells.io',
+      cluster: 'us2',
+      authEndpoint: "https://demoback.pixells.io/broadcasting/auth",
+      auth: {
+        headers: {
+          Accept: 'application/json',
+          Authorization: "Bearer " + Cookies.get("token"),
+        }
+      },
+      wsPort: '443',
+    });
+
+    p.private('private-get-chat')
+      .listen('GetChatInfo', (query) => {
+        console.log(query);
+        //setChatPusher(query.data);
+    });
+
+    /*pusherClient.subscribe('private-get-chat');
 
     pusherClient.bind('fill-chat', ({ query }) => {
       console.log(query);
@@ -26,7 +49,7 @@ function MainChat() {
 
     return () => {
       pusherClient.unsubscribe('private-get-chat');
-    };
+    };*/
   }, []);
 
 
