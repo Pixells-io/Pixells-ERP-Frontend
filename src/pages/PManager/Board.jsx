@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Form, useSubmit } from "react-router-dom";
+import { format } from "date-fns";
 
 import {
   Accordion,
@@ -9,150 +11,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import CsfForm from "./components/Form/CsfForm";
-import TaskForm from "./components/Form/TaskForm";
-import { Form, useSubmit } from "react-router-dom";
 
-const DATA = [
-  {
-    id: 0,
-    csf: "Original Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-  {
-    id: 1,
-    csf: "New Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-  {
-    id: 2,
-    csf: "Old Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-];
+import TaskForm from "./components/Form/TaskForm";
+
+import { checkmarkCircleOutline, create, trash } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
 
 const HEADERS = [
   { name: "CSF" },
@@ -223,52 +86,52 @@ function Board({ goal, users, csfs }) {
         </div>
       </div>
       <div className="h-full overflow-auto">
-        {csfs?.map((client, i) => (
+        {csfs?.map(({ fce, tasks }, i) => (
           <Accordion key={i} type="single" collapsible className="">
-            <AccordionItem value={`item-${client?.id}`}>
+            <AccordionItem value={`item-${fce?.id}`}>
               <AccordionTrigger className="bg-grisBg px-4 justify-normal gap-2">
                 <p className="text-sm font-medium text-grisHeading">
-                  {client?.name}
+                  {fce?.name}
                 </p>
                 <span className="bg-blancoBg w-6 h-6 flex justify-center items-center rounded-full text-sm font-medium text-grisHeading">
-                  {client?.activities?.length >= 0 ? 0 : 1}
+                  {tasks?.length}
                 </span>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-10 items-center border-b-[1px] px-1 h-12">
                   <div className="flex justify-end col-span-2">
-                    <TaskForm users={users} csfId={client.id} />
+                    <TaskForm users={users} csfId={fce.id} />
                   </div>
                 </div>
-                {client?.activities?.map((item, i) => (
+                {tasks?.map(({ task }, i) => (
                   <div
                     key={i}
-                    className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
+                    className="grid grid-cols-10 text-right gap-y-6 items-center border-b-[1px] pr-2 h-12"
                   >
                     <div></div>
                     <div className="col-span-2 flex justify-end items-center gap-2">
                       <p className="text-2xl text-red-500">&bull;</p>
                       <p className="text-grisHeading text-[12px] font-normal">
-                        {item?.activity}
+                        {task?.name}
                       </p>
                     </div>
                     <div>
                       <p className="text-grisHeading text-[12px] font-normal pr-4">
-                        {item?.type}
+                        {task?.type == 0 ? "Task" : "Project"}
                       </p>
                     </div>
                     <div className="flex flex-col items-center px-2">
                       <p className="text-grisHeading text-[8px] font-normal text-right w-full">
-                        80%
+                        {task?.progress}%
                       </p>
                       <Progress
-                        value={80}
+                        value={task?.progress}
                         className="h-[4px] bg-grisDisabled fill-primario"
                       />
                     </div>
                     <div>
                       <p className="text-grisHeading text-[12px] font-normal">
-                        15 Feb 2024
+                        {format(new Date(task?.end), "PP")}
                       </p>
                     </div>
                     <div>
@@ -279,18 +142,12 @@ function Board({ goal, users, csfs }) {
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
                         </div>
-                        <div>
-                          <Avatar className="w-6 h-6">
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                          </Avatar>
-                        </div>
                       </div>
                     </div>
                     <div>
                       <Badge className="bg-orange-200 hover:bg-orange-100 text-[#FAA364]">
                         <p className=" text-[11px] font-semibold">
-                          {item?.status}
+                          {task?.status || "Pending"}
                         </p>
                       </Badge>
                     </div>
@@ -300,7 +157,16 @@ function Board({ goal, users, csfs }) {
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
                     </div>
-                    <div>ACTIONS</div>
+                    <div>
+                      <div className="flex items-center gap-2 text-[#696974]">
+                        <IonIcon
+                          icon={checkmarkCircleOutline}
+                          className="w-5 h-5"
+                        ></IonIcon>
+                        <IonIcon icon={create} className="w-5 h-5"></IonIcon>
+                        <IonIcon icon={trash} className="w-5 h-5"></IonIcon>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </AccordionContent>
@@ -313,3 +179,144 @@ function Board({ goal, users, csfs }) {
 }
 
 export default Board;
+
+// const DATA = [
+//   {
+//     id: 0,
+//     csf: "Original Constructors",
+//     activities: [
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//     ],
+//   },
+//   {
+//     id: 1,
+//     csf: "New Constructors",
+//     activities: [
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     csf: "Old Constructors",
+//     activities: [
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//       {
+//         activity: "Immigration, Tax Preparation",
+//         type: "Activity",
+//         expiration: "02/19/2024",
+//         responsable: "don fomularo",
+//         status: "pending",
+//         created: "don fomularo",
+//       },
+//     ],
+//   },
+// ];

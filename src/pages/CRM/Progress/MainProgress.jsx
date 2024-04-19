@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useLoaderData,
   useRouteLoaderData,
@@ -9,16 +9,10 @@ import {
   NavLink,
 } from "react-router-dom";
 
-import { ChevronLeft, ChevronRight, MoreVertical } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  ellipsisVertical,
-  globe,
-  globeOutline,
-} from "ionicons/icons";
+import { chevronBack, chevronForward, globeOutline } from "ionicons/icons";
 
 import FormService from "./components/FormService";
 import { saveService } from "./util";
@@ -39,9 +33,8 @@ const FILTERS = [
 
 function Main() {
   const services = useLoaderData();
-  // const data = useActionData();
-  const navigation = useNavigation();
-  console.log(services.data);
+  const [selectedServices, setSelectedServices] = useState();
+  // console.log(services.data);
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -117,7 +110,8 @@ function Main() {
             ))}
           </div>
           <div className="flex ">
-            <FormService submitting={navigation.state === "submitting"} />
+            <div className="text-4xl text-primario">+</div>
+            {/* <FormService submitting={navigation.state === "submitting"} /> */}
           </div>
         </div>
 

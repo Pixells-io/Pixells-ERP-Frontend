@@ -31,6 +31,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import Cookies from "js-cookie";
 import { getUserByToken } from "@/lib/actions";
+import NotificationChat from "./components/NotificationChat";
 
 const MENU = [
   {
@@ -138,11 +139,7 @@ function MainLayout() {
               ></IonIcon>
             </div>
             <div>
-              <IonIcon
-                icon={chatbubble}
-                size="large"
-                className="text-primario"
-              ></IonIcon>
+              <NotificationChat />
             </div>
             <div>
               <IonIcon

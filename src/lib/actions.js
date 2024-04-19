@@ -290,17 +290,37 @@ export async function getUserByToken() {
 }
 
 export async function multiLoaderCSF({ params }) {
-  const [goals, users, csfs] = await Promise.all([
+  const [goals, users, csfs, goalsMaster] = await Promise.all([
     getGoals({ params }),
     getUsers(),
     getCSF({ params }),
+    getGoalsMaster({ params }),
   ]);
 
-  return json({ goals, users, csfs });
+  return json({ goals, users, csfs, goalsMaster });
 }
 
 export async function multiLoaderSideLayoutPM() {
   const [objectives, areas] = await Promise.all([getObjectives(), getAreas()]);
 
   return json({ objectives, areas });
+}
+
+export async function getGoalsMaster({ params }) {
+  const objectiveId = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }project-manager/get-goals/${objectiveId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }

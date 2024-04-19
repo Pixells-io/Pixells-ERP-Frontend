@@ -65,14 +65,14 @@ export async function saveNewTask(data) {
     // sequence: data.get("sequence"),
     name: "Tarea 1",
     description: "test test test",
-    type: 1,
+    type: 0,
     user_id: Number(data.get("userId")),
     priority: 2,
     repeat: 0,
-    start_date: new Date(),
+    start: new Date(),
     end_date: null,
     fce_id: Number(data.get("fce_id")),
-    sequence: 1,
+    sequence: "1",
   };
 
   console.log(task);
