@@ -5,6 +5,7 @@ import FormStepCustom from "./Forms/FormStepCustom";
 function Step({ stepInfo, services }) {
   const { customers, fields, step } = stepInfo;
   const [modal, setModal] = useState(false);
+
   return (
     <>
       <FormStepCustom

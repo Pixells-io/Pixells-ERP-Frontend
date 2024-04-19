@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { NavLink, useLocation, Outlet, useLoaderData } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -20,6 +20,8 @@ import {
 
 function MainLeads() {
   const location = useLocation();
+  const { data } = useLoaderData();
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -52,9 +54,9 @@ function MainLeads() {
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center">
-            <div className="text-xs">4 services</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">9 Leads</div>
+            <div className="text-xs">
+              {data?.length} {data?.length > 1 ? "leads" : "lead"}
+            </div>
           </div>
         </div>
 

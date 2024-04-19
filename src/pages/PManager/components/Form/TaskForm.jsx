@@ -41,7 +41,7 @@ function TaskForm({ users, csfId }) {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="flex flex-col gap-6">
-            <DialogTitle>Agregar Task</DialogTitle>
+            <DialogTitle>Agregar Tarea</DialogTitle>
             <Form
               className="flex flex-col gap-2"
               id="task-form"

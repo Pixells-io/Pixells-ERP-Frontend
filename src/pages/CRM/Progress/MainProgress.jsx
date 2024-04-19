@@ -74,9 +74,13 @@ function Main() {
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
-            <div className="text-xs">4 service</div>
+            <div className="text-xs">
+              {" "}
+              {services.data?.length}{" "}
+              {services.data?.length > 1 ? "services" : "service"}
+            </div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">9 costumers</div>
+            <div className="text-xs">0 clients</div>
           </div>
         </div>
 
