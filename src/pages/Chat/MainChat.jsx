@@ -14,17 +14,22 @@ function MainChat() {
   const [chatPusher, setChatPusher] = useState(initialData);
 
   useEffect(() => {
-    pusherClient.subscribe("get-chat");
+    pusherClient.subscribe('private-get-chat');
 
-    pusherClient.bind("fill-chat", ({ query }) => {
+    pusherClient.bind('fill-chat', ({ query }) => {
+      console.log(query);
       setChatPusher(query.original.data);
     });
 
+    console.log(pusherClient);
+
+
     return () => {
-      pusherClient.unsubscribe("get-chat");
+      pusherClient.unsubscribe('private-get-chat');
     };
   }, []);
-  console.log(data, chatPusher);
+
+
 
   const inputMsg = useRef(null);
 
@@ -39,15 +44,17 @@ function MainChat() {
     let msg = inputMsg.current.value;
     let chat = chatPusher[0].id;
 
-    //SEND THE MESSAGE
-    storeMensagge(chat, msg);
+    if (msg != "") {
+      //SEND THE MESSAGE
+      storeMensagge(chat, msg); 
+    }
 
     //CLEAN THE MESSAGE
     inputMsg.current.value = "";
   }
 
   return (
-    <div className="bg-[#FBFBFB] w-full mx-5 rounded-xl flex flex-col h-full justify-between">
+    <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen justify-between">
       {/* Chat Header */}
       <div className="bg-gris px-6 rounded-t-xl py-4 flex">
         <div className="w-1/12 m-auto">
@@ -59,14 +66,13 @@ function MainChat() {
         </div>
         <div className="w-10/12 m-auto">
           <span className="font-poppins font-semibold text-lg text-grisHeading">
-            {" "}
-            {chatPusher[0].name}{" "}
+            {chatPusher[0].name}
           </span>
         </div>
         <div className="w-1/12 m-auto*"></div>
       </div>
       {/* Chat Card Messages */}
-      <div className="px-12 py-3 w-full h-full flex flex-col justify-end overflow-scroll">
+      <div className="px-12 py-3 w-full h-full flex flex-col justify-end overflow-y-auto">
         {chatPusher[0].msg?.map((mensagge, i) => (
           <MenssageCard key={i} data={mensagge} />
         ))}
