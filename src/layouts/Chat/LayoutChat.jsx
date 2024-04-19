@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
+import { pusherClient } from "@/lib/pusher";
 
 function LayoutChat() {
 
   const { users, chats } = useLoaderData();
+
+  const [initialData, setInitialData] = useState(chats);
+  const [chatListPusher, setChatListPusher] = useState(initialData);
+
+  useEffect(() => {
+    pusherClient.subscribe("get-chat-list");
+
+    pusherClient.bind("fill-chat-list", ({ query }) => {
+      setChatListPusher(query.original.data);
+    });
+
+    return () => {
+        pusherClient.unsubscribe("get-chat-list");
+    };
+  }, []);
 
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
@@ -24,7 +40,7 @@ function LayoutChat() {
                   users={users.data}
                 />
                 <div className="px-5 bg-[#FBFBFB]">
-                  {chats.data?.map((chat, i) => (
+                  {chatListPusher.data?.map((chat, i) => (
                       <ChatList
                         chat={chat}
                       />
