@@ -14,6 +14,8 @@ function MainChat() {
   const [initialData, setInitialData] = useState(data);
   const [chatPusher, setChatPusher] = useState(initialData);
 
+  console.log(data[0].msg);
+
   useEffect(() => {
 
     let p = new Echo({
@@ -28,28 +30,14 @@ function MainChat() {
           Authorization: "Bearer " + Cookies.get("token"),
         }
       },
-      wsPort: '443',
+      wsPort: '443'
     });
 
     p.private('private-get-chat')
-      .listen('GetChatInfo', (query) => {
-        console.log(query);
-        //setChatPusher(query.data);
-    });
+      .listen('GetChatInfo', ({query}) => {
+        setChatPusher(query.original.data);
+      });
 
-    /*pusherClient.subscribe('private-get-chat');
-
-    pusherClient.bind('fill-chat', ({ query }) => {
-      console.log(query);
-      setChatPusher(query.original.data);
-    });
-
-    console.log(pusherClient);
-
-
-    return () => {
-      pusherClient.unsubscribe('private-get-chat');
-    };*/
   }, []);
 
 
@@ -69,7 +57,7 @@ function MainChat() {
 
     if (msg != "") {
       //SEND THE MESSAGE
-      storeMensagge(chat, msg); 
+      storeMensagge(chat, msg);
     }
 
     //CLEAN THE MESSAGE
@@ -95,10 +83,12 @@ function MainChat() {
         <div className="w-1/12 m-auto*"></div>
       </div>
       {/* Chat Card Messages */}
-      <div className="px-12 py-3 w-full h-full flex flex-col justify-end overflow-y-auto">
-        {chatPusher[0].msg?.map((mensagge, i) => (
-          <MenssageCard key={i} data={mensagge} />
-        ))}
+      <div className="">
+        <div className="px-12 py-3 w-full h-full flex justify-end overflow-y-auto flex-col-reverse">
+          {chatPusher[0].msg.map((mensagge, i) => (
+            <MenssageCard key={i} data={mensagge} />
+          ))}
+        </div>
       </div>
       {/* Chat Card Footer */}
       <div className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex w-full ">
