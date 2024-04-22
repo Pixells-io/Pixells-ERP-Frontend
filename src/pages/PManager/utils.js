@@ -52,26 +52,20 @@ export async function saveNewCsf(data) {
 
 export async function saveNewTask(data) {
   const task = {
-    // name: data.get("name"),
-    // description: data.get("description"),
-    // type: Number(data.get("type")),
-    // user_id: data.get("userId"),
-    // priority: Number(data.get("priority")),
+    name: data.get("name"),
+    description: data.get("description"),
+    type: Number(data.get("type")),
+    user_id: data.get("userId"),
+    priority: Number(data.get("priority")),
     // repeat: data.get("repeat"),
     // start_date: new Date(),
     // start_date: data.get("star_date"),
     // end_date: data.get("end_date"),
-    // fce_id: Number(data.get("fce_id")),
+    fce_id: Number(data.get("fce_id")),
     // sequence: data.get("sequence"),
-    name: "Tarea 1",
-    description: "test test test",
-    type: 0,
-    user_id: Number(data.get("userId")),
-    priority: 2,
     repeat: 0,
     start: new Date(),
-    end_date: null,
-    fce_id: Number(data.get("fce_id")),
+    end: null,
     sequence: "1",
   };
 

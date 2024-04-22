@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  NavLink,
-  Outlet,
-  redirect,
-  useLoaderData,
-  useOutletContext,
-  useParams,
-} from "react-router-dom";
+import { NavLink, Outlet, useOutletContext, useParams } from "react-router-dom";
 
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";

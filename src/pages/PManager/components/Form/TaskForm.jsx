@@ -74,7 +74,8 @@ function TaskForm({ users, csfId }) {
                   className="hidden"
                   name="type"
                   type="text"
-                  defaultValue={selectTaskType === "tarea" ? 0 : 1}
+                  value={selectTaskType == "tarea" ? 0 : 1}
+                  readOnly
                 />
               </div>
 
