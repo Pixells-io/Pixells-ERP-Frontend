@@ -20,12 +20,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-import DateInput from "./DateInput";
-
 import { IonIcon } from "@ionic/react";
 import { personOutline, repeatOutline } from "ionicons/icons";
 
 function TaskForm({ users, csfId }) {
+  const [responsable, setResponsable] = useState("");
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
@@ -116,7 +115,14 @@ function TaskForm({ users, csfId }) {
                 </div>
               ) : (
                 <div className="bg-gris rounded-lg p-4 grid grid-cols-6 gap-4">
-                  <Select name="userId">
+                  <Select
+                    name="userId"
+                    value={responsable}
+                    onValueChange={(e) => {
+                      console.log(e);
+                      return setResponsable();
+                    }}
+                  >
                     <SelectTrigger className="col-span-4 text-grisSubText rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0">
                       <div className="flex items-center gap-2">
                         <IonIcon className="" icon={personOutline}></IonIcon>
@@ -124,14 +130,13 @@ function TaskForm({ users, csfId }) {
                       </div>
                     </SelectTrigger>
                     <SelectContent className="text-grisText">
-                      {users?.map((user, i) => (
-                        <SelectItem key={user.id} value={user.id}>
-                          <p>
-                            {user.name}
-                            {user.last_name} {user.second_last_name}
-                          </p>
-                        </SelectItem>
-                      ))}
+                      {users?.map((user, i) => {
+                        return (
+                          <SelectItem key={i} value={user?.id}>
+                            {`${user?.name}  ${user?.last_name}  ${user?.second_last_name}`}
+                          </SelectItem>
+                        );
+                      })}
                       <SelectItem value="900">Pedro</SelectItem>
                     </SelectContent>
                   </Select>
@@ -139,6 +144,7 @@ function TaskForm({ users, csfId }) {
 
                   <Select
                     name="repeat"
+                    value={repeticion}
                     onValueChange={(value) => setRepeticion(value)}
                   >
                     <SelectTrigger className="col-span-2 text-grisSubText rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0">
@@ -148,15 +154,15 @@ function TaskForm({ users, csfId }) {
                       </div>
                     </SelectTrigger>
                     <SelectContent className="text-grisText">
-                      <SelectItem value="1">No</SelectItem>
-                      <SelectItem value="0">Si</SelectItem>
+                      <SelectItem value="0">No</SelectItem>
+                      <SelectItem value="1">Si</SelectItem>
                     </SelectContent>
                   </Select>
 
-                  {repeticion && repeticion === "1" ? (
+                  {repeticion && repeticion === "0" ? (
                     <>
                       <div className="col-span-2">
-                        <DateInput name={"start_date"} />
+                        <input type="date" name="star_date" />
                       </div>
                       <div className="col-span-4">
                         <Textarea
@@ -169,10 +175,10 @@ function TaskForm({ users, csfId }) {
                   ) : (
                     <>
                       <div className="col-span-2">
-                        <DateInput name={"start_date"} />
+                        <input type="date" name="star_date" />
                       </div>
                       <div className="col-span-2">
-                        <DateInput name={"end_date"} />
+                        <input type="date" name="end_date" />
                       </div>
 
                       <Select name="sequence">

@@ -57,16 +57,11 @@ export async function saveNewTask(data) {
     type: Number(data.get("type")),
     user_id: data.get("userId"),
     priority: Number(data.get("priority")),
-    // repeat: data.get("repeat"),
-    // start_date: new Date(),
-    // start_date: data.get("star_date"),
-    // end_date: data.get("end_date"),
+    repeat: Number(data.get("repeat")),
     fce_id: Number(data.get("fce_id")),
-    // sequence: data.get("sequence"),
-    repeat: 0,
-    start: new Date(),
-    end: null,
-    sequence: "1",
+    sequence: data.get("sequence"),
+    start: data.get("star_date"),
+    end: data.get("end_date"),
   };
 
   console.log(task);

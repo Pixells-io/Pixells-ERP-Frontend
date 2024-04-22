@@ -18,7 +18,7 @@ export default function DateInput({ name }) {
   const [date, setDate] = React.useState();
 
   return (
-    <Popover modal={open} onOpenChange={setOpen}>
+    <Popover modal={open} onOpenChange={setOpen} name={name}>
       <PopoverTrigger asChild>
         <Button
           variant={"ghost"}

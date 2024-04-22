@@ -206,7 +206,7 @@ const router = createBrowserRouter([
       {
         path: "/organization",
         element: <SideLayoutOrganization />,
-        errorElement: <NotFound />,
+        // errorElement: <NotFound />,
         action: newArea,
         children: [
           {
