@@ -32,6 +32,7 @@ import { IonIcon } from "@ionic/react";
 import Cookies from "js-cookie";
 import { getUserByToken } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
+import NotificationBell from "./components/NotificationBell";
 
 const MENU = [
   {
@@ -138,16 +139,8 @@ function MainLayout() {
                 className="text-primario"
               ></IonIcon>
             </div>
-            <div>
-              <NotificationChat />
-            </div>
-            <div>
-              <IonIcon
-                icon={notifications}
-                size="large"
-                className="text-primario"
-              ></IonIcon>
-            </div>
+            <NotificationChat />
+            <NotificationBell />
           </div>
 
           {/* Avatar Dropdown */}

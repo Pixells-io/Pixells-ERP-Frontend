@@ -86,8 +86,8 @@ function Main() {
                 to={`/crm/progress/${service.id}`}
                 className={({ isActive }) =>
                   isActive
-                    ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2 shrink-0`
-                    : `flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2 shrink-0`
+                    ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2 shrink-0 font-poppins font-bold`
+                    : `flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2 shrink-0 font-poppins font-normal`
                 }
               >
                 <div className="flex ml-2">
@@ -99,9 +99,7 @@ function Main() {
                 </div>
                 <div className="flex items-center gap-4">
                   <p style={{ color: `${service.color}` }}>&bull;</p>
-                  <p className="text-white uppercase text-sm font-bold">
-                    {service.name}
-                  </p>
+                  <p className="text-white uppercase text-sm">{service.name}</p>
                 </div>
                 <div className="text-white">
                   <MoreVertical size={16} />
