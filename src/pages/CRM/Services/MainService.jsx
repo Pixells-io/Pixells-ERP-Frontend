@@ -17,7 +17,7 @@ function MainService() {
 
   const { data } = useLoaderData();
 
-  console.log(data)
+  console.log(data[0]);
 
   return (
     <>
@@ -76,16 +76,16 @@ function MainService() {
 
           {/* content */}
           <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 w-full">
               <div className="bg-blancoForms rounded-lg p-4 flex flex-col gap-5">
                 <p className="text-grisText text-sm font-medium">
-                  Service Information
+                  Category Information
                 </p>
 
                 <div className="flex flex-col">
                   <p className="text-grisText text-[12px] font-medium">Name</p>
                   <span className="text-grisSubText text-[12px]">
-                    Immigration
+                    {data[0].name}
                   </span>
                 </div>
 
@@ -94,28 +94,19 @@ function MainService() {
                     Description
                   </p>
                   <span className="text-grisSubText text-[12px]">
-                    Most product descriptions have a terrible copy. This is
-                    because most people don’t understand how product
-                    descriptions make a huge impact on online sales. The Nielsen
-                    Norman Group conducted an ecommerce study, which made it
-                    quite clear that 20% of unsuccessful purchases are because
-                    of a lack of product descriptions.
+                      {data[0].description}
                   </span>
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <p className="text-grisText text-[12px] font-medium">
-                    Sub-services
+                    Services
                   </p>
-                  <span className="text-grisSubText text-[12px]">
-                    Immigration 1
-                  </span>
-                  <span className="text-grisSubText text-[12px]">
-                    Immigration 2
-                  </span>
-                  <span className="text-grisSubText text-[12px]">
-                    Immigration 3
-                  </span>
+                  {data[0].services?.map((service, i) => (
+                      <span className="text-grisSubText text-[12px]">
+                        {service.name}
+                      </span>
+                  ))}
                   +
                 </div>
               </div>
@@ -139,7 +130,7 @@ function MainService() {
                       />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p className="text-grisSubText text-[12px]">Jenny</p>
+                    <p className="text-grisSubText text-[12px]">Diego Guzman</p>
                   </div>
                 </div>
 
