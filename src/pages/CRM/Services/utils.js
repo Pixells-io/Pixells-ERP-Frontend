@@ -47,6 +47,7 @@ export async function saveService(data) {
 }
 
 export async function savePackage(data) {
+  console.log(data);
   const services = [];
 
   for (const [key, value] of data.entries()) {
