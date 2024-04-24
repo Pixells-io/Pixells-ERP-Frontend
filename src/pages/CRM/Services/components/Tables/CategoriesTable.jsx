@@ -8,6 +8,7 @@ import {
   } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
+import { Link } from "react-router-dom";
 import {
   informationCircle,
   chatbubbleEllipses,
@@ -35,10 +36,16 @@ function CategoriesTable({ categories }) {
       {
         accessorKey: "actions",
         header: "ACTIONS",
-        cell: () => {
+        cell: ({ row }) => {
+          console.log(row.original.id);
           return (
-            <div className="flex gap-2 text-[#696974]">
-              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            <div className="flex items-center gap-2 text-[#696974]">
+              <Link
+                to={`/crm/services/${row?.original?.id}`}
+                className="flex items-center"
+              >
+                <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+              </Link>
               <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
               <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
             </div>

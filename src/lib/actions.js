@@ -110,6 +110,23 @@ export async function multiLoaderServices() {
   });
 }
 
+export async function categoryShow({ params }) {
+  const category_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/show-category/${category_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 /* MULTILOADER CHAT */
 export async function getChats() {
   try {
