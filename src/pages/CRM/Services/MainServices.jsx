@@ -121,7 +121,7 @@ function MainServices() {
                 Categories
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setModalPackages(true)}>
-                Packages
+                Membership
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -152,7 +152,7 @@ function MainServices() {
                   className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
                   value="packages"
                 >
-                  PACKAGES
+                  MEMBERSHIP
                 </TabsTrigger>
               </div>
               <div className="w-1/5">

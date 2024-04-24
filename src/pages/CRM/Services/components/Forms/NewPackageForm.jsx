@@ -54,12 +54,12 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
             {info?.map((category, i) => {
               // console.log(category);
               return (
-                <div>
+                <div className="flex flex-col gap-3">
                   <div className="text-[#696974] text-lg font-normal">
                     {category.category["name"]}
                   </div>
                   <div className="flex flex-col font-light gap-4 pb-4">
-                    <div className="flex grid gap-2 grid-cols-4">
+                    <div className="flex gap-2 grid-cols-4">
                       {category[0]?.services?.map((service, i) => (
                         <SelectServices service={service} key={i} />
                       ))}

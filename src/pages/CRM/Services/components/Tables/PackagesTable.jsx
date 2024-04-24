@@ -13,6 +13,8 @@ import {
   chatbubbleEllipses,
   bookmark,
 } from "ionicons/icons";
+import { Link } from "react-router-dom";
+
 function PackagesTable({ packages }) {
   const columnHelper = createColumnHelper();
 
@@ -34,10 +36,12 @@ function PackagesTable({ packages }) {
     {
       accessorKey: "actions",
       header: "ACTIONS",
-      cell: () => {
+      cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            <Link to={`/crm/services/packages/${row.original.id}`}>
+              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            </Link>
             <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
             <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
           </div>
@@ -67,6 +71,7 @@ function PackagesTable({ packages }) {
                     <th
                       className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
                       id={header.id}
+                      key={header.id}
                     >
                       {" "}
                       {header.isPlaceholder

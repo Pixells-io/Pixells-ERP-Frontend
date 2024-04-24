@@ -27,17 +27,23 @@ function SideLayoutPManager() {
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4 w-[280px] shrink-0">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 ">
+        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4">
           <TopMenuCRM />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-8">
-          <p className="font-semibold text-lg font-poppins text-grisHeading">
+        <div className="flex flex-col gap-4 bg-gris h-full rounded-md py-8 px-4">
+          <p className="font-semibold text-lg font-poppins text-grisHeading px-4">
             Strategic Objectives
           </p>
 
-          <NewObjectiveForm areas={areas?.data} open={open} setOpen={setOpen} />
+          <div className="px-4">
+            <NewObjectiveForm
+              areas={areas?.data}
+              open={open}
+              setOpen={setOpen}
+            />
+          </div>
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
@@ -55,8 +61,8 @@ function SideLayoutPManager() {
               to="/project-manager"
               className={({ isActive }) =>
                 isActive && location.pathname === "/project-manager"
-                  ? "text-blue-500"
-                  : "text-gris2"
+                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
               }
             >
               <div className="flex items-center gap-6 ">
@@ -71,7 +77,9 @@ function SideLayoutPManager() {
             <NavLink
               to="/project-manager/activities"
               className={({ isActive }) =>
-                isActive ? "text-blue-500" : "text-gris2"
+                isActive
+                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
               }
             >
               <div className="flex items-center gap-6 ">
@@ -86,7 +94,9 @@ function SideLayoutPManager() {
             <NavLink
               to="/project-manager/status"
               className={({ isActive }) =>
-                isActive ? "text-blue-500" : "text-gris2"
+                isActive
+                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
               }
             >
               <div className="flex items-center gap-6 ">

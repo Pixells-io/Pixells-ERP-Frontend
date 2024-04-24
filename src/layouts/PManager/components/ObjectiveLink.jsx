@@ -11,7 +11,11 @@ function ObjectiveLink({ objective, areas }) {
   return (
     <NavLink
       to={`/project-manager/${objective.id}`}
-      className={({ isActive }) => (isActive ? "text-blue-500" : "text-gris2")}
+      className={({ isActive }) =>
+        isActive
+          ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+          : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+      }
     >
       <div className="flex items-center gap-6">
         <IonIcon icon={flag} size="large" className="shrink-0"></IonIcon>
