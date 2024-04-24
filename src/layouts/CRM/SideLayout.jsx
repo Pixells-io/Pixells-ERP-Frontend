@@ -21,12 +21,12 @@ function SideLayout() {
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4 w-[280px] shrink-0">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 ">
+        <div className="flex flex-col bg-gris gap-4 rounded-lg px-4 py-4 ">
           <TopMenuCRM />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-8">
+        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4">
           <p className="font-semibold text-lg font-poppins text-grisHeading">
             Menu
           </p>
@@ -41,7 +41,9 @@ function SideLayout() {
           <div className="border-b border-gris2 my-4"></div>
 
           {/* menu bottom */}
-          <MenuCRM />
+          <div className="">
+            <MenuCRM />
+          </div>
         </div>
       </div>
       <Outlet />

@@ -15,7 +15,8 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, globeOutline } from "ionicons/icons";
 
 import FormService from "./components/FormService";
-import { saveService } from "./util";
+import { saveService, setSelectedService } from "./util";
+import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
 
 const SERVICE = [
   { name: "Immigration", icon: "Globe", colorIcon: "#00A259" },
@@ -32,9 +33,9 @@ const FILTERS = [
 ];
 
 function Main() {
-  const services = useLoaderData();
-  const [selectedServices, setSelectedServices] = useState();
-  // console.log(services.data);
+  const { selectedServices, services } = useLoaderData();
+  console.log(selectedServices);
+  console.log(services);
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -69,8 +70,8 @@ function Main() {
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
             <div className="text-xs">
               {" "}
-              {services.data?.length}{" "}
-              {services.data?.length > 1 ? "services" : "service"}
+              {services?.data?.length}{" "}
+              {services?.data?.length > 1 ? "services" : "service"}
             </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">0 clients</div>
@@ -80,10 +81,10 @@ function Main() {
         {/* services */}
         <div className="flex gap-4">
           <div className="flex gap-4 overflow-scroll">
-            {services.data.map((service, i) => (
+            {selectedServices?.data?.map((service, i) => (
               <NavLink
                 key={i}
-                to={`/crm/progress/${service.id}`}
+                to={`/crm/progress/${service?.id}`}
                 className={({ isActive }) =>
                   isActive
                     ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2 shrink-0 font-poppins font-bold`
@@ -94,12 +95,14 @@ function Main() {
                   <IonIcon
                     icon={globeOutline}
                     className="w-6 h-6"
-                    style={{ color: `${service.color}` }}
+                    style={{ color: `${service?.color}` }}
                   ></IonIcon>
                 </div>
                 <div className="flex items-center gap-4">
-                  <p style={{ color: `${service.color}` }}>&bull;</p>
-                  <p className="text-white uppercase text-sm">{service.name}</p>
+                  <p style={{ color: `${service?.color}` }}>&bull;</p>
+                  <p className="text-white uppercase text-sm">
+                    {service?.name}
+                  </p>
                 </div>
                 <div className="text-white">
                   <MoreVertical size={16} />
@@ -108,7 +111,9 @@ function Main() {
             ))}
           </div>
           <div className="flex ">
-            <div className="text-4xl text-primario">+</div>
+            <div className="text-4xl text-primario">
+              <ServiceSelectAdd services={services?.data} />
+            </div>
             {/* <FormService submitting={navigation.state === "submitting"} /> */}
           </div>
         </div>
@@ -125,7 +130,7 @@ export async function Action({ request }) {
   const data = await request.formData();
   console.log(data);
 
-  const validation = await saveService(data);
+  const validation = await setSelectedService(data);
   console.log(validation);
 
   if (validation) {

@@ -1,5 +1,33 @@
 import Cookies from "js-cookie";
 
+export async function setSelectedService(data) {
+  console.log(data);
+  const service = {
+    service_id: data.get("serviceId"),
+  };
+
+  console.log(service);
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/selected-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(service),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+  console.log(response);
+
+  if (!response.ok) {
+    throw response;
+  }
+
+  return response;
+}
+
 export async function saveService(data) {
   console.log(data);
   const service = {

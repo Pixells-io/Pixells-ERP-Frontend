@@ -54,12 +54,12 @@ function MenuCRM() {
             item.path === "/crm"
               ? ({ isActive }) =>
                   isActive && location.pathname === "/crm"
-                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
-                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
+                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
               : ({ isActive }) =>
                   isActive
-                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full"
-                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full"
+                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
           }
         >
           <div className="flex items-center gap-6 ">

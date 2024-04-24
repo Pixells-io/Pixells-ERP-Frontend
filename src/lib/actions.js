@@ -2,6 +2,31 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
 /*SERVICES ACTIONS*/
+export async function getAllServices() {
+  const [selectedServices, services] = await Promise.all([
+    getSerivicesSelected(),
+    getServices(),
+  ]);
+
+  return json({ selectedServices, services });
+}
+
+export async function getSerivicesSelected() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/selected-service-get`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getServices() {
   try {
     const response = await fetch(

@@ -28,7 +28,7 @@ function FormStepCustom({ fields, modal, setModal, step, service }) {
         <DialogHeader className="bg-blancoForms h-12 px-4 py-4 flex justify-center rounded-t-xl">
           <DialogTitle className="text-grisHeading font-poppins font-semibold text-sm">
             <span className="font-light">Donde estas</span> &gt; {step?.name}{" "}
-            &bull; <span>{service.name}</span>
+            &bull; <span>{service?.name}</span>
           </DialogTitle>
         </DialogHeader>
         <DialogDescription className="px-4">
@@ -42,12 +42,12 @@ function FormStepCustom({ fields, modal, setModal, step, service }) {
               return (
                 <input
                   className="placeholder:text-[10px] placeholder:font-light placeholder:text-grisSubText p-3 border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b rounded-none bg-transparent !ring-0 !ring-offset-0"
-                  required={Number(field.nullable) === 0 ? true : false}
-                  placeholder={field.visible_name}
-                  name={field.name}
+                  required={Number(field?.nullable) === 0 ? true : false}
+                  placeholder={field?.visible_name}
+                  name={field?.name}
                   type={
                     FIELD_NUMBER.find(
-                      (number) => number.type == field.rendering
+                      (number) => number?.type == field?.rendering
                     ).value
                   }
                 />

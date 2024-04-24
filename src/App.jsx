@@ -40,7 +40,7 @@ import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
 
 //CRM Progress
 import MainProgress, {
-  Action as newService,
+  Action as setServices,
 } from "./pages/CRM/Progress/MainProgress";
 import StepsProgress, {
   Action as newStepService,
@@ -94,6 +94,8 @@ import {
   multiLoaderChat,
   multiLoaderCSF,
   multiLoaderSideLayoutPM,
+  getSerivicesSelected,
+  getAllServices,
 } from "./lib/actions";
 
 //Not Found
@@ -150,8 +152,8 @@ const router = createBrowserRouter([
           {
             path: "/crm/progress",
             element: <MainProgress />,
-            loader: getServices,
-            action: newService,
+            loader: getAllServices,
+            action: setServices,
             children: [
               {
                 path: "/crm/progress/:id",
