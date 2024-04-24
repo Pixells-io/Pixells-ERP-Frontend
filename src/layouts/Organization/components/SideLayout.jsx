@@ -25,14 +25,21 @@ function SideLayoutOrganization() {
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-8">
-          <p className="font-semibold text-lg font-poppins text-grisHeading">
+        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4">
+          <p className="font-semibold text-lg font-poppins text-grisHeading px-4">
             Menu
           </p>
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
-            <NavLink to="/organization" className={({isActive}) => isActive && location.pathname === "/organization" ? "text-blue-500" : "text-gris2"}>
+            <NavLink
+              to="/organization"
+              className={({ isActive }) =>
+                isActive && location.pathname === "/organization"
+                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+              }
+            >
               <div className="flex items-center gap-6">
                 <IonIcon icon={person} size="large"></IonIcon>
                 <div>
@@ -41,7 +48,14 @@ function SideLayoutOrganization() {
                 </div>
               </div>
             </NavLink>
-            <NavLink to="/organization/access" className={({isActive}) => isActive ? "text-blue-500" : "text-gris2"}>
+            <NavLink
+              to="/organization/access"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
+                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+              }
+            >
               <div className="flex items-center gap-6">
                 <IonIcon icon={lockOpen} size="large"></IonIcon>
                 <div>
@@ -51,7 +65,6 @@ function SideLayoutOrganization() {
               </div>
             </NavLink>
           </div>
-
         </div>
       </div>
       <Outlet />
