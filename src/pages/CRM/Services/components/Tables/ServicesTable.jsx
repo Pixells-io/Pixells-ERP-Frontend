@@ -48,7 +48,7 @@ function ServicesTable({ services }) {
         return (
           <div className="flex items-center gap-2 text-[#696974]">
             <Link
-              to={`/crm/services/${row?.original?.id}`}
+              to={`/crm/services/${row?.original?.category_id}`}
               className="flex items-center"
             >
               <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>

@@ -9,9 +9,16 @@ import {
 } from "ionicons/icons";
 import ServiceBlock from "./components/ServiceBlock";
 
+import { useLoaderData} from "react-router-dom";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function MainService() {
+
+  const { data } = useLoaderData();
+
+  console.log(data)
+
   return (
     <>
       <div className="flex w-full overflow-auto">

@@ -94,6 +94,7 @@ import {
   multiLoaderChat,
   multiLoaderCSF,
   multiLoaderSideLayoutPM,
+  categoryShow,
 } from "./lib/actions";
 
 //Not Found
@@ -171,6 +172,7 @@ const router = createBrowserRouter([
           {
             path: "/crm/services/:id",
             element: <MainService />,
+            loader: categoryShow,
           },
 
           //crm email
