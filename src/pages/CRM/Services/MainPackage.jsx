@@ -1,18 +1,16 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 
 import ServiceBlock from "./components/ServiceBlock";
 
-function MainService() {
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+function MainPackage() {
   const { data } = useLoaderData();
 
   console.log(data[0]);
-
   return (
     <>
       <div className="flex w-full overflow-auto">
@@ -55,10 +53,10 @@ function MainService() {
           <div className="flex items-center gap-32 pl-3 pt-4">
             <div className="flex flex-col gap-2">
               <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-                Immigration
+                {data[0].name}
               </h2>
               <span className="font-medium text-xs text-grisText">
-                Information
+                Package name
               </span>
             </div>
             <div className="flex gap-2 text-[#8F8F8F] self-start">
@@ -73,7 +71,7 @@ function MainService() {
             <div className="flex flex-col gap-6 w-full">
               <div className="bg-blancoForms rounded-lg p-4 flex flex-col gap-5">
                 <p className="text-grisText text-sm font-medium">
-                  Category Information
+                  Package Information
                 </p>
 
                 <div className="flex flex-col">
@@ -97,7 +95,7 @@ function MainService() {
                     Services
                   </p>
                   {data[0].services?.map((service, i) => (
-                    <span className="text-grisSubText text-[12px]">
+                    <span key={i} className="text-grisSubText text-[12px]">
                       {service.name}
                     </span>
                   ))}
@@ -240,4 +238,4 @@ function MainService() {
   );
 }
 
-export default MainService;
+export default MainPackage;

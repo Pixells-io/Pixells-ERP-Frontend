@@ -97,11 +97,13 @@ import {
   getSerivicesSelected,
   getAllServices,
   categoryShow,
+  getPackageById,
 } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
 import { getChat } from "./pages/Chat/utils";
+import MainPackage from "./pages/CRM/Services/MainPackage";
 
 const router = createBrowserRouter([
   {
@@ -165,6 +167,11 @@ const router = createBrowserRouter([
             ],
           },
           //crm services
+          {
+            path: "/crm/services/packages/:id",
+            element: <MainPackage />,
+            loader: getPackageById,
+          },
           {
             path: "/crm/services",
             element: <MainServices />,
