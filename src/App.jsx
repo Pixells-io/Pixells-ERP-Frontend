@@ -102,8 +102,9 @@ import {
 
 //Not Found
 import NotFound from "./components/NotFound";
-import { getChat } from "./pages/Chat/utils";
+
 import MainPackage from "./pages/CRM/Services/MainPackage";
+import { multiLoaderChat2 } from "./pages/Chat/utils";
 
 const router = createBrowserRouter([
   {
@@ -293,7 +294,7 @@ const router = createBrowserRouter([
         loader: multiLoaderChat,
         children: [
           { index: true },
-          { path: "/chat/:id", element: <MainChat />, loader: getChat },
+          { path: "/chat/:id", element: <MainChat />, loader: multiLoaderChat2 },
         ],
       },
     ],

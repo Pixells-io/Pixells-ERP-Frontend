@@ -9,10 +9,12 @@ import Echo from "laravel-echo";
 import Cookies from "js-cookie";
 
 function MainChat() {
-  const { data } = useLoaderData();
+  const { chat, user } = useLoaderData();
 
-  const [initialData, setInitialData] = useState(data);
+  const [initialData, setInitialData] = useState(chat.data);
   const [chatPusher, setChatPusher] = useState(initialData);
+
+  const CurrentUserId = user.data.id;
 
   useEffect(() => {
 
@@ -51,7 +53,6 @@ function MainChat() {
 
     //Listen the presence channel
     .listen('GetChatInfo', ({query}) => {
-      console.log(query);
       setChatPusher(query.original.data);
     });
 
@@ -69,6 +70,7 @@ function MainChat() {
 
   function sendMensage() {
     //DEFINE THE VARIABLES
+
     let msg = inputMsg.current.value;
     let chat = chatPusher[0].id;
 
@@ -103,7 +105,7 @@ function MainChat() {
       <div className="">
         <div className="px-12 py-3 w-full h-full flex justify-end overflow-y-auto flex-col-reverse">
           {chatPusher[0].msg.map((mensagge, i) => (
-            <MenssageCard key={i} data={mensagge} />
+            <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
       </div>
@@ -147,8 +149,6 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   const validation = await SearchAction(data);
-
-  console.log(validation);
 
   return validation;
 }
