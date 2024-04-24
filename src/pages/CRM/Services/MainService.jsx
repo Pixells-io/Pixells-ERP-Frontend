@@ -55,7 +55,7 @@ function MainService() {
           <div className="flex items-center gap-32 pl-3 pt-4">
             <div className="flex flex-col gap-2">
               <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-                Immigration
+                {data[0].name}
               </h2>
               <span className="font-medium text-xs text-grisText">
                 Information
@@ -79,7 +79,7 @@ function MainService() {
                 <div className="flex flex-col">
                   <p className="text-grisText text-[12px] font-medium">Name</p>
                   <span className="text-grisSubText text-[12px]">
-                    {data[0].name}
+                    {data[0]?.name}
                   </span>
                 </div>
 
@@ -88,7 +88,7 @@ function MainService() {
                     Description
                   </p>
                   <span className="text-grisSubText text-[12px]">
-                    {data[0].description}
+                    {data[0]?.description}
                   </span>
                 </div>
 
@@ -96,7 +96,7 @@ function MainService() {
                   <p className="text-grisText text-[12px] font-medium">
                     Services
                   </p>
-                  {data[0].services?.map((service, i) => (
+                  {data[0]?.services?.map((service, i) => (
                     <span className="text-grisSubText text-[12px]">
                       {service.name}
                     </span>
