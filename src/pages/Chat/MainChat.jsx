@@ -14,8 +14,6 @@ function MainChat() {
   const [initialData, setInitialData] = useState(data);
   const [chatPusher, setChatPusher] = useState(initialData);
 
-  console.log(data[0].msg);
-
   useEffect(() => {
 
     let p = new Echo({
@@ -35,8 +33,10 @@ function MainChat() {
 
     p.private('private-get-chat')
       .listen('GetChatInfo', ({query}) => {
+        console.log(query);
         setChatPusher(query.original.data);
       });
+
 
   }, []);
 
