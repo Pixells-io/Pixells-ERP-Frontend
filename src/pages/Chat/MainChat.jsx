@@ -31,12 +31,29 @@ function MainChat() {
       wsPort: '443'
     });
 
-    p.private('private-get-chat')
-      .listen('GetChatInfo', ({query}) => {
-        console.log(query);
-        setChatPusher(query.original.data);
-      });
+    //Join the presence channel
+    p.join('private-get-chat')
 
+    //Get the active users
+    .here(users => {
+
+    })
+
+    //Joining
+    .joining(user => {
+
+    })
+
+    //Leaving
+    .joining(user => {
+
+    })
+
+    //Listen the presence channel
+    .listen('GetChatInfo', ({query}) => {
+      console.log(query);
+      setChatPusher(query.original.data);
+    });
 
   }, []);
 
