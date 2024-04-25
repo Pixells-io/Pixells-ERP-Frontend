@@ -54,7 +54,10 @@ function MainChat() {
     //Listen the presence channel
     .listen('GetChatInfo', ({query}) => {
       setChatPusher(query.original.data);
-    });
+    })
+
+    //Listen Typing
+    //.listenForWhisper('typing', this.flashActivePeer);
 
   }, []);
 
@@ -83,10 +86,24 @@ function MainChat() {
     inputMsg.current.value = "";
   }
 
+  let infoUser = [];
+
+  chatPusher[0].participants.map((participant, i) => {
+    if (participant.id != user.data.id) {
+      infoUser = [
+        {
+          id: participant.id,
+          img: participant.img,
+          title: participant.name,
+        }
+      ]
+    }
+  })
+
   return (
-    <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen justify-between">
+    <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen justify-between relative">
       {/* Chat Header */}
-      <div className="bg-gris px-6 rounded-t-xl py-4 flex">
+      <div className="bg-gris px-6 rounded-t-xl py-4 flex fixed w-full">
         <div className="w-1/12 m-auto">
           <img
             src="https://i.scdn.co/image/ab6761610000e5eb153fc7a135b27d664160204b"
@@ -96,7 +113,7 @@ function MainChat() {
         </div>
         <div className="w-10/12 m-auto">
           <span className="font-poppins font-semibold text-lg text-grisHeading">
-            {chatPusher[0].name}
+            {infoUser[0].title}
           </span>
         </div>
         <div className="w-1/12 m-auto*"></div>
