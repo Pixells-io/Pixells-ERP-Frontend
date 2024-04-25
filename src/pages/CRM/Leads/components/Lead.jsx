@@ -5,8 +5,8 @@ import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
-function Lead({ lead, index, stageId, setModal, stageName }) {
-  // console.log(lead.id);
+function Lead({ lead, stageId, setModal, stageName }) {
+  // console.log(lead)
   return (
     <li
       className="cursor-grab active:cursor-grabbing"
@@ -14,6 +14,7 @@ function Lead({ lead, index, stageId, setModal, stageName }) {
       draggable
       onDragStart={(event) => {
         event.dataTransfer.setData("text", event.target.id);
+        event.dataTransfer.setData("stage_id", stageId);
       }}
     >
       <Link to={`/crm/leads/${lead.id}`} id={lead.id}>

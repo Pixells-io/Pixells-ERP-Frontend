@@ -21,6 +21,7 @@ import {
 function MainLeads() {
   const location = useLocation();
   const { data } = useLoaderData();
+  console.log(data);
 
   return (
     <div className="flex w-full overflow-auto">
@@ -62,25 +63,19 @@ function MainLeads() {
 
         <div className="flex items-center">
           <div
-            className={`flex items-center space-evenly gap-4 bg-grisHeading rounded-full px-2 py-1 w-fit`}
+            className={`flex items-center space-evenly gap-4 bg-grisHeading rounded-full px-4 py-1 w-fit `}
           >
-            <div className="flex ml-2 text-red-500">
+            <div className="flex text-primario">
               <IonIcon
                 icon={globeOutline}
                 className=" w-6 h-6 stroke-1"
               ></IonIcon>
             </div>
             <div className="flex items-center gap-4">
-              <p className={`text-red-500 text-2xl`}>&bull;</p>
+              <p className={`text-primario text-2xl`}>&bull;</p>
               <p className="text-white uppercase text-sm font-semibold">
                 LEADS
               </p>
-            </div>
-            <div className="flex">
-              <IonIcon
-                icon={ellipsisVertical}
-                className="text-white w-6 h-6 stroke-1"
-              ></IonIcon>
             </div>
           </div>
 

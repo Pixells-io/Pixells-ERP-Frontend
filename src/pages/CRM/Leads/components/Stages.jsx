@@ -29,6 +29,8 @@ function Stages() {
     kickoff: false,
   });
 
+  console.log(stages);
+
   useEffect(() => {
     pusherClient.subscribe("fill-table-leads");
 
