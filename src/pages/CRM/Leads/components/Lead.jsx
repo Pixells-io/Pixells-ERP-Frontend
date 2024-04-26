@@ -1,12 +1,18 @@
 import React from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IonIcon } from "@ionic/react";
-import { chatbubbleEllipses } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+import { IonIcon } from "@ionic/react";
+import { chatbubbleEllipses } from "ionicons/icons";
+
 function Lead({ lead, stageId, setModal, stageName }) {
-  // console.log(lead)
+  console.log(lead);
   return (
     <li
       className="cursor-grab active:cursor-grabbing"
@@ -35,10 +41,37 @@ function Lead({ lead, stageId, setModal, stageName }) {
             <div className="flex w-full justify-between items-center">
               <div className="flex gap-1 justify-between items-center pl-4">
                 <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#D7586B] text-white text-sm font-semibold">
-                  <p>0</p>
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <p>{lead.created}</p>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-fit">
+                      <p>
+                        Created{" "}
+                        {lead.created == 0
+                          ? "Today"
+                          : lead.created == 1
+                          ? lead.created + " day ago"
+                          : lead.created + " days ago"}
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
                 </div>
                 <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#F9D994] text-white text-sm font-semibold">
-                  <p>0</p>
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <p>{lead.updated}</p>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-fit">
+                      <p>
+                        {lead.updated == 0
+                          ? "No updates"
+                          : lead.updated == 1
+                          ? "Updated " + lead.updated + " day ago"
+                          : "Updated " + lead.updated + " days ago"}
+                      </p>
+                    </HoverCardContent>
+                  </HoverCard>
                 </div>
                 <div className="flex">
                   <IonIcon

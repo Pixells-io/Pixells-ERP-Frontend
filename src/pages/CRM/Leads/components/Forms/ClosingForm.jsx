@@ -48,7 +48,7 @@ function ClosingForm({ modal, setModal, leadId }) {
           <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
             <div className="flex flex-col gap-4 pb-4">
               <div>
-                <FileRouter name="service_paymnent" label="Service payment" />
+                <FileRouter name="service_paymnent" label="Payment agreement" />
               </div>
               <div>
                 <FileRouter
