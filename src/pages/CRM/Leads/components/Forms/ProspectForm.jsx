@@ -28,7 +28,7 @@ function ProspectForm({ modal, setModal, leadId }) {
 
   useEffect(() => {
     if (navigation.state === "idle") {
-      setModal({ prospect: true });
+      setModal({ prospect: false });
     }
   }, [navigation.state]);
 
@@ -49,7 +49,7 @@ function ProspectForm({ modal, setModal, leadId }) {
           method="post"
         >
           <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+            <div className="flex flex-col gap-4 pb-4">
               <div>
                 <FormSelect />
               </div>
@@ -112,7 +112,7 @@ function ProspectForm({ modal, setModal, leadId }) {
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="p-4">
           <Button
             form="prospect-leads-form"
             disabled={navigation.state === "submitting"}
