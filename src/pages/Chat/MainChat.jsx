@@ -17,59 +17,49 @@ function MainChat() {
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-
     let p = new Echo({
-      broadcaster: 'pusher',
+      broadcaster: "pusher",
       key: "c0b005198f54bf82285b",
-      wsHost: 'https://demoback.pixells.io',
-      cluster: 'us2',
+      wsHost: "https://demoback.pixells.io",
+      cluster: "us2",
       authEndpoint: "https://demoback.pixells.io/broadcasting/auth",
       auth: {
         headers: {
-          Accept: 'application/json',
+          Accept: "application/json",
           Authorization: "Bearer " + Cookies.get("token"),
-        }
+        },
       },
-      wsPort: '443'
+      wsPort: "443",
     });
 
     //Join the presence channel
-    p.join('private-get-chat')
+    p.join(`private-get-chat.${chat.data.id}`)
 
-    //Get the active users
-    .here(users => {
+      //Get the active users
+      .here((users) => {})
 
-    })
+      //Joining
+      .joining((user) => {})
 
-    //Joining
-    .joining(user => {
+      //Leaving
+      .joining((user) => {})
 
-    })
+      .whisper("typing", {
+        name: user.data.name,
+      })
 
-    //Leaving
-    .joining(user => {
-
-    })
-
-    .whisper('typing', {
-        name: user.data.name
-    })
-
-    .listenForWhisper('typing', (e) => {
+      .listenForWhisper("typing", (e) => {
         console.log(e.name);
-    })
+      })
 
-    //Listen the presence channel
-    .listen('GetChatInfo', ({query}) => {
-      setChatPusher(query.original.data);
-    })
+      //Listen the presence channel
+      .listen("GetChatInfo", ({ query }) => {
+        setChatPusher(query.original.data);
+      });
 
     //Listen Typing
     //.listenForWhisper('typing', this.flashActivePeer);
-
   }, []);
-
-
 
   const inputMsg = useRef(null);
 
@@ -103,10 +93,10 @@ function MainChat() {
           id: participant.id,
           img: participant.img,
           title: participant.name,
-        }
-      ]
+        },
+      ];
     }
-  })
+  });
 
   return (
     <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen relative justify-between">
