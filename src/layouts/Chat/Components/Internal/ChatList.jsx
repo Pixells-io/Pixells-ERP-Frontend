@@ -5,13 +5,12 @@ function ChatList({ chat, auth }) {
   return (
     <div>
       {chat.map((user, i) => {
-        console.log(user.mensaje);
         return (
           <>
             {Number(user.user_id) === Number(auth.id) ? (
               ""
             ) : (
-              <Link key={i} to={`/chat/${chat.chat_id}`}>
+              <Link key={i} to={`/chat/${user.mensaje.chat_id}`}>
                 <div className="flex hover:bg-[#f0f0f0] border-b border-grisDisabled hover:rounded-xl px-5 py-3 my-3">
                   <div className="w-1/6">
                     <img
