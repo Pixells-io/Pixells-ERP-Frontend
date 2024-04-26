@@ -1,3 +1,4 @@
+import { getAuthUser } from "@/pages/Chat/utils";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
@@ -145,9 +146,13 @@ export async function getChats() {
 }
 
 export async function multiLoaderChat() {
-  const [chats, users] = await Promise.all([getChats(), getUsers()]);
+  const [chats, users, user] = await Promise.all([
+    getChats(),
+    getUsers(),
+    getUserByToken(),
+  ]);
 
-  return json({ chats, users });
+  return json({ chats, users, user });
 }
 
 /*CRM ACTIONS*/

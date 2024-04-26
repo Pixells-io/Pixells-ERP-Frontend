@@ -8,7 +8,7 @@ import { pusherClient } from "@/lib/pusher";
 
 function LayoutChat() {
 
-  const { users, chats } = useLoaderData();
+  const { users, chats, user } = useLoaderData();
 
   const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
@@ -26,6 +26,7 @@ function LayoutChat() {
   }, []);
 
   return (
+
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col rounded-xl bg-gris gap-4 w-[450px] shrink-0">
         {/* top block */}
@@ -43,6 +44,7 @@ function LayoutChat() {
                   {chatListPusher?.map((chat, i) => (
                       <ChatList
                         chat={chat}
+                        auth={user.data}
                       />
                   ))}
                 </div>

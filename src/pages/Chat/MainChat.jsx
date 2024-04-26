@@ -38,7 +38,7 @@ function MainChat() {
 
     //Get the active users
     .here(users => {
-      console.log(users);
+
     })
 
     //Joining
@@ -49,6 +49,14 @@ function MainChat() {
     //Leaving
     .joining(user => {
 
+    })
+
+    .whisper('typing', {
+        name: user.data.name
+    })
+
+    .listenForWhisper('typing', (e) => {
+        console.log(e.name);
     })
 
     //Listen the presence channel

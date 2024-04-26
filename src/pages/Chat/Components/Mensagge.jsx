@@ -92,5 +92,5 @@ export async function ShowAction(mensaje) {
             }
           );
     }
-    return response;
+    return 1;
   }
