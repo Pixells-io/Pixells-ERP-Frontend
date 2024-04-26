@@ -23,30 +23,36 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle className="font-poppins">On Boarding Form</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-[425px] p-0">
+        <div className="bg-gris flex p-6 rounded-t-lg">
+          <DialogHeader>
+            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+              Pay Form &gt; On Boarding Form
+            </DialogTitle>
+          </DialogHeader>
+        </div>
         <Form
           id="onboarding-leads-form"
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 px-8"
           action="/crm/leads"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-2 font-roboto rounded-lg p-4">
+            <div className="flex flex-col gap-5 pb-1">
               <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Business Name
+                </span>
                 <FormInput
                   type="text"
                   name="business_name"
                   placeholder="Business Name"
-                  defaultValue="hola"
                 />
               </div>
               <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Business Phone
+                </span>
                 <FormInput
                   name="business_phone"
                   type="text"
@@ -54,11 +60,54 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                 />
               </div>
               <div>
-                <FormInput name="contact_name" type="text" />
-                <FormInput name="contact_middle_name" type="text" />
-                <FormInput name="contact_last_name" type="text" />
-                <FormInput name="contact_phone" type="text" />
-                <FormInput name="contact_email" type="text" />
+                <span className="text-sm text-grisSubText font-medium">
+                  Contact Name
+                </span>
+                <FormInput
+                  name="contact_name"
+                  type="text"
+                  placeholder="Contact Name"
+                />
+              </div>
+              <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Contact Middle Name
+                </span>
+                <FormInput
+                  name="contact_middle_name"
+                  type="text"
+                  placeholder="Contact Middle Name"
+                />
+              </div>
+              <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Contact Last Name
+                </span>
+                <FormInput
+                  name="contact_last_name"
+                  type="text"
+                  placeholder="Contact Last Name"
+                />
+              </div>
+              <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Contact Phone
+                </span>
+                <FormInput
+                  name="contact_phone"
+                  type="text"
+                  placeholder="Contact Phone"
+                />
+              </div>
+              <div>
+                <span className="text-sm text-grisSubText font-medium">
+                  Email
+                </span>
+                <FormInput
+                  name="contact_email"
+                  type="text"
+                  placeholder="Contact Email"
+                />
               </div>
             </div>
             <div>
@@ -79,7 +128,7 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="p-4">
           <Button
             form="onboarding-leads-form"
             disabled={navigation.state === "submitting"}

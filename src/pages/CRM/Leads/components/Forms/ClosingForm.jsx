@@ -1,15 +1,24 @@
 import React, { useEffect } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
 import FormInput from "./Inputs/FormInput";
+import FileRouter from "@/layouts/Masters/FormComponents/file";
 
 function ClosingForm({ modal, setModal, leadId }) {
   const navigation = useNavigation();
@@ -39,19 +48,34 @@ function ClosingForm({ modal, setModal, leadId }) {
           <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
             <div className="flex flex-col gap-4 pb-4">
               <div>
-                <FormInput name="service_paymnent" type="file" />
+                <FileRouter name="service_paymnent" label="Service payment" />
               </div>
               <div>
-                <FormInput name="service_agreement" type="file" />
+                <FileRouter
+                  name="service_agreement"
+                  label="Service agreement"
+                />
               </div>
               <div>
-                <FormInput name="comments" type="text" />
+                <FormInput name="comments" type="text" placeholder="Comments" />
               </div>
               <div>
-                <FormInput name="recurrent_pay" type="text" />
+                <Select name="recurrent_pay">
+                  <SelectTrigger className="border-0 border-b-2 rounded-none aria-[expanded=true]:border-b-2 aria-[expanded=true]:border-primario focus:border-primario !ring-0 !ring-offset-0 p-4 text-gris2">
+                    <SelectValue placeholder="Recurrent Pay (Monthly?)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">No</SelectItem>
+                    <SelectItem value="1">Yes</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div>
-                <FormInput name="month_billing" type="number" />
+                <FormInput
+                  name="month_billing"
+                  type="number"
+                  placeholder="Monthly Bill"
+                />
               </div>
             </div>
             <div>
