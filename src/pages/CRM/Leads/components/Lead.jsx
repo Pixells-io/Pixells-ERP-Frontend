@@ -12,7 +12,6 @@ import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 
 function Lead({ lead, stageId, setModal, stageName }) {
-  console.log(lead);
   return (
     <li
       className="cursor-grab active:cursor-grabbing"
