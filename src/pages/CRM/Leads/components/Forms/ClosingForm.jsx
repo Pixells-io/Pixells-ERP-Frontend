@@ -25,9 +25,6 @@ function ClosingForm({ modal, setModal, leadId }) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Prospect Form</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
         </DialogHeader>
         <Form
           id="closing-leads-form"

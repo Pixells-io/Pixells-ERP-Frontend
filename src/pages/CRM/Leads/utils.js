@@ -90,7 +90,7 @@ export async function potencialLeadForm(data) {
 export async function followupLeadForm(data) {
   const followup = {
     lead_id: Number(data.get("lead_id")),
-    way_of_contact: Number(data.get("type")),
+    way_of_contact: Number(data.get("way_of_contact")),
     date_of_contact: format(
       new Date(data.get("date_of_contact")),
       "yyyy-MM-dd"
