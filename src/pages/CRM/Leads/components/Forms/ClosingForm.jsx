@@ -22,18 +22,22 @@ function ClosingForm({ modal, setModal, leadId }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle className="font-poppins">Prospect Form</DialogTitle>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-[425px] p-0">
+        <div className="bg-gris flex p-6 rounded-t-lg">
+          <DialogHeader>
+            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+              Proposal Form &gt; Prospect Form
+            </DialogTitle>
+          </DialogHeader>
+        </div>
         <Form
           id="closing-leads-form"
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 px-8"
           action="/crm/leads"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
+            <div className="flex flex-col gap-4 pb-4">
               <div>
                 <FormInput name="service_paymnent" type="file" />
               </div>
@@ -68,7 +72,7 @@ function ClosingForm({ modal, setModal, leadId }) {
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="p-4">
           <Button
             form="closing-leads-form"
             disabled={navigation.state === "submitting"}
