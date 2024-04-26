@@ -10,7 +10,7 @@ function LayoutChat() {
 
   const { users, chats } = useLoaderData();
 
-  const [initialData, setInitialData] = useState(chats);
+  const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function LayoutChat() {
                   users={users.data}
                 />
                 <div className="px-5 bg-[#FBFBFB]">
-                  {chatListPusher.data?.map((chat, i) => (
+                  {chatListPusher?.map((chat, i) => (
                       <ChatList
                         chat={chat}
                       />
