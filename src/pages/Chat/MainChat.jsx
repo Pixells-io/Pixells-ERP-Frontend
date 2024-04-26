@@ -33,7 +33,7 @@ function MainChat() {
     });
 
     //Join the presence channel
-    p.join(`private-get-chat.${chat.data.id}`)
+    p.join(`private-get-chat.${chat.data[0].id}`)
 
       //Get the active users
       .here((users) => {})
@@ -54,11 +54,9 @@ function MainChat() {
 
       //Listen the presence channel
       .listen("GetChatInfo", ({ query }) => {
+        console.log(query.original.data);
         setChatPusher(query.original.data);
       });
-
-    //Listen Typing
-    //.listenForWhisper('typing', this.flashActivePeer);
   }, []);
 
   const inputMsg = useRef(null);

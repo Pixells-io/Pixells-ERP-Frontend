@@ -24,8 +24,6 @@ function LayoutChat() {
     };
   }, []);
 
-  console.log(chatListPusher);
-
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col rounded-xl bg-gris gap-4 w-[450px] shrink-0">
