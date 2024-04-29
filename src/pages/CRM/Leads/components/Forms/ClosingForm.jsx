@@ -19,8 +19,9 @@ import { Button } from "@/components/ui/button";
 
 import FormInput from "./Inputs/FormInput";
 import FileRouter from "@/layouts/Masters/FormComponents/file";
+import FromMultiSelect from "@/layouts/CRM/components/Form/FromMultiSelect";
 
-function ClosingForm({ modal, setModal, leadId }) {
+function ClosingForm({ modal, setModal, leadId, services }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -76,6 +77,9 @@ function ClosingForm({ modal, setModal, leadId }) {
                   type="number"
                   placeholder="Monthly Bill"
                 />
+              </div>
+              <div>
+                <FromMultiSelect services={services} />
               </div>
             </div>
             <div>

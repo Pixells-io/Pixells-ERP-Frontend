@@ -1,5 +1,7 @@
+import { getServices } from "@/lib/actions";
 import { format } from "date-fns";
 import Cookies from "js-cookie";
+import { json } from "react-router-dom";
 
 export async function getSteps() {
   try {
@@ -15,6 +17,12 @@ export async function getSteps() {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function multiLoaderStageLeads() {
+  const [steps, services] = await Promise.all([getSteps(), getServices()]);
+
+  return json({ steps, services });
 }
 
 export async function getLeadInfo(leadId) {
@@ -171,6 +179,7 @@ export async function closingLeadForm(data) {
     comments: data.get("comments"),
     recurrent_pay: data.get("recurrent_pay"),
     month_billing: Number(data.get("month_billing")),
+    service_id: data.get("services"),
   };
 
   console.log(closing);

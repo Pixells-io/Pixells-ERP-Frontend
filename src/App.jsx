@@ -17,7 +17,7 @@ import MainLeads, {
 } from "./pages/CRM/Leads/MainLeads";
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
-import { getLeadById, getSteps } from "./pages/CRM/Leads/utils";
+import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
 
 //Lead
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
@@ -84,9 +84,7 @@ import MainChat from "./pages/Chat/MainChat";
 //actions
 import {
   getAreas,
-  getGoals,
   getLeads,
-  getObjectives,
   getServices,
   multiLoaderServices,
   getServiceSteps,
@@ -94,7 +92,6 @@ import {
   multiLoaderChat,
   multiLoaderCSF,
   multiLoaderSideLayoutPM,
-  getSerivicesSelected,
   getAllServices,
   categoryShow,
   getPackageById,
@@ -144,7 +141,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Stages />,
-                loader: getSteps,
+                loader: multiLoaderStageLeads,
               },
               {
                 path: "/crm/leads/timeline",
@@ -294,7 +291,11 @@ const router = createBrowserRouter([
         loader: multiLoaderChat,
         children: [
           { index: true },
-          { path: "/chat/:id", element: <MainChat />, loader: multiLoaderChat2 },
+          {
+            path: "/chat/:id",
+            element: <MainChat />,
+            loader: multiLoaderChat2,
+          },
         ],
       },
     ],

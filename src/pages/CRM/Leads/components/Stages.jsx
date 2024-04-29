@@ -15,8 +15,8 @@ import PayForm from "./Forms/PayForm";
 import KickOffForm from "./Forms/KickOffForm";
 
 function Stages() {
-  const { data } = useLoaderData();
-  const [initialData, setInitialData] = useState(data);
+  const { steps, services } = useLoaderData();
+  const [initialData, setInitialData] = useState(steps.data);
   const [stages, setStages] = useState(initialData);
   const [leadId, setLeadId] = useState("");
   const [modal, setModal] = useState({
@@ -66,7 +66,12 @@ function Stages() {
         setModal={setModal}
         leadId={leadId}
       />
-      <ClosingForm modal={modal.closing} setModal={setModal} leadId={leadId} />
+      <ClosingForm
+        modal={modal.closing}
+        setModal={setModal}
+        leadId={leadId}
+        services={services}
+      />
       <PayForm modal={modal.pay} setModal={setModal} leadId={leadId} />
       <KickOffForm modal={modal.kickoff} setModal={setModal} leadId={leadId} />
 
