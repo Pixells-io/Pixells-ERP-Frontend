@@ -16,7 +16,10 @@ function Step({ stepInfo, services }) {
         setModal={setModal}
       />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
-        <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-[#00A259] rounded-lg gap-2 h-16">
+        <div
+          className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-[#00A259] rounded-lg gap-2 h-16"
+          style={{ borderColor: services.color }}
+        >
           <div>
             <p className="text-base text-grisText">{step?.name}</p>
           </div>

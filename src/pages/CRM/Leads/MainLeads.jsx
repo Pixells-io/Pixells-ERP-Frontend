@@ -12,6 +12,7 @@ import {
 import {
   closingLeadForm,
   followupLeadForm,
+  onboardingLeadForm,
   payLeadForm,
   potencialLeadForm,
   proposalLeadForm,
@@ -21,7 +22,7 @@ import {
 function MainLeads() {
   const location = useLocation();
   const { data } = useLoaderData();
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="flex w-full overflow-auto">
@@ -100,6 +101,16 @@ function MainLeads() {
             >
               Timeline
             </NavLink>
+            <NavLink
+              to="/crm/leads/timeline"
+              className={({ isActive }) =>
+                isActive
+                  ? `h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4 flex items-center`
+                  : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[11px] font-medium rounded-xl px-4 flex items-center`
+              }
+            >
+              Past On Boardings
+            </NavLink>
           </div>
         </div>
 
@@ -135,7 +146,7 @@ export async function multiFormAction({ request }) {
       return await payLeadForm(data);
 
     case "onboarding":
-      return await payLeadForm(data);
+      return await onboardingLeadForm(data);
 
     default:
       break;

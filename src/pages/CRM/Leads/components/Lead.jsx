@@ -17,6 +17,7 @@ function Lead({ lead, stageId, setModal, stageName }) {
       className="cursor-grab active:cursor-grabbing"
       id={lead.id}
       draggable
+      translate=""
       onDragStart={(event) => {
         event.dataTransfer.setData("text", event.target.id);
         event.dataTransfer.setData("stage_id", stageId);

@@ -1,9 +1,11 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 
-function FormInput({ name, type, placeholder, ...props }) {
+function FormInput({ name, type, placeholder, value, onChange, ...props }) {
   return (
     <Input
+      value={value}
+      onChange={onChange}
       name={name}
       type={type}
       placeholder={placeholder}

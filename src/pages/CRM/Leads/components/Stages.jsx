@@ -29,7 +29,7 @@ function Stages() {
     kickoff: false,
   });
 
-  console.log(stages);
+  // console.log(stages);
 
   useEffect(() => {
     pusherClient.subscribe("fill-table-leads");
@@ -68,12 +68,7 @@ function Stages() {
       />
       <ClosingForm modal={modal.closing} setModal={setModal} leadId={leadId} />
       <PayForm modal={modal.pay} setModal={setModal} leadId={leadId} />
-      <KickOffForm
-        modal={modal.kickoff}
-        setModal={setModal}
-        leadId={leadId}
-        leads={data[6].leads}
-      />
+      <KickOffForm modal={modal.kickoff} setModal={setModal} leadId={leadId} />
 
       {/* Stages */}
       <div className="flex gap-2">

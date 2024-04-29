@@ -4,22 +4,48 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import FormInput from "./Inputs/FormInput";
+import { getLeadInfo } from "../../utils";
 
-function KickOffForm({ modal, setModal, leadId, leads }) {
+function KickOffForm({ modal, setModal, leadId }) {
   const navigation = useNavigation();
-  //   console.log(leadInfo);
+  const [leadInfo, setLeadInfo] = useState("");
+  const [formData, setFormData] = useState({
+    business_name: "",
+    business_phone: "",
+    contact_name: "",
+    contact_middle_name: "",
+    contact_last_name: "",
+    contact_phone: "",
+    contact_email: "",
+  });
+
+  useEffect(() => {
+    async function getData() {
+      const res = await getLeadInfo(leadId);
+      console.log(res);
+      setFormData(res?.extra_information);
+    }
+    getData();
+  }, [leadId]);
 
   useEffect(() => {
     if (navigation.state === "idle") {
-      setModal({ prospect: false });
+      setModal({ kickoff: false });
     }
   }, [navigation.state]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -44,9 +70,12 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Business Name
                 </span>
                 <FormInput
+                  value={formData?.business_name}
+                  onChange={handleInputChange}
                   type="text"
                   name="business_name"
                   placeholder="Business Name"
+                  className="flex border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b-2 rounded-none bg-transparent !ring-0 !ring-offset-0"
                 />
               </div>
               <div>
@@ -55,6 +84,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                 </span>
                 <FormInput
                   name="business_phone"
+                  value={formData?.business_phone}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Business Phone"
                 />
@@ -64,6 +95,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Contact Name
                 </span>
                 <FormInput
+                  value={formData?.contact_name}
+                  onChange={handleInputChange}
                   name="contact_name"
                   type="text"
                   placeholder="Contact Name"
@@ -74,6 +107,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Contact Middle Name
                 </span>
                 <FormInput
+                  value={formData?.contact_middle_name}
+                  onChange={handleInputChange}
                   name="contact_middle_name"
                   type="text"
                   placeholder="Contact Middle Name"
@@ -84,6 +119,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Contact Last Name
                 </span>
                 <FormInput
+                  value={formData?.contact_last_name}
+                  onChange={handleInputChange}
                   name="contact_last_name"
                   type="text"
                   placeholder="Contact Last Name"
@@ -94,6 +131,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Contact Phone
                 </span>
                 <FormInput
+                  value={formData?.contact_phone}
+                  onChange={handleInputChange}
                   name="contact_phone"
                   type="text"
                   placeholder="Contact Phone"
@@ -104,6 +143,8 @@ function KickOffForm({ modal, setModal, leadId, leads }) {
                   Email
                 </span>
                 <FormInput
+                  value={formData?.contact_email}
+                  onChange={handleInputChange}
                   name="contact_email"
                   type="text"
                   placeholder="Contact Email"
