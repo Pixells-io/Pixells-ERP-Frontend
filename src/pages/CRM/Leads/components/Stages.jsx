@@ -44,7 +44,7 @@ function Stages() {
   }, []);
 
   return (
-    <div className="flex gap-2 overflow-auto">
+    <div className="flex gap-2 overflow-auto h-full">
       {/* modal on drop drag */}
       <ProspectForm
         modal={modal.prospect}

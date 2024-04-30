@@ -172,6 +172,12 @@ export async function proposalLeadForm(data) {
 }
 
 export async function closingLeadForm(data) {
+  const services = [];
+  for (const [key, value] of data.entries()) {
+    if (key === "services") {
+      services.push(Number(value));
+    }
+  }
   const closing = {
     lead_id: data.get("lead_id"),
     service_paymment: data.get("service_paymment"),
@@ -179,7 +185,7 @@ export async function closingLeadForm(data) {
     comments: data.get("comments"),
     recurrent_pay: data.get("recurrent_pay"),
     month_billing: Number(data.get("month_billing")),
-    service_id: data.get("services"),
+    service_id: services,
   };
 
   console.log(closing);

@@ -10,11 +10,13 @@ import {
 
 import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
+import { format } from "date-fns";
 
 function Lead({ lead, stageId, setModal, stageName }) {
+  console.log(lead);
   return (
     <li
-      className="cursor-grab active:cursor-grabbing"
+      className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0"
       id={lead.id}
       draggable
       translate=""
@@ -29,21 +31,108 @@ function Lead({ lead, stageId, setModal, stageName }) {
             <p className="text-[13px] text-grisText border-b-[1px] border-[#D7D7D7]">
               {lead.business_name}
             </p>
-            <div className="flex justify-between text-[10px] text-primario">
-              <p>Phone Call</p>
-              <p>22 Feb 2024</p>
-            </div>
 
-            <div className="text-[10px] text-grisHeading line-clamp-5">
-              {stageName}
-            </div>
+            {lead?.step_id == 0 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Contact Name</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_name} {lead?.contact_middle_name}{" "}
+                    {lead?.contact_last_name}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Contact Phone</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_phone}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Email</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_email}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 1 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Contact Name</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_name} {lead?.contact_middle_name}{" "}
+                    {lead?.contact_last_name}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Comments</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.prospect.comments}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Date of Contact</p>
+                  <span className="text-xs line-clamp-none">
+                    {format(lead?.prospect.date_of_contact, "PP")}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 2 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Payment recurrency</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.potencial_grading.field_one == "1"
+                      ? "Anual"
+                      : "Mensual"}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Total ammount</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.potencial_grading.field_two == "3"
+                      ? "$1000+"
+                      : lead?.potencial_grading.field_two == "2"
+                      ? "$500 - $999"
+                      : "$200 - $499"}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 3 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Contact Name</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_name} {lead?.contact_middle_name}{" "}
+                    {lead?.contact_last_name}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Comments</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.follow_up[0].comments}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Date of Contact</p>
+                  <span className="text-xs line-clamp-none">
+                    {format(lead?.follow_up[0].date_of_contact, "PP")}
+                  </span>
+                </div>
+              </div>
+            )}
 
             <div className="flex w-full justify-between items-center">
-              <div className="flex gap-1 justify-between items-center pl-4">
+              <div className="flex gap-1 justify-between items-center">
                 <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#D7586B] text-white text-sm font-semibold">
                   <HoverCard>
                     <HoverCardTrigger>
-                      <p>{lead.created}</p>
+                      <p className="">{lead.created}</p>
                     </HoverCardTrigger>
                     <HoverCardContent className="w-fit">
                       <p>

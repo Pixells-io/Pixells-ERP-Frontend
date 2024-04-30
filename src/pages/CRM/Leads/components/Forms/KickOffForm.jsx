@@ -27,7 +27,6 @@ function KickOffForm({ modal, setModal, leadId }) {
   useEffect(() => {
     async function getData() {
       const res = await getLeadInfo(leadId);
-      console.log(res);
       setFormData(res?.extra_information);
     }
     getData();
