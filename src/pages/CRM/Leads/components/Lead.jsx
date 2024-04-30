@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/hover-card";
 
 import { IonIcon } from "@ionic/react";
-import { chatbubbleEllipses } from "ionicons/icons";
+import { call, chatbubbleEllipses } from "ionicons/icons";
 import { format } from "date-fns";
 
 function Lead({ lead, stageId, setModal, stageName }) {
@@ -33,6 +33,30 @@ function Lead({ lead, stageId, setModal, stageName }) {
             </p>
 
             {lead?.step_id == 0 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Contact Name</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_name} {lead?.contact_middle_name}{" "}
+                    {lead?.contact_last_name}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Contact Phone</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_phone}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Email</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.contact_email}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 7 && (
               <div className="flex flex-col gap-2">
                 <div>
                   <p className="text-[10px]">Contact Name</p>
@@ -105,6 +129,16 @@ function Lead({ lead, stageId, setModal, stageName }) {
 
             {lead?.step_id == 3 && (
               <div className="flex flex-col gap-2">
+                <a
+                  href={`tel: ${lead?.contact_phone}`}
+                  className="text-primario flex items-center gap-2"
+                >
+                  <IonIcon
+                    icon={call}
+                    className="w-4 h-4 text-primario"
+                  ></IonIcon>
+                  <p className=" text-xs">Phone Call</p>
+                </a>
                 <div>
                   <p className="text-[10px]">Contact Name</p>
                   <span className="text-xs line-clamp-none">
@@ -113,6 +147,22 @@ function Lead({ lead, stageId, setModal, stageName }) {
                   </span>
                 </div>
                 <div>
+                  <p className="text-[10px]">Way of Contact</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.follow_up[0].way_of_contact == "1"
+                      ? "Call"
+                      : lead?.follow_up[0].way_of_contact == "2"
+                      ? "Face to Face"
+                      : lead?.follow_up[0].way_of_contact == "3"
+                      ? "Email"
+                      : lead?.follow_up[0].way_of_contact == "4"
+                      ? "Whatsapp"
+                      : lead?.follow_up[0].way_of_contact == "5"
+                      ? "Instagram"
+                      : "Facebook"}
+                  </span>
+                </div>
+                <div className="">
                   <p className="text-[10px]">Comments</p>
                   <span className="text-xs line-clamp-none">
                     {lead?.follow_up[0].comments}
@@ -122,6 +172,57 @@ function Lead({ lead, stageId, setModal, stageName }) {
                   <p className="text-[10px]">Date of Contact</p>
                   <span className="text-xs line-clamp-none">
                     {format(lead?.follow_up[0].date_of_contact, "PP")}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 4 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Confirmed Email</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.proposal.confirm_email}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Comments</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.proposal.comments}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 5 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Month Billing</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.closing.month_billing}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Comments</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.closing.comments}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {lead?.step_id == 6 && (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <p className="text-[10px]">Payment Total</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.pay.total}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px]">Comments</p>
+                  <span className="text-xs line-clamp-none">
+                    {lead?.pay.comments}
                   </span>
                 </div>
               </div>
