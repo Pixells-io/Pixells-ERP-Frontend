@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 
-import { chevronBack, chevronForward } from "ionicons/icons";
+import { add, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 function NewAgreements() {
-  const [value, setValue] = useState("");
+  let [value, setValue] = useState("");
 
-  console.log(value);
+  function addVariable() {
+    let varValue = null;
+    switch (1) {
+      case 1:
+        varValue = "{person_name}";
+        break;
+      case 2:
+        varValue = "{service_name}";
+        break;
+      case 3:
+        varValue = "{date}";
+        break;
+      case 4:
+        varValue = "<img>";
+        break;
+
+      default:
+        break;
+    }
+    const actualValue = value.toString();
+    console.log(value + varValue);
+    setValue(actualValue + varValue);
+  }
 
   return (
     <div className="flex w-full overflow-auto">
@@ -49,6 +71,7 @@ function NewAgreements() {
         </div>
         <div>
           <ReactQuill theme="snow" value={value} onChange={setValue} />
+          <button onClick={addVariable}>Hola</button>
         </div>
       </div>
     </div>
