@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
+import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import AgreementsConsole from "./components/AgreementsConsole";
-import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-function MainAgreements() {
+function NewAgreements() {
+  const [value, setValue] = useState("");
+
+  console.log(value);
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -43,29 +47,12 @@ function MainAgreements() {
             <div className="text-xs">36 templates</div>
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center h-6 bg-primario rounded-xl px-4">
-            <p className="text-[10px] text-white font-semibold">Templates</p>
-          </div>
-          <div className="hidden justify-center items-center h-6 bg-blancoBox2 rounded-xl px-4">
-            <p className="text-[10px] text-grisHeading font-semibold">
-              Templates
-            </p>
-          </div>
-          <Link to={"/crm/agreements/create"}>
-            <IonIcon
-              icon={addCircleOutline}
-              size="large"
-              className="text-primarioBotones"
-            ></IonIcon>
-          </Link>
+        <div>
+          <ReactQuill theme="snow" value={value} onChange={setValue} />
         </div>
-
-        <AgreementsConsole />
       </div>
     </div>
   );
 }
 
-export default MainAgreements;
+export default NewAgreements;

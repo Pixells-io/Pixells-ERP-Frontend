@@ -102,6 +102,7 @@ import NotFound from "./components/NotFound";
 
 import MainPackage from "./pages/CRM/Services/MainPackage";
 import { multiLoaderChat2 } from "./pages/Chat/utils";
+import NewAgreements from "./pages/CRM/Agreements/NewAgreement";
 
 const router = createBrowserRouter([
   {
@@ -191,6 +192,10 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements",
             element: <MainAgreements />,
+          },
+          {
+            path: "/crm/agreements/create",
+            element: <NewAgreements />,
           },
           //crm client :id
           {

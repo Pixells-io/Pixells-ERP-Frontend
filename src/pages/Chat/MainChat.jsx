@@ -32,8 +32,16 @@ function MainChat() {
       wsPort: "443",
     });
 
+    p.private(`get-chat.${chat.data[0].id}`).listen(
+      "GetChatInfo",
+      ({ query }) => {
+        console.log(query);
+        setChatPusher(query.original.data);
+      }
+    );
+
     //Join the presence channel
-    p.join(`private-get-chat.${chat.data[0].id}`)
+    /*p.join(`private-get-chat.${chat.data[0].id}`)
 
       //Get the active users
       .here((users) => {})
@@ -54,9 +62,10 @@ function MainChat() {
 
       //Listen the presence channel
       .listen("GetChatInfo", ({ query }) => {
-        console.log(query.original.data);
+        console.log(query);
         setChatPusher(query.original.data);
       });
+      */
   }, []);
 
   const inputMsg = useRef(null);
