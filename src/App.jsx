@@ -37,6 +37,9 @@ import MainEmail from "./pages/CRM/Email/MainEmail";
 
 //CRM Agreements
 import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
+import NewAgreements, {
+  Action as newAgreementTemplate,
+} from "./pages/CRM/Agreements/NewAgreement";
 
 //CRM Progress
 import MainProgress, {
@@ -102,7 +105,6 @@ import NotFound from "./components/NotFound";
 
 import MainPackage from "./pages/CRM/Services/MainPackage";
 import { multiLoaderChat2 } from "./pages/Chat/utils";
-import NewAgreements from "./pages/CRM/Agreements/NewAgreement";
 
 const router = createBrowserRouter([
   {
@@ -196,6 +198,7 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements/create",
             element: <NewAgreements />,
+            action: newAgreementTemplate,
           },
           //crm client :id
           {
