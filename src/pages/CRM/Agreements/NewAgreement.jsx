@@ -13,6 +13,30 @@ import { saveNewAgreementTemplate } from "./utils";
 function NewAgreements() {
   let [value, setValue] = useState("");
 
+  var toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
+    ["image"],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"],
+  ];
+  const module = {
+    toolbar: toolbarOptions,
+  };
+
   function addVariable(valueNumber) {
     let varValue = null;
     switch (valueNumber) {
@@ -109,7 +133,7 @@ function NewAgreements() {
               <div className="text-xs">36 templates</div>
             </div>
           </div>
-          <div className="overflow-auto">
+          <div className="">
             <div className="flex gap-6">
               <div className="col">
                 <SelectRouter
@@ -146,7 +170,15 @@ function NewAgreements() {
                 </Button>
               </div>
             </div>
-            <ReactQuill theme="snow" value={value} onChange={setValue} />
+            <div className="">
+              <ReactQuill
+                theme="snow"
+                value={value}
+                onChange={setValue}
+                style={{ maxHeight: "420px", overflow: "auto" }}
+                modules={module}
+              />
+            </div>
             <div className="flex mt-2 gap-4">
               <div>
                 <button
