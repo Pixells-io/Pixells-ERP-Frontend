@@ -98,6 +98,7 @@ import {
   getAllServices,
   categoryShow,
   getPackageById,
+  getServicesAgreements,
 } from "./lib/actions";
 
 //Not Found
@@ -105,6 +106,8 @@ import NotFound from "./components/NotFound";
 
 import MainPackage from "./pages/CRM/Services/MainPackage";
 import { multiLoaderChat2 } from "./pages/Chat/utils";
+import AgreementsConsole from "./pages/CRM/Agreements/components/AgreementsConsole";
+import EditAgreements from "./pages/CRM/Agreements/EditAgreements";
 
 const router = createBrowserRouter([
   {
@@ -194,11 +197,18 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements",
             element: <MainAgreements />,
+            loader: getServicesAgreements,
           },
           {
             path: "/crm/agreements/create",
             element: <NewAgreements />,
             action: newAgreementTemplate,
+            loader: getAllServices,
+          },
+          {
+            path: "/crm/agreements/edit/:id",
+            element: <EditAgreements />,
+            loader: getAllServices,
           },
           //crm client :id
           {

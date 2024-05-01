@@ -1,19 +1,34 @@
 import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { globeOutline } from "ionicons/icons";
+import { globeOutline, ellipsisHorizontal } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const TABS = [
-  { id: 1, name: "immigration", icon: globeOutline },
-  { id: 2, name: "bookeeping", icon: globeOutline },
-  { id: 3, name: "Tax Prep.", icon: globeOutline },
-  { id: 4, name: "audits", icon: globeOutline },
-  { id: 5, name: "Pay Roll", icon: globeOutline },
-  { id: 6, name: "Plan Infor.", icon: globeOutline },
-];
+function AgreementsConsole({ services }) {
+  const TABS = [];
 
-function AgreementsConsole() {
+  tabsFill(services, TABS);
+
+  function tabsFill(data, array) {
+    data.forEach((element) => {
+      array.push({
+        id: element.id,
+        name: element.name,
+        icon: globeOutline,
+        agreements: element.agreements,
+      });
+    });
+  }
+
+  console.log(TABS[0].agreements);
+
   return (
     <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
       <Tabs defaultValue="inbox" className="w-full">
@@ -22,7 +37,7 @@ function AgreementsConsole() {
             <div className="flex flex-col gap-2 border-r pr-2 h-full ">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
-                  key={i}
+                  key={tab.id}
                   value={tab.name}
                   className="text-sm py-1 text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none  data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
                 >
@@ -38,29 +53,45 @@ function AgreementsConsole() {
           </TabsList>
           {TABS.map((tab, i) => (
             <TabsContent
-              key={i}
+              key={tab.id}
               value={tab.name}
               className="col-span-10 overflow-visible h-full"
             >
-              <div className="flex gap-6">
-                <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
-                  <div className="h-full p-2">
-                    <div className="h-full bg-blancoBg"></div>
-                  </div>
-                  <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
-                    <p className="flex text-[10px] text-grisHeading">
-                      Acuse Cita para renovar licencia.pdf
-                    </p>
-                    <div className="flex justify-around text-[8px] text-grisSubText line-clamp-none">
-                      <span>2 pages</span>
-                      <span>&bull;</span>
-                      <span>XLSX</span>
-                      <span>&bull;</span>
-                      <span>134 KB</span>
+              {tab.agreements.map((agreement, i) => (
+                <div className="flex gap-6">
+                  <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
+                    <div className="h-full p-2 text-end">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <IonIcon
+                            icon={ellipsisHorizontal}
+                            size="medium"
+                            className="text-grisHeading"
+                          ></IonIcon>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>
+                            <Link to={"/organization/create-position"}>
+                              Edit
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Link to={"/organization/create-position"}>
+                              Create
+                            </Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <div className="h-full bg-blancoBg"></div>
+                    </div>
+                    <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
+                      <p className="flex text-[10px] text-grisHeading">
+                        {agreement.name}
+                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </TabsContent>
           ))}
         </div>

@@ -18,13 +18,6 @@ import FormService from "./components/FormService";
 import { saveService, setSelectedService } from "./util";
 import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
 
-const SERVICE = [
-  { name: "Immigration", icon: "Globe", colorIcon: "#00A259" },
-  { name: "Entity", icon: "Building2", colorIcon: "#D7586B" },
-  { name: "Bookkeeping", icon: "Newspaper", colorIcon: "#FAA364" },
-  { name: "Audits", icon: "Files", colorIcon: "#A058CE" },
-];
-
 const FILTERS = [
   { name: "Date" },
   { name: "Customer" },
@@ -34,8 +27,6 @@ const FILTERS = [
 
 function Main() {
   const { selectedServices, services } = useLoaderData();
-  console.log(selectedServices);
-  console.log(services);
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">

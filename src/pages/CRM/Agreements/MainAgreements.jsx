@@ -3,9 +3,11 @@ import React from "react";
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import AgreementsConsole from "./components/AgreementsConsole";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 function MainAgreements() {
+  const { data } = useLoaderData();
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
@@ -61,8 +63,7 @@ function MainAgreements() {
             ></IonIcon>
           </Link>
         </div>
-
-        <AgreementsConsole />
+        <AgreementsConsole services={data} />
       </div>
     </div>
   );

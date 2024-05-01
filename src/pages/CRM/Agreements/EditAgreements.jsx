@@ -8,9 +8,8 @@ import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { saveNewAgreementTemplate } from "./utils";
 
-function NewAgreements() {
+function EditAgreements() {
   let [value, setValue] = useState("");
 
   const { services } = useLoaderData();
@@ -226,12 +225,4 @@ function NewAgreements() {
   );
 }
 
-export default NewAgreements;
-
-export async function Action({ request }) {
-  const data = await request.formData();
-
-  const validation = await saveNewAgreementTemplate(data);
-
-  return validation;
-}
+export default EditAgreements;

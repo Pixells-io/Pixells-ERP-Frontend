@@ -44,6 +44,22 @@ export async function getServices() {
   }
 }
 
+export async function getServicesAgreements() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-agreements`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getCategories() {
   try {
     const response = await fetch(
