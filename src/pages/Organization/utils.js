@@ -1,10 +1,12 @@
 import Cookies from "js-cookie";
 
 export async function saveNewArea(data) {
+  const process = data.get("procesos_del_area");
+
   const area = {
     nombre: data.get("nombre"),
     descripcion: data.get("descripcion"),
-    procesos_del_area: data.get("procesos_del_area"),
+    procesos_del_area: process.split(","),
     tipo_horario: data.get("tipo_horario"),
     inicio: data.get("inicio"),
     fin: data.get("fin"),

@@ -30,6 +30,7 @@ import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import FormCreateArea from "./FormCreateArea";
 
 const areaInputs = [
   {
@@ -71,7 +72,8 @@ function MainOrganization() {
 
   return (
     <div className="flex w-full">
-      <Dialog open={modal} onOpenChange={setModal}>
+      <FormCreateArea modal={modal} setModal={setModal} />
+      {/* <Dialog open={modal} onOpenChange={setModal}>
         <DialogContent className="sm:max-w-[425px] overflow-auto">
           <DialogHeader>
             <DialogTitle className="font-poppins">Create Area</DialogTitle>
@@ -104,7 +106,7 @@ function MainOrganization() {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
