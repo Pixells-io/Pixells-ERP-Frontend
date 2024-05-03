@@ -404,3 +404,28 @@ export async function getPackageById({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getCustomers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}process-services/get-clients`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function muliloaderProgress({ params }) {
+  const [steps, customers] = await Promise.all([
+    getServiceSteps({ params }),
+    getCustomers(),
+  ]);
+
+  return json({ steps, customers });
+}

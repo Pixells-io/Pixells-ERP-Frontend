@@ -16,25 +16,35 @@ import { Button } from "@/components/ui/button";
 import { Form } from "react-router-dom";
 
 function ServiceSelectAdd({ services }) {
-  console.log(services);
+  // console.log(services);
   const options = services.map(({ id, name }) => ({ value: id, label: name }));
-  console.log(options);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <IonIcon icon={add} size={32} className="text-primario"></IonIcon>
+        <IonIcon
+          icon={add}
+          size={32}
+          className="text-4xl text-primario"
+        ></IonIcon>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72">
-        <DropdownMenuLabel>Select a Service</DropdownMenuLabel>
+        <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="flex flex-col gap-2 h-48">
+        <div className="flex flex-col gap-2 h-full">
           <Form
             action="/crm/progress"
             method="post"
-            className="flex flex-col h-fit"
+            className="flex flex-col gap-2"
           >
-            <Select isMulti options={options} name="serviceId" />
+            <Select
+              name="serviceId"
+              options={options}
+              isMulti
+              placeholder="Select services"
+              className=""
+            />
+
             <Button type="submit">Add</Button>
           </Form>
         </div>

@@ -60,7 +60,6 @@ function Main() {
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
             <div className="text-xs">
-              {" "}
               {services?.data?.length}{" "}
               {services?.data?.length > 1 ? "services" : "service"}
             </div>
@@ -70,7 +69,7 @@ function Main() {
         </div>
 
         {/* services */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           <div className="flex gap-4 overflow-scroll">
             {selectedServices?.data?.map((service, i) => (
               <NavLink
@@ -101,11 +100,8 @@ function Main() {
               </NavLink>
             ))}
           </div>
-          <div className="flex ">
-            <div className="text-4xl text-primario">
-              <ServiceSelectAdd services={services?.data} />
-            </div>
-            {/* <FormService submitting={navigation.state === "submitting"} /> */}
+          <div className="">
+            <ServiceSelectAdd services={services?.data} />
           </div>
         </div>
 

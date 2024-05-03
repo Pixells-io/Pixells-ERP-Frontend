@@ -21,7 +21,9 @@ function Step({ stepInfo, services }) {
           style={{ borderColor: services.color }}
         >
           <div>
-            <p className="text-base text-grisText">{step?.name}</p>
+            <p className="text-base text-grisText">
+              {step?.name ? step?.name : "Clients"}
+            </p>
           </div>
           <div className="border-[1px] border-grisHeading rounded-2xl w-fit px-3">
             <p className="font-semibold text-xs text-grisHeading">
@@ -41,8 +43,7 @@ function Step({ stepInfo, services }) {
           }}
         >
           <ul className="flex flex-col gap-2">
-            {/* <customer /> */}
-            <Customer />
+            {/* <Customer /> */}
             {customers?.map((customer, i) => (
               <Customer key={i} customer={customer} />
             ))}

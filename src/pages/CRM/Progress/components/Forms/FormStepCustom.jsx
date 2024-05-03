@@ -41,6 +41,7 @@ function FormStepCustom({ fields, modal, setModal, step, service }) {
             {fields?.map((field, i) => {
               return (
                 <input
+                  key={i}
                   className="placeholder:text-[10px] placeholder:font-light placeholder:text-grisSubText p-3 border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b rounded-none bg-transparent !ring-0 !ring-offset-0"
                   required={Number(field?.nullable) === 0 ? true : false}
                   placeholder={field?.visible_name}
@@ -57,7 +58,7 @@ function FormStepCustom({ fields, modal, setModal, step, service }) {
         </Form>
         <DialogFooter className="p-4">
           <Button type="submit" className="bg-primarioBotones">
-            Send Email
+            Submit
           </Button>
         </DialogFooter>
       </DialogContent>
