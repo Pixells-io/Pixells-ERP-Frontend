@@ -31,6 +31,7 @@ import MainServices, {
   Action as NewFunction,
 } from "./pages/CRM/Services/MainServices";
 import MainService from "./pages/CRM/Services/MainService";
+import MainPackage from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
@@ -40,6 +41,12 @@ import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
 import NewAgreements, {
   Action as newAgreementTemplate,
 } from "./pages/CRM/Agreements/NewAgreement";
+import EditAgreements, {
+  Action as EditAgreementTemplate,
+} from "./pages/CRM/Agreements/EditAgreements";
+import NewContract, {
+  Action as NewContractAction,
+} from "./pages/CRM/Agreements/NewContract";
 
 //CRM Progress
 import MainProgress, {
@@ -83,6 +90,7 @@ import MainClients from "./pages/Clients/MainClients";
 // Chat
 import LayoutChat from "./layouts/Chat/LayoutChat";
 import MainChat from "./pages/Chat/MainChat";
+import { multiLoaderChat2 } from "./pages/Chat/utils";
 
 //actions
 import {
@@ -99,15 +107,12 @@ import {
   categoryShow,
   getPackageById,
   getServicesAgreements,
+  getAgreement,
+  multiloaderNewContract,
 } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
-
-import MainPackage from "./pages/CRM/Services/MainPackage";
-import { multiLoaderChat2 } from "./pages/Chat/utils";
-import AgreementsConsole from "./pages/CRM/Agreements/components/AgreementsConsole";
-import EditAgreements from "./pages/CRM/Agreements/EditAgreements";
 
 const router = createBrowserRouter([
   {
@@ -208,8 +213,16 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements/edit/:id",
             element: <EditAgreements />,
-            loader: getAllServices,
+            loader: getAgreement,
+            action: EditAgreementTemplate,
           },
+          {
+            path: "/crm/agreements/new-contract/:id",
+            element: <NewContract />,
+            loader: multiloaderNewContract,
+            action: NewContractAction,
+          },
+
           //crm client :id
           {
             path: "/crm/client/:id",

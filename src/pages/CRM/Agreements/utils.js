@@ -21,3 +21,40 @@ export async function saveNewAgreementTemplate(data) {
 
   return response;
 }
+
+export async function saveEditAgreementTemplate(data) {
+  console.log(data);
+
+  const info = {
+    id: data.get("id"),
+    name: data.get("name"),
+    comments: data.get("comments"),
+    template: data.get("template"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}agreements/template-edit`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+
+  return response;
+}
+
+export async function saveNewContract(data) {
+  console.log(data);
+
+  const info = {
+    person_id: data.get("user"),
+    service_id: 0,
+    template_id: 0,
+    contract_template: data.get("template"),
+  };
+
+  return null;
+}
