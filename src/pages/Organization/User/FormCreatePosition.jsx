@@ -236,14 +236,14 @@ function FormCreatePosition() {
               </span>
               <div className="pt-4 w-full pr-8">
                 <div className="flex w-full">
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"area_id"}
                       placeholder={"Select Area"}
                       options={selectArea}
                     />
                   </div>
-                  <div className="pr-4  w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"position_type"}
                       placeholder={"Position Type"}
@@ -257,7 +257,7 @@ function FormCreatePosition() {
                       placeholder={"Position Name"}
                     />
                   </div>
-                  <div className="pr-4  w-1/4">
+                  <div className="pr-4 mt-4 ml-5 w-1/4">
                     <SelectRouter
                       name={"permision_access"}
                       placeholder={"Permission Access"}
@@ -266,14 +266,14 @@ function FormCreatePosition() {
                   </div>
                 </div>
                 <div className="flex w-full">
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"boss_id"}
                       placeholder={"Boss Position"}
                       options={selectArea}
                     />
                   </div>
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"coordinate_id"}
                       placeholder={"Coordinate Position"}
@@ -395,7 +395,7 @@ function FormCreatePosition() {
               <div className="flex pt-4 w-full pr-8">
                 <div className="w-full">
                   <div className="flex w-full">
-                    <div className="pr-4 w-1/3">
+                    <div className="pr-4 mt-4 w-1/3">
                       <SelectRouter
                         name={"experience_years"}
                         placeholder={"Experience Years"}
@@ -418,7 +418,7 @@ function FormCreatePosition() {
                     </div>
                   </div>
                   <div className="flex w-full">
-                    <div className="pr-4 w-2/6">
+                    <div className="pr-4 mt-4 w-2/6">
                       <SelectRouter
                         name={"academy"}
                         placeholder={"Required Studies"}
@@ -432,14 +432,14 @@ function FormCreatePosition() {
                         placeholder={"Describe the Studies"}
                       />
                     </div>
-                    <div className="pr-4 w-1/6">
+                    <div className="pr-4 mt-4 ml-4 w-1/6">
                       <SelectRouter
                         name={"home_office"}
                         placeholder={"Home Office"}
                         options={selectBasic}
                       />
                     </div>
-                    <div className="pr-4 w-1/6">
+                    <div className="pr-4 mt-4 w-1/6">
                       <SelectRouter
                         name={"position_work_type"}
                         placeholder={"Type of Work"}
@@ -448,7 +448,7 @@ function FormCreatePosition() {
                     </div>
                   </div>
                   <div className="flex w-full">
-                    <div className="pr-4 w-2/6">
+                    <div className="pr-4 mt-4 w-2/6">
                       <SelectRouter
                         name={"language"}
                         placeholder={"Language"}
@@ -464,7 +464,7 @@ function FormCreatePosition() {
                     </div>
                   </div>
                   <div className="flex w-full">
-                    <div className="pr-4 w-2/6">
+                    <div className="pr-4 mt-4 w-2/6">
                       <SelectRouter
                         name={"working_day"}
                         placeholder={"Working Day"}

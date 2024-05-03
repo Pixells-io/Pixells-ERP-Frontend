@@ -208,7 +208,7 @@ function FormCreateUser() {
         <form
           action="https://demoback.pixells.io/api/organization/store-user"
           method="post"
-          encType="multipart/form-data"
+          enctype="multipart/form-data"
         >
           <div className="bg-white rounded-xl p-4">
             <div className="w-1/4">
@@ -267,14 +267,14 @@ function FormCreateUser() {
                     </div>
                   </div>
                   <div className="flex mt-2">
-                    <div className="pr-4 w-1/3">
+                    <div className="pr-4 mt-4 w-1/3">
                       <SelectRouter
                         name={"genre"}
                         placeholder={"Genre"}
                         options={genreSelect}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="pr-4 mt-4 w-1/3">
                       <SelectRouter
                         name={"civil_status"}
                         placeholder={"Civil Status"}
@@ -373,14 +373,14 @@ function FormCreateUser() {
               </span>
               <div className="flex pt-4">
                 <div className="flex w-full pr-8">
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"chronic_diseases"}
                       placeholder={"Chronic Diseases"}
                       options={selectBasics}
                     />
                   </div>
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"alergic"}
                       placeholder={"Alergic"}
@@ -394,7 +394,7 @@ function FormCreateUser() {
                       type={"text"}
                     />
                   </div>
-                  <div className="pr-4 w-1/4">
+                  <div className="pr-4 mt-4 w-1/4">
                     <SelectRouter
                       name={"blood"}
                       placeholder={"Type of Blood"}
@@ -558,7 +558,7 @@ function FormCreateUser() {
                 Working Information
               </span>
               <div className="flex w-full pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"academic_grade"}
                     placeholder={"Academic Grade"}
@@ -600,21 +600,21 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"area"}
                     placeholder={"Area"}
                     options={selectArea}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"boss"}
                     placeholder={"Boss"}
                     options={selectArea}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"position"}
                     placeholder={"Position"}
@@ -639,7 +639,7 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"contract"}
                     placeholder={"Type of Contract"}
@@ -664,7 +664,7 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 w-1/3">
                   <SelectRouter
                     name={"bank"}
                     placeholder={"Bank"}
@@ -678,7 +678,7 @@ function FormCreateUser() {
                     type={"text"}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="pr-4 mt-4 pl-4 w-1/3">
                   <SelectRouter
                     name={"regulation"}
                     placeholder={"Regulation"}
