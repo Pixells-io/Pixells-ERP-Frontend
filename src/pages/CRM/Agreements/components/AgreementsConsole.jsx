@@ -71,12 +71,14 @@ function AgreementsConsole({ services }) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           <DropdownMenuItem>
-                            <Link to={"/organization/create-position"}>
+                            <Link to={`/crm/agreements/edit/${agreement.id}`}>
                               Edit
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <Link to={"/organization/create-position"}>
+                            <Link
+                              to={`/crm/agreements/new-contract/${agreement.id}`}
+                            >
                               Create
                             </Link>
                           </DropdownMenuItem>

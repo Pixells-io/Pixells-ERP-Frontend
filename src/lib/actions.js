@@ -429,3 +429,48 @@ export async function muliloaderProgress({ params }) {
 
   return json({ steps, customers });
 }
+
+/* Agreements Functions */
+export async function getAgreement({ params }) {
+  const agreement_id = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }agreements/get-agreement/${agreement_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getPersonsContracts() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-persons`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderNewContract({ params }) {
+  const [agreement, personsContracts] = await Promise.all([
+    getAgreement({ params }),
+    getPersonsContracts(),
+  ]);
+
+  return json({ agreement, personsContracts });
+}

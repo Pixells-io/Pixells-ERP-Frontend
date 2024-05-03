@@ -31,8 +31,6 @@ function NewAgreements() {
     });
   }
 
-  console.log(services.data);
-
   var toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],
@@ -233,5 +231,5 @@ export async function Action({ request }) {
 
   const validation = await saveNewAgreementTemplate(data);
 
-  return validation;
+  return redirect("/crm/agreements");
 }
