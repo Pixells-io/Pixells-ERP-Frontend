@@ -349,7 +349,7 @@ function FormCreatePosition() {
               <span className="text-roboto text-grisText text-sm font-medium">
                 Responsability of the Position
               </span>
-              <div className="flex items-center gap-4 justify-between pr-2">
+              <div className="flex items-center gap-4 justify-between pr-4">
                 <div className="pr-4 w-2/4">
                   {resInputs?.map((input, i) => (
                     <Input
