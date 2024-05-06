@@ -176,7 +176,7 @@ function DataTable({ services }) {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    pusherClient.subscribe("get-lead-table");
+    /*pusherClient.subscribe("get-lead-table");
 
     pusherClient.bind("fill-table", ({ message }) => {
       setLeads(message.original.data);
@@ -184,7 +184,7 @@ function DataTable({ services }) {
 
     return () => {
       pusherClient.unsubscribe("get-lead-table");
-    };
+    };*/
   }, []);
 
   const table = useReactTable({
