@@ -18,13 +18,16 @@ function MainChat() {
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-    EchoServer.private("get-chat").listen("GetChatInfo", ({ message }) => {
-      //Si el mnsj 201
-      //Hacer la peticion al server
+    EchoServer.private(`get-chat.${chat.data[0].id}`).listen(
+      "GetChatInfo",
+      ({ chat }) => {
+        //Si el mnsj 201
+        //Hacer la peticion al server
 
-      console.log(message);
-      //setChatPusher(query.original.data);
-    });
+        console.log(chat, "Jelou");
+        //setChatPusher(query.original.data);
+      }
+    );
 
     //Join the presence channel
     /*p.join(`private-get-chat.${chat.data[0].id}`)
