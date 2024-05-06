@@ -53,7 +53,7 @@ function DataTable({ services, leads: leadsInit }) {
   console.log(leads);
 
   useEffect(() => {
-    pusherClient.subscribe("get-lead-table");
+    /*pusherClient.subscribe("get-lead-table");
 
     pusherClient.bind("fill-table", ({ message }) => {
       setLeads(message.original.data);
@@ -61,7 +61,7 @@ function DataTable({ services, leads: leadsInit }) {
 
     return () => {
       pusherClient.unsubscribe("get-lead-table");
-    };
+    };*/
   }, []);
 
   const table = useReactTable({
