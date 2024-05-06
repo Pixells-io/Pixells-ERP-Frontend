@@ -7,6 +7,7 @@ import { useLoaderData } from "react-router-dom";
 import { storeMensagge } from "./utils";
 import Echo from "laravel-echo";
 import Cookies from "js-cookie";
+import { EchoServer } from "@/lib/echo";
 
 function MainChat() {
   const { chat, user } = useLoaderData();
@@ -17,28 +18,13 @@ function MainChat() {
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-    let p = new Echo({
-      broadcaster: "pusher",
-      key: "c0b005198f54bf82285b",
-      wsHost: "https://demoback.pixells.io",
-      cluster: "us2",
-      authEndpoint: "https://demoback.pixells.io/broadcasting/auth",
-      auth: {
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-      wsPort: "443",
-    });
+    EchoServer.private("get-chat").listen("GetChatInfo", ({ message }) => {
+      //Si el mnsj 201
+      //Hacer la peticion al server
 
-    p.private(`get-chat.${chat.data[0].id}`).listen(
-      "GetChatInfo",
-      ({ query }) => {
-        console.log(query);
-        setChatPusher(query.original.data);
-      }
-    );
+      console.log(message);
+      //setChatPusher(query.original.data);
+    });
 
     //Join the presence channel
     /*p.join(`private-get-chat.${chat.data[0].id}`)

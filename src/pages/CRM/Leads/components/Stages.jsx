@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { useLoaderData } from "react-router-dom";
 
-import { pusherClient } from "@/lib/pusher";
-
 import Stage from "./Stage";
 
 import ProspectForm from "./Forms/ProspectForm";
@@ -13,6 +11,8 @@ import ProposalForm from "./Forms/ProposalForm";
 import ClosingForm from "./Forms/ClosingForm";
 import PayForm from "./Forms/PayForm";
 import KickOffForm from "./Forms/KickOffForm";
+import { EchoServer } from "@/lib/echo";
+import { getSteps } from "../utils";
 
 function Stages() {
   const { steps, services } = useLoaderData();
@@ -29,10 +29,22 @@ function Stages() {
     kickoff: false,
   });
 
-  // console.log(stages);
-
   useEffect(() => {
-    pusherClient.subscribe("fill-table-leads");
+    //Connect whith this shit
+    EchoServer.private("fill-table-leads").listen(
+      "FillTableLeads",
+      ({ message }) => {
+        async function getStepsUrl() {
+          return await getSteps();
+        }
+
+        let newData = getStepsUrl();
+
+        console.log(newData);
+      }
+    );
+
+    /*pusherClient.subscribe("fill-table-leads");
 
     pusherClient.bind("fill-data", ({ message }) => {
       setStages(message.original.data);
@@ -40,7 +52,7 @@ function Stages() {
 
     return () => {
       pusherClient.unsubscribe("fill-table-leads");
-    };
+    };*/
   }, []);
 
   return (
