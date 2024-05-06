@@ -25,6 +25,10 @@ function PackagesTable({ packages }) {
       id: "name",
       header: "NAME",
     }),
+    columnHelper.accessor((row) => `${row.services}`, {
+      id: "services",
+      header: "SERVICES",
+    }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "created",
       header: "CREATED",
