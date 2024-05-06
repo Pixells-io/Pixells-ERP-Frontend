@@ -29,30 +29,24 @@ function Stages() {
     kickoff: false,
   });
 
+  async function getStepsUrl() {
+    let newData = await getSteps();
+
+    setStages(newData.data);
+  }
+
   useEffect(() => {
     //Connect whith this shit
     EchoServer.private("fill-table-leads").listen(
       "FillTableLeads",
       ({ message }) => {
-        async function getStepsUrl() {
-          return await getSteps();
-        }
-
-        let newData = getStepsUrl();
-
-        console.log(newData);
+        getStepsUrl();
       }
     );
 
-    /*pusherClient.subscribe("fill-table-leads");
-
-    pusherClient.bind("fill-data", ({ message }) => {
-      setStages(message.original.data);
-    });
-
     return () => {
-      pusherClient.unsubscribe("fill-table-leads");
-    };*/
+      EchoServer.leave("fill-table-leads");
+    };
   }, []);
 
   return (
