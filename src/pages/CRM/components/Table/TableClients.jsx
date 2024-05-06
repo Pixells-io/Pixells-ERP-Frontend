@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
-
-import { useLoaderData } from "react-router-dom";
-
-import { columns } from "./Columns";
+import React, { useState } from "react";
+import { clientColumns as columns } from "./ClientColumns";
 
 import {
   flexRender,
@@ -11,10 +8,6 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
@@ -23,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +25,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -42,27 +37,13 @@ import {
   searchOutline,
 } from "ionicons/icons";
 
-import { pusherClient } from "@/lib/pusher";
-
-function DataTable({ services, leads: leadsInit }) {
-  const [initialData, setInitialData] = useState(leadsInit.data);
+function TableClients({ services, clients: clientsInit }) {
+  const [initialData, setInitialData] = useState(clientsInit.data);
   const [leads, setLeads] = useState(initialData);
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
 
   console.log(leads);
-
-  useEffect(() => {
-    pusherClient.subscribe("get-lead-table");
-
-    pusherClient.bind("fill-table", ({ message }) => {
-      setLeads(message.original.data);
-    });
-
-    return () => {
-      pusherClient.unsubscribe("get-lead-table");
-    };
-  }, []);
 
   const table = useReactTable({
     data: leads,
@@ -234,4 +215,4 @@ function DataTable({ services, leads: leadsInit }) {
   );
 }
 
-export default DataTable;
+export default TableClients;

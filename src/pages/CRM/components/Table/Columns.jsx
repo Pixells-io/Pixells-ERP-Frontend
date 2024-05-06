@@ -54,7 +54,6 @@ export const columns = [
     accessorKey: "actions",
     header: "ACTIONS",
     cell: ({ row }) => {
-      console.log(row.original.id);
       return (
         <div className="flex items-center gap-2 text-[#696974]">
           <Link

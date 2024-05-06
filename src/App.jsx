@@ -109,6 +109,7 @@ import {
   getServicesAgreements,
   getAgreement,
   multiloaderNewContract,
+  multiloaderTablesCRM,
 } from "./lib/actions";
 
 //Not Found
@@ -139,7 +140,7 @@ const router = createBrowserRouter([
           //crm home
           {
             index: true,
-            loader: getLeads,
+            loader: multiloaderTablesCRM,
             element: <MainCRM />,
           },
           {

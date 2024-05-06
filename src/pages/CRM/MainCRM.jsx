@@ -10,13 +10,17 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 
 import Table from "@/components/DataTable";
+import TableClients from "./components/Table/TableClients";
 
 function MainCRM() {
-  const { data: loaderLeads } = useLoaderData();
+  const { leads: loaderLeads, clients: loaderClients } = useLoaderData();
   const { data: loaderServices } = useRouteLoaderData("side_services");
 
   const [leads, setLeads] = useState(loaderLeads);
   const [services, setServices] = useState(loaderServices);
+  const [clients, setClients] = useState(loaderClients);
+
+  console.log(clients);
 
   return (
     <div className="flex w-full">
@@ -90,10 +94,11 @@ function MainCRM() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account" className="p-2 mt-[-60px] ">
-            <DataTable services={services} />
+            <DataTable services={services} leads={leads} />
           </TabsContent>
           <TabsContent className="w-full overflow-auto" value="password">
-            <Table className="w-full" />
+            {/* <Table className="w-full" /> */}
+            <TableClients services={services} clients={clients} />
           </TabsContent>
         </Tabs>
       </div>
