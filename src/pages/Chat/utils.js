@@ -19,7 +19,7 @@ export async function getChat({ params }) {
   }
 }
 
-export async function getChatWithId({ id }) {
+export async function getChatWithId(id) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}chat/get-messages/${id}`,

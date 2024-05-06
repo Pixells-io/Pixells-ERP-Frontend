@@ -4,7 +4,8 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
-import { pusherClient } from "@/lib/pusher";
+import { EchoServer } from "@/lib/echo";
+import { getChats } from "@/lib/actions";
 
 function LayoutChat() {
   const { users, chats, user } = useLoaderData();
@@ -12,7 +13,24 @@ function LayoutChat() {
   const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
 
+  async function getChatsList() {
+    let newData = await getChats();
+
+    setChatListPusher(newData.data);
+  }
+
   useEffect(() => {
+    EchoServer.private("get-chat-list").listen("GetChats", ({ list }) => {
+      getChatsList();
+
+      console.log(chatListPusher);
+    });
+
+    return () => {
+      EchoServer.leave("get-chat-list");
+    };
+
+    /*
     pusherClient.subscribe("get-chat-list");
 
     pusherClient.bind("fill-chat-list", ({ query }) => {
@@ -21,8 +39,10 @@ function LayoutChat() {
 
     return () => {
       pusherClient.unsubscribe("get-chat-list");
-    };
+    };*/
   }, []);
+
+  console.log(chats);
 
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
@@ -53,7 +73,9 @@ function LayoutChat() {
             <InternalSearch users={users.data} />
             <div className="px-5 bg-[#FBFBFB]">
               {chatListPusher?.map((chat, i) => (
-                <ChatList chat={chat.data} auth={user.data} />
+                <div>
+                  <ChatList chat={chat} />
+                </div>
               ))}
             </div>
           </TabsContent>

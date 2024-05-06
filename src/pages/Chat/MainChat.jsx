@@ -4,7 +4,7 @@ import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
 import { useLoaderData } from "react-router-dom";
-import { storeMensagge } from "./utils";
+import { getChatWithId, storeMensagge } from "./utils";
 import Echo from "laravel-echo";
 import Cookies from "js-cookie";
 import { EchoServer } from "@/lib/echo";
@@ -17,19 +17,26 @@ function MainChat() {
 
   const CurrentUserId = user.data.id;
 
+  async function getMensajes() {
+    let newData = await getChatWithId(chat.data[0].id);
+
+    setChatPusher(newData.data);
+  }
+
+  function typing() {
+    EchoServer.private(`get-chat.${chat.data[0].id}`).whisper("typing", {
+      name: user.data.name,
+    });
+  }
+
   useEffect(() => {
-    EchoServer.private(`get-chat.${chat.data[0].id}`).listen(
-      "GetChatInfo",
-      ({ chat }) => {
-        //Si el mnsj 201
-        //Hacer la peticion al server
-
-        console.log(chat, "Jelou");
-        //setChatPusher(query.original.data);
-      }
-    );
-
-    console.log(EchoServer);
+    EchoServer.private(`get-chat.${chat.data[0].id}`)
+      .listen("GetChatInfo", ({ chat }) => {
+        getMensajes(chat);
+      })
+      .listenForWhisper("typing", (e) => {
+        console.log(e);
+      });
 
     //Join the presence channel
     /*p.join(`private-get-chat.${chat.data[0].id}`)
@@ -131,6 +138,7 @@ function MainChat() {
             onKeyPress={sendMensageEnter}
             className="w-full font-roboto font-light text-grisText px-4 py-2 rounded-xl ring-0"
             placeholder="Type your message..."
+            onKeyDown={typing}
           />
         </div>
         <div className="w-1/6 flex m-auto">
