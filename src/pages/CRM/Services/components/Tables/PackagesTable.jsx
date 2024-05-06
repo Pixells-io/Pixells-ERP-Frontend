@@ -21,10 +21,6 @@ function PackagesTable({ packages }) {
   const data = packages;
 
   const columns = [
-    columnHelper.accessor((row) => `${row.id}`, {
-      id: "id",
-      header: "ID",
-    }),
     columnHelper.accessor((row) => `${row.name}`, {
       id: "name",
       header: "NAME",
