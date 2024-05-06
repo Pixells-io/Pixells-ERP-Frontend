@@ -29,6 +29,8 @@ function MainChat() {
       }
     );
 
+    console.log(EchoServer);
+
     //Join the presence channel
     /*p.join(`private-get-chat.${chat.data[0].id}`)
 
