@@ -11,8 +11,8 @@ import ProposalForm from "./Forms/ProposalForm";
 import ClosingForm from "./Forms/ClosingForm";
 import PayForm from "./Forms/PayForm";
 import KickOffForm from "./Forms/KickOffForm";
-import { EchoServer } from "@/lib/echo";
 import { getSteps } from "../utils";
+import { pusherClient } from "@/lib/pusher";
 
 function Stages() {
   const { steps, services, users } = useLoaderData();
@@ -36,16 +36,14 @@ function Stages() {
   }
 
   useEffect(() => {
-    //Connect whith this shit
-    EchoServer.private("fill-table-leads").listen(
-      "FillTableLeads",
-      ({ message }) => {
-        getStepsUrl();
-      }
-    );
+    pusherClient.subscribe("private-fill-table-leads");
+
+    pusherClient.bind("make-table-leads", ({ message }) => {
+      getStepsUrl();
+    });
 
     return () => {
-      EchoServer.leave("fill-table-leads");
+      pusherClient.unsubscribe("private-fill-table-leads");
     };
   }, []);
 
