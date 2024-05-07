@@ -18,7 +18,7 @@ function ChatList({ chat }) {
           </span>
           <div className="mt-[-3px] ">
             <span className="font-roboto font-normal text-xs text-grisText">
-              {chat.mensaje}
+              {chat.mensaje.mensaje}
             </span>
           </div>
         </div>

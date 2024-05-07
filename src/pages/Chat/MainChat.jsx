@@ -23,6 +23,9 @@ function MainChat() {
     setChatPusher(newData.data);
   }
 
+  let typingMsg = false;
+  let typingTimer = false;
+
   function typing() {
     EchoServer.private(`get-chat.${chat.data[0].id}`).whisper("typing", {
       name: user.data.name,
@@ -35,7 +38,17 @@ function MainChat() {
         getMensajes(chat);
       })
       .listenForWhisper("typing", (e) => {
-        console.log(e);
+        this.typingMsg = e;
+
+        if (this.typingTimer) {
+          clearTimeout(this.typingTimer);
+        }
+
+        this.typingTimer = setTimeout(() => {
+          this.typingMsg = false;
+        }, 3000);
+
+        console.log(this.typingMsg);
       });
 
     //Join the presence channel
