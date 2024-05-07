@@ -15,7 +15,7 @@ import { EchoServer } from "@/lib/echo";
 import { getSteps } from "../utils";
 
 function Stages() {
-  const { steps, services } = useLoaderData();
+  const { steps, services, users } = useLoaderData();
   const [initialData, setInitialData] = useState(steps.data);
   const [stages, setStages] = useState(initialData);
   const [leadId, setLeadId] = useState("");
@@ -56,30 +56,45 @@ function Stages() {
         modal={modal.prospect}
         setModal={setModal}
         leadId={leadId}
+        users={users}
       />
       <PotentialForm
         modal={modal.potential}
         setModal={setModal}
         leadId={leadId}
+        users={users}
       />
       <FollowUpForm
         modal={modal.followup}
         setModal={setModal}
         leadId={leadId}
+        users={users}
       />
       <ProposalForm
         modal={modal.proposal}
         setModal={setModal}
         leadId={leadId}
+        users={users}
       />
       <ClosingForm
         modal={modal.closing}
         setModal={setModal}
         leadId={leadId}
         services={services}
+        users={users}
       />
-      <PayForm modal={modal.pay} setModal={setModal} leadId={leadId} />
-      <KickOffForm modal={modal.kickoff} setModal={setModal} leadId={leadId} />
+      <PayForm
+        modal={modal.pay}
+        setModal={setModal}
+        leadId={leadId}
+        users={users}
+      />
+      <KickOffForm
+        modal={modal.kickoff}
+        setModal={setModal}
+        leadId={leadId}
+        users={users}
+      />
 
       {/* Stages */}
       <div className="flex gap-2">

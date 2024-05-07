@@ -5,6 +5,7 @@ import FormStepCustom from "./Forms/FormStepCustom";
 function Step({ stepInfo, services }) {
   const { customers, fields, step } = stepInfo;
   const [modal, setModal] = useState(false);
+  const [acceptDrop, setAcceptDrop] = useState(false);
 
   return (
     <>
@@ -33,19 +34,48 @@ function Step({ stepInfo, services }) {
         </div>
 
         <div
-          className="bg-blancoBox p-2 rounded-lg flex flex-col gap-2 h-full"
-          onDrop={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            // console.log(event.target);
-            // console.log("ondrop");
-            setModal(true);
-          }}
+          className={
+            "bg-blancoBox p-2 rounded-lg flex flex-col gap-2 h-full overflow-scroll" +
+            (acceptDrop
+              ? "outline outline-2 outline-primario border-[3px] border-primario"
+              : "")
+          }
         >
-          <ul className="flex flex-col gap-2">
+          <ul
+            className="flex flex-col gap-2 h-full"
+            id={step}
+            onDrop={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              // console.log(event.target);
+              // console.log("ondrop");
+              if (acceptDrop) {
+                setModal(true);
+                setAcceptDrop(false);
+              }
+              setAcceptDrop(false);
+            }}
+            onDragLeave={() => {
+              setAcceptDrop(false);
+            }}
+            onDragOver={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+
+              const stepId = event.dataTransfer.getData("step_id");
+              // console.log(stepId);
+              console.log(
+                "setAcceptDrop: ",
+                Number(stepId) + 1 == Number(step)
+              );
+              if (Number(stepId) + 1 == Number(step)) {
+                setAcceptDrop(true);
+              }
+            }}
+          >
             {/* <Customer /> */}
             {customers?.map((customer, i) => (
-              <Customer key={i} customer={customer} />
+              <Customer key={i} customer={customer} stepId={step} />
             ))}
           </ul>
         </div>

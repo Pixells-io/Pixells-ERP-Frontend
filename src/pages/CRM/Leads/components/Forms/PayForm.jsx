@@ -12,16 +12,20 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 
 import FormInput from "./Inputs/FormInput";
+import UserSelect from "@/components/UserSelect";
 
-function PayForm({ modal, setModal, leadId }) {
+import { IonIcon } from "@ionic/react";
+import { chevronForward } from "ionicons/icons";
+
+function PayForm({ modal, setModal, leadId, users }) {
   const [date, setDate] = useState();
   const navigation = useNavigation();
 
@@ -98,7 +102,26 @@ function PayForm({ modal, setModal, leadId }) {
             </div>
           </div>
         </Form>
-        <DialogFooter className="p-4">
+        <div className="flex justify-between p-4">
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col items-center gap-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>DG</AvatarFallback>
+              </Avatar>
+              <p className="text-[10px] text-grisText">Assigned</p>
+            </div>
+            <div className="flex justify-center items-center">
+              <IonIcon
+                icon={chevronForward}
+                className="w-6 h-6 text-grisText"
+              ></IonIcon>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <UserSelect users={users} />
+              <p className="text-[10px] text-grisText">Assign To</p>
+            </div>
+          </div>
           <Button
             form="pay-leads-form"
             disabled={navigation.state === "submitting"}
@@ -106,7 +129,7 @@ function PayForm({ modal, setModal, leadId }) {
           >
             {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

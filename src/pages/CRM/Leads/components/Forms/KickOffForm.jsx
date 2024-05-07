@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -8,10 +8,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+
 import FormInput from "./Inputs/FormInput";
+import UserSelect from "@/components/UserSelect";
+
 import { getLeadInfo } from "../../utils";
 
-function KickOffForm({ modal, setModal, leadId }) {
+import { IonIcon } from "@ionic/react";
+import { chevronForward } from "ionicons/icons";
+
+function KickOffForm({ modal, setModal, leadId, users }) {
   const navigation = useNavigation();
   const [leadInfo, setLeadInfo] = useState("");
   const [formData, setFormData] = useState({
@@ -168,7 +176,26 @@ function KickOffForm({ modal, setModal, leadId }) {
             </div>
           </div>
         </Form>
-        <DialogFooter className="p-4">
+        <div className="flex justify-between p-4">
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col items-center gap-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>DG</AvatarFallback>
+              </Avatar>
+              <p className="text-[10px] text-grisText">Assigned</p>
+            </div>
+            <div className="flex justify-center items-center">
+              <IonIcon
+                icon={chevronForward}
+                className="w-6 h-6 text-grisText"
+              ></IonIcon>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <UserSelect users={users} />
+              <p className="text-[10px] text-grisText">Assign To</p>
+            </div>
+          </div>
           <Button
             form="onboarding-leads-form"
             disabled={navigation.state === "submitting"}
@@ -176,7 +203,7 @@ function KickOffForm({ modal, setModal, leadId }) {
           >
             {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

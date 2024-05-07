@@ -18,7 +18,6 @@ function Lead({ lead, stageId, setModal, stageName }) {
       className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0"
       id={lead.id}
       draggable
-      translate=""
       onDragStart={(event) => {
         event.dataTransfer.setData("text", event.target.id);
         event.dataTransfer.setData("stage_id", stageId);
@@ -128,16 +127,6 @@ function Lead({ lead, stageId, setModal, stageName }) {
 
             {lead?.step_id == 3 && (
               <div className="flex flex-col gap-2">
-                <a
-                  href={`tel: ${lead?.contact_phone}`}
-                  className="text-primario flex items-center gap-2"
-                >
-                  <IonIcon
-                    icon={call}
-                    className="w-4 h-4 text-primario"
-                  ></IonIcon>
-                  <p className=" text-xs">Phone Call</p>
-                </a>
                 <div>
                   <p className="text-[10px]">Contact Name</p>
                   <span className="text-xs line-clamp-none">
@@ -296,3 +285,13 @@ export default Lead;
 //     console.log(event);
 //     console.log("ondragleave");
 // }}
+
+{
+  /* <a
+  href={`tel: ${lead?.contact_phone}`}
+  className="text-primario flex items-center gap-2"
+>
+  <IonIcon icon={call} className="w-4 h-4 text-primario"></IonIcon>
+  <p className=" text-xs">Phone Call</p>
+</a>; */
+}
