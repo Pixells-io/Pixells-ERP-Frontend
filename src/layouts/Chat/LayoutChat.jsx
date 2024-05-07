@@ -27,7 +27,7 @@ function LayoutChat() {
     });
 
     return () => {
-      pusherClient.unsubscribe("get-chat-list");
+      pusherClient.unsubscribe("private-get-chat-list");
     };
   }, []);
 

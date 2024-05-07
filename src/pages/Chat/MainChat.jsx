@@ -30,7 +30,6 @@ function MainChat() {
       scrollBox.current.scrollIntoView({
         behavior: "smooth",
       });
-      console.log("hola");
     }, 1000);
   }
 
@@ -44,7 +43,7 @@ function MainChat() {
     });
 
     return () => {
-      pusherClient.unsubscribe("fill-chat-messages");
+      pusherClient.unsubscribe(`private-get-chat.${chat.data[0].id}`);
     };
   }, []);
 
