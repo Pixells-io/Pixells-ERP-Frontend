@@ -5,9 +5,8 @@ import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
 import { useLoaderData } from "react-router-dom";
 import { getChatWithId, storeMensagge } from "./utils";
-import Echo from "laravel-echo";
 import Cookies from "js-cookie";
-import { EchoServer } from "@/lib/echo";
+import { pusherClient } from "@/lib/pusher";
 
 function MainChat() {
   const { chat, user } = useLoaderData();
@@ -24,61 +23,29 @@ function MainChat() {
     setChatPusher(newData.data);
   }
 
-  let typingMsg = false;
-  let typingTimer = false;
+  const scrollBox = useRef(null);
 
-  function typing() {
-    EchoServer.private(`get-chat.${chat.data[0].id}`).whisper("typing", {
-      name: user.data.name,
-    });
-  }
-
-  function setTypingValue(value) {
-    setTypingData(value);
+  function scrollBottom() {
+    setTimeout(() => {
+      scrollBox.current.scrollIntoView({
+        behavior: "smooth",
+      });
+      console.log("hola");
+    }, 1000);
   }
 
   useEffect(() => {
-    EchoServer.private(`get-chat.${chat.data[0].id}`)
-      .listen("GetChatInfo", ({ chat }) => {
-        getMensajes(chat);
-      })
-      .listenForWhisper("typing", (e) => {
-        typingMsg = "Esta escribiendo...";
+    scrollBottom();
+    pusherClient.subscribe(`private-get-chat.${chat.data[0].id}`);
 
-        setTypingValue(typingMsg);
+    pusherClient.bind("fill-chat-messages", ({ chat }) => {
+      getMensajes(chat);
+      scrollBottom();
+    });
 
-        typingTimer = setTimeout(() => {
-          typingMsg = false;
-          setTypingValue(typingMsg);
-        }, 3000);
-      });
-
-    //Join the presence channel
-    /*p.join(`private-get-chat.${chat.data[0].id}`)
-
-      //Get the active users
-      .here((users) => {})
-
-      //Joining
-      .joining((user) => {})
-
-      //Leaving
-      .joining((user) => {})
-
-      .whisper("typing", {
-        name: user.data.name,
-      })
-
-      .listenForWhisper("typing", (e) => {
-        console.log(e.name);
-      })
-
-      //Listen the presence channel
-      .listen("GetChatInfo", ({ query }) => {
-        console.log(query);
-        setChatPusher(query.original.data);
-      });
-      */
+    return () => {
+      pusherClient.unsubscribe("fill-chat-messages");
+    };
   }, []);
 
   const inputMsg = useRef(null);
@@ -133,10 +100,6 @@ function MainChat() {
           <span className="font-poppins font-semibold text-lg text-grisHeading">
             {infoUser[0].title}
           </span>
-          <br />
-          <span className="text-xs font-light font-roboto italic">
-            {typingMesagge}
-          </span>
         </div>
         <div className="w-1/12 m-auto*"></div>
       </div>
@@ -149,7 +112,10 @@ function MainChat() {
         </div>
       </div>
       {/* Chat Card Footer */}
-      <div className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex absolute bottom-0 left-0 right-0 sticky z-10">
+      <div
+        className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex absolute bottom-0 left-0 right-0 sticky z-10"
+        ref={scrollBox}
+      >
         <div className="w-5/6 px-5">
           <input
             type="text"
@@ -157,7 +123,6 @@ function MainChat() {
             onKeyPress={sendMensageEnter}
             className="w-full font-roboto font-light text-grisText px-4 py-2 rounded-xl ring-0"
             placeholder="Type your message..."
-            onKeyDown={typing}
           />
         </div>
         <div className="w-1/6 flex m-auto">
