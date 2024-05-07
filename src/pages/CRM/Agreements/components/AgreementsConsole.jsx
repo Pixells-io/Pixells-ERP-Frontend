@@ -41,11 +41,20 @@ function AgreementsConsole({ services }) {
                   value={tab.name}
                   className="text-sm py-1 text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none  data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
                 >
-                  <div className="flex pl-3 gap-2 items-center w-32">
-                    <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>
-                    <p className="w-full text-left">
-                      {tab.name.charAt(0).toUpperCase() + tab.name.slice(1)}
-                    </p>
+                  <div className="flex  gap-2 items-center w-32">
+                    <div>
+                      <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>
+                    </div>
+                    <div className="truncate">
+                      <p
+                        className="w-full text-left truncate"
+                        title={
+                          tab.name.charAt(0).toUpperCase() + tab.name.slice(1)
+                        }
+                      >
+                        {tab.name.charAt(0).toUpperCase() + tab.name.slice(1)}
+                      </p>
+                    </div>
                   </div>
                 </TabsTrigger>
               ))}

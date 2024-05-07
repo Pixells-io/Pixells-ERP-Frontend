@@ -21,13 +21,13 @@ function PackagesTable({ packages }) {
   const data = packages;
 
   const columns = [
-    columnHelper.accessor((row) => `${row.id}`, {
-      id: "id",
-      header: "ID",
-    }),
     columnHelper.accessor((row) => `${row.name}`, {
       id: "name",
       header: "NAME",
+    }),
+    columnHelper.accessor((row) => `${row.services}`, {
+      id: "services",
+      header: "SERVICES",
     }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "created",

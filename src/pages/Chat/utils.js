@@ -19,6 +19,22 @@ export async function getChat({ params }) {
   }
 }
 
+export async function getChatWithId(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}chat/get-messages/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
+
 export async function getAuthUser() {
   try {
     const response = await fetch(

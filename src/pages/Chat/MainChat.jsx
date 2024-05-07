@@ -4,7 +4,7 @@ import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
 import { useLoaderData } from "react-router-dom";
-import { storeMensagge } from "./utils";
+import { getChatWithId, storeMensagge } from "./utils";
 import Echo from "laravel-echo";
 import Cookies from "js-cookie";
 import { EchoServer } from "@/lib/echo";
@@ -14,17 +14,44 @@ function MainChat() {
 
   const [initialData, setInitialData] = useState(chat.data);
   const [chatPusher, setChatPusher] = useState(initialData);
+  const [typingMesagge, setTypingData] = useState(false);
 
   const CurrentUserId = user.data.id;
 
-  useEffect(() => {
-    EchoServer.private("get-chat").listen("GetChatInfo", ({ message }) => {
-      //Si el mnsj 201
-      //Hacer la peticion al server
+  async function getMensajes() {
+    let newData = await getChatWithId(chat.data[0].id);
 
-      console.log(message);
-      //setChatPusher(query.original.data);
+    setChatPusher(newData.data);
+  }
+
+  let typingMsg = false;
+  let typingTimer = false;
+
+  function typing() {
+    EchoServer.private(`get-chat.${chat.data[0].id}`).whisper("typing", {
+      name: user.data.name,
     });
+  }
+
+  function setTypingValue(value) {
+    setTypingData(value);
+  }
+
+  useEffect(() => {
+    EchoServer.private(`get-chat.${chat.data[0].id}`)
+      .listen("GetChatInfo", ({ chat }) => {
+        getMensajes(chat);
+      })
+      .listenForWhisper("typing", (e) => {
+        typingMsg = "Esta escribiendo...";
+
+        setTypingValue(typingMsg);
+
+        typingTimer = setTimeout(() => {
+          typingMsg = false;
+          setTypingValue(typingMsg);
+        }, 3000);
+      });
 
     //Join the presence channel
     /*p.join(`private-get-chat.${chat.data[0].id}`)
@@ -106,6 +133,10 @@ function MainChat() {
           <span className="font-poppins font-semibold text-lg text-grisHeading">
             {infoUser[0].title}
           </span>
+          <br />
+          <span className="text-xs font-light font-roboto italic">
+            {typingMesagge}
+          </span>
         </div>
         <div className="w-1/12 m-auto*"></div>
       </div>
@@ -126,6 +157,7 @@ function MainChat() {
             onKeyPress={sendMensageEnter}
             className="w-full font-roboto font-light text-grisText px-4 py-2 rounded-xl ring-0"
             placeholder="Type your message..."
+            onKeyDown={typing}
           />
         </div>
         <div className="w-1/6 flex m-auto">
