@@ -43,13 +43,13 @@ function MainChat() {
         getMensajes(chat);
       })
       .listenForWhisper("typing", (e) => {
-        typingMsg = e.name + " esta escribiendo";
+        typingMsg = "Esta escribiendo...";
 
         setTypingValue(typingMsg);
 
         typingTimer = setTimeout(() => {
           typingMsg = false;
-          setTypingValue(false);
+          setTypingValue(typingMsg);
         }, 3000);
       });
 
@@ -118,8 +118,6 @@ function MainChat() {
     }
   });
 
-  console.log(typingMesagge);
-
   return (
     <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen relative justify-between">
       {/* Chat Header */}
@@ -136,7 +134,9 @@ function MainChat() {
             {infoUser[0].title}
           </span>
           <br />
-          <span>{typingMesagge}</span>
+          <span className="text-xs font-light font-roboto">
+            {typingMesagge}
+          </span>
         </div>
         <div className="w-1/12 m-auto*"></div>
       </div>
