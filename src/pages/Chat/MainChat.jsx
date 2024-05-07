@@ -134,7 +134,7 @@ function MainChat() {
             {infoUser[0].title}
           </span>
           <br />
-          <span className="text-xs font-light font-roboto">
+          <span className="text-xs font-light font-roboto italic">
             {typingMesagge}
           </span>
         </div>
