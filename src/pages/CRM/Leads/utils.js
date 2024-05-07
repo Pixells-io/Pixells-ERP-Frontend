@@ -1,4 +1,4 @@
-import { getServices } from "@/lib/actions";
+import { getServices, getUsers } from "@/lib/actions";
 import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
@@ -20,9 +20,13 @@ export async function getSteps() {
 }
 
 export async function multiLoaderStageLeads() {
-  const [steps, services] = await Promise.all([getSteps(), getServices()]);
+  const [steps, services, users] = await Promise.all([
+    getSteps(),
+    getServices(),
+    getUsers(),
+  ]);
 
-  return json({ steps, services });
+  return json({ steps, services, users });
 }
 
 export async function getLeadInfo(leadId) {

@@ -4,22 +4,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 
-function Customer({ customer }) {
-  console.log(customer);
+function Customer({ customer, stepId }) {
   return (
-    <li className="cursor-grab active:cursor-grabbing">
+    <li className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0">
       <div
+        id={customer.id}
         draggable
         className="bg-white p-2 rounded-lg"
-        onDragOver={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          // console.log(event);
-        }}
-        onDragLeave={(event) => {
-          event.stopPropagation();
-          // console.log(event);
-          // console.log("ondragleave");
+        onDragStart={(event) => {
+          event.dataTransfer.setData("text", event.target.id);
+          event.dataTransfer.setData("step_id", stepId);
         }}
       >
         <div className="flex flex-col gap-1">
