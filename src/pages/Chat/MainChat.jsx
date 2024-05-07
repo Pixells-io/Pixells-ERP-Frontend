@@ -14,6 +14,7 @@ function MainChat() {
 
   const [initialData, setInitialData] = useState(chat.data);
   const [chatPusher, setChatPusher] = useState(initialData);
+  const [typingMesagge, setTypingData] = useState(false);
 
   const CurrentUserId = user.data.id;
 
@@ -32,23 +33,24 @@ function MainChat() {
     });
   }
 
+  function setTypingValue(value) {
+    setTypingData(value);
+  }
+
   useEffect(() => {
     EchoServer.private(`get-chat.${chat.data[0].id}`)
       .listen("GetChatInfo", ({ chat }) => {
         getMensajes(chat);
       })
       .listenForWhisper("typing", (e) => {
-        this.typingMsg = e;
+        typingMsg = e.name + " esta escribiendo";
 
-        if (this.typingTimer) {
-          clearTimeout(this.typingTimer);
-        }
+        setTypingValue(typingMsg);
 
-        this.typingTimer = setTimeout(() => {
-          this.typingMsg = false;
+        typingTimer = setTimeout(() => {
+          typingMsg = false;
+          setTypingValue(false);
         }, 3000);
-
-        console.log(this.typingMsg);
       });
 
     //Join the presence channel
@@ -116,6 +118,8 @@ function MainChat() {
     }
   });
 
+  console.log(typingMesagge);
+
   return (
     <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen relative justify-between">
       {/* Chat Header */}
@@ -131,6 +135,8 @@ function MainChat() {
           <span className="font-poppins font-semibold text-lg text-grisHeading">
             {infoUser[0].title}
           </span>
+          <br />
+          <span>{typingMesagge}</span>
         </div>
         <div className="w-1/12 m-auto*"></div>
       </div>
