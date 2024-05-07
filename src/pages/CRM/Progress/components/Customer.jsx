@@ -5,10 +5,12 @@ import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
 
 function Customer({ customer, stepId }) {
+  // console.log("customer ", customer.customer);
+  // console.log("stepId ", stepId);
   return (
     <li className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0">
       <div
-        id={customer.id}
+        id={customer.customer.id}
         draggable
         className="bg-white p-2 rounded-lg"
         onDragStart={(event) => {

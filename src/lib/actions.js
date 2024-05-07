@@ -495,3 +495,12 @@ export async function multiloaderTablesCRM() {
   const [leads, clients] = await Promise.all([getLeads(), getClients()]);
   return json({ leads, clients });
 }
+
+export async function multiloaderProgressSteps({ params }) {
+  const [steps, users] = await Promise.all([
+    getServiceSteps({ params }),
+    getUsers(),
+  ]);
+
+  return json({ steps, users });
+}

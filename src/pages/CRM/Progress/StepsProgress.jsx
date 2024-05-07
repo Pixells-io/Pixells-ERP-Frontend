@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
@@ -7,14 +7,14 @@ import Step from "./components/Step";
 
 function StepsProgress() {
   const { id } = useParams();
-  const { data: steps } = useLoaderData();
+  const { steps, users } = useLoaderData();
   const { services } = useOutletContext();
-  // console.log(services.data);
-  // console.log(steps);
+
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
-        {steps?.map((step, i) => {
+        {steps.data?.map((step, i) => {
+          // console.log(step);
           const service = services?.data.find((service) => service.id == id);
           return (
             <Step
@@ -22,6 +22,7 @@ function StepsProgress() {
               key={i}
               stepInfo={step}
               fields={step.fields}
+              users={users}
             />
           );
         })}

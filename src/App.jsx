@@ -110,6 +110,7 @@ import {
   getAgreement,
   multiloaderNewContract,
   multiloaderTablesCRM,
+  multiloaderProgressSteps,
 } from "./lib/actions";
 
 //Not Found
@@ -171,7 +172,7 @@ const router = createBrowserRouter([
               {
                 path: "/crm/progress/:id",
                 element: <StepsProgress />,
-                loader: getServiceSteps,
+                loader: multiloaderProgressSteps,
                 action: newStepService,
               },
             ],

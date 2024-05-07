@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import Customer from "./Customer";
 import FormStepCustom from "./Forms/FormStepCustom";
 
-function Step({ stepInfo, services }) {
+function Step({ stepInfo, services, users }) {
   const { customers, fields, step } = stepInfo;
   const [modal, setModal] = useState(false);
   const [acceptDrop, setAcceptDrop] = useState(false);
+  const [customerId, setCustomerId] = useState("");
+
+  // console.log("customers ", customers);
 
   return (
     <>
       <FormStepCustom
+        modal={modal}
+        setModal={setModal}
         service={services}
         fields={fields}
         step={step}
-        modal={modal}
-        setModal={setModal}
+        users={users}
       />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
         <div
@@ -47,8 +51,6 @@ function Step({ stepInfo, services }) {
             onDrop={(event) => {
               event.preventDefault();
               event.stopPropagation();
-              // console.log(event.target);
-              // console.log("ondrop");
               if (acceptDrop) {
                 setModal(true);
                 setAcceptDrop(false);
@@ -61,14 +63,10 @@ function Step({ stepInfo, services }) {
             onDragOver={(event) => {
               event.preventDefault();
               event.stopPropagation();
-
+              const clientId = event.dataTransfer.getData("text");
               const stepId = event.dataTransfer.getData("step_id");
-              // console.log(stepId);
-              console.log(
-                "setAcceptDrop: ",
-                Number(stepId) + 1 == Number(step)
-              );
-              if (Number(stepId) + 1 == Number(step)) {
+              if (Number(stepId) + 1 == Number(step.order)) {
+                setCustomerId(clientId);
                 setAcceptDrop(true);
               }
             }}
