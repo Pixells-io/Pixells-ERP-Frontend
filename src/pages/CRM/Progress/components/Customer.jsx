@@ -7,7 +7,7 @@ import { format } from "date-fns";
 
 function Customer({ customer, stepId }) {
   // console.log("customer ", customer.customer);
-  console.log("stepId ", stepId);
+  // console.log("stepId ", stepId);
   return (
     <li className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0">
       <div

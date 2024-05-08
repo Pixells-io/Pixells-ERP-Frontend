@@ -12,30 +12,30 @@ function StepsProgress() {
   const { steps, users } = useLoaderData();
   const { services } = useOutletContext();
 
-  const [initialData, setInitialData] = useState(steps);
-  const [dataPusher, setDataPusher] = useState(initialData);
+  // const [initialData, setInitialData] = useState(steps);
+  // const [dataPusher, setDataPusher] = useState(initialData);
 
   // console.log(dataPusher);
 
-  useEffect(() => {
-    async function getChatData(id) {
-      let newData = await getServiceSteps(id);
-      setDataPusher(newData);
-    }
+  // useEffect(() => {
+  //   async function getChatData(id) {
+  //     let newData = await getServiceSteps(id);
+  //     setDataPusher(newData);
+  //   }
 
-    pusherClient.subscribe(`private-get-chat.${steps.data[1].step.service_id}`);
+  //   pusherClient.subscribe(`private-get-chat.${steps.data[1].step.service_id}`);
 
-    pusherClient.bind("fill-process", ({ service }) => {
-      /* Set the new chat */
-      getChatData(id);
-    });
+  //   pusherClient.bind("fill-process", ({ service }) => {
+  //     /* Set the new chat */
+  //     getChatData(id);
+  //   });
 
-    return () => {
-      pusherClient.unsubscribe(
-        `private-get-chat.${steps.data[1].step.service_id}`
-      );
-    };
-  }, []);
+  //   return () => {
+  //     pusherClient.unsubscribe(
+  //       `private-get-chat.${steps.data[1].step.service_id}`
+  //     );
+  //   };
+  // }, []);
 
   return (
     <div className="flex shrink-0">

@@ -74,8 +74,8 @@ function Step({ stepInfo, services, users }) {
               const clientId = event.dataTransfer.getData("text");
               const stepId = event.dataTransfer.getData("step_id");
               const stepOrder = event.dataTransfer.getData("step_order");
-              console.log("stepId ", stepId);
-              console.log("step.order ", step.order);
+              // console.log("stepId ", stepId);
+              // console.log("step.order ", step.order);
               if (Number(stepOrder) + 1 == Number(step.order)) {
                 setCustomerId(clientId);
                 setAcceptDrop(true);
