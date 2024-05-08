@@ -27,8 +27,6 @@ function AgreementsConsole({ services }) {
     });
   }
 
-  console.log(TABS[0].agreements);
-
   return (
     <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
       <Tabs defaultValue="inbox" className="w-full">
