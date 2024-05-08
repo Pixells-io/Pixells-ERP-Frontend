@@ -60,7 +60,8 @@ function KickOffForm({ modal, setModal, leadId, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Pay Form &gt; On Boarding Form
+              <span className="font-normal">Pay Form </span>
+              &gt; On Boarding Form
             </DialogTitle>
           </DialogHeader>
         </div>

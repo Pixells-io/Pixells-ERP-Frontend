@@ -34,7 +34,8 @@ function PotentialForm({ modal, setModal, leadId, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Prospect Form &gt; Potencial Grade Form
+              <span className="font-normal">Prospect Form </span>
+              &gt; Potencial Grade Form
             </DialogTitle>
           </DialogHeader>
         </div>

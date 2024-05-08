@@ -41,7 +41,8 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Proposal Form &gt; Prospect Form
+              <span className="font-normal">Proposal Form </span>
+              &gt; Prospect Form
             </DialogTitle>
           </DialogHeader>
         </div>

@@ -41,7 +41,8 @@ function PayForm({ modal, setModal, leadId, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Prospect Form &gt; Pay Form
+              <span className="font-normal">Closing Form </span>
+              &gt; Pay Form
             </DialogTitle>
           </DialogHeader>
         </div>

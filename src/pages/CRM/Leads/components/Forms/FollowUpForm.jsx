@@ -48,7 +48,8 @@ function FollowUpForm({ modal, setModal, leadId, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Potential Form &gt; Follow Up Form
+              <span className="font-normal">Potential Form </span>
+              &gt; Follow Up Form
             </DialogTitle>
           </DialogHeader>
         </div>

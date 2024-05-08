@@ -41,7 +41,8 @@ function ProposalForm({ modal, setModal, leadId, users }) {
         <div className="bg-gris flex p-6 rounded-t-lg">
           <DialogHeader>
             <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
-              Follow Up Form &gt; Proposal Form
+              <span className="font-normal">Follow Up Form </span>
+              &gt; Proposal Form
             </DialogTitle>
           </DialogHeader>
         </div>

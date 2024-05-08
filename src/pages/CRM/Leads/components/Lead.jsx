@@ -33,21 +33,25 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 0 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Contact Name</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Name
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_name} {lead?.contact_middle_name}{" "}
                     {lead?.contact_last_name}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Contact Phone</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Phone
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_phone}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Email</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">Email</p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_email}
                   </span>
                 </div>
@@ -57,21 +61,25 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 7 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Contact Name</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Name
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_name} {lead?.contact_middle_name}{" "}
                     {lead?.contact_last_name}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Contact Phone</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Phone
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_phone}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Email</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">Email</p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_email}
                   </span>
                 </div>
@@ -81,21 +89,27 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 1 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Contact Name</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Name
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_name} {lead?.contact_middle_name}{" "}
                     {lead?.contact_last_name}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Comments</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Comments
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.prospect.comments}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Date of Contact</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Date of Contact
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {format(lead?.prospect.date_of_contact, "PP")}
                   </span>
                 </div>
@@ -105,16 +119,20 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 2 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Payment recurrency</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Payment recurrency
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.potencial_grading.field_one == "1"
                       ? "Anual"
                       : "Mensual"}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Total ammount</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Total ammount
+                  </p>
+                  <span className="text-xs line-clamp-none text-grisHeading">
                     {lead?.potencial_grading.field_two == "3"
                       ? "$1000+"
                       : lead?.potencial_grading.field_two == "2"
@@ -128,15 +146,19 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 3 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Contact Name</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Contact Name
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.contact_name} {lead?.contact_middle_name}{" "}
                     {lead?.contact_last_name}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Way of Contact</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Way of Contact
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.follow_up[0].way_of_contact == "1"
                       ? "Call"
                       : lead?.follow_up[0].way_of_contact == "2"
@@ -151,14 +173,18 @@ function Lead({ lead, stageId, setModal, stageName }) {
                   </span>
                 </div>
                 <div className="">
-                  <p className="text-[10px]">Comments</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Comments
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.follow_up[0].comments}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Date of Contact</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Date of Contact
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {format(lead?.follow_up[0].date_of_contact, "PP")}
                   </span>
                 </div>
@@ -168,14 +194,18 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 4 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Confirmed Email</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Confirmed Email
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.proposal.confirm_email}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Comments</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Comments
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.proposal.comments}
                   </span>
                 </div>
@@ -185,14 +215,18 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 5 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Month Billing</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Month Billing
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.closing.month_billing}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Comments</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Comments
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.closing.comments}
                   </span>
                 </div>
@@ -202,14 +236,18 @@ function Lead({ lead, stageId, setModal, stageName }) {
             {lead?.step_id == 6 && (
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="text-[10px]">Payment Total</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Payment Total
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.pay.total}
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px]">Comments</p>
-                  <span className="text-xs line-clamp-none">
+                  <p className="text-[10px] text-grisText font-medium">
+                    Comments
+                  </p>
+                  <span className="text-[12px] line-clamp-none text-grisHeading">
                     {lead?.pay.comments}
                   </span>
                 </div>
