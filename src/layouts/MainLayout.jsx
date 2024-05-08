@@ -140,22 +140,18 @@ function MainLayout() {
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
             <div></div>
-            {userAuth.data.id !== null ? (
-              <div className="flex gap-3">
-                <IonIcon
-                  icon={calendar}
-                  size="large"
-                  className="text-primario"
-                ></IonIcon>
-                <NotificationChat
-                  notifications={chat.data}
-                  user={userAuth.data}
-                />
-                <NotificationBell />
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="flex gap-3">
+              <IonIcon
+                icon={calendar}
+                size="large"
+                className="text-primario"
+              ></IonIcon>
+              <NotificationChat
+                notifications={chat.data}
+                user={userAuth.data}
+              />
+              <NotificationBell />
+            </div>
           </div>
 
           {/* Avatar Dropdown */}
