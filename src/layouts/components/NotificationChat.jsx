@@ -14,44 +14,44 @@ import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { Link } from "react-router-dom";
 import { pusherClient } from "@/lib/pusher";
-import { getNotificationsChat } from "@/lib/actions";
+import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
 
   function destroyNotification(chat) {
-    // console.log(chat);
-    /*Destroy the notification*/
+    destroyNotificationsChat(chat);
   }
 
   async function getNotifications() {
     let newData = await getNotificationsChat();
-
-    console.log(newData);
-
-    //setnotificationsPusher(newData)
+    setnotificationsPusher(newData.data);
   }
 
   useEffect(() => {
-    pusherClient.subscribe(`private-get-notification-chat.${user.id}`);
+    getNotifications();
+
+    pusherClient.subscribe(`private-get-notification-chat`);
 
     pusherClient.bind("fill-chat-notifications", ({ user }) => {
       getNotifications();
     });
 
     return () => {
-      pusherClient.unsubscribe(`private-get-notification-chat.${user.id}`);
+      pusherClient.unsubscribe(`private-get-notification-chat`);
     };
   }, []);
 
   return (
     <div>
-      {notifications[0].number == 0 ? (
+      {notificationsPusher[0].number == 0 ? (
         ""
       ) : (
         <div className="rounded-full bg-[#ff1f14] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[5px] mt-[50px]">{notifications[0].number}</span>
+          <span className="ml-[5px] mt-[50px]">
+            {notificationsPusher[0].number}
+          </span>
         </div>
       )}
       <DropdownMenu>
@@ -64,7 +64,7 @@ function NotificationChat({ notifications, user }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="">
           <DropdownMenuItem className="">
-            {notifications[0].notifications.map((noti, i) => (
+            {notificationsPusher[0].notifications.map((noti, i) => (
               <Link
                 key={i}
                 to={`/chat/${noti.chat_id}`}

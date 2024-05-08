@@ -43,7 +43,7 @@ function AgreementsConsole({ services }) {
                 >
                   <div className="flex  gap-2 items-center w-32">
                     <div>
-                      <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>
+                      <IonIcon icon={tab.icon} className="h-6 w-6"></IonIcon>
                     </div>
                     <div className="truncate">
                       <p
