@@ -4,16 +4,42 @@ import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
 import NewStepService from "./components/Forms/NewStepService";
 import { progressStepAdvance, saveNewServiceStep } from "./util";
 import Step from "./components/Step";
+import { pusherClient } from "@/lib/pusher";
+import { getServiceStepsId } from "@/lib/actions";
 
 function StepsProgress() {
   const { id } = useParams();
   const { steps, users } = useLoaderData();
   const { services } = useOutletContext();
 
+  const [initialData, setInitialData] = useState(steps);
+  const [dataPusher, setDataPusher] = useState(initialData);
+
+  async function getChatData(service) {
+    let newData = await getServiceStepsId(service);
+
+    setDataPusher(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe(`private-get-chat.${steps.data[1].step.service_id}`);
+
+    pusherClient.bind("fill-process", ({ service }) => {
+      /* Set the new chat */
+      getChatData(service);
+    });
+
+    return () => {
+      pusherClient.unsubscribe(
+        `private-get-chat.${steps.data[1].step.service_id}`
+      );
+    };
+  }, []);
+
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
-        {steps.data?.map((step, i) => {
+        {dataPusher.data?.map((step, i) => {
           // console.log(step);
           const service = services?.data.find((service) => service.id == id);
           return (
