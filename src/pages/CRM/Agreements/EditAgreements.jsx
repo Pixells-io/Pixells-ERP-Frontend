@@ -8,6 +8,7 @@ import { Form, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AgreementsPanel from "./components/AgreementPanel";
 import { saveEditAgreementTemplate } from "./utils";
+import { Input } from "@/components/ui/input";
 
 function EditAgreements() {
   const { data } = useLoaderData();
@@ -58,18 +59,20 @@ function EditAgreements() {
           <div className="">
             <div className="flex gap-6">
               <div className="col">
-                <InputRouter
-                  name={"name"}
-                  placeholder={data.name}
+                <Input
                   type={"text"}
+                  className="bg-transparent w-full text-xs font-roboto text-grisSubText !ring-0 !ring-offset-0 font-light border-0 border-b rounded-none m-4 border-gris2 focus:border-primarioBotones"
+                  name={"name"}
+                  value={data.name}
                 />
                 <input name="id" className="hidden" value={data.id}></input>
               </div>
               <div className="col">
-                <InputRouter
-                  name={"comments"}
-                  placeholder={data.comments}
+                <Input
                   type={"text"}
+                  className="bg-transparent w-full text-xs font-roboto text-grisSubText !ring-0 !ring-offset-0 font-light border-0 border-b rounded-none m-4 border-gris2 focus:border-primarioBotones"
+                  name={"comments"}
+                  value={data.comments}
                 />
               </div>
               <div className="col">
