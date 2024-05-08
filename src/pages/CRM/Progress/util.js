@@ -93,36 +93,31 @@ export async function saveNewServiceStep(id, data) {
 }
 
 export async function progressStepAdvance(data) {
-  console.log(data);
-  // const step = {
-  //   service_id: Number(id),
-  //   order: Number(data.get("order")),
-  //   name: data.get("name"),
-  //   description: data.get("description"),
-  //   category: data.get("category"),
-  //   area: Number("0"),
-  //   type: Number("0"),
-  // };
-
-  // console.log(step);
+  // console.log(JSON.stringify(data.values()));
+  // console.log(data.values());
+  let info = {};
+  for (let [name, value] of data) {
+    info[name] = value;
+  }
+  console.log(info);
 
   // validaciones?
 
-  // const response = await fetch(
-  //   `${import.meta.env.VITE_SERVER_URL}process-service/store-process-customer`,
-  //   {
-  //     method: "POST",
-  //     body: JSON.stringify(step),
-  //     headers: {
-  //       Authorization: "Bearer " + Cookies.get("token"),
-  //     },
-  //   }
-  // );
-  // console.log(response);
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/store-process-customer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+  console.log(response);
 
-  // if (!response.ok) {
-  //   throw response;
-  // }
+  if (!response.ok) {
+    throw response;
+  }
 
-  return new Response("ok");
+  return response;
 }
