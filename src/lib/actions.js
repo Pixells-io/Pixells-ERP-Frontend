@@ -1,4 +1,3 @@
-import { getAuthUser } from "@/pages/Chat/utils";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
@@ -277,6 +276,25 @@ export async function getServiceSteps({ params }) {
   }
 }
 
+export async function getServiceStepsId({ id }) {
+  const serviceId = id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }process-services/get-process/${serviceId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 /*Organization Functions*/
 export async function getAreas() {
   try {
@@ -503,4 +521,28 @@ export async function multiloaderProgressSteps({ params }) {
   ]);
 
   return json({ steps, users });
+}
+/* Notifications Loader */
+export async function getNotificationsChat() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}notifications/get-chats`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderNotifications() {
+  const [chat, userAuth] = await Promise.all([
+    getNotificationsChat(),
+    getUserByToken(),
+  ]);
+  return json({ chat, userAuth });
 }

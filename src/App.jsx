@@ -98,7 +98,6 @@ import {
   getLeads,
   getServices,
   multiLoaderServices,
-  getServiceSteps,
   multiLoaderOrganization,
   multiLoaderChat,
   multiLoaderCSF,
@@ -111,6 +110,7 @@ import {
   multiloaderNewContract,
   multiloaderTablesCRM,
   multiloaderProgressSteps,
+  multiloaderNotifications,
 } from "./lib/actions";
 
 //Not Found
@@ -120,6 +120,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    loader: multiloaderNotifications,
     children: [
       {
         index: true,

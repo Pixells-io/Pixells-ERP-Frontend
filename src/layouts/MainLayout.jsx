@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useLoaderData,
+} from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -77,6 +83,7 @@ function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = Cookies.get("token");
+  const { chat, userAuth } = useLoaderData();
 
   useEffect(() => {
     async function fetchData() {
@@ -86,6 +93,8 @@ function MainLayout() {
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
   }, []);
+
+  console.log(userAuth.data.id);
 
   return (
     <div className="flex flex-col h-screen min-h-0">
@@ -132,15 +141,23 @@ function MainLayout() {
         {/* notification center */}
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
-            <div>
-              <IonIcon
-                icon={calendar}
-                size="large"
-                className="text-primario"
-              ></IonIcon>
-            </div>
-            <NotificationChat />
-            <NotificationBell />
+            <div></div>
+            {userAuth.data.id !== null ? (
+              <div className="flex gap-3">
+                <IonIcon
+                  icon={calendar}
+                  size="large"
+                  className="text-primario"
+                ></IonIcon>
+                <NotificationChat
+                  notifications={chat.data}
+                  user={userAuth.data}
+                />
+                <NotificationBell />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* Avatar Dropdown */}
