@@ -9,6 +9,8 @@ function Step({ stepInfo, services, users }) {
   const [customerId, setCustomerId] = useState("");
 
   // console.log("customers ", customers);
+  console.log(stepInfo);
+  // console.log(step);
 
   return (
     <>
@@ -48,7 +50,7 @@ function Step({ stepInfo, services, users }) {
         >
           <ul
             className="flex flex-col gap-2 h-full"
-            id={step}
+            id={step.id}
             onDrop={(event) => {
               event.preventDefault();
               event.stopPropagation();
@@ -66,8 +68,8 @@ function Step({ stepInfo, services, users }) {
               event.stopPropagation();
               const clientId = event.dataTransfer.getData("text");
               const stepId = event.dataTransfer.getData("step_id");
-              // console.log(stepId);
-              // console.log(step.order);
+              console.log(stepId);
+              console.log(step.order);
               if (Number(stepId) + 1 == Number(step.order)) {
                 setCustomerId(clientId);
                 setAcceptDrop(true);

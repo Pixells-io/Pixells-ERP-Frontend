@@ -94,7 +94,7 @@ function MainLayout() {
     if (token == undefined || user.status == 500) return navigate("/login");
   }, []);
 
-  console.log(userAuth.data.id);
+  // console.log(userAuth.data.id);
 
   return (
     <div className="flex flex-col h-screen min-h-0">

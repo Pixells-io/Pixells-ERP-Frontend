@@ -11,7 +11,7 @@ import ServiceBlock from "./components/ServiceBlock";
 function MainService() {
   const { data } = useLoaderData();
 
-  console.log(data[0]);
+  console.log(data);
 
   return (
     <>
@@ -55,7 +55,7 @@ function MainService() {
           <div className="flex items-center gap-32 pl-3 pt-4">
             <div className="flex flex-col gap-2">
               <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
-                {data[0].name}
+                {data[0]?.name}
               </h2>
               <span className="font-medium text-xs text-grisText">
                 Information

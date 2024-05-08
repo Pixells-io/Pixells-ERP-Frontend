@@ -21,7 +21,7 @@ function NotificationChat({ notifications, user }) {
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
 
   function destroyNotification(chat) {
-    console.log(chat);
+    // console.log(chat);
     /*Destroy the notification*/
   }
 
@@ -66,6 +66,7 @@ function NotificationChat({ notifications, user }) {
           <DropdownMenuItem className="">
             {notifications[0].notifications.map((noti, i) => (
               <Link
+                key={i}
                 to={`/chat/${noti.chat_id}`}
                 onClick={destroyNotification(noti.chat_id)}
               >
