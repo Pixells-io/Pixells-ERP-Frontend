@@ -27,7 +27,7 @@ function AgreementsConsole({ services }) {
     });
   }
 
-  console.log(TABS[0].agreements);
+  // console.log(TABS[0]?.agreements);
 
   return (
     <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
@@ -60,7 +60,7 @@ function AgreementsConsole({ services }) {
               ))}
             </div>
           </TabsList>
-          {TABS.map((tab, i) => (
+          {TABS?.map((tab, i) => (
             <TabsContent
               key={tab.id}
               value={tab.name}
