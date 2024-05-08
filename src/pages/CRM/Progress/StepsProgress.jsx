@@ -20,7 +20,6 @@ function StepsProgress() {
   useEffect(() => {
     async function getChatData(id) {
       let newData = await getServiceSteps(id);
-
       setDataPusher(newData);
     }
 

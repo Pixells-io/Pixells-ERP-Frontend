@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Customer from "./Customer";
 import FormStepCustom from "./Forms/FormStepCustom";
+import { useNavigation } from "react-router-dom";
 
 function Step({ stepInfo, services, users }) {
   const { customers, fields, step } = stepInfo;
   const [modal, setModal] = useState(false);
   const [acceptDrop, setAcceptDrop] = useState(false);
   const [customerId, setCustomerId] = useState("");
+  const navigation = useNavigation();
 
-  // console.log("customers ", customers);
-  console.log(stepInfo);
-  // console.log(step);
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
 
   return (
     <>
@@ -22,6 +26,7 @@ function Step({ stepInfo, services, users }) {
         step={step}
         users={users}
         customerId={customerId}
+        navigation={navigation}
       />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
         <div
@@ -68,9 +73,10 @@ function Step({ stepInfo, services, users }) {
               event.stopPropagation();
               const clientId = event.dataTransfer.getData("text");
               const stepId = event.dataTransfer.getData("step_id");
-              console.log(stepId);
-              console.log(step.order);
-              if (Number(stepId) + 1 == Number(step.order)) {
+              const stepOrder = event.dataTransfer.getData("step_order");
+              console.log("stepId ", stepId);
+              console.log("step.order ", step.order);
+              if (Number(stepOrder) + 1 == Number(step.order)) {
                 setCustomerId(clientId);
                 setAcceptDrop(true);
               }

@@ -7,7 +7,7 @@ import { format } from "date-fns";
 
 function Customer({ customer, stepId }) {
   // console.log("customer ", customer.customer);
-  // console.log("stepId ", stepId);
+  console.log("stepId ", stepId);
   return (
     <li className="cursor-grab active:cursor-grabbing flex flex-col w-full shrink-0">
       <div
@@ -17,6 +17,7 @@ function Customer({ customer, stepId }) {
         onDragStart={(event) => {
           event.dataTransfer.setData("text", event.target.id);
           event.dataTransfer.setData("step_id", stepId.id);
+          event.dataTransfer.setData("step_order", stepId.order);
         }}
       >
         <div className="flex flex-col gap-2">

@@ -34,6 +34,7 @@ function FormStepCustom({
   service,
   users,
   customerId,
+  navigation,
 }) {
   // console.log(step);
   return (
@@ -95,7 +96,7 @@ function FormStepCustom({
             <input
               className="hidden"
               name="next_step"
-              value={step?.order}
+              value={step.id}
               readOnly
             />
             <input
@@ -125,8 +126,12 @@ function FormStepCustom({
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>
-            <Button type="submit" className="bg-primarioBotones">
-              Submit
+            <Button
+              disabled={navigation.state === "submitting"}
+              type="submit"
+              className="bg-primarioBotones"
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
             </Button>
           </div>
         </Form>
