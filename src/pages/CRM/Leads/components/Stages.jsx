@@ -29,13 +29,13 @@ function Stages() {
     kickoff: false,
   });
 
-  async function getStepsUrl() {
-    let newData = await getSteps();
-
-    setStages(newData.data);
-  }
-
   useEffect(() => {
+    async function getStepsUrl() {
+      let newData = await getSteps();
+
+      setStages(newData.data);
+    }
+
     pusherClient.subscribe("private-fill-table-leads");
 
     pusherClient.bind("make-table-leads", ({ message }) => {

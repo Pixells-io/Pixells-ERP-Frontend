@@ -27,6 +27,7 @@ const FIELD_NUMBER = [
 ];
 
 function FormStepCustom({ fields, modal, setModal, step, service, users }) {
+  // console.log(step);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
@@ -45,7 +46,7 @@ function FormStepCustom({ fields, modal, setModal, step, service, users }) {
         </DialogDescription>
         <Form
           id="progress-step-form"
-          action="/crm/progress"
+          action={`/crm/progress/${service.id}`}
           method="post"
           className="flex flex-col gap-2 px-8"
         >
@@ -76,6 +77,25 @@ function FormStepCustom({ fields, modal, setModal, step, service, users }) {
                 );
               })}
             </div>
+
+            <input
+              className="hidden"
+              name="customer_id"
+              value="advance_step"
+              readOnly
+            />
+            <input
+              className="hidden"
+              name="next_step"
+              value={step.toString()}
+              readOnly
+            />
+            <input
+              className="hidden"
+              name="action"
+              value="advance_step"
+              readOnly
+            />
           </div>
           <div className="flex justify-between p-4">
             <div className="flex items-center gap-2">

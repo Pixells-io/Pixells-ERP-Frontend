@@ -14,8 +14,7 @@ import { MoreVertical } from "lucide-react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, globeOutline } from "ionicons/icons";
 
-import FormService from "./components/FormService";
-import { saveService, setSelectedService } from "./util";
+import { setSelectedService } from "./util";
 import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
 
 const FILTERS = [

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
-import { saveNewServiceStep } from "./util";
+import { progressStepAdvance, saveNewServiceStep } from "./util";
 import Step from "./components/Step";
 
 function StepsProgress() {
@@ -34,17 +34,34 @@ function StepsProgress() {
 
 export default StepsProgress;
 
+// export async function Action({ params, request }) {
+//   const serviceId = params.id;
+//   const data = await request.formData();
+//   console.log(data);
+
+//   const validation = await saveNewServiceStep(serviceId, data);
+//   console.log(validation);
+
+//   if (validation) {
+//     return validation;
+//   }
+
+//   return redirect(`/crm/progress/${id}`);
+// }
+
 export async function Action({ params, request }) {
   const serviceId = params.id;
   const data = await request.formData();
-  console.log(data);
+  const action = data.get("action");
 
-  const validation = await saveNewServiceStep(serviceId, data);
-  console.log(validation);
+  switch (action) {
+    case "new_step":
+      return await saveNewServiceStep(serviceId, data);
 
-  if (validation) {
-    return validation;
+    case "advance_step":
+      return await progressStepAdvance(data);
+
+    default:
+      break;
   }
-
-  return redirect(`/crm/progress/${id}`);
 }

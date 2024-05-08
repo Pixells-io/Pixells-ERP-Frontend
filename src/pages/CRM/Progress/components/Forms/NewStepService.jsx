@@ -85,9 +85,7 @@ function NewStepService({ serviceId, submitting }) {
               </SelectContent>
             </Select>
 
-            {/* <FormInput name="area" type="string" placeholder="Step name" /> */}
-            {/* <FormInput name="type" type="string" placeholder="Step name" /> */}
-            <Input className="hidden" name="action" value="step" readOnly />
+            <Input className="hidden" name="action" value="new_step" readOnly />
           </div>
         </Form>
         <DialogFooter>
