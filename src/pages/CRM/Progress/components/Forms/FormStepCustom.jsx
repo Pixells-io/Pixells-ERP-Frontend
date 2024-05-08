@@ -26,7 +26,15 @@ const FIELD_NUMBER = [
   { type: "6", value: "number" },
 ];
 
-function FormStepCustom({ fields, modal, setModal, step, service, users }) {
+function FormStepCustom({
+  fields,
+  modal,
+  setModal,
+  step,
+  service,
+  users,
+  customerId,
+}) {
   // console.log(step);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -81,13 +89,13 @@ function FormStepCustom({ fields, modal, setModal, step, service, users }) {
             <input
               className="hidden"
               name="customer_id"
-              value="advance_step"
+              value={customerId}
               readOnly
             />
             <input
               className="hidden"
               name="next_step"
-              value={step.toString()}
+              value={step?.order}
               readOnly
             />
             <input

@@ -3,6 +3,7 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { chatbubbleEllipses } from "ionicons/icons";
+import { format } from "date-fns";
 
 function Customer({ customer, stepId }) {
   // console.log("customer ", customer.customer);
@@ -15,19 +16,18 @@ function Customer({ customer, stepId }) {
         className="bg-white p-2 rounded-lg"
         onDragStart={(event) => {
           event.dataTransfer.setData("text", event.target.id);
-          event.dataTransfer.setData("step_id", stepId);
+          event.dataTransfer.setData("step_id", stepId.id);
         }}
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <p className="text-[13px] text-grisText border-b-[1px] border-[#D7D7D7]">
             {customer?.info.business_name}
           </p>
 
           <div className="text-[10px] text-grisHeading line-clamp-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam aut
-            commodi, tenetur esse eos reiciendis quod sequi ipsam quasi saepe
-            iure animi sit illum voluptas amet quae perferendis, dolorum
-            nesciunt.
+            Service ready to start
+            <br />
+            {format(customer.customer.created_at, "PP")}
           </div>
 
           <div className="flex w-full justify-between items-center">

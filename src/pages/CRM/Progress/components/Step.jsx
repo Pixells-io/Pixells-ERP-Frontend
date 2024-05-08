@@ -19,6 +19,7 @@ function Step({ stepInfo, services, users }) {
         fields={fields}
         step={step}
         users={users}
+        customerId={customerId}
       />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
         <div
@@ -65,6 +66,8 @@ function Step({ stepInfo, services, users }) {
               event.stopPropagation();
               const clientId = event.dataTransfer.getData("text");
               const stepId = event.dataTransfer.getData("step_id");
+              // console.log(stepId);
+              // console.log(step.order);
               if (Number(stepId) + 1 == Number(step.order)) {
                 setCustomerId(clientId);
                 setAcceptDrop(true);
