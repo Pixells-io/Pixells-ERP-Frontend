@@ -85,14 +85,14 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth } = useLoaderData();
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const user = await getUserByToken();
-  //     setUser(user);
-  //   }
-  //   fetchData();
-  //   if (token == undefined || user.status == 500) return navigate("/login");
-  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const user = await getUserByToken();
+      setUser(user);
+    }
+    fetchData();
+    if (token == undefined || user.status == 500) return navigate("/login");
+  }, []);
 
   return (
     <div className="flex flex-col h-screen min-h-0">
@@ -140,7 +140,7 @@ function MainLayout() {
         <div className="flex justify-evenly items-center gap-16">
           <div className="flex gap-6">
             <div></div>
-            {/* {userAuth?.data?.id !== null ? (
+            {userAuth?.data?.id !== null ? (
               <div className="flex gap-3">
                 <IonIcon
                   icon={calendar}
@@ -155,7 +155,7 @@ function MainLayout() {
               </div>
             ) : (
               ""
-            )} */}
+            )}
           </div>
 
           {/* Avatar Dropdown */}

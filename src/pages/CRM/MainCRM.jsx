@@ -54,12 +54,15 @@ function MainCRM() {
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
             <div className="text-xs">
-              {/* {services?.length} {services?.length > 1 ? "services" : "service"} */}
-              0 clients
+              {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
+              {leads?.data.length == 1 ? "lead" : "leads"}
             </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">
-              {leads?.length} {leads?.length > 1 ? "leads" : "lead"}
+              {loaderClients?.data.length == 0
+                ? "0"
+                : loaderClients?.data.length}{" "}
+              {loaderClients?.data.length == 1 ? "client" : "clients"}
             </div>
           </div>
         </div>
@@ -78,25 +81,25 @@ function MainCRM() {
           ))}
         </div> */}
 
-        <Tabs defaultValue="account" className="bg-blancoBg rounded-lg pt-2">
+        <Tabs defaultValue="leads" className="bg-blancoBg rounded-lg pt-2">
           <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
             <TabsTrigger
-              value="account"
+              value="leads"
               className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
             >
               LEADS
             </TabsTrigger>
             <TabsTrigger
-              value="password"
+              value="clients"
               className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
             >
               CLIENTS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="account" className="p-2 mt-[-60px] ">
+          <TabsContent value="leads" className="p-2 mt-[-60px] ">
             <DataTable services={services} leads={leads} />
           </TabsContent>
-          <TabsContent className="w-full overflow-auto" value="password">
+          <TabsContent className="p-2 mt-[-60px]" value="clients">
             {/* <Table className="w-full" /> */}
             <TableClients services={services} clients={clients} />
           </TabsContent>

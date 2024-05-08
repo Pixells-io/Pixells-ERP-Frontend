@@ -30,7 +30,7 @@ function Step({ stepInfo, services, users }) {
       />
       <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
         <div
-          className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-[#00A259] rounded-lg gap-2 h-16"
+          className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 rounded-lg gap-2 h-16 pb-3 pt-1"
           style={{ borderColor: services.color }}
         >
           <div>
@@ -75,6 +75,7 @@ function Step({ stepInfo, services, users }) {
               const stepId = event.dataTransfer.getData("step_id");
               const stepOrder = event.dataTransfer.getData("step_order");
               // console.log("stepId ", stepId);
+              // console.log("stepOrder ", stepOrder);
               // console.log("step.order ", step.order);
               if (Number(stepOrder) + 1 == Number(step.order)) {
                 setCustomerId(clientId);

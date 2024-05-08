@@ -62,6 +62,12 @@ function NewServiceForm({
   const selectCategories = [];
   const selectResponsible = [];
 
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalServices(false);
+    }
+  }, [navigation.state]);
+
   arrayFillCategories(categories, selectCategories);
   arrayFillResponsible(positions, selectResponsible);
 

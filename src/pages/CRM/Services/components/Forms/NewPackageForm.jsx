@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,6 +22,14 @@ const packageInputs = [
 ];
 
 function NewPackageForm({ modalPackage, setModalPackage, info }) {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalPackage(false);
+    }
+  }, [navigation.state]);
+
   return (
     <Dialog open={modalPackage} onOpenChange={setModalPackage}>
       <DialogContent className="sm:max-w-[480px] overflow-auto ">
@@ -74,8 +82,9 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
           <Button
             form="package-services-form"
             className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

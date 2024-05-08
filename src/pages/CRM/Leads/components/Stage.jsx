@@ -5,7 +5,7 @@ import Lead from "./Lead";
 function Stage({ name, stageId, leads, setModal, setLeadId }) {
   const [acceptDrop, setAcceptDrop] = useState(false);
   return (
-    <div className="flex flex-col gap-2 w-[200px] h-full">
+    <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
       <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-primario rounded-lg gap-2 h-16 pb-3 pt-1">
         <div>
           <p className="text-base text-grisText">{name}</p>
