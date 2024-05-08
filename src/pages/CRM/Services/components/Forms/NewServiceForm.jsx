@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -52,8 +52,13 @@ const categoryInputs = [
   },
 ];
 
-function NewServiceForm({ modalServices, setModalServices, categories, positions }) {
-
+function NewServiceForm({
+  modalServices,
+  setModalServices,
+  categories,
+  positions,
+}) {
+  const navigation = useNavigation();
   const selectCategories = [];
   const selectResponsible = [];
 
@@ -63,11 +68,11 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
   function arrayFillCategories(data, array) {
     let dataParse = data.data;
 
-    dataParse.forEach(element => {
+    dataParse.forEach((element) => {
       array.push({
         label: element.name,
         value: element.id,
-        placeholder: element.name
+        placeholder: element.name,
       });
     });
   }
@@ -75,11 +80,11 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
   function arrayFillResponsible(data, array) {
     let dataParse = data.data;
 
-    dataParse.forEach(element => {
+    dataParse.forEach((element) => {
       array.push({
         label: element.position_name,
         value: element.id,
-        placeholder: element.position_name
+        placeholder: element.position_name,
       });
     });
   }
@@ -102,11 +107,11 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
               Service Information
             </div>
             <div className="flex flex-col font-light gap-4 pb-4">
-              <div className="ml-[-15px] pr-4">
+              <div className="">
                 <SelectRouter
-                    name={"category"}
-                    placeholder={"Category"}
-                    options={selectCategories}
+                  name={"category"}
+                  placeholder={"Category"}
+                  options={selectCategories}
                 />
               </div>
               {businessInputs?.map((input, i) => (
@@ -125,11 +130,11 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
               Responsible
             </div>
             <div className="flex flex-col font-light gap-4 pb-4">
-            <div className="ml-[-15px] pr-4">
+              <div className="">
                 <SelectRouter
-                    name={"position_id"}
-                    placeholder={"Position"}
-                    options={selectResponsible}
+                  name={"position_id"}
+                  placeholder={"Position"}
+                  options={selectResponsible}
                 />
               </div>
               {contactInputs?.map((input, i) => (
@@ -144,9 +149,7 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
           </div>
 
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">
-              Process
-            </div>
+            <div className="text-[#696974] text-lg font-normal">Process</div>
             <div className="flex flex-col font-light gap-4 pb-4">
               {categoryInputs?.map((input, i) => (
                 <FormInput
@@ -160,7 +163,13 @@ function NewServiceForm({ modalServices, setModalServices, categories, positions
           </div>
         </Form>
         <DialogFooter>
-          <Button form="service-form" className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones">Save</Button>
+          <Button
+            form="service-form"
+            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

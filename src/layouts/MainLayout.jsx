@@ -85,14 +85,14 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth } = useLoaderData();
 
-  useEffect(() => {
-    async function fetchData() {
-      const user = await getUserByToken();
-      setUser(user);
-    }
-    fetchData();
-    if (token == undefined || user.status == 500) return navigate("/login");
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const user = await getUserByToken();
+  //     setUser(user);
+  //   }
+  //   fetchData();
+  //   if (token == undefined || user.status == 500) return navigate("/login");
+  // }, []);
 
   return (
     <div className="flex flex-col h-screen min-h-0">

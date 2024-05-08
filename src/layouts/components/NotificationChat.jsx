@@ -48,10 +48,8 @@ function NotificationChat({ notifications, user }) {
       {notificationsPusher[0].number == 0 ? (
         ""
       ) : (
-        <div className="rounded-full bg-[#ff1f14] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[5px] mt-[50px]">
-            {notificationsPusher[0].number}
-          </span>
+        <div className="rounded-full bg-[#D7586B] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
+          <span className="ml-[6px]">{notificationsPusher[0].number}</span>
         </div>
       )}
       <DropdownMenu>
