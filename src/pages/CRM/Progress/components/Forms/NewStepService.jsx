@@ -65,7 +65,7 @@ function NewStepService({ serviceId, submitting }) {
           method="post"
         >
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <FormInput name="order" type="number" placeholder="Step order" />
+            {/* <FormInput name="order" type="number" placeholder="Step order" /> */}
             <FormInput name="name" type="string" placeholder="Step name" />
             <FormInput
               name="description"
