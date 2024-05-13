@@ -88,7 +88,7 @@ function MainLayout() {
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
-      setUser(user);
+      setUser(user.data);
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
@@ -173,10 +173,11 @@ function MainLayout() {
                   </div>
                   <div>
                     <p className="text-grisText font-semibold text-base">
-                      Don Fomularo
+                      {user.name}&nbsp;{user.last_name}&nbsp;
+                      {user.second_last_name}
                     </p>
                     <p className="text-[12px] text-grisSubText">
-                      donfomularo@gmail.com
+                      {user.personal_email}
                     </p>
                   </div>
                 </div>
