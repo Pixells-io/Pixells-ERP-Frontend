@@ -20,13 +20,15 @@ function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
 
+  if (notificationsPusher === undefined) return;
+
   function destroyNotification(chat) {
     destroyNotificationsChat(chat);
   }
 
   async function getNotifications() {
     let newData = await getNotificationsChat();
-    setnotificationsPusher(newData.data);
+    setnotificationsPusher(newData?.data);
   }
 
   useEffect(() => {
@@ -45,11 +47,11 @@ function NotificationChat({ notifications, user }) {
 
   return (
     <div>
-      {notificationsPusher[0].number == 0 ? (
+      {notificationsPusher[0]?.number == 0 ? (
         ""
       ) : (
         <div className="rounded-full bg-[#D7586B] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[6px]">{notificationsPusher[0].number}</span>
+          <span className="ml-[6px]">{notificationsPusher[0]?.number}</span>
         </div>
       )}
       <DropdownMenu>
@@ -62,7 +64,7 @@ function NotificationChat({ notifications, user }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="">
           <DropdownMenuItem className="">
-            {notificationsPusher[0].notifications.map((noti, i) => (
+            {notificationsPusher[0]?.notifications.map((noti, i) => (
               <Link
                 key={i}
                 to={`/chat/${noti.chat_id}`}
@@ -77,21 +79,21 @@ function NotificationChat({ notifications, user }) {
                   </div>
                   <div className="w-3/5 overflow-hidden">
                     <p className="text-grisText text-sm font-medium">
-                      {noti.title}
+                      {noti?.title}
                     </p>
                     <span
                       className="text-grisSubText text-xs font-medium"
-                      title={noti.message}
+                      title={noti?.message}
                     >
-                      {noti.message}
+                      {noti?.message}
                     </span>
                   </div>
                   <div className="flex flex-col items-end w-1/5">
                     <span className="rounded-full bg-[#00A259] text-white h-5 w-5 flex justify-center">
-                      {noti.total}
+                      {noti?.total}
                     </span>
                     <span className="text-grisSubText text-[10px]">
-                      {noti.date}
+                      {noti?.date}
                     </span>
                   </div>
                 </div>

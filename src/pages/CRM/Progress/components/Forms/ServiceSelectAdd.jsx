@@ -28,7 +28,7 @@ function ServiceSelectAdd({ services }) {
           className="text-4xl text-primario"
         ></IonIcon>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72">
+      <DropdownMenuContent className="w-72 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col gap-2 h-full">
@@ -42,7 +42,9 @@ function ServiceSelectAdd({ services }) {
               options={options}
               isMulti
               placeholder="Select services"
-              className=""
+              className="z-[999]"
+              // menuPortalTarget={document.body}
+              // styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
             />
 
             <Button type="submit">Add</Button>
