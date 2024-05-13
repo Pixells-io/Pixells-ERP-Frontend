@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
 
 const DATA = [
   {
-    nombre: "Inducción a productos",
+    nombre: "Inducción General",
     tipo: "General",
     areas: "6",
     responsable: "John F. Kennedy",
@@ -16,22 +16,72 @@ const DATA = [
     historial: "botton",
   },
   {
-    nombre: "Inducción a productos",
-    tipo: "General",
-    areas: "6",
+    nombre: "Inducción a Productos",
+    tipo: "Puesto",
+    areas: "12",
     responsable: "John F. Kennedy",
     archivos: false,
-    examen: false,
+    examen: true,
     historial: "botton",
   },
   {
-    nombre: "Inducción a productos",
+    nombre: "Inducción a Maquinaria",
     tipo: "General",
-    areas: "6",
+    areas: "16",
     responsable: "John F. Kennedy",
     archivos: true,
     examen: false,
     historial: "botton",
+  },
+  {
+    nombre: "Inducción General",
+    tipo: "Puesto",
+    areas: "6",
+    responsable: "John F. Kennedy",
+    archivos: false,
+    examen: false,
+    historial: "botton",
+  },
+  {
+    nombre: "Inducción a Productos",
+    tipo: "General",
+    areas: "12",
+    responsable: "John F. Kennedy",
+    archivos: false,
+    examen: true,
+    historial: "botton",
+  },
+  {
+    nombre: "Inducción a Maquinaria",
+    tipo: "Puesto",
+    areas: "16",
+    responsable: "John F. Kennedy",
+    archivos: true,
+    examen: false,
+    historial: "botton",
+  },
+];
+
+const PEOPLE = [
+  {
+    name: "Rodrigo Gómez",
+    position: "Gerente de Administración",
+    status: "Pending",
+  },
+  {
+    name: "Clarissa Reynold’s",
+    position: "Gerente de Administración",
+    status: "Pending",
+  },
+  {
+    name: "Alberto Lenus",
+    position: "Gerente de Administración",
+    status: "Pending",
+  },
+  {
+    name: "Ana Lenovsky",
+    position: "Gerente de Administración",
+    status: "Result",
   },
 ];
 
@@ -80,25 +130,8 @@ function MainOrgDev() {
             </div> */}
           </div>
         </div>
-        <Tabs defaultValue="evaluacion" className="bg-blancoBg rounded-lg pt-2">
-          <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
-            <TabsTrigger
-              value="evaluacion"
-              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
-            >
-              EVALUACION
-            </TabsTrigger>
-            <TabsTrigger
-              value="retroalimentacion"
-              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
-            >
-              RETROALIMENTCION
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent
-            value="evaluacion"
-            className="flex flex-col justify-center"
-          >
+        <div className="bg-blancoBg rounded-lg pt-2">
+          <div className="flex flex-col justify-center">
             <div className="grid grid-cols-8 w-full py-2 px-4 text-center">
               <div className="col-span-2 text-left pl-4">
                 <p className="text-grisText font-semibold text-sm">NOMBRE</p>
@@ -141,27 +174,79 @@ function MainOrgDev() {
                       {row.responsable}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">
-                      {row.archivos ? "no" : "si"}
+                  <div className="flex justify-center items-center">
+                    <p
+                      className={
+                        row.archivos
+                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
+                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
+                      }
+                    >
+                      Archivos
                     </p>
                   </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">
-                      {row.examen ? "no" : "si"}
+                  <div className="flex justify-center items-center">
+                    <p
+                      className={
+                        row.examen
+                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
+                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
+                      }
+                    >
+                      Exámen
                     </p>
                   </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">{row.historial}</p>
+                  <div className="flex justify-center items-center">
+                    <IonIcon
+                      icon={informationCircle}
+                      className="h-6 w-6 text-grisText"
+                    ></IonIcon>
                   </div>
                 </div>
               ))}
             </div>
-          </TabsContent>
-          <TabsContent className="p-2" value="retroalimentacion"></TabsContent>
-        </Tabs>
+          </div>
+        </div>
       </div>
-      <div className="w-[280px] flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg shrink-0"></div>
+      <div className="w-[280px] flex flex-col gap-6 bg-gris px-8 py-4 ml-4 rounded-lg shrink-0">
+        <div className="flex justify-center">
+          <p className="text-grisHeading text-lg font-poppins font-semibold">
+            Accesos Rápidos
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {PEOPLE.map((item, i) => (
+            <div className="flex">
+              <div className="flex flex-col items-center">
+                <div className="flex w-12 h-12 items-center justify-center ">
+                  <Avatar className="rounded-lg">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
+                {item.status == "Pending" ? (
+                  <span className="text-[11px] bg-[#FAA36440] text-[#FAA364] px-2 py-[2px] w-fit rounded-full">
+                    {item.status}
+                  </span>
+                ) : (
+                  <span className="text-[11px] bg-[#7794F940] text-[#7794F9] px-2 py-[2px] w-fit rounded-full">
+                    {item.status}
+                  </span>
+                )}
+              </div>
+              <div>
+                <p className="text-grisText font-medium text-base">
+                  {item.name}
+                </p>
+                <span className="font-medium text-[10px] text-grisSubText line-clamp-none ">
+                  {item.position}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
