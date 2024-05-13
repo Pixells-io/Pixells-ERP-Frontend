@@ -141,7 +141,6 @@ function MainLayout() {
           <div className="flex gap-6">
             <div></div>
             <div className="flex gap-3">
-              {/*
               <IonIcon
                 icon={calendar}
                 size="large"
@@ -152,7 +151,6 @@ function MainLayout() {
                 user={userAuth.data}
               />
               <NotificationBell />
-              */}
             </div>
           </div>
 
