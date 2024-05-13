@@ -208,7 +208,7 @@ function FormCreateUser() {
         <form
           action="https://demoback.pixells.io/api/organization/store-user"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
         >
           <div className="bg-white rounded-xl p-4">
             <div className="w-1/4">

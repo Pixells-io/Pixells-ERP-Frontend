@@ -1,69 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { IonIcon } from "@ionic/react";
+import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import {
   addCircleOutline,
   chevronBack,
   chevronForward,
   searchOutline,
 } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Form, Link, redirect, useLoaderData } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import FormInput from "@/layouts/CRM/components/Form/FormInput";
-import { saveNewArea } from "../utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+import { saveNewArea } from "../utils";
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import FormCreateArea from "./FormCreateArea";
-
-const areaInputs = [
-  {
-    name: "nombre",
-    type: "text",
-    placeholder: "Name of the area",
-  },
-  {
-    name: "descripcion",
-    type: "text",
-    placeholder: "Description of the area",
-  },
-  {
-    name: "procesos_del_area",
-    type: "text",
-    placeholder: "Process of the area",
-  },
-  {
-    name: "tipo_horario",
-    type: "text",
-    placeholder: "Type of turn",
-  },
-  {
-    name: "inicio",
-    type: "time",
-    placeholder: "Start",
-  },
-  {
-    name: "fin",
-    type: "time",
-    placeholder: "End",
-  },
-];
+import TestImage from "./components/TestImage";
 
 function MainOrganization() {
   const [modal, setModal] = useState(false);

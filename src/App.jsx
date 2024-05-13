@@ -116,6 +116,10 @@ import {
 //Not Found
 import NotFound from "./components/NotFound";
 
+import Sopas, { Action as newImage } from "./pages/Organization/Sopas";
+import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
+import MainOrgDev from "./pages/OrgDev/MainOrgDev";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -274,6 +278,11 @@ const router = createBrowserRouter([
             loader: getAreas,
             action: newPosition,
           },
+          {
+            path: "/organization/sopas",
+            element: <Sopas />,
+            action: newImage,
+          },
         ],
       },
       // project manager
@@ -329,6 +338,17 @@ const router = createBrowserRouter([
             path: "/chat/:id",
             element: <MainChat />,
             loader: multiLoaderChat2,
+          },
+        ],
+      },
+      {
+        path: "/org-development",
+        element: <SideLayoutDevOrg />,
+        children: [
+          { index: true },
+          {
+            path: "/org-development/induction",
+            element: <MainOrgDev />,
           },
         ],
       },
