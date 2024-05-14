@@ -88,7 +88,7 @@ const PEOPLE = [
 function MainOrgDev() {
   return (
     <div className="flex w-full">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
+      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
         {/* navigation inside */}
         <div className="flex gap-4 items-center">
           <div className="flex gap-2  text-gris2">
@@ -130,6 +130,14 @@ function MainOrgDev() {
             </div> */}
           </div>
         </div>
+        <div>
+          <p className="font-poppins font-bold text-xl text-[#44444F]">
+            Inducciones
+          </p>
+        </div>
+
+        <div></div>
+
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid grid-cols-8 w-full py-2 px-4 text-center">

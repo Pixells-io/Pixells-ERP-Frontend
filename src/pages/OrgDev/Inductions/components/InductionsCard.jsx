@@ -14,7 +14,17 @@ function InductionsCard({ card }) {
   const [progress, setProgress] = useState(card.progreso);
 
   return (
-    <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-1 py-3 w-[280px]">
+    <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-1 py-3 w-[280px] relative">
+      {card.status == "Hecho" ? (
+        <div className="">
+          <IonIcon
+            icon={checkmarkCircle}
+            className="w-5 h-5 text-[#00A259] absolute -top-2 -right-2"
+          ></IonIcon>
+        </div>
+      ) : (
+        ""
+      )}
       <div className="flex justify-between items-center">
         {card.status == "Pendiente" ? (
           <p className="text-[11px] font-semibold text-[#7794F9] bg-[#7794F940] rounded-full flex w-[65px] justify-center items-center">
@@ -67,16 +77,6 @@ function InductionsCard({ card }) {
         </Avatar>
         <p className="text-[10px] text-[#92929C] font-semibold">+ 25 más</p>
       </div>
-      {card.status == "Hecho" ? (
-        <div className="">
-          <IonIcon
-            icon={checkmarkCircle}
-            className="w-5 h-5 text-[#00A259] relative bottom-[185px] left-[250px]"
-          ></IonIcon>
-        </div>
-      ) : (
-        ""
-      )}
     </div>
   );
 }

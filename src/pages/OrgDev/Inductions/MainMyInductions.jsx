@@ -134,7 +134,7 @@ function MainMyInductions() {
         </div>
 
         <div className="bg-blancoBg rounded-lg p-2 h-full">
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap justify-center">
             {DATA.map((card, i) => (
               <InductionsCard card={card} />
             ))}
