@@ -75,7 +75,7 @@ function NotificationChat({ notifications, user }) {
                 <div className="w-64 flex gap-1 hover:bg-[#7794F926] hover:rounded-lg">
                   <div className="w-1/5">
                     <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
