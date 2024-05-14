@@ -66,12 +66,8 @@ function LayoutChat() {
               ))}
             </div>
           </TabsContent>
-          <TabsContent value="whatsapp">
-            <span>Es</span>
-          </TabsContent>
-          <TabsContent value="meta">
-            <span>ghj</span>
-          </TabsContent>
+          <TabsContent value="whatsapp"></TabsContent>
+          <TabsContent value="meta"></TabsContent>
         </Tabs>
       </div>
       <Outlet />
