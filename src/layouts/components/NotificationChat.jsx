@@ -37,7 +37,6 @@ function NotificationChat({ notifications, user }) {
 
     pusherClient.bind("fill-chat-messages", ({ user }) => {
       getNotifications();
-      console.log("jelous");
     });
 
     return () => {

@@ -30,7 +30,7 @@ function MainChat() {
       scrollBox.current.scrollIntoView({
         behavior: "smooth",
       });
-    }, 1000);
+    }, 500);
   }
 
   useEffect(() => {
@@ -105,16 +105,14 @@ function MainChat() {
       {/* Chat Card Messages */}
       <div className="">
         <div className="px-12 py-3 w-full h-full flex justify-end overflow-y-auto flex-col-reverse">
+          <div ref={scrollBox}></div>
           {chatPusher[0].msg.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
       </div>
       {/* Chat Card Footer */}
-      <div
-        className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex absolute bottom-0 left-0 right-0 sticky z-10"
-        ref={scrollBox}
-      >
+      <div className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex absolute bottom-0 left-0 right-0 sticky z-10">
         <div className="w-5/6 px-5">
           <input
             type="text"
