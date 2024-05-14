@@ -18,7 +18,7 @@ const MENU_ITEMS = [
     subpath: [
       { path: "/org-development/induction", name: "Creador" },
       {
-        path: "/org-development/inductions/my-inductions",
+        path: "/org-development/induction/my-inductions",
         name: "Mis Inducciones",
       },
     ],

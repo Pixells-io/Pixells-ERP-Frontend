@@ -119,6 +119,7 @@ import NotFound from "./components/NotFound";
 import Sopas, { Action as newImage } from "./pages/Organization/Sopas";
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
 import MainOrgDev from "./pages/OrgDev/MainOrgDev";
+import MainMyInductions from "./pages/OrgDev/Inductions/MainMyInductions";
 
 const router = createBrowserRouter([
   {
@@ -349,6 +350,10 @@ const router = createBrowserRouter([
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
+          },
+          {
+            path: "/org-development/induction/my-inductions",
+            element: <MainMyInductions />,
           },
         ],
       },

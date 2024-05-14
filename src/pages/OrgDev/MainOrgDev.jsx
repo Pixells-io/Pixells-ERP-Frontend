@@ -218,9 +218,9 @@ function MainOrgDev() {
         <div className="flex flex-col gap-4">
           {PEOPLE.map((item, i) => (
             <div className="flex">
-              <div className="flex flex-col items-center">
+              <div className="flex w-1/3 flex-col items-center gap-1">
                 <div className="flex w-12 h-12 items-center justify-center ">
-                  <Avatar className="rounded-lg">
+                  <Avatar className="rounded-lg h-full w-full">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
