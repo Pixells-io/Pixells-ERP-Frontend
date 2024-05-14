@@ -84,7 +84,7 @@ function Login() {
       <div className="p-20">
         <div className="text-center">
           <span className="text-grisText text-2xl font-roboto font-light">
-            Sign in to IRB
+            Sign in
           </span>
         </div>
         <Form method="POST" action="/login">
