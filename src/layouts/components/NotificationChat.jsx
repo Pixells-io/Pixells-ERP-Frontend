@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { pusherClient } from "@/lib/pusher";
 import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
@@ -20,19 +20,25 @@ function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
 
+  const navigate = useNavigate();
+
   if (notificationsPusher === undefined) return;
 
-  function destroyNotification(chat) {
-    destroyNotificationsChat(chat);
-  }
+  /*function destroyNotification(chat) {
+    console.log(chat);
+    //destroyNotificationsChat(chat);
 
-  async function getNotifications() {
-    let newData = await getNotificationsChat();
-
-    setnotificationsPusher(newData.data);
-  }
+    //Redirect to the chat
+    return navigate(`/chat/${chat}`);
+  }*/
 
   useEffect(() => {
+    async function getNotifications() {
+      let newData = await getNotificationsChat();
+
+      setnotificationsPusher(newData.data);
+    }
+
     pusherClient.subscribe("private-get-chat-notification");
 
     pusherClient.bind("fill-chat-notification", ({ message }) => {
@@ -66,11 +72,7 @@ function NotificationChat({ notifications, user }) {
         <DropdownMenuContent className="">
           <DropdownMenuItem className="">
             {notificationsPusher[0]?.notifications.map((noti, i) => (
-              <Link
-                key={i}
-                to={`/chat/${noti.chat_id}`}
-                onClick={destroyNotification(noti.chat_id)}
-              >
+              <button key={i} type="button">
                 <div className="w-64 flex gap-1 hover:bg-[#7794F926] hover:rounded-lg">
                   <div className="w-1/5">
                     <Avatar>
@@ -78,7 +80,7 @@ function NotificationChat({ notifications, user }) {
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
-                  <div className="w-3/5 overflow-hidden">
+                  <div className="w-3/5 overflow-hidden text-start">
                     <p className="text-grisText text-sm font-medium">
                       {noti?.title}
                     </p>
@@ -98,7 +100,7 @@ function NotificationChat({ notifications, user }) {
                     </span>
                   </div>
                 </div>
-              </Link>
+              </button>
             ))}
           </DropdownMenuItem>
         </DropdownMenuContent>
