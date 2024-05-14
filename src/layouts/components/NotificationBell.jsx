@@ -40,7 +40,7 @@ function NotificationBell() {
                     Hace 2 días
                   </span>
                 </p>
-                <span className="text-grisSubText text-xs font-medium">
+                <span className="text-grisSubText text-xs font-normal">
                   Clarissa creó un nuevo cliente
                 </span>
               </div>

@@ -6,12 +6,10 @@ function InternalSearch(users) {
   return (
     <div className="px-20 flex">
       <div className="w-4/5">
-        <Search
-          users={users.users}
-        />
+        <Search users={users.users} />
       </div>
       <div className="w-1/5">
-        <ChatForm/>
+        <ChatForm users={users.users} />
       </div>
     </div>
   );

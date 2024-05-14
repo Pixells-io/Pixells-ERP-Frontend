@@ -33,14 +33,14 @@ function NotificationChat({ notifications, user }) {
   }
 
   useEffect(() => {
-    pusherClient.subscribe("private-get-chat-list");
+    pusherClient.subscribe("private-get-chat-notification");
 
-    pusherClient.bind("fill-chat-messages", ({ user }) => {
+    pusherClient.bind("fill-chat-notification", ({ message }) => {
       getNotifications();
     });
 
     return () => {
-      pusherClient.unsubscribe("private-get-chat-list");
+      pusherClient.unsubscribe("private-get-chat-notification");
     };
   }, []);
 
@@ -83,7 +83,7 @@ function NotificationChat({ notifications, user }) {
                       {noti?.title}
                     </p>
                     <span
-                      className="text-grisSubText text-xs font-medium"
+                      className="text-grisSubText text-xs font-normal"
                       title={noti?.message}
                     >
                       {noti?.message}

@@ -572,10 +572,26 @@ export async function getNotifications() {
 }
 
 export async function multiloaderNotifications() {
-  const [chat, userAuth, notifications] = await Promise.all([
+  const [chat, userAuth, notificationsData] = await Promise.all([
     getNotificationsChat(),
     getUserByToken(),
     getNotifications(),
   ]);
-  return json({ chat, userAuth, notifications });
+  return json({ chat, userAuth, notificationsData });
+}
+
+export async function logOutRequest() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/logout`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }

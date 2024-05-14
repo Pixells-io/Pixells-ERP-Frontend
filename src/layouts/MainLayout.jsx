@@ -5,6 +5,7 @@ import {
   useLocation,
   useNavigate,
   useLoaderData,
+  Link,
 } from "react-router-dom";
 import {
   DropdownMenu,
@@ -36,7 +37,7 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import Cookies from "js-cookie";
-import { getUserByToken } from "@/lib/actions";
+import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
 
@@ -83,7 +84,7 @@ function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = Cookies.get("token");
-  const { chat, userAuth, notifications } = useLoaderData();
+  const { chat, userAuth, notificationsData } = useLoaderData();
 
   console.log(notifications);
 
@@ -95,6 +96,14 @@ function MainLayout() {
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
   }, []);
+
+  async function logOutFunction() {
+    //First send the request
+    const logOut = await logOutRequest();
+
+    //Redirect to the login
+    return navigate("/login");
+  }
 
   return (
     <div className="flex flex-col h-screen min-h-0">
@@ -211,9 +220,15 @@ function MainLayout() {
                 Downloads
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-blancoBox" />
-              <DropdownMenuItem className="flex gap-4 ml-4 text-[#D7586B]">
-                <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
-                Log Out
+              <DropdownMenuItem className="ml-4 text-[#D7586B]">
+                <button
+                  className="flex gap-4"
+                  type="button"
+                  onClick={logOutFunction}
+                >
+                  <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
+                  Log Out
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
