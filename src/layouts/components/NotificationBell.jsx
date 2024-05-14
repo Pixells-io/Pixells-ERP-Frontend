@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { notifications } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-function NotificationBell({ notifications, user }) {
+function NotificationBell() {
   return (
     <div>
       <DropdownMenu>
