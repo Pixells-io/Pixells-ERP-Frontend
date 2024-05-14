@@ -51,7 +51,7 @@ function NotificationChat({ notifications, user }) {
         ""
       ) : (
         <div className="rounded-full bg-[#D7586B] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[5.5px] mt-[-9px] h-5 w-5 top-[10px] fixed">
+          <span className="ml-[6px] mt-[-9px] h-5 w-5 top-[10px] fixed">
             {notificationsPusher[0]?.number}
           </span>
         </div>
