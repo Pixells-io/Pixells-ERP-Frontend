@@ -10,7 +10,7 @@ function EmailContentRow() {
           <div>0</div>
           <div className="flex items-center">
             <Avatar className="h-8 w-8">
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>

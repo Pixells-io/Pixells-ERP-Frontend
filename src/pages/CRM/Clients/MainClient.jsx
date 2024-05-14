@@ -21,7 +21,7 @@ function MainClient() {
             </div>
             <div>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>

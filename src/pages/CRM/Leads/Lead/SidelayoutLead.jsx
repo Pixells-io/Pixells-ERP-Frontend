@@ -108,7 +108,7 @@ function SidelayoutLead() {
               <div className="flex gap-2">
                 <div className="flex justify-center items-center rounded-lg bg-blancoBox w-12 h-12">
                   <Avatar className="w-full h-full">
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                 </div>

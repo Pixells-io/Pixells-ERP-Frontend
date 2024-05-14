@@ -110,7 +110,7 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-center gap-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                 <AvatarFallback>DG</AvatarFallback>
               </Avatar>
               <p className="text-[10px] text-grisText">Assigned</p>

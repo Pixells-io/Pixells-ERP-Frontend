@@ -49,7 +49,7 @@ function Customer({ customer, stepId }) {
 
             <div>
               <Avatar className="w-6 h-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>

@@ -29,7 +29,7 @@ function NotificationBell() {
             <div className="w-full flex gap-1 hover:bg-[#7794F926] hover:rounded-lg">
               <div>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </div>

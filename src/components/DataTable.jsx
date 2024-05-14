@@ -94,7 +94,7 @@ const columns = [
         <img
           width={35}
           className="rounded-full"
-          src="https://github.com/shadcn.png"
+          src="https://demoback.pixells.io/images/r.jpg"
         />
       );
     },
