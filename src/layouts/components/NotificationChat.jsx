@@ -28,20 +28,20 @@ function NotificationChat({ notifications, user }) {
 
   async function getNotifications() {
     let newData = await getNotificationsChat();
-    setnotificationsPusher(newData?.data);
+
+    setnotificationsPusher(newData.data);
   }
 
   useEffect(() => {
-    getNotifications();
+    pusherClient.subscribe("private-get-chat-list");
 
-    pusherClient.subscribe(`private-get-notification-chat`);
-
-    pusherClient.bind("fill-chat-notifications", ({ user }) => {
+    pusherClient.bind("fill-chat-messages", ({ user }) => {
       getNotifications();
+      console.log("jelous");
     });
 
     return () => {
-      pusherClient.unsubscribe(`private-get-notification-chat`);
+      pusherClient.unsubscribe("private-get-chat-list");
     };
   }, []);
 
@@ -51,7 +51,9 @@ function NotificationChat({ notifications, user }) {
         ""
       ) : (
         <div className="rounded-full bg-[#D7586B] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[6px]">{notificationsPusher[0]?.number}</span>
+          <span className="ml-[5.5px] mt-[-9px] h-5 w-5 top-[10px] fixed">
+            {notificationsPusher[0]?.number}
+          </span>
         </div>
       )}
       <DropdownMenu>

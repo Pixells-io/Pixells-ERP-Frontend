@@ -83,7 +83,9 @@ function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = Cookies.get("token");
-  const { chat, userAuth } = useLoaderData();
+  const { chat, userAuth, notifications } = useLoaderData();
+
+  console.log(notifications);
 
   useEffect(() => {
     async function fetchData() {
@@ -150,7 +152,10 @@ function MainLayout() {
                 notifications={chat.data}
                 user={userAuth.data}
               />
-              <NotificationBell />
+              <NotificationBell
+                notifications={chat.data}
+                user={userAuth.data}
+              />
             </div>
           </div>
 
@@ -158,7 +163,7 @@ function MainLayout() {
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
@@ -167,7 +172,7 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
