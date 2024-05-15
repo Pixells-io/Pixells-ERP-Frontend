@@ -20,17 +20,16 @@ function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
 
-  const navigate = useNavigate();
-
   if (notificationsPusher === undefined) return;
 
-  /*function destroyNotification(chat) {
-    console.log(chat);
-    //destroyNotificationsChat(chat);
+  const navigate = useNavigate();
+
+  function destroyNotificationActivation(chat) {
+    destroyNotificationsChat(chat);
 
     //Redirect to the chat
     return navigate(`/chat/${chat}`);
-  }*/
+  }
 
   useEffect(() => {
     async function getNotifications() {
@@ -72,7 +71,11 @@ function NotificationChat({ notifications, user }) {
         <DropdownMenuContent className="">
           <DropdownMenuItem className="">
             {notificationsPusher[0]?.notifications.map((noti, i) => (
-              <button key={i} type="button">
+              <button
+                key={i}
+                type="button"
+                onClick={() => destroyNotificationActivation(noti.chat_id)}
+              >
                 <div className="w-64 flex gap-1 hover:bg-[#7794F926] hover:rounded-lg">
                   <div className="w-1/5">
                     <Avatar>
