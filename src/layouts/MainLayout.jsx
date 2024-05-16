@@ -86,8 +86,6 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
-  console.log(notificationsData);
-
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
@@ -161,7 +159,10 @@ function MainLayout() {
                 notifications={chat.data}
                 user={userAuth.data}
               />
-              <NotificationBell />
+              <NotificationBell
+                notificationsData={notificationsData.data}
+                user={userAuth.data}
+              />
             </div>
           </div>
 
