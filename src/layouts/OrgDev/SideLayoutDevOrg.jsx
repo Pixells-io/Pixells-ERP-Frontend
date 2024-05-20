@@ -27,11 +27,11 @@ const MENU_ITEMS = [
     icon: copy,
   },
   {
-    path: "/org-development/capacitacion",
+    path: "/org-development/capacitation",
     subpath: [
-      { path: "/org-development/capacitacion", name: "Creador" },
+      { path: "/org-development/capacitation", name: "Creador" },
       {
-        path: "/org-development/capacitacon/my-capacitacion",
+        path: "/org-development/capacitation/my-capacitations",
         name: "Mis Capacitaciones",
       },
     ],

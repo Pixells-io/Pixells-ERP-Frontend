@@ -116,10 +116,17 @@ import {
 //Not Found
 import NotFound from "./components/NotFound";
 
+// Prueba
 import Sopas, { Action as newImage } from "./pages/Organization/Sopas";
+
+// DEV ORG
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
 import MainOrgDev from "./pages/OrgDev/MainOrgDev";
 import MainMyInductions from "./pages/OrgDev/Inductions/MainMyInductions";
+import MainInduction from "./pages/OrgDev/Inductions/MainInduction";
+import MainCapacitations from "./pages/OrgDev/Capacitation/MainCapacitations";
+import MainCapacitation from "./pages/OrgDev/Capacitation/MainCapacitation";
+import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations";
 
 const router = createBrowserRouter([
   {
@@ -342,18 +349,37 @@ const router = createBrowserRouter([
           },
         ],
       },
+      //ORG DEV
       {
         path: "/org-development",
         element: <SideLayoutDevOrg />,
         children: [
           { index: true },
+          //Induccion
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
           },
           {
+            path: "/org-development/induction/:id",
+            element: <MainInduction />,
+          },
+          {
             path: "/org-development/induction/my-inductions",
             element: <MainMyInductions />,
+          },
+          //Capacitacion
+          {
+            path: "/org-development/capacitation",
+            element: <MainCapacitations />,
+          },
+          {
+            path: "/org-development/capacitation/:id",
+            element: <MainCapacitation />,
+          },
+          {
+            path: "/org-development/capacitation/my-capacitations",
+            element: <MainMyCapacitations />,
           },
         ],
       },

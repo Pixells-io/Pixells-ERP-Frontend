@@ -86,7 +86,7 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
-  console.log(notifications);
+  // console.log(notifications);
 
   useEffect(() => {
     async function fetchData() {

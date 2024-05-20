@@ -10,56 +10,68 @@ const DATA = [
   {
     nombre: "Inducción General",
     tipo: "General",
-    areas: "6",
+    forma: "Interna",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: false,
     examen: false,
-    historial: "botton",
   },
   {
-    nombre: "Inducción a Productos",
-    tipo: "Puesto",
-    areas: "12",
+    nombre: "Inducción a productos",
+    tipo: "Area",
+    forma: "Externa",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: false,
-    examen: true,
-    historial: "botton",
+    examen: false,
   },
   {
-    nombre: "Inducción a Maquinaria",
-    tipo: "General",
-    areas: "16",
+    nombre: "Inducción a maquinaria",
+    tipo: "Puesto",
+    forma: "Interna",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: true,
     examen: false,
-    historial: "botton",
   },
   {
     nombre: "Inducción General",
-    tipo: "Puesto",
-    areas: "6",
+    tipo: "General",
+    forma: "Interna",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: false,
     examen: false,
-    historial: "botton",
   },
   {
-    nombre: "Inducción a Productos",
-    tipo: "General",
-    areas: "12",
+    nombre: "Inducción a productos",
+    tipo: "Area",
+    forma: "Externa",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: false,
-    examen: true,
-    historial: "botton",
+    examen: false,
   },
   {
-    nombre: "Inducción a Maquinaria",
+    nombre: "Inducción a maquinaria",
     tipo: "Puesto",
-    areas: "16",
+    forma: "Interna",
+    lugar: "Corporativo",
     responsable: "John F. Kennedy",
+    fecha_ten: "19 Feb 2024",
+    fecha_real: null,
     archivos: true,
     examen: false,
-    historial: "botton",
   },
 ];
 
@@ -86,7 +98,7 @@ const PEOPLE = [
   },
 ];
 
-function MainOrgDev() {
+function MainCapacitations() {
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -133,7 +145,7 @@ function MainOrgDev() {
         </div>
         <div>
           <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Inducciones
+            Capacitaciones
           </p>
         </div>
 
@@ -141,7 +153,7 @@ function MainOrgDev() {
 
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
-            <div className="grid grid-cols-8 w-full py-2 px-4 text-center">
+            <div className="grid grid-cols-10 w-full py-2 px-4 text-center">
               <div className="col-span-2 text-left pl-4">
                 <p className="text-grisText font-semibold text-sm">NOMBRE</p>
               </div>
@@ -149,15 +161,23 @@ function MainOrgDev() {
                 <p className="text-grisText font-semibold text-sm">TIPO</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">AREAS</p>
+                <p className="text-grisText font-semibold text-sm">FORMA</p>
+              </div>
+              <div>
+                <p className="text-grisText font-semibold text-sm">LUGAR</p>
+              </div>
+              <div>
+                <p className="text-grisText font-semibold text-sm">CAPACITOR</p>
               </div>
               <div>
                 <p className="text-grisText font-semibold text-sm">
-                  RESPONSABLE
+                  FECHA TEN.
                 </p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">ARCHIVOS</p>
+                <p className="text-grisText font-semibold text-sm">
+                  FECHA REAL
+                </p>
               </div>
               <div>
                 <p className="text-grisText font-semibold text-sm">EXAMEN</p>
@@ -168,7 +188,7 @@ function MainOrgDev() {
             </div>
             <div className="flex flex-col py-2 px-4 text-center gap-2">
               {DATA.map((row, i) => (
-                <div key={i} className="grid grid-cols-8 w-full border-t py-4">
+                <div key={i} className="grid grid-cols-10 w-full border-t py-4">
                   <div className="col-span-2 text-left pl-4">
                     <p className="text-grisHeading text-xs">{row.nombre}</p>
                   </div>
@@ -176,12 +196,21 @@ function MainOrgDev() {
                     <p className="text-grisHeading text-xs">{row.tipo}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.areas}</p>
+                    <p className="text-grisHeading text-xs">{row.forma}</p>
+                  </div>
+                  <div>
+                    <p className="text-grisHeading text-xs">{row.lugar}</p>
                   </div>
                   <div>
                     <p className="text-grisHeading text-xs">
                       {row.responsable}
                     </p>
+                  </div>
+                  <div>
+                    <p className="text-grisHeading text-xs">{row.fecha_ten}</p>
+                  </div>
+                  <div>
+                    <p className="text-grisHeading text-xs">{row.fecha_real}</p>
                   </div>
                   <div className="flex justify-center items-center">
                     <p
@@ -205,14 +234,14 @@ function MainOrgDev() {
                       Exámen
                     </p>
                   </div>
-                  <div className="flex justify-center items-center">
-                    <NavLink to={`/org-development/induction/1`}>
+                  {/* <div className="flex justify-center items-center">
+                    <NavLink to={`/org-development/capacitation/1`}>
                       <IonIcon
                         icon={informationCircle}
                         className="h-6 w-6 text-grisText"
                       ></IonIcon>
                     </NavLink>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
@@ -262,4 +291,4 @@ function MainOrgDev() {
   );
 }
 
-export default MainOrgDev;
+export default MainCapacitations;
