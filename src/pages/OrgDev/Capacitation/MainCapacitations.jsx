@@ -153,7 +153,7 @@ function MainCapacitations() {
 
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
-            <div className="grid grid-cols-10 w-full py-2 px-4 text-center">
+            <div className="grid grid-cols-11 w-full py-2 px-4 text-center">
               <div className="col-span-2 text-left pl-4">
                 <p className="text-grisText font-semibold text-sm">NOMBRE</p>
               </div>
@@ -180,7 +180,10 @@ function MainCapacitations() {
                 </p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">EXAMEN</p>
+                <p className="text-grisText font-semibold text-sm">ARCHIVOS</p>
+              </div>
+              <div>
+                <p className="text-grisText font-semibold text-sm">EXÁMEN</p>
               </div>
               <div>
                 <p className="text-grisText font-semibold text-sm">HISTORIAL</p>
@@ -188,7 +191,7 @@ function MainCapacitations() {
             </div>
             <div className="flex flex-col py-2 px-4 text-center gap-2">
               {DATA.map((row, i) => (
-                <div key={i} className="grid grid-cols-10 w-full border-t py-4">
+                <div key={i} className="grid grid-cols-11 w-full border-t py-4">
                   <div className="col-span-2 text-left pl-4">
                     <p className="text-grisHeading text-xs">{row.nombre}</p>
                   </div>
@@ -234,14 +237,14 @@ function MainCapacitations() {
                       Exámen
                     </p>
                   </div>
-                  {/* <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center">
                     <NavLink to={`/org-development/capacitation/1`}>
                       <IonIcon
                         icon={informationCircle}
                         className="h-6 w-6 text-grisText"
                       ></IonIcon>
                     </NavLink>
-                  </div> */}
+                  </div>
                 </div>
               ))}
             </div>
