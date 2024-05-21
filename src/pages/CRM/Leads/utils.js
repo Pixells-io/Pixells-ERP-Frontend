@@ -192,8 +192,6 @@ export async function closingLeadForm(data) {
     service_id: services,
   };
 
-  console.log(closing);
-
   // validaciones?
 
   const response = await fetch(

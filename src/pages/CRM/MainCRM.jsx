@@ -20,8 +20,6 @@ function MainCRM() {
   const [services, setServices] = useState(loaderServices);
   const [clients, setClients] = useState(loaderClients);
 
-  console.log(clients);
-
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">

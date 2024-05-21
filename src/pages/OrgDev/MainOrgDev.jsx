@@ -1,67 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
+
 import { NavLink } from "react-router-dom";
 
-const DATA = [
-  {
-    nombre: "Inducción General",
-    tipo: "General",
-    areas: "6",
-    responsable: "John F. Kennedy",
-    archivos: false,
-    examen: false,
-    historial: "botton",
-  },
-  {
-    nombre: "Inducción a Productos",
-    tipo: "Puesto",
-    areas: "12",
-    responsable: "John F. Kennedy",
-    archivos: false,
-    examen: true,
-    historial: "botton",
-  },
-  {
-    nombre: "Inducción a Maquinaria",
-    tipo: "General",
-    areas: "16",
-    responsable: "John F. Kennedy",
-    archivos: true,
-    examen: false,
-    historial: "botton",
-  },
-  {
-    nombre: "Inducción General",
-    tipo: "Puesto",
-    areas: "6",
-    responsable: "John F. Kennedy",
-    archivos: false,
-    examen: false,
-    historial: "botton",
-  },
-  {
-    nombre: "Inducción a Productos",
-    tipo: "General",
-    areas: "12",
-    responsable: "John F. Kennedy",
-    archivos: false,
-    examen: true,
-    historial: "botton",
-  },
-  {
-    nombre: "Inducción a Maquinaria",
-    tipo: "Puesto",
-    areas: "16",
-    responsable: "John F. Kennedy",
-    archivos: true,
-    examen: false,
-    historial: "botton",
-  },
-];
+import {
+  addCircleOutline,
+  chevronBack,
+  chevronForward,
+  informationCircle,
+} from "ionicons/icons";
+import NewInductionModal from "./Inductions/components/NewInductionModal";
+import { useLoaderData, redirect, useNavigation } from "react-router-dom";
+import { saveNewInduction } from "./utils";
+import { pusherClient } from "@/lib/pusher";
+import { getInductions } from "@/lib/actions";
 
 const PEOPLE = [
   {
@@ -87,6 +42,37 @@ const PEOPLE = [
 ];
 
 function MainOrgDev() {
+  const navigation = useNavigation();
+
+  const { positions, areas, inductions } = useLoaderData();
+
+  const [modalCreateInduccion, setModalCreateInduccion] = useState(false);
+
+  const [initialData, setInitialData] = useState(inductions.data);
+  const [inductionsPusher, setInductionsListPusher] = useState(initialData);
+
+  async function getInductionsFunction() {
+    let newData = await getInductions();
+
+    setInductionsListPusher(newData.data);
+  }
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalCreateInduccion(false);
+    }
+
+    pusherClient.subscribe("private-get-inductions");
+
+    pusherClient.bind("fill-inductions-list", ({ message }) => {
+      getInductionsFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-inductions");
+    };
+  }, [navigation.state]);
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -114,7 +100,7 @@ function MainOrgDev() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATION DEVELOPMENT
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
@@ -133,12 +119,21 @@ function MainOrgDev() {
         </div>
         <div>
           <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Inducciones
+            Inductions
           </p>
+          <IonIcon
+            icon={addCircleOutline}
+            size="large"
+            className="text-primarioBotones mt-5"
+            onClick={() => setModalCreateInduccion(true)}
+          ></IonIcon>
         </div>
-
-        <div></div>
-
+        <NewInductionModal
+          modal={modalCreateInduccion}
+          setModal={setModalCreateInduccion}
+          positions={positions.data}
+          areas={areas.data}
+        />
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid grid-cols-8 w-full py-2 px-4 text-center">
@@ -167,16 +162,16 @@ function MainOrgDev() {
               </div>
             </div>
             <div className="flex flex-col py-2 px-4 text-center gap-2">
-              {DATA.map((row, i) => (
+              {inductionsPusher?.map((row, i) => (
                 <div key={i} className="grid grid-cols-8 w-full border-t py-4">
                   <div className="col-span-2 text-left pl-4">
-                    <p className="text-grisHeading text-xs">{row.nombre}</p>
+                    <p className="text-grisHeading text-xs">{row.name}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.tipo}</p>
+                    <p className="text-grisHeading text-xs">{row.type}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.areas}</p>
+                    <p className="text-grisHeading text-xs">{row.area}</p>
                   </div>
                   <div>
                     <p className="text-grisHeading text-xs">
@@ -186,7 +181,7 @@ function MainOrgDev() {
                   <div className="flex justify-center items-center">
                     <p
                       className={
-                        row.archivos
+                        row.archive
                           ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
                           : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
                       }
@@ -263,3 +258,11 @@ function MainOrgDev() {
 }
 
 export default MainOrgDev;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewInduction(data);
+
+  return redirect("/org-development/induction");
+}

@@ -595,3 +595,58 @@ export async function logOutRequest() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+//Organization Development Options
+export async function getInductions() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-inductions`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMyInductions() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-my-inductions`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderOrganizationDevelopment() {
+  const [positions, areas, inductions] = await Promise.all([
+    getPosition(),
+    getAreas(),
+    getInductions(),
+  ]);
+  return json({ positions, areas, inductions });
+}
+
+export async function multiloaderNewTraining() {
+  const [areas, positions, users] = await Promise.all([
+    getAreas(),
+    getPosition(),
+    getUsers(),
+  ]);
+  return json({ areas, positions, users });
+}

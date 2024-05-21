@@ -21,7 +21,6 @@ import { notifications } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function NotificationBell({ notificationsData, user }) {
-  console.log(notificationsData);
   return (
     <div>
       <DropdownMenu>

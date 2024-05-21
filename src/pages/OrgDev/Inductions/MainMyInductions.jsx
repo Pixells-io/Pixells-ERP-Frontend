@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -11,29 +11,9 @@ import {
 } from "ionicons/icons";
 import InductionsCard from "./components/InductionsCard";
 
-const DATA = [
-  {
-    status: "Pendiente",
-    nombre: "Inducción a Productos",
-    categoria: "Área",
-    fecha: "05 dec 23",
-    progreso: "80",
-  },
-  {
-    status: "Pendiente",
-    nombre: "Inducción a la Empresa",
-    categoria: "General",
-    fecha: "05 dec 23",
-    progreso: "50",
-  },
-  {
-    status: "Hecho",
-    nombre: "Inducción a Maquinaria",
-    categoria: "Puesto",
-    fecha: "05 dec 23",
-    progreso: "100",
-  },
-];
+import { useLoaderData } from "react-router-dom";
+import { getMyInductions } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 const PEOPLE = [
   {
@@ -59,6 +39,29 @@ const PEOPLE = [
 ];
 
 function MainMyInductions() {
+  const { data } = useLoaderData();
+
+  const [initialData, setInitialData] = useState(data);
+  const [myInductionsPusher, setMyInductionsListPusher] = useState(initialData);
+
+  async function getMyInductionsFunction() {
+    let newData = await getMyInductions();
+
+    setMyInductionsListPusher(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-inductions");
+
+    pusherClient.bind("fill-inductions-list", ({ message }) => {
+      getMyInductionsFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-inductions");
+    };
+  });
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -135,7 +138,7 @@ function MainMyInductions() {
 
         <div className="bg-blancoBg rounded-lg p-2 h-full">
           <div className="flex flex-wrap justify-center">
-            {DATA.map((card, i) => (
+            {myInductionsPusher?.map((card, i) => (
               <InductionsCard card={card} />
             ))}
           </div>

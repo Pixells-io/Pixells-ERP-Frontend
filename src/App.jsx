@@ -111,6 +111,9 @@ import {
   multiloaderTablesCRM,
   multiloaderProgressSteps,
   multiloaderNotifications,
+  multiloaderOrganizationDevelopment,
+  getMyInductions,
+  multiloaderNewTraining,
 } from "./lib/actions";
 
 //Not Found
@@ -121,10 +124,14 @@ import Sopas, { Action as newImage } from "./pages/Organization/Sopas";
 
 // DEV ORG
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
-import MainOrgDev from "./pages/OrgDev/MainOrgDev";
+import MainOrgDev, {
+  Action as OrgDevSaveInduction,
+} from "./pages/OrgDev/MainOrgDev";
 import MainMyInductions from "./pages/OrgDev/Inductions/MainMyInductions";
 import MainInduction from "./pages/OrgDev/Inductions/MainInduction";
-import MainCapacitations from "./pages/OrgDev/Capacitation/MainCapacitations";
+import MainCapacitations, {
+  Action as newCapacitacion,
+} from "./pages/OrgDev/Capacitation/MainCapacitations";
 import MainCapacitation from "./pages/OrgDev/Capacitation/MainCapacitation";
 import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations";
 
@@ -359,6 +366,8 @@ const router = createBrowserRouter([
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
+            loader: multiloaderOrganizationDevelopment,
+            action: OrgDevSaveInduction,
           },
           {
             path: "/org-development/induction/:id",
@@ -367,11 +376,14 @@ const router = createBrowserRouter([
           {
             path: "/org-development/induction/my-inductions",
             element: <MainMyInductions />,
+            loader: getMyInductions,
           },
           //Capacitacion
           {
             path: "/org-development/capacitation",
             element: <MainCapacitations />,
+            loader: multiloaderNewTraining,
+            action: newCapacitacion,
           },
           {
             path: "/org-development/capacitation/:id",

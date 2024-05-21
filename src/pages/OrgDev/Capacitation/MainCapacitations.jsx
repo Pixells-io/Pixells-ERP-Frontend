@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
-import { NavLink } from "react-router-dom";
+import {
+  addCircleOutline,
+  chevronBack,
+  chevronForward,
+  informationCircle,
+} from "ionicons/icons";
+import { NavLink, useLoaderData, redirect } from "react-router-dom";
+import NewTrainingModal from "../Inductions/components/NewTrainingModal";
+import { saveNewTraining } from "../utils";
 
 const DATA = [
   {
@@ -99,6 +106,10 @@ const PEOPLE = [
 ];
 
 function MainCapacitations() {
+  const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
+
+  const { areas, positions, users } = useLoaderData();
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -126,7 +137,7 @@ function MainCapacitations() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATION DEVELOPMENT
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
@@ -145,11 +156,23 @@ function MainCapacitations() {
         </div>
         <div>
           <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Capacitaciones
+            Trainings
           </p>
+          <IonIcon
+            icon={addCircleOutline}
+            size="large"
+            className="text-primarioBotones mt-5"
+            onClick={() => setModalCreateTrainings(true)}
+          ></IonIcon>
         </div>
 
-        <div></div>
+        <NewTrainingModal
+          modal={modalCreateTrainings}
+          setModal={setModalCreateTrainings}
+          areas={areas.data}
+          positions={positions.data}
+          users={users.data}
+        />
 
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
@@ -295,3 +318,11 @@ function MainCapacitations() {
 }
 
 export default MainCapacitations;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewTraining(data);
+
+  return redirect("/org-development/induction");
+}
