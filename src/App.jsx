@@ -114,6 +114,7 @@ import {
   multiloaderOrganizationDevelopment,
   getMyInductions,
   multiloaderNewTraining,
+  getMyTrainings,
 } from "./lib/actions";
 
 //Not Found
@@ -392,6 +393,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/my-capacitations",
             element: <MainMyCapacitations />,
+            loader: getMyTrainings,
           },
         ],
       },

@@ -633,6 +633,42 @@ export async function getMyInductions() {
   }
 }
 
+export async function getTrainings() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-trainings`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMyTrainings() {
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-my-trainings`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderOrganizationDevelopment() {
   const [positions, areas, inductions] = await Promise.all([
     getPosition(),
@@ -643,10 +679,11 @@ export async function multiloaderOrganizationDevelopment() {
 }
 
 export async function multiloaderNewTraining() {
-  const [areas, positions, users] = await Promise.all([
+  const [areas, positions, users, trainings] = await Promise.all([
     getAreas(),
     getPosition(),
     getUsers(),
+    getTrainings(),
   ]);
-  return json({ areas, positions, users });
+  return json({ areas, positions, users, trainings });
 }
