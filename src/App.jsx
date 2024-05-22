@@ -134,6 +134,9 @@ import MainCapacitations, {
 } from "./pages/OrgDev/Capacitation/MainCapacitations";
 import MainCapacitation from "./pages/OrgDev/Capacitation/MainCapacitation";
 import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations";
+import CreateExamenInduction, {
+  Action as newInductionExam,
+} from "./pages/OrgDev/Inductions/CreateExamenInduction";
 
 const router = createBrowserRouter([
   {
@@ -368,6 +371,11 @@ const router = createBrowserRouter([
             element: <MainOrgDev />,
             loader: multiloaderOrganizationDevelopment,
             action: OrgDevSaveInduction,
+          },
+          {
+            path: "/org-development/induction/create",
+            element: <CreateExamenInduction />,
+            action: newInductionExam,
           },
           {
             path: "/org-development/induction/:id",

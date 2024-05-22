@@ -37,3 +37,32 @@ export async function saveNewInduction(data) {
 export async function saveNewTraining(data) {
   console.log(data, "Saquen las hipnotiq");
 }
+
+export async function newInductionExam(data) {
+  const preguntas = data.get("questions");
+  console.log(preguntas);
+  try {
+    const examen = {
+      title: data.get("exam_title"),
+      duration: Number(data.get("exam_duration")),
+      questions: preguntas,
+    };
+    // console.log(examen);
+
+    // const response = await fetch(
+    //   `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(examen),
+    //     headers: {
+    //       Authorization: "Bearer " + Cookies.get("token"),
+    //     },
+    //   }
+    // );
+
+    // return response.json();
+    return new Response("ok");
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

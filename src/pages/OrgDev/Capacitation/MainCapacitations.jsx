@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink, useLoaderData, redirect } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -9,7 +10,7 @@ import {
   chevronForward,
   informationCircle,
 } from "ionicons/icons";
-import { NavLink, useLoaderData, redirect } from "react-router-dom";
+
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import { saveNewTraining } from "../utils";
 
