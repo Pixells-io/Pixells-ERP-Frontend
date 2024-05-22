@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLoaderData, redirect } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,78 +10,16 @@ import {
   chevronForward,
   informationCircle,
 } from "ionicons/icons";
-
+import {
+  NavLink,
+  useLoaderData,
+  redirect,
+  useNavigation,
+} from "react-router-dom";
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import { saveNewTraining } from "../utils";
-
-const DATA = [
-  {
-    nombre: "Inducción General",
-    tipo: "General",
-    forma: "Interna",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: false,
-    examen: false,
-  },
-  {
-    nombre: "Inducción a productos",
-    tipo: "Area",
-    forma: "Externa",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: false,
-    examen: false,
-  },
-  {
-    nombre: "Inducción a maquinaria",
-    tipo: "Puesto",
-    forma: "Interna",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: true,
-    examen: false,
-  },
-  {
-    nombre: "Inducción General",
-    tipo: "General",
-    forma: "Interna",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: false,
-    examen: false,
-  },
-  {
-    nombre: "Inducción a productos",
-    tipo: "Area",
-    forma: "Externa",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: false,
-    examen: false,
-  },
-  {
-    nombre: "Inducción a maquinaria",
-    tipo: "Puesto",
-    forma: "Interna",
-    lugar: "Corporativo",
-    responsable: "John F. Kennedy",
-    fecha_ten: "19 Feb 2024",
-    fecha_real: null,
-    archivos: true,
-    examen: false,
-  },
-];
+import { getTrainings } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 const PEOPLE = [
   {
@@ -107,9 +45,36 @@ const PEOPLE = [
 ];
 
 function MainCapacitations() {
+  const navigation = useNavigation();
+
   const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
 
-  const { areas, positions, users } = useLoaderData();
+  const { areas, positions, users, trainings } = useLoaderData();
+
+  const [initialData, setInitialData] = useState(trainings.data);
+  const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);
+
+  async function getCapacitacionsDataFunction() {
+    let newData = await getTrainings();
+
+    setCapacitacionListPusher(newData.data);
+  }
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalCreateTrainings(false);
+    }
+
+    pusherClient.subscribe("private-get-trainings");
+
+    pusherClient.bind("fill-trainings-list", ({ message }) => {
+      getCapacitacionsDataFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-trainings");
+    };
+  }, [navigation.state]);
 
   return (
     <div className="flex w-full">
@@ -214,35 +179,35 @@ function MainCapacitations() {
               </div>
             </div>
             <div className="flex flex-col py-2 px-4 text-center gap-2">
-              {DATA.map((row, i) => (
+              {capacitacionPusher?.map((row, i) => (
                 <div key={i} className="grid grid-cols-11 w-full border-t py-4">
                   <div className="col-span-2 text-left pl-4">
-                    <p className="text-grisHeading text-xs">{row.nombre}</p>
+                    <p className="text-grisHeading text-xs">{row.name}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.tipo}</p>
+                    <p className="text-grisHeading text-xs">{row.type}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.forma}</p>
+                    <p className="text-grisHeading text-xs">{row.class_type}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.lugar}</p>
+                    <p className="text-grisHeading text-xs">{row.location}</p>
                   </div>
                   <div>
                     <p className="text-grisHeading text-xs">
-                      {row.responsable}
+                      {row.capacitador}
                     </p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.fecha_ten}</p>
+                    <p className="text-grisHeading text-xs">{row.date}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.fecha_real}</p>
+                    <p className="text-grisHeading text-xs">{row.real_date}</p>
                   </div>
                   <div className="flex justify-center items-center">
                     <p
                       className={
-                        row.archivos
+                        row.archive
                           ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
                           : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
                       }
@@ -325,5 +290,5 @@ export async function Action({ request }) {
 
   const validation = await saveNewTraining(data);
 
-  return redirect("/org-development/induction");
+  return redirect("/org-development/capacitation");
 }

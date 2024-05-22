@@ -11,7 +11,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 
 function CapacutationCard({ card }) {
-  const [progress, setProgress] = useState(card.progreso);
+  const [progress, setProgress] = useState(80);
 
   return (
     <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-1 py-3 w-[280px] relative">
@@ -42,22 +42,20 @@ function CapacutationCard({ card }) {
         ></IonIcon>
       </div>
       <div>
-        <p className="font-poppins text-[15px] font-semibold">{card.nombre}</p>
+        <p className="font-poppins text-[15px] font-semibold">{card.name}</p>
       </div>
       <div className="flex items-center text-[#696974B2]">
-        <p className="text-[12px] font-normal line-clamp-none">
-          {card.categoria}
-        </p>
+        <p className="text-[12px] font-normal line-clamp-none">{card.type}</p>
       </div>
       <div className="flex items-center text-grisText gap-2">
         <div className="flex items-center gap-2 bg-[#F1F1F5] rounded-full px-3">
           <IonIcon icon={calendarOutline} className="w-5 h-5"></IonIcon>
-          <p className="text-[12px]">{card.fecha}</p>
+          <p className="text-[12px]">{card.date}</p>
         </div>
-        {card.fecha2 && (
+        {card.real_date && (
           <div className="flex items-center gap-2 bg-[#00A25940] text-[#00A259] rounded-full px-3">
             <IonIcon icon={calendarOutline} className="w-5 h-5"></IonIcon>
-            <p className="text-[12px]">{card.fecha}</p>
+            <p className="text-[12px]">{card.date}</p>
           </div>
         )}
       </div>

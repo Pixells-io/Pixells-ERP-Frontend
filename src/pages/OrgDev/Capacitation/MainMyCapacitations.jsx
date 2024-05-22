@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
 import CapacutationCard from "./components/CapacutationCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const DATA = [
+import { useLoaderData } from "react-router-dom";
+import { getMyTrainings } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
+
+const info = [
   {
     status: "Pendiente",
     nombre: "Inducción a Productos",
@@ -55,6 +60,30 @@ const PEOPLE = [
 ];
 
 function MainMyCapacitations() {
+  const { data } = useLoaderData();
+
+  const [initialData, setInitialData] = useState(data);
+  const [capacitacionPusher, setMyCapacitacionListPusher] =
+    useState(initialData);
+
+  async function getMyCapacitacionDataFunction() {
+    let newData = await getMyTrainings();
+
+    setMyCapacitacionListPusher(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-trainings");
+
+    pusherClient.bind("fill-trainings-list", ({ message }) => {
+      getMyCapacitacionDataFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-trainings");
+    };
+  });
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -82,7 +111,7 @@ function MainMyCapacitations() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATION DEVELOPMENT
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
@@ -102,36 +131,36 @@ function MainMyCapacitations() {
 
         <div>
           <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Mis Capacitaciones
+            My Trainings
           </p>
         </div>
 
         <div className="flex gap-2">
           <div>
             <p className="text-[10px] font-medium w-16 justify-center flex py-1 bg-grisHeading rounded-full text-white">
-              Todas
+              All
             </p>
           </div>
           <div>
             <p className="text-[10px] font-medium w-16 justify-center flex py-1 rounded-full text-grisHeading border border-grisHeading">
-              General
+              Area
             </p>
           </div>
           <div>
             <p className="text-[10px] font-medium w-16 justify-center flex py-1 rounded-full text-grisHeading border border-grisHeading">
-              Área
+              Position
             </p>
           </div>
           <div>
             <p className="text-[10px] font-medium w-16 justify-center flex py-1 rounded-full text-grisHeading border border-grisHeading">
-              Puesto
+              User
             </p>
           </div>
         </div>
 
         <div className="bg-blancoBg rounded-lg p-2 h-full">
           <div className="flex flex-wrap justify-center">
-            {DATA.map((card, i) => (
+            {capacitacionPusher?.map((card, i) => (
               <CapacutationCard card={card} />
             ))}
           </div>
