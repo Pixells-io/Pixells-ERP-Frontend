@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ExamForm from "./components/ExamForm";
-import { redirect } from "react-router-dom";
+import { redirect, useParams } from "react-router-dom";
 import { newInductionExam } from "../utils";
 
 const PEOPLE = [
@@ -32,6 +32,7 @@ const PEOPLE = [
 ];
 
 function CreateExamenInduction() {
+  const { id: inductionId } = useParams();
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -137,6 +138,8 @@ export default CreateExamenInduction;
 
 export async function Action({ request }) {
   const data = await request.formData();
+
+  console.log(data);
 
   const validation = await newInductionExam(data);
 

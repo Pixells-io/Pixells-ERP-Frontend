@@ -81,29 +81,29 @@ export async function saveNewTraining(data) {
 }
 
 export async function newInductionExam(data) {
-  const preguntas = data.get("questions");
-  console.log(preguntas);
   try {
     const examen = {
+      induction_id: data.get("induction_id"),
+      exam_type: 1, // 1 - Induccion, 2 - Capacitacion
       title: data.get("exam_title"),
       duration: Number(data.get("exam_duration")),
-      questions: preguntas,
+      questions: data.get("questions"),
     };
-    // console.log(examen);
+    console.log(examen);
 
-    // const response = await fetch(
-    //   `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify(examen),
-    //     headers: {
-    //       Authorization: "Bearer " + Cookies.get("token"),
-    //     },
-    //   }
-    // );
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,
+      {
+        method: "POST",
+        body: JSON.stringify(examen),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
 
-    // return response.json();
-    return new Response("ok");
+    return response.json();
+    // return new Response("ok");
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }

@@ -137,43 +137,43 @@ function MainOrgDev() {
         <div className="bg-blancoBg rounded-lg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid grid-cols-8 w-full py-2 px-4 text-center">
-              <div className="col-span-2 text-left pl-4">
+              <div className="col-span-2 text-left pl-4 flex items-center">
                 <p className="text-grisText font-semibold text-sm">NOMBRE</p>
               </div>
-              <div>
+              <div className="flex items-center">
                 <p className="text-grisText font-semibold text-sm">TIPO</p>
               </div>
-              <div>
+              <div className="flex items-center">
                 <p className="text-grisText font-semibold text-sm">AREAS</p>
               </div>
-              <div>
+              <div className="flex items-center ">
                 <p className="text-grisText font-semibold text-sm">
                   RESPONSABLE
                 </p>
               </div>
-              <div>
+              <div className="flex items-center justify-center">
                 <p className="text-grisText font-semibold text-sm">ARCHIVOS</p>
               </div>
-              <div>
+              <div className="flex items-center justify-center">
                 <p className="text-grisText font-semibold text-sm">EXAMEN</p>
               </div>
-              <div>
+              <div className="flex items-center justify-center">
                 <p className="text-grisText font-semibold text-sm">HISTORIAL</p>
               </div>
             </div>
             <div className="flex flex-col py-2 px-4 text-center gap-2">
               {inductionsPusher?.map((row, i) => (
                 <div key={i} className="grid grid-cols-8 w-full border-t py-4">
-                  <div className="col-span-2 text-left pl-4">
+                  <div className="col-span-2 text-left pl-4 flex items-center">
                     <p className="text-grisHeading text-xs">{row.name}</p>
                   </div>
-                  <div>
+                  <div className="flex items-center">
                     <p className="text-grisHeading text-xs">{row.type}</p>
                   </div>
-                  <div>
+                  <div className="flex items-center pl-4">
                     <p className="text-grisHeading text-xs">{row.area}</p>
                   </div>
-                  <div>
+                  <div className="flex items-center">
                     <p className="text-grisHeading text-xs">
                       {row.responsable}
                     </p>
@@ -189,19 +189,26 @@ function MainOrgDev() {
                       Archivos
                     </p>
                   </div>
+                  {row.examen === false ? (
+                    <div className="flex justify-center items-center">
+                      <NavLink
+                        to={`/org-development/induction/create/${row?.id}`}
+                      >
+                        <p className="bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit">
+                          Exámen
+                        </p>
+                      </NavLink>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center">
+                      <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
+                        Exámen
+                      </p>
+                    </div>
+                  )}
+
                   <div className="flex justify-center items-center">
-                    <p
-                      className={
-                        row.examen
-                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
-                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
-                      }
-                    >
-                      Exámen
-                    </p>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <NavLink to={`/org-development/induction/1`}>
+                    <NavLink to={`/org-development/induction/${row?.id}`}>
                       <IonIcon
                         icon={informationCircle}
                         className="h-6 w-6 text-grisText"
@@ -223,7 +230,7 @@ function MainOrgDev() {
 
         <div className="flex flex-col gap-4">
           {PEOPLE.map((item, i) => (
-            <div className="flex">
+            <div key={i} className="flex">
               <div className="flex w-1/3 flex-col items-center gap-1">
                 <div className="flex w-12 h-12 items-center justify-center ">
                   <Avatar className="rounded-lg h-full w-full">

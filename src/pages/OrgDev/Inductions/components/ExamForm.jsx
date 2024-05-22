@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 
 import {
   Select,
@@ -45,6 +45,7 @@ const QUESTIONS_TEMPLATE = [
 
 function ExamForm() {
   // const [exam, setExam] = useState(EXAMN_TEMPLATE);
+  const { id: inductionId } = useParams();
   const [questions, setQuestions] = useState(QUESTIONS_TEMPLATE);
 
   function addQuestion() {
@@ -166,8 +167,15 @@ function ExamForm() {
           <input
             type="text"
             className="hidden"
-            value={questions}
+            value={JSON.stringify(questions)}
             name="questions"
+            readOnly
+          />
+          <input
+            type="text"
+            className="hidden"
+            value={inductionId}
+            name="induction_id"
             readOnly
           />
           <button type="submit">Enviar</button>

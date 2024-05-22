@@ -374,7 +374,7 @@ const router = createBrowserRouter([
             action: OrgDevSaveInduction,
           },
           {
-            path: "/org-development/induction/create",
+            path: "/org-development/induction/create/:id",
             element: <CreateExamenInduction />,
             action: newInductionExam,
           },
