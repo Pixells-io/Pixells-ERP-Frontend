@@ -149,7 +149,7 @@ function ExamForm() {
         <Form
           className="flex gap-2 border-t px-4 py-4"
           method="post"
-          action={`/org-development/induction/create/${inductionId}`}
+          action={`/org-development/capacitation/create/${inductionId}`}
           id="crate-induction-exam"
         >
           <input

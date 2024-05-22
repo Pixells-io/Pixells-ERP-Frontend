@@ -138,6 +138,7 @@ import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations
 import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
+import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
 
 const router = createBrowserRouter([
   {
@@ -397,6 +398,10 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/:id",
             element: <MainCapacitation />,
+          },
+          {
+            path: "/org-development/capacitation/create/:id",
+            element: <CreateExamCapacitation />,
           },
           {
             path: "/org-development/capacitation/my-capacitations",

@@ -215,19 +215,26 @@ function MainCapacitations() {
                       Archivos
                     </p>
                   </div>
+                  {row.examen === false ? (
+                    <div className="flex justify-center items-center">
+                      <NavLink
+                        to={`/org-development/capacitation/create/${row?.id}`}
+                      >
+                        <p className="bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit">
+                          Exámen
+                        </p>
+                      </NavLink>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center">
+                      <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
+                        Exámen
+                      </p>
+                    </div>
+                  )}
+
                   <div className="flex justify-center items-center">
-                    <p
-                      className={
-                        row.examen
-                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
-                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
-                      }
-                    >
-                      Exámen
-                    </p>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <NavLink to={`/org-development/capacitation/1`}>
+                    <NavLink to={`/org-development/capacitation/${row?.id}`}>
                       <IonIcon
                         icon={informationCircle}
                         className="h-6 w-6 text-grisText"
@@ -249,7 +256,7 @@ function MainCapacitations() {
 
         <div className="flex flex-col gap-4">
           {PEOPLE.map((item, i) => (
-            <div className="flex">
+            <div key={i} className="flex">
               <div className="flex w-1/3 flex-col items-center gap-1">
                 <div className="flex w-12 h-12 items-center justify-center ">
                   <Avatar className="rounded-lg h-full w-full">
