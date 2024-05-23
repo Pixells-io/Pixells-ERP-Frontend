@@ -201,9 +201,11 @@ function MainOrgDev() {
                     </div>
                   ) : (
                     <div className="flex justify-center items-center">
-                      <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
-                        Exámen
-                      </p>
+                      <NavLink to={`/org-development/exam/${row?.examen_id}`}>
+                        <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
+                          Exámen
+                        </p>
+                      </NavLink>
                     </div>
                   )}
 

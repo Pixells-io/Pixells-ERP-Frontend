@@ -108,3 +108,23 @@ export async function newInductionExam(data) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function storeAnswerExam(data) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/answer-exam`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+
+    return "No batea";
+    // return new Response("ok");
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

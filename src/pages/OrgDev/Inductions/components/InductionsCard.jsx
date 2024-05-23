@@ -5,10 +5,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import {
   calendarOutline,
+  caretForwardOutline,
   checkmarkCircle,
   ellipsisHorizontal,
 } from "ionicons/icons";
 import { Progress } from "@/components/ui/progress";
+import { Link, NavLink } from "react-router-dom";
 
 function InductionsCard({ card }) {
   const [progress, setProgress] = useState(80);
@@ -74,6 +76,15 @@ function InductionsCard({ card }) {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <p className="text-[10px] text-[#92929C] font-semibold">+ 25 más</p>
+      </div>
+      <div className="bg-primarioBotones h-10 w-10 rounded-full shadow-xl shadow-slate-300 absolute right-5 bottom-5">
+        <NavLink to={`/org-development/answer-exam/${card?.exam_id}`}>
+          <IonIcon
+            icon={caretForwardOutline}
+            className="text-white ml-1 mt-1"
+            size="large"
+          ></IonIcon>
+        </NavLink>
       </div>
     </div>
   );

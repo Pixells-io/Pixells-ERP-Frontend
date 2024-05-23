@@ -141,6 +141,10 @@ import CreateExamenInduction, {
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
 import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
 import ExamShow from "./pages/OrgDev/Exam/ExamShow";
+import ExamAnswer from "./pages/OrgDev/Capacitation/components/ExamAnswer";
+import MainExamAnswer, {
+  Action as ExamFunction,
+} from "./pages/OrgDev/Exam/MainExamAnswer";
 
 const router = createBrowserRouter([
   {
@@ -415,6 +419,12 @@ const router = createBrowserRouter([
             path: "/org-development/exam/:id",
             element: <ExamShow />,
             loader: getExam,
+          },
+          {
+            path: "/org-development/answer-exam/:id",
+            element: <MainExamAnswer />,
+            loader: getExam,
+            action: ExamFunction,
           },
         ],
       },
