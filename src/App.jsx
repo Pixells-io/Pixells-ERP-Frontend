@@ -115,6 +115,7 @@ import {
   getMyInductions,
   multiloaderNewTraining,
   getMyTrainings,
+  getExam,
 } from "./lib/actions";
 
 //Not Found
@@ -139,6 +140,7 @@ import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
 import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
+import ExamShow from "./pages/OrgDev/Exam/ExamShow";
 
 const router = createBrowserRouter([
   {
@@ -407,6 +409,12 @@ const router = createBrowserRouter([
             path: "/org-development/capacitation/my-capacitations",
             element: <MainMyCapacitations />,
             loader: getMyTrainings,
+          },
+          //Exam
+          {
+            path: "/org-development/exam/:id",
+            element: <ExamShow />,
+            loader: getExam,
           },
         ],
       },

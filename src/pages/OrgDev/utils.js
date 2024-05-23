@@ -83,7 +83,7 @@ export async function saveNewTraining(data) {
 export async function newInductionExam(data) {
   try {
     const examen = {
-      induction_id: data.get("induction_id"),
+      rel_id: data.get("rel_id"),
       exam_type: 1, // 1 - Induccion, 2 - Capacitacion
       title: data.get("exam_title"),
       duration: Number(data.get("exam_duration")),
@@ -102,7 +102,7 @@ export async function newInductionExam(data) {
       }
     );
 
-    return response.json();
+    return "No batea";
     // return new Response("ok");
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });

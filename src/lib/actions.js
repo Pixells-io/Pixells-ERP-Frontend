@@ -687,3 +687,22 @@ export async function multiloaderNewTraining() {
   ]);
   return json({ areas, positions, users, trainings });
 }
+
+export async function getExam({ params }) {
+  const exam_id = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-exam/${exam_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
