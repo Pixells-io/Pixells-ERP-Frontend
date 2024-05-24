@@ -109,13 +109,19 @@ export async function newInductionExam(data) {
   }
 }
 
-export async function storeAnswerExam(data) {
+export async function storeAnswerExam(data, arreglo) {
   try {
+    const answer = {
+      type: data.get("type"),
+      exam_id: data.get("exam_id"),
+      answers: arreglo,
+    };
+
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}organization-development/answer-exam`,
       {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(answer),
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },

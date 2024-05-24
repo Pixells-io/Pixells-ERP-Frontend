@@ -17,7 +17,6 @@ import {
 } from "ionicons/icons";
 
 function ExamQuestionAnswer({ question }) {
-  // console.log(index);
   return (
     <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow mt-4">
       <div className="flex px-6 py-3 items-center justify-between">
@@ -40,7 +39,7 @@ function ExamQuestionAnswer({ question }) {
               placeholder="Escribe una respuesta"
               className=" placeholder:bg-blancoForms text-xs placeholder:text-xs placeholder:p-2 p-2 w-3/5 bg-blancoForms"
             />
-            <input name={answer.id} type="checkbox" />
+            <input name={question.id + "/" + answer.id} type="checkbox" />
           </div>
         ))}
       </div>

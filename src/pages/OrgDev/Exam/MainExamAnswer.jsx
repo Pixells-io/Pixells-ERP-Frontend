@@ -182,23 +182,22 @@ export default MainExamAnswer;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  console.log(data.values());
+  let arreglo = [];
 
-  //Mapear el entries
-  /*{
-    data.map((entrie, i) => {
-      console.log(entrie);
-    });
-  }*/
+  for (const entrie of data.entries()) {
+    if (entrie[0] != "exam_id" && entrie[0] != "type") {
+      arreglo.push(entrie[0]);
+    }
+  }
 
   //If the type is 1 the action is submit the form
   if (data.get("type") === "1") {
-    const validation = storeAnswerExam(data);
+    const validation = storeAnswerExam(data, arreglo);
   }
 
   //If the type is 2 the action is create teh exam
   if (data.get("type") === "2") {
   }
 
-  return "1";
+  return redirect("/org-development");
 }
