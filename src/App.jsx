@@ -116,6 +116,7 @@ import {
   multiloaderNewTraining,
   getMyTrainings,
   getExam,
+  multiloaderTickets,
 } from "./lib/actions";
 
 //Not Found
@@ -145,6 +146,10 @@ import ExamAnswer from "./pages/OrgDev/Capacitation/components/ExamAnswer";
 import MainExamAnswer, {
   Action as ExamFunction,
 } from "./pages/OrgDev/Exam/MainExamAnswer";
+import SideLayoutTickets, {
+  Action as CreateTicketFunction,
+} from "./layouts/Tickets/SideLayoutTickets";
+import MainTickets from "./pages/Tickets/MainTickets";
 
 const router = createBrowserRouter([
   {
@@ -425,6 +430,18 @@ const router = createBrowserRouter([
             element: <MainExamAnswer />,
             loader: getExam,
             action: ExamFunction,
+          },
+        ],
+      },
+      {
+        path: "/tickets",
+        element: <SideLayoutTickets />,
+        action: CreateTicketFunction,
+        children: [
+          {
+            index: true,
+            element: <MainTickets />,
+            loader: multiloaderTickets,
           },
         ],
       },
