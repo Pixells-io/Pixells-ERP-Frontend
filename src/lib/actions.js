@@ -766,3 +766,20 @@ export async function multiloaderTickets() {
     ]);
   return json({ areas, users, myTickets, assignedTickets, processTickets });
 }
+
+export async function getTicket({ params }) {
+  const ticket_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}tickets/get-ticket/${ticket_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

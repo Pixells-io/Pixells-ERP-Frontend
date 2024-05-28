@@ -14,7 +14,8 @@ import TicketsTable from "./Components/TicketsTable";
 
 function MainTickets() {
   const [modal, setModal] = useState(false);
-  const { areas, users } = useLoaderData();
+  const { areas, users, myTickets, assignedTickets, processTickets } =
+    useLoaderData();
 
   const areasOptions = [];
   const usersOptions = [];
@@ -50,10 +51,6 @@ function MainTickets() {
       });
     });
   }
-
-  const myTickets = [];
-  const assignedTickets = [];
-  const inProcess = [];
 
   return (
     <div className="flex w-full">
@@ -134,13 +131,13 @@ function MainTickets() {
                 </div>
               </TabsList>
               <TabsContent value="users">
-                <TicketsTable tickets={myTickets} />
+                <TicketsTable tickets={myTickets.data} />
               </TabsContent>
               <TabsContent value="positions">
-                <TicketsTable tickets={assignedTickets} />
+                <TicketsTable tickets={assignedTickets.data} />
               </TabsContent>
               <TabsContent value="areas">
-                <TicketsTable tickets={inProcess} />
+                <TicketsTable tickets={processTickets.data} />
               </TabsContent>
             </Tabs>
           </div>

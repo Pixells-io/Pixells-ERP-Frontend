@@ -7,6 +7,8 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 
+import { NavLink } from "react-router-dom";
+
 import { IonIcon } from "@ionic/react";
 import {
   informationCircle,
@@ -21,26 +23,23 @@ function TicketsTable({ tickets }) {
   const data = tickets;
 
   const columns = [
-    columnHelper.accessor(
-      (row) => `${row.name} ${row.last_name} ${row.second_last_name}`,
-      {
-        id: "Issue",
-        header: "ISSUE",
-      }
-    ),
-    columnHelper.accessor((row) => `${row.status}`, {
+    columnHelper.accessor((row) => `${row.issue}`, {
+      id: "Issue",
+      header: "ISSUE",
+    }),
+    columnHelper.accessor((row) => `${row.importance}`, {
       id: "Importance",
       header: "IMPORTANCE",
     }),
-    columnHelper.accessor((row) => `${row.area}`, {
+    columnHelper.accessor((row) => `${row.status}`, {
       id: "Status",
       header: "STATUS",
     }),
-    columnHelper.accessor((row) => `${row.position}`, {
+    columnHelper.accessor((row) => `${row.category}`, {
       id: "Category",
       header: "CATEGORY",
     }),
-    columnHelper.accessor((row) => `${row.phone}`, {
+    columnHelper.accessor((row) => `${row.creator}`, {
       id: "Creator",
       header: "CREATOR",
     }),
@@ -48,10 +47,12 @@ function TicketsTable({ tickets }) {
       accessorKey: "actions",
       header: "ACTIONS",
       id: "Actions",
-      cell: () => {
+      cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            <NavLink to={`/tickets/${row.original.id}`}>
+              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            </NavLink>
             <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
             <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
           </div>
