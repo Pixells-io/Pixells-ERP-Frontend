@@ -456,6 +456,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <ShowTickets />,
+            loader: getTicket,
           },
         ],
       },
