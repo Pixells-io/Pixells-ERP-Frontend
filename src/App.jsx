@@ -152,7 +152,9 @@ import SideLayoutTickets, {
 } from "./layouts/Tickets/SideLayoutTickets";
 import MainTickets from "./pages/Tickets/MainTickets";
 import ShowTickets from "./pages/Tickets/ShowTickets";
-import SideLayoutTicketsShow from "./layouts/Tickets/SideLayoutTicketsShow";
+import SideLayoutTicketsShow, {
+  Action as FollowUpTicket,
+} from "./layouts/Tickets/SideLayoutTicketsShow";
 
 const router = createBrowserRouter([
   {
@@ -452,6 +454,7 @@ const router = createBrowserRouter([
         path: "/tickets/:id",
         element: <SideLayoutTicketsShow />,
         loader: getTicket,
+        action: FollowUpTicket,
         children: [
           {
             index: true,

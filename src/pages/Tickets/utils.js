@@ -33,3 +33,24 @@ export async function saveNewTicket(data) {
 
   return response;
 }
+
+export async function saveFollowUpTicket(data) {
+  const info = {
+    type: data.get("type"),
+    ticket: data.get("ticket"),
+    comments: data.get("comments"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/store-follow-up`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+
+  return response;
+}

@@ -11,16 +11,12 @@ import {
 import { IonIcon } from "@ionic/react";
 import { lockOpen, person } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
-import { saveNewTicket } from "@/pages/Tickets/utils";
+import { saveFollowUpTicket } from "@/pages/Tickets/utils";
 
 function SideLayoutTicketsShow() {
   const { data } = useLoaderData();
 
   const ticket = data[0];
-
-  console.log(ticket);
-
-  const location = useLocation();
   return (
     <div className="flex h-full px-4 font-roboto pb-4">
       <div className="flex flex-col gap-4">
@@ -156,7 +152,7 @@ export default SideLayoutTicketsShow;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewTicket(data);
+  const validation = await saveFollowUpTicket(data);
 
   return validation;
 }

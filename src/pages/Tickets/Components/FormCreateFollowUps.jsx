@@ -11,11 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
-import { Input } from "@/components/ui/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
-
 function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -26,7 +21,7 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
         <Form
           id="ticket-follow-up-form"
           className="flex flex-col gap-0 h-auto"
-          action="/"
+          action={`/tickets/${ticket}`}
           method="post"
         >
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
