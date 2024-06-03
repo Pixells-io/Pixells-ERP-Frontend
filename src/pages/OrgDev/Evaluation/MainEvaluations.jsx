@@ -163,7 +163,7 @@ function MainEvaluations() {
                     <p className="text-xs text-grisHeading">{row.type}</p>
                   </div>
 
-                  <div className="flex items-center justify-center">
+                  {/* <div className="flex items-center justify-center">
                     <NavLink
                       to={`/org-development/evaluation/create/${row?.id}`}
                     >
@@ -171,11 +171,11 @@ function MainEvaluations() {
                         Exámen
                       </p>
                     </NavLink>
-                  </div>
-                  {/* {row?.examen === false ? (
+                  </div> */}
+                  {row?.exam === false ? (
                     <div className="flex items-center justify-center">
                       <NavLink
-                        to={`/org-development/evaluation/create/${data?.id}`}
+                        to={`/org-development/evaluation/create/${row?.id}`}
                       >
                         <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
                           Exámen
@@ -188,7 +188,7 @@ function MainEvaluations() {
                         Exámen
                       </p>
                     </div>
-                  )} */}
+                  )}
 
                   <div className="flex items-center justify-center">
                     <NavLink to={`/org-development/evaluation/${data?.id}`}>
