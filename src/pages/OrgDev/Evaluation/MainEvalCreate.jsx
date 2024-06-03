@@ -6,7 +6,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ExamForm from "./components/ExamForm";
 import { redirect, useLoaderData, useParams } from "react-router-dom";
-import { newInductionExam } from "../utils";
+import { newInductionExam, storeNewEvaluationExam } from "../utils";
 
 const PEOPLE = [
   {
@@ -153,8 +153,9 @@ export async function Action({ request }) {
 
   console.log(data);
 
-  const validation = await newInductionExam(data);
+  const validation = await storeNewEvaluationExam(data);
 
   return new Response("ok");
-  // return redirect("/org-development/induction");
 }
+
+// return redirect("/org-development/induction");

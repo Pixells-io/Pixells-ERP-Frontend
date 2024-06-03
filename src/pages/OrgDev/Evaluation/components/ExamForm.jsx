@@ -45,7 +45,7 @@ const QUESTIONS_TEMPLATE = [
 
 function ExamForm() {
   // const [exam, setExam] = useState(EXAMN_TEMPLATE);
-  const { id: inductionId } = useParams();
+  const { id: evalId } = useParams();
   const { data } = useLoaderData();
   const [questions, setQuestions] = useState(QUESTIONS_TEMPLATE);
 
@@ -119,7 +119,7 @@ function ExamForm() {
 
   // score update
   function onChangeCheckBox(questionIdx, answerIdx, e) {
-    console.log(e);
+    // console.log(e);
     setQuestions(
       questions.map((question, idx) =>
         idx === questionIdx
@@ -158,8 +158,8 @@ function ExamForm() {
         <Form
           className="flex gap-2 border-t px-4 py-4"
           method="post"
-          action={`/org-development/induction/create/${inductionId}`}
-          id="crate-induction-exam"
+          action={`/org-development/evaluation/create/${evalId}`}
+          id="crate-eval-exam"
         >
           {/* <input
             type="text"
@@ -183,8 +183,8 @@ function ExamForm() {
           <input
             type="text"
             className="hidden"
-            value={inductionId}
-            name="induction_id"
+            value={evalId}
+            name="eval_id"
             readOnly
           />
           <Button type="submit">Enviar</Button>

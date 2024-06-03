@@ -158,3 +158,30 @@ export async function storeNewEvaluation(data) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function storeNewEvaluationExam(data) {
+  try {
+    const examen = {
+      eval_id: data.get("eval_id"),
+      questions: data.get("questions"),
+    };
+    console.log(examen);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/store-evaluation-exam
+      `,
+      {
+        method: "POST",
+        body: JSON.stringify(examen),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return "No batea";
+    // return new Response("ok");
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

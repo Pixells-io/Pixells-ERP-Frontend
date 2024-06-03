@@ -149,7 +149,9 @@ import MainEvaluations, {
 } from "./pages/OrgDev/Evaluation/MainEvaluations";
 import MainEDI from "./pages/OrgDev/Evaluation/MainEDI";
 import Main360 from "./pages/OrgDev/Evaluation/Main360";
-import MainEvalCreate from "./pages/OrgDev/Evaluation/MainEvalCreate";
+import MainEvalCreate, {
+  Action as newEvalExam,
+} from "./pages/OrgDev/Evaluation/MainEvalCreate";
 import ExamShow from "./pages/OrgDev/Exam/ExamShow";
 import ExamAnswer from "./pages/OrgDev/Capacitation/components/ExamAnswer";
 import MainExamAnswer, {
@@ -443,6 +445,7 @@ const router = createBrowserRouter([
             path: "/org-development/evaluation/create/:id",
             element: <MainEvalCreate />,
             loader: getEvaluationSimple,
+            action: newEvalExam,
           },
           {
             path: "/org-development/evaluation/edi",
