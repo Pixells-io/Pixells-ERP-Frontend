@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 
-function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
+function FormCreateFollowUpComments({ modal, setModal, followUpId, ticket }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="sm:max-w-[425px] overflow-auto">
         <DialogHeader>
-          <DialogTitle className="font-poppins">{title}</DialogTitle>
+          <DialogTitle className="font-poppins">Add Comment</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-follow-up-form"
@@ -33,10 +33,9 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
         >
           <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
             <div className="flex flex-col font-light gap-4 pb-4">
-              <input type="hidden" value={"1"} name="form" />
-              <input type="hidden" value={value} name="type" />
-              <input type="hidden" value={ticket} name="ticket" />
-              <FormInput name="comments" type="text" placeholder="Comments" />
+              <input type="hidden" value={"2"} name="form" />
+              <input type="hidden" value={followUpId} name="follow_up_id" />
+              <FormInput name="comment" type="text" placeholder="Comments" />
             </div>
           </div>
         </Form>
@@ -53,4 +52,4 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
   );
 }
 
-export default FormCreateFollowUps;
+export default FormCreateFollowUpComments;

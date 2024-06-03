@@ -11,7 +11,10 @@ import {
 import { IonIcon } from "@ionic/react";
 import { lockOpen, person } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
-import { saveFollowUpTicket } from "@/pages/Tickets/utils";
+import {
+  saveFollowUpTicket,
+  saveFollowUpTicketComments,
+} from "@/pages/Tickets/utils";
 
 function SideLayoutTicketsShow() {
   const { data } = useLoaderData();
@@ -152,7 +155,18 @@ export default SideLayoutTicketsShow;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveFollowUpTicket(data);
+  switch (data.get("form")) {
+    case "1":
+      //Follow Up
+      await saveFollowUpTicket(data);
+      break;
+    case "2":
+      //Follow Up Comments
+      await saveFollowUpTicketComments(data);
+      break;
+    default:
+      break;
+  }
 
-  return validation;
+  return "1";
 }

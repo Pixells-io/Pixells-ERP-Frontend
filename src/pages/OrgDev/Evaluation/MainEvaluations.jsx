@@ -17,9 +17,10 @@ import {
 } from "ionicons/icons";
 
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
-import { saveNewTraining } from "../utils";
+import { saveNewTraining, storeNewEvaluation } from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import NewEvaluationModal from "../Inductions/components/NewEvaluationModal";
 
 const PEOPLE = [
   {
@@ -77,6 +78,10 @@ function MainEvaluations() {
 
   return (
     <div className="flex w-full">
+      <NewEvaluationModal
+        modal={modalCreateTrainings}
+        setModal={setModalCreateTrainings}
+      />
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -280,7 +285,7 @@ export default MainEvaluations;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewTraining(data);
+  const validation = await storeNewEvaluation(data);
 
-  return redirect("/org-development/capacitation");
+  return redirect("/org-development/evaluation");
 }

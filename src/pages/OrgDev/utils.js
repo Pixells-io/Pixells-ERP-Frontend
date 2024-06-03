@@ -28,7 +28,7 @@ export async function saveNewInduction(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -74,7 +74,7 @@ export async function saveNewTraining(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -99,7 +99,7 @@ export async function newInductionExam(data) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
 
     return "No batea";
@@ -125,7 +125,31 @@ export async function storeAnswerExam(data, arreglo) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
+    );
+
+    return "No batea";
+    // return new Response("ok");
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function storeNewEvaluation(data) {
+  try {
+    const info = {
+      name: data.get("name"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/create-evaluation`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
     );
 
     return "No batea";

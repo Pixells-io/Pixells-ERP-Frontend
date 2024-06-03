@@ -37,7 +37,7 @@ function ShowTickets() {
           </div>
         </div>
         {/* top content */}
-        <div className="items-center gap-4">
+        <div className="items-center gap-4 overflow-scroll">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
               FOLLOW UP
@@ -56,7 +56,7 @@ function ShowTickets() {
           {/* Timeline */}
           <div className="bg-white p-4 mt-3 rounded-2xl">
             {ticket?.follow_ups.map((data, i) => (
-              <FollowUpCard followUp={data} />
+              <FollowUpCard followUp={data} ticket={ticket.id} />
             ))}
           </div>
         </div>

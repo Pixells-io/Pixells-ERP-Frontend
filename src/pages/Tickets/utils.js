@@ -54,3 +54,23 @@ export async function saveFollowUpTicket(data) {
 
   return response;
 }
+
+export async function saveFollowUpTicketComments(data) {
+  const info = {
+    follow_up_id: data.get("follow_up_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/save-follow-up-comment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+
+  return response;
+}

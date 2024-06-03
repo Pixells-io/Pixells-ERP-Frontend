@@ -142,7 +142,9 @@ import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
 import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
-import MainEvaluations from "./pages/OrgDev/Evaluation/MainEvaluations";
+import MainEvaluations, {
+  Action as newEvaluation,
+} from "./pages/OrgDev/Evaluation/MainEvaluations";
 import MainEDI from "./pages/OrgDev/Evaluation/MainEDI";
 import Main360 from "./pages/OrgDev/Evaluation/Main360";
 import MainEvalCreate from "./pages/OrgDev/Evaluation/MainEvalCreate";
@@ -432,6 +434,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/evaluation",
             element: <MainEvaluations />,
+            action: newEvaluation,
           },
           {
             path: "/org-development/evaluation/create",
