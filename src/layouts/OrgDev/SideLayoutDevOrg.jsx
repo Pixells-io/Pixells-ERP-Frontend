@@ -40,15 +40,15 @@ const MENU_ITEMS = [
     icon: book,
   },
   {
-    path: "/org-development/evaluacion",
+    path: "/org-development/evaluation",
     subpath: [
-      { path: "/org-development/evaluacion", name: "Creador" },
+      { path: "/org-development/evaluation", name: "Creador" },
       {
-        path: "/org-development/evaluacion/edi",
+        path: "/org-development/evaluation/edi",
         name: "EDI por Objetivos",
       },
       {
-        path: "/org-development/evaluacion/360",
+        path: "/org-development/evaluation/360",
         name: "Evaluación 360°",
       },
     ],

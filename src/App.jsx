@@ -139,6 +139,10 @@ import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
 import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
+import MainEvaluations from "./pages/OrgDev/Evaluation/MainEvaluations";
+import MainEDI from "./pages/OrgDev/Evaluation/MainEDI";
+import Main360 from "./pages/OrgDev/Evaluation/Main360";
+import MainEvalCreate from "./pages/OrgDev/Evaluation/MainEvalCreate";
 
 const router = createBrowserRouter([
   {
@@ -407,6 +411,23 @@ const router = createBrowserRouter([
             path: "/org-development/capacitation/my-capacitations",
             element: <MainMyCapacitations />,
             loader: getMyTrainings,
+          },
+          //Evaluation
+          {
+            path: "/org-development/evaluation",
+            element: <MainEvaluations />,
+          },
+          {
+            path: "/org-development/evaluation/create",
+            element: <MainEvalCreate />,
+          },
+          {
+            path: "/org-development/evaluation/edi",
+            element: <MainEDI />,
+          },
+          {
+            path: "/org-development/evaluation/360",
+            element: <Main360 />,
           },
         ],
       },
