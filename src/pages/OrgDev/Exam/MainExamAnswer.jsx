@@ -4,9 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import ExamForm from "./components/ExamForm";
-import { redirect, useParams } from "react-router-dom";
-import { newInductionExam } from "../utils";
+import { redirect, useParams, useLoaderData, Form } from "react-router-dom";
+import ExamQuestionAnswer from "./Components/ExamQuestionAnswer";
+import { Button } from "@/components/ui/button";
+import { storeAnswerExam } from "../utils";
 
 const PEOPLE = [
   {
@@ -31,8 +32,11 @@ const PEOPLE = [
   },
 ];
 
-function CreateExamenInduction() {
-  const { id: inductionId } = useParams();
+function MainExamAnswer() {
+  const { id } = useParams();
+
+  const { data } = useLoaderData();
+
   return (
     <div className="flex w-full">
       <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
@@ -60,33 +64,72 @@ function CreateExamenInduction() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins font-bold text-xl text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATION DEVELOPMENT
             </h2>
           </div>
           <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
             {/* <div className="text-xs">
-          {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
-          {leads?.data.length == 1 ? "lead" : "leads"}
-        </div>
-        <div className="text-2xl">&bull;</div>
-        <div className="text-xs">
-          {loaderClients?.data.length == 0
-            ? "0"
-            : loaderClients?.data.length}{" "}
-          {loaderClients?.data.length == 1 ? "client" : "clients"}
-        </div> */}
+        {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
+        {leads?.data.length == 1 ? "lead" : "leads"}
+      </div>
+      <div className="text-2xl">&bull;</div>
+      <div className="text-xs">
+        {loaderClients?.data.length == 0
+          ? "0"
+          : loaderClients?.data.length}{" "}
+        {loaderClients?.data.length == 1 ? "client" : "clients"}
+      </div> */}
           </div>
         </div>
         <div>
           <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Inducciones
+            Answer the Exam
           </p>
         </div>
-
-        <div className="bg-blancoBg h-full rounded-lg pt-2 overflow-auto">
-          <div className="py-6">
-            <ExamForm />
+        <div className="flex flex-col items-center gap-6 overflow-auto">
+          <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
+            <div className="px-6 py-3">
+              <p className="font-medium text-grisText">Nombre del Exámen</p>
+            </div>
+            <div className="flex gap-2 border-t px-4 py-4">
+              <input
+                type="text"
+                name="exam_title"
+                value={data?.title}
+                placeholder="Escribe el nombre del exámen"
+                className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
+                readOnly
+              />
+              <input
+                type="number"
+                name="exam_duration"
+                value={data?.duration}
+                className="placeholder:bg-blancoForms border-b text-xs placeholder:text-xs placeholder:p-2 p-2 bg-blancoForms w-[80px]"
+                readOnly
+              />
+              <span className="text-[8px] text-grisSubText self-end">
+                Minutos
+              </span>
+              <Button
+                form="form-submit-answer-exam"
+                className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+              >
+                Submit
+              </Button>
+            </div>
           </div>
+          <Form
+            id="form-submit-answer-exam"
+            action={`/org-development/answer-exam/${data.id}`}
+            method="post"
+          >
+            <input type="hidden" name="exam_id" value={data.id} />
+            <input type="hidden" name="type" value="1" />
+            {/* Show Questions */}
+            {data?.questions.map((question, i) => (
+              <ExamQuestionAnswer question={question} />
+            ))}
+          </Form>
         </div>
       </div>
 
@@ -134,12 +177,27 @@ function CreateExamenInduction() {
   );
 }
 
-export default CreateExamenInduction;
+export default MainExamAnswer;
 
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await newInductionExam(data);
+  let arreglo = [];
 
-  return redirect("/org-development/induction");
+  for (const entrie of data.entries()) {
+    if (entrie[0] != "exam_id" && entrie[0] != "type") {
+      arreglo.push(entrie[0]);
+    }
+  }
+
+  //If the type is 1 the action is submit the form
+  if (data.get("type") === "1") {
+    const validation = storeAnswerExam(data, arreglo);
+  }
+
+  //If the type is 2 the action is create teh exam
+  if (data.get("type") === "2") {
+  }
+
+  return redirect("/org-development");
 }

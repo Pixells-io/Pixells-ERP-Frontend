@@ -115,6 +115,9 @@ import {
   getMyInductions,
   multiloaderNewTraining,
   getMyTrainings,
+  getExam,
+  multiloaderTickets,
+  getTicket,
 } from "./lib/actions";
 
 //Not Found
@@ -143,6 +146,19 @@ import MainEvaluations from "./pages/OrgDev/Evaluation/MainEvaluations";
 import MainEDI from "./pages/OrgDev/Evaluation/MainEDI";
 import Main360 from "./pages/OrgDev/Evaluation/Main360";
 import MainEvalCreate from "./pages/OrgDev/Evaluation/MainEvalCreate";
+import ExamShow from "./pages/OrgDev/Exam/ExamShow";
+import ExamAnswer from "./pages/OrgDev/Capacitation/components/ExamAnswer";
+import MainExamAnswer, {
+  Action as ExamFunction,
+} from "./pages/OrgDev/Exam/MainExamAnswer";
+import SideLayoutTickets, {
+  Action as CreateTicketFunction,
+} from "./layouts/Tickets/SideLayoutTickets";
+import MainTickets from "./pages/Tickets/MainTickets";
+import ShowTickets from "./pages/Tickets/ShowTickets";
+import SideLayoutTicketsShow, {
+  Action as FollowUpTicket,
+} from "./layouts/Tickets/SideLayoutTicketsShow";
 
 const router = createBrowserRouter([
   {
@@ -428,6 +444,43 @@ const router = createBrowserRouter([
           {
             path: "/org-development/evaluation/360",
             element: <Main360 />,
+          },
+          //Exam
+          {
+            path: "/org-development/exam/:id",
+            element: <ExamShow />,
+            loader: getExam,
+          },
+          {
+            path: "/org-development/answer-exam/:id",
+            element: <MainExamAnswer />,
+            loader: getExam,
+            action: ExamFunction,
+          },
+        ],
+      },
+      {
+        path: "/tickets",
+        element: <SideLayoutTickets />,
+        action: CreateTicketFunction,
+        children: [
+          {
+            index: true,
+            element: <MainTickets />,
+            loader: multiloaderTickets,
+          },
+        ],
+      },
+      {
+        path: "/tickets/:id",
+        element: <SideLayoutTicketsShow />,
+        loader: getTicket,
+        action: FollowUpTicket,
+        children: [
+          {
+            index: true,
+            element: <ShowTickets />,
+            loader: getTicket,
           },
         ],
       },

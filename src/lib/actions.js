@@ -687,3 +687,99 @@ export async function multiloaderNewTraining() {
   ]);
   return json({ areas, positions, users, trainings });
 }
+
+export async function getExam({ params }) {
+  const exam_id = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-exam/${exam_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMyTickets() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}tickets/get-my-tickets`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getAssignedTickets() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}tickets/get-assigned-tickets`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function inProcessTickets() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}tickets/get-in-process-tickets`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderTickets() {
+  const [areas, users, myTickets, assignedTickets, processTickets] =
+    await Promise.all([
+      getAreas(),
+      getUsers(),
+      getMyTickets(),
+      getAssignedTickets(),
+      inProcessTickets(),
+    ]);
+  return json({ areas, users, myTickets, assignedTickets, processTickets });
+}
+
+export async function getTicket({ params }) {
+  const ticket_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}tickets/get-ticket/${ticket_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      }
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
