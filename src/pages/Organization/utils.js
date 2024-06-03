@@ -167,14 +167,10 @@ export async function saveNewUser(data) {
 }
 
 export async function saveNewImage(data) {
-  // console.log(data);
-
   const newImage = {
     text: data.get("text"),
     file: data.get("file"),
   };
-
-  console.log(newImage);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}sopas-perico`,
@@ -182,9 +178,7 @@ export async function saveNewImage(data) {
       method: "POST",
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
-        // "Content-Type": "multipart/form-data",
       },
-      body: JSON.stringify(newImage),
     },
   );
 
