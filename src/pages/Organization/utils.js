@@ -20,7 +20,7 @@ export async function saveNewArea(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -63,7 +63,7 @@ export async function saveNewPosition(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -160,14 +160,14 @@ export async function saveNewUser(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
 }
 
 export async function saveNewImage(data) {
-  console.log(data);
+  // console.log(data);
 
   const newImage = {
     text: data.get("text"),
@@ -180,12 +180,12 @@ export async function saveNewImage(data) {
     `${import.meta.env.VITE_SERVER_URL}sopas-perico`,
     {
       method: "POST",
-      body: JSON.stringify(newImage),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
       },
-    }
+      body: JSON.stringify(newImage),
+    },
   );
 
   return response;

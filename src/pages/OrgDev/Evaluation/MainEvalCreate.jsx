@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ExamForm from "./components/ExamForm";
-import { redirect, useParams } from "react-router-dom";
+import { redirect, useLoaderData, useParams } from "react-router-dom";
 import { newInductionExam } from "../utils";
 
 const PEOPLE = [
@@ -32,24 +32,25 @@ const PEOPLE = [
 ];
 
 const MainEvalCreate = () => {
+  const { data } = useLoaderData();
   return (
     <div className="flex w-full">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
+      <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -58,11 +59,11 @@ const MainEvalCreate = () => {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               DESARROLLO ORGANIZACIONAL
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             {/* <div className="text-xs">
         {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
         {leads?.data.length == 1 ? "lead" : "leads"}
@@ -77,18 +78,24 @@ const MainEvalCreate = () => {
           </div>
         </div>
         <div className="flex gap-8">
-          <p className="font-poppins font-bold text-xl text-[#44444F]">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
             Evaluación
           </p>
-          <p className="font-poppins font-bold text-xl text-[#44444F]">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
             &bull;
           </p>
-          <p className="font-poppins font-bold text-xl text-[#44444F]">
-            Capacitación de Sistema
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            {data.name}
+          </p>
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            &bull;
+          </p>
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            {data.type}
           </p>
         </div>
 
-        <div className="bg-blancoBg h-full rounded-lg pt-2 overflow-auto">
+        <div className="h-full overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="py-6">
             <ExamForm />
           </div>
@@ -96,9 +103,9 @@ const MainEvalCreate = () => {
       </div>
 
       {/* sidebar */}
-      <div className="w-[280px] flex flex-col gap-6 bg-gris px-8 py-4 ml-4 rounded-lg shrink-0">
+      <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
         <div className="flex justify-center">
-          <p className="text-grisHeading text-lg font-poppins font-semibold">
+          <p className="font-poppins text-lg font-semibold text-grisHeading">
             Accesos Rápidos
           </p>
         </div>
@@ -107,27 +114,27 @@ const MainEvalCreate = () => {
           {PEOPLE.map((item, i) => (
             <div key={i} className="flex">
               <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex w-12 h-12 items-center justify-center ">
-                  <Avatar className="rounded-lg h-full w-full">
+                <div className="flex h-12 w-12 items-center justify-center">
+                  <Avatar className="h-full w-full rounded-lg">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                 </div>
                 {item.status == "Pending" ? (
-                  <span className="text-[11px] bg-[#FAA36440] text-[#FAA364] px-2 py-[2px] w-fit rounded-full">
+                  <span className="w-fit rounded-full bg-[#FAA36440] px-2 py-[2px] text-[11px] text-[#FAA364]">
                     {item.status}
                   </span>
                 ) : (
-                  <span className="text-[11px] bg-[#7794F940] text-[#7794F9] px-2 py-[2px] w-fit rounded-full">
+                  <span className="w-fit rounded-full bg-[#7794F940] px-2 py-[2px] text-[11px] text-[#7794F9]">
                     {item.status}
                   </span>
                 )}
               </div>
               <div>
-                <p className="text-grisText font-medium text-base">
+                <p className="text-base font-medium text-grisText">
                   {item.name}
                 </p>
-                <span className="font-medium text-[10px] text-grisSubText line-clamp-none ">
+                <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
                   {item.position}
                 </span>
               </div>

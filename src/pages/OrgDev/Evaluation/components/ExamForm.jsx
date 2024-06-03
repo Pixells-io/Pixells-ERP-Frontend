@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import { Form, useLoaderData, useParams } from "react-router-dom";
 
 import {
   Select,
@@ -12,6 +12,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, closeCircle } from "ionicons/icons";
 import ExamQuestion from "./ExamQuestion";
+import { Button } from "@/components/ui/button";
 
 const EXAMN_TEMPLATE = {
   title: null,
@@ -33,7 +34,6 @@ const EXAMN_TEMPLATE = {
 const QUESTIONS_TEMPLATE = [
   {
     question: "",
-    type: "",
     answers: [
       {
         answer: "",
@@ -46,12 +46,12 @@ const QUESTIONS_TEMPLATE = [
 function ExamForm() {
   // const [exam, setExam] = useState(EXAMN_TEMPLATE);
   const { id: inductionId } = useParams();
+  const { data } = useLoaderData();
   const [questions, setQuestions] = useState(QUESTIONS_TEMPLATE);
 
   function addQuestion() {
     const newQuestion = {
       question: "",
-      type: "",
       answers: [
         {
           answer: "",
@@ -76,8 +76,8 @@ function ExamForm() {
       questions.map((item, idx) =>
         idx === index
           ? { ...item, answers: [...item.answers, newAnswer] }
-          : item
-      )
+          : item,
+      ),
     );
   }
 
@@ -89,16 +89,16 @@ function ExamForm() {
               ...item,
               answers: item.answers.filter((answer, i) => i !== answerIndex),
             }
-          : item
-      )
+          : item,
+      ),
     );
   }
 
   function onChangeQuestion(questionIndex, e) {
     setQuestions(
       questions.map((item, idx) =>
-        idx === questionIndex ? { ...item, question: e.target.value } : item
-      )
+        idx === questionIndex ? { ...item, question: e.target.value } : item,
+      ),
     );
   }
 
@@ -109,11 +109,11 @@ function ExamForm() {
           ? {
               ...question,
               answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, answer: e.target.value } : item
+                i === answerIdx ? { ...item, answer: e.target.value } : item,
               ),
             }
-          : question
-      )
+          : question,
+      ),
     );
   }
 
@@ -126,11 +126,11 @@ function ExamForm() {
           ? {
               ...question,
               answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, score: e } : item
+                i === answerIdx ? { ...item, score: e } : item,
               ),
             }
-          : question
-      )
+          : question,
+      ),
     );
   }
 
@@ -141,19 +141,19 @@ function ExamForm() {
           ? {
               ...question,
               answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, score: e } : item
+                i === answerIdx ? { ...item, score: e } : item,
               ),
             }
-          : question
-      )
+          : question,
+      ),
     );
   }
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
+      <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
         <div className="px-6 py-3">
-          <p className="font-medium text-grisText">Nombre del Exámen</p>
+          <p className="font-medium text-grisText">{data.name}</p>
         </div>
         <Form
           className="flex gap-2 border-t px-4 py-4"
@@ -161,18 +161,18 @@ function ExamForm() {
           action={`/org-development/induction/create/${inductionId}`}
           id="crate-induction-exam"
         >
-          <input
+          {/* <input
             type="text"
             name="exam_title"
             placeholder="Escribe el nombre del exámen"
-            className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
+            className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
           <input
             type="number"
             name="exam_duration"
-            className="placeholder:bg-blancoForms border-b text-xs placeholder:text-xs placeholder:p-2 p-2 bg-blancoForms w-[80px]"
+            className="w-[80px] border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
-          <span className="text-[8px] text-grisSubText self-end">Minutos</span>
+          <span className="self-end text-[8px] text-grisSubText">Minutos</span> */}
           <input
             type="text"
             className="hidden"
@@ -187,7 +187,7 @@ function ExamForm() {
             name="induction_id"
             readOnly
           />
-          <button type="submit">Enviar</button>
+          <Button type="submit">Enviar</Button>
         </Form>
       </div>
 
@@ -213,7 +213,7 @@ function ExamForm() {
         <IonIcon
           icon={addCircleOutline}
           size=""
-          className="text-primarioBotones hover:text-primario w-5 h-5"
+          className="h-5 w-5 text-primarioBotones hover:text-primario"
         ></IonIcon>
       </button>
     </div>

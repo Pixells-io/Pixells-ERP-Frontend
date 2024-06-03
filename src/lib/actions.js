@@ -19,7 +19,7 @@ export async function getSerivicesSelected() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -35,7 +35,7 @@ export async function getServices() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -51,7 +51,7 @@ export async function getServicesAgreements() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -67,7 +67,7 @@ export async function getCategories() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -83,7 +83,7 @@ export async function getPackages() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -99,7 +99,7 @@ export async function getCategoriesAndServices() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -135,7 +135,7 @@ export async function categoryShow({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -152,7 +152,7 @@ export async function getChats() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -179,7 +179,7 @@ export async function getLeads() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -195,7 +195,7 @@ export async function getProcessLeads() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -211,7 +211,7 @@ export async function getObjectives() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -230,7 +230,7 @@ export async function getGoals({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -249,7 +249,7 @@ export async function getCSF({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -268,7 +268,7 @@ export async function getServiceSteps({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -287,7 +287,7 @@ export async function getServiceStepsId({ id }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -304,7 +304,7 @@ export async function getAreas() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -320,7 +320,7 @@ export async function getPosition() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -336,7 +336,7 @@ export async function getUsers() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -362,7 +362,7 @@ export async function getUserByToken() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -398,7 +398,7 @@ export async function getGoalsMaster({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -415,7 +415,7 @@ export async function getPackageById({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -431,7 +431,7 @@ export async function getCustomers() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -460,7 +460,7 @@ export async function getAgreement({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -476,7 +476,7 @@ export async function getPersonsContracts() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -501,7 +501,7 @@ export async function getClients() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -531,7 +531,7 @@ export async function getNotificationsChat() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -547,7 +547,7 @@ export async function destroyNotificationsChat(id) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -563,7 +563,7 @@ export async function getNotifications() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -588,7 +588,7 @@ export async function logOutRequest() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -607,7 +607,7 @@ export async function getInductions() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -625,7 +625,7 @@ export async function getMyInductions() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -643,7 +643,7 @@ export async function getTrainings() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -661,7 +661,7 @@ export async function getMyTrainings() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -699,7 +699,7 @@ export async function getExam({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -715,7 +715,7 @@ export async function getMyTickets() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -731,7 +731,7 @@ export async function getAssignedTickets() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -747,7 +747,7 @@ export async function inProcessTickets() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -776,7 +776,39 @@ export async function getTicket({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getEvaluations() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/get-evaluation`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getEvaluationSimple({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/get-specific-evaluation/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
     );
     return response.json();
   } catch (error) {

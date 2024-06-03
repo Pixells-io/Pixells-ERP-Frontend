@@ -118,6 +118,8 @@ import {
   getExam,
   multiloaderTickets,
   getTicket,
+  getEvaluations,
+  getEvaluationSimple,
 } from "./lib/actions";
 
 //Not Found
@@ -435,10 +437,12 @@ const router = createBrowserRouter([
             path: "/org-development/evaluation",
             element: <MainEvaluations />,
             action: newEvaluation,
+            loader: getEvaluations,
           },
           {
-            path: "/org-development/evaluation/create",
+            path: "/org-development/evaluation/create/:id",
             element: <MainEvalCreate />,
+            loader: getEvaluationSimple,
           },
           {
             path: "/org-development/evaluation/edi",

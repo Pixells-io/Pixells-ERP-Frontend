@@ -16,11 +16,8 @@ import {
   informationCircle,
 } from "ionicons/icons";
 
-import NewTrainingModal from "../Inductions/components/NewTrainingModal";
-import { saveNewTraining, storeNewEvaluation } from "../utils";
-import { getTrainings } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
 import NewEvaluationModal from "../Inductions/components/NewEvaluationModal";
+import { storeNewEvaluation } from "../utils";
 
 const PEOPLE = [
   {
@@ -49,7 +46,8 @@ function MainEvaluations() {
 
   const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
 
-  // const { areas, positions, users, trainings } = useLoaderData();
+  const { data } = useLoaderData();
+  console.log(data);
 
   // const [initialData, setInitialData] = useState(trainings.data);
   // const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);
@@ -136,27 +134,14 @@ function MainEvaluations() {
           ></IonIcon>
         </div>
 
-        {/* <NewTrainingModal
-          modal={modalCreateTrainings}
-          setModal={setModalCreateTrainings}
-          areas={areas.data}
-          positions={positions.data}
-          users={users.data}
-        /> */}
-
         <div className="rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
-            <div className="grid w-full grid-cols-6 px-4 py-2 text-center">
+            <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
                 <p className="text-sm font-semibold text-grisText">NOMBRE</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">TIPO</p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-grisText">
-                  RESPONSABLE
-                </p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
@@ -169,62 +154,44 @@ function MainEvaluations() {
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
-              {/* {capacitacionPusher?.map((row, i) => (
-                <div key={i} className="grid grid-cols-11 w-full border-t py-4">
-                  <div className="col-span-2 text-left pl-4">
-                    <p className="text-grisHeading text-xs">{row.name}</p>
+              {data?.map((row, i) => (
+                <div key={i} className="grid w-full grid-cols-5 border-t py-4">
+                  <div className="col-span-2 pl-4 text-left">
+                    <p className="text-xs text-grisHeading">{row.name}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.type}</p>
+                    <p className="text-xs text-grisHeading">{row.type}</p>
                   </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">{row.class_type}</p>
-                  </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">{row.location}</p>
-                  </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">
-                      {row.capacitador}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">{row.date}</p>
-                  </div>
-                  <div>
-                    <p className="text-grisHeading text-xs">{row.real_date}</p>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <p
-                      className={
-                        row.archive
-                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
-                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
-                      }
+
+                  <div className="flex items-center justify-center">
+                    <NavLink
+                      to={`/org-development/evaluation/create/${row?.id}`}
                     >
-                      Archivos
-                    </p>
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Exámen
+                      </p>
+                    </NavLink>
                   </div>
-                  {row.examen === false ? (
-                    <div className="flex justify-center items-center">
+                  {/* {row?.examen === false ? (
+                    <div className="flex items-center justify-center">
                       <NavLink
-                        to={`/org-development/capacitation/create/${row?.id}`}
+                        to={`/org-development/evaluation/create/${data?.id}`}
                       >
-                        <p className="bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit">
+                        <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
                           Exámen
                         </p>
                       </NavLink>
                     </div>
                   ) : (
-                    <div className="flex justify-center items-center">
-                      <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
+                    <div className="flex items-center justify-center">
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
                         Exámen
                       </p>
                     </div>
-                  )}
+                  )} */}
 
-                  <div className="flex justify-center items-center">
-                    <NavLink to={`/org-development/capacitation/${row?.id}`}>
+                  <div className="flex items-center justify-center">
+                    <NavLink to={`/org-development/evaluation/${data?.id}`}>
                       <IonIcon
                         icon={informationCircle}
                         className="h-6 w-6 text-grisText"
@@ -232,7 +199,7 @@ function MainEvaluations() {
                     </NavLink>
                   </div>
                 </div>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
