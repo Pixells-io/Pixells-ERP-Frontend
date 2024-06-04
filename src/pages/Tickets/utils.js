@@ -28,7 +28,7 @@ export async function saveNewTicket(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -49,7 +49,7 @@ export async function saveFollowUpTicket(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -69,7 +69,47 @@ export async function saveFollowUpTicketComments(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
+  );
+
+  return response;
+}
+
+export async function saveTicketResponsible(data) {
+  const info = {
+    ticket_id: data.get("ticket_id"),
+    area_id: data.get("area_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/save-responsible`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function saveTicketFinish(data) {
+  const info = {
+    ticket_id: data.get("ticket_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/finish-ticket`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
   );
 
   return response;

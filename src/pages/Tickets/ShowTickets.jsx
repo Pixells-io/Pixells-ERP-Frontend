@@ -6,29 +6,29 @@ import SidebarActionsTicket from "./Components/SidebarActionsTicket";
 import FollowUpCard from "./Components/FollowUpCard";
 
 function ShowTickets() {
-  const { data } = useLoaderData();
+  const { areas, users, myTicket } = useLoaderData();
 
-  const ticket = data[0];
+  const ticket = myTicket.data[0];
 
   return (
     <div className="flex w-full">
       {/* FollowUp Div */}
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-3/4">
+      <div className="ml-4 flex w-3/4 flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -39,22 +39,22 @@ function ShowTickets() {
         {/* top content */}
         <div className="items-center gap-4 overflow-scroll">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               FOLLOW UP
             </h2>
           </div>
-          <div className="mt-6 ml-4">
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+          <div className="ml-4 mt-6">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               {ticket.issue}
             </h2>
             <div className="mt-2">
-              <span className="font-proboto font-medium text-sm text-grisText">
+              <span className="font-proboto text-sm font-medium text-grisText">
                 {ticket.category}
               </span>
             </div>
           </div>
           {/* Timeline */}
-          <div className="bg-white p-4 mt-3 rounded-2xl">
+          <div className="mt-3 rounded-2xl bg-white p-4">
             {ticket?.follow_ups.map((data, i) => (
               <FollowUpCard followUp={data} ticket={ticket.id} />
             ))}
@@ -62,8 +62,8 @@ function ShowTickets() {
         </div>
       </div>
       {/* Actions Div */}
-      <div className="w-1/4 h-full mr-5">
-        <SidebarActionsTicket ticket={ticket.id} />
+      <div className="mr-5 h-full w-1/4">
+        <SidebarActionsTicket ticket={ticket} areas={areas} users={users} />
       </div>
     </div>
   );
