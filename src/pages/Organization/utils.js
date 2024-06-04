@@ -90,7 +90,6 @@ export async function loginUser(data) {
 
 export async function saveNewUser(data) {
   const user = {
-    user_image: data.get("user_image"),
     name: data.get("name"),
     last_name: data.get("last_name"),
     second_last_name: data.get("second_last_name"),
@@ -152,18 +151,20 @@ export async function saveNewUser(data) {
     confirm_password: data.get("confirm_password"),
   };
 
+  console.log(data);
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/store-user`,
     {
       method: "POST",
-      attributes: JSON.stringify(user),
+      body: JSON.stringify(user),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
     },
   );
 
-  return response;
+  return 1;
 }
 
 export async function saveNewImage(data) {

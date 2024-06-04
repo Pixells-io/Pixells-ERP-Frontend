@@ -74,7 +74,7 @@ export async function Action({ request }) {
   formData.append("image", data.get("file"));
 
   console.log(data.get("file"), formData);
-  /*const validation = await saveNewImage(formData);*/
+  const validation = await saveNewImage(data);
 
   //return redirect("/organization/sopas");
 

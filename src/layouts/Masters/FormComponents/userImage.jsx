@@ -13,12 +13,11 @@ function UserImage({ name, label }) {
         acceptedFiles.map((upFile) =>
           Object.assign(upFile, {
             preview: URL.createObjectURL(upFile),
-          })
-        )
+          }),
+        ),
       );
     },
   });
-
   if (yourImage.length > 0) {
     /*in this case have a img*/
     return (

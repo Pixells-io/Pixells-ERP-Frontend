@@ -165,22 +165,22 @@ function FormCreateUser() {
 
   return (
     <div className="flex w-full">
-      <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">
+      <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -189,53 +189,54 @@ function FormCreateUser() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-2xl text-[#44444F]">
+            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div>4 service</div>
             <div className="text-2xl">&bull;</div>
             <div>9 costumers</div>
           </div>
         </div>
         <div>
-          <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New User
           </h2>
         </div>
         {/*USER BOX CREATE*/}
-        <form
-          action="https://demoback.pixells.io/api/organization/store-user"
+        <Form
+          action="/organization/create-user"
           method="post"
           encType="multipart/form-data"
+          id="form-create-user"
         >
-          <div className="bg-white rounded-xl p-4">
+          <div className="rounded-xl bg-white p-4">
             <div className="w-1/4">
               <UserImage name={"user_image"} label={"User Image"} />
             </div>
-            <div className="bg-blancoForms p-5 rounded-2xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="rounded-2xl bg-blancoForms p-5">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Personal Information
               </span>
               <div className="flex pt-4">
                 <div className="w-4/6 pr-8">
                   <div className="flex">
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"name"}
                         placeholder={"Name"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"last_name"}
                         placeholder={"Last Name"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"second_last_name"}
                         placeholder={"Second Last Name"}
@@ -243,22 +244,22 @@ function FormCreateUser() {
                       />
                     </div>
                   </div>
-                  <div className="flex mt-2">
-                    <div className="pr-4 w-1/3">
+                  <div className="mt-2 flex">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"date_of_birth"}
                         placeholder={"Date of Birth"}
                         type={"date"}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"city_of_birth"}
                         placeholder={"City of Birth"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"state_of_birth"}
                         placeholder={"State of Birth"}
@@ -266,22 +267,22 @@ function FormCreateUser() {
                       />
                     </div>
                   </div>
-                  <div className="flex mt-2">
-                    <div className="pr-4 mt-4 w-1/3">
+                  <div className="mt-2 flex">
+                    <div className="mt-4 w-1/3 pr-4">
                       <SelectRouter
                         name={"genre"}
                         placeholder={"Genre"}
                         options={genreSelect}
                       />
                     </div>
-                    <div className="pr-4 mt-4 w-1/3">
+                    <div className="mt-4 w-1/3 pr-4">
                       <SelectRouter
                         name={"civil_status"}
                         placeholder={"Civil Status"}
                         options={civilStatus}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"childrens"}
                         placeholder={"Children"}
@@ -289,15 +290,15 @@ function FormCreateUser() {
                       />
                     </div>
                   </div>
-                  <div className="flex mt-2">
-                    <div className="pr-4  w-1/3">
+                  <div className="mt-2 flex">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"phone"}
                         placeholder={"Phone"}
                         type={"number"}
                       />
                     </div>
-                    <div className="pr-4  w-1/3">
+                    <div className="w-1/3 pr-4">
                       <InputRouter
                         name={"personal_email"}
                         placeholder={"Personal Email"}
@@ -305,8 +306,8 @@ function FormCreateUser() {
                       />
                     </div>
                   </div>
-                  <div className="flex mt-2">
-                    <div className="pr-4  w-1/3 flex">
+                  <div className="mt-2 flex">
+                    <div className="flex w-1/3 pr-4">
                       <div className="w-1/2">
                         <FileRouter name={"curp_file"} label={"CURP"} />
                       </div>
@@ -318,7 +319,7 @@ function FormCreateUser() {
                         />
                       </div>
                     </div>
-                    <div className="pl-4 pr-4  w-1/3 flex">
+                    <div className="flex w-1/3 pl-4 pr-4">
                       <div className="w-1/2">
                         <FileRouter name={"rfc_file"} label={"RFC"} />
                       </div>
@@ -330,7 +331,7 @@ function FormCreateUser() {
                         />
                       </div>
                     </div>
-                    <div className="pl-4 pr-4 w-1/3 flex">
+                    <div className="flex w-1/3 pl-4 pr-4">
                       <div className="w-1/2">
                         <FileRouter name={"nss_file"} label={"NSS"} />
                       </div>
@@ -351,7 +352,7 @@ function FormCreateUser() {
                       label={"Birth Certificate"}
                     />
                   </div>
-                  <div className="flex pt-4 pr-6">
+                  <div className="flex pr-6 pt-4">
                     <div className="w-1/2">
                       <FileRouter name={"id_file"} label={"ID"} />
                     </div>
@@ -367,34 +368,34 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Health Card*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoForms p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Health Information
               </span>
               <div className="flex pt-4">
                 <div className="flex w-full pr-8">
-                  <div className="pr-4 mt-4 w-1/4">
+                  <div className="mt-4 w-1/4 pr-4">
                     <SelectRouter
                       name={"chronic_diseases"}
                       placeholder={"Chronic Diseases"}
                       options={selectBasics}
                     />
                   </div>
-                  <div className="pr-4 mt-4 w-1/4">
+                  <div className="mt-4 w-1/4 pr-4">
                     <SelectRouter
                       name={"alergic"}
                       placeholder={"Alergic"}
                       options={selectBasics}
                     />
                   </div>
-                  <div className="pr-4 w-1/4">
+                  <div className="w-1/4 pr-4">
                     <InputRouter
                       name={"specify_allergy"}
                       placeholder={"Specify the Allergy"}
                       type={"text"}
                     />
                   </div>
-                  <div className="pr-4 mt-4 w-1/4">
+                  <div className="mt-4 w-1/4 pr-4">
                     <SelectRouter
                       name={"blood"}
                       placeholder={"Type of Blood"}
@@ -405,21 +406,21 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Address Card*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoForms p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Address Information
               </span>
               <div className="flex pt-4">
                 <div className="">
                   <div className="flex w-full">
-                    <div className="pr-4 w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"street"}
                         placeholder={"Street"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4 w-1/4 flex">
+                    <div className="flex w-1/4 pr-4">
                       <div className="w-1/2">
                         <InputRouter
                           name={"ext"}
@@ -427,7 +428,7 @@ function FormCreateUser() {
                           type={"text"}
                         />
                       </div>
-                      <div className="pl-4 w-1/2">
+                      <div className="w-1/2 pl-4">
                         <InputRouter
                           name={"int"}
                           placeholder={"Int"}
@@ -435,36 +436,36 @@ function FormCreateUser() {
                         />
                       </div>
                     </div>
-                    <div className="pr-4 w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"cp"}
                         placeholder={"CP"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4 pl-4 w-1/4">
+                    <div className="w-1/4 pl-4 pr-4">
                       <FileRouter
                         name={"address_voucher"}
                         label={"Adress Voucher"}
                       />
                     </div>
                   </div>
-                  <div className="flex mt-2">
-                    <div className="pr-4 w-1/4">
+                  <div className="mt-2 flex">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"discrict"}
                         placeholder={"Discrict"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4  w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"city"}
                         placeholder={"City"}
                         type={"text"}
                       />
                     </div>
-                    <div className="pr-4  w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"state"}
                         placeholder={"State"}
@@ -476,8 +477,8 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Emergency Contact*/}
-            <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-2xl bg-blancoForms p-5">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Emergency Contact
               </span>
               <div className="flex pt-4">
@@ -523,27 +524,27 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Academic Information*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoForms p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Academic Information
               </span>
               <div className="flex pt-4">
                 <div className="flex w-full">
-                  <div className="pr-4 w-1/3">
+                  <div className="w-1/3 pr-4">
                     <InputRouter
                       name={"company_experience"}
                       placeholder={"Company"}
                       type={"text"}
                     />
                   </div>
-                  <div className="pr-4 w-1/3">
+                  <div className="w-1/3 pr-4">
                     <InputRouter
                       name={"position_experience"}
                       placeholder={"Position"}
                       type={"text"}
                     />
                   </div>
-                  <div className="pr-4 pl-4 w-1/3">
+                  <div className="w-1/3 pl-4 pr-4">
                     <FileRouter
                       name={"academic_voucher"}
                       label={"Academic Voucher"}
@@ -553,26 +554,26 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Working Information*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoForms p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Working Information
               </span>
               <div className="flex w-full pt-4">
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"academic_grade"}
                     placeholder={"Academic Grade"}
                     options={academyGrade}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"specify_academic"}
                     placeholder={"Specify the Academic Grade"}
                     type={"text"}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"years_experience"}
                     placeholder={"Years of Experience"}
@@ -581,40 +582,40 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"working_center"}
                     placeholder={"Working Center"}
                     type={"text"}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"income_date"}
                     placeholder={"Income Date"}
                     type={"date"}
                   />
                 </div>
-                <div className="pr-4 pl-4 w-1/3">
+                <div className="w-1/3 pl-4 pr-4">
                   <FileRouter name={"cv"} label={"CV"} />
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"area"}
                     placeholder={"Area"}
                     options={selectArea}
                   />
                 </div>
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"boss"}
                     placeholder={"Boss"}
                     options={selectArea}
                   />
                 </div>
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"position"}
                     placeholder={"Position"}
@@ -623,14 +624,14 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"monthly_pay"}
                     placeholder={"Monthly Pay"}
                     type={"number"}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"income_date"}
                     placeholder={"Income Date"}
@@ -639,14 +640,14 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"contract"}
                     placeholder={"Type of Contract"}
                     options={contracts}
                   />
                 </div>
-                <div className="pr-4 w-1/3 flex">
+                <div className="flex w-1/3 pr-4">
                   <div className="w-1/2">
                     <InputRouter
                       name={"start_contract"}
@@ -664,21 +665,21 @@ function FormCreateUser() {
                 </div>
               </div>
               <div className="flex pt-4">
-                <div className="pr-4 mt-4 w-1/3">
+                <div className="mt-4 w-1/3 pr-4">
                   <SelectRouter
                     name={"bank"}
                     placeholder={"Bank"}
                     options={banks}
                   />
                 </div>
-                <div className="pr-4 w-1/3">
+                <div className="w-1/3 pr-4">
                   <InputRouter
                     name={"bank_account"}
                     placeholder={"bank Account"}
                     type={"text"}
                   />
                 </div>
-                <div className="pr-4 mt-4 pl-4 w-1/3">
+                <div className="mt-4 w-1/3 pl-4 pr-4">
                   <SelectRouter
                     name={"regulation"}
                     placeholder={"Regulation"}
@@ -688,31 +689,31 @@ function FormCreateUser() {
               </div>
             </div>
             {/*Password*/}
-            <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-2xl bg-blancoForms p-5">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Password
               </span>
               <div className="flex pt-4">
                 <div className="w-full">
                   <div className="flex w-full">
-                    <div className="pr-4 w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"password"}
                         placeholder={"********"}
                         type={"password"}
                       />
                     </div>
-                    <div className="pr-4 w-1/4">
+                    <div className="w-1/4 pr-4">
                       <InputRouter
                         name={"confirm_password"}
                         placeholder={"********"}
                         type={"password"}
                       />
                     </div>
-                    <div className="w-2/4 text-end pr-5">
+                    <div className="w-2/4 pr-5 text-end">
                       <button
                         type="submit"
-                        className="font-roboto font-semibold text-sm p-4 text-white justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+                        className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
                       >
                         Save
                       </button>
@@ -722,7 +723,7 @@ function FormCreateUser() {
               </div>
             </div>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );
@@ -734,5 +735,6 @@ export async function Action({ request }) {
 
   const validation = await saveNewUser(data);
 
+  return 1;
   //return redirect("/organization");
 }
