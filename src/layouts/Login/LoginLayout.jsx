@@ -80,18 +80,18 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blancoBg">
+    <div className="flex h-screen items-center justify-center bg-blancoBg">
       <div className="p-20">
         <div className="text-center">
-          <span className="text-grisText text-2xl font-roboto font-light">
-            Sign in
+          <span className="font-roboto text-2xl font-light text-grisText">
+            Sign in IRB
           </span>
         </div>
         <Form method="POST" action="/login">
-          <div className="border-solid border border-grisText rounded-3xl flex h-10 mt-4 w-96">
+          <div className="mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText">
             <input
               type="text"
-              className="rounded-3xl pl-5 outline-none text-sm font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg"
+              className="flex w-4/5 rounded-3xl bg-blancoBg pl-5 text-sm font-normal text-grisText outline-none outline-0"
               onKeyPress={emailChange}
               onChange={emailChange}
               placeholder="Email"
@@ -101,17 +101,17 @@ function Login() {
             {isOpen == false && (
               <IonIcon
                 icon={arrowForwardCircle}
-                className="text-grisText size-6 flex m-auto w-1/5"
+                className="m-auto flex size-6 w-1/5 text-grisText"
                 onClick={showPassword}
               ></IonIcon>
             )}
           </div>
           {isOpen && (
-            <div className="border-solid border border-grisText rounded-3xl flex h-10 mt-4 w-96">
+            <div className="mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText">
               <input
                 type="password"
                 ref={passwordInputRef}
-                className="rounded-3xl pl-5 text-sm outline-none font-normal text-grisText flex outline-0 w-4/5 bg-blancoBg"
+                className="flex w-4/5 rounded-3xl bg-blancoBg pl-5 text-sm font-normal text-grisText outline-none outline-0"
                 onChange={paswordChange}
                 placeholder="Password"
                 name="password"
@@ -122,7 +122,7 @@ function Login() {
               >
                 <IonIcon
                   icon={arrowForwardCircle}
-                  className="text-grisText size-6 flex w-1/5"
+                  className="flex size-6 w-1/5 text-grisText"
                   // onClick={submitFunction}
                 ></IonIcon>
               </button>
@@ -130,15 +130,15 @@ function Login() {
           )}
         </Form>
       </div>
-      <div className="bg-grisBg bottom-0 absolute inset-x-0">
-        <div className="flex w-screen mt-3 mb-3">
-          <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-xs text-grisText">
+      <div className="absolute inset-x-0 bottom-0 bg-grisBg">
+        <div className="mb-3 mt-3 flex w-screen">
+          <div className="w-1/10 border-2 border-transparent border-r-stone-300 p-1 pl-6 pr-6 text-xs text-grisText">
             <span>Copyright © 2024 Pixells Inc. </span>
           </div>
-          <div className="w-1/10 p-1 pr-6 pl-6 border-r-stone-300 border-transparent border-2 text-xs text-grisText">
+          <div className="w-1/10 border-2 border-transparent border-r-stone-300 p-1 pl-6 pr-6 text-xs text-grisText">
             <span>Todos los derechos reservados </span>
           </div>
-          <div className="w-1/10 p-1 pr-6 pl-6 border-2 border-transparent text-xs text-grisText">
+          <div className="w-1/10 border-2 border-transparent p-1 pl-6 pr-6 text-xs text-grisText">
             <span>Política de privacidad</span>
           </div>
           <div className="w-7/10"></div>
