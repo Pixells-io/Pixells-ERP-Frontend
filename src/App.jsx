@@ -374,7 +374,6 @@ const router = createBrowserRouter([
         element: <LayoutChat />,
         loader: multiLoaderChat,
         children: [
-          { index: true },
           {
             path: "/chat/:id",
             element: <MainChat />,

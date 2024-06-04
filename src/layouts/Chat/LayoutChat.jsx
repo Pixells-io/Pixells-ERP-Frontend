@@ -22,7 +22,7 @@ function LayoutChat() {
   useEffect(() => {
     pusherClient.subscribe("private-get-chat-list");
 
-    pusherClient.bind("fill-chat-messages", ({ list }) => {
+    pusherClient.bind("fill-chat-list", ({ list }) => {
       getChatsList();
     });
 
@@ -32,33 +32,36 @@ function LayoutChat() {
   }, []);
 
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
-      <div className="flex flex-col rounded-xl bg-gris gap-4 w-[450px] shrink-0">
+    <div className="flex h-full px-4 pb-4 font-roboto">
+      <div className="flex w-[450px] shrink-0 flex-col gap-4 rounded-xl bg-gris">
         {/* top block */}
-        <Tabs defaultValue="internal" className="w-fullpt-6">
-          <TabsList className="bg-transparent w-full mb-3">
+        <Tabs
+          defaultValue="internal"
+          className="h-screen w-full overflow-scroll pt-6"
+        >
+          <TabsList className="mb-3 w-full bg-transparent">
             <TabsTrigger
-              className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones bg-transparent data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+              className="rounded-none border-b-2 border-slate-300 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
               value="internal"
             >
               INTERNAL
             </TabsTrigger>
             <TabsTrigger
-              className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+              className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
               value="whatsapp"
             >
               WHATSAPP
             </TabsTrigger>
             <TabsTrigger
-              className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+              className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
               value="meta"
             >
               META
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="internal" className="h-full">
+          <TabsContent value="internal" className="h-screen">
             <InternalSearch users={users.data} />
-            <div className="px-5 bg-[#FBFBFB]">
+            <div className="h-auto overflow-hidden rounded-b-md bg-[#FBFBFB]">
               {chatListPusher?.map((chat, i) => (
                 <div>
                   <ChatList chat={chat} />

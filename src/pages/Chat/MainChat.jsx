@@ -83,28 +83,29 @@ function MainChat() {
       ];
     }
   });
+  console.log(infoUser[0].id);
 
   return (
-    <div className="bg-[#FBFBFB] mx-5 rounded-xl flex flex-col overflow-scroll w-screen relative justify-between">
+    <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
       {/* Chat Header */}
-      <div className="bg-gris px-6 rounded-t-xl py-4 flex absolute top-0 left-0 right-0 sticky z-10">
-        <div className="w-1/12 m-auto">
+      <div className="absolute sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
+        <div className="m-auto w-1/12">
           <img
             src="https://i.scdn.co/image/ab6761610000e5eb153fc7a135b27d664160204b"
             width="55px"
             className="rounded-full"
           />
         </div>
-        <div className="w-10/12 m-auto">
-          <span className="font-poppins font-semibold text-lg text-grisHeading">
+        <div className="m-auto w-10/12">
+          <span className="font-poppins text-lg font-semibold text-grisHeading">
             {infoUser[0].title}
           </span>
         </div>
-        <div className="w-1/12 m-auto*"></div>
+        <div className="m-auto* w-1/12"></div>
       </div>
       {/* Chat Card Messages */}
       <div className="">
-        <div className="px-12 py-3 w-full h-full flex justify-end overflow-y-auto flex-col-reverse">
+        <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
           {chatPusher[0].msg.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
@@ -112,32 +113,32 @@ function MainChat() {
         </div>
       </div>
       {/* Chat Card Footer */}
-      <div className="bg-[#E0E0E0] rounded-b-xl px-5 py-2 flex absolute bottom-0 left-0 right-0 sticky z-10">
+      <div className="absolute sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#E0E0E0] px-5 py-2">
         <div className="w-5/6 px-5">
           <input
             type="text"
             ref={inputMsg}
             onKeyPress={sendMensageEnter}
-            className="w-full font-roboto font-light text-grisText px-4 py-2 rounded-xl ring-0"
+            className="w-full rounded-xl px-4 py-2 font-roboto font-light text-grisText ring-0"
             placeholder="Type your message..."
           />
         </div>
-        <div className="w-1/6 flex m-auto">
+        <div className="m-auto flex w-1/6">
           <IonIcon
             icon={send}
             size="large"
-            className="text-grisText px-2 hover:text-primario"
+            className="px-2 text-grisText hover:text-primario"
             onClick={sendMensage}
           ></IonIcon>
           <IonIcon
             icon={mic}
             size="large"
-            className="text-grisText px-2 hover:text-primario"
+            className="px-2 text-grisText hover:text-primario"
           ></IonIcon>
           <IonIcon
             icon={addCircle}
             size="large"
-            className="text-grisText px-2 hover:text-primario"
+            className="px-2 text-grisText hover:text-primario"
           ></IonIcon>
         </div>
       </div>
