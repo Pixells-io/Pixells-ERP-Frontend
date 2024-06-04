@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 
 import { saveNewImage } from "./utils";
 import {
@@ -19,7 +19,7 @@ import Cookies from "js-cookie";
 function Sopas() {
   const [image, setImage] = useState("");
 
-  function handleImage(e) {
+  /*function handleImage(e) {
     setImage(e.target.files[0]);
   }
 
@@ -29,7 +29,7 @@ function Sopas() {
     formData.append("image", image);
 
     Action(formData);
-  }
+  }*/
 
   return (
     <div>
@@ -45,13 +45,18 @@ function Sopas() {
           <DropdownMenuContent className="w-72 overflow-scroll">
             <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex h-full flex-col gap-2">
-              <input type="text" name="text" />
-              <input type="file" onChange={handleImage} name="file" />
-              <button type="button" onClick={handleApi}>
-                Prueba
-              </button>
-            </div>
+            <Form
+              id="send-sopas"
+              encType="multipart/form-data"
+              action="/organization/sopas"
+              method="post"
+            >
+              <div className="flex h-full flex-col gap-2">
+                <input type="text" name="text" />
+                <input type="file" name="file" />
+                <Button form="send-sopas">Sopas</Button>
+              </div>
+            </Form>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -61,10 +66,17 @@ function Sopas() {
 
 export default Sopas;
 
-export async function Action(formData) {
-  const validation = await saveNewImage(formData);
+export async function Action({ request }) {
+  const data = await request.formData();
 
-  return redirect("/organization/sopas");
+  const formData = new FormData();
+
+  formData.append("image", data.get("file"));
+
+  console.log(data.get("file"), formData);
+  /*const validation = await saveNewImage(formData);*/
+
+  //return redirect("/organization/sopas");
 
   return 1;
 }
