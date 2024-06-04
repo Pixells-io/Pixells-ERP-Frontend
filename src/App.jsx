@@ -120,13 +120,12 @@ import {
   getTicket,
   getEvaluations,
   getEvaluationSimple,
+  getMenu360,
+  getEvalsType,
 } from "./lib/actions";
 
 //Not Found
 import NotFound from "./components/NotFound";
-
-// Prueba
-import Sopas, { Action as newImage } from "./pages/Organization/Sopas";
 
 // DEV ORG
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
@@ -165,6 +164,7 @@ import ShowTickets from "./pages/Tickets/ShowTickets";
 import SideLayoutTicketsShow, {
   Action as FollowUpTicket,
 } from "./layouts/Tickets/SideLayoutTicketsShow";
+import EvalExams from "./pages/OrgDev/Evaluation/components/EvalExams";
 
 const router = createBrowserRouter([
   {
@@ -324,11 +324,6 @@ const router = createBrowserRouter([
             loader: getAreas,
             action: newPosition,
           },
-          {
-            path: "/organization/sopas",
-            element: <Sopas />,
-            action: newImage,
-          },
         ],
       },
       // project manager
@@ -454,6 +449,15 @@ const router = createBrowserRouter([
           {
             path: "/org-development/evaluation/360",
             element: <Main360 />,
+            loader: getMenu360,
+            children: [
+              {
+                path: "/org-development/evaluation/360/:id",
+                element: <EvalExams />,
+                // loader: getEvalsType,
+                loader: getEvalsType,
+              },
+            ],
           },
           //Exam
           {

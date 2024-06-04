@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
+import { NavLink, Outlet, useLoaderData } from "react-router-dom";
 
 const PEOPLE = [
   {
@@ -30,6 +31,8 @@ const PEOPLE = [
   },
 ];
 function Main360() {
+  const { data } = useLoaderData();
+  // console.log(data);
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -95,63 +98,21 @@ function Main360() {
 
         {/* examen */}
         <div className="h-full rounded-lg bg-blancoBg pt-2">
-          <Tabs
-            defaultValue="autoevaluacion"
-            className="rounded-lg bg-blancoBg pt-2"
-          >
-            <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
-              <TabsTrigger
-                value="autoevaluacion"
-                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                AUTOEVALUACION
-              </TabsTrigger>
-              <TabsTrigger
-                value="jefe"
-                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                JEFE
-              </TabsTrigger>
-              <TabsTrigger
-                value="par-1"
-                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                COMPAÑERO PAR 1
-              </TabsTrigger>
-              <TabsTrigger
-                value="par-2"
-                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                COMPAÑERO PAR 2
-              </TabsTrigger>
+          <Tabs className="rounded-lg bg-blancoBg pt-2">
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              {data?.map((tab, i) => (
+                <TabsTrigger
+                  key={i}
+                  value={tab?.name}
+                  className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                >
+                  <NavLink to={`/org-development/evaluation/360/${tab.type}`}>
+                    {tab?.name}
+                  </NavLink>
+                </TabsTrigger>
+              ))}
             </TabsList>
-            <TabsContent value="autoevaluacion" className="">
-              <div className="flex flex-col pt-2">
-                <div className="flex justify-center gap-3">
-                  <p className="rounded-full bg-grisHeading px-3 py-1 text-[10px] font-medium text-white">
-                    Liderazgo
-                  </p>
-                  <p className="rounded-full border border-grisHeading px-3 py-1 text-[10px] font-medium text-grisHeading">
-                    Comunicación Efectiva
-                  </p>
-                  <p className="rounded-full border border-grisHeading px-3 py-1 text-[10px] font-medium text-grisHeading">
-                    Gestión del cambio
-                  </p>
-                  <p className="rounded-full border border-grisHeading px-3 py-1 text-[10px] font-medium text-grisHeading">
-                    Orientación a resultados
-                  </p>
-                  <p className="rounded-full border border-grisHeading px-3 py-1 text-[10px] font-medium text-grisHeading">
-                    Proactividad
-                  </p>
-                  <p className="rounded-full border border-grisHeading px-3 py-1 text-[10px] font-medium text-grisHeading">
-                    Etica e Integridad
-                  </p>
-                </div>
-              </div>
-            </TabsContent>
-            <TabsContent className="" value="jefe"></TabsContent>
-            <TabsContent className="" value="par-1"></TabsContent>
-            <TabsContent className="" value="par-2"></TabsContent>
+            <Outlet />
           </Tabs>
         </div>
       </div>

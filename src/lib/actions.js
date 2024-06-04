@@ -815,3 +815,35 @@ export async function getEvaluationSimple({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getMenu360() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/get-360-menu`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getEvalsType({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/get-evaluations-type/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

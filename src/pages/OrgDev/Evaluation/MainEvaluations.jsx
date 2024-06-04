@@ -134,7 +134,7 @@ function MainEvaluations() {
           ></IonIcon>
         </div>
 
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="h-full overflow-scroll rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
