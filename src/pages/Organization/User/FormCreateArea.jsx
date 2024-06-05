@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Select from "react-select";
+import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 
 import { Form } from "react-router-dom";
 import {
@@ -9,55 +11,65 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import FormInput from "@/layouts/CRM/components/Form/FormInput";
-
 import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
-import { Input } from "@/components/ui/input";
+import { add, addCircle, closeCircle } from "ionicons/icons";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+
+const DAYS = [
+  { label: "Lunes", value: "lunes" },
+  { label: "Martes", value: "martes" },
+  { label: "Miércoles", value: "miércoles" },
+  { label: "Jueves", value: "jueves" },
+  { label: "Viernes", value: "viernes" },
+  { label: "Sábado", value: "sábado" },
+  { label: "Domingo", value: "domingo" },
+];
 
 function FormCreateArea({ modal, setModal }) {
   const [processValue, setProcessValue] = useState([]);
   const [processInputs, setProcessInputs] = useState([
     {
-      name: "proceso",
-      type: "text",
-      placeholder: "Process of the area",
-      value: "",
+      proceso: "",
     },
   ]);
 
-  const handleChange = (event, index) => {
-    const { value } = event.target;
-    const newInputs = [...processInputs];
-    newInputs[index].value = value;
-    setProcessInputs(newInputs);
-  };
+  function addProcessField() {
+    const processInput = {
+      proceso: "",
+    };
 
-  useEffect(() => {
-    const values = processInputs.map((input, i) => input.value);
-    setProcessValue(values);
-  }, [processInputs]);
+    setProcessInputs([...processInputs, processInput]);
+  }
+
+  function removeProcessField(index) {
+    const newFields = processInputs.filter((item, i) => index !== i);
+    console.log(newFields);
+    setProcessInputs(newFields);
+  }
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
-        <DialogHeader>
-          <DialogTitle className="font-poppins">Create Area</DialogTitle>
+      <DialogContent className="h-[50vh] max-h-[50vh] overflow-auto p-0 sm:max-w-[425px]">
+        <DialogHeader className="border-b pt-2">
+          <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
+            Create Area
+          </DialogTitle>
         </DialogHeader>
         <Form
           id="area-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-full w-full flex-col gap-3 px-6"
           action="/organization"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
-              <FormInput
+          <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
+            <div className="flex w-full flex-col gap-3 pb-4 font-light">
+              <InputRouter
                 name="nombre"
                 type="text"
                 placeholder="Name of the area"
               />
-              <FormInput
+
+              <InputRouter
                 name="descripcion"
                 type="text"
                 placeholder="Description of the area"
@@ -69,52 +81,67 @@ function FormCreateArea({ modal, setModal }) {
                 readOnly
                 value={processValue}
               />
-              {processInputs?.map((input, i) => (
-                <Input
-                  className="border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b-2 rounded-none bg-transparent !ring-0 !ring-offset-0"
-                  key={i}
-                  name={input.name}
-                  type={input.text}
-                  placeholder={input.placeholder}
-                  value={input.value}
-                  onChange={(e) => handleChange(e, i)}
-                />
-              ))}
-              <button
-                onClick={() =>
-                  setProcessInputs([
-                    ...processInputs,
-                    {
-                      name: "proceso",
-                      type: "text",
-                      placeholder: "Process of the area",
-                    },
-                  ])
-                }
-                type="button"
-                className="flex self-end bg-primario rounded-full h-6 w-6 items-center"
-              >
-                <IonIcon
-                  icon={add}
-                  size="large"
-                  className="text-white"
-                ></IonIcon>
-              </button>
+              <div className="flex w-full items-center gap-3">
+                <div className="flex w-full flex-col gap-3">
+                  {processInputs?.map((input, i) => (
+                    <div className="flex w-full gap-3">
+                      <InputRouter
+                        key={i}
+                        name="proceso"
+                        placeholder="Process"
+                      />
+                      {i >= 1 ? (
+                        <button
+                          type="button"
+                          className="flex items-center"
+                          onClick={() => removeProcessField(i)}
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            size=""
+                            className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                          ></IonIcon>
+                        </button>
+                      ) : (
+                        <div className="w-5"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex self-center">
+                  {processInputs.length <= 4 ? (
+                    <button
+                      className="flex h-6 w-6 items-center rounded-full bg-primario"
+                      onClick={() => addProcessField()}
+                      type="button"
+                    >
+                      <IonIcon
+                        icon={add}
+                        size="large"
+                        className="text-white"
+                      ></IonIcon>
+                    </button>
+                  ) : (
+                    <div className="w-6"></div>
+                  )}
+                </div>
+              </div>
 
-              <FormInput
+              <SelectRouter
                 name="tipo_horario"
-                type="text"
-                placeholder="Type of turn"
+                placeholder={"Working Days"}
+                options={DAYS}
+                isMulti={true}
               />
-              <FormInput name="inicio" type="time" placeholder="Start" />
-              <FormInput name="fin" type="time" placeholder="End" />
+              <InputRouter name="inicio" type="time" placeholder="Start" />
+              <InputRouter name="fin" type="time" placeholder="End" />
             </div>
           </div>
         </Form>
-        <DialogFooter className="h-auto">
+        <DialogFooter className="px-10 pb-6">
           <Button
             form="area-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
           >
             Save
           </Button>
