@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { personCircle } from "ionicons/icons";
+
 import { IonIcon } from "@ionic/react";
+import { personCircle } from "ionicons/icons";
 
 function UserImage({ name, label }) {
   const [yourImage, setYourImage] = useState([]);

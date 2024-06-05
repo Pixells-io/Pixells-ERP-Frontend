@@ -6,6 +6,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import UserImage from "@/layouts/Masters/FormComponents/userImage";
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function BusinessInformationForm({ users }) {
   const selectUsers = [];
@@ -36,7 +37,8 @@ function BusinessInformationForm({ users }) {
           <div className="flex">
             <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
               <div className="text-center">
-                <UserImage name={"logo"} label={"Company Logo"} />
+                {/* <UserImage name={"logo"} label={"Company Logo"} /> */}
+                <DropzoneImage />
               </div>
               <InputRouter
                 name={"business_email"}
