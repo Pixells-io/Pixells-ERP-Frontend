@@ -8,7 +8,7 @@ function SelectRouter({ options, name, placeholder }) {
       options={options}
       name={name}
       placeholder={placeholder}
-      className="text-sm font-light"
+      className="w-full text-sm font-light"
     />
   );
 }

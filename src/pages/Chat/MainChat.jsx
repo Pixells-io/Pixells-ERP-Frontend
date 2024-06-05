@@ -3,27 +3,61 @@ import { SearchAction } from "@/layouts/Chat/utils";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { getChatWithId, storeMensagge } from "./utils";
 import Cookies from "js-cookie";
 import { pusherClient } from "@/lib/pusher";
 
 function MainChat() {
+  const { id } = useParams();
   const { chat, user } = useLoaderData();
 
   const [initialData, setInitialData] = useState(chat.data);
   const [chatPusher, setChatPusher] = useState(initialData);
   const [typingMesagge, setTypingData] = useState(false);
+  // const [userSelected, setSelectedUser] = useState(user);
+
+  const scrollBox = useRef(null);
 
   const CurrentUserId = user.data.id;
 
-  async function getMensajes() {
-    let newData = await getChatWithId(chat.data[0].id);
+  useEffect(() => {
+    console.log(id);
+    scrollBottom();
+    pusherClient.subscribe(`private-get-chat.${id}`);
 
-    setChatPusher(newData.data);
-  }
+    pusherClient.bind("fill-chat-messages", ({ chat }) => {
+      getMensajes(chat);
+      scrollBottom();
+    });
 
-  const scrollBox = useRef(null);
+    async function getMensajes() {
+      console.log("get msgs");
+      let newData = await getChatWithId(chat.data[0].id);
+
+      setChatPusher(newData.data);
+    }
+    getMensajes();
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-chat.${id}`);
+    };
+  }, [id, chat]);
+
+  // useEffect(() => {
+  //   async function getMensajes() {
+  //     let newData = await getChatWithId(chat.data[0].id);
+
+  //     setChatPusher(newData.data);
+  //   }
+  //   getMensajes();
+  // }, [chat]);
+
+  // async function getMensajes() {
+  //   let newData = await getChatWithId(chat.data[0].id);
+
+  //   setChatPusher(newData.data);
+  // }
 
   function scrollBottom() {
     setTimeout(() => {
@@ -32,20 +66,6 @@ function MainChat() {
       });
     }, 500);
   }
-
-  useEffect(() => {
-    scrollBottom();
-    pusherClient.subscribe(`private-get-chat.${chat.data[0].id}`);
-
-    pusherClient.bind("fill-chat-messages", ({ chat }) => {
-      getMensajes(chat);
-      scrollBottom();
-    });
-
-    return () => {
-      pusherClient.unsubscribe(`private-get-chat.${chat.data[0].id}`);
-    };
-  }, []);
 
   const inputMsg = useRef(null);
 
@@ -83,7 +103,8 @@ function MainChat() {
       ];
     }
   });
-  console.log(infoUser[0].id);
+  // console.log(infoUser[0].id);
+  // console.log(chatPusher[0].participants[0].name);
 
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
@@ -98,7 +119,7 @@ function MainChat() {
         </div>
         <div className="m-auto w-10/12">
           <span className="font-poppins text-lg font-semibold text-grisHeading">
-            {infoUser[0].title}
+            {chatPusher[0].participants[0].name}
           </span>
         </div>
         <div className="m-auto* w-1/12"></div>
@@ -107,7 +128,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatPusher[0].msg.map((mensagge, i) => (
+          {chatPusher[0]?.msg.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>

@@ -12,8 +12,8 @@ function FileRouter({ name, label }) {
         acceptedFiles.map((upFile) =>
           Object.assign(upFile, {
             preview: URL.createObjectURL(upFile),
-          })
-        )
+          }),
+        ),
       );
     },
   });
@@ -22,7 +22,7 @@ function FileRouter({ name, label }) {
     <div>
       <div
         {...getRootProps()}
-        className="bg-[#DEE5F5] text-center font-light pt-4 pb-4 text-primario rounded-2xl border-2 border-dashed border-primario"
+        className="rounded-2xl border-2 border-dashed border-primario bg-[#DEE5F5] pb-4 pt-4 text-center font-light text-primario"
       >
         <input {...getInputProps()} name={name} />
         {isDragActive ? <p> Drop the {label} here... </p> : <p> {label} </p>}
