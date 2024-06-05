@@ -4,26 +4,30 @@ import { personCircle } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function UserImage({ name, label }) {
-  const [yourImage, setImage] = useState([]);
+  const [yourImage, setYourImage] = useState([]);
+  const [envio, setEnvio] = useState([]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "pdf/*",
-    onDrop: (acceptedFiles) => {
-      setImage(
-        acceptedFiles.map((upFile) =>
-          Object.assign(upFile, {
-            preview: URL.createObjectURL(upFile),
-          }),
-        ),
-      );
-    },
-  });
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({
+      accept: "img/*",
+      onDrop: (acceptedFiles) => {
+        setYourImage(
+          acceptedFiles.map((upFile) =>
+            Object.assign(upFile, {
+              preview: URL.createObjectURL(upFile),
+            }),
+          ),
+        );
+        setEnvio(acceptedFiles);
+      },
+    });
   if (yourImage.length > 0) {
     /*in this case have a img*/
     return (
       <div>
         <div className="pb-4 pt-3">
           {yourImage.map((upFile, i) => {
+            console.log(upFile);
             return (
               <div key={i} {...getRootProps()}>
                 <input {...getInputProps()} name={name} />

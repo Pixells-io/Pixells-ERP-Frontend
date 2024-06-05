@@ -124,6 +124,8 @@ import {
   getEvalsType,
   multiloaderShowTickets,
   multiLoaderAreasPositions,
+  getUsers,
+  getBusinessInformation,
 } from "./lib/actions";
 
 //Not Found
@@ -167,6 +169,11 @@ import SideLayoutTicketsShow, {
   Action as FollowUpTicket,
 } from "./layouts/Tickets/SideLayoutTicketsShow";
 import EvalExams from "./pages/OrgDev/Evaluation/components/EvalExams";
+import SideLayoutConfiguration, {
+  Action as UpdateBusinessInformation,
+} from "./layouts/Configuration/SideLayoutConfiguration";
+import InformationShow from "./pages/Configurations/InformationShow";
+import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
 
 const router = createBrowserRouter([
   {
@@ -496,6 +503,29 @@ const router = createBrowserRouter([
             index: true,
             element: <ShowTickets />,
             loader: multiloaderShowTickets,
+          },
+        ],
+      },
+      {
+        path: "/configuration",
+        element: <SideLayoutConfiguration />,
+        children: [
+          {
+            index: true,
+            element: <InformationShow />,
+            loader: getBusinessInformation,
+          },
+        ],
+      },
+      {
+        path: "/configuration/create",
+        element: <SideLayoutConfiguration />,
+        action: UpdateBusinessInformation,
+        children: [
+          {
+            index: true,
+            element: <InformationCreateShow />,
+            loader: getUsers,
           },
         ],
       },

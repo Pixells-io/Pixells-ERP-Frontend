@@ -862,3 +862,20 @@ export async function getEvalsType({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+//CONFIGURATION ROUTES
+export async function getBusinessInformation() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}configuration/get-business-information`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

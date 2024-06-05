@@ -34,6 +34,7 @@ import {
   toggle,
   desktop,
   logOut,
+  cog,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import Cookies from "js-cookie";
@@ -44,12 +45,12 @@ import NotificationBell from "./components/NotificationBell";
 const MENU = [
   {
     path: "/organization",
-    name: "organization",
+    name: "Organization",
     icon: personCircle,
   },
   {
     path: "/project-manager",
-    name: "project manager",
+    name: "Project Manager",
     icon: flag,
   },
   {
@@ -59,23 +60,28 @@ const MENU = [
   },
   {
     path: "/chat",
-    name: "chat",
+    name: "Chat",
     icon: chatbubble,
   },
   {
     path: "/analytics",
-    name: "analytics",
+    name: "Analytics",
     icon: barChart,
   },
   {
     path: "/org-development",
-    name: "org dev",
+    name: "Org Dev",
     icon: people,
   },
   {
     path: "/tickets",
-    name: "ticket",
+    name: "Ticket",
     icon: ticket,
+  },
+  {
+    path: "/configuration",
+    name: "Config",
+    icon: cog,
   },
 ];
 
@@ -104,8 +110,8 @@ function MainLayout() {
   }
 
   return (
-    <div className="flex flex-col h-screen min-h-0">
-      <div className="flex justify-between items-center p-3 h-[56px]">
+    <div className="flex h-screen min-h-0 flex-col">
+      <div className="flex h-[56px] items-center justify-between p-3">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <IonIcon
@@ -114,7 +120,7 @@ function MainLayout() {
               className="text-grisHeading"
             ></IonIcon>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="grid grid-cols-3 ml-4 gap-4 ">
+          <DropdownMenuContent className="ml-4 grid grid-cols-3 gap-4">
             {MENU.map((item, i) => (
               <DropdownMenuItem key={i} className="focus:bg-transparent">
                 <div className="flex flex-col">
@@ -122,18 +128,18 @@ function MainLayout() {
                     to={item.path}
                     className={({ isActive }) =>
                       isActive
-                        ? "flex flex-col items-center justify-center w-20 h-16 group bg-primario rounded-2xl text-white"
-                        : "flex flex-col items-center justify-center w-20 h-16 group bg-blancoBox rounded-2xl text-grisText hover:bg-primario hover:text-white"
+                        ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
+                        : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
                     }
                   >
-                    <IonIcon icon={item.icon} className="w-10 h-10"></IonIcon>
+                    <IonIcon icon={item.icon} className="h-10 w-10"></IonIcon>
                     {location?.pathname === item.path ? (
-                      <div className="text-[10px] w-11 truncate">
+                      <div className="w-11 truncate text-[10px]">
                         <p className="text-center">{item.name}</p>
                       </div>
                     ) : (
-                      <div className="hidden group-hover:flex text-[10px] w-11 truncate ">
-                        <p className="group-hover:flex group-hover:mx-auto">
+                      <div className="hidden w-11 truncate text-[10px] group-hover:flex">
+                        <p className="group-hover:mx-auto group-hover:flex">
                           {item.name}
                         </p>
                       </div>
@@ -146,7 +152,7 @@ function MainLayout() {
         </DropdownMenu>
 
         {/* notification center */}
-        <div className="flex justify-evenly items-center gap-16">
+        <div className="flex items-center justify-evenly gap-16">
           <div className="flex gap-6">
             <div></div>
             <div className="flex gap-3">
@@ -184,7 +190,7 @@ function MainLayout() {
                     </Avatar>
                   </div>
                   <div>
-                    <p className="text-grisText font-semibold text-base">
+                    <p className="text-base font-semibold text-grisText">
                       {user.name}&nbsp;{user.last_name}&nbsp;
                       {user.second_last_name}
                     </p>
@@ -195,28 +201,28 @@ function MainLayout() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-blancoBox" />
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={person} className="h-5 w-5"></IonIcon>
                 My Profile
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
                 Notifications
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
                 Dashboards
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
                 Saved
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={toggle} className="h-5 w-5"></IonIcon>
                 Dark Mode
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex gap-4 ml-4 text-grisText">
+              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={desktop} className="h-5 w-5"></IonIcon>
                 Downloads
               </DropdownMenuItem>
@@ -236,7 +242,7 @@ function MainLayout() {
         </div>
       </div>
 
-      <div className="flex-grow h-full min-h-0">
+      <div className="h-full min-h-0 flex-grow">
         <Outlet />
       </div>
     </div>
