@@ -69,6 +69,9 @@ export default SideLayoutConfiguration;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  // const logo = data.get("logo");
+  // console.log(data.get("logo"));
+  // console.log(JSON.stringify(logo));
 
   //const validation = await saveBusinessInformation(data);
 

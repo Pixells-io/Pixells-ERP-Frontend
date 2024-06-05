@@ -871,6 +871,7 @@ export async function getBusinessInformation() {
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
+          // "Content-Type": "application/json",
         },
       },
     );

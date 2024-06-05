@@ -10,7 +10,6 @@ function DropzoneImage() {
 
   const handleDrop = (acceptedFiles) => {
     // Logic for handling the dropped files
-    setUploadedFiles(acceptedFiles);
     setYourImage(
       acceptedFiles.map((upFile) =>
         Object.assign(upFile, {
@@ -22,23 +21,16 @@ function DropzoneImage() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,
-    accept: "image/*, .pdf, .doc, .docx",
+    accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
     multiple: true,
   });
   return (
     <div className="upload-container">
-      <input
-        type="text"
-        className="hidden"
-        value={uploadedFiles}
-        readOnly
-        name="logo"
-      />
       <div
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "active" : ""}`}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} name="logo" />
         {isDragActive ? (
           <p>Drop the file here</p>
         ) : (
