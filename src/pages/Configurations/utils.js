@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
-export async function saveBusinessInformation(data, formDataLogo) {
+export async function saveBusinessInformation(data) {
   const info = {
     business_email: data.get("business_email"),
     user_master_id: data.get("user_master_id"),
@@ -23,15 +23,17 @@ export async function saveBusinessInformation(data, formDataLogo) {
     more_info: data.get("more_info"),
   };
 
-  const logo = data.get("logo");
+  const formData = new FormData();
 
-  console.log(formDataLogo);
+  formData.append("logo", data.get("logo"));
+
+  formData.append("info", JSON.stringify(info));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}configuration/store-business-information`,
     {
       method: "POST",
-      body: formDataLogo,
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

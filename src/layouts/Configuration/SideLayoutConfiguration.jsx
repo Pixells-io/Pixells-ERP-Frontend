@@ -70,11 +70,7 @@ export default SideLayoutConfiguration;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const formData = new FormData();
-
-  formData.append("logo", data.get("logo"));
-
-  const validation = await saveBusinessInformation(data, formData);
+  const validation = await saveBusinessInformation(data);
 
   return 1;
 }
