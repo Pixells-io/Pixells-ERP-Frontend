@@ -14,6 +14,8 @@ import TopMenu from "../Masters/Menus/TopMenu";
 import {
   saveFollowUpTicket,
   saveFollowUpTicketComments,
+  saveTicketFinish,
+  saveTicketResponsible,
 } from "@/pages/Tickets/utils";
 
 function SideLayoutTicketsShow() {
@@ -21,45 +23,45 @@ function SideLayoutTicketsShow() {
 
   const ticket = data[0];
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
+    <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 w-[280px]">
+        <div className="flex w-[280px] flex-col gap-4 rounded-lg bg-gris px-8 py-4">
           <TopMenu main={"/tickets"} />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4 w-[280px] overflow-auto">
-          <p className="font-semibold text-base font-poppins text-grisHeading px-4">
+        <div className="flex h-full w-[280px] flex-col gap-4 overflow-auto rounded-md bg-gris p-4">
+          <p className="px-4 font-poppins text-base font-semibold text-grisHeading">
             Information
           </p>
 
           {/*menu top */}
-          <div className="flex flex-col gap-4 ml-4">
-            <div className="border border-grisHeading rounded-full px-2 py-1 w-28 text-center">
+          <div className="ml-4 flex flex-col gap-4">
+            <div className="w-28 rounded-full border border-grisHeading px-2 py-1 text-center">
               <span className="font-roboto text-[10px] text-grisHeading">
                 {ticket.date}
               </span>
             </div>
             {/* Info Card */}
             <div className="pt-3">
-              <p className="font-semibold text-base font-poppins text-grisHeading">
+              <p className="font-poppins text-base font-semibold text-grisHeading">
                 {ticket.issue}
               </p>
               {/* Created Days Count Card */}
-              <div className="flex mt-5">
-                <div className="w-1/5 text-center bg-blancoBox2 rounded-xl px-4 py-2">
-                  <span className="text-grisText text-3xl">
+              <div className="mt-5 flex">
+                <div className="w-1/5 rounded-xl bg-blancoBox2 px-4 py-2 text-center">
+                  <span className="text-3xl text-grisText">
                     {ticket.created}
                   </span>
                 </div>
-                <div className="w-4/5 ml-4">
+                <div className="ml-4 w-4/5">
                   <div className="mt-1">
-                    <span className="text-base text-grisText font-medium">
+                    <span className="text-base font-medium text-grisText">
                       Created
                     </span>
                   </div>
-                  <div className="mt-[-5px] ">
+                  <div className="mt-[-5px]">
                     <span className="text-[10px] font-medium text-grisSubText">
                       Days Ago
                     </span>
@@ -67,17 +69,17 @@ function SideLayoutTicketsShow() {
                 </div>
               </div>
               {/* Created By Card */}
-              <div className="flex mt-5">
-                <div className="w-1/5 text-center bg-blancoBox2 rounded-xl">
-                  <img src={ticket.user_img} className=" rounded-xl" />
+              <div className="mt-5 flex">
+                <div className="w-1/5 rounded-xl bg-blancoBox2 text-center">
+                  <img src={ticket.user_img} className="rounded-xl" />
                 </div>
-                <div className="w-4/5 ml-4">
+                <div className="ml-4 w-4/5">
                   <div className="mt-1">
-                    <span className="text-base text-grisText font-medium">
+                    <span className="text-base font-medium text-grisText">
                       Created
                     </span>
                   </div>
-                  <div className="mt-[-5px] ">
+                  <div className="mt-[-5px]">
                     <span className="text-[10px] font-medium text-grisSubText">
                       {ticket.creator}
                     </span>
@@ -85,19 +87,19 @@ function SideLayoutTicketsShow() {
                 </div>
               </div>
               {/* Updated Days Count Card */}
-              <div className="flex mt-5">
-                <div className="w-1/5 text-center bg-[#D7586B40] rounded-xl px-4 py-2">
-                  <span className="text-[#D7586B] text-3xl">
+              <div className="mt-5 flex">
+                <div className="w-1/5 rounded-xl bg-[#D7586B40] px-4 py-2 text-center">
+                  <span className="text-3xl text-[#D7586B]">
                     {ticket.updated}
                   </span>
                 </div>
-                <div className="w-4/5 ml-4">
+                <div className="ml-4 w-4/5">
                   <div className="mt-1">
-                    <span className="text-base text-grisText font-medium">
+                    <span className="text-base font-medium text-grisText">
                       Updated
                     </span>
                   </div>
-                  <div className="mt-[-5px] ">
+                  <div className="mt-[-5px]">
                     <span className="text-[10px] font-medium text-grisSubText">
                       Days Ago
                     </span>
@@ -105,39 +107,39 @@ function SideLayoutTicketsShow() {
                 </div>
               </div>
               {/* Status Bar */}
-              <div className="flex mt-6 gap-6">
+              <div className="mt-6 flex gap-6">
                 {ticket.importance === "Low" ? (
-                  <span className="text-xs border border-blue-500 text-blue-500 px-3 py-1 rounded-2xl font-medium">
+                  <span className="rounded-2xl border border-blue-500 px-3 py-1 text-xs font-medium text-blue-500">
                     {ticket.importance}
                   </span>
                 ) : ticket.importance === "Medium" ? (
-                  <span className="text-xs border border-orange-600 text-orange-600 px-3 py-1 rounded-2xl font-medium">
+                  <span className="rounded-2xl border border-orange-600 px-3 py-1 text-xs font-medium text-orange-600">
                     {ticket.importance}
                   </span>
                 ) : (
-                  <span className="text-xs border border-red-600 text-red-600 px-3 py-1 rounded-2xl font-medium">
+                  <span className="rounded-2xl border border-red-600 px-3 py-1 text-xs font-medium text-red-600">
                     {ticket.importance}
                   </span>
                 )}
-                <span className="text-xs border border-black px-3 py-1 rounded-2xl font-medium">
+                <span className="rounded-2xl border border-black px-3 py-1 text-xs font-medium">
                   {ticket.status}
                 </span>
               </div>
               {/* Description Bar */}
               <div>
-                <p className="font-semibold text-base font-poppins text-grisHeading mt-6">
+                <p className="mt-6 font-poppins text-base font-semibold text-grisHeading">
                   Description
                 </p>
-                <span className="text-xs font-normal font-roboto text-grisSubText">
+                <span className="font-roboto text-xs font-normal text-grisSubText">
                   {ticket.description}
                 </span>
               </div>
               {/* Category */}
               <div>
-                <p className="font-semibold text-base font-poppins text-grisHeading mt-4 mb-2">
+                <p className="mb-2 mt-4 font-poppins text-base font-semibold text-grisHeading">
                   Category
                 </p>
-                <span className="text-xs border bg-primario text-white px-3 py-1 rounded-2xl font-medium">
+                <span className="rounded-2xl border bg-primario px-3 py-1 text-xs font-medium text-white">
                   {ticket.category}
                 </span>
               </div>
@@ -163,6 +165,10 @@ export async function Action({ request }) {
     case "2":
       //Follow Up Comments
       await saveFollowUpTicketComments(data);
+      break;
+    case "3":
+      //Responsible
+      await saveTicketResponsible(data);
       break;
     default:
       break;

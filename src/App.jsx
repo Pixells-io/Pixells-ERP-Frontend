@@ -122,6 +122,7 @@ import {
   getEvaluationSimple,
   getMenu360,
   getEvalsType,
+  multiloaderShowTickets,
 } from "./lib/actions";
 
 //Not Found
@@ -493,7 +494,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <ShowTickets />,
-            loader: getTicket,
+            loader: multiloaderShowTickets,
           },
         ],
       },

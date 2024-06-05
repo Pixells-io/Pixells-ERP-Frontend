@@ -784,6 +784,15 @@ export async function getTicket({ params }) {
   }
 }
 
+export async function multiloaderShowTickets({ params }) {
+  const [areas, users, myTicket] = await Promise.all([
+    getAreas(),
+    getUsers(),
+    getTicket({ params }),
+  ]);
+  return json({ areas, users, myTicket });
+}
+
 export async function getEvaluations() {
   try {
     const response = await fetch(
