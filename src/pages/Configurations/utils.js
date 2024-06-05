@@ -1,4 +1,7 @@
-export async function saveBusinessInformation(data) {
+import Cookies from "js-cookie";
+import { json } from "react-router-dom";
+
+export async function saveBusinessInformation(data, formDataLogo) {
   const info = {
     business_email: data.get("business_email"),
     user_master_id: data.get("user_master_id"),
@@ -20,13 +23,15 @@ export async function saveBusinessInformation(data) {
     more_info: data.get("more_info"),
   };
 
-  const logo = 0;
+  const logo = data.get("logo");
+
+  console.log(formDataLogo);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}configuration/store-business-information`,
     {
       method: "POST",
-      body: JSON.stringify(info),
+      body: formDataLogo,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
