@@ -35,7 +35,7 @@ function DropzoneImage() {
           <p>Drop the file here</p>
         ) : (
           <div>
-            {uploadedFiles.length !== 0 ? (
+            {yourImage.length !== 0 ? (
               <div className="flex justify-center">
                 <img
                   src={yourImage[0].preview}
