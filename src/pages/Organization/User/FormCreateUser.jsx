@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  addCircleOutline,
+  chevronBack,
+  chevronForward,
+  closeCircle,
+} from "ionicons/icons";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import FileRouter from "../../../layouts/Masters/FormComponents/file";
@@ -14,6 +19,13 @@ import { saveNewUser } from "../utils";
 function FormCreateUser() {
   const { areas, positions } = useLoaderData();
   const [status, setStatus] = useState("");
+  const [academicInfo, setAcademicInfo] = useState([
+    {
+      academic_grade: "",
+      specify_academic: "",
+      academic_voucher: "",
+    },
+  ]);
 
   const selectArea = [];
   const selectPosition = [];
@@ -43,6 +55,22 @@ function FormCreateUser() {
         placeholder: "0",
       });
     });
+  }
+
+  function addAcademicField() {
+    const academicInput = {
+      academic_grade: "",
+      specify_academic: "",
+      academic_voucher: "",
+    };
+
+    setAcademicInfo([...academicInfo, academicInput]);
+  }
+
+  function removeAcademicField(index) {
+    const newFields = academicInfo.filter((item, i) => index !== i);
+    console.log(newFields);
+    setAcademicInfo(newFields);
   }
 
   const selectBasics = [
@@ -218,6 +246,7 @@ function FormCreateUser() {
             <div className="w-1/4">
               <UserImage name={"user_image"} label={"User Image"} />
             </div>
+            {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
                 Personal Information
@@ -527,31 +556,65 @@ function FormCreateUser() {
               <span className="text-roboto text-sm font-medium text-grisText">
                 Academic Information
               </span>
-              <div className="flex items-center pt-4">
-                <div className="flex w-full items-center gap-3">
-                  <div className="w-1/3">
-                    <SelectRouter
-                      name={"academic_grade"}
-                      placeholder={"Academic Grade"}
-                      options={academyGrade}
-                    />
+              <div className="flex flex-col items-center gap-3 pt-4">
+                {academicInfo?.map((item, i) => (
+                  <div className="flex w-full items-center gap-3">
+                    <div className="w-1/3">
+                      <SelectRouter
+                        name={"academic_grade"}
+                        placeholder={"Academic Grade"}
+                        options={academyGrade}
+                      />
+                    </div>
+                    <div className="w-1/3">
+                      <InputRouter
+                        name={"specify_academic"}
+                        placeholder={"Specify the Academic Grade"}
+                        type={"text"}
+                      />
+                    </div>
+                    <div className="w-1/3">
+                      <FileRouter
+                        name={"academic_voucher"}
+                        label={"Academic Voucher"}
+                      />
+                    </div>
+                    {i !== 0 || academicInfo.length !== i + 1 ? (
+                      <button
+                        type="button"
+                        className="flex items-center"
+                        onClick={() => removeAcademicField(i)}
+                      >
+                        <IonIcon
+                          icon={closeCircle}
+                          size=""
+                          className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-9"></div>
+                    )}
+
+                    {academicInfo.length == i + 1 &&
+                    academicInfo.length <= 2 ? (
+                      <button
+                        type="button"
+                        className="flex"
+                        onClick={() => addAcademicField()}
+                      >
+                        <IonIcon
+                          icon={addCircleOutline}
+                          className="h-8 w-8 text-primarioBotones"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-9"></div>
+                    )}
                   </div>
-                  <div className="w-1/3">
-                    <InputRouter
-                      name={"specify_academic"}
-                      placeholder={"Specify the Academic Grade"}
-                      type={"text"}
-                    />
-                  </div>
-                  <div className="w-1/3">
-                    <FileRouter
-                      name={"academic_voucher"}
-                      label={"Academic Voucher"}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
+
             {/* Last Working Information */}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -695,6 +758,7 @@ function FormCreateUser() {
                 </div>
               </div>
             </div>
+
             {/*Password*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
