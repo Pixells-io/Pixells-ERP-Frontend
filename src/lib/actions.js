@@ -354,6 +354,12 @@ export async function multiLoaderOrganization() {
   return json({ areas, positions, users });
 }
 
+export async function multiLoaderAreasPositions() {
+  const [areas, positions] = await Promise.all([getAreas(), getPosition()]);
+
+  return json({ areas, positions });
+}
+
 export async function getUserByToken() {
   try {
     const response = await fetch(

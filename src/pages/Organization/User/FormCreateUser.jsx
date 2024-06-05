@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { IonIcon } from "@ionic/react";
 import {
+  addCircle,
   addCircleOutline,
   chevronBack,
   chevronForward,
@@ -557,6 +558,12 @@ function FormCreateUser() {
                 Academic Information
               </span>
               <div className="flex flex-col items-center gap-3 pt-4">
+                <input
+                  type="text"
+                  value={academicInfo}
+                  className="hidden"
+                  readOnly
+                />
                 {academicInfo?.map((item, i) => (
                   <div className="flex w-full items-center gap-3">
                     <div className="w-1/3">
@@ -603,7 +610,7 @@ function FormCreateUser() {
                         onClick={() => addAcademicField()}
                       >
                         <IonIcon
-                          icon={addCircleOutline}
+                          icon={addCircle}
                           className="h-8 w-8 text-primarioBotones"
                         ></IonIcon>
                       </button>

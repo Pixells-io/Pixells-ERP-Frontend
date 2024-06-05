@@ -123,6 +123,7 @@ import {
   getMenu360,
   getEvalsType,
   multiloaderShowTickets,
+  multiLoaderAreasPositions,
 } from "./lib/actions";
 
 //Not Found
@@ -322,7 +323,7 @@ const router = createBrowserRouter([
           {
             path: "/organization/create-position",
             element: <FormCreatePosition />,
-            loader: getAreas,
+            loader: multiLoaderAreasPositions,
             action: newPosition,
           },
         ],

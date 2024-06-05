@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, add } from "ionicons/icons";
+import { chevronBack, chevronForward, add, closeCircle } from "ionicons/icons";
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
 import { Button } from "@/components/ui/button";
 import { saveNewPosition } from "../utils";
-import { Input } from "@/components/ui/input";
 
 const selectBasic = [
   {
@@ -99,6 +98,10 @@ const academyGrade = [
     label: "University",
     value: "University",
   },
+  {
+    label: "Master",
+    value: "Master",
+  },
 ];
 
 const languageOptions = [
@@ -150,25 +153,131 @@ const workingDay = [
   },
 ];
 
+const sectorExperience = [
+  {
+    label: "Agricultura",
+    value: "Agricultura",
+  },
+  {
+    label: "Pesca",
+    value: "Pesca",
+  },
+  {
+    label: "Ganadería",
+    value: "Ganadería",
+  },
+  {
+    label: "Explotación forestal",
+    value: "Explotación forestal",
+  },
+  {
+    label: "Minería",
+    value: "Minería",
+  },
+  {
+    label: "Manufactura",
+    value: "Manufactura",
+  },
+  {
+    label: "Química",
+    value: "Química",
+  },
+  {
+    label: "Textil",
+    value: "Textil",
+  },
+  {
+    label: "Farmacéutica",
+    value: "Farmacéutica",
+  },
+  {
+    label: "Agroalimentaria",
+    value: "Agroalimentaria",
+  },
+  {
+    label: "Metalúrgica",
+    value: "Metalúrgica",
+  },
+  {
+    label: "Mecánica",
+    value: "Mecánica",
+  },
+  {
+    label: "Energética",
+    value: "Energética",
+  },
+  {
+    label: "Construcción",
+    value: "Construcción",
+  },
+  {
+    label: "Artesanía",
+    value: "Artesanía",
+  },
+  {
+    label: "Comercio",
+    value: "Comercio",
+  },
+  {
+    label: "Turismo",
+    value: "Turismo",
+  },
+  {
+    label: "Transporte",
+    value: "Transporte",
+  },
+  {
+    label: "Salud",
+    value: "Salud",
+  },
+  {
+    label: "Educación",
+    value: "Educación",
+  },
+  {
+    label: "Asesoría Legal",
+    value: "Asesoría Legal",
+  },
+  {
+    label: "Administración",
+    value: "Administración",
+  },
+  {
+    label: "Finanzas",
+    value: "Finanzas",
+  },
+];
+
 function FormCreatePosition() {
-  const { data } = useLoaderData();
-  const [resInputs, setResInputs] = useState([
-    {
-      name: "responsability_input",
-      type: "text",
-      placeholder: "Responsability",
-      value: "",
-    },
+  const { areas, positions } = useLoaderData();
+  const [positionsInputs, setPositionsInputs] = useState([
+    { coordinate_id: "", boss_id: "" },
   ]);
   const [authInputs, setAuthInputs] = useState([
     {
-      name: "",
+      authority: "",
+      total: "",
+      shared: "",
+      authority_cordinate_id: "",
     },
   ]);
+  const [resInputs, setResInputs] = useState([
+    {
+      responsability_input: "",
+    },
+  ]);
+  const [lenguageInputs, setLenguageInputs] = useState([
+    {
+      language: "",
+      language_percent: "",
+    },
+  ]);
+  const [skillsInputs, setSkillsInputs] = useState([{ knowledge: "" }]);
 
   const selectArea = [];
+  const selectPosition = [];
 
-  arrayFill(data, selectArea);
+  arrayFill(areas.data, selectArea);
 
   function arrayFill(data, array) {
     for (let index = 0; index < data.length; index++) {
@@ -177,29 +286,108 @@ function FormCreatePosition() {
       array.push({
         label: element.nombre,
         value: element.id,
-        placeholder: "0",
       });
     }
   }
 
+  arrayFillPositions(positions.data, selectPosition);
+
+  function arrayFillPositions(data, array) {
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+
+      array.push({
+        label: element.position_name,
+        value: element.id,
+      });
+    }
+  }
+
+  function addPositionInput() {
+    const posInput = { coordinate_id: "", boss_id: "" };
+
+    setPositionsInputs([...positionsInputs, posInput]);
+  }
+
+  function removePositionInput(index) {
+    const newInputs = positionsInputs.filter((item, i) => index !== i);
+    setPositionsInputs(newInputs);
+  }
+
+  function addAuthInput() {
+    const authInput = {
+      authority: "",
+      total: "",
+      shared: "",
+      authority_cordinate_id: "",
+    };
+
+    setAuthInputs([...authInputs, authInput]);
+  }
+
+  function removeAuthInput(index) {
+    const newFields = authInputs.filter((item, i) => index !== i);
+    setAuthInputs(newFields);
+  }
+
+  function addResInput() {
+    const resInput = {
+      responsability_input: "",
+    };
+
+    setResInputs([...resInputs, resInput]);
+  }
+
+  function removeResInput(index) {
+    const newInputs = resInputs.filter((item, i) => index !== i);
+    setResInputs(newInputs);
+  }
+
+  function addLenguageInput() {
+    const lengInput = {
+      language: "",
+      language_percent: "",
+    };
+
+    setLenguageInputs([...lenguageInputs, lengInput]);
+  }
+
+  function removeLenguageInput(index) {
+    const newInputs = lenguageInputs.filter((item, i) => index !== i);
+    setLenguageInputs(newInputs);
+  }
+
+  function addSkillInput() {
+    const skillInput = {
+      knowledge: "",
+    };
+
+    setSkillsInputs([...skillsInputs, skillInput]);
+  }
+
+  function removeSkillInput(index) {
+    const newInputs = skillsInputs.filter((item, i) => index !== i);
+    setSkillsInputs(newInputs);
+  }
+
   return (
     <div className="flex w-full">
-      <div className="flex flex-col w-full bg-gris p-8 ml-4 rounded-lg space-y-4 overflow-x-auto gap-4">
+      <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -208,56 +396,58 @@ function FormCreatePosition() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-2xl text-[#44444F]">
+            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div>4 service</div>
             <div className="text-2xl">&bull;</div>
             <div>9 costumers</div>
           </div>
         </div>
         <div>
-          <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New Position
           </h2>
         </div>
+
         {/*USER BOX CREATE*/}
-        <div className="bg-white rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <Form
             id="position-form"
             action="/organization/create-position"
             method="post"
           >
-            <div className="bg-blancoForms p-5 rounded-2xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            {/* General Information */}
+            <div className="rounded-2xl bg-blancoBg p-5">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 General Information
               </span>
-              <div className="pt-4 w-full pr-8">
-                <div className="flex w-full">
-                  <div className="pr-4 mt-4 w-1/4">
+              <div className="w-full pr-1 pt-4">
+                <div className="flex w-full items-center gap-3">
+                  <div className="w-1/4">
                     <SelectRouter
                       name={"area_id"}
                       placeholder={"Select Area"}
                       options={selectArea}
                     />
                   </div>
-                  <div className="pr-4 mt-4 w-1/4">
+                  <div className="w-1/4">
                     <SelectRouter
                       name={"position_type"}
                       placeholder={"Position Type"}
                       options={positionNames}
                     />
                   </div>
-                  <div className="pr-4  w-1/4">
+                  <div className="w-1/4">
                     <InputRouter
                       name={"position_name"}
                       type={"text"}
                       placeholder={"Position Name"}
                     />
                   </div>
-                  <div className="pr-4 mt-4 ml-5 w-1/4">
+                  <div className="w-1/4">
                     <SelectRouter
                       name={"permision_access"}
                       placeholder={"Permission Access"}
@@ -265,151 +455,214 @@ function FormCreatePosition() {
                     />
                   </div>
                 </div>
-                <div className="flex w-full">
-                  <div className="pr-4 mt-4 w-1/4">
-                    <SelectRouter
-                      name={"boss_id"}
-                      placeholder={"Boss Position"}
-                      options={selectArea}
-                    />
+
+                <div className="flex items-center gap-3 pt-3">
+                  <div className="flex w-full flex-col gap-3">
+                    {positionsInputs.map((item, i) => (
+                      <div className="flex w-full items-center gap-3">
+                        <div className="w-1/4">
+                          <SelectRouter
+                            name={"boss_id"}
+                            placeholder={"Boss Position"}
+                            options={selectPosition}
+                          />
+                        </div>
+                        <div className="w-1/4">
+                          <SelectRouter
+                            name={"coordinate_id"}
+                            placeholder={"Coordinate Position"}
+                            options={selectPosition}
+                          />
+                        </div>
+                        {i >= 1 ? (
+                          <button
+                            type="button"
+                            className="flex items-center"
+                            onClick={() => removePositionInput(i)}
+                          >
+                            <IonIcon
+                              icon={closeCircle}
+                              size=""
+                              className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                            ></IonIcon>
+                          </button>
+                        ) : (
+                          <div className="w-5"></div>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                  <div className="pr-4 mt-4 w-1/4">
-                    <SelectRouter
-                      name={"coordinate_id"}
-                      placeholder={"Coordinate Position"}
-                      options={selectArea}
-                    />
+
+                  <div className="flex">
+                    {positionsInputs.length <= 7 ? (
+                      <button
+                        className="flex h-6 w-6 items-center rounded-full bg-primario"
+                        onClick={() => addPositionInput()}
+                        type="button"
+                      >
+                        <IonIcon
+                          icon={add}
+                          size="large"
+                          className="text-white"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-6"></div>
+                    )}
                   </div>
-                  <div className="flex w-2/4">
-                    <InputRouter
-                      name={"objetive"}
-                      type={"text"}
-                      placeholder={"Objetive of the positions"}
-                    />
-                  </div>
+                </div>
+
+                <div className="flex pt-3">
+                  <InputRouter
+                    name={"objetive"}
+                    type={"text"}
+                    placeholder={"Objectives of the position"}
+                  />
                 </div>
               </div>
             </div>
+
             {/*Authority of the Position*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoBg p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Authority of the Position
               </span>
-              <div className="flex items-center pr-4 justify-between gap-10">
-                <div className="flex flex-col w-full">
+              <div className="flex items-center justify-between gap-10 px-2 pt-2">
+                <div className="flex w-full flex-col gap-3 py-4">
                   {authInputs?.map((input, i) => (
-                    <div key={i} className="flex items-center justify-between ">
-                      <div className="">
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-1/4">
                         <InputRouter
                           name={"authority"}
                           type={"text"}
                           placeholder={"Authority Name"}
                         />
                       </div>
-                      <div className=" ">
+                      <div className="flex w-1/4 justify-center">
                         <CheckboxRouter name="total" label="Total" />
                       </div>
-                      <div className=" ">
+                      <div className="flex w-1/4 justify-center">
                         <CheckboxRouter name="shared" label="Shared" />
                       </div>
-                      <div className="">
+                      <div className="w-1/4">
                         <SelectRouter
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
                           options={selectArea}
                         />
                       </div>
+                      {i >= 1 ? (
+                        <button
+                          type="button"
+                          className="flex items-center"
+                          onClick={() => removeAuthInput(i)}
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            size=""
+                            className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                          ></IonIcon>
+                        </button>
+                      ) : (
+                        <div className="w-5"></div>
+                      )}
                     </div>
                   ))}
                 </div>
-                <div className="flex self-start pt-6">
-                  <button
-                    className="flex bg-primario rounded-full h-6 w-6 items-center"
-                    onClick={() =>
-                      setAuthInputs([
-                        ...authInputs,
-                        {
-                          name: "",
-                        },
-                      ])
-                    }
-                    type="button"
-                  >
-                    <IonIcon
-                      icon={add}
-                      size="large"
-                      className="text-white"
-                    ></IonIcon>
-                  </button>
+                <div className="flex">
+                  {authInputs.length <= 7 && (
+                    <button
+                      className="flex h-6 w-6 items-center rounded-full bg-primario"
+                      onClick={() => addAuthInput()}
+                      type="button"
+                    >
+                      <IonIcon
+                        icon={add}
+                        size="large"
+                        className="text-white"
+                      ></IonIcon>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
+
             {/*Responsability of the position*/}
-            <div className="bg-blancoForms p-4 mt-10 rounded-xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-xl bg-blancoBg p-4">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Responsability of the Position
               </span>
-              <div className="flex items-center gap-4 justify-between pr-4">
-                <div className="pr-4 w-2/4">
+              <div className="flex items-center justify-between gap-4 pr-2 pt-4">
+                <div className="flex w-2/4 flex-col gap-3">
                   {resInputs?.map((input, i) => (
-                    <Input
-                      className="bg-transparent w-full text-xs font-roboto text-grisSubText !ring-0 !ring-offset-0 font-light border-0 border-b rounded-none m-4 border-gris2 focus:border-primarioBotones"
-                      key={i}
-                      name={input.name}
-                      type={input.type}
-                      placeholder={input.placeholder}
-                    />
+                    <div key={i} className="flex w-full items-center gap-3">
+                      <InputRouter
+                        name="responsability_input"
+                        type="text"
+                        placeholder="Responsability"
+                      />
+                      {i >= 1 ? (
+                        <button
+                          type="button"
+                          className="flex items-center"
+                          onClick={() => removeResInput(i)}
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            size=""
+                            className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                          ></IonIcon>
+                        </button>
+                      ) : (
+                        <div className="w-5"></div>
+                      )}
+                    </div>
                   ))}
                 </div>
-                <div className="flex self-start pt-8">
-                  <button
-                    className="flex bg-primario rounded-full h-6 w-6 items-center"
-                    onClick={() =>
-                      setResInputs([
-                        ...resInputs,
-                        {
-                          name: "responsability_input",
-                          type: "text",
-                          placeholder: "Responsability",
-                          value: "",
-                        },
-                      ])
-                    }
-                    type="button"
-                  >
-                    <IonIcon
-                      icon={add}
-                      size="large"
-                      className="text-white"
-                    ></IonIcon>
-                  </button>
+                <div className="flex self-center">
+                  {resInputs.length <= 7 ? (
+                    <button
+                      className="flex h-6 w-6 items-center rounded-full bg-primario"
+                      onClick={() => addResInput()}
+                      type="button"
+                    >
+                      <IonIcon
+                        icon={add}
+                        size="large"
+                        className="text-white"
+                      ></IonIcon>
+                    </button>
+                  ) : (
+                    <div className="w-6"></div>
+                  )}
                 </div>
               </div>
             </div>
 
             {/*Description of the position*/}
-            <div className="bg-blancoForms p-5 mt-10 rounded-2xl">
-              <span className="text-roboto text-grisText text-sm font-medium">
+            <div className="mt-10 rounded-2xl bg-blancoBg p-5">
+              <span className="text-roboto text-sm font-medium text-grisText">
                 Description of the position
               </span>
-              <div className="flex pt-4 w-full pr-8">
+              <div className="flex w-full pr-2 pt-4">
                 <div className="w-full">
-                  <div className="flex w-full">
-                    <div className="pr-4 mt-4 w-1/3">
+                  <div className="flex w-full items-center gap-3">
+                    <div className="w-1/3">
                       <SelectRouter
                         name={"experience_years"}
                         placeholder={"Experience Years"}
                         options={experienceYears}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
-                      <InputRouter
+                    <div className="w-1/3">
+                      <SelectRouter
+                        isMulti={true}
                         name={"experience_sector"}
-                        type={"text"}
                         placeholder={"Sector of Experience"}
+                        options={sectorExperience}
                       />
                     </div>
-                    <div className="pr-4 w-1/3">
+                    <div className="w-1/3">
                       <InputRouter
                         name={"experience_description"}
                         type={"text"}
@@ -417,29 +670,30 @@ function FormCreatePosition() {
                       />
                     </div>
                   </div>
-                  <div className="flex w-full">
-                    <div className="pr-4 mt-4 w-2/6">
+
+                  <div className="flex w-full items-center gap-3 pt-3">
+                    <div className="w-2/6">
                       <SelectRouter
                         name={"academy"}
                         placeholder={"Required Studies"}
                         options={academyGrade}
                       />
                     </div>
-                    <div className="pr-4 w-2/6">
+                    <div className="w-2/6">
                       <InputRouter
                         name={"name_studies"}
                         type={"text"}
                         placeholder={"Describe the Studies"}
                       />
                     </div>
-                    <div className="pr-4 mt-4 ml-4 w-1/6">
+                    <div className="ml-4 w-1/6">
                       <SelectRouter
                         name={"home_office"}
                         placeholder={"Home Office"}
                         options={selectBasic}
                       />
                     </div>
-                    <div className="pr-4 mt-4 w-1/6">
+                    <div className="w-1/6">
                       <SelectRouter
                         name={"position_work_type"}
                         placeholder={"Type of Work"}
@@ -447,38 +701,78 @@ function FormCreatePosition() {
                       />
                     </div>
                   </div>
-                  <div className="flex w-full">
-                    <div className="pr-4 mt-4 w-2/6">
-                      <SelectRouter
-                        name={"language"}
-                        placeholder={"Language"}
-                        options={languageOptions}
-                      />
+
+                  <div className="flex">
+                    <div className="flex w-full flex-col gap-3 pt-3">
+                      {lenguageInputs.map((item, i) => (
+                        <div key={i} className="flex w-full items-center gap-3">
+                          <div className="w-2/6">
+                            <SelectRouter
+                              name={"language"}
+                              placeholder={"Language"}
+                              options={languageOptions}
+                            />
+                          </div>
+                          <div className="w-1/6">
+                            <InputRouter
+                              name={"language_percent"}
+                              type={"number"}
+                              placeholder={"%"}
+                            />
+                          </div>
+                          {i >= 1 ? (
+                            <button
+                              type="button"
+                              className="flex items-center"
+                              onClick={() => removeLenguageInput(i)}
+                            >
+                              <IonIcon
+                                icon={closeCircle}
+                                size=""
+                                className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                              ></IonIcon>
+                            </button>
+                          ) : (
+                            <div className="w-5"></div>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                    <div className="pr-4 w-1/6">
-                      <InputRouter
-                        name={"language_percent"}
-                        type={"number"}
-                        placeholder={"%"}
-                      />
+                    <div className="flex self-center">
+                      {lenguageInputs.length <= 2 ? (
+                        <button
+                          className="flex h-6 w-6 items-center rounded-full bg-primario"
+                          onClick={() => addLenguageInput()}
+                          type="button"
+                        >
+                          <IonIcon
+                            icon={add}
+                            size="large"
+                            className="text-white"
+                          ></IonIcon>
+                        </button>
+                      ) : (
+                        <div className="w-6"></div>
+                      )}
                     </div>
                   </div>
-                  <div className="flex w-full">
-                    <div className="pr-4 mt-4 w-2/6">
+
+                  <div className="flex w-full items-center gap-3 pt-3">
+                    <div className="w-2/6">
                       <SelectRouter
                         name={"working_day"}
                         placeholder={"Working Day"}
                         options={workingDay}
                       />
                     </div>
-                    <div className="pr-4 w-1/6">
+                    <div className="w-1/6">
                       <InputRouter
                         name={"start"}
                         type={"time"}
                         placeholder={"Start"}
                       />
                     </div>
-                    <div className="pr-4 w-1/6">
+                    <div className="w-1/6">
                       <InputRouter
                         name={"end"}
                         type={"time"}
@@ -486,23 +780,63 @@ function FormCreatePosition() {
                       />
                     </div>
                   </div>
-                  <div className="flex w-full">
-                    <div className="pr-4 w-1/3">
-                      <InputRouter
-                        name={"knowledge_1"}
-                        type={"text"}
-                        placeholder={"Knowledge"}
-                      />
+
+                  <div className="flex">
+                    <div className="flex w-full flex-col items-center gap-3 pt-3">
+                      {skillsInputs.map((item, i) => (
+                        <div key={i} className="flex w-full items-center gap-3">
+                          <div className="w-1/3">
+                            <InputRouter
+                              name={"knowledge_1"}
+                              type={"text"}
+                              placeholder={"Knowledge/Skill"}
+                            />
+                          </div>
+                          {i >= 1 ? (
+                            <button
+                              type="button"
+                              className="flex items-center"
+                              onClick={() => removeSkillInput(i)}
+                            >
+                              <IonIcon
+                                icon={closeCircle}
+                                size=""
+                                className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                              ></IonIcon>
+                            </button>
+                          ) : (
+                            <div className="w-5"></div>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                    <div className="w-2/3 text-end">
-                      <br />
-                      <Button
-                        form="position-form"
-                        className="font-roboto font-semibold text-sm p-4 text-white justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-                      >
-                        Save Position
-                      </Button>
+                    <div className="flex self-center">
+                      {skillsInputs.length <= 7 ? (
+                        <button
+                          className="flex h-6 w-6 items-center rounded-full bg-primario"
+                          onClick={() => addSkillInput()}
+                          type="button"
+                        >
+                          <IonIcon
+                            icon={add}
+                            size="large"
+                            className="text-white"
+                          ></IonIcon>
+                        </button>
+                      ) : (
+                        <div className="w-6"></div>
+                      )}
                     </div>
+                  </div>
+
+                  <div className="text-end">
+                    <br />
+                    <Button
+                      form="position-form"
+                      className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
+                    >
+                      Save Position
+                    </Button>
                   </div>
                 </div>
               </div>
