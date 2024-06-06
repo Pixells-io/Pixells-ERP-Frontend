@@ -92,14 +92,14 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
-  /*useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
       setUser(user.data);
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
-  }, []);*/
+  }, []);
 
   async function logOutFunction() {
     //First send the request
