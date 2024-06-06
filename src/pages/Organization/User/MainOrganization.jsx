@@ -66,22 +66,22 @@ function MainOrganization() {
           </DialogFooter>
         </DialogContent>
       </Dialog> */}
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -90,11 +90,11 @@ function MainOrganization() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div className="text-xs">4 service</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">9 costumers</div>
@@ -124,42 +124,42 @@ function MainOrganization() {
           </DropdownMenu>
         </div>
         {/*component accion*/}
-        <div className="bg-white rounded-xl p-7">
+        <div className="h-full overflow-auto rounded-xl bg-white p-7">
           <div className="flex">
-            <Tabs defaultValue="users" className="w-full">
-              <TabsList className="bg-transparent w-full mb-3">
+            <Tabs defaultValue="users" className="h-full w-full overflow-auto">
+              <TabsList className="mb-3 w-full bg-transparent">
                 <div className="flex w-full">
                   <div className="w-4/5">
                     <TabsTrigger
-                      className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="users"
                     >
                       USERS
                     </TabsTrigger>
                     <TabsTrigger
-                      className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="positions"
                     >
                       POSITIONS
                     </TabsTrigger>
                     <TabsTrigger
-                      className="rounded-none text-sm font-normal data-[state=active]:text-primarioBotones data-[state=active]:font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 font-roboto  text-grisSubText border-b-2 border-slate-300 p-3"
+                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="areas"
                     >
                       AREAS
                     </TabsTrigger>
                   </div>
                   <div className="w-1/5">
-                    <div className="flex items-end rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
+                    <div className="flex h-10 w-44 items-end rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">
                       <Label htmlFor="search">
                         <IonIcon
                           icon={searchOutline}
-                          className="text-[#696974] w-6 h-6 stroke-1"
+                          className="h-6 w-6 stroke-1 text-[#696974]"
                         ></IonIcon>
                       </Label>
                       <Input
                         id="search"
-                        className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
+                        className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
                         placeholder="SEARCH EMAILS"
                       />
                     </div>
