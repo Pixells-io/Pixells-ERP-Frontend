@@ -26,7 +26,7 @@ function UsersTable({ users }) {
       {
         id: "Name",
         header: "NAME",
-      }
+      },
     ),
     columnHelper.accessor((row) => `${row.status}`, {
       id: "Status",
@@ -55,9 +55,9 @@ function UsersTable({ users }) {
       cell: () => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
-            <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-            <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
           </div>
         );
       },
@@ -71,7 +71,7 @@ function UsersTable({ users }) {
   });
 
   return (
-    <div className="relative w-full overflow-auto">
+    <div className="relative w-full">
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {
@@ -92,7 +92,7 @@ function UsersTable({ users }) {
                         ? null
                         : flexRender(
                             header?.column.columnDef.header,
-                            header?.getContext()
+                            header?.getContext(),
                           )}
                     </th>
                   );
@@ -101,11 +101,11 @@ function UsersTable({ users }) {
             );
           })}
         </thead>
-        <tbody className="[&_tr:last-child]:border-0">
+        <tbody className="overflow-scroll [&_tr:last-child]:border-0">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr
-                className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted border-t-[#D7D7D7] text-[#44444F]"
+                className="border-b border-t-[#D7D7D7] text-[#44444F] transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => {
@@ -116,7 +116,7 @@ function UsersTable({ users }) {
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   );
