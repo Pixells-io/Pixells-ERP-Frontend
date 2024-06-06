@@ -168,8 +168,6 @@ export async function saveNewUser(data) {
 
   formData.append("info", JSON.stringify(info));
 
-  console.log(data);
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/store-user`,
     {
@@ -181,7 +179,7 @@ export async function saveNewUser(data) {
     },
   );
 
-  return 1;
+  return response;
 }
 
 export async function saveNewImage(data) {
