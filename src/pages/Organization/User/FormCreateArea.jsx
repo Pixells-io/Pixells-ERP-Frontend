@@ -84,12 +84,8 @@ function FormCreateArea({ modal, setModal }) {
               <div className="flex w-full items-center gap-3">
                 <div className="flex w-full flex-col gap-3">
                   {processInputs?.map((input, i) => (
-                    <div className="flex w-full gap-3">
-                      <InputRouter
-                        key={i}
-                        name="proceso"
-                        placeholder="Process"
-                      />
+                    <div key={i} className="flex w-full gap-3">
+                      <InputRouter name="proceso" placeholder="Process" />
                       {i >= 1 ? (
                         <button
                           type="button"

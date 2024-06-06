@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 
 export async function saveNewArea(data) {
-  const process = data.get("procesos_del_area");
+  // const process = data.get("procesos_del_area");
 
   const area = {
     nombre: data.get("nombre"),
     descripcion: data.get("descripcion"),
-    procesos_del_area: process.split(","),
+    procesos_del_area: data.getAll("proceso"),
     tipo_horario: data.get("tipo_horario"),
     inicio: data.get("inicio"),
     fin: data.get("fin"),
@@ -32,14 +32,18 @@ export async function saveNewPosition(data) {
     position_type: data.get("position_type"),
     position_name: data.get("position_name"),
     permision_access: data.get("permision_access"),
-    boss_id: data.get("boss_id"),
-    coordinate_id: data.get("coordinate_id"),
+    positions_id: {
+      boss_id: data.getAll("boss_id"),
+      coordinate_id: data.getAll("coordinate_id"),
+    },
     objetive: data.get("objetive"),
-    authority: data.get("authority"),
-    total: data.get("total"),
-    shared: data.get("shared"),
-    authority_cordinate_id: data.get("authority_cordinate_id"),
-    responsability: data.get("responsability"),
+    authority: {
+      authority: data.getAll("authority"),
+      total: data.getAll("total"),
+      shared: data.getAll("shared"),
+      authority_cordinate_id: data.getAll("authority_cordinate_id"),
+    },
+    responsability: data.getAll("responsability"),
     experience_years: data.get("experience_years"),
     experience_sector: data.get("experience_sector"),
     experience_description: data.get("experience_description"),
@@ -47,12 +51,14 @@ export async function saveNewPosition(data) {
     name_studies: data.get("name_studies"),
     home_office: data.get("home_office"),
     position_work_type: data.get("position_work_type"),
-    language: data.get("language"),
-    language_percent: data.get("language_percent"),
+    lenguages: {
+      language: data.getAll("language"),
+      language_percent: data.getAll("language_percent"),
+    },
     working_day: data.get("working_day"),
     start: data.get("start"),
     end: data.get("end"),
-    knowledge_1: data.get("knowledge_1"),
+    knowledge_1: data.getAll("knowledge"),
   };
 
   const response = await fetch(

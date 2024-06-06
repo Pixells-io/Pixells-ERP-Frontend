@@ -459,7 +459,7 @@ function FormCreatePosition() {
                 <div className="flex items-center gap-3 pt-3">
                   <div className="flex w-full flex-col gap-3">
                     {positionsInputs.map((item, i) => (
-                      <div className="flex w-full items-center gap-3">
+                      <div key={i} className="flex w-full items-center gap-3">
                         <div className="w-1/4">
                           <SelectRouter
                             name={"boss_id"}
@@ -787,7 +787,7 @@ function FormCreatePosition() {
                         <div key={i} className="flex w-full items-center gap-3">
                           <div className="w-1/3">
                             <InputRouter
-                              name={"knowledge_1"}
+                              name={"knowledge"}
                               type={"text"}
                               placeholder={"Knowledge/Skill"}
                             />
