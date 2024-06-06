@@ -185,7 +185,9 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                      <AvatarImage
+                        src={`https://irbgrow.com/storage/${user.user_image}`}
+                      />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
