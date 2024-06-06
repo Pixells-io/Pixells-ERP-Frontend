@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { personCircle } from "ionicons/icons";
 
-function DropzoneImage() {
+function DropzoneImage({ name }) {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [yourImage, setYourImage] = useState([]);
 
@@ -30,7 +30,7 @@ function DropzoneImage() {
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "active" : ""}`}
       >
-        <input {...getInputProps()} name="logo" />
+        <input {...getInputProps()} name={name} />
         {isDragActive ? (
           <p>Drop the file here</p>
         ) : (

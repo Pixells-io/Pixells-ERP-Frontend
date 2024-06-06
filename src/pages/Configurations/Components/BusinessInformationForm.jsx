@@ -38,7 +38,7 @@ function BusinessInformationForm({ users }) {
             <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
               <div className="text-center">
                 {/* <UserImage name={"logo"} label={"Company Logo"} /> */}
-                <DropzoneImage />
+                <DropzoneImage name="logo" />
               </div>
               <InputRouter
                 name={"business_email"}

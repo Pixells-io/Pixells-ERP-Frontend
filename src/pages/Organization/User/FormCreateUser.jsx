@@ -16,6 +16,7 @@ import { Form, useLoaderData, redirect } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { saveNewUser } from "../utils";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormCreateUser() {
   const { areas, positions } = useLoaderData();
@@ -245,7 +246,8 @@ function FormCreateUser() {
         >
           <div className="">
             <div className="w-1/4">
-              <UserImage name={"user_image"} label={"User Image"} />
+              <DropzoneImage name={"user_image"} />
+              {/* <UserImage name={"user_image"} label={"User Image"} /> */}
             </div>
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
@@ -809,7 +811,10 @@ export default FormCreateUser;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewUser(data);
+  console.log(data.getAll("academic_grade"));
+  console.log(data.getAll("specify_academic"));
+
+  // const validation = await saveNewUser(data);
 
   return 1;
   //return redirect("/organization");

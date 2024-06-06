@@ -89,7 +89,7 @@ export async function loginUser(data) {
 }
 
 export async function saveNewUser(data) {
-  const user = {
+  const info = {
     name: data.get("name"),
     last_name: data.get("last_name"),
     second_last_name: data.get("second_last_name"),
@@ -98,6 +98,9 @@ export async function saveNewUser(data) {
     state_of_birth: data.get("state_of_birth"),
     genre: data.get("genre"),
     civil_status: data.get("civil_status"),
+    spouse_firstname: data.get("spouse_firstname"),
+    spouse_lastname: data.get("spouse_lastname"),
+    spouse_taxid: data.get("spouse_taxid"),
     childrens: data.get("childrens"),
     phone: data.get("phone"),
     personal_email: data.get("personal_email"),
@@ -128,10 +131,12 @@ export async function saveNewUser(data) {
     emergency_relationship: data.get("emergency_relationship"),
     emergency_phone: data.get("emergency_phone"),
     company_experience: data.get("company_experience"),
-    position_experience: data.get("position_experience"),
-    academic_voucher: data.get("academic_voucher"),
-    academic_grade: data.get("academic_grade"),
-    specify_academic: data.get("specify_academic"),
+    position_experience: data.getAll("position_experience"),
+    academic_information: {
+      // academic_voucher: data.get("academic_voucher"),
+      academic_grade: data.getAll("academic_grade"),
+      specify_academic: data.getAll("specify_academic"),
+    },
     years_experience: data.get("years_experience"),
     working_center: data.get("working_center"),
     income_date: data.get("income_date"),
@@ -151,13 +156,19 @@ export async function saveNewUser(data) {
     confirm_password: data.get("confirm_password"),
   };
 
+  const formData = new FormData();
+
+  formData.append("user_image", data.get("user_image"));
+
+  formData.append("info", JSON.stringify(info));
+
   console.log(data);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/store-user`,
     {
       method: "POST",
-      body: JSON.stringify(user),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
