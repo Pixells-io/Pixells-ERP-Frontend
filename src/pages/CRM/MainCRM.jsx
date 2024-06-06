@@ -22,22 +22,22 @@ function MainCRM() {
 
   return (
     <div className="flex w-full">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -46,11 +46,11 @@ function MainCRM() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               CRM HOMEPAGE
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div className="text-xs">
               {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
               {leads?.data.length == 1 ? "lead" : "leads"}
@@ -79,25 +79,28 @@ function MainCRM() {
           ))}
         </div> */}
 
-        <Tabs defaultValue="leads" className="bg-blancoBg rounded-lg pt-2">
-          <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
+        <Tabs
+          defaultValue="leads"
+          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        >
+          <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
             <TabsTrigger
               value="leads"
-              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+              className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
               LEADS
             </TabsTrigger>
             <TabsTrigger
               value="clients"
-              className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+              className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
               CLIENTS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="leads" className="p-2 mt-[-60px] ">
+          <TabsContent value="leads" className="mt-[-60px] p-2">
             <DataTable services={services} leads={leads} />
           </TabsContent>
-          <TabsContent className="p-2 mt-[-60px]" value="clients">
+          <TabsContent className="mt-[-60px] p-2" value="clients">
             {/* <Table className="w-full" /> */}
             <TableClients services={services} clients={clients} />
           </TabsContent>

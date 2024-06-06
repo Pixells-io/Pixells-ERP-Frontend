@@ -109,6 +109,8 @@ function MainLayout() {
     return navigate("/login");
   }
 
+  console.log(user.user_image);
+
   return (
     <div className="flex h-screen min-h-0 flex-col">
       <div className="flex h-[56px] items-center justify-between p-3">
@@ -185,7 +187,9 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                      <AvatarImage
+                        src={`https://irbgrow.com/storage/${user.user_image}`}
+                      />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
