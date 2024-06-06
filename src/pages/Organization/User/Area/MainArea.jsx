@@ -25,7 +25,7 @@ const DAYS = [
 
 function MainArea() {
   const { data } = useLoaderData();
-  const [disabled, setIsDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [areaInfo, setAreaInfo] = useState(data.area);
   const [processInfo, setProcessInfo] = useState(data.process);
   const [processValue, setProcessValue] = useState([]);
@@ -35,6 +35,7 @@ function MainArea() {
     },
   ]);
   const [workingDaysInfo, setWoringDaysInfo] = useState(data.turn);
+  const [defaultDays, setDefaultDays] = useState([]);
 
   function addProcessField() {
     const processInput = {
@@ -50,18 +51,28 @@ function MainArea() {
     setProcessInputs(newFields);
   }
 
-  useEffect(() => {
-    function arrangeWorkingDays() {
-      let newArray = [];
-      for (const { day } of data.turn) {
-        const capitalized = day.charAt(0).toUpperCase() + day.slice(1);
-        newArray.push({ label: capitalized, value: capitalized });
-      }
-      // console.log(newArray);
-      setWoringDaysInfo(newArray);
-    }
-    arrangeWorkingDays();
-  }, []);
+  function createArray() {
+    const newArray = workingDaysInfo.map(({ day }, i) => ({
+      lable: day.charAt(0).toUpperCase() + day.slice(1),
+      value: day.charAt(0).toUpperCase() + day.slice(1),
+    }));
+    // setDefaultDays(newArray);
+  }
+
+  console.log(createArray());
+
+  // useEffect(() => {
+  //   function arrangeWorkingDays() {
+  //     let newArray = [];
+  //     for (const { day } of data.turn) {
+  //       const capitalized = day.charAt(0).toUpperCase() + day.slice(1);
+  //       newArray.push({ label: capitalized, value: capitalized });
+  //     }
+  //     // console.log(newArray);
+  //     setDefaultDays(newArray);
+  //   }
+  //   arrangeWorkingDays();
+  // }, []);
 
   return (
     <div className="flex w-full">
@@ -94,7 +105,11 @@ function MainArea() {
             </h2>
           </div>
           <div className="pr-4">
-            <Button className="" variant="ghost">
+            <Button
+              className=""
+              variant="ghost"
+              onClick={() => setDisabled(!disabled)}
+            >
               <IonIcon
                 icon={create}
                 size="large"
@@ -204,7 +219,8 @@ function MainArea() {
                     options={DAYS}
                     isMulti={true}
                     // disabled={disabled}
-                    defaultVal={workingDaysInfo}
+                    // defaultVal={JSON.stringify(createArray())}
+                    value={defaultDays}
                   />
                   <InputRouter
                     name="inicio"
@@ -223,6 +239,11 @@ function MainArea() {
                 </div>
               </div>
             </Form>
+            <div className="flex justify-center">
+              {disabled === false && (
+                <Button className="flex px-10">Save</Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

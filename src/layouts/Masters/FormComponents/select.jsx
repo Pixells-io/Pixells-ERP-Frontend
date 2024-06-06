@@ -9,7 +9,9 @@ function SelectRouter({
   isMulti,
   disabled,
   defaultVal,
+  value,
 }) {
+  // console.log(value);
   return (
     <Select
       options={options}
@@ -19,6 +21,7 @@ function SelectRouter({
       isMulti={isMulti}
       isDisabled={disabled}
       defaultInputValue={defaultVal}
+      value={value}
     />
   );
 }

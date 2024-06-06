@@ -28,6 +28,20 @@ function FormCreateUser() {
       academic_voucher: "",
     },
   ]);
+  const [workingInfo, setWorkingInfo] = useState([
+    {
+      company_experience: "",
+      position_experience: "",
+      years_experience: "",
+    },
+  ]);
+  const [contractsInfo, setContratcsInfo] = useState([
+    {
+      contract: "",
+      start_contract: "",
+      end_contract: "",
+    },
+  ]);
 
   const selectArea = [];
   const selectPosition = [];
@@ -73,6 +87,36 @@ function FormCreateUser() {
     const newFields = academicInfo.filter((item, i) => index !== i);
     console.log(newFields);
     setAcademicInfo(newFields);
+  }
+
+  function addWorkingInputs() {
+    const academicInput = {
+      company_experience: "",
+      position_experience: "",
+      years_experience: "",
+    };
+    setWorkingInfo([...workingInfo, academicInput]);
+  }
+
+  function removeWorkingInputs(index) {
+    const newFields = workingInfo.filter((item, i) => index !== i);
+    // console.log(newFields);
+    setWorkingInfo(newFields);
+  }
+
+  function addContractInputs() {
+    const contractInput = {
+      contract: "",
+      start_contract: "",
+      end_contract: "",
+    };
+    setContratcsInfo([...contractsInfo, contractInput]);
+  }
+
+  function removeContractInputs(index) {
+    const newFields = contractsInfo.filter((item, i) => index !== i);
+    // console.log(newFields);
+    setContratcsInfo(newFields);
   }
 
   const selectBasics = [
@@ -192,6 +236,29 @@ function FormCreateUser() {
     {
       label: "Bank",
       value: "Bank",
+    },
+  ];
+
+  const legal_benefits = [
+    {
+      label: "Benefit 1",
+      value: "Benefit 1",
+    },
+    {
+      label: "Benefit 2",
+      value: "Benefit 2",
+    },
+    {
+      label: "Benefit 3",
+      value: "Benefit 3",
+    },
+    {
+      label: "Benefit 4",
+      value: "Benefit 4",
+    },
+    {
+      label: "Benefit 5",
+      value: "Benefit 5",
     },
   ];
 
@@ -629,28 +696,70 @@ function FormCreateUser() {
               <span className="text-roboto text-sm font-medium text-grisText">
                 Last Working Information
               </span>
-              <div className="flex w-full items-center gap-3 pt-4">
-                <div className="w-1/3">
-                  <InputRouter
-                    name={"company_experience"}
-                    placeholder={"Company"}
-                    type={"text"}
-                  />
-                </div>
-                <div className="w-1/3">
-                  <InputRouter
-                    name={"position_experience"}
-                    placeholder={"Position"}
-                    type={"text"}
-                  />
-                </div>
-                <div className="w-1/3">
-                  <InputRouter
-                    name={"years_experience"}
-                    placeholder={"Years of Experience"}
-                    type={"number"}
-                  />
-                </div>
+              <div className="flex flex-col items-center gap-3 pt-4">
+                <input
+                  type="text"
+                  value={workingInfo}
+                  className="hidden"
+                  readOnly
+                  name="working-info"
+                />
+
+                {workingInfo?.map((item, i) => (
+                  <div className="flex w-full items-center gap-3">
+                    <div className="w-1/3">
+                      <InputRouter
+                        name={"company_experience"}
+                        placeholder={"Company"}
+                        type={"text"}
+                      />
+                    </div>
+                    <div className="w-1/3">
+                      <InputRouter
+                        name={"position_experience"}
+                        placeholder={"Position"}
+                        type={"text"}
+                      />
+                    </div>
+                    <div className="w-1/3">
+                      <InputRouter
+                        name={"years_experience"}
+                        placeholder={"Years of Experience"}
+                        type={"number"}
+                      />
+                    </div>
+                    {i !== 0 || workingInfo.length !== i + 1 ? (
+                      <button
+                        type="button"
+                        className="flex items-center"
+                        onClick={() => removeWorkingInputs(i)}
+                      >
+                        <IonIcon
+                          icon={closeCircle}
+                          size=""
+                          className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-[22px]"></div>
+                    )}
+
+                    {workingInfo.length == i + 1 && workingInfo.length <= 2 ? (
+                      <button
+                        type="button"
+                        className="flex"
+                        onClick={() => addWorkingInputs()}
+                      >
+                        <IonIcon
+                          icon={addCircle}
+                          className="h-8 w-8 text-primarioBotones"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-9"></div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -679,6 +788,7 @@ function FormCreateUser() {
                   <FileRouter name={"cv"} label={"CV"} />
                 </div>
               </div>
+
               <div className="flex items-center gap-3 pt-4">
                 <div className="mt-4 w-1/3">
                   <SelectRouter
@@ -702,6 +812,7 @@ function FormCreateUser() {
                   />
                 </div>
               </div>
+
               <div className="flex items-center gap-3 pt-4">
                 <div className="w-1/3">
                   <InputRouter
@@ -711,38 +822,115 @@ function FormCreateUser() {
                   />
                 </div>
                 <div className="w-1/3">
-                  <InputRouter
+                  {/* <InputRouter
                     name={"income_date"}
                     placeholder={"Income Date"}
                     type={"date"}
+                  /> */}
+                  <SelectRouter
+                    name="legal_benefits"
+                    placeholder={"Legal Benefit"}
+                    options={legal_benefits}
                   />
                 </div>
+                <div className="w-1/3"></div>
               </div>
+
               <div className="flex items-center gap-3 pt-4">
                 <div className="w-1/3">
-                  <SelectRouter
-                    name={"contract"}
-                    placeholder={"Type of Contract"}
-                    options={contracts}
+                  <InputRouter
+                    name={"institutional_email"}
+                    placeholder={"Institutional Email"}
+                    type={"email"}
                   />
                 </div>
-                <div className="flex w-1/3 items-center gap-3">
-                  <div className="w-1/2">
-                    <InputRouter
-                      name={"start_contract"}
-                      placeholder={"Start Contract"}
-                      type={"date"}
-                    />
-                  </div>
-                  <div className="w-1/2">
-                    <InputRouter
-                      name={"end_contract"}
-                      placeholder={"End Contract"}
-                      type={"date"}
-                    />
-                  </div>
+                <div className="w-1/3">
+                  <InputRouter
+                    name={"institutional_phone"}
+                    placeholder={"Institutional Phone"}
+                    type={"phone"}
+                  />
+                </div>
+                <div className="w-1/3">
+                  <InputRouter
+                    name={"institutional_phone_ext"}
+                    placeholder={"Ext"}
+                    type={"number"}
+                  />
                 </div>
               </div>
+
+              {/* contracts */}
+              <div className="flex flex-col items-center gap-3 pt-4">
+                <input
+                  type="text"
+                  value={workingInfo}
+                  className="hidden"
+                  readOnly
+                  name="contracts"
+                />
+
+                {contractsInfo?.map((item, i) => (
+                  <div className="flex w-full items-center gap-3">
+                    <div className="w-1/3">
+                      <SelectRouter
+                        name={"contract"}
+                        placeholder={"Type of Contract"}
+                        options={contracts}
+                      />
+                    </div>
+                    <div className="flex w-1/3 items-center gap-3">
+                      <div className="w-1/2">
+                        <InputRouter
+                          name={"start_contract"}
+                          placeholder={"Start Contract"}
+                          type={"date"}
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <InputRouter
+                          name={"end_contract"}
+                          placeholder={"End Contract"}
+                          type={"date"}
+                        />
+                      </div>
+                    </div>
+                    {i !== 0 || contractsInfo.length !== i + 1 ? (
+                      <button
+                        type="button"
+                        className="flex items-center"
+                        onClick={() => removeContractInputs(i)}
+                      >
+                        <IonIcon
+                          icon={closeCircle}
+                          size=""
+                          className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-[22px]"></div>
+                    )}
+
+                    {contractsInfo.length == i + 1 &&
+                    contractsInfo.length <= 2 ? (
+                      <button
+                        type="button"
+                        className="flex"
+                        onClick={() => addContractInputs()}
+                      >
+                        <IonIcon
+                          icon={addCircle}
+                          className="h-8 w-8 text-primarioBotones"
+                        ></IonIcon>
+                      </button>
+                    ) : (
+                      <div className="w-9"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* bank */}
               <div className="flex items-center gap-3 pt-4">
                 <div className="w-1/3">
                   <SelectRouter
@@ -811,8 +999,8 @@ export default FormCreateUser;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  console.log(data.getAll("academic_grade"));
-  console.log(data.getAll("specify_academic"));
+  // console.log(data.getAll("academic_grade"));
+  // console.log(data.getAll("specify_academic"));
 
   const validation = await saveNewUser(data);
 
