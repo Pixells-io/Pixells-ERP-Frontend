@@ -124,15 +124,9 @@ function MainOrganization() {
           </DropdownMenu>
         </div>
         {/*component accion*/}
-<<<<<<< HEAD
         <div className="h-full overflow-auto rounded-xl bg-white p-7">
           <div className="flex">
             <Tabs defaultValue="users" className="h-full w-full overflow-auto">
-=======
-        <div className="rounded-xl bg-white p-7">
-          <div className="flex">
-            <Tabs defaultValue="users" className="w-full">
->>>>>>> 68a04ec115d9049c3adbabe764d0e6c296f6297d
               <TabsList className="mb-3 w-full bg-transparent">
                 <div className="flex w-full">
                   <div className="w-4/5">
