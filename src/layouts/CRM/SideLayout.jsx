@@ -10,7 +10,7 @@ import TopMenuCRM from "./components/TopMenuCRM";
 import MenuCRM from "./components/MenuCRM";
 
 import FormNewLead from "./components/Form/FormNewLead";
-import { saveNewLead } from "./utils";
+import { saveImportClients, saveNewLead } from "./utils";
 import FormNewSale from "./components/Form/FormNewSale";
 import FormNewClient from "./components/Form/FormNewClient";
 
@@ -18,16 +18,16 @@ function SideLayout() {
   const services = useLoaderData();
   const navigation = useNavigation();
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
-      <div className="flex flex-col gap-4 w-[280px] shrink-0">
+    <div className="flex h-full px-4 pb-4 font-roboto">
+      <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-4 py-4 ">
+        <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenuCRM />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4">
-          <p className="font-semibold text-lg font-poppins text-grisHeading">
+        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
+          <p className="font-poppins text-lg font-semibold text-grisHeading">
             Menu
           </p>
 
@@ -38,7 +38,7 @@ function SideLayout() {
             <FormNewSale />
           </div>
 
-          <div className="border-b border-gris2 my-4"></div>
+          <div className="my-4 border-b border-gris2"></div>
 
           {/* menu bottom */}
           <div className="">
@@ -56,12 +56,14 @@ export default SideLayout;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewLead(data);
-  console.log(validation);
-
-  // if (validation) {
-  //     return validation;
-  // }
+  switch (data.get("register_type")) {
+    case "1":
+      await saveNewLead(data);
+      break;
+    case "2":
+      await saveImportClients(data);
+      break;
+  }
 
   return redirect("/crm");
 }
