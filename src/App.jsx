@@ -126,6 +126,7 @@ import {
   multiLoaderAreasPositions,
   getUsers,
   getBusinessInformation,
+  getArea,
 } from "./lib/actions";
 
 //Not Found
@@ -174,6 +175,7 @@ import SideLayoutConfiguration, {
 } from "./layouts/Configuration/SideLayoutConfiguration";
 import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
+import MainArea from "./pages/Organization/User/Area/MainArea";
 
 const router = createBrowserRouter([
   {
@@ -332,6 +334,11 @@ const router = createBrowserRouter([
             element: <FormCreatePosition />,
             loader: multiLoaderAreasPositions,
             action: newPosition,
+          },
+          {
+            path: "/organization/area/:id",
+            element: <MainArea />,
+            loader: getArea,
           },
         ],
       },

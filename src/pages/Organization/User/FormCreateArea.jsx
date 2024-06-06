@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { add, addCircle, closeCircle } from "ionicons/icons";
+import { add, closeCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const DAYS = [
@@ -123,7 +123,7 @@ function FormCreateArea({ modal, setModal }) {
                 </div>
               </div>
 
-              <SelectRouter
+              <Select
                 name="tipo_horario"
                 placeholder={"Working Days"}
                 options={DAYS}

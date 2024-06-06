@@ -880,3 +880,56 @@ export async function getBusinessInformation() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+//Organization GETS ID
+
+export async function getArea({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-area/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+          // "Content-Type": "application/json",
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getPuesto({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-puesto/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+          // "Content-Type": "application/json",
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getUserOrg({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-user/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+          // "Content-Type": "application/json",
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

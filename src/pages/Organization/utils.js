@@ -2,12 +2,19 @@ import Cookies from "js-cookie";
 
 export async function saveNewArea(data) {
   // const process = data.get("procesos_del_area");
+  const days = [];
+  for (const [key, value] of data.entries()) {
+    if (key === "tipo_horario") {
+      days.push(value);
+    }
+  }
+  console.log(days);
 
   const area = {
     nombre: data.get("nombre"),
     descripcion: data.get("descripcion"),
     procesos_del_area: data.getAll("proceso"),
-    tipo_horario: data.get("tipo_horario"),
+    tipo_horario: days,
     inicio: data.get("inicio"),
     fin: data.get("fin"),
   };
@@ -55,7 +62,7 @@ export async function saveNewPosition(data) {
       language: data.getAll("language"),
       language_percent: data.getAll("language_percent"),
     },
-    working_day: data.get("working_day"),
+    working_day: data.getAll("tipo_horario"),
     start: data.get("start"),
     end: data.get("end"),
     knowledge_1: data.getAll("knowledge"),

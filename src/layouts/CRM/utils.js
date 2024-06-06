@@ -30,9 +30,28 @@ export async function saveNewLead(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
   return response;
+}
+
+export async function saveImportClients(data) {
+  const formData = new FormData();
+
+  formData.append("file", data.get("file"));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/import-clients`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return 1;
 }

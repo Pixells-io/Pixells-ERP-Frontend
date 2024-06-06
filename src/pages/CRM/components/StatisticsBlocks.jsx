@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { IonIcon } from "@ionic/react";
-import { barChart, ellipsisHorizontal, personAdd, walk } from "ionicons/icons";
+import {
+  barChart,
+  ellipsisHorizontal,
+  personAdd,
+  push,
+  walk,
+} from "ionicons/icons";
+import FormImportClient from "../Clients/FormImportClient";
 
 function StatisticsBlock() {
+  const [modal, setModal] = useState(false);
   return (
     <div className="flex gap-8">
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
+      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon
             icon={barChart}
@@ -15,17 +23,17 @@ function StatisticsBlock() {
           ></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
+            className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-blue-500 font-bold text-xl">$13,500.00</div>
+        <div className="text-xl font-bold text-blue-500">$13,500.00</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">SALES</span>
             <span className="text-xs text-grisSubText">This Month</span>
           </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
+          <div className="flex flex-col items-center justify-center text-gris2">
+            <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
               +40%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -33,22 +41,22 @@ function StatisticsBlock() {
         </div>
       </div>
 
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
+      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon icon={walk} size="large" className="text-gris2"></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
+            className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-blue-500 font-bold text-xl">05</div>
+        <div className="text-xl font-bold text-blue-500">05</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">NEW CLIENTS</span>
             <span className="text-xs text-grisSubText">This Month</span>
           </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto rounded-xl px-2 py font-medium text-sm">
+          <div className="flex flex-col items-center justify-center text-gris2">
+            <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
               +10%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -56,7 +64,7 @@ function StatisticsBlock() {
         </div>
       </div>
 
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
+      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon
             icon={personAdd}
@@ -65,23 +73,36 @@ function StatisticsBlock() {
           ></IonIcon>
           <IonIcon
             icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
+            className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-blue-500 font-bold text-xl">13</div>
+        <div className="text-xl font-bold text-blue-500">13</div>
         <div className="flex justify-between">
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             <span className="text-sm font-semibold text-gris2">NEW LEADS</span>
             <span className="text-xs text-grisSubText">This Month</span>
           </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto rounded-xl px-2 py font-medium text-sm">
+          <div className="flex flex-col items-center justify-center text-gris2">
+            <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>
           </div>
         </div>
       </div>
+      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3"></div>
+      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3">
+        <button
+          className="ml-28 mt-16 h-10 w-10 rounded-full bg-[#E8E8E8]"
+          onClick={() => setModal(true)}
+        >
+          <IonIcon
+            icon={push}
+            className="mt-2 text-xl text-grisSubText"
+          ></IonIcon>
+        </button>
+      </div>
+      <FormImportClient modal={modal} setModal={setModal} />
     </div>
   );
 }
