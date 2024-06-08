@@ -458,34 +458,46 @@ function FormCreatePosition() {
 
                 <div className="flex items-center gap-3 pt-3">
                   <div className="flex w-full flex-col gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-1/4">
+                        <SelectRouter
+                          name={"coordinate_id"}
+                          placeholder={"Coordinate Position"}
+                          options={selectPosition}
+                        />
+                      </div>
+                      <div className="w-1/4">
+                        <SelectRouter
+                          name={"boss_id"}
+                          placeholder={"Boss Position"}
+                          options={selectPosition}
+                        />
+                      </div>
+                    </div>
                     {positionsInputs.map((item, i) => (
                       <div key={i} className="flex w-full items-center gap-3">
-                        <div className="w-1/4">
-                          <SelectRouter
-                            name={"boss_id"}
-                            placeholder={"Boss Position"}
-                            options={selectPosition}
-                          />
-                        </div>
-                        <div className="w-1/4">
-                          <SelectRouter
-                            name={"coordinate_id"}
-                            placeholder={"Coordinate Position"}
-                            options={selectPosition}
-                          />
-                        </div>
                         {i >= 1 ? (
-                          <button
-                            type="button"
-                            className="flex items-center"
-                            onClick={() => removePositionInput(i)}
-                          >
-                            <IonIcon
-                              icon={closeCircle}
-                              size=""
-                              className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                            ></IonIcon>
-                          </button>
+                          <div className="flex w-full">
+                            <div className="w-1/4">
+                              <SelectRouter
+                                name={"coordinate_id"}
+                                placeholder={"Coordinate Position"}
+                                options={selectPosition}
+                              />
+                            </div>
+                            <div className="w-1/4"></div>
+                            <button
+                              type="button"
+                              className="flex items-center"
+                              onClick={() => removePositionInput(i)}
+                            >
+                              <IonIcon
+                                icon={closeCircle}
+                                size=""
+                                className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                              ></IonIcon>
+                            </button>
+                          </div>
                         ) : (
                           <div className="w-5"></div>
                         )}

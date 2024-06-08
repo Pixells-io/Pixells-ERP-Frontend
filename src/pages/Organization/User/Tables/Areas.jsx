@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -14,12 +14,28 @@ import {
   chatbubbleEllipses,
   bookmark,
 } from "ionicons/icons";
+import FormCreateArea from "../FormCreateArea";
+import ModalShowArea from "../ModalShowArea";
+import { getArea } from "@/lib/actions";
 
 function AreasTable({ areas }) {
+  const [modal, setModal] = useState(false);
+  const [areaId, setArea] = useState(false);
+
   const columnHelper = createColumnHelper();
-  console.log(areas);
 
   const data = areas;
+
+  async function setModalAreas(area) {
+    //Get info Area
+    let areaInformation = await getAreaInformation(area);
+    setArea(areaInformation.data);
+    setModal(true);
+  }
+
+  async function getAreaInformation(area) {
+    return await getArea(area);
+  }
 
   const columns = [
     columnHelper.accessor((row) => `${row.nombre}`, {
@@ -44,7 +60,9 @@ function AreasTable({ areas }) {
             <NavLink to={`/organization/area/${row?.original?.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
-            <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
+            <button onClick={() => setModalAreas(row.original.id)}>
+              <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
+            </button>
             <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
           </div>
         );
@@ -60,6 +78,8 @@ function AreasTable({ areas }) {
 
   return (
     <div className="relative w-full overflow-auto">
+      {/* Form Edit and Show Areas */}
+      <ModalShowArea modal={modal} setModal={setModal} area={areaId} />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {

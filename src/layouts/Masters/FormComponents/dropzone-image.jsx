@@ -36,7 +36,7 @@ function DropzoneImage({ name }) {
         ) : (
           <div>
             {yourImage.length !== 0 ? (
-              <div className="flex justify-center">
+              <div className="ml-3 flex">
                 <img
                   src={yourImage[0].preview}
                   alt="preview"

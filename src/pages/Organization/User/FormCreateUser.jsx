@@ -999,11 +999,7 @@ export default FormCreateUser;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  // console.log(data.getAll("academic_grade"));
-  // console.log(data.getAll("specify_academic"));
-
   const validation = await saveNewUser(data);
 
-  return 1;
-  //return redirect("/organization");
+  return redirect("/organization");
 }

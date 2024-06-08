@@ -104,19 +104,7 @@ function MainArea() {
               Organization
             </h2>
           </div>
-          <div className="pr-4">
-            <Button
-              className=""
-              variant="ghost"
-              onClick={() => setDisabled(!disabled)}
-            >
-              <IonIcon
-                icon={create}
-                size="large"
-                className="text-grisText"
-              ></IonIcon>
-            </Button>
-          </div>
+          <div className="pr-4"></div>
           {/* <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div className="text-xs">
               {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}

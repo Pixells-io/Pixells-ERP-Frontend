@@ -10,6 +10,7 @@ function InputRouter({ type, name, placeholder, defaultVal, disabled }) {
       placeholder={placeholder}
       defaultValue={defaultVal}
       disabled={disabled}
+      required
     />
   );
 }

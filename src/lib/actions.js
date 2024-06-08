@@ -883,10 +883,10 @@ export async function getBusinessInformation() {
 
 //Organization GETS ID
 
-export async function getArea({ params }) {
+export async function getArea(id) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/get-area/${params.id}`,
+      `${import.meta.env.VITE_SERVER_URL}organization/get-area/${id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

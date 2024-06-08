@@ -39,18 +39,14 @@ export async function saveNewPosition(data) {
     position_type: data.get("position_type"),
     position_name: data.get("position_name"),
     permision_access: data.get("permision_access"),
-    positions_id: {
-      boss_id: data.getAll("boss_id"),
-      coordinate_id: data.getAll("coordinate_id"),
-    },
+    boss_id: data.get("boss_id"),
+    coordinate_id: data.getAll("coordinate_id"),
     objetive: data.get("objetive"),
-    authority: {
-      authority: data.getAll("authority"),
-      total: data.getAll("total"),
-      shared: data.getAll("shared"),
-      authority_cordinate_id: data.getAll("authority_cordinate_id"),
-    },
-    responsability: data.getAll("responsability"),
+    authority: data.getAll("authority"),
+    total: data.getAll("total"),
+    shared: data.getAll("shared"),
+    authority_cordinate_id: data.getAll("authority_cordinate_id"),
+    responsability: data.getAll("responsability_input"),
     experience_years: data.get("experience_years"),
     experience_sector: data.get("experience_sector"),
     experience_description: data.get("experience_description"),
@@ -58,14 +54,12 @@ export async function saveNewPosition(data) {
     name_studies: data.get("name_studies"),
     home_office: data.get("home_office"),
     position_work_type: data.get("position_work_type"),
-    lenguages: {
-      language: data.getAll("language"),
-      language_percent: data.getAll("language_percent"),
-    },
-    working_day: data.getAll("tipo_horario"),
+    language: data.getAll("language"),
+    language_percent: data.getAll("language_percent"),
+    working_day: data.get("working_day"),
     start: data.get("start"),
     end: data.get("end"),
-    knowledge_1: data.getAll("knowledge"),
+    knowledge: data.getAll("knowledge"),
   };
 
   const response = await fetch(
@@ -117,14 +111,10 @@ export async function saveNewUser(data) {
     childrens: data.get("childrens"),
     phone: data.get("phone"),
     personal_email: data.get("personal_email"),
-    curp_file: data.get("curp_file"),
     curp_text: data.get("curp_text"),
-    rfc_file: data.get("rfc_file"),
     rfc_text: data.get("rfc_text"),
-    nss_file: data.get("nss_file"),
     nss_text: data.get("nss_text"),
     birth_certificade: data.get("birth_certificade"),
-    id_file: data.get("id_file"),
     id_date: data.get("id_date"),
     chronic_diseases: data.get("chronic_diseases"),
     alergic: data.get("alergic"),
@@ -143,35 +133,45 @@ export async function saveNewUser(data) {
     emergency_second_last_name: data.get("emergency_second_last_name"),
     emergency_relationship: data.get("emergency_relationship"),
     emergency_phone: data.get("emergency_phone"),
-    company_experience: data.get("company_experience"),
+    company_experience: data.getAll("company_experience"),
     position_experience: data.getAll("position_experience"),
-    academic_information: {
-      // academic_voucher: data.get("academic_voucher"),
-      academic_grade: data.getAll("academic_grade"),
-      specify_academic: data.getAll("specify_academic"),
-    },
-    years_experience: data.get("years_experience"),
+    academic_grade: data.getAll("academic_grade"),
+    specify_academic: data.getAll("specify_academic"),
+    years_experience: data.getAll("years_experience"),
     working_center: data.get("working_center"),
     income_date: data.get("income_date"),
-    cv: data.get("cv"),
     area: data.get("area"),
     boss: data.get("boss"),
     position: data.get("position"),
     monthly_pay: data.get("monthly_pay"),
     income_date: data.get("income_date"),
-    contract: data.get("contract"),
-    start_contract: data.get("start_contract"),
-    end_contract: data.get("end_contract"),
+    contract: data.getAll("contract"),
+    start_contract: data.getAll("start_contract"),
+    end_contract: data.getAll("end_contract"),
     bank: data.get("bank"),
     bank_account: data.get("bank_account"),
     regulation: data.get("regulation"),
     password: data.get("password"),
     confirm_password: data.get("confirm_password"),
+    institutional_email: data.get("institutional_email"),
+    institutional_phone: data.get("institutional_phone"),
+    institutional_phone_ext: data.get("institutional_phone_ext"),
   };
 
   const formData = new FormData();
 
+  //User Image
   formData.append("user_image", data.get("user_image"));
+
+  //Data Files
+  formData.append("curp_file", data.get("curp_file"));
+  formData.append("rfc_file", data.get("rfc_file"));
+  formData.append("nss_file", data.get("nss_file"));
+  formData.append("birth_certificade", data.get("birth_certificade"));
+  formData.append("id_file", data.get("id_file"));
+  formData.append("address_voucher", data.get("address_voucher"));
+  formData.append("academic_voucher", data.getAll("academic_voucher"));
+  formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
 

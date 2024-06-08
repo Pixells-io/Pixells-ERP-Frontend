@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -16,17 +16,18 @@ import { add, closeCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const DAYS = [
-  { label: "Lunes", value: "lunes" },
-  { label: "Martes", value: "martes" },
-  { label: "Miércoles", value: "miércoles" },
-  { label: "Jueves", value: "jueves" },
-  { label: "Viernes", value: "viernes" },
-  { label: "Sábado", value: "sábado" },
-  { label: "Domingo", value: "domingo" },
+  { label: "Monday", value: "Monday" },
+  { label: "Tuesday", value: "Tuesday" },
+  { label: "Wednesday", value: "Wednesday" },
+  { label: "Thursday", value: "Thursday" },
+  { label: "Friday", value: "Friday" },
+  { label: "Saturday", value: "Saturday" },
+  { label: "Sunday", value: "Sunday" },
 ];
 
 function FormCreateArea({ modal, setModal }) {
   const [processValue, setProcessValue] = useState([]);
+  const navigation = useNavigation();
   const [processInputs, setProcessInputs] = useState([
     {
       proceso: "",
@@ -43,13 +44,18 @@ function FormCreateArea({ modal, setModal }) {
 
   function removeProcessField(index) {
     const newFields = processInputs.filter((item, i) => index !== i);
-    console.log(newFields);
     setProcessInputs(newFields);
   }
 
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="h-[50vh] max-h-[50vh] overflow-auto p-0 sm:max-w-[425px]">
+      <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
             Create Area

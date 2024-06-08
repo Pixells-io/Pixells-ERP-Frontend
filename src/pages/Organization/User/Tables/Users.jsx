@@ -21,13 +21,36 @@ function UsersTable({ users }) {
   const data = users;
 
   const columns = [
-    columnHelper.accessor(
+    {
+      accessorKey: "Name",
+      header: "NAME",
+      id: "Name",
+      cell: ({ row }) => {
+        return (
+          <div className="flex gap-2 text-[#696974]">
+            <div>
+              <img
+                src={row.original.user_image}
+                className="w-10 rounded-full"
+              />
+            </div>
+            <div className="ml-2 mt-2">
+              <span>
+                {row.original.name} {row.original.last_name}{" "}
+                {row.original.second_last_name}
+              </span>
+            </div>
+          </div>
+        );
+      },
+    },
+    /*columnHelper.accessor(
       (row) => `${row.name} ${row.last_name} ${row.second_last_name}`,
       {
         id: "Name",
         header: "NAME",
       },
-    ),
+    ),*/
     columnHelper.accessor((row) => `${row.status}`, {
       id: "Status",
       header: "STATUS",
