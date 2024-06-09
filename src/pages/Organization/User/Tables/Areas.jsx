@@ -57,13 +57,9 @@ function AreasTable({ areas }) {
         // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
-            <NavLink to={`/organization/area/${row?.original?.id}`}>
-              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </NavLink>
             <button onClick={() => setModalAreas(row.original.id)}>
-              <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
+              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </button>
-            <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
           </div>
         );
       },
