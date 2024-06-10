@@ -30,8 +30,6 @@ function ModalShowArea({ modal, setModal, area }) {
 
   arrayFillDays(area.turn, selectedDays);
 
-  console.log(area.process);
-
   function arrayFillDays(data, array) {
     data?.forEach((element) => {
       array.push({
@@ -39,6 +37,10 @@ function ModalShowArea({ modal, setModal, area }) {
         value: element.day,
       });
     });
+  }
+
+  function removeProcessField(index) {
+    removeChild(`#process` + index);
   }
 
   return (
@@ -87,14 +89,25 @@ function ModalShowArea({ modal, setModal, area }) {
                 disabled={disabled}
               />
               {area.process?.map((item, i) => (
-                <InputRouter
-                  name="proceso"
-                  type="text"
-                  placeholder="Process"
-                  defaultVal={item.process}
-                  disabled={disabled}
-                  key={i}
-                />
+                <div key={i} className="flex gap-4" id={`process` + i}>
+                  <InputRouter
+                    name="proceso"
+                    type="text"
+                    placeholder="Process"
+                    defaultVal={item.process}
+                    disabled={disabled}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeProcessField(i)}
+                    className="flex items-center"
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                    ></IonIcon>
+                  </button>
+                </div>
               ))}
               <Select
                 name="tipo_horario"
