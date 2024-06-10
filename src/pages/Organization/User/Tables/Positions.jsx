@@ -13,6 +13,7 @@ import {
   informationCircle,
   chatbubbleEllipses,
   bookmark,
+  document,
 } from "ionicons/icons";
 
 function PositionsTable({ positions }) {
