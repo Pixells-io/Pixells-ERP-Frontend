@@ -647,6 +647,7 @@ function FormCreateUser() {
                   value={academicInfo}
                   className="hidden"
                   readOnly
+                  name="academics"
                 />
                 {academicInfo?.map((item, i) => (
                   <div className="flex w-full items-center gap-3">
@@ -874,7 +875,7 @@ function FormCreateUser() {
               <div className="flex flex-col items-center gap-3 pt-4">
                 <input
                   type="text"
-                  value={workingInfo}
+                  value={contractsInfo}
                   className="hidden"
                   readOnly
                   name="contracts"
