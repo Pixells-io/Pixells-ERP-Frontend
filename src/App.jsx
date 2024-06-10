@@ -9,7 +9,6 @@ import MainDashboard from "./pages/Dashboard/MainDashboard";
 
 //CRM
 import MainCRM from "@/pages/CRM/MainCRM";
-import DataTable from "./pages/CRM/components/Table/DataTable";
 
 //Leads
 import MainLeads, {
@@ -72,8 +71,6 @@ import FormCreatePosition, {
   Action as newPosition,
 } from "./pages/Organization/User/FormCreatePosition";
 
-import NewCategoryForm from "./pages/CRM/Services/components/Forms/NewCategoryForm";
-
 // Project Manager
 import SideLayoutPManager, {
   Action as newObjective,
@@ -127,6 +124,8 @@ import {
   getUsers,
   getBusinessInformation,
   getArea,
+  multiLoaderPositionCreate,
+  multiLoaderUserCreate,
 } from "./lib/actions";
 
 //Not Found
@@ -157,7 +156,6 @@ import MainEvalCreate, {
   Action as newEvalExam,
 } from "./pages/OrgDev/Evaluation/MainEvalCreate";
 import ExamShow from "./pages/OrgDev/Exam/ExamShow";
-import ExamAnswer from "./pages/OrgDev/Capacitation/components/ExamAnswer";
 import MainExamAnswer, {
   Action as ExamFunction,
 } from "./pages/OrgDev/Exam/MainExamAnswer";
@@ -176,6 +174,8 @@ import SideLayoutConfiguration, {
 import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
 import MainArea from "./pages/Organization/User/Area/MainArea";
+import MainPosition from "./pages/Organization/User/Position/MainPosition";
+import MainUser from "./pages/Organization/User/User/MainUser";
 
 const router = createBrowserRouter([
   {
@@ -339,6 +339,16 @@ const router = createBrowserRouter([
             path: "/organization/area/:id",
             element: <MainArea />,
             loader: getArea,
+          },
+          {
+            path: "/organization/position/:id",
+            element: <MainPosition />,
+            loader: multiLoaderPositionCreate,
+          },
+          {
+            path: "/organization/user/:id",
+            element: <MainUser />,
+            loader: multiLoaderUserCreate,
           },
         ],
       },

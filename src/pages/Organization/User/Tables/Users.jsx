@@ -14,6 +14,7 @@ import {
   searchOutline,
   bookmark,
 } from "ionicons/icons";
+import { NavLink } from "react-router-dom";
 
 function UsersTable({ users }) {
   const columnHelper = createColumnHelper();
@@ -75,10 +76,12 @@ function UsersTable({ users }) {
       accessorKey: "actions",
       header: "ACTIONS",
       id: "Actions",
-      cell: () => {
+      cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            <NavLink to={`/organization/user/${row.original.id}`}>
+              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            </NavLink>
             <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
             <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
           </div>

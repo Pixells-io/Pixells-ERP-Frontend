@@ -933,3 +933,24 @@ export async function getUserOrg({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function multiLoaderPositionCreate({ params }) {
+  const [areas, positions, position] = await Promise.all([
+    getAreas(),
+    getPosition(),
+    getPuesto({ params }),
+  ]);
+
+  return json({ areas, positions, position });
+}
+
+export async function multiLoaderUserCreate({ params }) {
+  const [areas, positions, users, user] = await Promise.all([
+    getAreas(),
+    getPosition(),
+    getUsers(),
+    getUserOrg({ params }),
+  ]);
+
+  return json({ areas, positions, users, user });
+}
