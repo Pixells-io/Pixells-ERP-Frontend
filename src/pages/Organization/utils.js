@@ -142,12 +142,12 @@ export async function saveNewUser(data) {
     emergency_phone: data.get("emergency_phone"),
 
     // Academic Info
-    academics: data.get("academics"),
+    academics: data.get("academics"), //NO
     academic_grade: data.getAll("academic_grade"),
     specify_academic: data.getAll("specify_academic"),
 
     // Last Work Info
-    working_info: data.get("working-info"),
+    working_info: data.get("working-info"), // NO
     company_experience: data.getAll("company_experience"),
     position_experience: data.getAll("position_experience"),
     years_experience: data.getAll("years_experience"),
@@ -167,7 +167,7 @@ export async function saveNewUser(data) {
     institutional_phone: data.get("institutional_phone"),
     institutional_phone_ext: data.get("institutional_phone_ext"),
 
-    contracts: data.get("contracts"),
+    contracts: data.get("contracts"), // NO
     contract: data.getAll("contract"),
     start_contract: data.getAll("start_contract"),
     end_contract: data.getAll("end_contract"),

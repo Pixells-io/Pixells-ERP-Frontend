@@ -226,7 +226,7 @@ function FormCreateUser() {
 
     dataParse.forEach((element) => {
       array.push({
-        label: element.name,
+        label: `${element.name} ${element.last_name} ${element.second_last_name}`,
         value: element.id,
       });
     });
@@ -246,6 +246,13 @@ function FormCreateUser() {
     const newFields = academicInfo.filter((item, i) => index !== i);
     console.log(newFields);
     setAcademicInfo(newFields);
+  }
+
+  function updateAcademicField(index, e) {
+    console.log(e);
+    // const newFields = academicInfo.map((inputs, i) => i === index ? {...inputs, : e.target.value }  : inputs)
+    // console.log(newFields)
+    // setAcademicInfo()
   }
 
   function addWorkingInputs() {
@@ -650,12 +657,14 @@ function FormCreateUser() {
                   name="academics"
                 />
                 {academicInfo?.map((item, i) => (
-                  <div className="flex w-full items-center gap-3">
+                  <div key={i} className="flex w-full items-center gap-3">
                     <div className="w-1/3">
                       <SelectRouter
                         name={"academic_grade"}
                         placeholder={"Academic Grade"}
                         options={academyGrade}
+                        // onChange={(e) => updateAcademicField(i, e)}
+                        // value={academicInfo[i].academic_grade}
                       />
                     </div>
                     <div className="w-1/3">
@@ -663,6 +672,8 @@ function FormCreateUser() {
                         name={"specify_academic"}
                         placeholder={"Specify the Academic Grade"}
                         type={"text"}
+                        onChange={(e) => updateAcademicField(i, e)}
+                        value={academicInfo[i].specify_academic}
                       />
                     </div>
                     <div className="w-1/3">
@@ -722,7 +733,7 @@ function FormCreateUser() {
                 />
 
                 {workingInfo?.map((item, i) => (
-                  <div className="flex w-full items-center gap-3">
+                  <div key={i} className="flex w-full items-center gap-3">
                     <div className="w-1/3">
                       <InputRouter
                         name={"company_experience"}
@@ -882,7 +893,7 @@ function FormCreateUser() {
                 />
 
                 {contractsInfo?.map((item, i) => (
-                  <div className="flex w-full items-center gap-3">
+                  <div key={i} className="flex w-full items-center gap-3">
                     <div className="w-1/3">
                       <SelectRouter
                         name={"contract"}
@@ -1012,6 +1023,5 @@ export async function Action({ request }) {
 
   const validation = await saveNewUser(data);
 
-  return redirect("/organization");
-  // return "ok";
+  redirect("/organization");
 }
