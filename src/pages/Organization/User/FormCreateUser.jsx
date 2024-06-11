@@ -249,10 +249,12 @@ function FormCreateUser() {
   }
 
   function updateAcademicField(index, e) {
-    console.log(e);
-    // const newFields = academicInfo.map((inputs, i) => i === index ? {...inputs, : e.target.value }  : inputs)
-    // console.log(newFields)
-    // setAcademicInfo()
+    // console.log(e);
+    const newFields = academicInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAcademicInfo(newFields);
   }
 
   function addWorkingInputs() {
@@ -852,6 +854,7 @@ function FormCreateUser() {
                   <SelectRouter
                     name="legal_benefits"
                     placeholder={"Legal Benefit"}
+                    isMulti={true}
                     options={legal_benefits}
                   />
                 </div>

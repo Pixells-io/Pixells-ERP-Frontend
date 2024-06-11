@@ -162,7 +162,7 @@ const legal_benefits = [
 function MainUser() {
   const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user.data);
+  // console.log(user.data);
   const [status, setStatus] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [academicInfo, setAcademicInfo] = useState(user.data.academy);
@@ -278,7 +278,7 @@ function MainUser() {
   }
 
   function updateAcademicField(index, e) {
-    // console.log(e.target);
+    // console.log(e.target.name);
     const newFields = academicInfo.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
