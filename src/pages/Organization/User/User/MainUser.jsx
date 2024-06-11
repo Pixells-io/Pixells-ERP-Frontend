@@ -7,6 +7,7 @@ import {
   chevronBack,
   chevronForward,
   closeCircle,
+  create,
 } from "ionicons/icons";
 
 import { Form, useLoaderData, redirect } from "react-router-dom";
@@ -15,6 +16,7 @@ import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneFile from "@/components/dropzone-files";
+import { data } from "autoprefixer";
 
 const selectBasics = [
   {
@@ -161,29 +163,12 @@ const legal_benefits = [
 
 function MainUser() {
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user);
+  console.log(user.data);
   const [status, setStatus] = useState("");
-  const [academicInfo, setAcademicInfo] = useState([
-    {
-      academic_grade: "",
-      specify_academic: "",
-      academic_voucher: "",
-    },
-  ]);
-  const [workingInfo, setWorkingInfo] = useState([
-    {
-      company_experience: "",
-      position_experience: "",
-      years_experience: "",
-    },
-  ]);
-  const [contractsInfo, setContratcsInfo] = useState([
-    {
-      contract: "",
-      start_contract: "",
-      end_contract: "",
-    },
-  ]);
+  const [disabled, setDisabled] = useState(true);
+  const [academicInfo, setAcademicInfo] = useState(user.data.academy);
+  const [workingInfo, setWorkingInfo] = useState(user.data.experience);
+  const [contractsInfo, setContratcsInfo] = useState(user.data.contracts);
 
   // inputs options
   const selectArea = [];
@@ -192,13 +177,19 @@ function MainUser() {
 
   // user info
   const userAreas = [];
-  const userPosition = [];
+  // const userPosition = [];
 
+  const genreUser = [];
   const civilStatusUser = [];
 
   const chronicUser = [];
   const alergicUser = [];
   const bloodUser = [];
+
+  const benefitUser = [];
+
+  const bankUser = [];
+  const regulationUser = [];
 
   // user arrays
   arrayFillAreas(areas, selectArea);
@@ -206,12 +197,18 @@ function MainUser() {
   arrayFillUsers(users, selectUsers);
 
   // arrayUserArea(user.data.user.area, userAreas);
-  // arrayUserArea(user?.data.user.position, userPosition);
+  // arrayUserArea(user?.data.position, userPosition);
+  createOptionArray(user.data.user.genre, genreUser);
   createOptionArray(user.data.user.civil_status, civilStatusUser);
 
   createOptionBoolean(user.data.user.chronic_diseases, chronicUser);
   createOptionBoolean(user.data.user.alergic, alergicUser);
   createOptionArray(user.data.user.blood, bloodUser);
+
+  createOptionArray(user.data.user.legal_benefits, benefitUser);
+
+  createOptionArray(user.data.user.bank, bankUser);
+  createOptionBoolean(user.data.user.regulation, regulationUser);
 
   function arrayFillAreas(data, array) {
     let dataParse = data.data;
@@ -286,11 +283,20 @@ function MainUser() {
     setAcademicInfo(newFields);
   }
 
+  function updateAcademicField(index, e) {
+    // console.log(e.target);
+    const newFields = academicInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
+    setAcademicInfo(newFields);
+  }
+
   function addWorkingInputs() {
     const academicInput = {
       company_experience: "",
       position_experience: "",
-      years_experience: "",
+      experience_years: "",
     };
     setWorkingInfo([...workingInfo, academicInput]);
   }
@@ -301,11 +307,20 @@ function MainUser() {
     setWorkingInfo(newFields);
   }
 
+  function updateWorkingField(index, e) {
+    // console.log(e.target);
+    const newFields = workingInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
+    setWorkingInfo(newFields);
+  }
+
   function addContractInputs() {
     const contractInput = {
       contract: "",
-      start_contract: "",
-      end_contract: "",
+      start: "",
+      end: "",
     };
     setContratcsInfo([...contractsInfo, contractInput]);
   }
@@ -313,6 +328,15 @@ function MainUser() {
   function removeContractInputs(index) {
     const newFields = contractsInfo.filter((item, i) => index !== i);
     // console.log(newFields);
+    setContratcsInfo(newFields);
+  }
+
+  function updateContractField(index, e) {
+    // console.log(e.target);
+    const newFields = contractsInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
     setContratcsInfo(newFields);
   }
 
@@ -346,16 +370,37 @@ function MainUser() {
               USER MANAGEMENT
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div>4 service</div>
-            <div className="text-2xl">&bull;</div>
-            <div>9 costumers</div>
-          </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New User
           </h2>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <p>Edit Mode</p>
+              <span
+                className={
+                  disabled
+                    ? "rounded-full bg-red-400 px-4 py-1 text-white"
+                    : "rounded-full bg-green-400 px-4 py-1 text-white"
+                }
+              >
+                {disabled ? "OFF" : "ON"}
+              </span>
+            </div>
+            <Button
+              className="w-16"
+              variant="ghost"
+              onClick={() => setDisabled(!disabled)}
+              type="button"
+            >
+              <IonIcon
+                icon={create}
+                size="large"
+                className="text-grisText"
+              ></IonIcon>
+            </Button>
+          </div>
         </div>
 
         {/*USER BOX CREATE*/}
@@ -367,9 +412,14 @@ function MainUser() {
         >
           <div className="">
             <div className="w-1/4">
-              <DropzoneImage name={"user_image"} />
+              <DropzoneImage
+                name={"user_image"}
+                url={user?.data.user.user_image}
+                initials={`${user?.data.user.name.slice(1)}${user?.data.user.last_name.slice(1)}`}
+              />
               {/* <UserImage name={"user_image"} label={"User Image"} /> */}
             </div>
+
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -397,6 +447,7 @@ function MainUser() {
                       defaultVal={user?.data.user.second_last_name}
                     />
                   </div>
+
                   <div className="mt-3 flex gap-3">
                     <InputRouter
                       name={"date_of_birth"}
@@ -417,13 +468,14 @@ function MainUser() {
                       defaultVal={user?.data.user.state_of_birth}
                     />
                   </div>
+
                   <div className="flex items-center gap-3 pt-3">
-                    <Select
+                    <SelectRouter
                       name={"genre"}
                       placeholder={"Genre"}
                       options={genreSelect}
                       className="w-full text-sm font-light"
-                      defaultValue={user?.data.user.genre}
+                      defaultVal={genreUser}
                     />
                     <Select
                       name={"civil_status"}
@@ -431,6 +483,7 @@ function MainUser() {
                       placeholder={"Civil Status"}
                       options={civilStatus}
                       defaultValue={civilStatusUser}
+                      onChange={(e) => setStatus(e.value)}
                     />
                     <InputRouter
                       name={"childrens"}
@@ -439,6 +492,7 @@ function MainUser() {
                       defaultVal={user?.data.user.childrens}
                     />
                   </div>
+
                   {status === "Married" ? (
                     <div className="flex gap-3 pt-3">
                       <InputRouter
@@ -461,6 +515,7 @@ function MainUser() {
                       />
                     </div>
                   ) : null}
+
                   <div className="flex gap-3 pt-3">
                     <InputRouter
                       name={"phone"}
@@ -727,10 +782,12 @@ function MainUser() {
                 {academicInfo?.map((item, i) => (
                   <div key={i} className="flex w-full items-center gap-3">
                     <div className="w-1/3">
-                      <SelectRouter
+                      <Select
                         name={"academic_grade"}
                         placeholder={"Academic Grade"}
                         options={academyGrade}
+                        onChange={(e) => updateAcademicField(i, e)}
+                        defaultVal={academicInfo[i].academic_grade}
                       />
                     </div>
                     <div className="w-1/3">
@@ -738,6 +795,8 @@ function MainUser() {
                         name={"specify_academic"}
                         placeholder={"Specify the Academic Grade"}
                         type={"text"}
+                        value={academicInfo[i].specify_academic}
+                        onChange={(e) => updateAcademicField(i, e)}
                       />
                     </div>
                     <div className="w-1/3">
@@ -803,6 +862,8 @@ function MainUser() {
                         name={"company_experience"}
                         placeholder={"Company"}
                         type={"text"}
+                        value={workingInfo[i].company_experience}
+                        onChange={(e) => updateWorkingField(i, e)}
                       />
                     </div>
                     <div className="w-1/3">
@@ -810,13 +871,17 @@ function MainUser() {
                         name={"position_experience"}
                         placeholder={"Position"}
                         type={"text"}
+                        value={workingInfo[i].position_experience}
+                        onChange={(e) => updateWorkingField(i, e)}
                       />
                     </div>
                     <div className="w-1/3">
                       <InputRouter
-                        name={"years_experience"}
+                        name={"experience_years"}
                         placeholder={"Years of Experience"}
                         type={"number"}
+                        value={Number(workingInfo[i].experience_years)}
+                        onChange={(e) => updateWorkingField(i, e)}
                       />
                     </div>
                     {i !== 0 || workingInfo.length !== i + 1 ? (
@@ -902,6 +967,7 @@ function MainUser() {
                     name={"position"}
                     placeholder={"Position"}
                     options={selectPosition}
+                    defaultVal={user?.data.position}
                   />
                 </div>
               </div>
@@ -925,6 +991,7 @@ function MainUser() {
                     name="legal_benefits"
                     placeholder={"Legal Benefit"}
                     options={legal_benefits}
+                    defaultVal={benefitUser}
                   />
                 </div>
                 <div className="w-1/3"></div>
@@ -936,7 +1003,7 @@ function MainUser() {
                     name={"institutional_email"}
                     placeholder={"Institutional Email"}
                     type={"email"}
-                    defaultVal={user?.data.user.institutional_email}
+                    defaultVal={user?.data.user.email}
                   />
                 </div>
                 <div className="w-1/3">
@@ -979,16 +1046,20 @@ function MainUser() {
                     <div className="flex w-1/3 items-center gap-3">
                       <div className="w-1/2">
                         <InputRouter
-                          name={"start_contract"}
+                          name={"start"}
                           placeholder={"Start Contract"}
                           type={"date"}
+                          value={contractsInfo[i].start}
+                          onChange={(e) => updateContractField(i, e)}
                         />
                       </div>
                       <div className="w-1/2">
                         <InputRouter
-                          name={"end_contract"}
+                          name={"end"}
                           placeholder={"End Contract"}
                           type={"date"}
+                          value={contractsInfo[i].end}
+                          onChange={(e) => updateContractField(i, e)}
                         />
                       </div>
                     </div>
@@ -1034,6 +1105,7 @@ function MainUser() {
                     name={"bank"}
                     placeholder={"Bank"}
                     options={banks}
+                    defaultVal={bankUser}
                   />
                 </div>
                 <div className="w-1/3">
@@ -1049,6 +1121,7 @@ function MainUser() {
                     name={"regulation"}
                     placeholder={"Regulation"}
                     options={selectBasics}
+                    defaultVal={regulationUser}
                   />
                 </div>
               </div>
@@ -1076,12 +1149,16 @@ function MainUser() {
                     />
                   </div>
                   <div className="w-2/4 text-end">
-                    <Button
-                      type="submit"
-                      className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
-                    >
-                      Save
-                    </Button>
+                    {disabled === true ? (
+                      ""
+                    ) : (
+                      <Button
+                        type="submit"
+                        className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
+                      >
+                        Save
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
