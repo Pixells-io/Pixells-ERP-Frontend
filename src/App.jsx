@@ -175,7 +175,9 @@ import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
 import MainArea from "./pages/Organization/User/Area/MainArea";
 import MainPosition from "./pages/Organization/User/Position/MainPosition";
-import MainUser from "./pages/Organization/User/User/MainUser";
+import MainUser, {
+  Action as UpdateUser,
+} from "./pages/Organization/User/User/MainUser";
 
 const router = createBrowserRouter([
   {
@@ -349,6 +351,7 @@ const router = createBrowserRouter([
             path: "/organization/user/:id",
             element: <MainUser />,
             loader: multiLoaderUserCreate,
+            action: UpdateUser,
           },
         ],
       },

@@ -1023,5 +1023,5 @@ export async function Action({ request }) {
 
   const validation = await saveNewUser(data);
 
-  redirect("/organization");
+  return redirect("/organization");
 }

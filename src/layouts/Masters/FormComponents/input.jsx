@@ -9,6 +9,7 @@ function InputRouter({
   disabled,
   value,
   onChange,
+  required,
 }) {
   return (
     <Input
@@ -18,7 +19,7 @@ function InputRouter({
       placeholder={placeholder}
       defaultValue={defaultVal}
       disabled={disabled}
-      required
+      require={required}
       value={value}
       onChange={onChange}
     />
