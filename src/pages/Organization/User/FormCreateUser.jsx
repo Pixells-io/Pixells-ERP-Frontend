@@ -1,25 +1,171 @@
 import React, { useState } from "react";
+import { Form, useLoaderData, redirect } from "react-router-dom";
+import { saveNewUser } from "../utils";
+
 import Select from "react-select";
+import InputRouter from "../../../layouts/Masters/FormComponents/input";
+import SelectRouter from "../../../layouts/Masters/FormComponents/select";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
+import DropzoneFile from "@/components/dropzone-files";
+import { Button } from "@/components/ui/button";
+
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
-  addCircleOutline,
   chevronBack,
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import InputRouter from "../../../layouts/Masters/FormComponents/input";
-import SelectRouter from "../../../layouts/Masters/FormComponents/select";
-import FileRouter from "../../../layouts/Masters/FormComponents/file";
-import UserImage from "../../../layouts/Masters/FormComponents/userImage";
-import { Form, useLoaderData, redirect } from "react-router-dom";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { saveNewUser } from "../utils";
-import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
+
+const selectBasics = [
+  {
+    label: "Yes",
+    value: "1",
+  },
+  {
+    label: "No",
+    value: "0",
+  },
+];
+
+const genreSelect = [
+  {
+    label: "Male",
+    value: "Male",
+  },
+  {
+    label: "Female",
+    value: "Female",
+  },
+];
+
+const civilStatus = [
+  {
+    label: "Single",
+    value: "Single",
+  },
+  {
+    label: "Married",
+    value: "Married",
+  },
+  {
+    label: "Concubinage",
+    value: "Concubinage",
+  },
+  {
+    label: "Divorced",
+    value: "Divorced",
+  },
+  {
+    label: "Widower",
+    value: "Widower",
+  },
+];
+
+const bloodType = [
+  {
+    label: "A+",
+    value: "A+",
+  },
+  {
+    label: "A-",
+    value: "A-",
+  },
+  {
+    label: "B+",
+    value: "B+",
+  },
+  {
+    label: "B-",
+    value: "B-",
+  },
+  {
+    label: "AB+",
+    value: "AB+",
+  },
+  {
+    label: "AB-",
+    value: "AB-",
+  },
+  {
+    label: "O+",
+    value: "O+",
+  },
+  {
+    label: "O-",
+    value: "O-",
+  },
+];
+
+const academyGrade = [
+  {
+    label: "Elementary School",
+    value: "Elementary School",
+  },
+  {
+    label: "Middle School",
+    value: "Middle School",
+  },
+  {
+    label: "High School",
+    value: "High School",
+  },
+  {
+    label: "University",
+    value: "University",
+  },
+  {
+    label: "Master",
+    value: "Master",
+  },
+];
+
+const workingbenefits = [
+  {
+    label: "Health Insurance",
+    value: "Health Insurance",
+  },
+];
+
+const contracts = [
+  {
+    label: "Example",
+    value: "Example",
+  },
+];
+
+const banks = [
+  {
+    label: "Bank",
+    value: "Bank",
+  },
+];
+
+const legal_benefits = [
+  {
+    label: "Benefit 1",
+    value: "Benefit 1",
+  },
+  {
+    label: "Benefit 2",
+    value: "Benefit 2",
+  },
+  {
+    label: "Benefit 3",
+    value: "Benefit 3",
+  },
+  {
+    label: "Benefit 4",
+    value: "Benefit 4",
+  },
+  {
+    label: "Benefit 5",
+    value: "Benefit 5",
+  },
+];
 
 function FormCreateUser() {
-  const { areas, positions } = useLoaderData();
+  const { areas, positions, users } = useLoaderData();
   const [status, setStatus] = useState("");
   const [academicInfo, setAcademicInfo] = useState([
     {
@@ -45,9 +191,11 @@ function FormCreateUser() {
 
   const selectArea = [];
   const selectPosition = [];
+  const selectUsers = [];
 
   arrayFillAreas(areas, selectArea);
   arrayFillPositions(positions, selectPosition);
+  arrayFillUsers(users, selectUsers);
 
   function arrayFillAreas(data, array) {
     let dataParse = data.data;
@@ -69,6 +217,17 @@ function FormCreateUser() {
         label: element.position_name,
         value: element.id,
         placeholder: "0",
+      });
+    });
+  }
+
+  function arrayFillUsers(data, array) {
+    let dataParse = data.data;
+
+    dataParse.forEach((element) => {
+      array.push({
+        label: element.name,
+        value: element.id,
       });
     });
   }
@@ -118,149 +277,6 @@ function FormCreateUser() {
     // console.log(newFields);
     setContratcsInfo(newFields);
   }
-
-  const selectBasics = [
-    {
-      label: "Yes",
-      value: "1",
-    },
-    {
-      label: "No",
-      value: "0",
-    },
-  ];
-
-  const genreSelect = [
-    {
-      label: "Male",
-      value: "Male",
-    },
-    {
-      label: "Female",
-      value: "Female",
-    },
-  ];
-
-  const civilStatus = [
-    {
-      label: "Single",
-      value: "Single",
-    },
-    {
-      label: "Married",
-      value: "Married",
-    },
-    {
-      label: "Concubinage",
-      value: "Concubinage",
-    },
-    {
-      label: "Divorced",
-      value: "Divorced",
-    },
-    {
-      label: "Widower",
-      value: "Widower",
-    },
-  ];
-
-  const bloodType = [
-    {
-      label: "A+",
-      value: "A+",
-    },
-    {
-      label: "A-",
-      value: "A-",
-    },
-    {
-      label: "B+",
-      value: "B+",
-    },
-    {
-      label: "B-",
-      value: "B-",
-    },
-    {
-      label: "AB+",
-      value: "AB+",
-    },
-    {
-      label: "AB-",
-      value: "AB-",
-    },
-    {
-      label: "O+",
-      value: "O+",
-    },
-    {
-      label: "O-",
-      value: "O-",
-    },
-  ];
-
-  const academyGrade = [
-    {
-      label: "Elementary School",
-      value: "Elementary School",
-    },
-    {
-      label: "Middle School",
-      value: "Middle School",
-    },
-    {
-      label: "High School",
-      value: "High School",
-    },
-    {
-      label: "University",
-      value: "University",
-    },
-  ];
-
-  const workingbenefits = [
-    {
-      label: "Health Insurance",
-      value: "Health Insurance",
-    },
-  ];
-
-  const contracts = [
-    {
-      label: "Example",
-      value: "Example",
-    },
-  ];
-
-  const banks = [
-    {
-      label: "Bank",
-      value: "Bank",
-    },
-  ];
-
-  const legal_benefits = [
-    {
-      label: "Benefit 1",
-      value: "Benefit 1",
-    },
-    {
-      label: "Benefit 2",
-      value: "Benefit 2",
-    },
-    {
-      label: "Benefit 3",
-      value: "Benefit 3",
-    },
-    {
-      label: "Benefit 4",
-      value: "Benefit 4",
-    },
-    {
-      label: "Benefit 5",
-      value: "Benefit 5",
-    },
-  ];
 
   return (
     <div className="flex w-full">
@@ -314,8 +330,8 @@ function FormCreateUser() {
           <div className="">
             <div className="w-1/4">
               <DropzoneImage name={"user_image"} />
-              {/* <UserImage name={"user_image"} label={"User Image"} /> */}
             </div>
+
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -370,11 +386,6 @@ function FormCreateUser() {
                       placeholder={"Civil Status"}
                       className="w-full text-sm font-light"
                     />
-                    {/* <SelectRouter
-                      name={"civil_status"}
-                      placeholder={"Civil Status"}
-                      options={civilStatus}
-                    /> */}
                     <InputRouter
                       name={"childrens"}
                       placeholder={"Children"}
@@ -416,7 +427,7 @@ function FormCreateUser() {
                   <div className="flex w-full gap-3 pt-3">
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
-                        <FileRouter name={"curp_file"} label={"CURP"} />
+                        <DropzoneFile name={"curp_file"} label={"CURP"} />
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -428,7 +439,7 @@ function FormCreateUser() {
                     </div>
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
-                        <FileRouter name={"rfc_file"} label={"RFC"} />
+                        <DropzoneFile name={"rfc_file"} label={"RFC"} />
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -440,7 +451,7 @@ function FormCreateUser() {
                     </div>
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
-                        <FileRouter name={"nss_file"} label={"NSS"} />
+                        <DropzoneFile name={"nss_file"} label={"NSS"} />
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -455,14 +466,14 @@ function FormCreateUser() {
 
                 <div className="w-2/6">
                   <div>
-                    <FileRouter
+                    <DropzoneFile
                       name={"birth_certificade"}
                       label={"Birth Certificate"}
                     />
                   </div>
                   <div className="flex items-center gap-3 pr-6 pt-4">
                     <div className="w-1/2">
-                      <FileRouter name={"id_file"} label={"ID"} />
+                      <DropzoneFile name={"id_file"} label={"ID"} />
                     </div>
                     <div className="w-1/2">
                       <InputRouter
@@ -475,6 +486,7 @@ function FormCreateUser() {
                 </div>
               </div>
             </div>
+
             {/*Health Card*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -513,6 +525,7 @@ function FormCreateUser() {
                 </div>
               </div>
             </div>
+
             {/*Address Card*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -552,7 +565,7 @@ function FormCreateUser() {
                       />
                     </div>
                     <div className="w-1/4">
-                      <FileRouter
+                      <DropzoneFile
                         name={"address_voucher"}
                         label={"Adress Voucher"}
                       />
@@ -586,6 +599,7 @@ function FormCreateUser() {
                 </div>
               </div>
             </div>
+
             {/*Emergency Contact*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -621,6 +635,7 @@ function FormCreateUser() {
                 />
               </div>
             </div>
+
             {/*Academic Information*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -632,6 +647,7 @@ function FormCreateUser() {
                   value={academicInfo}
                   className="hidden"
                   readOnly
+                  name="academics"
                 />
                 {academicInfo?.map((item, i) => (
                   <div className="flex w-full items-center gap-3">
@@ -650,7 +666,7 @@ function FormCreateUser() {
                       />
                     </div>
                     <div className="w-1/3">
-                      <FileRouter
+                      <DropzoneFile
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
                       />
@@ -785,7 +801,7 @@ function FormCreateUser() {
                   />
                 </div>
                 <div className="w-1/3 pl-4">
-                  <FileRouter name={"cv"} label={"CV"} />
+                  <DropzoneFile name={"cv"} label={"CV"} />
                 </div>
               </div>
 
@@ -801,7 +817,7 @@ function FormCreateUser() {
                   <SelectRouter
                     name={"boss"}
                     placeholder={"Boss"}
-                    options={selectArea}
+                    options={selectUsers}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
@@ -822,11 +838,6 @@ function FormCreateUser() {
                   />
                 </div>
                 <div className="w-1/3">
-                  {/* <InputRouter
-                    name={"income_date"}
-                    placeholder={"Income Date"}
-                    type={"date"}
-                  /> */}
                   <SelectRouter
                     name="legal_benefits"
                     placeholder={"Legal Benefit"}
@@ -864,7 +875,7 @@ function FormCreateUser() {
               <div className="flex flex-col items-center gap-3 pt-4">
                 <input
                   type="text"
-                  value={workingInfo}
+                  value={contractsInfo}
                   className="hidden"
                   readOnly
                   name="contracts"
@@ -1002,4 +1013,5 @@ export async function Action({ request }) {
   const validation = await saveNewUser(data);
 
   return redirect("/organization");
+  // return "ok";
 }

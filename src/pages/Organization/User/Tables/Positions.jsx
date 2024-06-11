@@ -51,8 +51,14 @@ function PositionsTable({ positions }) {
             <NavLink to={`/organization/position/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
-            <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
-            <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
+            <NavLink
+              className={
+                "text-roboto rounded-xl bg-[#e0e0e0] px-2 pt-[2px] text-[0.6875rem] font-semibold text-grisText"
+              }
+              to={`${import.meta.env.VITE_SERVER_URL}organization/description-of-the-position/${row.original.id}`}
+            >
+              <span>PDF</span>
+            </NavLink>
           </div>
         );
       },

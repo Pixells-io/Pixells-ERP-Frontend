@@ -97,6 +97,7 @@ export async function loginUser(data) {
 
 export async function saveNewUser(data) {
   const info = {
+    // Personal Info
     name: data.get("name"),
     last_name: data.get("last_name"),
     second_last_name: data.get("second_last_name"),
@@ -105,10 +106,10 @@ export async function saveNewUser(data) {
     state_of_birth: data.get("state_of_birth"),
     genre: data.get("genre"),
     civil_status: data.get("civil_status"),
+    childrens: data.get("childrens"),
     spouse_firstname: data.get("spouse_firstname"),
     spouse_lastname: data.get("spouse_lastname"),
     spouse_taxid: data.get("spouse_taxid"),
-    childrens: data.get("childrens"),
     phone: data.get("phone"),
     personal_email: data.get("personal_email"),
     curp_text: data.get("curp_text"),
@@ -116,47 +117,70 @@ export async function saveNewUser(data) {
     nss_text: data.get("nss_text"),
     birth_certificade: data.get("birth_certificade"),
     id_date: data.get("id_date"),
+
+    //Health Info
     chronic_diseases: data.get("chronic_diseases"),
     alergic: data.get("alergic"),
     specify_allergy: data.get("specify_allergy"),
     blood: data.get("blood"),
+
+    // Address Info
     street: data.get("street"),
     ext: data.get("ext"),
     int: data.get("int"),
     cp: data.get("cp"),
-    address_voucher: data.get("address_voucher"),
+    // address_voucher: data.get("address_voucher"),
     discrict: data.get("discrict"),
     city: data.get("city"),
     state: data.get("state"),
+
+    // Emergency Contact Info
     emergency_name: data.get("emergency_name"),
     emergency_last_name: data.get("emergency_last_name"),
     emergency_second_last_name: data.get("emergency_second_last_name"),
     emergency_relationship: data.get("emergency_relationship"),
     emergency_phone: data.get("emergency_phone"),
-    company_experience: data.getAll("company_experience"),
-    position_experience: data.getAll("position_experience"),
+
+    // Academic Info
+    academics: data.get("academics"),
     academic_grade: data.getAll("academic_grade"),
     specify_academic: data.getAll("specify_academic"),
+
+    // Last Work Info
+    working_info: data.get("working-info"),
+    company_experience: data.getAll("company_experience"),
+    position_experience: data.getAll("position_experience"),
     years_experience: data.getAll("years_experience"),
+
+    // Position Info
     working_center: data.get("working_center"),
     income_date: data.get("income_date"),
+
     area: data.get("area"),
     boss: data.get("boss"),
     position: data.get("position"),
+
     monthly_pay: data.get("monthly_pay"),
-    income_date: data.get("income_date"),
-    contract: data.getAll("contract"),
-    start_contract: data.getAll("start_contract"),
-    end_contract: data.getAll("end_contract"),
-    bank: data.get("bank"),
-    bank_account: data.get("bank_account"),
-    regulation: data.get("regulation"),
-    password: data.get("password"),
-    confirm_password: data.get("confirm_password"),
+    legal_benefits: data.get("legal_benefits"),
+
     institutional_email: data.get("institutional_email"),
     institutional_phone: data.get("institutional_phone"),
     institutional_phone_ext: data.get("institutional_phone_ext"),
+
+    contracts: data.get("contracts"),
+    contract: data.getAll("contract"),
+    start_contract: data.getAll("start_contract"),
+    end_contract: data.getAll("end_contract"),
+
+    bank: data.get("bank"),
+    bank_account: data.get("bank_account"),
+    regulation: data.get("regulation"),
+
+    password: data.get("password"),
+    confirm_password: data.get("confirm_password"),
   };
+
+  // console.log(info);
 
   const formData = new FormData();
 
@@ -187,6 +211,7 @@ export async function saveNewUser(data) {
   );
 
   return response;
+  // return "ok";
 }
 
 export async function saveNewImage(data) {

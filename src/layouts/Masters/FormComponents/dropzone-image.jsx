@@ -53,21 +53,6 @@ function DropzoneImage({ name }) {
           </div>
         )}
       </div>
-      {/* 
-      <div className="file-list">
-        <h3>Uploaded File:</h3>
-        {uploadedFiles.length > 0 ? (
-          <ul>
-            {uploadedFiles.map((file, index) => (
-              <li key={index}>
-                <span>{file.name}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          ""
-        )}
-      </div> */}
     </div>
   );
 }

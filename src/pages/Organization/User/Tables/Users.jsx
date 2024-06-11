@@ -32,7 +32,7 @@ function UsersTable({ users }) {
             <div>
               <img
                 src={row.original.user_image}
-                className="w-10 rounded-full"
+                className="h-10 w-10 rounded-full"
               />
             </div>
             <div className="ml-2 mt-2">
@@ -82,8 +82,6 @@ function UsersTable({ users }) {
             <NavLink to={`/organization/user/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
-            <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
-            <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
           </div>
         );
       },
