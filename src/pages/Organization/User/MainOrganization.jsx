@@ -149,8 +149,8 @@ function MainOrganization() {
                       AREAS
                     </TabsTrigger>
                   </div>
-                  <div className="w-1/5">
-                    <div className="flex h-10 w-44 items-end rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">
+                  <div className="flex w-1/5 pt-1">
+                    <div className="flex h-10 items-center rounded-3xl border-[1px] border-[#44444F] px-4 text-[10px]">
                       <Label htmlFor="search">
                         <IonIcon
                           icon={searchOutline}
