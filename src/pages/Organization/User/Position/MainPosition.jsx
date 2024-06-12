@@ -255,8 +255,8 @@ const sectorExperience = [
 ];
 
 function MainPosition() {
-  const { areas, positions, data } = useLoaderData();
-  console.log(data);
+  const { areas, positions, position } = useLoaderData();
+  console.log(position.data);
   const [disabled, setDisabled] = useState(true);
   const [positionsInputs, setPositionsInputs] = useState([
     { coordinate_id: "", boss_id: "" },
@@ -652,7 +652,7 @@ function MainPosition() {
                   ))}
                 </div>
                 <div className="flex self-center">
-                  {resInputs.length <= 7 ? (
+                  {resInputs?.length <= 7 ? (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
                       onClick={() => addResInput()}
@@ -736,7 +736,7 @@ function MainPosition() {
 
                   <div className="flex">
                     <div className="flex w-full flex-col gap-3 pt-3">
-                      {lenguageInputs.map((item, i) => (
+                      {lenguageInputs?.map((item, i) => (
                         <div key={i} className="flex w-full items-center gap-3">
                           <div className="w-2/6">
                             <SelectRouter
@@ -771,7 +771,7 @@ function MainPosition() {
                       ))}
                     </div>
                     <div className="flex self-center">
-                      {lenguageInputs.length <= 2 ? (
+                      {lenguageInputs?.length <= 2 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addLenguageInput()}
@@ -815,7 +815,7 @@ function MainPosition() {
 
                   <div className="flex">
                     <div className="flex w-full flex-col items-center gap-3 pt-3">
-                      {skillsInputs.map((item, i) => (
+                      {skillsInputs?.map((item, i) => (
                         <div key={i} className="flex w-full items-center gap-3">
                           <div className="w-1/3">
                             <InputRouter
@@ -843,7 +843,7 @@ function MainPosition() {
                       ))}
                     </div>
                     <div className="flex self-center">
-                      {skillsInputs.length <= 7 ? (
+                      {skillsInputs?.length <= 7 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addSkillInput()}

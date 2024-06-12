@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import Select from "react-select";
+import { Form, useLoaderData, redirect, useParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
-  addCircleOutline,
   chevronBack,
   chevronForward,
   closeCircle,
+  create,
 } from "ionicons/icons";
 
-import { Form, useLoaderData, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneFile from "@/components/dropzone-files";
+import { saveNewUser } from "../../utils";
 
 const selectBasics = [
   {
@@ -160,30 +160,14 @@ const legal_benefits = [
 ];
 
 function MainUser() {
+  const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user);
+  // console.log(user.data);
   const [status, setStatus] = useState("");
-  const [academicInfo, setAcademicInfo] = useState([
-    {
-      academic_grade: "",
-      specify_academic: "",
-      academic_voucher: "",
-    },
-  ]);
-  const [workingInfo, setWorkingInfo] = useState([
-    {
-      company_experience: "",
-      position_experience: "",
-      years_experience: "",
-    },
-  ]);
-  const [contractsInfo, setContratcsInfo] = useState([
-    {
-      contract: "",
-      start_contract: "",
-      end_contract: "",
-    },
-  ]);
+  const [disabled, setDisabled] = useState(true);
+  const [academicInfo, setAcademicInfo] = useState(user.data.academy);
+  const [workingInfo, setWorkingInfo] = useState(user.data.experience);
+  const [contractsInfo, setContratcsInfo] = useState(user.data.contracts);
 
   // inputs options
   const selectArea = [];
@@ -191,27 +175,34 @@ function MainUser() {
   const selectUsers = [];
 
   // user info
-  const userAreas = [];
-  const userPosition = [];
-
+  const genreUser = [];
   const civilStatusUser = [];
 
   const chronicUser = [];
   const alergicUser = [];
   const bloodUser = [];
 
+  const benefitUser = [];
+
+  const bankUser = [];
+  const regulationUser = [];
+
   // user arrays
   arrayFillAreas(areas, selectArea);
   arrayFillPositions(positions, selectPosition);
   arrayFillUsers(users, selectUsers);
 
-  // arrayUserArea(user.data.user.area, userAreas);
-  // arrayUserArea(user?.data.user.position, userPosition);
+  createOptionArray(user.data.user.genre, genreUser);
   createOptionArray(user.data.user.civil_status, civilStatusUser);
 
   createOptionBoolean(user.data.user.chronic_diseases, chronicUser);
   createOptionBoolean(user.data.user.alergic, alergicUser);
   createOptionArray(user.data.user.blood, bloodUser);
+
+  createOptionArray(user.data.user.legal_benefits, benefitUser);
+
+  createOptionArray(user.data.user.bank, bankUser);
+  createOptionBoolean(user.data.user.regulation, regulationUser);
 
   function arrayFillAreas(data, array) {
     let dataParse = data.data;
@@ -286,11 +277,20 @@ function MainUser() {
     setAcademicInfo(newFields);
   }
 
+  function updateAcademicField(index, e) {
+    // console.log(e.target.name);
+    const newFields = academicInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
+    setAcademicInfo(newFields);
+  }
+
   function addWorkingInputs() {
     const academicInput = {
       company_experience: "",
       position_experience: "",
-      years_experience: "",
+      experience_years: "",
     };
     setWorkingInfo([...workingInfo, academicInput]);
   }
@@ -301,11 +301,20 @@ function MainUser() {
     setWorkingInfo(newFields);
   }
 
+  function updateWorkingField(index, e) {
+    // console.log(e.target);
+    const newFields = workingInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
+    setWorkingInfo(newFields);
+  }
+
   function addContractInputs() {
     const contractInput = {
       contract: "",
-      start_contract: "",
-      end_contract: "",
+      start: "",
+      end: "",
     };
     setContratcsInfo([...contractsInfo, contractInput]);
   }
@@ -313,6 +322,15 @@ function MainUser() {
   function removeContractInputs(index) {
     const newFields = contractsInfo.filter((item, i) => index !== i);
     // console.log(newFields);
+    setContratcsInfo(newFields);
+  }
+
+  function updateContractField(index, e) {
+    // console.log(e.target);
+    const newFields = contractsInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    console.log(newFields);
     setContratcsInfo(newFields);
   }
 
@@ -346,30 +364,56 @@ function MainUser() {
               USER MANAGEMENT
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div>4 service</div>
-            <div className="text-2xl">&bull;</div>
-            <div>9 costumers</div>
-          </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New User
           </h2>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <p>Edit Mode</p>
+              <span
+                className={
+                  disabled
+                    ? "rounded-full bg-red-400 px-4 py-1 text-white"
+                    : "rounded-full bg-green-400 px-4 py-1 text-white"
+                }
+              >
+                {disabled ? "OFF" : "ON"}
+              </span>
+            </div>
+            <Button
+              className="w-16"
+              variant="ghost"
+              onClick={() => setDisabled(!disabled)}
+              type="button"
+            >
+              <IonIcon
+                icon={create}
+                size="large"
+                className="text-grisText"
+              ></IonIcon>
+            </Button>
+          </div>
         </div>
 
         {/*USER BOX CREATE*/}
         <Form
-          action="/organization/create-user"
+          action={`/organization/user/${id}`}
           method="post"
           encType="multipart/form-data"
-          id="form-create-user"
+          id="form-update-user"
         >
           <div className="">
             <div className="w-1/4">
-              <DropzoneImage name={"user_image"} />
+              <DropzoneImage
+                name={"user_image"}
+                url={user?.data.user.user_image}
+                initials={`${user?.data.user.name.slice(1)}${user?.data.user.last_name.slice(1)}`}
+              />
               {/* <UserImage name={"user_image"} label={"User Image"} /> */}
             </div>
+
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -383,62 +427,75 @@ function MainUser() {
                       placeholder={"Name"}
                       type={"text"}
                       defaultVal={user?.data.user.name}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"last_name"}
                       placeholder={"Last Name"}
                       type={"text"}
                       defaultVal={user?.data.user.last_name}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"second_last_name"}
                       placeholder={"Second Last Name"}
                       type={"text"}
                       defaultVal={user?.data.user.second_last_name}
+                      disabled={disabled}
                     />
                   </div>
+
                   <div className="mt-3 flex gap-3">
                     <InputRouter
                       name={"date_of_birth"}
                       placeholder={"Date of Birth"}
                       type={"date"}
                       defaultVal={user?.data.user.date_of_birth}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"city_of_birth"}
                       placeholder={"City of Birth"}
                       type={"text"}
                       defaultVal={user?.data.user.city_of_birth}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"state_of_birth"}
                       placeholder={"State of Birth"}
                       type={"text"}
                       defaultVal={user?.data.user.state_of_birth}
+                      disabled={disabled}
                     />
                   </div>
+
                   <div className="flex items-center gap-3 pt-3">
-                    <Select
+                    <SelectRouter
                       name={"genre"}
                       placeholder={"Genre"}
                       options={genreSelect}
                       className="w-full text-sm font-light"
-                      defaultValue={user?.data.user.genre}
+                      defaultVal={genreUser}
+                      disabled={disabled}
                     />
-                    <Select
+                    <SelectRouter
                       name={"civil_status"}
                       className="w-full text-sm font-light"
                       placeholder={"Civil Status"}
                       options={civilStatus}
-                      defaultValue={civilStatusUser}
+                      defaultVal={civilStatusUser}
+                      onChange={(e) => setStatus(e.value)}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"childrens"}
                       placeholder={"Children"}
                       type={"number"}
                       defaultVal={user?.data.user.childrens}
+                      disabled={disabled}
                     />
                   </div>
+
                   {status === "Married" ? (
                     <div className="flex gap-3 pt-3">
                       <InputRouter
@@ -446,33 +503,39 @@ function MainUser() {
                         placeholder={"Spouse First Name"}
                         type={"text"}
                         defaultVal={user?.data.user.spouse_firstname}
+                        disabled={disabled}
                       />
                       <InputRouter
                         name={"spouse_lastname"}
                         placeholder={"Spouse Last Name"}
                         type={"text"}
                         defaultVal={user?.data.user.spouse_lastname}
+                        disabled={disabled}
                       />
                       <InputRouter
                         name={"spouse_taxid"}
                         placeholder={"Spouse Tax ID"}
                         type={"text"}
                         defaultVal={user?.data.user.spouse_taxid}
+                        disabled={disabled}
                       />
                     </div>
                   ) : null}
+
                   <div className="flex gap-3 pt-3">
                     <InputRouter
                       name={"phone"}
                       placeholder={"Phone"}
                       type={"number"}
                       defaultVal={user?.data.user.phone}
+                      disabled={disabled}
                     />
                     <InputRouter
                       name={"personal_email"}
                       placeholder={"Personal Email"}
                       type={"email"}
                       defaultVal={user?.data.user.personal_email}
+                      disabled={disabled}
                     />
                   </div>
 
@@ -488,6 +551,7 @@ function MainUser() {
                           placeholder={"Curp"}
                           type={"text"}
                           defaultVal={user?.data.user.curp_text}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -501,6 +565,7 @@ function MainUser() {
                           placeholder={"Rfc"}
                           type={"text"}
                           defaultVal={user?.data.user.rfc_text}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -514,6 +579,7 @@ function MainUser() {
                           placeholder={"NSS"}
                           type={"text"}
                           defaultVal={user?.data.user.nss_text}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -537,6 +603,7 @@ function MainUser() {
                         placeholder={"Id Date"}
                         type={"date"}
                         defaultVal={user?.data.user.id_date}
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -552,21 +619,23 @@ function MainUser() {
               <div className="flex pt-4">
                 <div className="flex w-full items-center gap-3">
                   <div className="w-1/4">
-                    <Select
+                    <SelectRouter
                       name={"chronic_diseases"}
                       placeholder={"Chronic Diseases"}
                       className="w-full text-sm font-light"
                       options={selectBasics}
-                      defaultValue={chronicUser}
+                      defaultVal={chronicUser}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
-                    <Select
+                    <SelectRouter
                       name={"alergic"}
                       className="w-full text-sm font-light"
                       placeholder={"Alergic"}
                       options={selectBasics}
-                      defaultValue={alergicUser}
+                      defaultVal={alergicUser}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
@@ -575,15 +644,17 @@ function MainUser() {
                       placeholder={"Specify the Allergy"}
                       type={"text"}
                       defaultVal={user?.data.user.specify_allergy}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
-                    <Select
+                    <SelectRouter
                       name={"blood"}
                       className="w-full text-sm font-light"
                       placeholder={"Type of Blood"}
                       options={bloodType}
-                      defaultValue={bloodUser}
+                      defaultVal={bloodUser}
+                      disabled={disabled}
                     />
                   </div>
                 </div>
@@ -604,6 +675,7 @@ function MainUser() {
                         placeholder={"Street"}
                         type={"text"}
                         defaultVal={user?.data.user.street}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="flex w-1/4 gap-3">
@@ -613,6 +685,7 @@ function MainUser() {
                           placeholder={"Ext"}
                           type={"text"}
                           defaultVal={user?.data.user.ext}
+                          disabled={disabled}
                         />
                       </div>
                       <div className="w-1/2">
@@ -621,6 +694,7 @@ function MainUser() {
                           placeholder={"Int"}
                           type={"text"}
                           defaultVal={user?.data.user.int}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -630,6 +704,7 @@ function MainUser() {
                         placeholder={"CP"}
                         type={"text"}
                         defaultVal={user?.data.user.cp}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/4">
@@ -647,6 +722,7 @@ function MainUser() {
                         placeholder={"Discrict"}
                         type={"text"}
                         defaultVal={user?.data.user.discrict}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/4">
@@ -655,6 +731,7 @@ function MainUser() {
                         placeholder={"City"}
                         type={"text"}
                         defaultVal={user?.data.user.city}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/4">
@@ -663,6 +740,7 @@ function MainUser() {
                         placeholder={"State"}
                         type={"text"}
                         defaultVal={user?.data.user.state}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/4"></div>
@@ -682,18 +760,21 @@ function MainUser() {
                   placeholder={"Name"}
                   type={"text"}
                   defaultVal={user?.data.user.emergency_name}
+                  disabled={disabled}
                 />
                 <InputRouter
                   name={"emergency_last_name"}
                   placeholder={"Last Name"}
                   type={"text"}
                   defaultVal={user?.data.user.emergency_last_name}
+                  disabled={disabled}
                 />
                 <InputRouter
                   name={"emergency_second_last_name"}
                   placeholder={"Second Last Name"}
                   type={"text"}
                   defaultVal={user?.data.user.emergency_second_last_name}
+                  disabled={disabled}
                 />
 
                 <InputRouter
@@ -701,6 +782,7 @@ function MainUser() {
                   placeholder={"Relationship"}
                   type={"text"}
                   defaultVal={user?.data.user.emergency_relationship}
+                  disabled={disabled}
                 />
 
                 <InputRouter
@@ -708,6 +790,7 @@ function MainUser() {
                   placeholder={"Phone"}
                   type={"text"}
                   defaultVal={user?.data.user.emergency_phone}
+                  disabled={disabled}
                 />
               </div>
             </div>
@@ -731,6 +814,9 @@ function MainUser() {
                         name={"academic_grade"}
                         placeholder={"Academic Grade"}
                         options={academyGrade}
+                        onChange={(e) => updateAcademicField(i, e)}
+                        defaultVal={academicInfo[i].academic_grade}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
@@ -738,6 +824,9 @@ function MainUser() {
                         name={"specify_academic"}
                         placeholder={"Specify the Academic Grade"}
                         type={"text"}
+                        value={academicInfo[i].specify_academic}
+                        onChange={(e) => updateAcademicField(i, e)}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
@@ -751,6 +840,7 @@ function MainUser() {
                         type="button"
                         className="flex items-center"
                         onClick={() => removeAcademicField(i)}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={closeCircle}
@@ -768,6 +858,7 @@ function MainUser() {
                         type="button"
                         className="flex"
                         onClick={() => addAcademicField()}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={addCircle}
@@ -803,6 +894,9 @@ function MainUser() {
                         name={"company_experience"}
                         placeholder={"Company"}
                         type={"text"}
+                        value={workingInfo[i].company_experience}
+                        onChange={(e) => updateWorkingField(i, e)}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
@@ -810,13 +904,19 @@ function MainUser() {
                         name={"position_experience"}
                         placeholder={"Position"}
                         type={"text"}
+                        value={workingInfo[i].position_experience}
+                        onChange={(e) => updateWorkingField(i, e)}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
                       <InputRouter
-                        name={"years_experience"}
+                        name={"experience_years"}
                         placeholder={"Years of Experience"}
                         type={"number"}
+                        value={Number(workingInfo[i].experience_years)}
+                        onChange={(e) => updateWorkingField(i, e)}
+                        disabled={disabled}
                       />
                     </div>
                     {i !== 0 || workingInfo.length !== i + 1 ? (
@@ -824,6 +924,7 @@ function MainUser() {
                         type="button"
                         className="flex items-center"
                         onClick={() => removeWorkingInputs(i)}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={closeCircle}
@@ -840,6 +941,7 @@ function MainUser() {
                         type="button"
                         className="flex"
                         onClick={() => addWorkingInputs()}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={addCircle}
@@ -867,6 +969,7 @@ function MainUser() {
                     placeholder={"Working Center"}
                     type={"text"}
                     defaultVal={user?.data.user.working_center}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
@@ -875,6 +978,7 @@ function MainUser() {
                     placeholder={"Income Date"}
                     type={"date"}
                     defaultVal={user?.data.user.income_date}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3 pl-4">
@@ -888,6 +992,8 @@ function MainUser() {
                     name={"area"}
                     placeholder={"Area"}
                     options={selectArea}
+                    disabled={disabled}
+                    defaultVal={user?.data.area}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
@@ -895,6 +1001,8 @@ function MainUser() {
                     name={"boss"}
                     placeholder={"Boss"}
                     options={selectUsers}
+                    disabled={disabled}
+                    defaultVal={user?.data.boss}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
@@ -902,6 +1010,8 @@ function MainUser() {
                     name={"position"}
                     placeholder={"Position"}
                     options={selectPosition}
+                    defaultVal={user?.data.position}
+                    disabled={disabled}
                   />
                 </div>
               </div>
@@ -913,18 +1023,16 @@ function MainUser() {
                     placeholder={"Monthly Pay"}
                     type={"number"}
                     defaultVal={user?.data.user.monthly_pay}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
-                  {/* <InputRouter
-                  name={"income_date"}
-                  placeholder={"Income Date"}
-                  type={"date"}
-                /> */}
                   <SelectRouter
                     name="legal_benefits"
                     placeholder={"Legal Benefit"}
                     options={legal_benefits}
+                    defaultVal={benefitUser}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3"></div>
@@ -936,7 +1044,8 @@ function MainUser() {
                     name={"institutional_email"}
                     placeholder={"Institutional Email"}
                     type={"email"}
-                    defaultVal={user?.data.user.institutional_email}
+                    defaultVal={user?.data.user.email}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
@@ -945,6 +1054,7 @@ function MainUser() {
                     placeholder={"Institutional Phone"}
                     type={"phone"}
                     defaultVal={user?.data.user.institutional_phone}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
@@ -953,6 +1063,7 @@ function MainUser() {
                     placeholder={"Ext"}
                     type={"number"}
                     defaultVal={user?.data.user.institutional_phone_ext}
+                    disabled={disabled}
                   />
                 </div>
               </div>
@@ -974,21 +1085,29 @@ function MainUser() {
                         name={"contract"}
                         placeholder={"Type of Contract"}
                         options={contracts}
+                        disabled={disabled}
+                        defaultVal={user?.data.contracts[i].contract}
                       />
                     </div>
                     <div className="flex w-1/3 items-center gap-3">
                       <div className="w-1/2">
                         <InputRouter
-                          name={"start_contract"}
+                          name={"start"}
                           placeholder={"Start Contract"}
                           type={"date"}
+                          value={contractsInfo[i].start}
+                          onChange={(e) => updateContractField(i, e)}
+                          disabled={disabled}
                         />
                       </div>
                       <div className="w-1/2">
                         <InputRouter
-                          name={"end_contract"}
+                          name={"end"}
                           placeholder={"End Contract"}
                           type={"date"}
+                          value={contractsInfo[i].end}
+                          onChange={(e) => updateContractField(i, e)}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -997,6 +1116,7 @@ function MainUser() {
                         type="button"
                         className="flex items-center"
                         onClick={() => removeContractInputs(i)}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={closeCircle}
@@ -1014,6 +1134,7 @@ function MainUser() {
                         type="button"
                         className="flex"
                         onClick={() => addContractInputs()}
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={addCircle}
@@ -1034,6 +1155,8 @@ function MainUser() {
                     name={"bank"}
                     placeholder={"Bank"}
                     options={banks}
+                    defaultVal={bankUser}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
@@ -1042,6 +1165,7 @@ function MainUser() {
                     placeholder={"bank Account"}
                     type={"text"}
                     defaultVal={user?.data.user.bank_account}
+                    disabled={disabled}
                   />
                 </div>
                 <div className="w-1/3">
@@ -1049,6 +1173,8 @@ function MainUser() {
                     name={"regulation"}
                     placeholder={"Regulation"}
                     options={selectBasics}
+                    defaultVal={regulationUser}
+                    disabled={disabled}
                   />
                 </div>
               </div>
@@ -1066,6 +1192,8 @@ function MainUser() {
                       name={"password"}
                       placeholder={"********"}
                       type={"password"}
+                      disabled={disabled}
+                      required={false}
                     />
                   </div>
                   <div className="w-1/4">
@@ -1073,15 +1201,22 @@ function MainUser() {
                       name={"confirm_password"}
                       placeholder={"********"}
                       type={"password"}
+                      disabled={disabled}
+                      required={false}
                     />
                   </div>
                   <div className="w-2/4 text-end">
-                    <Button
-                      type="submit"
-                      className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
-                    >
-                      Save
-                    </Button>
+                    {disabled === true ? (
+                      ""
+                    ) : (
+                      <Button
+                        disabled={disabled}
+                        type="submit"
+                        className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
+                      >
+                        Save
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1094,3 +1229,11 @@ function MainUser() {
 }
 
 export default MainUser;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewUser(data);
+
+  return redirect("/organization");
+}

@@ -22,50 +22,15 @@ import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
 import FormCreateArea from "./FormCreateArea";
-import TestImage from "./components/TestImage";
 
 function MainOrganization() {
   const [modal, setModal] = useState(false);
 
-  const { users, positions, areas } = useLoaderData();
+  const { users, positions, areas, counter } = useLoaderData();
 
   return (
     <div className="flex w-full">
       <FormCreateArea modal={modal} setModal={setModal} />
-      {/* <Dialog open={modal} onOpenChange={setModal}>
-        <DialogContent className="sm:max-w-[425px] overflow-auto">
-          <DialogHeader>
-            <DialogTitle className="font-poppins">Create Area</DialogTitle>
-          </DialogHeader>
-          <Form
-            id="area-form"
-            className="flex flex-col gap-0 h-auto"
-            action="/organization"
-            method="post"
-          >
-            <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-              <div className="flex flex-col font-light gap-4 pb-4">
-                {areaInputs?.map((input, i) => (
-                  <FormInput
-                    key={i}
-                    name={input.name}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                  />
-                ))}
-              </div>
-            </div>
-          </Form>
-          <DialogFooter className="h-auto">
-            <Button
-              form="area-form"
-              className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-            >
-              Save
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog> */}
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -95,9 +60,11 @@ function MainOrganization() {
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div className="text-xs">4 service</div>
+            <div className="text-xs">{counter.data["users"]} users</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">9 costumers</div>
+            <div className="text-xs">{counter.data["positions"]} positions</div>
+            <div className="text-2xl">&bull;</div>
+            <div className="text-xs">{counter.data["areas"]} areas</div>
           </div>
         </div>
         {/*button create reg*/}

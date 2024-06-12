@@ -249,10 +249,12 @@ function FormCreateUser() {
   }
 
   function updateAcademicField(index, e) {
-    console.log(e);
-    // const newFields = academicInfo.map((inputs, i) => i === index ? {...inputs, : e.target.value }  : inputs)
-    // console.log(newFields)
-    // setAcademicInfo()
+    // console.log(e);
+    const newFields = academicInfo.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAcademicInfo(newFields);
   }
 
   function addWorkingInputs() {
@@ -287,7 +289,7 @@ function FormCreateUser() {
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -306,19 +308,14 @@ function FormCreateUser() {
               ></IonIcon>
             </div>
           </div>
-          <div className="font-roboto text-grisText">organization</div>
+          <div className="font-roboto text-sm text-grisText">organization</div>
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
+            <h2 className="mt-2 font-poppins text-xl font-bold text-[#44444F]">
               USER MANAGEMENT
             </h2>
-          </div>
-          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div>4 service</div>
-            <div className="text-2xl">&bull;</div>
-            <div>9 costumers</div>
           </div>
         </div>
         <div>
@@ -852,6 +849,7 @@ function FormCreateUser() {
                   <SelectRouter
                     name="legal_benefits"
                     placeholder={"Legal Benefit"}
+                    isMulti={true}
                     options={legal_benefits}
                   />
                 </div>
@@ -1023,5 +1021,5 @@ export async function Action({ request }) {
 
   const validation = await saveNewUser(data);
 
-  redirect("/organization");
+  return redirect("/organization");
 }

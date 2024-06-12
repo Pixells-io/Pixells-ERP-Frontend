@@ -20,7 +20,7 @@ function SelectRouter({
       className="w-full text-sm font-light"
       isMulti={isMulti}
       isDisabled={disabled}
-      defaultInputValue={defaultVal}
+      defaultValue={defaultVal}
       value={value}
     />
   );

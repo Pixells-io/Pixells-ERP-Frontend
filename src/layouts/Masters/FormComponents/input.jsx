@@ -1,7 +1,16 @@
 import * as React from "react";
 import { Input } from "@/components/ui/input";
 
-function InputRouter({ type, name, placeholder, defaultVal, disabled }) {
+function InputRouter({
+  type,
+  name,
+  placeholder,
+  defaultVal,
+  disabled,
+  value,
+  onChange,
+  required,
+}) {
   return (
     <Input
       type={type}
@@ -10,7 +19,9 @@ function InputRouter({ type, name, placeholder, defaultVal, disabled }) {
       placeholder={placeholder}
       defaultValue={defaultVal}
       disabled={disabled}
-      required
+      require={required}
+      value={value}
+      onChange={onChange}
     />
   );
 }
