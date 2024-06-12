@@ -344,14 +344,31 @@ export async function getUsers() {
   }
 }
 
+export async function counterAnalyticsOrganization() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/counter-analytics`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderOrganization() {
-  const [areas, positions, users] = await Promise.all([
+  const [areas, positions, users, counter] = await Promise.all([
     getAreas(),
     getPosition(),
     getUsers(),
+    counterAnalyticsOrganization(),
   ]);
 
-  return json({ areas, positions, users });
+  return json({ areas, positions, users, counter });
 }
 
 export async function multiLoaderAreasPositions() {
@@ -953,4 +970,20 @@ export async function multiLoaderUserCreate({ params }) {
   ]);
 
   return json({ areas, positions, users, user });
+}
+
+export async function permissionValidate(position, permision, module) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate/${position}/${permision}/${module}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }

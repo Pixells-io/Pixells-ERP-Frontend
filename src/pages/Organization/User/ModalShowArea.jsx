@@ -30,8 +30,6 @@ function ModalShowArea({ modal, setModal, area }) {
 
   arrayFillDays(area.turn, selectedDays);
 
-  // console.log(area.process);
-
   function arrayFillDays(data, array) {
     data?.forEach((element) => {
       array.push({
