@@ -287,6 +287,8 @@ function MainPosition() {
 
   arrayFill(areas.data, selectArea);
 
+  arrayFillPositions(positions.data, selectPosition);
+
   function arrayFill(data, array) {
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -297,8 +299,6 @@ function MainPosition() {
       });
     }
   }
-
-  arrayFillPositions(positions.data, selectPosition);
 
   function arrayFillPositions(data, array) {
     for (let index = 0; index < data.length; index++) {
@@ -451,6 +451,7 @@ function MainPosition() {
                       name={"area_id"}
                       placeholder={"Select Area"}
                       options={selectArea}
+                      defaultVal={position?.data?.area_array}
                     />
                   </div>
                   <div className="w-1/4">
@@ -458,6 +459,7 @@ function MainPosition() {
                       name={"position_type"}
                       placeholder={"Position Type"}
                       options={positionNames}
+                      defaultVal={position?.data?.position_type_array}
                     />
                   </div>
                   <div className="w-1/4">
@@ -473,6 +475,9 @@ function MainPosition() {
                       name={"permision_access"}
                       placeholder={"Permission Access"}
                       options={selectBasic}
+                      defaultVal={
+                        position?.data.position.permision_access_array
+                      }
                     />
                   </div>
                 </div>
@@ -485,6 +490,7 @@ function MainPosition() {
                           name={"boss_id"}
                           placeholder={"Boss Position"}
                           options={selectPosition}
+                          defaultVal={position?.data.position.boss_array}
                         />
                       </div>
                       <div className="w-1/4">
@@ -492,6 +498,7 @@ function MainPosition() {
                           name={"coordinate_id"}
                           placeholder={"Coordinate Position"}
                           options={selectPosition}
+                          // defaultVal={position?.data.position.coordinate}
                         />
                       </div>
                     </div>
@@ -581,7 +588,7 @@ function MainPosition() {
                         <SelectRouter
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
-                          options={selectArea}
+                          options={selectPosition} // Positions
                         />
                       </div>
                       {i >= 1 ? (

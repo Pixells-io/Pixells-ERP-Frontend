@@ -555,7 +555,7 @@ function FormCreatePosition() {
                         <SelectRouter
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
-                          options={selectArea}
+                          options={selectPosition}
                         />
                       </div>
                       {i >= 1 ? (
