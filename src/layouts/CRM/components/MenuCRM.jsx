@@ -27,12 +27,12 @@ const MENU_ITEMS = [
     subname: "Console",
     icon: documentText,
   },
-  {
-    path: "/crm/after-sales",
-    name: "After sales",
-    subname: "Service",
-    icon: settings,
-  },
+  // {
+  //   path: "/crm/after-sales",
+  //   name: "After sales",
+  //   subname: "Service",
+  //   icon: settings,
+  // },
   {
     path: "/crm/services",
     name: "Services",
@@ -45,7 +45,7 @@ const MENU_ITEMS = [
 function MenuCRM() {
   const location = useLocation();
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex w-full flex-col gap-4">
       {MENU_ITEMS?.map((item, i) => (
         <NavLink
           key={i}
@@ -54,20 +54,20 @@ function MenuCRM() {
             item.path === "/crm"
               ? ({ isActive }) =>
                   isActive && location.pathname === "/crm"
-                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                    ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                    : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               : ({ isActive }) =>
                   isActive
-                    ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                    : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                    ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                    : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
           }
         >
-          <div className="flex items-center gap-6 ">
+          <div className="flex items-center gap-6">
             <IonIcon icon={item.icon} size="large"></IonIcon>
 
             <div>
-              <p className="font-medium text-base ">{item.name}</p>
-              <p className="font-medium text-[10px] text-grisSubText">
+              <p className="text-base font-medium">{item.name}</p>
+              <p className="text-[10px] font-medium text-grisSubText">
                 {item.subname}
               </p>
             </div>

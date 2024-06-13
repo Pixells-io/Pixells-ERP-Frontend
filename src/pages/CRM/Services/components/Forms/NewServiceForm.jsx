@@ -12,6 +12,7 @@ import {
 
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const businessInputs = [
   {
@@ -97,22 +98,24 @@ function NewServiceForm({
 
   return (
     <Dialog open={modalServices} onOpenChange={setModalServices}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto h-[650px]">
-        <DialogHeader>
-          <DialogTitle className="font-poppins">Create New Service</DialogTitle>
+      <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
+        <DialogHeader className="border-b">
+          <DialogTitle className="p-8 font-poppins">
+            Create New Service
+          </DialogTitle>
         </DialogHeader>
         <Form
           id="service-form"
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 px-8"
           action="/crm/services"
           method="post"
         >
           <input type="hidden" name="type" value={1} />
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="text-lg font-normal text-[#696974]">
               Service Information
             </div>
-            <div className="flex flex-col font-light gap-4 pb-4">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <div className="">
                 <SelectRouter
                   name={"category"}
@@ -120,58 +123,58 @@ function NewServiceForm({
                   options={selectCategories}
                 />
               </div>
-              {businessInputs?.map((input, i) => (
-                <FormInput
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                />
-              ))}
+              <InputRouter name="name" type="text" placeholder="Name" />
+              <InputRouter
+                name="description"
+                type="text"
+                placeholder="Description"
+              />
+              <InputRouter name="color" type="color" placeholder="Color" />
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="text-lg font-normal text-[#696974]">
               Responsible
             </div>
-            <div className="flex flex-col font-light gap-4 pb-4">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <div className="">
                 <SelectRouter
                   name={"position_id"}
-                  placeholder={"Position"}
+                  placeholder={"Responsable position"}
                   options={selectResponsible}
                 />
               </div>
-              {contactInputs?.map((input, i) => (
-                <FormInput
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                />
-              ))}
+
+              <SelectRouter
+                name="participants"
+                placeholder="Select participants"
+                // options={}
+                isMulti={true}
+              />
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">Process</div>
-            <div className="flex flex-col font-light gap-4 pb-4">
-              {categoryInputs?.map((input, i) => (
-                <FormInput
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                />
-              ))}
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="text-lg font-normal text-[#696974]">Process</div>
+            <div className="flex flex-col gap-4 pb-4 font-light">
+              <InputRouter
+                name="process"
+                type="text"
+                placeholder="Step 1 - Title"
+              />
+              <InputRouter
+                name="process_action"
+                type="text"
+                placeholder="Action"
+              />
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="px-8 pb-4">
           <Button
             form="service-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             disabled={navigation.state === "submitting"}
           >
             {navigation.state === "submitting" ? "Submitting..." : "Save"}

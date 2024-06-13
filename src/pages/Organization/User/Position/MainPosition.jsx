@@ -465,6 +465,7 @@ function MainPosition() {
                       name={"position_name"}
                       type={"text"}
                       placeholder={"Position Name"}
+                      defaultVal={position?.data.position.position_name}
                     />
                   </div>
                   <div className="w-1/4">
@@ -477,15 +478,8 @@ function MainPosition() {
                 </div>
 
                 <div className="flex items-center gap-3 pt-3">
-                  <div className="flex w-full flex-col gap-3">
+                  <div className="flex w-full flex-col gap-2">
                     <div className="flex items-center gap-3">
-                      <div className="w-1/4">
-                        <SelectRouter
-                          name={"coordinate_id"}
-                          placeholder={"Coordinate Position"}
-                          options={selectPosition}
-                        />
-                      </div>
                       <div className="w-1/4">
                         <SelectRouter
                           name={"boss_id"}
@@ -493,11 +487,19 @@ function MainPosition() {
                           options={selectPosition}
                         />
                       </div>
+                      <div className="w-1/4">
+                        <SelectRouter
+                          name={"coordinate_id"}
+                          placeholder={"Coordinate Position"}
+                          options={selectPosition}
+                        />
+                      </div>
                     </div>
                     {positionsInputs.map((item, i) => (
                       <div key={i} className="flex w-full items-center gap-3">
                         {i >= 1 ? (
-                          <div className="flex w-full">
+                          <div className="flex w-full gap-3">
+                            <div className="w-1/4"></div>
                             <div className="w-1/4">
                               <SelectRouter
                                 name={"coordinate_id"}
@@ -505,7 +507,6 @@ function MainPosition() {
                                 options={selectPosition}
                               />
                             </div>
-                            <div className="w-1/4"></div>
                             <button
                               type="button"
                               className="flex items-center"
@@ -525,7 +526,7 @@ function MainPosition() {
                     ))}
                   </div>
 
-                  <div className="flex">
+                  <div className="flex self-end">
                     {positionsInputs.length <= 7 ? (
                       <button
                         className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -601,7 +602,7 @@ function MainPosition() {
                     </div>
                   ))}
                 </div>
-                <div className="flex">
+                <div className="flex self-end">
                   {authInputs.length <= 7 && (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -651,7 +652,7 @@ function MainPosition() {
                     </div>
                   ))}
                 </div>
-                <div className="flex self-center">
+                <div className="flex self-end">
                   {resInputs?.length <= 7 ? (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -770,7 +771,7 @@ function MainPosition() {
                         </div>
                       ))}
                     </div>
-                    <div className="flex self-center">
+                    <div className="flex self-end">
                       {lenguageInputs?.length <= 2 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -842,7 +843,7 @@ function MainPosition() {
                         </div>
                       ))}
                     </div>
-                    <div className="flex self-center">
+                    <div className="flex self-end">
                       {skillsInputs?.length <= 7 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
