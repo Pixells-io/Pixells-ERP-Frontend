@@ -862,7 +862,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -945,7 +945,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -1138,7 +1138,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
