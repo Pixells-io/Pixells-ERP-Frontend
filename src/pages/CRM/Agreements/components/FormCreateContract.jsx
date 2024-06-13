@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Form, useNavigation } from "react-router-dom";
 import {
@@ -9,9 +9,29 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function FormCreateContract({ modal, setModal, customers }) {
-  console.log(customers[0].business_name);
+  let customer_array = [];
+
+  const customerId = useRef(null);
+
+  arrayFillCustomer(customer_array, customers);
+
+  function arrayFillCustomer(array, data) {
+    data.forEach((element) => {
+      console.log(element.id);
+      array.push({
+        label: element.business_name,
+        value: element.id,
+      });
+    });
+  }
+
+  function submitCreateContract() {
+    console.log(":)");
+  }
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
@@ -21,12 +41,19 @@ function FormCreateContract({ modal, setModal, customers }) {
           </DialogTitle>
         </DialogHeader>
         <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
-          <span>Oli</span>
+          <SelectRouter
+            name={"customer_id"}
+            placeholder={"Customer"}
+            options={customer_array}
+          />
         </div>
         <DialogFooter className="px-10 pb-6">
-          <Button className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold">
+          <button
+            onClick={submitCreateContract()}
+            className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+          >
             Save
-          </Button>
+          </button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
