@@ -58,8 +58,8 @@ function DropzoneImage({ name, url, initials }) {
                     className="text-9xl text-primario"
                   />
                 ) : (
-                  <div className="flex justify-center">
-                    <Avatar className="h-44 w-44">
+                  <div className="flex pb-2">
+                    <Avatar className="h-40 w-40">
                       <AvatarImage src={url} />
                       <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>

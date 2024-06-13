@@ -469,7 +469,7 @@ function FormCreatePosition() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
