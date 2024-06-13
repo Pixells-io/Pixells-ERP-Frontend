@@ -490,7 +490,7 @@ function MainPosition() {
                           name={"boss_id"}
                           placeholder={"Boss Position"}
                           options={selectPosition}
-                          defaultVal={position?.data.position.boss_array}
+                          defaultVal={position?.data.boss_array}
                         />
                       </div>
                       <div className="w-1/4">
@@ -498,7 +498,7 @@ function MainPosition() {
                           name={"coordinate_id"}
                           placeholder={"Coordinate Position"}
                           options={selectPosition}
-                          // defaultVal={position?.data.position.coordinate}
+                          defaultVal={position?.data.coordinate.position_array}
                         />
                       </div>
                     </div>
