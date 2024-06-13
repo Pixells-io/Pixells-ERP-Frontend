@@ -71,3 +71,13 @@ function MainAgreements() {
 }
 
 export default MainAgreements;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  console.log(data);
+
+  return 1;
+
+  //return redirect("/crm/agreements");
+}

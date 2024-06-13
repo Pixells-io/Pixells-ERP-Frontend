@@ -92,14 +92,14 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
       setUser(user.data);
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
-  }, []);
+  }, []);*/
 
   async function logOutFunction() {
     //First send the request
@@ -162,11 +162,11 @@ function MainLayout() {
                 className="text-primario"
               ></IonIcon>
               <NotificationChat
-                notifications={chat.data}
+                notifications={chat?.data}
                 user={userAuth?.data}
               />
               <NotificationBell
-                notificationsData={notificationsData.data}
+                notificationsData={notificationsData?.data}
                 user={userAuth?.data}
               />
             </div>
@@ -176,7 +176,7 @@ function MainLayout() {
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user.user_image} />
+                <AvatarImage src={user?.user_image} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
@@ -185,17 +185,17 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src={user.user_image} />
+                      <AvatarImage src={user?.user_image} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
                   <div>
                     <p className="text-base font-semibold text-grisText">
-                      {user.name}&nbsp;{user.last_name}&nbsp;
-                      {user.second_last_name}
+                      {user?.name}&nbsp;{user?.last_name}&nbsp;
+                      {user?.second_last_name}
                     </p>
                     <p className="text-[12px] text-grisSubText">
-                      {user.personal_email}
+                      {user?.personal_email}
                     </p>
                   </div>
                 </div>
