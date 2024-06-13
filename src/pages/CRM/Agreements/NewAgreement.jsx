@@ -87,24 +87,24 @@ function NewAgreements() {
         id="new-agreement-template"
         action="/crm/agreements/create"
         method="post"
-        className="w-full overflow-hidden mr-3"
+        className="mr-3 w-full overflow-hidden"
       >
-        <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
+        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
           {/* navigation inside */}
-          <div className="flex gap-4 items-center">
-            <div className="flex gap-2  text-gris2">
-              <div className="w-12 h-12">
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2 text-gris2">
+              <div className="h-12 w-12">
                 <IonIcon
                   icon={chevronBack}
                   size="large"
-                  className="bg-blancoBox p-1 rounded-3xl"
+                  className="rounded-3xl bg-blancoBox p-1"
                 ></IonIcon>
               </div>
-              <div className="w-12 h-12">
+              <div className="h-12 w-12">
                 <IonIcon
                   icon={chevronForward}
                   size="large"
-                  className="bg-blancoBox p-1 rounded-3xl"
+                  className="rounded-3xl bg-blancoBox p-1"
                 ></IonIcon>
               </div>
             </div>
@@ -114,11 +114,11 @@ function NewAgreements() {
           {/* top content */}
           <div className="flex items-center gap-4">
             <div>
-              <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+              <h2 className="font-poppins text-xl font-bold text-[#44444F]">
                 AGREEMENTS CONSOLE
               </h2>
             </div>
-            <div className="flex gap-3 text-[#8F8F8F] items-center">
+            <div className="flex items-center gap-3 text-[#8F8F8F]">
               <div className="text-xs">6 services</div>
               <div className="text-2xl">&bull;</div>
               <div className="text-xs">36 templates</div>
@@ -155,13 +155,13 @@ function NewAgreements() {
               <div className="col">
                 <Button
                   form="new-agreement-template"
-                  className="font-roboto font-semibold text-sm p-4 text-white justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+                  className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
                 >
                   Save
                 </Button>
               </div>
             </div>
-            <div className="">
+            <div className="mt-5">
               <ReactQuill
                 theme="snow"
                 value={value}
@@ -170,12 +170,12 @@ function NewAgreements() {
                 modules={module}
               />
             </div>
-            <div className="flex mt-2 gap-4">
+            <div className="mt-2 flex gap-4">
               <div>
                 <button
                   onClick={() => addVariable(1)}
                   type="button"
-                  className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+                  className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
                   Customer Name
                 </button>
@@ -184,7 +184,7 @@ function NewAgreements() {
                 <button
                   onClick={() => addVariable(2)}
                   type="button"
-                  className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+                  className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
                   Service
                 </button>
@@ -193,7 +193,7 @@ function NewAgreements() {
                 <button
                   onClick={() => addVariable(3)}
                   type="button"
-                  className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+                  className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
                   Date
                 </button>
@@ -202,7 +202,7 @@ function NewAgreements() {
                 <button
                   onClick={() => addVariable(4)}
                   type="button"
-                  className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+                  className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
                   Sign
                 </button>
@@ -211,7 +211,7 @@ function NewAgreements() {
                 <button
                   onClick={() => addVariable(5)}
                   type="button"
-                  className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+                  className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
                   Open Field
                 </button>

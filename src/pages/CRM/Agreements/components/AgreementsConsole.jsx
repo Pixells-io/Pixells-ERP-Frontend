@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { globeOutline, ellipsisHorizontal } from "ionicons/icons";
@@ -10,11 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import FormCreateContract from "./FormCreateContract";
 
-function AgreementsConsole({ services }) {
+function AgreementsConsole({ services, customers }) {
   const TABS = [];
-
   tabsFill(services, TABS);
+  const [modal, setModal] = useState(false);
 
   function tabsFill(data, array) {
     data.forEach((element) => {
@@ -27,27 +28,30 @@ function AgreementsConsole({ services }) {
     });
   }
 
-  // console.log(TABS[0]?.agreements);
-
   return (
-    <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
+    <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+      <FormCreateContract
+        modal={modal}
+        setModal={setModal}
+        customers={customers}
+      />
       <Tabs defaultValue="inbox" className="w-full">
-        <div className="grid grid-cols-12 w-full h-full">
-          <TabsList className="col-span-2 flex flex-col gap-2 justify-normal bg-transparent h-full">
-            <div className="flex flex-col gap-2 border-r pr-2 h-full ">
+        <div className="grid h-full w-full grid-cols-12">
+          <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
+            <div className="flex h-full flex-col gap-2 border-r pr-2">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.name}
-                  className="text-sm py-1 text-grisText data-[state=active]:bg-blancoBox data-[state=active]:sm-none  data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
+                  className="data-[state=active]:sm-none py-1 text-sm font-normal text-grisText data-[state=active]:bg-blancoBox data-[state=active]:font-semibold data-[state=active]:text-primarioBotones"
                 >
-                  <div className="flex  gap-2 items-center w-32">
+                  <div className="flex w-32 items-center gap-2">
                     <div>
                       <IonIcon icon={tab.icon} className="h-6 w-6"></IonIcon>
                     </div>
                     <div className="truncate">
                       <p
-                        className="w-full text-left truncate"
+                        className="w-full truncate text-left"
                         title={
                           tab.name.charAt(0).toUpperCase() + tab.name.slice(1)
                         }
@@ -64,11 +68,11 @@ function AgreementsConsole({ services }) {
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="col-span-10 overflow-visible h-full"
+              className="col-span-10 h-full overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
                 <div className="flex gap-6">
-                  <div className="flex flex-col h-36 w-36 bg-blancoBox rounded-lg">
+                  <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
                     <div className="h-full p-2 text-end">
                       <DropdownMenu>
                         <DropdownMenuTrigger>
@@ -85,17 +89,15 @@ function AgreementsConsole({ services }) {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <Link
-                              to={`/crm/agreements/new-contract/${agreement.id}`}
-                            >
+                            <button onClick={() => setModal(true)}>
                               Create
-                            </Link>
+                            </button>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                       <div className="h-full bg-blancoBg"></div>
                     </div>
-                    <div className="flex justify-center flex-col rounded-lg bg-blancoBox h-14 p-3 ">
+                    <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
                       <p className="flex text-[10px] text-grisHeading">
                         {agreement.name}
                       </p>

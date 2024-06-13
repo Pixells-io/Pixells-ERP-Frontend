@@ -8,7 +8,6 @@ export async function saveNewArea(data) {
       days.push(value);
     }
   }
-  console.log(days);
 
   const area = {
     nombre: data.get("nombre"),
@@ -227,4 +226,22 @@ export async function saveNewImage(data) {
   );
 
   return response;
+}
+
+export async function savePermission(position, permision, module) {
+  const info = {
+    position: position,
+    permision: permision,
+    module: module,
+  };
+
+  const response = await fetch(`${import.meta.env.VITE_SERVER_URL}organization/permission-update`, {
+    method: "POST",
+    body: JSON.stringify(info),
+    headers: {
+      Authorization: "Bearer " + Cookies.get("token"),
+    },
+  });
+
+  return response.json();
 }
