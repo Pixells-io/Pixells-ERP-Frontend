@@ -7,12 +7,13 @@ import {
   closeCircle,
   create,
 } from "ionicons/icons";
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
+import { saveNewPosition } from "../../utils";
 
 const selectBasic = [
   {
@@ -255,38 +256,21 @@ const sectorExperience = [
 ];
 
 function MainPosition() {
+  const { id } = useParams();
   const { areas, positions, position } = useLoaderData();
-  console.log(position.data);
   const [disabled, setDisabled] = useState(true);
-  const [positionsInputs, setPositionsInputs] = useState([
-    { coordinate_id: "", boss_id: "" },
-  ]);
-  const [authInputs, setAuthInputs] = useState([
-    {
-      authority: "",
-      total: "",
-      shared: "",
-      authority_cordinate_id: "",
-    },
-  ]);
-  const [resInputs, setResInputs] = useState([
-    {
-      responsability_input: "",
-    },
-  ]);
-  const [lenguageInputs, setLenguageInputs] = useState([
-    {
-      language: "",
-      language_percent: "",
-    },
-  ]);
-  const [skillsInputs, setSkillsInputs] = useState([{ knowledge: "" }]);
+  const [positionsInputs, setPositionsInputs] = useState(
+    position?.data.coordinate,
+  );
+  const [authInputs, setAuthInputs] = useState(position?.data.authority);
+  const [resInputs, setResInputs] = useState(position?.data.responsability);
+  const [lenguageInputs, setLenguageInputs] = useState(position?.data.language);
+  const [skillsInputs, setSkillsInputs] = useState(position?.data.knowledge);
 
   const selectArea = [];
   const selectPosition = [];
 
   arrayFill(areas.data, selectArea);
-
   arrayFillPositions(positions.data, selectPosition);
 
   function arrayFill(data, array) {
@@ -322,6 +306,15 @@ function MainPosition() {
     setPositionsInputs(newInputs);
   }
 
+  function updatePositionInput(index, e) {
+    // console.log(e);
+    const newFields = positionsInputs.map((inputs, i) =>
+      i === index ? { ...inputs, coordinate_id: e } : inputs,
+    );
+    // console.log(newFields);
+    setPositionsInputs(newFields);
+  }
+
   function addAuthInput() {
     const authInput = {
       authority: "",
@@ -338,6 +331,33 @@ function MainPosition() {
     setAuthInputs(newFields);
   }
 
+  function updateAuthInput(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
+  function updateAuthCheckbox(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
+  function updateAuthSelect(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, authority_cordinate_id: e } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
   function addResInput() {
     const resInput = {
       responsability_input: "",
@@ -349,6 +369,15 @@ function MainPosition() {
   function removeResInput(index) {
     const newInputs = resInputs.filter((item, i) => index !== i);
     setResInputs(newInputs);
+  }
+
+  function updateResInput(index, e) {
+    console.log(e.target);
+    const newFields = resInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setResInputs(newFields);
   }
 
   function addLenguageInput() {
@@ -365,6 +394,24 @@ function MainPosition() {
     setLenguageInputs(newInputs);
   }
 
+  function updateLenguageInput(index, e) {
+    // console.log(e);
+    const newFields = lenguageInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setLenguageInputs(newFields);
+  }
+
+  function updateLenguageSelect(index, e) {
+    // console.log(e);
+    const newFields = lenguageInputs.map((inputs, i) =>
+      i === index ? { ...inputs, language: e } : inputs,
+    );
+    // console.log(newFields);
+    setLenguageInputs(newFields);
+  }
+
   function addSkillInput() {
     const skillInput = {
       knowledge: "",
@@ -376,6 +423,15 @@ function MainPosition() {
   function removeSkillInput(index) {
     const newInputs = skillsInputs.filter((item, i) => index !== i);
     setSkillsInputs(newInputs);
+  }
+
+  function updateSkillInput(index, e) {
+    // console.log(e);
+    const newFields = skillsInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setSkillsInputs(newFields);
   }
 
   return (
@@ -418,26 +474,41 @@ function MainPosition() {
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New Position
           </h2>
-          <Button
-            className="w-16"
-            variant="ghost"
-            onClick={() => setDisabled(!disabled)}
-            type="button"
-          >
-            <IonIcon
-              icon={create}
-              size="large"
-              className="text-grisText"
-            ></IonIcon>
-          </Button>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <p>Edit Mode</p>
+              <span
+                className={
+                  disabled
+                    ? "rounded-full bg-red-400 px-4 py-1 text-white"
+                    : "rounded-full bg-green-400 px-4 py-1 text-white"
+                }
+              >
+                {disabled ? "OFF" : "ON"}
+              </span>
+            </div>
+            <Button
+              className="w-16"
+              variant="ghost"
+              onClick={() => setDisabled(!disabled)}
+              type="button"
+            >
+              <IonIcon
+                icon={create}
+                size="large"
+                className="text-grisText"
+              ></IonIcon>
+            </Button>
+          </div>
         </div>
 
         {/*USER BOX CREATE*/}
         <div className="rounded-xl p-4">
           <Form
-            id="position-form"
-            action="/organization/create-position"
+            id="position-update-form"
+            action={`/organization/position/${id}`}
             method="post"
+            encType="multipart/form-data"
           >
             {/* General Information */}
             <div className="rounded-2xl bg-blancoBg p-5">
@@ -475,65 +546,58 @@ function MainPosition() {
                       name={"permision_access"}
                       placeholder={"Permission Access"}
                       options={selectBasic}
-                      defaultVal={
-                        position?.data.position.permision_access_array
-                      }
+                      defaultVal={position?.data.permision_access_array}
                     />
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 pt-3">
-                  <div className="flex w-full flex-col gap-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-1/4">
-                        <SelectRouter
-                          name={"boss_id"}
-                          placeholder={"Boss Position"}
-                          options={selectPosition}
-                          defaultVal={position?.data.boss_array} // Mal
-                        />
-                      </div>
-                      <div className="w-1/4">
-                        <SelectRouter
-                          name={"coordinate_id"}
-                          placeholder={"Coordinate Position"}
-                          options={selectPosition}
-                          defaultVal={position?.data.coordinate.position_array} // Mal
-                        />
-                      </div>
+                  <div className="flex w-full gap-3">
+                    <div className="w-1/4 shrink-0">
+                      <SelectRouter
+                        name={"boss_id"}
+                        placeholder={"Boss Position"}
+                        options={selectPosition}
+                      />
                     </div>
-                    {positionsInputs.map((item, i) => (
-                      <div key={i} className="flex w-full items-center gap-3">
-                        {i >= 1 ? (
-                          <div className="flex w-full gap-3">
-                            <div className="w-1/4"></div>
-                            <div className="w-1/4">
-                              <SelectRouter
-                                name={"coordinate_id"}
-                                placeholder={"Coordinate Position"}
-                                options={selectPosition}
-                              />
-                            </div>
-                            <button
-                              type="button"
-                              className="flex items-center"
-                              onClick={() => removePositionInput(i)}
-                            >
-                              <IonIcon
-                                icon={closeCircle}
-                                size=""
-                                className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                              ></IonIcon>
-                            </button>
+                    <div className="flex w-1/4 flex-col gap-3">
+                      {positionsInputs.map((item, i) => (
+                        <div key={i} className="flex w-full gap-3">
+                          <div className="flex w-full">
+                            <SelectRouter
+                              name={"coordinate_id"}
+                              placeholder={"Coordinate Position"}
+                              options={selectPosition}
+                              onChange={(e) => updatePositionInput(i, e)}
+                              value={positionsInputs[i]?.position_array}
+                              // defaultVal={
+                              //   position?.data.coordinate[i].position_array
+                              // }
+                            />
                           </div>
-                        ) : (
-                          <div className="w-5"></div>
-                        )}
-                      </div>
-                    ))}
+                          {i !== 0 || positionsInputs.length !== i + 1 ? (
+                            <div className="flex">
+                              <button
+                                type="button"
+                                className="flex items-center"
+                                onClick={() => removePositionInput(i)}
+                              >
+                                <IonIcon
+                                  icon={closeCircle}
+                                  size=""
+                                  className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                                ></IonIcon>
+                              </button>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="flex self-end">
+                  <div className="flex">
                     {positionsInputs.length <= 7 ? (
                       <button
                         className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -557,6 +621,7 @@ function MainPosition() {
                     name={"objetive"}
                     type={"text"}
                     placeholder={"Objectives of the position"}
+                    defaultVal={position?.data.position.objetive}
                   />
                 </div>
               </div>
@@ -576,6 +641,8 @@ function MainPosition() {
                           name={"authority"}
                           type={"text"}
                           placeholder={"Authority Name"}
+                          value={authInputs[i]?.authority}
+                          onChange={(e) => updateAuthInput(i, e)}
                         />
                       </div>
                       <div className="flex w-1/4 justify-center">
@@ -588,7 +655,9 @@ function MainPosition() {
                         <SelectRouter
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
-                          options={selectPosition} // Positions
+                          options={selectPosition}
+                          value={authInputs[i].authority_cordinate_id}
+                          onChange={(e) => updateAuthSelect(i, e)}
                         />
                       </div>
                       {i >= 1 ? (
@@ -609,7 +678,7 @@ function MainPosition() {
                     </div>
                   ))}
                 </div>
-                <div className="flex self-end">
+                <div className="flex">
                   {authInputs.length <= 7 && (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
@@ -637,9 +706,11 @@ function MainPosition() {
                   {resInputs?.map((input, i) => (
                     <div key={i} className="flex w-full items-center gap-3">
                       <InputRouter
-                        name="responsability_input"
+                        name="responsability"
                         type="text"
                         placeholder="Responsability"
+                        value={resInputs[i].responsability}
+                        onChange={(e) => updateResInput(i, e)}
                       />
                       {i >= 1 ? (
                         <button
@@ -659,8 +730,8 @@ function MainPosition() {
                     </div>
                   ))}
                 </div>
-                <div className="flex self-end">
-                  {resInputs?.length <= 7 ? (
+                <div className="flex self-center">
+                  {resInputs.length <= 7 ? (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
                       onClick={() => addResInput()}
@@ -692,6 +763,7 @@ function MainPosition() {
                         name={"experience_years"}
                         placeholder={"Experience Years"}
                         options={experienceYears}
+                        defaultVal={position?.data.perfil.experience_years}
                       />
                     </div>
                     <div className="w-1/3">
@@ -700,6 +772,7 @@ function MainPosition() {
                         name={"experience_sector"}
                         placeholder={"Sector of Experience"}
                         options={sectorExperience}
+                        defaultVal={position?.data.perfil.experience_sector}
                       />
                     </div>
                     <div className="w-1/3">
@@ -707,6 +780,9 @@ function MainPosition() {
                         name={"experience_description"}
                         type={"text"}
                         placeholder={"Describe the Experience"}
+                        defaultVal={
+                          position?.data.perfil.experience_description
+                        }
                       />
                     </div>
                   </div>
@@ -717,6 +793,7 @@ function MainPosition() {
                         name={"academy"}
                         placeholder={"Required Studies"}
                         options={academyGrade}
+                        defaultVal={position?.data.perfil.academy}
                       />
                     </div>
                     <div className="w-2/6">
@@ -724,6 +801,7 @@ function MainPosition() {
                         name={"name_studies"}
                         type={"text"}
                         placeholder={"Describe the Studies"}
+                        defaultVal={position?.data.perfil.name_studies}
                       />
                     </div>
                     <div className="ml-4 w-1/6">
@@ -731,6 +809,7 @@ function MainPosition() {
                         name={"home_office"}
                         placeholder={"Home Office"}
                         options={selectBasic}
+                        defaultVal={position?.data.perfil.home_office}
                       />
                     </div>
                     <div className="w-1/6">
@@ -738,19 +817,22 @@ function MainPosition() {
                         name={"position_work_type"}
                         placeholder={"Type of Work"}
                         options={positionType}
+                        defaultVal={position?.data.perfil.position_work_type}
                       />
                     </div>
                   </div>
 
                   <div className="flex">
                     <div className="flex w-full flex-col gap-3 pt-3">
-                      {lenguageInputs?.map((item, i) => (
+                      {lenguageInputs.map((item, i) => (
                         <div key={i} className="flex w-full items-center gap-3">
                           <div className="w-2/6">
                             <SelectRouter
                               name={"language"}
                               placeholder={"Language"}
                               options={languageOptions}
+                              value={lenguageInputs[i]?.lenguage}
+                              onChange={(e) => updateLenguageSelect(i, e)}
                             />
                           </div>
                           <div className="w-1/6">
@@ -758,6 +840,8 @@ function MainPosition() {
                               name={"language_percent"}
                               type={"number"}
                               placeholder={"%"}
+                              value={lenguageInputs[i]?.lenguage_percent}
+                              onChange={(e) => updateLenguageInput(i, e)}
                             />
                           </div>
                           {i >= 1 ? (
@@ -778,8 +862,8 @@ function MainPosition() {
                         </div>
                       ))}
                     </div>
-                    <div className="flex self-end">
-                      {lenguageInputs?.length <= 2 ? (
+                    <div className="flex self-center">
+                      {lenguageInputs.length <= 2 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addLenguageInput()}
@@ -810,6 +894,7 @@ function MainPosition() {
                         name={"start"}
                         type={"time"}
                         placeholder={"Start"}
+                        defaultVal={position?.data.perfil.start}
                       />
                     </div>
                     <div className="w-1/6">
@@ -817,19 +902,22 @@ function MainPosition() {
                         name={"end"}
                         type={"time"}
                         placeholder={"End"}
+                        defaultVal={position?.data.perfil.end}
                       />
                     </div>
                   </div>
 
                   <div className="flex">
                     <div className="flex w-full flex-col items-center gap-3 pt-3">
-                      {skillsInputs?.map((item, i) => (
+                      {skillsInputs.map((item, i) => (
                         <div key={i} className="flex w-full items-center gap-3">
                           <div className="w-1/3">
                             <InputRouter
                               name={"knowledge"}
                               type={"text"}
                               placeholder={"Knowledge/Skill"}
+                              value={skillsInputs[i]?.knowledge}
+                              onChange={(e) => updateSkillInput(i, e)}
                             />
                           </div>
                           {i >= 1 ? (
@@ -850,8 +938,8 @@ function MainPosition() {
                         </div>
                       ))}
                     </div>
-                    <div className="flex self-end">
-                      {skillsInputs?.length <= 7 ? (
+                    <div className="flex self-center">
+                      {skillsInputs.length <= 7 ? (
                         <button
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addSkillInput()}
@@ -873,7 +961,7 @@ function MainPosition() {
                     <br />
                     {disabled !== true && (
                       <Button
-                        form="position-form"
+                        form="position-update-form"
                         className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
                       >
                         Save Position
@@ -891,3 +979,11 @@ function MainPosition() {
 }
 
 export default MainPosition;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveNewPosition(data);
+
+  return redirect("/organization");
+}

@@ -175,7 +175,9 @@ import SideLayoutConfiguration, {
 import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
 import MainArea from "./pages/Organization/User/Area/MainArea";
-import MainPosition from "./pages/Organization/User/Position/MainPosition";
+import MainPosition, {
+  Action as UpdatePosition,
+} from "./pages/Organization/User/Position/MainPosition";
 import MainUser, {
   Action as UpdateUser,
 } from "./pages/Organization/User/User/MainUser";
@@ -347,6 +349,7 @@ const router = createBrowserRouter([
             path: "/organization/position/:id",
             element: <MainPosition />,
             loader: multiLoaderPositionCreate,
+            action: UpdatePosition,
           },
           {
             path: "/organization/user/:id",

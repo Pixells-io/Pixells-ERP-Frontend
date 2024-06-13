@@ -162,12 +162,12 @@ const legal_benefits = [
 function MainUser() {
   const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user.data);
+  // console.log(user.data);
   const [status, setStatus] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [academicInfo, setAcademicInfo] = useState(user.data.academy);
-  const [workingInfo, setWorkingInfo] = useState(user.data.experience);
-  const [contractsInfo, setContratcsInfo] = useState(user.data.contracts);
+  const [academicInfo, setAcademicInfo] = useState(user?.data.academy);
+  const [workingInfo, setWorkingInfo] = useState(user?.data.experience);
+  const [contractsInfo, setContratcsInfo] = useState(user?.data.contracts);
 
   // inputs options
   const selectArea = [];

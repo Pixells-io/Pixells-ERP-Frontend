@@ -7,6 +7,7 @@ import { IonIcon } from "@ionic/react";
 import { personCircle } from "ionicons/icons";
 
 function DropzoneImage({ name, url, initials }) {
+  // console.log(url);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [yourImage, setYourImage] = useState([]);
 
@@ -38,7 +39,7 @@ function DropzoneImage({ name, url, initials }) {
         ) : (
           <div>
             {yourImage.length !== 0 ? (
-              <div className="ml-3 flex justify-center">
+              <div className="ml-3 flex">
                 <img
                   src={yourImage[0].preview}
                   alt="preview"
@@ -50,12 +51,20 @@ function DropzoneImage({ name, url, initials }) {
                 />
               </div>
             ) : (
-              // <IonIcon icon={personCircle} className="text-9xl text-primario" />
-              <div className="flex justify-center">
-                <Avatar className="h-44 w-44">
-                  <AvatarImage src={url} />
-                  <AvatarFallback>{initials}</AvatarFallback>
-                </Avatar>
+              <div>
+                {url === undefined ? (
+                  <IonIcon
+                    icon={personCircle}
+                    className="text-9xl text-primario"
+                  />
+                ) : (
+                  <div className="flex justify-center">
+                    <Avatar className="h-44 w-44">
+                      <AvatarImage src={url} />
+                      <AvatarFallback>{initials}</AvatarFallback>
+                    </Avatar>
+                  </div>
+                )}
               </div>
             )}
           </div>
