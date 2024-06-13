@@ -84,7 +84,7 @@ function FormNewLead({ services, navigation }) {
         >
           <IonIcon icon={personAdd} size="large"></IonIcon>
           <p className="mr-2 text-base font-medium text-gris2 group-hover:text-blue-500">
-            New Lead
+            New Oportunity
           </p>
         </Button>
       </DialogTrigger>

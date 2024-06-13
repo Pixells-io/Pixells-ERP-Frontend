@@ -163,11 +163,11 @@ function MainLayout() {
               ></IonIcon>
               <NotificationChat
                 notifications={chat.data}
-                user={userAuth.data}
+                user={userAuth?.data}
               />
               <NotificationBell
                 notificationsData={notificationsData.data}
-                user={userAuth.data}
+                user={userAuth?.data}
               />
             </div>
           </div>
