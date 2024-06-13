@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { globeOutline, ellipsisHorizontal } from "ionicons/icons";
@@ -10,11 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import FormCreateContract from "./FormCreateContract";
 
-function AgreementsConsole({ services }) {
+function AgreementsConsole({ services, customers }) {
   const TABS = [];
-
   tabsFill(services, TABS);
+  const [modal, setModal] = useState(false);
 
   function tabsFill(data, array) {
     data.forEach((element) => {
@@ -27,10 +28,13 @@ function AgreementsConsole({ services }) {
     });
   }
 
-  // console.log(TABS[0]?.agreements);
-
   return (
     <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+      <FormCreateContract
+        modal={modal}
+        setModal={setModal}
+        customers={customers}
+      />
       <Tabs defaultValue="inbox" className="w-full">
         <div className="grid h-full w-full grid-cols-12">
           <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
@@ -85,11 +89,9 @@ function AgreementsConsole({ services }) {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <Link
-                              to={`/crm/agreements/new-contract/${agreement.id}`}
-                            >
+                            <button onClick={() => setModal(true)}>
                               Create
-                            </Link>
+                            </button>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

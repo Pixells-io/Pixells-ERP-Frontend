@@ -59,6 +59,15 @@ export async function getServicesAgreements() {
   }
 }
 
+export async function multiloaderAgreements() {
+  const [services, customers] = await Promise.all([
+    getServicesAgreements(),
+    getCustomers(),
+  ]);
+
+  return json({ services, customers });
+}
+
 export async function getCategories() {
   try {
     const response = await fetch(

@@ -126,6 +126,7 @@ import {
   getArea,
   multiLoaderPositionCreate,
   multiLoaderUserCreate,
+  multiloaderAgreements,
 } from "./lib/actions";
 
 //Not Found
@@ -268,7 +269,7 @@ const router = createBrowserRouter([
           {
             path: "/crm/agreements",
             element: <MainAgreements />,
-            loader: getServicesAgreements,
+            loader: multiloaderAgreements,
           },
           {
             path: "/crm/agreements/create",
