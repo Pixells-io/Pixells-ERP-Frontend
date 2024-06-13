@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 function FormCreateContract({ modal, setModal, customers }) {
+  console.log(customers[0].business_name);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
