@@ -16,6 +16,8 @@ import { personAdd } from "ionicons/icons";
 import FormInput from "./FormInput";
 import FormSelect from "./FormSelect";
 import FromMultiSelect from "./FromMultiSelect";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const businessInputs = [
   {
@@ -66,6 +68,17 @@ const categoryInputs = [
   },
 ];
 
+const typeArray = [
+  {
+    label: "Individual",
+    value: "1",
+  },
+  {
+    label: "Business",
+    value: "2",
+  },
+];
+
 function FormNewLead({ services, navigation }) {
   const [open, setOpen] = useState(false);
 
@@ -90,7 +103,9 @@ function FormNewLead({ services, navigation }) {
       </DialogTrigger>
       <DialogContent className="h-[650px] overflow-auto sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Create New Lead</DialogTitle>
+          <DialogTitle className="font-poppins">
+            Create New Oportunity
+          </DialogTitle>
         </DialogHeader>
         <Form
           id="lead-form"
@@ -98,16 +113,21 @@ function FormNewLead({ services, navigation }) {
           action="/crm"
           method="post"
         >
-          <FormSelect />
-          <input type="hidden" name="register_type" value={1} />
+          {/* <FormSelect /> */}
+          {/* <input type="hidden" name="register_type" value={1} /> */}
+          <SelectRouter
+            name="register_type"
+            options={typeArray}
+            placeholder="Type of Oportunity"
+          />
 
-          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Business Information
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
               {businessInputs?.map((input, i) => (
-                <FormInput
+                <InputRouter
                   key={i}
                   name={input.name}
                   type={input.type}
@@ -117,13 +137,13 @@ function FormNewLead({ services, navigation }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Contact Information
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
               {contactInputs?.map((input, i) => (
-                <FormInput
+                <InputRouter
                   key={i}
                   name={input.name}
                   type={input.type}
@@ -133,13 +153,13 @@ function FormNewLead({ services, navigation }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Category Information
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
               {categoryInputs?.map((input, i) => (
-                <FormInput
+                <InputRouter
                   key={i}
                   name={input.name}
                   type={input.type}
