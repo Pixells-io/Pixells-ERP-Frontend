@@ -370,7 +370,7 @@ function MainUser() {
             New User
           </h2>
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <p>Edit Mode</p>
               <span
                 className={
@@ -381,19 +381,26 @@ function MainUser() {
               >
                 {disabled ? "OFF" : "ON"}
               </span>
-            </div>
-            <Button
-              className="w-16"
-              variant="ghost"
+            </div> */}
+            <button
+              className={`flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blancoBox p-2`}
               onClick={() => setDisabled(!disabled)}
               type="button"
             >
-              <IonIcon
-                icon={create}
-                size="large"
-                className="text-grisText"
-              ></IonIcon>
-            </Button>
+              {disabled ? (
+                <IonIcon
+                  icon={create}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              ) : (
+                <IonIcon
+                  icon={closeCircle}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              )}
+            </button>
           </div>
         </div>
 

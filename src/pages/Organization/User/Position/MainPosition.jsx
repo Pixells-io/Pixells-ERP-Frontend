@@ -258,6 +258,7 @@ const sectorExperience = [
 function MainPosition() {
   const { id } = useParams();
   const { areas, positions, position } = useLoaderData();
+  console.log(position?.data);
   const [disabled, setDisabled] = useState(true);
   const [positionsInputs, setPositionsInputs] = useState(
     position?.data.coordinate,
@@ -470,7 +471,7 @@ function MainPosition() {
             New Position
           </h2>
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <p>Edit Mode</p>
               <span
                 className={
@@ -481,19 +482,26 @@ function MainPosition() {
               >
                 {disabled ? "OFF" : "ON"}
               </span>
-            </div>
-            <Button
-              className="w-16"
-              variant="ghost"
+            </div> */}
+            <button
+              className={`flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blancoBox p-2`}
               onClick={() => setDisabled(!disabled)}
               type="button"
             >
-              <IonIcon
-                icon={create}
-                size="large"
-                className="text-grisText"
-              ></IonIcon>
-            </Button>
+              {disabled ? (
+                <IonIcon
+                  icon={create}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              ) : (
+                <IonIcon
+                  icon={closeCircle}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              )}
+            </button>
           </div>
         </div>
 
@@ -518,6 +526,7 @@ function MainPosition() {
                       placeholder={"Select Area"}
                       options={selectArea}
                       defaultVal={position?.data?.area_array}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
@@ -526,6 +535,7 @@ function MainPosition() {
                       placeholder={"Position Type"}
                       options={positionNames}
                       defaultVal={position?.data?.position_type_array}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
@@ -534,6 +544,7 @@ function MainPosition() {
                       type={"text"}
                       placeholder={"Position Name"}
                       defaultVal={position?.data.position.position_name}
+                      disabled={disabled}
                     />
                   </div>
                   <div className="w-1/4">
@@ -542,6 +553,7 @@ function MainPosition() {
                       placeholder={"Permission Access"}
                       options={selectBasic}
                       defaultVal={position?.data.permision_access_array}
+                      disabled={disabled}
                     />
                   </div>
                 </div>
@@ -553,6 +565,7 @@ function MainPosition() {
                         name={"boss_id"}
                         placeholder={"Boss Position"}
                         options={selectPosition}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="flex w-1/4 flex-col gap-3">
@@ -565,6 +578,7 @@ function MainPosition() {
                               options={selectPosition}
                               onChange={(e) => updatePositionInput(i, e)}
                               value={positionsInputs[i]?.position_array}
+                              disabled={disabled}
                               // defaultVal={
                               //   position?.data.coordinate[i].position_array
                               // }
@@ -576,6 +590,7 @@ function MainPosition() {
                                 type="button"
                                 className="flex items-center"
                                 onClick={() => removePositionInput(i)}
+                                disabled={disabled}
                               >
                                 <IonIcon
                                   icon={closeCircle}
@@ -598,6 +613,7 @@ function MainPosition() {
                         className="flex h-6 w-6 items-center rounded-full bg-primario"
                         onClick={() => addPositionInput()}
                         type="button"
+                        disabled={disabled}
                       >
                         <IonIcon
                           icon={add}
@@ -617,6 +633,7 @@ function MainPosition() {
                     type={"text"}
                     placeholder={"Objectives of the position"}
                     defaultVal={position?.data.position.objetive}
+                    disabled={disabled}
                   />
                 </div>
               </div>
@@ -638,6 +655,7 @@ function MainPosition() {
                           placeholder={"Authority Name"}
                           value={authInputs[i]?.authority}
                           onChange={(e) => updateAuthInput(i, e)}
+                          disabled={disabled}
                         />
                       </div>
                       <div className="flex w-1/4 justify-center">
@@ -651,8 +669,9 @@ function MainPosition() {
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
                           options={selectPosition}
-                          value={authInputs[i].authority_cordinate_id}
+                          value={authInputs[i].coordinate}
                           onChange={(e) => updateAuthSelect(i, e)}
+                          disabled={disabled}
                         />
                       </div>
                       {i >= 1 ? (
@@ -660,6 +679,7 @@ function MainPosition() {
                           type="button"
                           className="flex items-center"
                           onClick={() => removeAuthInput(i)}
+                          disabled={disabled}
                         >
                           <IonIcon
                             icon={closeCircle}
@@ -679,6 +699,7 @@ function MainPosition() {
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
                       onClick={() => addAuthInput()}
                       type="button"
+                      disabled={disabled}
                     >
                       <IonIcon
                         icon={add}
@@ -706,12 +727,14 @@ function MainPosition() {
                         placeholder="Responsability"
                         value={resInputs[i].responsability}
                         onChange={(e) => updateResInput(i, e)}
+                        disabled={disabled}
                       />
                       {i >= 1 ? (
                         <button
                           type="button"
                           className="flex items-center"
                           onClick={() => removeResInput(i)}
+                          disabled={disabled}
                         >
                           <IonIcon
                             icon={closeCircle}
@@ -731,6 +754,7 @@ function MainPosition() {
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
                       onClick={() => addResInput()}
                       type="button"
+                      disabled={disabled}
                     >
                       <IonIcon
                         icon={add}
@@ -759,6 +783,7 @@ function MainPosition() {
                         placeholder={"Experience Years"}
                         options={experienceYears}
                         defaultVal={position?.data.perfil.experience_years}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
@@ -768,6 +793,7 @@ function MainPosition() {
                         placeholder={"Sector of Experience"}
                         options={sectorExperience}
                         defaultVal={position?.data.perfil.experience_sector}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/3">
@@ -778,6 +804,7 @@ function MainPosition() {
                         defaultVal={
                           position?.data.perfil.experience_description
                         }
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -789,6 +816,7 @@ function MainPosition() {
                         placeholder={"Required Studies"}
                         options={academyGrade}
                         defaultVal={position?.data.perfil.academy}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-2/6">
@@ -797,6 +825,7 @@ function MainPosition() {
                         type={"text"}
                         placeholder={"Describe the Studies"}
                         defaultVal={position?.data.perfil.name_studies}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="ml-4 w-1/6">
@@ -805,6 +834,7 @@ function MainPosition() {
                         placeholder={"Home Office"}
                         options={selectBasic}
                         defaultVal={position?.data.perfil.home_office}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/6">
@@ -813,6 +843,7 @@ function MainPosition() {
                         placeholder={"Type of Work"}
                         options={positionType}
                         defaultVal={position?.data.perfil.position_work_type}
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -828,6 +859,7 @@ function MainPosition() {
                               options={languageOptions}
                               value={lenguageInputs[i]?.lenguage}
                               onChange={(e) => updateLenguageSelect(i, e)}
+                              disabled={disabled}
                             />
                           </div>
                           <div className="w-1/6">
@@ -837,6 +869,7 @@ function MainPosition() {
                               placeholder={"%"}
                               value={lenguageInputs[i]?.lenguage_percent}
                               onChange={(e) => updateLenguageInput(i, e)}
+                              disabled={disabled}
                             />
                           </div>
                           {i >= 1 ? (
@@ -844,6 +877,7 @@ function MainPosition() {
                               type="button"
                               className="flex items-center"
                               onClick={() => removeLenguageInput(i)}
+                              disabled={disabled}
                             >
                               <IonIcon
                                 icon={closeCircle}
@@ -863,6 +897,7 @@ function MainPosition() {
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addLenguageInput()}
                           type="button"
+                          disabled={disabled}
                         >
                           <IonIcon
                             icon={add}
@@ -882,6 +917,8 @@ function MainPosition() {
                         name={"working_day"}
                         placeholder={"Working Day"}
                         options={workingDay}
+                        defaultVal={position?.data.perfil.working_day}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/6">
@@ -890,6 +927,7 @@ function MainPosition() {
                         type={"time"}
                         placeholder={"Start"}
                         defaultVal={position?.data.perfil.start}
+                        disabled={disabled}
                       />
                     </div>
                     <div className="w-1/6">
@@ -898,6 +936,7 @@ function MainPosition() {
                         type={"time"}
                         placeholder={"End"}
                         defaultVal={position?.data.perfil.end}
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -913,6 +952,7 @@ function MainPosition() {
                               placeholder={"Knowledge/Skill"}
                               value={skillsInputs[i]?.knowledge}
                               onChange={(e) => updateSkillInput(i, e)}
+                              disabled={disabled}
                             />
                           </div>
                           {i >= 1 ? (
@@ -920,6 +960,7 @@ function MainPosition() {
                               type="button"
                               className="flex items-center"
                               onClick={() => removeSkillInput(i)}
+                              disabled={disabled}
                             >
                               <IonIcon
                                 icon={closeCircle}
@@ -939,6 +980,7 @@ function MainPosition() {
                           className="flex h-6 w-6 items-center rounded-full bg-primario"
                           onClick={() => addSkillInput()}
                           type="button"
+                          disabled={disabled}
                         >
                           <IonIcon
                             icon={add}
