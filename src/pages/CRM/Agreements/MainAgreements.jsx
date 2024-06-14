@@ -4,10 +4,13 @@ import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import AgreementsConsole from "./components/AgreementsConsole";
 import { Link, redirect, useLoaderData } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AgreementsConsoleContracts from "./components/AgreementsConsoleContracts";
 
 function MainAgreements() {
-  const { services, customers } = useLoaderData();
+  const { services, customers, contracts } = useLoaderData();
   const data = services.data;
+  const contracts_data = contracts.data;
 
   return (
     <div className="flex w-full overflow-auto">
@@ -47,24 +50,41 @@ function MainAgreements() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex h-6 items-center justify-center rounded-xl bg-primario px-4">
-            <p className="text-[10px] font-semibold text-white">Templates</p>
+        <Tabs defaultValue="template" className="h-full w-full">
+          <div className="flex items-center gap-3">
+            <TabsList className="gap-3">
+              <TabsTrigger
+                value={"template"}
+                className="flex h-6 items-center justify-center rounded-xl bg-primario px-4"
+              >
+                <p className="text-[10px] font-semibold text-white">
+                  Templates
+                </p>
+              </TabsTrigger>
+              <TabsTrigger
+                value={"contracts"}
+                className="flex h-6 items-center justify-center rounded-xl bg-primario px-4"
+              >
+                <p className="text-[10px] font-semibold text-white">
+                  Contracts
+                </p>
+              </TabsTrigger>
+            </TabsList>
+            <Link to={"/crm/agreements/create"}>
+              <IonIcon
+                icon={addCircleOutline}
+                size="large"
+                className="text-primarioBotones"
+              ></IonIcon>
+            </Link>
           </div>
-          <div className="hidden h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4">
-            <p className="text-[10px] font-semibold text-grisHeading">
-              Templates
-            </p>
-          </div>
-          <Link to={"/crm/agreements/create"}>
-            <IonIcon
-              icon={addCircleOutline}
-              size="large"
-              className="text-primarioBotones"
-            ></IonIcon>
-          </Link>
-        </div>
-        <AgreementsConsole services={data} customers={customers.data} />
+          <TabsContent value={"template"} className="h-full">
+            <AgreementsConsole services={data} customers={customers.data} />
+          </TabsContent>
+          <TabsContent value={"contracts"} className="h-full">
+            <AgreementsConsoleContracts info={contracts_data} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

@@ -10,11 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import FormCreateContract from "./FormCreateContract";
 
-function AgreementsConsole({ services, customers }) {
+function AgreementsConsoleContracts({ info }) {
   const TABS = [];
-  tabsFill(services, TABS);
+  tabsFill(info, TABS);
   const [modal, setModal] = useState(false);
   const [agreementId, setAgreement] = useState(false);
 
@@ -24,24 +23,13 @@ function AgreementsConsole({ services, customers }) {
         id: element.id,
         name: element.name,
         icon: globeOutline,
-        agreements: element.agreements,
+        agreements: element.contracts,
       });
     });
   }
 
-  function openModalFunction(agreement) {
-    setAgreement(agreement);
-    setModal(true);
-  }
-
   return (
     <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
-      <FormCreateContract
-        modal={modal}
-        setModal={setModal}
-        customers={customers}
-        agreement={agreementId}
-      />
       <Tabs defaultValue="inbox" className="w-full">
         <div className="grid h-full w-full grid-cols-12">
           <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
@@ -78,7 +66,7 @@ function AgreementsConsole({ services, customers }) {
               className="col-span-10 flex h-full gap-6 overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
-                <div className="flex gap-6">
+                <div className="">
                   <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
                     <div className="h-full p-2 text-end">
                       <DropdownMenu>
@@ -91,16 +79,16 @@ function AgreementsConsole({ services, customers }) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           <DropdownMenuItem>
-                            <Link to={`/crm/agreements/edit/${agreement.id}`}>
-                              Edit
+                            <Link
+                              to={`${import.meta.env.VITE_SERVER_URL}agreements/print-contract/${agreement.id}`}
+                            >
+                              Print
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <button
-                              onClick={() => openModalFunction(agreement.id)}
-                            >
-                              Create
-                            </button>
+                            <Link to={`/crm/agreements/edit/${agreement.id}`}>
+                              Show
+                            </Link>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -109,6 +97,9 @@ function AgreementsConsole({ services, customers }) {
                     <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
                       <p className="flex text-[10px] text-grisHeading">
                         {agreement.name}
+                      </p>
+                      <p className="flex text-[10px] text-grisHeading">
+                        {agreement.customer}
                       </p>
                     </div>
                   </div>
@@ -122,4 +113,4 @@ function AgreementsConsole({ services, customers }) {
   );
 }
 
-export default AgreementsConsole;
+export default AgreementsConsoleContracts;

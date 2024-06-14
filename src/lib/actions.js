@@ -59,13 +59,30 @@ export async function getServicesAgreements() {
   }
 }
 
+export async function getContractsCustomer() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-contracts`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderAgreements() {
-  const [services, customers] = await Promise.all([
+  const [services, customers, contracts] = await Promise.all([
     getServicesAgreements(),
     getCustomers(),
+    getContractsCustomer(),
   ]);
 
-  return json({ services, customers });
+  return json({ services, customers, contracts });
 }
 
 export async function getCategories() {
