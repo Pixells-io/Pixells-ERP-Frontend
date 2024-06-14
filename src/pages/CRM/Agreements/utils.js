@@ -16,7 +16,7 @@ export async function saveNewAgreementTemplate(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -40,7 +40,7 @@ export async function saveEditAgreementTemplate(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -50,11 +50,23 @@ export async function saveNewContract(data) {
   console.log(data);
 
   const info = {
-    person_id: data.get("user"),
-    service_id: 0,
-    template_id: 0,
+    person_id: data.get("customer_id"),
+    service_id: data.get("service_id"),
+    template_id: data.get("template_id"),
     contract_template: data.get("template"),
+    comments: data.get("comments"),
   };
 
-  return null;
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}agreements/create-contract`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }
