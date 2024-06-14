@@ -70,12 +70,12 @@ function AgreementsPanel({ data }) {
         />
         <textarea name="template" className="hidden" value={value}></textarea>
       </div>
-      <div className="flex mt-2 gap-4">
+      <div className="mt-2 flex gap-4">
         <div>
           <button
             onClick={() => addVariable(1)}
             type="button"
-            className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+            className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
             Customer Name
           </button>
@@ -84,7 +84,7 @@ function AgreementsPanel({ data }) {
           <button
             onClick={() => addVariable(2)}
             type="button"
-            className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+            className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
             Service
           </button>
@@ -93,7 +93,7 @@ function AgreementsPanel({ data }) {
           <button
             onClick={() => addVariable(3)}
             type="button"
-            className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+            className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
             Date
           </button>
@@ -102,7 +102,7 @@ function AgreementsPanel({ data }) {
           <button
             onClick={() => addVariable(4)}
             type="button"
-            className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+            className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
             Sign
           </button>
@@ -111,7 +111,7 @@ function AgreementsPanel({ data }) {
           <button
             onClick={() => addVariable(5)}
             type="button"
-            className="h-6 w-auto bg-primario text-white text-[11px] font-medium rounded-xl px-4"
+            className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
             Open Field
           </button>

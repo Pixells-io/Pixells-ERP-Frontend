@@ -162,12 +162,12 @@ const legal_benefits = [
 function MainUser() {
   const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user.data);
+  // console.log(user.data);
   const [status, setStatus] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [academicInfo, setAcademicInfo] = useState(user.data.academy);
-  const [workingInfo, setWorkingInfo] = useState(user.data.experience);
-  const [contractsInfo, setContratcsInfo] = useState(user.data.contracts);
+  const [academicInfo, setAcademicInfo] = useState(user?.data.academy);
+  const [workingInfo, setWorkingInfo] = useState(user?.data.experience);
+  const [contractsInfo, setContratcsInfo] = useState(user?.data.contracts);
 
   // inputs options
   const selectArea = [];
@@ -336,7 +336,7 @@ function MainUser() {
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -355,12 +355,12 @@ function MainUser() {
               ></IonIcon>
             </div>
           </div>
-          <div className="font-roboto text-grisText">organization</div>
+          <div className="font-roboto text-sm text-grisText">organization</div>
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
@@ -370,7 +370,7 @@ function MainUser() {
             New User
           </h2>
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <p>Edit Mode</p>
               <span
                 className={
@@ -381,19 +381,26 @@ function MainUser() {
               >
                 {disabled ? "OFF" : "ON"}
               </span>
-            </div>
-            <Button
-              className="w-16"
-              variant="ghost"
+            </div> */}
+            <button
+              className={`flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blancoBox p-2`}
               onClick={() => setDisabled(!disabled)}
               type="button"
             >
-              <IonIcon
-                icon={create}
-                size="large"
-                className="text-grisText"
-              ></IonIcon>
-            </Button>
+              {disabled ? (
+                <IonIcon
+                  icon={create}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              ) : (
+                <IonIcon
+                  icon={closeCircle}
+                  size=""
+                  className="flex h-full w-full text-grisText"
+                />
+              )}
+            </button>
           </div>
         </div>
 
@@ -862,7 +869,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -945,7 +952,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -1138,7 +1145,7 @@ function MainUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (

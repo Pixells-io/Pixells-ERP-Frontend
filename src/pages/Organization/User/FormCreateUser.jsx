@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, useLoaderData, redirect } from "react-router-dom";
+import { Form, useLoaderData, redirect, NavLink } from "react-router-dom";
 import { saveNewUser } from "../utils";
 
 import Select from "react-select";
@@ -313,15 +313,22 @@ function FormCreateUser() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="mt-2 font-poppins text-xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New User
           </h2>
+          <NavLink to={"/organization"}>
+            <IonIcon
+              icon={closeCircle}
+              size="large"
+              className="text-grisDisabled hover:text-grisText"
+            ></IonIcon>
+          </NavLink>
         </div>
 
         {/*USER BOX CREATE*/}
@@ -704,7 +711,7 @@ function FormCreateUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -776,7 +783,7 @@ function FormCreateUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (
@@ -940,7 +947,7 @@ function FormCreateUser() {
                       >
                         <IonIcon
                           icon={addCircle}
-                          className="h-8 w-8 text-primarioBotones"
+                          className="h-8 w-8 text-primario"
                         ></IonIcon>
                       </button>
                     ) : (

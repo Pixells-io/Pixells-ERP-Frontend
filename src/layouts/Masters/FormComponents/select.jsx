@@ -10,6 +10,7 @@ function SelectRouter({
   disabled,
   defaultVal,
   value,
+  onChange,
 }) {
   // console.log(value);
   return (
@@ -22,6 +23,7 @@ function SelectRouter({
       isDisabled={disabled}
       defaultValue={defaultVal}
       value={value}
+      onChange={onChange}
     />
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, add, closeCircle } from "ionicons/icons";
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
@@ -251,7 +251,7 @@ const sectorExperience = [
 function FormCreatePosition() {
   const { areas, positions } = useLoaderData();
   const [positionsInputs, setPositionsInputs] = useState([
-    { coordinate_id: "", boss_id: "" },
+    { coordinate_id: "" },
   ]);
   const [authInputs, setAuthInputs] = useState([
     {
@@ -278,6 +278,7 @@ function FormCreatePosition() {
   const selectPosition = [];
 
   arrayFill(areas.data, selectArea);
+  arrayFillPositions(positions.data, selectPosition);
 
   function arrayFill(data, array) {
     for (let index = 0; index < data.length; index++) {
@@ -290,8 +291,6 @@ function FormCreatePosition() {
     }
   }
 
-  arrayFillPositions(positions.data, selectPosition);
-
   function arrayFillPositions(data, array) {
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -303,6 +302,8 @@ function FormCreatePosition() {
     }
   }
 
+  // Inputs
+
   function addPositionInput() {
     const posInput = { coordinate_id: "", boss_id: "" };
 
@@ -312,6 +313,15 @@ function FormCreatePosition() {
   function removePositionInput(index) {
     const newInputs = positionsInputs.filter((item, i) => index !== i);
     setPositionsInputs(newInputs);
+  }
+
+  function updatePositionInput(index, e) {
+    // console.log(e);
+    const newFields = positionsInputs.map((inputs, i) =>
+      i === index ? { ...inputs, coordinate_id: e } : inputs,
+    );
+    // console.log(newFields);
+    setPositionsInputs(newFields);
   }
 
   function addAuthInput() {
@@ -330,6 +340,33 @@ function FormCreatePosition() {
     setAuthInputs(newFields);
   }
 
+  function updateAuthInput(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
+  function updateAuthCheckbox(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
+  function updateAuthSelect(index, e) {
+    // console.log(e);
+    const newFields = authInputs.map((inputs, i) =>
+      i === index ? { ...inputs, authority_cordinate_id: e } : inputs,
+    );
+    // console.log(newFields);
+    setAuthInputs(newFields);
+  }
+
   function addResInput() {
     const resInput = {
       responsability_input: "",
@@ -341,6 +378,15 @@ function FormCreatePosition() {
   function removeResInput(index) {
     const newInputs = resInputs.filter((item, i) => index !== i);
     setResInputs(newInputs);
+  }
+
+  function updateResInput(index, e) {
+    // console.log(e);
+    const newFields = resInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setResInputs(newFields);
   }
 
   function addLenguageInput() {
@@ -357,6 +403,24 @@ function FormCreatePosition() {
     setLenguageInputs(newInputs);
   }
 
+  function updateLenguageInput(index, e) {
+    // console.log(e);
+    const newFields = lenguageInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setLenguageInputs(newFields);
+  }
+
+  function updateLenguageSelect(index, e) {
+    // console.log(e);
+    const newFields = lenguageInputs.map((inputs, i) =>
+      i === index ? { ...inputs, language: e } : inputs,
+    );
+    // console.log(newFields);
+    setLenguageInputs(newFields);
+  }
+
   function addSkillInput() {
     const skillInput = {
       knowledge: "",
@@ -368,6 +432,15 @@ function FormCreatePosition() {
   function removeSkillInput(index) {
     const newInputs = skillsInputs.filter((item, i) => index !== i);
     setSkillsInputs(newInputs);
+  }
+
+  function updateSkillInput(index, e) {
+    // console.log(e);
+    const newFields = skillsInputs.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    // console.log(newFields);
+    setSkillsInputs(newFields);
   }
 
   return (
@@ -396,15 +469,22 @@ function FormCreatePosition() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
               USER MANAGEMENT
             </h2>
           </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New Position
           </h2>
+          <NavLink to={"/organization"}>
+            <IonIcon
+              icon={closeCircle}
+              size="large"
+              className="text-grisDisabled hover:text-grisText"
+            ></IonIcon>
+          </NavLink>
         </div>
 
         {/*USER BOX CREATE*/}
@@ -452,52 +532,46 @@ function FormCreatePosition() {
                 </div>
 
                 <div className="flex items-center gap-3 pt-3">
-                  <div className="flex w-full flex-col gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-1/4">
-                        <SelectRouter
-                          name={"coordinate_id"}
-                          placeholder={"Coordinate Position"}
-                          options={selectPosition}
-                        />
-                      </div>
-                      <div className="w-1/4">
-                        <SelectRouter
-                          name={"boss_id"}
-                          placeholder={"Boss Position"}
-                          options={selectPosition}
-                        />
-                      </div>
+                  <div className="flex w-full gap-3">
+                    <div className="w-1/4 shrink-0">
+                      <SelectRouter
+                        name={"boss_id"}
+                        placeholder={"Boss Position"}
+                        options={selectPosition}
+                      />
                     </div>
-                    {positionsInputs.map((item, i) => (
-                      <div key={i} className="flex w-full items-center gap-3">
-                        {i >= 1 ? (
+                    <div className="flex w-1/4 flex-col gap-3">
+                      {positionsInputs.map((item, i) => (
+                        <div key={i} className="flex w-full gap-3">
                           <div className="flex w-full">
-                            <div className="w-1/4">
-                              <SelectRouter
-                                name={"coordinate_id"}
-                                placeholder={"Coordinate Position"}
-                                options={selectPosition}
-                              />
-                            </div>
-                            <div className="w-1/4"></div>
-                            <button
-                              type="button"
-                              className="flex items-center"
-                              onClick={() => removePositionInput(i)}
-                            >
-                              <IonIcon
-                                icon={closeCircle}
-                                size=""
-                                className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                              ></IonIcon>
-                            </button>
+                            <SelectRouter
+                              name={"coordinate_id"}
+                              placeholder={"Coordinate Position"}
+                              options={selectPosition}
+                              onChange={(e) => updatePositionInput(i, e)}
+                              value={positionsInputs[i]?.coordinate_id}
+                            />
                           </div>
-                        ) : (
-                          <div className="w-5"></div>
-                        )}
-                      </div>
-                    ))}
+                          {i !== 0 || positionsInputs.length !== i + 1 ? (
+                            <div className="flex">
+                              <button
+                                type="button"
+                                className="flex items-center"
+                                onClick={() => removePositionInput(i)}
+                              >
+                                <IonIcon
+                                  icon={closeCircle}
+                                  size=""
+                                  className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                                ></IonIcon>
+                              </button>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="flex">
@@ -543,6 +617,8 @@ function FormCreatePosition() {
                           name={"authority"}
                           type={"text"}
                           placeholder={"Authority Name"}
+                          value={authInputs[i]?.authority}
+                          onChange={(e) => updateAuthInput(i, e)}
                         />
                       </div>
                       <div className="flex w-1/4 justify-center">
@@ -555,7 +631,9 @@ function FormCreatePosition() {
                         <SelectRouter
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
-                          options={selectArea}
+                          options={selectPosition}
+                          value={authInputs[i].authority_cordinate_id}
+                          onChange={(e) => updateAuthSelect(i, e)}
                         />
                       </div>
                       {i >= 1 ? (
@@ -607,6 +685,8 @@ function FormCreatePosition() {
                         name="responsability_input"
                         type="text"
                         placeholder="Responsability"
+                        value={resInputs[i].responsability_input}
+                        onChange={(e) => updateResInput(i, e)}
                       />
                       {i >= 1 ? (
                         <button
@@ -718,6 +798,8 @@ function FormCreatePosition() {
                               name={"language"}
                               placeholder={"Language"}
                               options={languageOptions}
+                              value={lenguageInputs[i]?.language}
+                              onChange={(e) => updateLenguageSelect(i, e)}
                             />
                           </div>
                           <div className="w-1/6">
@@ -725,6 +807,8 @@ function FormCreatePosition() {
                               name={"language_percent"}
                               type={"number"}
                               placeholder={"%"}
+                              value={lenguageInputs[i]?.language_percent}
+                              onChange={(e) => updateLenguageInput(i, e)}
                             />
                           </div>
                           {i >= 1 ? (
@@ -797,6 +881,8 @@ function FormCreatePosition() {
                               name={"knowledge"}
                               type={"text"}
                               placeholder={"Knowledge/Skill"}
+                              value={skillsInputs[i]?.knowledge}
+                              onChange={(e) => updateSkillInput(i, e)}
                             />
                           </div>
                           {i >= 1 ? (

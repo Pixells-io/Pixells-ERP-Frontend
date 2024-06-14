@@ -47,15 +47,19 @@ function PositionsTable({ positions }) {
       header: "ACTIONS",
       cell: ({ row }) => {
         return (
-          <div className="flex gap-2 text-[#696974]">
-            <NavLink to={`/organization/position/${row.original.id}`}>
+          <div className="flex items-center gap-2 text-[#696974]">
+            <NavLink
+              className="flex items-center"
+              to={`/organization/position/${row.original.id}`}
+            >
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
             <NavLink
               className={
-                "text-roboto rounded-xl bg-[#e0e0e0] px-2 pt-[2px] text-[0.6875rem] font-semibold text-grisText"
+                "text-roboto flex items-center rounded-xl bg-[#e0e0e0] px-2 pt-[2px] text-[0.6875rem] font-semibold text-grisText"
               }
               to={`${import.meta.env.VITE_SERVER_URL}organization/description-of-the-position/${row.original.id}`}
+              target="blank"
             >
               <span>PDF</span>
             </NavLink>

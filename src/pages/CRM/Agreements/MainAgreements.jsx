@@ -3,7 +3,7 @@ import React from "react";
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import AgreementsConsole from "./components/AgreementsConsole";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 
 function MainAgreements() {
   const { services, customers } = useLoaderData();
@@ -71,3 +71,12 @@ function MainAgreements() {
 }
 
 export default MainAgreements;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const agreement = data.get("agreement_id");
+  const customer = data.get("customer_id");
+
+  return redirect(`/crm/agreements/new-contract/${agreement}/${customer}`);
+}

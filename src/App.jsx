@@ -36,7 +36,9 @@ import MainPackage from "./pages/CRM/Services/MainPackage";
 import MainEmail from "./pages/CRM/Email/MainEmail";
 
 //CRM Agreements
-import MainAgreements from "./pages/CRM/Agreements/MainAgreements";
+import MainAgreements, {
+  Action as CreateAgreementCustomer,
+} from "./pages/CRM/Agreements/MainAgreements";
 import NewAgreements, {
   Action as newAgreementTemplate,
 } from "./pages/CRM/Agreements/NewAgreement";
@@ -102,9 +104,7 @@ import {
   getAllServices,
   categoryShow,
   getPackageById,
-  getServicesAgreements,
   getAgreement,
-  multiloaderNewContract,
   multiloaderTablesCRM,
   multiloaderProgressSteps,
   multiloaderNotifications,
@@ -127,6 +127,7 @@ import {
   multiLoaderPositionCreate,
   multiLoaderUserCreate,
   multiloaderAgreements,
+  getContractCreate,
 } from "./lib/actions";
 
 //Not Found
@@ -175,7 +176,9 @@ import SideLayoutConfiguration, {
 import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
 import MainArea from "./pages/Organization/User/Area/MainArea";
-import MainPosition from "./pages/Organization/User/Position/MainPosition";
+import MainPosition, {
+  Action as UpdatePosition,
+} from "./pages/Organization/User/Position/MainPosition";
 import MainUser, {
   Action as UpdateUser,
 } from "./pages/Organization/User/User/MainUser";
@@ -270,6 +273,7 @@ const router = createBrowserRouter([
             path: "/crm/agreements",
             element: <MainAgreements />,
             loader: multiloaderAgreements,
+            action: CreateAgreementCustomer,
           },
           {
             path: "/crm/agreements/create",
@@ -284,9 +288,9 @@ const router = createBrowserRouter([
             action: EditAgreementTemplate,
           },
           {
-            path: "/crm/agreements/new-contract/:id",
+            path: "/crm/agreements/new-contract/:id/:customer",
             element: <NewContract />,
-            loader: multiloaderNewContract,
+            loader: getContractCreate,
             action: NewContractAction,
           },
 
@@ -347,6 +351,7 @@ const router = createBrowserRouter([
             path: "/organization/position/:id",
             element: <MainPosition />,
             loader: multiLoaderPositionCreate,
+            action: UpdatePosition,
           },
           {
             path: "/organization/user/:id",
