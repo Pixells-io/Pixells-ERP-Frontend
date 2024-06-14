@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Link, redirect, useLoaderData } from "react-router-dom";
+import { NavLink, redirect, useLoaderData } from "react-router-dom";
 import {
   addCircleOutline,
   chevronBack,
@@ -78,14 +78,24 @@ function MainOrganization() {
               ></IonIcon>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setModal(true)}>
+              <DropdownMenuItem
+                className="w-full hover:cursor-pointer"
+                onClick={() => setModal(true)}
+              >
                 Areas
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link to={"/organization/create-position"}>Position</Link>
+                <NavLink
+                  className="w-full"
+                  to={"/organization/create-position"}
+                >
+                  Position
+                </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link to={"/organization/create-user"}>User</Link>
+                <NavLink className="w-full" to={"/organization/create-user"}>
+                  User
+                </NavLink>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

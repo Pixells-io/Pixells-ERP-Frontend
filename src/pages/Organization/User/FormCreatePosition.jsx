@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, add, closeCircle } from "ionicons/icons";
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
@@ -474,10 +474,17 @@ function FormCreatePosition() {
             </h2>
           </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New Position
           </h2>
+          <NavLink to={"/organization"}>
+            <IonIcon
+              icon={closeCircle}
+              size="large"
+              className="text-grisDisabled hover:text-grisText"
+            ></IonIcon>
+          </NavLink>
         </div>
 
         {/*USER BOX CREATE*/}

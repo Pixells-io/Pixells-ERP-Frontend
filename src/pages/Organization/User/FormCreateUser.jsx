@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, useLoaderData, redirect } from "react-router-dom";
+import { Form, useLoaderData, redirect, NavLink } from "react-router-dom";
 import { saveNewUser } from "../utils";
 
 import Select from "react-select";
@@ -318,10 +318,17 @@ function FormCreateUser() {
             </h2>
           </div>
         </div>
-        <div>
+        <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             New User
           </h2>
+          <NavLink to={"/organization"}>
+            <IonIcon
+              icon={closeCircle}
+              size="large"
+              className="text-grisDisabled hover:text-grisText"
+            ></IonIcon>
+          </NavLink>
         </div>
 
         {/*USER BOX CREATE*/}
