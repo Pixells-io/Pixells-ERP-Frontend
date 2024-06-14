@@ -336,7 +336,7 @@ function MainUser() {
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
