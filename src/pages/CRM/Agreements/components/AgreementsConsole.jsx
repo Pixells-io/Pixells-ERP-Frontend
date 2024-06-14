@@ -16,6 +16,7 @@ function AgreementsConsole({ services, customers }) {
   const TABS = [];
   tabsFill(services, TABS);
   const [modal, setModal] = useState(false);
+  const [agreementId, setAgreement] = useState(false);
 
   function tabsFill(data, array) {
     data.forEach((element) => {
@@ -28,12 +29,18 @@ function AgreementsConsole({ services, customers }) {
     });
   }
 
+  function openModalFunction(agreement) {
+    setAgreement(agreement);
+    setModal(true);
+  }
+
   return (
     <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
       <FormCreateContract
         modal={modal}
         setModal={setModal}
         customers={customers}
+        agreement={agreementId}
       />
       <Tabs defaultValue="inbox" className="w-full">
         <div className="grid h-full w-full grid-cols-12">
@@ -89,7 +96,9 @@ function AgreementsConsole({ services, customers }) {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <button onClick={() => setModal(true)}>
+                            <button
+                              onClick={() => openModalFunction(agreement.id)}
+                            >
                               Create
                             </button>
                           </DropdownMenuItem>

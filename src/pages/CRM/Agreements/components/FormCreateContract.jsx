@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
-import { Form, useNavigation } from "react-router-dom";
+import { Form } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -11,25 +11,18 @@ import {
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function FormCreateContract({ modal, setModal, customers }) {
+function FormCreateContract({ modal, setModal, customers, agreement }) {
   let customer_array = [];
-
-  const customerId = useRef(null);
 
   arrayFillCustomer(customer_array, customers);
 
   function arrayFillCustomer(array, data) {
     data.forEach((element) => {
-      console.log(element.id);
       array.push({
         label: element.business_name,
         value: element.id,
       });
     });
-  }
-
-  function submitCreateContract() {
-    console.log(":)");
   }
 
   return (
@@ -41,19 +34,26 @@ function FormCreateContract({ modal, setModal, customers }) {
           </DialogTitle>
         </DialogHeader>
         <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
-          <SelectRouter
-            name={"customer_id"}
-            placeholder={"Customer"}
-            options={customer_array}
-          />
+          <Form
+            id="formCreateAgreementCustomer"
+            action="/crm/agreements"
+            method="post"
+          >
+            <input type="hidden" name="agreement_id" value={agreement} />
+            <SelectRouter
+              name={"customer_id"}
+              placeholder={"Customer"}
+              options={customer_array}
+            />
+          </Form>
         </div>
         <DialogFooter className="px-10 pb-6">
-          <button
-            onClick={submitCreateContract()}
+          <Button
+            form="formCreateAgreementCustomer"
             className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
           >
             Save
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

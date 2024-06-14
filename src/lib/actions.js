@@ -516,13 +516,23 @@ export async function getPersonsContracts() {
   }
 }
 
-export async function multiloaderNewContract({ params }) {
-  const [agreement, personsContracts] = await Promise.all([
-    getAgreement({ params }),
-    getPersonsContracts(),
-  ]);
+export async function getContractCreate({ params }) {
+  const contract = params.id;
+  const customer = params.customer;
 
-  return json({ agreement, personsContracts });
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-contract-create/${contract}/${customer}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
 
 export async function getClients() {
