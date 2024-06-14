@@ -57,5 +57,16 @@ export async function saveNewContract(data) {
     comments: data.get("comments"),
   };
 
-  return null;
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}agreements/create-contract`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }
