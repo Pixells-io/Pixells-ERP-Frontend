@@ -55,19 +55,15 @@ function MainAgreements() {
             <TabsList className="gap-3">
               <TabsTrigger
                 value={"template"}
-                className="flex h-6 items-center justify-center rounded-xl bg-primario px-4"
+                className="flex h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4 text-grisHeading data-[state=active]:bg-primario data-[state=active]:text-white"
               >
-                <p className="text-[10px] font-semibold text-white">
-                  Templates
-                </p>
+                <p className="text-[10px] font-semibold">Templates</p>
               </TabsTrigger>
               <TabsTrigger
                 value={"contracts"}
-                className="flex h-6 items-center justify-center rounded-xl bg-primario px-4"
+                className="flex h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4 text-grisHeading data-[state=active]:bg-primario data-[state=active]:text-white"
               >
-                <p className="text-[10px] font-semibold text-white">
-                  Contracts
-                </p>
+                <p className="text-[10px] font-semibold">Contracts</p>
               </TabsTrigger>
             </TabsList>
             <Link to={"/crm/agreements/create"}>

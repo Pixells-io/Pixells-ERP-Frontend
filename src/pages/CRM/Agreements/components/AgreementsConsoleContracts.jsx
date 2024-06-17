@@ -86,7 +86,7 @@ function AgreementsConsoleContracts({ info }) {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <Link to={`/crm/agreements/edit/${agreement.id}`}>
+                            <Link to={`/crm/agreements/show/${agreement.id}`}>
                               Show
                             </Link>
                           </DropdownMenuItem>

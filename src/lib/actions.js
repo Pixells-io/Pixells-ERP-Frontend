@@ -75,6 +75,24 @@ export async function getContractsCustomer() {
   }
 }
 
+export async function getContract({ params }) {
+  const id = params.id;
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-contract/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderAgreements() {
   const [services, customers, contracts] = await Promise.all([
     getServicesAgreements(),
