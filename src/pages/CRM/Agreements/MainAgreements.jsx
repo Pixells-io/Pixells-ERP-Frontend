@@ -52,7 +52,7 @@ function MainAgreements() {
 
         <Tabs defaultValue="template" className="h-full w-full">
           <div className="flex items-center gap-3">
-            <TabsList className="gap-3">
+            <TabsList className="gap-3 bg-transparent">
               <TabsTrigger
                 value={"template"}
                 className="flex h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4 text-grisHeading data-[state=active]:bg-primario data-[state=active]:text-white"
