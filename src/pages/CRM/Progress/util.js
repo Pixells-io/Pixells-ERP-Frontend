@@ -16,7 +16,7 @@ export async function setSelectedService(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -47,7 +47,7 @@ export async function saveService(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -81,7 +81,7 @@ export async function saveNewServiceStep(id, data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -111,7 +111,7 @@ export async function progressStepAdvance(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -119,5 +119,29 @@ export async function progressStepAdvance(data) {
     throw response;
   }
 
+  return response;
+}
+
+export async function moveProgressColumn(data) {
+  const info = {
+    step_id: data.get("step_id"),
+    step_index: data.get("step_index"),
+  };
+
+  console.log(info);
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-step/`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
   return response;
 }

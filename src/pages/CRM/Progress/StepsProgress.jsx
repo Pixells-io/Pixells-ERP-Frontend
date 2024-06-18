@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
-import { progressStepAdvance, saveNewServiceStep } from "./util";
+import {
+  moveProgressColumn,
+  progressStepAdvance,
+  saveNewServiceStep,
+} from "./util";
 import Step from "./components/Step";
 import { pusherClient } from "@/lib/pusher";
 import { getServiceSteps } from "@/lib/actions";
@@ -87,6 +91,9 @@ export async function Action({ params, request }) {
 
     case "advance_step":
       return await progressStepAdvance(data);
+
+    case "move_column":
+      return await moveProgressColumn(data);
 
     default:
       break;
