@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 import DropzoneFile from "@/components/dropzone-files";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormCreateDocuments({ modal, setModal, masterId }) {
   return (
@@ -38,15 +39,15 @@ function FormCreateDocuments({ modal, setModal, masterId }) {
               <DropzoneFile name={"document_file"} label={"Document"} />
             </div>
           </div>
+          <div className="px-10 pb-6">
+            <Button
+              type="submit"
+              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+            >
+              Save
+            </Button>
+          </div>
         </Form>
-        <DialogFooter className="px-10 pb-6">
-          <Button
-            form="form-create-client-document"
-            className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
-          >
-            Save
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

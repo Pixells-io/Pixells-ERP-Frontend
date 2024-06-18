@@ -56,8 +56,6 @@ export async function storeCustomerContacts(data) {
 export async function storeCustomerDocuments(data) {
   const formData = new FormData();
 
-  console.log(data);
-
   formData.append("document_file", data.get("document_file"));
   formData.append("master", data.get("master"));
 

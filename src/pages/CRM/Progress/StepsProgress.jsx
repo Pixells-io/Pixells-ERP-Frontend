@@ -94,8 +94,7 @@ export async function Action({ params, request }) {
 
     case "move_column":
       return await moveProgressColumn(data);
-
-    default:
-      break;
   }
+
+  return 1;
 }
