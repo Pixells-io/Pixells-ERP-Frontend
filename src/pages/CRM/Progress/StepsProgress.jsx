@@ -45,7 +45,6 @@ function StepsProgress() {
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
         {steps.data?.map((step, i) => {
-          // console.log(step);
           const service = services?.data.find((service) => service.id == id);
           return (
             <Step
