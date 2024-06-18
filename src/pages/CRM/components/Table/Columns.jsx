@@ -60,10 +60,9 @@ export const columns = [
             to={`/crm/leads/${row?.original?.id}`}
             className="flex items-center"
           >
-            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-          <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+          <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
         </div>
       );
     },
