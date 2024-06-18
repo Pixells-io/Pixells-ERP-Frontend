@@ -52,12 +52,16 @@ function FormNewSale() {
           className="flex flex-col gap-2 px-6"
           action="/crm"
           method="post"
+          encType="multipart/form-data"
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
                 <SelectRouter name="client" placeholder="Select Client" />
               </div>
+              {/* <div>
+                <SelectRouter name="services" placeholder="Select Services" />
+              </div> */}
               <div>
                 <InputRouter
                   name="confirm_email"
