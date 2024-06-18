@@ -128,6 +128,7 @@ import {
   multiLoaderUserCreate,
   multiloaderAgreements,
   getContractCreate,
+  getContract,
 } from "./lib/actions";
 
 //Not Found
@@ -182,6 +183,7 @@ import MainPosition, {
 import MainUser, {
   Action as UpdateUser,
 } from "./pages/Organization/User/User/MainUser";
+import ShowAgreements from "./pages/CRM/Agreements/ShowAgreements";
 
 const router = createBrowserRouter([
   {
@@ -286,6 +288,11 @@ const router = createBrowserRouter([
             element: <EditAgreements />,
             loader: getAgreement,
             action: EditAgreementTemplate,
+          },
+          {
+            path: "/crm/agreements/show/:id",
+            element: <ShowAgreements />,
+            loader: getContract,
           },
           {
             path: "/crm/agreements/new-contract/:id/:customer",
