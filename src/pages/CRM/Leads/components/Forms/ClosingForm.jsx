@@ -49,7 +49,7 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
   });
 
   return (
-    <Dialog open={true} onOpenChange={setModal}>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0 sm:max-w-[600px]">
         <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
