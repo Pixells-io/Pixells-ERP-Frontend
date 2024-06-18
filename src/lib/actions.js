@@ -586,6 +586,23 @@ export async function getClients() {
   }
 }
 
+export async function getClient({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}process-services/get-client/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderTablesCRM() {
   const [leads, clients] = await Promise.all([getLeads(), getClients()]);
   return json({ leads, clients });

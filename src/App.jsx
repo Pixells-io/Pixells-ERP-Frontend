@@ -23,7 +23,9 @@ import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Client :id
-import MainClient from "./pages/CRM/Clients/MainClient";
+import MainClient, {
+  Action as ClientAccion,
+} from "./pages/CRM/Clients/MainClient";
 
 // CRM Services
 import MainServices, {
@@ -129,6 +131,7 @@ import {
   multiloaderAgreements,
   getContractCreate,
   getContract,
+  getClient,
 } from "./lib/actions";
 
 //Not Found
@@ -305,6 +308,8 @@ const router = createBrowserRouter([
           {
             path: "/crm/client/:id",
             element: <MainClient />,
+            loader: getClient,
+            action: ClientAccion,
           },
         ],
       },

@@ -1,22 +1,57 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import FormCreateAdress from "./FormCreateAdress";
+import {
+  storeCustomerAdress,
+  storeCustomerContacts,
+  storeCustomerDocuments,
+} from "./utils";
+import FormCreateContacts from "./FormCreateContacts";
+import FormCreateDocuments from "./FormCreateDocument";
 
 function MainClient() {
+  const { data } = useLoaderData();
+  const client = data[0];
+
+  const [modalAdress, setModalAdress] = useState(false);
+  const [modalContact, setModalContact] = useState(false);
+  const [modalDocument, setModalDocument] = useState(false);
+
   return (
     <>
+      <FormCreateAdress
+        modal={modalAdress}
+        setModal={setModalAdress}
+        masterId={client?.master.id}
+      />
+      <FormCreateContacts
+        modal={modalContact}
+        setModal={setModalContact}
+        masterId={client?.master.id}
+      />
+      <FormCreateDocuments
+        modal={modalDocument}
+        setModal={setModalDocument}
+        masterId={client?.master.id}
+      />
+      <FormCreateDocuments
+        modal={modalDocument}
+        setModal={setModalDocument}
+        masterId={client?.master.id}
+      />
       <div className="flex w-full overflow-auto">
-        <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden"></div>
+        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4"></div>
       </div>
 
       {/* right sidebar */}
-      <div className="flex flex-col bg-gris items-center py-4 ml-4 rounded-lg space-y-4 w-[310px] overflow-scroll shrink-0">
-        <div className="flex flex-col gap-5 rounded-lg bg-blancoBox2 w-72 p-4">
-          <div className="flex ">
+      <div className="ml-4 flex w-[310px] shrink-0 flex-col items-center space-y-4 overflow-scroll rounded-lg bg-gris py-4">
+        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+          <div className="flex gap-6">
             <div>
               <p className="text-[16px] font-medium text-grisText">Name</p>
-              <span className="text-[10px] text-grisSubText font-medium">
-                Original Constructors LLC
+              <span className="text-[10px] font-medium text-grisSubText">
+                {client?.info.business_name}
               </span>
             </div>
             <div>
@@ -28,91 +63,82 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <p className="text-[16px] font-medium text-grisText">Address</p>
-            <span className="text-[10px] text-grisSubText font-medium">
-              Mr John Smith. 132, My Street, Kingston, <br />
-              New York 12401
-            </span>
-            <div className="flex items-center  justify-between">
-              <span className="text-[10px] text-grisSubText font-medium">
-                Mr John Smith. 132, My Street, Kingston, <br />
-                New York 12401
-              </span>
-              <span className="text-[8px] font-medium text-grisHeading border-grisHeading border rounded-2xl py-[2px] px-2">
-                Primary
-              </span>
+            <div className="flex gap-6">
+              <p className="text-[16px] font-medium text-grisText">Address</p>
+              <button
+                className="mt-[-10px] text-[30px] font-medium text-primarioBotones"
+                onClick={setModalAdress}
+              >
+                +
+              </button>
             </div>
-            <span className="text-[10px] text-grisSubText font-medium">
-              Mr John Smith. 132, My Street, Kingston, <br />
-              New York 12401
-            </span>
-            <span className="text-[10px] text-grisSubText font-medium">
-              Mr John Smith. 132, My Street, Kingston, <br />
-              New York 12401
-            </span>
+            {client?.adress.map((adress, i) => (
+              <div className="flex items-center justify-between" key={i}>
+                <span className="text-[10px] font-medium text-grisSubText">
+                  {adress.street}.{adress.ext}, {adress.int}, {adress.city}, 
+                  {adress.state}, <br />
+                  {adress.country} {adress.cp}
+                </span>
+                {adress.primary === 1 && (
+                  <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
+                    Primary
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 rounded-lg bg-blancoBox2 w-72 p-4">
+        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
               CONTACTS
             </p>
-            <div className="text-[30px] text-primarioBotones font-medium">
+            <button
+              className="text-[30px] font-medium text-primarioBotones"
+              onClick={setModalContact}
+            >
               +
-            </div>
+            </button>
             <div className="text-[12px] font-medium text-grisSubText">
               View All
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="flex flex-col">
-              <div className="flex items-center justify-between">
-                <p className="text-grisText">Ernest Robles</p>
-                <span className="text-[8px] font-medium text-grisHeading border-grisHeading border rounded-2xl py-[2px] px-2">
-                  Primary
-                </span>
+            {client?.contact.map((contact, i) => (
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-grisText">
+                    {contact.name} {contact.middle_name} {contact.last_name}{" "}
+                  </p>
+                  {contact.primary === 1 && (
+                    <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
+                      Primary
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-grisSubText">
+                  <span> {contact.mail} </span>
+                  <span>&bull;</span>
+                  <span> {contact.position} </span>
+                </div>
               </div>
-              <div className="flex gap-2 items-center text-grisSubText text-[10px]">
-                <span>ernest@gmail.com</span>
-                <span>&bull;</span>
-                <span>CEO</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex items-center justify-between">
-                <p className="text-grisText">Catalina Robins</p>
-              </div>
-              <div className="flex gap-2 items-center text-grisSubText text-[10px]">
-                <span>catalina@outlook.com</span>
-                <span>&bull;</span>
-                <span>CTO</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex items-center justify-between">
-                <p className="text-grisText">Carlos Ramirez</p>
-              </div>
-              <div className="flex gap-2 items-center text-grisSubText text-[10px]">
-                <span>carlos@gmail.com</span>
-                <span>&bull;</span>
-                <span>Manager</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 rounded-lg bg-blancoBox2 w-72 p-4">
+        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
               DOCUMENTS
             </p>
-            <div className="text-[30px] text-primarioBotones font-medium">
+            <button
+              className="text-[30px] font-medium text-primarioBotones"
+              onClick={setModalDocument}
+            >
               +
-            </div>
+            </button>
             <div className="text-[12px] font-medium text-grisSubText">
               View All
             </div>
@@ -120,51 +146,51 @@ function MainClient() {
 
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-4">
-              <div className="col-span-3 flex gap-2 items-center">
-                <div className="bg-blancoBg w-12 h-12 rounded-lg shrink-0"></div>
+              <div className="col-span-3 flex items-center gap-2">
+                <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
                 <div>
-                  <p className="text-grisHeading font-medium">Document 1</p>
-                  <span className="font-medium text-[10px] text-grisSubText line-clamp-none">
+                  <p className="font-medium text-grisHeading">Document 1</p>
+                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
                     Uplaoded &bull; 02 Feb 2024
                   </span>
                 </div>
               </div>
               <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="text-[8px] font-medium text-grisHeading border-grisHeading border rounded-2xl py-[2px] px-2">
+                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
                   Download
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-4">
-              <div className="col-span-3 flex gap-2 items-center">
-                <div className="bg-lime-200 w-12 h-12 rounded-lg shrink-0"></div>
+              <div className="col-span-3 flex items-center gap-2">
+                <div className="h-12 w-12 shrink-0 rounded-lg bg-lime-200"></div>
                 <div>
-                  <p className="text-grisHeading font-medium">Document 1</p>
-                  <span className="font-medium text-[10px] text-grisSubText line-clamp-none">
+                  <p className="font-medium text-grisHeading">Document 1</p>
+                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
                     Uplaoded &bull; 02 Feb 2024
                   </span>
                 </div>
               </div>
               <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="text-[8px] font-medium text-grisHeading border-grisHeading border rounded-2xl py-[2px] px-2">
+                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
                   Download
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-4">
-              <div className="col-span-3 flex gap-2 items-center">
-                <div className="bg-pink-200 w-12 h-12 rounded-lg shrink-0"></div>
+              <div className="col-span-3 flex items-center gap-2">
+                <div className="h-12 w-12 shrink-0 rounded-lg bg-pink-200"></div>
                 <div>
-                  <p className="text-grisHeading font-medium">Document 1</p>
-                  <span className="font-medium text-[10px] text-grisSubText line-clamp-none">
+                  <p className="font-medium text-grisHeading">Document 1</p>
+                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
                     Uplaoded &bull; 02 Feb 2024
                   </span>
                 </div>
               </div>
               <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="text-[8px] font-medium text-grisHeading border-grisHeading border rounded-2xl py-[2px] px-2">
+                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
                   Download
                 </span>
               </div>
@@ -172,7 +198,7 @@ function MainClient() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 rounded-lg bg-blancoBox2 w-72 p-4">
+        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
               GENERAL STATUS
@@ -180,27 +206,27 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="flex gap-3 items-center">
-              <div className="flex flex-col w-14 h-14 bg-blancoBox rounded-lg items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
                 <p className="text-[12px] text-grisText">Dic</p>
-                <span className="text-grisText text-2xl font-bold">05</span>
+                <span className="text-2xl font-bold text-grisText">05</span>
               </div>
               <div className="flex flex-col">
-                <p className="text-grisText font-medium">Last Service</p>
-                <span className="font-medium text-[10px] text-grisSubText">
+                <p className="font-medium text-grisText">Last Service</p>
+                <span className="text-[10px] font-medium text-grisSubText">
                   Immigration for Larissa
                 </span>
               </div>
             </div>
 
-            <div className="flex gap-3 items-center">
-              <div className="flex flex-col w-14 h-14 bg-blancoBox rounded-lg items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
                 <p className="text-[12px] text-grisText">Dic</p>
-                <span className="text-grisText text-2xl font-bold">19</span>
+                <span className="text-2xl font-bold text-grisText">19</span>
               </div>
               <div className="flex flex-col">
-                <p className="text-grisText font-medium">Last Update</p>
-                <span className="font-medium text-[10px] text-grisSubText">
+                <p className="font-medium text-grisText">Last Update</p>
+                <span className="text-[10px] font-medium text-grisSubText">
                   Walter Robledo
                 </span>
               </div>
@@ -213,3 +239,21 @@ function MainClient() {
 }
 
 export default MainClient;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type")) {
+    case "1":
+      storeCustomerAdress(data);
+      break;
+    case "2":
+      storeCustomerContacts(data);
+      break;
+    case "3":
+      storeCustomerDocuments(data);
+      break;
+  }
+
+  return 1;
+}
