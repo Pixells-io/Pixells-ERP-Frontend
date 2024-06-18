@@ -35,9 +35,10 @@ const CATEGORIES = [
   { value: "8", label: "Interview" },
 ];
 
-function NewStepService({ serviceId, submitting }) {
+function NewStepService({ serviceId, submitting, service }) {
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
+  console.log(service);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -54,7 +55,7 @@ function NewStepService({ serviceId, submitting }) {
       </DialogTrigger>
       <DialogContent className="p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
-          <DialogTitle>Create Step &bull; NOMBRE AQUI</DialogTitle>
+          <DialogTitle>Create Step &bull; {service[0]?.name}</DialogTitle>
         </DialogHeader>
         <Form
           id="service-step-form"

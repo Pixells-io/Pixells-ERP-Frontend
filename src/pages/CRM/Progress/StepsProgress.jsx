@@ -57,7 +57,10 @@ function StepsProgress() {
           );
         })}
       </div>
-      <NewStepService serviceId={id} />
+      <NewStepService
+        serviceId={id}
+        service={services?.data?.filter((service, i) => service.id == id)}
+      />
     </div>
   );
 }
