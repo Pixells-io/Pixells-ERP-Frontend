@@ -29,8 +29,8 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const monthlyArray = [
-  { label: "No", value: "0" },
-  { label: "Yes", value: "1" },
+  { label: "Monthly", value: "0" },
+  { label: "Annual", value: "1" },
 ];
 
 function ClosingForm({ modal, setModal, leadId, services, users }) {
@@ -49,8 +49,8 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
   });
 
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="p-0 sm:max-w-[425px]">
+    <Dialog open={true} onOpenChange={setModal}>
+      <DialogContent className="p-0 sm:max-w-[600px]">
         <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
             <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
@@ -86,27 +86,29 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
                   placeholder="Comments"
                 />
               </div>
-              <div>
-                <SelectRouter
-                  name="recurrent_pay"
-                  placeholder="Monthly Pay?"
-                  options={monthlyArray}
-                />
-              </div>
-              <div>
-                <InputRouter
-                  name="month_billing"
-                  type="number"
-                  placeholder="Monthly Bill"
-                />
-              </div>
-              <div>
-                <SelectRouter
-                  name="services"
-                  placeholder="Service Interest"
-                  isMulti={true}
-                  options={options}
-                />
+
+              <div className="flex flex-col gap-2 pt-4">
+                <div className="flex gap-8">
+                  <p>Choose Services</p>
+                  <div>+</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex w-full items-center gap-2">
+                    <SelectRouter
+                      name="services"
+                      placeholder="Service 1"
+                      // isMulti={true}
+                      options={options}
+                    />
+                    <SelectRouter
+                      name="recurrent_pay"
+                      placeholder="Recurrency"
+                      options={monthlyArray}
+                    />
+                    <InputRouter placeholder="Ammount" name="ammount" />
+                  </div>
+                  <div>x</div>
+                </div>
               </div>
             </div>
             <div>
