@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Form } from "react-router-dom";
 
 function ServiceSelectAdd({ services }) {
-  // console.log(services);
   const options = services.map(({ id, name }) => ({ value: id, label: name }));
 
   return (
@@ -28,10 +27,10 @@ function ServiceSelectAdd({ services }) {
           className="text-4xl text-primario"
         ></IonIcon>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72 overflow-scroll">
+      <DropdownMenuContent className="h-[300px] w-72 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="flex flex-col gap-2 h-full">
+        <div className="flex h-full flex-col gap-2">
           <Form
             action="/crm/progress"
             method="post"
