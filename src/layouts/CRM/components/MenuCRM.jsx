@@ -18,7 +18,7 @@ const MENU_ITEMS = [
   {
     path: "/crm/progress",
     name: "Progress",
-    subname: "Homepage",
+    subname: "Dashboard",
     icon: appsSharp,
   },
   {

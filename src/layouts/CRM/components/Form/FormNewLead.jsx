@@ -79,6 +79,29 @@ const typeArray = [
   },
 ];
 
+const channelArray = [
+  {
+    label: "Recommendation",
+    value: "Recommendation",
+  },
+  {
+    label: "Instagram",
+    value: "Instagram",
+  },
+  {
+    label: "Facebook",
+    value: "Facebook",
+  },
+  {
+    label: "Google",
+    value: "Google",
+  },
+  {
+    label: "Other",
+    value: "Other",
+  },
+];
+
 function FormNewLead({ services, navigation }) {
   const [open, setOpen] = useState(false);
 
@@ -101,25 +124,25 @@ function FormNewLead({ services, navigation }) {
           </p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[650px] overflow-auto sm:max-w-[425px]">
-        <DialogHeader>
+      <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
+        <DialogHeader className="border-b px-8 py-6">
           <DialogTitle className="font-poppins">
             Create New Oportunity
           </DialogTitle>
         </DialogHeader>
         <Form
           id="lead-form"
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-8 px-6"
           action="/crm"
           method="post"
         >
-          {/* <FormSelect /> */}
-          {/* <input type="hidden" name="register_type" value={1} /> */}
-          <SelectRouter
-            name="register_type"
-            options={typeArray}
-            placeholder="Type of Oportunity"
-          />
+          <div className="flex px-4 py-2">
+            <SelectRouter
+              name="register_type"
+              options={typeArray}
+              placeholder="Type of Oportunity"
+            />
+          </div>
 
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
@@ -158,19 +181,16 @@ function FormNewLead({ services, navigation }) {
               Category Information
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
-              {categoryInputs?.map((input, i) => (
-                <InputRouter
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                />
-              ))}
+              <SelectRouter
+                name="channel"
+                placeholder="Channel"
+                options={channelArray}
+              />
               <FromMultiSelect services={services} />
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="px-8 py-4">
           <Button
             form="lead-form"
             disabled={navigation.state === "submitting"}

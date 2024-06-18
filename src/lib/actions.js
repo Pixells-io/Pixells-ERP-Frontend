@@ -117,7 +117,7 @@ export async function getCategoriesAndServices() {
 }
 
 export async function multiLoaderServices() {
-  const [services, categories, packages, positions, categoriesServices] =
+  const [services, categories, packages, positions, categoriesServices, users] =
     await Promise.all([
       getServices(),
       getCategories(),

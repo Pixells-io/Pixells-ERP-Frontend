@@ -11,7 +11,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -25,6 +24,14 @@ import UserSelect from "@/components/UserSelect";
 
 import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
+import DropzoneFile from "@/components/dropzone-files";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+
+const monthlyArray = [
+  { label: "No", value: "0" },
+  { label: "Yes", value: "1" },
+];
 
 function ClosingForm({ modal, setModal, leadId, services, users }) {
   const navigation = useNavigation();
@@ -35,14 +42,20 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
     }
   }, [navigation.state]);
 
+  let options = [];
+  services?.data.map((service, i) => {
+    let newObj = { value: service.id, label: service.name };
+    options.push(newObj);
+  });
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] p-0">
-        <div className="bg-gris flex p-6 rounded-t-lg">
+      <DialogContent className="p-0 sm:max-w-[425px]">
+        <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
-            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+            <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
               <span className="font-normal">Proposal Form </span>
-              &gt; Prospect Form
+              &gt; Closing Form
             </DialogTitle>
           </DialogHeader>
         </div>
@@ -52,40 +65,48 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
           action="/crm/leads"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
               <div>
-                <FileRouter name="service_paymnent" label="Payment agreement" />
+                <DropzoneFile
+                  name="service_paymnent"
+                  label="Payment agreement"
+                />
               </div>
               <div>
-                <FileRouter
+                <DropzoneFile
                   name="service_agreement"
                   label="Service agreement"
                 />
               </div>
               <div>
-                <FormInput name="comments" type="text" placeholder="Comments" />
+                <InputRouter
+                  name="comments"
+                  type="text"
+                  placeholder="Comments"
+                />
               </div>
               <div>
-                <Select name="recurrent_pay">
-                  <SelectTrigger className="border-0 border-b-2 rounded-none aria-[expanded=true]:border-b-2 aria-[expanded=true]:border-primario focus:border-primario !ring-0 !ring-offset-0 p-4 text-gris2">
-                    <SelectValue placeholder="Recurrent Pay (Monthly?)" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="0">No</SelectItem>
-                    <SelectItem value="1">Yes</SelectItem>
-                  </SelectContent>
-                </Select>
+                <SelectRouter
+                  name="recurrent_pay"
+                  placeholder="Monthly Pay?"
+                  options={monthlyArray}
+                />
               </div>
               <div>
-                <FormInput
+                <InputRouter
                   name="month_billing"
                   type="number"
                   placeholder="Monthly Bill"
                 />
               </div>
               <div>
-                <FromMultiSelect services={services} />
+                <SelectRouter
+                  name="services"
+                  placeholder="Service Interest"
+                  isMulti={true}
+                  options={options}
+                />
               </div>
             </div>
             <div>
@@ -105,35 +126,35 @@ function ClosingForm({ modal, setModal, leadId, services, users }) {
               />
             </div>
           </div>
-        </Form>
-        <div className="flex justify-between p-4">
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col items-center gap-2">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                <AvatarFallback>DG</AvatarFallback>
-              </Avatar>
-              <p className="text-[10px] text-grisText">Assigned</p>
+          <div className="flex justify-between p-4">
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                  <AvatarFallback>DG</AvatarFallback>
+                </Avatar>
+                <p className="text-[10px] text-grisText">Assigned</p>
+              </div>
+              <div className="flex items-center justify-center">
+                <IonIcon
+                  icon={chevronForward}
+                  className="h-6 w-6 text-grisText"
+                ></IonIcon>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <UserSelect users={users} />
+                <p className="text-[10px] text-grisText">Assign To</p>
+              </div>
             </div>
-            <div className="flex justify-center items-center">
-              <IonIcon
-                icon={chevronForward}
-                className="w-6 h-6 text-grisText"
-              ></IonIcon>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <UserSelect users={users} />
-              <p className="text-[10px] text-grisText">Assign To</p>
-            </div>
+            <Button
+              form="closing-leads-form"
+              disabled={navigation.state === "submitting"}
+              className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+            </Button>
           </div>
-          <Button
-            form="closing-leads-form"
-            disabled={navigation.state === "submitting"}
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-          >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
-          </Button>
-        </div>
+        </Form>
       </DialogContent>
     </Dialog>
   );

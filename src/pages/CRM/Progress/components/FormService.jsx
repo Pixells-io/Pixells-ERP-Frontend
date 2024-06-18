@@ -47,8 +47,8 @@ function FormService({ csrf, submitting }) {
           action="/crm/progress"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
                 <FormInput name="name" type="text" placeholder="Service Name" />
               </div>
@@ -67,7 +67,7 @@ function FormService({ csrf, submitting }) {
                 />
               </div>
               <div>
-                <Label className="font-roboto text-grisHeading font-light ml-3">
+                <Label className="ml-3 font-roboto font-light text-grisHeading">
                   Select Color
                 </Label>
                 <FormInput
@@ -92,7 +92,7 @@ function FormService({ csrf, submitting }) {
         <DialogFooter>
           <Button
             form="service-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             disabled={submitting}
           >
             {submitting ? "Submitting..." : "Save"}

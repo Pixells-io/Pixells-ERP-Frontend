@@ -20,12 +20,40 @@ import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
-import { call, chatbubbleEllipses, chevronForward } from "ionicons/icons";
+import { chevronForward } from "ionicons/icons";
 
-import FormInput from "./Inputs/FormInput";
-import FormSelect from "./Inputs/FormSelect";
-import FileRouter from "@/layouts/Masters/FormComponents/file";
 import UserSelect from "@/components/UserSelect";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DropzoneFile from "@/components/dropzone-files";
+import DatePicker from "@/components/date-picker";
+
+const channelArray = [
+  {
+    label: "Facebook",
+    value: "Facebook",
+  },
+  {
+    label: "Instagram",
+    value: "Instagram",
+  },
+  {
+    label: "WhatsApp",
+    value: "WhatsApp",
+  },
+  {
+    label: "Google",
+    value: "Google",
+  },
+  {
+    label: "Recomendation",
+    value: "Recomendation",
+  },
+  {
+    label: "Face to Face",
+    value: "Face to Face",
+  },
+];
 
 function ProspectForm({ modal, setModal, leadId, users }) {
   const [date, setDate] = useState();
@@ -39,10 +67,10 @@ function ProspectForm({ modal, setModal, leadId, users }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] p-0">
-        <div className="bg-gris flex p-6 rounded-t-lg">
+      <DialogContent className="p-0 sm:max-w-[425px]">
+        <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
-            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+            <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
               <span className="font-normal">New Lead </span>
               &gt; Prospect Form
             </DialogTitle>
@@ -54,50 +82,27 @@ function ProspectForm({ modal, setModal, leadId, users }) {
           action="/crm/leads"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
               <div>
-                <FormSelect />
-              </div>
-              <div>
-                <input
-                  name="date"
-                  className="hidden"
-                  defaultValue={date}
-                  readOnly
+                <SelectRouter
+                  name="type"
+                  placeholder="Channel of meet"
+                  options={channelArray}
                 />
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "!ring-0 !ring-offset-0 w-full justify-between text-left font-normal border-0 border-b rounded-none aria-[expanded=true]:border-b-2 focus:border-primario focus:border-b-2",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
               </div>
+
+              <DatePicker name="date" />
+
               <div>
-                <FormInput
+                <InputRouter
                   name="comment"
                   type="text"
                   placeholder="Type your message here."
                 />
               </div>
               <div>
-                <FileRouter name="file" label="Select a document" />
+                <DropzoneFile name="file" label="Select a document" />
               </div>
             </div>
             <div>
@@ -117,36 +122,36 @@ function ProspectForm({ modal, setModal, leadId, users }) {
               />
             </div>
           </div>
-        </Form>
-        <div className="flex justify-between p-4">
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col items-center gap-2">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                <AvatarFallback>DG</AvatarFallback>
-              </Avatar>
-              <p className="text-[10px] text-grisText">Assigned</p>
+          <div className="flex justify-between pb-4">
+            <div className="flex items-center gap-3">
+              <div className="flex w-16 flex-col items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                  <AvatarFallback>DG</AvatarFallback>
+                </Avatar>
+                <p className="text-[10px] text-grisText">Assigned</p>
+              </div>
+              <div className="flex self-start pt-2">
+                <IonIcon
+                  icon={chevronForward}
+                  className="h-6 w-6 text-grisText"
+                ></IonIcon>
+              </div>
+              <div className="flex w-16 flex-col items-center gap-2">
+                <UserSelect users={users} />
+                <p className="text-[10px] text-grisText">Assign To</p>
+              </div>
             </div>
-            <div className="flex justify-center items-center">
-              <IonIcon
-                icon={chevronForward}
-                className="w-6 h-6 text-grisText"
-              ></IonIcon>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <UserSelect users={users} />
-              <p className="text-[10px] text-grisText">Assign To</p>
-            </div>
-          </div>
 
-          <Button
-            form="prospect-leads-form"
-            disabled={navigation.state === "submitting"}
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-          >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
-          </Button>
-        </div>
+            <Button
+              form="prospect-leads-form"
+              disabled={navigation.state === "submitting"}
+              className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+            </Button>
+          </div>
+        </Form>
       </DialogContent>
     </Dialog>
   );
