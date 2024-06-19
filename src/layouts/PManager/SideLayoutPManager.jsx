@@ -9,7 +9,13 @@ import {
 } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { checkmarkCircle, flag, megaphone, syncCircle } from "ionicons/icons";
+import {
+  addCircleOutline,
+  checkmarkCircle,
+  flag,
+  megaphone,
+  syncCircle,
+} from "ionicons/icons";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 import ObjectiveLink from "./components/ObjectiveLink";
@@ -24,16 +30,16 @@ function SideLayoutPManager() {
   const [objectiveCtx, setObjectivesCtx] = useState(objectives);
 
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
-      <div className="flex flex-col gap-4 w-[280px] shrink-0">
+    <div className="flex h-full px-4 pb-4 font-roboto">
+      <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4">
+        <div className="flex flex-col gap-4 rounded-lg bg-gris px-8 py-4">
           <TopMenuCRM />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md py-8 px-4">
-          <p className="font-semibold text-lg font-poppins text-grisHeading px-4">
+        <div className="flex h-full flex-col gap-4 rounded-md bg-gris px-4 py-8">
+          <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
             Strategic Objectives
           </p>
 
@@ -43,17 +49,23 @@ function SideLayoutPManager() {
               open={open}
               setOpen={setOpen}
             />
+            <button type="button" onClick={() => setOpen(!open)}>
+              <IonIcon
+                icon={addCircleOutline}
+                className="h-6 w-6 text-primarioBotones"
+              />
+            </button>
           </div>
 
           {/*menu top */}
-          <div className="flex flex-col gap-4">
+          <div className="flex max-h-[260px] flex-col gap-4 overflow-scroll">
             {objectives?.data?.map((objective, i) => (
               <ObjectiveLink key={i} objective={objective} areas={areas} />
             ))}
           </div>
 
           {/* separator */}
-          <div className="border-b border-gris2 my-4"></div>
+          <div className="my-4 border-b border-gris2"></div>
 
           {/* menu bottom */}
           <div className="flex flex-col gap-4">
@@ -61,16 +73,16 @@ function SideLayoutPManager() {
               to="/project-manager"
               className={({ isActive }) =>
                 isActive && location.pathname === "/project-manager"
-                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
             >
-              <div className="flex items-center gap-6 ">
+              <div className="flex items-center gap-6">
                 <IonIcon icon={megaphone} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium text-base ">Today</p>
-                  <p className="font-medium text-[10px]">Activities</p>
+                  <p className="text-base font-medium">Today</p>
+                  <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>
             </NavLink>
@@ -78,16 +90,16 @@ function SideLayoutPManager() {
               to="/project-manager/activities"
               className={({ isActive }) =>
                 isActive
-                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
             >
-              <div className="flex items-center gap-6 ">
+              <div className="flex items-center gap-6">
                 <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium text-base ">Activities</p>
-                  <p className="font-medium text-[10px]">Summary</p>
+                  <p className="text-base font-medium">Activities</p>
+                  <p className="text-[10px] font-medium">Summary</p>
                 </div>
               </div>
             </NavLink>
@@ -95,16 +107,16 @@ function SideLayoutPManager() {
               to="/project-manager/status"
               className={({ isActive }) =>
                 isActive
-                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
             >
-              <div className="flex items-center gap-6 ">
+              <div className="flex items-center gap-6">
                 <IonIcon icon={syncCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="font-medium text-base ">Status</p>
-                  <p className="font-medium text-[10px]">Activities</p>
+                  <p className="text-base font-medium">Status</p>
+                  <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>
             </NavLink>

@@ -42,12 +42,12 @@ function NewObjectiveForm({ open, setOpen, areas }) {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="flex items-center justify-center rounded-full border-2">
+        {/* <DialogTrigger className="flex items-center justify-center rounded-full border-2 !outline-none !ring-0">
           <IonIcon
             icon={addCircleOutline}
             className="h-6 w-6 text-primarioBotones"
           />
-        </DialogTrigger>
+        </DialogTrigger> */}
         <DialogContent className="p-0">
           <DialogHeader className="flex border-b px-8 py-6">
             <DialogTitle className="">Agregar Objetivo Estratégico</DialogTitle>

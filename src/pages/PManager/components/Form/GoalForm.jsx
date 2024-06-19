@@ -4,14 +4,13 @@ import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function GoalForm({ objectiveId }) {
   const navigation = useNavigation();
@@ -26,38 +25,32 @@ function GoalForm({ objectiveId }) {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="text-primarioBotones text-base font-semibold">
+        <DialogTrigger className="text-base font-semibold text-primarioBotones">
           + New Goal
         </DialogTrigger>
-        <DialogContent>
-          <DialogHeader className="flex flex-col gap-2">
+        <DialogContent className="p-0">
+          <DialogHeader className="flex flex-col gap-2 border-b px-8 py-6">
             <DialogTitle>Agregar Meta</DialogTitle>
-            <div className="bg-gris rounded-lg p-4 flex flex-col gap-4">
-              <DialogDescription>Meta</DialogDescription>
-              <Form
-                className="flex flex-col gap-8"
-                id="goal-form"
-                action={`/project-manager/${objectiveId}`}
-                method="post"
-              >
-                <Input
-                  name="goal"
-                  placeholder="Nombre de la Meta"
-                  className="rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0"
-                />
-                <Input className="hidden" name="action" value="goal" readOnly />
-              </Form>
-            </div>
           </DialogHeader>
-          <DialogFooter>
-            <Button
-              form="goal-form"
-              className="bg-primario px-10"
-              type="submit"
+          <div className="flex flex-col gap-4 rounded-lg p-4 px-10">
+            <Form
+              className="flex flex-col gap-8"
+              id="goal-form"
+              action={`/project-manager/${objectiveId}`}
+              method="post"
             >
-              Save
-            </Button>
-          </DialogFooter>
+              <InputRouter name="goal" placeholder="Nombre de la Meta" />
+              <input className="hidden" name="action" value="goal" readOnly />
+            </Form>
+            <div className="flex self-end">
+              <Button
+                className="bg-primarioBotones px-10 hover:bg-primario"
+                type="submit"
+              >
+                Save
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
