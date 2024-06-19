@@ -355,6 +355,7 @@ function FormCreateUser() {
                       name={"name"}
                       placeholder={"Name"}
                       type={"text"}
+                      required={"true"}
                     />
                     <InputRouter
                       name={"last_name"}

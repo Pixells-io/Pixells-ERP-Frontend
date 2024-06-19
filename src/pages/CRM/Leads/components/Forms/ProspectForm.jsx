@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
-import { Calendar as CalendarIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
@@ -55,9 +46,10 @@ const channelArray = [
   },
 ];
 
-function ProspectForm({ modal, setModal, leadId, users }) {
+function ProspectForm({ modal, setModal, leadId, users, leadAssigned }) {
   const [date, setDate] = useState();
   const navigation = useNavigation();
+  // console.log(leadAssigned);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -126,8 +118,10 @@ function ProspectForm({ modal, setModal, leadId, users }) {
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                  <AvatarFallback>DG</AvatarFallback>
+                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarFallback>
+                    {leadAssigned?.name?.search("\b[a-zA-Z]")}
+                  </AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
               </div>
@@ -138,7 +132,7 @@ function ProspectForm({ modal, setModal, leadId, users }) {
                 ></IonIcon>
               </div>
               <div className="flex w-16 flex-col items-center gap-2">
-                <UserSelect users={users} />
+                <UserSelect users={users} leadAssigned={leadAssigned} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>

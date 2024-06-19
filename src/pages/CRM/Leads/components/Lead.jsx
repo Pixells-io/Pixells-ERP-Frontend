@@ -21,6 +21,9 @@ function Lead({ lead, stageId, setModal, stageName }) {
       onDragStart={(event) => {
         event.dataTransfer.setData("text", event.target.id);
         event.dataTransfer.setData("stage_id", stageId);
+        event.dataTransfer.setData("assigned_image", lead.assigned.image);
+        event.dataTransfer.setData("assigned_name", lead.assigned.name);
+        event.dataTransfer.setData("assigned_id", lead.assigned.id);
       }}
     >
       <div className="rounded-lg bg-white p-2">
@@ -30,7 +33,7 @@ function Lead({ lead, stageId, setModal, stageName }) {
             <button
               type="button"
               className="flex"
-              onClick={() =>
+              onClick={() => {
                 setModal({
                   prospect: false,
                   potential: false,
@@ -39,8 +42,8 @@ function Lead({ lead, stageId, setModal, stageName }) {
                   closing: false,
                   pay: false,
                   kickoff: false,
-                })
-              }
+                });
+              }}
             >
               {lead?.step_id == 3 && (
                 <IonIcon
