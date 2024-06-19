@@ -411,6 +411,7 @@ function MainUser() {
           encType="multipart/form-data"
           id="form-update-user"
         >
+          <input type="hidden" name="user_id" value={id} />
           <div className="">
             <div className="w-1/4">
               <DropzoneImage

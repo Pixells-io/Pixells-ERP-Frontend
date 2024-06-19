@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   useReactTable,
@@ -15,11 +15,32 @@ import {
   bookmark,
 } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
+import { pusherClient } from "@/lib/pusher";
+import { getUsers } from "@/lib/actions";
 
 function UsersTable({ users }) {
   const columnHelper = createColumnHelper();
 
-  const data = users;
+  const [initialData, setInitialData] = useState(users);
+  const [data, setDataPusher] = useState(initialData);
+
+  useEffect(() => {
+    pusherClient.subscribe(`private-get-users`);
+
+    pusherClient.bind("get-users", ({ message }) => {
+      getUsuarios();
+    });
+
+    async function getUsuarios() {
+      let newData = await getUsers();
+
+      setDataPusher(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-users`);
+    };
+  });
 
   const columns = [
     {

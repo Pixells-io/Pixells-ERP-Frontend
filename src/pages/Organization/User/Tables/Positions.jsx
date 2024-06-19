@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -16,12 +16,34 @@ import {
   document,
 } from "ionicons/icons";
 import ModalShowPDF from "@/layouts/Masters/Modals/ModalShowPDF";
+import { getPosition } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function PositionsTable({ positions }) {
+  //Web Socket
+  const [initialData, setInitialData] = useState(positions);
+  const [data, setDataPusher] = useState(initialData);
+
+  useEffect(() => {
+    pusherClient.subscribe(`private-get-puestos`);
+
+    pusherClient.bind("fill-puestos", ({ message }) => {
+      getPuestosFunction();
+    });
+
+    async function getPuestosFunction() {
+      let newData = await getPosition();
+
+      setDataPusher(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-puestos`);
+    };
+  });
+
   const columnHelper = createColumnHelper();
   const [modal, setModal] = useState(false);
-
-  const data = positions;
 
   const columns = [
     columnHelper.accessor((row) => `${row.position_type}`, {

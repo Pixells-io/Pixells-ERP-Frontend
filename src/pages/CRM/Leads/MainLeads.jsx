@@ -22,7 +22,6 @@ import {
 function MainLeads() {
   const location = useLocation();
   const { data } = useLoaderData();
-  // console.log(data);
 
   return (
     <div className="flex w-full overflow-auto">
