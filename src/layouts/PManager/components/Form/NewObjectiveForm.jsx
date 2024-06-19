@@ -1,29 +1,24 @@
 import React, { useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Form, useNavigation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { IonIcon } from "@ionic/react";
+import { addCircle, addCircleOutline } from "ionicons/icons";
 
 function NewObjectiveForm({ open, setOpen, areas }) {
   const navigation = useNavigation();
+  console.log(areas);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -31,57 +26,53 @@ function NewObjectiveForm({ open, setOpen, areas }) {
     }
   }, [navigation.state]);
 
-  // console.log(areas);
+  const areaArray = [];
+
+  arrayFillAreas(areas, areaArray);
+
+  function arrayFillAreas(data, array) {
+    data.forEach((element) => {
+      array.push({
+        label: element.nombre,
+        value: element.id,
+      });
+    });
+  }
+
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="w-5 h-5 border-2 text-primarioBotones border-primarioBotones rounded-full flex items-center justify-center">
-          +
+        <DialogTrigger className="flex items-center justify-center rounded-full border-2">
+          <IonIcon
+            icon={addCircleOutline}
+            className="h-6 w-6 text-primarioBotones"
+          />
         </DialogTrigger>
-        <DialogContent>
-          <DialogHeader className="flex flex-col gap-2">
-            <DialogTitle>Agregar Objetivo Estratégico</DialogTitle>
-            <div className="bg-gris rounded-lg p-4 flex flex-col gap-4">
-              <DialogDescription>Objetivo Estratégico</DialogDescription>
-              <Form
-                className="flex flex-col gap-8"
-                id="objective-form"
-                action="/project-manager"
-                method="post"
-              >
-                <Input
-                  name="objetivo"
-                  placeholder="Nombre del Objetivo"
-                  className="rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0"
-                />
-
-                <Select name="area" className="">
-                  <SelectTrigger className="border-0 border-b bg-gris rounded-none !ring-0 !ring-offset-0 focus:border-primarioBotones">
-                    <SelectValue placeholder="Seleccionar un Área" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Seleccionar un Área</SelectLabel>
-                      {areas?.map((area, i) => (
-                        <SelectItem key={i} value={area.id.toString()}>
-                          {area.nombre}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Form>
-            </div>
+        <DialogContent className="p-0">
+          <DialogHeader className="flex border-b px-8 py-6">
+            <DialogTitle className="">Agregar Objetivo Estratégico</DialogTitle>
           </DialogHeader>
-          <DialogFooter>
-            <Button
-              form="objective-form"
-              className="bg-primario px-10"
-              type="submit"
+          <div className="flex flex-col gap-4 rounded-lg px-12">
+            <Form
+              className="flex flex-col gap-4"
+              id="objective-form"
+              action="/project-manager"
+              method="post"
             >
-              Save
-            </Button>
-          </DialogFooter>
+              <InputRouter name="objetivo" placeholder="Nombre del Objetivo" />
+
+              <SelectRouter
+                name="area"
+                placeholder="Select Area"
+                options={areaArray}
+              />
+              <div className="flex self-end pb-4">
+                <Button className="bg-primario px-8" type="submit">
+                  Save
+                </Button>
+              </div>
+            </Form>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

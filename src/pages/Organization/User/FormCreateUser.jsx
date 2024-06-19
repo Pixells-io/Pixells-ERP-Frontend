@@ -204,7 +204,6 @@ function FormCreateUser() {
       array.push({
         label: element.nombre,
         value: element.id,
-        placeholder: "0",
       });
     });
   }
@@ -216,7 +215,6 @@ function FormCreateUser() {
       array.push({
         label: element.position_name,
         value: element.id,
-        placeholder: "0",
       });
     });
   }

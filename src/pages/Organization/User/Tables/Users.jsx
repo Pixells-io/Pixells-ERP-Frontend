@@ -53,8 +53,22 @@ function UsersTable({ users }) {
       },
     ),*/
     columnHelper.accessor((row) => `${row.status}`, {
+      accessorKey: "status",
       id: "Status",
       header: "STATUS",
+      cell: ({ row }) => {
+        return (
+          <div
+            className={`flex w-fit items-center rounded-full px-4 ${row.original.status == "Active" ? "bg-[#00A25940]" : "bg-[#D7586B40]"}`}
+          >
+            <span
+              className={`text-[11px] font-semibold ${row.original.status == "Active" ? "text-[#00A259]" : "text-[#D7586B]"}`}
+            >
+              {row.original.status}
+            </span>
+          </div>
+        );
+      },
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
@@ -111,7 +125,6 @@ function UsersTable({ users }) {
                       id={header?.id}
                       key={header?.id}
                     >
-                      {" "}
                       {header?.isPlaceholder
                         ? null
                         : flexRender(

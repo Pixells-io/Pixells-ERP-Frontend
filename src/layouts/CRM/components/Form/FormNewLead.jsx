@@ -116,10 +116,10 @@ function FormNewLead({ services, navigation }) {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="group flex w-full justify-start gap-6 p-0 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500"
+          className="group flex w-full justify-start gap-6 p-0 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500"
         >
           <IonIcon icon={personAdd} size="large"></IonIcon>
-          <p className="mr-2 text-base font-medium text-gris2 group-hover:text-blue-500">
+          <p className="text-base font-medium text-gris2 group-hover:text-blue-500">
             New Oportunity
           </p>
         </Button>

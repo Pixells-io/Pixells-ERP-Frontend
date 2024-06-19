@@ -14,22 +14,22 @@ import { IonIcon } from "@ionic/react";
 function Today() {
   return (
     <div className="flex w-full overflow-auto">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -41,11 +41,11 @@ function Today() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               PROJECT MANAGER
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center">
+          <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
@@ -57,96 +57,91 @@ function Today() {
         {/* top content sub */}
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
-            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               Today
             </h2>
-            <span className="font-medium text-xs text-grisText">
+            <span className="text-xs font-medium text-grisText">
               Activities
             </span>
-          </div>
-          <div className="flex gap-2 text-[#8F8F8F] self-start">
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
           </div>
         </div>
 
         {/* outlet */}
-        <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
-          <div className="grid grid-cols-12 w-full h-fit gap-6">
+        <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+          <div className="grid h-fit w-full grid-cols-12 gap-6">
             <div className="col-span-5 text-center"></div>
             <div className="col-span-2 text-center">
               <p className="font-poppins text-base font-semibold text-[#171725]">
                 Hoy
               </p>
             </div>
-            <div className="col-span-5 justify-center flex">
-              <div className="border-grisText border rounded-full px-6 py-2 flex w-fit items-center gap-4">
-                <IonIcon icon={searchOutline} className="w-6 h-6"></IonIcon>
+            <div className="col-span-5 flex justify-center">
+              <div className="flex w-fit items-center gap-4 rounded-full border border-grisText px-6 py-2">
+                <IonIcon icon={searchOutline} className="h-6 w-6"></IonIcon>
                 <p>SEARCH</p>
               </div>
             </div>
 
             <div className="col-span-5 flex justify-center">
-              <div className="border border-grisDisabled rounded-lg w-96 p-4">
-                <p className="text-grisSubText text-xs">
+              <div className="w-96 rounded-lg border border-grisDisabled p-4">
+                <p className="text-xs text-grisSubText">
                   Mis actividades de hoy
                 </p>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p className="text-grisHeading font-light text-[15px]">
+                    <p className="text-[15px] font-light text-grisHeading">
                       Actividades{" "}
                       <span className="font-medium">Individuales</span>
                     </p>
                   </div>
-                  <div className="text-grisSubText ">
+                  <div className="text-grisSubText">
                     <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
                   </div>
                 </div>
-                <div className="flex flex-col pl-8 gap-2">
-                  <div className="flex gap-1 items-center">
+                <div className="flex flex-col gap-2 pl-8">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms1"
                       defaultChecked
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms1"
-                        className="text-[15px] text-grisHeading line-through leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
                     </div>
                   </div>
-                  <div className="flex gap-1 items-center">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms2"
                       defaultChecked
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms2"
-                        className="text-[15px] text-grisHeading line-through leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
                     </div>
                   </div>
-                  <div className="flex gap-1 items-center">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms3"
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms3"
-                        className="text-[15px] text-grisHeading leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
@@ -161,65 +156,65 @@ function Today() {
             </div>
 
             <div className="col-span-5 flex justify-center">
-              <div className="border border-grisDisabled rounded-lg w-96 p-4">
-                <p className="text-grisSubText text-xs">
+              <div className="w-96 rounded-lg border border-grisDisabled p-4">
+                <p className="text-xs text-grisSubText">
                   Mis actividades de hoy
                 </p>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p className="text-grisHeading font-light text-[15px]">
+                    <p className="text-[15px] font-light text-grisHeading">
                       Actividades{" "}
                       <span className="font-medium">Individuales</span>
                     </p>
                   </div>
-                  <div className="text-grisSubText ">
+                  <div className="text-grisSubText">
                     <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
                   </div>
                 </div>
-                <div className="flex flex-col pl-8 gap-2">
-                  <div className="flex gap-1 items-center">
+                <div className="flex flex-col gap-2 pl-8">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms1"
                       defaultChecked
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms1"
-                        className="text-[15px] text-grisHeading line-through leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
                     </div>
                   </div>
-                  <div className="flex gap-1 items-center">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms2"
                       defaultChecked
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms2"
-                        className="text-[15px] text-grisHeading line-through leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
                     </div>
                   </div>
-                  <div className="flex gap-1 items-center">
+                  <div className="flex items-center gap-1">
                     <Checkbox
                       id="terms3"
                       className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
                     />
-                    <div className=" leading-none">
+                    <div className="leading-none">
                       <label
                         htmlFor="terms3"
-                        className="text-[15px] text-grisHeading leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Realizar Investigación
                       </label>
