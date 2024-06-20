@@ -301,8 +301,8 @@ export async function getCSF({ params }) {
   }
 }
 
-export async function getServiceSteps({ params }) {
-  const serviceId = params.id;
+export async function getServiceSteps(id) {
+  const serviceId = id;
   try {
     const response = await fetch(
       `${
@@ -609,8 +609,9 @@ export async function multiloaderTablesCRM() {
 }
 
 export async function multiloaderProgressSteps({ params }) {
+  const serviceId = params.id;
   const [steps, users] = await Promise.all([
-    getServiceSteps({ params }),
+    getServiceSteps(serviceId),
     getUsers(),
   ]);
 

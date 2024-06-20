@@ -41,6 +41,8 @@ import {
   close,
   searchOutline,
 } from "ionicons/icons";
+import { getLeads } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function DataTable({ services, leads: leadsInit }) {
   const [initialData, setInitialData] = useState(leadsInit.data);
@@ -48,18 +50,21 @@ function DataTable({ services, leads: leadsInit }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
 
-  console.log(leads);
-
   useEffect(() => {
-    /*pusherClient.subscribe("get-lead-table");
+    pusherClient.subscribe("private-get-lead-table");
 
-    pusherClient.bind("fill-table", ({ message }) => {
-      setLeads(message.original.data);
+    pusherClient.bind("fill-leads", ({ message }) => {
+      getLeadsFunction();
     });
 
+    async function getLeadsFunction() {
+      let newData = await getLeads();
+      setLeads(newData.data);
+    }
+
     return () => {
-      pusherClient.unsubscribe("get-lead-table");
-    };*/
+      pusherClient.unsubscribe("private-get-lead-table");
+    };
   }, []);
 
   const table = useReactTable({
