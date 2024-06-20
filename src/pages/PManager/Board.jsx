@@ -104,7 +104,7 @@ function Board({ goal, users, csfs }) {
                 </span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="grid h-12 grid-cols-10 items-center border-b-[1px] px-1">
+                <div className="grid h-12 grid-cols-10 items-center px-1">
                   <div className="col-span-2 flex justify-end">
                     <TaskForm users={users} csfId={fce.id} />
                   </div>
