@@ -16,15 +16,36 @@ import {
 } from "ionicons/icons";
 import FormCreateArea from "../FormCreateArea";
 import ModalShowArea from "../ModalShowArea";
-import { getArea } from "@/lib/actions";
+import { getArea, getAreas } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function AreasTable({ areas }) {
+  //Web Socket
+  const [initialData, setInitialData] = useState(areas);
+  const [data, setDataPusher] = useState(initialData);
+
+  useEffect(() => {
+    pusherClient.subscribe(`private-get-areas`);
+
+    pusherClient.bind("fill-areas", ({ message }) => {
+      getAreasFunction();
+    });
+
+    async function getAreasFunction() {
+      let newData = await getAreas();
+
+      setDataPusher(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-areas`);
+    };
+  });
+
   const [modal, setModal] = useState(false);
   const [areaId, setArea] = useState(false);
 
   const columnHelper = createColumnHelper();
-
-  const data = areas;
 
   async function setModalAreas(area) {
     //Get info Area

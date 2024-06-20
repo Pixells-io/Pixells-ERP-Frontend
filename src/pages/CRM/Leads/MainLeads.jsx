@@ -22,7 +22,6 @@ import {
 function MainLeads() {
   const location = useLocation();
   const { data } = useLoaderData();
-  // console.log(data);
 
   return (
     <div className="flex w-full overflow-auto">
@@ -91,7 +90,7 @@ function MainLeads() {
             >
               Dashboard
             </NavLink>
-            <NavLink
+            {/*             <NavLink
               to="/crm/leads/timeline"
               className={({ isActive }) =>
                 isActive
@@ -110,7 +109,7 @@ function MainLeads() {
               }
             >
               Past On Boardings
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
 

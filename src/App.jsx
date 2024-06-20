@@ -186,7 +186,9 @@ import MainPosition, {
 import MainUser, {
   Action as UpdateUser,
 } from "./pages/Organization/User/User/MainUser";
-import ShowAgreements from "./pages/CRM/Agreements/ShowAgreements";
+import ShowAgreements, {
+  Action as EditContract,
+} from "./pages/CRM/Agreements/ShowAgreements";
 
 const router = createBrowserRouter([
   {
@@ -296,6 +298,7 @@ const router = createBrowserRouter([
             path: "/crm/agreements/show/:id",
             element: <ShowAgreements />,
             loader: getContract,
+            action: EditContract,
           },
           {
             path: "/crm/agreements/new-contract/:id/:customer",
@@ -433,11 +436,11 @@ const router = createBrowserRouter([
         path: "/org-development",
         element: <SideLayoutDevOrg />,
         children: [
-          { index: true },
           //Induccion
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
+            index: true,
             loader: multiloaderOrganizationDevelopment,
             action: OrgDevSaveInduction,
           },

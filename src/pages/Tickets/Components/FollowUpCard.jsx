@@ -56,25 +56,25 @@ function FollowUpCard({ followUp, ticket }) {
         ))}
       </div>
       <div className="flex">
-        <div className="w-1/6 p-8 ">
-          <div className="text-primario border border-primario w-12 rounded-full h-12 text-center pt-2">
+        <div className="w-1/6 p-8">
+          <div className="h-12 w-12 rounded-full border border-primario pt-2 text-center text-primario">
             <IonIcon icon={iconDynamic} size="large"></IonIcon>
           </div>
         </div>
-        <div className="my-6 shrink-0 flex flex-col w-[510px] h-[112px] bg-gris shadow-sm drop-shadow-sm rounded-lg">
+        <div className="my-6 flex h-[112px] w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
           {/* card header */}
           <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-            <div className="flex items-center p-1 gap-2">
+            <div className="flex items-center gap-2 p-1">
               <img src={followUp.user_img} className="w-8 rounded-full" />
 
-              <p className="text-gris2 font-medium text-[15px]">
+              <p className="text-[15px] font-medium text-gris2">
                 {followUp.creator}
               </p>
-              <span className="font-roboto font-medium text-xs text-grisSubText">
+              <span className="font-roboto text-xs font-medium text-grisSubText">
                 {followUp.mensagge}
               </span>
             </div>
-            <div className="flex items-center p-1 text-grisSubText gap-2">
+            <div className="flex items-center gap-2 p-1 text-grisSubText">
               <div className="flex items-center gap-1">
                 <IonIcon icon={time}></IonIcon>
                 <span className="text-[10px]">{followUp.date}</span>
@@ -85,14 +85,14 @@ function FollowUpCard({ followUp, ticket }) {
           </div>
           {/* card content */}
           <div className="justify-between">
-            <div className="mt-4 ml-4">
-              <p className="text-grisSubText text-xs font-normal">
+            <div className="ml-4 mt-4">
+              <p className="text-xs font-normal text-grisSubText">
                 {followUp.comment}
               </p>
               <button
                 type="button"
                 onClick={() => openModalComment(followUp.id)}
-                className="text-primario text-2xl mt-2"
+                className="mt-2 text-2xl text-primario"
               >
                 <IonIcon icon={addCircleSharp}></IonIcon>
               </button>

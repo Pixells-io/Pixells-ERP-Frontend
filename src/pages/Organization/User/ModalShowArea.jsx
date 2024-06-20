@@ -54,12 +54,13 @@ function ModalShowArea({ modal, setModal, area }) {
         <Form
           id="area-edit-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/area-edit"
+          action="/organization"
           method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <div className="flex gap-3">
+                <input type="hidden" name="type" value={2} />
                 <input type="hidden" name="area_id" value={area.area?.id} />
                 <InputRouter
                   name="nombre"

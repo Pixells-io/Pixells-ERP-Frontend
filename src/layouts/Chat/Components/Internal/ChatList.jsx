@@ -3,8 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 
 function ChatList({ chat }) {
   return (
-    <NavLink reloadDocument to={`/chat/${chat.chat_id}`}>
-      <div className="my-3 flex border-b border-grisDisabled px-5 py-3 hover:rounded-xl hover:bg-[#f0f0f0]">
+    <Link to={`/chat/${chat.chat_id}`} className="py-6">
+      <div className="my-3 flex border-b border-grisDisabled px-5 py-2 hover:rounded-xl hover:bg-[#f0f0f0]">
         <div className="w-1/6">
           <img
             src="https://i.scdn.co/image/ab6761610000e5eb153fc7a135b27d664160204b"
@@ -37,7 +37,7 @@ function ChatList({ chat }) {
           </div>
         </div>
       </div>
-    </NavLink>
+    </Link>
   );
 }
 

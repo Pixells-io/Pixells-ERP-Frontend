@@ -11,7 +11,7 @@ export async function getSteps() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -37,7 +37,7 @@ export async function getLeadInfo(leadId) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -53,7 +53,7 @@ export async function getLeadById({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -82,7 +82,7 @@ export async function prospectLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -108,7 +108,7 @@ export async function potencialLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -117,18 +117,16 @@ export async function potencialLeadForm(data) {
 
 export async function followupLeadForm(data) {
   const followup = {
-    lead_id: Number(data.get("lead_id")),
-    way_of_contact: Number(data.get("way_of_contact")),
+    lead_id: data.get("lead_id"),
+    way_of_contact: data.get("way_of_contact"),
     date_of_contact: format(
       new Date(data.get("date_of_contact")),
-      "yyyy-MM-dd"
+      "yyyy-MM-dd",
     ),
     comments: data.get("comments"),
     archive: data.get("document"),
     next_step: data.get("next_step"),
   };
-
-  console.log(followup);
 
   // validaciones?
 
@@ -140,9 +138,8 @@ export async function followupLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
@@ -168,7 +165,7 @@ export async function proposalLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -176,20 +173,16 @@ export async function proposalLeadForm(data) {
 }
 
 export async function closingLeadForm(data) {
-  const services = [];
-  for (const [key, value] of data.entries()) {
-    if (key === "services") {
-      services.push(Number(value));
-    }
-  }
   const closing = {
     lead_id: data.get("lead_id"),
     service_paymment: data.get("service_paymment"),
     service_agreement: data.get("service_agreement"),
     comments: data.get("comments"),
     recurrent_pay: data.get("recurrent_pay"),
-    month_billing: Number(data.get("month_billing")),
-    service_id: services,
+    month_billing: data.get("month_billing"),
+    services: data.getAll("service"),
+    recurrency: data.getAll("recurrency"),
+    ammount: data.getAll("ammount"),
   };
 
   // validaciones?
@@ -202,7 +195,7 @@ export async function closingLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -229,7 +222,7 @@ export async function payLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -260,7 +253,7 @@ export async function onboardingLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 

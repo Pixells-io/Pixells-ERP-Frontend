@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { clientColumns as columns } from "./ClientColumns";
 
 import {
@@ -36,6 +36,8 @@ import {
   close,
   searchOutline,
 } from "ionicons/icons";
+import { getClients } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function TableClients({ services, clients: clientsInit }) {
   const [initialData, setInitialData] = useState(clientsInit.data);
@@ -54,6 +56,23 @@ function TableClients({ services, clients: clientsInit }) {
       columnFilters,
     },
   });
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-lead-table");
+
+    pusherClient.bind("fill-leads", ({ message }) => {
+      getLeadsFunction();
+    });
+
+    async function getLeadsFunction() {
+      let newData = await getClients();
+      setLeads(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe("private-get-lead-table");
+    };
+  }, []);
 
   return (
     <div className="rounded-xl bg-[#FBFBFB] px-4">

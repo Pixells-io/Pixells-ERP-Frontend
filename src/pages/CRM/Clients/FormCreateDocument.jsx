@@ -36,6 +36,7 @@ function FormCreateDocuments({ modal, setModal, masterId }) {
           <input type="hidden" name="master" value={masterId} />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
+              <InputRouter name="name" type="text" placeholder="Name" />
               <DropzoneFile name={"document_file"} label={"Document"} />
             </div>
           </div>

@@ -18,6 +18,8 @@ function MainClient() {
   const [modalContact, setModalContact] = useState(false);
   const [modalDocument, setModalDocument] = useState(false);
 
+  console.log(client);
+
   return (
     <>
       <FormCreateAdress
@@ -28,11 +30,6 @@ function MainClient() {
       <FormCreateContacts
         modal={modalContact}
         setModal={setModalContact}
-        masterId={client?.master.id}
-      />
-      <FormCreateDocuments
-        modal={modalDocument}
-        setModal={setModalDocument}
         masterId={client?.master.id}
       />
       <FormCreateDocuments
@@ -145,56 +142,26 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
+            {client?.documents.map((document, i) => (
+              <div className="grid grid-cols-4">
+                <div className="col-span-3 flex items-center gap-2">
+                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
+                  <div>
+                    <p className="font-medium text-grisHeading">
+                      {document.name}
+                    </p>
+                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                      Uplaoded &bull; {document.created}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-1 self-end pb-1 pl-2">
+                  <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
+                    Download
                   </span>
                 </div>
               </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-lime-200"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
-                  </span>
-                </div>
-              </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-pink-200"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
-                  </span>
-                </div>
-              </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 

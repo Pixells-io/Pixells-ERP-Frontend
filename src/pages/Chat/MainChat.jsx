@@ -44,21 +44,6 @@ function MainChat() {
     };
   }, [id, chat]);
 
-  // useEffect(() => {
-  //   async function getMensajes() {
-  //     let newData = await getChatWithId(chat.data[0].id);
-
-  //     setChatPusher(newData.data);
-  //   }
-  //   getMensajes();
-  // }, [chat]);
-
-  // async function getMensajes() {
-  //   let newData = await getChatWithId(chat.data[0].id);
-
-  //   setChatPusher(newData.data);
-  // }
-
   function scrollBottom() {
     setTimeout(() => {
       scrollBox.current.scrollIntoView({

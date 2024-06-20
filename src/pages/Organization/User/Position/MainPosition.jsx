@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
-import { saveNewPosition } from "../../utils";
+import { editPosition, saveNewPosition } from "../../utils";
 
 const selectBasic = [
   {
@@ -469,7 +469,7 @@ function MainPosition() {
         </div>
         <div className="flex items-center justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            New Position
+            Show Position
           </h2>
           <div className="flex items-center gap-6">
             {/* <div className="flex items-center gap-3">
@@ -514,6 +514,7 @@ function MainPosition() {
             method="post"
             encType="multipart/form-data"
           >
+            <input type="hidden" name="position_id" value={id} />
             {/* General Information */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
@@ -1021,7 +1022,9 @@ export default MainPosition;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewPosition(data);
+  console.log(data);
+
+  const validation = await editPosition(data);
 
   return redirect("/organization");
 }
