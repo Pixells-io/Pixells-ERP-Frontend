@@ -18,7 +18,7 @@ import { addCircle, addCircleOutline } from "ionicons/icons";
 
 function NewObjectiveForm({ open, setOpen, areas }) {
   const navigation = useNavigation();
-  console.log(areas);
+  // console.log(areas);
 
   useEffect(() => {
     if (navigation.state === "idle") {

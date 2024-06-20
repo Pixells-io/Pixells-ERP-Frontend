@@ -41,15 +41,15 @@ function GoalForm({ objectiveId }) {
             >
               <InputRouter name="goal" placeholder="Nombre de la Meta" />
               <input className="hidden" name="action" value="goal" readOnly />
+              <div className="flex self-end">
+                <Button
+                  className="bg-primarioBotones px-10 hover:bg-primario"
+                  type="submit"
+                >
+                  Save
+                </Button>
+              </div>
             </Form>
-            <div className="flex self-end">
-              <Button
-                className="bg-primarioBotones px-10 hover:bg-primario"
-                type="submit"
-              >
-                Save
-              </Button>
-            </div>
           </div>
         </DialogContent>
       </Dialog>

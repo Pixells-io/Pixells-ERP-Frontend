@@ -63,7 +63,7 @@ function LayoutChat() {
             <InternalSearch users={users.data} />
             <div className="h-auto overflow-hidden rounded-b-md bg-[#FBFBFB]">
               {chatListPusher?.map((chat, i) => (
-                <div>
+                <div key={i}>
                   <ChatList chat={chat} />
                 </div>
               ))}
