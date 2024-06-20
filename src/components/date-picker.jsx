@@ -15,7 +15,7 @@ function DatePicker({ name }) {
   const [date, setDate] = useState();
   return (
     <div className="flex">
-      <input name={name} className="hidden" defaultValue={date} readOnly />
+      <input name={name} className="hidden" hidden value={date} readOnly />
       <Popover>
         <PopoverTrigger asChild>
           <Button
