@@ -71,7 +71,7 @@ const MENU = [
     icon: barChart,
   },
   {
-    path: "/org-development",
+    path: "/org-development/induction",
     name: "Org Dev",
     icon: people,
   },

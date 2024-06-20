@@ -2,9 +2,10 @@ import React from "react";
 
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import AgreementsPanel from "./components/AgreementPanel";
 import { Button } from "@/components/ui/button";
+import { saveEditContractTemplate } from "./utils";
 
 function ShowAgreements() {
   const { data } = useLoaderData();
@@ -13,7 +14,7 @@ function ShowAgreements() {
     <div className="flex w-full overflow-auto">
       <Form
         id="edit-contract-template"
-        action={`/crm/agreements/edit/${data.id}`}
+        action={`/crm/agreements/show/${data.id}`}
         method="post"
         className="mr-3 w-full overflow-hidden"
       >
@@ -69,10 +70,6 @@ export default ShowAgreements;
 
 export async function Action({ request }) {
   const data = await request.formData();
-
-  console.log(data);
-
-  return 1;
 
   const validation = await saveEditContractTemplate(data);
 

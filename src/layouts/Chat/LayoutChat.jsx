@@ -33,13 +33,13 @@ function LayoutChat() {
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex w-[450px] shrink-0 flex-col gap-4 rounded-xl bg-gris">
+      <div className="bg- flex w-[450px] shrink-0 flex-col gap-4 rounded-xl">
         {/* top block */}
         <Tabs
           defaultValue="internal"
-          className="h-screen w-full overflow-scroll pt-6"
+          className="h-screen w-full overflow-scroll"
         >
-          <TabsList className="mb-3 w-full bg-transparent">
+          <TabsList className="bg- mb-3 w-full bg-blancoForms">
             <TabsTrigger
               className="rounded-none border-b-2 border-slate-300 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
               value="internal"
@@ -60,8 +60,10 @@ function LayoutChat() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="internal" className="h-screen">
-            <InternalSearch users={users.data} />
-            <div className="h-auto overflow-hidden rounded-b-md bg-[#FBFBFB]">
+            <div className="mt-[-20px] bg-[#f6f6f6] pb-2 pt-6">
+              <InternalSearch users={users.data} />
+            </div>
+            <div className="h-auto overflow-hidden rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
                 <div>
                   <ChatList chat={chat} />

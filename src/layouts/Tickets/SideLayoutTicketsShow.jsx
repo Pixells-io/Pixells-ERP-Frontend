@@ -38,8 +38,8 @@ function SideLayoutTicketsShow() {
 
           {/*menu top */}
           <div className="ml-4 flex flex-col gap-4">
-            <div className="w-28 rounded-full border border-grisHeading px-2 py-1 text-center">
-              <span className="font-roboto text-[10px] text-grisHeading">
+            <div>
+              <span className="rounded-lg border border-grisHeading px-3 py-1 text-xs font-medium text-grisHeading">
                 {ticket.date}
               </span>
             </div>
@@ -50,8 +50,8 @@ function SideLayoutTicketsShow() {
               </p>
               {/* Created Days Count Card */}
               <div className="mt-5 flex">
-                <div className="w-1/5 rounded-xl bg-blancoBox2 px-4 py-2 text-center">
-                  <span className="text-3xl text-grisText">
+                <div className="w-1/5 rounded-[6px] bg-blancoBox2 px-4 py-2 text-center">
+                  <span className="text-3xl font-bold text-grisText">
                     {ticket.created}
                   </span>
                 </div>
@@ -70,8 +70,11 @@ function SideLayoutTicketsShow() {
               </div>
               {/* Created By Card */}
               <div className="mt-5 flex">
-                <div className="w-1/5 rounded-xl bg-blancoBox2 text-center">
-                  <img src={ticket.user_img} className="rounded-xl" />
+                <div className="w-1/5 rounded-[6px] bg-blancoBox2 text-center">
+                  <img
+                    src={ticket.user_img}
+                    className="h-full w-full rounded-[6px]"
+                  />
                 </div>
                 <div className="ml-4 w-4/5">
                   <div className="mt-1">
@@ -88,8 +91,8 @@ function SideLayoutTicketsShow() {
               </div>
               {/* Updated Days Count Card */}
               <div className="mt-5 flex">
-                <div className="w-1/5 rounded-xl bg-[#D7586B40] px-4 py-2 text-center">
-                  <span className="text-3xl text-[#D7586B]">
+                <div className="w-1/5 rounded-[6px] bg-[#D7586B40] px-4 py-2 text-center">
+                  <span className="text-3xl font-bold text-[#D7586B]">
                     {ticket.updated}
                   </span>
                 </div>
@@ -113,7 +116,7 @@ function SideLayoutTicketsShow() {
                     {ticket.importance}
                   </span>
                 ) : ticket.importance === "Medium" ? (
-                  <span className="rounded-2xl border border-orange-600 px-3 py-1 text-xs font-medium text-orange-600">
+                  <span className="0 rounded-2xl border border-[#d6586b] px-3 py-1 text-xs font-medium text-[#d6586b]">
                     {ticket.importance}
                   </span>
                 ) : (
@@ -121,7 +124,7 @@ function SideLayoutTicketsShow() {
                     {ticket.importance}
                   </span>
                 )}
-                <span className="rounded-2xl border border-black px-3 py-1 text-xs font-medium">
+                <span className="rounded-2xl border border-[#444f] px-3 py-1 text-xs font-medium text-[#444f]">
                   {ticket.status}
                 </span>
               </div>
@@ -139,7 +142,7 @@ function SideLayoutTicketsShow() {
                 <p className="mb-2 mt-4 font-poppins text-base font-semibold text-grisHeading">
                   Category
                 </p>
-                <span className="rounded-2xl border bg-primario px-3 py-1 text-xs font-medium text-white">
+                <span className="rounded-2xl bg-primario px-3 py-1 text-xs font-medium text-white">
                   {ticket.category}
                 </span>
               </div>

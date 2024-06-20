@@ -90,7 +90,7 @@ function MainLeads() {
             >
               Dashboard
             </NavLink>
-            <NavLink
+            {/*             <NavLink
               to="/crm/leads/timeline"
               className={({ isActive }) =>
                 isActive
@@ -109,7 +109,7 @@ function MainLeads() {
               }
             >
               Past On Boardings
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
 

@@ -436,11 +436,11 @@ const router = createBrowserRouter([
         path: "/org-development",
         element: <SideLayoutDevOrg />,
         children: [
-          { index: true },
           //Induccion
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
+            index: true,
             loader: multiloaderOrganizationDevelopment,
             action: OrgDevSaveInduction,
           },
