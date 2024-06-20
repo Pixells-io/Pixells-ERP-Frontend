@@ -105,7 +105,9 @@ function MainLayout() {
 
   async function logOutFunction() {
     //First send the request
-    const logOut = await logOutRequest();
+    await logOutRequest();
+    //Remove token
+    Cookies.remove("token");
 
     //Redirect to the login
     return navigate("/login");
