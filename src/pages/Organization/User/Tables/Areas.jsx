@@ -17,6 +17,7 @@ import {
 import FormCreateArea from "../FormCreateArea";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function AreasTable({ areas }) {
   //Web Socket

@@ -14,7 +14,7 @@ import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneFile from "@/components/dropzone-files";
-import { saveNewUser } from "../../utils";
+import { editUser, saveNewUser } from "../../utils";
 
 const selectBasics = [
   {
@@ -1241,7 +1241,7 @@ export default MainUser;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewUser(data);
+  const validation = await editUser(data);
 
   return redirect("/organization");
 }
