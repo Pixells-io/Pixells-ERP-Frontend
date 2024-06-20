@@ -425,6 +425,25 @@ export async function saveNewImage(data) {
   return response;
 }
 
+export async function changeUserStatus(id) {
+  const info = {
+    user_id: id,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization/change-user-status`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function savePermission(position, permision, module) {
   const info = {
     position: position,

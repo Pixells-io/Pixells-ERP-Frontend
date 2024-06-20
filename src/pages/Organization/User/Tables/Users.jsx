@@ -17,6 +17,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { pusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
+import { changeUserStatus } from "../../utils";
 
 function UsersTable({ users }) {
   const columnHelper = createColumnHelper();
@@ -24,10 +25,12 @@ function UsersTable({ users }) {
   const [initialData, setInitialData] = useState(users);
   const [data, setDataPusher] = useState(initialData);
 
+  console.log(users);
+
   useEffect(() => {
     pusherClient.subscribe(`private-get-users`);
 
-    pusherClient.bind("get-users", ({ message }) => {
+    pusherClient.bind("fill-users", ({ message }) => {
       getUsuarios();
     });
 
@@ -41,6 +44,10 @@ function UsersTable({ users }) {
       pusherClient.unsubscribe(`private-get-users`);
     };
   });
+
+  async function changeInputValue(id) {
+    await changeUserStatus(id);
+  }
 
   const columns = [
     {
@@ -117,6 +124,32 @@ function UsersTable({ users }) {
             <NavLink to={`/organization/user/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
+            {row.original.status === "Active" ? (
+              <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
+                <input
+                  className="peer sr-only"
+                  id="AcceptConditions"
+                  type="checkbox"
+                  onClick={() => {
+                    changeInputValue(row.original.id);
+                  }}
+                  checked
+                />
+                <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
+              </label>
+            ) : (
+              <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
+                <input
+                  className="peer sr-only"
+                  id="AcceptConditions"
+                  type="checkbox"
+                  onClick={() => {
+                    changeInputValue(row.original.id);
+                  }}
+                />
+                <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
+              </label>
+            )}
           </div>
         );
       },

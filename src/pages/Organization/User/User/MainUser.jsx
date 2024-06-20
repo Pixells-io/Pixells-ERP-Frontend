@@ -367,7 +367,7 @@ function MainUser() {
         </div>
         <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            New User
+            Show User
           </h2>
           <div className="flex items-center gap-6">
             {/* <div className="flex items-center gap-3">

@@ -14,11 +14,11 @@ function MainClient() {
   const { data } = useLoaderData();
   const client = data[0];
 
+  console.log(client);
+
   const [modalAdress, setModalAdress] = useState(false);
   const [modalContact, setModalContact] = useState(false);
   const [modalDocument, setModalDocument] = useState(false);
-
-  console.log(client);
 
   return (
     <>
@@ -156,9 +156,13 @@ function MainClient() {
                   </div>
                 </div>
                 <div className="col-span-1 self-end pb-1 pl-2">
-                  <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
+                  <a
+                    target="_blank"
+                    href={document.document}
+                    className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                  >
                     Download
-                  </span>
+                  </a>
                 </div>
               </div>
             ))}
@@ -175,26 +179,34 @@ function MainClient() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
-                <p className="text-[12px] text-grisText">Dic</p>
-                <span className="text-2xl font-bold text-grisText">05</span>
+                <p className="text-[12px] text-grisText">
+                  {client?.last_service_month}
+                </p>
+                <span className="text-2xl font-bold text-grisText">
+                  {client?.last_service_day}
+                </span>
               </div>
               <div className="flex flex-col">
                 <p className="font-medium text-grisText">Last Service</p>
                 <span className="text-[10px] font-medium text-grisSubText">
-                  Immigration for Larissa
+                  {client?.last_service_name}
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
-                <p className="text-[12px] text-grisText">Dic</p>
-                <span className="text-2xl font-bold text-grisText">19</span>
+                <p className="text-[12px] text-grisText">
+                  {client?.last_update_month}
+                </p>
+                <span className="text-2xl font-bold text-grisText">
+                  {client?.last_update_day}
+                </span>
               </div>
               <div className="flex flex-col">
                 <p className="font-medium text-grisText">Last Update</p>
                 <span className="text-[10px] font-medium text-grisSubText">
-                  Walter Robledo
+                  Documents Uploaded
                 </span>
               </div>
             </div>
