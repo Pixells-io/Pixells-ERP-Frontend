@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Cookies from "js-cookie";
 
 export async function saveNewGoal(data, id) {
@@ -18,7 +19,7 @@ export async function saveNewGoal(data, id) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -43,7 +44,7 @@ export async function saveNewCsf(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 
@@ -51,6 +52,8 @@ export async function saveNewCsf(data) {
 }
 
 export async function saveNewTask(data) {
+  const start = data.get("star_date");
+  const end = data.get("end_date");
   const task = {
     name: data.get("name"),
     description: data.get("description"),
@@ -60,8 +63,8 @@ export async function saveNewTask(data) {
     repeat: Number(data.get("repeat")),
     fce_id: Number(data.get("fce_id")),
     sequence: data.get("sequence"),
-    start: data.get("star_date"),
-    end: data.get("end_date"),
+    start: format(start, "P"),
+    end: format(end, "P"),
   };
 
   console.log(task);
@@ -76,7 +79,7 @@ export async function saveNewTask(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
   console.log(response);
 

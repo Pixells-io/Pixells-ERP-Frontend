@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Calendar as CalendarIcon } from "lucide-react";
 import {
@@ -13,9 +13,17 @@ import { format } from "date-fns";
 
 function DatePicker({ name }) {
   const [date, setDate] = useState();
+  // const [formated, setFormated] = useState("");
+
   return (
     <div className="flex">
-      <input name={name} className="hidden" hidden value={date} readOnly />
+      <input
+        name={name}
+        className="hidden"
+        hidden
+        defaultValue={date}
+        readOnly
+      />
       <Popover>
         <PopoverTrigger asChild>
           <Button

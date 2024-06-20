@@ -31,7 +31,20 @@ function TaskForm({ users, csfId }) {
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
-  // console.log(users);
+  console.log(users);
+
+  const arrayUsers = [];
+
+  arrayFillUsers(users, arrayUsers);
+
+  function arrayFillUsers(data, array) {
+    data.forEach((element) => {
+      array.push({
+        label: `${element.name} ${element.last_name} ${element.second_last_name}`,
+        value: element.id,
+      });
+    });
+  }
 
   return (
     <div>
@@ -121,36 +134,14 @@ function TaskForm({ users, csfId }) {
               </div>
             ) : (
               <div className="grid w-full grid-cols-6 gap-4 rounded-lg px-4">
-                {/* <SelectRouter
-                  name="userId"
-                  className="col-span-4 w-full"
-                  placeholder={"naoibsnidouanbdo"}
-                /> */}
-                <Select
-                  name="userId"
-                  value={responsable}
-                  onValueChange={(e) => {
-                    console.log(e);
-                    return setResponsable();
-                  }}
-                >
-                  <SelectTrigger className="col-span-4 rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
-                    <div className="flex items-center gap-2">
-                      <IonIcon className="" icon={personOutline}></IonIcon>
-                      <SelectValue placeholder="Responsable" />
-                    </div>
-                  </SelectTrigger>
-                  <SelectContent className="text-grisText">
-                    {users?.map((user, i) => {
-                      return (
-                        <SelectItem key={i} value={user?.id}>
-                          {`${user?.name}  ${user?.last_name}  ${user?.second_last_name}`}
-                        </SelectItem>
-                      );
-                    })}
-                    <SelectItem value="900">Pedro</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="col-span-4">
+                  <SelectRouter
+                    name="userId"
+                    placeholder={"Responsable"}
+                    options={arrayUsers}
+                  />
+                </div>
+
                 <div className="col-span-2"></div>
 
                 <Select
@@ -236,16 +227,13 @@ function TaskForm({ users, csfId }) {
 
             <Input className="hidden" name="action" value="task" readOnly />
             <Input className="hidden" name="fce_id" value={csfId} readOnly />
+
+            <DialogFooter>
+              <Button className="bg-primario px-10" type="submit">
+                Save
+              </Button>
+            </DialogFooter>
           </Form>
-          <DialogFooter>
-            <Button
-              form="task-form"
-              className="bg-primario px-10"
-              type="submit"
-            >
-              Save
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
