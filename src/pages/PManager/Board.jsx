@@ -59,7 +59,7 @@ function Board({ goal, users, csfs }) {
                 ? "col-span-2"
                 : "" || header?.name === "CSF"
                   ? "pl-2 text-left"
-                  : ""
+                  : "pl-4 text-center"
             }
           >
             <p className="px-2 text-sm font-semibold text-gris2">
@@ -68,7 +68,7 @@ function Board({ goal, users, csfs }) {
           </div>
         ))}
       </div>
-      <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] px-1 text-right">
+      <div className="grid h-12 grid-cols-10 items-center gap-y-6 px-1 text-right">
         <div className="col-span-10">
           <Form
             onKeyDown={onInputEnter}
@@ -81,10 +81,11 @@ function Board({ goal, users, csfs }) {
               type="text"
               name="csf"
               placeholder="+ CRITICAL SUCCES FACTOR"
-              className="flex w-full bg-blancoBg px-2 placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText"
+              className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
               value={csfInput}
               onChange={(e) => setCsfInput(e.target.value)}
             />
+
             <input className="hidden" name="action" value="csf" readOnly />
             <input className="hidden" name="goalId" value={goal.id} readOnly />
           </Form>
@@ -168,7 +169,7 @@ function Board({ goal, users, csfs }) {
                       </Avatar>
                     </div>
                     {task?.type == 0 ? (
-                      <div>
+                      <div className="flex justify-center">
                         <div className="flex items-center gap-2 text-[#696974]">
                           <IonIcon
                             icon={checkmarkCircleOutline}
@@ -179,7 +180,7 @@ function Board({ goal, users, csfs }) {
                         </div>
                       </div>
                     ) : (
-                      <div>
+                      <div className="flex justify-center">
                         <div className="flex items-center gap-2 text-[#696974]">
                           <IonIcon
                             icon={informationCircle}

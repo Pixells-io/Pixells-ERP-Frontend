@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
 
 function GoalForm({ objectiveId }) {
   const navigation = useNavigation();
@@ -25,8 +27,9 @@ function GoalForm({ objectiveId }) {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="text-base font-semibold text-primarioBotones">
-          + New Goal
+        <DialogTrigger className="flex items-center justify-center gap-1 rounded-full bg-primario px-4 py-[6px] text-[11px] font-light text-white">
+          <IonIcon icon={add} className="h-4 w-4" size="" />
+          <p className="flex pr-2 text-left">Goal</p>
         </DialogTrigger>
         <DialogContent className="p-0">
           <DialogHeader className="flex flex-col gap-2 border-b px-8 py-6">
