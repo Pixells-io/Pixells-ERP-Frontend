@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import Select from "react-select";
+import React from "react";
 import { Form, useSubmit } from "react-router-dom";
-import Cookies from "js-cookie";
+
+import Select from "react-select";
 
 function Search(users) {
+  const submit = useSubmit();
   const selectUser = [];
 
   arrayFillUser(users, selectUser);
@@ -20,19 +21,14 @@ function Search(users) {
   }
 
   //Submit Form
-  const submit = useSubmit();
-
-  function onChangeSelect() {
-    submit("form-search-chat");
-  }
 
   return (
     <Form
       id="form-search-chat"
       className="w-full"
-      action={"/chat"}
+      action="/chat"
       method="post"
-      onChange={(e) => submit(e.currentTarget)}
+      // onChange={(e) => submit(e.currentTarget)}
     >
       <input type="hidden" name="type_of_function" />
       <Select
@@ -40,6 +36,9 @@ function Search(users) {
         placeholder="SEARCH"
         name="chat"
         className="rounded-2xl"
+        onChange={(e) =>
+          submit(e.currentTarget, { method: "post", action: "/chat" })
+        }
       />
     </Form>
   );

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-
 import { Outlet, useLoaderData } from "react-router-dom";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import InternalSearch from "./Components/Internal/InternalSearch";
-import ChatList from "./Components/Internal/ChatList";
 import { getChats } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import { pruebaSubmit } from "@/pages/Chat/utils";
+
+import InternalSearch from "./Components/Internal/InternalSearch";
+import ChatList from "./Components/Internal/ChatList";
 
 function LayoutChat() {
   const { users, chats, user } = useLoaderData();
@@ -83,13 +85,14 @@ function LayoutChat() {
 export default LayoutChat;
 
 export async function Action({ request }) {
+  console.log(request);
   const data = await request.formData();
 
   console.log(data, "oli");
 
-  /*const validation = await saveNewInduction(data);
+  const validation = await pruebaSubmit(data);
 
-  return redirect("/org-development/induction");*/
+  /*return redirect("/org-development/induction");*/
 
   return 1;
 }

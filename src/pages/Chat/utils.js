@@ -76,3 +76,9 @@ export async function storeMensagge(data) {
 
   return response;
 }
+
+export async function pruebaSubmit(data) {
+  console.log("hola");
+
+  return "hola";
+}
