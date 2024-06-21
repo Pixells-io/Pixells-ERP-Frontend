@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, useSubmit } from "react-router-dom";
-import { format } from "date-fns";
 
 import {
   Accordion,
@@ -21,6 +20,7 @@ import {
   trash,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import TaskListModal from "./components/TaskListModal";
 
 const HEADERS = [
   { name: "CSF" },
@@ -37,6 +37,8 @@ const HEADERS = [
 function Board({ goal, users, csfs }) {
   const submit = useSubmit();
   const [csfInput, setCsfInput] = useState("");
+  const [modal, setModal] = useState(false);
+  const [tasksModal, setTasksModal] = useState("");
   console.log(csfs);
   // console.log(users);
 
@@ -50,6 +52,7 @@ function Board({ goal, users, csfs }) {
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-auto bg-blancoBg p-4">
+      <TaskListModal modal={modal} setModal={setModal} tasks={tasksModal} />
       <div className="grid grid-cols-10 text-right">
         {HEADERS?.map((header, i) => (
           <div
@@ -110,89 +113,105 @@ function Board({ goal, users, csfs }) {
                     <TaskForm users={users} csfId={fce.id} />
                   </div>
                 </div>
-                {tasks?.map(({ task, task_count }, i) => (
-                  <div
-                    key={i}
-                    className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] pr-2 text-right"
-                  >
-                    <div></div>
-                    <div className="col-span-2 flex items-center justify-end gap-2">
-                      <p className="text-2xl text-red-500">&bull;</p>
-                      <p className="text-[12px] font-normal text-grisHeading">
-                        {task?.name}
-                      </p>
-                      <p className="rounded-full bg-gris p-2">
-                        {task?.type == 0 ? task_count : ""}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="pr-4 text-[12px] font-normal text-grisHeading">
-                        {task?.type == 0 ? "Task" : "Project"}
-                      </p>
-                    </div>
-                    {task?.type == 1 ? (
-                      <div className="flex flex-col items-center px-2">
-                        <p className="w-full text-right text-[8px] font-normal text-grisHeading">
-                          {task?.progress}%
+                {tasks?.map(
+                  ({ task, task_count, task_query, creator, assigned }, i) => (
+                    <div
+                      key={i}
+                      className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] pr-2 text-right"
+                    >
+                      <div></div>
+                      <div className="col-span-2 flex items-center justify-end gap-2">
+                        <p className="text-2xl text-red-500">&bull;</p>
+                        <p className="text-[12px] font-normal text-grisHeading">
+                          {task?.name}
                         </p>
-                        <Progress
-                          value={task?.progress}
-                          className="h-[4px] bg-grisDisabled fill-primario"
-                        />
+                        {task?.type == 0 ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setModal(true);
+                              setTasksModal(task_query);
+                            }}
+                          >
+                            <p className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200">
+                              {task_count}
+                            </p>
+                          </button>
+                        ) : (
+                          <div className="h-5 w-5"></div>
+                        )}
                       </div>
-                    ) : (
-                      <div className="flex flex-col items-center px-2"></div>
-                    )}
-                    <div>
-                      <p className="text-[12px] font-normal text-grisHeading">
-                        {task?.end}
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex justify-end gap-2">
-                        <div className="">
-                          <Avatar className="h-6 w-6">
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                          </Avatar>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                        <p className="text-[11px] font-semibold">
-                          {task?.status || "Pending"}
+                      <div>
+                        <p className="pr-4 text-[12px] font-normal text-grisHeading">
+                          {task?.type == 0 ? "Task" : "Project"}
                         </p>
-                      </Badge>
-                    </div>
-                    <div className="flex justify-center pl-10">
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    {task?.type == 0 ? (
-                      <div className="flex justify-center">
-                        <div className="flex items-center gap-2 text-[#696974]">
-                          <IonIcon
-                            icon={checkmarkCircleOutline}
-                            className="h-5 w-5"
-                          ></IonIcon>
-                          <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-                          <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                      </div>
+                      {task?.type == 1 ? (
+                        <div className="flex flex-col items-center px-2">
+                          <p className="w-full text-right text-[8px] font-normal text-grisHeading">
+                            {task?.progress}%
+                          </p>
+                          <Progress
+                            value={task?.progress}
+                            className="h-[4px] bg-grisDisabled fill-primario"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center px-2"></div>
+                      )}
+                      <div>
+                        <p className="text-[12px] font-normal text-grisHeading">
+                          {task?.end}
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex justify-end gap-2">
+                          <div className="">
+                            <Avatar className="h-6 w-6">
+                              <AvatarImage src="https://github.com/shadcn.png" />
+                              <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                          </div>
                         </div>
                       </div>
-                    ) : (
-                      <div className="flex justify-center">
-                        <div className="flex items-center gap-2 text-[#696974]">
-                          <IonIcon
-                            icon={informationCircle}
-                            className="h-5 w-5"
-                          ></IonIcon>
-                        </div>
+                      <div>
+                        <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                          <p className="text-[11px] font-semibold">
+                            {task?.status || "Pending"}
+                          </p>
+                        </Badge>
                       </div>
-                    )}
-                    {/* <div>
+                      <div className="flex justify-center pl-10">
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      {task?.type == 0 ? (
+                        <div className="flex justify-center">
+                          <div className="flex items-center gap-2 text-[#696974]">
+                            <IonIcon
+                              icon={checkmarkCircleOutline}
+                              className="h-5 w-5"
+                            ></IonIcon>
+                            <IonIcon
+                              icon={create}
+                              className="h-5 w-5"
+                            ></IonIcon>
+                            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex justify-center">
+                          <div className="flex items-center gap-2 text-[#696974]">
+                            <IonIcon
+                              icon={informationCircle}
+                              className="h-5 w-5"
+                            ></IonIcon>
+                          </div>
+                        </div>
+                      )}
+                      {/* <div>
                       <div className="flex items-center gap-2 text-[#696974]">
                         <IonIcon
                           icon={checkmarkCircleOutline}
@@ -202,8 +221,9 @@ function Board({ goal, users, csfs }) {
                         <IonIcon icon={trash} className="w-5 h-5"></IonIcon>
                       </div>
                     </div> */}
-                  </div>
-                ))}
+                    </div>
+                  ),
+                )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

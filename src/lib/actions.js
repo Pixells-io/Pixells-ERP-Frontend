@@ -448,6 +448,16 @@ export async function multiLoaderCSF({ params }) {
   return json({ goals, users, csfs, goalsMaster });
 }
 
+export async function multiloaderCFSView({ params }) {
+  const [goals, csfs, goalsMaster] = await Promise.all([
+    getGoals({ params }),
+    getCSF({ params }),
+    getGoalsMaster({ params }),
+  ]);
+
+  return json({ goals, csfs, goalsMaster });
+}
+
 export async function multiLoaderSideLayoutPM() {
   const [objectives, areas] = await Promise.all([getObjectives(), getAreas()]);
 

@@ -132,6 +132,7 @@ import {
   getContractCreate,
   getContract,
   getClient,
+  multiloaderCFSView,
 } from "./lib/actions";
 
 //Not Found
@@ -408,6 +409,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "/project-manager/:id/csf",
+                loader: multiloaderCFSView,
                 element: <CsfView />,
               },
               {
