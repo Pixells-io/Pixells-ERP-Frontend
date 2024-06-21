@@ -117,7 +117,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           {ticket?.responsible.map((data, i) => (
             <div className="flex">
               <div>
-                <img src={data.img} className="w-9 rounded-full" />
+                <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
               <div className="ml-3">
                 <span className="font-roboto text-sm font-medium text-grisText">
@@ -141,7 +141,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           {ticket?.involved.map((data, i) => (
             <div className="flex">
               <div>
-                <img src={data.img} className="w-9 rounded-full" />
+                <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
               <div className="ml-3">
                 <span className="font-roboto text-sm font-medium text-grisText">
