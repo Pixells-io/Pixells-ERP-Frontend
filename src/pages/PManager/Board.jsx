@@ -110,7 +110,7 @@ function Board({ goal, users, csfs }) {
                     <TaskForm users={users} csfId={fce.id} />
                   </div>
                 </div>
-                {tasks?.map(({ task }, i) => (
+                {tasks?.map(({ task, task_count }, i) => (
                   <div
                     key={i}
                     className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] pr-2 text-right"
@@ -121,7 +121,9 @@ function Board({ goal, users, csfs }) {
                       <p className="text-[12px] font-normal text-grisHeading">
                         {task?.name}
                       </p>
-                      <p>{task?.type == 0 ? task?.task_count : ""}</p>
+                      <p className="rounded-full bg-gris p-2">
+                        {task?.type == 0 ? task_count : ""}
+                      </p>
                     </div>
                     <div>
                       <p className="pr-4 text-[12px] font-normal text-grisHeading">
