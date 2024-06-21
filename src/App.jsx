@@ -89,9 +89,11 @@ import Boards from "./pages/PManager/Boards";
 import MainClients from "./pages/Clients/MainClients";
 
 // Chat
-import LayoutChat from "./layouts/Chat/LayoutChat";
-import MainChat from "./pages/Chat/MainChat";
-import { multiLoaderChat2 } from "./pages/Chat/utils";
+import LayoutChat, {
+  Action as chatLayoutFunction,
+} from "./layouts/Chat/LayoutChat";
+import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
+import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
 
 //actions
 import {
@@ -425,11 +427,13 @@ const router = createBrowserRouter([
         path: "/chat",
         element: <LayoutChat />,
         loader: multiLoaderChat,
+        action: chatLayoutFunction,
         children: [
           {
             path: "/chat/:id",
             element: <MainChat />,
             loader: multiLoaderChat2,
+            action: functionMasterChat,
           },
         ],
       },

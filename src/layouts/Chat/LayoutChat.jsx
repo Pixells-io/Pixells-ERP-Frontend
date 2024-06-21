@@ -81,3 +81,15 @@ function LayoutChat() {
 }
 
 export default LayoutChat;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  console.log(data, "oli");
+
+  /*const validation = await saveNewInduction(data);
+
+  return redirect("/org-development/induction");*/
+
+  return 1;
+}

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import Select from "react-select";
-import { Form } from "react-router-dom";
+import { Form, useSubmit } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function Search(users) {
@@ -19,20 +19,35 @@ function Search(users) {
     });
   }
 
+  //Submit Form
+  const submit = useSubmit();
+
+  function onChangeSelect() {
+    submit("form-search-chat");
+  }
+
   return (
-    <Select
-      options={selectUser}
-      placeholder="SEARCH"
-      name="chat"
-      className="rounded-2xl"
-      onChange={searchChat}
-    />
+    <Form
+      id="form-search-chat"
+      className="w-full"
+      action={"/chat"}
+      method="post"
+      onChange={(e) => submit(e.currentTarget)}
+    >
+      <input type="hidden" name="type_of_function" />
+      <Select
+        options={selectUser}
+        placeholder="SEARCH"
+        name="chat"
+        className="rounded-2xl"
+      />
+    </Form>
   );
 }
 
 export default Search;
 
-export async function searchChat(e) {
+/*export async function searchChat(e) {
   const info = {
     chat: e.value,
   };
@@ -49,4 +64,4 @@ export async function searchChat(e) {
   );
 
   e.value = "";
-}
+}*/

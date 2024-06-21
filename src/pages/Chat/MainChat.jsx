@@ -3,7 +3,7 @@ import { SearchAction } from "@/layouts/Chat/utils";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Form, useLoaderData, useParams } from "react-router-dom";
 import { getChatWithId, storeMensagge } from "./utils";
 import Cookies from "js-cookie";
 import { pusherClient } from "@/lib/pusher";
@@ -22,7 +22,6 @@ function MainChat() {
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-    console.log(id);
     scrollBottom();
     pusherClient.subscribe(`private-get-chat.${id}`);
 
@@ -32,7 +31,6 @@ function MainChat() {
     });
 
     async function getMensajes() {
-      console.log("get msgs");
       let newData = await getChatWithId(chat.data[0].id);
 
       setChatPusher(newData.data);
@@ -65,11 +63,6 @@ function MainChat() {
 
     let msg = inputMsg.current.value;
     let chat = chatPusher[0].id;
-
-    if (msg != "") {
-      //SEND THE MESSAGE
-      storeMensagge(chat, msg);
-    }
 
     //CLEAN THE MESSAGE
     inputMsg.current.value = "";
@@ -120,33 +113,44 @@ function MainChat() {
       </div>
       {/* Chat Card Footer */}
       <div className="absolute sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#E0E0E0] px-5 py-2">
-        <div className="w-5/6 px-5">
-          <input
-            type="text"
-            ref={inputMsg}
-            onKeyPress={sendMensageEnter}
-            className="w-full rounded-xl px-4 py-2 font-roboto font-light text-grisText ring-0"
-            placeholder="Type your message..."
-          />
-        </div>
-        <div className="m-auto flex w-1/6">
-          <IonIcon
-            icon={send}
-            size="large"
-            className="px-2 text-grisText hover:text-primario"
-            onClick={sendMensage}
-          ></IonIcon>
-          <IonIcon
-            icon={mic}
-            size="large"
-            className="px-2 text-grisText hover:text-primario"
-          ></IonIcon>
-          <IonIcon
-            icon={addCircle}
-            size="large"
-            className="px-2 text-grisText hover:text-primario"
-          ></IonIcon>
-        </div>
+        <Form
+          id="form-send-chat-mensagge"
+          className="flex w-full"
+          action={`/chat/${id}`}
+          method="post"
+        >
+          <input type="hidden" value={id} name="chat_id" />
+          <input type="hidden" value={1} name="type_of_function" />
+          <div className="w-5/6 px-5">
+            <input
+              name="message"
+              type="text"
+              ref={inputMsg}
+              onKeyPress={sendMensageEnter}
+              className="w-full rounded-xl px-4 py-2 font-roboto font-light text-grisText ring-0"
+              placeholder="Type your message..."
+            />
+          </div>
+          <div className="m-auto flex w-1/6">
+            <button type="submit">
+              <IonIcon
+                icon={send}
+                size="large"
+                className="px-2 text-grisText hover:text-primario"
+              ></IonIcon>
+            </button>
+            <IonIcon
+              icon={mic}
+              size="large"
+              className="px-2 text-grisText hover:text-primario"
+            ></IonIcon>
+            <IonIcon
+              icon={addCircle}
+              size="large"
+              className="px-2 text-grisText hover:text-primario"
+            ></IonIcon>
+          </div>
+        </Form>
       </div>
     </div>
   );
@@ -157,7 +161,14 @@ export default MainChat;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await SearchAction(data);
+  switch (data.get("type_of_function")) {
+    case "1":
+      //Submit Msg
+      await storeMensagge(data);
+      break;
+  }
 
-  return validation;
+  /*const validation = await SearchAction(data);*/
+
+  return 1;
 }

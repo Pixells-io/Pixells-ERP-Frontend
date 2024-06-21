@@ -40,7 +40,6 @@ function Board({ goal, users, csfs }) {
   const [modal, setModal] = useState(false);
   const [tasksModal, setTasksModal] = useState("");
   console.log(csfs);
-  // console.log(users);
 
   function onInputEnter(e) {
     console.log(e.currentTarget);
