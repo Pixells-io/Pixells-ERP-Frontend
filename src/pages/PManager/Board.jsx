@@ -38,7 +38,7 @@ function Board({ goal, users, csfs }) {
   const submit = useSubmit();
   const [csfInput, setCsfInput] = useState("");
   console.log(csfs);
-  console.log(users);
+  // console.log(users);
 
   function onInputEnter(e) {
     console.log(e.currentTarget);
@@ -121,6 +121,7 @@ function Board({ goal, users, csfs }) {
                       <p className="text-[12px] font-normal text-grisHeading">
                         {task?.name}
                       </p>
+                      <p>{task?.type == 0 ? task?.task_count : ""}</p>
                     </div>
                     <div>
                       <p className="pr-4 text-[12px] font-normal text-grisHeading">
@@ -142,7 +143,7 @@ function Board({ goal, users, csfs }) {
                     )}
                     <div>
                       <p className="text-[12px] font-normal text-grisHeading">
-                        {format(new Date(task?.end), "PP")}
+                        {task?.end}
                       </p>
                     </div>
                     <div>

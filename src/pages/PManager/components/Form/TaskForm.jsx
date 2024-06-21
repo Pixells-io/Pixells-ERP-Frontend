@@ -31,8 +31,6 @@ function TaskForm({ users, csfId }) {
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
-  console.log(users);
-
   const arrayUsers = [];
 
   arrayFillUsers(users, arrayUsers);
