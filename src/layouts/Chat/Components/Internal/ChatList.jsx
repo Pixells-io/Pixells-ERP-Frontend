@@ -6,7 +6,7 @@ function ChatList({ chat }) {
     <Link to={`/chat/${chat.chat_id}`} className="py-6">
       <div className="my-3 flex border-b border-grisDisabled px-5 py-2 hover:rounded-xl hover:bg-[#f0f0f0]">
         <div className="w-1/6">
-          <img src={chat.img} width="48px" className="rounded-full" />
+          <img src={chat.img} className="h-12 w-12 rounded-full" />
         </div>
         <div className="w-4/6 text-left">
           <span className="font-roboto text-sm font-medium text-grisText">

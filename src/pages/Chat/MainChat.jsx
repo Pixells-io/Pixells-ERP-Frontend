@@ -108,8 +108,7 @@ function MainChat() {
         <div className="m-auto w-1/12">
           <img
             src={chat.data?.participants[0].img}
-            width="55px"
-            className="rounded-full"
+            className="h-14 w-14 rounded-full"
           />
         </div>
         <div className="m-auto w-10/12">
