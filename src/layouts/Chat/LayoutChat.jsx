@@ -8,6 +8,7 @@ import { pruebaSubmit } from "@/pages/Chat/utils";
 
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
+import { SearchAction } from "./utils";
 
 function LayoutChat() {
   const { users, chats, user } = useLoaderData();
@@ -63,7 +64,7 @@ function LayoutChat() {
           </TabsList>
           <TabsContent value="internal" className="h-screen">
             <div className="mt-[-20px] bg-[#f6f6f6] pb-2 pt-6">
-              <InternalSearch users={users.data} />
+              <InternalSearch users={users?.data} />
             </div>
             <div className="h-auto overflow-hidden rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
@@ -88,11 +89,7 @@ export async function Action({ request }) {
   console.log(request);
   const data = await request.formData();
 
-  console.log(data, "oli");
-
-  const validation = await pruebaSubmit(data);
-
-  /*return redirect("/org-development/induction");*/
+  const validation = await SearchAction(data);
 
   return 1;
 }

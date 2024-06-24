@@ -3,42 +3,56 @@ import { SearchAction } from "@/layouts/Chat/utils";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
 import MenssageCard from "./Components/Mensagge";
-import { Form, useLoaderData, useParams } from "react-router-dom";
+import {
+  Form,
+  redirect,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 import { getChatWithId, storeMensagge } from "./utils";
 import Cookies from "js-cookie";
 import { pusherClient } from "@/lib/pusher";
 
 function MainChat() {
-  const { id } = useParams();
   const { chat, user } = useLoaderData();
 
   const [initialData, setInitialData] = useState(chat.data);
-  const [chatPusher, setChatPusher] = useState(initialData);
+  const [chatMessagesPusher, chatMessagesPusherData] = useState(initialData);
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
 
   const scrollBox = useRef(null);
 
+  console.log(initialData, chat.data);
+
+  const params = useParams();
+
+  const id = params.id;
+
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
+    chatMessagesPusherData(chat.data);
+
     scrollBottom();
+
     pusherClient.subscribe(`private-get-chat.${id}`);
 
     pusherClient.bind("fill-chat-messages", ({ chat }) => {
-      getMensajes(chat);
+      getMensajes();
       scrollBottom();
     });
 
     async function getMensajes() {
-      let newData = await getChatWithId(chat.data[0].id);
+      let newData = await getChatWithId(id);
 
-      setChatPusher(newData.data);
+      chatMessagesPusherData(newData.data);
     }
-    getMensajes();
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${id}`);
+      chatMessagesPusherData(false);
     };
   }, [id, chat]);
 
@@ -51,6 +65,10 @@ function MainChat() {
   }
 
   const inputMsg = useRef(null);
+  const formRef = useRef(null);
+  const submit = useSubmit();
+
+  //Submit function form
 
   function sendMensageEnter(e) {
     if (e.code == "Enter") {
@@ -60,17 +78,18 @@ function MainChat() {
 
   function sendMensage() {
     //DEFINE THE VARIABLES
+    submit(formRef.current);
+  }
 
-    let msg = inputMsg.current.value;
-    let chat = chatPusher[0].id;
-
-    //CLEAN THE MESSAGE
-    inputMsg.current.value = "";
+  function cleanInputMsg() {
+    setTimeout(() => {
+      inputMsg.current.value = "";
+    }, 400);
   }
 
   let infoUser = [];
 
-  chatPusher[0].participants.map((participant, i) => {
+  chat.data.participants.map((participant, i) => {
     if (participant.id != user.data.id) {
       infoUser = [
         {
@@ -81,8 +100,6 @@ function MainChat() {
       ];
     }
   });
-  // console.log(infoUser[0].id);
-  // console.log(chatPusher[0].participants[0].name);
 
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
@@ -90,14 +107,14 @@ function MainChat() {
       <div className="absolute sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
-            src="https://i.scdn.co/image/ab6761610000e5eb153fc7a135b27d664160204b"
+            src={chat.data?.participants[0].img}
             width="55px"
             className="rounded-full"
           />
         </div>
         <div className="m-auto w-10/12">
           <span className="font-poppins text-lg font-semibold text-grisHeading">
-            {chatPusher[0].participants[0].name}
+            {chat.data?.participants[0].name}
           </span>
         </div>
         <div className="m-auto* w-1/12"></div>
@@ -106,7 +123,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatPusher[0]?.msg.map((mensagge, i) => (
+          {chatMessagesPusher?.msg.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
@@ -118,6 +135,7 @@ function MainChat() {
           className="flex w-full"
           action={`/chat/${id}`}
           method="post"
+          useRef={formRef}
         >
           <input type="hidden" value={id} name="chat_id" />
           <input type="hidden" value={1} name="type_of_function" />
@@ -132,7 +150,7 @@ function MainChat() {
             />
           </div>
           <div className="m-auto flex w-1/6">
-            <button type="submit">
+            <button type="submit" onClick={() => cleanInputMsg()}>
               <IonIcon
                 icon={send}
                 size="large"
@@ -168,7 +186,5 @@ export async function Action({ request }) {
       break;
   }
 
-  /*const validation = await SearchAction(data);*/
-
-  return 1;
+  return redirect(`/chat/${data.get("chat_id")}`);
 }

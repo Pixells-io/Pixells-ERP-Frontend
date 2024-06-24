@@ -19,8 +19,8 @@ function CsfForm({ goalId, objectiveId }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex bg-gris group hover:bg-primarioBotones">
-          <p className="text-grisSubText text-sm group-hover:text-white ">
+        <Button className="group flex bg-gris hover:bg-primarioBotones">
+          <p className="text-sm text-grisSubText group-hover:text-white">
             + CRITICAL SUCCES FACTOR
           </p>
         </Button>
@@ -28,7 +28,7 @@ function CsfForm({ goalId, objectiveId }) {
       <DialogContent>
         <DialogHeader className="flex flex-col gap-2">
           <DialogTitle>Agregar CSF</DialogTitle>
-          <div className="bg-gris rounded-lg p-4 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 rounded-lg bg-gris p-4">
             <DialogDescription>CSF</DialogDescription>
             <Form
               id="csf-form"
@@ -39,7 +39,7 @@ function CsfForm({ goalId, objectiveId }) {
               <Input
                 name="csf"
                 placeholder="Nombre del CSF"
-                className="rounded-none border-0 border-b bg-gris focus:border-primarioBotones !ring-0 !ring-offset-0"
+                className="rounded-none border-0 border-b bg-gris !ring-0 !ring-offset-0 focus:border-primarioBotones"
               />
               <Input className="hidden" name="action" value="csf" readOnly />
               <Input className="hidden" name="goalId" value={goalId} readOnly />

@@ -20,47 +20,34 @@ function Search(users) {
     });
   }
 
+  const formRef = useRef(null);
+
   //Submit Form
+  function onInputEnter() {
+    //Set timeout
+    setTimeout(() => {
+      submit(formRef.current);
+    }, 400);
+  }
 
   return (
     <Form
       id="form-search-chat"
       className="w-full"
       action="/chat"
+      ref={formRef}
       method="post"
-      // onChange={(e) => submit(e.currentTarget)}
     >
-      <input type="hidden" name="type_of_function" />
+      <input type="hidden" name="type_of_function" value="1" />
       <Select
         options={selectUser}
         placeholder="SEARCH"
         name="chat"
         className="rounded-2xl"
-        onChange={(e) =>
-          submit(e.currentTarget, { method: "post", action: "/chat" })
-        }
+        onChange={() => onInputEnter()}
       />
     </Form>
   );
 }
 
 export default Search;
-
-/*export async function searchChat(e) {
-  const info = {
-    chat: e.value,
-  };
-
-  const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}chat/search`,
-    {
-      method: "POST",
-      body: JSON.stringify(info),
-      headers: {
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    },
-  );
-
-  e.value = "";
-}*/
