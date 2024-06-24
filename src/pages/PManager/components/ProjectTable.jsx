@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, useParams, useSubmit } from "react-router-dom";
+import { Form, useLoaderData, useParams, useSubmit } from "react-router-dom";
 
 import {
   Accordion,
@@ -32,8 +32,11 @@ const HEADERS = [
 
 function ProjectTable() {
   const submit = useSubmit();
+  const { data } = useLoaderData();
   const { id, projectId } = useParams();
   const [faseInput, setFaseInput] = useState("");
+
+  console.log(data);
 
   function onInputEnter(e) {
     // console.log(e.currentTarget);
@@ -44,7 +47,7 @@ function ProjectTable() {
   }
 
   return (
-    <div className="px-4">
+    <div className="flex h-full flex-col overflow-scroll px-4 pb-10">
       <div className="grid h-12 grid-cols-10 items-center text-center">
         {HEADERS?.map((header, i) => (
           <div
@@ -83,55 +86,58 @@ function ProjectTable() {
           />
         </Form>
       </div>
-
-      <Accordion type="single" collapsible className="">
-        <AccordionItem value={`simon`}>
-          <AccordionTrigger className="justify-normal gap-2 bg-grisBg px-4">
-            <p className="text-sm font-medium text-grisHeading">
-              Nombre de Fase
-            </p>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="grid h-12 grid-cols-10 items-center px-1">
-              <div className="col-span-1 flex justify-end">
-                {/* <TaskForm users={users} csfId={fce.id} /> */}
-              </div>
-            </div>
-            <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] text-center">
-              <div className="col-span-1">1</div>
-              <div className="col-span-2 flex items-center justify-center gap-2">
-                <p className="text-2xl text-red-500">&bull;</p>
-                <p className="text-[12px] font-normal text-grisHeading">
-                  aqui va algo
+      <div className="flex h-full flex-col overflow-scroll">
+        {data?.phases?.map((phase, i) => (
+          <Accordion key={i} type="single" collapsible className="h-full">
+            <AccordionItem value={`item-${i}`}>
+              <AccordionTrigger className="justify-normal gap-2 bg-grisBg px-4">
+                <p className="text-sm font-medium text-grisHeading">
+                  {phase.phase.name}
                 </p>
-              </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="grid h-12 grid-cols-10 items-center px-1">
+                  <div className="col-span-1 flex justify-end">
+                    {/* <TaskForm users={users} csfId={fce.id} /> */}
+                  </div>
+                </div>
+                <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] text-center">
+                  <div className="col-span-1">1</div>
+                  <div className="col-span-2 flex items-center justify-center gap-2">
+                    <p className="text-2xl text-red-500">&bull;</p>
+                    <p className="text-[12px] font-normal text-grisHeading">
+                      aqui va algo
+                    </p>
+                  </div>
 
-              <div className="col-span-1">
-                <p className="text-[12px] font-normal text-grisHeading">
-                  aqui va algo
-                </p>
-              </div>
-              <div className="col-span-1">
-                <p className="text-[12px] font-normal text-grisHeading">
-                  aqui va algo
-                </p>
-              </div>
+                  <div className="col-span-1">
+                    <p className="text-[12px] font-normal text-grisHeading">
+                      aqui va algo
+                    </p>
+                  </div>
+                  <div className="col-span-1">
+                    <p className="text-[12px] font-normal text-grisHeading">
+                      aqui va algo
+                    </p>
+                  </div>
 
-              <div className="col-span-1">
-                <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                  <p className="text-[11px] font-semibold">aqui va algo</p>
-                </Badge>
-              </div>
-              <div className="flex justify-center">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+                  <div className="col-span-1">
+                    <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                      <p className="text-[11px] font-semibold">aqui va algo</p>
+                    </Badge>
+                  </div>
+                  <div className="flex justify-center">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ))}
+      </div>
     </div>
   );
 }

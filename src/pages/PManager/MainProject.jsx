@@ -5,8 +5,6 @@ import { saveNewPhase } from "./utils";
 
 function MainProject() {
   const params = useParams();
-  const { data } = useLoaderData();
-  console.log(data);
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-blancoBg">
       <div className="flex justify-between px-8 py-4">
