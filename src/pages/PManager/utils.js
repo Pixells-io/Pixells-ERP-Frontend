@@ -86,13 +86,11 @@ export async function saveNewTask(data) {
   return response;
 }
 
-export async function saveNewPhase(data, projectId) {
+export async function saveNewPhase(data) {
   const info = {
     name: data.get("name"),
-    projectId: projectId,
+    project_id: data.get("project_id"),
   };
-
-  console.log(data);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/create-phase`,
@@ -104,7 +102,7 @@ export async function saveNewPhase(data, projectId) {
       },
     },
   );
-  console.log(response);
+  // console.log(response);
 
   return response;
 }

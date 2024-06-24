@@ -60,10 +60,10 @@ function ProjectTable() {
 
       <div className="pb-3">
         <Form
-          id="phase-form"
-          onKeyDown={(e) => onInputEnter(e)}
+          onKeyDown={onInputEnter}
           action={`/project-manager/${id}/projects/${projectId}`}
           method="post"
+          id="phase-form"
           name="phase"
         >
           <input
@@ -73,6 +73,13 @@ function ProjectTable() {
             className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
             value={faseInput}
             onChange={(e) => setFaseInput(e.target.value)}
+          />
+          <input
+            name="project_id"
+            className="hidden"
+            value={projectId}
+            hidden
+            readOnly
           />
         </Form>
       </div>

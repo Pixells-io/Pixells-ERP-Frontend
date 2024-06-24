@@ -1,9 +1,10 @@
 import React from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { redirect, useLoaderData, useParams } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
 import { saveNewPhase } from "./utils";
 
 function MainProject() {
+  const params = useParams();
   const { data } = useLoaderData();
   console.log(data);
   return (
@@ -23,8 +24,9 @@ function MainProject() {
 export default MainProject;
 
 export async function Action({ params, request }) {
-  const { projectId } = params;
   const formData = await request.formData();
 
-  return await saveNewPhase(formData, projectId);
+  await saveNewPhase(formData);
+
+  return redirect(`/project-manager/${params.id}/projects/${params.projectId}`);
 }
