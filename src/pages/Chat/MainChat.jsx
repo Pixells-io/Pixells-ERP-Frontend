@@ -35,24 +35,27 @@ function MainChat() {
   useEffect(() => {
     chatMessagesPusherData(chat.data);
 
-    scrollBottom();
+    //scrollBottom();
 
     pusherClient.subscribe(`private-get-chat.${id}`);
 
     pusherClient.bind("fill-chat-messages", ({ chat }) => {
       getMensajes();
-      scrollBottom();
+      //scrollBottom();
     });
 
     async function getMensajes() {
+      chatMessagesPusherData("");
+
       let newData = await getChatWithId(id);
 
       chatMessagesPusherData(newData.data);
+
+      console.log(chatMessagesPusher);
     }
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${id}`);
-      chatMessagesPusherData(false);
     };
   }, [id, chat]);
 
@@ -122,7 +125,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatMessagesPusher?.msg.map((mensagge, i) => (
+          {chatMessagesPusher.msg?.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>

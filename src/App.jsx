@@ -136,6 +136,7 @@ import {
   getClient,
   multiloaderCFSView,
   getProjectById,
+  getTodayActivity,
 } from "./lib/actions";
 
 //Not Found
@@ -193,9 +194,12 @@ import MainUser, {
 import ShowAgreements, {
   Action as EditContract,
 } from "./pages/CRM/Agreements/ShowAgreements";
+
 import MainProject, {
   Action as multiloaderProject,
 } from "./pages/PManager/MainProject";
+
+import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
 const router = createBrowserRouter([
   {
@@ -394,6 +398,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Today />,
+            loader: getTodayActivity,
           },
           {
             path: "/project-manager/activities",
@@ -433,6 +438,11 @@ const router = createBrowserRouter([
         ],
       },
       //Chat
+      {
+        path: "/chat-spa",
+        element: <MainChatSPA />,
+        loader: multiLoaderChat,
+      },
       {
         path: "/chat",
         element: <LayoutChat />,

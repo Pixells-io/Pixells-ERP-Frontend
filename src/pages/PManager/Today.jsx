@@ -10,8 +10,14 @@ import {
   searchOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { useLoaderData } from "react-router-dom";
 
 function Today() {
+  const { data } = useLoaderData();
+
+  function changeInputToday(projectId) {
+    console.log(projectId);
+  }
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -67,12 +73,12 @@ function Today() {
         </div>
 
         {/* outlet */}
-        <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+        <div className="h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
           <div className="grid h-fit w-full grid-cols-12 gap-6">
             <div className="col-span-5 text-center"></div>
             <div className="col-span-2 text-center">
               <p className="font-poppins text-base font-semibold text-[#171725]">
-                Hoy
+                Today
               </p>
             </div>
             <div className="col-span-5 flex justify-center">
@@ -82,6 +88,76 @@ function Today() {
               </div>
             </div>
 
+            <div>
+              <div className="col-span-5 justify-center">
+                <div className="w-96 rounded-lg border border-grisDisabled p-4">
+                  <p className="text-xs text-grisSubText">
+                    Mis actividades de hoy
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-2">
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                      <p className="text-[15px] font-light text-grisHeading">
+                        Actividades{" "}
+                        <span className="font-medium">Individuales</span>
+                      </p>
+                    </div>
+                    <div className="text-grisSubText">
+                      <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
+                    </div>
+                  </div>
+                  <div className="flex h-20 flex-col gap-2 overflow-scroll pl-8">
+                    {data.today.map((activitie, i) => (
+                      <>
+                        {activitie.progress === 1 ? (
+                          <div
+                            className="flex items-center gap-1"
+                            onClick={changeInputToday(activitie.id)}
+                          >
+                            <Checkbox
+                              defaultChecked
+                              className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
+                            />
+                            <div className="leading-none">
+                              <label
+                                htmlFor="terms1"
+                                className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                {activitie.name}
+                              </label>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className="flex items-center gap-1"
+                            onClick={changeInputToday(activitie.id)}
+                          >
+                            <Checkbox className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]" />
+                            <div className="leading-none">
+                              <label
+                                htmlFor="terms3"
+                                className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              >
+                                {activitie.name}
+                              </label>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2 bg-red-600 text-center">
+                <h2 className="text-center font-poppins text-xl font-bold text-[#44444F]">
+                  Yesterday
+                </h2>
+              </div>
+            </div>
+            {/*
             <div className="col-span-5 flex justify-center">
               <div className="w-96 rounded-lg border border-grisDisabled p-4">
                 <p className="text-xs text-grisSubText">
@@ -150,83 +226,7 @@ function Today() {
                 </div>
               </div>
             </div>
-            <div className="col-span-2 text-center"></div>
-            <div className="col-span-5 text-center">
-              <div></div>
-            </div>
-
-            <div className="col-span-5 flex justify-center">
-              <div className="w-96 rounded-lg border border-grisDisabled p-4">
-                <p className="text-xs text-grisSubText">
-                  Mis actividades de hoy
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-2">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <p className="text-[15px] font-light text-grisHeading">
-                      Actividades{" "}
-                      <span className="font-medium">Individuales</span>
-                    </p>
-                  </div>
-                  <div className="text-grisSubText">
-                    <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2 pl-8">
-                  <div className="flex items-center gap-1">
-                    <Checkbox
-                      id="terms1"
-                      defaultChecked
-                      className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
-                    />
-                    <div className="leading-none">
-                      <label
-                        htmlFor="terms1"
-                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Realizar Investigación
-                      </label>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Checkbox
-                      id="terms2"
-                      defaultChecked
-                      className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
-                    />
-                    <div className="leading-none">
-                      <label
-                        htmlFor="terms2"
-                        className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Realizar Investigación
-                      </label>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Checkbox
-                      id="terms3"
-                      className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
-                    />
-                    <div className="leading-none">
-                      <label
-                        htmlFor="terms3"
-                        className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Realizar Investigación
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-span-2 text-center"></div>
-            <div className="col-span-5 text-center">
-              <div></div>
-            </div>
+            */}
           </div>
         </div>
       </div>
