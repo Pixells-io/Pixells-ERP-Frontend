@@ -1085,3 +1085,35 @@ export async function getProjectById({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getTodayActivity() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/today-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchTodayActivity(type, date) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/today-activities/${type}/${date}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
