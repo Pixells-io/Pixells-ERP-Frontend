@@ -135,6 +135,7 @@ import {
   getContract,
   getClient,
   multiloaderCFSView,
+  getProjectById,
 } from "./lib/actions";
 
 //Not Found
@@ -192,6 +193,9 @@ import MainUser, {
 import ShowAgreements, {
   Action as EditContract,
 } from "./pages/CRM/Agreements/ShowAgreements";
+import MainProject, {
+  Action as multiloaderProject,
+} from "./pages/PManager/MainProject";
 
 const router = createBrowserRouter([
   {
@@ -417,6 +421,12 @@ const router = createBrowserRouter([
               {
                 path: "/project-manager/:id/projects",
                 element: <Projects />,
+              },
+              {
+                path: "/project-manager/:id/projects/:projectId",
+                element: <MainProject />,
+                loader: getProjectById,
+                action: multiloaderProject,
               },
             ],
           },

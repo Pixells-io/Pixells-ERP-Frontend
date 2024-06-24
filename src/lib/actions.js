@@ -1069,3 +1069,19 @@ export async function permissionValidate(position, permision, module) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getProjectById({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${params.projectId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

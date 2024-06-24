@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, useSubmit } from "react-router-dom";
+import { Form, Link, useParams, useSubmit } from "react-router-dom";
 
 import {
   Accordion,
@@ -35,6 +35,7 @@ const HEADERS = [
 ];
 
 function Board({ goal, users, csfs }) {
+  const { id } = useParams();
   const submit = useSubmit();
   const [csfInput, setCsfInput] = useState("");
   const [modal, setModal] = useState(false);
@@ -203,10 +204,14 @@ function Board({ goal, users, csfs }) {
                       ) : (
                         <div className="flex justify-center">
                           <div className="flex items-center gap-2 text-[#696974]">
-                            <IonIcon
-                              icon={informationCircle}
-                              className="h-5 w-5"
-                            ></IonIcon>
+                            <Link
+                              to={`/project-manager/${id}/projects/${task?.id}`}
+                            >
+                              <IonIcon
+                                icon={informationCircle}
+                                className="h-5 w-5"
+                              ></IonIcon>
+                            </Link>
                           </div>
                         </div>
                       )}
@@ -233,144 +238,3 @@ function Board({ goal, users, csfs }) {
 }
 
 export default Board;
-
-// const DATA = [
-//   {
-//     id: 0,
-//     csf: "Original Constructors",
-//     activities: [
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//     ],
-//   },
-//   {
-//     id: 1,
-//     csf: "New Constructors",
-//     activities: [
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     csf: "Old Constructors",
-//     activities: [
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//       {
-//         activity: "Immigration, Tax Preparation",
-//         type: "Activity",
-//         expiration: "02/19/2024",
-//         responsable: "don fomularo",
-//         status: "pending",
-//         created: "don fomularo",
-//       },
-//     ],
-//   },
-// ];
