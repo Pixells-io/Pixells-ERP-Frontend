@@ -1,7 +1,7 @@
 import React from "react";
 import { redirect, useLoaderData, useParams } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
-import { saveNewPhase } from "./utils";
+import { saveNewActivitty, saveNewPhase } from "./utils";
 
 function MainProject() {
   const params = useParams();
@@ -23,8 +23,24 @@ export default MainProject;
 
 export async function Action({ params, request }) {
   const formData = await request.formData();
+  const action = formData.get("action");
 
-  await saveNewPhase(formData);
+  switch (action) {
+    case "phase":
+      await saveNewPhase(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
+
+    case "activity":
+      await saveNewActivitty(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
+
+    default:
+      break;
+  }
 
   return redirect(`/project-manager/${params.id}/projects/${params.projectId}`);
 }

@@ -17,6 +17,7 @@ import {
   trash,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import ActivityForm from "./Form/ActivityForm";
 
 const HEADERS = [
   { name: "FASE" },
@@ -47,7 +48,7 @@ function ProjectTable() {
   }
 
   return (
-    <div className="flex h-full flex-col overflow-scroll px-4 pb-10">
+    <div className="flex h-full flex-col px-4 pb-10">
       <div className="grid h-12 grid-cols-10 items-center text-center">
         {HEADERS?.map((header, i) => (
           <div
@@ -84,55 +85,64 @@ function ProjectTable() {
             hidden
             readOnly
           />
+          <input
+            name="action"
+            className="hidden"
+            value="phase"
+            hidden
+            readOnly
+          />
         </Form>
       </div>
       <div className="flex h-full flex-col overflow-scroll">
         {data?.phases?.map((phase, i) => (
-          <Accordion key={i} type="single" collapsible className="h-full">
+          <Accordion key={i} type="single" collapsible className="">
             <AccordionItem value={`item-${i}`}>
-              <AccordionTrigger className="justify-normal gap-2 bg-grisBg px-4">
+              <AccordionTrigger className="gap-2 bg-grisBg px-4">
                 <p className="text-sm font-medium text-grisHeading">
                   {phase.phase.name}
                 </p>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="grid h-12 grid-cols-10 items-center px-1">
-                  <div className="col-span-1 flex justify-end">
-                    {/* <TaskForm users={users} csfId={fce.id} /> */}
-                  </div>
+                <div className="pt-2">
+                  <ActivityForm phase_id={phase.phase.id} />
                 </div>
-                <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] text-center">
-                  <div className="col-span-1">1</div>
-                  <div className="col-span-2 flex items-center justify-center gap-2">
-                    <p className="text-2xl text-red-500">&bull;</p>
-                    <p className="text-[12px] font-normal text-grisHeading">
-                      aqui va algo
-                    </p>
-                  </div>
+                {phase?.activities.map((activity, i) => (
+                  <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] text-center">
+                    <div className="col-span-1">1</div>
+                    <div className="col-span-2 flex items-center justify-center gap-2">
+                      <p className="text-2xl text-red-500">&bull;</p>
+                      <p className="text-[12px] font-normal text-grisHeading">
+                        {activity.name}
+                      </p>
+                    </div>
 
-                  <div className="col-span-1">
-                    <p className="text-[12px] font-normal text-grisHeading">
-                      aqui va algo
-                    </p>
-                  </div>
-                  <div className="col-span-1">
-                    <p className="text-[12px] font-normal text-grisHeading">
-                      aqui va algo
-                    </p>
-                  </div>
+                    {/* <div className="col-span-1">
+                      <p className="text-[12px] font-normal text-grisHeading">
+                        aqui va algo
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="text-[12px] font-normal text-grisHeading">
+                        aqui va algo
+                      </p>
+                    </div>
 
-                  <div className="col-span-1">
-                    <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                      <p className="text-[11px] font-semibold">aqui va algo</p>
-                    </Badge>
+                    <div className="col-span-1">
+                      <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                        <p className="text-[11px] font-semibold">
+                          aqui va algo
+                        </p>
+                      </Badge>
+                    </div>
+                    <div className="flex justify-center">
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div> */}
                   </div>
-                  <div className="flex justify-center">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </div>
-                </div>
+                ))}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
