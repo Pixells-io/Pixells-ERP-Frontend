@@ -160,11 +160,13 @@ function MainLayout() {
           <div className="flex gap-6">
             <div></div>
             <div className="flex gap-3">
-              <IonIcon
-                icon={calendar}
-                size="large"
-                className="text-primario"
-              ></IonIcon>
+              <Link to={"/calendar"}>
+                <IonIcon
+                  icon={calendar}
+                  size="large"
+                  className="text-primario"
+                ></IonIcon>
+              </Link>
               <NotificationChat
                 notifications={chat?.data}
                 user={userAuth?.data}

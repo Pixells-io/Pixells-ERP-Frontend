@@ -204,6 +204,8 @@ import MainProject, {
 } from "./pages/PManager/MainProject";
 
 import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
+import MainCalendar from "./pages/Calendar/MainCalendar";
+import LayoutCalendar from "./pages/Calendar/LayoutCalendar";
 
 const router = createBrowserRouter([
   {
@@ -600,6 +602,16 @@ const router = createBrowserRouter([
             index: true,
             element: <InformationCreateShow />,
             loader: getUsers,
+          },
+        ],
+      },
+      {
+        path: "/calendar",
+        element: <LayoutCalendar />,
+        children: [
+          {
+            index: true,
+            element: <MainCalendar />,
           },
         ],
       },
