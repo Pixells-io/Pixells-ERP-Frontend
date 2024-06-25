@@ -1181,3 +1181,37 @@ export async function searchMonthKanban(type, month) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getCsfAnalityc({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-csf-analityc/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getProjectsAnalityc({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-project-analityc/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

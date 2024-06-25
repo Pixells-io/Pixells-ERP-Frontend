@@ -166,13 +166,6 @@ function Status() {
                         />
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={expirated.creator.img}
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback></AvatarFallback>
-                      </Avatar>
                     </div>
                   </div>
                 ))}
@@ -265,13 +258,6 @@ function Status() {
                         />
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={expirated.creator.img}
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback></AvatarFallback>
-                      </Avatar>
                     </div>
                   </div>
                 ))}
@@ -360,13 +346,6 @@ function Status() {
                       <Avatar className="h-6 w-6">
                         <AvatarImage
                           src={expirated.assigned.img}
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback></AvatarFallback>
-                      </Avatar>
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={expirated.creator.img}
                           alt="@shadcn"
                         />
                         <AvatarFallback></AvatarFallback>

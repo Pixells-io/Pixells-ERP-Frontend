@@ -115,9 +115,6 @@ function Activities() {
                     </p>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="grid h-12 grid-cols-11 items-center border-b-[1px] px-1">
-                      <div className="col-span-2 flex justify-end"></div>
-                    </div>
                     {day?.task.map((task, i) => (
                       <div
                         key={i}

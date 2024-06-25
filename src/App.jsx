@@ -139,6 +139,8 @@ import {
   getTodayActivity,
   getMonthActivity,
   getMonthKanban,
+  getCsfAnalityc,
+  getProjectsAnalityc,
 } from "./lib/actions";
 
 //Not Found
@@ -424,11 +426,12 @@ const router = createBrowserRouter([
               },
               {
                 path: "/project-manager/:id/csf",
-                loader: multiloaderCFSView,
+                loader: getCsfAnalityc,
                 element: <CsfView />,
               },
               {
                 path: "/project-manager/:id/projects",
+                loader: getProjectsAnalityc,
                 element: <Projects />,
               },
               {

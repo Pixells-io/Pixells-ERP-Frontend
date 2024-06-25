@@ -16,7 +16,8 @@ function CSFCard({ card }) {
     <div className="flex h-[168px] w-[378px] shrink-0 flex-col rounded-2xl border border-grisDisabled px-4 py-1">
       <div className="flex items-center justify-between">
         <p className="flex items-center gap-2 text-[12px] text-grisSubText">
-          FCE <span className="text-2xl">&bull;</span> {card?.goal.name}
+          FCE <span className="text-2xl">&bull;</span>
+          {card.name}
         </p>
         <div className="flex text-grisSubText">
           <IonIcon icon={ellipsisHorizontal} className="h-8 w-8"></IonIcon>
@@ -25,70 +26,26 @@ function CSFCard({ card }) {
       <div className="flex w-fit rounded-full bg-blancoBox px-4 py-1">
         <div className="flex items-center gap-2 text-grisSubText">
           <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
-          <p className="text-xs">05 dic 2024</p>
+          <p className="text-xs">{card.date}</p>
         </div>
       </div>
       <div className="flex justify-between pt-1">
         <div>
           <p className="font-xs font-medium text-grisHeading">Actividades</p>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1">
-              <p className="text-xs text-grisHeading line-through">
-                Realizar Investigación
-              </p>
-              <div className="flex">
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+          <div className="flex h-16 w-auto flex-col overflow-scroll">
+            {card?.task.map((task, i) => (
+              <div className="flex items-center gap-1">
+                <p className="text-xs text-grisHeading line-through">
+                  {task.name}
+                </p>
+                <div className="flex">
+                  <Avatar className="h-5 w-5">
+                    <AvatarImage src={task.img} />
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-1">
-              <p className="text-xs text-grisHeading line-through">
-                Realizar Investigación
-              </p>
-              <div className="flex">
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
-            <div className="flex items-center gap-1">
-              <p className="text-xs text-grisHeading line-through">
-                Realizar Investigación
-              </p>
-              <div className="flex">
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -99,8 +56,8 @@ function CSFCard({ card }) {
             counterClockwise={true}
             strokeWidth={15}
             className="h-12 w-12 font-semibold"
-            value={percentage}
-            text={`${percentage}%`}
+            value={card.percent}
+            text={`${card.percent}%`}
             styles={buildStyles({
               textColor: "#696974",
               pathColor: "#7794F9",

@@ -5,15 +5,11 @@ import CSFCard from "./components/CSFCard";
 
 function CsfView() {
   const params = useParams();
-  const { goals, csfs, goalsMaster } = useLoaderData();
-  // console.log(goals.data);
-  // console.log(users.data);
-  // console.log(csfs.data);
-  console.log(goalsMaster.data);
+  const { data } = useLoaderData();
   return (
     <div className="flex h-full justify-center overflow-scroll bg-blancoBg p-4">
       <div className="grid h-fit grid-cols-2 gap-6 py-2">
-        {goalsMaster?.data?.map((card, i) => (
+        {data?.map((card, i) => (
           <div key={i}>
             <CSFCard card={card} />
           </div>
