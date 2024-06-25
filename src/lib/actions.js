@@ -1117,3 +1117,67 @@ export async function searchTodayActivity(type, date) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getMonthActivity() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/month-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchMonthActivity(type, month) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/month-activities/${type}/${month}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMonthKanban() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/kanban-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchMonthKanban(type, month) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/kanban-activities/${type}/${month}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

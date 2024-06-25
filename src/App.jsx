@@ -137,6 +137,8 @@ import {
   multiloaderCFSView,
   getProjectById,
   getTodayActivity,
+  getMonthActivity,
+  getMonthKanban,
 } from "./lib/actions";
 
 //Not Found
@@ -403,10 +405,12 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/activities",
             element: <Activities />,
+            loader: getMonthActivity,
           },
           {
             path: "/project-manager/status",
             element: <Status />,
+            loader: getMonthKanban,
           },
           {
             path: "/project-manager/:id",
