@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -7,39 +7,133 @@ import { useLoaderData } from "react-router-dom";
 
 function MainCalendar() {
   const { data } = useLoaderData();
-  console.log(data.task);
 
-  const arrayTask = [];
+  //Use States Var
+  const [tasks, setTasks] = useState(false);
+  const [crm, setCrm] = useState(false);
+  const [events, setEvents] = useState([]);
 
-  arrayFillPM(data.task, arrayTask);
+  useEffect(() => {
+    const arrayfIllVar = [];
 
-  function arrayFillPM(data, array) {
-    data.forEach((element) => {
-      array.push({
-        title: element.name,
-        start: element.start,
-        id: element.id,
-        type: 1,
+    arrayFill(data.task, arrayfIllVar);
+    arrayFill(data.crm, arrayfIllVar);
+
+    function arrayFill(data, array) {
+      data.forEach((element) => {
+        array.push({
+          title: element.name,
+          start: element.date,
+          id: element.id,
+          type: element.type,
+        });
       });
-    });
+    }
+
+    setEvents(arrayfIllVar);
+  }, []);
+
+  function filterEventsCalendar($module) {
+    setEvents([]);
+    console.log(tasks, "task a");
+    console.log(crm, "crm a");
+    switch ($module) {
+      case 1:
+        setTasks(!tasks);
+        break;
+      case 2:
+        setCrm(!crm);
+        break;
+    }
+
+    //Set the values
+    const array_bulk = [];
+    console.log(tasks, "task d");
+    console.log(crm, "crm d");
+
+    if (tasks === true) {
+      arrayFill(data.task, array_bulk);
+    }
+
+    if (crm === true) {
+      arrayFill(data.crm, array_bulk);
+    }
+
+    function arrayFill(data, array) {
+      data.forEach((element) => {
+        array.push({
+          title: element.name,
+          start: element.date,
+          id: element.id,
+          type: element.type,
+        });
+      });
+    }
+
+    console.log(array_bulk);
+
+    setEvents(array_bulk);
   }
-
-  console.log(arrayTask);
-
-  const events = [
-    { title: "Meeting", start: new Date() },
-    { title: "Diegoldd", start: new Date() },
-  ];
 
   function renderEventContent(eventInfo) {
     return (
       <>
-        <i className="rounded-3xl text-white">{eventInfo.event.title}</i>
+        <div className="py w-full rounded-xl bg-red-700 px-1">
+          <i className="rounded-3xl text-white" title={eventInfo.event.title}>
+            {eventInfo.event.title}
+          </i>
+        </div>
       </>
     );
   }
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-gris p-4">
+      <div className="mb-4 flex gap-20">
+        <div className="flex gap-4">
+          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+            {tasks === true ? (
+              <input
+                type="checkbox"
+                className="peer hidden"
+                checked
+                onClick={() => filterEventsCalendar(1)}
+              />
+            ) : (
+              <input
+                type="checkbox"
+                className="peer hidden"
+                onClick={() => filterEventsCalendar(1)}
+              />
+            )}
+            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+          </label>
+          <div>
+            <span>Project Manager</span>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+            {tasks === true ? (
+              <input
+                type="checkbox"
+                className="peer hidden"
+                checked
+                onClick={() => filterEventsCalendar(2)}
+              />
+            ) : (
+              <input
+                type="checkbox"
+                className="peer hidden"
+                onClick={() => filterEventsCalendar(2)}
+              />
+            )}
+            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+          </label>
+          <div>
+            <span>CRM</span>
+          </div>
+        </div>
+      </div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin]}
         initialView="dayGridMonth"
@@ -49,7 +143,7 @@ function MainCalendar() {
           right: "dayGridMonth,timeGridWeek",
         }}
         weekends={true}
-        events={arrayTask}
+        events={events}
         eventContent={renderEventContent}
       />
     </div>
