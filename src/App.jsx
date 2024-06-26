@@ -207,7 +207,9 @@ import MainProject, {
 
 import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 import MainCalendar from "./pages/Calendar/MainCalendar";
-import LayoutCalendar from "./pages/Calendar/LayoutCalendar";
+import LayoutCalendar, {
+  Action as createMeetCalendar,
+} from "./pages/Calendar/LayoutCalendar";
 
 const router = createBrowserRouter([
   {
@@ -610,6 +612,8 @@ const router = createBrowserRouter([
       {
         path: "/calendar",
         element: <LayoutCalendar />,
+        loader: getUsers,
+        action: createMeetCalendar,
         children: [
           {
             index: true,

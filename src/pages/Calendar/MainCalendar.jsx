@@ -11,6 +11,7 @@ function MainCalendar() {
   //Use States Var
   const [tasks, setTasks] = useState(false);
   const [crm, setCrm] = useState(false);
+  const [meet, setMeet] = useState(false);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function MainCalendar() {
 
     arrayFill(data.task, arrayfIllVar);
     arrayFill(data.crm, arrayfIllVar);
+    arrayFill(data.meet, arrayfIllVar);
 
     function arrayFill(data, array) {
       data.forEach((element) => {
@@ -44,6 +46,9 @@ function MainCalendar() {
       case 2:
         setCrm(!crm);
         break;
+      case 3:
+        setMeet(!meet);
+        break;
     }
 
     //Set the values
@@ -59,6 +64,10 @@ function MainCalendar() {
       arrayFill(data.crm, array_bulk);
     }
 
+    if (meet === true) {
+      arrayFill(data.meet, array_bulk);
+    }
+
     function arrayFill(data, array) {
       data.forEach((element) => {
         array.push({
@@ -70,17 +79,24 @@ function MainCalendar() {
       });
     }
 
-    console.log(array_bulk);
-
     setEvents(array_bulk);
   }
 
   function renderEventContent(eventInfo) {
     const type = eventInfo.event.extendedProps.type;
+    const id = eventInfo.event.extendedProps.id_element;
+
+    function openModalFunction(type, id) {
+      console.log(type, id);
+    }
+
     return (
       <>
         {type === 1 ? (
-          <div className="py w-full overflow-hidden text-ellipsis rounded-xl bg-primario pl-2 pr-2">
+          <div
+            className="py w-full overflow-hidden text-ellipsis rounded-xl bg-primario pl-2 pr-2"
+            onClick={() => openModalFunction(type, id)}
+          >
             <span
               className="rounded-3xl font-roboto text-xs font-normal text-white"
               title={eventInfo.event.title}
@@ -89,9 +105,24 @@ function MainCalendar() {
             </span>
           </div>
         ) : type === 2 ? (
-          <div className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2">
+          <div
+            className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
+            onClick={openModalFunction(type, id)}
+          >
             <span
               className="rounded-3xl font-roboto text-xs font-normal text-white"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
+        ) : type === 3 ? (
+          <div
+            className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
+            onClick={openModalFunction(type, id)}
+          >
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-grisText"
               title={eventInfo.event.title}
             >
               {eventInfo.event.title}
