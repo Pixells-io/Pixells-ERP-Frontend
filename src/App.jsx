@@ -142,6 +142,7 @@ import {
   getCsfAnalityc,
   getProjectsAnalityc,
   multiloaderProjectPM,
+  getCalendarData,
 } from "./lib/actions";
 
 //Not Found
@@ -613,6 +614,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainCalendar />,
+            loader: getCalendarData,
           },
         ],
       },
