@@ -77,9 +77,9 @@ function MainChat() {
     }, 500);
   }
 
-  let infoUser = [];
+  //let infoUser = [];
 
-  chat.data.participants.map((participant, i) => {
+  /*chat.data.participants.map((participant, i) => {
     if (participant.id != user.data.id) {
       infoUser = [
         {
@@ -89,7 +89,7 @@ function MainChat() {
         },
       ];
     }
-  });
+  });*/
 
   function onInputEnter(e) {
     // console.log(e.currentTarget);
@@ -105,13 +105,13 @@ function MainChat() {
       <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
-            src={chat.data?.participants[0].img}
+            src={chat.data?.participants.img}
             className="h-14 w-14 rounded-full"
           />
         </div>
         <div className="m-auto w-10/12">
           <span className="font-poppins text-lg font-semibold text-grisHeading">
-            {chat.data?.participants[0].name}
+            {chat.data?.participants.name}
           </span>
         </div>
         <div className="m-auto* w-1/12"></div>
