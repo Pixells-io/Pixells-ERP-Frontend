@@ -1070,6 +1070,15 @@ export async function permissionValidate(position, permision, module) {
   }
 }
 
+export async function multiloaderProjectPM({ params }) {
+  const [project, users] = await Promise.all([
+    getProjectById({ params }),
+    getUsers(),
+  ]);
+
+  return json({ project, users });
+}
+
 export async function getProjectById({ params }) {
   try {
     const response = await fetch(

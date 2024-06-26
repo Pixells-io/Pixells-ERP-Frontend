@@ -117,7 +117,7 @@ function Board({ goal, users, csfs }) {
                   ({ task, task_count, task_query, creator, assigned }, i) => (
                     <div
                       key={i}
-                      className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] pr-2 text-right"
+                      className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
                     >
                       <div></div>
                       <div className="col-span-2 flex items-center justify-end gap-2">

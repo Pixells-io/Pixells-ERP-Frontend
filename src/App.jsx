@@ -141,6 +141,7 @@ import {
   getMonthKanban,
   getCsfAnalityc,
   getProjectsAnalityc,
+  multiloaderProjectPM,
 } from "./lib/actions";
 
 //Not Found
@@ -439,7 +440,7 @@ const router = createBrowserRouter([
               {
                 path: "/project-manager/:id/projects/:projectId",
                 element: <MainProject />,
-                loader: getProjectById,
+                loader: multiloaderProjectPM,
                 action: multiloaderProject,
               },
             ],

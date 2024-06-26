@@ -130,3 +130,24 @@ export async function saveNewActivitty(data) {
 
   return response;
 }
+
+export async function editActivityUser(data) {
+  const info = {
+    activity_id: data.get("activity_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-activity`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  // console.log(response);
+
+  return response;
+}

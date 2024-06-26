@@ -1,7 +1,7 @@
 import React from "react";
 import { redirect, useLoaderData, useParams } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
-import { saveNewActivitty, saveNewPhase } from "./utils";
+import { editActivityUser, saveNewActivitty, saveNewPhase } from "./utils";
 
 function MainProject() {
   const params = useParams();
@@ -34,6 +34,12 @@ export async function Action({ params, request }) {
 
     case "activity":
       await saveNewActivitty(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
+
+    case "edit":
+      await editActivityUser(formData);
       return redirect(
         `/project-manager/${params.id}/projects/${params.projectId}`,
       );

@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 import {
+  add,
   checkmarkCircleOutline,
   create,
   informationCircle,
@@ -18,6 +19,8 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import ActivityForm from "./Form/ActivityForm";
+import DatePickerPM from "@/components/date-picker-pm";
+import AddUserActivity from "./Form/AddUserActivity";
 
 const HEADERS = [
   { name: "FASE" },
@@ -33,11 +36,12 @@ const HEADERS = [
 
 function ProjectTable() {
   const submit = useSubmit();
-  const { data } = useLoaderData();
+  const { project, users } = useLoaderData();
   const { id, projectId } = useParams();
   const [faseInput, setFaseInput] = useState("");
 
-  console.log(data);
+  console.log(project.data);
+  // console.log(users.data);
 
   function onInputEnter(e) {
     // console.log(e.currentTarget);
@@ -95,7 +99,7 @@ function ProjectTable() {
         </Form>
       </div>
       <div className="flex h-full flex-col overflow-scroll">
-        {data?.phases?.map((phase, i) => (
+        {project?.data?.phases?.map((phase, i) => (
           <Accordion key={i} type="single" collapsible className="">
             <AccordionItem value={`item-${i}`}>
               <AccordionTrigger className="gap-2 bg-grisBg px-4">
@@ -103,44 +107,71 @@ function ProjectTable() {
                   {phase.phase.name}
                 </p>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="pb-0">
                 <div className="pt-2">
                   <ActivityForm phase_id={phase.phase.id} />
                 </div>
                 {phase?.activities.map((activity, i) => (
-                  <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-b-[1px] text-center">
-                    <div className="col-span-1">1</div>
+                  <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] text-center">
+                    <div className="col-span-1 flex justify-center gap-2">
+                      <p>{activity.id}</p>
+                      <button type="button" className="">
+                        <IonIcon
+                          icon={checkmarkCircleOutline}
+                          className="h-5 w-5"
+                        />
+                      </button>
+                    </div>
                     <div className="col-span-2 flex items-center justify-center gap-2">
-                      <p className="text-2xl text-red-500">&bull;</p>
                       <p className="text-[12px] font-normal text-grisHeading">
                         {activity.name}
                       </p>
                     </div>
 
-                    {/* <div className="col-span-1">
+                    <div className="col-span-1 flex items-center justify-center gap-1">
+                      <div className="flex overflow-scroll">
+                        {activity?.users?.map((user, i) => (
+                          <Avatar className="flex h-6 w-6" key={i}>
+                            <AvatarImage src={user?.img} />
+                            {/* <AvatarFallback>CN</AvatarFallback> */}
+                          </Avatar>
+                        ))}
+                      </div>
+                      <AddUserActivity
+                        users={users?.data}
+                        activity_id={activity.id}
+                      />
+                    </div>
+                    <div className="col-span-1">
                       <p className="text-[12px] font-normal text-grisHeading">
-                        aqui va algo
+                        back
                       </p>
                     </div>
                     <div className="col-span-1">
                       <p className="text-[12px] font-normal text-grisHeading">
-                        aqui va algo
+                        back
                       </p>
                     </div>
 
-                    <div className="col-span-1">
-                      <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                        <p className="text-[11px] font-semibold">
-                          aqui va algo
-                        </p>
-                      </Badge>
+                    <div className="col-span-1 flex justify-center">
+                      <DatePickerPM />
                     </div>
-                    <div className="flex justify-center">
+                    <div className="col-span-1 flex justify-center">
+                      <DatePickerPM />
+                    </div>
+
+                    <div className="col-span-1 flex justify-center">
                       <Avatar className="h-6 w-6">
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
-                    </div> */}
+                    </div>
+
+                    <div className="col-span-1">
+                      <p className="text-[12px] font-normal text-grisHeading">
+                        +
+                      </p>
+                    </div>
                   </div>
                 ))}
               </AccordionContent>
@@ -153,3 +184,13 @@ function ProjectTable() {
 }
 
 export default ProjectTable;
+
+{
+  /* <div className="col-span-1">
+<Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+  <p className="text-[11px] font-semibold">
+    aqui va algo
+  </p>
+</Badge>
+</div> */
+}
