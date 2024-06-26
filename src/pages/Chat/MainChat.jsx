@@ -17,14 +17,11 @@ import { pusherClient } from "@/lib/pusher";
 function MainChat() {
   const { chat, user } = useLoaderData();
 
-  const [initialData, setInitialData] = useState(chat.data);
-  const [chatMessagesPusher, chatMessagesPusherData] = useState(initialData);
+  const [chatMessagesPusher, chatMessagesPusherData] = useState([]);
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
 
   const scrollBox = useRef(null);
-
-  console.log(initialData, chat.data);
 
   const params = useParams();
 
@@ -33,7 +30,7 @@ function MainChat() {
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-    chatMessagesPusherData(chat.data);
+    chatMessagesPusherData(chat.data.msg);
 
     //scrollBottom();
 
@@ -45,19 +42,15 @@ function MainChat() {
     });
 
     async function getMensajes() {
-      chatMessagesPusherData("");
-
       let newData = await getChatWithId(id);
 
       chatMessagesPusherData(newData.data);
-
-      console.log(chatMessagesPusher);
     }
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${id}`);
     };
-  }, [id, chat]);
+  }, [id]);
 
   function scrollBottom() {
     setTimeout(() => {
@@ -125,7 +118,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatMessagesPusher.msg?.map((mensagge, i) => (
+          {chatMessagesPusher?.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
