@@ -23,17 +23,13 @@ function MainChat() {
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
   const [urlId, setUrlId] = useState(id);
-
   const [chatMessagesPusher, setChatMessagesPusher] = useState(chat.data.msg);
-
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
-
   const scrollBox = useRef(null);
-
   const CurrentUserId = user.data.id;
 
-  console.log(chat.data?.participants);
+  // console.log(chat.data?.participants);
 
   useEffect(() => {
     setUrlId(id);
@@ -41,35 +37,29 @@ function MainChat() {
     pusherClient.subscribe(`private-get-chat.${urlId}`);
 
     pusherClient.bind("fill-chat-messages", ({ chat }) => {
-      console.log("EFFECT location -> pusher");
+      // console.log("EFFECT location -> pusher");
       getMensajes(chat);
     });
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
-
       setChatMessagesPusher(newData.data.msg);
-
       scrollBottom();
-
-      console.log("CORRIO EFFECT LOCATION", id);
+      // console.log("CORRIO EFFECT LOCATION", id);
     }
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${urlId}`);
-      console.log("unsubscribe");
+      // console.log("unsubscribe");
     };
   }, [location, urlId]);
 
   useEffect(() => {
     async function getMensajes() {
       let newData = await getChatWithId(id);
-
       setChatMessagesPusher(newData.data.msg);
-
       scrollBottom();
-
-      console.log("CORRIO EFFECT ID", id);
+      // console.log("CORRIO EFFECT ID", id);
     }
 
     getMensajes();
