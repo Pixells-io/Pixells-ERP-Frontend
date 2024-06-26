@@ -23,7 +23,7 @@ function MainChat() {
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
   const [urlId, setUrlId] = useState(id);
-  const [chatMessagesPusher, chatMessagesPusherData] = useState(chat.data.msg);
+  const [chatMessagesPusher, chatMessagesPusherData] = useState(chat.data);
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
 
@@ -43,7 +43,7 @@ function MainChat() {
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
-      chatMessagesPusherData(newData.data.msg);
+      chatMessagesPusherData(newData.data);
       console.log("CORRIO EFFECT LOCATION", id);
     }
 
@@ -56,7 +56,7 @@ function MainChat() {
   useEffect(() => {
     async function getMensajes() {
       let newData = await getChatWithId(id);
-      chatMessagesPusherData(newData.data.msg);
+      chatMessagesPusherData(newData.data);
       console.log("CORRIO EFFECT ID", id);
     }
 
@@ -93,19 +93,21 @@ function MainChat() {
     }
   }
 
+  console.log(chatMessagesPusher?.participants[0]);
+
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
       {/* Chat Header */}
       <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
-            src={chat.data?.participants[0].img}
+            src={chatMessagesPusher?.participants[0].img}
             className="h-14 w-14 rounded-full"
           />
         </div>
         <div className="m-auto w-10/12">
           <span className="font-poppins text-lg font-semibold text-grisHeading">
-            {chat.data?.participants[0].name}
+            {chatMessagesPusher?.participants[0].name}
           </span>
         </div>
         <div className="m-auto* w-1/12"></div>
@@ -114,7 +116,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatMessagesPusher?.map((mensagge, i) => (
+          {chatMessagesPusher.msg?.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
