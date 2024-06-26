@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 
 import {
   add,
@@ -21,6 +20,8 @@ import { IonIcon } from "@ionic/react";
 import ActivityForm from "./Form/ActivityForm";
 import DatePickerPM from "@/components/date-picker-pm";
 import AddUserActivity from "./Form/AddUserActivity";
+import ActivityNameInput from "./Form/ActivityNameInput";
+import ActivityComment from "./Form/ActivityComment";
 
 const HEADERS = [
   { name: "FASE" },
@@ -112,7 +113,10 @@ function ProjectTable() {
                   <ActivityForm phase_id={phase.phase.id} />
                 </div>
                 {phase?.activities.map((activity, i) => (
-                  <div className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] text-center">
+                  <div
+                    key={i}
+                    className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] text-center"
+                  >
                     <div className="col-span-1 flex justify-center gap-2">
                       <p>{activity.id}</p>
                       <button type="button" className="">
@@ -123,9 +127,10 @@ function ProjectTable() {
                       </button>
                     </div>
                     <div className="col-span-2 flex items-center justify-center gap-2">
-                      <p className="text-[12px] font-normal text-grisHeading">
-                        {activity.name}
-                      </p>
+                      <ActivityNameInput
+                        defaultName={activity?.name}
+                        activity_id={activity?.id}
+                      />
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center gap-1">
@@ -169,10 +174,7 @@ function ProjectTable() {
                     </div>
 
                     <div className="col-span-1 flex justify-center">
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
+                      <ActivityComment activity_id={activity?.id} />
                     </div>
 
                     <div className="col-span-1">

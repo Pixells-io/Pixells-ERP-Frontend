@@ -1,15 +1,15 @@
 import React from "react";
-import { redirect, useLoaderData, useParams } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
 import { editActivityUser, saveNewActivitty, saveNewPhase } from "./utils";
 
 function MainProject() {
-  const params = useParams();
+  const { project } = useLoaderData();
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-blancoBg">
       <div className="flex justify-between px-8 py-4">
         <p className="font-poppins text-[22px] font-bold text-grisHeading">
-          Project Name
+          {project?.data?.project?.name}
         </p>
         <p>Search</p>
       </div>
