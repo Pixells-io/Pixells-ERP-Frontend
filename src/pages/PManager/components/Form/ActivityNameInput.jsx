@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Form, useParams, useSubmit } from "react-router-dom";
 
 function ActivityNameInPut({ activity_id, defaultName }) {
   const submit = useSubmit();
+  const inputRef = useRef(null);
   const { id, projectId } = useParams();
   const [activityInput, setActivityInput] = useState(defaultName);
   // console.log(phase_id);
@@ -11,6 +12,7 @@ function ActivityNameInPut({ activity_id, defaultName }) {
     // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
+      inputRef.current.blur();
     }
   }
   return (
@@ -29,6 +31,7 @@ function ActivityNameInPut({ activity_id, defaultName }) {
             className="focus:border-grisSubTextText flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-4"
             value={activityInput}
             onChange={(e) => setActivityInput(e.target.value)}
+            ref={inputRef}
           />
           <input
             name="activity_id"
