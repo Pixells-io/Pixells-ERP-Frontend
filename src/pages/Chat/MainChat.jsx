@@ -50,6 +50,8 @@ function MainChat() {
 
       setChatMessagesPusher(newData.data.msg);
 
+      scrollBottom();
+
       console.log("CORRIO EFFECT LOCATION", id);
     }
 
@@ -64,6 +66,8 @@ function MainChat() {
       let newData = await getChatWithId(id);
 
       setChatMessagesPusher(newData.data.msg);
+
+      scrollBottom();
 
       console.log("CORRIO EFFECT ID", id);
     }
