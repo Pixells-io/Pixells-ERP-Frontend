@@ -1,55 +1,66 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SearchAction } from "@/layouts/Chat/utils";
-import { IonIcon } from "@ionic/react";
-import { send, mic, addCircle } from "ionicons/icons";
-import MenssageCard from "./Components/Mensagge";
 import {
   Form,
   redirect,
   useLoaderData,
+  useLocation,
   useParams,
   useSubmit,
 } from "react-router-dom";
+
 import { getChatWithId, storeMensagge } from "./utils";
-import Cookies from "js-cookie";
 import { pusherClient } from "@/lib/pusher";
 
-function MainChat() {
-  const { chat, user } = useLoaderData();
+import MenssageCard from "./Components/Mensagge";
 
-  const [chatMessagesPusher, chatMessagesPusherData] = useState([]);
+import { IonIcon } from "@ionic/react";
+import { send, mic, addCircle } from "ionicons/icons";
+
+function MainChat() {
+  const location = useLocation();
+  const { id } = useParams();
+  const { chat, user } = useLoaderData();
+  const submit = useSubmit();
+  const [mssg, setMssg] = useState("");
+  const [urlId, setUrlId] = useState(id);
+  const [chatMessagesPusher, chatMessagesPusherData] = useState(chat.data.msg);
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
 
   const scrollBox = useRef(null);
 
-  const params = useParams();
-
-  const id = params.id;
-
   const CurrentUserId = user.data.id;
 
   useEffect(() => {
-    chatMessagesPusherData(chat.data.msg);
-
-    //scrollBottom();
-
-    pusherClient.subscribe(`private-get-chat.${id}`);
+    setUrlId(id);
+    console.log("URL ID", urlId);
+    pusherClient.subscribe(`private-get-chat.${urlId}`);
 
     pusherClient.bind("fill-chat-messages", ({ chat }) => {
-      getMensajes();
-      //scrollBottom();
+      console.log("EFFECT location -> pusher");
+      getMensajes(chat);
     });
 
-    async function getMensajes() {
-      let newData = await getChatWithId(id);
-
-      chatMessagesPusherData(newData.data);
+    async function getMensajes(id) {
+      const newData = await getChatWithId(id);
+      chatMessagesPusherData(newData.data.msg);
+      console.log("CORRIO EFFECT LOCATION", id);
     }
 
     return () => {
-      pusherClient.unsubscribe(`private-get-chat.${id}`);
+      pusherClient.unsubscribe(`private-get-chat.${urlId}`);
+      console.log("unsubscribe");
     };
+  }, [location, urlId]);
+
+  useEffect(() => {
+    async function getMensajes() {
+      let newData = await getChatWithId(id);
+      chatMessagesPusherData(newData.data.msg);
+      console.log("CORRIO EFFECT ID", id);
+    }
+
+    getMensajes();
   }, [id]);
 
   function scrollBottom() {
@@ -58,29 +69,6 @@ function MainChat() {
         behavior: "smooth",
       });
     }, 500);
-  }
-
-  const inputMsg = useRef(null);
-  const formRef = useRef(null);
-  const submit = useSubmit();
-
-  //Submit function form
-
-  function sendMensageEnter(e) {
-    if (e.code == "Enter") {
-      sendMensage();
-    }
-  }
-
-  function sendMensage() {
-    //DEFINE THE VARIABLES
-    submit(formRef.current);
-  }
-
-  function cleanInputMsg() {
-    setTimeout(() => {
-      inputMsg.current.value = "";
-    }, 400);
   }
 
   let infoUser = [];
@@ -97,10 +85,18 @@ function MainChat() {
     }
   });
 
+  function onInputEnter(e) {
+    // console.log(e.currentTarget);
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      setMssg("");
+    }
+  }
+
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
       {/* Chat Header */}
-      <div className="absolute sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
+      <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
             src={chat.data?.participants[0].img}
@@ -116,7 +112,7 @@ function MainChat() {
       </div>
       {/* Chat Card Messages */}
       <div className="">
-        <div className="flex h-full w-full flex-col-reverse justify-end overflow-y-auto px-12 py-3">
+        <div className="flex h-full w-full flex-col-reverse overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
           {chatMessagesPusher?.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
@@ -124,13 +120,13 @@ function MainChat() {
         </div>
       </div>
       {/* Chat Card Footer */}
-      <div className="absolute sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#E0E0E0] px-5 py-2">
+      <div className="sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#E0E0E0] px-5 py-2">
         <Form
           id="form-send-chat-mensagge"
           className="flex w-full"
           action={`/chat/${id}`}
           method="post"
-          useRef={formRef}
+          onKeyDown={onInputEnter}
         >
           <input type="hidden" value={id} name="chat_id" />
           <input type="hidden" value={1} name="type_of_function" />
@@ -138,14 +134,14 @@ function MainChat() {
             <input
               name="message"
               type="text"
-              ref={inputMsg}
-              onKeyPress={sendMensageEnter}
               className="w-full rounded-xl px-4 py-2 font-roboto font-light text-grisText ring-0"
               placeholder="Type your message..."
+              value={mssg}
+              onChange={(e) => setMssg(e.target.value)}
             />
           </div>
           <div className="m-auto flex w-1/6">
-            <button type="submit" onClick={() => cleanInputMsg()}>
+            <button type="submit">
               <IonIcon
                 icon={send}
                 size="large"
@@ -171,7 +167,7 @@ function MainChat() {
 
 export default MainChat;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
 
   switch (data.get("type_of_function")) {
@@ -181,5 +177,6 @@ export async function Action({ request }) {
       break;
   }
 
-  return redirect(`/chat/${data.get("chat_id")}`);
+  // return redirect(`/chat/${params.id}`);
+  return "1";
 }

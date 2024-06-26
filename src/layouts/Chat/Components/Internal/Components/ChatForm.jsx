@@ -18,7 +18,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import UserImage from "@/layouts/Masters/FormComponents/userImage";
 
 function FormNewChat({ users }) {
-  console.log(users);
+  // console.log(users);
 
   const selectUsers = [];
 
@@ -40,12 +40,12 @@ function FormNewChat({ users }) {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className=" text-primario hover:text-primario hover:rounded-lg"
+          className="text-primario hover:rounded-lg hover:text-primario"
         >
           <IonIcon icon={addCircleOutline} size="large"></IonIcon>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] overflow-auto h-fit">
+      <DialogContent className="h-fit overflow-auto sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create New Group</DialogTitle>
         </DialogHeader>
@@ -53,7 +53,7 @@ function FormNewChat({ users }) {
           <div className="text-center">
             <UserImage name={"group_image"} label={"Group Image"} />
           </div>
-          <div className="ml-[-15px] mr-[15px] ">
+          <div className="ml-[-15px] mr-[15px]">
             <InputRouter name={"name"} placeholder={"Name"} type={"text"} />
           </div>
           <div>
@@ -67,7 +67,7 @@ function FormNewChat({ users }) {
         <DialogFooter>
           <Button
             form="new-group-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>
