@@ -24,7 +24,7 @@ function MainCalendar() {
         array.push({
           title: element.name,
           start: element.date,
-          id: element.id,
+          id_element: element.id,
           type: element.type,
         });
       });
@@ -64,7 +64,7 @@ function MainCalendar() {
         array.push({
           title: element.name,
           start: element.date,
-          id: element.id,
+          id_element: element.id,
           type: element.type,
         });
       });
@@ -76,13 +76,30 @@ function MainCalendar() {
   }
 
   function renderEventContent(eventInfo) {
+    const type = eventInfo.event.extendedProps.type;
     return (
       <>
-        <div className="py w-full rounded-xl bg-red-700 px-1">
-          <i className="rounded-3xl text-white" title={eventInfo.event.title}>
-            {eventInfo.event.title}
-          </i>
-        </div>
+        {type === 1 ? (
+          <div className="py w-full overflow-hidden text-ellipsis rounded-xl bg-primario pl-2 pr-2">
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-white"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
+        ) : type === 2 ? (
+          <div className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2">
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-white"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
+        ) : (
+          <span>N/A</span>
+        )}
       </>
     );
   }
