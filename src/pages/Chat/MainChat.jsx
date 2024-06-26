@@ -33,6 +33,8 @@ function MainChat() {
 
   const CurrentUserId = user.data.id;
 
+  console.log(chat.data?.participants);
+
   useEffect(() => {
     setUrlId(id);
     console.log("URL ID", urlId);
@@ -120,7 +122,7 @@ function MainChat() {
       <div className="">
         <div className="flex h-full w-full flex-col-reverse overflow-y-auto px-12 py-3">
           <div ref={scrollBox}></div>
-          {chatMessagesPusher.msg?.map((mensagge, i) => (
+          {chatMessagesPusher?.map((mensagge, i) => (
             <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
           ))}
         </div>
