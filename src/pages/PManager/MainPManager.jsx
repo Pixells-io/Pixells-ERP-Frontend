@@ -39,6 +39,7 @@ function MainPManager() {
             project manager
           </div>
         </div>
+
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>

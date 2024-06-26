@@ -132,10 +132,10 @@ export async function saveNewActivitty(data) {
 }
 
 export async function editActivityUser(data) {
-  const info = {
-    activity_id: data.get("activity_id"),
-    user_id: data.get("user_id"),
-  };
+  const info = Object.fromEntries(data.entries());
+  delete info.action;
+
+  console.log(info);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/edit-activity`,

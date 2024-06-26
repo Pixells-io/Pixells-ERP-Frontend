@@ -154,10 +154,18 @@ function ProjectTable() {
                     </div>
 
                     <div className="col-span-1 flex justify-center">
-                      <DatePickerPM />
+                      <DatePickerPM
+                        activity_id={activity.id}
+                        dataDate={activity?.start}
+                        name="start"
+                      />
                     </div>
                     <div className="col-span-1 flex justify-center">
-                      <DatePickerPM />
+                      <DatePickerPM
+                        activity_id={activity.id}
+                        dataDate={activity?.end}
+                        name="end"
+                      />
                     </div>
 
                     <div className="col-span-1 flex justify-center">

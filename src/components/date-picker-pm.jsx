@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useSubmit } from "react-router-dom";
+
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 import { Calendar as CalendarIcon } from "lucide-react";
 import {
@@ -8,23 +12,40 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 
-function DatePickerPM({ name }) {
-  const [date, setDate] = useState();
+function DatePickerPM({ name, dataDate, activity_id }) {
+  const submit = useSubmit();
+  const { id, projectId } = useParams();
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(dataDate);
   // const [formated, setFormated] = useState("");
+
+  function onDateChangeSubmit(e) {
+    // console.log(e);
+    setDate(e);
+    setOpen(false);
+    const formData = new FormData();
+
+    formData.append("activity_id", activity_id);
+    formData.append(name, date);
+    formData.append("action", "edit");
+    console.log(formData);
+    submit(formData, {
+      method: "post",
+      action: `/project-manager/${id}/projects/${projectId}`,
+    });
+  }
 
   return (
     <div className="flex w-fit">
-      <input
+      {/* <input
         name={name}
         className="hidden"
         hidden
         defaultValue={date}
         readOnly
-      />
-      <Popover>
+      /> */}
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
@@ -41,7 +62,7 @@ function DatePickerPM({ name }) {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={onDateChangeSubmit}
             initialFocus
           />
         </PopoverContent>
