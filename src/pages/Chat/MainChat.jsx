@@ -23,7 +23,7 @@ function MainChat() {
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
   const [urlId, setUrlId] = useState(id);
-  const [chatMessagesPusher, chatMessagesPusherData] = useState(chat.data.msg);
+  const [chatMessagesPusher, setChatMessagesPusher] = useState(chat.data.msg);
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
 
@@ -43,7 +43,7 @@ function MainChat() {
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
-      chatMessagesPusherData(newData.data.msg);
+      setChatMessagesPusher(newData.data.msg);
       console.log("CORRIO EFFECT LOCATION", id);
     }
 
@@ -56,7 +56,7 @@ function MainChat() {
   useEffect(() => {
     async function getMensajes() {
       let newData = await getChatWithId(id);
-      chatMessagesPusherData(newData.data.msg);
+      setChatMessagesPusher(newData.data.msg);
       console.log("CORRIO EFFECT ID", id);
     }
 
