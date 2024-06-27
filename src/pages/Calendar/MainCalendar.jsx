@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import "./styles.css";
 import { useLoaderData } from "react-router-dom";
+import FormShowMeet from "./Components/FormShowMeet";
 
 function MainCalendar() {
   const { data } = useLoaderData();
@@ -13,6 +14,11 @@ function MainCalendar() {
   const [crm, setCrm] = useState(false);
   const [meet, setMeet] = useState(false);
   const [events, setEvents] = useState([]);
+
+  //Modal States
+  const [modalMeet, setModalMeet] = useState(false);
+  const [modalMeetId, setModalMeetId] = useState(false);
+  const [meetInfo, setMeetInfo] = useState(false);
 
   useEffect(() => {
     const arrayfIllVar = [];
@@ -87,7 +93,19 @@ function MainCalendar() {
     const id = eventInfo.event.extendedProps.id_element;
 
     function openModalFunction(type, id) {
-      console.log(type, id);
+      switch (type) {
+        case 1:
+          //Task
+          break;
+        case 2:
+          //CRM
+          break;
+        case 3:
+          //Meet
+          setModalMeetId(id);
+          setModalMeet(true);
+          break;
+      }
     }
 
     return (
@@ -107,7 +125,7 @@ function MainCalendar() {
         ) : type === 2 ? (
           <div
             className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
-            onClick={openModalFunction(type, id)}
+            onClick={() => openModalFunction(type, id)}
           >
             <span
               className="rounded-3xl font-roboto text-xs font-normal text-white"
@@ -119,7 +137,7 @@ function MainCalendar() {
         ) : type === 3 ? (
           <div
             className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
-            onClick={openModalFunction(type, id)}
+            onClick={() => openModalFunction(type, id)}
           >
             <span
               className="rounded-3xl font-roboto text-xs font-normal text-grisText"
@@ -137,6 +155,11 @@ function MainCalendar() {
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-gris p-4">
       <div className="mb-4 flex gap-20">
+        <FormShowMeet
+          modal={modalMeet}
+          setModal={setModalMeet}
+          id={modalMeetId}
+        />
         <div className="flex gap-4">
           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
             {tasks === true ? (
