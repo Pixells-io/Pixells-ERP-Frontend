@@ -23,7 +23,6 @@ function ActivityComment({ activity_id, comments }) {
   const [open, setOpen] = useState(false);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setCommentInput("");

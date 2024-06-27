@@ -7,8 +7,6 @@ export async function saveNewGoal(data, id) {
     strategic_objetive_id: Number(id),
   };
 
-  console.log(goal);
-
   // validaciones?
 
   const response = await fetch(
@@ -21,7 +19,6 @@ export async function saveNewGoal(data, id) {
       },
     },
   );
-  console.log(response);
 
   return response;
 }
@@ -31,8 +28,6 @@ export async function saveNewCsf(data) {
     name: data.get("csf"),
     goal_id: Number(data.get("goalId")),
   };
-
-  console.log(csf);
 
   // validaciones?
 
@@ -46,7 +41,6 @@ export async function saveNewCsf(data) {
       },
     },
   );
-  console.log(response);
 
   return response;
 }
@@ -70,8 +64,6 @@ export async function saveNewTask(data) {
     end: end,
   };
 
-  console.log(task);
-
   // validaciones?
 
   const response = await fetch(
@@ -84,7 +76,6 @@ export async function saveNewTask(data) {
       },
     },
   );
-  console.log(response);
 
   return response;
 }
@@ -105,7 +96,6 @@ export async function saveNewPhase(data) {
       },
     },
   );
-  // console.log(response);
 
   return response;
 }
@@ -126,7 +116,6 @@ export async function saveNewActivitty(data) {
       },
     },
   );
-  // console.log(response);
 
   return response;
 }
@@ -146,8 +135,6 @@ export async function editActivityUser(data) {
     info.end = end;
   }
 
-  console.log(info);
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/edit-activity`,
     {
@@ -158,7 +145,6 @@ export async function editActivityUser(data) {
       },
     },
   );
-  // console.log(response);
 
   return response;
 }
@@ -174,8 +160,6 @@ export async function editActivityFile(data) {
   formData.append("document", data.get("document"));
   formData.append("info", JSON.stringify(info));
 
-  console.log(formData);
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/store-activity-document`,
     {
@@ -186,7 +170,6 @@ export async function editActivityFile(data) {
       },
     },
   );
-  // console.log(response);
 
   return response;
 }

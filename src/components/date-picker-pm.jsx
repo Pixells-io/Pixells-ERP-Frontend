@@ -21,16 +21,13 @@ function DatePickerPM({ name, dataDate, activity_id }) {
   // const [formated, setFormated] = useState("");
 
   function onDateChangeSubmit(e) {
-    console.log(e);
     setDate(e);
     setOpen(false);
-    // console.log(date);
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
     formData.append(name, e);
     formData.append("action", "edit");
-    console.log(formData);
     submit(formData, {
       method: "post",
       action: `/project-manager/${id}/projects/${projectId}`,

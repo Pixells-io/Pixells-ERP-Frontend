@@ -47,10 +47,8 @@ function Board({ goal, users, csfs }) {
   const [csfInput, setCsfInput] = useState("");
   const [modal, setModal] = useState(false);
   const [tasksModal, setTasksModal] = useState("");
-  console.log(csfs);
 
   function onInputEnter(e) {
-    console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setCsfInput("");

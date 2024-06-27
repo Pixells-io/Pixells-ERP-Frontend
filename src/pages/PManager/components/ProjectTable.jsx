@@ -43,10 +43,8 @@ function ProjectTable() {
   const [faseInput, setFaseInput] = useState("");
 
   console.log(project.data);
-  // console.log(users.data);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setFaseInput("");
