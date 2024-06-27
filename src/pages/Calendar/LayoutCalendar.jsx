@@ -1,13 +1,18 @@
 import TopMenu from "@/layouts/Masters/Menus/TopMenu";
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { Calendar } from "@/components/ui/calendar";
+import FormCreateMeet from "./Components/FormCreateMeet";
+import { saveNewMeet } from "./utils";
 
 function LayoutCalendar() {
+  const { data } = useLoaderData();
+  const [modal, setModal] = useState(false);
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
+      <FormCreateMeet modal={modal} setModal={setModal} users={data} />
       <div className="bg- flex w-[350px] shrink-0 flex-col gap-4 rounded-xl">
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenu main={"/"} />
@@ -16,7 +21,10 @@ function LayoutCalendar() {
           <span className="font-popins text-lg font-semibold text-grisHeading">
             Menu
           </span>
-          <button className="flex items-center gap-2 rounded-3xl bg-blancoBox py-3 pl-24">
+          <button
+            className="flex items-center gap-2 rounded-3xl bg-blancoBox py-3 pl-24"
+            onClick={() => setModal(true)}
+          >
             <IonIcon
               icon={add}
               size="large"
@@ -42,3 +50,12 @@ function LayoutCalendar() {
 }
 
 export default LayoutCalendar;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  saveNewMeet(data);
+
+  return 1;
+  //return redirect("/calendar");
+}
