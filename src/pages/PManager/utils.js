@@ -132,8 +132,19 @@ export async function saveNewActivitty(data) {
 }
 
 export async function editActivityUser(data) {
+  const start =
+    data.get("start") == null ? "" : format(data.get("start"), "yyyy-MM-dd");
+  const end =
+    data.get("end") == null ? "" : format(data.get("end"), "yyyy-MM-dd");
+
   const info = Object.fromEntries(data.entries());
   delete info.action;
+  if (start !== "") {
+    info.start = start;
+  }
+  if (end !== "") {
+    info.end = end;
+  }
 
   console.log(info);
 

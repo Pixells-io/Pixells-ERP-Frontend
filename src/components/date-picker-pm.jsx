@@ -17,17 +17,18 @@ function DatePickerPM({ name, dataDate, activity_id }) {
   const submit = useSubmit();
   const { id, projectId } = useParams();
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(dataDate);
+  const [date, setDate] = useState(dataDate.replace(/-/g, "/"));
   // const [formated, setFormated] = useState("");
 
   function onDateChangeSubmit(e) {
-    // console.log(e);
+    console.log(e);
     setDate(e);
     setOpen(false);
+    // console.log(date);
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
-    formData.append(name, date);
+    formData.append(name, e);
     formData.append("action", "edit");
     console.log(formData);
     submit(formData, {
