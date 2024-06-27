@@ -31,7 +31,6 @@ function ActivityComment({ activity_id, comments }) {
     }
   }
 
-  console.log(comments.slice(-1));
   return (
     <>
       <HoverCard>

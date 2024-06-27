@@ -162,3 +162,32 @@ export async function editActivityUser(data) {
 
   return response;
 }
+
+export async function editActivityFile(data) {
+  const formData = new FormData();
+
+  const info = {
+    activity_id: data.get("activity_id"),
+    title: data.get("title"),
+  };
+
+  const document = data.get("document");
+  formData.append("document", document);
+  formData.append("info", JSON.stringify(info));
+
+  console.log(formData);
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/store-activity-document`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  // console.log(response);
+
+  return response;
+}

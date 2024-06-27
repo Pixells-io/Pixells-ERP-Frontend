@@ -22,6 +22,7 @@ import DatePickerPM from "@/components/date-picker-pm";
 import AddUserActivity from "./Form/AddUserActivity";
 import ActivityNameInput from "./Form/ActivityNameInput";
 import ActivityComment from "./Form/ActivityComment";
+import ActivityDocument from "./Form/ActivityDocument";
 
 const HEADERS = [
   { name: "FASE" },
@@ -180,10 +181,8 @@ function ProjectTable() {
                       />
                     </div>
 
-                    <div className="col-span-1">
-                      <p className="text-[12px] font-normal text-grisHeading">
-                        +
-                      </p>
+                    <div className="col-span-1 flex items-center justify-center">
+                      <ActivityDocument activity_id={activity?.id} />
                     </div>
                   </div>
                 ))}

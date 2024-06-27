@@ -1,7 +1,12 @@
 import React from "react";
 import { redirect, useLoaderData } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
-import { editActivityUser, saveNewActivitty, saveNewPhase } from "./utils";
+import {
+  editActivityFile,
+  editActivityUser,
+  saveNewActivitty,
+  saveNewPhase,
+} from "./utils";
 
 function MainProject() {
   const { project } = useLoaderData();
@@ -40,6 +45,12 @@ export async function Action({ params, request }) {
 
     case "edit":
       await editActivityUser(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
+
+    case "file":
+      await editActivityFile(formData);
       return redirect(
         `/project-manager/${params.id}/projects/${params.projectId}`,
       );
