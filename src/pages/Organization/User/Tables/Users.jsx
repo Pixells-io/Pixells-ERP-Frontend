@@ -60,7 +60,7 @@ function UsersTable({ users }) {
             <div>
               <img
                 src={row.original.user_image}
-                className="h-10 w-10 rounded-full"
+                className="w-17 h-7 rounded-full"
               />
             </div>
             <div className="ml-2 mt-2">

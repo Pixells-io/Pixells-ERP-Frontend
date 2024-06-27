@@ -25,3 +25,35 @@ export async function saveNewMeet(data) {
 
   return response;
 }
+
+export async function getMeet(meetId) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}calendar/get-meet/${meetId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getFollowUp(followUp) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}calendar/get-follow-up/${followUp}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

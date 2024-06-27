@@ -5,6 +5,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import "./styles.css";
 import { useLoaderData } from "react-router-dom";
 import FormShowMeet from "./Components/FormShowMeet";
+import { getFollowUp, getMeet } from "./utils";
+import FormShowFollowUp from "./Components/FormShowFollowUp";
 
 function MainCalendar() {
   const { data } = useLoaderData();
@@ -17,8 +19,9 @@ function MainCalendar() {
 
   //Modal States
   const [modalMeet, setModalMeet] = useState(false);
-  const [modalMeetId, setModalMeetId] = useState(false);
   const [meetInfo, setMeetInfo] = useState(false);
+  const [modalFollowUp, setModalFollowUp] = useState(false);
+  const [followUpInfo, setFollowUpInfo] = useState(false);
 
   useEffect(() => {
     const arrayfIllVar = [];
@@ -92,6 +95,20 @@ function MainCalendar() {
     const type = eventInfo.event.extendedProps.type;
     const id = eventInfo.event.extendedProps.id_element;
 
+    //Find Meet Info
+    async function findMeetInfo(meetId) {
+      let data = await getMeet(meetId);
+
+      setMeetInfo(data);
+    }
+
+    //Find CRM Info
+    async function findFollowUpInfo(followUpId) {
+      let data = await getFollowUp(followUpId);
+
+      setFollowUpInfo(data);
+    }
+
     function openModalFunction(type, id) {
       switch (type) {
         case 1:
@@ -99,10 +116,12 @@ function MainCalendar() {
           break;
         case 2:
           //CRM
+          findFollowUpInfo(id);
+          setModalFollowUp(true);
           break;
         case 3:
           //Meet
-          setModalMeetId(id);
+          findMeetInfo(id);
           setModalMeet(true);
           break;
       }
@@ -155,10 +174,15 @@ function MainCalendar() {
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-gris p-4">
       <div className="mb-4 flex gap-20">
+        <FormShowFollowUp
+          modal={modalFollowUp}
+          setModal={setModalFollowUp}
+          info={followUpInfo}
+        />
         <FormShowMeet
           modal={modalMeet}
           setModal={setModalMeet}
-          id={modalMeetId}
+          info={meetInfo}
         />
         <div className="flex gap-4">
           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">

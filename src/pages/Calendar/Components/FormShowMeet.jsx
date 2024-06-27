@@ -13,20 +13,8 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectMultiple from "@/components/ui/selectMultiple";
 
 function FormShowMeet({ modal, setModal, info }) {
-  const optionsUsers = [];
-
-  //arrayFillUsers(users, optionsUsers);
-
-  function arrayFillUsers(data, array) {
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-
-      array.push({
-        label: element.name + " " + element.last_name,
-        value: element.id,
-      });
-    }
-  }
+  const meet = info.data?.meet;
+  const users = info.data?.users;
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -39,36 +27,73 @@ function FormShowMeet({ modal, setModal, info }) {
 
         <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
           <div className="flex w-full flex-col gap-3 pb-4 font-light">
-            <InputRouter name="name" type="text" placeholder="Add Title" />
-            <div className="flex gap-4">
-              <InputRouter name="date" type="date" placeholder="Add Date" />
-              <InputRouter name="start" type="time" placeholder="Start" />
-              <InputRouter name="end" type="time" placeholder="End" />
-            </div>
-            <SelectMultiple
-              name={"users"}
-              placeholder={"Select Users"}
-              options={optionsUsers}
+            <InputRouter
+              name="name"
+              value={meet?.title}
+              type="text"
+              placeholder="Add Title"
+              require={true}
             />
             <div className="flex gap-4">
-              <InputRouter name="place" type="text" placeholder="Add Place" />
-              <InputRouter name="meet_url" type="text" placeholder="Meet URL" />
+              <InputRouter
+                name="date"
+                value={meet?.date}
+                type="date"
+                placeholder="Add Date"
+                require={true}
+              />
+              <InputRouter
+                name="start"
+                value={meet?.start}
+                type="time"
+                placeholder="Start"
+                require={true}
+              />
+              <InputRouter
+                name="end"
+                value={meet?.end}
+                type="time"
+                placeholder="End"
+                require={true}
+              />
+            </div>
+            <div>
+              {users?.map((user, i) => (
+                <div className="my-3 flex gap-2 text-[#696974]" key={1}>
+                  <div>
+                    <img src={user.img} className="h-10 w-10 rounded-full" />
+                  </div>
+                  <div className="ml-2 mt-2">
+                    <span>{user.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-4">
+              <InputRouter
+                name="place"
+                value={meet?.place}
+                type="text"
+                placeholder="Add Place"
+                require={true}
+              />
+              <InputRouter
+                name="meet_url"
+                value={meet?.meet_url}
+                type="text"
+                placeholder="Meet URL"
+                require={true}
+              />
             </div>
             <InputRouter
               name="description"
               type="text"
+              value={meet?.description}
               placeholder="Add Description"
+              require={true}
             />
           </div>
         </div>
-        <DialogFooter className="px-10 pb-6">
-          <Button
-            type="button"
-            className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
-          >
-            Close
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
