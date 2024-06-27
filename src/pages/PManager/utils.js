@@ -171,8 +171,7 @@ export async function editActivityFile(data) {
     title: data.get("title"),
   };
 
-  const document = data.get("document");
-  formData.append("document", document);
+  formData.append("document", data.get("document"));
   formData.append("info", JSON.stringify(info));
 
   console.log(formData);

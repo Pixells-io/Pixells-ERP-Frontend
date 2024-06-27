@@ -182,7 +182,10 @@ function ProjectTable() {
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center">
-                      <ActivityDocument activity_id={activity?.id} />
+                      <ActivityDocument
+                        activity_id={activity?.id}
+                        documents={activity?.documents}
+                      />
                     </div>
                   </div>
                 ))}
