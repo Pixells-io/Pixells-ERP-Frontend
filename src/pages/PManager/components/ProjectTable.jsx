@@ -174,7 +174,10 @@ function ProjectTable() {
                     </div>
 
                     <div className="col-span-1 flex justify-center">
-                      <ActivityComment activity_id={activity?.id} />
+                      <ActivityComment
+                        activity_id={activity?.id}
+                        comments={activity?.comment}
+                      />
                     </div>
 
                     <div className="col-span-1">
