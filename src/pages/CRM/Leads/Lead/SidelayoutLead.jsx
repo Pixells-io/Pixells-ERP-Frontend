@@ -17,8 +17,6 @@ function SidelayoutLead() {
     extra_information: info,
   } = useLoaderData();
 
-  console.log(info, user_assigned);
-
   function Capitalize(string) {
     if (string == undefined) return "";
     return (string = string[0]?.toUpperCase() + string?.slice(1));
@@ -116,16 +114,19 @@ function SidelayoutLead() {
             <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
-                  <Avatar className="h-full w-full">
-                    <AvatarImage src={user_assigned?.user_image} />
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>
+                  <img
+                    src={user_assigned?.user_image}
+                    className="rounded-md"
+                    alt=""
+                  />
                 </div>
                 <div>
                   <p className="text-[15px] font-medium text-grisText">
                     Follow By
                   </p>
-                  <span className="text-xs text-grisSubText">Don Fomularo</span>
+                  <span className="text-xs text-grisSubText">
+                    {user_assigned?.name} {user_assigned?.last_name}
+                  </span>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -143,17 +144,6 @@ function SidelayoutLead() {
                   </span>
                 </div>
               </div>
-            </div>
-
-            <div>
-              <p className="font-poppins text-lg font-semibold text-grisHeading">
-                Comments
-              </p>
-              <span className="text-xs text-grisSubText">
-                A statement or a piece of writing that tells what something or
-                someone is like: [C] Your description of Della was hilarious.
-                [U] Boats.
-              </span>
             </div>
           </div>
         </div>
