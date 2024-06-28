@@ -6,7 +6,6 @@ import { IonIcon } from "@ionic/react";
 import "react-circular-progressbar/dist/styles.css";
 
 function CardFollowUp({ info }) {
-  console.log(info);
   return (
     <div className="my-6 flex h-[112px] w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
       {/* card header */}

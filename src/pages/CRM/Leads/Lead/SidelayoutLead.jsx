@@ -3,9 +3,10 @@ import { useLoaderData, Outlet } from "react-router-dom";
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 
 import { IonIcon } from "@ionic/react";
-import { create, mail } from "ionicons/icons";
+import { create, person } from "ionicons/icons";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 function SidelayoutLead() {
   const {
@@ -14,6 +15,8 @@ function SidelayoutLead() {
     follow_ups,
     extra_information: info,
   } = useLoaderData();
+
+  console.log(info);
 
   function Capitalize(string) {
     if (string == undefined) return "";
@@ -127,11 +130,13 @@ function SidelayoutLead() {
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox text-grisText">
                   <div className="flex">
-                    <IonIcon icon={mail} className="h-8 w-8"></IonIcon>
+                    <IonIcon icon={person} className="h-8 w-8"></IonIcon>
                   </div>
                 </div>
                 <div>
-                  <p className="text-[15px] font-medium text-grisText">Email</p>
+                  <p className="text-[15px] font-medium text-grisText">
+                    {follow_ups[0]?.way_of_contact}
+                  </p>
                   <span className="text-xs text-grisSubText">
                     Contact Method
                   </span>
