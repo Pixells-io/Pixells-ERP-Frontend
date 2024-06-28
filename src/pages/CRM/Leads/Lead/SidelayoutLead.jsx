@@ -13,10 +13,11 @@ function SidelayoutLead() {
     data: lead,
     services,
     follow_ups,
+    user_assigned,
     extra_information: info,
   } = useLoaderData();
 
-  console.log(info);
+  console.log(info, user_assigned);
 
   function Capitalize(string) {
     if (string == undefined) return "";
@@ -116,8 +117,8 @@ function SidelayoutLead() {
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
                   <Avatar className="h-full w-full">
-                    <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage src={user_assigned?.user_image} />
+                    <AvatarFallback></AvatarFallback>
                   </Avatar>
                 </div>
                 <div>
