@@ -83,7 +83,9 @@ import MainPManager, { multiFormAction } from "./pages/PManager/MainPManager";
 import CsfView from "./pages/PManager/CsfView";
 import Projects from "./pages/PManager/Projects";
 import Today from "./pages/PManager/Today";
-import Activities from "./pages/PManager/Activities";
+import Activities, {
+  Action as taskFunctions,
+} from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainClients from "./pages/Clients/MainClients";
@@ -421,6 +423,7 @@ const router = createBrowserRouter([
             path: "/project-manager/activities",
             element: <Activities />,
             loader: getMonthActivity,
+            action: taskFunctions,
           },
           {
             path: "/project-manager/status",

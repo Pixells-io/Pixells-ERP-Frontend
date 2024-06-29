@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
+import { completeTask, destroyTask } from "./utils";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -29,7 +30,7 @@ const HEADERS = [
 
 function Activities() {
   const { data } = useLoaderData();
-  console.log(data);
+
   return (
     <div className="flex w-full overflow-scroll">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -200,3 +201,20 @@ function Activities() {
 }
 
 export default Activities;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type_of_request")) {
+    case "1":
+      completeTask(data);
+      break;
+    case "2":
+      break;
+    case "3":
+      destroyTask(data);
+      break;
+  }
+
+  return 1;
+}

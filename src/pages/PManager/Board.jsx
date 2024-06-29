@@ -21,6 +21,8 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import TaskListModal from "./components/TaskListModal";
+import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
+import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 
 const HEADERS = [
   { name: "CSF" },
@@ -48,6 +50,25 @@ function Board({ goal, users, csfs }) {
   const [modal, setModal] = useState(false);
   const [tasksModal, setTasksModal] = useState("");
 
+  //Task Open Modals
+  const [taskId, setTaskId] = useState(false);
+  const [destroyTaskModal, setDestroyTaskModal] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [completeTaskModal, setCompleteTaskModal] = useState(false);
+
+  function openCompleteTaskModal(taskId, name, description) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setCompleteTaskModal(true);
+  }
+
+  function openDestroyTaskModal(taskId) {
+    setTaskId(taskId);
+    setDestroyTaskModal(true);
+  }
+
   function onInputEnter(e) {
     if (e.code == "Enter") {
       submit(e.currentTarget);
@@ -63,6 +84,18 @@ function Board({ goal, users, csfs }) {
   return (
     <div className="flex h-full flex-col overflow-auto bg-blancoBg p-4">
       <TaskListModal modal={modal} setModal={setModal} tasks={tasksModal} />
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <CompleteTask
+        modal={completeTaskModal}
+        setModal={setCompleteTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+      />
       <div className="grid grid-cols-10 text-right">
         {HEADERS?.map((header, i) => (
           <div
@@ -237,12 +270,23 @@ function Board({ goal, users, csfs }) {
                             <IonIcon
                               icon={checkmarkCircleOutline}
                               className="h-5 w-5"
+                              onClick={() =>
+                                openCompleteTaskModal(
+                                  task?.id,
+                                  task?.name,
+                                  task?.description,
+                                )
+                              }
                             ></IonIcon>
                             <IonIcon
                               icon={create}
                               className="h-5 w-5"
                             ></IonIcon>
-                            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                            <IonIcon
+                              icon={trash}
+                              onClick={() => openDestroyTaskModal(task?.id)}
+                              className="h-5 w-5"
+                            ></IonIcon>
                           </div>
                         </div>
                       ) : (
