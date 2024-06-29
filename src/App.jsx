@@ -143,6 +143,7 @@ import {
   getProjectsAnalityc,
   multiloaderProjectPM,
   getCalendarData,
+  getUserByToken,
 } from "./lib/actions";
 
 //Not Found
@@ -210,6 +211,12 @@ import MainCalendar from "./pages/Calendar/MainCalendar";
 import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
+import SideLayoutMyProfile, {
+  Action as ChangeMyPassword,
+} from "./layouts/MyProfile/SideLayoutMyProfile";
+import MainMyProfile from "./layouts/MyProfile/MainMyProfile";
+import MainSecurity from "./layouts/MyProfile/MainSecutiry";
+import MainNotifications from "./layouts/MyProfile/MainNotifications";
 
 const router = createBrowserRouter([
   {
@@ -619,6 +626,26 @@ const router = createBrowserRouter([
             index: true,
             element: <MainCalendar />,
             loader: getCalendarData,
+          },
+        ],
+      },
+      {
+        path: "my-profile",
+        element: <SideLayoutMyProfile />,
+        action: ChangeMyPassword,
+        children: [
+          {
+            index: true,
+            element: <MainMyProfile />,
+            loader: getUserByToken,
+          },
+          {
+            path: "/my-profile/security",
+            element: <MainSecurity />,
+          },
+          {
+            path: "/my-profile/notifications",
+            element: <MainNotifications />,
           },
         ],
       },

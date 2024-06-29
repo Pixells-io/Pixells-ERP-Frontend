@@ -94,6 +94,8 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
+  const userData = userAuth.data.user;
+
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
@@ -182,8 +184,8 @@ function MainLayout() {
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user?.user_image} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={userData?.user_image} />
+                <AvatarFallback></AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4 bg-blancoBg">
@@ -191,25 +193,30 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src={user?.user_image} />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage src={userData?.user_image} />
+                      <AvatarFallback></AvatarFallback>
                     </Avatar>
                   </div>
                   <div>
                     <p className="text-base font-semibold text-grisText">
-                      {user?.name}&nbsp;{user?.last_name}&nbsp;
-                      {user?.second_last_name}
+                      {userData?.name}&nbsp;{userData?.last_name}&nbsp;
+                      {userData?.second_last_name}
                     </p>
                     <p className="text-[12px] text-grisSubText">
-                      {user?.personal_email}
+                      {userData?.personal_email}
                     </p>
                   </div>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-blancoBox" />
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                My Profile
+              <DropdownMenuItem>
+                <Link
+                  to={"/my-profile"}
+                  className="ml-4 flex gap-4 text-grisText"
+                >
+                  <IonIcon icon={person} className="h-5 w-5"></IonIcon>
+                  My Profile
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>

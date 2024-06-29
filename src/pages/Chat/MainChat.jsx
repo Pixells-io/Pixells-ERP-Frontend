@@ -27,7 +27,7 @@ function MainChat() {
   const [typingMesagge, setTypingData] = useState(false);
   // const [userSelected, setSelectedUser] = useState(user);
   const scrollBox = useRef(null);
-  const CurrentUserId = user.data.id;
+  const CurrentUserId = user.data.user.id;
 
   // console.log(chat.data?.participants);
 

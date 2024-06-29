@@ -11,7 +11,7 @@ import ChatList from "./Components/Internal/ChatList";
 import { SearchAction } from "./utils";
 
 function LayoutChat() {
-  const { users, chats, user } = useLoaderData();
+  const { users, chats } = useLoaderData();
 
   const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
