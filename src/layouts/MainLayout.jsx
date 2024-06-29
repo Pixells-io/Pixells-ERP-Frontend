@@ -223,22 +223,28 @@ function MainLayout() {
                 Notifications
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
-                Dashboards
+              <DropdownMenuItem>
+                <Link to={"/"} className="ml-4 flex gap-4 text-grisText">
+                  <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
+                  Dashboards
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
                 Saved
               </DropdownMenuItem>
+              {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={toggle} className="h-5 w-5"></IonIcon>
                 Dark Mode
               </DropdownMenuItem>
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
+              */}
+              {/* 
+                              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={desktop} className="h-5 w-5"></IonIcon>
                 Downloads
               </DropdownMenuItem>
+              */}
               <DropdownMenuSeparator className="bg-blancoBox" />
               <DropdownMenuItem className="ml-4 text-[#D7586B]">
                 <button
