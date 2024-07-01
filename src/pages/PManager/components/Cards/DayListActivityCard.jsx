@@ -55,7 +55,13 @@ function DayListActivityCard({ task }) {
 
   console.log(task);
   return (
-    <div className="w-1/3 rounded-2xl border-2 border-red-300 bg-[#f2f2f2] p-2 shadow-sm">
+    <div
+      className={
+        task.progress === 1
+          ? "w-1/3 rounded-2xl border-2 border-[#00A259] bg-[#f2f2f2] p-2 shadow-sm"
+          : "w-1/3 rounded-2xl border-2 border-[#cdcdcd] bg-[#f2f2f2] p-2 shadow-sm"
+      }
+    >
       <DeleteTask
         modal={destroyTaskModal}
         setModal={setDestroyTaskModal}
