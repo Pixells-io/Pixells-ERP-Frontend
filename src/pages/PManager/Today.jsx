@@ -79,7 +79,7 @@ function Today() {
         {/* outlet */}
         <div className="h-full justify-center overflow-auto rounded-xl bg-[#FBFBFB] p-6">
           <Tabs defaultValue="today" className="h-full w-full overflow-auto">
-            <TabsList className="mb-3 w-full bg-transparent">
+            <TabsList className="mb-5 w-full bg-transparent">
               <div className="flex w-full">
                 <div className="w-4/5 gap-4">
                   <TabsTrigger
