@@ -11,6 +11,8 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import DayListActivityCard from "./components/Cards/DayListActivityCard";
 
 function Today() {
   const { data } = useLoaderData();
@@ -18,6 +20,8 @@ function Today() {
   function changeInputToday(projectId) {
     console.log(projectId);
   }
+
+  console.log(data);
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -64,158 +68,56 @@ function Today() {
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              Today
+              Day List
             </h2>
-            <span className="text-xs font-medium text-grisText">
+            <span className="text-xs font-normal text-grisText">
               Activities
             </span>
           </div>
         </div>
 
         {/* outlet */}
-        <div className="h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
-          <div className="flex">
-            <div className="w-4/5 text-center">
-              <p className="font-poppins text-base font-semibold text-[#171725]">
-                Today
-              </p>
-            </div>
-            <div>
-              <div className="flex w-fit items-center gap-4 rounded-full border border-grisText px-6 py-2">
-                <IonIcon icon={searchOutline} className="h-6 w-6"></IonIcon>
-                <p>SEARCH</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-5 justify-center">
-            <div className="w-96 rounded-lg border border-grisDisabled p-4">
-              <p className="text-xs text-grisSubText">Mis actividades de hoy</p>
-              <div className="flex items-center justify-between">
-                <div className="flex gap-2">
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <p className="text-[15px] font-light text-grisHeading">
-                    Actividades{" "}
-                    <span className="font-medium">Individuales</span>
-                  </p>
-                </div>
-                <div className="text-grisSubText">
-                  <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
+        <div className="h-full justify-center overflow-auto rounded-xl bg-[#FBFBFB] p-6">
+          <Tabs defaultValue="today" className="h-full w-full overflow-auto">
+            <TabsList className="mb-3 w-full bg-transparent">
+              <div className="flex w-full">
+                <div className="w-4/5 gap-4">
+                  <TabsTrigger
+                    className="rounded-xl p-3 data-[state=active]:bg-blancoBox"
+                    value="today"
+                  >
+                    <span className="font-roboto text-base font-medium text-grisHeading">
+                      Today
+                    </span>
+                    <span className="ml-4 font-poppins text-sm font-normal text-grisSubText">
+                      {data.today_date}
+                    </span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className="rounded-xl p-3 data-[state=active]:bg-blancoBox"
+                    value="yesterday"
+                  >
+                    <span className="font-roboto text-base font-medium text-grisHeading">
+                      Yesterday
+                    </span>
+                    <span className="ml-4 font-poppins text-sm font-normal text-grisSubText">
+                      {data.yesterday_date}
+                    </span>
+                  </TabsTrigger>
                 </div>
               </div>
-              <div className="flex h-20 flex-col gap-2 overflow-scroll pl-8">
-                {data.today.map((activitie, i) => (
-                  <>
-                    {activitie.progress === 1 ? (
-                      <div
-                        className="flex items-center gap-1"
-                        onClick={changeInputToday(activitie.id)}
-                      >
-                        <Checkbox
-                          defaultChecked
-                          className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
-                        />
-                        <div className="leading-none">
-                          <label
-                            htmlFor="terms1"
-                            className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {activitie.name}
-                          </label>
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="flex items-center gap-1"
-                        onClick={changeInputToday(activitie.id)}
-                      >
-                        <Checkbox className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]" />
-                        <div className="leading-none">
-                          <label
-                            htmlFor="terms3"
-                            className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {activitie.name}
-                          </label>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="mt-4 w-4/5 text-center">
-              <p className="font-poppins text-base font-semibold text-[#171725]">
-                Yesterdey
-              </p>
-            </div>
-          </div>
-          <div className="col-span-">
-            <div className="float-end w-96 rounded-lg border border-grisDisabled p-4">
-              <p className="text-xs text-grisSubText">
-                Mis actividades de ayer
-              </p>
-              <div className="flex items-center justify-between">
-                <div className="flex gap-2">
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <p className="text-[15px] font-light text-grisHeading">
-                    Actividades{" "}
-                    <span className="font-medium">Individuales</span>
-                  </p>
-                </div>
-                <div className="text-grisSubText">
-                  <IonIcon icon={ellipsisHorizontal} size="large"></IonIcon>
-                </div>
-              </div>
-              <div className="flex h-20 flex-col gap-2 overflow-scroll pl-8">
-                {data.yesterday.map((activitie, i) => (
-                  <>
-                    {activitie.progress === 1 ? (
-                      <div
-                        className="flex items-center gap-1"
-                        onClick={changeInputToday(activitie.id)}
-                      >
-                        <Checkbox
-                          defaultChecked
-                          className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]"
-                        />
-                        <div className="leading-none">
-                          <label
-                            htmlFor="terms1"
-                            className="text-[15px] leading-none text-grisHeading line-through peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {activitie.name}
-                          </label>
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="flex items-center gap-1"
-                        onClick={changeInputToday(activitie.id)}
-                      >
-                        <Checkbox className="border-[#3DD598] data-[state=checked]:bg-[#3DD598]" />
-                        <div className="leading-none">
-                          <label
-                            htmlFor="terms3"
-                            className="text-[15px] leading-none text-grisHeading peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {activitie.name}
-                          </label>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ))}
-              </div>
-            </div>
-          </div>
+            </TabsList>
+            <TabsContent value="today" className="flex gap-6">
+              {data.today?.map((task, i) => (
+                <DayListActivityCard task={task} />
+              ))}
+            </TabsContent>
+            <TabsContent value="yesterday" className="flex gap-6">
+              {data.yesterday?.map((task, i) => (
+                <DayListActivityCard task={task} />
+              ))}
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -17,27 +17,118 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
+import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
+import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 
-function ActivityKanbanCard({ task }) {
+function ActivityKanbanCard({ task, actions }) {
+  const [taskId, setTaskId] = useState(false);
+  const [destroyTaskModal, setDestroyTaskModal] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [taskPriority, setTaskPriority] = useState(false);
+  const [taskStart, setTaskStart] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
+  const [completeTaskModal, setCompleteTaskModal] = useState(false);
+
+  function openCompleteTaskModal(taskId, name, description) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setCompleteTaskModal(true);
+  }
+
+  function openEditModalTask(taskId, name, description, priority, start) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setTaskPriority(priority);
+    setTaskStart(start);
+    setEditTaskModal(true);
+  }
+
+  function openDestroyTaskModal(taskId) {
+    setTaskId(taskId);
+    setDestroyTaskModal(true);
+  }
+
   return (
     <div className="m-4 flex flex-col gap-2 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <CompleteTask
+        modal={completeTaskModal}
+        setModal={setCompleteTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
+      />
       <div className="flex items-center justify-between">
         <p className="font-poppins text-[15px] font-semibold">{task.name}</p>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <IonIcon
-              icon={ellipsisHorizontal}
-              className="h-5 w-5 text-grisDisabled"
-            ></IonIcon>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem className="w-full hover:cursor-pointer">
-              Complete
-            </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Destroy</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {actions === true ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <IonIcon
+                icon={ellipsisHorizontal}
+                className="h-5 w-5 text-grisDisabled"
+              ></IonIcon>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem className="w-full hover:cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() =>
+                    openCompleteTaskModal(
+                      task?.id,
+                      task?.name,
+                      task?.description,
+                    )
+                  }
+                >
+                  Complete
+                </button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <button
+                  type="button"
+                  onClick={() =>
+                    openEditModalTask(
+                      task?.id,
+                      task?.name,
+                      task?.description,
+                      task?.priority,
+                      task?.start,
+                    )
+                  }
+                >
+                  Edit
+                </button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <button
+                  type="button"
+                  onClick={() => openDestroyTaskModal(task?.id)}
+                >
+                  Destroy
+                </button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex items-center gap-2 text-grisText">
         {task.type === "1" ? (

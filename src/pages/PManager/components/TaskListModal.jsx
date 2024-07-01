@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Dialog,
@@ -10,11 +10,48 @@ import {
 } from "@/components/ui/dialog";
 import { IonIcon } from "@ionic/react";
 import { createOutline, trashOutline } from "ionicons/icons";
+import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
+import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 
 function TaskListModal({ modal, setModal, tasks }) {
+  const [taskId, setTaskId] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [taskPriority, setTaskPriority] = useState(false);
+  const [taskStart, setTaskStart] = useState(false);
+  const [destroyTaskModal, setDestroyTaskModal] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
+
+  function openEditModalTask(taskId, name, description, priority, start) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setTaskPriority(priority);
+    setTaskStart(start);
+    setEditTaskModal(true);
+  }
+
+  function openDestroyTaskModal(taskId) {
+    setTaskId(taskId);
+    setDestroyTaskModal(true);
+  }
   // console.log(tasks);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
+      />
       <DialogContent className="max-w-[200px] bg-[#F0F0F0] p-0">
         <DialogHeader className="px-8 py-4">
           <DialogTitle>
@@ -38,12 +75,22 @@ function TaskListModal({ modal, setModal, tasks }) {
                     <IonIcon
                       icon={createOutline}
                       className="h-4 w-4 text-grisText"
+                      onClick={() =>
+                        openEditModalTask(
+                          task?.id,
+                          task?.name,
+                          task?.description,
+                          task?.priority,
+                          task?.start,
+                        )
+                      }
                     />
                   </button>
                   <button type="button" className="">
                     <IonIcon
                       icon={trashOutline}
                       className="h-4 w-4 text-grisText"
+                      onClick={() => openDestroyTaskModal(task?.id)}
                     />
                   </button>
                 </div>

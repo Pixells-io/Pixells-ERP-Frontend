@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
-import { completeTask, destroyTask } from "./utils";
+import { completeTask, destroyTask, editTask } from "./utils";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -210,6 +210,7 @@ export async function Action({ request }) {
       completeTask(data);
       break;
     case "2":
+      editTask(data);
       break;
     case "3":
       destroyTask(data);

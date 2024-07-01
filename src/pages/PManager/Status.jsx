@@ -75,7 +75,7 @@ function Status() {
               </div>
               <div className="overflow-scroll">
                 {data?.expirated.map((task, i) => (
-                  <ActivityKanbanCard task={task} key={i} />
+                  <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
             </div>
@@ -88,7 +88,7 @@ function Status() {
               </div>
               <div className="overflow-scroll">
                 {data?.pending.map((task, i) => (
-                  <ActivityKanbanCard task={task} key={i} />
+                  <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
             </div>
@@ -101,7 +101,7 @@ function Status() {
               </div>
               <div className="overflow-scroll">
                 {data?.complete.map((task, i) => (
-                  <ActivityKanbanCard task={task} key={i} />
+                  <ActivityKanbanCard task={task} actions={false} key={i} />
                 ))}
               </div>
             </div>

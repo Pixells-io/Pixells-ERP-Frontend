@@ -23,6 +23,7 @@ import { IonIcon } from "@ionic/react";
 import TaskListModal from "./components/TaskListModal";
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
+import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 
 const HEADERS = [
   { name: "CSF" },
@@ -55,6 +56,9 @@ function Board({ goal, users, csfs }) {
   const [destroyTaskModal, setDestroyTaskModal] = useState(false);
   const [taskName, setTaskName] = useState(false);
   const [taskDescription, setTaskDescription] = useState(false);
+  const [taskPriority, setTaskPriority] = useState(false);
+  const [taskStart, setTaskStart] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
   const [completeTaskModal, setCompleteTaskModal] = useState(false);
 
   function openCompleteTaskModal(taskId, name, description) {
@@ -62,6 +66,15 @@ function Board({ goal, users, csfs }) {
     setTaskName(name);
     setTaskDescription(description);
     setCompleteTaskModal(true);
+  }
+
+  function openEditModalTask(taskId, name, description, priority, start) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setTaskPriority(priority);
+    setTaskStart(start);
+    setEditTaskModal(true);
   }
 
   function openDestroyTaskModal(taskId) {
@@ -95,6 +108,15 @@ function Board({ goal, users, csfs }) {
         taskId={taskId}
         name={taskName}
         description={taskDescription}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
       />
       <div className="grid grid-cols-10 text-right">
         {HEADERS?.map((header, i) => (
@@ -281,6 +303,15 @@ function Board({ goal, users, csfs }) {
                             <IonIcon
                               icon={create}
                               className="h-5 w-5"
+                              onClick={() =>
+                                openEditModalTask(
+                                  task?.id,
+                                  task?.name,
+                                  task?.description,
+                                  task?.priority,
+                                  task?.start,
+                                )
+                              }
                             ></IonIcon>
                             <IonIcon
                               icon={trash}

@@ -218,3 +218,28 @@ export async function destroyTask(data) {
 
   return response;
 }
+
+export async function editTask(data) {
+  const task = {
+    task_id: data.get("task_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+    priority: data.get("priority"),
+    start: data.get("start"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-task`,
+    {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
