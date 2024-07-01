@@ -21,7 +21,6 @@ function Today() {
     console.log(projectId);
   }
 
-  console.log(data);
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">

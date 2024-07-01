@@ -46,7 +46,7 @@ function CompleteTask({ modal, setModal, taskId, name, description }) {
               />
               <InputRouter
                 type="text"
-                placeholder="Name of the area"
+                placeholder="Description of the area"
                 readOnly={true}
                 value={description}
               />

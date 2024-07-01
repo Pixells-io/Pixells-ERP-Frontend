@@ -7,6 +7,7 @@ import { useLoaderData } from "react-router-dom";
 import FormShowMeet from "./Components/FormShowMeet";
 import { getFollowUp, getMeet } from "./utils";
 import FormShowFollowUp from "./Components/FormShowFollowUp";
+import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 
 function MainCalendar() {
   const { data } = useLoaderData();
@@ -23,6 +24,20 @@ function MainCalendar() {
   const [modalFollowUp, setModalFollowUp] = useState(false);
   const [followUpInfo, setFollowUpInfo] = useState(false);
 
+  //Modal Open Task
+  const [taskId, setTaskId] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [completeTaskModal, setCompleteTaskModal] = useState(false);
+
+  function openCompleteTaskModal(taskId, name, description) {
+    console.log(description);
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setCompleteTaskModal(true);
+  }
+
   useEffect(() => {
     const arrayfIllVar = [];
 
@@ -37,6 +52,7 @@ function MainCalendar() {
           start: element.date,
           id_element: element.id,
           type: element.type,
+          description: element.description,
         });
       });
     }
@@ -84,6 +100,7 @@ function MainCalendar() {
           start: element.date,
           id_element: element.id,
           type: element.type,
+          description: element.description,
         });
       });
     }
@@ -111,9 +128,6 @@ function MainCalendar() {
 
     function openModalFunction(type, id) {
       switch (type) {
-        case 1:
-          //Task
-          break;
         case 2:
           //CRM
           findFollowUpInfo(id);
@@ -132,7 +146,13 @@ function MainCalendar() {
         {type === 1 ? (
           <div
             className="py w-full overflow-hidden text-ellipsis rounded-xl bg-primario pl-2 pr-2"
-            onClick={() => openModalFunction(type, id)}
+            onClick={() =>
+              openCompleteTaskModal(
+                id,
+                eventInfo.event.title,
+                eventInfo.event.extendedProps.description,
+              )
+            }
           >
             <span
               className="rounded-3xl font-roboto text-xs font-normal text-white"
@@ -183,6 +203,13 @@ function MainCalendar() {
           modal={modalMeet}
           setModal={setModalMeet}
           info={meetInfo}
+        />
+        <CompleteTask
+          modal={completeTaskModal}
+          setModal={setCompleteTaskModal}
+          taskId={taskId}
+          name={taskName}
+          description={taskDescription}
         />
         <div className="flex gap-4">
           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
