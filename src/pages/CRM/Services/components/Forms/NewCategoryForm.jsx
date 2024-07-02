@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const categoryInputs = [
   {
@@ -36,9 +37,9 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
 
   return (
     <Dialog open={modalCategories} onOpenChange={setModalCategories}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto ">
+      <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">
+          <DialogTitle className="border-b px-6 py-4 font-poppins">
             Create New Category
           </DialogTitle>
         </DialogHeader>
@@ -48,16 +49,14 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
           action="/crm/services"
           method="post"
         >
-          {/* <FormSelect /> */}
-
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">
+          <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
+            <div className="text-lg font-normal text-[#696974]">
               Information
             </div>
-            <div className="flex flex-col font-light gap-4 pb-4">
-              <input type="hidden" name="type" value={2} />
+            <div className="flex flex-col gap-4 font-light">
+              <input type="hidden" name="type" value={2} hidden readOnly />
               {categoryInputs?.map((input, i) => (
-                <FormInput
+                <InputRouter
                   key={i}
                   name={input.name}
                   type={input.type}
@@ -67,13 +66,12 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
             </div>
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="px-6 py-4">
           <Button
             form="category-services-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones px-6 font-roboto text-xs font-semibold"
             disabled={navigation.state === "submitting"}
           >
-            {" "}
             {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>

@@ -201,7 +201,6 @@ export async function Action({ request }) {
     case "2":
       //Category Case
       await saveCategory(data);
-
       break;
     case "3":
       //Package Case
