@@ -201,7 +201,7 @@ function Activities() {
             {activitiesData?.days.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
-                  <AccordionTrigger className="group flex px-4">
+                  <AccordionTrigger className="group flex px-4 !no-underline">
                     <div className="w-2/12 text-start">
                       <span className="font-poppins text-base font-medium text-grisHeading">
                         {day.day}
@@ -338,31 +338,31 @@ function Activities() {
                             </Avatar>
                           </div>
                         </div>
-                        <div className="col-span-1">
-                          <p className="text-[11px] font-semibold">
-                            {task?.fce}
+                        <div className="col-span-1 flex items-center justify-end">
+                          <p className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones">
+                            {task?.fce} HO
                           </p>
                         </div>
-                        <div className="col-span-1">
-                          <p className="text-[11px] font-semibold">
-                            {task?.so}
+                        <div className="col-span-1 flex items-center justify-end">
+                          <p className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones">
+                            {task?.so} O1
                           </p>
                         </div>
-                        <div className="col-span-1 text-right">
+                        <div className="col-span-1 flex justify-end">
                           <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
                             <p className="text-[11px] font-semibold">
                               {task?.status || "Pending"}
                             </p>
                           </Badge>
                         </div>
-                        <div className="col-span-1 flex justify-center">
+                        <div className="col-span-1 mr-4 flex justify-end">
                           <Avatar className="h-6 w-6">
                             <AvatarImage src={task?.creator?.img} />
                             <AvatarFallback></AvatarFallback>
                           </Avatar>
                         </div>
                         {task?.type == 0 ? (
-                          <div className="col-span-1 flex justify-center">
+                          <div className="col-span-1 flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
                               <IonIcon
                                 icon={checkmarkCircleOutline}
@@ -396,7 +396,7 @@ function Activities() {
                             </div>
                           </div>
                         ) : (
-                          <div className="flex justify-center">
+                          <div className="col-span-1 flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
                               <Link
                                 to={`/project-manager/${id}/projects/${task?.id}`}
