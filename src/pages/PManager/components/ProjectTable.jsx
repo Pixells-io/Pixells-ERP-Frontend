@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { Form, useLoaderData, useParams, useSubmit } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Form,
+  useLoaderData,
+  useLocation,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 
 import {
   Accordion,
@@ -23,6 +29,8 @@ import AddUserActivity from "./Form/AddUserActivity";
 import ActivityNameInput from "./Form/ActivityNameInput";
 import ActivityComment from "./Form/ActivityComment";
 import ActivityDocument from "./Form/ActivityDocument";
+import { pusherClient } from "@/lib/pusher";
+import { getProjectById } from "@/lib/actions";
 
 const HEADERS = [
   { name: "FASE" },
@@ -42,7 +50,29 @@ function ProjectTable() {
   const { id, projectId } = useParams();
   const [faseInput, setFaseInput] = useState("");
 
-  console.log(project.data);
+  //Websocket
+  const [urlId, setUrlId] = useState(projectId);
+  const [Projectdata, setProjectData] = useState(project);
+  const location = useLocation();
+
+  useEffect(() => {
+    pusherClient.subscribe(`private-pm-get-project.${urlId}`);
+
+    pusherClient.bind("fill-pm-project", ({ project }) => {
+      // console.log("EFFECT location -> pusher");
+      getPMinfoFuncion(urlId);
+    });
+
+    async function getPMinfoFuncion(urlId) {
+      const newData = await getProjectById(urlId);
+      setProjectData(newData);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-pm-get-project.${urlId}`);
+      // console.log("unsubscribe");
+    };
+  }, [location, urlId]);
 
   function onInputEnter(e) {
     if (e.code == "Enter") {
@@ -100,8 +130,8 @@ function ProjectTable() {
         </Form>
       </div>
 
-      <div className="flex h-full flex-col overflow-scroll">
-        {project?.data?.phases?.map((phase, i) => (
+      <div className="flex h-full flex-col">
+        {Projectdata?.data?.phases?.map((phase, i) => (
           <Accordion key={i} type="single" collapsible className="">
             <AccordionItem value={`item-${i}`}>
               <AccordionTrigger className="gap-2 bg-grisBg px-4">
@@ -120,12 +150,36 @@ function ProjectTable() {
                   >
                     <div className="col-span-1 flex justify-center gap-2">
                       <p>{activity.id}</p>
-                      <button type="button" className="">
-                        <IonIcon
-                          icon={checkmarkCircleOutline}
-                          className="h-5 w-5"
+                      <Form
+                        action={`/project-manager/${id}/projects/${projectId}`}
+                        method="post"
+                        id="check_activity-form"
+                        name="phase"
+                      >
+                        <input
+                          type="hidden"
+                          name="action"
+                          value="activity_check"
                         />
-                      </button>
+                        <input
+                          type="hidden"
+                          name="activity_id"
+                          value={activity.id}
+                        />
+                        <button type="submit" className="">
+                          {activity.status === 0 ? (
+                            <IonIcon
+                              icon={checkmarkCircleOutline}
+                              className="h-5 w-5 text-grisHeading"
+                            />
+                          ) : (
+                            <IonIcon
+                              icon={checkmarkCircleOutline}
+                              className="h-5 w-5 text-green-600"
+                            />
+                          )}
+                        </button>
+                      </Form>
                     </div>
                     <div className="col-span-2 flex items-center justify-center gap-2">
                       <ActivityNameInput

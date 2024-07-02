@@ -2,6 +2,7 @@ import React from "react";
 import { redirect, useLoaderData } from "react-router-dom";
 import ProjectTable from "./components/ProjectTable";
 import {
+  completeActivity,
   editActivityFile,
   editActivityUser,
   saveNewActivitty,
@@ -11,7 +12,7 @@ import {
 function MainProject() {
   const { project } = useLoaderData();
   return (
-    <div className="flex h-full w-full flex-col rounded-lg bg-blancoBg">
+    <div className="flex h-full w-full flex-col overflow-scroll rounded-lg bg-blancoBg">
       <div className="flex justify-between px-8 py-4">
         <p className="font-poppins text-[22px] font-bold text-grisHeading">
           {project?.data?.project?.name}
@@ -55,8 +56,11 @@ export async function Action({ params, request }) {
         `/project-manager/${params.id}/projects/${params.projectId}`,
       );
 
-    default:
-      break;
+    case "activity_check":
+      await completeActivity(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
   }
 
   return redirect(`/project-manager/${params.id}/projects/${params.projectId}`);

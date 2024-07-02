@@ -1085,18 +1085,19 @@ export async function permissionValidate(position, permision, module) {
 }
 
 export async function multiloaderProjectPM({ params }) {
+  const projectId = params.projectId;
   const [project, users] = await Promise.all([
-    getProjectById({ params }),
+    getProjectById(projectId),
     getUsers(),
   ]);
 
   return json({ project, users });
 }
 
-export async function getProjectById({ params }) {
+export async function getProjectById(projectId) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${params.projectId}`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${projectId}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
