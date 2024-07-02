@@ -235,9 +235,15 @@ function Activities() {
                       </span>
                     </div>
                     <div className="w-1/12 text-start">
-                      <span className="font-roboto text-xs font-normal text-grisSubText">
-                        + {day.task_count} more
-                      </span>
+                      {day.task_count > 1 ? (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          + {day.task_count} more
+                        </span>
+                      ) : (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          Show More
+                        </span>
+                      )}
                     </div>
                     <div className="w-3/12"></div>
                   </AccordionTrigger>

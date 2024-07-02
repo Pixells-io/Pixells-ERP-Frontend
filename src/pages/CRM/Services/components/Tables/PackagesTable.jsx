@@ -33,21 +33,6 @@ function PackagesTable({ packages }) {
       id: "created",
       header: "CREATED",
     }),
-    {
-      accessorKey: "actions",
-      header: "ACTIONS",
-      cell: ({ row }) => {
-        return (
-          <div className="flex gap-2 text-[#696974]">
-            <Link to={`/crm/services/packages/${row.original.id}`}>
-              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
-            </Link>
-            <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-            <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
-          </div>
-        );
-      },
-    },
   ];
 
   const table = useReactTable({
@@ -78,7 +63,7 @@ function PackagesTable({ packages }) {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </th>
                   );
@@ -91,7 +76,7 @@ function PackagesTable({ packages }) {
           {table.getRowModel().rows.map((row) => {
             return (
               <tr
-                className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted border-t-[#D7D7D7] text-[#44444F]"
+                className="border-b border-t-[#D7D7D7] text-[#44444F] transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => {
@@ -102,7 +87,7 @@ function PackagesTable({ packages }) {
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   );
