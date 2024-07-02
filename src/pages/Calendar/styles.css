@@ -1,106 +1,124 @@
-  /* CSS STYLES OF CALENDAR */
-  .fc .fc-button-group > .fc-button{
-    background-color: transparent;
-    color: #696974!important;
-    border: 0px!important;
-  }
-
-  .fc-button-active{
-    color: #696974!important;
-    background-color: #E8E8E8!important;
-  }
-
-  .fc-button-group{
-    border: 1px solid #E8E8E8!important;
-    border-radius: 8px;
-  }
-
-  .fc-today-button{
-    color: #696974!important;
-    background-color: #E8E8E8!important;
-    border-radius: 8px;
-  }
-
-  .fc-view-harness{
-    background-color: white;
-    border-radius: 10px!important;
-  }
-
-  .fc-theme-standard{
-    border: 0px!important;
-  }
-
-  .fc-theme-standard .fc-scrollgrid{
-    border: 0px!important;
-  }
-
-  .fc-day{
-    border: 1px solid #e8e8e8;
-  }
-
-  .fc-day-today > .fc-daygrid-day-frame > .fc-daygrid-day-top > .fc-daygrid-day-number{
-    color: white!important;
-    background: #5B89FF;
-    border-radius: 100%;
-  }
-
-  .fc .fc-daygrid-day.fc-day-today{
-    background-color: transparent!important;
-  }
-
-  .fc{
-    height: 100%!important;
-  }
-
-  .fc-col-header-cell-cushion{
-    font-weight: 600!important;
-    font-size: 12px!important;
-    font: "poppins"!important;
-    line-height: 18px!important;
-    color: #44444f!important;
-  }
-
-.fc-daygrid-day-number{
-    font-weight: 400!important;
-    font-size: 12px!important;
-    font: "poppins"!important;
-    line-height: 18px!important;
-    color: #696974!important;
+/* CSS STYLES OF CALENDAR */
+.fc .fc-button-group > .fc-button {
+  background-color: transparent;
+  color: #696974 !important;
+  border: 0px !important;
 }
 
-.fc-timegrid-slot-label-cushion{
-    font-weight: 400!important;
-    font-size: 12px!important;
-    font: "poppins"!important;
-    line-height: 18px!important;
-    color: #696974!important;
+.fc-button-active {
+  color: #696974 !important;
+  background-color: #e8e8e8 !important;
 }
 
-.fc-timegrid-axis-cushion{
-    font-weight: 400!important;
-    font-size: 12px!important;
-    font: "poppins"!important;
-    line-height: 18px!important;
-    color: #696974!important;
+.fc-button-group {
+  /* border: 1px solid #e8e8e8 !important; */
+  border-radius: 8px;
 }
 
-.fc-col-header-cell-cushion{
-    font-weight: 600!important;
-    font-size: 12px!important;
-    font: "poppins"!important;
-    line-height: 18px!important;
-    color: #44444f!important;
+.fc-today-button {
+  color: #696974 !important;
+  background-color: #e8e8e8 !important;
+  border-radius: 8px;
 }
 
-.fc-toolbar-title{
-    font-size: 20px!important;
-    line-height: 23.44px;
-    font: "roboto"!important;
-    font-weight: 500;
+.fc-view-harness {
+  border-radius: 10px !important;
+  border: 1px solid #e8e8e8;
 }
 
-.fc-h-event{
+.fc-theme-standard {
+  border: 0px !important;
+}
+
+.fc-theme-standard {
+  border: 0px;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: 0px !important;
+}
+
+.fc-day {
+  border: 1px solid #e8e8e8;
+}
+
+.fc-daygrid-day-top {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.fc-day-today
+  > .fc-daygrid-day-frame
+  > .fc-daygrid-day-top
+  > .fc-daygrid-day-number {
+  color: white !important;
+  background: #5b89ff;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: transparent !important;
+}
+
+.fc {
+  height: 100% !important;
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #44444f !important;
+}
+
+.fc-daygrid-day-number {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-timegrid-slot-label-cushion {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-timegrid-axis-cushion {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #44444f !important;
+}
+
+.fc-toolbar-title {
+  font-size: 20px !important;
+  line-height: 23.44px;
+  font: "roboto" !important;
+  font-weight: 500;
+}
+
+.fc-h-event {
   background-color: transparent;
   border: transparent;
 }
-

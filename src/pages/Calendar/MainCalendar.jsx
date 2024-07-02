@@ -3,14 +3,43 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import "./styles.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import FormShowMeet from "./Components/FormShowMeet";
 import { getFollowUp, getMeet } from "./utils";
 import FormShowFollowUp from "./Components/FormShowFollowUp";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
+import { set } from "date-fns";
 
 function MainCalendar() {
   const { data } = useLoaderData();
+  const [filters] = useOutletContext();
+
+  useEffect(() => {
+    const newArray = Object.keys(data).map((key) => {
+      return {
+        name: key,
+        value: data[key],
+      };
+    });
+    // console.log("Obj to Array ->", newArray);
+
+    const newShowData = newArray.filter((item) => filters.includes(item.name));
+    // console.log("ArrayFiltered", newShowData);
+
+    const res2 = newShowData.map(({ key, value }) =>
+      value.map((item) => {
+        return {
+          title: item.name,
+          start: item.date,
+          id_element: item.id,
+          type: item.type,
+          description: item.description,
+        };
+      }),
+    );
+
+    setEvents(res2.flat());
+  }, [filters]);
 
   //Use States Var
   const [tasks, setTasks] = useState(false);
@@ -191,6 +220,7 @@ function MainCalendar() {
       </>
     );
   }
+
   return (
     <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-gris p-4">
       <div className="mb-4 flex gap-20">
@@ -211,50 +241,6 @@ function MainCalendar() {
           name={taskName}
           description={taskDescription}
         />
-        <div className="flex gap-4">
-          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-            {tasks === true ? (
-              <input
-                type="checkbox"
-                className="peer hidden"
-                checked
-                onClick={() => filterEventsCalendar(1)}
-              />
-            ) : (
-              <input
-                type="checkbox"
-                className="peer hidden"
-                onClick={() => filterEventsCalendar(1)}
-              />
-            )}
-            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
-          </label>
-          <div>
-            <span>Project Manager</span>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-            {tasks === true ? (
-              <input
-                type="checkbox"
-                className="peer hidden"
-                checked
-                onClick={() => filterEventsCalendar(2)}
-              />
-            ) : (
-              <input
-                type="checkbox"
-                className="peer hidden"
-                onClick={() => filterEventsCalendar(2)}
-              />
-            )}
-            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
-          </label>
-          <div>
-            <span>CRM</span>
-          </div>
-        </div>
       </div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin]}

@@ -66,6 +66,7 @@ function ProjectTable() {
         ))}
       </div>
 
+      {/* Activity Input */}
       <div className="pb-3">
         <Form
           onKeyDown={onInputEnter}
@@ -98,6 +99,7 @@ function ProjectTable() {
           />
         </Form>
       </div>
+
       <div className="flex h-full flex-col overflow-scroll">
         {project?.data?.phases?.map((phase, i) => (
           <Accordion key={i} type="single" collapsible className="">
