@@ -46,7 +46,7 @@ const contactArray = [
   },
 ];
 
-function FollowUpForm({ modal, setModal, leadId, users }) {
+function FollowUpForm({ modal, setModal, leadId, users, leadAssigned }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -116,8 +116,10 @@ function FollowUpForm({ modal, setModal, leadId, users }) {
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                  <AvatarFallback>DG</AvatarFallback>
+                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarFallback>
+                    {leadAssigned?.name?.search("\b[a-zA-Z]")}
+                  </AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
               </div>
@@ -128,7 +130,7 @@ function FollowUpForm({ modal, setModal, leadId, users }) {
                 ></IonIcon>
               </div>
               <div className="flex w-16 flex-col items-center gap-2">
-                <UserSelect users={users} />
+                <UserSelect users={users} leadAssigned={leadAssigned} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>

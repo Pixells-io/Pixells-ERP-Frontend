@@ -17,7 +17,7 @@ import UserSelect from "@/components/UserSelect";
 import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
 
-function PayForm({ modal, setModal, leadId, users }) {
+function PayForm({ modal, setModal, leadId, users, leadAssigned }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -74,22 +74,24 @@ function PayForm({ modal, setModal, leadId, users }) {
             </div>
           </div>
           <div className="flex justify-between p-4">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center gap-3">
+              <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                  <AvatarFallback>DG</AvatarFallback>
+                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarFallback>
+                    {leadAssigned?.name?.search("\b[a-zA-Z]")}
+                  </AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
               </div>
-              <div className="flex items-center justify-center">
+              <div className="flex self-start pt-2">
                 <IonIcon
                   icon={chevronForward}
                   className="h-6 w-6 text-grisText"
                 ></IonIcon>
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <UserSelect users={users} />
+              <div className="flex w-16 flex-col items-center gap-2">
+                <UserSelect users={users} leadAssigned={leadAssigned} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>
