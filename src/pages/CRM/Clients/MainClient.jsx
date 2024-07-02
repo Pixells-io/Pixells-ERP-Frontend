@@ -9,12 +9,13 @@ import {
 } from "./utils";
 import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
+import { IonIcon } from "@ionic/react";
+import { cashOutline } from "ionicons/icons";
+import ClientServicesTable from "./Tables/ClientServicesTable";
 
 function MainClient() {
   const { data } = useLoaderData();
   const client = data[0];
-
-  console.log(client);
 
   const [modalAdress, setModalAdress] = useState(false);
   const [modalContact, setModalContact] = useState(false);
@@ -38,7 +39,51 @@ function MainClient() {
         masterId={client?.master.id}
       />
       <div className="flex w-full overflow-auto">
-        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4"></div>
+        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
+          <span className="font-poppins text-2xl font-bold text-grisHeading">
+            CLIENT INFORMATION
+          </span>
+          <div className="flex gap-10">
+            <div className="flex">
+              <IonIcon
+                icon={cashOutline}
+                className="rounded-lg border-2 border-grisHeading p-2 text-5xl text-grisHeading"
+              />
+              <div className="ml-4 mt-1">
+                <span className="font-poppins text-2xl font-bold text-grisHeading">
+                  $ {client?.sales_record} USD
+                </span>
+                <br />
+                <span className="font-roboto text-sm font-medium text-grisHeading">
+                  SALES RECORD
+                </span>
+              </div>
+            </div>
+            <div className="flex">
+              <IonIcon
+                icon={cashOutline}
+                className="rounded-lg border-2 border-grisHeading p-2 text-5xl text-grisHeading"
+              />
+              <div className="ml-4 mt-1">
+                <span className="font-poppins text-2xl font-bold text-grisHeading">
+                  $ {client?.monthly_record} USD
+                </span>
+                <br />
+                <span className="font-roboto text-sm font-medium text-grisHeading">
+                  MONTHLY SALES
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="pt-8">
+            <span className="font-poppins text-xl font-semibold text-grisHeading">
+              SERVICES
+            </span>
+            <div className="mt-4">
+              <ClientServicesTable services={client?.services_table} />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* right sidebar */}
