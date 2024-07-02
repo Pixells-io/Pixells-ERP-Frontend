@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { contractSharp } from "ionicons/icons";
 import Cookies from "js-cookie";
 
 export async function saveNewGoal(data, id) {
@@ -172,6 +173,24 @@ export async function editActivityFile(data) {
   );
 
   return response;
+}
+
+export async function completeActivity(data) {
+  const idActivity = data.get("activity_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/update-activity-status/${idActivity}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
 
 export async function completeTask(data) {
