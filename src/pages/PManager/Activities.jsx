@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Accordion,
@@ -10,10 +10,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  checkmarkCircleOutline,
+  chevronBack,
+  chevronForward,
+  create,
+  ellipse,
+  trash,
+} from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
 import { completeTask, destroyTask, editTask } from "./utils";
+import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
+import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
+import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -28,11 +38,74 @@ const HEADERS = [
   { name: "ACTIONS" },
 ];
 
+const PRIORITY = [
+  { value: 1, color: "#F9D994" },
+  { value: 2, color: "#F9B894" },
+  { value: 3, color: "#D7586B" },
+  { value: 4, color: "#000000" },
+];
+
 function Activities() {
   const { data } = useLoaderData();
 
+  function checkColor(value) {
+    const color = PRIORITY.filter((prio) => prio.value == value);
+    return color[0].color;
+  }
+
+  const [taskId, setTaskId] = useState(false);
+  const [destroyTaskModal, setDestroyTaskModal] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [taskPriority, setTaskPriority] = useState(false);
+  const [taskStart, setTaskStart] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
+  const [completeTaskModal, setCompleteTaskModal] = useState(false);
+
+  function openCompleteTaskModal(taskId, name, description) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setCompleteTaskModal(true);
+  }
+
+  function openEditModalTask(taskId, name, description, priority, start) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setTaskPriority(priority);
+    setTaskStart(start);
+    setEditTaskModal(true);
+  }
+
+  function openDestroyTaskModal(taskId) {
+    setTaskId(taskId);
+    setDestroyTaskModal(true);
+  }
+
   return (
     <div className="flex w-full overflow-scroll">
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <CompleteTask
+        modal={completeTaskModal}
+        setModal={setCompleteTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -88,8 +161,8 @@ function Activities() {
           </div>
         </div>
 
-        <div className="flex h-full flex-col overflow-auto bg-blancoBg p-4">
-          <div className="grid grid-cols-11 text-right">
+        <div className="flex h-full flex-col overflow-auto rounded-2xl bg-blancoBg p-4">
+          <div className="grid grid-cols-11 border-b border-grisDisabled pb-4 text-right">
             {HEADERS?.map((header, i) => (
               <div
                 key={i}
@@ -103,90 +176,201 @@ function Activities() {
               </div>
             ))}
           </div>
-          <div className="grid h-12 grid-cols-11 items-center gap-y-6 border-b-[1px] px-1 text-right">
-            <div className="col-span-10"></div>
-          </div>
           <div>
             {data?.days.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
-                  <AccordionTrigger className="grid grid-cols-11 bg-grisBg px-4">
-                    <p className="col-span-5 pr-2 text-right text-sm font-medium text-grisHeading">
-                      {day.day} {data?.month} {data?.year}
-                    </p>
+                  <AccordionTrigger className="flex px-4">
+                    <div className="w-2/12 text-start">
+                      <span className="font-poppins text-base font-medium text-grisHeading">
+                        {day.day}
+                      </span>
+                      <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
+                        {data?.month}
+                      </span>
+                    </div>
+                    <div className="w-1/12 text-start">
+                      {day.priority === 1 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#00A259]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Low
+                          </span>
+                        </div>
+                      ) : day.priority === 2 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-primario"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Half
+                          </span>
+                        </div>
+                      ) : data.priority === 3 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#FAA364]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Important
+                          </span>
+                        </div>
+                      ) : (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#D7586B]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Urgent
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="w-5/12 text-start">
+                      <span className="font-roboto text-xs font-normal text-grisHeading">
+                        {day.title}
+                      </span>
+                    </div>
+                    <div className="w-1/12 text-start">
+                      <span className="font-roboto text-xs font-normal text-grisSubText">
+                        + {day.task_count} more
+                      </span>
+                    </div>
+                    <div className="w-3/12"></div>
                   </AccordionTrigger>
                   <AccordionContent>
                     {day?.task.map((task, i) => (
                       <div
                         key={i}
-                        className="grid h-12 grid-cols-11 items-center gap-y-6 border-b-[1px] px-1 text-right"
+                        className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
                       >
-                        <div className="col-span-2 flex items-center justify-end gap-2">
-                          <p className="text-2xl text-red-500">&bull;</p>
-                          <p className="text-[12px] font-normal text-grisHeading">
-                            {task.name}
-                          </p>
-                        </div>
+                        <div></div>
+                        {checkColor(task?.priority) !== "#000000" ? (
+                          <div className="col-span-2 flex items-center justify-between gap-2">
+                            <p
+                              className="flex text-4xl"
+                              style={{
+                                color: checkColor(task?.priority),
+                              }}
+                            >
+                              &bull;
+                            </p>
+                            <div className="flex items-center gap-6">
+                              <p className="flex text-[12px] font-normal text-grisHeading">
+                                {task?.name}
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="col-span-2 flex items-center justify-end gap-2 py-1">
+                            <div className="flex items-center gap-6">
+                              <p className="flex rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]">
+                                {task?.name}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
                         <div>
                           <p className="pr-4 text-[12px] font-normal text-grisHeading">
-                            {task.type_name}
+                            {task?.type == 0 ? "Task" : "Project"}
                           </p>
                         </div>
-                        <div className="flex flex-col items-center px-2">
-                          {task.type === 1 ? (
-                            <div>
-                              <p className="w-full text-right text-[8px] font-normal text-grisHeading">
-                                80%
-                              </p>
-                              <Progress
-                                value={80}
-                                className="h-[4px] bg-grisDisabled fill-primario"
-                              />
-                            </div>
-                          ) : (
-                            <div></div>
-                          )}
-                        </div>
+                        {task?.type == 1 ? (
+                          <div className="flex flex-col items-center px-2">
+                            <p className="w-full text-right text-[8px] font-normal text-grisHeading">
+                              {task?.progress}%
+                            </p>
+                            <Progress
+                              value={task?.progress}
+                              className="h-[4px] bg-grisDisabled fill-primario"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center px-2"></div>
+                        )}
                         <div>
                           <p className="text-[12px] font-normal text-grisHeading">
-                            {task.start}
+                            {task?.start}
                           </p>
                         </div>
                         <div>
                           <div className="flex justify-end gap-2">
                             <div className="">
                               <Avatar className="h-6 w-6">
-                                <AvatarImage src={task.assigned.img} />
+                                <AvatarImage src={task?.assigned?.img} />
                                 <AvatarFallback></AvatarFallback>
                               </Avatar>
                             </div>
                           </div>
                         </div>
-                        <div></div>
-                        <div></div>
                         <div>
-                          {task.progress === 0 ? (
-                            <Badge className="hover:bg-bg-[#FAA364] bg-[#faa26442] text-[#FAA364]">
-                              <p className="text-[11px] font-semibold">
-                                Pending
-                              </p>
-                            </Badge>
-                          ) : (
-                            <Badge className="bg-green-300 text-green-700 hover:bg-green-200">
-                              <p className="text-[11px] font-semibold">
-                                Complete
-                              </p>
-                            </Badge>
-                          )}
+                          <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                            <p className="text-[11px] font-semibold">
+                              {task?.status || "Pending"}
+                            </p>
+                          </Badge>
                         </div>
                         <div className="flex justify-center pl-10">
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src={task.creator.img} />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarImage src={task?.creator?.img} />
+                            <AvatarFallback></AvatarFallback>
                           </Avatar>
                         </div>
-
-                        <div>ACTIONS</div>
+                        {task?.type == 0 ? (
+                          <div className="flex justify-center">
+                            <div className="flex items-center gap-2 text-[#696974]">
+                              <IonIcon
+                                icon={checkmarkCircleOutline}
+                                className="h-5 w-5"
+                                onClick={() =>
+                                  openCompleteTaskModal(
+                                    task?.id,
+                                    task?.name,
+                                    task?.description,
+                                  )
+                                }
+                              ></IonIcon>
+                              <IonIcon
+                                icon={create}
+                                className="h-5 w-5"
+                                onClick={() =>
+                                  openEditModalTask(
+                                    task?.id,
+                                    task?.name,
+                                    task?.description,
+                                    task?.priority,
+                                    task?.start,
+                                  )
+                                }
+                              ></IonIcon>
+                              <IonIcon
+                                icon={trash}
+                                onClick={() => openDestroyTaskModal(task?.id)}
+                                className="h-5 w-5"
+                              ></IonIcon>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex justify-center">
+                            <div className="flex items-center gap-2 text-[#696974]">
+                              <Link
+                                to={`/project-manager/${id}/projects/${task?.id}`}
+                              >
+                                <IonIcon
+                                  icon={informationCircle}
+                                  className="h-5 w-5"
+                                ></IonIcon>
+                              </Link>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </AccordionContent>

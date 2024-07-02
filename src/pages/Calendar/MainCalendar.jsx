@@ -150,7 +150,7 @@ function MainCalendar() {
               openCompleteTaskModal(
                 id,
                 eventInfo.event.title,
-                eventInfo.event.extendedProps.description,
+                eventInfo.event.extendedProps?.description,
               )
             }
           >
