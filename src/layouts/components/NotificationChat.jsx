@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { pusherClient } from "@/lib/pusher";
+import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { Link, useNavigate } from "react-router-dom";
-import { pusherClient } from "@/lib/pusher";
-import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
@@ -54,8 +52,8 @@ function NotificationChat({ notifications, user }) {
       {notificationsPusher[0]?.number == 0 ? (
         ""
       ) : (
-        <div className="fixed right-[155px] top-1 z-10 h-5 w-5 justify-center rounded-full bg-[#D7586B] text-white">
-          <span className="fixed top-[10px] ml-[6px] mt-[-9px] h-5 w-5">
+        <div className="fixed right-[155px] top-1 z-10 h-5 w-5 items-center justify-center rounded-full border border-white bg-[#D7586B] text-white">
+          <span className="fixed top-[14px] ml-[6px] mt-[-9px] h-5 w-5 text-xs">
             {notificationsPusher[0]?.number}
           </span>
         </div>
@@ -68,8 +66,8 @@ function NotificationChat({ notifications, user }) {
             className="text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="">
-          <DropdownMenuItem>
+        <DropdownMenuContent className="flex flex-col">
+          <DropdownMenuItem className="flex flex-col gap-2">
             {notificationsPusher[0]?.notifications.map((noti, i) => (
               <button
                 key={i}
