@@ -40,25 +40,6 @@ function ServicesTable({ services }) {
       id: "created",
       header: "CREATED",
     }),
-    {
-      accessorKey: "actions",
-      header: "ACTIONS",
-      cell: ({ row }) => {
-        console.log(row.original.id);
-        return (
-          <div className="flex items-center gap-2 text-[#696974]">
-            <Link
-              to={`/crm/services/${row?.original?.category_id}`}
-              className="flex items-center"
-            >
-              <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
-            </Link>
-            <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-            <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
-          </div>
-        );
-      },
-    },
   ];
 
   const table = useReactTable({
@@ -88,7 +69,7 @@ function ServicesTable({ services }) {
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </th>
                   );
@@ -101,7 +82,7 @@ function ServicesTable({ services }) {
           {table.getRowModel().rows.map((row) => {
             return (
               <tr
-                className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted border-t-[#D7D7D7] text-[#44444F]"
+                className="border-b border-t-[#D7D7D7] text-[#44444F] transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => {
@@ -112,7 +93,7 @@ function ServicesTable({ services }) {
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   );

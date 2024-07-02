@@ -218,9 +218,14 @@ function MainLayout() {
                   My Profile
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                Notifications
+              <DropdownMenuItem>
+                <Link
+                  to={"/my-profile/notifications"}
+                  className="ml-4 flex gap-4 text-grisText"
+                >
+                  <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
+                  Notifications
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>

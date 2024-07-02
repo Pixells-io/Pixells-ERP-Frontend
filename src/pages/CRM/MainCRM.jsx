@@ -13,7 +13,11 @@ import Table from "@/components/DataTable";
 import TableClients from "./components/Table/TableClients";
 
 function MainCRM() {
-  const { leads: loaderLeads, clients: loaderClients } = useLoaderData();
+  const {
+    leads: loaderLeads,
+    clients: loaderClients,
+    dashboard,
+  } = useLoaderData();
   const { data: loaderServices } = useRouteLoaderData("side_services");
 
   const [leads, setLeads] = useState(loaderLeads);
@@ -66,18 +70,7 @@ function MainCRM() {
         </div>
 
         {/* statistics content */}
-        <StatisticsBlock />
-        {/* <div className="flex gap-8">
-          {statistics.map((item, i) => (
-            <StatisticsBlock
-              key={i}
-              icon={item.icon}
-              number={item.number}
-              subtext={item.subtext}
-              percentage={item.percentage}
-            />
-          ))}
-        </div> */}
+        <StatisticsBlock data={dashboard.data} />
 
         <Tabs
           defaultValue="leads"

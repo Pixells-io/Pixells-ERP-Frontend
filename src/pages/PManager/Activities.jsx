@@ -154,11 +154,6 @@ function Activities() {
             </h2>
             <span className="text-xs font-medium text-grisText">General</span>
           </div>
-          <div className="flex gap-1 self-start text-[#8F8F8F]">
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
-          </div>
         </div>
 
         <div className="flex h-full flex-col overflow-auto rounded-2xl bg-blancoBg p-4">
@@ -167,7 +162,9 @@ function Activities() {
               <div
                 key={i}
                 className={
-                  header?.name === "ACTIVITY" ? "col-span-2" : "col-span-1"
+                  header?.name === "ACTIVITY"
+                    ? "col-span-2 text-left"
+                    : "col-span-1"
                 }
               >
                 <p className="px-2 text-sm font-semibold text-gris2">
@@ -238,9 +235,15 @@ function Activities() {
                       </span>
                     </div>
                     <div className="w-1/12 text-start">
-                      <span className="font-roboto text-xs font-normal text-grisSubText">
-                        + {day.task_count} more
-                      </span>
+                      {day.task_count > 1 ? (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          + {day.task_count} more
+                        </span>
+                      ) : (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          Show More
+                        </span>
+                      )}
                     </div>
                     <div className="w-3/12"></div>
                   </AccordionTrigger>
@@ -248,11 +251,10 @@ function Activities() {
                     {day?.task.map((task, i) => (
                       <div
                         key={i}
-                        className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
+                        className="ml-4 grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
                       >
-                        <div></div>
                         {checkColor(task?.priority) !== "#000000" ? (
-                          <div className="col-span-2 flex items-center justify-between gap-2">
+                          <div className="col-span-2 flex items-center gap-2 text-left">
                             <p
                               className="flex text-4xl"
                               style={{
@@ -268,7 +270,7 @@ function Activities() {
                             </div>
                           </div>
                         ) : (
-                          <div className="col-span-2 flex items-center justify-end gap-2 py-1">
+                          <div className="col-span-2 ml-4 flex items-center gap-2 py-1 text-left">
                             <div className="flex items-center gap-6">
                               <p className="flex rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]">
                                 {task?.name}
@@ -277,13 +279,13 @@ function Activities() {
                           </div>
                         )}
 
-                        <div>
+                        <div className="ml-8 text-left">
                           <p className="pr-4 text-[12px] font-normal text-grisHeading">
                             {task?.type == 0 ? "Task" : "Project"}
                           </p>
                         </div>
                         {task?.type == 1 ? (
-                          <div className="flex flex-col items-center px-2">
+                          <div className="flex flex-col items-center px-2 text-left">
                             <p className="w-full text-right text-[8px] font-normal text-grisHeading">
                               {task?.progress}%
                             </p>
@@ -293,15 +295,15 @@ function Activities() {
                             />
                           </div>
                         ) : (
-                          <div className="flex flex-col items-center px-2"></div>
+                          <div className="flex flex-col items-center px-2 text-left"></div>
                         )}
-                        <div>
+                        <div className="ml-[-30px] text-left">
                           <p className="text-[12px] font-normal text-grisHeading">
                             {task?.start}
                           </p>
                         </div>
-                        <div>
-                          <div className="flex justify-end gap-2">
+                        <div className="ml-[-40px] text-left">
+                          <div className="flex gap-2 text-left">
                             <div className="">
                               <Avatar className="h-6 w-6">
                                 <AvatarImage src={task?.assigned?.img} />
@@ -310,7 +312,8 @@ function Activities() {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div></div>
+                        <div className="ml-10 text-right">
                           <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
                             <p className="text-[11px] font-semibold">
                               {task?.status || "Pending"}

@@ -231,6 +231,22 @@ export async function getLeads() {
   }
 }
 
+export async function getDashboardCrmAnalytics() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}person/crm-homepage-analytics`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getProcessLeads() {
   try {
     const response = await fetch(
@@ -614,8 +630,12 @@ export async function getClient({ params }) {
 }
 
 export async function multiloaderTablesCRM() {
-  const [leads, clients] = await Promise.all([getLeads(), getClients()]);
-  return json({ leads, clients });
+  const [leads, clients, dashboard] = await Promise.all([
+    getLeads(),
+    getClients(),
+    getDashboardCrmAnalytics(),
+  ]);
+  return json({ leads, clients, dashboard });
 }
 
 export async function multiloaderProgressSteps({ params }) {
