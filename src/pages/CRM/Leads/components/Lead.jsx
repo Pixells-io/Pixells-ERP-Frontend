@@ -13,6 +13,7 @@ import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 import { format } from "date-fns";
 
 function Lead({ lead, stageId, setModal, stageName }) {
+  console.log(lead);
   return (
     <li
       className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing"
@@ -323,7 +324,7 @@ function Lead({ lead, stageId, setModal, stageName }) {
 
             <div>
               <Avatar className="h-6 w-6">
-                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                <AvatarImage src={lead?.assigned?.image} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
