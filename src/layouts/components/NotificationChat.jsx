@@ -93,7 +93,7 @@ function NotificationChat({ notifications, user }) {
                     </span>
                   </div>
                   <div className="flex w-1/5 flex-col items-end">
-                    <span className="flex h-5 w-5 justify-center rounded-full bg-[#00A259] text-white">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#00A259] text-[10px] text-white">
                       {noti?.total}
                     </span>
                     <span className="text-[10px] text-grisSubText">
