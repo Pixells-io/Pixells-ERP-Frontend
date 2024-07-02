@@ -178,7 +178,17 @@ function Board({ goal, users, csfs }) {
                   </div>
                 </div>
                 {tasks?.map(
-                  ({ task, task_count, task_query, creator, assigned }, i) => (
+                  (
+                    {
+                      task,
+                      task_count,
+                      task_query,
+                      creator,
+                      assigned,
+                      percent,
+                    },
+                    i,
+                  ) => (
                     <div
                       key={i}
                       className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
@@ -195,47 +205,57 @@ function Board({ goal, users, csfs }) {
                             &bull;
                           </p>
                           <div className="flex items-center gap-6">
-                            <p className="flex text-[12px] font-normal text-grisHeading">
+                            <p
+                              className="line-clamp-1 text-ellipsis text-[12px] font-normal text-grisHeading"
+                              title={task?.name}
+                            >
                               {task?.name}
                             </p>
                             {task?.type == 0 ? (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setModal(true);
-                                  setTasksModal(task_query);
-                                }}
-                              >
-                                <p className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200">
-                                  {task_count}
-                                </p>
-                              </button>
-                            ) : (
-                              <div className="h-5 w-5"></div>
-                            )}
+                              <>
+                                {task_count > 1 ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setModal(true);
+                                      setTasksModal(task_query);
+                                    }}
+                                  >
+                                    <p className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200">
+                                      {task_count}
+                                    </p>
+                                  </button>
+                                ) : null}
+                              </>
+                            ) : null}
                           </div>
                         </div>
                       ) : (
                         <div className="col-span-2 flex items-center justify-end gap-2 py-1">
                           <div className="flex items-center gap-6">
-                            <p className="flex rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]">
+                            <p
+                              className="line-clamp-1 text-ellipsis rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]"
+                              title={task?.name}
+                            >
                               {task?.name}
                             </p>
                             {task?.type == 0 ? (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setModal(true);
-                                  setTasksModal(task_query);
-                                }}
-                              >
-                                <p className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200">
-                                  {task_count}
-                                </p>
-                              </button>
-                            ) : (
-                              <div className="h-5 w-5"></div>
-                            )}
+                              <>
+                                {task_count > 1 ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setModal(true);
+                                      setTasksModal(task_query);
+                                    }}
+                                  >
+                                    <p className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200">
+                                      {task_count}
+                                    </p>
+                                  </button>
+                                ) : null}
+                              </>
+                            ) : null}
                           </div>
                         </div>
                       )}
@@ -248,10 +268,10 @@ function Board({ goal, users, csfs }) {
                       {task?.type == 1 ? (
                         <div className="flex flex-col items-center px-2">
                           <p className="w-full text-right text-[8px] font-normal text-grisHeading">
-                            {task?.progress}%
+                            {percent}%
                           </p>
                           <Progress
-                            value={task?.progress}
+                            value={percent}
                             className="h-[4px] bg-grisDisabled fill-primario"
                           />
                         </div>

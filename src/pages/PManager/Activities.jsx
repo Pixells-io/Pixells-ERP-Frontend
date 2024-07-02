@@ -293,7 +293,10 @@ function Activities() {
                               &bull;
                             </p>
                             <div className="flex items-center gap-6">
-                              <p className="flex text-[12px] font-normal text-grisHeading">
+                              <p
+                                className="line-clamp-1 text-[12px] font-normal text-grisHeading"
+                                title={task?.name}
+                              >
                                 {task?.name}
                               </p>
                             </div>
@@ -301,7 +304,10 @@ function Activities() {
                         ) : (
                           <div className="col-span-2 ml-4 flex items-center gap-2 py-1 text-left">
                             <div className="flex items-center gap-6">
-                              <p className="flex rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]">
+                              <p
+                                className="line-clamp-1 rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]"
+                                title={task?.name}
+                              >
                                 {task?.name}
                               </p>
                             </div>
@@ -341,13 +347,19 @@ function Activities() {
                           </div>
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
-                          <p className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones">
-                            {task?.fce} HO
+                          <p
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            title={task?.fce}
+                          >
+                            HO
                           </p>
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
-                          <p className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones">
-                            {task?.so} O1
+                          <p
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            title={task?.goal}
+                          >
+                            O1
                           </p>
                         </div>
                         <div className="col-span-1 flex justify-end">
