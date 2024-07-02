@@ -64,18 +64,21 @@ function Stages() {
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <FollowUpForm
         modal={modal.followup}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <ProposalForm
         modal={modal.proposal}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <ClosingForm
         modal={modal.closing}
@@ -83,18 +86,21 @@ function Stages() {
         leadId={leadId}
         services={services}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <PayForm
         modal={modal.pay}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <KickOffForm
         modal={modal.kickoff}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
 
       {/* Stages */}

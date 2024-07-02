@@ -13,7 +13,6 @@ import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 import { format } from "date-fns";
 
 function Lead({ lead, stageId, setModal, stageName }) {
-  console.log(lead);
   return (
     <li
       className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing"

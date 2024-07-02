@@ -34,7 +34,7 @@ const ammountArrayOne = [
 
 const ammountArrayTwo = [{ label: "$1000+", value: "3" }];
 
-function PotentialForm({ modal, setModal, leadId, users }) {
+function PotentialForm({ modal, setModal, leadId, users, leadAssigned }) {
   const [payment, setPayment] = useState("");
   // const [ammount, setAmmount] = useState("");
   const navigation = useNavigation();
@@ -107,8 +107,10 @@ function PotentialForm({ modal, setModal, leadId, users }) {
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                  <AvatarFallback>DG</AvatarFallback>
+                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarFallback>
+                    {leadAssigned?.name?.search("\b[a-zA-Z]")}
+                  </AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
               </div>
@@ -119,7 +121,7 @@ function PotentialForm({ modal, setModal, leadId, users }) {
                 ></IonIcon>
               </div>
               <div className="flex w-16 flex-col items-center gap-2">
-                <UserSelect users={users} />
+                <UserSelect users={users} leadAssigned={leadAssigned} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>
@@ -138,7 +140,3 @@ function PotentialForm({ modal, setModal, leadId, users }) {
 }
 
 export default PotentialForm;
-
-// payment_recurrency select -> anual o mensual
-// ammount select -> $200 a $499, $500 a $999 y $1000+
-// services select -> servicios
