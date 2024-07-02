@@ -5,7 +5,9 @@ function ChatList({ chat }) {
   return (
     <NavLink
       to={`/chat/${chat?.chat_id}`}
-      className={({ isActive }) => (isActive ? "bg-[#f0f0f0] py-6" : "py-6")}
+      className={({ isActive }) =>
+        isActive ? "bg-[#f0f0f0] py-6" : "bg-red-200 py-6"
+      }
     >
       <div className="my-3 flex border-b border-grisDisabled px-5 py-2 hover:rounded-xl hover:bg-[#f0f0f0]">
         <div className="w-1/6">

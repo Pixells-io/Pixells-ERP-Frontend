@@ -68,9 +68,7 @@ function LayoutChat() {
             </div>
             <div className="h-auto overflow-hidden rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
-                <div key={i}>
-                  <ChatList chat={chat} />
-                </div>
+                <ChatList chat={chat} key={i} />
               ))}
             </div>
           </TabsContent>

@@ -107,6 +107,8 @@ function Activities() {
     setDestroyTaskModal(true);
   }
 
+  console.log(activitiesData);
+
   return (
     <div className="flex w-full overflow-scroll">
       <DeleteTask
