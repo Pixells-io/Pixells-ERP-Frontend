@@ -45,15 +45,15 @@ function FormNewChat({ users }) {
           <IonIcon icon={addCircleOutline} size="large"></IonIcon>
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-fit overflow-auto sm:max-w-[425px]">
-        <DialogHeader>
+      <DialogContent className="h-fit overflow-auto p-0 sm:max-w-[425px]">
+        <DialogHeader className="border-b px-6 py-4">
           <DialogTitle className="font-poppins">Create New Group</DialogTitle>
         </DialogHeader>
-        <Form id="new-group-form">
+        <Form id="new-group-form" className="flex flex-col gap-2 px-6">
           <div className="text-center">
             <UserImage name={"group_image"} label={"Group Image"} />
           </div>
-          <div className="ml-[-15px] mr-[15px]">
+          <div className="">
             <InputRouter name={"name"} placeholder={"Name"} type={"text"} />
           </div>
           <div>
@@ -64,7 +64,7 @@ function FormNewChat({ users }) {
             />
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="px-6 pb-4">
           <Button
             form="new-group-form"
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"

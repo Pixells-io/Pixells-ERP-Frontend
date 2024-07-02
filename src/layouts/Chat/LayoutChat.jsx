@@ -36,7 +36,7 @@ function LayoutChat() {
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="bg- flex w-[450px] shrink-0 flex-col gap-4 rounded-xl">
+      <div className="flex w-[450px] shrink-0 flex-col gap-4 rounded-xl">
         {/* top block */}
         <Tabs
           defaultValue="internal"

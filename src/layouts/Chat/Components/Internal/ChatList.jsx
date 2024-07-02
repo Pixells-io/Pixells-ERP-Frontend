@@ -1,9 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function ChatList({ chat }) {
   return (
-    <Link to={`/chat/${chat.chat_id}`} className="py-6">
+    <NavLink
+      to={`/chat/${chat?.chat_id}`}
+      className={({ isActive }) => (isActive ? "bg-[#f0f0f0] py-6" : "py-6")}
+    >
       <div className="my-3 flex border-b border-grisDisabled px-5 py-2 hover:rounded-xl hover:bg-[#f0f0f0]">
         <div className="w-1/6">
           <img src={chat.img} className="h-12 w-12 rounded-full" />
@@ -33,7 +36,7 @@ function ChatList({ chat }) {
           </div>
         </div>
       </div>
-    </Link>
+    </NavLink>
   );
 }
 
