@@ -215,6 +215,7 @@ function NewServiceForm({
                 type="text"
                 placeholder="Description"
               />
+              <InputRouter name="price" type="number" placeholder="Price" />
               {/* <InputRouter name="color" type="color" placeholder="Color" /> */}
               <div className="flex gap-2">
                 <p className="flex w-full items-center rounded-lg bg-grisBg px-3 py-3 text-[12px] text-grisText">

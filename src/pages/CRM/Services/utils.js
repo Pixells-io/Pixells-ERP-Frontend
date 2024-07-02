@@ -27,6 +27,7 @@ export async function saveService(data) {
     name: data.get("name"),
     description: data.get("description"),
     color: data.get("color"),
+    price: data.get("price"),
     process: data.getAll("process"),
     process_action: data.getAll("process_action"),
   };
