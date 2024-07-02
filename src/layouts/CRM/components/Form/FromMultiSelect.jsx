@@ -4,7 +4,7 @@ import Select from "react-select";
 
 function FromMultiSelect({ services }) {
   let options = [];
-  services.data.map((service, i) => {
+  services?.data.map((service, i) => {
     let newObj = { value: service.id, label: service.name };
     options.push(newObj);
   });

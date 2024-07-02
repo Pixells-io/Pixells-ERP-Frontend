@@ -74,46 +74,42 @@ const MENU_ITEMS = [
 function SideLayoutDevOrg() {
   const location = useLocation();
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
-      <div className="flex flex-col gap-4 w-[280px] shrink-0">
+    <div className="flex h-full px-4 pb-4 font-roboto">
+      <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-4 py-4 ">
+        <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenuCRM />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4 overflow-auto">
-          <p className="font-semibold text-lg font-poppins text-grisHeading">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-gris p-4">
+          <p className="font-poppins text-lg font-semibold text-grisHeading">
             Menu
           </p>
 
           {/*menu top */}
-          <div className="flex flex-col gap-1 w-full overflow-scroll">
+          <div className="flex w-full flex-col overflow-scroll">
             {MENU_ITEMS?.map((item, i) => (
               <Accordion type="single" collapsible className="px-2" key={i}>
                 <AccordionItem value={`item-${i}`} className="border-0">
-                  <AccordionTrigger className="text-gris2 py-2">
-                    <div className="flex items-center gap-6 w-full">
+                  <AccordionTrigger className="py-2 text-gris2 hover:no-underline">
+                    <div className="flex w-full items-center gap-6">
                       {item.path === location.pathname ? (
-                        <div className="text-primario bg-[#E8E8E8] gap-6 flex items-center rounded-lg w-full px-4 py-1">
+                        <div className="flex w-full items-center gap-6 rounded-lg bg-[#E8E8E8] px-4 py-1 text-primario">
                           <IonIcon icon={item.icon} size="large"></IonIcon>
                           <div>
-                            <p className="font-medium text-base ">
-                              {item.name}
-                            </p>
-                            <p className="text-left font-medium text-[10px]">
+                            <p className="text-base font-medium">{item.name}</p>
+                            <p className="text-left text-[10px] font-medium">
                               {item.subname}
                             </p>
                           </div>
                         </div>
                       ) : (
-                        <div className="text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg gap-6 flex items-center rounded-lg w-full px-4 py-1">
+                        <div className="flex w-full items-center gap-6 rounded-lg px-4 py-1 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]">
                           <IonIcon icon={item.icon} size="large"></IonIcon>
                           <div>
-                            <p className="font-medium text-base ">
-                              {item.name}
-                            </p>
-                            <p className="text-left font-medium text-[10px] text-grisSubText">
+                            <p className="text-base font-medium">{item.name}</p>
+                            <p className="text-left text-[10px] font-medium text-grisSubText">
                               {item.subname}
                             </p>
                           </div>
@@ -121,7 +117,7 @@ function SideLayoutDevOrg() {
                       )}
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="bg-blancoBox py-0 rounded-lg">
+                  <AccordionContent className="py-0">
                     {item.subpath.map((link, i) => (
                       <NavLink
                         key={i}
@@ -131,25 +127,23 @@ function SideLayoutDevOrg() {
                             ? ({ isActive }) =>
                                 isActive &&
                                 location.pathname === "/org-development"
-                                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                                  ? "w-full rounded-lg px-4 text-primario"
+                                  : "w-full px-4 text-gris2"
                             : ({ isActive }) =>
                                 isActive
-                                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                                  ? "w-full rounded-lg px-4 text-primario"
+                                  : "w-full px-4 text-gris2"
                         }
                       >
                         <div className="flex flex-col gap-4">
                           {location.pathname === link.path ? (
-                            <div className="flex pl-16 items-center gap-1">
+                            <div className="flex items-center gap-1 pl-16">
                               <span className="">&bull;</span>
-                              <p className="font-medium text-sm ">
-                                {link.name}
-                              </p>
+                              <p className="text-sm font-medium">{link.name}</p>
                             </div>
                           ) : (
                             <div className="pl-[72px] hover:pl-[56px]">
-                              <p className="font-medium text-sm hover:bg-blancoBg hover:w-fit hover:px-4 hover:rounded-sm">
+                              <p className="text-sm font-medium hover:w-fit hover:rounded-sm hover:bg-blancoBg hover:px-4">
                                 {link.name}
                               </p>
                             </div>

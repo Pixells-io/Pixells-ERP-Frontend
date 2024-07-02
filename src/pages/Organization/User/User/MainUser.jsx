@@ -14,7 +14,7 @@ import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneFile from "@/components/dropzone-files";
-import { saveNewUser } from "../../utils";
+import { editUser, saveNewUser } from "../../utils";
 
 const selectBasics = [
   {
@@ -367,7 +367,7 @@ function MainUser() {
         </div>
         <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            New User
+            Show User
           </h2>
           <div className="flex items-center gap-6">
             {/* <div className="flex items-center gap-3">
@@ -411,6 +411,7 @@ function MainUser() {
           encType="multipart/form-data"
           id="form-update-user"
         >
+          <input type="hidden" name="user_id" value={id} />
           <div className="">
             <div className="w-1/4">
               <DropzoneImage
@@ -1240,7 +1241,7 @@ export default MainUser;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewUser(data);
+  const validation = await editUser(data);
 
   return redirect("/organization");
 }

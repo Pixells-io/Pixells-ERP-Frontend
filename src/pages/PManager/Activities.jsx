@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Accordion,
@@ -10,149 +10,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  checkmarkCircleOutline,
+  chevronBack,
+  chevronForward,
+  create,
+  ellipse,
+  trash,
+} from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-
-const DATA = [
-  {
-    id: 0,
-    csf: "Original Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-  {
-    id: 1,
-    csf: "New Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-  {
-    id: 2,
-    csf: "Old Constructors",
-    activities: [
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-      {
-        activity: "Immigration, Tax Preparation",
-        type: "Activity",
-        expiration: "02/19/2024",
-        responsable: "don fomularo",
-        status: "pending",
-        created: "don fomularo",
-      },
-    ],
-  },
-];
+import { useLoaderData } from "react-router-dom";
+import { completeTask, destroyTask, editTask } from "./utils";
+import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
+import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
+import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
+import { getMonthActivity } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -167,25 +40,112 @@ const HEADERS = [
   { name: "ACTIONS" },
 ];
 
+const PRIORITY = [
+  { value: 1, color: "#F9D994" },
+  { value: 2, color: "#F9B894" },
+  { value: 3, color: "#D7586B" },
+  { value: 4, color: "#000000" },
+];
+
 function Activities() {
+  const { data } = useLoaderData();
+
+  const [activitiesData, setActivitiesData] = useState(data);
+
+  async function getActivitiesData() {
+    let newData = await getMonthActivity();
+
+    setActivitiesData(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-pm-activities");
+
+    pusherClient.bind("fill-pm-activities", ({ message }) => {
+      getActivitiesData();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-pm-activities");
+    };
+  }, []);
+
+  //Web Socket
+
+  function checkColor(value) {
+    const color = PRIORITY.filter((prio) => prio.value == value);
+    return color[0].color;
+  }
+
+  const [taskId, setTaskId] = useState(false);
+  const [destroyTaskModal, setDestroyTaskModal] = useState(false);
+  const [taskName, setTaskName] = useState(false);
+  const [taskDescription, setTaskDescription] = useState(false);
+  const [taskPriority, setTaskPriority] = useState(false);
+  const [taskStart, setTaskStart] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
+  const [completeTaskModal, setCompleteTaskModal] = useState(false);
+
+  function openCompleteTaskModal(taskId, name, description) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setCompleteTaskModal(true);
+  }
+
+  function openEditModalTask(taskId, name, description, priority, start) {
+    setTaskId(taskId);
+    setTaskName(name);
+    setTaskDescription(description);
+    setTaskPriority(priority);
+    setTaskStart(start);
+    setEditTaskModal(true);
+  }
+
+  function openDestroyTaskModal(taskId) {
+    setTaskId(taskId);
+    setDestroyTaskModal(true);
+  }
+
   return (
     <div className="flex w-full overflow-scroll">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <CompleteTask
+        modal={completeTaskModal}
+        setModal={setCompleteTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
+      />
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -197,11 +157,11 @@ function Activities() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               PROJECT MANAGER
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center">
+          <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
@@ -213,112 +173,231 @@ function Activities() {
         {/* top content sub */}
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
-            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               Activities
             </h2>
-            <span className="font-medium text-xs text-grisText">General</span>
-          </div>
-          <div className="flex gap-1 text-[#8F8F8F] self-start">
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
+            <span className="text-xs font-medium text-grisText">General</span>
           </div>
         </div>
 
-        <div className="flex flex-col bg-blancoBg h-full overflow-auto p-4">
-          <div className="grid grid-cols-11 text-right">
+        <div className="flex h-full flex-col overflow-auto rounded-2xl bg-blancoBg p-4">
+          <div className="grid grid-cols-11 border-b border-grisDisabled pb-4 text-right">
             {HEADERS?.map((header, i) => (
               <div
                 key={i}
                 className={
-                  header?.name === "ACTIVITY" ? "col-span-2" : "col-span-1"
+                  header?.name === "ACTIVITY"
+                    ? "col-span-2 text-left"
+                    : "col-span-1"
                 }
               >
-                <p className="text-gris2 text-sm font-semibold px-2">
+                <p className="px-2 text-sm font-semibold text-gris2">
                   {header.name}
                 </p>
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-11 text-right gap-y-6 items-center border-b-[1px] px-1 h-12">
-            <div className="col-span-10"></div>
-          </div>
           <div>
-            {DATA?.map((client, i) => (
+            {activitiesData?.days.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
-                <AccordionItem value={`item-${client.id}`}>
-                  <AccordionTrigger className="bg-grisBg px-4 grid grid-cols-11">
-                    <p className="text-sm font-medium text-grisHeading col-span-5 text-right pr-2">
-                      15 Feb 2024
-                    </p>
+                <AccordionItem value={`item-${day.id}`}>
+                  <AccordionTrigger className="flex px-4">
+                    <div className="w-2/12 text-start">
+                      <span className="font-poppins text-base font-medium text-grisHeading">
+                        {day.day}
+                      </span>
+                      <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
+                        {activitiesData?.month}
+                      </span>
+                    </div>
+                    <div className="w-1/12 text-start">
+                      {day.priority === 1 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#00A259]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Low
+                          </span>
+                        </div>
+                      ) : day.priority === 2 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-primario"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Half
+                          </span>
+                        </div>
+                      ) : activitiesData.priority === 3 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#FAA364]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Important
+                          </span>
+                        </div>
+                      ) : (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#D7586B]"
+                          />
+                          <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
+                            Urgent
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="w-5/12 text-start">
+                      <span className="font-roboto text-xs font-normal text-grisHeading">
+                        {day.title}
+                      </span>
+                    </div>
+                    <div className="w-1/12 text-start">
+                      {day.task_count > 1 ? (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          + {day.task_count} more
+                        </span>
+                      ) : (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          Show More
+                        </span>
+                      )}
+                    </div>
+                    <div className="w-3/12"></div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="grid grid-cols-11 items-center border-b-[1px] px-1 h-12">
-                      <div className="flex justify-end col-span-2"></div>
-                    </div>
-                    {client?.activities.map((item, i) => (
+                    {day?.task.map((task, i) => (
                       <div
                         key={i}
-                        className="grid grid-cols-11 text-right gap-y-6 items-center border-b-[1px] px-1 h-12"
+                        className="ml-4 grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
                       >
-                        <div className="col-span-2 flex justify-end items-center gap-2">
-                          <p className="text-2xl text-red-500">&bull;</p>
-                          <p className="text-grisHeading text-[12px] font-normal">
-                            {item.activity}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-grisHeading text-[12px] font-normal pr-4">
-                            {item.type}
-                          </p>
-                        </div>
-                        <div className="flex flex-col items-center px-2">
-                          <p className="text-grisHeading text-[8px] font-normal text-right w-full">
-                            80%
-                          </p>
-                          <Progress
-                            value={80}
-                            className="h-[4px] bg-grisDisabled fill-primario"
-                          />
-                        </div>
-                        <div>
-                          <p className="text-grisHeading text-[12px] font-normal">
-                            15 Feb 2024
-                          </p>
-                        </div>
-                        <div>
-                          <div className="flex justify-end gap-2">
-                            <div className="">
-                              <Avatar className="w-6 h-6">
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>CN</AvatarFallback>
-                              </Avatar>
+                        {checkColor(task?.priority) !== "#000000" ? (
+                          <div className="col-span-2 flex items-center gap-2 text-left">
+                            <p
+                              className="flex text-4xl"
+                              style={{
+                                color: checkColor(task?.priority),
+                              }}
+                            >
+                              &bull;
+                            </p>
+                            <div className="flex items-center gap-6">
+                              <p className="flex text-[12px] font-normal text-grisHeading">
+                                {task?.name}
+                              </p>
                             </div>
-                            <div>
-                              <Avatar className="w-6 h-6">
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>CN</AvatarFallback>
+                          </div>
+                        ) : (
+                          <div className="col-span-2 ml-4 flex items-center gap-2 py-1 text-left">
+                            <div className="flex items-center gap-6">
+                              <p className="flex rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]">
+                                {task?.name}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="ml-8 text-left">
+                          <p className="pr-4 text-[12px] font-normal text-grisHeading">
+                            {task?.type == 0 ? "Task" : "Project"}
+                          </p>
+                        </div>
+                        {task?.type == 1 ? (
+                          <div className="flex flex-col items-center px-2 text-left">
+                            <p className="w-full text-right text-[8px] font-normal text-grisHeading">
+                              {task?.progress}%
+                            </p>
+                            <Progress
+                              value={task?.progress}
+                              className="h-[4px] bg-grisDisabled fill-primario"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center px-2 text-left"></div>
+                        )}
+                        <div className="ml-[-30px] text-left">
+                          <p className="text-[12px] font-normal text-grisHeading">
+                            {task?.start}
+                          </p>
+                        </div>
+                        <div className="ml-[-40px] text-left">
+                          <div className="flex gap-2 text-left">
+                            <div className="">
+                              <Avatar className="h-6 w-6">
+                                <AvatarImage src={task?.assigned?.img} />
+                                <AvatarFallback></AvatarFallback>
                               </Avatar>
                             </div>
                           </div>
                         </div>
                         <div></div>
-                        <div></div>
-                        <div>
-                          <Badge className="bg-orange-200 hover:bg-orange-100 text-[#FAA364]">
-                            <p className=" text-[11px] font-semibold">
-                              {item.status}
+                        <div className="ml-10 text-right">
+                          <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                            <p className="text-[11px] font-semibold">
+                              {task?.status || "Pending"}
                             </p>
                           </Badge>
                         </div>
                         <div className="flex justify-center pl-10">
-                          <Avatar className="w-6 h-6">
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={task?.creator?.img} />
+                            <AvatarFallback></AvatarFallback>
                           </Avatar>
                         </div>
-
-                        <div>ACTIONS</div>
+                        {task?.type == 0 ? (
+                          <div className="flex justify-center">
+                            <div className="flex items-center gap-2 text-[#696974]">
+                              <IonIcon
+                                icon={checkmarkCircleOutline}
+                                className="h-5 w-5"
+                                onClick={() =>
+                                  openCompleteTaskModal(
+                                    task?.id,
+                                    task?.name,
+                                    task?.description,
+                                  )
+                                }
+                              ></IonIcon>
+                              <IonIcon
+                                icon={create}
+                                className="h-5 w-5"
+                                onClick={() =>
+                                  openEditModalTask(
+                                    task?.id,
+                                    task?.name,
+                                    task?.description,
+                                    task?.priority,
+                                    task?.start,
+                                  )
+                                }
+                              ></IonIcon>
+                              <IonIcon
+                                icon={trash}
+                                onClick={() => openDestroyTaskModal(task?.id)}
+                                className="h-5 w-5"
+                              ></IonIcon>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex justify-center">
+                            <div className="flex items-center gap-2 text-[#696974]">
+                              <Link
+                                to={`/project-manager/${id}/projects/${task?.id}`}
+                              >
+                                <IonIcon
+                                  icon={informationCircle}
+                                  className="h-5 w-5"
+                                ></IonIcon>
+                              </Link>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </AccordionContent>
@@ -333,3 +412,21 @@ function Activities() {
 }
 
 export default Activities;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type_of_request")) {
+    case "1":
+      completeTask(data);
+      break;
+    case "2":
+      editTask(data);
+      break;
+    case "3":
+      destroyTask(data);
+      break;
+  }
+
+  return 1;
+}

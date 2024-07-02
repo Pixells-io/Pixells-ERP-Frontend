@@ -2,16 +2,16 @@ import React, { useState } from "react";
 
 import Lead from "./Lead";
 
-function Stage({ name, stageId, leads, setModal, setLeadId }) {
+function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
   const [acceptDrop, setAcceptDrop] = useState(false);
   return (
-    <div className="flex flex-col gap-2 w-[200px] h-full shrink-0">
-      <div className="flex flex-col items-center justify-center bg-[#E8E8E8] border-t-2 border-primario rounded-lg gap-2 h-16 pb-3 pt-1">
+    <div className="flex h-full w-[200px] shrink-0 flex-col gap-2">
+      <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
         <div>
           <p className="text-base text-grisText">{name}</p>
         </div>
-        <div className="border-[1px] border-grisHeading rounded-2xl w-fit px-3">
-          <p className="font-semibold text-xs text-grisHeading">
+        <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
+          <p className="text-xs font-semibold text-grisHeading">
             {leads?.length}
           </p>
         </div>
@@ -19,22 +19,31 @@ function Stage({ name, stageId, leads, setModal, setLeadId }) {
 
       <div
         className={
-          "bg-blancoBox p-2 rounded-lg flex flex-col gap-2 h-full overflow-scroll" +
+          "flex h-full flex-col gap-2 overflow-scroll rounded-lg bg-blancoBox p-2" +
           (acceptDrop
-            ? "outline outline-2 outline-primario border-[3px] border-primario"
+            ? "border-[3px] border-primario outline outline-2 outline-primario"
             : "")
         }
       >
         <ul
-          className="flex flex-col gap-2 h-full"
+          className="flex h-full flex-col gap-2"
           id={stageId}
           onDrop={(event) => {
             event.preventDefault();
             event.stopPropagation();
             if (acceptDrop) {
               const data = event.dataTransfer.getData("text");
+              const assignedImage =
+                event.dataTransfer.getData("assigned_image");
+              const assignedName = event.dataTransfer.getData("assigned_name");
+              const assignedId = event.dataTransfer.getData("assigned_id");
+              // console.log("assigned: ", assignedImage);
               setLeadId(data);
-
+              setLeadAssigned({
+                url: assignedImage,
+                name: assignedName,
+                id: assignedId,
+              });
               switch (stageId) {
                 case 1:
                   setModal((prev) => ({ ...prev, prospect: true }));

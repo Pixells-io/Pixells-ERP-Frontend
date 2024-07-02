@@ -16,70 +16,75 @@ import {
 } from "@/components/ui/dialog";
 // import FormInput from "./Inputs/FormInput";
 import FormInput from "./FormInput";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import DropzoneFile from "@/components/dropzone-files";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function FormNewSale() {
   const [open, setOpen] = useState(false);
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   if (navigation.state === "idle") {
-  //     setOpen({ prospect: false });
-  //   }
-  // }, [navigation.state]);
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setOpen({ prospect: false });
+    }
+  }, [navigation.state]);
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="w-full flex justify-start gap-6 p-0 text-gris2 group hover:text-blue-500 hover:bg-blue-100 hover:rounded-lg"
+          className="group flex w-full justify-start gap-6 p-0 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500"
         >
           <IonIcon icon={add} size="large"></IonIcon>
-          <p className="text-base font-medium text-gris2 group-hover:text-blue-500 mr-2">
+          <p className="mr-2 text-base font-medium text-gris2 group-hover:text-blue-500">
             New Sale
           </p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>New Sale Form</DialogTitle>
-          <DialogDescription>Something something new sale...</DialogDescription>
+      <DialogContent className="p-0 sm:max-w-[425px]">
+        <DialogHeader className="border-b px-8 py-6">
+          <DialogTitle>New Sale</DialogTitle>
         </DialogHeader>
         <Form
           id="new-sale-form"
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 px-6"
           action="/crm"
           method="post"
+          encType="multipart/form-data"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
-                Select Client
-                <Select />
+                <SelectRouter name="client" placeholder="Select Client" />
               </div>
+              {/* <div>
+                <SelectRouter name="services" placeholder="Select Services" />
+              </div> */}
               <div>
-                <FormInput
+                <InputRouter
                   name="confirm_email"
                   type="email"
                   placeholder="Confirm Email"
                 />
               </div>
               <div>
-                <FormInput
+                <InputRouter
                   name="subject"
                   type="date"
                   placeholder="Day of Contact"
                 />
               </div>
               <div>
-                <FormInput
+                <InputRouter
                   name="comments"
                   type="text"
                   placeholder="Type your message here."
                 />
               </div>
               <div>
-                <FormInput name="document" type="file" />
+                <DropzoneFile name="document" label="Select a file" />
               </div>
             </div>
             <div>
@@ -99,16 +104,16 @@ function FormNewSale() {
               />
             </div>
           </div>
+          <DialogFooter className="px-4 pb-4">
+            <Button
+              form="new-sale-form"
+              disabled={navigation.state === "submitting"}
+              className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+            </Button>
+          </DialogFooter>
         </Form>
-        <DialogFooter>
-          <Button
-            form="new-sale-form"
-            disabled={navigation.state === "submitting"}
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-          >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
-          </Button>{" "}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

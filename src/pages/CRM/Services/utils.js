@@ -14,7 +14,7 @@ export async function saveCategory(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -27,9 +27,9 @@ export async function saveService(data) {
     name: data.get("name"),
     description: data.get("description"),
     color: data.get("color"),
-    //participants: data.get("participants"),
-    //process: data.get("process"),
-    //process_action: data.get("process_action"),
+    price: data.get("price"),
+    process: data.getAll("process"),
+    process_action: data.getAll("process_action"),
   };
 
   const response = await fetch(
@@ -40,7 +40,7 @@ export async function saveService(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
@@ -69,7 +69,7 @@ export async function savePackage(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;

@@ -56,11 +56,13 @@ export default SideLayout;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  switch (data.get("register_type")) {
+  switch (data.get("register_type_function")) {
     case "1":
+      console.log(data, "sopas");
       await saveNewLead(data);
       break;
     case "2":
+      console.log(data, "sopitas");
       await saveImportClients(data);
       break;
   }

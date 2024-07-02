@@ -12,6 +12,7 @@ import {
 
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import SelectServices from "../SelectServices";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const packageInputs = [
   {
@@ -32,24 +33,24 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
 
   return (
     <Dialog open={modalPackage} onOpenChange={setModalPackage}>
-      <DialogContent className="sm:max-w-[480px] overflow-auto ">
-        <DialogHeader>
+      <DialogContent className="overflow-auto p-0 sm:max-w-[480px]">
+        <DialogHeader className="border-b px-6 py-4">
           <DialogTitle className="font-poppins">Create New Package</DialogTitle>
         </DialogHeader>
         <Form
           id="package-services-form"
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 px-6"
           action="/crm/services"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="text-[#696974] text-lg font-normal">
+          <div className="flex flex-col gap-4 rounded-lg px-6 py-2 font-roboto">
+            <div className="text-lg font-normal text-[#696974]">
               Information
             </div>
-            <div className="flex flex-col font-light gap-4 pb-4">
-              <input type="hidden" name="type" value={3} />
+            <div className="flex flex-col gap-4 pb-4 font-light">
+              <input type="hidden" name="type" value={3} hidden readOnly />
               {packageInputs?.map((input, i) => (
-                <FormInput
+                <InputRouter
                   key={i}
                   name={input.name}
                   type={input.type}
@@ -58,16 +59,16 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
+          <div className="border-b"></div>
+          <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
             {info?.map((category, i) => {
-              // console.log(category);
               return (
-                <div className="flex flex-col gap-3">
-                  <div className="text-[#696974] text-lg font-normal">
-                    {category.category["name"]}
+                <div key={i} className="flex flex-col gap-3">
+                  <div className="text-lg font-normal text-[#696974]">
+                    {category?.category["name"]}
                   </div>
-                  <div className="flex flex-col font-light gap-4 pb-4">
-                    <div className="flex gap-2 grid-cols-4">
+                  <div className="flex flex-col gap-4 pb-4 font-light">
+                    <div className="flex grid-cols-4 gap-2">
                       {category[0]?.services?.map((service, i) => (
                         <SelectServices service={service} key={i} />
                       ))}
@@ -78,10 +79,10 @@ function NewPackageForm({ modalPackage, setModalPackage, info }) {
             })}
           </div>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="px-6 pb-4">
           <Button
             form="package-services-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             disabled={navigation.state === "submitting"}
           >
             {navigation.state === "submitting" ? "Submitting..." : "Save"}

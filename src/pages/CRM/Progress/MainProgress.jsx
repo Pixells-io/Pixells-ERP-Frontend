@@ -28,22 +28,22 @@ function Main() {
   const { selectedServices, services } = useLoaderData();
   return (
     <div className="flex w-full overflow-auto">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -53,11 +53,11 @@ function Main() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               PROGRESS DASHBOARD
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             <div className="text-xs">
               {services?.data?.length}{" "}
               {services?.data?.length > 1 ? "services" : "service"}
@@ -68,7 +68,7 @@ function Main() {
         </div>
 
         {/* services */}
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
           <div className="flex gap-4 overflow-scroll">
             {selectedServices?.data?.map((service, i) => (
               <NavLink
@@ -76,20 +76,20 @@ function Main() {
                 to={`/crm/progress/${service?.id}`}
                 className={({ isActive }) =>
                   isActive
-                    ? `flex items-center space-evenly gap-4 bg-grisHeading rounded-full p-2 shrink-0 font-poppins font-bold`
-                    : `flex items-center space-evenly gap-4 bg-[#8F8F8F] rounded-full p-2 shrink-0 font-poppins font-normal`
+                    ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 font-poppins font-bold`
+                    : `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-[#8F8F8F] p-2 font-poppins font-normal`
                 }
               >
-                <div className="flex ml-2">
+                <div className="ml-2 flex">
                   <IonIcon
                     icon={globeOutline}
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                     style={{ color: `${service?.color}` }}
                   ></IonIcon>
                 </div>
                 <div className="flex items-center gap-4">
                   <p style={{ color: `${service?.color}` }}>&bull;</p>
-                  <p className="text-white uppercase text-sm">
+                  <p className="text-sm uppercase text-white">
                     {service?.name}
                   </p>
                 </div>

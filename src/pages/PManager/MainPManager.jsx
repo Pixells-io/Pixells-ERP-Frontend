@@ -11,27 +11,27 @@ function MainPManager() {
   const params = useParams();
   const [objectivesCtx, setObjectivesCtx] = useOutletContext();
   const objectiveInfo = objectivesCtx?.data?.find(
-    (obj, i) => obj.id === Number(params.id)
+    (obj, i) => obj.id === Number(params.id),
   );
   // console.log(objectivesCtx);
   return (
     <div className="flex w-full overflow-auto">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg space-y-4 w-full overflow-hidden">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -39,14 +39,15 @@ function MainPManager() {
             project manager
           </div>
         </div>
+
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className=" font-poppins font-bold text-[22px] text-[#44444F]">
+            <h2 className="font-poppins text-[22px] font-bold text-[#44444F]">
               PROJECT MANAGER
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center">
+          <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">
               {objectivesCtx?.data?.length} objectives
             </div>
@@ -60,57 +61,56 @@ function MainPManager() {
         {/* top content sub */}
         <div className="flex items-center gap-32 pl-3 pt-4">
           <div className="flex flex-col gap-2">
-            <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               {objectiveInfo?.name}
             </h2>
-            <span className="font-medium text-xs text-grisText">
+            <span className="text-xs font-medium text-grisText">
               Strategic Category
             </span>
-          </div>
-          <div className="flex gap-2 text-[#8F8F8F] self-start">
-            <div className="text-xl">&bull;</div>
-            <div className="text-xl">&bull;</div>
-            <div className="text-xl">&bull;</div>
           </div>
         </div>
 
         {/* buttons and filters */}
 
-        <GoalForm objectiveId={params.id} />
-
-        <div className="flex gap-4">
-          <NavLink
-            to={`/project-manager/${params.id}`}
-            className={({ isActive }) =>
-              isActive && location.pathname === `/project-manager/${params.id}`
-                ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
-            }
-          >
-            Board
-          </NavLink>
-          <NavLink
-            to={`/project-manager/${params.id}/csf`}
-            className={({ isActive }) =>
-              isActive &&
-              location.pathname === `/project-manager/${params.id}/csf`
-                ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
-            }
-          >
-            CSF
-          </NavLink>
-          <NavLink
-            to={`/project-manager/${params.id}/projects`}
-            className={({ isActive }) =>
-              isActive &&
-              location.pathname === `/project-manager/${params.id}/projects`
-                ? `h-6 w-auto bg-primario text-white text-[10px] font-medium rounded-xl px-4 flex items-center`
-                : `h-6 w-auto bg-blancoBox2 text-grisHeading text-[10px] font-medium rounded-xl px-4 flex items-center`
-            }
-          >
-            Projects
-          </NavLink>
+        <div className="flex items-center gap-8 pl-2">
+          <div className="">
+            <GoalForm objectiveId={params.id} />
+          </div>
+          <div className="flex gap-3">
+            <NavLink
+              to={`/project-manager/${params.id}`}
+              className={({ isActive }) =>
+                isActive &&
+                location.pathname === `/project-manager/${params.id}`
+                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
+                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
+              }
+            >
+              Board
+            </NavLink>
+            <NavLink
+              to={`/project-manager/${params.id}/csf`}
+              className={({ isActive }) =>
+                isActive &&
+                location.pathname === `/project-manager/${params.id}/csf`
+                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
+                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
+              }
+            >
+              CSF
+            </NavLink>
+            <NavLink
+              to={`/project-manager/${params.id}/projects`}
+              className={({ isActive }) =>
+                isActive &&
+                location.pathname === `/project-manager/${params.id}/projects`
+                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
+                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
+              }
+            >
+              Projects
+            </NavLink>
+          </div>
         </div>
 
         <Outlet />

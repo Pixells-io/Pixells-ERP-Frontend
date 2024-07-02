@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import { IonIcon } from "@ionic/react";
-import { closeCircle, personCircle } from "ionicons/icons";
-import { Button } from "./ui/button";
+import { closeCircle } from "ionicons/icons";
 
 function DropzoneFile({ name, label }) {
   const [yourImage, setYourImage] = useState([]);
@@ -17,6 +16,7 @@ function DropzoneFile({ name, label }) {
         }),
       ),
     );
+    console.log(acceptedFiles[0]);
   };
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
@@ -56,36 +56,7 @@ function DropzoneFile({ name, label }) {
             )}
           </div>
         )}
-        {/* {isDragActive ? (
-          <p>Drop the file here</p>
-        ) : (
-          <div className="">
-            {yourImage.length !== 0 ? (
-              <div className="flex flex-col px-2">
-                <img src={yourImage[0].preview} alt="preview" className="" />
-                <p>{yourImage[0].path}</p>
-              </div>
-            ) : (
-              <p>{label}</p>
-            )}
-          </div>
-        )} */}
       </div>
-      {/* 
-      <div className="file-list">
-        <h3>Uploaded File:</h3>
-        {uploadedFiles.length > 0 ? (
-          <ul>
-            {uploadedFiles.map((file, index) => (
-              <li key={index}>
-                <span>{file.name}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          ""
-        )}
-      </div> */}
     </div>
   );
 }

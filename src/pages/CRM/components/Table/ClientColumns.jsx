@@ -13,8 +13,8 @@ export const clientColumns = [
     accessorKey: "type",
     header: "TYPE",
     cell: ({ row }) => {
-      const info = row.getValue("type");
-      return <div>{info == 1 ? "Person" : "Corp"}</div>;
+      const info = row.original.type;
+      return <div>{info === 1 ? "Person" : "Business"}</div>;
     },
   },
   {
@@ -54,13 +54,12 @@ export const clientColumns = [
       return (
         <div className="flex items-center gap-2 text-[#696974]">
           <Link
-            to={`/crm/leads/${row?.original?.id}`}
+            to={`/crm/client/${row?.original?.id}`}
             className="flex items-center"
           >
-            <IonIcon icon={informationCircle} className="w-5 h-5"></IonIcon>
+            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon icon={chatbubbleEllipses} className="w-5 h-5"></IonIcon>
-          <IonIcon icon={bookmark} className="w-5 h-5"></IonIcon>
+          <IonIcon icon={chatbubbleEllipses} className="h-5 w-5"></IonIcon>
         </div>
       );
     },

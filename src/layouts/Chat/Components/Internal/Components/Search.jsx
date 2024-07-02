@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
+import { Form, useSubmit } from "react-router-dom";
+
 import Select from "react-select";
-import { Form } from "react-router-dom";
-import Cookies from "js-cookie";
 
 function Search(users) {
+  const submit = useSubmit();
   const selectUser = [];
 
   arrayFillUser(users, selectUser);
@@ -19,34 +20,34 @@ function Search(users) {
     });
   }
 
+  const formRef = useRef(null);
+
+  //Submit Form
+  function onInputEnter() {
+    //Set timeout
+    setTimeout(() => {
+      submit(formRef.current);
+    }, 400);
+  }
+
   return (
-    <Select
-      options={selectUser}
-      placeholder="SEARCH"
-      name="chat"
-      className="rounded-2xl"
-      onChange={searchChat}
-    />
+    <Form
+      id="form-search-chat"
+      className="w-full"
+      action="/chat"
+      ref={formRef}
+      method="post"
+    >
+      <input type="hidden" name="type_of_function" value="1" />
+      <Select
+        options={selectUser}
+        placeholder="SEARCH"
+        name="chat"
+        className="rounded-2xl"
+        onChange={() => onInputEnter()}
+      />
+    </Form>
   );
 }
 
 export default Search;
-
-export async function searchChat(e) {
-  const info = {
-    chat: e.value,
-  };
-
-  const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}chat/search`,
-    {
-      method: "POST",
-      body: JSON.stringify(info),
-      headers: {
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    },
-  );
-
-  e.value = "";
-}

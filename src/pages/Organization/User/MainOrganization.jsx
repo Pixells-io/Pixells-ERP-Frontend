@@ -17,7 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { saveNewArea } from "../utils";
+import { editArea, saveNewArea } from "../utils";
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
@@ -164,7 +164,14 @@ export default MainOrganization;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewArea(data);
+  switch (data.get("type")) {
+    case "1":
+      await saveNewArea(data);
+      break;
+    case "2":
+      await editArea(data);
+      break;
+  }
 
   return redirect("/organization");
 }

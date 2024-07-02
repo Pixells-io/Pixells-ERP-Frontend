@@ -10,7 +10,8 @@ import {
 } from "ionicons/icons";
 import FormImportClient from "../Clients/FormImportClient";
 
-function StatisticsBlock() {
+function StatisticsBlock({ data }) {
+  console.log(data);
   const [modal, setModal] = useState(false);
   return (
     <div className="flex gap-8">
@@ -26,7 +27,7 @@ function StatisticsBlock() {
             className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-xl font-bold text-blue-500">$13,500.00</div>
+        <div className="text-xl font-bold text-blue-500">${data.new_sales}</div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">SALES</span>
@@ -49,7 +50,9 @@ function StatisticsBlock() {
             className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-xl font-bold text-blue-500">05</div>
+        <div className="text-xl font-bold text-blue-500">
+          {data.new_clients}
+        </div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">NEW CLIENTS</span>
@@ -76,7 +79,7 @@ function StatisticsBlock() {
             className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-xl font-bold text-blue-500">13</div>
+        <div className="text-xl font-bold text-blue-500">{data.new_leads}</div>
         <div className="flex justify-between">
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-gris2">NEW LEADS</span>

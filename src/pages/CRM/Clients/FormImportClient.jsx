@@ -35,7 +35,7 @@ function FormImportClient({ modal, setModal }) {
           method="post"
           encType="multipart/form-data"
         >
-          <input type="hidden" name="register_type" value={2} />
+          <input type="hidden" name="register_type_function" value={2} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4 font-light">
               <FileRouter name={"file"} label={"Excel"} />

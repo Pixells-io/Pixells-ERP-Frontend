@@ -14,9 +14,9 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import { Form } from "react-router-dom";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function ServiceSelectAdd({ services }) {
-  // console.log(services);
   const options = services.map(({ id, name }) => ({ value: id, label: name }));
 
   return (
@@ -28,26 +28,28 @@ function ServiceSelectAdd({ services }) {
           className="text-4xl text-primario"
         ></IonIcon>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72 overflow-scroll">
+      <DropdownMenuContent className="h-[300px] w-64 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="flex flex-col gap-2 h-full">
+        <div className="relative flex h-full flex-col gap-2">
           <Form
             action="/crm/progress"
             method="post"
-            className="flex flex-col gap-2"
+            className="flex h-full flex-col gap-2"
           >
-            <Select
-              name="serviceId"
-              options={options}
-              isMulti
-              placeholder="Select services"
-              className="z-[999]"
-              // menuPortalTarget={document.body}
-              // styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-            />
-
-            <Button type="submit">Add</Button>
+            <div className="px-4 pt-4">
+              <SelectRouter
+                name="serviceId"
+                options={options}
+                isMulti={true}
+                placeholder="Select services"
+              />
+            </div>
+            <div className="flex self-end px-4 pt-4">
+              <Button type="submit" className="w-fit bg-primarioBotones px-6">
+                Add
+              </Button>
+            </div>
           </Form>
         </div>
       </DropdownMenuContent>

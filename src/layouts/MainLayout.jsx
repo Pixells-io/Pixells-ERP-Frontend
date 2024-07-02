@@ -7,6 +7,7 @@ import {
   useLoaderData,
   Link,
 } from "react-router-dom";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,6 +38,7 @@ import {
   cog,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+
 import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
@@ -69,7 +71,7 @@ const MENU = [
     icon: barChart,
   },
   {
-    path: "/org-development",
+    path: "/org-development/induction",
     name: "Org Dev",
     icon: people,
   },
@@ -92,6 +94,8 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
+  const userData = userAuth.data.user;
+
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
@@ -103,7 +107,9 @@ function MainLayout() {
 
   async function logOutFunction() {
     //First send the request
-    const logOut = await logOutRequest();
+    await logOutRequest();
+    //Remove token
+    Cookies.remove("token");
 
     //Redirect to the login
     return navigate("/login");
@@ -156,11 +162,13 @@ function MainLayout() {
           <div className="flex gap-6">
             <div></div>
             <div className="flex gap-3">
-              <IonIcon
-                icon={calendar}
-                size="large"
-                className="text-primario"
-              ></IonIcon>
+              <Link to={"/calendar"}>
+                <IonIcon
+                  icon={calendar}
+                  size="large"
+                  className="text-primario"
+                ></IonIcon>
+              </Link>
               <NotificationChat
                 notifications={chat?.data}
                 user={userAuth?.data}
@@ -176,8 +184,8 @@ function MainLayout() {
           <DropdownMenu className="">
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user?.user_image} />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={userData?.user_image} />
+                <AvatarFallback></AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4 bg-blancoBg">
@@ -185,47 +193,63 @@ function MainLayout() {
                 <div className="flex gap-4 p-2">
                   <div>
                     <Avatar>
-                      <AvatarImage src={user?.user_image} />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage src={userData?.user_image} />
+                      <AvatarFallback></AvatarFallback>
                     </Avatar>
                   </div>
                   <div>
                     <p className="text-base font-semibold text-grisText">
-                      {user?.name}&nbsp;{user?.last_name}&nbsp;
-                      {user?.second_last_name}
+                      {userData?.name}&nbsp;{userData?.last_name}&nbsp;
+                      {userData?.second_last_name}
                     </p>
                     <p className="text-[12px] text-grisSubText">
-                      {user?.personal_email}
+                      {userData?.personal_email}
                     </p>
                   </div>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-blancoBox" />
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                My Profile
+              <DropdownMenuItem>
+                <Link
+                  to={"/my-profile"}
+                  className="ml-4 flex gap-4 text-grisText"
+                >
+                  <IonIcon icon={person} className="h-5 w-5"></IonIcon>
+                  My Profile
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                Notifications
+              <DropdownMenuItem>
+                <Link
+                  to={"/my-profile/notifications"}
+                  className="ml-4 flex gap-4 text-grisText"
+                >
+                  <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
+                  Notifications
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
-                Dashboards
+              <DropdownMenuItem>
+                <Link to={"/"} className="ml-4 flex gap-4 text-grisText">
+                  <IonIcon icon={grid} className="h-5 w-5"></IonIcon>
+                  Dashboards
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
                 Saved
               </DropdownMenuItem>
+              {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={toggle} className="h-5 w-5"></IonIcon>
                 Dark Mode
               </DropdownMenuItem>
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
+              */}
+              {/* 
+                              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={desktop} className="h-5 w-5"></IonIcon>
                 Downloads
               </DropdownMenuItem>
+              */}
               <DropdownMenuSeparator className="bg-blancoBox" />
               <DropdownMenuItem className="ml-4 text-[#D7586B]">
                 <button

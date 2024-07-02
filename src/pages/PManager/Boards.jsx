@@ -1,15 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useLocation, useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Board from "./Board";
+import { pusherClient } from "@/lib/pusher";
+import { getGoalsMaster } from "@/lib/actions";
 
 function Boards() {
-  const params = useParams();
-  const { goals, users, csfs, goalsMaster } = useLoaderData();
+  const { id } = useParams();
+  const { goals, users, goalsMaster } = useLoaderData();
   const tabDefault = goals?.data[0]?.name;
+  const [urlId, setUrlId] = useState(id);
+  const [PMdata, setPMdata] = useState(goalsMaster.data);
+  const location = useLocation();
 
-  // console.log(csfs);
-  // console.log(goalsMaster.data);
+  useEffect(() => {
+    setUrlId(id);
+
+    pusherClient.subscribe(`private-pm-get-objetive.${urlId}`);
+
+    pusherClient.bind("fill-pm-objetive", ({ objetive }) => {
+      // console.log("EFFECT location -> pusher");
+      getPMinfoFuncion(objetive);
+    });
+
+    async function getPMinfoFuncion(objetive) {
+      const newData = await getGoalsMaster(urlId);
+      setPMdata(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-pm-get-objetive.${urlId}`);
+      // console.log("unsubscribe");
+    };
+  }, [location, urlId]);
 
   return (
     <>
@@ -36,23 +59,22 @@ function Boards() {
           </div>
         ))}
       </Tabs> */}
-      <div></div>
       <Tabs
         defaultValue={tabDefault}
-        className="w-full bg-blancoBg rounded-xl overflow-scroll"
+        className="w-full overflow-scroll rounded-xl bg-blancoBg"
       >
-        <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
-          {goalsMaster?.data?.map(({ goal }, i) => (
+        <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
+          {PMdata?.map(({ goal }, i) => (
             <TabsTrigger
               key={i}
               value={goal.name}
-              className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+              className="rounded-none border-b text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
               {goal.name}
             </TabsTrigger>
           ))}
         </TabsList>
-        {goalsMaster?.data?.map(({ fces, goal }, i) => (
+        {PMdata?.map(({ fces, goal }, i) => (
           <div key={i} className="flex w-full">
             <TabsContent value={goal.name} className="w-full">
               <Board goal={goal} users={users.data} csfs={fces} />

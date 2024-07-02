@@ -16,6 +16,8 @@ import { Form } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import FileRouter from "@/layouts/Masters/FormComponents/file";
 import UserSelect from "@/components/UserSelect";
+import DropzoneFile from "@/components/dropzone-files";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const FIELD_NUMBER = [
   { type: "1", value: "text" },
@@ -40,9 +42,9 @@ function FormStepCustom({
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
-        <div className="bg-gris flex p-6 rounded-t-lg">
+        <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
-            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+            <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
               <span className="font-light">Donde estas </span> &gt; {step?.name}{" "}
               &bull; <span>{service?.name}</span>
             </DialogTitle>
@@ -59,25 +61,27 @@ function FormStepCustom({
           method="post"
           className="flex flex-col gap-2 px-8"
         >
-          <div className="flex flex-col gap-4 font-roboto rounded-lg p-4">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
               {fields?.map((field, i) => {
                 return (
                   <div className="flex flex-col" key={i}>
                     {field?.rendering == 3 ? (
-                      <FileRouter
+                      <DropzoneFile
                         name={field?.name}
                         label={field?.visible_name}
                       />
                     ) : (
-                      <input
-                        className="placeholder:text-[10px] placeholder:font-light placeholder:text-grisSubText p-3 border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b rounded-none bg-transparent !ring-0 !ring-offset-0"
-                        required={Number(field?.nullable) === 0 ? true : false}
+                      <InputRouter
+                        className="rounded-none border-0 border-b border-grisSubText bg-transparent p-3 !ring-0 !ring-offset-0 placeholder:text-[10px] placeholder:font-light placeholder:text-grisSubText focus:border-b focus:border-primarioBotones"
+                        required={
+                          Number(field?.nullable) === 0 ? "true" : "false"
+                        }
                         placeholder={field?.visible_name}
                         name={field?.name}
                         type={
                           FIELD_NUMBER.find(
-                            (number) => number?.type == field?.rendering
+                            (number) => number?.type == field?.rendering,
                           ).value
                         }
                       />
@@ -108,20 +112,20 @@ function FormStepCustom({
           </div>
           <div className="flex justify-between p-4">
             <div className="flex items-center gap-2">
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                   <AvatarFallback>DG</AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
               </div>
-              <div className="flex justify-center items-center">
+              <div className="flex self-start pt-2">
                 <IonIcon
                   icon={chevronForward}
-                  className="w-6 h-6 text-grisText"
+                  className="h-6 w-6 text-grisText"
                 ></IonIcon>
               </div>
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex w-16 flex-col items-center gap-2">
                 <UserSelect users={users} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>

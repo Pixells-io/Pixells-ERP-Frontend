@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -24,6 +23,9 @@ import {
   HelpCircle,
   XCircle,
 } from "lucide-react";
+
+import { IonIcon } from "@ionic/react";
+import { personCircle } from "ionicons/icons";
 
 const statuses = [
   {
@@ -53,29 +55,45 @@ const statuses = [
   },
 ];
 
-function UserSelect({ users }) {
+function UserSelect({ users, leadAssigned }) {
   const { data } = users;
   const [open, setOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState("");
+  const [selectedStatus, setSelectedStatus] = React.useState(leadAssigned);
+
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center">
+      <input
+        type="text"
+        className="hidden"
+        readOnly
+        value={selectedStatus?.id}
+        name="assigned"
+      />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="ghost" size="sm" className="w-fit justify-start">
-            {selectedStatus ? (
+          <button type="button" className="flex">
+            {selectedStatus !== "" ? (
               <>
-                <selectedStatus.icon className="mr-2 h-4 w-4 shrink-0" />
-                {selectedStatus.label}
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src={selectedStatus?.user_image || selectedStatus?.url}
+                  />
+                  <AvatarFallback>
+                    {selectedStatus?.name.slice(1)}
+                  </AvatarFallback>
+                </Avatar>
               </>
             ) : (
               <>
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://github.com/luisdanielrb.png" />
-                  <AvatarFallback>LR</AvatarFallback>
-                </Avatar>
+                <div className="flex items-center">
+                  <IonIcon
+                    icon={personCircle}
+                    className="h-8 w-8 text-grisText"
+                  />
+                </div>
               </>
             )}
-          </Button>
+          </button>
         </PopoverTrigger>
         <PopoverContent className="p-0" side="right" align="start">
           <Command>
@@ -87,12 +105,10 @@ function UserSelect({ users }) {
                   <CommandItem
                     key={user.id}
                     value={user.id}
-                    onSelect={(value) => {
-                      console.log(value);
+                    onSelect={() => {
                       setSelectedStatus(
-                        data.find((user) => user.id === value) || null
+                        data.find((item, i) => user.id === item.id),
                       );
-                      console.log(selectedStatus);
                       setOpen(false);
                     }}
                   >
@@ -101,29 +117,6 @@ function UserSelect({ users }) {
                     </span>
                   </CommandItem>
                 ))}
-                {/* {statuses.map((status) => (
-                  <CommandItem
-                    key={status.value}
-                    value={status.value}
-                    onSelect={(value) => {
-                      setSelectedStatus(
-                        statuses.find((priority) => priority.value === value) ||
-                          null
-                      );
-                      setOpen(false);
-                    }}
-                  >
-                    <status.icon
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        status.value === selectedStatus?.value
-                          ? "opacity-100"
-                          : "opacity-40"
-                      )}
-                    />
-                    <span>{status.label}</span>
-                  </CommandItem>
-                ))} */}
               </CommandGroup>
             </CommandList>
           </Command>

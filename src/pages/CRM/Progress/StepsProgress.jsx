@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
-import { progressStepAdvance, saveNewServiceStep } from "./util";
+import {
+  moveProgressColumn,
+  progressStepAdvance,
+  saveNewServiceStep,
+} from "./util";
 import Step from "./components/Step";
 import { pusherClient } from "@/lib/pusher";
 import { getServiceSteps } from "@/lib/actions";
@@ -12,36 +16,31 @@ function StepsProgress() {
   const { steps, users } = useLoaderData();
   const { services } = useOutletContext();
 
-  // const [initialData, setInitialData] = useState(steps);
-  // const [dataPusher, setDataPusher] = useState(initialData);
+  const [initialData, setInitialData] = useState(steps);
+  const [dataPusher, setDataPusher] = useState(initialData);
 
-  // console.log(dataPusher);
+  useEffect(() => {
+    pusherClient.subscribe(`get-process-service.${id}`);
 
-  // useEffect(() => {
-  //   async function getChatData(id) {
-  //     let newData = await getServiceSteps(id);
-  //     setDataPusher(newData);
-  //   }
+    pusherClient.bind("fill-process-service", ({ service }) => {
+      getProcesServiceFunction();
+    });
 
-  //   pusherClient.subscribe(`private-get-chat.${steps.data[1].step.service_id}`);
+    async function getProcesServiceFunction() {
+      let newData = await getServiceSteps(id);
 
-  //   pusherClient.bind("fill-process", ({ service }) => {
-  //     /* Set the new chat */
-  //     getChatData(id);
-  //   });
+      setDataPusher(newData.data);
+    }
 
-  //   return () => {
-  //     pusherClient.unsubscribe(
-  //       `private-get-chat.${steps.data[1].step.service_id}`
-  //     );
-  //   };
-  // }, []);
+    return () => {
+      pusherClient.unsubscribe(`get-process-service.${id}`);
+    };
+  });
 
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
-        {steps.data?.map((step, i) => {
-          // console.log(step);
+        {dataPusher.data?.map((step, i) => {
           const service = services?.data.find((service) => service.id == id);
           return (
             <Step
@@ -54,7 +53,10 @@ function StepsProgress() {
           );
         })}
       </div>
-      <NewStepService serviceId={id} />
+      <NewStepService
+        serviceId={id}
+        service={services?.data?.filter((service, i) => service.id == id)}
+      />
     </div>
   );
 }
@@ -88,7 +90,9 @@ export async function Action({ params, request }) {
     case "advance_step":
       return await progressStepAdvance(data);
 
-    default:
-      break;
+    case "move_column":
+      return await moveProgressColumn(data);
   }
+
+  return 1;
 }

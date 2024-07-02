@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { pusherClient } from "@/lib/pusher";
+import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { Link, useNavigate } from "react-router-dom";
-import { pusherClient } from "@/lib/pusher";
-import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
@@ -54,8 +52,8 @@ function NotificationChat({ notifications, user }) {
       {notificationsPusher[0]?.number == 0 ? (
         ""
       ) : (
-        <div className="rounded-full bg-[#D7586B] text-white h-5 w-5 top-1 fixed z-10 right-[155px] justify-center">
-          <span className="ml-[6px] mt-[-9px] h-5 w-5 top-[10px] fixed">
+        <div className="fixed right-[155px] top-1 z-10 h-5 w-5 items-center justify-center rounded-full border border-white bg-[#D7586B] text-white">
+          <span className="fixed top-[14px] ml-[6px] mt-[-9px] h-5 w-5 text-xs">
             {notificationsPusher[0]?.number}
           </span>
         </div>
@@ -68,15 +66,15 @@ function NotificationChat({ notifications, user }) {
             className="text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="">
-          <DropdownMenuItem className="">
+        <DropdownMenuContent className="flex flex-col">
+          <DropdownMenuItem className="flex flex-col gap-2">
             {notificationsPusher[0]?.notifications.map((noti, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => destroyNotificationActivation(noti.chat_id)}
               >
-                <div className="w-64 flex gap-1 hover:bg-[#7794F926] hover:rounded-lg">
+                <div className="flex w-64 gap-1 hover:rounded-lg hover:bg-[#7794F926]">
                   <div className="w-1/5">
                     <Avatar>
                       <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
@@ -84,21 +82,21 @@ function NotificationChat({ notifications, user }) {
                     </Avatar>
                   </div>
                   <div className="w-3/5 overflow-hidden text-start">
-                    <p className="text-grisText text-sm font-medium">
+                    <p className="text-sm font-medium text-grisText">
                       {noti?.title}
                     </p>
                     <span
-                      className="text-grisSubText text-xs font-normal"
+                      className="text-xs font-normal text-grisSubText"
                       title={noti?.message}
                     >
                       {noti?.message}
                     </span>
                   </div>
-                  <div className="flex flex-col items-end w-1/5">
-                    <span className="rounded-full bg-[#00A259] text-white h-5 w-5 flex justify-center">
+                  <div className="flex w-1/5 flex-col items-end">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#00A259] text-[10px] text-white">
                       {noti?.total}
                     </span>
-                    <span className="text-grisSubText text-[10px]">
+                    <span className="text-[10px] text-grisSubText">
                       {noti?.date}
                     </span>
                   </div>

@@ -11,7 +11,7 @@ export async function getChat({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -27,7 +27,7 @@ export async function getChatWithId(id) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -43,7 +43,7 @@ export async function getAuthUser() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -57,10 +57,10 @@ export async function multiLoaderChat2({ params }) {
   return json({ chat, user });
 }
 
-export async function storeMensagge(chat, msg) {
+export async function storeMensagge(data) {
   const info = {
-    chat: chat,
-    msg: msg,
+    chat: data.get("chat_id"),
+    msg: data.get("message"),
   };
 
   const response = await fetch(
@@ -71,8 +71,14 @@ export async function storeMensagge(chat, msg) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response;
+}
+
+export async function pruebaSubmit(data) {
+  console.log("hola");
+
+  return "hola";
 }

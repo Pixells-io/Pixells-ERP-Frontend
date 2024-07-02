@@ -59,13 +59,48 @@ export async function getServicesAgreements() {
   }
 }
 
+export async function getContractsCustomer() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-contracts`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getContract({ params }) {
+  const id = params.id;
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}agreements/get-contract/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderAgreements() {
-  const [services, customers] = await Promise.all([
+  const [services, customers, contracts] = await Promise.all([
     getServicesAgreements(),
     getCustomers(),
+    getContractsCustomer(),
   ]);
 
-  return json({ services, customers });
+  return json({ services, customers, contracts });
 }
 
 export async function getCategories() {
@@ -117,7 +152,7 @@ export async function getCategoriesAndServices() {
 }
 
 export async function multiLoaderServices() {
-  const [services, categories, packages, positions, categoriesServices] =
+  const [services, categories, packages, positions, categoriesServices, users] =
     await Promise.all([
       getServices(),
       getCategories(),
@@ -196,6 +231,22 @@ export async function getLeads() {
   }
 }
 
+export async function getDashboardCrmAnalytics() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}person/crm-homepage-analytics`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getProcessLeads() {
   try {
     const response = await fetch(
@@ -228,13 +279,10 @@ export async function getObjectives() {
   }
 }
 
-export async function getGoals({ params }) {
-  const objectiveId = params.id;
+export async function getGoals(id) {
   try {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }project-manager/get-goal/${objectiveId}/0`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-goal/${id}/0`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -266,8 +314,8 @@ export async function getCSF({ params }) {
   }
 }
 
-export async function getServiceSteps({ params }) {
-  const serviceId = params.id;
+export async function getServiceSteps(id) {
+  const serviceId = id;
   try {
     const response = await fetch(
       `${
@@ -403,14 +451,24 @@ export async function getUserByToken() {
 }
 
 export async function multiLoaderCSF({ params }) {
-  const [goals, users, csfs, goalsMaster] = await Promise.all([
-    getGoals({ params }),
+  const id = params.id;
+  const [goals, users, goalsMaster] = await Promise.all([
+    getGoals(id),
     getUsers(),
+    getGoalsMaster(id),
+  ]);
+
+  return json({ goals, users, goalsMaster });
+}
+
+export async function multiloaderCFSView({ params }) {
+  const [goals, csfs, goalsMaster] = await Promise.all([
+    getGoals({ params }),
     getCSF({ params }),
     getGoalsMaster({ params }),
   ]);
 
-  return json({ goals, users, csfs, goalsMaster });
+  return json({ goals, csfs, goalsMaster });
 }
 
 export async function multiLoaderSideLayoutPM() {
@@ -419,13 +477,10 @@ export async function multiLoaderSideLayoutPM() {
   return json({ objectives, areas });
 }
 
-export async function getGoalsMaster({ params }) {
-  const objectiveId = params.id;
+export async function getGoalsMaster(id) {
   try {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }project-manager/get-goals/${objectiveId}`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-goals/${id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -551,14 +606,36 @@ export async function getClients() {
   }
 }
 
+export async function getClient({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}process-services/get-client/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderTablesCRM() {
-  const [leads, clients] = await Promise.all([getLeads(), getClients()]);
-  return json({ leads, clients });
+  const [leads, clients, dashboard] = await Promise.all([
+    getLeads(),
+    getClients(),
+    getDashboardCrmAnalytics(),
+  ]);
+  return json({ leads, clients, dashboard });
 }
 
 export async function multiloaderProgressSteps({ params }) {
+  const serviceId = params.id;
   const [steps, users] = await Promise.all([
-    getServiceSteps({ params }),
+    getServiceSteps(serviceId),
     getUsers(),
   ]);
 
@@ -995,6 +1072,177 @@ export async function permissionValidate(position, permision, module) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}organization/permission-validate/${position}/${permision}/${module}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderProjectPM({ params }) {
+  const [project, users] = await Promise.all([
+    getProjectById({ params }),
+    getUsers(),
+  ]);
+
+  return json({ project, users });
+}
+
+export async function getProjectById({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${params.projectId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getTodayActivity() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/today-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchTodayActivity(type, date) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/today-activities/${type}/${date}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMonthActivity() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/month-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchMonthActivity(type, month) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/month-activities/${type}/${month}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getMonthKanban() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/kanban-activities/0/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function searchMonthKanban(type, month) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/kanban-activities/${type}/${month}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getCsfAnalityc({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-csf-analityc/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getProjectsAnalityc({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-project-analityc/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getCalendarData() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}calendar/get-data/0`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

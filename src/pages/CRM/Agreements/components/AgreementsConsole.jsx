@@ -75,7 +75,7 @@ function AgreementsConsole({ services, customers }) {
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="col-span-10 h-full overflow-visible"
+              className="col-span-10 flex h-full gap-6 overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
                 <div className="flex gap-6">

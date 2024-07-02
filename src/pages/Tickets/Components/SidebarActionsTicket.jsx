@@ -61,14 +61,14 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       <div className="mt-6 flex gap-4">
         <button
           type="button"
-          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(1)}
         >
           Visit
         </button>
         <button
           type="button"
-          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(2)}
         >
           Phone Call
@@ -77,7 +77,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       <div className="mb-8 mt-4 flex gap-4">
         <button
           type="button"
-          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(3)}
         >
           Message
@@ -100,7 +100,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       <div className="mt-8">
         <button
           type="button"
-          className="group flex w-full justify-start gap-6 p-0 text-blue-500 hover:rounded-lg hover:bg-blue-100"
+          className="group flex w-full justify-start gap-3 p-0 text-blue-500 hover:rounded-lg hover:bg-blue-100"
           onClick={() => setModalResponsible(true)}
         >
           <IonIcon icon={add} size="large"></IonIcon>
@@ -117,7 +117,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           {ticket?.responsible.map((data, i) => (
             <div className="flex">
               <div>
-                <img src={data.img} className="w-9 rounded-full" />
+                <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
               <div className="ml-3">
                 <span className="font-roboto text-sm font-medium text-grisText">
@@ -141,7 +141,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           {ticket?.involved.map((data, i) => (
             <div className="flex">
               <div>
-                <img src={data.img} className="w-9 rounded-full" />
+                <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
               <div className="ml-3">
                 <span className="font-roboto text-sm font-medium text-grisText">

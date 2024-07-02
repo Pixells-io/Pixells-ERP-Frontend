@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -15,8 +15,16 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function FormCreateTickets({ modal, setModal, areas, users }) {
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   const [processValue, setProcessValue] = useState([]);
   const [processInputs, setProcessInputs] = useState([
     {
@@ -119,28 +127,28 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
+      <DialogContent className="overflow-auto sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create Ticket</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0"
           action="/tickets"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               {processInputs?.map((input, i) => (
                 <div className="flex" key={i}>
-                  <div className="w-2/4 mr-2">
+                  <div className="mr-2 w-2/4">
                     <SelectRouter
                       name={"area_id"}
                       placeholder={"Area"}
                       options={areas}
                     />
                   </div>
-                  <div className="w-2/4 ml-2">
+                  <div className="ml-2 w-2/4">
                     <SelectRouter
                       name={"user_id"}
                       placeholder={"Responsable"}
@@ -161,7 +169,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   ])
                 }
                 type="button"
-                className="flex self-end bg-primario rounded-full h-6 w-6 items-center"
+                className="flex h-6 w-6 items-center self-end rounded-full bg-primario"
               >
                 <IonIcon
                   icon={add}
@@ -169,9 +177,8 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   className="text-white"
                 ></IonIcon>
               </button>
-
-              <FormInput name="issue" type="text" placeholder="Issue" />
-              <FormInput
+              <InputRouter name="issue" type="text" placeholder="Issue" />
+              <InputRouter
                 name="description"
                 type="text"
                 placeholder="Description"
@@ -192,7 +199,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
         <DialogFooter className="h-auto">
           <Button
             form="ticket-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>

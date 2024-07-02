@@ -23,7 +23,9 @@ import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Client :id
-import MainClient from "./pages/CRM/Clients/MainClient";
+import MainClient, {
+  Action as ClientAccion,
+} from "./pages/CRM/Clients/MainClient";
 
 // CRM Services
 import MainServices, {
@@ -81,15 +83,19 @@ import MainPManager, { multiFormAction } from "./pages/PManager/MainPManager";
 import CsfView from "./pages/PManager/CsfView";
 import Projects from "./pages/PManager/Projects";
 import Today from "./pages/PManager/Today";
-import Activities from "./pages/PManager/Activities";
+import Activities, {
+  Action as taskFunctions,
+} from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainClients from "./pages/Clients/MainClients";
 
 // Chat
-import LayoutChat from "./layouts/Chat/LayoutChat";
-import MainChat from "./pages/Chat/MainChat";
-import { multiLoaderChat2 } from "./pages/Chat/utils";
+import LayoutChat, {
+  Action as chatLayoutFunction,
+} from "./layouts/Chat/LayoutChat";
+import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
+import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
 
 //actions
 import {
@@ -128,6 +134,18 @@ import {
   multiLoaderUserCreate,
   multiloaderAgreements,
   getContractCreate,
+  getContract,
+  getClient,
+  multiloaderCFSView,
+  getProjectById,
+  getTodayActivity,
+  getMonthActivity,
+  getMonthKanban,
+  getCsfAnalityc,
+  getProjectsAnalityc,
+  multiloaderProjectPM,
+  getCalendarData,
+  getUserByToken,
 } from "./lib/actions";
 
 //Not Found
@@ -182,6 +200,25 @@ import MainPosition, {
 import MainUser, {
   Action as UpdateUser,
 } from "./pages/Organization/User/User/MainUser";
+import ShowAgreements, {
+  Action as EditContract,
+} from "./pages/CRM/Agreements/ShowAgreements";
+
+import MainProject, {
+  Action as multiloaderProject,
+} from "./pages/PManager/MainProject";
+
+import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
+import MainCalendar from "./pages/Calendar/MainCalendar";
+import LayoutCalendar, {
+  Action as createMeetCalendar,
+} from "./pages/Calendar/LayoutCalendar";
+import SideLayoutMyProfile, {
+  Action as ChangeMyPassword,
+} from "./layouts/MyProfile/SideLayoutMyProfile";
+import MainMyProfile from "./layouts/MyProfile/MainMyProfile";
+import MainSecurity from "./layouts/MyProfile/MainSecutiry";
+import MainNotifications from "./layouts/MyProfile/MainNotifications";
 
 const router = createBrowserRouter([
   {
@@ -288,6 +325,12 @@ const router = createBrowserRouter([
             action: EditAgreementTemplate,
           },
           {
+            path: "/crm/agreements/show/:id",
+            element: <ShowAgreements />,
+            loader: getContract,
+            action: EditContract,
+          },
+          {
             path: "/crm/agreements/new-contract/:id/:customer",
             element: <NewContract />,
             loader: getContractCreate,
@@ -298,6 +341,8 @@ const router = createBrowserRouter([
           {
             path: "/crm/client/:id",
             element: <MainClient />,
+            loader: getClient,
+            action: ClientAccion,
           },
         ],
       },
@@ -372,14 +417,18 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Today />,
+            loader: getTodayActivity,
           },
           {
             path: "/project-manager/activities",
             element: <Activities />,
+            loader: getMonthActivity,
+            action: taskFunctions,
           },
           {
             path: "/project-manager/status",
             element: <Status />,
+            loader: getMonthKanban,
           },
           {
             path: "/project-manager/:id",
@@ -393,11 +442,19 @@ const router = createBrowserRouter([
               },
               {
                 path: "/project-manager/:id/csf",
+                loader: getCsfAnalityc,
                 element: <CsfView />,
               },
               {
                 path: "/project-manager/:id/projects",
+                loader: getProjectsAnalityc,
                 element: <Projects />,
+              },
+              {
+                path: "/project-manager/:id/projects/:projectId",
+                element: <MainProject />,
+                loader: multiloaderProjectPM,
+                action: multiloaderProject,
               },
             ],
           },
@@ -405,14 +462,21 @@ const router = createBrowserRouter([
       },
       //Chat
       {
+        path: "/chat-spa",
+        element: <MainChatSPA />,
+        loader: multiLoaderChat,
+      },
+      {
         path: "/chat",
         element: <LayoutChat />,
         loader: multiLoaderChat,
+        action: chatLayoutFunction,
         children: [
           {
             path: "/chat/:id",
             element: <MainChat />,
             loader: multiLoaderChat2,
+            action: functionMasterChat,
           },
         ],
       },
@@ -421,11 +485,11 @@ const router = createBrowserRouter([
         path: "/org-development",
         element: <SideLayoutDevOrg />,
         children: [
-          { index: true },
           //Induccion
           {
             path: "/org-development/induction",
             element: <MainOrgDev />,
+            index: true,
             loader: multiloaderOrganizationDevelopment,
             action: OrgDevSaveInduction,
           },
@@ -552,6 +616,39 @@ const router = createBrowserRouter([
             index: true,
             element: <InformationCreateShow />,
             loader: getUsers,
+          },
+        ],
+      },
+      {
+        path: "/calendar",
+        element: <LayoutCalendar />,
+        loader: getUsers,
+        action: createMeetCalendar,
+        children: [
+          {
+            index: true,
+            element: <MainCalendar />,
+            loader: getCalendarData,
+          },
+        ],
+      },
+      {
+        path: "my-profile",
+        element: <SideLayoutMyProfile />,
+        action: ChangeMyPassword,
+        children: [
+          {
+            index: true,
+            element: <MainMyProfile />,
+            loader: getUserByToken,
+          },
+          {
+            path: "/my-profile/security",
+            element: <MainSecurity />,
+          },
+          {
+            path: "/my-profile/notifications",
+            element: <MainNotifications />,
           },
         ],
       },

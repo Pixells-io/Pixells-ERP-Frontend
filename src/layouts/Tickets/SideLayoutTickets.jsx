@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { lockOpen, person } from "ionicons/icons";
+import { lockOpen, person, ticket } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
 import { saveNewTicket } from "@/pages/Tickets/utils";
 
@@ -18,50 +18,34 @@ function SideLayoutTickets() {
   const navigation = useNavigation();
   const location = useLocation();
   return (
-    <div className="flex h-full px-4 font-roboto pb-4">
+    <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex flex-col gap-4">
         {/* top block */}
-        <div className="flex flex-col bg-gris gap-4 rounded-lg px-8 py-4 w-[280px]">
+        <div className="flex w-[280px] flex-col gap-4 rounded-lg bg-gris px-8 py-4">
           <TopMenu main={"/tickets"} />
         </div>
 
         {/*bottom block */}
-        <div className="flex flex-col gap-4 bg-gris h-full rounded-md p-4">
-          <p className="font-semibold text-lg font-poppins text-grisHeading px-4">
+        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
+          <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
             Menu
           </p>
 
           {/*menu top */}
           <div className="flex flex-col gap-4">
             <NavLink
-              to="/organization"
+              to="/tickets"
               className={({ isActive }) =>
-                isActive && location.pathname === "/organization"
-                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
+                isActive && location.pathname === "/tickets"
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
             >
               <div className="flex items-center gap-6">
-                <IonIcon icon={person} size="large"></IonIcon>
+                <IonIcon icon={ticket} size="large"></IonIcon>
                 <div>
-                  <p className="font-medium text-base">User</p>
-                  <p className="font-medium text-[10px]">Management</p>
-                </div>
-              </div>
-            </NavLink>
-            <NavLink
-              to="/organization/access"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primario bg-[#E8E8E8] rounded-lg w-full px-4"
-                  : "text-gris2 hover:bg-[#EAEAEA] hover:rounded-lg w-full px-4"
-              }
-            >
-              <div className="flex items-center gap-6">
-                <IonIcon icon={lockOpen} size="large"></IonIcon>
-                <div>
-                  <p className="font-medium text-base">Access</p>
-                  <p className="font-medium text-[10px]">Control</p>
+                  <p className="text-base font-medium">Tickets</p>
+                  <p className="text-[10px] font-medium">General</p>
                 </div>
               </div>
             </NavLink>

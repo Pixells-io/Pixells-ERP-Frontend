@@ -4,22 +4,21 @@ import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
-import FormInput from "./Inputs/FormInput";
 import UserSelect from "@/components/UserSelect";
 
 import { getLeadInfo } from "../../utils";
 
 import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function KickOffForm({ modal, setModal, leadId, users }) {
+function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
   const navigation = useNavigation();
   const [leadInfo, setLeadInfo] = useState("");
   const [formData, setFormData] = useState({
@@ -56,10 +55,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] p-0">
-        <div className="bg-gris flex p-6 rounded-t-lg">
+      <DialogContent className="p-0 sm:max-w-[425px]">
+        <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
-            <DialogTitle className="font-poppins font-semibold text-sm text-grisHeading">
+            <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
               <span className="font-normal">Pay Form </span>
               &gt; On Boarding Form
             </DialogTitle>
@@ -71,26 +70,26 @@ function KickOffForm({ modal, setModal, leadId, users }) {
           action="/crm/leads"
           method="post"
         >
-          <div className="flex flex-col gap-2 font-roboto rounded-lg p-4">
+          <div className="flex flex-col gap-2 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-5 pb-1">
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Business Name
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.business_name}
                   onChange={handleInputChange}
                   type="text"
                   name="business_name"
                   placeholder="Business Name"
-                  className="flex border-0 border-b border-grisSubText focus:border-primarioBotones focus:border-b-2 rounded-none bg-transparent !ring-0 !ring-offset-0"
+                  className="flex rounded-none border-0 border-b border-grisSubText bg-transparent !ring-0 !ring-offset-0 focus:border-b-2 focus:border-primarioBotones"
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Business Phone
                 </span>
-                <FormInput
+                <InputRouter
                   name="business_phone"
                   value={formData?.business_phone}
                   onChange={handleInputChange}
@@ -99,10 +98,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Contact Name
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.contact_name}
                   onChange={handleInputChange}
                   name="contact_name"
@@ -111,10 +110,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Contact Middle Name
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.contact_middle_name}
                   onChange={handleInputChange}
                   name="contact_middle_name"
@@ -123,10 +122,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Contact Last Name
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.contact_last_name}
                   onChange={handleInputChange}
                   name="contact_last_name"
@@ -135,10 +134,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Contact Phone
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.contact_phone}
                   onChange={handleInputChange}
                   name="contact_phone"
@@ -147,10 +146,10 @@ function KickOffForm({ modal, setModal, leadId, users }) {
                 />
               </div>
               <div>
-                <span className="text-sm text-grisSubText font-medium">
+                <span className="text-sm font-medium text-grisSubText">
                   Email
                 </span>
-                <FormInput
+                <InputRouter
                   value={formData?.contact_email}
                   onChange={handleInputChange}
                   name="contact_email"
@@ -176,35 +175,37 @@ function KickOffForm({ modal, setModal, leadId, users }) {
               />
             </div>
           </div>
-        </Form>
-        <div className="flex justify-between p-4">
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col items-center gap-2">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                <AvatarFallback>DG</AvatarFallback>
-              </Avatar>
-              <p className="text-[10px] text-grisText">Assigned</p>
+          <div className="flex justify-between p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex w-16 flex-col items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarFallback>
+                    {leadAssigned?.name?.search("\b[a-zA-Z]")}
+                  </AvatarFallback>
+                </Avatar>
+                <p className="text-[10px] text-grisText">Assigned</p>
+              </div>
+              <div className="flex self-start pt-2">
+                <IonIcon
+                  icon={chevronForward}
+                  className="h-6 w-6 text-grisText"
+                ></IonIcon>
+              </div>
+              <div className="flex w-16 flex-col items-center gap-2">
+                <UserSelect users={users} leadAssigned={leadAssigned} />
+                <p className="text-[10px] text-grisText">Assign To</p>
+              </div>
             </div>
-            <div className="flex justify-center items-center">
-              <IonIcon
-                icon={chevronForward}
-                className="w-6 h-6 text-grisText"
-              ></IonIcon>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <UserSelect users={users} />
-              <p className="text-[10px] text-grisText">Assign To</p>
-            </div>
+            <Button
+              form="onboarding-leads-form"
+              disabled={navigation.state === "submitting"}
+              className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Onboard"}
+            </Button>
           </div>
-          <Button
-            form="onboarding-leads-form"
-            disabled={navigation.state === "submitting"}
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
-          >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
-          </Button>
-        </div>
+        </Form>
       </DialogContent>
     </Dialog>
   );

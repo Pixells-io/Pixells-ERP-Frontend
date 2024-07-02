@@ -4,12 +4,10 @@ export async function saveNewObjective(data) {
   try {
     const objective = {
       name: data.get("objetivo"),
-      description: Number(data.get("area")),
+      description: data.get("area"),
     };
 
     // console.log(objective);
-
-    // validaciones?
 
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}project-manager/create-objetive`,
@@ -19,9 +17,8 @@ export async function saveNewObjective(data) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
-    // console.log(response);
 
     return response;
   } catch (error) {

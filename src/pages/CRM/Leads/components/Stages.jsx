@@ -16,6 +16,7 @@ import { pusherClient } from "@/lib/pusher";
 
 function Stages() {
   const { steps, services, users } = useLoaderData();
+  // console.log(steps.data);
   const [initialData, setInitialData] = useState(steps.data);
   const [stages, setStages] = useState(initialData);
   const [leadId, setLeadId] = useState("");
@@ -28,6 +29,7 @@ function Stages() {
     pay: false,
     kickoff: false,
   });
+  const [leadAssigned, setLeadAssigned] = useState("");
 
   useEffect(() => {
     async function getStepsUrl() {
@@ -48,31 +50,35 @@ function Stages() {
   }, []);
 
   return (
-    <div className="flex gap-2 overflow-auto h-full">
+    <div className="flex h-full gap-2 overflow-auto">
       {/* modal on drop drag */}
       <ProspectForm
         modal={modal.prospect}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <PotentialForm
         modal={modal.potential}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <FollowUpForm
         modal={modal.followup}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <ProposalForm
         modal={modal.proposal}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <ClosingForm
         modal={modal.closing}
@@ -80,18 +86,21 @@ function Stages() {
         leadId={leadId}
         services={services}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <PayForm
         modal={modal.pay}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
       <KickOffForm
         modal={modal.kickoff}
         setModal={setModal}
         leadId={leadId}
         users={users}
+        leadAssigned={leadAssigned}
       />
 
       {/* Stages */}
@@ -104,6 +113,7 @@ function Stages() {
             stageId={stage.id}
             leads={stage.leads}
             setLeadId={setLeadId}
+            setLeadAssigned={setLeadAssigned}
           />
         ))}
       </div>

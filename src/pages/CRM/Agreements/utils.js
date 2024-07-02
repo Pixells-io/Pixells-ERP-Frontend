@@ -46,6 +46,28 @@ export async function saveEditAgreementTemplate(data) {
   return response;
 }
 
+export async function saveEditContractTemplate(data) {
+  console.log(data);
+
+  const info = {
+    id: data.get("id"),
+    template: data.get("template"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}agreements/contract-edit`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function saveNewContract(data) {
   console.log(data);
 
@@ -57,5 +79,16 @@ export async function saveNewContract(data) {
     comments: data.get("comments"),
   };
 
-  return null;
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}agreements/create-contract`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }

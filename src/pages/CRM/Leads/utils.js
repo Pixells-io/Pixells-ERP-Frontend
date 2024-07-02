@@ -11,7 +11,7 @@ export async function getSteps() {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -37,7 +37,7 @@ export async function getLeadInfo(leadId) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -53,7 +53,7 @@ export async function getLeadById({ params }) {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -68,9 +68,8 @@ export async function prospectLeadForm(data) {
     day_of_contact: format(new Date(data.get("date")), "yyyy-MM-dd"),
     coments: data.get("comment"),
     archive: data.get("file"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(prospect);
 
   // validaciones?
 
@@ -82,9 +81,8 @@ export async function prospectLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
@@ -94,9 +92,8 @@ export async function potencialLeadForm(data) {
     lead_id: Number(data.get("lead_id")),
     payment_recurrency: data.get("payment_recurrency"),
     total_ammount: data.get("total_ammount"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(potencial);
 
   // validaciones?
 
@@ -108,27 +105,25 @@ export async function potencialLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
 
 export async function followupLeadForm(data) {
   const followup = {
-    lead_id: Number(data.get("lead_id")),
-    way_of_contact: Number(data.get("way_of_contact")),
+    lead_id: data.get("lead_id"),
+    way_of_contact: data.get("way_of_contact"),
     date_of_contact: format(
       new Date(data.get("date_of_contact")),
-      "yyyy-MM-dd"
+      "yyyy-MM-dd",
     ),
     comments: data.get("comments"),
     archive: data.get("document"),
     next_step: data.get("next_step"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(followup);
 
   // validaciones?
 
@@ -140,9 +135,8 @@ export async function followupLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
@@ -154,9 +148,8 @@ export async function proposalLeadForm(data) {
     subject: format(new Date(data.get("subject")), "yyyy-MM-dd"),
     comments: data.get("comments"),
     document: data.get("document"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(proposal);
 
   // validaciones?
 
@@ -168,28 +161,24 @@ export async function proposalLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
 
 export async function closingLeadForm(data) {
-  const services = [];
-  for (const [key, value] of data.entries()) {
-    if (key === "services") {
-      services.push(Number(value));
-    }
-  }
   const closing = {
     lead_id: data.get("lead_id"),
     service_paymment: data.get("service_paymment"),
     service_agreement: data.get("service_agreement"),
     comments: data.get("comments"),
     recurrent_pay: data.get("recurrent_pay"),
-    month_billing: Number(data.get("month_billing")),
-    service_id: services,
+    month_billing: data.get("month_billing"),
+    services: data.getAll("service"),
+    recurrency: data.getAll("recurrency"),
+    ammount: data.getAll("ammount"),
+    assigned: data.get("assigned"),
   };
 
   // validaciones?
@@ -202,9 +191,8 @@ export async function closingLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
@@ -215,9 +203,8 @@ export async function payLeadForm(data) {
     total: data.get("total"),
     comments: data.get("comments"),
     date_of_pay: data.get("recurrent_pay"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(pay);
 
   // validaciones?
 
@@ -229,9 +216,8 @@ export async function payLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }
@@ -246,9 +232,8 @@ export async function onboardingLeadForm(data) {
     contact_last_name: data.get("contact_last_name"),
     contact_phone: data.get("contact_phone"),
     contact_email: data.get("contact_email"),
+    assigned: data.get("assigned"),
   };
-
-  console.log(onboarding);
 
   // validaciones?
 
@@ -260,9 +245,8 @@ export async function onboardingLeadForm(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
-  console.log(response);
 
   return response;
 }

@@ -41,7 +41,7 @@ import {
   close,
   searchOutline,
 } from "ionicons/icons";
-
+import { getLeads } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
 
 function DataTable({ services, leads: leadsInit }) {
@@ -50,18 +50,21 @@ function DataTable({ services, leads: leadsInit }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
 
-  console.log(leads);
-
   useEffect(() => {
-    /*pusherClient.subscribe("get-lead-table");
+    pusherClient.subscribe("private-get-lead-table");
 
-    pusherClient.bind("fill-table", ({ message }) => {
-      setLeads(message.original.data);
+    pusherClient.bind("fill-leads", ({ message }) => {
+      getLeadsFunction();
     });
 
+    async function getLeadsFunction() {
+      let newData = await getLeads();
+      setLeads(newData.data);
+    }
+
     return () => {
-      pusherClient.unsubscribe("get-lead-table");
-    };*/
+      pusherClient.unsubscribe("private-get-lead-table");
+    };
   }, []);
 
   const table = useReactTable({
@@ -77,29 +80,29 @@ function DataTable({ services, leads: leadsInit }) {
   });
 
   return (
-    <div className="bg-[#FBFBFB] rounded-xl px-4">
-      <div className="flex gap-4 justify-end items-center py-4">
+    <div className="rounded-xl bg-[#FBFBFB] px-4">
+      <div className="flex items-center justify-end gap-4 py-4">
         {filter !== "" && (
           <Button
-            className="relative bg-[#E8E8E8] text-[#44444F] hover:bg-blue-200 hover:text-white text-[10px] h-6 w-16"
+            className="relative h-6 w-16 bg-[#E8E8E8] text-[10px] text-[#44444F] hover:bg-blue-200 hover:text-white"
             onClick={() => {
               table.getColumn("service")?.setFilterValue("");
               setFilter("");
             }}
           >
             {filter}{" "}
-            <span className="absolute flex justify-center items-center p-0 w-4 h-4 border-[1px] text-blue-400 border-blue-400 rounded-full -top-1 -right-1">
+            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-[1px] border-blue-400 p-0 text-blue-400">
               <IonIcon icon={close} size="large"></IonIcon>
             </span>
           </Button>
         )}
 
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
+                className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
               >
                 Service
               </Button>
@@ -128,27 +131,27 @@ function DataTable({ services, leads: leadsInit }) {
 
           <Button
             variant="outline "
-            className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
+            className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
           >
             Company
           </Button>
           <Button
             variant="outline"
-            className="rounded-3xl border-[1px] border-[#44444F] text-[10px] h-6 w-16"
+            className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
           >
             Contact
           </Button>
         </div>
-        <div className="flex items-center rounded-3xl border-[1px] border-[#44444F] text-[10px] h-10 w-44 py-2 px-2">
+        <div className="flex h-10 w-44 items-center rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">
           <Label htmlFor="search">
             <IonIcon
               icon={searchOutline}
-              className="text-[#696974] w-6 h-6 stroke-1"
+              className="h-6 w-6 stroke-1 text-[#696974]"
             ></IonIcon>
           </Label>
           <Input
             id="search"
-            className="h-full w-full border-0 bg-transparent placeholder:text-[#696974] placeholder:text-sm !ring-0 !ring-offset-0 focus:border-b-2 focus:border-slate-400 focus:rounded-none"
+            className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
             placeholder="SEARCH EMAILS"
             value={table.getColumn("email")?.getFilterValue() ?? ""}
             onChange={(event) =>
@@ -167,13 +170,13 @@ function DataTable({ services, leads: leadsInit }) {
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-[#696974] text-sm font-semibold"
+                      className="text-sm font-semibold text-[#696974]"
                     >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -193,7 +196,7 @@ function DataTable({ services, leads: leadsInit }) {
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -219,7 +222,7 @@ function DataTable({ services, leads: leadsInit }) {
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          <IonIcon icon={chevronBackCircle} className="w-10 h-10"></IonIcon>
+          <IonIcon icon={chevronBackCircle} className="h-10 w-10"></IonIcon>
         </Button>
         <Button
           variant="ghost"
@@ -227,7 +230,7 @@ function DataTable({ services, leads: leadsInit }) {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          <IonIcon icon={chevronForwardCircle} className="w-10 h-10"></IonIcon>
+          <IonIcon icon={chevronForwardCircle} className="h-10 w-10"></IonIcon>
         </Button>
       </div>
     </div>
