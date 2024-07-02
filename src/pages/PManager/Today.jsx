@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,9 +13,31 @@ import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import DayListActivityCard from "./components/Cards/DayListActivityCard";
+import { pusherClient } from "@/lib/pusher";
+import { getTodayActivity } from "@/lib/actions";
 
 function Today() {
   const { data } = useLoaderData();
+
+  const [todayData, setTodayData] = useState(data);
+
+  async function getTodayData() {
+    let newData = await getTodayActivity();
+
+    setTodayData(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-pm-today");
+
+    pusherClient.bind("fill-pm-today", ({ message }) => {
+      getTodayData();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-pm-today");
+    };
+  }, []);
 
   function changeInputToday(projectId) {
     console.log(projectId);
@@ -89,7 +111,7 @@ function Today() {
                       Today
                     </span>
                     <span className="ml-4 font-poppins text-sm font-normal text-grisSubText">
-                      {data.today_date}
+                      {todayData.today_date}
                     </span>
                   </TabsTrigger>
                   <TabsTrigger
@@ -100,20 +122,20 @@ function Today() {
                       Yesterday
                     </span>
                     <span className="ml-4 font-poppins text-sm font-normal text-grisSubText">
-                      {data.yesterday_date}
+                      {todayData.yesterday_date}
                     </span>
                   </TabsTrigger>
                 </div>
               </div>
             </TabsList>
             <TabsContent value="today" className="flex gap-6">
-              {data.today?.map((task, i) => (
-                <DayListActivityCard task={task} />
+              {todayData.today?.map((task, i) => (
+                <DayListActivityCard task={task} key={i} />
               ))}
             </TabsContent>
             <TabsContent value="yesterday" className="flex gap-6">
-              {data.yesterday?.map((task, i) => (
-                <DayListActivityCard task={task} />
+              {todayData.yesterday?.map((task, i) => (
+                <DayListActivityCard task={task} key={i} />
               ))}
             </TabsContent>
           </Tabs>

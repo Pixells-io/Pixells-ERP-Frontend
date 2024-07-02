@@ -279,13 +279,10 @@ export async function getObjectives() {
   }
 }
 
-export async function getGoals({ params }) {
-  const objectiveId = params.id;
+export async function getGoals(id) {
   try {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }project-manager/get-goal/${objectiveId}/0`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-goal/${id}/0`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -454,14 +451,14 @@ export async function getUserByToken() {
 }
 
 export async function multiLoaderCSF({ params }) {
-  const [goals, users, csfs, goalsMaster] = await Promise.all([
-    getGoals({ params }),
+  const id = params.id;
+  const [goals, users, goalsMaster] = await Promise.all([
+    getGoals(id),
     getUsers(),
-    getCSF({ params }),
-    getGoalsMaster({ params }),
+    getGoalsMaster(id),
   ]);
 
-  return json({ goals, users, csfs, goalsMaster });
+  return json({ goals, users, goalsMaster });
 }
 
 export async function multiloaderCFSView({ params }) {
@@ -480,13 +477,10 @@ export async function multiLoaderSideLayoutPM() {
   return json({ objectives, areas });
 }
 
-export async function getGoalsMaster({ params }) {
-  const objectiveId = params.id;
+export async function getGoalsMaster(id) {
   try {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_SERVER_URL
-      }project-manager/get-goals/${objectiveId}`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-goals/${id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

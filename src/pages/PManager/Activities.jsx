@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Accordion,
@@ -24,6 +24,8 @@ import { completeTask, destroyTask, editTask } from "./utils";
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
+import { getMonthActivity } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -47,6 +49,28 @@ const PRIORITY = [
 
 function Activities() {
   const { data } = useLoaderData();
+
+  const [activitiesData, setActivitiesData] = useState(data);
+
+  async function getActivitiesData() {
+    let newData = await getMonthActivity();
+
+    setActivitiesData(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-pm-activities");
+
+    pusherClient.bind("fill-pm-activities", ({ message }) => {
+      getActivitiesData();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-pm-activities");
+    };
+  }, []);
+
+  //Web Socket
 
   function checkColor(value) {
     const color = PRIORITY.filter((prio) => prio.value == value);
@@ -174,7 +198,7 @@ function Activities() {
             ))}
           </div>
           <div>
-            {data?.days.map((day, i) => (
+            {activitiesData?.days.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
                   <AccordionTrigger className="flex px-4">
@@ -183,7 +207,7 @@ function Activities() {
                         {day.day}
                       </span>
                       <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
-                        {data?.month}
+                        {activitiesData?.month}
                       </span>
                     </div>
                     <div className="w-1/12 text-start">
@@ -207,7 +231,7 @@ function Activities() {
                             Half
                           </span>
                         </div>
-                      ) : data.priority === 3 ? (
+                      ) : activitiesData.priority === 3 ? (
                         <div>
                           <IonIcon
                             icon={ellipse}

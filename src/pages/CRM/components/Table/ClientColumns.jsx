@@ -13,8 +13,8 @@ export const clientColumns = [
     accessorKey: "type",
     header: "TYPE",
     cell: ({ row }) => {
-      const info = row.getValue("type");
-      return <div>{info == 1 ? "Person" : "Corp"}</div>;
+      const info = row.original.type;
+      return <div>{info === 1 ? "Person" : "Business"}</div>;
     },
   },
   {

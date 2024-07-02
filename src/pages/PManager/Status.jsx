@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -14,9 +14,31 @@ import { IonIcon } from "@ionic/react";
 import { Progress } from "@/components/ui/progress";
 import { useLoaderData } from "react-router-dom";
 import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
+import { getMonthKanban } from "@/lib/actions";
+import { pusherClient } from "@/lib/pusher";
 
 function Status() {
   const { data } = useLoaderData();
+  const [statusData, setstatusData] = useState(data);
+
+  async function getStatusData() {
+    let newData = await getMonthKanban();
+
+    setstatusData(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-pm-status");
+
+    pusherClient.bind("fill-pm-status", ({ message }) => {
+      getStatusData();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-pm-status");
+    };
+  }, []);
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -74,7 +96,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {data?.expirated.map((task, i) => (
+                {statusData?.expirated.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
@@ -87,7 +109,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {data?.pending.map((task, i) => (
+                {statusData?.pending.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
@@ -100,7 +122,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {data?.complete.map((task, i) => (
+                {statusData?.complete.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={false} key={i} />
                 ))}
               </div>

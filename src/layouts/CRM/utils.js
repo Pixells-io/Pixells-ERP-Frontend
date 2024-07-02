@@ -8,7 +8,7 @@ export async function saveNewLead(data) {
     }
   }
   const person = {
-    type: Number(data.get("type")),
+    type: data.get("register_type"),
     business_name: data.get("business_name"),
     business_phone: data.get("business_phone"),
     contact_name: data.get("contact_name"),
