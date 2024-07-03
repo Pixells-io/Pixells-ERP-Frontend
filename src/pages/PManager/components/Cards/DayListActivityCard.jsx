@@ -61,6 +61,27 @@ function DayListActivityCard({ task, index }) {
           : "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
       }
     >
+      <DeleteTask
+        modal={destroyTaskModal}
+        setModal={setDestroyTaskModal}
+        taskId={taskId}
+      />
+      <CompleteTask
+        modal={completeTaskModal}
+        setModal={setCompleteTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+      />
+      <EditShowTask
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        taskId={taskId}
+        name={taskName}
+        description={taskDescription}
+        priority={taskPriority}
+        start={taskStart}
+      />
       <div className="flex h-full items-center justify-center px-2 font-poppins text-xs font-medium text-grisHeading">
         {index + 1}
       </div>
