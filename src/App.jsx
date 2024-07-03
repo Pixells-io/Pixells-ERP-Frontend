@@ -17,8 +17,6 @@ import MainLeads, {
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
-
-//Lead
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
@@ -26,6 +24,7 @@ import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
 import MainClient, {
   Action as ClientAccion,
 } from "./pages/CRM/Clients/MainClient";
+import MainClients from "./pages/Clients/MainClients";
 
 // CRM Services
 import MainServices, {
@@ -50,6 +49,9 @@ import EditAgreements, {
 import NewContract, {
   Action as NewContractAction,
 } from "./pages/CRM/Agreements/NewContract";
+import ShowAgreements, {
+  Action as EditContract,
+} from "./pages/CRM/Agreements/ShowAgreements";
 
 //CRM Progress
 import MainProgress, {
@@ -74,6 +76,13 @@ import FormCreateUser, {
 import FormCreatePosition, {
   Action as newPosition,
 } from "./pages/Organization/User/FormCreatePosition";
+import MainArea from "./pages/Organization/User/Area/MainArea";
+import MainPosition, {
+  Action as UpdatePosition,
+} from "./pages/Organization/User/Position/MainPosition";
+import MainUser, {
+  Action as UpdateUser,
+} from "./pages/Organization/User/User/MainUser";
 
 // Project Manager
 import SideLayoutPManager, {
@@ -88,7 +97,9 @@ import Activities, {
 } from "./pages/PManager/Activities";
 import Status from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
-import MainClients from "./pages/Clients/MainClients";
+import MainProject, {
+  Action as multiloaderProject,
+} from "./pages/PManager/MainProject";
 
 // Chat
 import LayoutChat, {
@@ -96,6 +107,7 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
+import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
 //actions
 import {
@@ -151,6 +163,31 @@ import {
 //Not Found
 import NotFound from "./components/NotFound";
 
+// Tickets
+import SideLayoutTickets, {
+  Action as CreateTicketFunction,
+} from "./layouts/Tickets/SideLayoutTickets";
+import SideLayoutTicketsShow, {
+  Action as FollowUpTicket,
+} from "./layouts/Tickets/SideLayoutTicketsShow";
+import MainTickets from "./pages/Tickets/MainTickets";
+import ShowTickets from "./pages/Tickets/ShowTickets";
+
+//MyProfile
+import SideLayoutMyProfile, {
+  Action as ChangeMyPassword,
+} from "./layouts/MyProfile/SideLayoutMyProfile";
+import MainMyProfile from "./layouts/MyProfile/MainMyProfile";
+import MainSecurity from "./layouts/MyProfile/MainSecutiry";
+import MainNotifications from "./layouts/MyProfile/MainNotifications";
+
+//Configurations
+import SideLayoutConfiguration, {
+  Action as UpdateBusinessInformation,
+} from "./layouts/Configuration/SideLayoutConfiguration";
+import InformationShow from "./pages/Configurations/InformationShow";
+import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
+
 // DEV ORG
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
 import MainOrgDev, {
@@ -179,46 +216,13 @@ import ExamShow from "./pages/OrgDev/Exam/ExamShow";
 import MainExamAnswer, {
   Action as ExamFunction,
 } from "./pages/OrgDev/Exam/MainExamAnswer";
-import SideLayoutTickets, {
-  Action as CreateTicketFunction,
-} from "./layouts/Tickets/SideLayoutTickets";
-import MainTickets from "./pages/Tickets/MainTickets";
-import ShowTickets from "./pages/Tickets/ShowTickets";
-import SideLayoutTicketsShow, {
-  Action as FollowUpTicket,
-} from "./layouts/Tickets/SideLayoutTicketsShow";
 import EvalExams from "./pages/OrgDev/Evaluation/components/EvalExams";
-import SideLayoutConfiguration, {
-  Action as UpdateBusinessInformation,
-} from "./layouts/Configuration/SideLayoutConfiguration";
-import InformationShow from "./pages/Configurations/InformationShow";
-import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
-import MainArea from "./pages/Organization/User/Area/MainArea";
-import MainPosition, {
-  Action as UpdatePosition,
-} from "./pages/Organization/User/Position/MainPosition";
-import MainUser, {
-  Action as UpdateUser,
-} from "./pages/Organization/User/User/MainUser";
-import ShowAgreements, {
-  Action as EditContract,
-} from "./pages/CRM/Agreements/ShowAgreements";
 
-import MainProject, {
-  Action as multiloaderProject,
-} from "./pages/PManager/MainProject";
-
-import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
+//Calendar
 import MainCalendar from "./pages/Calendar/MainCalendar";
 import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
-import SideLayoutMyProfile, {
-  Action as ChangeMyPassword,
-} from "./layouts/MyProfile/SideLayoutMyProfile";
-import MainMyProfile from "./layouts/MyProfile/MainMyProfile";
-import MainSecurity from "./layouts/MyProfile/MainSecutiry";
-import MainNotifications from "./layouts/MyProfile/MainNotifications";
 
 const router = createBrowserRouter([
   {
