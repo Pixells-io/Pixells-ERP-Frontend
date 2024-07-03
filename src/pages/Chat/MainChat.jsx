@@ -122,7 +122,7 @@ function MainChat() {
         </div>
       </div>
       {/* Chat Card Footer */}
-      <div className="sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#E0E0E0] px-5 py-2">
+      <div className="sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#FBFBFB] px-5 py-2">
         <Form
           id="form-send-chat-mensagge"
           className="flex w-full"
@@ -132,34 +132,36 @@ function MainChat() {
         >
           <input type="hidden" value={id} name="chat_id" />
           <input type="hidden" value={1} name="type_of_function" />
-          <div className="w-5/6 px-5">
+          <div className="w-11/12 px-5">
             <input
               name="message"
               type="text"
-              className="w-full rounded-xl px-4 py-2 font-roboto font-light text-grisText ring-0"
+              className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
               placeholder="Type your message..."
               value={mssg}
               onChange={(e) => setMssg(e.target.value)}
             />
           </div>
-          <div className="m-auto flex w-1/6">
-            <button type="submit">
-              <IonIcon
-                icon={send}
-                size="large"
-                className="px-2 text-grisText hover:text-primario"
-              ></IonIcon>
-            </button>
-            <IonIcon
-              icon={mic}
-              size="large"
-              className="px-2 text-grisText hover:text-primario"
-            ></IonIcon>
-            <IonIcon
-              icon={addCircle}
-              size="large"
-              className="px-2 text-grisText hover:text-primario"
-            ></IonIcon>
+          <div className="m-auto mt-2 flex w-1/12">
+            {mssg != "" ? (
+              <button type="submit" className="align-middle">
+                <IonIcon
+                  icon={send}
+                  className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                ></IonIcon>
+              </button>
+            ) : (
+              <div className="flex">
+                <IonIcon
+                  icon={mic}
+                  className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                ></IonIcon>
+                <IonIcon
+                  icon={addCircle}
+                  className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                ></IonIcon>
+              </div>
+            )}
           </div>
         </Form>
       </div>
