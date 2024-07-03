@@ -38,7 +38,7 @@ function Search(users) {
       ref={formRef}
       method="post"
     >
-      <input type="hidden" name="type_of_function" value="1" />
+      <input type="hidden" name="type_of_function" value="1" hidden readOnly />
       <Select
         options={selectUser}
         placeholder="SEARCH"
