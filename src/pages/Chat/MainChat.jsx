@@ -29,16 +29,24 @@ function MainChat() {
   const scrollBox = useRef(null);
   const CurrentUserId = user.data.user.id;
 
-  // console.log(chat.data?.participants);
+  const userInfo = [
+    {
+      id: user.data.user.id,
+      name: user.data.user.name + " " + user.data.user.last_name,
+    },
+  ];
 
   useEffect(() => {
     setUrlId(id);
-    console.log("URL ID", urlId);
-    pusherClient.subscribe(`private-get-chat.${urlId}`);
+    let channel = pusherClient.subscribe(`private-get-chat.${urlId}`);
 
-    pusherClient.bind("fill-chat-messages", ({ chat }) => {
-      // console.log("EFFECT location -> pusher");
+    channel.bind("fill-chat-messages", ({ chat }) => {
       getMensajes(chat);
+    });
+
+    channel.bind(`client-typing`, (userInfo) => {
+      console.log(userInfo);
+      console.log("Holi");
     });
 
     async function getMensajes(id) {
@@ -53,6 +61,11 @@ function MainChat() {
       // console.log("unsubscribe");
     };
   }, [location, urlId]);
+
+  function testCrotolamo() {
+    let channel2 = pusherClient.subscribe(`private-get-chat.${urlId}`);
+    channel2.trigger(`client-typing`, userInfo);
+  }
 
   useEffect(() => {
     async function getMensajes() {
@@ -88,8 +101,12 @@ function MainChat() {
   return (
     <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
       {/* Chat Header */}
-      <div className="flex rounded-t-xl bg-gris px-6 py-4">
-        <div className="m-auto">
+
+      <button type="button" onClick={() => testCrotolamo()}>
+        CROTOLAMO
+      </button>
+      <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
+        <div className="m-auto w-1/12">
           <img
             src={chat.data?.participants.img}
             className="h-14 w-14 rounded-full"
