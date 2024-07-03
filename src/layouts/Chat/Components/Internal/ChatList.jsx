@@ -19,7 +19,7 @@ function ChatList({ chat }) {
             {chat.title}
           </span>
           <div className="mt-[-3px]">
-            <span className="font-roboto text-xs font-normal text-grisText">
+            <span className="line-clamp-2 font-roboto text-xs font-normal text-grisText">
               {chat.mensaje.mensaje}
             </span>
           </div>

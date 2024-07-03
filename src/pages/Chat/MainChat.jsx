@@ -86,7 +86,7 @@ function MainChat() {
   }
 
   return (
-    <div className="flex h-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
+    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
       {/* Chat Header */}
       <div className="flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto">
