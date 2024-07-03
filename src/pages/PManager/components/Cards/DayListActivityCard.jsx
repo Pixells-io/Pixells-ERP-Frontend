@@ -52,162 +52,118 @@ function DayListActivityCard({ task, index }) {
     setTaskId(taskId);
     setDestroyTaskModal(true);
   }
+
+  console.log(task);
   return (
-    <>
-      <div className="flex h-[120px] w-[310px] rounded-lg bg-[#f8f8f8] p-2 shadow">
-        <div className="flex h-full w-4 items-center justify-center font-poppins text-xs font-medium text-grisHeading">
-          {index + 1}
-        </div>
-        <div className="flex flex-col items-center justify-between">
-          <Avatar className="size-10">
-            <AvatarImage src={task?.creator.img} />
-            <AvatarFallback></AvatarFallback>
-          </Avatar>
-          <p className="text-[10px] text-grisHeading">Creador</p>
-          <div className="flex flex-col items-center justify-center">
+    <div
+      className={
+        task.progress === 1
+          ? "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow"
+          : "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
+      }
+    >
+      <div className="flex h-full items-center justify-center px-2 font-poppins text-xs font-medium text-grisHeading">
+        {index + 1}
+      </div>
+      <div className="flex flex-col items-center justify-between">
+        <Avatar className="size-10">
+          <AvatarImage src={task?.creator.img} />
+          <AvatarFallback></AvatarFallback>
+        </Avatar>
+        <p className="text-[10px] text-grisHeading">Creador</p>
+        <div className="flex w-[80px] flex-col items-center justify-center">
+          <div className="flex w-full justify-center overflow-scroll">
             <Avatar className="size-6">
               <AvatarImage src={task?.creator.img} />
               <AvatarFallback></AvatarFallback>
             </Avatar>
-            <p className="text-[9px] text-[#ABABAB]">Responsables</p>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
           </div>
-        </div>
-        <div></div>
-      </div>
-      <div
-        className={
-          task.progress === 1
-            ? "w-1/3 rounded-2xl border-2 border-[#00A259] bg-[#f2f2f2] p-2 shadow-sm"
-            : "w-1/3 rounded-2xl border-2 border-[#cdcdcd] bg-[#f2f2f2] p-2 shadow-sm"
-        }
-      >
-        <DeleteTask
-          modal={destroyTaskModal}
-          setModal={setDestroyTaskModal}
-          taskId={taskId}
-        />
-        <CompleteTask
-          modal={completeTaskModal}
-          setModal={setCompleteTaskModal}
-          taskId={taskId}
-          name={taskName}
-          description={taskDescription}
-        />
-        <EditShowTask
-          modal={editTaskModal}
-          setModal={setEditTaskModal}
-          taskId={taskId}
-          name={taskName}
-          description={taskDescription}
-          priority={taskPriority}
-          start={taskStart}
-        />
 
-        <div className="flex w-full">
-          <div className="w-3/12">
-            <img
-              src={task.creator?.img}
-              className="h-10 w-10 rounded-full"
-              alt={task.creator?.name}
-            />
-            <span className="font-roboto text-sm font-normal text-grisHeading">
-              Creator
-            </span>
-          </div>
-          <div className="flex w-9/12">
-            <div className="w-5/6">
-              <span className="font-poppins text-xs font-semibold leading-4 text-grisHeading">
-                Activity Name
-              </span>
-              <br />
-              <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                {task.name}
-              </span>
-            </div>
-            <div className="w-1/6">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <IonIcon
-                    icon={ellipsisHorizontal}
-                    className="h-5 w-5 text-grisDisabled"
-                  ></IonIcon>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        openEditModalTask(
-                          task?.id,
-                          task?.name,
-                          task?.description,
-                          task?.priority,
-                          task?.start,
-                        )
-                      }
-                    >
-                      Edit
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button
-                      type="button"
-                      onClick={() => openDestroyTaskModal(task?.id)}
-                    >
-                      Destroy
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
+          <p className="text-[9px] text-[#ABABAB]">Responsables</p>
         </div>
-        <div className="m-2 flex">
-          <div className="w-1/5">{/* RESPONSABLES IMG */}</div>
-          <div className="flex gap-4">
-            {/*  */}
-            {task.priority === 1 ? (
-              <div>
+      </div>
+      <div className="flex w-full flex-col justify-between px-2">
+        <div>
+          <div className="flex justify-between">
+            <p className="font-poppins text-[10px] font-semibold text-grisHeading">
+              Nombre de Actividad
+            </p>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
                 <IonIcon
-                  icon={ellipse}
-                  className="mr-2 text-xs text-[#00A259]"
-                />
-                <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                  Low
-                </span>
+                  icon={ellipsisHorizontal}
+                  className="flex h-5 w-5 text-grisDisabled"
+                ></IonIcon>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <button
+                    type="button"
+                    className="w-full text-left"
+                    onClick={() =>
+                      openEditModalTask(
+                        task?.id,
+                        task?.name,
+                        task?.description,
+                        task?.priority,
+                        task?.start,
+                      )
+                    }
+                  >
+                    Edit
+                  </button>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <button
+                    type="button"
+                    className="w-full text-left"
+                    onClick={() => openDestroyTaskModal(task?.id)}
+                  >
+                    Destroy
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <span className="text-xs text-grisHeading">{task?.name}</span>
+        </div>
+        <div className="flex items-center gap-2 pb-1">
+          <div>
+            {task.priority === 1 ? (
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#00A259]" />
+                <span className="text-sm text-grisHeading">Low</span>
               </div>
             ) : task.priority === 2 ? (
-              <div>
-                <IonIcon
-                  icon={ellipse}
-                  className="mr-2 text-xs text-primario"
-                />
-                <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                  Half
-                </span>
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-primario" />
+                <span className="text-sm text-grisHeading">Half</span>
               </div>
             ) : task.priority === 3 ? (
-              <div>
-                <IonIcon
-                  icon={ellipse}
-                  className="mr-2 text-xs text-[#FAA364]"
-                />
-                <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                  Important
-                </span>
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#FAA364]" />
+                <span className="text-sm text-grisHeading">Important</span>
               </div>
             ) : (
-              <div>
-                <IonIcon
-                  icon={ellipse}
-                  className="mr-2 text-xs text-[#D7586B]"
-                />
-                <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                  Urgent
-                </span>
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
+                <span className="text-sm text-grisHeading">Urgent</span>
               </div>
             )}
-            {/* SHOW STATUS */}
+          </div>
+          <div>
             {task.progress === 1 ? (
               <span className="rounded-2xl border border-[#00A259] px-2 text-sm font-normal text-[#00A259]">
                 Completado
@@ -217,9 +173,12 @@ function DayListActivityCard({ task, index }) {
                 Pendiente
               </span>
             )}
-            {/* COMPLETE BUTTON */}
+          </div>
+          <div>
             {task.progress === 1 ? (
-              <span>Complete</span>
+              <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
+                Complete
+              </span>
             ) : (
               <button
                 type="button"
@@ -234,7 +193,7 @@ function DayListActivityCard({ task, index }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
