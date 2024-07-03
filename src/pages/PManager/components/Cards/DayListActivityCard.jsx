@@ -53,7 +53,6 @@ function DayListActivityCard({ task, index }) {
     setDestroyTaskModal(true);
   }
 
-  console.log(task);
   return (
     <div
       className={

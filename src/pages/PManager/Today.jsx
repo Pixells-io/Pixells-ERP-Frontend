@@ -40,7 +40,7 @@ function Today() {
   }, []);
 
   function changeInputToday(projectId) {
-    console.log(projectId);
+    // console.log(projectId);
   }
 
   return (
