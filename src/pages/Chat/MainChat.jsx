@@ -44,7 +44,7 @@ function MainChat() {
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      scrollBottom();
+      // scrollBottom();
       // console.log("CORRIO EFFECT LOCATION", id);
     }
 
@@ -58,7 +58,7 @@ function MainChat() {
     async function getMensajes() {
       let newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      scrollBottom();
+      // scrollBottom();
       // console.log("CORRIO EFFECT ID", id);
     }
 
@@ -86,10 +86,10 @@ function MainChat() {
   }
 
   return (
-    <div className="relative mx-5 flex w-screen flex-col justify-between overflow-scroll rounded-xl bg-[#FBFBFB]">
+    <div className="flex h-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
       {/* Chat Header */}
-      <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
-        <div className="m-auto w-1/12">
+      <div className="flex rounded-t-xl bg-gris px-6 py-4">
+        <div className="m-auto">
           <img
             src={chat.data?.participants.img}
             className="h-14 w-14 rounded-full"
@@ -100,19 +100,19 @@ function MainChat() {
             {chat.data?.participants.name}
           </span>
         </div>
-        <div className="m-auto* w-1/12"></div>
+        <div className=""></div>
       </div>
+
       {/* Chat Card Messages */}
-      <div className="">
-        <div className="flex h-full w-full flex-col-reverse overflow-y-auto px-12 py-3">
-          <div ref={scrollBox}></div>
-          {chatMessagesPusher?.map((mensagge, i) => (
-            <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
-          ))}
-        </div>
+      <div className="flex w-full flex-col-reverse overflow-scroll px-12 py-3">
+        <div ref={scrollBox}></div>
+        {chatMessagesPusher?.map((mensagge, i) => (
+          <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
+        ))}
       </div>
+
       {/* Chat Card Footer */}
-      <div className="sticky bottom-0 left-0 right-0 z-10 flex rounded-b-xl bg-[#FBFBFB] px-5 py-2">
+      <div className="flex rounded-b-xl bg-[#FBFBFB] px-5 py-2">
         <Form
           id="form-send-chat-mensagge"
           className="flex w-full"
