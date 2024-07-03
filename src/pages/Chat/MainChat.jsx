@@ -73,26 +73,16 @@ function MainChat() {
     }, 500);
   }
 
-  //let infoUser = [];
-
-  /*chat.data.participants.map((participant, i) => {
-    if (participant.id != user.data.id) {
-      infoUser = [
-        {
-          id: participant.id,
-          img: participant.img,
-          title: participant.name,
-        },
-      ];
-    }
-  });*/
-
   function onInputEnter(e) {
     // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setMssg("");
     }
+  }
+
+  function cleanInput() {
+    setMssg("");
   }
 
   return (
@@ -144,7 +134,11 @@ function MainChat() {
           </div>
           <div className="m-auto mt-2 flex w-1/12">
             {mssg != "" ? (
-              <button type="submit" className="align-middle">
+              <button
+                type="submit"
+                onClick={() => cleanInput()}
+                className="align-middle"
+              >
                 <IonIcon
                   icon={send}
                   className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
