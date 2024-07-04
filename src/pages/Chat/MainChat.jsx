@@ -44,7 +44,7 @@ function MainChat() {
       getMensajes(chat);
     });
 
-    channel.bind(`client-typing`, (userInfo) => {
+    channel.bind(`client-typing-user`, (userInfo) => {
       console.log(userInfo);
       console.log("Holi");
     });
@@ -64,7 +64,7 @@ function MainChat() {
 
   function testCrotolamo() {
     let channel2 = pusherClient.subscribe(`private-get-chat.${urlId}`);
-    channel2.trigger(`client-typing`, userInfo);
+    channel2.trigger(`client-typing-user`, userInfo);
   }
 
   useEffect(() => {
