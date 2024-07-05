@@ -26,7 +26,9 @@ function DropzoneImage({ name, url, initials }) {
     onDrop: handleDrop,
     accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
     multiple: true,
+    useFsAccessApi: false,
   });
+
   return (
     <div className="upload-container">
       <div
