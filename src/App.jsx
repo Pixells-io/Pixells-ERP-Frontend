@@ -575,6 +575,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Tickets
       {
         path: "/tickets",
         element: <SideLayoutTickets />,
@@ -600,6 +601,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Configuration
       {
         path: "/configuration",
         element: <SideLayoutConfiguration />,
@@ -623,6 +625,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Calendar
       {
         path: "/calendar",
         element: <LayoutCalendar />,
@@ -636,8 +639,9 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Profile
       {
-        path: "my-profile",
+        path: "/my-profile",
         element: <SideLayoutMyProfile />,
         action: ChangeMyPassword,
         children: [
@@ -658,6 +662,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  //Login
   {
     path: "/login",
     element: <Login />,
