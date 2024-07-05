@@ -42,6 +42,14 @@ function MenssageCard({ data, user }) {
               </div>
             </div>
           </div>
+          <div className="relative w-12 px-2 align-bottom">
+            {msg.corte === 1 ? (
+              <img
+                src={msg.img}
+                className="absolute bottom-2 h-8 w-8 rounded-full"
+              />
+            ) : null}
+          </div>
         </div>
       ) : (
         <VisibilitySensor
@@ -50,6 +58,14 @@ function MenssageCard({ data, user }) {
           }}
         >
           <div className="flex w-full justify-start">
+            <div className="relative w-12 px-2 align-bottom">
+              {msg.corte === 1 ? (
+                <img
+                  src={msg.img}
+                  className="absolute bottom-2 h-8 w-8 rounded-full"
+                />
+              ) : null}
+            </div>
             <div className="mb-1 w-fit max-w-[65%] rounded-r-xl rounded-t-xl bg-[#F0F0F0] px-2 py-1">
               <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
                 {msg.mensaje}
