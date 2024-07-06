@@ -107,7 +107,6 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
-import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
 //actions
 import {
@@ -465,11 +464,6 @@ const router = createBrowserRouter([
         ],
       },
       //Chat
-      {
-        path: "/chat-spa",
-        element: <MainChatSPA />,
-        loader: multiLoaderChat,
-      },
       {
         path: "/chat",
         element: <LayoutChat />,

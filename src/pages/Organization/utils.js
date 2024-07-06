@@ -383,6 +383,8 @@ export async function editUser(data) {
   //User Image
   formData.append("user_image", data.get("user_image"));
 
+  console.log(data.get("curp_file"), "OK");
+
   //Data Files
   formData.append("curp_file", data.get("curp_file"));
   formData.append("rfc_file", data.get("rfc_file"));
@@ -399,9 +401,10 @@ export async function editUser(data) {
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,
     {
       method: "POST",
-      body: formData,
+      body: FormData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
+        "Content-Type": "multipart/form-data",
       },
     },
   );

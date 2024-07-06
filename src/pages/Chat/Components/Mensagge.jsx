@@ -17,7 +17,7 @@ import {
 import ResendModal from "./ResendModal";
 import ReplyModal from "./ReplyModal";
 
-function MenssageCard({ data, user }) {
+function MenssageCard({ data, user, chats, chat }) {
   let msg = data;
   const [modalResend, setModalResend] = useState(false);
   const [modalReply, setModalReply] = useState(false);
@@ -28,8 +28,15 @@ function MenssageCard({ data, user }) {
         msg_id={msg.id}
         modal={modalResend}
         setModal={setModalResend}
+        chats={chats}
+        chat_id={chat}
       />
-      <ReplyModal modal={modalReply} setModal={setModalReply} />
+      <ReplyModal
+        modal={modalReply}
+        setModal={setModalReply}
+        chat_id={chat}
+        message_id={msg.id}
+      />
       {msg.user == user ? (
         <div className="flex w-full justify-end">
           <DropdownMenu>
@@ -55,9 +62,24 @@ function MenssageCard({ data, user }) {
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-[#E4F0FF] px-2 py-1">
-            <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
-              {msg.mensaje}
-            </span>
+            {msg.reply === 1 ? (
+              <div className="mt-2 rounded-xl border border-primario bg-[#7794F940] px-2 py-1">
+                <span className="font-roboto text-xs font-medium leading-4 text-grisSubText">
+                  {msg.reply_message?.title}
+                </span>
+                <br />
+                <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
+                  {msg.reply_message?.mnsj}
+                </span>
+              </div>
+            ) : null}
+            {msg.type === 0 ? (
+              <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
+                {msg.mensaje}
+              </span>
+            ) : (
+              <iframe src={msg.file} frameborder="0"></iframe>
+            )}
             <div className="mt-[-8px] flex justify-end">
               <div>
                 <span className="font-roboto text-[10px] font-normal text-[#8F8F8F]">
@@ -109,9 +131,24 @@ function MenssageCard({ data, user }) {
               ) : null}
             </div>
             <div className="mb-1 w-fit max-w-[65%] rounded-r-xl rounded-t-xl bg-[#F0F0F0] px-2 py-1">
-              <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
-                {msg.mensaje}
-              </span>
+              {msg.reply === 1 ? (
+                <div className="mt-2 rounded-xl border border-primario bg-[#7794F940] px-2 py-1">
+                  <span className="font-roboto text-xs font-medium leading-4 text-grisSubText">
+                    {msg.reply_message?.title}
+                  </span>
+                  <br />
+                  <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
+                    {msg.reply_message?.mnsj}
+                  </span>
+                </div>
+              ) : null}
+              {msg.type === 0 ? (
+                <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
+                  {msg.mensaje}
+                </span>
+              ) : (
+                <iframe src={msg.file} frameborder="0"></iframe>
+              )}
               <div className="mt-[-8px] flex justify-end">
                 <div>
                   <span className="font-roboto text-[10px] font-normal text-[#8F8F8F]">
