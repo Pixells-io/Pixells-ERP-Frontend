@@ -115,9 +115,11 @@ function MainChat() {
         setModal={setModalSendFile}
       />
 
-      <button type="button" onClick={() => testCrotolamo()}>
+      {/* 
+              <button type="button" onClick={() => testCrotolamo()}>
         CROTOLAMO
       </button>
+      */}
       <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
