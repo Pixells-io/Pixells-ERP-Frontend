@@ -109,6 +109,13 @@ import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
 import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
+//accounting
+import SideLayoutAccounting from "./layouts/accounting/SideLayoutAccounting";
+import MainPolicy from "./pages/accounting/policy/MainPolicy";
+import CreateAccount from "./pages/accounting/policy/new/newAccounting";
+
+
+
 //actions
 import {
   getAreas,
@@ -656,6 +663,27 @@ const router = createBrowserRouter([
           },
         ],
       },
+      //acounting
+      {
+        path: "/accounting",
+        element: <SideLayoutAccounting />,
+        children: [
+          {
+            path: "/accounting/catalog",
+            
+          },
+          {
+            //account Policy
+            path: "/accounting/policy",
+            element: <MainPolicy />,
+            
+          },
+          {
+            path: "/accounting/policy/create",
+            element: <CreateAccount />
+            }
+        ]
+      },
     ],
   },
   {
@@ -663,6 +691,7 @@ const router = createBrowserRouter([
     element: <Login />,
     action: loginAction,
   },
+ 
 ]);
 
 function App() {
