@@ -224,6 +224,12 @@ import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
 
+//BankManagement
+import MainBankManagement from "./pages/BankManagement/MainBankManagement";
+import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
+import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
+import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -655,6 +661,25 @@ const router = createBrowserRouter([
             element: <MainNotifications />,
           },
         ],
+      },
+      //BANK MANAGEMENT
+      {
+        path: "/bank-management",
+        element: <SideLayoutBankManag />,
+        children: [
+          {
+            index: true,
+            element: <MainBankManagement />
+          },
+          {
+            path: "/bank-management/collection",
+            element: <MainCollectionBankManag />,
+          },
+          {
+            path: "/bank-management/collection/create",
+            element: <AddNewCollection />,
+          }
+        ]
       },
     ],
   },
