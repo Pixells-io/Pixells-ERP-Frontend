@@ -8,18 +8,25 @@ import {
   useSubmit,
 } from "react-router-dom";
 
-import { getChatWithId, storeMensagge } from "./utils";
+import {
+  getChatWithId,
+  storeMensagge,
+  storeMensaggeFile,
+  storeMensaggeReply,
+  storeMensaggeResend,
+} from "./utils";
 import { pusherClient } from "@/lib/pusher";
 
 import MenssageCard from "./Components/Mensagge";
 
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle } from "ionicons/icons";
+import MensaggeFileModal from "./Components/MensaggeFileModal";
 
 function MainChat() {
   const location = useLocation();
   const { id } = useParams();
-  const { chat, user } = useLoaderData();
+  const { chat, user, chats } = useLoaderData();
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
   const [urlId, setUrlId] = useState(id);
@@ -28,6 +35,7 @@ function MainChat() {
   // const [userSelected, setSelectedUser] = useState(user);
   const scrollBox = useRef(null);
   const CurrentUserId = user.data.user.id;
+  const [modalSendFile, setModalSendFile] = useState(false);
 
   const userInfo = [
     {
@@ -101,10 +109,17 @@ function MainChat() {
   return (
     <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
       {/* Chat Header */}
+      <MensaggeFileModal
+        chat_id={id}
+        modal={modalSendFile}
+        setModal={setModalSendFile}
+      />
 
-      <button type="button" onClick={() => testCrotolamo()}>
+      {/* 
+              <button type="button" onClick={() => testCrotolamo()}>
         CROTOLAMO
       </button>
+      */}
       <div className="sticky left-0 right-0 top-0 z-10 flex rounded-t-xl bg-gris px-6 py-4">
         <div className="m-auto w-1/12">
           <img
@@ -124,7 +139,13 @@ function MainChat() {
       <div className="flex w-full flex-col-reverse overflow-scroll px-12 py-3">
         <div ref={scrollBox}></div>
         {chatMessagesPusher?.map((mensagge, i) => (
-          <MenssageCard key={i} data={mensagge} user={CurrentUserId} />
+          <MenssageCard
+            key={i}
+            data={mensagge}
+            user={CurrentUserId}
+            chats={chats.data}
+            chat={id}
+          />
         ))}
       </div>
 
@@ -170,6 +191,7 @@ function MainChat() {
                 <IonIcon
                   icon={addCircle}
                   className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                  onClick={() => setModalSendFile(true)}
                 ></IonIcon>
               </div>
             )}
@@ -185,10 +207,24 @@ export default MainChat;
 export async function Action({ params, request }) {
   const data = await request.formData();
 
+  console.log(data);
+
   switch (data.get("type_of_function")) {
     case "1":
       //Submit Msg
       await storeMensagge(data);
+      break;
+    case "2":
+      //Submit Msg File
+      await storeMensaggeFile(data);
+      break;
+    case "3":
+      //Submit Msg File
+      await storeMensaggeResend(data);
+      break;
+    case "4":
+      //Submit Msg Reply
+      await storeMensaggeReply(data);
       break;
   }
 

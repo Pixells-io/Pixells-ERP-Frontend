@@ -107,7 +107,6 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
-import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
 //actions
 import {
@@ -472,11 +471,6 @@ const router = createBrowserRouter([
       },
       //Chat
       {
-        path: "/chat-spa",
-        element: <MainChatSPA />,
-        loader: multiLoaderChat,
-      },
-      {
         path: "/chat",
         element: <LayoutChat />,
         loader: multiLoaderChat,
@@ -581,6 +575,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Tickets
       {
         path: "/tickets",
         element: <SideLayoutTickets />,
@@ -606,6 +601,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Configuration
       {
         path: "/configuration",
         element: <SideLayoutConfiguration />,
@@ -629,6 +625,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Calendar
       {
         path: "/calendar",
         element: <LayoutCalendar />,
@@ -642,8 +639,9 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Profile
       {
-        path: "my-profile",
+        path: "/my-profile",
         element: <SideLayoutMyProfile />,
         action: ChangeMyPassword,
         children: [
@@ -683,6 +681,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  //Login
   {
     path: "/login",
     element: <Login />,
