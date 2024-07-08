@@ -5,20 +5,10 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import FormInput from "./FormInput";
 import { Input } from "@/components/ui/input";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
@@ -38,7 +28,7 @@ const CATEGORIES = [
 function NewStepService({ serviceId, submitting, service }) {
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
-  console.log(service);
+  // console.log(service);
 
   useEffect(() => {
     if (navigation.state === "idle") {

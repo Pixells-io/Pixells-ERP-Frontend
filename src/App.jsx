@@ -107,7 +107,6 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
-import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
 //actions
 import {
@@ -223,6 +222,12 @@ import MainCalendar from "./pages/Calendar/MainCalendar";
 import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
+
+//BankManagement
+import MainBankManagement from "./pages/BankManagement/MainBankManagement";
+import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
+import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
+import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
 
 const router = createBrowserRouter([
   {
@@ -466,11 +471,6 @@ const router = createBrowserRouter([
       },
       //Chat
       {
-        path: "/chat-spa",
-        element: <MainChatSPA />,
-        loader: multiLoaderChat,
-      },
-      {
         path: "/chat",
         element: <LayoutChat />,
         loader: multiLoaderChat,
@@ -659,6 +659,25 @@ const router = createBrowserRouter([
             element: <MainNotifications />,
           },
         ],
+      },
+      //BANK MANAGEMENT
+      {
+        path: "/bank-management",
+        element: <SideLayoutBankManag />,
+        children: [
+          {
+            index: true,
+            element: <MainBankManagement />
+          },
+          {
+            path: "/bank-management/collection",
+            element: <MainCollectionBankManag />,
+          },
+          {
+            path: "/bank-management/collection/create",
+            element: <AddNewCollection />,
+          }
+        ]
       },
     ],
   },

@@ -4,7 +4,6 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
-import { pruebaSubmit } from "@/pages/Chat/utils";
 
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";

@@ -6,12 +6,12 @@ import { pusherClient } from "@/lib/pusher";
 import { getGoalsMaster } from "@/lib/actions";
 
 function Boards() {
+  const location = useLocation();
   const { id } = useParams();
   const { goals, users, goalsMaster } = useLoaderData();
   const tabDefault = goals?.data[0]?.name;
   const [urlId, setUrlId] = useState(id);
-  const [PMdata, setPMdata] = useState(goalsMaster.data);
-  const location = useLocation();
+  const [PMdata, setPMdata] = useState(goalsMaster?.data);
 
   useEffect(() => {
     setUrlId(id);
@@ -19,20 +19,27 @@ function Boards() {
     pusherClient.subscribe(`private-pm-get-objetive.${urlId}`);
 
     pusherClient.bind("fill-pm-objetive", ({ objetive }) => {
-      // console.log("EFFECT location -> pusher");
       getPMinfoFuncion(objetive);
     });
 
-    async function getPMinfoFuncion(objetive) {
-      const newData = await getGoalsMaster(urlId);
+    async function getPMinfoFuncion(id) {
+      const newData = await getGoalsMaster(id);
       setPMdata(newData.data);
     }
 
     return () => {
       pusherClient.unsubscribe(`private-pm-get-objetive.${urlId}`);
-      // console.log("unsubscribe");
     };
   }, [location, urlId]);
+
+  useEffect(() => {
+    async function getGoals() {
+      let newData = await getGoalsMaster(id);
+      setPMdata(newData.data);
+    }
+
+    getGoals();
+  }, [id]);
 
   return (
     <>

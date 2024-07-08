@@ -120,13 +120,6 @@ const academyGrade = [
   },
 ];
 
-const workingbenefits = [
-  {
-    label: "Health Insurance",
-    value: "Health Insurance",
-  },
-];
-
 const contracts = [
   {
     label: "Example",
