@@ -383,8 +383,6 @@ export async function editUser(data) {
   //User Image
   formData.append("user_image", data.get("user_image"));
 
-  console.log(data.get("curp_file"), "OK");
-
   //Data Files
   formData.append("curp_file", data.get("curp_file"));
   formData.append("rfc_file", data.get("rfc_file"));
@@ -396,6 +394,8 @@ export async function editUser(data) {
   formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
+
+  console.log(data.get("user_id"));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,
