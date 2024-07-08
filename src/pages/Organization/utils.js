@@ -395,7 +395,7 @@ export async function editUser(data) {
 
   formData.append("info", JSON.stringify(info));
 
-  console.log(data.get("user_id"));
+  console.log(formData);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,
@@ -404,7 +404,7 @@ export async function editUser(data) {
       body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
       },
     },
   );
