@@ -115,13 +115,6 @@ const academyGrade = [
   },
 ];
 
-const workingbenefits = [
-  {
-    label: "Health Insurance",
-    value: "Health Insurance",
-  },
-];
-
 const contracts = [
   {
     label: "Example",
@@ -370,18 +363,6 @@ function MainUser() {
             Show User
           </h2>
           <div className="flex items-center gap-6">
-            {/* <div className="flex items-center gap-3">
-              <p>Edit Mode</p>
-              <span
-                className={
-                  disabled
-                    ? "rounded-full bg-red-400 px-4 py-1 text-white"
-                    : "rounded-full bg-green-400 px-4 py-1 text-white"
-                }
-              >
-                {disabled ? "OFF" : "ON"}
-              </span>
-            </div> */}
             <button
               className={`flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blancoBox p-2`}
               onClick={() => setDisabled(!disabled)}
@@ -411,7 +392,6 @@ function MainUser() {
           encType="multipart/form-data"
           id="form-update-user"
         >
-          <input type="file" name="test" />
           <input type="hidden" name="user_id" value={id} />
           <div className="">
             <div className="w-1/4">

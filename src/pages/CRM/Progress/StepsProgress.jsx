@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLoaderData, useOutletContext } from "react-router-dom";
+import {
+  useParams,
+  useLoaderData,
+  useOutletContext,
+  useLocation,
+} from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
 import {
@@ -12,30 +17,41 @@ import { pusherClient } from "@/lib/pusher";
 import { getServiceSteps } from "@/lib/actions";
 
 function StepsProgress() {
+  const location = useLocation();
   const { id } = useParams();
   const { steps, users } = useLoaderData();
   const { services } = useOutletContext();
 
+  const [urlId, setUrlId] = useState(id);
   const [initialData, setInitialData] = useState(steps);
   const [dataPusher, setDataPusher] = useState(initialData);
 
   useEffect(() => {
-    pusherClient.subscribe(`get-process-service.${id}`);
+    setUrlId(id);
+    pusherClient.subscribe(`get-process-service.${urlId}`);
 
     pusherClient.bind("fill-process-service", ({ service }) => {
-      getProcesServiceFunction();
+      getProcesServiceFunction(service);
     });
 
-    async function getProcesServiceFunction() {
+    async function getProcesServiceFunction(id) {
       let newData = await getServiceSteps(id);
-
-      setDataPusher(newData.data);
+      setDataPusher(newData);
     }
 
     return () => {
-      pusherClient.unsubscribe(`get-process-service.${id}`);
+      pusherClient.unsubscribe(`get-process-service.${urlId}`);
     };
-  });
+  }, [location, urlId]);
+
+  useEffect(() => {
+    async function getSteps() {
+      let newData = await getServiceSteps(id);
+      setDataPusher(newData);
+    }
+
+    getSteps();
+  }, [id]);
 
   return (
     <div className="flex shrink-0">

@@ -107,8 +107,6 @@ function Activities() {
     setDestroyTaskModal(true);
   }
 
-  console.log(activitiesData);
-
   return (
     <div className="flex w-full overflow-scroll">
       <DeleteTask
@@ -215,55 +213,46 @@ function Activities() {
 
                     <div className="flex w-full group-aria-expanded:hidden">
                       <div className="w-1/12 text-start">
-                        {day.priority === 1 ? (
+                        {day?.priority == 1 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
-                              className="mr-2 text-xs text-[#00A259]"
+                              className="mr-2 text-xs text-[#F9D994]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Low
-                            </span>
                           </div>
-                        ) : day.priority === 2 ? (
+                        ) : day?.priority == 2 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
-                              className="mr-2 text-xs text-primario"
+                              className="mr-2 text-xs text-[#F9B894]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Half
-                            </span>
                           </div>
-                        ) : activitiesData.priority === 3 ? (
-                          <div>
-                            <IonIcon
-                              icon={ellipse}
-                              className="mr-2 text-xs text-[#FAA364]"
-                            />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Important
-                            </span>
-                          </div>
-                        ) : (
+                        ) : day?.priority == 3 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
                               className="mr-2 text-xs text-[#D7586B]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Urgent
-                            </span>
                           </div>
+                        ) : (
+                          <div></div>
                         )}
                       </div>
-                      <div className="w-5/12 text-start">
-                        <span className="font-roboto text-xs font-normal text-grisHeading">
-                          {day.title}
-                        </span>
-                      </div>
+                      {day?.priority == 4 ? (
+                        <div className="w-5/12 text-start">
+                          <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
+                            {day.title}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="w-5/12 text-start">
+                          <span className="font-roboto text-xs font-normal text-grisHeading">
+                            {day.title}
+                          </span>
+                        </div>
+                      )}
                       <div className="w-1/12 text-start">
-                        {day.task_count > 1 ? (
+                        {day?.task_count > 1 ? (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
                             + {day.task_count} more
                           </span>

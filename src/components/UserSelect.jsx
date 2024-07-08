@@ -59,6 +59,7 @@ function UserSelect({ users, leadAssigned }) {
   const { data } = users;
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(leadAssigned);
+  console.log(data)
 
   return (
     <div className="flex items-center">
@@ -104,6 +105,7 @@ function UserSelect({ users, leadAssigned }) {
                 {data?.map((user, i) => (
                   <CommandItem
                     key={user.id}
+                    className='flex gap-2'
                     value={user.id}
                     onSelect={() => {
                       setSelectedStatus(
@@ -112,6 +114,14 @@ function UserSelect({ users, leadAssigned }) {
                       setOpen(false);
                     }}
                   >
+                    <Avatar className="size-5">
+                  <AvatarImage
+                    src={user?.user_image}
+                  />
+                  <AvatarFallback>
+                    {selectedStatus?.name.slice(1)}
+                  </AvatarFallback>
+                </Avatar>
                     <span>
                       {user?.name} {user?.last_name} {user?.second_last_name}
                     </span>
