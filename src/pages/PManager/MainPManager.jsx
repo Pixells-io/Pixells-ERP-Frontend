@@ -13,7 +13,7 @@ function MainPManager() {
   const objectiveInfo = objectivesCtx?.data?.find(
     (obj, i) => obj.id === Number(params.id),
   );
-  // console.log(objectivesCtx);
+  // console.log(objectivesCtx.data);
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">

@@ -22,7 +22,7 @@ import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 
-function DayListActivityCard({ task }) {
+function DayListActivityCard({ task, index }) {
   const [taskId, setTaskId] = useState(false);
   const [destroyTaskModal, setDestroyTaskModal] = useState(false);
   const [taskName, setTaskName] = useState(false);
@@ -52,12 +52,13 @@ function DayListActivityCard({ task }) {
     setTaskId(taskId);
     setDestroyTaskModal(true);
   }
+
   return (
     <div
       className={
         task.progress === 1
-          ? "w-1/3 rounded-2xl border-2 border-[#00A259] bg-[#f2f2f2] p-2 shadow-sm"
-          : "w-1/3 rounded-2xl border-2 border-[#cdcdcd] bg-[#f2f2f2] p-2 shadow-sm"
+          ? "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow"
+          : "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
       }
     >
       <DeleteTask
@@ -81,39 +82,56 @@ function DayListActivityCard({ task }) {
         priority={taskPriority}
         start={taskStart}
       />
-      <div className="flex w-full">
-        <div className="w-3/12">
-          <img
-            src={task.creator?.img}
-            className="h-10 w-10 rounded-full"
-            alt={task.creator?.name}
-          />
-          <span className="font-roboto text-sm font-normal text-grisHeading">
-            Creator
-          </span>
-        </div>
-        <div className="flex w-9/12">
-          <div className="w-5/6">
-            <span className="font-poppins text-xs font-semibold leading-4 text-grisHeading">
-              Activity Name
-            </span>
-            <br />
-            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-              {task.name}
-            </span>
+      <div className="flex h-full items-center justify-center px-2 font-poppins text-xs font-medium text-grisHeading">
+        {index + 1}
+      </div>
+      <div className="flex flex-col items-center justify-between">
+        <Avatar className="size-10">
+          <AvatarImage src={task?.creator.img} />
+          <AvatarFallback></AvatarFallback>
+        </Avatar>
+        <p className="text-[10px] text-grisHeading">Creador</p>
+        <div className="flex w-[80px] flex-col items-center justify-center">
+          <div className="flex w-full justify-center overflow-scroll">
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <Avatar className="size-6">
+              <AvatarImage src={task?.creator.img} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
           </div>
-          <div className="w-1/6">
+
+          <p className="text-[9px] text-[#ABABAB]">Responsables</p>
+        </div>
+      </div>
+      <div className="flex w-full flex-col justify-between px-2">
+        <div>
+          <div className="flex justify-between">
+            <p className="font-poppins text-[10px] font-semibold text-grisHeading">
+              Nombre de Actividad
+            </p>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <IonIcon
                   icon={ellipsisHorizontal}
-                  className="h-5 w-5 text-grisDisabled"
+                  className="flex h-5 w-5 text-grisDisabled"
                 ></IonIcon>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <button
                     type="button"
+                    className="w-full text-left"
                     onClick={() =>
                       openEditModalTask(
                         task?.id,
@@ -130,6 +148,7 @@ function DayListActivityCard({ task }) {
                 <DropdownMenuItem>
                   <button
                     type="button"
+                    className="w-full text-left"
                     onClick={() => openDestroyTaskModal(task?.id)}
                   >
                     Destroy
@@ -138,65 +157,60 @@ function DayListActivityCard({ task }) {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          <span className="text-xs text-grisHeading">{task?.name}</span>
         </div>
-      </div>
-      <div className="m-2 flex">
-        <div className="w-1/5">{/* RESPONSABLES IMG */}</div>
-        <div className="flex gap-4">
-          {/*  */}
-          {task.priority === 1 ? (
-            <div>
-              <IonIcon icon={ellipse} className="mr-2 text-xs text-[#00A259]" />
-              <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                Low
+        <div className="flex items-center gap-2 pb-1">
+          <div>
+            {task.priority === 1 ? (
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#00A259]" />
+                <span className="text-sm text-grisHeading">Low</span>
+              </div>
+            ) : task.priority === 2 ? (
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-primario" />
+                <span className="text-sm text-grisHeading">Half</span>
+              </div>
+            ) : task.priority === 3 ? (
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#FAA364]" />
+                <span className="text-sm text-grisHeading">Important</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1">
+                <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
+                <span className="text-sm text-grisHeading">Urgent</span>
+              </div>
+            )}
+          </div>
+          <div>
+            {task.progress === 1 ? (
+              <span className="rounded-2xl border border-[#00A259] px-2 text-sm font-normal text-[#00A259]">
+                Completado
               </span>
-            </div>
-          ) : task.priority === 2 ? (
-            <div>
-              <IonIcon icon={ellipse} className="mr-2 text-xs text-primario" />
-              <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                Half
+            ) : (
+              <span className="rounded-2xl border border-[#FAA364] px-2 text-sm font-normal text-[#FAA364]">
+                Pendiente
               </span>
-            </div>
-          ) : task.priority === 3 ? (
-            <div>
-              <IonIcon icon={ellipse} className="mr-2 text-xs text-[#FAA364]" />
-              <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                Important
+            )}
+          </div>
+          <div>
+            {task.progress === 1 ? (
+              <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
+                Complete
               </span>
-            </div>
-          ) : (
-            <div>
-              <IonIcon icon={ellipse} className="mr-2 text-xs text-[#D7586B]" />
-              <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                Urgent
-              </span>
-            </div>
-          )}
-          {/* SHOW STATUS */}
-          {task.progress === 1 ? (
-            <span className="rounded-2xl border border-[#00A259] px-2 text-sm font-normal text-[#00A259]">
-              Completado
-            </span>
-          ) : (
-            <span className="rounded-2xl border border-[#FAA364] px-2 text-sm font-normal text-[#FAA364]">
-              Pendiente
-            </span>
-          )}
-          {/* COMPLETE BUTTON */}
-          {task.progress === 1 ? (
-            <span>Complete</span>
-          ) : (
-            <button
-              type="button"
-              onClick={() =>
-                openCompleteTaskModal(task.id, task.name, task.description)
-              }
-              className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
-            >
-              Complete
-            </button>
-          )}
+            ) : (
+              <button
+                type="button"
+                onClick={() =>
+                  openCompleteTaskModal(task.id, task.name, task.description)
+                }
+                className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
+              >
+                Complete
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

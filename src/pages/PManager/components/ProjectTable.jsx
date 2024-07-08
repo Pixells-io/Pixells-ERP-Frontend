@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
   add,
+  checkmarkCircle,
   checkmarkCircleOutline,
   create,
   informationCircle,
@@ -35,11 +36,11 @@ import { getProjectById } from "@/lib/actions";
 const HEADERS = [
   { name: "FASE" },
   { name: "ACTIVITY" },
-  { name: "ASIGNADO" },
-  { name: "DURACION" },
-  { name: "RESTANTE" },
-  { name: "INICIO" },
-  { name: "FIN" },
+  { name: "ASSIGNED" },
+  { name: "DURATION" },
+  { name: "REMAINING" },
+  { name: "START" },
+  { name: "END" },
   { name: "COMMENT" },
   { name: "DOC" },
 ];
@@ -174,8 +175,8 @@ function ProjectTable() {
                             />
                           ) : (
                             <IonIcon
-                              icon={checkmarkCircleOutline}
-                              className="h-5 w-5 text-green-600"
+                              icon={checkmarkCircle}
+                              className="h-5 w-5 text-[#00A259]"
                             />
                           )}
                         </button>
@@ -185,6 +186,7 @@ function ProjectTable() {
                       <ActivityNameInput
                         defaultName={activity?.name}
                         activity_id={activity?.id}
+                        status={activity.status}
                       />
                     </div>
 
@@ -204,12 +206,18 @@ function ProjectTable() {
                     </div>
                     <div className="col-span-1">
                       <p className="text-[12px] font-normal text-grisHeading">
-                        back
+                        {activity?.duration} Days
                       </p>
                     </div>
                     <div className="col-span-1">
                       <p className="text-[12px] font-normal text-grisHeading">
-                        back
+                        {activity?.status === 0 ? (
+                          <>{activity?.remaining} Days</>
+                        ) : (
+                          <span className="rounded-3xl bg-[#00A2591F] px-2 py-1 font-roboto text-xs font-normal leading-3 text-[#00A259] hover:bg-[#00A2591F]">
+                            Done
+                          </span>
+                        )}
                       </p>
                     </div>
 

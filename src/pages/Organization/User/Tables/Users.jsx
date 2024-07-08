@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   useReactTable,
@@ -8,16 +9,13 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import {
-  informationCircle,
-  chatbubbleEllipses,
-  searchOutline,
-  bookmark,
-} from "ionicons/icons";
-import { NavLink } from "react-router-dom";
+import { informationCircle } from "ionicons/icons";
+
 import { pusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
 import { changeUserStatus } from "../../utils";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 
 function UsersTable({ users }) {
   const columnHelper = createColumnHelper();
@@ -57,12 +55,10 @@ function UsersTable({ users }) {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <div>
-              <img
-                src={row.original.user_image}
-                className="w-17 h-7 rounded-full"
-              />
-            </div>
+            <Avatar className="size-7">
+              <AvatarImage src={row?.original.user_image} />
+              {/* <AvatarFallback>{row.original.name.slice(1)}</AvatarFallback> */}
+            </Avatar>
             <div className="ml-2 mt-2">
               <span>
                 {row.original.name} {row.original.last_name}{" "}

@@ -40,7 +40,7 @@ function Today() {
   }, []);
 
   function changeInputToday(projectId) {
-    console.log(projectId);
+    // console.log(projectId);
   }
 
   return (
@@ -102,9 +102,9 @@ function Today() {
           <Tabs defaultValue="today" className="h-full w-full overflow-auto">
             <TabsList className="mb-5 w-full bg-transparent">
               <div className="flex w-full">
-                <div className="w-4/5 gap-4">
+                <div className="flex gap-2 rounded-full border border-[#D7D7D7] px-2 py-1">
                   <TabsTrigger
-                    className="rounded-xl p-3 data-[state=active]:bg-blancoBox"
+                    className="rounded-full p-3 data-[state=active]:bg-blancoBox"
                     value="today"
                   >
                     <span className="font-roboto text-base font-medium text-grisHeading">
@@ -115,7 +115,7 @@ function Today() {
                     </span>
                   </TabsTrigger>
                   <TabsTrigger
-                    className="rounded-xl p-3 data-[state=active]:bg-blancoBox"
+                    className="rounded-full p-3 data-[state=active]:bg-blancoBox"
                     value="yesterday"
                   >
                     <span className="font-roboto text-base font-medium text-grisHeading">
@@ -130,12 +130,12 @@ function Today() {
             </TabsList>
             <TabsContent value="today" className="flex gap-6">
               {todayData.today?.map((task, i) => (
-                <DayListActivityCard task={task} key={i} />
+                <DayListActivityCard task={task} key={i} index={i} />
               ))}
             </TabsContent>
             <TabsContent value="yesterday" className="flex gap-6">
               {todayData.yesterday?.map((task, i) => (
-                <DayListActivityCard task={task} key={i} />
+                <DayListActivityCard task={task} key={i} index={i} />
               ))}
             </TabsContent>
           </Tabs>

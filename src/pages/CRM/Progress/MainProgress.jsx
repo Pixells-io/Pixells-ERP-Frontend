@@ -54,7 +54,7 @@ function Main() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              PROGRESS DASHBOARD
+              PROCESS DASHBOARD
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">

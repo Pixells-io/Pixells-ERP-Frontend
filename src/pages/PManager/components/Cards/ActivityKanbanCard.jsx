@@ -52,6 +52,8 @@ function ActivityKanbanCard({ task, actions }) {
     setDestroyTaskModal(true);
   }
 
+  console.log(task);
+
   return (
     <div className="m-4 flex flex-col gap-2 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
       <DeleteTask
@@ -76,7 +78,9 @@ function ActivityKanbanCard({ task, actions }) {
         start={taskStart}
       />
       <div className="flex items-center justify-between">
-        <p className="font-poppins text-[15px] font-semibold">{task.name}</p>
+        <p className="line-clamp-1 font-poppins text-[15px] font-semibold">
+          {task.name}
+        </p>
         {actions === true ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -163,15 +167,17 @@ function ActivityKanbanCard({ task, actions }) {
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        {task.progress === 1 ? (
+        {actions === true ? (
           <>
-            <p className="self-end pr-2 text-[8px] text-[#CCCCCC]">100%</p>
-            <Progress value="100" className="h-1" />
+            <p className="self-end pr-2 text-[8px] text-[#CCCCCC]">
+              Incomplete
+            </p>
+            <Progress value="0" className="h-1" />
           </>
         ) : (
           <>
-            <p className="self-end pr-2 text-[8px] text-[#CCCCCC]">0%</p>
-            <Progress value="0" className="h-1" />
+            <p className="self-end pr-2 text-[8px] text-[#CCCCCC]">Complete</p>
+            <Progress value="100" className="h-1" />
           </>
         )}
       </div>
