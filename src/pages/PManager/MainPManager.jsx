@@ -1,19 +1,69 @@
-import React from "react";
-import { NavLink, Outlet, useOutletContext, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Form,
+  NavLink,
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigation,
+  useParams,
+} from "react-router-dom";
 
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  chevronBack,
+  chevronForward,
+  ellipsisHorizontal,
+} from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import GoalForm from "./components/Form/GoalForm";
-import { saveNewCsf, saveNewGoal, saveNewTask } from "./utils";
+import {
+  deleteCSF,
+  deleteGoal,
+  deleteStrategicObjective,
+  editCSF,
+  editStrategicObjective,
+  saveNewCsf,
+  saveNewGoal,
+  saveNewTask,
+} from "./utils";
+import ObjectiveDestroy from "./components/ObjectiveDestroy";
+import GoalDestroy from "./components/GoalDestroy";
 
 function MainPManager() {
   const params = useParams();
-  const [objectivesCtx, setObjectivesCtx] = useOutletContext();
-  const objectiveInfo = objectivesCtx?.data?.find(
-    (obj, i) => obj.id === Number(params.id),
-  );
-  // console.log(objectivesCtx.data);
+  const navigation = useNavigation();
+
+  const { data } = useLoaderData();
+
+  const [edit, setEdit] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [objectiveInfo, setObjectiveInfo] = useState("");
+
+  //Set Info
+  useEffect(() => {
+    setObjectiveInfo(data?.find((obj, i) => obj.id === Number(params.id)));
+  }, [data]);
+
+  // Reset Edit
+  useEffect(() => {
+    setEdit(false);
+  }, [params.id]);
+
+  //Modal Effect
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setEdit(false);
+    }
+  }, [navigation.state]);
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -49,7 +99,7 @@ function MainPManager() {
           </div>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">
-              {objectivesCtx?.data?.length} objectives
+              {/* {objectivesCtx?.data?.length} objectives */}
             </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
@@ -60,10 +110,73 @@ function MainPManager() {
 
         {/* top content sub */}
         <div className="flex items-center gap-32 pl-3 pt-4">
-          <div className="flex flex-col gap-2">
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              {objectiveInfo?.name}
-            </h2>
+          <div className="flex w-full flex-col gap-2">
+            <div className="flex w-full items-center justify-between">
+              <ObjectiveDestroy
+                modal={open}
+                setModal={setOpen}
+                objId={objectiveInfo?.id}
+                name={objectiveInfo?.name}
+              />
+              {!edit ? (
+                <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+                  {objectiveInfo?.name}
+                </h2>
+              ) : (
+                <Form
+                  action={`/project-manager/${params.id}`}
+                  method="post"
+                  id="pm-edit-obj"
+                  className="flex gap-3"
+                >
+                  <input
+                    name="name"
+                    type="text"
+                    defaultValue={objectiveInfo?.name}
+                    className="font-poppins text-xl font-bold text-[#44444F]"
+                  />
+                  <input
+                    name="objective_id"
+                    type="text"
+                    hidden
+                    className="hidden"
+                    value={objectiveInfo?.id}
+                    readOnly
+                  />
+                  <input
+                    type="text"
+                    hidden
+                    className="hidden"
+                    name="action"
+                    value="edit-obj"
+                    readOnly
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-xl border border-primarioBotones px-4 py-1 font-medium text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                  >
+                    Edit
+                  </button>
+                </Form>
+              )}
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <IonIcon
+                    icon={ellipsisHorizontal}
+                    className="size-6 text-[#44444F]"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => setEdit(true)}>
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setOpen(true)}>
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
             <span className="text-xs font-medium text-grisText">
               Strategic Category
             </span>
@@ -126,6 +239,8 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
+  console.log(action);
+
   switch (action) {
     case "goal":
       return await saveNewGoal(formData, paramId);
@@ -135,6 +250,26 @@ export async function multiFormAction({ params, request }) {
 
     case "task":
       return await saveNewTask(formData);
+
+    case "edit-obj":
+      await editStrategicObjective(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "edit-csf":
+      await editCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "delete-obj":
+      await deleteStrategicObjective(paramId);
+      return redirect("/project-manager");
+
+    case "delete-goal":
+      await deleteGoal(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "delete-csf":
+      await deleteCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
 
     default:
       break;

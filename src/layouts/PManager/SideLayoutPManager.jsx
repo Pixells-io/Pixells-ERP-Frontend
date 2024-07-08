@@ -12,7 +12,6 @@ import { IonIcon } from "@ionic/react";
 import {
   addCircleOutline,
   checkmarkCircle,
-  flag,
   megaphone,
   syncCircle,
 } from "ionicons/icons";
@@ -123,7 +122,7 @@ function SideLayoutPManager() {
           </div>
         </div>
       </div>
-      <Outlet context={[objectiveCtx, setObjectivesCtx]} />
+      <Outlet />
     </div>
   );
 }

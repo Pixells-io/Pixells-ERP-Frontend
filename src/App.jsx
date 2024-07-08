@@ -157,6 +157,7 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
+  getObjectives,
 } from "./lib/actions";
 
 //Not Found
@@ -442,6 +443,7 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
+            loader: getObjectives,
             action: multiFormAction,
             children: [
               {
@@ -667,7 +669,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MainBankManagement />
+            element: <MainBankManagement />,
           },
           {
             path: "/bank-management/collection",
@@ -676,8 +678,8 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/collection/create",
             element: <AddNewCollection />,
-          }
-        ]
+          },
+        ],
       },
     ],
   },
