@@ -285,9 +285,60 @@ export async function editStrategicObjective(data) {
   return response;
 }
 
+export async function editCSF(data) {
+  const csf = {
+    fce_id: data.get("csf_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-fce`,
+    {
+      method: "POST",
+      body: JSON.stringify(csf),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function deleteStrategicObjective(id) {
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-objetive/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteCSF(data) {
+  const id = data.get("csf_id");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-fce/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteGoal(data) {
+  const id = data.get("goal_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-goal/${id}`,
     {
       method: "get",
       headers: {

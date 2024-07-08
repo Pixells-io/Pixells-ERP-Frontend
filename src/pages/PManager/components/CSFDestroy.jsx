@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ObjectiveDestroy({ modal, setModal, objId, name }) {
-  const navigation = useNavigation();
+function CSFDestroy({ modal, setModal, csfId, name }) {
   const params = useParams();
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -25,19 +25,19 @@ function ObjectiveDestroy({ modal, setModal, objId, name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Objective - {name}
+            Delete CSF - {name}
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-delete-obj"
+          id="form-delete-csf"
+          className="flex h-full w-full flex-col gap-3 px-8"
           action={`/project-manager/${params.id}`}
           method="post"
-          className="flex h-full w-full flex-col gap-3 px-8"
         >
-          <input type="hidden" value={objId} name="objective_id" />
-          <input type="hidden" value="delete-obj" name="action" />
+          <input type="hidden" value={csfId} name="csf_id" />
+          <input type="hidden" value="delete-csf" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
-            You are trying to delete a Streategic Objective, are you sure?
+            You are trying to delete a CSF, are you sure?
           </span>
           <DialogFooter className="flex gap-4 py-6">
             <Button
@@ -60,4 +60,4 @@ function ObjectiveDestroy({ modal, setModal, objId, name }) {
   );
 }
 
-export default ObjectiveDestroy;
+export default CSFDestroy;

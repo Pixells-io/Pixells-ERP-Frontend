@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useLocation, useParams } from "react-router-dom";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Board from "./Board";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+
 import { pusherClient } from "@/lib/pusher";
 import { getGoalsMaster } from "@/lib/actions";
+
+import Board from "./Board";
+import GoalDestroy from "./components/GoalDestroy";
 
 function Boards() {
   const location = useLocation();
   const { id } = useParams();
   const { goals, users, goalsMaster } = useLoaderData();
-  const tabDefault = goals?.data[0]?.name;
   const [urlId, setUrlId] = useState(id);
   const [PMdata, setPMdata] = useState(goalsMaster?.data);
+  const [open, setOpen] = useState(false);
+  const [goalSelected, setGoalSelected] = useState("");
+
+  const tabDefault = goals?.data[0]?.name;
 
   useEffect(() => {
     setUrlId(id);
@@ -43,29 +56,12 @@ function Boards() {
 
   return (
     <>
-      {/* <Tabs
-        defaultValue={tabDefault}
-        className="w-full bg-blancoBg rounded-xl overflow-scroll"
-      >
-        <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
-          {goals?.data?.map((goal, i) => (
-            <TabsTrigger
-              key={i}
-              value={goal.name}
-              className="border-b rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
-            >
-              {goal.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {goals?.data?.map((goal, i) => (
-          <div key={i} className="flex w-full">
-            <TabsContent value={goal.name} className="w-full">
-              <Board goal={goal} users={users.data} csfs={csfs.data} />
-            </TabsContent>
-          </div>
-        ))}
-      </Tabs> */}
+      <GoalDestroy
+        modal={open}
+        setModal={setOpen}
+        name={goalSelected?.name}
+        goalId={goalSelected?.id}
+      />
       <Tabs
         defaultValue={tabDefault}
         className="w-full overflow-scroll rounded-xl bg-blancoBg"
@@ -74,10 +70,23 @@ function Boards() {
           {PMdata?.map(({ goal }, i) => (
             <TabsTrigger
               key={i}
-              value={goal.name}
+              value={goal?.name}
               className="rounded-none border-b text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
-              {goal.name}
+              <ContextMenu>
+                <ContextMenuTrigger>{goal?.name}</ContextMenuTrigger>
+                <ContextMenuContent>
+                  <ContextMenuItem>Edit</ContextMenuItem>
+                  <ContextMenuItem
+                    onClick={() => {
+                      setGoalSelected(goal);
+                      setOpen(true);
+                    }}
+                  >
+                    Delete
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
             </TabsTrigger>
           ))}
         </TabsList>

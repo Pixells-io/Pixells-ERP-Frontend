@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   NavLink,
   Outlet,
+  redirect,
+  useNavigation,
   useOutletContext,
   useParams,
 } from "react-router-dom";
@@ -11,8 +13,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -25,7 +25,10 @@ import { IonIcon } from "@ionic/react";
 
 import GoalForm from "./components/Form/GoalForm";
 import {
+  deleteCSF,
+  deleteGoal,
   deleteStrategicObjective,
+  editCSF,
   editStrategicObjective,
   saveNewCsf,
   saveNewGoal,
@@ -37,10 +40,22 @@ function MainPManager() {
   const params = useParams();
   const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
+  const navigation = useNavigation();
   const [objectivesCtx, setObjectivesCtx] = useOutletContext();
   const objectiveInfo = objectivesCtx?.data?.find(
     (obj, i) => obj.id === Number(params.id),
   );
+
+  useEffect(() => {
+    setEdit(false);
+  }, [params.id]);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setEdit(false);
+    }
+  }, [navigation.state]);
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -216,6 +231,8 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
+  console.log(action);
+
   switch (action) {
     case "goal":
       return await saveNewGoal(formData, paramId);
@@ -227,10 +244,23 @@ export async function multiFormAction({ params, request }) {
       return await saveNewTask(formData);
 
     case "edit-obj":
-      return await editStrategicObjective(formData);
+      await editStrategicObjective(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "edit-csf":
+      return await editCSF(formData);
 
     case "delete-obj":
-      return await deleteStrategicObjective(paramId);
+      await deleteStrategicObjective(paramId);
+      return redirect("/project-manager");
+
+    case "delete-goal":
+      await deleteGoal(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "delete-csf":
+      await deleteCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
 
     default:
       break;
