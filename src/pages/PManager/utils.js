@@ -262,3 +262,39 @@ export async function editTask(data) {
 
   return response;
 }
+
+export async function editStrategicObjective(data) {
+  const objective = {
+    objetive_id: data.get("objective_id"),
+    name: data.get("name"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-objetive`,
+    {
+      method: "POST",
+      body: JSON.stringify(objective),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteStrategicObjective(id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-objetive/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
