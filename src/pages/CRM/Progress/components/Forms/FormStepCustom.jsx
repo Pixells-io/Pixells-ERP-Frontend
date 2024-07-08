@@ -14,7 +14,7 @@ import { chevronForward } from "ionicons/icons";
 
 import { Form } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import FileRouter from "@/layouts/Masters/FormComponents/file";
+
 import UserSelect from "@/components/UserSelect";
 import DropzoneFile from "@/components/dropzone-files";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
@@ -38,7 +38,7 @@ function FormStepCustom({
   customerId,
   navigation,
 }) {
-  // console.log(step);
+  console.log(step);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
@@ -114,7 +114,7 @@ function FormStepCustom({
             <div className="flex items-center gap-2">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
+                  <AvatarImage src={""} />
                   <AvatarFallback>DG</AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>

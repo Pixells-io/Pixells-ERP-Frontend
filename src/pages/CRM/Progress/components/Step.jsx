@@ -12,9 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function Step({ stepInfo, services, users }) {
   const params = useParams();
