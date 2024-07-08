@@ -305,6 +305,26 @@ export async function editCSF(data) {
   return response;
 }
 
+export async function editGoal(data) {
+  const goal = {
+    goal_id: data.get("goal_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-goal`,
+    {
+      method: "POST",
+      body: JSON.stringify(goal),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function deleteStrategicObjective(id) {
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-objetive/${id}`,

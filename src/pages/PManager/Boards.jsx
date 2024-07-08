@@ -19,15 +19,7 @@ import { getGoalsMaster } from "@/lib/actions";
 
 import Board from "./Board";
 import GoalDestroy from "./components/GoalDestroy";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import GoalEdit from "./components/GoalEdit";
 
 function Boards() {
   const location = useLocation();
@@ -37,6 +29,7 @@ function Boards() {
   const [PMdata, setPMdata] = useState(goalsMaster?.data);
   const [open, setOpen] = useState(false);
   const [goalSelected, setGoalSelected] = useState("");
+  const [openEdit, setOpenEdit] = useState(false);
 
   const tabDefault = goals?.data[0]?.name;
 
@@ -73,21 +66,16 @@ function Boards() {
       defaultValue={tabDefault}
       className="w-full overflow-scroll rounded-xl bg-blancoBg"
     >
-      {/* <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog> */}
       <GoalDestroy
         modal={open}
         setModal={setOpen}
+        goalId={goalSelected?.id}
+        name={goalSelected?.name}
+      />
+
+      <GoalEdit
+        modal={openEdit}
+        setModal={setOpenEdit}
         goalId={goalSelected?.id}
         name={goalSelected?.name}
       />
@@ -102,7 +90,14 @@ function Boards() {
             <ContextMenu>
               <ContextMenuTrigger>{goal?.name}</ContextMenuTrigger>
               <ContextMenuContent>
-                <ContextMenuItem>Edit</ContextMenuItem>
+                <ContextMenuItem
+                  onClick={() => {
+                    setGoalSelected(goal);
+                    setOpenEdit(true);
+                  }}
+                >
+                  Edit
+                </ContextMenuItem>
                 <ContextMenuItem
                   onClick={() => {
                     setGoalSelected(goal);

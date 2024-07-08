@@ -29,6 +29,7 @@ import {
   deleteGoal,
   deleteStrategicObjective,
   editCSF,
+  editGoal,
   editStrategicObjective,
   saveNewCsf,
   saveNewGoal,
@@ -257,6 +258,10 @@ export async function multiFormAction({ params, request }) {
 
     case "edit-csf":
       await editCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "edit-goal":
+      await editGoal(formData);
       return redirect(`/project-manager/${paramId}`);
 
     case "delete-obj":
