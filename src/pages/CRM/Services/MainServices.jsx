@@ -17,7 +17,14 @@ import {
 import ServicesBlocks from "./components/ServicesBlocks";
 import NewServiceForm from "./components/Forms/NewServiceForm";
 
-import { saveCategory, saveService, savePackage } from "./utils";
+import {
+  saveCategory,
+  saveService,
+  savePackage,
+  editCategory,
+  editPackage,
+  editService,
+} from "./utils";
 import NewCategoryForm from "./components/Forms/NewCategoryForm";
 import CategoriesTable from "./components/Tables/CategoriesTable";
 import ServicesTable from "./components/Tables/ServicesTable";
@@ -205,6 +212,18 @@ export async function Action({ request }) {
     case "3":
       //Package Case
       await savePackage(data);
+      break;
+    case "4":
+      //Package Case
+      await editCategory(data);
+      break;
+    case "5":
+      //Package Case
+      await editPackage(data);
+      break;
+    case "6":
+      //Package Case
+      await editService(data);
       break;
 
     default:
