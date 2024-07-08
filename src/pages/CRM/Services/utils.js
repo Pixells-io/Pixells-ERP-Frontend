@@ -74,3 +74,66 @@ export async function savePackage(data) {
 
   return response;
 }
+
+export async function editCategory(data) {
+  const info = {
+    category_id: data.get("category_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-category`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editPackage(data) {
+  const info = {
+    package_id: data.get("package_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-packages`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editService(data) {
+  const info = {
+    service_id: data.get("service_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-services`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
