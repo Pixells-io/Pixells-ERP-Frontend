@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useLocation, useParams } from "react-router-dom";
+import {
+  useLoaderData,
+  useLocation,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -14,6 +19,15 @@ import { getGoalsMaster } from "@/lib/actions";
 
 import Board from "./Board";
 import GoalDestroy from "./components/GoalDestroy";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function Boards() {
   const location = useLocation();
@@ -55,50 +69,61 @@ function Boards() {
   }, [id]);
 
   return (
-    <>
+    <Tabs
+      defaultValue={tabDefault}
+      className="w-full overflow-scroll rounded-xl bg-blancoBg"
+    >
+      {/* <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>Open</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog> */}
       <GoalDestroy
         modal={open}
         setModal={setOpen}
-        name={goalSelected?.name}
         goalId={goalSelected?.id}
+        name={goalSelected?.name}
       />
-      <Tabs
-        defaultValue={tabDefault}
-        className="w-full overflow-scroll rounded-xl bg-blancoBg"
-      >
-        <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
-          {PMdata?.map(({ goal }, i) => (
-            <TabsTrigger
-              key={i}
-              value={goal?.name}
-              className="rounded-none border-b text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-            >
-              <ContextMenu>
-                <ContextMenuTrigger>{goal?.name}</ContextMenuTrigger>
-                <ContextMenuContent>
-                  <ContextMenuItem>Edit</ContextMenuItem>
-                  <ContextMenuItem
-                    onClick={() => {
-                      setGoalSelected(goal);
-                      setOpen(true);
-                    }}
-                  >
-                    Delete
-                  </ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {PMdata?.map(({ fces, goal }, i) => (
-          <div key={i} className="flex w-full">
-            <TabsContent value={goal.name} className="w-full">
-              <Board goal={goal} users={users.data} csfs={fces} />
-            </TabsContent>
-          </div>
+
+      <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
+        {PMdata?.map(({ goal }, i) => (
+          <TabsTrigger
+            key={i}
+            value={goal?.name}
+            className="rounded-none border-b text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+          >
+            <ContextMenu>
+              <ContextMenuTrigger>{goal?.name}</ContextMenuTrigger>
+              <ContextMenuContent>
+                <ContextMenuItem>Edit</ContextMenuItem>
+                <ContextMenuItem
+                  onClick={() => {
+                    setGoalSelected(goal);
+                    setOpen(true);
+                  }}
+                >
+                  Delete
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
+          </TabsTrigger>
         ))}
-      </Tabs>
-    </>
+      </TabsList>
+      {PMdata?.map(({ fces, goal }, i) => (
+        <div key={i} className="flex w-full">
+          <TabsContent value={goal.name} className="w-full">
+            <Board goal={goal} users={users.data} csfs={fces} />
+          </TabsContent>
+        </div>
+      ))}
+    </Tabs>
   );
 }
 

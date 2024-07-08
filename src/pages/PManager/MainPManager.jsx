@@ -4,8 +4,8 @@ import {
   NavLink,
   Outlet,
   redirect,
+  useLoaderData,
   useNavigation,
-  useOutletContext,
   useParams,
 } from "react-router-dom";
 
@@ -35,21 +35,29 @@ import {
   saveNewTask,
 } from "./utils";
 import ObjectiveDestroy from "./components/ObjectiveDestroy";
+import GoalDestroy from "./components/GoalDestroy";
 
 function MainPManager() {
   const params = useParams();
+  const navigation = useNavigation();
+
+  const { data } = useLoaderData();
+
   const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
-  const navigation = useNavigation();
-  const [objectivesCtx, setObjectivesCtx] = useOutletContext();
-  const objectiveInfo = objectivesCtx?.data?.find(
-    (obj, i) => obj.id === Number(params.id),
-  );
+  const [objectiveInfo, setObjectiveInfo] = useState("");
 
+  //Set Info
+  useEffect(() => {
+    setObjectiveInfo(data?.find((obj, i) => obj.id === Number(params.id)));
+  }, [data]);
+
+  // Reset Edit
   useEffect(() => {
     setEdit(false);
   }, [params.id]);
 
+  //Modal Effect
   useEffect(() => {
     if (navigation.state === "idle") {
       setEdit(false);
@@ -91,7 +99,7 @@ function MainPManager() {
           </div>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">
-              {objectivesCtx?.data?.length} objectives
+              {/* {objectivesCtx?.data?.length} objectives */}
             </div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
@@ -248,7 +256,8 @@ export async function multiFormAction({ params, request }) {
       return redirect(`/project-manager/${paramId}`);
 
     case "edit-csf":
-      return await editCSF(formData);
+      await editCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
 
     case "delete-obj":
       await deleteStrategicObjective(paramId);
