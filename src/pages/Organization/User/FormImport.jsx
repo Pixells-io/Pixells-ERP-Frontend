@@ -26,7 +26,11 @@ const DAYS = [
   { label: "Position Responsability", value: "7" },
   { label: "Position Perfil", value: "8" },
   { label: "Positions Conocimientos", value: "9" },
-  { label: "Languages", value: "10" },
+  { label: "Positions Languages", value: "10" },
+  { label: "Users", value: "11" },
+  { label: "Users Company Experience", value: "12" },
+  { label: "Users Academy Info", value: "13" },
+  { label: "Users Contracts", value: "14" },
 ];
 
 function FormImport({ modal, setModal }) {

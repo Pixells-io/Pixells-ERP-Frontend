@@ -207,8 +207,6 @@ export default MainChat;
 export async function Action({ params, request }) {
   const data = await request.formData();
 
-  console.log(data);
-
   switch (data.get("type_of_function")) {
     case "1":
       //Submit Msg
