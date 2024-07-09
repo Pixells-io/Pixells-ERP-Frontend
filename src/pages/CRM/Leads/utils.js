@@ -68,7 +68,7 @@ export async function prospectLeadForm(data) {
     day_of_contact: format(new Date(data.get("date")), "yyyy-MM-dd"),
     coments: data.get("comment"),
     archive: data.get("file"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -92,7 +92,7 @@ export async function potencialLeadForm(data) {
     lead_id: Number(data.get("lead_id")),
     payment_recurrency: data.get("payment_recurrency"),
     total_ammount: data.get("total_ammount"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -122,7 +122,7 @@ export async function followupLeadForm(data) {
     comments: data.get("comments"),
     archive: data.get("document"),
     next_step: data.get("next_step"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -148,7 +148,7 @@ export async function proposalLeadForm(data) {
     subject: format(new Date(data.get("subject")), "yyyy-MM-dd"),
     comments: data.get("comments"),
     document: data.get("document"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -178,7 +178,7 @@ export async function closingLeadForm(data) {
     services: data.getAll("service"),
     recurrency: data.getAll("recurrency"),
     ammount: data.getAll("ammount"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -203,7 +203,7 @@ export async function payLeadForm(data) {
     total: data.get("total"),
     comments: data.get("comments"),
     date_of_pay: data.get("recurrent_pay"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -232,7 +232,7 @@ export async function onboardingLeadForm(data) {
     contact_last_name: data.get("contact_last_name"),
     contact_phone: data.get("contact_phone"),
     contact_email: data.get("contact_email"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?

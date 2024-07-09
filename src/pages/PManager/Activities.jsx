@@ -19,7 +19,7 @@ import {
   trash,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import { completeTask, destroyTask, editTask } from "./utils";
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
@@ -441,6 +441,4 @@ export async function Action({ request }) {
       destroyTask(data);
       break;
   }
-
-  return 1;
 }

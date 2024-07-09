@@ -76,23 +76,7 @@ function StepsProgress() {
     </div>
   );
 }
-
 export default StepsProgress;
-
-// export async function Action({ params, request }) {
-//   const serviceId = params.id;
-//   const data = await request.formData();
-//   console.log(data);
-
-//   const validation = await saveNewServiceStep(serviceId, data);
-//   console.log(validation);
-
-//   if (validation) {
-//     return validation;
-//   }
-
-//   return redirect(`/crm/progress/${id}`);
-// }
 
 export async function Action({ params, request }) {
   const serviceId = params.id;
