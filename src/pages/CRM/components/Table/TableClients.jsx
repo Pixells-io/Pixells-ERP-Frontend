@@ -113,8 +113,8 @@ function TableClients({ services, clients: clientsInit }) {
                 }}
               >
                 {services?.map((service, i) => (
-                  <DropdownMenuRadioItem key={i} value={service.name}>
-                    {service.name}
+                  <DropdownMenuRadioItem key={i} value={service?.name}>
+                    {service?.name}
                   </DropdownMenuRadioItem>
                 ))}
                 <DropdownMenuRadioItem value="">
