@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, redirect, Outlet, NavLink } from "react-router-dom";
 
-import { MoreVertical } from "lucide-react";
-
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, globeOutline } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  closeCircleOutline,
+  globeOutline,
+} from "ionicons/icons";
 
-import { setSelectedService } from "./util";
+import { removeSelectedService, setSelectedService } from "./util";
 import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
+import FormDeleteSelectedService from "./components/Forms/FormDeleteSelectedService";
 
 const FILTERS = [
   { name: "Date" },
@@ -18,8 +22,20 @@ const FILTERS = [
 
 function Main() {
   const { selectedServices, services } = useLoaderData();
+  const [modalRemove, setModalRemove] = useState(false);
+  const [idSelected, setIdSelected] = useState(false);
+
+  function removeSelectedClick(id) {
+    setIdSelected(id);
+    setModalRemove(true);
+  }
   return (
     <div className="flex w-full overflow-auto">
+      <FormDeleteSelectedService
+        modal={modalRemove}
+        setModal={setModalRemove}
+        id={idSelected}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -85,8 +101,12 @@ function Main() {
                     {service?.name}
                   </p>
                 </div>
-                <div className="text-white">
-                  <MoreVertical size={16} />
+                <div className="mt-1 text-white">
+                  <IonIcon
+                    icon={closeCircleOutline}
+                    className="text-lg"
+                    onClick={() => removeSelectedClick(service?.id)}
+                  ></IonIcon>
                 </div>
               </NavLink>
             ))}
@@ -106,15 +126,22 @@ export default Main;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  console.log(data);
 
-  const validation = await setSelectedService(data);
-  console.log(validation);
+  switch (data.get("type_function")) {
+    case 1:
+      //Add Selected Service
+      await setSelectedService(data);
+      break;
+    case 2:
+      //Remove selected Service
+      await removeSelectedService(data);
+      break;
 
-  if (validation) {
-    return validation;
+    default:
+      break;
   }
-  return redirect("/crm/progress");
+
+  return 1;
 }
 
 // export async function multiFormAction({ params, request }) {

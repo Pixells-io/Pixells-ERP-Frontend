@@ -78,7 +78,10 @@ function ActivityKanbanCard({ task, actions }) {
         start={taskStart}
       />
       <div className="flex items-center justify-between">
-        <p className="line-clamp-1 font-poppins text-[15px] font-semibold">
+        <p
+          className="line-clamp-1 font-poppins text-[15px] font-semibold"
+          title={task.name}
+        >
           {task.name}
         </p>
         {actions === true ? (
