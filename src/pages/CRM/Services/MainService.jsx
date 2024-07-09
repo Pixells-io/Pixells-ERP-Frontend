@@ -112,7 +112,7 @@ function MainService() {
               <div className="flex flex-col gap-5 rounded-lg bg-blancoForms p-4">
                 <div className="flex gap-4">
                   <p className="text-sm font-medium text-grisText">
-                    Category Information
+                    Service Information
                   </p>
                   <div className="flex gap-2 text-[#696974]">
                     <button onClick={() => setModal(true)}>
