@@ -195,6 +195,13 @@ function NewServiceForm({
           className="flex flex-col gap-4 px-8"
           action="/crm/services"
           method="post"
+          encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <input type="hidden" name="type" value={1} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">

@@ -37,6 +37,13 @@ function EditPackageForm({ modal, setModal, id, name }) {
           className="flex flex-col gap-4"
           action="/crm/services"
           method="post"
+          encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
             <div className="text-lg font-normal text-[#696974]">

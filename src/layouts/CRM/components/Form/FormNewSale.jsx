@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
 
-import Select from "react-select";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import FormInput from "./Inputs/FormInput";
-import FormInput from "./FormInput";
+
+import { IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
+
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import DropzoneFile from "@/components/dropzone-files";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DropzoneFile from "@/components/dropzone-files";
 
 function FormNewSale() {
   const [open, setOpen] = useState(false);
