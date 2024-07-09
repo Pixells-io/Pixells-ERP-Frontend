@@ -162,6 +162,7 @@ import {
   getObjectives,
   showService,
   showCategory,
+  multilaoderSideLayoutCRM,
 } from "./lib/actions";
 
 //Not Found
@@ -257,7 +258,7 @@ const router = createBrowserRouter([
         path: "/crm",
         element: <SideLayout />,
         // errorElement: <NotFound />,
-        loader: getServices,
+        loader: multilaoderSideLayoutCRM,
         action: newLead,
         children: [
           //crm home
