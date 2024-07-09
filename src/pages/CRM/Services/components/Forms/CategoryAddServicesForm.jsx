@@ -14,16 +14,7 @@ import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function EditServiceForm({
-  modal,
-  setModal,
-  id,
-  name,
-  description,
-  price,
-  positions,
-  position_placeholder,
-}) {
+function CategoryAddServicesForm({ modal, setModal, id, services }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -37,34 +28,24 @@ function EditServiceForm({
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="border-b px-6 py-4 font-poppins">
-            Edit Service
+            Add Service
           </DialogTitle>
         </DialogHeader>
         <Form
           id="category-services-form"
           className="flex flex-col gap-4"
-          action={`/crm/services/${id}`}
+          action={`/crm/category/${id}`}
           method="post"
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
-            <div className="text-lg font-normal text-[#696974]">
-              Information
-            </div>
+            <div className="text-lg font-normal text-[#696974]">Services</div>
             <div className="flex flex-col gap-4 font-light">
-              <input type="hidden" name="type" value={6} />
-              <input type="hidden" name="type_of_function" value={1} />
-              <input type="hidden" name="service_id" value={id} />
-              <InputRouter name="name" type="text" placeholder={name} />
-              <InputRouter
-                name="description"
-                type="text"
-                placeholder={description}
-              />
-              <InputRouter name="price" type="text" placeholder={price} />
+              <input type="hidden" name="type_of_function" value={2} />
+              <input type="hidden" name="category_id" value={id} />
               <SelectRouter
-                name={"position"}
-                placeholder={position_placeholder}
-                options={positions}
+                name={"service"}
+                placeholder="Select a Service"
+                options={services}
               />
             </div>
           </div>
@@ -82,4 +63,4 @@ function EditServiceForm({
   );
 }
 
-export default EditServiceForm;
+export default CategoryAddServicesForm;

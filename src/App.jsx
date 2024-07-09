@@ -30,7 +30,9 @@ import MainClients from "./pages/Clients/MainClients";
 import MainServices, {
   Action as NewFunction,
 } from "./pages/CRM/Services/MainServices";
-import MainService from "./pages/CRM/Services/MainService";
+import MainService, {
+  Action as ServiceConsoleFunction,
+} from "./pages/CRM/Services/MainService";
 import MainPackage from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
@@ -158,6 +160,8 @@ import {
   getCalendarData,
   getUserByToken,
   getObjectives,
+  showService,
+  showCategory,
 } from "./lib/actions";
 
 //Not Found
@@ -229,6 +233,9 @@ import MainBankManagement from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
 import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
 import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
+import MainCategory, {
+  Action as MainCategoryFunction,
+} from "./pages/CRM/Services/MainCategory";
 
 const router = createBrowserRouter([
   {
@@ -307,9 +314,15 @@ const router = createBrowserRouter([
           {
             path: "/crm/services/:id",
             element: <MainService />,
-            loader: categoryShow,
+            loader: showService,
+            action: ServiceConsoleFunction,
           },
-
+          {
+            path: "/crm/category/:id",
+            element: <MainCategory />,
+            loader: showCategory,
+            action: MainCategoryFunction,
+          },
           //crm email
           {
             path: "/crm/email",
