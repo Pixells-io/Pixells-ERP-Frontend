@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -309,6 +309,7 @@ export async function Action({ params, request }) {
     case "4":
       //Destroy Category
       await destroyCategory(data);
+      return redirect("/crm/services");
       break;
   }
   return "1";
