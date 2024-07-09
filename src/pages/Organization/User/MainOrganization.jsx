@@ -17,20 +17,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { editArea, saveNewArea } from "../utils";
+import { editArea, importOrganization, saveNewArea } from "../utils";
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
 import FormCreateArea from "./FormCreateArea";
+import FormImport from "./FormImport";
 
 function MainOrganization() {
   const [modal, setModal] = useState(false);
+  const [modalImport, setModalImport] = useState(false);
 
   const { users, positions, areas, counter } = useLoaderData();
 
   return (
     <div className="flex w-full">
       <FormCreateArea modal={modal} setModal={setModal} />
+      <FormImport modal={modalImport} setModal={setModalImport} />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -96,6 +99,12 @@ function MainOrganization() {
                 <NavLink className="w-full" to={"/organization/create-user"}>
                   User
                 </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="w-full hover:cursor-pointer"
+                onClick={() => setModalImport(true)}
+              >
+                Import
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -170,6 +179,9 @@ export async function Action({ request }) {
       break;
     case "2":
       await editArea(data);
+      break;
+    case "4":
+      await importOrganization(data);
       break;
   }
 
