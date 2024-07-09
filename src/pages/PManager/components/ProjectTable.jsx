@@ -15,15 +15,9 @@ import {
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import {
-  add,
-  checkmarkCircle,
-  checkmarkCircleOutline,
-  create,
-  informationCircle,
-  trash,
-} from "ionicons/icons";
+import { checkmarkCircle, checkmarkCircleOutline, trash } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+
 import ActivityForm from "./Form/ActivityForm";
 import DatePickerPM from "@/components/date-picker-pm";
 import AddUserActivity from "./Form/AddUserActivity";
@@ -43,6 +37,7 @@ const HEADERS = [
   { name: "END" },
   { name: "COMMENT" },
   { name: "DOC" },
+  { name: "ACTIONS" },
 ];
 
 function ProjectTable() {
@@ -60,8 +55,7 @@ function ProjectTable() {
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {
-      // console.log("EFFECT location -> pusher");
-      getPMinfoFuncion(urlId);
+      getPMinfoFuncion(project);
     });
 
     async function getPMinfoFuncion(urlId) {
@@ -71,7 +65,6 @@ function ProjectTable() {
 
     return () => {
       pusherClient.unsubscribe(`private-pm-get-project.${urlId}`);
-      // console.log("unsubscribe");
     };
   }, [location, urlId]);
 
@@ -84,7 +77,7 @@ function ProjectTable() {
 
   return (
     <div className="flex h-full flex-col px-4 pb-10">
-      <div className="grid h-12 grid-cols-10 items-center text-center">
+      <div className="grid h-12 grid-cols-11 items-center text-center">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -147,7 +140,7 @@ function ProjectTable() {
                 {phase?.activities.map((activity, i) => (
                   <div
                     key={i}
-                    className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] text-center"
+                    className="grid h-12 grid-cols-11 items-center gap-y-6 border-t-[1px] text-center"
                   >
                     <div className="col-span-1 flex justify-center gap-2">
                       <p>{activity.id}</p>
@@ -248,6 +241,14 @@ function ProjectTable() {
                         activity_id={activity?.id}
                         documents={activity?.documents}
                       />
+                    </div>
+                    <div className="col-span-1 flex items-center justify-center">
+                      <button type="button flex items-center">
+                        <IonIcon
+                          icon={trash}
+                          className="size-5 text-grisSubText"
+                        />
+                      </button>
                     </div>
                   </div>
                 ))}

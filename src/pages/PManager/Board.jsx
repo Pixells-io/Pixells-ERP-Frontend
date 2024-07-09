@@ -27,6 +27,7 @@ import {
   ellipsisVertical,
   informationCircle,
   trash,
+  trashBin,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -389,7 +390,7 @@ function Board({ goal, users, csfs }) {
                           </Avatar>
                         </div>
                         {task?.type == 0 ? (
-                          <div className="flex justify-center">
+                          <div className="flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
                               <IonIcon
                                 icon={checkmarkCircleOutline}
@@ -423,16 +424,19 @@ function Board({ goal, users, csfs }) {
                             </div>
                           </div>
                         ) : (
-                          <div className="flex justify-center">
+                          <div className="flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
                               <Link
                                 to={`/project-manager/${id}/projects/${task?.id}`}
                               >
                                 <IonIcon
                                   icon={informationCircle}
-                                  className="h-5 w-5"
+                                  className="size-5"
                                 ></IonIcon>
                               </Link>
+                              <button type="button">
+                                <IonIcon icon={trash} className="size-5" />
+                              </button>
                             </div>
                           </div>
                         )}

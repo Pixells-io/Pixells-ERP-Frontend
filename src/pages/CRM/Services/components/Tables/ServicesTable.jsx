@@ -14,14 +14,6 @@ import EditServiceForm from "../Forms/EditServicesForm";
 function ServicesTable({ services }) {
   const columnHelper = createColumnHelper();
 
-  console.log(services);
-
-  const [modal, setModal] = useState(false);
-  const [serviceId, setServiceId] = useState(false);
-  const [serviceName, setServiceName] = useState(false);
-  const [serviceDescription, setserviceDescription] = useState(false);
-  const [servicePrice, setservicePrice] = useState(false);
-
   const data = services;
 
   const columns = [
@@ -52,18 +44,9 @@ function ServicesTable({ services }) {
         // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
-            <button
-              onClick={() =>
-                openModal(
-                  row.original.id,
-                  row.original.name,
-                  row.original.description,
-                  row.original.price,
-                )
-              }
-            >
+            <a href={`/crm/services/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </button>
+            </a>
           </div>
         );
       },
@@ -76,24 +59,8 @@ function ServicesTable({ services }) {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  function openModal(name, id, description, price) {
-    setServiceId(id);
-    setServiceName(name);
-    setserviceDescription(description);
-    setservicePrice(price);
-    setModal(true);
-  }
-
   return (
     <div className="relative w-full overflow-auto">
-      <EditServiceForm
-        modal={modal}
-        setModal={setModal}
-        id={serviceId}
-        name={serviceName}
-        description={serviceDescription}
-        price={servicePrice}
-      />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {

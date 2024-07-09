@@ -12,57 +12,64 @@ import {
   closeOutline,
   ellipsisHorizontal,
   informationCircle,
+  trashOutline,
 } from "ionicons/icons";
 import EditServiceForm from "./components/Forms/EditServicesForm";
 import {
+  addCategoryService,
   createServiceProcess,
+  destroyCategory,
   destroyProcess,
   destroyService,
+  destroyServiceCategory,
+  editCategory,
   editService,
 } from "./utils";
 import ServiceProcessForm from "./components/Forms/ServiceProcessForm";
 import DestroyProcessForm from "./components/Forms/DestroyProcessForm";
 import DestroyServiceForm from "./components/Forms/DestroyServiceForm";
+import EditCategoryForm from "./components/Forms/EditCategoryForm";
+import CategoryAddServicesForm from "./components/Forms/CategoryAddServicesForm";
+import CategoryDeleteServiceForm from "./components/Forms/CategoryDeleteServiceForm";
+import FormDeleteCategory from "./components/Forms/FormDeleteCategory";
 
-function MainService() {
+function MainCategory() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
-  const [modalProcess, setModalProcess] = useState(false);
-  const [modalProcessDestroy, setModalProcessDestroy] = useState(false);
-  const [processId, setProcessId] = useState(false);
-  const [modalServiceDestroy, setModalServiceDestroy] = useState(false);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [modalDestroyService, setModalDestroyService] = useState(false);
+  const [serviceId, setServiceId] = useState(false);
+  const [modalDestroyCategory, setModalDestroyCategory] = useState(false);
 
-  function setProcessIdFunction(id) {
-    setProcessId(id);
-    setModalProcessDestroy(true);
+  function openServiceModal(id) {
+    setServiceId(id);
+    setModalDestroyService(true);
   }
 
   return (
     <>
-      <EditServiceForm
+      <EditCategoryForm
         modal={modal}
         setModal={setModal}
         id={data?.id}
         name={data?.name}
         description={data?.description}
-        price={data?.price}
-        positions={data?.positions_array}
-        position_placeholder={data?.position}
       />
-      <ServiceProcessForm
-        modal={modalProcess}
-        setModal={setModalProcess}
+      <CategoryAddServicesForm
+        modal={modalAdd}
+        setModal={setModalAdd}
         id={data?.id}
+        services={data?.services_out}
       />
-      <DestroyProcessForm
-        modal={modalProcessDestroy}
-        setModal={setModalProcessDestroy}
+      <CategoryDeleteServiceForm
+        modal={modalDestroyService}
+        setModal={setModalDestroyService}
         id={data?.id}
-        idProcess={processId}
+        idService={serviceId}
       />
-      <DestroyServiceForm
-        modal={modalServiceDestroy}
-        setModal={setModalServiceDestroy}
+      <FormDeleteCategory
+        modal={modalDestroyCategory}
+        setModal={setModalDestroyCategory}
         id={data?.id}
       />
       <div className="flex w-full overflow-auto">
@@ -89,7 +96,7 @@ function MainService() {
           <div className="flex items-center gap-4">
             <div>
               <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                SERVICES
+                CATEGORIES
               </h2>
             </div>
           </div>
@@ -139,99 +146,41 @@ function MainService() {
                     {data?.description}
                   </span>
                 </div>
-
-                <div>
-                  <p className="text-[12px] font-medium text-grisText">Price</p>
-                  <span className="text-[12px] text-grisSubText">
-                    ${data?.price}
-                  </span>
-                </div>
               </div>
 
               <div className="flex flex-col gap-4 rounded-lg bg-blancoForms p-4">
-                <p className="text-sm font-medium text-grisText">
-                  Responable Information
-                </p>
-
-                <div className="flex flex-col gap-2 pl-2">
-                  <div>
-                    <p className="text-[12px] font-medium text-grisText">
-                      Manager
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-[12px] text-grisSubText">
-                      {data?.position}{" "}
-                    </p>
-                  </div>
+                <div className="flex gap-4">
+                  <p className="text-sm font-medium text-grisText">SERVICES</p>
+                  <button onClick={() => setModalAdd(true)}>
+                    <IonIcon icon={addOutline} className="h-5 w-5"></IonIcon>
+                  </button>
                 </div>
 
                 <div className="flex flex-col gap-2 pl-2">
                   <p className="text-[12px] font-medium text-grisText">
-                    More Participants
+                    Services Info
                   </p>
-                  {data?.users.map((user, i) => (
+                  {data?.services_in?.map((user, i) => (
                     <div className="flex items-center gap-2" key={i}>
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage src={user.user_image} />
-                        <AvatarFallback></AvatarFallback>
-                      </Avatar>
                       <span className="text-[12px] text-grisSubText">
                         {user.name}
                       </span>
+                      <button onClick={() => openServiceModal(user.id)}>
+                        <IonIcon
+                          icon={trashOutline}
+                          className="text-gris2"
+                        ></IonIcon>
+                      </button>
                     </div>
                   ))}
                 </div>
                 <div>
                   <button
                     className="rounded-3xl border border-[#D7586B] px-4 py-2 font-roboto text-sm font-light text-[#D7586B] hover:bg-[#D7586B] hover:text-white"
-                    onClick={() => setModalServiceDestroy(true)}
+                    onClick={() => setModalDestroyCategory(true)}
                   >
-                    Delete Service
+                    Delete Category
                   </button>
-                </div>
-              </div>
-
-              <div className="rounded-lg bg-blancoForms p-4">
-                <div className="flex gap-4">
-                  <p className="font-roboto text-sm font-medium text-grisText">
-                    Process
-                  </p>
-                  <button onClick={() => setModalProcess(true)}>
-                    <IonIcon icon={addOutline} className="h-5 w-5"></IonIcon>
-                  </button>
-                </div>
-                <div className="flex gap-4">
-                  {data?.process.map((process, i) => (
-                    <div
-                      className="my-2 w-1/4 rounded-2xl bg-blancoBox"
-                      key={i}
-                    >
-                      <div className="mb-2 ml-14 flex gap-4 rounded-t-2xl bg-blancoBox2 pt-2">
-                        <span className="font-roboto text-sm text-grisText">
-                          STEP {i + 1}
-                        </span>
-                        <button
-                          onClick={() => setProcessIdFunction(process?.id)}
-                        >
-                          <IonIcon
-                            icon={closeOutline}
-                            className="h-5 w-5"
-                          ></IonIcon>
-                        </button>
-                      </div>
-                      <div className="my-2 text-center">
-                        <span className="font-roboto text-sm font-normal text-grisText">
-                          {process.title}
-                        </span>
-                      </div>
-                      <div className="my-2 text-center">
-                        <span className="font-roboto text-sm font-normal text-grisText">
-                          {process.action}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
@@ -288,7 +237,7 @@ function MainService() {
               ></IonIcon>
             </div>
             <div className="text-xl font-bold text-blue-500">
-              ${data?.total_sales}
+              ${data?.life_sales}
             </div>
             <div className="flex justify-between">
               <div className="flex flex-col text-gris2">
@@ -339,7 +288,7 @@ function MainService() {
   );
 }
 
-export default MainService;
+export default MainCategory;
 
 export async function Action({ params, request }) {
   const data = await request.formData();
@@ -347,22 +296,20 @@ export async function Action({ params, request }) {
   switch (data.get("type_of_function")) {
     case "1":
       //edit
-      await editService(data);
+      await editCategory(data);
       break;
     case "2":
-      //destroy step
-      await destroyProcess(data);
+      //Add Service
+      await addCategoryService(data);
       break;
     case "3":
-      //add step
-      await createServiceProcess(data);
+      //Destroy Service
+      await destroyServiceCategory(data);
       break;
     case "4":
-      //destroy service
-      await destroyService(data);
+      //Destroy Category
+      await destroyCategory(data);
       break;
   }
-
-  // return redirect(`/chat/${params.id}`);
   return "1";
 }

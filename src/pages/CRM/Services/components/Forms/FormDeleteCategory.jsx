@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Form, useNavigation, useParams } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -10,8 +10,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function GoalDestroy({ modal, setModal, goalId, name }) {
-  const params = useParams();
+const DAYS = [
+  { label: "Monday", value: "Monday" },
+  { label: "Tuesday", value: "Tuesday" },
+  { label: "Wednesday", value: "Wednesday" },
+  { label: "Thursday", value: "Thursday" },
+  { label: "Friday", value: "Friday" },
+  { label: "Saturday", value: "Saturday" },
+  { label: "Sunday", value: "Sunday" },
+];
+
+function FormDeleteCategory({ modal, setModal, id }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -25,39 +34,26 @@ function GoalDestroy({ modal, setModal, goalId, name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Goal - {name}
+            Delete Process
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-delete-goal"
-          className="flex h-full w-full flex-col gap-3 px-8"
-          action={`/project-manager/${params.id}`}
+          id="form-destroy-task"
+          className="flex h-full w-full flex-col gap-3 px-6"
+          action={`/crm/category/${id}`}
           method="post"
         >
-          <input type="hidden" hidden readOnly value={goalId} name="goal_id" />
-          <input
-            type="hidden"
-            hidden
-            readOnly
-            value="delete-goal"
-            name="action"
-          />
+          <input type="hidden" value={id} name="category_id" />
+          <input type="hidden" value={4} name="type_of_function" />
           <span className="font-roboto text-[#A6A6A6]">
-            You are trying to delete a goal, are you sure?
+            You are trying to delete a category, are you sure?
           </span>
-          <DialogFooter className="flex gap-4 py-6">
+          <DialogFooter className="px-10 pb-6 pt-6">
             <Button
               type="submit"
               className="justify-normal rounded-lg bg-red-600 px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
               Delete
-            </Button>
-            <Button
-              type="button"
-              onClick={() => setModal(false)}
-              className="justify-normal rounded-lg bg-grisText px-6 py-2 font-roboto text-xs font-semibold text-white"
-            >
-              Cancel
             </Button>
           </DialogFooter>
         </Form>
@@ -66,4 +62,4 @@ function GoalDestroy({ modal, setModal, goalId, name }) {
   );
 }
 
-export default GoalDestroy;
+export default FormDeleteCategory;

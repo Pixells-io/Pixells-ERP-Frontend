@@ -16,8 +16,6 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 function EditCategoryForm({ modal, setModal, id, name, description }) {
   const navigation = useNavigation();
 
-  console.log(description);
-
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
@@ -35,7 +33,7 @@ function EditCategoryForm({ modal, setModal, id, name, description }) {
         <Form
           id="category-services-form"
           className="flex flex-col gap-4"
-          action="/crm/services"
+          action={`/crm/category/${id}`}
           method="post"
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
@@ -43,9 +41,9 @@ function EditCategoryForm({ modal, setModal, id, name, description }) {
               Information
             </div>
             <div className="flex flex-col gap-4 font-light">
-              <input type="hidden" name="type" value={4} />
-              <input type="hidden" name="category_id" value={name} />
-              <InputRouter name="name" type="text" placeholder={id} />
+              <input type="hidden" name="type_of_function" value={1} />
+              <input type="hidden" name="category_id" value={id} />
+              <InputRouter name="name" type="text" placeholder={name} />
               <InputRouter
                 name="description"
                 type="text"
