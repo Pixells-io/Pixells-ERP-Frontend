@@ -60,6 +60,13 @@ function FormStepCustom({
           action={`/crm/progress/${service.id}`}
           method="post"
           className="flex flex-col gap-2 px-8"
+          encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
