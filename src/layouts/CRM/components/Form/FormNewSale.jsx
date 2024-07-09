@@ -18,7 +18,8 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import DropzoneFile from "@/components/dropzone-files";
 
-function FormNewSale() {
+function FormNewSale({ clients }) {
+  console.log(clients);
   const [open, setOpen] = useState(false);
   const navigation = useNavigation();
 
@@ -28,6 +29,13 @@ function FormNewSale() {
     }
   }, [navigation.state]);
 
+  let options = [];
+  clients?.data.map((service, i) => {
+    let newObj = { value: service.id, label: service.business_name };
+    options.push(newObj);
+  });
+
+  console.log(options);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -61,7 +69,11 @@ function FormNewSale() {
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
-                <SelectRouter name="client" placeholder="Select Client" />
+                <SelectRouter
+                  name="client"
+                  placeholder="Select Client"
+                  options={options}
+                />
               </div>
               {/* <div>
                 <SelectRouter name="services" placeholder="Select Services" />
