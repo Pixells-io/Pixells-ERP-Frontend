@@ -23,7 +23,6 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-import GoalForm from "./components/Form/GoalForm";
 import {
   deleteCSF,
   deleteGoal,
@@ -35,8 +34,8 @@ import {
   saveNewGoal,
   saveNewTask,
 } from "./utils";
+import GoalForm from "./components/Form/GoalForm";
 import ObjectiveDestroy from "./components/ObjectiveDestroy";
-import GoalDestroy from "./components/GoalDestroy";
 
 function MainPManager() {
   const params = useParams();
