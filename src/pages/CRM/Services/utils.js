@@ -46,6 +46,42 @@ export async function saveService(data) {
   return response;
 }
 
+export async function destroyProcess(data) {
+  let id = data.get("process_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/service-step-destroy/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function destroyService(data) {
+  let id = data.get("service_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}destroy-service/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function savePackage(data) {
   console.log(data);
   const services = [];
@@ -96,6 +132,61 @@ export async function editCategory(data) {
   return response;
 }
 
+export async function addCategoryService(data) {
+  const info = {
+    category_id: data.get("category_id"),
+    service: data.get("service"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/add-category-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroyServiceCategory(data) {
+  let id = data.get("service_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/destroy-category-service/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+export async function destroyCategory(data) {
+  let id = data.get("category_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/destroy-category/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function editPackage(data) {
   const info = {
     package_id: data.get("package_id"),
@@ -122,10 +213,32 @@ export async function editService(data) {
     name: data.get("name"),
     description: data.get("description"),
     price: data.get("price"),
+    position: data.get("position"),
   };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-services`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function createServiceProcess(data) {
+  const info = {
+    service_id: data.get("service_id"),
+    process: data.get("process"),
+    process_action: data.get("process_action"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/service-add-step`,
     {
       method: "POST",
       body: JSON.stringify(info),

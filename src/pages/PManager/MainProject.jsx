@@ -34,34 +34,22 @@ export async function Action({ params, request }) {
   switch (action) {
     case "phase":
       await saveNewPhase(formData);
-      return redirect(
-        `/project-manager/${params.id}/projects/${params.projectId}`,
-      );
+      return redirect(`/project-manager/${params.id}`);
 
     case "activity":
       await saveNewActivitty(formData);
-      return redirect(
-        `/project-manager/${params.id}/projects/${params.projectId}`,
-      );
+      return redirect(`/project-manager/${params.id}`);
 
     case "edit":
       await editActivityUser(formData);
-      return redirect(
-        `/project-manager/${params.id}/projects/${params.projectId}`,
-      );
+      return redirect(`/project-manager/${params.id}`);
 
     case "file":
       await editActivityFile(formData);
-      return redirect(
-        `/project-manager/${params.id}/projects/${params.projectId}`,
-      );
+      return redirect(`/project-manager/${params.id}`);
 
     case "activity_check":
       await completeActivity(formData);
-      return redirect(
-        `/project-manager/${params.id}/projects/${params.projectId}`,
-      );
+      return redirect(`/project-manager/${params.id}`);
   }
-
-  return redirect(`/project-manager/${params.id}/projects/${params.projectId}`);
 }

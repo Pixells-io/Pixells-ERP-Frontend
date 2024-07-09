@@ -23,19 +23,19 @@ import {
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-import GoalForm from "./components/Form/GoalForm";
 import {
   deleteCSF,
   deleteGoal,
   deleteStrategicObjective,
   editCSF,
+  editGoal,
   editStrategicObjective,
   saveNewCsf,
   saveNewGoal,
   saveNewTask,
 } from "./utils";
+import GoalForm from "./components/Form/GoalForm";
 import ObjectiveDestroy from "./components/ObjectiveDestroy";
-import GoalDestroy from "./components/GoalDestroy";
 
 function MainPManager() {
   const params = useParams();
@@ -257,6 +257,10 @@ export async function multiFormAction({ params, request }) {
 
     case "edit-csf":
       await editCSF(formData);
+      return redirect(`/project-manager/${paramId}`);
+
+    case "edit-goal":
+      await editGoal(formData);
       return redirect(`/project-manager/${paramId}`);
 
     case "delete-obj":
