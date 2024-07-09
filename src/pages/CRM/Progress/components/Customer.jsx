@@ -15,10 +15,11 @@ import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 function Customer({ customer, stepId }) {
   // console.log("customer ", customer);
   // console.log("stepId ", stepId);
+  console.log(customer);
   return (
     <li className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing">
       <div
-        id={customer.customer.id}
+        id={customer.customer_id}
         draggable
         className="rounded-lg bg-white p-2"
         onDragStart={(event) => {
@@ -29,13 +30,13 @@ function Customer({ customer, stepId }) {
       >
         <div className="flex flex-col gap-2">
           <p className="border-b-[1px] border-[#D7D7D7] text-[13px] text-grisText">
-            {customer?.info.business_name}
+            {customer.customer_name}
           </p>
 
           <div className="line-clamp-5 text-[10px] text-grisHeading">
-            Service ready to start
+            {customer.step_latest}
             <br />
-            {format(customer.customer.created_at, "PP")}
+            {customer.latest_updated_date}
           </div>
 
           <div className="flex w-full items-center justify-between">
@@ -43,16 +44,16 @@ function Customer({ customer, stepId }) {
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#D7586B] text-sm font-semibold text-white">
                 <HoverCard>
                   <HoverCardTrigger>
-                    <p className="">{customer.customer.create}</p>
+                    <p className="">{customer.latest_created}</p>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-fit">
                     <p>
                       Created{" "}
-                      {customer.created == 0
+                      {customer.latest_created == 0
                         ? "Today"
-                        : customer.created == 1
-                          ? customer.created + " day ago"
-                          : customer.created + " days ago"}
+                        : customer.latest_created == 1
+                          ? customer.latest_created + " day ago"
+                          : customer.latest_created + " days ago"}
                     </p>
                   </HoverCardContent>
                 </HoverCard>
@@ -60,15 +61,15 @@ function Customer({ customer, stepId }) {
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F9D994] text-sm font-semibold text-white">
                 <HoverCard>
                   <HoverCardTrigger>
-                    <p>{customer.updated}</p>
+                    <p>{customer.latest_updated}</p>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-fit">
                     <p>
-                      {customer.updated == 0
+                      {customer.latest_updated == 0
                         ? "No updates"
-                        : customer.updated == 1
-                          ? "Updated " + customer.updated + " day ago"
-                          : "Updated " + customer.updated + " days ago"}
+                        : customer.latest_updated == 1
+                          ? "Updated " + customer.latest_updated + " day ago"
+                          : "Updated " + customer.latest_updated + " days ago"}
                     </p>
                   </HoverCardContent>
                 </HoverCard>
