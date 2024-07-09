@@ -135,6 +135,12 @@ function FormNewLead({ services, navigation }) {
           className="flex flex-col gap-8 px-6"
           action="/crm"
           method="post"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex px-4 py-2">
             <input type="hidden" name="register_type_function" value={"1"} />
