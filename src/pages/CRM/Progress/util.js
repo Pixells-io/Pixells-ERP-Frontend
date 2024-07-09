@@ -58,6 +58,22 @@ export async function saveService(data) {
   return response;
 }
 
+export async function removeSelectedService(data) {
+  const id = data.get("selected_service");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/remove-selected-service/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function saveNewServiceStep(id, data) {
   const step = {
     service_id: Number(id),
