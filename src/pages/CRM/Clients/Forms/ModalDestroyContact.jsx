@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalDestroyContracts({ modal, setModal, contractId }) {
+function ModalDestroyContacts({ modal, setModal, contactId, masterId }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -24,19 +24,19 @@ function ModalDestroyContracts({ modal, setModal, contractId }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Task
+            Delete Process
           </DialogTitle>
         </DialogHeader>
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/activities"
+          action={`/crm/client/${masterId}`}
           method="post"
         >
-          <input type="hidden" value={contractId} name="contract_id" />
-          <input type="hidden" value={3} name="type_of_request" />
+          <input type="hidden" value={contactId} name="contact_id" />
+          <input type="hidden" value={5} name="type" />
           <span className="font-roboto text-[#A6A6A6]">
-            You are trying to delete a contract, are you sure?
+            You are trying to delete a contact, are you sure?
           </span>
           <DialogFooter className="px-10 pb-6 pt-6">
             <Button
@@ -52,4 +52,4 @@ function ModalDestroyContracts({ modal, setModal, contractId }) {
   );
 }
 
-export default ModalDestroyContracts;
+export default ModalDestroyContacts;

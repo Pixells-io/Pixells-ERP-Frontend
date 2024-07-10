@@ -28,9 +28,9 @@ function ModalEditClient({ modal, setModal, info, client }) {
           <DialogTitle className="font-poppins">Edit Client</DialogTitle>
         </DialogHeader>
         <Form
-          id="lead-form-edit"
+          id="client-form-edit"
           className="flex flex-col gap-8 px-6"
-          action={`/crm/leads/${lead.id}`}
+          action={`/crm/client/${client.id}`}
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -39,19 +39,20 @@ function ModalEditClient({ modal, setModal, info, client }) {
             }
           }}
         >
-          <input type="hidden" name="lead_id" value={client.id} />
+          <input type="hidden" value={7} name="type" />
+          <input type="hidden" name="client_id" value={client.id} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Business Information
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
               <InputRouter
-                name="bussines_name"
+                name="business_name"
                 type="text"
                 placeholder={info.business_name}
               />
               <InputRouter
-                name="bussines_phone"
+                name="business_phone"
                 type="text"
                 placeholder={info.business_phone}
               />
@@ -92,7 +93,7 @@ function ModalEditClient({ modal, setModal, info, client }) {
         </Form>
         <DialogFooter className="px-8 py-4">
           <Button
-            form="lead-form-edit"
+            form="client-form-edit"
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >

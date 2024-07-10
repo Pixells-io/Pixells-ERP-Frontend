@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalDestroyDocuments({ modal, setModal, documentId }) {
+function ModalDestroyDocuments({ modal, setModal, documentId, masterId }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -24,17 +24,17 @@ function ModalDestroyDocuments({ modal, setModal, documentId }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Task
+            Delete Process
           </DialogTitle>
         </DialogHeader>
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/activities"
+          action={`/crm/client/${masterId}`}
           method="post"
         >
           <input type="hidden" value={documentId} name="document_id" />
-          <input type="hidden" value={3} name="type_of_request" />
+          <input type="hidden" value={6} name="type" />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to delete a document, are you sure?
           </span>
