@@ -14,7 +14,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const navigation = useNavigation;
 
-function EditLeadInformation({ modal, setModal, info, lead }) {
+function ModalEditClient({ modal, setModal, info, client }) {
   useEffect(() => {
     if (navigation.state === "idle") {
       setOpen(false);
@@ -25,7 +25,7 @@ function EditLeadInformation({ modal, setModal, info, lead }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
-          <DialogTitle className="font-poppins">Edit Lead</DialogTitle>
+          <DialogTitle className="font-poppins">Edit Client</DialogTitle>
         </DialogHeader>
         <Form
           id="lead-form-edit"
@@ -39,7 +39,7 @@ function EditLeadInformation({ modal, setModal, info, lead }) {
             }
           }}
         >
-          <input type="hidden" name="lead_id" value={lead.id} />
+          <input type="hidden" name="lead_id" value={client.id} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Business Information
@@ -104,4 +104,4 @@ function EditLeadInformation({ modal, setModal, info, lead }) {
   );
 }
 
-export default EditLeadInformation;
+export default ModalEditClient;
