@@ -18,7 +18,9 @@ import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
-import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
+import SidelayoutLead, {
+  Action as LeadsEditFunction,
+} from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Client :id
 import MainClient, {
@@ -97,7 +99,7 @@ import Today from "./pages/PManager/Today";
 import Activities, {
   Action as taskFunctions,
 } from "./pages/PManager/Activities";
-import Status from "./pages/PManager/Status";
+import Status, { Action as statusPmFunction } from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
@@ -162,6 +164,7 @@ import {
   getObjectives,
   showService,
   showCategory,
+  multilaoderSideLayoutCRM,
 } from "./lib/actions";
 
 //Not Found
@@ -257,7 +260,7 @@ const router = createBrowserRouter([
         path: "/crm",
         element: <SideLayout />,
         // errorElement: <NotFound />,
-        loader: getServices,
+        loader: multilaoderSideLayoutCRM,
         action: newLead,
         children: [
           //crm home
@@ -373,6 +376,7 @@ const router = createBrowserRouter([
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
+        action: LeadsEditFunction,
         loader: getLeadById,
         children: [
           {
@@ -452,6 +456,7 @@ const router = createBrowserRouter([
             path: "/project-manager/status",
             element: <Status />,
             loader: getMonthKanban,
+            action: statusPmFunction,
           },
           {
             path: "/project-manager/:id",

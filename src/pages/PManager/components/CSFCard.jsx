@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 function CSFCard({ card }) {
   const percentage = 30;
-  console.log(card);
+  // console.log(card);
 
   return (
     <div className="flex h-[168px] w-[378px] shrink-0 flex-col rounded-2xl border border-grisDisabled px-4 py-1">

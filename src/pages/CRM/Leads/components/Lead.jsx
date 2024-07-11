@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,18 +12,23 @@ import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 import { format } from "date-fns";
 
-function Lead({ lead, stageId, setModal, stageName }) {
+function Lead({ lead, stageId, setModal, stageName, setLeadToMove }) {
   return (
     <li
       className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing"
       id={lead.id}
-      draggable
+      draggable="true"
       onDragStart={(event) => {
+        // event.stopPropagation();
+        console.log("Start");
+        event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("text", event.target.id);
-        event.dataTransfer.setData("stage_id", stageId);
         event.dataTransfer.setData("assigned_image", lead.assigned.image);
         event.dataTransfer.setData("assigned_name", lead.assigned.name);
         event.dataTransfer.setData("assigned_id", lead.assigned.id);
+        event.dataTransfer.setData("stage_id", stageId);
+
+        setLeadToMove(leadInfo);
       }}
     >
       <div className="rounded-lg bg-white p-2">

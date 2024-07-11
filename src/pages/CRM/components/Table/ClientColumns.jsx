@@ -40,7 +40,7 @@ export const clientColumns = [
     cell: ({ row }) => {
       const services = row.getValue("services");
       const serviceStrings = services
-        .map((service) => service.service.name)
+        .map((service) => service.service?.name)
         .join(", ");
       // console.log(serviceStrings);
 

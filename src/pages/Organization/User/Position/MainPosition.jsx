@@ -545,7 +545,7 @@ function MainPosition() {
                       name={"position_name"}
                       type={"text"}
                       placeholder={"Position Name"}
-                      defaultVal={position?.data.position.position_name}
+                      defaultVal={position?.data.position?.position_name}
                       disabled={disabled}
                     />
                   </div>
@@ -554,7 +554,7 @@ function MainPosition() {
                       name={"permision_access"}
                       placeholder={"Permission Access"}
                       options={selectBasic}
-                      defaultVal={position?.data.permision_access_array}
+                      defaultVal={position?.data?.permision_access_array}
                       disabled={disabled}
                     />
                   </div>
@@ -586,7 +586,7 @@ function MainPosition() {
                               // }
                             />
                           </div>
-                          {i !== 0 || positionsInputs.length !== i + 1 ? (
+                          {i !== 0 || positionsInputs?.length !== i + 1 ? (
                             <div className="flex">
                               <button
                                 type="button"
@@ -610,7 +610,7 @@ function MainPosition() {
                   </div>
 
                   <div className="flex">
-                    {positionsInputs.length <= 7 ? (
+                    {positionsInputs?.length <= 7 ? (
                       <button
                         className="flex h-6 w-6 items-center rounded-full bg-primario"
                         onClick={() => addPositionInput()}
@@ -634,7 +634,7 @@ function MainPosition() {
                     name={"objetive"}
                     type={"text"}
                     placeholder={"Objectives of the position"}
-                    defaultVal={position?.data.position.objetive}
+                    defaultVal={position?.data.position?.objetive}
                     disabled={disabled}
                   />
                 </div>
@@ -671,7 +671,7 @@ function MainPosition() {
                           name={"authority_cordinate_id"}
                           placeholder={"With"}
                           options={selectPosition}
-                          value={authInputs[i].coordinate}
+                          value={authInputs[i]?.coordinate}
                           onChange={(e) => updateAuthSelect(i, e)}
                           disabled={disabled}
                         />
@@ -727,7 +727,7 @@ function MainPosition() {
                         name="responsability"
                         type="text"
                         placeholder="Responsability"
-                        value={resInputs[i].responsability}
+                        value={resInputs[i]?.responsability}
                         onChange={(e) => updateResInput(i, e)}
                         disabled={disabled}
                       />
@@ -784,7 +784,7 @@ function MainPosition() {
                         name={"experience_years"}
                         placeholder={"Experience Years"}
                         options={experienceYears}
-                        defaultVal={position?.data.perfil.experience_years}
+                        defaultVal={position?.data?.perfil?.experience_years}
                         disabled={disabled}
                       />
                     </div>
@@ -794,7 +794,7 @@ function MainPosition() {
                         name={"experience_sector"}
                         placeholder={"Sector of Experience"}
                         options={sectorExperience}
-                        defaultVal={position?.data.perfil.experience_sector}
+                        defaultVal={position?.data?.perfil?.experience_sector}
                         disabled={disabled}
                       />
                     </div>
@@ -804,7 +804,7 @@ function MainPosition() {
                         type={"text"}
                         placeholder={"Describe the Experience"}
                         defaultVal={
-                          position?.data.perfil.experience_description
+                          position?.data?.perfil?.experience_description
                         }
                         disabled={disabled}
                       />
@@ -817,7 +817,7 @@ function MainPosition() {
                         name={"academy"}
                         placeholder={"Required Studies"}
                         options={academyGrade}
-                        defaultVal={position?.data.perfil.academy}
+                        defaultVal={position?.data?.perfil?.academy}
                         disabled={disabled}
                       />
                     </div>
@@ -826,7 +826,7 @@ function MainPosition() {
                         name={"name_studies"}
                         type={"text"}
                         placeholder={"Describe the Studies"}
-                        defaultVal={position?.data.perfil.name_studies}
+                        defaultVal={position?.data?.perfil?.name_studies}
                         disabled={disabled}
                       />
                     </div>
@@ -835,7 +835,7 @@ function MainPosition() {
                         name={"home_office"}
                         placeholder={"Home Office"}
                         options={selectBasic}
-                        defaultVal={position?.data.perfil.home_office}
+                        defaultVal={position?.data?.perfil?.home_office}
                         disabled={disabled}
                       />
                     </div>
@@ -844,7 +844,7 @@ function MainPosition() {
                         name={"position_work_type"}
                         placeholder={"Type of Work"}
                         options={positionType}
-                        defaultVal={position?.data.perfil.position_work_type}
+                        defaultVal={position?.data?.perfil?.position_work_type}
                         disabled={disabled}
                       />
                     </div>
@@ -919,7 +919,7 @@ function MainPosition() {
                         name={"working_day"}
                         placeholder={"Working Day"}
                         options={workingDay}
-                        defaultVal={position?.data.perfil.working_day}
+                        defaultVal={position?.data?.perfil?.working_day}
                         disabled={disabled}
                       />
                     </div>
@@ -928,7 +928,7 @@ function MainPosition() {
                         name={"start"}
                         type={"time"}
                         placeholder={"Start"}
-                        defaultVal={position?.data.perfil.start}
+                        defaultVal={position?.data?.perfil?.start}
                         disabled={disabled}
                       />
                     </div>
@@ -937,7 +937,7 @@ function MainPosition() {
                         name={"end"}
                         type={"time"}
                         placeholder={"End"}
-                        defaultVal={position?.data.perfil.end}
+                        defaultVal={position?.data?.perfil?.end}
                         disabled={disabled}
                       />
                     </div>

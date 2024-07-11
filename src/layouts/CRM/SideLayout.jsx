@@ -10,12 +10,12 @@ import TopMenuCRM from "./components/TopMenuCRM";
 import MenuCRM from "./components/MenuCRM";
 
 import FormNewLead from "./components/Form/FormNewLead";
-import { saveImportClients, saveNewLead } from "./utils";
 import FormNewSale from "./components/Form/FormNewSale";
-import FormNewClient from "./components/Form/FormNewClient";
+
+import { saveImportClients, saveNewLead } from "./utils";
 
 function SideLayout() {
-  const services = useLoaderData();
+  const { services, customers } = useLoaderData();
   const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -35,7 +35,7 @@ function SideLayout() {
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
             {/* <FormNewClient /> */}
-            <FormNewSale />
+            <FormNewSale navigation={navigation} clients={customers} />
           </div>
 
           <div className="my-4 border-b border-gris2"></div>

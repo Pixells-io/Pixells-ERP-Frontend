@@ -395,8 +395,6 @@ export async function editUser(data) {
 
   formData.append("info", JSON.stringify(info));
 
-  console.log(formData);
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,
     {

@@ -43,6 +43,15 @@ export async function getServices() {
   }
 }
 
+export async function multilaoderSideLayoutCRM() {
+  const [services, customers] = await Promise.all([
+    getServices(),
+    getCustomers(),
+  ]);
+
+  return json({ services, customers });
+}
+
 export async function getServicesAgreements() {
   try {
     const response = await fetch(
