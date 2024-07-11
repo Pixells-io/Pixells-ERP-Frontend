@@ -74,11 +74,12 @@ function ProjectTable() {
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {
+      console.log("WEBSCOKET PROJECT -> ", project);
       getPMinfoFuncion(project);
     });
 
-    async function getPMinfoFuncion(urlId) {
-      const newData = await getProjectById(urlId);
+    async function getPMinfoFuncion(id) {
+      const newData = await getProjectById(id);
       setProjectData(newData);
     }
 
@@ -100,8 +101,6 @@ function ProjectTable() {
       submit(e.currentTarget);
     }
   }
-
-  console.log(Projectdata.data);
 
   return (
     <div className="flex h-full flex-col px-4 pb-10">

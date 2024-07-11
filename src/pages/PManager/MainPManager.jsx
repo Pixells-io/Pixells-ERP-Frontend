@@ -249,8 +249,6 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
-  console.log(action);
-
   switch (action) {
     case "goal":
       await saveNewGoal(formData, paramId);

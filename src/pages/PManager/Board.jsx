@@ -118,8 +118,6 @@ function Board({ goal, users, csfs }) {
     return color[0].color;
   }
 
-  console.log(csfs);
-
   return (
     <div className="flex h-full flex-col overflow-auto bg-blancoBg p-4">
       <ProjectDestroy
