@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigate, useParams } from "react-router-dom";
 
 import {
   Dialog,
@@ -27,11 +27,20 @@ import DatePicker from "@/components/date-picker";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function TaskForm({ users, csfId }) {
+  const params = useParams();
   const [responsable, setResponsable] = useState("");
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
+  const navigation = useNavigate;
+
   const arrayUsers = [];
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
 
   arrayFillUsers(users, arrayUsers);
 
@@ -60,7 +69,7 @@ function TaskForm({ users, csfId }) {
           <Form
             className="flex flex-col gap-2"
             id="task-form"
-            action={`/project-manager/${csfId}`}
+            action={`/project-manager/${params.id}`}
             method="post"
           >
             {/* selector de task */}
