@@ -34,7 +34,7 @@ const HEADERS = [
   { name: "EXPIRATION" },
   { name: "RESPONSABLE" },
   { name: "CSF" },
-  { name: "SO" },
+  { name: "GOAL" },
   { name: "STATUS" },
   { name: "CREATED" },
   { name: "ACTIONS" },
@@ -337,18 +337,18 @@ function Activities() {
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
                           <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
                             title={task?.fce}
                           >
-                            HO
+                            {task?.inicial_fce}
                           </p>
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
                           <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
                             title={task?.goal}
                           >
-                            O1
+                            {task?.inicial_goal}
                           </p>
                         </div>
                         <div className="col-span-1 flex justify-end">

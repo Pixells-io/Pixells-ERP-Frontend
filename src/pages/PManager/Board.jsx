@@ -34,6 +34,8 @@ import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask"
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
 
+import { format } from "date-fns";
+
 const HEADERS = [
   { name: "CSF" },
   { name: "ACTIVITY" },
@@ -379,7 +381,7 @@ function Board({ goal, users, csfs }) {
                           <div className="flex justify-end gap-2">
                             <div className="">
                               <Avatar className="h-6 w-6">
-                                <AvatarImage src={task?.assigned?.user_image} />
+                                <AvatarImage src={task?.assigned?.image} />
                                 <AvatarFallback>??</AvatarFallback>
                               </Avatar>
                             </div>
@@ -394,7 +396,7 @@ function Board({ goal, users, csfs }) {
                         </div>
                         <div className="flex justify-center pl-10">
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src={task?.creator?.user_image} />
+                            <AvatarImage src={task?.creator?.image} />
                             <AvatarFallback>??</AvatarFallback>
                           </Avatar>
                         </div>

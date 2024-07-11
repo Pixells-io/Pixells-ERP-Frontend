@@ -99,7 +99,7 @@ import Today from "./pages/PManager/Today";
 import Activities, {
   Action as taskFunctions,
 } from "./pages/PManager/Activities";
-import Status from "./pages/PManager/Status";
+import Status, { Action as statusPmFunction } from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
@@ -456,6 +456,7 @@ const router = createBrowserRouter([
             path: "/project-manager/status",
             element: <Status />,
             loader: getMonthKanban,
+            action: statusPmFunction,
           },
           {
             path: "/project-manager/:id",
