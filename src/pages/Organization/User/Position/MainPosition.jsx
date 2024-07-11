@@ -259,7 +259,7 @@ const sectorExperience = [
 function MainPosition() {
   const { id } = useParams();
   const { areas, positions, position } = useLoaderData();
-  console.log(position?.data);
+  console.log(position);
   const [disabled, setDisabled] = useState(true);
   const [positionsInputs, setPositionsInputs] = useState(
     position?.data.coordinate,
