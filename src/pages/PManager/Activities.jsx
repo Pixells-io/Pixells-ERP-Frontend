@@ -433,12 +433,12 @@ export async function Action({ request }) {
   switch (data.get("type_of_request")) {
     case "1":
       completeTask(data);
-      break;
+      return 1;
     case "2":
       editTask(data);
-      break;
+      return 1;
     case "3":
       destroyTask(data);
-      break;
+      return 1;
   }
 }
