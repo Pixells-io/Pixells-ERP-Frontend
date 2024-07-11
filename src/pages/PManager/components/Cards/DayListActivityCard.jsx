@@ -57,8 +57,8 @@ function DayListActivityCard({ task, index }) {
     <div
       className={
         task.progress === 1
-          ? "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow"
-          : "flex h-[130px] w-[370px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
+          ? "flex h-[130px] w-[400px] shrink-0 gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow"
+          : "flex h-[130px] w-[400px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
       }
     >
       <DeleteTask
@@ -124,7 +124,7 @@ function DayListActivityCard({ task, index }) {
               <DropdownMenuTrigger>
                 <IonIcon
                   icon={ellipsisHorizontal}
-                  className="flex h-5 w-5 text-grisDisabled"
+                  className="flex h-5 w-5 text-grisSubText"
                 ></IonIcon>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -163,33 +163,35 @@ function DayListActivityCard({ task, index }) {
           <div>
             {task.priority === 1 ? (
               <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#00A259]" />
+                <IonIcon icon={ellipse} className="text-xs text-[#F9D994]" />
                 <span className="text-sm text-grisHeading">Low</span>
               </div>
             ) : task.priority === 2 ? (
               <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-primario" />
+                <IonIcon icon={ellipse} className="text-xs text-[#F9B894]" />
                 <span className="text-sm text-grisHeading">Half</span>
               </div>
             ) : task.priority === 3 ? (
               <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#FAA364]" />
+                <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
                 <span className="text-sm text-grisHeading">Important</span>
               </div>
             ) : (
               <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
-                <span className="text-sm text-grisHeading">Urgent</span>
+                {/* <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" /> */}
+                <span className="rounded-xl border border-[#D7586B] px-4 py-1 font-roboto text-xs font-normal text-grisHeading">
+                  Urgent
+                </span>
               </div>
             )}
           </div>
           <div>
             {task.progress === 1 ? (
-              <span className="rounded-2xl border border-[#00A259] px-2 text-sm font-normal text-[#00A259]">
+              <span className="rounded-2xl border border-[#00A259] px-2 py-1 text-sm font-normal text-[#00A259]">
                 Completado
               </span>
             ) : (
-              <span className="rounded-2xl border border-[#FAA364] px-2 text-sm font-normal text-[#FAA364]">
+              <span className="rounded-2xl border border-[#FAA364] px-2 py-1 text-sm font-normal text-[#FAA364]">
                 Pendiente
               </span>
             )}
