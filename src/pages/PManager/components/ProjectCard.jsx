@@ -15,7 +15,7 @@ function ProjectCard(project) {
   const data = project.project;
   console.log(data);
 
-  const [progress, setProgress] = useState(80);
+  // const [progress, setProgress] = useState(80);
 
   return (
     <div className="flex h-[160px] w-[280px] shrink-0 flex-col justify-center gap-2 rounded-2xl border border-grisDisabled px-4 py-1">

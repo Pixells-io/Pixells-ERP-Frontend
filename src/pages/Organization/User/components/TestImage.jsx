@@ -27,7 +27,7 @@ function TestImage() {
       <DropdownMenuContent className="w-72 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="flex flex-col gap-2 h-full">
+        <div className="flex h-full flex-col gap-2">
           <Form
             action="/organization/sopas"
             method="post"

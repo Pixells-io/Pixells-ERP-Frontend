@@ -4,6 +4,7 @@ import Lead from "./Lead";
 
 function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
   const [acceptDrop, setAcceptDrop] = useState(false);
+  const [leadToMove, setLeadToMove] = useState({});
   return (
     <div className="flex h-full w-[200px] shrink-0 flex-col gap-2">
       <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
@@ -80,16 +81,31 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
             }
             setAcceptDrop(false);
           }}
-          onDragLeave={() => {
+          onDragLeave={(event) => {
+            event.preventDefault();
             setAcceptDrop(false);
           }}
+          // onDragOver={(event) => {
+          //   event.preventDefault();
+          //   event.stopPropagation();
+          //   console.log(leadToMove.stage_id == Number(stageId));
+          //   if (leadToMove.stage_id + 1 == Number(stageId)) {
+          //     setAcceptDrop(true);
+          //   }
+          // }}
           onDragOver={(event) => {
+            // console.log(event);
             event.preventDefault();
             event.stopPropagation();
             // console.log("drag over");
             const data = event.dataTransfer.getData("stage_id");
-            // console.log("setAcceptDrop: ", Number(data) + 1 == Number(stageId));
-            if (Number(data) + 1 == Number(stageId)) {
+            // console.log("stage id ", event.dataTransfer.getData("stage_id"));
+            // console.log("leadtomove ", leadToMove.stage_id);
+            // if (Number(data) + 1 == Number(stageId)) {
+            //   setAcceptDrop(true);
+            // }
+
+            if (Number(leadToMove.stage_id) + 1 == Number(stageId)) {
               setAcceptDrop(true);
             }
           }}
@@ -101,6 +117,7 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
               setModal={setModal}
               stageName={name}
               stageId={stageId}
+              setLeadToMove={setLeadToMove}
             />
           ))}
         </ul>

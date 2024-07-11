@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
@@ -50,13 +50,13 @@ function MainLead() {
               LEADS INFORMATION
             </h2>
           </div>
-          <div className="flex items-center gap-3 text-[#8F8F8F]">
+          {/* <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div>4 services</div>
             <div className="text-2xl">&bull;</div>
             <div>9 Leads</div>
             <div className="text-2xl">&bull;</div>
             <div>43 activities</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-center gap-64 pl-3 pt-4">
@@ -64,11 +64,6 @@ function MainLead() {
             <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
               Follow Up
             </h2>
-          </div>
-          <div className="flex items-center gap-2 text-[#8F8F8F]">
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-2xl">&bull;</div>
           </div>
         </div>
 

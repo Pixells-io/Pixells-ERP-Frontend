@@ -43,6 +43,15 @@ export async function getServices() {
   }
 }
 
+export async function multilaoderSideLayoutCRM() {
+  const [services, customers] = await Promise.all([
+    getServices(),
+    getCustomers(),
+  ]);
+
+  return json({ services, customers });
+}
+
 export async function getServicesAgreements() {
   try {
     const response = await fetch(
@@ -175,6 +184,40 @@ export async function categoryShow({ params }) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}services/show-category/${category_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function showService({ params }) {
+  const service_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-service/${service_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function showCategory({ params }) {
+  const category_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-category/${category_id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

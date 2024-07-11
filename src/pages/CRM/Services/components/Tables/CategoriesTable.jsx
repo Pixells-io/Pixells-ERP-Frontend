@@ -45,17 +45,9 @@ function CategoriesTable({ categories }) {
         // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
-            <button
-              onClick={() =>
-                openModal(
-                  row.original.id,
-                  row.original.name,
-                  row.original.description,
-                )
-              }
-            >
+            <a href={`/crm/category/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </button>
+            </a>
           </div>
         );
       },

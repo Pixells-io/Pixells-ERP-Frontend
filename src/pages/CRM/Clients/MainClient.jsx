@@ -3,6 +3,10 @@ import { useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
 import {
+  deleteAddress,
+  deleteContact,
+  deleteDocument,
+  editClientInfo,
   storeCustomerAdress,
   storeCustomerContacts,
   storeCustomerDocuments,
@@ -10,8 +14,12 @@ import {
 import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
 import { IonIcon } from "@ionic/react";
-import { cashOutline } from "ionicons/icons";
+import { cashOutline, createOutline, trashOutline } from "ionicons/icons";
 import ClientServicesTable from "./Tables/ClientServicesTable";
+import ModalDestroyAddress from "./Forms/ModalDestroyAddress";
+import ModalDestroyContacts from "./Forms/ModalDestroyContact";
+import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
+import ModalEditClient from "./Forms/ModalEditClient";
 
 function MainClient() {
   const { data } = useLoaderData();
@@ -20,6 +28,30 @@ function MainClient() {
   const [modalAdress, setModalAdress] = useState(false);
   const [modalContact, setModalContact] = useState(false);
   const [modalDocument, setModalDocument] = useState(false);
+
+  //States Destroy
+  const [addressId, setAddressId] = useState(false);
+  const [modalDestroyAddress, setModalDestroyAddress] = useState(false);
+  const [contactsId, setContactsId] = useState(false);
+  const [modalDestroyContacts, setModalDestroyContacts] = useState(false);
+  const [documentsId, setDocumentsId] = useState(false);
+  const [modalDestroyDocuments, setModalDestroyDocuments] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+
+  function openModalDestroyAddress(id) {
+    setAddressId(id);
+    setModalDestroyAddress(true);
+  }
+
+  function openModalDestroyContacts(id) {
+    setContactsId(id);
+    setModalDestroyContacts(true);
+  }
+
+  function openModalDestroyDocuments(id) {
+    setDocumentsId(id);
+    setModalDestroyDocuments(true);
+  }
 
   return (
     <>
@@ -37,6 +69,30 @@ function MainClient() {
         modal={modalDocument}
         setModal={setModalDocument}
         masterId={client?.master.id}
+      />
+      <ModalDestroyAddress
+        modal={modalDestroyAddress}
+        setModal={setModalDestroyAddress}
+        addressId={addressId}
+        masterId={client?.master.id}
+      />
+      <ModalDestroyContacts
+        modal={modalDestroyContacts}
+        setModal={setModalDestroyContacts}
+        contactId={contactsId}
+        masterId={client?.master.id}
+      />
+      <ModalDestroyDocuments
+        modal={modalDestroyDocuments}
+        setModal={setModalDestroyDocuments}
+        documentId={documentsId}
+        masterId={client?.master.id}
+      />
+      <ModalEditClient
+        modal={modalEdit}
+        setModal={setModalEdit}
+        info={client?.info}
+        client={client?.master}
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
@@ -102,6 +158,13 @@ function MainClient() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
+            <div className="self-center">
+              <IonIcon
+                icon={createOutline}
+                className="text-grisHeading"
+                onClick={() => setModalEdit(true)}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -116,7 +179,7 @@ function MainClient() {
             </div>
             {client?.adress.map((adress, i) => (
               <div className="flex items-center justify-between" key={i}>
-                <span className="text-[10px] font-medium text-grisSubText">
+                <span className="w-7/12 text-[10px] font-medium text-grisSubText">
                   {adress.street}.{adress.ext}, {adress.int}, {adress.city}, 
                   {adress.state}, <br />
                   {adress.country} {adress.cp}
@@ -126,6 +189,11 @@ function MainClient() {
                     Primary
                   </span>
                 )}
+                <IonIcon
+                  icon={trashOutline}
+                  className="text-grisHeading"
+                  onClick={() => openModalDestroyAddress(adress.id)}
+                />
               </div>
             ))}
           </div>
@@ -151,7 +219,7 @@ function MainClient() {
             {client?.contact.map((contact, i) => (
               <div className="flex flex-col">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-grisText">
+                  <p className="w-7/12 text-sm text-grisText">
                     {contact.name} {contact.middle_name} {contact.last_name}{" "}
                   </p>
                   {contact.primary === 1 && (
@@ -159,6 +227,11 @@ function MainClient() {
                       Primary
                     </span>
                   )}
+                  <IonIcon
+                    icon={trashOutline}
+                    className="text-grisHeading"
+                    onClick={() => openModalDestroyContacts(contact.id)}
+                  />
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-grisSubText">
                   <span> {contact.mail} </span>
@@ -188,8 +261,8 @@ function MainClient() {
 
           <div className="flex flex-col gap-3">
             {client?.documents.map((document, i) => (
-              <div className="grid grid-cols-4">
-                <div className="col-span-3 flex items-center gap-2">
+              <div className="flex w-full">
+                <div className="col-span-3 flex w-7/12 items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
                   <div>
                     <p className="font-medium text-grisHeading">
@@ -200,7 +273,7 @@ function MainClient() {
                     </span>
                   </div>
                 </div>
-                <div className="col-span-1 self-end pb-1 pl-2">
+                <div className="col-span-1 w-3/12 self-end pb-1 pl-2">
                   <a
                     target="_blank"
                     href={document.document}
@@ -208,6 +281,13 @@ function MainClient() {
                   >
                     Download
                   </a>
+                </div>
+                <div className="w-2/12 self-end text-center">
+                  <IonIcon
+                    icon={trashOutline}
+                    className="text-center text-grisHeading"
+                    onClick={() => openModalDestroyDocuments(document.id)}
+                  />
                 </div>
               </div>
             ))}
@@ -276,6 +356,18 @@ export async function Action({ request }) {
       break;
     case "3":
       storeCustomerDocuments(data);
+      break;
+    case "4":
+      deleteAddress(data);
+      break;
+    case "5":
+      deleteContact(data);
+      break;
+    case "6":
+      deleteDocument(data);
+      break;
+    case "7":
+      editClientInfo(data);
       break;
   }
 

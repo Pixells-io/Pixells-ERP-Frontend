@@ -395,16 +395,14 @@ export async function editUser(data) {
 
   formData.append("info", JSON.stringify(info));
 
-  console.log(data.get("user_id"));
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,
     {
       method: "POST",
-      body: FormData,
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
       },
     },
   );
@@ -466,4 +464,19 @@ export async function savePermission(position, permision, module) {
   );
 
   return response.json();
+}
+
+export async function importOrganization(data) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization/import`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }

@@ -16,6 +16,7 @@ import { useLoaderData } from "react-router-dom";
 import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
 import { getMonthKanban } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import { completeActivity } from "./utils";
 
 function Status() {
   const { data } = useLoaderData();
@@ -135,3 +136,12 @@ function Status() {
 }
 
 export default Status;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  completeActivity(data);
+
+  // return redirect(`/chat/${params.id}`);
+  return "1";
+}

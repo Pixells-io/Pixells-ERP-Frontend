@@ -18,7 +18,9 @@ import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
-import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
+import SidelayoutLead, {
+  Action as LeadsEditFunction,
+} from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Client :id
 import MainClient, {
@@ -30,7 +32,9 @@ import MainClients from "./pages/Clients/MainClients";
 import MainServices, {
   Action as NewFunction,
 } from "./pages/CRM/Services/MainServices";
-import MainService from "./pages/CRM/Services/MainService";
+import MainService, {
+  Action as ServiceConsoleFunction,
+} from "./pages/CRM/Services/MainService";
 import MainPackage from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
@@ -95,7 +99,7 @@ import Today from "./pages/PManager/Today";
 import Activities, {
   Action as taskFunctions,
 } from "./pages/PManager/Activities";
-import Status from "./pages/PManager/Status";
+import Status, { Action as statusPmFunction } from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
@@ -157,6 +161,10 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
+  getObjectives,
+  showService,
+  showCategory,
+  multilaoderSideLayoutCRM,
 } from "./lib/actions";
 
 //Not Found
@@ -228,6 +236,9 @@ import MainBankManagement from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
 import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
 import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
+import MainCategory, {
+  Action as MainCategoryFunction,
+} from "./pages/CRM/Services/MainCategory";
 
 const router = createBrowserRouter([
   {
@@ -249,7 +260,7 @@ const router = createBrowserRouter([
         path: "/crm",
         element: <SideLayout />,
         // errorElement: <NotFound />,
-        loader: getServices,
+        loader: multilaoderSideLayoutCRM,
         action: newLead,
         children: [
           //crm home
@@ -306,9 +317,15 @@ const router = createBrowserRouter([
           {
             path: "/crm/services/:id",
             element: <MainService />,
-            loader: categoryShow,
+            loader: showService,
+            action: ServiceConsoleFunction,
           },
-
+          {
+            path: "/crm/category/:id",
+            element: <MainCategory />,
+            loader: showCategory,
+            action: MainCategoryFunction,
+          },
           //crm email
           {
             path: "/crm/email",
@@ -359,6 +376,7 @@ const router = createBrowserRouter([
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
+        action: LeadsEditFunction,
         loader: getLeadById,
         children: [
           {
@@ -438,10 +456,12 @@ const router = createBrowserRouter([
             path: "/project-manager/status",
             element: <Status />,
             loader: getMonthKanban,
+            action: statusPmFunction,
           },
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
+            loader: getObjectives,
             action: multiFormAction,
             children: [
               {
@@ -667,7 +687,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MainBankManagement />
+            element: <MainBankManagement />,
           },
           {
             path: "/bank-management/collection",
@@ -676,8 +696,8 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/collection/create",
             element: <AddNewCollection />,
-          }
-        ]
+          },
+        ],
       },
     ],
   },
