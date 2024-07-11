@@ -36,6 +36,7 @@ import {
   close,
   searchOutline,
 } from "ionicons/icons";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function DataTable({ data, columns, names, searchFilter }) {
   const [columnFilters, setColumnFilters] = useState([]);
@@ -58,15 +59,17 @@ function DataTable({ data, columns, names, searchFilter }) {
       <div className="flex items-center justify-end gap-4 py-4">
         <div className="flex items-center gap-4">
           <div className="flex gap-2">
-            <input
-              className="accent-primarioBotones"
-              type="checkbox"
-              value="All"
-              id="checkBoxAll"
-              // onClick={() => onSelectFilter("crm")}
-              // checked={filters.includes("crm")}
-              readOnly
-            ></input>
+            <Checkbox
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+              checked={
+                table.getIsAllPageRowsSelected() ||
+                (table.getIsSomePageRowsSelected() && "indeterminate")
+              }
+              onCheckedChange={(value) =>
+                table.toggleAllPageRowsSelected(!!value)
+              }
+            />
+            
             <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f]">
               All
             </label>

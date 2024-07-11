@@ -19,6 +19,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 3,
     },
     {
       id: "2",
@@ -27,6 +28,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 2,
     },
     {
       id: "3",
@@ -35,6 +37,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 3,
     },
     {
       id: "4",
@@ -43,6 +46,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 3,
     },
   ];
 
@@ -54,6 +58,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 2,
     },
     {
       id: "6",
@@ -62,6 +67,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 3,
     },
     {
       id: "7",
@@ -70,6 +76,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 2,
     },
     {
       id: "8",
@@ -78,6 +85,7 @@ function MainCollectionBankManag() {
       typeDoc: "FA",
       paymentMethod: "Transferencia",
       total: "54,620.00",
+      status: 3,
     },
   ];
 

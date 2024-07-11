@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const AccountsColumns = [
   {
@@ -11,13 +12,11 @@ export const AccountsColumns = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-          <input
-            className="accent-primarioBotones"
-            type="checkbox"
-            value="All"
-            // onClick={() => onSelectFilter("crm")}
-            // checked={filters.includes("crm")}
-            readOnly
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+           
           />
           <label>{row?.original?.name}</label>
         </div>

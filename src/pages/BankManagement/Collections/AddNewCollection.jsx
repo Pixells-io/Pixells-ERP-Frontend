@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData, useRouteLoaderData, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -14,8 +14,18 @@ import OnlyDataTable from "./Table/OnlyDataTable";
 import { AddCollectionsColumns } from "./Table/AddCollectionColumns";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import InfoPaymentAndCollection from "../Components/InfoPaymentAndCollection";
+import FormPaymentMethods from "./Modal/FormPaymentMethods";
+import StatusInformation from "../Components/StatusInformation/StatusInformation";
+import NoDocument from "../Components/NoDocument";
+import ModalConfirmation from "../Components/ModalConfirmation";
 
 function AddNewCollection() {
+  const [modalPaymentMethods, setModalPaymentMethods] = useState(false);
+  const [status, setStatus] = useState(1);
+  const [modalConfirmation, setModalConfirmation] = useState(false);
+
   //datos de prueba --------------------------
 
   const dateNow = new Date().toLocaleDateString("es-ES");
@@ -23,7 +33,6 @@ function AddNewCollection() {
   const data = [
     {
       id: "1",
-      concept: "Select de cuenta cont.",
       typeDoc: "FA",
       creditDays: "-15",
       overdueBalance: "300,000",
@@ -33,7 +42,6 @@ function AddNewCollection() {
     },
     {
       id: "2",
-      concept: "Select de cuenta cont.",
       typeDoc: "FA",
       creditDays: "-15",
       overdueBalance: "300,000",
@@ -43,7 +51,6 @@ function AddNewCollection() {
     },
     {
       id: "3",
-      concept: "Select de cuenta cont.",
       typeDoc: "FA",
       creditDays: "-15",
       overdueBalance: "300,000",
@@ -55,9 +62,36 @@ function AddNewCollection() {
 
   //-------------------------------------------
 
+  const openModalPaymentMethods = (value) => {
+    setModalPaymentMethods(true);
+  };
+
+  const InProgressValue = (data) => {
+    setModalPaymentMethods(false);
+    setStatus(2);
+    console.log(data);
+  };
+
+  const saveValue = () => {
+    setModalConfirmation(false);
+    setStatus(3);
+  };
+
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <FormPaymentMethods
+        modal={modalPaymentMethods}
+        setModal={setModalPaymentMethods}
+        functionModal={InProgressValue}
+      />
+      <ModalConfirmation 
+        title={"Confirmación"}
+        description={"Una ves realizada esta acción, el documento no podrá modificarse"}
+        modal={modalConfirmation}
+        setModal={setModalConfirmation}
+        modalFunction={saveValue}
+      />
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -99,7 +133,7 @@ function AddNewCollection() {
             Nuevo Registro de Cobro
           </p>
 
-          <div className="flex items-center justify-end gap-10">
+          <div className="flex items-center justify-end gap-5">
             <div className="flex gap-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
@@ -124,49 +158,19 @@ function AddNewCollection() {
               </div>
             </div>
 
-            <div className="flex w-2/5 gap-4 overflow-auto">
-              <div className="min-w-[100px] rounded bg-blancoBox">
-                <div className="h-[3px] w-full rounded-t bg-primario"></div>
-                <div className="flex w-full flex-col justify-center py-1">
-                  <span className="text-center text-[10px] font-normal text-[#8f8f8f]">
-                    Last OC
-                  </span>
-                  <div className="flex justify-center gap-1">
-                    <span className="text-[10px] font-semibold text-[#696974]">
-                      No. Doc.
-                    </span>
-                    <span className="text-[10px] font-semibold text-[#696974]">
-                      04567
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="min-w-[100px] rounded bg-blancoBox">
-                <div className="h-[3px] w-full rounded-t bg-primario"></div>
-                <div className="flex w-full flex-col justify-center py-1">
-                  <span className="text-center text-[10px] font-normal text-[#8f8f8f]">
-                    Last OC
-                  </span>
-                  <div className="flex justify-center gap-1">
-                    <span className="text-[10px] font-semibold text-[#696974]">
-                      No. Doc.
-                    </span>
-                    <span className="text-[10px] font-semibold text-[#696974]">
-                      04567
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <div className="flex w-2/5 items-center gap-2">
+              <NoDocument />
             </div>
           </div>
-          <div className="flex items-end justify-center">
-            <IonIcon
-              icon={closeCircle}
-              size="small"
-              className="cursor-pointer text-grisDisabled"
-            ></IonIcon>
-          </div>
+            <div className="flex items-end justify-center">
+              <Link to={"/bank-management/collection/"}>
+                <IonIcon
+                  icon={closeCircle}
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
+                ></IonIcon>
+              </Link>
+            </div>
         </div>
 
         <div className="flex justify-between rounded-xl bg-blancoBg px-8 py-3">
@@ -187,19 +191,45 @@ function AddNewCollection() {
             >
               Complemento de pago
             </label>
-            <input
-              className="accent-primarioBotones"
-              type="checkbox"
-              value="complementPayment"
+            <Checkbox
               id="complementPayment"
-              // onClick={() => onSelectFilter("crm")}
-              // checked={filters.includes("crm")}
-              readOnly
-            ></input>
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            />
+          </div>
+        </div>
+        <OnlyDataTable
+          data={data}
+          columns={AddCollectionsColumns}
+          titleButton={"Agregar Método"}
+          functionButton={openModalPaymentMethods}
+        />
+
+        <div className="flex flex-row justify-between rounded-xl bg-blancoBg px-4 py-6">
+          <div className="w-1/2">
+            <textarea
+              placeholder="Observaciones"
+              className="h-full w-1/2 resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
+              name="template"
+            ></textarea>
+          </div>
+          <div className="w-1/3">
+            <InfoPaymentAndCollection
+              totalAmount={"6000.00"}
+              titleTotalAmount={"Importe Total Vencido"}
+              balance={"960.00"}
+              titleBalance={"Saldo Pendiente"}
+              isDisBalance={false}
+              total={"6,360.00"}
+              titleTotal={"TOTAL COBRADO"}
+            />
           </div>
         </div>
 
-        <OnlyDataTable data={data} columns={AddCollectionsColumns} names={[]} />
+        <StatusInformation
+          status={status}
+          saveDraft={""}
+          applyFunction={() => setModalConfirmation(true)}
+        />
       </div>
     </div>
   );

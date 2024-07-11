@@ -10,14 +10,14 @@ function CardInformation({ title, subtitle, total, percentage, isPositive }) {
             <span className="text-base">.00</span>
           </div>
           <span className="text-sm text-[#696974] font-semibold">{title}</span>
-          <span className="text-xs text-grisSubText">{subtitle}</span>
+          <span className="text-xs text-grisSubText">{subtitle}a</span>
         </div>
         <div className="flex flex-col items-center justify-center text-gris2">
-          <div className={`py rounded-xl bg-${isPositive ? "[#00A25940]" : "[#D7586B]"} px-2 font-roboto text-sm font-medium text-${isPositive ? "green-600": "white"}`}>
-            {isPositive ? "+" : "-"}
+          <div className={`py rounded-xl bg-${isPositive ? "[#00A25940]" : "[#D7586B]"} px-2 font-roboto font-semibold text-xs text-${isPositive ? "green-600": "white"}`}>
+            {isPositive ? "+ " : "- "}
             {percentage}%
           </div>
-          <span className="text-[6px]">vs last month</span>
+          <span className="text-[7px]">vs last month</span>
         </div>
       </div>
     </div>

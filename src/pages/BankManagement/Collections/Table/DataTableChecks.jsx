@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -7,7 +7,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -16,10 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IonIcon } from "@ionic/react";
+import { closeCircle } from "ionicons/icons";
 
-function OnlyDataTable({ data, columns, titleButton, functionButton }) {
+function DataTableChecks({ data, columns }) {
   const [columnFilters, setColumnFilters] = useState([]);
-  const [rowSelection, setRowSelection] = useState({})
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data: data,
@@ -33,18 +34,11 @@ function OnlyDataTable({ data, columns, titleButton, functionButton }) {
     state: {
       columnFilters,
       rowSelection,
-
     },
   });
 
-  const getSelectedRowsData = () => {
-    const selectedRows = table.getFilteredSelectedRowModel().rows;
-    return selectedRows.map(row => row.original);
-
-  };
-
   return (
-    <div className="rounded-xl bg-[#FBFBFB] px-4">
+    <div className="rounded-xl border-[1px] border-blancoBox2 px-2">
       <div className="">
         <Table className="">
           <TableHeader>
@@ -54,7 +48,7 @@ function OnlyDataTable({ data, columns, titleButton, functionButton }) {
                   return (
                     <TableHead
                       key={header.id}
-                      className="border-b-2 border-b-primarioBotones text-sm font-normal"
+                      className="border-b-[2px] border-b-primarioBotones text-xs font-normal text-grisText"
                     >
                       {header.isPlaceholder
                         ? null
@@ -99,28 +93,15 @@ function OnlyDataTable({ data, columns, titleButton, functionButton }) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 px-4 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length > 0
-            ? table.getFilteredSelectedRowModel().rows.length > 1
-              ? table.getFilteredSelectedRowModel().rows.length +
-                " Cuentas seleccionadas*"
-              : table.getFilteredSelectedRowModel().rows.length +
-                " Cuenta seleccionada*"
-            : ""}
-        </div>
-        <div className="space-x-2">
-          <Button
-              variant="outline"
-              className="rounded-3xl border border-primarioBotones text-primarioBotones text-xs hover:bg-primarioBotones"
-            onClick={() => functionButton(getSelectedRowsData())}
-          >
-            {titleButton}
-          </Button>
-        </div>
+      <div className="pl-8 py-2 border-t-[1px] border-[#D7D7D7]">
+        <IonIcon
+          icon={closeCircle}
+          size="small"
+          className="cursor-pointer text-primario"
+        ></IonIcon>
       </div>
     </div>
   );
 }
 
-export default OnlyDataTable;
+export default DataTableChecks;
