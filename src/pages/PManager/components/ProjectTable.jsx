@@ -337,7 +337,7 @@ function ProjectTable() {
 
                       <div className="col-span-1 flex items-center justify-center">
                         <Avatar className="flex h-6 w-6" key={i}>
-                          <AvatarImage src={activity?.user_image} />
+                          <AvatarImage src={activity?.creator.img} />
                           <AvatarFallback>??</AvatarFallback>
                         </Avatar>
                       </div>
