@@ -50,6 +50,7 @@ const HEADERS = [
   { name: "END" },
   { name: "COMMENT" },
   { name: "DOC" },
+  { name: "CREATOR" },
   { name: "ACTIONS" },
 ];
 
@@ -100,6 +101,8 @@ function ProjectTable() {
     }
   }
 
+  console.log(Projectdata.data);
+
   return (
     <div className="flex h-full flex-col px-4 pb-10">
       <PhaseDestroy
@@ -108,7 +111,7 @@ function ProjectTable() {
         setModal={setPhaseModal}
       />
 
-      <div className="grid h-12 grid-cols-11 items-center text-center">
+      <div className="grid h-12 grid-cols-12 items-center text-center">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -229,7 +232,7 @@ function ProjectTable() {
                   {phase?.activities.map((activity, i) => (
                     <div
                       key={i}
-                      className="grid h-12 grid-cols-11 items-center gap-y-6 border-t-[1px] text-center"
+                      className="grid h-12 grid-cols-12 items-center gap-y-6 border-t-[1px] text-center"
                     >
                       <div className="col-span-1 flex justify-center gap-2">
                         <p>{activity.id}</p>
@@ -331,6 +334,14 @@ function ProjectTable() {
                           documents={activity?.documents}
                         />
                       </div>
+
+                      <div className="col-span-1 flex items-center justify-center">
+                        <Avatar className="flex h-6 w-6" key={i}>
+                          <AvatarImage src={activity?.user_image} />
+                          <AvatarFallback>??</AvatarFallback>
+                        </Avatar>
+                      </div>
+
                       <div className="col-span-1 flex items-center justify-center">
                         <ActivityDestroy
                           name={activity?.name}
