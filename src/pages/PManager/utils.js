@@ -369,3 +369,88 @@ export async function deleteGoal(data) {
 
   return response;
 }
+
+export async function deleteActivity(data) {
+  const id = data.get("activity_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-activitie/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editPhase(data) {
+  const goal = {
+    phase_id: data.get("phase_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-phase`,
+    {
+      method: "POST",
+      body: JSON.stringify(goal),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deletePhase(data) {
+  const id = data.get("phase_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-phase/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editProject(data) {
+  const project = {
+    project_id: data.get("project_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-project`,
+    {
+      method: "POST",
+      body: JSON.stringify(project),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteProject(data) {
+  const id = data.get("project_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-project/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Outlet,
-  useLoaderData,
-  useNavigation,
-  redirect,
-  NavLink,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, useLoaderData, redirect, NavLink } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -24,9 +17,7 @@ import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
   const [open, setOpen] = useState(false);
-  const navigation = useNavigation();
   const { objectives, areas } = useLoaderData();
-  const [objectiveCtx, setObjectivesCtx] = useState(objectives);
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -133,11 +124,6 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   const validation = await saveNewObjective(data);
-  console.log(validation);
-
-  // if (validation) {
-  //     return validation;
-  // }
 
   return redirect("/project-manager");
 }

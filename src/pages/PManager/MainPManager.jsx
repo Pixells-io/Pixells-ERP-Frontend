@@ -98,9 +98,7 @@ function MainPManager() {
             </h2>
           </div>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
-            <div className="text-xs">
-              {/* {objectivesCtx?.data?.length} objectives */}
-            </div>
+            <div className="text-xs">{data?.length} objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
             <div className="text-2xl">&bull;</div>
@@ -167,7 +165,7 @@ function MainPManager() {
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setEdit(true)}>
+                  <DropdownMenuItem onClick={() => setEdit(!edit)}>
                     Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setOpen(true)}>
@@ -243,13 +241,16 @@ export async function multiFormAction({ params, request }) {
 
   switch (action) {
     case "goal":
-      return await saveNewGoal(formData, paramId);
+      await saveNewGoal(formData, paramId);
+      return redirect(`/project-manager/${paramId}`);
 
     case "csf":
-      return await saveNewCsf(formData);
+      await saveNewCsf(formData);
+      return redirect(`/project-manager/${paramId}`);
 
     case "task":
-      return await saveNewTask(formData);
+      await saveNewTask(formData);
+      return redirect(`/project-manager/${paramId}`);
 
     case "edit-obj":
       await editStrategicObjective(formData);
