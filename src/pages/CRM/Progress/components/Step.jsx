@@ -101,7 +101,7 @@ function Step({ stepInfo, services, users }) {
           id={step.id}
           className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 bg-[#E8E8E8] pb-3 pt-1"
           style={{ borderColor: services.color }}
-          draggable
+          draggable="true"
           onDrop={(event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -117,11 +117,13 @@ function Step({ stepInfo, services, users }) {
             console.log("on drop");
           }}
           onDragStart={(event) => {
+            // event.preventDefault();
             // console.log("drag start");
             event.dataTransfer.setData("step_id", step.id);
             event.dataTransfer.setData("step_order", step.order);
           }}
           onDragLeave={(event) => {
+            event.preventDefault();
             // console.log("drag leave");
           }}
           onDragOver={(event) => {

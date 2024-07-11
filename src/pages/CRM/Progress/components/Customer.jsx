@@ -13,9 +13,6 @@ import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 
 function Customer({ customer, stepId }) {
-  // console.log("customer ", customer);
-  // console.log("stepId ", stepId);
-  console.log(customer);
   return (
     <li className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing">
       <div

@@ -128,11 +128,11 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   switch (data.get("type_function")) {
-    case 1:
+    case "1":
       //Add Selected Service
       await setSelectedService(data);
       break;
-    case 2:
+    case "2":
       //Remove selected Service
       await removeSelectedService(data);
       break;

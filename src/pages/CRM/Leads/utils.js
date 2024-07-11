@@ -250,3 +250,31 @@ export async function onboardingLeadForm(data) {
 
   return response;
 }
+
+export async function editLeadForm(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    business_name: data.get("bussines_name"),
+    business_phone: data.get("bussines_phone"),
+    contact_name: data.get("contact_name"),
+    contact_middle_name: data.get("contact_middle_name"),
+    contact_last_name: data.get("contact_last_name"),
+    contact_phone: data.get("contact_phone"),
+    contact_email: data.get("contact_email"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process/edit-lead`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 
@@ -7,6 +7,8 @@ import { create, person } from "ionicons/icons";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "lucide-react";
+import EditLeadInformation from "./Modals/EditLeadInformation";
+import { editLeadForm } from "../utils";
 
 function SidelayoutLead() {
   const {
@@ -17,6 +19,8 @@ function SidelayoutLead() {
     extra_information: info,
   } = useLoaderData();
 
+  const [modalEdit, setModalEdit] = useState(false);
+
   function Capitalize(string) {
     if (string == undefined) return "";
     return (string = string[0]?.toUpperCase() + string?.slice(1));
@@ -24,6 +28,12 @@ function SidelayoutLead() {
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
+      <EditLeadInformation
+        modal={modalEdit}
+        setModal={setModalEdit}
+        info={info}
+        lead={lead}
+      />
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* Top block */}
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-[14px] py-4">
@@ -73,7 +83,11 @@ function SidelayoutLead() {
               </div>
             </div>
             <div className="text-grisText">
-              <IonIcon icon={create} size=""></IonIcon>
+              <IonIcon
+                icon={create}
+                size=""
+                onClick={() => setModalEdit(true)}
+              ></IonIcon>
             </div>
           </div>
 
@@ -154,3 +168,11 @@ function SidelayoutLead() {
 }
 
 export default SidelayoutLead;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  editLeadForm(data);
+
+  return "1";
+}

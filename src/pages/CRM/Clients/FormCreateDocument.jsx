@@ -17,6 +17,12 @@ import DropzoneFile from "@/components/dropzone-files";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormCreateDocuments({ modal, setModal, masterId }) {
+  const navigation = useNavigation;
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">

@@ -17,25 +17,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 
-import TaskForm from "./components/Form/TaskForm";
-
 import {
   checkmarkCircleOutline,
   create,
-  ellipsisHorizontal,
-  ellipsisHorizontalCircle,
   ellipsisVertical,
   informationCircle,
   trash,
-  trashBin,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
+import TaskForm from "./components/Form/TaskForm";
 import TaskListModal from "./components/TaskListModal";
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 import CSFDestroy from "./components/CSFDestroy";
+import ProjectDestroy from "./components/ProjectDestroy";
+
+import { format } from "date-fns";
 
 const HEADERS = [
   { name: "CSF" },
@@ -75,6 +74,9 @@ function Board({ goal, users, csfs }) {
   const [csfModal, setCsfModal] = useState(false);
   const [csfSelected, setCsfSelected] = useState("");
   const [inputActive, setInputActive] = useState(false);
+
+  const [modalProject, setModalProject] = useState(false);
+  const [projectInfo, setProjectInfo] = useState("");
 
   function openCompleteTaskModal(taskId, name, description) {
     setTaskId(taskId);
@@ -118,6 +120,13 @@ function Board({ goal, users, csfs }) {
 
   return (
     <div className="flex h-full flex-col overflow-auto bg-blancoBg p-4">
+      <ProjectDestroy
+        modal={modalProject}
+        setModal={setModalProject}
+        projectId={projectInfo.id}
+        name={projectInfo.name}
+      />
+
       <CSFDestroy
         modal={csfModal}
         setModal={setCsfModal}
@@ -370,7 +379,7 @@ function Board({ goal, users, csfs }) {
                           <div className="flex justify-end gap-2">
                             <div className="">
                               <Avatar className="h-6 w-6">
-                                <AvatarImage src={task?.assigned?.user_image} />
+                                <AvatarImage src={task?.assigned?.image} />
                                 <AvatarFallback>??</AvatarFallback>
                               </Avatar>
                             </div>
@@ -385,7 +394,7 @@ function Board({ goal, users, csfs }) {
                         </div>
                         <div className="flex justify-center pl-10">
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src={task?.creator?.user_image} />
+                            <AvatarImage src={task?.creator?.image} />
                             <AvatarFallback>??</AvatarFallback>
                           </Avatar>
                         </div>
@@ -434,22 +443,18 @@ function Board({ goal, users, csfs }) {
                                   className="size-5"
                                 ></IonIcon>
                               </Link>
-                              <button type="button">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setProjectInfo(task);
+                                  setModalProject(true);
+                                }}
+                              >
                                 <IonIcon icon={trash} className="size-5" />
                               </button>
                             </div>
                           </div>
                         )}
-                        {/* <div>
-                      <div className="flex items-center gap-2 text-[#696974]">
-                        <IonIcon
-                          icon={checkmarkCircleOutline}
-                          className="w-5 h-5"
-                        ></IonIcon>
-                        <IonIcon icon={create} className="w-5 h-5"></IonIcon>
-                        <IonIcon icon={trash} className="w-5 h-5"></IonIcon>
-                      </div>
-                    </div> */}
                       </div>
                     ),
                   )}
