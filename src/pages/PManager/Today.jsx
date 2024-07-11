@@ -128,12 +128,12 @@ function Today() {
                 </div>
               </div>
             </TabsList>
-            <TabsContent value="today" className="flex gap-6">
+            <TabsContent value="today" className="flex flex-wrap gap-6">
               {todayData.today?.map((task, i) => (
                 <DayListActivityCard task={task} key={i} index={i} />
               ))}
             </TabsContent>
-            <TabsContent value="yesterday" className="flex gap-6">
+            <TabsContent value="yesterday" className="flex flex-wrap gap-6">
               {todayData.yesterday?.map((task, i) => (
                 <DayListActivityCard task={task} key={i} index={i} />
               ))}

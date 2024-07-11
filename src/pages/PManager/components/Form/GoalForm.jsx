@@ -33,7 +33,7 @@ function GoalForm({ objectiveId }) {
         </DialogTrigger>
         <DialogContent className="p-0">
           <DialogHeader className="flex flex-col gap-2 border-b px-8 py-6">
-            <DialogTitle>Agregar Meta</DialogTitle>
+            <DialogTitle>Add Goal</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-4 rounded-lg p-4 px-10">
             <Form
