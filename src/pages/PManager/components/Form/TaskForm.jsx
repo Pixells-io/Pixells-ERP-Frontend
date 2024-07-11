@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, useNavigate, useParams } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 
 import {
   Dialog,
@@ -28,11 +28,12 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function TaskForm({ users, csfId }) {
   const params = useParams();
+  const [modal, setModal] = useState(false);
   const [responsable, setResponsable] = useState("");
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
-  const navigation = useNavigate;
+  const navigation = useNavigation();
 
   const arrayUsers = [];
 
@@ -55,7 +56,7 @@ function TaskForm({ users, csfId }) {
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={modal} onOpenChange={setModal}>
         <DialogTrigger>
           <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-primarioBotones text-lg text-primarioBotones">
             +
@@ -236,8 +237,12 @@ function TaskForm({ users, csfId }) {
             <Input className="hidden" name="fce_id" value={csfId} readOnly />
 
             <DialogFooter>
-              <Button className="bg-primario px-10" type="submit">
-                Save
+              <Button
+                className="bg-primario px-10"
+                type="submit"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting" ? "Submitting..." : "Save"}
               </Button>
             </DialogFooter>
           </Form>
