@@ -131,7 +131,7 @@ function MainTickets() {
                   </div>
                 </div>
               </TabsList>
-              <TabsContent value="users" className="h-full">
+              <TabsContent value="users" className="">
                 <TicketsTable tickets={myTickets.data} />
               </TabsContent>
               <TabsContent value="positions">
