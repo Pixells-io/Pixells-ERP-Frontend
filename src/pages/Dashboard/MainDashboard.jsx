@@ -14,25 +14,25 @@ import TimeManagement from "./Components/TimeManagement";
 import GeneralMetrics from "./Components/Metrics";
 import CustomersGrowth from "./Components/CustomersGrowth";
 
-function MainDashboard() {
+function MainDashboard({ isDragging }) {
   return (
     <div className="flex w-full">
-      <div className="flex flex-col ml-5 mr-5 bg-gris px-8 py-4 rounded-lg space-y-4 w-full">
+      <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -41,7 +41,7 @@ function MainDashboard() {
         {/* top content */}
         <div className="flex items-center gap-16">
           <div>
-            <h2 className=" font-poppins font-bold text-2xl text-[#44444F]">
+            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
               DASHBOARD
             </h2>
           </div>
@@ -52,22 +52,22 @@ function MainDashboard() {
             <div className="w-4/5">
               <div>
                 <div>
-                  <h2 className=" font-poppins font-bold text-xl text-[#44444F]">
+                  <h2 className="font-poppins text-xl font-bold text-[#44444F]">
                     Welcome, Diego Guzman
                   </h2>
                 </div>
                 <div className="pt-2">
-                  <span className=" font-roboto font-medium text-sm text-[#44444F]">
+                  <span className="font-roboto text-sm font-medium text-[#44444F]">
                     9 de Marzo del 2024
                   </span>
                 </div>
               </div>
-              <div className="flex mt-8">
-                <div className="w-1/3 gap-6 flex">
+              <div className="mt-8 flex">
+                <div className="flex w-1/3 gap-6">
                   <Time title="TOTAL HOURS" time="52" />
                   <Time title="ACTIVE HOURS" time="24" />
                 </div>
-                <div className="w-2/3 flex gap-8">
+                <div className="flex w-2/3 gap-8">
                   <Activities
                     title="Activities"
                     subTitle="Today"
@@ -95,13 +95,13 @@ function MainDashboard() {
             <div className="w-1/5">
               <Calendar
                 mode="single"
-                className="mt-[-71px] bg-grisText text-white rounded-2xl border"
+                className="mt-[-71px] rounded-2xl border bg-grisText text-white"
               />
             </div>
           </div>
         </div>
-        <div className="bg-[#F0F0F0] rounded-2xl flex">
-          <div className=" p-4">
+        <div className="flex rounded-2xl bg-[#F0F0F0]">
+          <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               TIME MANAGEMENT
             </span>
@@ -109,7 +109,7 @@ function MainDashboard() {
               <TimeManagement />
             </div>
           </div>
-          <div className=" p-4">
+          <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               METRICS
             </span>
