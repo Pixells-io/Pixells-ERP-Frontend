@@ -42,7 +42,7 @@ function ActivityComment({ activity_id, comments }) {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="h-[280px] w-[320px]">
-              <div className="flex h-full flex-col items-center justify-between px-4">
+              <div className="flex h-full flex-col justify-between px-4">
                 <div className="flex h-full flex-col gap-2 overflow-scroll pt-2">
                   {comments
                     ?.slice(0)
@@ -83,7 +83,7 @@ function ActivityComment({ activity_id, comments }) {
                     <input
                       type="text"
                       name="comment"
-                      className="group flex rounded-lg rounded-r-none bg-grisBg px-4 py-2 text-grisSubText placeholder:font-roboto placeholder:font-light placeholder:text-grisSubText"
+                      className="group flex rounded-lg bg-grisBg px-4 py-2 text-grisSubText placeholder:font-roboto placeholder:font-light placeholder:text-grisSubText"
                       placeholder="Type a comment"
                       value={commentInput}
                       onChange={(e) => setCommentInput(e.target.value)}
@@ -103,9 +103,9 @@ function ActivityComment({ activity_id, comments }) {
                       readOnly
                     />
                   </Form>
-                  <div className="flex h-full items-center rounded-lg rounded-l-none bg-grisBg pr-5">
+                  {/* <div className="flex h-full items-center rounded-lg rounded-l-none bg-grisBg pr-5">
                     <IonIcon icon={send} className="size-6 text-primario" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </DropdownMenuContent>
