@@ -31,7 +31,7 @@ function MainClients() {
 
   const [progress, setProgress] = useState(80);
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
+    <div className="mt-4 flex h-full px-4 pb-4 font-roboto">
       {/* sidebar left */}
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-2">
