@@ -116,6 +116,9 @@ function ClosingForm({
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
               <div>
+                <InputRouter type="email" placeholder="Email" name="email" />
+              </div>
+              <div>
                 <DropzoneFile
                   name="service_paymnent"
                   label="Payment agreement"
@@ -212,7 +215,7 @@ function ClosingForm({
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarImage src={leadAssigned?.image} />
                   <AvatarFallback>
                     {leadAssigned?.name?.search("\b[a-zA-Z]")}
                   </AvatarFallback>

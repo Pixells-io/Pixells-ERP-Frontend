@@ -26,7 +26,9 @@ import SidelayoutLead, {
 import MainClient, {
   Action as ClientAccion,
 } from "./pages/CRM/Clients/MainClient";
-import MainClients from "./pages/Clients/MainClients";
+import MainClients, {
+  Action as ClientPlatformClient,
+} from "./pages/Clients/MainClients";
 
 // CRM Services
 import MainServices, {
@@ -719,6 +721,7 @@ const router = createBrowserRouter([
     path: "/client-platform",
     element: <MainClients />,
     loader: getAuthClient,
+    action: ClientPlatformClient,
   },
 ]);
 

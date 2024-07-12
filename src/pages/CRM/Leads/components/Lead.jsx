@@ -312,7 +312,7 @@ function Lead({ lead, setModal }) {
           <div>
             <Avatar className="h-6 w-6">
               <AvatarImage src={lead?.assigned?.image} />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>??</AvatarFallback>
             </Avatar>
           </div>
         </div>
@@ -322,24 +322,3 @@ function Lead({ lead, setModal }) {
 }
 
 export default Lead;
-
-// onDragOver={(event) => {
-//     event.preventDefault();
-//     event.stopPropagation();
-//     console.log(event);
-// }}
-// onDragLeave={(event) => {
-//     event.stopPropagation();
-//     console.log(event);
-//     console.log("ondragleave");
-// }}
-
-{
-  /* <a
-  href={`tel: ${lead?.contact_phone}`}
-  className="text-primario flex items-center gap-2"
->
-  <IonIcon icon={call} className="w-4 h-4 text-primario"></IonIcon>
-  <p className=" text-xs">Phone Call</p>
-</a>; */
-}

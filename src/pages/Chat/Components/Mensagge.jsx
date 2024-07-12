@@ -1,26 +1,23 @@
 import React, { useState } from "react";
-import { IonIcon } from "@ionic/react";
-import {
-  checkmarkDoneOutline,
-  ellipsisVerticalOutline,
-  sendSharp,
-} from "ionicons/icons";
-import VisibilitySensor from "react-visibility-sensor";
 import Cookies from "js-cookie";
-import { json } from "react-router-dom";
+
+import VisibilitySensor from "react-visibility-sensor";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import ResendModal from "./ResendModal";
-import ReplyModal from "./ReplyModal";
+} from "@/components/ui/dropdown-menu";
 
-function MenssageCard({ data, user, chats, chat }) {
+import { IonIcon } from "@ionic/react";
+import { checkmarkDoneOutline, ellipsisVerticalOutline } from "ionicons/icons";
+
+import ResendModal from "./ResendModal";
+
+function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
   let msg = data;
   const [modalResend, setModalResend] = useState(false);
-  const [modalReply, setModalReply] = useState(false);
 
   return (
     <>
@@ -31,12 +28,7 @@ function MenssageCard({ data, user, chats, chat }) {
         chats={chats}
         chat_id={chat}
       />
-      <ReplyModal
-        modal={modalReply}
-        setModal={setModalReply}
-        chat_id={chat}
-        message_id={msg.id}
-      />
+
       {msg.user == user ? (
         <div className="flex w-full justify-end">
           <DropdownMenu>
@@ -49,7 +41,15 @@ function MenssageCard({ data, user, chats, chat }) {
             <DropdownMenuContent className="rounded-2xl border-2 border-[#E8E8E8] bg-[#fff]">
               <DropdownMenuItem
                 className="rounded-t-xl px-4 py-2 text-center font-roboto text-sm text-grisHeading hover:bg-[#E7E7E7]"
-                onClick={() => setModalReply(true)}
+                onClick={() => {
+                  setReplay({
+                    chat_id: chat,
+                    msg_id: msg?.id,
+                    msg: msg?.mensaje,
+                    name: msg?.creator,
+                  });
+                  setModalReplay(true);
+                }}
               >
                 Reply
               </DropdownMenuItem>
@@ -78,7 +78,7 @@ function MenssageCard({ data, user, chats, chat }) {
                 {msg.mensaje}
               </span>
             ) : (
-              <iframe src={msg.file} frameborder="0"></iframe>
+              <iframe src={msg.file} frameBorder="0"></iframe>
             )}
             <div className="mt-[-8px] flex justify-end">
               <div>
@@ -147,7 +147,7 @@ function MenssageCard({ data, user, chats, chat }) {
                   {msg.mensaje}
                 </span>
               ) : (
-                <iframe src={msg.file} frameborder="0"></iframe>
+                <iframe src={msg.file} frameBorder="0"></iframe>
               )}
               <div className="mt-[-8px] flex justify-end">
                 <div>
@@ -167,7 +167,15 @@ function MenssageCard({ data, user, chats, chat }) {
               <DropdownMenuContent className="rounded-2xl border-2 border-[#E8E8E8] bg-[#fff]">
                 <DropdownMenuItem
                   className="rounded-t-xl px-4 py-2 text-center font-roboto text-sm text-grisHeading hover:bg-[#E7E7E7]"
-                  onClick={() => setModalReply(true)}
+                  onClick={() => {
+                    setReplay({
+                      chat_id: chat,
+                      msg_id: msg?.id,
+                      msg: msg?.mensaje,
+                      name: msg?.creator,
+                    });
+                    setModalReplay(true);
+                  }}
                 >
                   Reply
                 </DropdownMenuItem>
