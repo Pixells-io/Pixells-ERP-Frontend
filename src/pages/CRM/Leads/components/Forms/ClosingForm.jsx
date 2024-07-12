@@ -116,6 +116,9 @@ function ClosingForm({
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
               <div>
+                <InputRouter type="email" placeholder="Email" name="email" />
+              </div>
+              <div>
                 <DropzoneFile
                   name="service_paymnent"
                   label="Payment agreement"
