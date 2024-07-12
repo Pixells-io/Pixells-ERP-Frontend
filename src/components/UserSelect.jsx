@@ -80,7 +80,7 @@ function UserSelect({ users, leadAssigned }) {
                     src={selectedStatus?.user_image || selectedStatus?.url}
                   />
                   <AvatarFallback>
-                    {selectedStatus?.name.slice(1)}
+                    {selectedStatus?.name?.slice(1)}
                   </AvatarFallback>
                 </Avatar>
               </>
@@ -117,7 +117,7 @@ function UserSelect({ users, leadAssigned }) {
                     <Avatar className="size-5">
                       <AvatarImage src={user?.user_image} />
                       <AvatarFallback>
-                        {selectedStatus?.name.slice(1)}
+                        {selectedStatus?.name?.slice(1)}
                       </AvatarFallback>
                     </Avatar>
                     <span>

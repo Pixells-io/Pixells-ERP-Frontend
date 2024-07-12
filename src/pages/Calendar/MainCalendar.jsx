@@ -9,6 +9,7 @@ import { getFollowUp, getMeet } from "./utils";
 import FormShowFollowUp from "./Components/FormShowFollowUp";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import { set } from "date-fns";
+import CompleteActivity from "@/layouts/PManager/components/TaskModals/CompleteActivity";
 
 function MainCalendar() {
   const { data } = useLoaderData();
@@ -59,6 +60,10 @@ function MainCalendar() {
   const [taskDescription, setTaskDescription] = useState(false);
   const [completeTaskModal, setCompleteTaskModal] = useState(false);
 
+  //Modal Open Activity
+  const [activityId, setActivityId] = useState(false);
+  const [completeActivityModal, setCompleteActivityModal] = useState(false);
+
   function openCompleteTaskModal(taskId, name, description) {
     console.log(description);
     setTaskId(taskId);
@@ -73,6 +78,7 @@ function MainCalendar() {
     arrayFill(data.task, arrayfIllVar);
     arrayFill(data.crm, arrayfIllVar);
     arrayFill(data.meet, arrayfIllVar);
+    arrayFill(data.activity, arrayfIllVar);
 
     function arrayFill(data, array) {
       data.forEach((element) => {
@@ -91,8 +97,6 @@ function MainCalendar() {
 
   function filterEventsCalendar($module) {
     setEvents([]);
-    console.log(tasks, "task a");
-    console.log(crm, "crm a");
     switch ($module) {
       case 1:
         setTasks(!tasks);
@@ -112,6 +116,7 @@ function MainCalendar() {
 
     if (tasks === true) {
       arrayFill(data.task, array_bulk);
+      arrayFill(data.activity, array_bulk);
     }
 
     if (crm === true) {
@@ -167,6 +172,11 @@ function MainCalendar() {
           findMeetInfo(id);
           setModalMeet(true);
           break;
+        case 4:
+          //Actvity
+          setActivityId(id);
+          setCompleteActivityModal(true);
+          break;
       }
     }
 
@@ -174,7 +184,7 @@ function MainCalendar() {
       <>
         {type === 1 ? (
           <div
-            className="py w-full overflow-hidden text-ellipsis rounded-xl bg-primario pl-2 pr-2"
+            className="py w-full overflow-hidden text-ellipsis rounded-xl border border-primario bg-transparent pl-2 pr-2"
             onClick={() =>
               openCompleteTaskModal(
                 id,
@@ -184,7 +194,7 @@ function MainCalendar() {
             }
           >
             <span
-              className="rounded-3xl font-roboto text-xs font-normal text-white"
+              className="rounded-3xl font-roboto text-xs font-normal text-primario"
               title={eventInfo.event.title}
             >
               {eventInfo.event.title}
@@ -214,9 +224,19 @@ function MainCalendar() {
               {eventInfo.event.title}
             </span>
           </div>
-        ) : (
-          <span>N/A</span>
-        )}
+        ) : type === 4 ? (
+          <div
+            className="py w-full overflow-hidden text-ellipsis rounded-xl border bg-primario pl-2 pr-2"
+            onClick={() => openModalFunction(type, id)}
+          >
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-white"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
+        ) : null}
       </>
     );
   }
@@ -240,6 +260,11 @@ function MainCalendar() {
           taskId={taskId}
           name={taskName}
           description={taskDescription}
+        />
+        <CompleteActivity
+          modal={completeActivityModal}
+          setModal={setCompleteActivityModal}
+          activity={activityId}
         />
       </div>
       <FullCalendar
