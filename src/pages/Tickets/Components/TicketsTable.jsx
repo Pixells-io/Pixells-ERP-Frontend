@@ -66,7 +66,7 @@ function TicketsTable({ tickets }) {
   });
 
   return (
-    <div className="relative w-full overflow-auto">
+    <div className="relative h-full w-full overflow-scroll">
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {
@@ -82,7 +82,6 @@ function TicketsTable({ tickets }) {
                       id={header?.id}
                       key={header?.id}
                     >
-                      {" "}
                       {header?.isPlaceholder
                         ? null
                         : flexRender(
@@ -96,7 +95,7 @@ function TicketsTable({ tickets }) {
             );
           })}
         </thead>
-        <tbody className="overflow-scroll [&_tr:last-child]:border-0">
+        <tbody className="h-full [&_tr:last-child]:border-0">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr

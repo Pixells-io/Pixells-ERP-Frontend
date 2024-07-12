@@ -239,7 +239,12 @@ import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollectio
 import MainCategory, {
   Action as MainCategoryFunction,
 } from "./pages/CRM/Services/MainCategory";
-import LoginClient from "./pages/CRM/ClientPlatform/LoginClient";
+
+//Client Platform
+import LoginClient, {
+  Action as LoginClientFunction,
+} from "./pages/CRM/ClientPlatform/LoginClient";
+import { getAuthClient } from "./pages/Clients/utils";
 
 const router = createBrowserRouter([
   {
@@ -250,10 +255,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-      },
-      {
-        path: "/clients",
-        element: <MainClients />,
       },
       // crm
       {
@@ -712,6 +713,12 @@ const router = createBrowserRouter([
   {
     path: "/login-client",
     element: <LoginClient />,
+    action: LoginClientFunction,
+  },
+  {
+    path: "/client-platform",
+    element: <MainClients />,
+    loader: getAuthClient,
   },
 ]);
 
