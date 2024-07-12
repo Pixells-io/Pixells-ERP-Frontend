@@ -192,13 +192,13 @@ function Activities() {
                 }
               >
                 <p className="px-2 text-sm font-semibold text-gris2">
-                  {header.name}
+                  {header?.name}
                 </p>
               </div>
             ))}
           </div>
           <div>
-            {activitiesData?.days.map((day, i) => (
+            {activitiesData?.days?.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
                   <AccordionTrigger className="group flex px-4 !no-underline">
@@ -241,20 +241,20 @@ function Activities() {
                       {day?.priority == 4 ? (
                         <div className="w-5/12 text-start">
                           <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
-                            {day.title}
+                            {day?.title}
                           </span>
                         </div>
                       ) : (
                         <div className="w-5/12 text-start">
                           <span className="font-roboto text-xs font-normal text-grisHeading">
-                            {day.title}
+                            {day?.title}
                           </span>
                         </div>
                       )}
                       <div className="w-1/12 text-start">
                         {day?.task_count > 1 ? (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
-                            + {day.task_count} more
+                            + {day?.task_count} more
                           </span>
                         ) : (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
