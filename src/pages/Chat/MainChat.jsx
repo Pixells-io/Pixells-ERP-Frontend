@@ -139,7 +139,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Messages */}
-      <div className="flex w-full flex-col-reverse overflow-scroll px-12 py-3">
+      <div className="flex h-full w-full flex-col-reverse overflow-scroll px-12 py-3">
         <div ref={scrollBox}></div>
         {chatMessagesPusher?.map((mensagge, i) => (
           <MenssageCard
