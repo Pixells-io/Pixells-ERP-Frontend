@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 
 import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, closeCircle, removeCircle } from "ionicons/icons";
 import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
@@ -21,6 +21,12 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
   const navigation = useNavigation();
   useEffect(() => {
     if (navigation.state === "idle") {
+      setProcessInputs([
+        {
+          area_id: "",
+          user_id: "",
+        },
+      ]);
       setModal(false);
     }
   }, [navigation.state]);
@@ -28,10 +34,8 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
   const [processValue, setProcessValue] = useState([]);
   const [processInputs, setProcessInputs] = useState([
     {
-      name: "proceso",
-      type: "text",
-      placeholder: "Process of the area",
-      value: "",
+      area_id: "",
+      user_id: "",
     },
   ]);
 
@@ -113,10 +117,21 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
     },
   ];
 
-  const handleChange = (event, index) => {
-    const { value } = event.target;
+  const handleChangeArea = (event, index) => {
+    console.log(event.value);
+    setProcessInputs(
+      processInputs.map((item, i) =>
+        i === index
+          ? { ...item, area_id: { value: event.value, label: event.label } }
+          : item,
+      ),
+    );
+  };
+
+  const handleChangeUser = (event, index) => {
     const newInputs = [...processInputs];
-    newInputs[index].value = value;
+    newInputs[index].user_id = { value: event.value, label: event.label };
+    newInputs[index].value = event.value;
     setProcessInputs(newInputs);
   };
 
@@ -127,7 +142,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="overflow-auto sm:max-w-[425px]">
+      <DialogContent className="w-full sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create Ticket</DialogTitle>
         </DialogHeader>
@@ -138,23 +153,44 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
           method="post"
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
-            <div className="flex flex-col gap-4 pb-4 font-light">
+            <div className="flex max-h-[500px] flex-col gap-4 overflow-scroll pb-4 font-light">
               {processInputs?.map((input, i) => (
-                <div className="flex" key={i}>
-                  <div className="mr-2 w-2/4">
+                <div className="flex w-full items-center gap-2" key={i}>
+                  <div className="flex w-1/2">
                     <SelectRouter
                       name={"area_id"}
                       placeholder={"Area"}
                       options={areas}
+                      value={input.area_id}
+                      onChange={(e) => handleChangeArea(e, i)}
                     />
                   </div>
-                  <div className="ml-2 w-2/4">
+                  <div className="flex w-1/2">
                     <SelectRouter
                       name={"user_id"}
                       placeholder={"Responsable"}
                       options={users}
+                      value={input.user_id}
+                      onChange={(e) => handleChangeUser(e, i)}
                     />
                   </div>
+                  {i == 0 ? (
+                    <div className="w-[44px]"></div>
+                  ) : (
+                    <div
+                      className="flex cursor-pointer items-center pl-2"
+                      onClick={() => {
+                        setProcessInputs(
+                          processInputs.filter((input, idx) => idx !== i),
+                        );
+                      }}
+                    >
+                      <IonIcon
+                        src={closeCircle}
+                        className="size-6 text-grisSubText"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
               <button
@@ -162,9 +198,8 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   setProcessInputs([
                     ...processInputs,
                     {
-                      name: "proceso",
-                      type: "text",
-                      placeholder: "Process of the area",
+                      area_id: "",
+                      user_id: "",
                     },
                   ])
                 }
@@ -199,9 +234,10 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
         <DialogFooter className="h-auto">
           <Button
             form="ticket-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>
