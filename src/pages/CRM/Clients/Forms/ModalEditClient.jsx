@@ -25,7 +25,7 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
-          <DialogTitle className="font-poppins">Edit Client</DialogTitle>
+          <DialogTitle className="font-poppins">Edit Information</DialogTitle>
         </DialogHeader>
         <Form
           id="client-form-edit"

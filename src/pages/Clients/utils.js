@@ -36,3 +36,29 @@ export async function storeDocument(data) {
 
   return response;
 }
+
+export async function editClientData(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    business_name: data.get("business_name"),
+    business_phone: data.get("business_phone"),
+    contact_name: data.get("contact_name"),
+    contact_middle_name: data.get("contact_middle_name"),
+    contact_last_name: data.get("contact_last_name"),
+    contact_phone: data.get("contact_phone"),
+    contact_email: data.get("contact_email"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/edit-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

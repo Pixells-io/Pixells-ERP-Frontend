@@ -17,16 +17,8 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import FormCreateDocuments from "../CRM/Clients/FormCreateDocument";
-import { storeDocument } from "./utils";
+import { editClientData, storeDocument } from "./utils";
 import ModalEditClient from "../CRM/Clients/Forms/ModalEditClient";
-
-const CLIENT_MENU = [
-  //{ name: "Home", icon: home, path: "/clients" },
-  { name: "Services", icon: cart, path: "/client-platform" },
-  { name: "Personal Information", icon: informationCircle, path: "/" },
-  /*{ name: "Payment Center", icon: card, path: "/" },
-  { name: "Messages", icon: chatbubbles, path: "/" },*/
-];
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -291,7 +283,7 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   if (data.get("type") === "7") {
-    console.log("Que onda");
+    editClientData(data);
   } else {
     storeDocument(data);
   }
