@@ -6,6 +6,7 @@ import {
   deleteAddress,
   deleteContact,
   deleteDocument,
+  editAccessInfo,
   editClientInfo,
   storeCustomerAdress,
   storeCustomerContacts,
@@ -14,12 +15,18 @@ import {
 import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
 import { IonIcon } from "@ionic/react";
-import { cashOutline, createOutline, trashOutline } from "ionicons/icons";
+import {
+  cashOutline,
+  createOutline,
+  keyOutline,
+  trashOutline,
+} from "ionicons/icons";
 import ClientServicesTable from "./Tables/ClientServicesTable";
 import ModalDestroyAddress from "./Forms/ModalDestroyAddress";
 import ModalDestroyContacts from "./Forms/ModalDestroyContact";
 import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
 import ModalEditClient from "./Forms/ModalEditClient";
+import ModalClientAccess from "./Forms/ModalClientAccess";
 
 function MainClient() {
   const { data } = useLoaderData();
@@ -37,6 +44,9 @@ function MainClient() {
   const [documentsId, setDocumentsId] = useState(false);
   const [modalDestroyDocuments, setModalDestroyDocuments] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+
+  //States edit login info
+  const [accessModal, setAccessModal] = useState(false);
 
   function openModalDestroyAddress(id) {
     setAddressId(id);
@@ -93,6 +103,12 @@ function MainClient() {
         setModal={setModalEdit}
         info={client?.info}
         client={client?.master}
+      />
+      <ModalClientAccess
+        modal={accessModal}
+        setModal={setAccessModal}
+        client_id={client?.master.id}
+        email={client?.email}
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
@@ -163,6 +179,13 @@ function MainClient() {
                 icon={createOutline}
                 className="text-grisHeading"
                 onClick={() => setModalEdit(true)}
+              />
+            </div>
+            <div className="self-center">
+              <IonIcon
+                icon={keyOutline}
+                className="text-grisHeading"
+                onClick={() => setAccessModal(true)}
               />
             </div>
           </div>
@@ -368,6 +391,9 @@ export async function Action({ request }) {
       break;
     case "7":
       editClientInfo(data);
+      break;
+    case "8":
+      editAccessInfo(data);
       break;
   }
 

@@ -144,3 +144,24 @@ export async function editClientInfo(data) {
 
   return response;
 }
+
+export async function editAccessInfo(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    email: data.get("email"),
+    password: data.get("password"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-client-access`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
