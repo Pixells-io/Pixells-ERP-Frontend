@@ -7,6 +7,7 @@ import { arrowForwardCircle } from "ionicons/icons";
 
 import { loginUser } from "@/pages/Organization/utils";
 import { getUserByToken } from "@/lib/actions";
+import { loginClient } from "./utils";
 
 function LoginClient() {
   const [user, setUser] = useState("");
@@ -87,7 +88,7 @@ function LoginClient() {
             Sign in
           </span>
         </div>
-        <Form method="POST" action="/login">
+        <Form method="POST" action="/login-client">
           <div className="mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText">
             <input
               type="text"
@@ -149,12 +150,12 @@ function LoginClient() {
 }
 export default LoginClient;
 
-export async function action({ request }) {
+export async function Action({ request }) {
   const formData = await request.formData();
-  const response = await loginUser(formData);
+  const response = await loginClient(formData);
   if (response.code === 201) {
     Cookies.set("token", response.access_token, { expires: 0.5 });
-    return redirect("/");
+    return redirect("/client-platform");
   }
 
   return new Response({ message: "Error" });
