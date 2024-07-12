@@ -47,6 +47,8 @@
     "react-circular-progressbar": "^2.1.0",
     "react-cookie": "^7.1.4",
     "react-day-picker": "^8.10.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-quill": "^2.0.0",

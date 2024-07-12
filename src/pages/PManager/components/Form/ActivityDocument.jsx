@@ -13,6 +13,7 @@ import DropzoneFile from "@/components/dropzone-files";
 import { IonIcon } from "@ionic/react";
 import { add, send } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function ActivityDocument({ activity_id, documents }) {
   const navigation = useNavigation();
@@ -40,14 +41,23 @@ function ActivityDocument({ activity_id, documents }) {
         <DropdownMenuSeparator />
         <div className="flex h-full flex-col gap-1 overflow-scroll">
           {documents?.map((document, i) => (
-            <Link
-              key={i}
-              to={document?.document}
-              target="_blank"
-              className="cursor-pointer text-[12px] text-grisSubText"
-            >
-              - {document?.title}
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                key={i}
+                to={document?.document}
+                target="_blank"
+                className="cursor-pointer text-[12px] text-grisSubText"
+              >
+                - {document?.title}
+              </Link>
+
+              <Avatar className="size-4">
+                <AvatarImage src={document?.creator.img} />
+                <AvatarFallback>
+                  {document?.creator.name.slice(0, 2)}
+                </AvatarFallback>
+              </Avatar>
+            </div>
           ))}
         </div>
         <DropdownMenuSeparator />
