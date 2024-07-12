@@ -96,7 +96,7 @@ function TicketsTable({ tickets }) {
             );
           })}
         </thead>
-        <tbody className="[&_tr:last-child]:border-0">
+        <tbody className="overflow-scroll [&_tr:last-child]:border-0">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr

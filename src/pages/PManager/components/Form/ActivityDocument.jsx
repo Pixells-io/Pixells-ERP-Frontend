@@ -11,7 +11,7 @@ import {
 import DropzoneFile from "@/components/dropzone-files";
 
 import { IonIcon } from "@ionic/react";
-import { add, send } from "ionicons/icons";
+import { add, closeCircle, send } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -57,6 +57,8 @@ function ActivityDocument({ activity_id, documents }) {
                   {document?.creator.name.slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
+
+              <IonIcon icon={closeCircle} className="size-4 text-grisSubText" />
             </div>
           ))}
         </div>
