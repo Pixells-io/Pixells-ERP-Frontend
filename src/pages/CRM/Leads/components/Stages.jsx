@@ -53,6 +53,8 @@ function Stages() {
     //The column is the correct
     const next_column = lead.step_id + 1;
 
+    console.log(next_column, column_id);
+
     if (next_column === column_id) {
       //Set the information
       setLeadAssigned(lead);
@@ -62,16 +64,19 @@ function Stages() {
       switch (next_column) {
         case 1:
           setModal({
+            ...modal,
             prospect: true,
           });
           break;
         case 2:
           setModal({
-            potencial: true,
+            ...modal,
+            potential: true,
           });
           break;
         case 3:
           setModal({
+            ...modal,
             followup: true,
           });
           break;
@@ -192,6 +197,7 @@ function Stages() {
               <ul className="flex h-full flex-col gap-2">
                 {stage?.leads.map((lead, i) => (
                   <li
+                    draggable="true"
                     className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing"
                     onDragStart={(evt) => startDrag(evt, lead)}
                     key={lead.id}

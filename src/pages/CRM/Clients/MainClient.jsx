@@ -29,7 +29,6 @@ import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 
 function MainClient() {
-  const { data } = useLoaderData();
   const client = data[0];
 
   const [modalAdress, setModalAdress] = useState(false);
@@ -79,6 +78,7 @@ function MainClient() {
         modal={modalDocument}
         setModal={setModalDocument}
         masterId={client?.master.id}
+        url={`/crm/client/${client?.master.id}`}
       />
       <ModalDestroyAddress
         modal={modalDestroyAddress}
@@ -103,6 +103,7 @@ function MainClient() {
         setModal={setModalEdit}
         info={client?.info}
         client={client?.master}
+        link={`/crm/client/${client?.id}`}
       />
       <ModalClientAccess
         modal={accessModal}

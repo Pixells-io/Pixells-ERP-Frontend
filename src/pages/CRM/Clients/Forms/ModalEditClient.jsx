@@ -14,7 +14,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const navigation = useNavigation;
 
-function ModalEditClient({ modal, setModal, info, client }) {
+function ModalEditClient({ modal, setModal, info, client, link }) {
   useEffect(() => {
     if (navigation.state === "idle") {
       setOpen(false);
@@ -30,7 +30,7 @@ function ModalEditClient({ modal, setModal, info, client }) {
         <Form
           id="client-form-edit"
           className="flex flex-col gap-8 px-6"
-          action={`/crm/client/${client.id}`}
+          action={link}
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {

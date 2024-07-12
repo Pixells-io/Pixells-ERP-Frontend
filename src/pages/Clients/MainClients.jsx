@@ -15,23 +15,39 @@ import {
 } from "ionicons/icons";
 import { NavLink, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import FormCreateDocuments from "../CRM/Clients/FormCreateDocument";
+import { storeDocument } from "./utils";
+import ModalEditClient from "../CRM/Clients/Forms/ModalEditClient";
 
 const CLIENT_MENU = [
-  { name: "Home", icon: home, path: "/clients" },
-  { name: "Services", icon: cart, path: "/" },
+  //{ name: "Home", icon: home, path: "/clients" },
+  { name: "Services", icon: cart, path: "/client-platform" },
   { name: "Personal Information", icon: informationCircle, path: "/" },
-  { name: "Payment Center", icon: card, path: "/" },
-  { name: "Messages", icon: chatbubbles, path: "/" },
+  /*{ name: "Payment Center", icon: card, path: "/" },
+  { name: "Messages", icon: chatbubbles, path: "/" },*/
 ];
 
 function MainClients() {
   const { data } = useLoaderData();
+  const [modalDocument, setModalDocument] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
 
-  console.log(data);
-
-  const [progress, setProgress] = useState(80);
   return (
     <div className="mt-4 flex h-full px-4 pb-4 font-roboto">
+      <FormCreateDocuments
+        modal={modalDocument}
+        setModal={setModalDocument}
+        masterId={data.user?.id}
+        url={`/client-platform`}
+      />
+      <ModalEditClient
+        modal={modalEdit}
+        setModal={setModalEdit}
+        info={data?.user}
+        client={data?.user}
+        link={`/client-platform`}
+      />
       {/* sidebar left */}
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-2">
@@ -39,21 +55,31 @@ function MainClients() {
             Menu
           </p>
           <div className="flex flex-col gap-4">
-            {CLIENT_MENU.map((item) => (
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  isActive
-                    ? "rounded-lg bg-blancoBox px-4 py-1 text-primarioBotones"
-                    : "px-4 py-1 text-grisText"
-                }
-              >
-                <div className="flex items-center gap-4">
-                  <IonIcon icon={item.icon} size="large"></IonIcon>
-                  <p className="font-poppins font-semibold">{item.name}</p>
-                </div>
-              </NavLink>
-            ))}
+            <NavLink
+              to={"/client-platform"}
+              className={({ isActive }) =>
+                isActive
+                  ? "rounded-lg bg-blancoBox px-4 py-1 text-primarioBotones"
+                  : "px-4 py-1 text-grisText"
+              }
+            >
+              <div className="flex items-center gap-4">
+                <IonIcon icon={cart} size="large"></IonIcon>
+                <p className="font-poppins font-semibold">Services</p>
+              </div>
+            </NavLink>
+            <button
+              className="px-4 py-1 text-grisText"
+              onClick={() => setModalEdit(true)}
+              type="button"
+            >
+              <div className="flex items-center gap-4">
+                <IonIcon icon={informationCircle} size="large"></IonIcon>
+                <p className="font-poppins font-semibold">
+                  Personal Information
+                </p>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -76,18 +102,18 @@ function MainClients() {
                 className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="text-sm">topics &gt; home </div>
+            <div className="text-sm">client platform &gt; home </div>
           </div>
 
           {/* top content */}
           <div className="flex flex-col">
             <div>
               <h2 className="font-poppins text-xl font-bold uppercase text-[#44444F]">
-                WELCOME {data.business_name}
+                WELCOME {data.user.business_name}
               </h2>
             </div>
             <div className="flex items-center gap-3 text-[#8F8F8F]">
-              <div className="text-sm">21 FEB 2024</div>
+              <div className="text-sm">{data.today}</div>
             </div>
           </div>
 
@@ -100,93 +126,32 @@ function MainClients() {
             </div>
 
             <div className="flex w-full gap-4 overflow-scroll">
-              <div className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-[#5B89FF] p-3">
-                <div className="flex w-fit items-center justify-center rounded-full bg-[#D7586B] px-3">
-                  <span className="text-[10px] font-medium text-white">
-                    Pending Activity
-                  </span>
+              {data.services?.map((service, i) => (
+                <div
+                  className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3"
+                  key={i}
+                >
+                  <div className="flex w-fit items-center justify-center rounded-full border border-primarioBotones px-3">
+                    <span className="text-[10px] font-medium text-primarioBotones">
+                      In process
+                    </span>
+                  </div>
+                  <div className="flex w-fit flex-col">
+                    <p className="text-sm font-semibold text-grisHeading">
+                      {service.name}
+                    </p>
+                    <span className="line-clamp-none text-xs font-medium text-grisSubText">
+                      Service
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-[9px] font-semibold text-grisSubText">
+                      {progress}%
+                    </span>
+                    <Progress value={service.percent} className="h-1 w-full" />
+                  </div>
                 </div>
-                <div className="flex w-fit flex-col">
-                  <p className="text-sm font-semibold text-grisHeading">
-                    IMMIGRATION
-                  </p>
-                  <span className="line-clamp-none text-xs font-medium text-blancoBox">
-                    Service
-                  </span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[9px] font-semibold text-grisDisabled">
-                    {progress}%
-                  </span>
-                  <Progress value={progress} className="h-1 w-full" />
-                </div>
-              </div>
-
-              <div className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3">
-                <div className="flex w-fit items-center justify-center rounded-full border border-primarioBotones px-3">
-                  <span className="text-[10px] font-medium text-primarioBotones">
-                    In process
-                  </span>
-                </div>
-                <div className="flex w-fit flex-col">
-                  <p className="text-sm font-semibold text-grisHeading">
-                    ENTITY CREATION
-                  </p>
-                  <span className="line-clamp-none text-xs font-medium text-grisSubText">
-                    Service
-                  </span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[9px] font-semibold text-grisSubText">
-                    {progress}%
-                  </span>
-                  <Progress value={progress} className="h-1 w-full" />
-                </div>
-              </div>
-
-              <div className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3">
-                <div className="flex w-fit items-center justify-center rounded-full border border-primarioBotones px-3">
-                  <span className="text-[10px] font-medium text-primarioBotones">
-                    In process
-                  </span>
-                </div>
-                <div className="flex w-fit flex-col">
-                  <p className="text-sm font-semibold text-grisHeading">
-                    TAX PREPARATION
-                  </p>
-                  <span className="line-clamp-none text-xs font-medium text-grisSubText">
-                    Service
-                  </span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[9px] font-semibold text-grisSubText">
-                    {progress}%
-                  </span>
-                  <Progress value={progress} className="h-1 w-full" />
-                </div>
-              </div>
-
-              <div className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3">
-                <div className="flex w-fit items-center justify-center rounded-full border border-primarioBotones px-3">
-                  <span className="text-[10px] font-medium text-primarioBotones">
-                    In process
-                  </span>
-                </div>
-                <div className="flex w-fit flex-col">
-                  <p className="text-sm font-semibold text-grisHeading">
-                    AUDITS
-                  </p>
-                  <span className="line-clamp-none text-xs font-medium text-grisSubText">
-                    Service
-                  </span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[9px] font-semibold text-grisSubText">
-                    {progress}%
-                  </span>
-                  <Progress value={progress} className="h-1 w-full" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -277,7 +242,10 @@ function MainClients() {
             <p className="text-[28px] font-semibold text-grisHeading">
               DOCUMENTS
             </p>
-            <div className="text-[30px] font-medium text-primarioBotones">
+            <div
+              className="text-[30px] font-medium text-primarioBotones"
+              onClick={() => setModalDocument(true)}
+            >
               +
             </div>
             <div className="text-[12px] font-medium text-grisSubText">
@@ -286,56 +254,30 @@ function MainClients() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
-                  </span>
+            {data.document.map((document, i) => (
+              <div className="grid grid-cols-4" key={i}>
+                <div className="col-span-3 flex items-center gap-2">
+                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
+                  <div>
+                    <p className="font-medium text-grisHeading">
+                      {document.name}
+                    </p>
+                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                      Uplaoded &bull; {format(document.created_at, "PP")}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-1 self-end pb-1 pl-2">
+                  <a
+                    target="_blank"
+                    href={document.document}
+                    className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                  >
+                    Download
+                  </a>
                 </div>
               </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-lime-200"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
-                  </span>
-                </div>
-              </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-4">
-              <div className="col-span-3 flex items-center gap-2">
-                <div className="h-12 w-12 shrink-0 rounded-lg bg-pink-200"></div>
-                <div>
-                  <p className="font-medium text-grisHeading">Document 1</p>
-                  <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                    Uplaoded &bull; 02 Feb 2024
-                  </span>
-                </div>
-              </div>
-              <div className="col-span-1 self-end pb-1 pl-2">
-                <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                  Download
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -344,3 +286,15 @@ function MainClients() {
 }
 
 export default MainClients;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  if (data.get("type") === "7") {
+    console.log("Que onda");
+  } else {
+    storeDocument(data);
+  }
+
+  return 1;
+}
