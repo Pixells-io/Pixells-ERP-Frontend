@@ -60,7 +60,7 @@ function MainTickets() {
         modal={modal}
         setModal={setModal}
       />
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex h-full w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -103,7 +103,7 @@ function MainTickets() {
           ></IonIcon>
         </div>
         {/*component accion*/}
-        <div className="rounded-xl bg-white p-7">
+        <div className="h-full rounded-xl bg-white p-7">
           <div className="flex">
             <Tabs defaultValue="users" className="w-full">
               <TabsList className="mb-3 w-full bg-transparent">
