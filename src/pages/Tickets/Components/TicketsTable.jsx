@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   useReactTable,
@@ -6,16 +7,10 @@ import {
   flexRender,
   getCoreRowModel,
 } from "@tanstack/react-table";
-
-import { NavLink } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 import { IonIcon } from "@ionic/react";
-import {
-  informationCircle,
-  chatbubbleEllipses,
-  searchOutline,
-  bookmark,
-} from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
 
 function TicketsTable({ tickets }) {
   const columnHelper = createColumnHelper();
@@ -34,6 +29,14 @@ function TicketsTable({ tickets }) {
     columnHelper.accessor((row) => `${row.status}`, {
       id: "Status",
       header: "STATUS",
+      accessorKey: "status",
+      cell: ({ row }) => {
+        return (
+          <Badge variant="" className="bg-orange-400">
+            {row.original.status}
+          </Badge>
+        );
+      },
     }),
     columnHelper.accessor((row) => `${row.category}`, {
       id: "Category",
@@ -66,7 +69,7 @@ function TicketsTable({ tickets }) {
   });
 
   return (
-    <div className="relative h-full w-full overflow-scroll">
+    <div className="w-full">
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {
@@ -95,7 +98,7 @@ function TicketsTable({ tickets }) {
             );
           })}
         </thead>
-        <tbody className="h-full [&_tr:last-child]:border-0">
+        <tbody className="overflow-scroll [&_tr:last-child]:border-0">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr

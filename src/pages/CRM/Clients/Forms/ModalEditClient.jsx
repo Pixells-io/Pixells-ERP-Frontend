@@ -14,7 +14,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const navigation = useNavigation;
 
-function ModalEditClient({ modal, setModal, info, client }) {
+function ModalEditClient({ modal, setModal, info, client, link }) {
   useEffect(() => {
     if (navigation.state === "idle") {
       setOpen(false);
@@ -25,12 +25,12 @@ function ModalEditClient({ modal, setModal, info, client }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
-          <DialogTitle className="font-poppins">Edit Client</DialogTitle>
+          <DialogTitle className="font-poppins">Edit Information</DialogTitle>
         </DialogHeader>
         <Form
           id="client-form-edit"
           className="flex flex-col gap-8 px-6"
-          action={`/crm/client/${client.id}`}
+          action={link}
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {

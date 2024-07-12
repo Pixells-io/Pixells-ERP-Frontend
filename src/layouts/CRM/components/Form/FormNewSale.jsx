@@ -19,7 +19,6 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import DropzoneFile from "@/components/dropzone-files";
 
 function FormNewSale({ clients }) {
-  console.log(clients);
   const [open, setOpen] = useState(false);
   const navigation = useNavigation();
 
@@ -35,7 +34,6 @@ function FormNewSale({ clients }) {
     options.push(newObj);
   });
 
-  console.log(options);
   return (
     <Dialog>
       <DialogTrigger asChild>
