@@ -102,6 +102,8 @@ function ProjectTable() {
     }
   }
 
+  console.log(Projectdata);
+
   return (
     <div className="flex h-full flex-col px-4 pb-10">
       <PhaseDestroy
@@ -290,13 +292,13 @@ function ProjectTable() {
                       </div>
                       <div className="col-span-1">
                         <p className="text-[12px] font-normal text-grisHeading">
-                          {activity?.duration} Days
+                          {activity?.duration + 1} Days
                         </p>
                       </div>
                       <div className="col-span-1">
                         <p className="text-[12px] font-normal text-grisHeading">
                           {activity?.status === 0 ? (
-                            <>{activity?.remaining} Days</>
+                            <>{activity?.remaining + 1} Days</>
                           ) : (
                             <span className="rounded-3xl bg-[#00A2591F] px-2 py-1 font-roboto text-xs font-normal leading-3 text-[#00A259] hover:bg-[#00A2591F]">
                               Done
