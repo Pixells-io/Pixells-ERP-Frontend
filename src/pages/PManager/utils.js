@@ -469,3 +469,17 @@ export async function deleteDocument(data) {
 
   return response;
 }
+export async function removeAssignedActivity(data) {
+  const id = data.get("assigned_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-activity-assigned/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -37,7 +37,7 @@ function DocumentDestroy({ documentId, name }) {
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-delete-activity"
+          id="form-delete-document"
           className="flex h-full w-full flex-col gap-3 px-8"
           action={`/project-manager/${params.id}/projects/${params.projectId}`}
           method="post"
