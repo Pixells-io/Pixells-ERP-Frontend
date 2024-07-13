@@ -6,6 +6,8 @@ import {
   chevronBack,
   chevronForward,
   closeCircleOutline,
+  ellipsisHorizontal,
+  ellipsisVertical,
   globeOutline,
 } from "ionicons/icons";
 
@@ -104,7 +106,7 @@ function Main() {
                 </div>
                 <div className="mt-1 text-white">
                   <IonIcon
-                    icon={closeCircleOutline}
+                    icon={ellipsisVertical}
                     className="text-lg"
                     onClick={() => removeSelectedClick(service?.id)}
                   ></IonIcon>

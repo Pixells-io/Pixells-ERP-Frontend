@@ -13,8 +13,14 @@ import { Calendar } from "@/components/ui/calendar";
 import TimeManagement from "./Components/TimeManagement";
 import GeneralMetrics from "./Components/Metrics";
 import CustomersGrowth from "./Components/CustomersGrowth";
+import { format } from "date-fns";
+import { useLoaderData } from "react-router-dom";
 
 function MainDashboard({ isDragging }) {
+  const newDate = format(new Date(), "PP");
+  const { data } = useLoaderData();
+
+  console.log(data);
   return (
     <div className="flex w-full">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -53,12 +59,12 @@ function MainDashboard({ isDragging }) {
               <div>
                 <div>
                   <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, Diego Guzman
+                    Welcome, {data.user.name} {data.user.last_name}
                   </h2>
                 </div>
                 <div className="pt-2">
                   <span className="font-roboto text-sm font-medium text-[#44444F]">
-                    9 de Marzo del 2024
+                    {newDate}
                   </span>
                 </div>
               </div>

@@ -89,7 +89,6 @@ export async function newInductionExam(data) {
       duration: Number(data.get("exam_duration")),
       questions: data.get("questions"),
     };
-    console.log(examen);
 
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,

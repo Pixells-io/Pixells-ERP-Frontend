@@ -201,14 +201,11 @@ function MainService() {
                     <IonIcon icon={addOutline} className="h-5 w-5"></IonIcon>
                   </button>
                 </div>
-                <div className="flex gap-4">
+                <div className="grid grid-cols-4 gap-4">
                   {data?.process.map((process, i) => (
-                    <div
-                      className="my-2 w-1/4 rounded-2xl bg-blancoBox"
-                      key={i}
-                    >
-                      <div className="mb-2 ml-14 flex gap-4 rounded-t-2xl bg-blancoBox2 pt-2">
-                        <span className="font-roboto text-sm text-grisText">
+                    <div className="my-2 rounded-2xl bg-blancoBox" key={i}>
+                      <div className="mb-2 flex gap-4 rounded-t-2xl bg-blancoBox2 pt-2">
+                        <span className="ml-14 font-roboto text-sm text-grisText">
                           STEP {i + 1}
                         </span>
                         <button
@@ -220,13 +217,13 @@ function MainService() {
                           ></IonIcon>
                         </button>
                       </div>
-                      <div className="my-2 text-center">
-                        <span className="font-roboto text-sm font-normal text-grisText">
+                      <div className="mx2 my-2 text-ellipsis text-center">
+                        <span className="line-clamp-1 text-ellipsis font-roboto text-sm font-normal text-grisText">
                           {process.title}
                         </span>
                       </div>
-                      <div className="my-2 text-center">
-                        <span className="font-roboto text-sm font-normal text-grisText">
+                      <div className="mx-2 my-2 text-ellipsis text-center">
+                        <span className="line-clamp-1 text-ellipsis font-roboto text-sm font-normal text-grisText">
                           {process.action}
                         </span>
                       </div>

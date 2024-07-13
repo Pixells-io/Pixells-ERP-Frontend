@@ -103,7 +103,5 @@ export async function Action({ request }) {
 
   console.log(data);
 
-  return 1;
-
-  //return redirect("/org-development/capacitation");
+  return redirect("/org-development/capacitation");
 }

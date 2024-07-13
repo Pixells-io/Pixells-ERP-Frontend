@@ -175,7 +175,7 @@ function ExamForm() {
             type="text"
             className="hidden"
             value={inductionId}
-            name="induction_id"
+            name="rel_id"
             readOnly
           />
           <button type="submit">Enviar</button>
