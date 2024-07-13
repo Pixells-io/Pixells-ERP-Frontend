@@ -11,6 +11,7 @@ import NewStepService from "./components/Forms/NewStepService";
 import {
   moveProgressColumn,
   progressStepAdvance,
+  requireDocument,
   saveNewServiceStep,
 } from "./util";
 
@@ -172,6 +173,9 @@ export async function Action({ params, request }) {
 
     case "move_column":
       return await moveProgressColumn(data);
+
+    case "require_document":
+      return await requireDocument(data);
   }
 
   return 1;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
@@ -10,15 +10,34 @@ import {
 } from "@/components/ui/hover-card";
 
 import { IonIcon } from "@ionic/react";
-import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
+import {
+  addOutline,
+  call,
+  chatbubbleEllipses,
+  mailOpen,
+  pulseOutline,
+} from "ionicons/icons";
+import FormRequireDocument from "./Forms/FormRequireDocument";
 
 function Customer({ customer, stepId }) {
+  const [modal, setModal] = useState(false);
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
+      <FormRequireDocument
+        modal={modal}
+        setModal={setModal}
+        customer={customer}
+        stepId={stepId}
+      />
       <div className="flex flex-col gap-2">
-        <p className="border-b-[1px] border-[#D7D7D7] text-[13px] text-grisText">
-          {customer.customer_name}
-        </p>
+        <div className="flex justify-between border-b-[1px] border-[#D7D7D7]">
+          <p className="text-[13px] text-grisText">{customer.customer_name}</p>
+          <IonIcon
+            icon={addOutline}
+            className="h-6 w-6 text-grisText"
+            onClick={() => setModal(true)}
+          ></IonIcon>
+        </div>
 
         <div className="line-clamp-5 text-[10px] text-grisHeading">
           {customer.step_latest}
