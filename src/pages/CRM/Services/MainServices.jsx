@@ -115,7 +115,9 @@ function MainServices() {
           </div>
         </div>
 
-        <ServicesBlocks data={analytic.data} />
+        <div className="flex">
+          <ServicesBlocks data={analytic.data} />
+        </div>
 
         <div>
           <DropdownMenu>
