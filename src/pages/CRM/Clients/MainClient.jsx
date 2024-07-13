@@ -161,8 +161,8 @@ function MainClient() {
       </div>
 
       {/* right sidebar */}
-      <div className="ml-4 flex w-[310px] shrink-0 flex-col items-center space-y-4 overflow-scroll rounded-lg bg-gris py-4">
-        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+      <div className="ml-4 flex h-full w-[310px] shrink-0 flex-col items-center space-y-4 overflow-scroll rounded-lg bg-gris py-4">
+        <div className="flex max-h-[306px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex gap-6">
             <div>
               <p className="text-[16px] font-medium text-grisText">Name</p>
@@ -192,39 +192,42 @@ function MainClient() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-6">
-              <p className="text-[16px] font-medium text-grisText">Address</p>
-              <button
-                className="mt-[-10px] text-[30px] font-medium text-primarioBotones"
-                onClick={setModalAdress}
-              >
-                +
-              </button>
-            </div>
+          <div className="flex gap-6">
+            <p className="text-[16px] font-medium text-grisText">Address</p>
+            <button
+              className="mt-[-10px] text-[30px] font-medium text-primarioBotones"
+              onClick={setModalAdress}
+            >
+              +
+            </button>
+          </div>
+          <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.adress?.map((adress, i) => (
-              <div className="flex items-center justify-between" key={i}>
-                <span className="w-7/12 text-[10px] font-medium text-grisSubText">
-                  {adress.street}.{adress.ext}, {adress.int}, {adress.city}, 
-                  {adress.state}, <br />
-                  {adress.country} {adress.cp}
-                </span>
-                {adress.primary === 1 && (
-                  <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                    Primary
+              <div className="flex flex-col" key={i}>
+                <div className="flex items-center justify-between">
+                  <span className="w-7/12 text-[10px] font-medium text-grisSubText">
+                    {adress.street}.{adress.ext}, {adress.int}, {adress.city}
+                    , 
+                    {adress.state}, <br />
+                    {adress.country} {adress.cp}
                   </span>
-                )}
-                <IonIcon
-                  icon={trashOutline}
-                  className="text-grisHeading"
-                  onClick={() => openModalDestroyAddress(adress.id)}
-                />
+                  {adress.primary === 1 && (
+                    <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
+                      Primary
+                    </span>
+                  )}
+                  <IonIcon
+                    icon={trashOutline}
+                    className="text-grisHeading"
+                    onClick={() => openModalDestroyAddress(adress.id)}
+                  />
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+        <div className="flex max-h-[226px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
               CONTACTS
@@ -240,7 +243,7 @@ function MainClient() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.contact?.map((contact, i) => (
               <div className="flex flex-col">
                 <div className="flex items-center justify-between">
@@ -268,7 +271,7 @@ function MainClient() {
           </div>
         </div>
 
-        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+        <div className="flex max-h-[385px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
               DOCUMENTS
@@ -284,13 +287,13 @@ function MainClient() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.documents?.map((document, i) => (
-              <div className="flex w-full">
-                <div className="col-span-3 flex w-7/12 items-center gap-2">
+              <div className="flex w-full justify-between">
+                <div className="col-span-3 flex items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
                   <div>
-                    <p className="font-medium text-grisHeading">
+                    <p className="truncate font-medium text-grisHeading">
                       {document.name}
                     </p>
                     <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
@@ -298,21 +301,23 @@ function MainClient() {
                     </span>
                   </div>
                 </div>
-                <div className="col-span-1 w-3/12 self-end pb-1 pl-2">
-                  <a
-                    target="_blank"
-                    href={document.document}
-                    className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
-                  >
-                    Download
-                  </a>
-                </div>
-                <div className="w-2/12 self-end text-center">
-                  <IonIcon
-                    icon={trashOutline}
-                    className="text-center text-grisHeading"
-                    onClick={() => openModalDestroyDocuments(document.id)}
-                  />
+                <div className="flex h-fit gap-2 self-end">
+                  <div className="col-span-1 flex h-fit pb-1 pl-2">
+                    <a
+                      target="_blank"
+                      href={document.document}
+                      className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                    >
+                      Download
+                    </a>
+                  </div>
+                  <div className="flex h-fit text-center">
+                    <IonIcon
+                      icon={trashOutline}
+                      className="text-center text-grisHeading"
+                      onClick={() => openModalDestroyDocuments(document.id)}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
