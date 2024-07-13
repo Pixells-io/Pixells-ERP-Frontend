@@ -19,8 +19,6 @@ import { useLoaderData } from "react-router-dom";
 function MainDashboard({ isDragging }) {
   const newDate = format(new Date(), "PP");
   const { data } = useLoaderData();
-
-  console.log(data);
   return (
     <div className="flex w-full">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
