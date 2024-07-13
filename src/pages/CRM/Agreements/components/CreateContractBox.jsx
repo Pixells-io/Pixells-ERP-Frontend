@@ -24,7 +24,7 @@ function CreateContractBox({ data }) {
             <input type="hidden" value={data.service_id} name="service_id" />
             <InputRouter
               name={"comments"}
-              placeholder={"Contract Description"}
+              placeholder={"Contract Name"}
               type={"text"}
             />
           </div>

@@ -28,6 +28,8 @@ function AgreementsConsoleContracts({ info }) {
     });
   }
 
+  console.log(TABS);
+
   return (
     <div className="flex h-full w-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
       <Tabs defaultValue="inbox" className="w-full">
@@ -69,14 +71,17 @@ function AgreementsConsoleContracts({ info }) {
               className="flex h-fit flex-wrap justify-center gap-6 overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
-                <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
-                  <div className="h-full p-2 text-end">
-                    <DropdownMenu>
+                <div className="flex h-48 w-48 flex-col gap-1 rounded-lg bg-blancoBox px-4 py-2">
+                  <div className="flex items-center justify-between">
+                    <p className="flex items-center text-[10px] text-grisHeading">
+                      {agreement.comments}
+                    </p>
+                    <DropdownMenu className="flex">
                       <DropdownMenuTrigger>
                         <IonIcon
                           icon={ellipsisHorizontal}
                           size="medium"
-                          className="text-grisHeading"
+                          className="flex text-grisHeading"
                         ></IonIcon>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
@@ -94,12 +99,13 @@ function AgreementsConsoleContracts({ info }) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    <div className="h-full bg-blancoBg"></div>
                   </div>
-                  <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
-                    <p className="flex text-[10px] text-grisHeading">
-                      {agreement.name}
+                  <div className="h-full bg-blancoBg"></div>
+                  <div className="flex h-14 flex-col rounded-lg bg-blancoBox pt-2">
+                    <p className="text-[10px] font-medium text-grisHeading">
+                      Service
                     </p>
+
                     <p className="flex text-[10px] text-grisHeading">
                       {agreement.customer}
                     </p>
