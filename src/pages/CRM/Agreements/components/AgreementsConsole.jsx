@@ -35,7 +35,7 @@ function AgreementsConsole({ services, customers }) {
   }
 
   return (
-    <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+    <div className="flex h-full w-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
       <FormCreateContract
         modal={modal}
         setModal={setModal}
@@ -43,8 +43,11 @@ function AgreementsConsole({ services, customers }) {
         agreement={agreementId}
       />
       <Tabs defaultValue="inbox" className="w-full">
-        <div className="grid h-full w-full grid-cols-12">
-          <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
+        <div className="flex h-full w-full">
+          <TabsList className="flex h-full flex-col justify-normal gap-2 bg-transparent">
+            <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
+              Templates
+            </p>
             <div className="flex h-full flex-col gap-2 border-r pr-2">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
@@ -75,42 +78,40 @@ function AgreementsConsole({ services, customers }) {
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="col-span-10 flex h-full gap-6 overflow-visible"
+              className="flex h-fit flex-wrap justify-center gap-6 overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
-                <div className="flex gap-6">
-                  <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
-                    <div className="h-full p-2 text-end">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          <IonIcon
-                            icon={ellipsisHorizontal}
-                            size="medium"
-                            className="text-grisHeading"
-                          ></IonIcon>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuItem>
-                            <Link to={`/crm/agreements/edit/${agreement.id}`}>
-                              Edit
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <button
-                              onClick={() => openModalFunction(agreement.id)}
-                            >
-                              Create
-                            </button>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <div className="h-full bg-blancoBg"></div>
-                    </div>
-                    <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
-                      <p className="flex text-[10px] text-grisHeading">
-                        {agreement.name}
-                      </p>
-                    </div>
+                <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox first:ml-8">
+                  <div className="h-full p-2 text-end">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <IonIcon
+                          icon={ellipsisHorizontal}
+                          size="medium"
+                          className="text-grisHeading"
+                        ></IonIcon>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>
+                          <Link to={`/crm/agreements/edit/${agreement.id}`}>
+                            Edit
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <button
+                            onClick={() => openModalFunction(agreement.id)}
+                          >
+                            Create
+                          </button>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <div className="h-full bg-blancoBg"></div>
+                  </div>
+                  <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
+                    <p className="flex text-[10px] text-grisHeading">
+                      {agreement.name}
+                    </p>
                   </div>
                 </div>
               ))}

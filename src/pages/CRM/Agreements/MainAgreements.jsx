@@ -50,8 +50,8 @@ function MainAgreements() {
           </div>
         </div>
 
-        <Tabs defaultValue="template" className="h-full w-full">
-          <div className="flex items-center gap-3">
+        <Tabs defaultValue="template" className="flex h-full w-full flex-col">
+          <div className="flex w-full items-center gap-3">
             <TabsList className="gap-3 bg-transparent">
               <TabsTrigger
                 value={"template"}
@@ -74,10 +74,10 @@ function MainAgreements() {
               ></IonIcon>
             </Link>
           </div>
-          <TabsContent value={"template"} className="h-full">
+          <TabsContent value={"template"} className="h-full w-full">
             <AgreementsConsole services={data} customers={customers.data} />
           </TabsContent>
-          <TabsContent value={"contracts"} className="h-full">
+          <TabsContent value={"contracts"} className="h-full w-full">
             <AgreementsConsoleContracts info={contracts_data} />
           </TabsContent>
         </Tabs>
