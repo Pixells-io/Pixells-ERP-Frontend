@@ -109,6 +109,36 @@ export async function newInductionExam(data) {
   }
 }
 
+export async function newCapacitationExam(data) {
+  console.log(data);
+  try {
+    const examen = {
+      rel_id: data.get("rel_id"),
+      exam_type: 2, // 1 - Induccion, 2 - Capacitacion
+      title: data.get("exam_title"),
+      duration: Number(data.get("exam_duration")),
+      questions: data.get("questions"),
+    };
+    console.log(examen);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,
+      {
+        method: "POST",
+        body: JSON.stringify(examen),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return "No batea";
+    // return new Response("ok");
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function storeAnswerExam(data, arreglo) {
   try {
     const answer = {

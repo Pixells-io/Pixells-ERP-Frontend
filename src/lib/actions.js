@@ -160,15 +160,38 @@ export async function getCategoriesAndServices() {
   }
 }
 
+export async function getServicesCards() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-services-card`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderServices() {
-  const [services, categories, packages, positions, categoriesServices, users] =
-    await Promise.all([
-      getServices(),
-      getCategories(),
-      getPackages(),
-      getPosition(),
-      getCategoriesAndServices(),
-    ]);
+  const [
+    services,
+    categories,
+    packages,
+    positions,
+    categoriesServices,
+    analytic,
+  ] = await Promise.all([
+    getServices(),
+    getCategories(),
+    getPackages(),
+    getPosition(),
+    getCategoriesAndServices(),
+    getServicesCards(),
+  ]);
 
   return json({
     services,
@@ -176,6 +199,7 @@ export async function multiLoaderServices() {
     packages,
     positions,
     categoriesServices,
+    analytic,
   });
 }
 

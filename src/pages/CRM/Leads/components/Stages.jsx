@@ -55,62 +55,60 @@ function Stages() {
 
     console.log(next_column, column_id);
 
-    if (next_column === column_id) {
-      //Set the information
-      setLeadAssigned(lead.assigned);
-      setLeadId(lead.id);
+    //Set the information
+    setLeadAssigned(lead.assigned);
+    setLeadId(lead.id);
 
-      //Open the menu
-      switch (next_column) {
-        case 1:
-          setModal({
-            ...modal,
-            prospect: true,
-          });
-          break;
+    //Open the menu
+    switch (column_id) {
+      /*case 1:
+        setModal({
+          ...modal,
+          prospect: true,
+        });
+        break;
 
-        case 2:
-          setModal({
-            ...modal,
-            potential: true,
-          });
-          break;
+      case 2:
+        setModal({
+          ...modal,
+          potential: true,
+        });
+        break;
 
-        case 3:
-          setModal({
-            ...modal,
-            followup: true,
-          });
-          break;
+      case 3:
+        setModal({
+          ...modal,
+          followup: true,
+        });
+        break;
 
-        case 4:
-          setModal({
-            ...modal,
-            proposal: true,
-          });
-          break;
+      case 4:
+        setModal({
+          ...modal,
+          proposal: true,
+        });
+        break;*/
 
-        case 5:
-          setModal({
-            ...modal,
-            closing: true,
-          });
-          break;
+      case 5:
+        setModal({
+          ...modal,
+          closing: true,
+        });
+        break;
 
-        case 6:
-          setModal({
-            ...modal,
-            pay: true,
-          });
-          break;
+      case 6:
+        setModal({
+          ...modal,
+          pay: true,
+        });
+        break;
 
-        case 7:
-          setModal({
-            ...modal,
-            kickoff: true,
-          });
-          break;
-      }
+      case 7:
+        setModal({
+          ...modal,
+          kickoff: true,
+        });
+        break;
     }
   }
 

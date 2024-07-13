@@ -26,6 +26,7 @@ const FIELD_NUMBER = [
   { type: "4", value: "date" },
   { type: "5", value: "select" },
   { type: "6", value: "number" },
+  { type: "7", value: "document" },
 ];
 
 function FormStepCustom({
