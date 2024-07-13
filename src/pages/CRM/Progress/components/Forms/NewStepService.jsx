@@ -22,7 +22,6 @@ const CATEGORIES = [
   { value: "5", label: "Shipping" },
   { value: "6", label: "Closeup" },
   { value: "7", label: "Generic" },
-  { value: "8", label: "Interview" },
 ];
 
 function NewStepService({ serviceId, submitting, service }) {

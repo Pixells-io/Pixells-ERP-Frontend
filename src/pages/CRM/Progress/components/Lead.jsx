@@ -9,7 +9,7 @@ function Lead({ lead, index, stageId, setModal }) {
     <li className="cursor-grab active:cursor-grabbing">
       <div
         draggable
-        className="bg-white p-2 rounded-lg"
+        className="rounded-lg bg-white p-2"
         onDragOver={(event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -22,7 +22,7 @@ function Lead({ lead, index, stageId, setModal }) {
         }}
       >
         <div className="flex flex-col gap-1">
-          <p className="text-[13px] text-grisText border-b-[1px] border-[#D7D7D7]">
+          <p className="border-b-[1px] border-[#D7D7D7] text-[13px] text-grisText">
             {lead.name}
           </p>
           <div className="flex justify-between text-[10px] text-primario">
@@ -30,31 +30,31 @@ function Lead({ lead, index, stageId, setModal }) {
             <p>22 Feb 2024</p>
           </div>
 
-          <div className="text-[10px] text-grisHeading line-clamp-5">
+          <div className="line-clamp-5 text-[10px] text-grisHeading">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam aut
             commodi, tenetur esse eos reiciendis quod sequi ipsam quasi saepe
             iure animi sit illum voluptas amet quae perferendis, dolorum
             nesciunt.
           </div>
 
-          <div className="flex w-full justify-between items-center">
-            <div className="flex gap-1 justify-between items-center pl-4">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#D7586B] text-white text-sm font-semibold">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex items-center justify-between gap-1 pl-4">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#D7586B] text-sm font-semibold text-white">
                 <p>0</p>
               </div>
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#F9D994] text-white text-sm font-semibold">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F9D994] text-sm font-semibold text-white">
                 <p>0</p>
               </div>
               <div className="flex">
                 <IonIcon
                   icon={chatbubbleEllipses}
-                  className="w-6 h-6 text-[#40BD72]"
+                  className="h-6 w-6 text-[#40BD72]"
                 ></IonIcon>
               </div>
             </div>
 
             <div>
-              <Avatar className="w-6 h-6">
+              <Avatar className="h-6 w-6">
                 <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
