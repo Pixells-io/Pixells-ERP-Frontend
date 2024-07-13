@@ -29,6 +29,7 @@ import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 
 function MainClient() {
+  const { data } = useLoaderData();
   const client = data[0];
 
   const [modalAdress, setModalAdress] = useState(false);
@@ -67,36 +68,36 @@ function MainClient() {
       <FormCreateAdress
         modal={modalAdress}
         setModal={setModalAdress}
-        masterId={client?.master.id}
+        masterId={client?.master?.id}
       />
       <FormCreateContacts
         modal={modalContact}
         setModal={setModalContact}
-        masterId={client?.master.id}
+        masterId={client?.master?.id}
       />
       <FormCreateDocuments
         modal={modalDocument}
         setModal={setModalDocument}
-        masterId={client?.master.id}
-        url={`/crm/client/${client?.master.id}`}
+        masterId={client?.master?.id}
+        url={`/crm/client/${client?.master?.id}`}
       />
       <ModalDestroyAddress
         modal={modalDestroyAddress}
         setModal={setModalDestroyAddress}
         addressId={addressId}
-        masterId={client?.master.id}
+        masterId={client?.master?.id}
       />
       <ModalDestroyContacts
         modal={modalDestroyContacts}
         setModal={setModalDestroyContacts}
         contactId={contactsId}
-        masterId={client?.master.id}
+        masterId={client?.master?.id}
       />
       <ModalDestroyDocuments
         modal={modalDestroyDocuments}
         setModal={setModalDestroyDocuments}
         documentId={documentsId}
-        masterId={client?.master.id}
+        masterId={client?.master?.id}
       />
       <ModalEditClient
         modal={modalEdit}
@@ -108,7 +109,7 @@ function MainClient() {
       <ModalClientAccess
         modal={accessModal}
         setModal={setAccessModal}
-        client_id={client?.master.id}
+        client_id={client?.master?.id}
         email={client?.email}
       />
       <div className="flex w-full overflow-auto">
@@ -166,7 +167,7 @@ function MainClient() {
             <div>
               <p className="text-[16px] font-medium text-grisText">Name</p>
               <span className="text-[10px] font-medium text-grisSubText">
-                {client?.info.business_name}
+                {client?.info?.business_name}
               </span>
             </div>
             <div>
@@ -201,7 +202,7 @@ function MainClient() {
                 +
               </button>
             </div>
-            {client?.adress.map((adress, i) => (
+            {client?.adress?.map((adress, i) => (
               <div className="flex items-center justify-between" key={i}>
                 <span className="w-7/12 text-[10px] font-medium text-grisSubText">
                   {adress.street}.{adress.ext}, {adress.int}, {adress.city}, 
@@ -240,7 +241,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3">
-            {client?.contact.map((contact, i) => (
+            {client?.contact?.map((contact, i) => (
               <div className="flex flex-col">
                 <div className="flex items-center justify-between">
                   <p className="w-7/12 text-sm text-grisText">
@@ -284,7 +285,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3">
-            {client?.documents.map((document, i) => (
+            {client?.documents?.map((document, i) => (
               <div className="flex w-full">
                 <div className="col-span-3 flex w-7/12 items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
