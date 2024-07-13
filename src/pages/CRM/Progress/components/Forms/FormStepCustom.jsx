@@ -41,6 +41,7 @@ function FormStepCustom({
   nextName,
 }) {
   const params = useParams();
+  console.log(customer);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
@@ -103,7 +104,7 @@ function FormStepCustom({
             <input
               className="hidden"
               name="customer_id"
-              value={customer?.id}
+              value={customer?.customer_id}
               readOnly
             />
             <input
