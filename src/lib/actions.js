@@ -677,12 +677,13 @@ export async function multiloaderTablesCRM() {
 
 export async function multiloaderProgressSteps({ params }) {
   const serviceId = params.id;
-  const [steps, users] = await Promise.all([
+  const [services, steps, users] = await Promise.all([
+    getSerivicesSelected(),
     getServiceSteps(serviceId),
     getUsers(),
   ]);
 
-  return json({ steps, users });
+  return json({ services, steps, users });
 }
 /* Notifications Loader */
 export async function getNotificationsChat() {

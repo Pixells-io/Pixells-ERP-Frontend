@@ -29,6 +29,7 @@ function Main() {
     setIdSelected(id);
     setModalRemove(true);
   }
+
   return (
     <div className="flex w-full overflow-auto">
       <FormDeleteSelectedService
@@ -116,7 +117,7 @@ function Main() {
           </div>
         </div>
 
-        <Outlet context={{ services }} />
+        <Outlet />
       </div>
     </div>
   );
@@ -124,7 +125,8 @@ function Main() {
 
 export default Main;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
+  const paramId = params.id;
   const data = await request.formData();
 
   switch (data.get("type_function")) {
@@ -134,10 +136,7 @@ export async function Action({ request }) {
       break;
     case "2":
       //Remove selected Service
-      await removeSelectedService(data);
-      break;
-
-    default:
+      await removeSelectedService(paramId, data);
       break;
   }
 

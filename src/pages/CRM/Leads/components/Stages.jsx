@@ -190,8 +190,7 @@ function Stages() {
         {stages?.map((stage, i) => (
           <div
             key={stage.id}
-            className="dd-element flex h-full w-[200px] shrink-0 flex-col gap-2"
-            droppable="true"
+            className="flex h-full w-[200px] shrink-0 flex-col gap-2"
             onDragOver={(evt) => draggingOver(evt)}
             onDrop={(evt) => onDrop(evt, stage.id)}
           >
