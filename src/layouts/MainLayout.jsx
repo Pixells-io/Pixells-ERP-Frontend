@@ -94,7 +94,7 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData } = useLoaderData();
 
-  const userData = userAuth.data.user;
+  const userData = userAuth.data?.user;
 
   useEffect(() => {
     async function fetchData() {
@@ -141,12 +141,12 @@ function MainLayout() {
                     <IonIcon icon={item.icon} className="h-10 w-10"></IonIcon>
                     {location?.pathname === item.path ? (
                       <div className="w-11 truncate text-[10px]">
-                        <p className="text-center">{item.name}</p>
+                        <p className="text-center">{item?.name}</p>
                       </div>
                     ) : (
                       <div className="hidden w-11 truncate text-[10px] group-hover:flex">
                         <p className="group-hover:mx-auto group-hover:flex">
-                          {item.name}
+                          {item?.name}
                         </p>
                       </div>
                     )}

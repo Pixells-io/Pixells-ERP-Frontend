@@ -59,7 +59,7 @@ function MainDashboard({ isDragging }) {
               <div>
                 <div>
                   <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, {data.user.name} {data.user.last_name}
+                    Welcome, {data.user?.name} {data.user?.last_name}
                   </h2>
                 </div>
                 <div className="pt-2">
