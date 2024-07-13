@@ -32,9 +32,21 @@ function TicketsTable({ tickets }) {
       accessorKey: "status",
       cell: ({ row }) => {
         return (
-          <Badge variant="" className="bg-orange-400">
-            {row.original.status}
-          </Badge>
+          <>
+            {row.original.status === "Created" ? (
+              <Badge variant="" className="bg-[#7794f925] text-[#7794f9]">
+                {row.original.status}
+              </Badge>
+            ) : row.original.status === "In Process" ? (
+              <Badge variant="" className="bg-[#FAA36425] text-[#FAA364]">
+                {row.original.status}
+              </Badge>
+            ) : row.original.status === "Complete" ? (
+              <Badge variant="" className="bg-[#00A25925] text-[#00AA259]">
+                {row.original.status}
+              </Badge>
+            ) : null}
+          </>
         );
       },
     }),

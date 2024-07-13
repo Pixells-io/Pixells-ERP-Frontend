@@ -4,6 +4,7 @@ import {
   useLoaderData,
   useOutletContext,
   useLocation,
+  useNavigation,
 } from "react-router-dom";
 
 import NewStepService from "./components/Forms/NewStepService";
@@ -12,19 +13,30 @@ import {
   progressStepAdvance,
   saveNewServiceStep,
 } from "./util";
-import Step from "./components/Step";
+
 import { pusherClient } from "@/lib/pusher";
 import { getServiceSteps } from "@/lib/actions";
 
+import Customer from "./components/Customer";
+import FormStepCustom from "./components/Forms/FormStepCustom";
+
 function StepsProgress() {
+  const navigation = useNavigation();
   const location = useLocation();
   const { id } = useParams();
-  const { steps, users } = useLoaderData();
-  const { services } = useOutletContext();
+  const { services, steps, users } = useLoaderData();
 
   const [urlId, setUrlId] = useState(id);
   const [initialData, setInitialData] = useState(steps);
   const [dataPusher, setDataPusher] = useState(initialData);
+
+  const [modalProcess, setModalProcess] = useState(false);
+  const [leadAssigned, setLeadAssigned] = useState("");
+  const [customerInfo, setCustomerInfo] = useState({});
+  const [order, setOrder] = useState("");
+  const [fields, setFields] = useState([]);
+  const [currentStep, setCurrentStep] = useState({});
+  const [nextStepName, setNextStepName] = useState("");
 
   useEffect(() => {
     setUrlId(id);
@@ -53,21 +65,89 @@ function StepsProgress() {
     getSteps();
   }, [id]);
 
+  const startDrag = (evt, item, order, step) => {
+    //evt.dataTransfer.setData("lead", item);
+    setCustomerInfo(item);
+    setOrder(order);
+    setCurrentStep(step);
+  };
+
+  const draggingOver = (evt) => {
+    evt.preventDefault();
+  };
+
+  const onDrop = (evt, list, fields, step) => {
+    setNextStepName(step?.step?.name);
+    setFields(fields);
+    openCorrectModal(list, customerInfo, order);
+  };
+
+  function openCorrectModal(column_id, customer, order) {
+    //The column is the correct
+
+    if (Number(order) + 1 == column_id) {
+      //Set the information
+      setLeadAssigned(customer.assigned);
+      //Open the modal
+      setModalProcess(true);
+    }
+  }
+
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
-        {dataPusher.data?.map((step, i) => {
-          const service = services?.data.find((service) => service.id == id);
-          return (
-            <Step
-              services={service}
+        <FormStepCustom
+          fields={fields}
+          modal={modalProcess}
+          setModal={setModalProcess}
+          users={users}
+          navigation={navigation}
+          assigned={leadAssigned}
+          customer={customerInfo}
+          step={currentStep}
+          nextName={nextStepName}
+        />
+        <div className="flex gap-2">
+          {dataPusher?.data.map((step, i) => (
+            <div
               key={i}
-              stepInfo={step}
-              fields={step.fields}
-              users={users}
-            />
-          );
-        })}
+              className="flex h-full w-[200px] shrink-0 flex-col gap-2"
+              onDragOver={(evt) => draggingOver(evt)}
+              onDrop={(evt) =>
+                onDrop(evt, step?.step?.order, step?.fields, step)
+              }
+            >
+              <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
+                <p className="text-base text-grisText">{step?.step.name}</p>
+                <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
+                  <p className="text-xs font-semibold text-grisHeading">
+                    {step?.customers?.length}
+                  </p>
+                </div>
+              </div>
+              <div className="flex h-full flex-col gap-2 overflow-scroll rounded-lg bg-blancoBox p-2">
+                <ul className="flex h-full flex-col gap-2">
+                  {step?.customers.map((customer, i) => (
+                    <li
+                      key={i}
+                      draggable="true"
+                      className="flex w-full shrink-0 cursor-grab flex-col active:cursor-grabbing"
+                      onDragStart={(evt) =>
+                        startDrag(evt, customer, step?.step.order, step)
+                      }
+                    >
+                      <Customer
+                        key={customer.id}
+                        customer={customer}
+                        stepId={step.id}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
       <NewStepService
         serviceId={id}

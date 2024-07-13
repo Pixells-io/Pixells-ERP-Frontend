@@ -212,7 +212,9 @@ import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations
 import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
-import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
+import CreateExamCapacitation, {
+  Action as createExamCapacitationFunction,
+} from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
 import MainEvaluations, {
   Action as newEvaluation,
 } from "./pages/OrgDev/Evaluation/MainEvaluations";
@@ -257,6 +259,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
+        loader: getUserByToken,
       },
       // crm
       {
@@ -549,6 +552,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/create/:id",
             element: <CreateExamCapacitation />,
+            action: createExamCapacitationFunction,
           },
           {
             path: "/org-development/capacitation/my-capacitations",

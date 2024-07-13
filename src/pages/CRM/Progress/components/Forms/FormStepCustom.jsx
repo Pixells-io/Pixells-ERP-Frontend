@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
 
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 import UserSelect from "@/components/UserSelect";
@@ -26,6 +26,7 @@ const FIELD_NUMBER = [
   { type: "4", value: "date" },
   { type: "5", value: "select" },
   { type: "6", value: "number" },
+  { type: "7", value: "document" },
 ];
 
 function FormStepCustom({
@@ -33,20 +34,21 @@ function FormStepCustom({
   modal,
   setModal,
   step,
-  service,
   users,
-  customerId,
   navigation,
+  assigned,
+  customer,
+  nextName,
 }) {
-  console.log(step);
+  const params = useParams();
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
         <div className="flex rounded-t-lg border-b p-6">
           <DialogHeader>
             <DialogTitle className="font-poppins text-sm font-semibold text-grisHeading">
-              <span className="font-light">Donde estas </span> &gt; {step?.name}{" "}
-              &bull; <span>{service?.name}</span>
+              <span className="font-light">{step?.step?.name} </span> &gt;{" "}
+              <span>{nextName}</span>
             </DialogTitle>
           </DialogHeader>
         </div>
@@ -57,7 +59,7 @@ function FormStepCustom({
         </DialogDescription>
         <Form
           id="progress-step-form"
-          action={`/crm/progress/${service.id}`}
+          action={`/crm/progress/${params?.id}`}
           method="post"
           className="flex flex-col gap-2 px-8"
           encType="multipart/form-data"
@@ -101,13 +103,13 @@ function FormStepCustom({
             <input
               className="hidden"
               name="customer_id"
-              value={customerId}
+              value={customer?.id}
               readOnly
             />
             <input
               className="hidden"
               name="next_step"
-              value={step.id}
+              value={step?.id}
               readOnly
             />
             <input
@@ -121,7 +123,7 @@ function FormStepCustom({
             <div className="flex items-center gap-2">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={""} />
+                  <AvatarImage src={assigned?.image} />
                   <AvatarFallback>DG</AvatarFallback>
                 </Avatar>
                 <p className="text-[10px] text-grisText">Assigned</p>
@@ -133,16 +135,16 @@ function FormStepCustom({
                 ></IonIcon>
               </div>
               <div className="flex w-16 flex-col items-center gap-2">
-                <UserSelect users={users} />
+                <UserSelect users={users} leadAssigned={assigned} />
                 <p className="text-[10px] text-grisText">Assign To</p>
               </div>
             </div>
             <Button
-              disabled={navigation.state === "submitting"}
+              disabled={navigation?.state === "submitting"}
               type="submit"
               className="bg-primarioBotones"
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+              {navigation?.state === "submitting" ? "Submitting..." : "Save"}
             </Button>
           </div>
         </Form>
