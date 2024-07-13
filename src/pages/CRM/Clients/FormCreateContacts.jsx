@@ -13,7 +13,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 
 function FormCreateContacts({ modal, setModal, masterId }) {
-  const navigation = useNavigation;
+  const navigation = useNavigation();
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
