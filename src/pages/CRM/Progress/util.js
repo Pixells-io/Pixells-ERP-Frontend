@@ -161,3 +161,28 @@ export async function moveProgressColumn(data) {
   }
   return response;
 }
+
+export async function requireDocument(data) {
+  const info = {
+    customer_id: data.get("customer_id"),
+    service_id: data.get("service_id"),
+    name: data.get("name"),
+    comment: data.get("comment"),
+    required_date: data.get("required_date"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/require-document`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}
