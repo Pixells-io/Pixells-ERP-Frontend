@@ -454,3 +454,18 @@ export async function deleteProject(data) {
 
   return response;
 }
+
+export async function deleteDocument(data) {
+  const id = data.get("document_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-document/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
