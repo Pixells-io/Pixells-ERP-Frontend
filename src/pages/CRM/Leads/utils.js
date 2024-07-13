@@ -180,14 +180,17 @@ export async function closingLeadForm(data) {
     ammount: data.getAll("ammount"),
     assigned: data.get("assigned_id"),
   };
+  const formData = new FormData();
 
-  // validaciones?
+  formData.append("info", JSON.stringify(closing));
+  formData.append("service_paymnent", data.get("service_paymnent"));
+  formData.append("service_paymnent", data.get("service_agreement"));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process/closing`,
     {
       method: "POST",
-      body: JSON.stringify(closing),
+      body: JSON.stringify(formData),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

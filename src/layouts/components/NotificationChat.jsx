@@ -48,14 +48,12 @@ function NotificationChat({ notifications, user }) {
   }, []);
 
   return (
-    <div>
+    <div className="flex">
       {notificationsPusher[0]?.number == 0 ? (
         ""
       ) : (
-        <div className="fixed right-[155px] top-1 z-10 h-5 w-5 items-center justify-center rounded-full border border-white bg-[#D7586B] text-white">
-          <span className="fixed top-[14px] ml-[6px] mt-[-9px] h-5 w-5 text-xs">
-            {notificationsPusher[0]?.number}
-          </span>
+        <div className="relative -top-1 left-10 z-10 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#D7586B] text-xs text-white">
+          {notificationsPusher[0]?.number}
         </div>
       )}
       <DropdownMenu>

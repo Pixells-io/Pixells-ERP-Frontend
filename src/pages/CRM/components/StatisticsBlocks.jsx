@@ -93,8 +93,7 @@ function StatisticsBlock({ data }) {
           </div>
         </div>
       </div>
-      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3"></div>
-      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3">
+      <div className="flex w-52 flex-col justify-end gap-2 rounded-lg px-4 py-3">
         <button
           className="ml-28 mt-16 h-10 w-10 rounded-full bg-[#E8E8E8]"
           onClick={() => setModal(true)}
