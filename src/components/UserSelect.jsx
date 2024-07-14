@@ -60,6 +60,7 @@ function UserSelect({ users, leadAssigned }) {
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(leadAssigned);
 
+  console.log(selectedStatus);
   return (
     <div className="flex items-center">
       <input
@@ -76,7 +77,7 @@ function UserSelect({ users, leadAssigned }) {
               <>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
-                    src={selectedStatus?.image || selectedStatus?.url}
+                    src={selectedStatus?.image || selectedStatus?.user_image}
                   />
                   <AvatarFallback>
                     {selectedStatus?.name?.slice(1)}

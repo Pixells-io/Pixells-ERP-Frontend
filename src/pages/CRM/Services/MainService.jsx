@@ -23,6 +23,7 @@ import {
 import ServiceProcessForm from "./components/Forms/ServiceProcessForm";
 import DestroyProcessForm from "./components/Forms/DestroyProcessForm";
 import DestroyServiceForm from "./components/Forms/DestroyServiceForm";
+import ModalCreateInterview from "./components/Forms/ModalCreateInterview";
 
 function MainService() {
   const { data } = useLoaderData();
@@ -31,6 +32,7 @@ function MainService() {
   const [modalProcessDestroy, setModalProcessDestroy] = useState(false);
   const [processId, setProcessId] = useState(false);
   const [modalServiceDestroy, setModalServiceDestroy] = useState(false);
+  const [modalCreateInterview, setModalCreateInterview] = useState(false);
 
   function setProcessIdFunction(id) {
     setProcessId(id);
@@ -63,6 +65,11 @@ function MainService() {
       <DestroyServiceForm
         modal={modalServiceDestroy}
         setModal={setModalServiceDestroy}
+        id={data?.id}
+      />
+      <ModalCreateInterview
+        modal={modalCreateInterview}
+        setModal={setModalCreateInterview}
         id={data?.id}
       />
       <div className="flex w-full overflow-auto">
@@ -297,6 +304,44 @@ function MainService() {
                   +100%
                 </div>
                 <span className="text-[8px]">vs last month</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex w-52 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex gap-4">
+                <p className="text-[22px] font-semibold text-grisHeading">
+                  INTERVIEWS
+                </p>
+                <button onClick={() => setModalCreateInterview(true)}>
+                  <IonIcon icon={addOutline} className="h-5 w-5"></IonIcon>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 overflow-y-scroll">
+              <div className="flex w-full justify-between">
+                <div className="col-span-3 flex items-center gap-2">
+                  <div>
+                    <p className="truncate font-medium text-grisHeading">
+                      Interview 1
+                    </p>
+                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                      Created &bull; Created
+                    </span>
+                  </div>
+                </div>
+                <div className="flex h-fit gap-2 self-end">
+                  <div className="col-span-1 flex h-fit pb-1 pl-2">
+                    <a
+                      target="_blank"
+                      href=""
+                      className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                    >
+                      Show
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

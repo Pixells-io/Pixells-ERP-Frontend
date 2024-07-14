@@ -1,33 +1,20 @@
 import React, { useState } from "react";
 import { redirect, useLoaderData } from "react-router-dom";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { IonIcon } from "@ionic/react";
 import {
   addOutline,
   barChart,
   chevronBack,
   chevronForward,
-  closeOutline,
   ellipsisHorizontal,
-  informationCircle,
   trashOutline,
 } from "ionicons/icons";
-import EditServiceForm from "./components/Forms/EditServicesForm";
 import {
   addCategoryService,
-  createServiceProcess,
   destroyCategory,
-  destroyProcess,
-  destroyService,
   destroyServiceCategory,
   editCategory,
-  editService,
 } from "./utils";
-import ServiceProcessForm from "./components/Forms/ServiceProcessForm";
-import DestroyProcessForm from "./components/Forms/DestroyProcessForm";
-import DestroyServiceForm from "./components/Forms/DestroyServiceForm";
 import EditCategoryForm from "./components/Forms/EditCategoryForm";
 import CategoryAddServicesForm from "./components/Forms/CategoryAddServicesForm";
 import CategoryDeleteServiceForm from "./components/Forms/CategoryDeleteServiceForm";

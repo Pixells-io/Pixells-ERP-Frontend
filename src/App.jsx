@@ -37,7 +37,9 @@ import MainServices, {
 import MainService, {
   Action as ServiceConsoleFunction,
 } from "./pages/CRM/Services/MainService";
-import MainPackage from "./pages/CRM/Services/MainPackage";
+import MainPackage, {
+  Action as PackageEditFunction,
+} from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
@@ -167,6 +169,7 @@ import {
   showService,
   showCategory,
   multilaoderSideLayoutCRM,
+  multiLoaderDashboard,
 } from "./lib/actions";
 
 //Not Found
@@ -259,7 +262,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-        loader: getUserByToken,
+        loader: multiLoaderDashboard,
       },
       // crm
       {
@@ -314,6 +317,7 @@ const router = createBrowserRouter([
             path: "/crm/services/packages/:id",
             element: <MainPackage />,
             loader: getPackageById,
+            action: PackageEditFunction,
           },
           {
             path: "/crm/services",

@@ -517,6 +517,31 @@ export async function getUserByToken() {
   }
 }
 
+export async function getUserDashboardData() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/get-dashboard-data`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderDashboard() {
+  const [user, dashboard] = await Promise.all([
+    getUserByToken(),
+    getUserDashboardData(),
+  ]);
+
+  return json({ user, dashboard });
+}
+
 export async function multiLoaderCSF({ params }) {
   const id = params.id;
   const [goals, users, goalsMaster] = await Promise.all([

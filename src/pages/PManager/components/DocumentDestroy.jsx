@@ -12,9 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
-import { trash } from "ionicons/icons";
+import { closeCircle, trash } from "ionicons/icons";
 
-function ActivityDestroy({ activityId, name }) {
+function DocumentDestroy({ documentId, name }) {
   const [modal, setModal] = useState(false);
   const params = useParams();
   const navigation = useNavigation();
@@ -28,22 +28,34 @@ function ActivityDestroy({ activityId, name }) {
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>
-        <IonIcon icon={trash} className="size-5 text-grisSubText" />
+        <IonIcon icon={closeCircle} className="size-4 text-grisDisabled" />
       </DialogTrigger>
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Activity - {name}
+            Delete Document - {name}
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-delete-activity"
+          id="form-delete-document"
           className="flex h-full w-full flex-col gap-3 px-8"
           action={`/project-manager/${params.id}/projects/${params.projectId}`}
           method="post"
         >
-          <input type="hidden" value={activityId} name="activity_id" />
-          <input type="hidden" value="delete-activity" name="action" />
+          <input
+            type="hidden"
+            hidden
+            readOnly
+            value={documentId}
+            name="document_id"
+          />
+          <input
+            type="hidden"
+            hidden
+            readOnly
+            value="delete-document"
+            name="action"
+          />
           <span className="font-roboto text-[#A6A6A6]">
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
@@ -69,4 +81,4 @@ function ActivityDestroy({ activityId, name }) {
   );
 }
 
-export default ActivityDestroy;
+export default DocumentDestroy;

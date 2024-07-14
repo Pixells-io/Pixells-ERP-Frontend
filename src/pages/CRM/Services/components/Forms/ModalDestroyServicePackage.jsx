@@ -10,7 +10,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function DestroyServiceForm({ modal, setModal, id }) {
+const DAYS = [
+  { label: "Monday", value: "Monday" },
+  { label: "Tuesday", value: "Tuesday" },
+  { label: "Wednesday", value: "Wednesday" },
+  { label: "Thursday", value: "Thursday" },
+  { label: "Friday", value: "Friday" },
+  { label: "Saturday", value: "Saturday" },
+  { label: "Sunday", value: "Sunday" },
+];
+
+function ModalDestroyServicePackage({ modal, setModal, id }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -24,17 +34,17 @@ function DestroyServiceForm({ modal, setModal, id }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Process
+            Delete Service
           </DialogTitle>
         </DialogHeader>
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/services/${id}`}
+          action={`/crm/services/packages/${id}`}
           method="post"
         >
           <input type="hidden" value={id} name="service_id" />
-          <input type="hidden" value={4} name="type_of_function" />
+          <input type="hidden" value="3" name="type_of_function" />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to delete a service, are you sure?
           </span>
@@ -52,4 +62,4 @@ function DestroyServiceForm({ modal, setModal, id }) {
   );
 }
 
-export default DestroyServiceForm;
+export default ModalDestroyServicePackage;

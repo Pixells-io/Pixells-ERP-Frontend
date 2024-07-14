@@ -20,6 +20,16 @@ const packageInputs = [
     type: "text",
     placeholder: "Name",
   },
+  {
+    name: "description",
+    type: "text",
+    placeholder: "Description",
+  },
+  {
+    name: "price",
+    type: "number",
+    placeholder: "Price",
+  },
 ];
 
 function NewPackageForm({ modalPackage, setModalPackage, info }) {

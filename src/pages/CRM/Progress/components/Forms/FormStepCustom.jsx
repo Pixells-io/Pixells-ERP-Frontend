@@ -103,7 +103,7 @@ function FormStepCustom({
             <input
               className="hidden"
               name="customer_id"
-              value={customer?.id}
+              value={customer?.customer_id}
               readOnly
             />
             <input

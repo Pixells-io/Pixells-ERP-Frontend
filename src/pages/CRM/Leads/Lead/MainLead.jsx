@@ -73,7 +73,7 @@ function MainLead() {
             <IonIcon icon={person} className="h-6 w-6 text-grisBg"></IonIcon>
           </div>
           <div className="w-[70px] border-t border-primario"></div>
-
+          {/*
           {step >= 1 ? (
             <>
               <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
@@ -92,7 +92,7 @@ function MainLead() {
               <div className="w-[70px] border-t border-grisDisabled"></div>
             </>
           )}
-
+            
           {step >= 2 ? (
             <>
               <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
@@ -132,7 +132,7 @@ function MainLead() {
               </div>
               <div className="w-[70px] border-t border-grisDisabled"></div>
             </>
-          )}
+          )}*/}
 
           {step >= 4 ? (
             <>

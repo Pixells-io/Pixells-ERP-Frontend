@@ -11,13 +11,24 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { IonIcon } from "@ionic/react";
+import { add, closeCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 import DropzoneFile from "@/components/dropzone-files";
-import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
-function FormCreateDocuments({ modal, setModal, masterId, url }) {
+const DAYS = [
+  { label: "Monday", value: "Monday" },
+  { label: "Tuesday", value: "Tuesday" },
+  { label: "Wednesday", value: "Wednesday" },
+  { label: "Thursday", value: "Thursday" },
+  { label: "Friday", value: "Friday" },
+  { label: "Saturday", value: "Saturday" },
+  { label: "Sunday", value: "Sunday" },
+];
+
+function FormUploadPlatform({ modal, setModal, document_id }) {
   const navigation = useNavigation();
+
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
@@ -29,37 +40,38 @@ function FormCreateDocuments({ modal, setModal, masterId, url }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
-            Create Document
+            Upload Document
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-create-client-document"
+          id="area-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={url}
+          action="/client-platform"
           method="post"
           encType="multipart/form-data"
         >
-          <input type="hidden" name="type" value={3} />
-          <input type="hidden" name="master" value={masterId} />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <InputRouter name="name" type="text" placeholder="Name" />
-              <DropzoneFile name={"document_file"} label={"Document"} />
+              <input type="hidden" name="document_id" value={document_id} />
+              <input type="hidden" name="type" value="8" />
+              <DropzoneFile
+                name={"file"}
+                label={"Drag and drop the document"}
+              />
             </div>
           </div>
-          <div className="px-10 pb-6">
-            <button
+          <DialogFooter className="px-10 pb-6">
+            <Button
               type="submit"
-              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold text-white"
-              onClick={() => setModal(false)}
+              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
             >
               Save
-            </button>
-          </div>
+            </Button>
+          </DialogFooter>
         </Form>
       </DialogContent>
     </Dialog>
   );
 }
 
-export default FormCreateDocuments;
+export default FormUploadPlatform;

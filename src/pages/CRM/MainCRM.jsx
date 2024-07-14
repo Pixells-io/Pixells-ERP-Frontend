@@ -25,7 +25,7 @@ function MainCRM() {
   const [clients, setClients] = useState(loaderClients);
 
   return (
-    <div className="flex w-full">
+    <div className="flex h-full w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -74,7 +74,7 @@ function MainCRM() {
 
         <Tabs
           defaultValue="leads"
-          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          className="h-full w-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
             <TabsTrigger
@@ -90,7 +90,7 @@ function MainCRM() {
               CLIENTS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="leads" className="mt-[-60px] p-2">
+          <TabsContent value="leads" className="mt-[-60px] w-full p-2">
             <DataTable services={services} leads={leads} />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="clients">

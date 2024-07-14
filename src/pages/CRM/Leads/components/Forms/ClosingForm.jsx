@@ -120,7 +120,7 @@ function ClosingForm({
               </div>
               <div>
                 <DropzoneFile
-                  name="service_paymnent"
+                  name="service_payment"
                   label="Payment agreement"
                 />
               </div>

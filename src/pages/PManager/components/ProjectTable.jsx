@@ -39,6 +39,7 @@ import { pusherClient } from "@/lib/pusher";
 import { getProjectById } from "@/lib/actions";
 import ActivityDestroy from "./ActivityDestroy";
 import PhaseDestroy from "./PhaseDestroy";
+import AssignedMenu from "./AssignedMenu";
 
 const HEADERS = [
   { name: "FASE" },
@@ -277,19 +278,13 @@ function ProjectTable() {
                       </div>
 
                       <div className="col-span-1 flex items-center justify-center gap-1">
-                        <div className="flex overflow-scroll">
-                          {activity?.users?.map((user, i) => (
-                            <Avatar className="flex h-6 w-6" key={i}>
-                              <AvatarImage src={user?.img} />
-                              {/* <AvatarFallback>CN</AvatarFallback> */}
-                            </Avatar>
-                          ))}
-                        </div>
+                        <AssignedMenu users={activity?.users} />
                         <AddUserActivity
                           users={users?.data}
                           activity_id={activity.id}
                         />
                       </div>
+
                       <div className="col-span-1">
                         <p className="text-[12px] font-normal text-grisHeading">
                           {activity?.duration + 1} Days
