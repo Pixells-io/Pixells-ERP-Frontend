@@ -186,3 +186,43 @@ export async function requireDocument(data) {
   }
   return response;
 }
+
+export async function editStepProcess(data) {
+  const info = {
+    step_id: data.get("step_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-process-customer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}
+
+export async function deleteStepProcess(data) {
+  const step_id = data.get("step_id");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/destroy-process/${step_id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}

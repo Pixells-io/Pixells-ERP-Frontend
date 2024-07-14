@@ -27,7 +27,7 @@ function StepOptions({ open, setOpen, step }) {
           action={`/crm/progress/${params.id}`}
           method="post"
         >
-          <input type="hidden" value={step.id} name="service_id" />
+          <input type="hidden" value={step.id} name="step_id" />
           <input type="hidden" value="delete-step" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
             This action cannot be undone. This will permanently delete your

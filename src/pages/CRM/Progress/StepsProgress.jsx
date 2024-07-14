@@ -7,6 +7,7 @@ import {
   useNavigation,
   Form,
   useSubmit,
+  redirect,
 } from "react-router-dom";
 
 import {
@@ -20,6 +21,8 @@ import {
 
 import NewStepService from "./components/Forms/NewStepService";
 import {
+  deleteStepProcess,
+  editStepProcess,
   moveProgressColumn,
   progressStepAdvance,
   requireDocument,
@@ -115,7 +118,10 @@ function StepsProgress() {
   }
 
   function onEnterForm(e) {
-    console.log(e);
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      // setEditStepName("");
+    }
   }
 
   return (
@@ -161,8 +167,23 @@ function StepsProgress() {
                       >
                         <input
                           type="text"
+                          name="name"
                           className="flex w-28 px-2"
                           defaultValue={step?.step.name}
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value={step?.step.id}
+                          name="step_id"
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value="edit-step"
+                          name="action"
                         />
                       </Form>
                     </div>
@@ -247,7 +268,13 @@ export async function Action({ params, request }) {
 
     case "require_document":
       return await requireDocument(data);
-  }
 
-  return 1;
+    case "delete-step":
+      await deleteStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+
+    case "edit-step":
+      await editStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+  }
 }
