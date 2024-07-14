@@ -211,6 +211,46 @@ export async function editPackage(data) {
   return response;
 }
 
+export async function addPackageService(data) {
+  const info = {
+    package_id: data.get("package_id"),
+    service_id: data.get("service_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-packages-services`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroySelectedServices(data) {
+  let id = data.get("service_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/destroy-package-service/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+
+  return response;
+}
+
 export async function editService(data) {
   const info = {
     service_id: data.get("service_id"),

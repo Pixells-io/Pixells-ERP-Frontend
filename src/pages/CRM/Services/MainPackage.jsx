@@ -4,23 +4,35 @@ import { useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   addOutline,
+  barChart,
   chevronBack,
   chevronForward,
   ellipsisHorizontal,
+  trashOutline,
 } from "ionicons/icons";
 
 import ServiceBlock from "./components/ServiceBlock";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditPackageForm from "./components/Forms/EditPackageForm";
-import { editPackage } from "./utils";
+import {
+  addPackageService,
+  destroySelectedServices,
+  editPackage,
+} from "./utils";
 import ModalAddServicesMembership from "./components/Forms/ModalAddServicesMembership";
+import ModalDestroyServicePackage from "./components/Forms/ModalDestroyServicePackage";
 function MainPackage() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
   const [modalServices, setModalServices] = useState(false);
+  const [modalServicesDelete, setModalServicesDelete] = useState(false);
+  const [serviceId, setServiceId] = useState(false);
 
-  console.log(data);
+  function openModalDestroyService(id) {
+    setServiceId(id);
+    setModalServicesDelete(true);
+  }
 
   return (
     <>
@@ -37,6 +49,11 @@ function MainPackage() {
         setModal={setModalServices}
         id={data[0].id}
         services={data[0].services_all}
+      />
+      <ModalDestroyServicePackage
+        modal={modalServicesDelete}
+        setModal={setModalServicesDelete}
+        id={serviceId}
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -130,9 +147,19 @@ function MainPackage() {
                     </button>
                   </div>
                   {data[0].services_selected?.map((service, i) => (
-                    <span key={i} className="text-[12px] text-grisSubText">
-                      {service.name}
-                    </span>
+                    <div className="flex items-center gap-2" key={i}>
+                      <span className="text-[12px] text-grisSubText">
+                        {service.name}
+                      </span>
+                      <button
+                        onClick={() => openModalDestroyService(service.id)}
+                      >
+                        <IonIcon
+                          icon={trashOutline}
+                          className="text-gris2"
+                        ></IonIcon>
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -147,51 +174,27 @@ function MainPackage() {
           <p className="self-start font-poppins text-lg font-semibold">
             Indicators
           </p>
-          <ServiceBlock />
-          <ServiceBlock />
-
-          <div className="flex flex-col gap-4 self-start">
-            <div className="flex items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
-                <p className="text-2xl font-bold text-grisText">05</p>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-base font-medium text-grisText">Created</p>
-                <p className="text-[10px] font-medium text-grisSubText">
-                  Days ago
-                </p>
-              </div>
+          <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
+            <div className="flex justify-between">
+              <IonIcon
+                icon={barChart}
+                size="large"
+                className="text-gris2"
+              ></IonIcon>
             </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
-                <Avatar className="h-full w-full rounded-lg">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-base font-medium text-grisText">
-                  Created by
-                </p>
-                <p className="text-[10px] font-medium text-grisSubText">
-                  Don Fomularo
-                </p>
-              </div>
+            <div className="text-xl font-bold text-blue-500">
+              $ {data[0].ammount}
             </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#D7586B40]">
-                <p className="text-2xl font-bold text-[#D7586B]">05</p>
+            <div className="flex justify-between">
+              <div className="flex flex-col text-gris2">
+                <span className="text-sm font-semibold">SALES</span>
+                <span className="text-xs">This Month</span>
               </div>
-              <div className="flex flex-col">
-                <p className="text-base font-medium text-grisText">Updated</p>
-                <p className="text-[10px] font-medium text-grisSubText">
-                  Days ago
-                </p>
+              <div className="flex flex-col items-center justify-center text-gris2">
+                <div className="rounded-xl bg-[#00A25940] px-2 font-bold text-green-600">
+                  +20%
+                </div>
+                <span className="text-[8px]">vs last month</span>
               </div>
             </div>
           </div>
@@ -210,6 +213,14 @@ export async function Action({ params, request }) {
     case "1":
       //edit
       editPackage(data);
+      break;
+    case "2":
+      //add services
+      addPackageService(data);
+      break;
+    case "3":
+      //add services
+      destroySelectedServices(data);
       break;
   }
   return "1";
