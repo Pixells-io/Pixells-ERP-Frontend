@@ -5,6 +5,8 @@ import {
   useOutletContext,
   useLocation,
   useNavigation,
+  Form,
+  useSubmit,
 } from "react-router-dom";
 
 import {
@@ -31,8 +33,10 @@ import Customer from "./components/Customer";
 import FormStepCustom from "./components/Forms/FormStepCustom";
 import { IonIcon } from "@ionic/react";
 import { ellipsisVertical } from "ionicons/icons";
+import StepOptions from "./components/StepOptions";
 
 function StepsProgress() {
+  const submit = useSubmit();
   const navigation = useNavigation();
   const location = useLocation();
   const { id } = useParams();
@@ -50,6 +54,9 @@ function StepsProgress() {
   const [currentStep, setCurrentStep] = useState({});
   const [nextStepName, setNextStepName] = useState("");
   const [editStepName, setEditStepName] = useState(false);
+
+  const [modal, setModal] = useState(false);
+  const [stepInfo, setStepInfo] = useState({});
 
   useEffect(() => {
     setUrlId(id);
@@ -107,6 +114,10 @@ function StepsProgress() {
     }
   }
 
+  function onEnterForm(e) {
+    console.log(e);
+  }
+
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
@@ -121,6 +132,9 @@ function StepsProgress() {
           step={currentStep}
           nextName={nextStepName}
         />
+
+        <StepOptions open={modal} setOpen={setModal} step={stepInfo} />
+
         <div className="flex gap-2">
           {dataPusher?.data.map((step, i) => (
             <div
@@ -139,11 +153,18 @@ function StepsProgress() {
                     </p>
                   ) : (
                     <div className="">
-                      <input
-                        type="text"
-                        className="flex w-28 px-2"
-                        defaultValue={step?.step.name}
-                      />
+                      <Form
+                        onSubmit={onEnterForm}
+                        id="edit-form-step-name"
+                        action={`/crm/progress/${id}`}
+                        method="post"
+                      >
+                        <input
+                          type="text"
+                          className="flex w-28 px-2"
+                          defaultValue={step?.step.name}
+                        />
+                      </Form>
                     </div>
                   )}
                   <DropdownMenu>
@@ -159,7 +180,14 @@ function StepsProgress() {
                       >
                         Edit
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setModal(true);
+                          setStepInfo(step?.step);
+                        }}
+                      >
+                        Delete
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
