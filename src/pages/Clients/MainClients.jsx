@@ -20,6 +20,7 @@ import { editClientData, storeDocument, storeRequiredDocument } from "./utils";
 import ModalEditClient from "../CRM/Clients/Forms/ModalEditClient";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CollectDocumentsClientPlatform from "./Components/CollectDocumentsClientPlatform";
+import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatform";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -86,7 +87,7 @@ function MainClients() {
           <div className="flex flex-col">
             <div>
               <h2 className="font-poppins text-xl font-bold uppercase text-[#44444F]">
-                WELCOME {data.user.business_name}
+                WELCOME {data.user?.business_name}
               </h2>
             </div>
             <div className="flex items-center gap-3 text-[#8F8F8F]">
@@ -154,6 +155,7 @@ function MainClients() {
                     {data.pending_documents_count} /{" "}
                     {data.pending_documents_total}
                   </span>
+                  &nbsp;
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
                 </div>
               </TabsTrigger>
@@ -163,7 +165,10 @@ function MainClients() {
               >
                 <span>Documents Ready</span>
                 <div className="flex">
-                  <span className="text-xs font-medium">1 / 3</span>
+                  <span className="text-xs font-medium">
+                    {data.documents_ready_count}
+                  </span>
+                  &nbsp;
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
                 </div>
               </TabsTrigger>
@@ -174,58 +179,10 @@ function MainClients() {
                 documents={data.pending_documents}
               />
             </TabsContent>
-            <TabsContent value="ready">ready</TabsContent>
+            <TabsContent value="ready">
+              <ReadyDocumentsClientPlatform documents={data.documents_ready} />
+            </TabsContent>
           </Tabs>
-        </div>
-      </div>
-
-      {/* sidebar right  */}
-      <div className="ml-4 flex w-[310px] shrink-0 flex-col items-center space-y-4 overflow-scroll rounded-lg bg-gris py-4">
-        <div className="flex w-full px-4 pt-4">
-          <p className="text-[18px] font-semibold text-grisHeading">GENERAL</p>
-        </div>
-        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-[28px] font-semibold text-grisHeading">
-              DOCUMENTS
-            </p>
-            <div
-              className="text-[30px] font-medium text-primarioBotones"
-              onClick={() => setModalDocument(true)}
-            >
-              +
-            </div>
-            <div className="text-[12px] font-medium text-grisSubText">
-              View All
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {data.document.map((document, i) => (
-              <div className="grid grid-cols-4" key={i}>
-                <div className="col-span-3 flex items-center gap-2">
-                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
-                  <div>
-                    <p className="font-medium text-grisHeading">
-                      {document.name}
-                    </p>
-                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                      Uplaoded &bull; {format(document.created_at, "PP")}
-                    </span>
-                  </div>
-                </div>
-                <div className="col-span-1 self-end pb-1 pl-2">
-                  <a
-                    target="_blank"
-                    href={document.document}
-                    className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
-                  >
-                    Download
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

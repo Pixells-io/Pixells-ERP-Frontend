@@ -74,7 +74,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           Phone Call
         </button>
       </div>
-      <div className="mb-8 mt-4 flex gap-4">
+      <div className="mt-4 flex gap-4">
         <button
           type="button"
           className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
@@ -90,13 +90,22 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           E-mail
         </button>
       </div>
-      <button
-        type="button"
-        className="w-24 rounded-2xl border border-primario px-3 py-1 text-sm font-medium text-primario hover:bg-primario hover:text-white"
-        onClick={() => setModalFollowUp(5)}
-      >
-        Finish
-      </button>
+      <div className="mb-8 mt-4 flex gap-4">
+        <button
+          type="button"
+          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+          onClick={() => setModalFollowUp(4)}
+        >
+          Document
+        </button>
+        <button
+          type="button"
+          className="w-24 rounded-2xl border border-primario px-3 py-1 text-sm font-medium text-primario hover:bg-primario hover:text-white"
+          onClick={() => setModalFollowUp(5)}
+        >
+          Finish
+        </button>
+      </div>
       <div className="mt-8">
         <button
           type="button"
