@@ -96,14 +96,14 @@ function MainClients() {
           </div>
 
           {/* content main */}
-          <div className="flex flex-col gap-4 pt-8">
+          <div className="flex flex-col gap-2 py-2">
             <div>
               <p className="font-poppins text-[22px] font-bold text-grisHeading">
                 Active Services
               </p>
             </div>
 
-            <div className="flex w-full gap-4 overflow-scroll">
+            <div className="flex w-full gap-4 overflow-scroll py-4">
               {data.services?.map((service, i) => (
                 <div
                   className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3"
@@ -134,24 +134,24 @@ function MainClients() {
           </div>
 
           <Tabs defaultValue="collect">
-            <TabsList className="gap-4 bg-transparent">
+            <TabsList className="flex gap-6 bg-transparent pb-4">
               <TabsTrigger
                 value="interview"
-                className="gap-2 rounded-3xl bg-grisHeading px-6 py-3 text-white"
+                className="flex items-center gap-2 rounded-3xl bg-white px-6 py-3 text-grisHeading data-[state=active]:bg-grisHeading data-[state=active]:text-white"
               >
-                <span>Interview</span>
-                <div className="flex">
+                <p className="flex">Interview</p>
+                <div className="flex items-center gap-2">
                   <span className="text-xs font-medium">1 / 3</span>
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
                 </div>
               </TabsTrigger>
               <TabsTrigger
                 value="collect"
-                className="gap-2 rounded-3xl bg-grisHeading px-6 py-3 text-white"
+                className="flex items-center gap-2 rounded-3xl bg-white px-6 py-3 text-grisHeading data-[state=active]:bg-grisHeading data-[state=active]:text-white"
               >
                 <span>Collect Documents</span>
-                <div className="flex">
-                  <span className="text-xs font-medium">
+                <div className="flex items-center">
+                  <span className="items-center gap-2 text-xs font-medium">
                     {data.pending_documents_count} /{" "}
                     {data.pending_documents_total}
                   </span>
@@ -161,10 +161,10 @@ function MainClients() {
               </TabsTrigger>
               <TabsTrigger
                 value="ready"
-                className="gap-2 rounded-3xl bg-grisHeading px-6 py-3 text-white"
+                className="flex items-center gap-2 rounded-3xl bg-white px-6 py-3 text-grisHeading data-[state=active]:bg-grisHeading data-[state=active]:text-white"
               >
                 <span>Documents Ready</span>
-                <div className="flex">
+                <div className="flex items-center gap-2">
                   <span className="text-xs font-medium">
                     {data.documents_ready_count}
                   </span>
