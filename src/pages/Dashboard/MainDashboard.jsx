@@ -19,6 +19,9 @@ import { useLoaderData } from "react-router-dom";
 function MainDashboard({ isDragging }) {
   const newDate = format(new Date(), "PP");
   const { user, dashboard } = useLoaderData();
+
+  console.log(dashboard.data);
+
   return (
     <div className="flex w-full">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -57,7 +60,8 @@ function MainDashboard({ isDragging }) {
               <div>
                 <div>
                   <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, {user?.name} {user?.last_name}
+                    Welcome, {user?.data?.user?.name}{" "}
+                    {user?.data?.user?.last_name}
                   </h2>
                 </div>
                 <div className="pt-2">
@@ -76,22 +80,22 @@ function MainDashboard({ isDragging }) {
                     title="Activities"
                     subTitle="Today"
                     percent="20"
-                    number="17"
+                    number={dashboard.data.today_pending}
                     icon={calendar}
+                  />
+                  <Activities
+                    title="Activities"
+                    subTitle="This Week"
+                    percent="20"
+                    number={dashboard.data.week_activity}
+                    icon={listCircle}
                   />
                   <Activities
                     title="Progress"
                     subTitle="This Week"
                     percent="20"
-                    number="80"
+                    number={dashboard.data.week_percent}
                     icon={pieChart}
-                  />
-                  <Activities
-                    title="Activities"
-                    subTitle="Today"
-                    percent="20"
-                    number="17"
-                    icon={listCircle}
                   />
                 </div>
               </div>

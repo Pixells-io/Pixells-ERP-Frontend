@@ -94,6 +94,8 @@ export async function savePackage(data) {
 
   const info = {
     name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
     service: services,
   };
 
@@ -191,6 +193,8 @@ export async function editPackage(data) {
   const info = {
     package_id: data.get("package_id"),
     name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
   };
 
   const response = await fetch(

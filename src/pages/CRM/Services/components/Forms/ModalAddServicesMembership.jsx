@@ -12,11 +12,10 @@ import {
 
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function EditPackageForm({ modal, setModal, id, name, description, price }) {
+function ModalAddServicesMembership({ modal, setModal, id, services }) {
   const navigation = useNavigation();
-
-  console.log(name);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -24,12 +23,14 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
     }
   }, [navigation.state]);
 
+  console.log(services);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="border-b px-6 py-4 font-poppins">
-            Edit Membership
+            Add Service
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -46,19 +47,15 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
           }}
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
-            <div className="text-lg font-normal text-[#696974]">
-              Information
-            </div>
+            <div className="text-lg font-normal text-[#696974]">Services</div>
             <div className="flex flex-col gap-4 font-light">
-              <input type="hidden" name="type_of_function" value="1" />
-              <input type="hidden" name="package_id" value={id} />
-              <InputRouter name="name" type="text" placeholder={name} />
-              <InputRouter
-                name="description"
-                type="text"
-                placeholder={description}
+              <input type="hidden" name="type_of_function" value={2} />
+              <input type="hidden" name="categormembershipy_id" value={id} />
+              <SelectRouter
+                name={"service"}
+                placeholder="Select a Service"
+                options={services}
               />
-              <InputRouter name="price" type="number" placeholder={price} />
             </div>
           </div>
           <DialogFooter className="px-6 py-4">
@@ -66,7 +63,7 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
               type="submit"
               className="justify-normal rounded-lg bg-primarioBotones px-6 font-roboto text-xs font-semibold"
             >
-              Edit
+              Add
             </Button>
           </DialogFooter>
         </Form>
@@ -75,4 +72,4 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
   );
 }
 
-export default EditPackageForm;
+export default ModalAddServicesMembership;

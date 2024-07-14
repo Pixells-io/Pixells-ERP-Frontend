@@ -533,7 +533,7 @@ export async function getUserDashboardData() {
   }
 }
 
-export async function multiLoaderOrganization() {
+export async function multiLoaderDashboard() {
   const [user, dashboard] = await Promise.all([
     getUserByToken(),
     getUserDashboardData(),
