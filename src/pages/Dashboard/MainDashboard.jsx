@@ -18,7 +18,7 @@ import { useLoaderData } from "react-router-dom";
 
 function MainDashboard({ isDragging }) {
   const newDate = format(new Date(), "PP");
-  const { data } = useLoaderData();
+  const { user, dashboard } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -57,7 +57,7 @@ function MainDashboard({ isDragging }) {
               <div>
                 <div>
                   <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, {data.user?.name} {data.user?.last_name}
+                    Welcome, {user?.name} {user?.last_name}
                   </h2>
                 </div>
                 <div className="pt-2">

@@ -259,7 +259,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-        loader: getUserByToken,
+        loader: multiLoaderOrganization,
       },
       // crm
       {
