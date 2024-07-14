@@ -7,6 +7,15 @@ import {
   useNavigation,
 } from "react-router-dom";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import NewStepService from "./components/Forms/NewStepService";
 import {
   moveProgressColumn,
@@ -20,6 +29,8 @@ import { getServiceSteps } from "@/lib/actions";
 
 import Customer from "./components/Customer";
 import FormStepCustom from "./components/Forms/FormStepCustom";
+import { IonIcon } from "@ionic/react";
+import { ellipsisVertical } from "ionicons/icons";
 
 function StepsProgress() {
   const navigation = useNavigation();
@@ -38,6 +49,7 @@ function StepsProgress() {
   const [fields, setFields] = useState([]);
   const [currentStep, setCurrentStep] = useState({});
   const [nextStepName, setNextStepName] = useState("");
+  const [editStepName, setEditStepName] = useState(false);
 
   useEffect(() => {
     setUrlId(id);
@@ -120,7 +132,37 @@ function StepsProgress() {
               }
             >
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
-                <p className="text-base text-grisText">{step?.step.name}</p>
+                <div className="flex items-center">
+                  {editStepName == false ? (
+                    <p className="flex text-base text-grisText">
+                      {step?.step.name}
+                    </p>
+                  ) : (
+                    <div className="">
+                      <input
+                        type="text"
+                        className="flex w-28 px-2"
+                        defaultValue={step?.step.name}
+                      />
+                    </div>
+                  )}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <IonIcon
+                        icon={ellipsisVertical}
+                        className="flex size-4 text-grisSubText"
+                      />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem
+                        onClick={() => setEditStepName(!editStepName)}
+                      >
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
                 <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
                   <p className="text-xs font-semibold text-grisHeading">
                     {step?.customers?.length}
