@@ -75,7 +75,7 @@ function CollectDocumentsClientPlatform({ documents }) {
           </span>
         </div>
       </div>
-      {documents.map((document, i) => (
+      {documents?.map((document, i) => (
         <div
           className="mt-4 flex w-full rounded-2xl bg-[#E8E8E8] px-3 pt-2"
           key={i}

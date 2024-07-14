@@ -324,6 +324,43 @@ function MainClient() {
           </div>
         </div>
 
+        <div className="flex max-h-[385px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-[22px] font-semibold text-grisHeading">
+              COLLECT DOCUMENTS
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 overflow-y-scroll">
+            {client?.collect_documents?.map((document, i) => (
+              <div className="flex w-full justify-between">
+                <div className="col-span-3 flex items-center gap-2">
+                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
+                  <div>
+                    <p className="truncate font-medium text-grisHeading">
+                      {document.name}
+                    </p>
+                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                      Uplaoded &bull; {document.created}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex h-fit gap-2 self-end">
+                  <div className="col-span-1 flex h-fit pb-1 pl-2">
+                    <a
+                      target="_blank"
+                      href={document.document_url}
+                      className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">

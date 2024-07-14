@@ -41,9 +41,10 @@ function StepsProgress() {
 
   useEffect(() => {
     setUrlId(id);
-    pusherClient.subscribe(`get-process-service.${urlId}`);
+    pusherClient.subscribe(`private-get-process.${urlId}`);
 
-    pusherClient.bind("fill-process-service", ({ service }) => {
+    pusherClient.bind("fill-process", ({ service }) => {
+      console.log("cvghj");
       getProcesServiceFunction(service);
     });
 
@@ -53,7 +54,7 @@ function StepsProgress() {
     }
 
     return () => {
-      pusherClient.unsubscribe(`get-process-service.${urlId}`);
+      pusherClient.unsubscribe(`private-get-process.${urlId}`);
     };
   }, [location, urlId]);
 
