@@ -120,7 +120,6 @@ function Stages() {
     pusherClient.subscribe("private-fill-table-leads");
 
     pusherClient.bind("make-table-leads", ({ message }) => {
-      console.log("Socket Funciono");
       getStepsUrl();
     });
 
