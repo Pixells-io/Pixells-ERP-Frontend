@@ -206,8 +206,7 @@ function MainClient() {
               <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <span className="w-7/12 text-[10px] font-medium text-grisSubText">
-                    {adress.street}.{adress.ext}, {adress.int}, {adress.city}
-                    , 
+                    {adress.street}.{adress.ext}, {adress.int}, {adress.city},
                     {adress.state}, <br />
                     {adress.country} {adress.cp}
                   </span>
@@ -245,7 +244,7 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.contact?.map((contact, i) => (
-              <div className="flex flex-col">
+              <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <p className="w-7/12 text-sm text-grisText">
                     {contact.name} {contact.middle_name} {contact.last_name}{" "}
@@ -289,9 +288,17 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.documents?.map((document, i) => (
-              <div className="flex w-full justify-between">
+              <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
-                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
+                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg">
+                    {/* 
+                    <iframe
+                      src={document?.document}
+                      frameBorder="0"
+                      className="flex"
+                    ></iframe>
+                   */}
+                  </div>
                   <div>
                     <p className="truncate font-medium text-grisHeading">
                       {document.name}
@@ -333,7 +340,7 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.collect_documents?.map((document, i) => (
-              <div className="flex w-full justify-between">
+              <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
                   <div>
