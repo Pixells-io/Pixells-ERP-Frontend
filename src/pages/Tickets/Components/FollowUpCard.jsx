@@ -33,7 +33,7 @@ function FollowUpCard({ followUp, ticket }) {
       />
       <div>
         {followUp?.comments.map((data, i) => (
-          <FollowUpCommentCard comment={data} />
+          <FollowUpCommentCard comment={data} key={i} />
         ))}
       </div>
       <div className="flex">

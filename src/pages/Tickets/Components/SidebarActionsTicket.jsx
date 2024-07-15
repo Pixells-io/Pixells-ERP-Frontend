@@ -3,12 +3,15 @@ import { add, addOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import FormCreateFollowUps from "./FormCreateFollowUps";
 import FormCreateResponsible from "./FormCreateResponsibles";
+import FormAddDcoument from "./FormAddDcoument";
 
 function SidebarActionsTicket({ ticket, areas, users }) {
   const [modal, setModal] = useState(false);
   const [modalResponsible, setModalResponsible] = useState(false);
   const [titleModal, setTitleModal] = useState(false);
   const [valueModal, setValueModal] = useState(false);
+
+  const [modalDocument, setModalDocument] = useState(false);
 
   function setModalFollowUp(value) {
     let title = "";
@@ -39,6 +42,12 @@ function SidebarActionsTicket({ ticket, areas, users }) {
   return (
     <div className="ml-4 h-full w-full rounded-lg bg-gris px-8 py-4">
       {/* Form Create Follow Ups */}
+      <FormAddDcoument
+        open={modalDocument}
+        setOpen={setModalDocument}
+        ticket={ticket}
+      />
+
       <FormCreateFollowUps
         modal={modal}
         setModal={setModal}
@@ -94,7 +103,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
         <button
           type="button"
           className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalFollowUp(4)}
+          onClick={() => setModalDocument(true)}
         >
           Document
         </button>
@@ -124,7 +133,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
         </p>
         <div className="mt-2">
           {ticket?.responsible.map((data, i) => (
-            <div className="flex">
+            <div className="flex" key={i}>
               <div>
                 <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
@@ -148,7 +157,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
         </p>
         <div className="mt-2">
           {ticket?.involved.map((data, i) => (
-            <div className="flex">
+            <div className="flex" key={i}>
               <div>
                 <img src={data.img} className="h-9 w-9 rounded-full" />
               </div>
