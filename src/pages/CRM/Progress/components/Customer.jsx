@@ -18,6 +18,7 @@ import {
   pulseOutline,
 } from "ionicons/icons";
 import FormRequireDocument from "./Forms/FormRequireDocument";
+import CommentsProcess from "./CommentsProcess";
 
 function Customer({ customer, stepId }) {
   const [modal, setModal] = useState(false);
@@ -79,6 +80,9 @@ function Customer({ customer, stepId }) {
                   </p>
                 </HoverCardContent>
               </HoverCard>
+            </div>
+            <div className="flex">
+              <CommentsProcess />
             </div>
             {/*
               <div className="flex">
