@@ -72,8 +72,8 @@ function MainDashboard({ isDragging }) {
               </div>
               <div className="mt-8 flex">
                 <div className="flex w-1/3 gap-6">
-                  <Time title="TOTAL HOURS" time="52" />
-                  <Time title="ACTIVE HOURS" time="24" />
+                  <Time title="TOTAL HOURS" time="0" />
+                  <Time title="ACTIVE HOURS" time="0" />
                 </div>
                 <div className="flex w-2/3 gap-8">
                   <Activities
@@ -108,6 +108,7 @@ function MainDashboard({ isDragging }) {
             </div>
           </div>
         </div>
+
         <div className="flex rounded-2xl bg-[#F0F0F0]">
           <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
