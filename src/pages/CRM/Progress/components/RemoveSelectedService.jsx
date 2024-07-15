@@ -50,11 +50,11 @@ function RemoveSelectedService({ serviceId, name }) {
           <Form
             id="form-delete-serviceshow"
             className="flex h-full w-full flex-col gap-3 px-8"
-            action={`/crm/progress/${params.id}`}
+            action={`/crm/progress/`}
             method="post"
           >
             <input type="hidden" value={serviceId} name="service_id" />
-            <input type="hidden" value={2} name="type_function" />
+            <input type="hidden" value="remove-service" name="action" />
             <span className="font-roboto text-[#A6A6A6]">
               This action cannot be undone. This will permanently delete your
               account and remove your data from our servers.

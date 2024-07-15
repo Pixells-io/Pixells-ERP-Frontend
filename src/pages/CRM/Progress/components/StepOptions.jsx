@@ -12,7 +12,6 @@ import { Form, useParams } from "react-router-dom";
 
 function StepOptions({ open, setOpen, step }) {
   const params = useParams();
-  console.log(step);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">

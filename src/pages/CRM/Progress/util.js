@@ -59,7 +59,7 @@ export async function saveService(data) {
 }
 
 export async function removeSelectedService(data) {
-  const id = data.get("selected_service");
+  const id = data.get("service_id");
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/remove-selected-service/${id}`,
