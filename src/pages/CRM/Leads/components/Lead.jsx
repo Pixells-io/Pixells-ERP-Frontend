@@ -266,6 +266,7 @@ function Lead({ lead, setModal }) {
             </div>
           )}
         </Link>
+
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center justify-between gap-1">
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#D7586B] text-sm font-semibold text-white">

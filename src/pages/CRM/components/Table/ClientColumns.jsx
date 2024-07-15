@@ -1,11 +1,7 @@
 import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  bookmark,
-  chatbubbleEllipses,
-  informationCircle,
-} from "ionicons/icons";
+import { chatbubbleEllipses, informationCircle } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
 export const clientColumns = [
@@ -14,7 +10,7 @@ export const clientColumns = [
     header: "TYPE",
     cell: ({ row }) => {
       const info = row.original.type;
-      return <div>{info === 1 ? "Person" : "Business"}</div>;
+      return <div>{info == 1 ? "Person" : "Business"}</div>;
     },
   },
   {
