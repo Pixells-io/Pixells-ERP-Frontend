@@ -152,9 +152,9 @@ function StepsProgress() {
               }
             >
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
-                <div className="flex items-center">
+                <div className="flex w-full items-center justify-between px-2">
                   {editStepName == false ? (
-                    <p className="flex text-base text-grisText">
+                    <p className="flex w-full justify-center truncate pl-4 text-base text-grisText">
                       {step?.step.name}
                     </p>
                   ) : (
