@@ -4,6 +4,7 @@ import {
   callSharp,
   chatbubbleSharp,
   checkmarkSharp,
+  imagesSharp,
   mailSharp,
   personSharp,
   time,
@@ -22,6 +23,8 @@ function FollowUpCard({ followUp, ticket }) {
     setIdModal(value);
     console.log(value);
   }
+
+  console.log(followUp.category);
 
   return (
     <div className="w-full overflow-scroll">
@@ -53,6 +56,9 @@ function FollowUpCard({ followUp, ticket }) {
             )}
             {followUp?.category == 5 && (
               <IonIcon icon={checkmarkSharp} size="large" />
+            )}
+            {followUp?.category == 9 && (
+              <IonIcon icon={imagesSharp} size="large" />
             )}
           </div>
         </div>
