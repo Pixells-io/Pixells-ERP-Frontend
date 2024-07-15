@@ -55,6 +55,8 @@ function Main() {
     }
   }, [navigation.state]);
 
+  console.log(selectedServices);
+
   return (
     <div className="flex w-full overflow-auto">
       <Dialog open={modalRemove} onOpenChange={setModalRemove}>
@@ -72,7 +74,7 @@ function Main() {
           >
             <input
               type="hidden"
-              value={serviceSelected?.id}
+              value={serviceSelected?.destroy_id}
               name="service_id"
             />
             <input type="hidden" value="remove-service" name="action" />
@@ -145,8 +147,8 @@ function Main() {
                   to={`/crm/progress/${service?.id}`}
                   className={({ isActive }) =>
                     isActive
-                      ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 pr-4 font-poppins font-bold`
-                      : `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-[#8F8F8F] p-2 pr-4 font-poppins font-normal`
+                      ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 pr-5 font-poppins font-bold`
+                      : `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-[#8F8F8F] p-2 pr-5 font-poppins font-normal`
                   }
                 >
                   <div className="ml-2 flex">
