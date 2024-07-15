@@ -30,68 +30,64 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading"></DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          <Tabs
-            defaultValue="checks"
-            className="h-full overflow-auto rounded-lg"
-          >
-            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-              <TabsTrigger
-                value="checks"
-                className="rounded-none border-b-2 py-2 pl-1 pr-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                CHEQUES
-              </TabsTrigger>
-              <TabsTrigger
-                value="transfer"
-                className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                TRANSFERENCIA
-              </TabsTrigger>
-              <TabsTrigger
-                value="deposit"
-                className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                DEPÓSITO
-              </TabsTrigger>
-              <TabsTrigger
-                value="creditCard"
-                className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                TARJETA CR
-              </TabsTrigger>
-              <TabsTrigger
-                value="cash"
-                className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-              >
-                EFECTIVO
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="checks" className="p-2">
-              <form id="formDataTab" onSubmit={handleSubmit}>
-                <TabChecks />
-              </form>
-            </TabsContent>
-            <TabsContent value="transfer" className="mt-[-60px] p-2">
-              <form id="formDataTab" onSubmit={handleSubmit}>
-                <TabTransfer />
-              </form>
-            </TabsContent>
-            <TabsContent value="deposit" className="p-2">
-              <h1>Deposito</h1>
-            </TabsContent>
-            <TabsContent value="creditCard" className="mt-[-60px] p-2">
-              <form id="formDataTab" onSubmit={handleSubmit}>
-                <TabCreditCard />
-              </form>
-            </TabsContent>
-            <TabsContent value="cash" className="mt-[-60px] p-2">
-              <form id="formDataTab" onSubmit={handleSubmit}>
-                <TabCash />
-              </form>
-            </TabsContent>
-          </Tabs>
-        </DialogDescription>
+        <Tabs defaultValue="checks" className="h-full overflow-auto rounded-lg">
+          <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+            <TabsTrigger
+              value="checks"
+              className="rounded-none border-b-2 py-2 pl-1 pr-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              CHEQUES
+            </TabsTrigger>
+            <TabsTrigger
+              value="transfer"
+              className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              TRANSFERENCIA
+            </TabsTrigger>
+            <TabsTrigger
+              value="deposit"
+              className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              DEPÓSITO
+            </TabsTrigger>
+            <TabsTrigger
+              value="creditCard"
+              className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              TARJETA CR
+            </TabsTrigger>
+            <TabsTrigger
+              value="cash"
+              className="rounded-none border-b-2 px-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              EFECTIVO
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="checks" className="p-2">
+            <form id="formDataTab" onSubmit={handleSubmit}>
+              <TabChecks />
+            </form>
+          </TabsContent>
+          <TabsContent value="transfer" className="mt-[-60px] p-2">
+            <form id="formDataTab" onSubmit={handleSubmit}>
+              <TabTransfer />
+            </form>
+          </TabsContent>
+          <TabsContent value="deposit" className="p-2">
+            <h1>Deposito</h1>
+          </TabsContent>
+          <TabsContent value="creditCard" className="mt-[-60px] p-2">
+            <form id="formDataTab" onSubmit={handleSubmit}>
+              <TabCreditCard />
+            </form>
+          </TabsContent>
+          <TabsContent value="cash" className="mt-[-60px] p-2">
+            <form id="formDataTab" onSubmit={handleSubmit}>
+              <TabCash />
+            </form>
+          </TabsContent>
+        </Tabs>
+        <DialogDescription></DialogDescription>
 
         <DialogFooter className="px-6 pb-6">
           <Button

@@ -94,7 +94,7 @@ function TabCreditCard() {
         </div>
       </div>
 
-      <div className="flex w-full justify-end px-4">
+      <div className="flex w-full justify-end">
         <div className="w-1/2">
           <InfoPaymentAndCollection
             totalAmount={"2000.00"}

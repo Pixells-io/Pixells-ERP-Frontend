@@ -10,7 +10,7 @@ import {
   create,
   closeCircle,
 } from "ionicons/icons";
-import OnlyDataTable from "./Table/OnlyDataTable";
+import OnlyDataTable from "../Components/Table/OnlyDataTable";
 import { AddCollectionsColumns } from "./Table/AddCollectionColumns";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";

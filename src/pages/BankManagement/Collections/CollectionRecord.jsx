@@ -17,7 +17,7 @@ import InfoPaymentAndCollection from "../Components/InfoPaymentAndCollection";
 import StatusInformation from "../Components/StatusInformation/StatusInformation";
 import NoDocument from "../Components/NoDocument";
 import { CollectionRecordColumns } from "./Table/CollectionRecordColumns";
-import OnlyTable from "./Table/OnlyTable";
+import OnlyTable from "../Components/Table/OnlyTable";
 
 function CollectionRecord() {
   const [status, setStatus] = useState("done");
