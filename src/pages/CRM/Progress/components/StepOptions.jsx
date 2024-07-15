@@ -12,7 +12,6 @@ import { Form, useParams } from "react-router-dom";
 
 function StepOptions({ open, setOpen, step }) {
   const params = useParams();
-  console.log(step);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
@@ -27,7 +26,7 @@ function StepOptions({ open, setOpen, step }) {
           action={`/crm/progress/${params.id}`}
           method="post"
         >
-          <input type="hidden" value={step.id} name="service_id" />
+          <input type="hidden" value={step.id} name="step_id" />
           <input type="hidden" value="delete-step" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
             This action cannot be undone. This will permanently delete your

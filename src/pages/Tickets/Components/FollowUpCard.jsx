@@ -4,43 +4,27 @@ import {
   callSharp,
   chatbubbleSharp,
   checkmarkSharp,
-  helpSharp,
+  imagesSharp,
   mailSharp,
   personSharp,
   time,
 } from "ionicons/icons";
+
 import { IonIcon } from "@ionic/react";
 import FormCreateFollowUpComments from "./FormCreateFollowUpComments";
 import FollowUpCommentCard from "./FollowUpCommentCard";
 
 function FollowUpCard({ followUp, ticket }) {
-  const [iconDynamic, setIconDynamic] = useState(helpSharp);
   const [modal, setModal] = useState(false);
   const [idModal, setIdModal] = useState(false);
-
-  switch (followUp.category) {
-    case 1:
-      setIconDynamic(personSharp);
-      break;
-    case 2:
-      setIconDynamic(callSharp);
-      break;
-    case 3:
-      setIconDynamic(chatbubbleSharp);
-      break;
-    case 4:
-      setIconDynamic(mailSharp);
-      break;
-    case 5:
-      setIconDynamic(checkmarkSharp);
-      break;
-  }
 
   function openModalComment(value) {
     setModal(true);
     setIdModal(value);
     console.log(value);
   }
+
+  console.log(followUp.category);
 
   return (
     <div className="w-full overflow-scroll">
@@ -52,13 +36,30 @@ function FollowUpCard({ followUp, ticket }) {
       />
       <div>
         {followUp?.comments.map((data, i) => (
-          <FollowUpCommentCard comment={data} />
+          <FollowUpCommentCard comment={data} key={i} />
         ))}
       </div>
       <div className="flex">
         <div className="w-1/6 p-8">
           <div className="h-12 w-12 rounded-full border border-primario pt-2 text-center text-primario">
-            <IonIcon icon={iconDynamic} size="large"></IonIcon>
+            {followUp?.category == 1 && (
+              <IonIcon icon={personSharp} size="large" />
+            )}
+            {followUp?.category == 2 && (
+              <IonIcon icon={callSharp} size="large" />
+            )}
+            {followUp?.category == 3 && (
+              <IonIcon icon={chatbubbleSharp} size="large" />
+            )}
+            {followUp?.category == 4 && (
+              <IonIcon icon={mailSharp} size="large" />
+            )}
+            {followUp?.category == 5 && (
+              <IonIcon icon={checkmarkSharp} size="large" />
+            )}
+            {followUp?.category == 9 && (
+              <IonIcon icon={imagesSharp} size="large" />
+            )}
           </div>
         </div>
         <div className="my-6 flex h-[112px] w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">

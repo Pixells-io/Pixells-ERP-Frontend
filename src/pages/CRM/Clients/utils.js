@@ -165,3 +165,23 @@ export async function editAccessInfo(data) {
 
   return response;
 }
+
+export async function assignInterview(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    interview_id: data.get("interview_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/interview-assign`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -15,7 +15,7 @@ import { pusherClient } from "@/lib/pusher";
 import Lead from "./Lead";
 
 function Stages() {
-  const { steps, services, users } = useLoaderData();
+  const { steps, services, users, membership } = useLoaderData();
   // console.log(steps.data);
   const [initialData, setInitialData] = useState(steps.data);
   const [stages, setStages] = useState(initialData);
@@ -52,8 +52,6 @@ function Stages() {
   function openCorrectModal(column_id, lead) {
     //The column is the correct
     const next_column = lead.step_id + 1;
-
-    console.log(next_column, column_id);
 
     //Set the information
     setLeadAssigned(lead.assigned);
@@ -168,6 +166,7 @@ function Stages() {
         services={services}
         users={users}
         leadAssigned={leadAssigned}
+        membership={membership.data}
       />
       <PayForm
         modal={modal.pay}

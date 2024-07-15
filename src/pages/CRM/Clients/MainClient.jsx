@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
 import {
+  assignInterview,
   deleteAddress,
   deleteContact,
   deleteDocument,
@@ -16,6 +17,7 @@ import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
 import { IonIcon } from "@ionic/react";
 import {
+  addOutline,
   cashOutline,
   createOutline,
   keyOutline,
@@ -27,6 +29,7 @@ import ModalDestroyContacts from "./Forms/ModalDestroyContact";
 import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
 import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
+import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
 
 function MainClient() {
   const { data } = useLoaderData();
@@ -44,6 +47,7 @@ function MainClient() {
   const [documentsId, setDocumentsId] = useState(false);
   const [modalDestroyDocuments, setModalDestroyDocuments] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalAssignInterview, setModalAssignInterview] = useState(false);
 
   //States edit login info
   const [accessModal, setAccessModal] = useState(false);
@@ -111,6 +115,12 @@ function MainClient() {
         setModal={setAccessModal}
         client_id={client?.master?.id}
         email={client?.email}
+      />
+      <AssignInterviewModal
+        modal={modalAssignInterview}
+        setModal={setModalAssignInterview}
+        client_id={client?.master?.id}
+        select={client?.interviews_select}
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
@@ -206,8 +216,7 @@ function MainClient() {
               <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <span className="w-7/12 text-[10px] font-medium text-grisSubText">
-                    {adress.street}.{adress.ext}, {adress.int}, {adress.city}
-                    , 
+                    {adress.street}.{adress.ext}, {adress.int}, {adress.city},
                     {adress.state}, <br />
                     {adress.country} {adress.cp}
                   </span>
@@ -245,7 +254,7 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.contact?.map((contact, i) => (
-              <div className="flex flex-col">
+              <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <p className="w-7/12 text-sm text-grisText">
                     {contact.name} {contact.middle_name} {contact.last_name}{" "}
@@ -270,7 +279,55 @@ function MainClient() {
             ))}
           </div>
         </div>
+        <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-8">
+              <p className="text-[22px] font-semibold text-grisHeading">
+                INTERVIEWS
+              </p>
+              <button
+                className="text-[30px] font-medium text-primarioBotones"
+                onClick={setModalAssignInterview}
+              >
+                +
+              </button>
+            </div>
+          </div>
 
+          <div className="flex flex-col gap-3 overflow-y-scroll">
+            {client?.interviews_assigned.map((interview, i) => (
+              <div className="flex w-full justify-between" key={i}>
+                <div className="col-span-3 flex items-center gap-2">
+                  <div>
+                    <p className="truncate font-medium text-grisHeading">
+                      {interview.title}
+                    </p>
+                    <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                      Created &bull; {interview.created}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex h-fit gap-2 self-end">
+                  <div className="col-span-1 flex h-fit pb-1 pl-2">
+                    <button
+                      type="button"
+                      className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                      onClick={() =>
+                        openShowInterview(
+                          interview.id,
+                          interview.title,
+                          interview.questions,
+                        )
+                      }
+                    >
+                      Show
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="flex max-h-[385px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
@@ -289,9 +346,17 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.documents?.map((document, i) => (
-              <div className="flex w-full justify-between">
+              <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
-                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
+                  <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg">
+                    {/* 
+                    <iframe
+                      src={document?.document}
+                      frameBorder="0"
+                      className="flex"
+                    ></iframe>
+                   */}
+                  </div>
                   <div>
                     <p className="truncate font-medium text-grisHeading">
                       {document.name}
@@ -333,7 +398,7 @@ function MainClient() {
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
             {client?.collect_documents?.map((document, i) => (
-              <div className="flex w-full justify-between">
+              <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
                   <div>
@@ -438,6 +503,9 @@ export async function Action({ request }) {
       break;
     case "8":
       editAccessInfo(data);
+      break;
+    case "9":
+      assignInterview(data);
       break;
   }
 

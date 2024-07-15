@@ -46,6 +46,27 @@ export async function saveService(data) {
   return response;
 }
 
+export async function saveInterview(data) {
+  const service = {
+    service_id: data.get("service_id"),
+    name: data.get("name"),
+    input: data.getAll("input"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/interview-template-store`,
+    {
+      method: "POST",
+      body: JSON.stringify(service),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function destroyProcess(data) {
   let id = data.get("process_id");
 

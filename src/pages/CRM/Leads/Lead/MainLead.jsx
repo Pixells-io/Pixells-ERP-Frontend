@@ -16,8 +16,8 @@ import {
 import CardFollowUp from "./CardFollowUp";
 
 function MainLead() {
-  const [lead, services, info, follow_ups] = useOutletContext();
-  const step = lead.step;
+  const [lead, services, info, follow_ups, main_lead] = useOutletContext();
+  const step = main_lead.step;
 
   return (
     <div className="flex w-full">

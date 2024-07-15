@@ -7,6 +7,7 @@ import {
   useNavigation,
   Form,
   useSubmit,
+  redirect,
 } from "react-router-dom";
 
 import {
@@ -20,6 +21,8 @@ import {
 
 import NewStepService from "./components/Forms/NewStepService";
 import {
+  deleteStepProcess,
+  editStepProcess,
   moveProgressColumn,
   progressStepAdvance,
   requireDocument,
@@ -115,7 +118,10 @@ function StepsProgress() {
   }
 
   function onEnterForm(e) {
-    console.log(e);
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      // setEditStepName("");
+    }
   }
 
   return (
@@ -146,9 +152,9 @@ function StepsProgress() {
               }
             >
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
-                <div className="flex items-center">
+                <div className="flex w-full items-center justify-between px-2">
                   {editStepName == false ? (
-                    <p className="flex text-base text-grisText">
+                    <p className="flex w-full justify-center truncate pl-4 text-base text-grisText">
                       {step?.step.name}
                     </p>
                   ) : (
@@ -161,8 +167,23 @@ function StepsProgress() {
                       >
                         <input
                           type="text"
+                          name="name"
                           className="flex w-28 px-2"
                           defaultValue={step?.step.name}
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value={step?.step.id}
+                          name="step_id"
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value="edit-step"
+                          name="action"
                         />
                       </Form>
                     </div>
@@ -247,7 +268,13 @@ export async function Action({ params, request }) {
 
     case "require_document":
       return await requireDocument(data);
-  }
 
-  return 1;
+    case "delete-step":
+      await deleteStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+
+    case "edit-step":
+      await editStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+  }
 }
