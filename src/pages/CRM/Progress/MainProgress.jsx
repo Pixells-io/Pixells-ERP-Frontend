@@ -49,11 +49,11 @@ function Main() {
   const [modalRemove, setModalRemove] = useState(false);
   const [serviceSelected, setServiceSelected] = useState({});
 
-  // useEffect(() => {
-  //  if (navigation.state === "idle") {
-  //    setModalRemove(false);
-  //   }
-  //  }, [navigation.state]);
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalRemove(false);
+    }
+  }, [navigation.state]);
 
   return (
     <div className="flex w-full overflow-auto">
@@ -139,51 +139,53 @@ function Main() {
         <div className="flex items-center gap-4">
           <div className="flex gap-4 overflow-scroll">
             {selectedServices?.data?.map((service, i) => (
-              <NavLink
-                key={i}
-                to={`/crm/progress/${service?.id}`}
-                className={({ isActive }) =>
-                  isActive
-                    ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 font-poppins font-bold`
-                    : `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-[#8F8F8F] p-2 font-poppins font-normal`
-                }
-              >
-                <div className="ml-2 flex">
-                  <IonIcon
-                    icon={globeOutline}
-                    className="h-6 w-6"
-                    style={{ color: `${service?.color}` }}
-                  ></IonIcon>
-                </div>
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <p style={{ color: `${service?.color}` }}>&bull;</p>
-                    <p className="text-sm uppercase text-white">
-                      {service?.name}
-                    </p>
+              <div key={i} className="flex shrink-0">
+                <NavLink
+                  key={i}
+                  to={`/crm/progress/${service?.id}`}
+                  className={({ isActive }) =>
+                    isActive
+                      ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 pr-4 font-poppins font-bold`
+                      : `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-[#8F8F8F] p-2 pr-4 font-poppins font-normal`
+                  }
+                >
+                  <div className="ml-2 flex">
+                    <IonIcon
+                      icon={globeOutline}
+                      className="h-6 w-6"
+                      style={{ color: `${service?.color}` }}
+                    ></IonIcon>
                   </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <p style={{ color: `${service?.color}` }}>&bull;</p>
+                      <p className="text-sm uppercase text-white">
+                        {service?.name}
+                      </p>
+                    </div>
+                  </div>
+                </NavLink>
 
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="flex items-center">
-                      <IonIcon
-                        icon={ellipsisVertical}
-                        className="size-4 text-grisDisabled"
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => {
-                          setServiceSelected(service);
-                          setModalRemove(true);
-                        }}
-                      >
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </NavLink>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center">
+                    <IonIcon
+                      icon={ellipsisVertical}
+                      className="size-4 text-grisSubText"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setServiceSelected(service);
+                        setModalRemove(true);
+                      }}
+                    >
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             ))}
           </div>
           <div className="">
