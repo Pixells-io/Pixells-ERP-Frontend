@@ -27,7 +27,7 @@ function TabTransfer() {
           <p className="mb-1 font-roboto text-sm font-light text-grisHeading">
             Cuenta Contable
           </p>
-          <InputRouter className="" name="transfer_accAccount" type="text" />
+          <SelectRouter name="transfer_accAccount" options={[]} placeholder="" />
         </div>
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
           <p className="mb-1 font-roboto text-sm font-light text-grisHeading">

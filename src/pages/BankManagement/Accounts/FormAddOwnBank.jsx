@@ -5,6 +5,7 @@ import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -21,6 +22,7 @@ function FormAddOwnBank({ modal, setModal }) {
             Agregar Banco Propio
           </DialogTitle>
         </DialogHeader>
+        <DialogDescription>
         <Form
           id="own-bank-form"
           className="flex h-full w-full flex-col gap-3 px-6"
@@ -99,6 +101,7 @@ function FormAddOwnBank({ modal, setModal }) {
             </div>
           </div>
         </Form>
+        </DialogDescription>
         <DialogFooter className="px-10 pb-6">
           <Button
             form="own-bank-form"

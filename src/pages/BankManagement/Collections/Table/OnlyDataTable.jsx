@@ -72,9 +72,9 @@ function OnlyDataTable({ data, columns, titleButton, functionButton }) {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className="border-t-[#D7D7D7] text-[#44444F]"
+                  className={`border-t-[#D7D7D7] text-[#44444F]  ${(row?.original?.isSelected == "1") && " bg-primario bg-opacity-25"}`}
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={(row.getIsSelected() && (row?.original?.isSelected == "0" || !row?.original?.isSelected)) && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

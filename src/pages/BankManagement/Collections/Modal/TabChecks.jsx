@@ -1,26 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InfoPaymentAndCollection from "../../Components/InfoPaymentAndCollection";
-import DataTableChecks from "../Table/DataTableChecks";
+import TableForm from "../../Components/Table/TableForm";
 import { ChecksColumns } from "../Table/ChecksColumns";
 
 function TabChecks() {
-
-  const data = [
-    {
-      id: "1",
-      date: "28/06/2024",
-      amount: "2000.00",
-      country: "MEX",
-      checkName: "Salvador gutierrez",
-      branch: "004",
-      account: "876343",
-      noCheck: "876343"
-    },
-  ]
-
+  const [rowChecks, setRowChecks] = useState([]);
 
   return (
     <div className="mt-3 flex flex-col gap-8 px-4">
@@ -29,7 +16,7 @@ function TabChecks() {
           <p className="font-roboto text-sm font-light text-grisHeading">
             Cuenta Contable
           </p>
-          <InputRouter className="" name="checks_accAccount" type="text" />
+          <SelectRouter name="checks_accAccount" options={[]} placeholder="" />
         </div>
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
           <p className="font-roboto text-sm font-light text-grisHeading">
@@ -39,8 +26,8 @@ function TabChecks() {
           <SelectRouter name="checks_bankAccount" options={[]} placeholder="" />
         </div>
       </div>
-      <div>
-        <DataTableChecks data={data} columns={ChecksColumns} />
+      <div className="border rounded-lg border-blancoBox2	p-1">
+        <TableForm rows={rowChecks} setRows={setRowChecks} columns={ChecksColumns}/>
       </div>
 
       <div className="flex w-full justify-end">

@@ -1,98 +1,68 @@
-import { IonIcon } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
-
 export const ChecksColumns = [
   {
-    id: "date",
-    header: "Fecha",
-    accessorKey: "date",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {row?.original?.date}
-        </label>
-      );
-    },
+    key: "date",
+    class: "",
+    label: "Fecha",
+    placeholder: "",
+    typeColumn: "input",
+    type: "date",
   },
   {
-    id: "amount",
-    header: "Importe",
-    accessorKey: "amount",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {" "}
-          ${row?.original?.amount}
-        </label>
-      );
-    },
+    key: "amount",
+    class: "",
+    label: "Importe",
+    placeholder: "",
+    typeColumn: "input",
+    type: "number",
   },
   {
-    id: "country",
-    header: "País",
-    accessorKey: "country",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {row?.original?.country}
-        </label>
-      );
-    },
+    key: "contry",
+    class: "",
+    label: "País",
+    placeholder: "Select",
+    typeColumn: "select",
+    options: [
+      {
+        value: "mxn",
+        label: "MEX",
+      },
+      {
+        value: "usa",
+        label: "USA",
+      },
+      
+    ],
   },
   {
-    id: "checkName",
-    header: "Nombre del Cheque",
-    accessorKey: "checkName",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {row?.original?.checkName}
-        </label>
-      );
-    },
+    key: "checkName",
+    class: "",
+    label: "Nombre del Cheque",
+    placeholder: "",
+    typeColumn: "input",
+    type: "text",
   },
   {
-    id: "branch",
-    header: "Sucursal",
-    accessorKey: "branch",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {row?.original?.branch}
-        </label>
-      );
-    },
+    key: "branch",
+    class: "",
+    label: "Sucursal",
+    placeholder: "",
+    typeColumn: "input",
+    type: "number",
   },
   {
-    id: "account",
-    header: "Cuenta",
-    accessorKey: "account",
-    cell: ({ row }) => {
-      return (
-        <label className="font-roboto text-xs font-normal text-[#44444F]">
-          {row?.original?.account}
-        </label>
-      );
-    },
+    key: "account",
+    class: "",
+    label: "Cuenta",
+    placeholder: "",
+    typeColumn: "input",
+    type: "number",
   },
   {
-    id: "noCheck",
-    header: "No. del cheque",
-    accessorKey: "noCheck",
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-end justify-center gap-2">
-          <label className="font-roboto text-xs font-normal text-[#44444F]">
-            {row?.original?.noCheck}
-          </label>
-          
-          <IonIcon
-            icon={closeCircle}
-            size="small"
-            className="cursor-pointer text-grisDisabled"
-          ></IonIcon>
-        </div>
-      );
-    },
+    key: "noCheck",
+    class: "",
+    label: "No. del Cheque",
+    placeholder: "",
+    typeColumn: "input",
+    type: "number",
   },
 ];

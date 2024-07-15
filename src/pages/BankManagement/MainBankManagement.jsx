@@ -27,9 +27,9 @@ function MainBankManagement() {
       id: "1",
       name: "Cheque principal",
       bank: "Banamex",
-      type: "Banco nacional",
+      type: "Banco cx",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "2",
@@ -37,7 +37,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "3",
@@ -45,7 +45,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "4",
@@ -53,7 +53,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "5",
@@ -61,7 +61,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "6",
@@ -69,7 +69,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
   ];
 
@@ -80,7 +80,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "8",
@@ -88,7 +88,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "9",
@@ -96,7 +96,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "10",
@@ -104,7 +104,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "11",
@@ -112,7 +112,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "12",
@@ -120,7 +120,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
   ];
 
@@ -187,13 +187,13 @@ function MainBankManagement() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    className="w-full hover:cursor-pointer"
+                    className="w-full hover:cursor-pointer focus:bg-hoverModal"
                     onClick={() => setModalAddOwnBank(true)}
                   >
                     Bancos
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="w-full hover:cursor-pointer"
+                    className="w-full hover:cursor-pointer focus:bg-hoverModal"
                     onClick={() => setModalAddBankAccount(true)}
                   >
                     Cuenta Bancaría
@@ -206,14 +206,14 @@ function MainBankManagement() {
             <CardInformation
               title="SALDO"
               subtitle="Bancos y efectivo"
-              total="10,000"
+              total="1002.34"
               percentage="20"
               isPositive={true}
             />
             <CardInformation
               title="DEUDA"
               subtitle="Tarjeta de crédito"
-              total="8,700"
+              total="8700.40"
               percentage="20"
               isPositive={false}
             />

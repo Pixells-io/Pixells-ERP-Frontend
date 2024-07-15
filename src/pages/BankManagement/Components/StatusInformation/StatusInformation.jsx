@@ -19,9 +19,9 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
           </p>
           <div className="mt-2 flex justify-center">
             {
-              status == 1 ? <StatusDraft /> :
-              status == 2 ? <StatusInProgress /> :
-              status == 3 && <StatusDone />
+              status == "draft" ? <StatusDraft /> :
+              status == "inProgress" ? <StatusInProgress /> :
+              status == "done" && <StatusDone />
             }
              
           </div>
@@ -32,9 +32,9 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
           </p>
           <div className="mt-2 flex justify-center">
             <label className="rounded-xl bg-blancoBox px-2 py-1 text-center text-xs font-semibold text-grisSubText">
-              {status == 1 || status == 2
+              {status == "draft" || status == "inProgress"
                 ? "Pending Aproval"
-                : status == 3 && "Agustin Hernandez"}
+                : status == "done" && "Agustin Hernandez"}
             </label>
           </div>
         </div>
@@ -44,16 +44,16 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
           </p>
           <div className="mt-2 flex justify-center">
             <label className="rounded-xl bg-blancoBox px-2 py-1 text-center text-xs font-semibold text-grisSubText">
-              {status == 1 || status == 2
+              {status == "draft" || status == "inProgress"
                 ? "Pending Date"
-                : status == 3 && "27 Jun 2024"}
+                : status == "done" && "27 Jun 2024"}
             </label>
           </div>
         </div>
       </div>
 
       <div
-        className={`col-span-12 md:col-span-6 ${status == 3 ? "xl:col-span-7" : "xl:col-span-4"}`}
+        className={`col-span-12 md:col-span-6 ${status == "done" ? "xl:col-span-7" : "xl:col-span-4"}`}
       >
         <div className="flex gap-3 text-[#696974]">
           <Avatar className="size-12">
@@ -63,7 +63,7 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
               }
             />
           </Avatar>
-          {status == 3 ? (
+          {status == "done" ? (
             <label
               className="h-[80px] w-full resize-none rounded-lg px-3 py-2 text-[10px]"
               name="template"
@@ -80,9 +80,9 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
           )}
         </div>
       </div>
-      {(status == 1 || status == 2) && (
+      {(status == "draft" || status == "inProgress") && (
         <div className="col-span-12 xl:col-span-3">
-          {(status == 1 || status == 2) && (
+          {(status == "draft" || status == "inProgress") && (
             <div className="flex h-full items-center gap-2">
               <Button
                 variant="outline"
@@ -92,8 +92,8 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
               </Button>
               <Button
                 onClick={() => applyFunction()}
-                className={`rounded-lg px-10 text-xs ${status == 2 && "bg-primarioBotones hover:bg-primarioBotones"}`}
-                disabled={status == 1}
+                className={`rounded-lg px-10 text-xs ${status == "inProgress" && "bg-primarioBotones hover:bg-primarioBotones"}`}
+                disabled={status == "draft"}
               >
                 Aplicar
               </Button>

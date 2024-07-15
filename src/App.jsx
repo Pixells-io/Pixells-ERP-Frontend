@@ -239,6 +239,7 @@ import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollectio
 import MainCategory, {
   Action as MainCategoryFunction,
 } from "./pages/CRM/Services/MainCategory";
+import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecord";
 
 const router = createBrowserRouter([
   {
@@ -696,6 +697,10 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/collection/create",
             element: <AddNewCollection />,
+          },
+          {
+            path: "/bank-management/collection/record/:id",
+            element: <CollectionRecord />,
           },
         ],
       },

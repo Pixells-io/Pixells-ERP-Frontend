@@ -13,7 +13,7 @@ function NoDocument() {
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollInterval = useRef(null);
 
-  // Desplazarse al último elemento cuando la página se carga
+  // Desplazarse al ultimo elemento cuando la pagina se carga
   useEffect(() => {
     if (lastElementRef.current) {
       contentRef.current.scrollLeft = contentRef.current.scrollWidth;
@@ -25,9 +25,9 @@ function NoDocument() {
       setIsScrolling(true);
       scrollInterval.current = setInterval(() => {
         if (contentRef.current) {
-          contentRef.current.scrollBy({ left: -1, behavior: "auto" }); // Ajusta la cantidad de desplazamiento según sea necesario
+          contentRef.current.scrollBy({ left: -1, behavior: "auto" });
         }
-      }, 10); // Ajusta la velocidad del desplazamiento según sea necesario
+      }, 10);
     }
   };
 
@@ -44,9 +44,9 @@ function NoDocument() {
       setIsScrolling(true);
       scrollInterval.current = setInterval(() => {
         if (contentRef.current) {
-          contentRef.current.scrollBy({ left: 2, behavior: "auto" }); // Ajusta la cantidad de desplazamiento según sea necesario
+          contentRef.current.scrollBy({ left: 2, behavior: "auto" });
         }
-      }, 10); // Ajusta la velocidad del desplazamiento según sea necesario
+      }, 10);
     }
   };
 
@@ -70,7 +70,7 @@ function NoDocument() {
 
       <div
         ref={contentRef}
-        className="flex w-[350px]  gap-4 overflow-hidden transition-all duration-100 ease-in-out"
+        className="flex w-[350px] gap-4 overflow-hidden transition-all duration-100 ease-in-out"
       >
         {[...Array(20)].map((_, index) => (
           <div
@@ -79,7 +79,7 @@ function NoDocument() {
             className="min-w-[100px] cursor-pointer rounded bg-blancoBox hover:bg-[#D7D7D7]"
           >
             <div className="h-[3px] w-full rounded-t bg-primario"></div>
-            <div className="flex w-full flex-col justify-center py-1">
+            <div className="flex w-full flex-col justify-center p-1">
               <span className="text-center text-[10px] font-normal text-[#8f8f8f]">
                 Last OC
               </span>

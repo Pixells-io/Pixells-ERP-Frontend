@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle, create, trash } from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatusInProgress from "../../Components/StatusInformation/StatusInProgress";
 import StatusDone from "../../Components/StatusInformation/StatusDone";
+import { formatNumber } from "../../utils";
 
 export const CollectionsColumns = [
   {
@@ -44,7 +44,7 @@ export const CollectionsColumns = [
     header: "TOTAL",
     accessorKey: "total",
     cell: ({ row }) => {
-      return <> ${row?.original?.total}</>;
+      return <>{formatNumber(row?.original?.total)}</>;
     },
   },
   {
@@ -54,8 +54,8 @@ export const CollectionsColumns = [
     cell: ({ row }) => {
       
       return <> 
-      {row?.original?.status == 2 ? <StatusInProgress /> : 
-      row?.original?.status == 3 && <StatusDone />}
+      {row?.original?.status == "inProgress" ? <StatusInProgress /> : 
+      row?.original?.status == "done" && <StatusDone />}
       </>;
     },
   },
@@ -67,7 +67,7 @@ export const CollectionsColumns = [
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
-            // to={`/crm/leads/${row?.original?.id}`}
+            to={`/bank-management/collection/record/${row?.original?.id}`}
             className="flex items-center"
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>

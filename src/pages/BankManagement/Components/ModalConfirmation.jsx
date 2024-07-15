@@ -19,7 +19,7 @@ function ModalConfirmation({
 }) {
   return (
     <Dialog open={modal} onOpenChange={setModal} >
-      <DialogContent className="p-6 bg-[#242424] max-w-[250px]">
+      <DialogContent className="p-6 border-0 bg-[#242424] max-w-[250px]">
         <DialogHeader className="">
           <DialogTitle className="font-roboto text-md font-semibold text-white">
             {title}

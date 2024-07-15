@@ -1,5 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useState } from "react";
+import { formatNumber } from "../../utils";
 
 export const AddCollectionsColumns = [
   {
@@ -67,7 +68,7 @@ export const AddCollectionsColumns = [
     header: "Total",
     accessorKey: "total",
     cell: ({ row }) => {
-      return <>${row?.original?.total}</>;
+      return <>{formatNumber(row?.original?.total)}</>;
     },
   },
   {
@@ -75,7 +76,7 @@ export const AddCollectionsColumns = [
     header: "Saldo Vencido",
     accessorKey: "overdueBalance",
     cell: ({ row }) => {
-      return <>${row?.original?.overdueBalance}</>;
+      return <>{formatNumber(row?.original?.overdueBalance)}</>;
     },
   },
   {
@@ -83,7 +84,7 @@ export const AddCollectionsColumns = [
     header: "Desc %",
     accessorKey: "discount",
     cell: ({ row }) => {
-      return <>{row?.original?.discount}%</>;
+      return <> {row?.original?.discount}%</>;
     },
   },
   {

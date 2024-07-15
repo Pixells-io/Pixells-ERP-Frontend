@@ -18,8 +18,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 3,
+      total: "54620.00",
+      status: "done",
     },
     {
       id: "2",
@@ -27,8 +27,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 2,
+      total: "54620.00",
+      status: "inProgress",
     },
     {
       id: "3",
@@ -36,8 +36,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 3,
+      total: "54620.00",
+      status: "done",
     },
     {
       id: "4",
@@ -45,8 +45,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 3,
+      total: "54620.00",
+      status: "done",
     },
   ];
 
@@ -57,8 +57,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 2,
+      total: "54620.00",
+      status: "inProgress",
     },
     {
       id: "6",
@@ -66,8 +66,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 3,
+      total: "54620.00",
+      status: "done",
     },
     {
       id: "7",
@@ -75,8 +75,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 2,
+      total: "54620.00",
+      status: "inProgress",
     },
     {
       id: "8",
@@ -84,8 +84,8 @@ function MainCollectionBankManag() {
       noDoc: "0918",
       typeDoc: "FA",
       paymentMethod: "Transferencia",
-      total: "54,620.00",
-      status: 3,
+      total: "54620.00",
+      status: "done",
     },
   ];
 

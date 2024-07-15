@@ -3,6 +3,7 @@ import React from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -25,10 +26,11 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="overflow-auto bg-blancoBg p-0 sm:max-w-[668px]">
+      <DialogContent className="max-h-[90vh] max-w-[90vh] overflow-auto bg-blancoBg p-0 sm:max-h-[680px] sm:max-w-[680px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading"></DialogTitle>
         </DialogHeader>
+        <DialogDescription>
           <Tabs
             defaultValue="checks"
             className="h-full overflow-auto rounded-lg"
@@ -36,7 +38,7 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
             <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
               <TabsTrigger
                 value="checks"
-                className="rounded-none border-b-2 pl-1 pr-4 py-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 py-2 pl-1 pr-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               >
                 CHEQUES
               </TabsTrigger>
@@ -89,6 +91,7 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
               </form>
             </TabsContent>
           </Tabs>
+        </DialogDescription>
 
         <DialogFooter className="px-6 pb-6">
           <Button

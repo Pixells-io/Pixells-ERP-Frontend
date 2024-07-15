@@ -5,6 +5,7 @@ import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -21,6 +22,7 @@ function FormAddBankAccount({ modal, setModal }) {
             Agregar Cuenta Bancaria
           </DialogTitle>
         </DialogHeader>
+        <DialogDescription>
         <Form
           id="bank-account-form"
           className="flex h-full w-full flex-col gap-3 px-6"
@@ -144,6 +146,7 @@ function FormAddBankAccount({ modal, setModal }) {
             </div>
           </div>
         </Form>
+        </DialogDescription>
         <DialogFooter className="px-10 pb-6">
           <Button
             form="bank-account-form"

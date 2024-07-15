@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
+import { formatNumber } from "../../utils";
 
 export const AccountsColumns = [
   {
@@ -43,7 +43,7 @@ export const AccountsColumns = [
     header: "SALDO",
     accessorKey: "balance",
     cell: ({ row }) => {
-      return <>${row?.original?.balance}</>;
+      return <>{formatNumber(row?.original?.balance)}</>;
     },
   },
   {
