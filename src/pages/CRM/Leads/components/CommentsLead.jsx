@@ -14,7 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { send } from "ionicons/icons";
+import { chatbubbleEllipsesOutline, send } from "ionicons/icons";
 
 function CommentsLead({ leadId, comments }) {
   const { id, projectId } = useParams();
@@ -36,7 +36,9 @@ function CommentsLead({ leadId, comments }) {
           <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-full rounded-bl-none bg-grisDisabled">
             <Avatar className="size-6">
               <AvatarImage src={comments?.slice(-1)[0]?.img} />
-              <AvatarFallback>??</AvatarFallback>
+              <AvatarFallback>
+                <IonIcon src={chatbubbleEllipsesOutline} className="size-4" />
+              </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="h-[280px] w-[320px]">
