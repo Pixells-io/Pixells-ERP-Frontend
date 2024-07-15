@@ -301,12 +301,14 @@ function Lead({ lead, setModal }) {
                 </HoverCardContent>
               </HoverCard>
             </div>
-            <div className="flex">
-              <IonIcon
-                icon={chatbubbleEllipses}
-                className="h-6 w-6 text-[#40BD72]"
-              ></IonIcon>
-            </div>
+            {/*
+              <div className="flex">
+                <IonIcon
+                  icon={chatbubbleEllipses}
+                  className="h-6 w-6 text-[#40BD72]"
+                ></IonIcon>
+              </div>
+              */}
           </div>
 
           <div>
