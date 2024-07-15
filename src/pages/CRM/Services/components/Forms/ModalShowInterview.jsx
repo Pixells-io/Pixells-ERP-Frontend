@@ -13,27 +13,9 @@ import { IonIcon } from "@ionic/react";
 import { add, closeCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function ModalCreateInterview({ modal, setModal, serviceId }) {
+function ModalShowInterview({ modal, setModal, id, name, questions }) {
   const [processValue, setProcessValue] = useState([]);
   const navigation = useNavigation();
-  const [processInputs, setProcessInputs] = useState([
-    {
-      proceso: "",
-    },
-  ]);
-
-  function addProcessField() {
-    const processInput = {
-      proceso: "",
-    };
-
-    setProcessInputs([...processInputs, processInput]);
-  }
-
-  function removeProcessField(index) {
-    const newFields = processInputs.filter((item, i) => index !== i);
-    setProcessInputs(newFields);
-  }
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -41,7 +23,7 @@ function ModalCreateInterview({ modal, setModal, serviceId }) {
     }
   }, [navigation.state]);
 
-  console.log(serviceId);
+  console.log(questions);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -53,57 +35,30 @@ function ModalCreateInterview({ modal, setModal, serviceId }) {
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/services/${serviceId}`}
+          action={`/crm/services/${id}`}
           method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <input type="hidden" name="type_of_function" value="5" />
-              <input type="hidden" name="service_id" value={serviceId} />
+              <input type="hidden" name="service_id" value={id} />
               <InputRouter
                 name="name"
                 type="text"
+                value={name}
                 placeholder="Name of the Interview"
               />
               <div className="flex w-full items-center gap-3">
                 <div className="flex w-full flex-col gap-3">
-                  {processInputs?.map((input, i) => (
+                  {questions?.map((input, i) => (
                     <div key={i} className="flex w-full gap-3">
-                      <InputRouter name="input" placeholder="Title" />
-                      {i >= 1 ? (
-                        <button
-                          type="button"
-                          className="flex items-center"
-                          onClick={() => removeProcessField(i)}
-                        >
-                          <IonIcon
-                            icon={closeCircle}
-                            size=""
-                            className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                          ></IonIcon>
-                        </button>
-                      ) : (
-                        <div className="w-5"></div>
-                      )}
+                      <InputRouter
+                        name="input"
+                        placeholder="Title"
+                        value={input.question}
+                      />
                     </div>
                   ))}
-                </div>
-                <div className="flex self-center">
-                  {processInputs.length <= 4 ? (
-                    <button
-                      className="flex h-6 w-6 items-center rounded-full bg-primario"
-                      onClick={() => addProcessField()}
-                      type="button"
-                    >
-                      <IonIcon
-                        icon={add}
-                        size="large"
-                        className="text-white"
-                      ></IonIcon>
-                    </button>
-                  ) : (
-                    <div className="w-6"></div>
-                  )}
                 </div>
               </div>
             </div>
@@ -122,4 +77,4 @@ function ModalCreateInterview({ modal, setModal, serviceId }) {
   );
 }
 
-export default ModalCreateInterview;
+export default ModalShowInterview;

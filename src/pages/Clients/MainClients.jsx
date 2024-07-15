@@ -21,6 +21,7 @@ import ModalEditClient from "../CRM/Clients/Forms/ModalEditClient";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CollectDocumentsClientPlatform from "./Components/CollectDocumentsClientPlatform";
 import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatform";
+import ClientInterviews from "./Components/ClientInterviews";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -173,7 +174,9 @@ function MainClients() {
                 </div>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="interview">in</TabsContent>
+            <TabsContent value="interview">
+              <ClientInterviews interviews={data.interviews} />
+            </TabsContent>
             <TabsContent value="collect">
               <CollectDocumentsClientPlatform
                 documents={data.pending_documents}

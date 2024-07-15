@@ -40,7 +40,7 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
           }}
         >
           <input type="hidden" value={7} name="type" />
-          <input type="hidden" name="client_id" value={client.id} />
+          <input type="hidden" name="client_id" value={client?.id} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Business Information
@@ -49,12 +49,12 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
               <InputRouter
                 name="business_name"
                 type="text"
-                placeholder={info.business_name}
+                placeholder={info?.business_name}
               />
               <InputRouter
                 name="business_phone"
                 type="text"
-                placeholder={info.business_phone}
+                placeholder={info?.business_phone}
               />
             </div>
           </div>
@@ -66,27 +66,27 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
               <InputRouter
                 name="contact_name"
                 type="text"
-                placeholder={info.contact_name}
+                placeholder={info?.contact_name}
               />
               <InputRouter
                 name="contact_middle_name"
                 type="text"
-                placeholder={info.contact_middle_name}
+                placeholder={info?.contact_middle_name}
               />
               <InputRouter
                 name="contact_last_name"
                 type="text"
-                placeholder={info.contact_last_name}
+                placeholder={info?.contact_last_name}
               />
               <InputRouter
                 name="contact_phone"
                 type="text"
-                placeholder={info.contact_phone}
+                placeholder={info?.contact_phone}
               />
               <InputRouter
                 name="contact_email"
                 type="email"
-                placeholder={info.contact_email}
+                placeholder={info?.contact_email}
               />
             </div>
           </div>
