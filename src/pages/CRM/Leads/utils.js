@@ -180,6 +180,10 @@ export async function closingLeadForm(data) {
     recurrency: data.getAll("recurrency"),
     ammount: data.getAll("ammount"),
     assigned: data.get("assigned_id"),
+    type_sale: data.get("type_sale"),
+    membership_id: data.get("membership_id"),
+    recurrency_membership: data.get("recurrency_membership"),
+    ammount_membership: data.get("ammount_membership"),
   };
 
   const formData = new FormData();

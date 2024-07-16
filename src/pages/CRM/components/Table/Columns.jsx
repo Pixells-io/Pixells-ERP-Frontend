@@ -33,6 +33,9 @@ export const columns = [
   {
     accessorKey: "contact",
     header: "CONTACT",
+    cell: ({ row }) => {
+      return <span>{row.original.contact}</span>;
+    },
   },
   {
     accessorKey: "phone",
