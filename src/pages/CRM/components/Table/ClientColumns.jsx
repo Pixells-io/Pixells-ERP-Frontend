@@ -17,10 +17,18 @@ export const clientColumns = [
     accessorKey: "business_name",
     header: "COMPANY",
   },
-
   {
     accessorKey: "contact_name",
     header: "CONTACT",
+    cell: ({ row }) => {
+      const info = row.original.type;
+      return (
+        <div>
+          {row.original.contact_name} {row.original.contact_middle_name}{" "}
+          {row.original.contact_last_name}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "contact_phone",

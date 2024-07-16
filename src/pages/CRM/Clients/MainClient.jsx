@@ -123,8 +123,8 @@ function MainClient() {
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
-          <span className="font-poppins text-2xl font-bold text-grisHeading">
-            CLIENT INFORMATION
+          <span className="font-poppins text-2xl font-bold uppercase text-grisHeading">
+            CLIENT INFORMATION - {client?.info?.business_name}
           </span>
           <div className="flex gap-10">
             <div className="flex">

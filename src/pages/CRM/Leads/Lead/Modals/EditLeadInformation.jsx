@@ -49,11 +49,13 @@ function EditLeadInformation({ modal, setModal, info, lead }) {
                 name="bussines_name"
                 type="text"
                 placeholder={info.business_name}
+                defaultVal={info.business_name}
               />
               <InputRouter
                 name="bussines_phone"
                 type="text"
                 placeholder={info.business_phone}
+                defaultVal={info.business_phone}
               />
             </div>
           </div>
@@ -66,26 +68,31 @@ function EditLeadInformation({ modal, setModal, info, lead }) {
                 name="contact_name"
                 type="text"
                 placeholder={info.contact_name}
+                defaultVal={info.contact_name}
               />
               <InputRouter
                 name="contact_middle_name"
                 type="text"
                 placeholder={info.contact_middle_name}
+                defaultVal={info.contact_middle_name}
               />
               <InputRouter
                 name="contact_last_name"
                 type="text"
                 placeholder={info.contact_last_name}
+                defaultVal={info.contact_last_name}
               />
               <InputRouter
                 name="contact_phone"
                 type="text"
                 placeholder={info.contact_phone}
+                defaultVal={info.contact_phone}
               />
               <InputRouter
                 name="contact_email"
                 type="email"
                 placeholder={info.contact_email}
+                defaultVal={info.contact_email}
               />
             </div>
           </div>

@@ -31,6 +31,7 @@ function Stages() {
     kickoff: false,
   });
   const [leadAssigned, setLeadAssigned] = useState("");
+  const [type, setType] = useState("");
 
   //FUNCTIONS DRAG AND DROP
 
@@ -56,6 +57,7 @@ function Stages() {
     //Set the information
     setLeadAssigned(lead.assigned);
     setLeadId(lead.id);
+    setType(lead.type);
 
     //Open the menu
     switch (column_id) {
@@ -181,6 +183,7 @@ function Stages() {
         leadId={leadId}
         users={users}
         leadAssigned={leadAssigned}
+        type={type}
       />
 
       <div className="flex gap-2">
