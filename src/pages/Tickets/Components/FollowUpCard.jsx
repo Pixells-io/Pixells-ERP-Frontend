@@ -14,7 +14,7 @@ import { IonIcon } from "@ionic/react";
 import FormCreateFollowUpComments from "./FormCreateFollowUpComments";
 import FollowUpCommentCard from "./FollowUpCommentCard";
 
-function FollowUpCard({ followUp, ticket }) {
+function FollowUpCard({ followUp, ticket, status }) {
   const [modal, setModal] = useState(false);
   const [idModal, setIdModal] = useState(false);
 
@@ -23,8 +23,6 @@ function FollowUpCard({ followUp, ticket }) {
     setIdModal(value);
     console.log(value);
   }
-
-  console.log(followUp.category);
 
   return (
     <div className="w-full overflow-scroll">
@@ -62,7 +60,7 @@ function FollowUpCard({ followUp, ticket }) {
             )}
           </div>
         </div>
-        <div className="my-6 flex h-[112px] w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
+        <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
           {/* card header */}
           <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
             <div className="flex items-center gap-2 p-1">
@@ -71,9 +69,15 @@ function FollowUpCard({ followUp, ticket }) {
               <p className="text-[15px] font-medium text-gris2">
                 {followUp.creator}
               </p>
-              <span className="font-roboto text-xs font-medium text-grisSubText">
-                {followUp.mensagge}
-              </span>
+              {followUp.mensagge != "0" ? (
+                <span className="font-roboto text-xs font-medium text-grisSubText">
+                  {followUp.mensagge}
+                </span>
+              ) : (
+                <span className="font-roboto text-xs font-medium text-grisSubText">
+                  Upload a Document
+                </span>
+              )}
             </div>
             <div className="flex items-center gap-2 p-1 text-grisSubText">
               <div className="flex items-center gap-1">
@@ -87,16 +91,22 @@ function FollowUpCard({ followUp, ticket }) {
           {/* card content */}
           <div className="justify-between">
             <div className="ml-4 mt-4">
-              <p className="text-xs font-normal text-grisSubText">
-                {followUp.comment}
-              </p>
-              <button
-                type="button"
-                onClick={() => openModalComment(followUp.id)}
-                className="mt-2 text-2xl text-primario"
-              >
-                <IonIcon icon={addCircleSharp}></IonIcon>
-              </button>
+              {followUp.mensagge != "0" ? (
+                <p className="text-xs font-normal text-grisSubText">
+                  {followUp.comment}
+                </p>
+              ) : (
+                <iframe src={followUp.comment} frameborder="0"></iframe>
+              )}
+              {status != "Complete" ? (
+                <button
+                  type="button"
+                  onClick={() => openModalComment(followUp.id)}
+                  className="mt-2 text-2xl text-primario"
+                >
+                  <IonIcon icon={addCircleSharp}></IonIcon>
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
