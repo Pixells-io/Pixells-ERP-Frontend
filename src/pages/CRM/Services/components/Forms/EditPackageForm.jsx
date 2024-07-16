@@ -52,13 +52,13 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
             <div className="flex flex-col gap-4 font-light">
               <input type="hidden" name="type_of_function" value="1" />
               <input type="hidden" name="package_id" value={id} />
-              <InputRouter name="name" type="text" placeholder={name} />
+              <InputRouter name="name" type="text" defaultVal={name} />
               <InputRouter
                 name="description"
                 type="text"
-                placeholder={description}
+                defaultVal={description}
               />
-              <InputRouter name="price" type="number" placeholder={price} />
+              <InputRouter name="price" type="number" defaultVal={price} />
             </div>
           </div>
           <DialogFooter className="px-6 py-4">

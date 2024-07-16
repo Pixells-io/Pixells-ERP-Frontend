@@ -10,7 +10,7 @@ export const clientColumns = [
     header: "TYPE",
     cell: ({ row }) => {
       const info = row.original.type;
-      return <div>{info == 1 ? "Person" : "Business"}</div>;
+      return <div>{info == 1 ? "Individual" : "Business"}</div>;
     },
   },
   {

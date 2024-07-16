@@ -42,7 +42,12 @@ function ModalClientAccess({ modal, setModal, client_id, email }) {
           <input type="hidden" value={8} name="type" />
           <input type="hidden" name="client_id" value={client_id} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
-            <InputRouter name="email" type="email" placeholder={email} />
+            <InputRouter
+              name="email"
+              type="email"
+              defaultValue={email}
+              placeholder={email}
+            />
             <InputRouter
               name="password"
               type="password"

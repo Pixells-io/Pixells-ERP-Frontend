@@ -17,7 +17,6 @@ import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
 import { IonIcon } from "@ionic/react";
 import {
-  addOutline,
   cashOutline,
   createOutline,
   keyOutline,
@@ -114,7 +113,7 @@ function MainClient() {
         modal={accessModal}
         setModal={setAccessModal}
         client_id={client?.master?.id}
-        email={client?.email}
+        email={client?.info?.email}
       />
       <AssignInterviewModal
         modal={modalAssignInterview}
@@ -194,11 +193,19 @@ function MainClient() {
               />
             </div>
             <div className="self-center">
-              <IonIcon
-                icon={keyOutline}
-                className="text-grisHeading"
-                onClick={() => setAccessModal(true)}
-              />
+              {client.info.password === null ? (
+                <IonIcon
+                  icon={keyOutline}
+                  className="text-grisHeading"
+                  onClick={() => setAccessModal(true)}
+                />
+              ) : (
+                <IonIcon
+                  icon={keyOutline}
+                  className="text-green-600"
+                  onClick={() => setAccessModal(true)}
+                />
+              )}
             </div>
           </div>
 
