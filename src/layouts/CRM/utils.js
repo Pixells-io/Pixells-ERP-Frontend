@@ -55,3 +55,33 @@ export async function saveImportClients(data) {
 
   return 1;
 }
+
+export async function removeLead(data) {
+  const id = data.get("lead_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/destroy_lead/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function removeClient(data) {
+  const id = data.get("client_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/destroy_client/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

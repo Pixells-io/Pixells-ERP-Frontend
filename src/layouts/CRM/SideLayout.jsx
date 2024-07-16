@@ -12,7 +12,12 @@ import MenuCRM from "./components/MenuCRM";
 import FormNewLead from "./components/Form/FormNewLead";
 import FormNewSale from "./components/Form/FormNewSale";
 
-import { saveImportClients, saveNewLead } from "./utils";
+import {
+  removeClient,
+  removeLead,
+  saveImportClients,
+  saveNewLead,
+} from "./utils";
 
 function SideLayout() {
   const { services, customers } = useLoaderData();
@@ -55,15 +60,23 @@ export default SideLayout;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  switch (data.get("register_type_function")) {
-    case "1":
+  switch (action) {
+    case "save-lead":
       await saveNewLead(data);
-      break;
+      return redirect("/crm");
+
     case "2":
       await saveImportClients(data);
-      break;
-  }
+      return redirect("/crm");
 
-  return redirect("/crm");
+    case "delete-lead":
+      await removeLead(data);
+      return redirect("/crm");
+
+    case "delete-client":
+      await removeClient(data);
+      return redirect("/crm");
+  }
 }

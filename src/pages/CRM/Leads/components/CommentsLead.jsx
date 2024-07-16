@@ -73,9 +73,9 @@ function CommentsLead({ leadId, comments }) {
                 <Form
                   onKeyDown={onInputEnter}
                   method="post"
-                  action={`/project-manager/${id}/projects/${projectId}`}
-                  id="activity-comment-form"
-                  name="activity-comment"
+                  action={`/crm/leads`}
+                  id="lead-comment-form"
+                  name="lead-comment"
                 >
                   <input
                     type="text"
@@ -86,7 +86,7 @@ function CommentsLead({ leadId, comments }) {
                     onChange={(e) => setCommentInput(e.target.value)}
                   />
                   <input
-                    name="activity_id"
+                    name="lead_id"
                     className="hidden"
                     value={leadId}
                     hidden
@@ -95,7 +95,7 @@ function CommentsLead({ leadId, comments }) {
                   <input
                     name="action"
                     className="hidden"
-                    value="edit"
+                    value="add-comment-lead"
                     hidden
                     readOnly
                   />
