@@ -60,7 +60,7 @@ function FollowUpCard({ followUp, ticket, status }) {
             )}
           </div>
         </div>
-        <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
+        <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-4 shadow-sm drop-shadow-sm">
           {/* card header */}
           <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
             <div className="flex items-center gap-2 p-1">
