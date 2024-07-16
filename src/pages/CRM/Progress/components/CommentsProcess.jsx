@@ -73,7 +73,8 @@ function CommentsProcess({ customerId, comments }) {
                 <Form
                   onKeyDown={onInputEnter}
                   method="post"
-                  action={`/crm/leads`}
+                  action={`/crm/progress/${id}`}
+                  s
                   id="client-comment-form"
                   name="client-comment"
                 >
@@ -86,7 +87,7 @@ function CommentsProcess({ customerId, comments }) {
                     onChange={(e) => setCommentInput(e.target.value)}
                   />
                   <input
-                    name="activity_id"
+                    name="client_id"
                     className="hidden"
                     value={customerId}
                     hidden
@@ -95,7 +96,7 @@ function CommentsProcess({ customerId, comments }) {
                   <input
                     name="action"
                     className="hidden"
-                    value="edit"
+                    value="add-comment-client"
                     hidden
                     readOnly
                   />

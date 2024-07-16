@@ -227,3 +227,23 @@ export async function deleteStepProcess(data) {
   }
   return response;
 }
+
+export async function addCommentClient(data) {
+  const info = {
+    client_id: data.get("client_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/store-client-comment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
