@@ -13,6 +13,8 @@ function SidebarActionsTicket({ ticket, areas, users }) {
 
   const [modalDocument, setModalDocument] = useState(false);
 
+  console.log(ticket.status);
+
   function setModalFollowUp(value) {
     let title = "";
 
@@ -67,66 +69,71 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       <p className="font-poppins text-base font-semibold text-grisHeading">
         ACTIONS
       </p>
-      <div className="mt-6 flex gap-4">
-        <button
-          type="button"
-          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalFollowUp(1)}
-        >
-          Visit
-        </button>
-        <button
-          type="button"
-          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalFollowUp(2)}
-        >
-          Phone Call
-        </button>
-      </div>
-      <div className="mt-4 flex gap-4">
-        <button
-          type="button"
-          className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalFollowUp(3)}
-        >
-          Message
-        </button>
-        <button
-          type="button"
-          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalFollowUp(4)}
-        >
-          E-mail
-        </button>
-      </div>
-      <div className="mb-8 mt-4 flex gap-4">
-        <button
-          type="button"
-          className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
-          onClick={() => setModalDocument(true)}
-        >
-          Document
-        </button>
-        <button
-          type="button"
-          className="w-24 rounded-2xl border border-primario px-3 py-1 text-sm font-medium text-primario hover:bg-primario hover:text-white"
-          onClick={() => setModalFollowUp(5)}
-        >
-          Finish
-        </button>
-      </div>
-      <div className="mt-8">
-        <button
-          type="button"
-          className="group flex w-full justify-start gap-3 p-0 text-blue-500 hover:rounded-lg hover:bg-blue-100"
-          onClick={() => setModalResponsible(true)}
-        >
-          <IonIcon icon={add} size="large"></IonIcon>
-          <p className="mr-1 mt-1 text-lg font-medium text-blue-500">
-            Responsibles
-          </p>
-        </button>
-      </div>
+      {ticket.status != "Complete" ? (
+        <>
+          <div className="mt-6 flex gap-4">
+            <button
+              type="button"
+              className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+              onClick={() => setModalFollowUp(1)}
+            >
+              Visit
+            </button>
+            <button
+              type="button"
+              className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+              onClick={() => setModalFollowUp(2)}
+            >
+              Phone Call
+            </button>
+          </div>
+          <div className="mt-4 flex gap-4">
+            <button
+              type="button"
+              className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+              onClick={() => setModalFollowUp(3)}
+            >
+              Message
+            </button>
+            <button
+              type="button"
+              className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+              onClick={() => setModalFollowUp(4)}
+            >
+              E-mail
+            </button>
+          </div>
+          <div className="mb-8 mt-4 flex gap-4">
+            <button
+              type="button"
+              className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
+              onClick={() => setModalDocument(true)}
+            >
+              Document
+            </button>
+            <button
+              type="button"
+              className="w-24 rounded-2xl border border-primario px-3 py-1 text-sm font-medium text-primario hover:bg-primario hover:text-white"
+              onClick={() => setModalFollowUp(5)}
+            >
+              Finish
+            </button>
+          </div>
+          <div className="mt-8">
+            <button
+              type="button"
+              className="group flex w-full justify-start gap-3 p-0 text-blue-500 hover:rounded-lg hover:bg-blue-100"
+              onClick={() => setModalResponsible(true)}
+            >
+              <IonIcon icon={add} size="large"></IonIcon>
+              <p className="mr-1 mt-1 text-lg font-medium text-blue-500">
+                Responsibles
+              </p>
+            </button>
+          </div>
+        </>
+      ) : null}
+
       <div className="mt-8">
         <p className="font-poppins text-base font-semibold text-grisHeading">
           Responsibles
