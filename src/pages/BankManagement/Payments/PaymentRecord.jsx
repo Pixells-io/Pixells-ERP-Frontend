@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -10,108 +10,40 @@ import {
   create,
   closeCircle,
 } from "ionicons/icons";
-import OnlyDataTable from "../Components/Table/OnlyDataTable";
-import { AddCollectionsColumns } from "./Table/AddCollectionColumns";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import InfoPaymentAndCollection from "../Components/InfoPaymentAndCollection";
-import FormPaymentMethods from "./Modal/FormPaymentMethods";
 import StatusInformation from "../Components/StatusInformation/StatusInformation";
-import ModalConfirmation from "../Components/ModalConfirmation";
-import TableForm from "../Components/Table/TableForm";
+import NoDocument from "../Components/NoDocument";
+import { PaymentsRecordColumns } from "./Table/PaymentsRecordColumns";
+import OnlyTable from "../Components/Table/OnlyTable";
 
-function AddNewCollection() {
-  const navigate = useNavigate();
-
-  const [modalPaymentMethods, setModalPaymentMethods] = useState(false);
-  const [status, setStatus] = useState("draft");
-  const [modalConfirmation, setModalConfirmation] = useState(false);
-  const [rowRetenciones, setRowRetenciones] = useState([]);
-  const [dataSelectTable, setDataSelectTable] = useState([]);
+function PaymentRecord() {
+  const [status, setStatus] = useState("done");
 
   //datos de prueba --------------------------
 
   const dateNow = new Date().toLocaleDateString("es-ES");
 
-  const [data, setData] = useState([
+  const data = [
     {
       id: "1",
+      concept: "328743298",
+      noDoc: "1234",
       typeDoc: "FA",
-      creditDays: "-15",
-      overdueBalance: "300000",
+      paymentMethod: "Transferencia",
+      total: "150000.00",
       discount: "0.00",
-      pendingPayment: "0",
-      observations: "Atrasado con el pago",
-      total: "2000.00",
+      outstandingBalance: "1500000.20",
+      observations: "Pago Parcial",
     },
-    {
-      id: "2",
-      typeDoc: "FA",
-      creditDays: "-15",
-      overdueBalance: "300000",
-      discount: "0.00",
-      pendingPayment: "0",
-      observations: "Atrasado con el pago",
-      total: "2000.00",
-      isSelected: "0",
-    },
-    {
-      id: "3",
-      typeDoc: "FA",
-      creditDays: "-15",
-      overdueBalance: "300000",
-      discount: "0.00",
-      pendingPayment: "0",
-      observations: "Atrasado con el pago",
-      total: "2000.00",
-      isSelected: "0",
-    },
-  ]);
+  ];
 
   //-------------------------------------------
 
-  const openModalPaymentMethods = (value) => {
-    setModalPaymentMethods(true);
-    setDataSelectTable(value);
-    console.log(value);
-  };
-
-  const InProgressValue = (value) => {
-    setModalPaymentMethods(false);
-    setStatus("inProgress");
-    const auxData = data.map((item) =>{
-      const foundData = dataSelectTable.find(ds => ds.id == item.id);
-      return foundData ? {...item, isSelected: "1" } : item;
-    }
-    );
-
-    setData(auxData);
-    
-    console.log(auxData);
-  };
-
-  const saveValue = () => {
-    setModalConfirmation(false);
-    navigate(`/bank-management/collection/record/1`);
-  };
-
   return (
     <div className="flex w-full">
-      <FormPaymentMethods
-        modal={modalPaymentMethods}
-        setModal={setModalPaymentMethods}
-        functionModal={InProgressValue}
-      />
-      <ModalConfirmation
-        title={"Confirmación"}
-        description={
-          "Una ves realizada esta acción, el documento no podrá modificarse"
-        }
-        modal={modalConfirmation}
-        setModal={setModalConfirmation}
-        modalFunction={saveValue}
-      />
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -151,18 +83,11 @@ function AddNewCollection() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nuevo Registro de Cobro
+            Registro de Pago
           </p>
 
           <div className="flex items-center justify-end gap-5">
             <div className="flex gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={print}
@@ -178,9 +103,21 @@ function AddNewCollection() {
                 ></IonIcon>
               </div>
             </div>
+
+            <div className="flex w-2/5 items-center gap-2">
+              <NoDocument />
+            </div>
+            <div>
+              <button
+                variant="outline"
+                className="rounded-3xl border border-[#44444F] bg-inherit px-4 py-2 text-xs font-light text-grisHeading"
+              >
+                Ver Poliza
+              </button>
+            </div>
           </div>
           <div className="flex items-end justify-center">
-            <Link to={"/bank-management/collection/"}>
+            <Link to={"/bank-management/payment/"}>
               <IonIcon
                 icon={closeCircle}
                 size="small"
@@ -214,74 +151,12 @@ function AddNewCollection() {
             />
           </div>
         </div>
-        <OnlyDataTable
-          data={data}
-          columns={AddCollectionsColumns}
-          titleButton={"Agregar Método"}
-          functionButton={openModalPaymentMethods}
-        />
 
-        <div className="bg-blancoBg px-4 py-4 rounded-xl ">
-          <h3 className="font-poppins text-md text-grisHeading mb-2">Retenciones</h3>
-          <TableForm
-            rows={rowRetenciones}
-            setRows={setRowRetenciones}
-            columns={[
-              {
-                key: "retentionType",
-                class: "w-48",
-                label: "Tipo de Retención",
-                placeholder: "Select",
-                typeColumn: "select",
-                options: [
-                  {
-                    value: "10",
-                    label: "IVA-(10%)",
-                  },
-                  {
-                    value: "20",
-                    label: "IVA-(20%)",
-                  },
-                  {
-                    value: "30",
-                    label: "IVA-(30%)",
-                  },
-                  {
-                    value: "40",
-                    label: "IVA-(40%)",
-                  },
-                  {
-                    value: "50",
-                    label: "IVA-(50%)",
-                  },
-                  {
-                    value: "60",
-                    label: "IVA-(60%)",
-                  },
-                  {
-                    value: "70",
-                    label: "IVA-(70%)",
-                  },
-                  {
-                    value: "80",
-                    label: "IVA-(80%)",
-                  },
-                  {
-                    value: "90",
-                    label: "IVA-(90%)",
-                  },
-                ],
-              },
-              {
-                key: "value",
-                class: "w-48",
-                label: "Valor",
-                placeholder: "",
-                typeColumn: "input",
-                type: "number",
-              },
-            ]}
-          />
+        <div className="rounded-xl bg-[#FBFBFB] px-4 py-2">
+          <h3 className="text-md font-poppins text-grisHeading font-medium">
+            Movimiento Realizado
+          </h3>
+          <OnlyTable columns={PaymentsRecordColumns} data={data} />
         </div>
 
         <div className="flex flex-row justify-between rounded-xl bg-blancoBg px-4 py-6">
@@ -315,4 +190,4 @@ function AddNewCollection() {
   );
 }
 
-export default AddNewCollection;
+export default PaymentRecord;

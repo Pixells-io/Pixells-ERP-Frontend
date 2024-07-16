@@ -153,7 +153,7 @@ function CollectionRecord() {
         </div>
 
         <div className="rounded-xl bg-[#FBFBFB] px-4 py-2">
-          <h3 className="text-md font-poppins text-grisHeading">
+          <h3 className="text-md font-poppins text-grisHeading font-medium">
             Movimiento Realizado
           </h3>
           <OnlyTable columns={CollectionRecordColumns} data={data} />

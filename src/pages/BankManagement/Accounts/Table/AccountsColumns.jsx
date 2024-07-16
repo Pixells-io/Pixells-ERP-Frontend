@@ -4,7 +4,7 @@ import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { formatNumber } from "../../utils";
 
-export const AccountsColumns = [
+export const AccountsColumns = (editFunction, deleteFunction) => [
   {
     id: "name",
     header: "NOMBRE",
@@ -27,16 +27,28 @@ export const AccountsColumns = [
     id: "bank",
     header: "BANCO",
     accessorKey: "bank",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "type",
     header: "TIPO",
     accessorKey: "type",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
-    id: "Account Number",
+    id: "accountNumber",
     header: "NO. CUENTA",
     accessorKey: "accountNumber",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "balance",
@@ -48,7 +60,7 @@ export const AccountsColumns = [
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
       return (
@@ -59,8 +71,8 @@ export const AccountsColumns = [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-          <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+          <IonIcon onClick={() => editFunction(row?.original?.id)} icon={create} className="h-5 w-5"></IonIcon>
+          <IonIcon onClick={() => deleteFunction(row?.original?.id)} icon={trash} className="h-5 w-5"></IonIcon>
         </div>
       );
     },

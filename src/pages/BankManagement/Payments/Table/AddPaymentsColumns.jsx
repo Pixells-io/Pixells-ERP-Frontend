@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useState } from "react";
 import { formatNumber } from "../../utils";
 
-export const AddCollectionsColumns = [
+export const AddPaymentsColumns = [
   {
     id: "accountingAccount",
     header: "Cuenta Contable",

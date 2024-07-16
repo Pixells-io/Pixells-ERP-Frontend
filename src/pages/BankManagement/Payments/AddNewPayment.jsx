@@ -11,7 +11,7 @@ import {
   closeCircle,
 } from "ionicons/icons";
 import OnlyDataTable from "../Components/Table/OnlyDataTable";
-import { AddCollectionsColumns } from "./Table/AddCollectionColumns";
+import { AddPaymentsColumns } from "./Table/AddPaymentsColumns";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,7 +21,7 @@ import StatusInformation from "../Components/StatusInformation/StatusInformation
 import ModalConfirmation from "../Components/ModalConfirmation";
 import TableForm from "../Components/Table/TableForm";
 
-function AddNewCollection() {
+function AddNewPayment() {
   const navigate = useNavigate();
 
   const [modalPaymentMethods, setModalPaymentMethods] = useState(false);
@@ -93,7 +93,7 @@ function AddNewCollection() {
 
   const saveValue = () => {
     setModalConfirmation(false);
-    navigate(`/bank-management/collection/record/1`);
+    navigate(`/bank-management/payment/record/1`);
   };
 
   return (
@@ -151,7 +151,7 @@ function AddNewCollection() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nuevo Registro de Cobro
+            Nuevo Registro de Pago
           </p>
 
           <div className="flex items-center justify-end gap-5">
@@ -180,7 +180,7 @@ function AddNewCollection() {
             </div>
           </div>
           <div className="flex items-end justify-center">
-            <Link to={"/bank-management/collection/"}>
+            <Link to={"/bank-management/payment/"}>
               <IonIcon
                 icon={closeCircle}
                 size="small"
@@ -193,7 +193,7 @@ function AddNewCollection() {
         <div className="flex justify-between rounded-xl bg-blancoBg px-8 py-3">
           <div className="flex gap-2">
             <InputRouter name="date" type="text" placeholder={dateNow} />
-            <SelectRouter name="client" options={[]} placeholder="Cliente" />
+            <SelectRouter name="supplier" options={[]} placeholder="Proveedor" />
 
             <InputRouter
               name="register_accountName"
@@ -216,7 +216,7 @@ function AddNewCollection() {
         </div>
         <OnlyDataTable
           data={data}
-          columns={AddCollectionsColumns}
+          columns={AddPaymentsColumns}
           titleButton={"Agregar Método"}
           functionButton={openModalPaymentMethods}
         />
@@ -300,7 +300,7 @@ function AddNewCollection() {
               titleBalance={"Saldo Pendiente"}
               isDisBalance={false}
               total={"6360.00"}
-              titleTotal={"TOTAL COBRADO"}
+              titleTotal={"TOTAL PAGADO"}
             />
           </div>
         </div>
@@ -315,4 +315,4 @@ function AddNewCollection() {
   );
 }
 
-export default AddNewCollection;
+export default AddNewPayment;

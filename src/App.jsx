@@ -240,6 +240,9 @@ import MainCategory, {
   Action as MainCategoryFunction,
 } from "./pages/CRM/Services/MainCategory";
 import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecord";
+import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
+import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
+import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
 
 const router = createBrowserRouter([
   {
@@ -702,6 +705,18 @@ const router = createBrowserRouter([
             path: "/bank-management/collection/record/:id",
             element: <CollectionRecord />,
           },
+          {
+            path: "/bank-management/payment",
+            element: <MainPaymentBankManag />,
+          },
+          {
+            path: "/bank-management/payment/create",
+            element: <AddNewPayment />,
+          },
+          {
+            path: "/bank-management/payment/record/:id",
+            element: <PaymentRecord />,
+          }
         ],
       },
     ],

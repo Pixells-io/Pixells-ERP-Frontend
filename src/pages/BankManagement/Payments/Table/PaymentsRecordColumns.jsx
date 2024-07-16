@@ -1,6 +1,6 @@
 import { formatNumber } from "../../utils";
 
-export const CollectionRecordColumns = [
+export const PaymentsRecordColumns = [
   {
     id: "concept",
     header: "Concepto",

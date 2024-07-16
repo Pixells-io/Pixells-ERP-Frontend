@@ -20,6 +20,19 @@ function MainBankManagement() {
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
 
+  const handleEdit = (id) => {
+    alert("edit id: " + id);
+  }
+  
+  const handleDelete = (id) => {
+    alert("delete id: " + id);
+  }
+
+  const columns = React.useMemo(
+    () => AccountsColumns(handleEdit, handleDelete),
+    [handleEdit, handleDelete]
+  );
+
   //datos de prueba --------------------------
 
   const data = [
@@ -27,8 +40,8 @@ function MainBankManagement() {
       id: "1",
       name: "Cheque principal",
       bank: "Banamex",
-      type: "Banco cx",
-      accountNumber: "789789789",
+      type: "Banco",
+      accountNumber: "789789788asdasdsaad",
       balance: "54600.00",
     },
     {
@@ -44,7 +57,7 @@ function MainBankManagement() {
       name: "Cheque principal",
       bank: "Banamex",
       type: "Banco nacional",
-      accountNumber: "789789789",
+      accountNumber: "17897897891",
       balance: "54600.00",
     },
     {
@@ -52,7 +65,7 @@ function MainBankManagement() {
       name: "Cheque principal",
       bank: "Banamex",
       type: "Banco nacional",
-      accountNumber: "789789789",
+      accountNumber: "7",
       balance: "54600.00",
     },
     {
@@ -68,6 +81,46 @@ function MainBankManagement() {
       name: "Cheque principal",
       bank: "Banamex",
       type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "7",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "8",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "9",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "10",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "11",
+      name: "Cheque principal 11",
+      bank: "Banamex",
+      type: "Banco nacional 11",
       accountNumber: "789789789",
       balance: "54600.00",
     },
@@ -241,15 +294,14 @@ function MainBankManagement() {
           <TabsContent value="accounts" className="mt-[-60px] p-2">
             <DataTable
               data={data}
-              columns={AccountsColumns}
-              names={[]}
+              columns={columns}
               searchFilter={"bank"}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
               data={data2}
-              columns={AccountsColumns}
+              columns={columns}
               names={[]}
               searchFilter={"bank"}
             />
