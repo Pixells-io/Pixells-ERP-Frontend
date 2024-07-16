@@ -22,6 +22,7 @@ import CommentsProcess from "./CommentsProcess";
 
 function Customer({ customer, stepId }) {
   const [modal, setModal] = useState(false);
+  console.log(customer);
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
       <FormRequireDocument
@@ -31,13 +32,40 @@ function Customer({ customer, stepId }) {
         stepId={stepId}
       />
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between border-b-[1px] border-[#D7D7D7]">
-          <p className="text-[13px] text-grisText">{customer.customer_name}</p>
-          <IonIcon
-            icon={addOutline}
-            className="h-6 w-6 text-grisText"
-            onClick={() => setModal(true)}
-          ></IonIcon>
+        <div className="flex flex-col border-b-[1px] border-[#D7D7D7]">
+          <div className="flex items-center justify-between">
+            <p className="text-[13px] text-grisText">
+              {customer.customer_name}
+            </p>
+            <IonIcon
+              icon={addOutline}
+              className="h-6 w-6 text-grisText"
+              onClick={() => setModal(true)}
+            ></IonIcon>
+          </div>
+          <div>
+            {customer?.type == 1 ? (
+              <div className="flex w-full items-center justify-between">
+                <span className="w-fit gap-1 rounded-full border border-[#00a9b3] px-2 text-[8px] text-[#00a9b3]">
+                  Individual
+                </span>
+
+                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                  Active
+                </span>
+              </div>
+            ) : (
+              <div className="flex w-full items-center justify-between py-1">
+                <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
+                  Business
+                </span>
+
+                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                  Active
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="line-clamp-5 text-[10px] text-grisHeading">
@@ -82,16 +110,11 @@ function Customer({ customer, stepId }) {
               </HoverCard>
             </div>
             <div className="flex">
-              <CommentsProcess />
+              <CommentsProcess
+                customerId={customer?.id}
+                comments={customer?.comments}
+              />
             </div>
-            {/*
-              <div className="flex">
-                <IonIcon
-                  icon={chatbubbleEllipses}
-                  className="h-6 w-6 text-[#40BD72]"
-                ></IonIcon>
-              </div>
-            */}
           </div>
 
           <div>

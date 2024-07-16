@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import CommentsLead from "./CommentsLead";
 
 function Lead({ lead, setModal }) {
+  console.log(lead);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
@@ -31,9 +32,15 @@ function Lead({ lead, setModal }) {
                 </span>
               </div>
             ) : (
-              <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
-                Business
-              </span>
+              <div className="flex w-full justify-between">
+                <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
+                  Business
+                </span>
+
+                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                  Active
+                </span>
+              </div>
             )}
           </div>
           <button
