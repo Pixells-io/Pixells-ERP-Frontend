@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
@@ -10,19 +10,30 @@ import {
 } from "@/components/ui/hover-card";
 
 import { IonIcon } from "@ionic/react";
-import {
-  addOutline,
-  call,
-  chatbubbleEllipses,
-  mailOpen,
-  pulseOutline,
-} from "ionicons/icons";
+import { addOutline } from "ionicons/icons";
+
 import FormRequireDocument from "./Forms/FormRequireDocument";
 import CommentsProcess from "./CommentsProcess";
 
 function Customer({ customer, stepId }) {
   const [modal, setModal] = useState(false);
-  console.log(customer);
+  const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    const parsedInfo = JSON.parse(customer?.step_latest);
+
+    if (parsedInfo === null) {
+      setInfo({});
+    } else {
+      delete parsedInfo.id;
+      delete parsedInfo.customer_id;
+      delete parsedInfo.user_id;
+      delete parsedInfo.created_at;
+      delete parsedInfo.updated_at;
+      setInfo(parsedInfo);
+    }
+  }, []);
+
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
       <FormRequireDocument
@@ -68,10 +79,16 @@ function Customer({ customer, stepId }) {
           </div>
         </div>
 
-        <div className="line-clamp-5 text-[10px] text-grisHeading">
-          {customer.step_latest}
-          <br />
-          {customer.latest_updated_date}
+        <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
+          <div className="flex flex-col gap-2">
+            {Object?.entries(info)?.map(([key, value]) => (
+              <div className="flex flex-col gap-1">
+                <p>{key}</p>
+                <span>{value}</span>
+              </div>
+            ))}
+          </div>
+          <p>{format(customer.latest_updated_date, "PPP")}</p>
         </div>
 
         <div className="flex w-full items-center justify-between">
