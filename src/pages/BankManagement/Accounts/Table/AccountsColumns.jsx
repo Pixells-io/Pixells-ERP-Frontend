@@ -71,8 +71,12 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon onClick={() => editFunction(row?.original?.id)} icon={create} className="h-5 w-5"></IonIcon>
-          <IonIcon onClick={() => deleteFunction(row?.original?.id)} icon={trash} className="h-5 w-5"></IonIcon>
+          <button type="button" onClick={() => editFunction(row?.original?.id)}>
+            <IonIcon  icon={create} className="h-5 w-5"></IonIcon>
+          </button>
+          <button type="button" onClick={() => deleteFunction(row?.original?.id)}>
+            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+          </button>
         </div>
       );
     },

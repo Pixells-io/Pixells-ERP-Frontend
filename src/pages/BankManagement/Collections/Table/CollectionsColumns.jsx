@@ -61,7 +61,7 @@ export const CollectionsColumns = [
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
       return (

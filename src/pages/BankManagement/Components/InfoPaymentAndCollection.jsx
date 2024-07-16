@@ -18,13 +18,13 @@ function InfoPaymentAndCollection({
             <p className="text-end text-[10px] font-roboto font-normal text-grisText">
               {titleTotalAmount}
             </p>
-            <p className="rounded-lg border border-grisDisabled font-roboto px-3 py-1 text-end text-[10px] font-normal text-grisSubText">
+            <p className="min-w-20 rounded-lg border border-grisDisabled font-roboto px-3 py-1 text-end text-[10px] font-normal text-grisSubText">
               {formatNumber(totalAmount)}
             </p>
             <p className="text-end text-[10px] font-normal font-roboto text-grisText">
               {titleBalance}
             </p>
-            <p className={"rounded-lg border border-grisDisabled font-roboto px-3 py-1 text-end text-[10px] font-normal text-grisSubText "  + (!!isDisBalance && "bg-[#F4F4F4]" ) }>
+            <p className={"min-w-20 rounded-lg border border-grisDisabled font-roboto px-3 py-1 text-end text-[10px] font-normal text-grisSubText "  + (!!isDisBalance && "bg-[#F4F4F4]" ) }>
               {formatNumber(balance)}
             </p>
           </div>
@@ -32,7 +32,7 @@ function InfoPaymentAndCollection({
             <label className="text-end text-xs font-medium text-grisText font-roboto">
               {titleTotal}
             </label>
-            <p className="rounded-lg border border-grisSubText font-roboto px-3 py-1 text-end text-xs font-medium text-grisText">
+            <p className="min-w-20 rounded-lg border border-grisSubText font-roboto px-3 py-1 text-end text-xs font-medium text-grisText">
               {formatNumber(total)}
             </p>
           </div>

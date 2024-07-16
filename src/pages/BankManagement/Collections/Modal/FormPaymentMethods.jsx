@@ -26,7 +26,7 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="max-h-[90vh] max-w-[90vh] overflow-auto bg-blancoBg p-0 sm:max-h-[680px] sm:max-w-[680px]">
+      <DialogContent className="max-h-[90vh] max-w-[90vw] overflow-auto bg-blancoBg p-0 sm:max-h-[680px] sm:max-w-[680px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading"></DialogTitle>
         </DialogHeader>
@@ -68,7 +68,7 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
               <TabChecks />
             </form>
           </TabsContent>
-          <TabsContent value="transfer" className="mt-[-60px] p-2">
+          <TabsContent value="transfer" className="mt-[-60px] p-2 pt-14 sm:pt-2">
             <form id="formDataTab" onSubmit={handleSubmit}>
               <TabTransfer />
             </form>
@@ -76,12 +76,12 @@ function FormPaymentMethods({ modal, setModal, functionModal }) {
           <TabsContent value="deposit" className="p-2">
             <h1>Deposito</h1>
           </TabsContent>
-          <TabsContent value="creditCard" className="mt-[-60px] p-2">
+          <TabsContent value="creditCard" className="mt-[-60px] p-2 pt-14 sm:pt-2">
             <form id="formDataTab" onSubmit={handleSubmit}>
               <TabCreditCard />
             </form>
           </TabsContent>
-          <TabsContent value="cash" className="mt-[-60px] p-2">
+          <TabsContent value="cash" className="mt-[-60px] p-2 pt-14 sm:pt-2">
             <form id="formDataTab" onSubmit={handleSubmit}>
               <TabCash />
             </form>

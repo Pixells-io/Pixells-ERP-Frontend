@@ -80,14 +80,13 @@ function AddNewPayment() {
   const InProgressValue = (value) => {
     setModalPaymentMethods(false);
     setStatus("inProgress");
-    const auxData = data.map((item) =>{
-      const foundData = dataSelectTable.find(ds => ds.id == item.id);
-      return foundData ? {...item, isSelected: "1" } : item;
-    }
-    );
+    const auxData = data.map((item) => {
+      const foundData = dataSelectTable.find((ds) => ds.id == item.id);
+      return foundData ? { ...item, isSelected: "1" } : item;
+    });
 
     setData(auxData);
-    
+
     console.log(auxData);
   };
 
@@ -192,9 +191,14 @@ function AddNewPayment() {
 
         <div className="flex justify-between rounded-xl bg-blancoBg px-8 py-3">
           <div className="flex gap-2">
-            <InputRouter name="date" type="text" placeholder={dateNow} />
-            <SelectRouter name="supplier" options={[]} placeholder="Proveedor" />
-
+            <p className="flex items-center justify-center rounded-lg bg-[#F4F4F4] px-4 text-xs font-normal text-grisSubText">
+              {dateNow}
+            </p>
+            <SelectRouter
+              name="supplier"
+              options={[]}
+              placeholder="Proveedor"
+            />
             <InputRouter
               name="register_accountName"
               type="text"
@@ -221,8 +225,10 @@ function AddNewPayment() {
           functionButton={openModalPaymentMethods}
         />
 
-        <div className="bg-blancoBg px-4 py-4 rounded-xl ">
-          <h3 className="font-poppins text-md text-grisHeading mb-2">Retenciones</h3>
+        <div className="rounded-xl bg-blancoBg px-4 py-4">
+          <h3 className="text-md mb-2 font-poppins font-medium text-grisHeading">
+            Retenciones
+          </h3>
           <TableForm
             rows={rowRetenciones}
             setRows={setRowRetenciones}

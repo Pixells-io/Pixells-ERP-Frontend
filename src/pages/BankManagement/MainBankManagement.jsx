@@ -255,7 +255,7 @@ function MainBankManagement() {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex gap-6 pr-6">
+          <div className="flex flex-col sm:flex-row gap-6 pr-6">
             <CardInformation
               title="SALDO"
               subtitle="Bancos y efectivo"

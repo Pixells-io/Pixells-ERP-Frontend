@@ -74,7 +74,7 @@ function StatusInformation({ status, saveDraft, applyFunction }) {
           ) : (
             <textarea
               placeholder="Comentarios adicionales"
-              className="h-[80px] w-full resize-none rounded-lg border-2 border-dashed border-grisDisabled px-3 py-2 text-xs"
+              className="h-[80px] bg-inherit w-full resize-none rounded-lg border-2 border-dashed border-grisDisabled px-3 py-2 text-xs"
               name="template"
             ></textarea>
           )}
