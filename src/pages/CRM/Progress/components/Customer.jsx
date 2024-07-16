@@ -128,7 +128,7 @@ function Customer({ customer, stepId }) {
             </div>
             <div className="flex">
               <CommentsProcess
-                customerId={customer?.id}
+                customerId={customer?.customer_id}
                 comments={customer?.comments}
               />
             </div>
