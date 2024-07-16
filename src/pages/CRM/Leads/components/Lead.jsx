@@ -256,7 +256,7 @@ function Lead({ lead, setModal }) {
                   Month Billing
                 </p>
                 <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.month_billing}
+                  {lead?.closing?.month_billing}
                 </span>
               </div>
               <div>
@@ -264,7 +264,7 @@ function Lead({ lead, setModal }) {
                   Comments
                 </p>
                 <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.comments}
+                  {lead?.closing?.comments}
                 </span>
               </div>
             </div>
