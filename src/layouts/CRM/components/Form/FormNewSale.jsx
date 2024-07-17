@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,13 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import DropzoneFile from "@/components/dropzone-files";
 
 function FormNewSale({ clients }) {
   const [open, setOpen] = useState(false);
@@ -43,7 +41,7 @@ function FormNewSale({ clients }) {
         >
           <IonIcon icon={add} size="large"></IonIcon>
           <p className="mr-2 text-base font-medium text-gris2 group-hover:text-blue-500">
-            New Sale
+            Add On
           </p>
         </Button>
       </DialogTrigger>
@@ -73,49 +71,9 @@ function FormNewSale({ clients }) {
                   options={options}
                 />
               </div>
-              {/* <div>
-                <SelectRouter name="services" placeholder="Select Services" />
-              </div> */}
-              <div>
-                <InputRouter
-                  name="confirm_email"
-                  type="email"
-                  placeholder="Confirm Email"
-                />
-              </div>
-              <div>
-                <InputRouter
-                  name="subject"
-                  type="date"
-                  placeholder="Day of Contact"
-                />
-              </div>
-              <div>
-                <InputRouter
-                  name="comments"
-                  type="text"
-                  placeholder="Type your message here."
-                />
-              </div>
-              <div>
-                <DropzoneFile name="document" label="Select a file" />
-              </div>
             </div>
             <div>
-              {/* <input
-                type="text"
-                name="lead_id"
-                value={leadId}
-                hidden
-                readOnly
-              /> */}
-              <input
-                type="text"
-                name="action"
-                value="proposal"
-                readOnly
-                hidden
-              />
+              <input type="text" name="action" value="add-on" readOnly hidden />
             </div>
           </div>
           <DialogFooter className="px-4 pb-4">

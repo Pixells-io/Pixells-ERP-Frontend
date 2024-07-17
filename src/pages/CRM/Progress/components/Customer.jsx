@@ -19,22 +19,20 @@ function Customer({ customer, stepId }) {
   const [modal, setModal] = useState(false);
   const [info, setInfo] = useState({});
 
-  /*useEffect(() => {
-    if (customer?.step_latest === null) {
+  useEffect(() => {
+    if (customer?.step_latest === "null") {
       setInfo({});
     } else {
-      console.log("Case");
+      console.log("Para aca");
       const parsedInfo = JSON.parse(customer?.step_latest);
-      if (parsedInfo != null) {
-        delete parsedInfo.id;
-        delete parsedInfo.customer_id;
-        delete parsedInfo.user_id;
-        delete parsedInfo.created_at;
-        delete parsedInfo.updated_at;
-        setInfo(parsedInfo);
-      }
+      delete parsedInfo.id;
+      delete parsedInfo.customer_id;
+      delete parsedInfo.user_id;
+      delete parsedInfo.created_at;
+      delete parsedInfo.updated_at;
+      setInfo(parsedInfo);
     }
-  }, []);*/
+  }, []);
 
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
