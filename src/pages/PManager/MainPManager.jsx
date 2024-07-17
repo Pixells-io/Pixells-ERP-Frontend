@@ -289,17 +289,3 @@ export async function multiFormAction({ params, request }) {
       return redirect(`/project-manager/${params.id}`);
   }
 }
-
-// export async function Action({ params, request }) {
-//   console.log(params);
-//   const data = await request.formData();
-
-//   const validation = await saveNewGoal(data, params.id);
-//   console.log(validation);
-
-//   // if (validation) {
-//   //     return validation;
-//   // }
-
-//   return redirect(`/project-manager/${params.id}`);
-// }
