@@ -11,6 +11,8 @@ import EditLeadInformation from "./Modals/EditLeadInformation";
 import { editLeadForm } from "../utils";
 
 function SidelayoutLead() {
+  const { leadLoader, servicesLoader } = useLoaderData();
+
   const {
     data: lead,
     services,
@@ -21,7 +23,7 @@ function SidelayoutLead() {
     closing,
     pay,
     onBoarding,
-  } = useLoaderData();
+  } = leadLoader;
 
   const [modalEdit, setModalEdit] = useState(false);
 
@@ -37,6 +39,8 @@ function SidelayoutLead() {
         setModal={setModalEdit}
         info={info}
         lead={lead}
+        serviceSelected={services}
+        services={servicesLoader}
       />
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* Top block */}
