@@ -13,7 +13,7 @@ import {
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function EditPackageForm({ modal, setModal, id, name }) {
+function EditPackageForm({ modal, setModal, id, name, description, price }) {
   const navigation = useNavigation();
 
   console.log(name);
@@ -29,13 +29,13 @@ function EditPackageForm({ modal, setModal, id, name }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="border-b px-6 py-4 font-poppins">
-            Edit Package
+            Edit Membership
           </DialogTitle>
         </DialogHeader>
         <Form
           id="category-services-form"
           className="flex flex-col gap-4"
-          action="/crm/services"
+          action={`/crm/services/packages/${id}`}
           method="post"
           encType="multipart/form-data"
           onKeyDown={(e) => {
@@ -50,9 +50,15 @@ function EditPackageForm({ modal, setModal, id, name }) {
               Information
             </div>
             <div className="flex flex-col gap-4 font-light">
-              <input type="hidden" name="type" value={5} />
-              <input type="hidden" name="package_id" value={name} />
-              <InputRouter name="name" type="text" placeholder={id} />
+              <input type="hidden" name="type_of_function" value="1" />
+              <input type="hidden" name="package_id" value={id} />
+              <InputRouter name="name" type="text" defaultVal={name} />
+              <InputRouter
+                name="description"
+                type="text"
+                defaultVal={description}
+              />
+              <InputRouter name="price" type="number" defaultVal={price} />
             </div>
           </div>
           <DialogFooter className="px-6 py-4">

@@ -182,6 +182,17 @@ function NewServiceForm({
     setProcess(newFields);
   }
 
+  const CATEGORIES = [
+    //1=Send Email  2=Qualify  3=Folow-up  4=Payment  5=Shipping  6=Close-up  7=Generic  8=Interview
+    { value: "1", label: "Send Email" },
+    { value: "2", label: "Qualify" },
+    { value: "3", label: "Follow Up" },
+    { value: "4", label: "Payment" },
+    { value: "5", label: "Shipping" },
+    { value: "6", label: "Closeup" },
+    { value: "7", label: "Generic" },
+  ];
+
   return (
     <Dialog open={modalServices} onOpenChange={setModalServices}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
@@ -305,6 +316,11 @@ function NewServiceForm({
                     placeholder="Action"
                     value={process[i].process_action}
                     onChange={(e) => updateProcessInput(i, e)}
+                  />
+                  <SelectRouter
+                    name="category"
+                    placeholder="Category"
+                    options={CATEGORIES}
                   />
                 </div>
                 <div className="">

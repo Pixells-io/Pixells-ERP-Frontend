@@ -61,13 +61,24 @@ function EditServiceForm({
               <input type="hidden" name="type" value={6} />
               <input type="hidden" name="type_of_function" value={1} />
               <input type="hidden" name="service_id" value={id} />
-              <InputRouter name="name" type="text" placeholder={name} />
+              <InputRouter
+                name="name"
+                type="text"
+                placeholder={name}
+                defaultVal={name}
+              />
               <InputRouter
                 name="description"
                 type="text"
                 placeholder={description}
+                defaultVal={description}
               />
-              <InputRouter name="price" type="text" placeholder={price} />
+              <InputRouter
+                name="price"
+                type="text"
+                placeholder={price}
+                defaultVal={price}
+              />
               <SelectRouter
                 name={"position"}
                 placeholder={position_placeholder}

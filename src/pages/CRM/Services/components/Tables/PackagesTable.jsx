@@ -19,16 +19,6 @@ import EditPackageForm from "../Forms/EditPackageForm";
 function PackagesTable({ packages }) {
   const columnHelper = createColumnHelper();
 
-  const [modal, setModal] = useState(false);
-  const [serviceId, setServiceId] = useState(false);
-  const [serviceName, setServiceName] = useState(false);
-
-  function openModal(name, id, description) {
-    setServiceId(id);
-    setServiceName(name);
-    setModal(true);
-  }
-
   const data = packages;
 
   const columns = [
@@ -51,11 +41,9 @@ function PackagesTable({ packages }) {
         // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
-            <button
-              onClick={() => openModal(row.original.id, row.original.name)}
-            >
+            <a href={`/crm/services/packages/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </button>
+            </a>
           </div>
         );
       },
@@ -70,12 +58,6 @@ function PackagesTable({ packages }) {
 
   return (
     <div className="w-full">
-      <EditPackageForm
-        modal={modal}
-        setModal={setModal}
-        id={serviceId}
-        name={serviceName}
-      />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {

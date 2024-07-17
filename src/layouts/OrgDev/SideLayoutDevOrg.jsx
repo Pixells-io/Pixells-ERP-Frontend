@@ -39,7 +39,7 @@ const MENU_ITEMS = [
     subname: "General",
     icon: book,
   },
-  {
+  /*{
     path: "/org-development/evaluation",
     subpath: [
       { path: "/org-development/evaluation", name: "Creador" },
@@ -55,8 +55,8 @@ const MENU_ITEMS = [
     name: "Evaluación",
     subname: "Del Desempeño",
     icon: pieChart,
-  },
-  {
+  },*/
+  /*{
     path: "/org-development/compensaciones",
     subpath: [
       { path: "/org-development/compensaciones", name: "Creador" },
@@ -68,7 +68,7 @@ const MENU_ITEMS = [
     name: "Compensaciones",
     subname: "General",
     icon: ribbon,
-  },
+  },*/
 ];
 
 function SideLayoutDevOrg() {

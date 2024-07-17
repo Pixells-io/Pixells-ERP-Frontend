@@ -15,12 +15,13 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 
 function FormCreateAdress({ modal, setModal, masterId }) {
-  const navigation = useNavigation;
+  const navigation = useNavigation();
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
     }
   }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">

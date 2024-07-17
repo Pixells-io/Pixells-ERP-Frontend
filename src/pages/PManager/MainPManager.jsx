@@ -249,47 +249,44 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
-  console.log(paramId);
+  console.log();
 
   switch (action) {
     case "goal":
       await saveNewGoal(formData, paramId);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "csf":
       await saveNewCsf(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "task":
       await saveNewTask(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "edit-obj":
       await editStrategicObjective(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "edit-csf":
       await editCSF(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "edit-goal":
       await editGoal(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "delete-obj":
       await deleteStrategicObjective(paramId);
-      return redirect("/project-manager");
+      return redirect(`/project-manager/${params.id}`);
 
     case "delete-goal":
       await deleteGoal(formData);
-      return redirect(`/project-manager/${paramId}`);
+      return redirect(`/project-manager/${params.id}`);
 
     case "delete-csf":
       await deleteCSF(formData);
-      return redirect(`/project-manager/${paramId}`);
-
-    default:
-      break;
+      return redirect(`/project-manager/${params.id}`);
   }
 }
 

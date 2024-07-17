@@ -1,4 +1,4 @@
-import { getServices, getUsers } from "@/lib/actions";
+import { getPackages, getServices, getUsers } from "@/lib/actions";
 import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
@@ -20,13 +20,14 @@ export async function getSteps() {
 }
 
 export async function multiLoaderStageLeads() {
-  const [steps, services, users] = await Promise.all([
+  const [steps, services, users, membership] = await Promise.all([
     getSteps(),
     getServices(),
     getUsers(),
+    getPackages(),
   ]);
 
-  return json({ steps, services, users });
+  return json({ steps, services, users, membership });
 }
 
 export async function getLeadInfo(leadId) {
@@ -179,15 +180,22 @@ export async function closingLeadForm(data) {
     recurrency: data.getAll("recurrency"),
     ammount: data.getAll("ammount"),
     assigned: data.get("assigned_id"),
+    type_sale: data.get("type_sale"),
+    membership_id: data.get("membership_id"),
+    recurrency_membership: data.get("recurrency_membership"),
+    ammount_membership: data.get("ammount_membership"),
   };
 
-  // validaciones?
+  const formData = new FormData();
+  formData.append("service_payment", data.get("service_payment"));
+  formData.append("service_agreement", data.get("service_agreement"));
+  formData.append("info", JSON.stringify(closing));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process/closing`,
     {
       method: "POST",
-      body: JSON.stringify(closing),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -267,6 +275,26 @@ export async function editLeadForm(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process/edit-lead`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function addCommentLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/post-lead-comment`,
     {
       method: "POST",
       body: JSON.stringify(info),

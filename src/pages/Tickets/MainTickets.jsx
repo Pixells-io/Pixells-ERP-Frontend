@@ -60,7 +60,7 @@ function MainTickets() {
         modal={modal}
         setModal={setModal}
       />
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex h-full w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -102,10 +102,11 @@ function MainTickets() {
             onClick={() => setModal(true)}
           ></IonIcon>
         </div>
+
         {/*component accion*/}
-        <div className="rounded-xl bg-white p-7">
-          <div className="flex">
-            <Tabs defaultValue="users" className="w-full">
+        <div className="h-full overflow-auto rounded-xl bg-white p-7">
+          <div className="flex h-full">
+            <Tabs defaultValue="users" className="h-full w-full">
               <TabsList className="mb-3 w-full bg-transparent">
                 <div className="flex w-full">
                   <div className="w-4/5">
@@ -130,7 +131,7 @@ function MainTickets() {
                   </div>
                 </div>
               </TabsList>
-              <TabsContent value="users">
+              <TabsContent value="users" className="">
                 <TicketsTable tickets={myTickets.data} />
               </TabsContent>
               <TabsContent value="positions">

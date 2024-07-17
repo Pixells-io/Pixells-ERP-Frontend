@@ -59,7 +59,6 @@ function UserSelect({ users, leadAssigned }) {
   const { data } = users;
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(leadAssigned);
-  // console.log(data)
 
   return (
     <div className="flex items-center">
@@ -77,10 +76,10 @@ function UserSelect({ users, leadAssigned }) {
               <>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
-                    src={selectedStatus?.user_image || selectedStatus?.url}
+                    src={selectedStatus?.image || selectedStatus?.user_image}
                   />
                   <AvatarFallback>
-                    {selectedStatus?.name.slice(1)}
+                    {selectedStatus?.name?.slice(1)}
                   </AvatarFallback>
                 </Avatar>
               </>
@@ -117,7 +116,7 @@ function UserSelect({ users, leadAssigned }) {
                     <Avatar className="size-5">
                       <AvatarImage src={user?.user_image} />
                       <AvatarFallback>
-                        {selectedStatus?.name.slice(1)}
+                        {selectedStatus?.name?.slice(1)}
                       </AvatarFallback>
                     </Avatar>
                     <span>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation, useParams } from "react-router-dom";
 
 import {
   Dialog,
@@ -27,11 +27,21 @@ import DatePicker from "@/components/date-picker";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function TaskForm({ users, csfId }) {
+  const params = useParams();
+  const [modal, setModal] = useState(false);
   const [responsable, setResponsable] = useState("");
   const [selectTaskType, setSelectTaskType] = useState("tarea");
   const [repeticion, setRepeticion] = useState("1");
 
+  const navigation = useNavigation();
+
   const arrayUsers = [];
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
 
   arrayFillUsers(users, arrayUsers);
 
@@ -46,7 +56,7 @@ function TaskForm({ users, csfId }) {
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={modal} onOpenChange={setModal}>
         <DialogTrigger>
           <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-primarioBotones text-lg text-primarioBotones">
             +
@@ -60,7 +70,7 @@ function TaskForm({ users, csfId }) {
           <Form
             className="flex flex-col gap-2"
             id="task-form"
-            action={`/project-manager/${csfId}`}
+            action={`/project-manager/${params.id}`}
             method="post"
           >
             {/* selector de task */}
@@ -227,8 +237,12 @@ function TaskForm({ users, csfId }) {
             <Input className="hidden" name="fce_id" value={csfId} readOnly />
 
             <DialogFooter>
-              <Button className="bg-primario px-10" type="submit">
-                Save
+              <Button
+                className="bg-primario px-10"
+                type="submit"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting" ? "Submitting..." : "Save"}
               </Button>
             </DialogFooter>
           </Form>

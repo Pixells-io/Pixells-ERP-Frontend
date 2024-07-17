@@ -39,6 +39,7 @@ import { pusherClient } from "@/lib/pusher";
 import { getProjectById } from "@/lib/actions";
 import ActivityDestroy from "./ActivityDestroy";
 import PhaseDestroy from "./PhaseDestroy";
+import AssignedMenu from "./AssignedMenu";
 
 const HEADERS = [
   { name: "FASE" },
@@ -101,6 +102,8 @@ function ProjectTable() {
       submit(e.currentTarget);
     }
   }
+
+  console.log(Projectdata);
 
   return (
     <div className="flex h-full flex-col px-4 pb-10">
@@ -275,28 +278,22 @@ function ProjectTable() {
                       </div>
 
                       <div className="col-span-1 flex items-center justify-center gap-1">
-                        <div className="flex overflow-scroll">
-                          {activity?.users?.map((user, i) => (
-                            <Avatar className="flex h-6 w-6" key={i}>
-                              <AvatarImage src={user?.img} />
-                              {/* <AvatarFallback>CN</AvatarFallback> */}
-                            </Avatar>
-                          ))}
-                        </div>
+                        <AssignedMenu users={activity?.users} />
                         <AddUserActivity
                           users={users?.data}
                           activity_id={activity.id}
                         />
                       </div>
+
                       <div className="col-span-1">
                         <p className="text-[12px] font-normal text-grisHeading">
-                          {activity?.duration} Days
+                          {activity?.duration + 1} Days
                         </p>
                       </div>
                       <div className="col-span-1">
                         <p className="text-[12px] font-normal text-grisHeading">
                           {activity?.status === 0 ? (
-                            <>{activity?.remaining} Days</>
+                            <>{activity?.remaining + 1} Days</>
                           ) : (
                             <span className="rounded-3xl bg-[#00A2591F] px-2 py-1 font-roboto text-xs font-normal leading-3 text-[#00A259] hover:bg-[#00A2591F]">
                               Done

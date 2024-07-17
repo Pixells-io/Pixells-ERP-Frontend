@@ -160,15 +160,38 @@ export async function getCategoriesAndServices() {
   }
 }
 
+export async function getServicesCards() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-services-card`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderServices() {
-  const [services, categories, packages, positions, categoriesServices, users] =
-    await Promise.all([
-      getServices(),
-      getCategories(),
-      getPackages(),
-      getPosition(),
-      getCategoriesAndServices(),
-    ]);
+  const [
+    services,
+    categories,
+    packages,
+    positions,
+    categoriesServices,
+    analytic,
+  ] = await Promise.all([
+    getServices(),
+    getCategories(),
+    getPackages(),
+    getPosition(),
+    getCategoriesAndServices(),
+    getServicesCards(),
+  ]);
 
   return json({
     services,
@@ -176,6 +199,7 @@ export async function multiLoaderServices() {
     packages,
     positions,
     categoriesServices,
+    analytic,
   });
 }
 
@@ -493,6 +517,31 @@ export async function getUserByToken() {
   }
 }
 
+export async function getUserDashboardData() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/get-dashboard-data`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderDashboard() {
+  const [user, dashboard] = await Promise.all([
+    getUserByToken(),
+    getUserDashboardData(),
+  ]);
+
+  return json({ user, dashboard });
+}
+
 export async function multiLoaderCSF({ params }) {
   const id = params.id;
   const [goals, users, goalsMaster] = await Promise.all([
@@ -677,12 +726,13 @@ export async function multiloaderTablesCRM() {
 
 export async function multiloaderProgressSteps({ params }) {
   const serviceId = params.id;
-  const [steps, users] = await Promise.all([
+  const [services, steps, users] = await Promise.all([
+    getSerivicesSelected(),
     getServiceSteps(serviceId),
     getUsers(),
   ]);
 
-  return json({ steps, users });
+  return json({ services, steps, users });
 }
 /* Notifications Loader */
 export async function getNotificationsChat() {

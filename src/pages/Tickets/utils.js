@@ -114,3 +114,27 @@ export async function saveTicketFinish(data) {
 
   return response;
 }
+
+export async function addDocumentTicket(data) {
+  const info = {
+    ticket: data.get("ticket"),
+  };
+
+  const formData = new FormData();
+
+  formData.append("document", data.get("document"));
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/save-image`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

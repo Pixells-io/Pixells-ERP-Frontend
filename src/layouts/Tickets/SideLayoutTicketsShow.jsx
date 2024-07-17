@@ -12,6 +12,7 @@ import { IonIcon } from "@ionic/react";
 import { lockOpen, person } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
 import {
+  addDocumentTicket,
   saveFollowUpTicket,
   saveFollowUpTicketComments,
   saveTicketFinish,
@@ -165,14 +166,21 @@ export async function Action({ request }) {
       //Follow Up
       await saveFollowUpTicket(data);
       break;
+
     case "2":
       //Follow Up Comments
       await saveFollowUpTicketComments(data);
       break;
+
     case "3":
       //Responsible
       await saveTicketResponsible(data);
       break;
+
+    case "4":
+      await addDocumentTicket(data);
+      break;
+
     default:
       break;
   }

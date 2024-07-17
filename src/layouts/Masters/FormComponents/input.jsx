@@ -14,7 +14,7 @@ function InputRouter({
   return (
     <Input
       type={type}
-      className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisSubText focus-visible:ring-primarioBotones"
+      className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones"
       name={name}
       placeholder={placeholder}
       defaultValue={defaultVal}

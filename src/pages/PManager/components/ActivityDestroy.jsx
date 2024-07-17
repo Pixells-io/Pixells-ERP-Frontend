@@ -24,6 +24,7 @@ function ActivityDestroy({ activityId, name }) {
       setModal(false);
     }
   }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>

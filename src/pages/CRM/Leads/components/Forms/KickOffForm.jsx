@@ -18,7 +18,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
+function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
   const navigation = useNavigation();
   const [leadInfo, setLeadInfo] = useState("");
   const [formData, setFormData] = useState({
@@ -30,6 +30,7 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
     contact_phone: "",
     contact_email: "",
   });
+  const [typeName, setTypeName] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -37,6 +38,12 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
       setFormData(res?.extra_information);
     }
     getData();
+
+    if (type === "1") {
+      setTypeName("Individual");
+    } else {
+      setTypeName("Business");
+    }
   }, [leadId]);
 
   useEffect(() => {
@@ -81,7 +88,7 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
             <div className="flex flex-col gap-5 pb-1">
               <div>
                 <span className="text-sm font-medium text-grisSubText">
-                  Business Name
+                  {typeName} Name
                 </span>
                 <InputRouter
                   value={formData?.business_name}
@@ -94,7 +101,7 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
               </div>
               <div>
                 <span className="text-sm font-medium text-grisSubText">
-                  Business Phone
+                  {typeName} Phone
                 </span>
                 <InputRouter
                   name="business_phone"
@@ -186,7 +193,7 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned }) {
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarImage src={leadAssigned?.image} />
                   <AvatarFallback>
                     {leadAssigned?.name?.search("\b[a-zA-Z]")}
                   </AvatarFallback>

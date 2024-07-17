@@ -42,8 +42,14 @@ function MainServices() {
   const [modalPackages, setModalPackages] = useState(false);
 
   /* Get Info */
-  const { categories, positions, services, categoriesServices, packages } =
-    useLoaderData();
+  const {
+    categories,
+    positions,
+    services,
+    categoriesServices,
+    packages,
+    analytic,
+  } = useLoaderData();
 
   return (
     <div className="flex w-full overflow-auto">
@@ -109,7 +115,9 @@ function MainServices() {
           </div>
         </div>
 
-        <ServicesBlocks />
+        <div className="flex">
+          <ServicesBlocks data={analytic.data} />
+        </div>
 
         <div>
           <DropdownMenu>

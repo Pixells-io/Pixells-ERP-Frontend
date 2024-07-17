@@ -28,11 +28,16 @@ function AgreementsConsoleContracts({ info }) {
     });
   }
 
+  console.log(TABS);
+
   return (
-    <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
+    <div className="flex h-full w-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
       <Tabs defaultValue="inbox" className="w-full">
-        <div className="grid h-full w-full grid-cols-12">
-          <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
+        <div className="flex h-full w-full">
+          <TabsList className="flex h-full flex-col justify-normal gap-2 bg-transparent">
+            <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
+              Contracts
+            </p>
             <div className="flex h-full flex-col gap-2 border-r pr-2">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
@@ -63,45 +68,47 @@ function AgreementsConsoleContracts({ info }) {
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="col-span-10 flex h-full gap-6 overflow-visible"
+              className="flex h-fit flex-wrap justify-center gap-6 overflow-visible"
             >
               {tab.agreements.map((agreement, i) => (
-                <div className="">
-                  <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
-                    <div className="h-full p-2 text-end">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger>
-                          <IonIcon
-                            icon={ellipsisHorizontal}
-                            size="medium"
-                            className="text-grisHeading"
-                          ></IonIcon>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                          <DropdownMenuItem>
-                            <Link
-                              to={`${import.meta.env.VITE_SERVER_URL}agreements/print-contract/${agreement.id}`}
-                            >
-                              Print
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Link to={`/crm/agreements/show/${agreement.id}`}>
-                              Show
-                            </Link>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <div className="h-full bg-blancoBg"></div>
-                    </div>
-                    <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
-                      <p className="flex text-[10px] text-grisHeading">
-                        {agreement.name}
-                      </p>
-                      <p className="flex text-[10px] text-grisHeading">
-                        {agreement.customer}
-                      </p>
-                    </div>
+                <div className="flex h-48 w-48 flex-col gap-1 rounded-lg bg-blancoBox px-4 py-2">
+                  <div className="flex items-center justify-between">
+                    <p className="flex items-center text-[10px] text-grisHeading">
+                      {agreement.comments}
+                    </p>
+                    <DropdownMenu className="flex">
+                      <DropdownMenuTrigger>
+                        <IonIcon
+                          icon={ellipsisHorizontal}
+                          size="medium"
+                          className="flex text-grisHeading"
+                        ></IonIcon>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>
+                          <Link
+                            to={`${import.meta.env.VITE_SERVER_URL}agreements/print-contract/${agreement.id}`}
+                          >
+                            Print
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Link to={`/crm/agreements/show/${agreement.id}`}>
+                            Show
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <div className="h-full bg-blancoBg"></div>
+                  <div className="flex h-14 flex-col rounded-lg bg-blancoBox pt-2">
+                    <p className="text-[10px] font-medium text-grisHeading">
+                      Service
+                    </p>
+
+                    <p className="flex text-[10px] text-grisHeading">
+                      {agreement.customer}
+                    </p>
                   </div>
                 </div>
               ))}

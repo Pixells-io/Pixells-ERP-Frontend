@@ -26,7 +26,9 @@ import SidelayoutLead, {
 import MainClient, {
   Action as ClientAccion,
 } from "./pages/CRM/Clients/MainClient";
-import MainClients from "./pages/Clients/MainClients";
+import MainClients, {
+  Action as ClientPlatformClient,
+} from "./pages/Clients/MainClients";
 
 // CRM Services
 import MainServices, {
@@ -35,7 +37,9 @@ import MainServices, {
 import MainService, {
   Action as ServiceConsoleFunction,
 } from "./pages/CRM/Services/MainService";
-import MainPackage from "./pages/CRM/Services/MainPackage";
+import MainPackage, {
+  Action as PackageEditFunction,
+} from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
@@ -165,6 +169,7 @@ import {
   showService,
   showCategory,
   multilaoderSideLayoutCRM,
+  multiLoaderDashboard,
 } from "./lib/actions";
 
 //Not Found
@@ -210,7 +215,9 @@ import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations
 import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
-import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
+import CreateExamCapacitation, {
+  Action as createExamCapacitationFunction,
+} from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
 import MainEvaluations, {
   Action as newEvaluation,
 } from "./pages/OrgDev/Evaluation/MainEvaluations";
@@ -244,6 +251,12 @@ import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBan
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
 
+//Client Platform
+import LoginClient, {
+  Action as LoginClientFunction,
+} from "./pages/CRM/ClientPlatform/LoginClient";
+import { getAuthClient } from "./pages/Clients/utils";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -253,10 +266,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-      },
-      {
-        path: "/clients",
-        element: <MainClients />,
+        loader: multiLoaderDashboard,
       },
       // crm
       {
@@ -311,6 +321,7 @@ const router = createBrowserRouter([
             path: "/crm/services/packages/:id",
             element: <MainPackage />,
             loader: getPackageById,
+            action: PackageEditFunction,
           },
           {
             path: "/crm/services",
@@ -549,6 +560,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/create/:id",
             element: <CreateExamCapacitation />,
+            action: createExamCapacitationFunction,
           },
           {
             path: "/org-development/capacitation/my-capacitations",
@@ -726,6 +738,18 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     action: loginAction,
+  },
+  //Client Login
+  {
+    path: "/login-client",
+    element: <LoginClient />,
+    action: LoginClientFunction,
+  },
+  {
+    path: "/client-platform",
+    element: <MainClients />,
+    loader: getAuthClient,
+    action: ClientPlatformClient,
   },
 ]);
 
