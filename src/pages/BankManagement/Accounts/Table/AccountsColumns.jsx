@@ -22,6 +22,10 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
         </div>
       );
     },
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "bank",
@@ -45,10 +49,6 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
     id: "accountNumber",
     header: "NO. CUENTA",
     accessorKey: "accountNumber",
-    meta: {
-      filterButton: true
-    },
-    filterFn: "equals",
   },
   {
     id: "balance",

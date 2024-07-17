@@ -23,16 +23,28 @@ export const PaymentsColumns = [
         </div>
       );
     },
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "noDoc",
     header: "NO. DOC",
     accessorKey: "noDoc",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "typeDoc",
     header: "TIPO DOC.",
     accessorKey: "typeDoc",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "paymentMethod",
