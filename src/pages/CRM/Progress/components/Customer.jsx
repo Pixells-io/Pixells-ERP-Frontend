@@ -20,9 +20,9 @@ function Customer({ customer, stepId }) {
   const [info, setInfo] = useState({});
 
   useEffect(() => {
-    const parsedInfo = JSON.parse(customer?.step_latest);
+    const parsedInfo = {};
 
-    if (parsedInfo === null) {
+    if (customer?.step_latest === null) {
       setInfo({});
     } else {
       delete parsedInfo.id;
