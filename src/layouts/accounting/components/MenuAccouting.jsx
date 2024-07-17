@@ -5,15 +5,14 @@ import {
   library,
   documentText,
   book,
-  mail,
   briefcase,
 } from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { path: "/accounting/catalog", name: "Catalogo", subname: "De cuentas", icon: library },
+  { path: "/accounting", name: "Catalogo", subname: "De cuentas", icon: library },
   { path: "/accounting/policy", name: "Polizas", subname: "de Ajuste Contables", icon: documentText },
-  { path: "/accounting", name: "Libro", subname: "Diario", icon: book },
-  { path: "/accounting", name: "Centro", subname: "De Costos", icon: briefcase },
+  { path: "/accounting/book", name: "Libro", subname: "Diario", icon: book },
+  { path: "/accounting/cost", name: "Centro", subname: "De Costos", icon: briefcase },
 ];
 
 const MenuAccounting = () => {

@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
-import FormInputs from "../../components/DataInput";
-import TableForm from "../../components/Tabs/DataTableForm";
-import DataSection from "../../components/DataSection";
-import ConfirmationButtons from "../../components/ConfirmationButton";
-
-const CreateAccount = () => {
-  const [debitTotal, setDebitTotal] = useState(0);
-  const [creditTotal, setCreditTotal] = useState(0);
+import { chevronBack, chevronForward } from "ionicons/icons";
+import TableBook from "../components/Tabs/DataTableBook";
+import PeriodSelect from "../components/PeriodSelect";
+const MainBook = () => {
 
   return (
     <div className="flex w-full">
@@ -21,14 +16,14 @@ const CreateAccount = () => {
                 icon={chevronBack}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              />
+              ></IonIcon>
             </div>
             <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              />
+              ></IonIcon>
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
@@ -38,34 +33,31 @@ const CreateAccount = () => {
           </div>
         </div>
         {/* top content */}
+        
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             CONTABILIDAD
           </h2>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
+          </div>
         </div>
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Asiento contable
+            Libro Diario
           </p>
         </div>
-
-        {/* form new account */}
-        <form id="fileinfo" className="flex h-full overflow-auto flex-col">
-          <FormInputs />
-          <div className="flex-1 overflow-container">
-            <TableForm className="overflow-auto block"
-              setDebitTotal={setDebitTotal}
-              setCreditTotal={setCreditTotal}
-            />
-          </div>
-          <DataSection debitTotal={debitTotal} creditTotal={creditTotal} />
-         
-        </form>
-        <ConfirmationButtons />
+       
+        {/*content */}
+        <PeriodSelect/>
+        <TableBook/>
+        
       </div>
     </div>
   );
 };
 
-export default CreateAccount;
+export default MainBook;

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
+import { informationCircle, addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { Link} from "react-router-dom";
-import DataTable from "../components/DataTablePolicy";
+import DataTable from "../components/Tabs/DataTablePolicy";
 
 const MainPolicy = () => {
   const misDatos = [
-    { tipo:'AC', numeracion: 1, fecha:'27-04-2023', estado: 'Abierto', xml:'Ninguno',observaciones:'',total:'0.00' },
-   
+    { tipo:'AC-3', numeracion: 1, fecha:'22-04-2023', estado: 'En progreso', xml:'Ninguno',observaciones:'',total:'0.00' },
+    { tipo:'AC-5', numeracion: 2, fecha:'18-04-2023', estado: 'Borrador', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-4', numeracion: 3, fecha:'03-03-2023', estado: 'En progreso', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-1', numeracion: 4, fecha:'27-04-2023', estado: 'Finalizado', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-2', numeracion: 5, fecha:'17-08-2024', estado: 'En progreso', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-7', numeracion: 6, fecha:'22-10-2024', estado: 'Borrador', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-9', numeracion: 7, fecha:'03-11-2024', estado: 'Finalizado', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-12', numeracion: 8, fecha:'14-04-2023', estado: 'Finalizado', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-11', numeracion: 9, fecha:'12-12-2023', estado: 'Borrador', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-8', numeracion: 10, fecha:'21-08-2023', estado: 'Borrador', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
+    { tipo:'AC-14', numeracion: 11, fecha:'21-08-2023', estado: 'Finalizado', xml:'Ocupado',observaciones:'Abierto',total:'0.00' },
   ];
   return (
     <div className="flex w-full">
@@ -32,10 +40,13 @@ const MainPolicy = () => {
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
+            <div>
             Accounting - policy
+            </div>
           </div>
         </div>
         {/* top content */}
+        
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             CONTABILIDAD

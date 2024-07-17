@@ -109,11 +109,6 @@ import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
 import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
 
-//accounting
-import SideLayoutAccounting from "./layouts/accounting/SideLayoutAccounting";
-import MainPolicy from "./pages/accounting/policy/MainPolicy";
-import CreateAccount from "./pages/accounting/policy/new/newAccounting";
-
 
 
 //actions
@@ -230,6 +225,15 @@ import MainCalendar from "./pages/Calendar/MainCalendar";
 import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
+
+//Accounting
+import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import MainCatalog from "./pages/Accounting/catalog/MainCatalog";
+import MainPolicy from "./pages/Accounting/policy/MainPolicy";
+import CreateAccount from "./pages/Accounting/policy/New/newAccounting";
+import AccountDetail from "./pages/Accounting/policy/Details/AccountDetails";
+import MainBook from "./pages/Accounting/book/MainBook";
+import MainCost from "./pages/Accounting/cost/MainCost";
 
 const router = createBrowserRouter([
   {
@@ -669,8 +673,8 @@ const router = createBrowserRouter([
         element: <SideLayoutAccounting />,
         children: [
           {
-            path: "/accounting/catalog",
-            
+            index:true,
+            element: <MainCatalog/>
           },
           {
             //account Policy
@@ -680,8 +684,24 @@ const router = createBrowserRouter([
           },
           {
             path: "/accounting/policy/create",
-            element: <CreateAccount />
-            }
+            element: <CreateAccount />,
+            
+          },
+          {
+            path: "/accounting/policy/details",
+            element: <AccountDetail />,
+            
+          },
+          {
+            //account book
+            path: "/accounting/book",
+            element: <MainBook />,
+            
+          },
+         { 
+          path: "/accounting/cost",
+          element: <MainCost />
+        }
         ]
       },
     ],

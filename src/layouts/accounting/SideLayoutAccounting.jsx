@@ -1,17 +1,12 @@
 import React from "react";
 import {
   Outlet,
-  useLoaderData,
-  useNavigation,
-  redirect,
 } from "react-router-dom";
 
 import TopMenuAccounting from "./components/TopMenuAccount";
 import MenuAccounting from "./components/MenuAccouting";
 
 const SideLayoutAccounting = () => {
-  const services = useLoaderData();
-  const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
