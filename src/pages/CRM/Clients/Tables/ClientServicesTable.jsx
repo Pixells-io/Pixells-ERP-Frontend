@@ -18,6 +18,8 @@ function ClientServicesTable({ services }) {
 
   const data = services;
 
+  console.log(services);
+
   const columnHelper = createColumnHelper();
 
   const columns = [
@@ -39,6 +41,14 @@ function ClientServicesTable({ services }) {
             Active
           </span>
         );
+      },
+    },
+    {
+      accessorKey: "step",
+      header: "Step",
+      cell: ({ row }) => {
+        console.log(row?.original);
+        return <p>Step numero</p>;
       },
     },
     {
