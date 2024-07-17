@@ -56,7 +56,12 @@ function ShowTickets() {
           {/* Timeline */}
           <div className="mt-3 rounded-2xl bg-white p-4">
             {ticket?.follow_ups.map((data, i) => (
-              <FollowUpCard followUp={data} ticket={ticket.id} key={i} />
+              <FollowUpCard
+                followUp={data}
+                ticket={ticket.id}
+                status={ticket.status}
+                key={i}
+              />
             ))}
           </div>
         </div>

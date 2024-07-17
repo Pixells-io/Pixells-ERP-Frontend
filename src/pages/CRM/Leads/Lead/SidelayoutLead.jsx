@@ -18,6 +18,9 @@ function SidelayoutLead() {
     user_assigned,
     extra_information: info,
     main_lead,
+    closing,
+    pay,
+    onBoarding,
   } = useLoaderData();
 
   const [modalEdit, setModalEdit] = useState(false);
@@ -163,7 +166,18 @@ function SidelayoutLead() {
           </div>
         </div>
       </div>
-      <Outlet context={[lead, services, info, follow_ups, main_lead]} />
+      <Outlet
+        context={[
+          lead,
+          services,
+          info,
+          follow_ups,
+          main_lead,
+          closing,
+          pay,
+          onBoarding,
+        ]}
+      />
     </div>
   );
 }

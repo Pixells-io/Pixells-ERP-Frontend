@@ -42,7 +42,7 @@ function TicketsTable({ tickets }) {
                 {row.original.status}
               </Badge>
             ) : row.original.status === "Complete" ? (
-              <Badge variant="" className="bg-[#00A25925] text-[#00AA259]">
+              <Badge variant="" className="bg-[#00A25925] text-[#00A259]">
                 {row.original.status}
               </Badge>
             ) : null}

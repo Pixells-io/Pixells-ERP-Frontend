@@ -17,7 +17,6 @@ import FormCreateContacts from "./FormCreateContacts";
 import FormCreateDocuments from "./FormCreateDocument";
 import { IonIcon } from "@ionic/react";
 import {
-  addOutline,
   cashOutline,
   createOutline,
   keyOutline,
@@ -114,7 +113,7 @@ function MainClient() {
         modal={accessModal}
         setModal={setAccessModal}
         client_id={client?.master?.id}
-        email={client?.email}
+        email={client?.info?.email}
       />
       <AssignInterviewModal
         modal={modalAssignInterview}
@@ -124,8 +123,8 @@ function MainClient() {
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
-          <span className="font-poppins text-2xl font-bold text-grisHeading">
-            CLIENT INFORMATION
+          <span className="font-poppins text-2xl font-bold uppercase text-grisHeading">
+            CLIENT INFORMATION - {client?.info?.business_name}
           </span>
           <div className="flex gap-10">
             <div className="flex">
@@ -194,11 +193,19 @@ function MainClient() {
               />
             </div>
             <div className="self-center">
-              <IonIcon
-                icon={keyOutline}
-                className="text-grisHeading"
-                onClick={() => setAccessModal(true)}
-              />
+              {client.info.password === null ? (
+                <IonIcon
+                  icon={keyOutline}
+                  className="text-grisHeading"
+                  onClick={() => setAccessModal(true)}
+                />
+              ) : (
+                <IonIcon
+                  icon={keyOutline}
+                  className="text-green-600"
+                  onClick={() => setAccessModal(true)}
+                />
+              )}
             </div>
           </div>
 

@@ -30,6 +30,7 @@ export async function saveService(data) {
     price: data.get("price"),
     process: data.getAll("process"),
     process_action: data.getAll("process_action"),
+    category: data.getAll("category"),
   };
 
   const response = await fetch(
@@ -300,6 +301,7 @@ export async function createServiceProcess(data) {
     service_id: data.get("service_id"),
     process: data.get("process"),
     process_action: data.get("process_action"),
+    category: data.get("category"),
   };
 
   const response = await fetch(

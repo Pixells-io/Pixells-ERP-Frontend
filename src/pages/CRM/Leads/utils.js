@@ -180,6 +180,10 @@ export async function closingLeadForm(data) {
     recurrency: data.getAll("recurrency"),
     ammount: data.getAll("ammount"),
     assigned: data.get("assigned_id"),
+    type_sale: data.get("type_sale"),
+    membership_id: data.get("membership_id"),
+    recurrency_membership: data.get("recurrency_membership"),
+    ammount_membership: data.get("ammount_membership"),
   };
 
   const formData = new FormData();
@@ -271,6 +275,26 @@ export async function editLeadForm(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process/edit-lead`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function addCommentLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/post-lead-comment`,
     {
       method: "POST",
       body: JSON.stringify(info),

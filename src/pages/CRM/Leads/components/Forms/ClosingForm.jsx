@@ -112,6 +112,14 @@ function ClosingForm({
     });
   }
 
+  const [membershipPrice, setMembershipPrice] = useState("");
+
+  function changeMembershipPrice(e) {
+    let membership2 = membership.filter((item, i) => item.id === e);
+    setMembershipPrice("");
+    setMembershipPrice(membership2[0].price);
+  }
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[600px] overflow-scroll p-0 sm:max-w-[600px]">
@@ -131,7 +139,6 @@ function ClosingForm({
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}
@@ -231,6 +238,7 @@ function ClosingForm({
                         name="membership_id"
                         placeholder={`Membership`}
                         options={membership_options}
+                        onChange={(e) => changeMembershipPrice(e.value)}
                       />
                       <SelectRouter
                         name="recurrency_membership"
@@ -238,9 +246,9 @@ function ClosingForm({
                         options={monthlyArray}
                       />
                       <InputRouter
-                        placeholder="Ammount"
                         name="ammount_membership"
                         type="number"
+                        placeholder={membershipPrice}
                       />
                     </div>
                   </div>

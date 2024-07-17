@@ -60,7 +60,6 @@ function UserSelect({ users, leadAssigned }) {
   const [open, setOpen] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(leadAssigned);
 
-  console.log(selectedStatus);
   return (
     <div className="flex items-center">
       <input

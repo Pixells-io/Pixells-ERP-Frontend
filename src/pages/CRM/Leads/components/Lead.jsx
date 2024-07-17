@@ -11,13 +11,38 @@ import {
 import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
 import { format } from "date-fns";
+import CommentsLead from "./CommentsLead";
 
 function Lead({ lead, setModal }) {
+  console.log(lead);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between border-b-[1px] border-[#D7D7D7] text-[13px] text-grisText">
-          <p>{lead.business_name}</p>
+          <div className="flex w-full flex-col gap-1 pb-1">
+            <p>{lead?.business_name}</p>
+            {lead?.type == 1 ? (
+              <div className="flex w-full justify-between">
+                <span className="w-fit gap-1 rounded-full border border-[#00a9b3] px-2 text-[8px] text-[#00a9b3]">
+                  Individual
+                </span>
+
+                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                  Active
+                </span>
+              </div>
+            ) : (
+              <div className="flex w-full justify-between">
+                <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
+                  Business
+                </span>
+
+                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                  Active
+                </span>
+              </div>
+            )}
+          </div>
           <button
             type="button"
             className="flex"
@@ -231,7 +256,7 @@ function Lead({ lead, setModal }) {
                   Month Billing
                 </p>
                 <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.month_billing}
+                  {lead?.closing?.month_billing}
                 </span>
               </div>
               <div>
@@ -239,7 +264,7 @@ function Lead({ lead, setModal }) {
                   Comments
                 </p>
                 <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.comments}
+                  {lead?.closing?.comments}
                 </span>
               </div>
             </div>
@@ -266,6 +291,7 @@ function Lead({ lead, setModal }) {
             </div>
           )}
         </Link>
+
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center justify-between gap-1">
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#D7586B] text-sm font-semibold text-white">
@@ -300,6 +326,9 @@ function Lead({ lead, setModal }) {
                   </p>
                 </HoverCardContent>
               </HoverCard>
+            </div>
+            <div className="flex">
+              <CommentsLead leadId={lead?.id} comments={lead?.comments} />
             </div>
             {/*
               <div className="flex">

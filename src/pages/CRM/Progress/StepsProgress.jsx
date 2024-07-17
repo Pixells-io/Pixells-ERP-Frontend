@@ -21,6 +21,7 @@ import {
 
 import NewStepService from "./components/Forms/NewStepService";
 import {
+  addCommentClient,
   deleteStepProcess,
   editStepProcess,
   moveProgressColumn,
@@ -275,6 +276,10 @@ export async function Action({ params, request }) {
 
     case "edit-step":
       await editStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+
+    case "add-comment-client":
+      await addCommentClient(data);
       return redirect(`/crm/progress/${params.id}`);
   }
 }

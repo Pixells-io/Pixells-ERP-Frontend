@@ -178,7 +178,6 @@ export async function Action({ request }) {
       break;
 
     case "4":
-      //Responsible
       await addDocumentTicket(data);
       break;
 
