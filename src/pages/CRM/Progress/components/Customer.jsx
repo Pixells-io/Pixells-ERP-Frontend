@@ -19,7 +19,7 @@ function Customer({ customer, stepId }) {
   const [modal, setModal] = useState(false);
   const [info, setInfo] = useState({});
 
-  useEffect(() => {
+  /*useEffect(() => {
     const parsedInfo = JSON.parse(customer?.step_latest);
 
     if (parsedInfo === null) {
@@ -32,7 +32,7 @@ function Customer({ customer, stepId }) {
       delete parsedInfo.updated_at;
       setInfo(parsedInfo);
     }
-  }, []);
+  }, []);*/
 
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
