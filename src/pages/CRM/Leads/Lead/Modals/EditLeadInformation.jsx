@@ -29,20 +29,20 @@ function EditLeadInformation({
     }
   }, [navigation.state]);
 
-  console.log(serviceSelected);
-  console.log(services.data);
-
   const servicesLead = services.data.filter((service) =>
     serviceSelected.some((serv) => serv.name == service.name),
   );
 
-  console.log(servicesLead);
+  const formatedLeadServices = servicesLead.map((serv) => {
+    return { label: serv.name, value: serv.id };
+  });
 
-  // const formatedLeadServices = servicesLead.map((serv) => { label= serv.name, value= serv.id})
-  // console.log(formatedLeadServices)
+  const formatedServices = services?.data.map((serv) => {
+    return { label: serv.name, value: serv.id };
+  });
 
   return (
-    <Dialog open={true} onOpenChange={setModal}>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
           <DialogTitle className="font-poppins">Edit Lead</DialogTitle>
@@ -120,7 +120,8 @@ function EditLeadInformation({
             <SelectRouter
               placeholder="Select Services to Add"
               isMulti="true"
-              defaultVal={serviceSelected}
+              defaultVal={formatedLeadServices}
+              options={formatedServices}
             />
           </div>
         </Form>
