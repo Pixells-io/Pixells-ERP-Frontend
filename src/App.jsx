@@ -749,18 +749,7 @@ const router = createBrowserRouter([
             index: true,
             element: <MainAnalytic />,
           },
-        ]
-      },
-      //analityc
-      {
-        path: "/analytics",
-        element: <SideLayoutAnalytic />,
-        children: [
-          {
-            index: true,
-            element: <MainAnalytic />,
-          },
-        ]
+        ],
       },
       //acounting
     ],
