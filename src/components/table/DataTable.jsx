@@ -40,10 +40,11 @@ import {
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 
-function DataTable({ data, columns, searchFilter, isCheckAll }) {
+function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }) {
   //data: datos que mostrara en la tabla
   //columns: las columnas headers tabla
   //searchFilter: el campo columna por la cual filtrara el input
+  //searchNameFilter: muestra en el placeHolder el name con la cual filtrara
   //isCheckAll: true muestra el check donde selecciona todos
 
   const [columnFilters, setColumnFilters] = useState([]);
@@ -113,7 +114,7 @@ function DataTable({ data, columns, searchFilter, isCheckAll }) {
                     {column.columnDef.header}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full">
+                <DropdownMenuContent className="max-h-[300px] w-full overflow-auto">
                   <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuRadioGroup
@@ -129,6 +130,9 @@ function DataTable({ data, columns, searchFilter, isCheckAll }) {
                         ?.setFilterValue(event + "");
                     }}
                   >
+                    <DropdownMenuRadioItem value="">
+                      Clear filter
+                    </DropdownMenuRadioItem>
                     {table?.getColumn(column.columnDef.accessorKey)
                       ? Array.from(
                           table
@@ -140,9 +144,7 @@ function DataTable({ data, columns, searchFilter, isCheckAll }) {
                           </DropdownMenuRadioItem>
                         ))
                       : null}
-                    <DropdownMenuRadioItem value="">
-                      Clear filter
-                    </DropdownMenuRadioItem>
+                    
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -159,7 +161,7 @@ function DataTable({ data, columns, searchFilter, isCheckAll }) {
           <Input
             id="search"
             className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
-            placeholder="SEARCH"
+            placeholder={searchNameFilter}
             value={table.getColumn(searchFilter)?.getFilterValue() ?? ""}
             onChange={(event) =>
               table.getColumn(searchFilter)?.setFilterValue(event.target.value)

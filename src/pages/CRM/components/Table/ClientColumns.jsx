@@ -28,13 +28,28 @@ export const clientColumns = [
   {
     accessorKey: "business_name",
     header: "COMPANY",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
+<<<<<<< Updated upstream
     accessorKey: "name",
+=======
+    accessorKey: "contact_name",
+>>>>>>> Stashed changes
     header: "NAME",
     cell: ({ row }) => {
       return <span>{row?.original.contact_name}</span>;
     },
+<<<<<<< Updated upstream
+=======
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
+>>>>>>> Stashed changes
   },
   {
     accessorKey: "middleName",

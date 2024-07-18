@@ -20,10 +20,15 @@ export const columns = [
   {
     accessorKey: "bussines_name",
     header: "COMPANY",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     accessorKey: "service",
-    header: () => <div>SERVICE</div>,
+    header: "SERVICE",
+    // header: () => <div>SERVICE</div>,
     cell: ({ row }) => {
       const services = row.getValue("service");
       const serviceStrings = services.map((service) => service.name).join(", ");
@@ -31,12 +36,20 @@ export const columns = [
     },
   },
   {
+<<<<<<< Updated upstream
     accessorKey: "name",
+=======
+    accessorKey: "contact",
+>>>>>>> Stashed changes
     header: "NAME",
     cell: ({ row }) => {
       console.log(row.original);
       return <span>{row.original.contact}</span>;
     },
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     accessorKey: "middleName",
@@ -52,6 +65,20 @@ export const columns = [
       return <span>Last</span>;
     },
   },
+<<<<<<< Updated upstream
+=======
+  // {
+  //   accessorKey: "contact",
+  //   header: "CONTACT",
+  //   cell: ({ row }) => {
+  //     return <span>{row.original.contact}</span>;
+  //   },
+  //   meta: {
+  //     filterButton: true
+  //   },
+  //   filterFn: "equals",
+  // },
+>>>>>>> Stashed changes
   {
     accessorKey: "phone",
     header: "PHONE",

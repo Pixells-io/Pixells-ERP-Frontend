@@ -4,13 +4,16 @@ import { useLoaderData, useRouteLoaderData, Outlet } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import StatisticsBlock from "./components/StatisticsBlocks";
-import DataTable from "./components/Table/DataTable";
+// import DataTable from "./components/Table/DataTable";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import { columns } from "./components/Table/Columns";
+import { clientColumns } from "./components/Table/ClientColumns";
+import DataTable from "@/components/table/DataTable";
 
-import Table from "@/components/DataTable";
-import TableClients from "./components/Table/TableClients";
+// import Table from "@/components/DataTable";
+// import TableClients from "./components/Table/TableClients";
 
 function MainCRM() {
   const {
@@ -91,11 +94,13 @@ function MainCRM() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="leads" className="mt-[-60px] w-full p-2">
-            <DataTable services={services} leads={leads} />
+            <DataTable data={leads.data} columns={columns} searchFilter={"email"} searchNameFilter={"EMAIL"} isCheckAll={false} />
+            {/* <DataTable services={services} leads={leads} /> */}
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="clients">
             {/* <Table className="w-full" /> */}
-            <TableClients services={services} clients={clients} />
+            {/* <TableClients services={services} clients={clients} /> */}
+            <DataTable data={clients.data} columns={clientColumns} searchFilter={"contact_email"} searchNameFilter={"EMAIL"} isCheckAll={false} />
           </TabsContent>
         </Tabs>
       </div>
