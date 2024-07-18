@@ -122,6 +122,7 @@ function EditLeadInformation({
               isMulti="true"
               defaultVal={formatedLeadServices}
               options={formatedServices}
+              name="services"
             />
           </div>
         </Form>

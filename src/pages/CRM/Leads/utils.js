@@ -278,6 +278,7 @@ export async function editLeadForm(data) {
     contact_last_name: data.get("contact_last_name"),
     contact_phone: data.get("contact_phone"),
     contact_email: data.get("contact_email"),
+    services: data.getAll("services"),
   };
 
   // validaciones?

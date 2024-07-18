@@ -37,7 +37,7 @@ function StatisticsBlock({ data }) {
           </div>
           <div className="flex flex-col items-center justify-center text-gris2">
             <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
-              +40%
+              +100%
             </div>
             <span className="text-[8px]">vs last month</span>
           </div>
@@ -62,7 +62,7 @@ function StatisticsBlock({ data }) {
           </div>
           <div className="flex flex-col items-center justify-center text-gris2">
             <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
-              +10%
+              +100%
             </div>
             <span className="text-[8px]">vs last month</span>
           </div>
@@ -89,7 +89,7 @@ function StatisticsBlock({ data }) {
           </div>
           <div className="flex flex-col items-center justify-center text-gris2">
             <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
-              +20%
+              +100%
             </div>
             <span className="text-[8px]">vs last month</span>
           </div>
