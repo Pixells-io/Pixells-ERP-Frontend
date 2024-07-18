@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useLoaderData, Outlet } from "react-router-dom";
+import { useLoaderData, Outlet, useSubmit } from "react-router-dom";
 
-import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 import { IonIcon } from "@ionic/react";
 import { create } from "ionicons/icons";
@@ -19,6 +17,7 @@ import EditLeadInformation from "./Modals/EditLeadInformation";
 import { editLeadForm } from "../utils";
 
 function SidelayoutLead() {
+  const submit = useSubmit();
   const { leadLoader, servicesLoader } = useLoaderData();
 
   const {
@@ -39,6 +38,8 @@ function SidelayoutLead() {
     if (string == undefined) return "";
     return (string = string[0]?.toUpperCase() + string?.slice(1));
   }
+
+  function changeLeadStatus(e) {}
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -194,7 +195,9 @@ function SidelayoutLead() {
                     )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem>Active</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => changeLeadStatus(e)}>
+                      Active
+                    </DropdownMenuItem>
                     <DropdownMenuItem>Suspended</DropdownMenuItem>
                     <DropdownMenuItem>Canceled</DropdownMenuItem>
                     <DropdownMenuItem>Done</DropdownMenuItem>
@@ -229,6 +232,10 @@ export async function Action({ request }) {
 
   switch (action) {
     case "edit-lead":
+      await editLeadForm(data);
+      return;
+
+    case "edit-status":
       await editLeadForm(data);
       return;
 
