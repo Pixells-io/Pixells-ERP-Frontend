@@ -108,6 +108,7 @@ function ExamForm() {
         idx === questionIndex ? { ...item, type: e } : item,
       ),
     );
+    // console.log("Tipo:", e);
   }
 
   function onChangeAnswer(questionIdx, answerIdx, e) {
