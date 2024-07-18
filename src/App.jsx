@@ -261,6 +261,10 @@ import LoginClient, {
 } from "./pages/CRM/ClientPlatform/LoginClient";
 import { getAuthClient } from "./pages/Clients/utils";
 
+//Analytics
+import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
+import MainAnalytic from "./pages/Analytic/MainAnalytic";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -734,6 +738,29 @@ const router = createBrowserRouter([
             element: <PaymentRecord />,
           },
         ],
+      },
+      //acounting
+      //analityc
+      {
+        path: "/analytics",
+        element: <SideLayoutAnalytic />,
+        children: [
+          {
+            index: true,
+            element: <MainAnalytic />,
+          },
+        ]
+      },
+      //analityc
+      {
+        path: "/analytics",
+        element: <SideLayoutAnalytic />,
+        children: [
+          {
+            index: true,
+            element: <MainAnalytic />,
+          },
+        ]
       },
       //acounting
     ],

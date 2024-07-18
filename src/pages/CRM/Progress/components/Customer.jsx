@@ -30,7 +30,6 @@ function Customer({ customer, stepId }) {
     setInfo(parsedInfo);
   }, []);
 
-  console.log("hola");
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
       <FormRequireDocument
@@ -76,7 +75,7 @@ function Customer({ customer, stepId }) {
           </div>
         </div>
 
-        <Link to={`/crm/client/${customer?.customer_id}`}>
+        <Link to={`/crm/client/${customer?.master_id}`}>
           <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
             <div className="flex flex-col gap-2">
               {Object?.entries(info)?.map(([key, value]) => (
