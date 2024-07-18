@@ -2,10 +2,8 @@ import Cookies from "js-cookie";
 
 export async function setSelectedService(data) {
   const service = {
-    service_id: data.get("serviceId"),
+    service_id: data.getAll("serviceId"),
   };
-
-  console.log(service);
   // validaciones?
 
   const response = await fetch(

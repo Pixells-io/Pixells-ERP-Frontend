@@ -219,7 +219,7 @@ function MainLead() {
             <CardFollowUp info={follow} />
           ))}
           {/* Here is the cards */}
-          {closing != null ? (
+          {closing != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
@@ -257,13 +257,13 @@ function MainLead() {
                       Recurrent Pay
                     </span>
                     <span className="text-xs text-grisHeading">
-                      ${closing.month_billing}
+                      ${closing?.month_billing}
                     </span>
                   </div>
                 </div>
               </div>
               <div className="flex justify-between px-3">
-                {closing.sales.map((sale, i) => (
+                {closing?.sales.map((sale, i) => (
                   <div className="mt-3 flex gap-6" key={i}>
                     <div className="flex flex-col gap-1">
                       <p className="text-xs font-medium text-grisSubText">
@@ -286,8 +286,7 @@ function MainLead() {
               </div>
             </div>
           ) : null}
-
-          {pay != null ? (
+          {pay != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
@@ -334,7 +333,7 @@ function MainLead() {
               </div>
             </div>
           ) : null}
-          {onBoarding != null ? (
+          {onBoarding != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
