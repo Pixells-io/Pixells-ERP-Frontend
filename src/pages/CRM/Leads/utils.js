@@ -315,3 +315,23 @@ export async function addCommentLead(data) {
 
   return response;
 }
+
+export async function editStatusLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    status: data.get("status"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/change-lead_status`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

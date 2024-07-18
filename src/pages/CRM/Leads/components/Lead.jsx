@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
+
 import { format } from "date-fns";
+
 import CommentsLead from "./CommentsLead";
 
 function Lead({ lead, setModal }) {
-  console.log(lead.services);
+  console.log(lead);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
@@ -27,9 +30,23 @@ function Lead({ lead, setModal }) {
                   Individual
                 </span>
 
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
-                </span>
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
               </div>
             ) : (
               <div className="flex w-full justify-between">
@@ -37,9 +54,23 @@ function Lead({ lead, setModal }) {
                   Business
                 </span>
 
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
-                </span>
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
               </div>
             )}
           </div>

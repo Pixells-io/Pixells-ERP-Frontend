@@ -75,17 +75,19 @@ function Customer({ customer, stepId }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
-          <div className="flex flex-col gap-2">
-            {Object?.entries(info)?.map(([key, value]) => (
-              <div className="flex flex-col gap-1">
-                <p>{key}</p>
-                <span>{value}</span>
-              </div>
-            ))}
+        <Link to={`/crm/client/${customer?.customer_id}`}>
+          <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
+            <div className="flex flex-col gap-2">
+              {Object?.entries(info)?.map(([key, value]) => (
+                <div className="flex flex-col gap-1">
+                  <p>{key}</p>
+                  <span>{value}</span>
+                </div>
+              ))}
+            </div>
+            <p>{format(customer.latest_updated_date, "PPP")}</p>
           </div>
-          <p>{format(customer.latest_updated_date, "PPP")}</p>
-        </div>
+        </Link>
 
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center justify-between gap-1">

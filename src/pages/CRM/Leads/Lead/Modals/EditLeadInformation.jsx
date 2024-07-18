@@ -59,7 +59,14 @@ function EditLeadInformation({
             }
           }}
         >
-          <input type="hidden" name="lead_id" value={lead.id} />
+          <input type="hidden" hidden readOnly name="lead_id" value={lead.id} />
+          <input
+            type="hidden"
+            hidden
+            readOnly
+            name="action"
+            value="edit-lead"
+          />
           <div className="flex flex-col gap-4 rounded-lg px-4 py-2 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
               Business Information
