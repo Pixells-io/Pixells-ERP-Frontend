@@ -10,16 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-const DAYS = [
-  { label: "Monday", value: "Monday" },
-  { label: "Tuesday", value: "Tuesday" },
-  { label: "Wednesday", value: "Wednesday" },
-  { label: "Thursday", value: "Thursday" },
-  { label: "Friday", value: "Friday" },
-  { label: "Saturday", value: "Saturday" },
-  { label: "Sunday", value: "Sunday" },
-];
-
 function DeleteTask({ modal, setModal, taskId }) {
   const navigation = useNavigation();
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   useReactTable,
@@ -14,8 +14,14 @@ import {
   chatbubbleEllipses,
   bookmark,
 } from "ionicons/icons";
+import EditCategoryForm from "../Forms/EditCategoryForm";
 function CategoriesTable({ categories }) {
   const columnHelper = createColumnHelper();
+
+  const [modal, setModal] = useState(false);
+  const [serviceId, setServiceId] = useState(false);
+  const [serviceName, setServiceName] = useState(false);
+  const [serviceDescription, setserviceDescription] = useState(false);
 
   const data = categories;
 
@@ -32,6 +38,20 @@ function CategoriesTable({ categories }) {
       id: "created",
       header: "CREATED",
     }),
+    {
+      accessorKey: "actions",
+      header: "ACTIONS",
+      cell: ({ row }) => {
+        // console.log(row?.original?.id);
+        return (
+          <div className="flex gap-2 text-[#696974]">
+            <a href={`/crm/category/${row.original.id}`}>
+              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            </a>
+          </div>
+        );
+      },
+    },
   ];
 
   const table = useReactTable({
@@ -40,8 +60,22 @@ function CategoriesTable({ categories }) {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  function openModal(name, id, description) {
+    setServiceId(id);
+    setServiceName(name);
+    setserviceDescription(description);
+    setModal(true);
+  }
+
   return (
     <div className="relative w-full overflow-auto">
+      <EditCategoryForm
+        modal={modal}
+        setModal={setModal}
+        id={serviceId}
+        name={serviceName}
+        description={serviceDescription}
+      />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {

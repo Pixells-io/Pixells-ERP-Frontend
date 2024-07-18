@@ -73,3 +73,115 @@ export async function storeCustomerDocuments(data) {
 
   return response;
 }
+
+export async function deleteAddress(data) {
+  const id = data.get("address_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/destroy-address/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteContact(data) {
+  const id = data.get("contact_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/destroy-contact/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteDocument(data) {
+  const id = data.get("document_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/destroy-document/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editClientInfo(data) {
+  const edit = {
+    lead_id: data.get("client_id"),
+    business_name: data.get("business_name"),
+    business_phone: data.get("business_phone"),
+    contact_name: data.get("contact_name"),
+    contact_middle_name: data.get("contact_middle_name"),
+    contact_last_name: data.get("contact_last_name"),
+    contact_phone: data.get("contact_phone"),
+    contact_email: data.get("contact_email"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-client-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editAccessInfo(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    email: data.get("email"),
+    password: data.get("password"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-client-access`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function assignInterview(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    interview_id: data.get("interview_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/interview-assign`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

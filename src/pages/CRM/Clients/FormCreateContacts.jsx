@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +13,12 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 
 function FormCreateContacts({ modal, setModal, masterId }) {
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">

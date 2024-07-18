@@ -16,7 +16,14 @@ import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 import DropzoneFile from "@/components/dropzone-files";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
-function FormCreateDocuments({ modal, setModal, masterId }) {
+function FormCreateDocuments({ modal, setModal, masterId, url }) {
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
@@ -28,7 +35,7 @@ function FormCreateDocuments({ modal, setModal, masterId }) {
         <Form
           id="form-create-client-document"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/client/${masterId}`}
+          action={url}
           method="post"
           encType="multipart/form-data"
         >
@@ -41,12 +48,13 @@ function FormCreateDocuments({ modal, setModal, masterId }) {
             </div>
           </div>
           <div className="px-10 pb-6">
-            <Button
+            <button
               type="submit"
-              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold text-white"
+              onClick={() => setModal(false)}
             >
               Save
-            </Button>
+            </button>
           </div>
         </Form>
       </DialogContent>

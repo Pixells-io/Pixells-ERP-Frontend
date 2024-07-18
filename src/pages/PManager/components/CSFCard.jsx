@@ -9,7 +9,6 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function CSFCard({ card }) {
-  const percentage = 30;
   console.log(card);
 
   return (

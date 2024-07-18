@@ -1,32 +1,29 @@
 import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  cashOutline,
-  ellipsisHorizontal,
-  folder,
-  globeOutline,
-} from "ionicons/icons";
+import { folder, globeOutline } from "ionicons/icons";
 
-function ServicesBlocks() {
+function ServicesBlocks(data) {
   return (
-    <div className="flex gap-8">
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
+    <div className="flex h-full w-full gap-8 overflow-auto">
+      <div className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon icon={folder} size="large" className="text-gris2"></IonIcon>
-          <IonIcon
+          {/* <IonIcon
             icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
-          ></IonIcon>
+            className="text-xl text-grisSubText"
+          ></IonIcon> */}
         </div>
-        <div className="text-blue-500 font-bold text-xl">7</div>
+        <div className="text-xl font-bold text-blue-500">
+          {data.data.services_count}
+        </div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">Active</span>
             <span className="text-xs text-grisSubText">Services</span>
           </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
+          <div className="flex flex-col items-center justify-center text-gris2">
+            <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
               +20%
             </div>
             <span className="text-[8px]">vs last month</span>
@@ -34,61 +31,38 @@ function ServicesBlocks() {
         </div>
       </div>
 
-      <div className="h-full"></div>
+      <div className="border-r-2"></div>
 
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
-        <div className="flex justify-between">
-          <IonIcon
-            icon={globeOutline}
-            size="large"
-            className="text-gris2"
-          ></IonIcon>
-          <IonIcon
-            icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
-          ></IonIcon>
-        </div>
-        <div className="text-blue-500 font-bold text-xl">$700.00</div>
-        <div className="flex justify-between">
-          <div className="flex flex-col text-gris2">
-            <span className="text-sm font-semibold">Immigration</span>
-            <span className="text-xs text-grisSubText">Service</span>
+      {data.data.services.map((service, i) => (
+        <div className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
+          <div className="flex justify-between">
+            <IonIcon
+              icon={globeOutline}
+              size="large"
+              className="text-gris2"
+            ></IonIcon>
+            {/* <IonIcon
+              icon={ellipsisHorizontal}
+              className="text-xl text-grisSubText"
+            ></IonIcon> */}
           </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
-              +20%
+          <div className="text-xl font-bold text-blue-500">
+            ${Number(service.ammount).toFixed(2)}
+          </div>
+          <div className="flex justify-between">
+            <div className="flex flex-col text-gris2">
+              <span className="text-sm font-semibold"> {service.name} </span>
+              <span className="text-xs text-grisSubText">Service</span>
             </div>
-            <span className="text-[8px]">vs last month</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
-        <div className="flex justify-between">
-          <IonIcon
-            icon={cashOutline}
-            size="large"
-            className="text-gris2"
-          ></IonIcon>
-          <IonIcon
-            icon={ellipsisHorizontal}
-            className="text-grisSubText text-xl"
-          ></IonIcon>
-        </div>
-        <div className="text-blue-500 font-bold text-xl">$450.00</div>
-        <div className="flex justify-between">
-          <div className="flex flex-col text-gris2">
-            <span className="text-sm font-semibold">Pay Roll</span>
-            <span className="text-xs text-grisSubText">Service</span>
-          </div>
-          <div className="flex flex-col justify-center items-center text-gris2">
-            <div className="bg-[#00A25940] text-green-600 font-roboto font-medium text-sm py rounded-xl px-2">
-              +20%
+            <div className="flex flex-col items-center justify-center text-gris2">
+              <div className="py rounded-xl bg-[#00A25940] px-2 font-roboto text-sm font-medium text-green-600">
+                +100%
+              </div>
+              <span className="text-[8px]">vs last month</span>
             </div>
-            <span className="text-[8px]">vs last month</span>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }

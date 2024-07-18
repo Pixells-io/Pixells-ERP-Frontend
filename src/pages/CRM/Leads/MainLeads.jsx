@@ -9,7 +9,9 @@ import {
   ellipsisVertical,
   globeOutline,
 } from "ionicons/icons";
+
 import {
+  addCommentLead,
   closingLeadForm,
   followupLeadForm,
   onboardingLeadForm,
@@ -90,6 +92,7 @@ function MainLeads() {
             >
               Dashboard
             </NavLink>
+
             {/* <NavLink
               to="/crm/leads/timeline"
               className={({ isActive }) =>
@@ -146,6 +149,9 @@ export async function multiFormAction({ request }) {
 
     case "onboarding":
       return await onboardingLeadForm(data);
+
+    case "add-comment-lead":
+      return await addCommentLead(data);
 
     default:
       break;

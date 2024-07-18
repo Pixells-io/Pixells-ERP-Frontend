@@ -57,6 +57,13 @@ function PotentialForm({ modal, setModal, leadId, users, leadAssigned }) {
           className="flex flex-col gap-2 px-8"
           action="/crm/leads"
           method="post"
+          encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4">
@@ -107,7 +114,7 @@ function PotentialForm({ modal, setModal, leadId, users, leadAssigned }) {
             <div className="flex items-center gap-3">
               <div className="flex w-16 flex-col items-center gap-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={leadAssigned?.url} />
+                  <AvatarImage src={leadAssigned?.image} />
                   <AvatarFallback>
                     {leadAssigned?.name?.search("\b[a-zA-Z]")}
                   </AvatarFallback>

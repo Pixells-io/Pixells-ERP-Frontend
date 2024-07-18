@@ -122,3 +122,8 @@
   background-color: transparent;
   border: transparent;
 }
+
+.fc .fc-daygrid-day-events{
+  height: 90px!important;
+  overflow: scroll!important;
+}

@@ -4,7 +4,6 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
-import { pruebaSubmit } from "@/pages/Chat/utils";
 
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
@@ -49,6 +48,7 @@ function LayoutChat() {
             >
               INTERNAL
             </TabsTrigger>
+            {/*
             <TabsTrigger
               className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
               value="whatsapp"
@@ -61,6 +61,7 @@ function LayoutChat() {
             >
               META
             </TabsTrigger>
+             */}
           </TabsList>
           <TabsContent value="internal" className="h-[92%]">
             <div className="mt-[-20px] bg-[#f6f6f6] pb-2 pt-6">
@@ -72,8 +73,10 @@ function LayoutChat() {
               ))}
             </div>
           </TabsContent>
+          {/*
           <TabsContent value="whatsapp"></TabsContent>
           <TabsContent value="meta"></TabsContent>
+           */}
         </Tabs>
       </div>
       <Outlet />

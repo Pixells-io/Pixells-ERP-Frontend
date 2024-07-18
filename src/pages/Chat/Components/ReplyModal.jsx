@@ -9,8 +9,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function ReplyModal({ modal, setModal }) {
+function ReplyModal({ modal, setModal, chat_id, message_id }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -28,23 +29,30 @@ function ReplyModal({ modal, setModal }) {
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="area-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/organization"
+          action={`/chat/${chat_id}`}
           method="post"
         >
+          <input type="hidden" name="message_id" value={message_id} />
+          <input type="hidden" name="type_of_function" value="4" />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
-            <div className="flex w-full flex-col gap-3 pb-4 font-light"></div>
+            <div className="flex w-full flex-col gap-3 pb-4 font-light">
+              <InputRouter
+                name={"message"}
+                placeholder={"Type your message"}
+                type={"text"}
+              />
+            </div>
           </div>
+          <DialogFooter className="px-10 pb-6">
+            <Button
+              type="submit"
+              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+            >
+              Reply
+            </Button>
+          </DialogFooter>
         </Form>
-        <DialogFooter className="px-10 pb-6">
-          <Button
-            form="area-form"
-            className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
-          >
-            Reply
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

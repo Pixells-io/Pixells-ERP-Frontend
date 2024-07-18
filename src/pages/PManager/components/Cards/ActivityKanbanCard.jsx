@@ -20,6 +20,7 @@ import {
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
+import CompleteActivity from "@/layouts/PManager/components/TaskModals/CompleteActivity";
 
 function ActivityKanbanCard({ task, actions }) {
   const [taskId, setTaskId] = useState(false);
@@ -30,6 +31,7 @@ function ActivityKanbanCard({ task, actions }) {
   const [taskStart, setTaskStart] = useState(false);
   const [editTaskModal, setEditTaskModal] = useState(false);
   const [completeTaskModal, setCompleteTaskModal] = useState(false);
+  const [completeActivityModal, setCompleteActivityModal] = useState(false);
 
   function openCompleteTaskModal(taskId, name, description) {
     setTaskId(taskId);
@@ -52,7 +54,13 @@ function ActivityKanbanCard({ task, actions }) {
     setDestroyTaskModal(true);
   }
 
-  console.log(task);
+  let showAction = false;
+
+  if (task.type === "1") {
+    showAction = false;
+  } else {
+    showAction = true;
+  }
 
   return (
     <div className="m-4 flex flex-col gap-2 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
@@ -77,11 +85,19 @@ function ActivityKanbanCard({ task, actions }) {
         priority={taskPriority}
         start={taskStart}
       />
+      <CompleteActivity
+        modal={completeActivityModal}
+        setModal={setCompleteActivityModal}
+        activity={task.id}
+      />
       <div className="flex items-center justify-between">
-        <p className="line-clamp-1 font-poppins text-[15px] font-semibold">
+        <p
+          className="line-clamp-1 font-poppins text-[15px] font-semibold"
+          title={task.name}
+        >
           {task.name}
         </p>
-        {actions === true ? (
+        {showAction === true ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
               <IonIcon
@@ -131,14 +147,26 @@ function ActivityKanbanCard({ task, actions }) {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <></>
+          <>
+            {actions === true ? (
+              <IonIcon
+                icon={checkmarkCircleOutline}
+                className="h-5 w-5 text-grisText"
+                onClick={() => setCompleteActivityModal(true)}
+              ></IonIcon>
+            ) : (
+              false
+            )}
+          </>
         )}
       </div>
       <div className="flex items-center gap-2 text-grisText">
         {task.type === "1" ? (
           <>
             <IonIcon icon={listCircleOutline} className="h-5 w-5"></IonIcon>
-            <p className="text-[12px] font-normal">Proyecto Macro</p>
+            <p className="text-[12px] font-normal">
+              Proyecto: {task.description}
+            </p>
           </>
         ) : (
           <>

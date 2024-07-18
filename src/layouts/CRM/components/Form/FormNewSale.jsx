@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
 
-import Select from "react-select";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import FormInput from "./Inputs/FormInput";
-import FormInput from "./FormInput";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import DropzoneFile from "@/components/dropzone-files";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { Button } from "@/components/ui/button";
 
-function FormNewSale() {
+import { IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
+
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+
+function FormNewSale({ clients }) {
   const [open, setOpen] = useState(false);
   const navigation = useNavigation();
 
@@ -29,6 +25,12 @@ function FormNewSale() {
       setOpen({ prospect: false });
     }
   }, [navigation.state]);
+
+  let options = [];
+  clients?.data.map((service, i) => {
+    let newObj = { value: service.id, label: service.business_name };
+    options.push(newObj);
+  });
 
   return (
     <Dialog>
@@ -39,7 +41,7 @@ function FormNewSale() {
         >
           <IonIcon icon={add} size="large"></IonIcon>
           <p className="mr-2 text-base font-medium text-gris2 group-hover:text-blue-500">
-            New Sale
+            Add On
           </p>
         </Button>
       </DialogTrigger>
@@ -53,55 +55,25 @@ function FormNewSale() {
           action="/crm"
           method="post"
           encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
-                <SelectRouter name="client" placeholder="Select Client" />
-              </div>
-              {/* <div>
-                <SelectRouter name="services" placeholder="Select Services" />
-              </div> */}
-              <div>
-                <InputRouter
-                  name="confirm_email"
-                  type="email"
-                  placeholder="Confirm Email"
+                <SelectRouter
+                  name="client"
+                  placeholder="Select Client"
+                  options={options}
                 />
-              </div>
-              <div>
-                <InputRouter
-                  name="subject"
-                  type="date"
-                  placeholder="Day of Contact"
-                />
-              </div>
-              <div>
-                <InputRouter
-                  name="comments"
-                  type="text"
-                  placeholder="Type your message here."
-                />
-              </div>
-              <div>
-                <DropzoneFile name="document" label="Select a file" />
               </div>
             </div>
             <div>
-              {/* <input
-                type="text"
-                name="lead_id"
-                value={leadId}
-                hidden
-                readOnly
-              /> */}
-              <input
-                type="text"
-                name="action"
-                value="proposal"
-                readOnly
-                hidden
-              />
+              <input type="text" name="action" value="add-on" readOnly hidden />
             </div>
           </div>
           <DialogFooter className="px-4 pb-4">

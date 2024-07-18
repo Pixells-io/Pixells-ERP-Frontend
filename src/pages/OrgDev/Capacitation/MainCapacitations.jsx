@@ -20,6 +20,7 @@ import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import { saveNewTraining } from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import DocumentsCapacitation from "./components/DocumentsCapacitation";
 
 const PEOPLE = [
   {
@@ -78,22 +79,22 @@ function MainCapacitations() {
 
   return (
     <div className="flex w-full">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
+      <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -102,11 +103,11 @@ function MainCapacitations() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               ORGANIZATION DEVELOPMENT
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             {/* <div className="text-xs">
               {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
               {leads?.data.length == 1 ? "lead" : "leads"}
@@ -121,13 +122,13 @@ function MainCapacitations() {
           </div>
         </div>
         <div>
-          <p className="font-poppins font-bold text-xl text-[#44444F]">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
             Trainings
           </p>
           <IonIcon
             icon={addCircleOutline}
             size="large"
-            className="text-primarioBotones mt-5"
+            className="mt-5 text-primarioBotones"
             onClick={() => setModalCreateTrainings(true)}
           ></IonIcon>
         </div>
@@ -140,100 +141,92 @@ function MainCapacitations() {
           users={users.data}
         />
 
-        <div className="bg-blancoBg rounded-lg pt-2">
+        <div className="rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
-            <div className="grid grid-cols-11 w-full py-2 px-4 text-center">
-              <div className="col-span-2 text-left pl-4">
-                <p className="text-grisText font-semibold text-sm">NOMBRE</p>
+            <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
+              <div className="col-span-2 pl-4 text-left">
+                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TIPO</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">FORMA</p>
+                <p className="text-sm font-semibold text-grisText">FORMA</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">LUGAR</p>
+                <p className="text-sm font-semibold text-grisText">LUGAR</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">CAPACITOR</p>
+                <p className="text-sm font-semibold text-grisText">CAPACITOR</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">
+                <p className="text-sm font-semibold text-grisText">
                   FECHA TEN.
                 </p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">
+                <p className="text-sm font-semibold text-grisText">
                   FECHA REAL
                 </p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">ARCHIVOS</p>
+                <p className="text-sm font-semibold text-grisText">ARCHIVOS</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">EXÁMEN</p>
+                <p className="text-sm font-semibold text-grisText">EXÁMEN</p>
               </div>
               <div>
-                <p className="text-grisText font-semibold text-sm">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
               </div>
             </div>
-            <div className="flex flex-col py-2 px-4 text-center gap-2">
+            <div className="flex flex-col gap-2 px-4 py-2 text-center">
               {capacitacionPusher?.map((row, i) => (
-                <div key={i} className="grid grid-cols-11 w-full border-t py-4">
-                  <div className="col-span-2 text-left pl-4">
-                    <p className="text-grisHeading text-xs">{row.name}</p>
+                <div key={i} className="grid w-full grid-cols-11 border-t py-4">
+                  <div className="col-span-2 pl-4 text-left">
+                    <p className="text-xs text-grisHeading">{row.name}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.type}</p>
+                    <p className="text-xs text-grisHeading">{row.type}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.class_type}</p>
+                    <p className="text-xs text-grisHeading">{row.class_type}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.location}</p>
+                    <p className="text-xs text-grisHeading">{row.location}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">
+                    <p className="text-xs text-grisHeading">
                       {row.capacitador}
                     </p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.date}</p>
+                    <p className="text-xs text-grisHeading">{row.date}</p>
                   </div>
                   <div>
-                    <p className="text-grisHeading text-xs">{row.real_date}</p>
+                    <p className="text-xs text-grisHeading">{row.real_date}</p>
                   </div>
-                  <div className="flex justify-center items-center">
-                    <p
-                      className={
-                        row.archive
-                          ? "bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit"
-                          : "bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit"
-                      }
-                    >
-                      Archivos
-                    </p>
+                  <div className="flex items-center justify-center">
+                    <DocumentsCapacitation />
                   </div>
                   {row.examen === false ? (
-                    <div className="flex justify-center items-center">
+                    <div className="flex items-center justify-center">
                       <NavLink
                         to={`/org-development/capacitation/create/${row?.id}`}
                       >
-                        <p className="bg-[#7794F940] text-[#7794F9] text-xs rounded-full py-1 px-3 w-fit">
+                        <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
                           Exámen
                         </p>
                       </NavLink>
                     </div>
                   ) : (
-                    <div className="flex justify-center items-center">
-                      <p className="bg-[#00A25940] text-[#00A259] text-xs rounded-full py-1 px-3 w-fit">
+                    <div className="flex items-center justify-center">
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
                         Exámen
                       </p>
                     </div>
                   )}
 
-                  <div className="flex justify-center items-center">
+                  <div className="flex items-center justify-center">
                     <NavLink to={`/org-development/capacitation/${row?.id}`}>
                       <IonIcon
                         icon={informationCircle}
@@ -245,45 +238,6 @@ function MainCapacitations() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="w-[280px] flex flex-col gap-6 bg-gris px-8 py-4 ml-4 rounded-lg shrink-0">
-        <div className="flex justify-center">
-          <p className="text-grisHeading text-lg font-poppins font-semibold">
-            Accesos Rápidos
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {PEOPLE.map((item, i) => (
-            <div key={i} className="flex">
-              <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex w-12 h-12 items-center justify-center ">
-                  <Avatar className="rounded-lg h-full w-full">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </div>
-                {item.status == "Pending" ? (
-                  <span className="text-[11px] bg-[#FAA36440] text-[#FAA364] px-2 py-[2px] w-fit rounded-full">
-                    {item.status}
-                  </span>
-                ) : (
-                  <span className="text-[11px] bg-[#7794F940] text-[#7794F9] px-2 py-[2px] w-fit rounded-full">
-                    {item.status}
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="text-grisText font-medium text-base">
-                  {item.name}
-                </p>
-                <span className="font-medium text-[10px] text-grisSubText line-clamp-none ">
-                  {item.position}
-                </span>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>

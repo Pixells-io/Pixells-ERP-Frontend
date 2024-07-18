@@ -26,7 +26,9 @@ function DropzoneImage({ name, url, initials }) {
     onDrop: handleDrop,
     accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
     multiple: true,
+    useFsAccessApi: false,
   });
+
   return (
     <div className="upload-container">
       <div
@@ -40,22 +42,16 @@ function DropzoneImage({ name, url, initials }) {
           <div>
             {yourImage.length !== 0 ? (
               <div className="ml-3 flex">
-                <img
-                  src={yourImage[0].preview}
-                  alt="preview"
-                  style={{
-                    width: "176px",
-                    height: "176px",
-                    borderRadius: "100px",
-                  }}
-                />
+                <Avatar className="h-40 w-40">
+                  <AvatarImage src={yourImage[0].preview} />
+                </Avatar>
               </div>
             ) : (
               <div>
                 {url === undefined ? (
                   <IonIcon
                     icon={personCircle}
-                    className="text-9xl text-primario"
+                    className="flex size-40 text-9xl text-primario"
                   />
                 ) : (
                   <div className="flex pb-2">

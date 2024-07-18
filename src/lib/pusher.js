@@ -5,7 +5,7 @@ export const pusherClient = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
   cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
   forceTLS: true,
   channelAuthorization: {
-    endpoint: "https://demoback.pixells.io/broadcasting/auth",
+    endpoint: `${import.meta.env.VITE_SERVER_URL_WtP}broadcasting/auth`,
     headers: {
       Authorization: "Bearer " + Cookies.get("token"),
     },

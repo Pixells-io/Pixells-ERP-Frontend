@@ -24,6 +24,7 @@ function DropzoneFile({ name, label }) {
       onDrop: handleDrop,
       accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
       multiple: true,
+      useFsAccessApi: false,
     });
   return (
     <div className="">

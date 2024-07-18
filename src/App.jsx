@@ -16,22 +16,34 @@ import MainLeads, {
 } from "./pages/CRM/Leads/MainLeads";
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
-import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
+import {
+  getLeadById,
+  multiloaderSideLayoutLead,
+  multiLoaderStageLeads,
+} from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
-import SidelayoutLead from "./pages/CRM/Leads/Lead/SidelayoutLead";
+import SidelayoutLead, {
+  Action as LeadsEditFunction,
+} from "./pages/CRM/Leads/Lead/SidelayoutLead";
 
 //Client :id
 import MainClient, {
   Action as ClientAccion,
 } from "./pages/CRM/Clients/MainClient";
-import MainClients from "./pages/Clients/MainClients";
+import MainClients, {
+  Action as ClientPlatformClient,
+} from "./pages/Clients/MainClients";
 
 // CRM Services
 import MainServices, {
   Action as NewFunction,
 } from "./pages/CRM/Services/MainServices";
-import MainService from "./pages/CRM/Services/MainService";
-import MainPackage from "./pages/CRM/Services/MainPackage";
+import MainService, {
+  Action as ServiceConsoleFunction,
+} from "./pages/CRM/Services/MainService";
+import MainPackage, {
+  Action as PackageEditFunction,
+} from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
@@ -95,7 +107,7 @@ import Today from "./pages/PManager/Today";
 import Activities, {
   Action as taskFunctions,
 } from "./pages/PManager/Activities";
-import Status from "./pages/PManager/Status";
+import Status, { Action as statusPmFunction } from "./pages/PManager/Status";
 import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
@@ -107,9 +119,6 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
-import MainChatSPA from "./pages/Chat/SPA/MainChatSPA";
-
-
 
 //actions
 import {
@@ -160,6 +169,11 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
+  getObjectives,
+  showService,
+  showCategory,
+  multilaoderSideLayoutCRM,
+  multiLoaderDashboard,
 } from "./lib/actions";
 
 //Not Found
@@ -205,7 +219,9 @@ import MainMyCapacitations from "./pages/OrgDev/Capacitation/MainMyCapacitations
 import CreateExamenInduction, {
   Action as newInductionExam,
 } from "./pages/OrgDev/Inductions/CreateExamenInduction";
-import CreateExamCapacitation from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
+import CreateExamCapacitation, {
+  Action as createExamCapacitationFunction,
+} from "./pages/OrgDev/Capacitation/CreateExamCapacitation";
 import MainEvaluations, {
   Action as newEvaluation,
 } from "./pages/OrgDev/Evaluation/MainEvaluations";
@@ -235,6 +251,25 @@ import AccountDetail from "./pages/Accounting/policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/book/MainBook";
 import MainCost from "./pages/Accounting/cost/MainCost";
 
+//BankManagement
+import MainBankManagement from "./pages/BankManagement/MainBankManagement";
+import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
+import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
+import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
+import MainCategory, {
+  Action as MainCategoryFunction,
+} from "./pages/CRM/Services/MainCategory";
+import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecord";
+import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
+import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
+import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
+
+//Client Platform
+import LoginClient, {
+  Action as LoginClientFunction,
+} from "./pages/CRM/ClientPlatform/LoginClient";
+import { getAuthClient } from "./pages/Clients/utils";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -244,10 +279,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-      },
-      {
-        path: "/clients",
-        element: <MainClients />,
+        loader: multiLoaderDashboard,
       },
       // crm
       {
@@ -255,7 +287,7 @@ const router = createBrowserRouter([
         path: "/crm",
         element: <SideLayout />,
         // errorElement: <NotFound />,
-        loader: getServices,
+        loader: multilaoderSideLayoutCRM,
         action: newLead,
         children: [
           //crm home
@@ -302,6 +334,7 @@ const router = createBrowserRouter([
             path: "/crm/services/packages/:id",
             element: <MainPackage />,
             loader: getPackageById,
+            action: PackageEditFunction,
           },
           {
             path: "/crm/services",
@@ -312,9 +345,15 @@ const router = createBrowserRouter([
           {
             path: "/crm/services/:id",
             element: <MainService />,
-            loader: categoryShow,
+            loader: showService,
+            action: ServiceConsoleFunction,
           },
-
+          {
+            path: "/crm/category/:id",
+            element: <MainCategory />,
+            loader: showCategory,
+            action: MainCategoryFunction,
+          },
           //crm email
           {
             path: "/crm/email",
@@ -365,7 +404,8 @@ const router = createBrowserRouter([
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
-        loader: getLeadById,
+        action: LeadsEditFunction,
+        loader: multiloaderSideLayoutLead,
         children: [
           {
             index: true,
@@ -444,10 +484,12 @@ const router = createBrowserRouter([
             path: "/project-manager/status",
             element: <Status />,
             loader: getMonthKanban,
+            action: statusPmFunction,
           },
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
+            loader: getObjectives,
             action: multiFormAction,
             children: [
               {
@@ -476,11 +518,6 @@ const router = createBrowserRouter([
         ],
       },
       //Chat
-      {
-        path: "/chat-spa",
-        element: <MainChatSPA />,
-        loader: multiLoaderChat,
-      },
       {
         path: "/chat",
         element: <LayoutChat />,
@@ -536,6 +573,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/create/:id",
             element: <CreateExamCapacitation />,
+            action: createExamCapacitationFunction,
           },
           {
             path: "/org-development/capacitation/my-capacitations",
@@ -586,6 +624,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Tickets
       {
         path: "/tickets",
         element: <SideLayoutTickets />,
@@ -611,6 +650,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Configuration
       {
         path: "/configuration",
         element: <SideLayoutConfiguration />,
@@ -634,6 +674,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Calendar
       {
         path: "/calendar",
         element: <LayoutCalendar />,
@@ -647,8 +688,9 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // Profile
       {
-        path: "my-profile",
+        path: "/my-profile",
         element: <SideLayoutMyProfile />,
         action: ChangeMyPassword,
         children: [
@@ -667,7 +709,40 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //acounting
+      //BANK MANAGEMENT
+      {
+        path: "/bank-management",
+        element: <SideLayoutBankManag />,
+        children: [
+          {
+            index: true,
+            element: <MainBankManagement />,
+          },
+          {
+            path: "/bank-management/collection",
+            element: <MainCollectionBankManag />,
+          },
+          {
+            path: "/bank-management/collection/create",
+            element: <AddNewCollection />,
+          },
+          {
+            path: "/bank-management/collection/record/:id",
+            element: <CollectionRecord />,
+          },
+          {
+            path: "/bank-management/payment",
+            element: <MainPaymentBankManag />,
+          },
+          {
+            path: "/bank-management/payment/create",
+            element: <AddNewPayment />,
+          },
+          {
+            path: "/bank-management/payment/record/:id",
+            element: <PaymentRecord />,
+          }
+          //acounting
       {
         path: "/accounting",
         element: <SideLayoutAccounting />,
@@ -705,13 +780,27 @@ const router = createBrowserRouter([
         ]
       },
     ],
+      },
+    ],
   },
+  //Login
   {
     path: "/login",
     element: <Login />,
     action: loginAction,
   },
- 
+  //Client Login
+  {
+    path: "/login-client",
+    element: <LoginClient />,
+    action: LoginClientFunction,
+  },
+  {
+    path: "/client-platform",
+    element: <MainClients />,
+    loader: getAuthClient,
+    action: ClientPlatformClient,
+  },
 ]);
 
 function App() {

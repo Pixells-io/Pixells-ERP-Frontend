@@ -75,7 +75,6 @@ function FormCreateArea({ modal, setModal }) {
                 type="text"
                 placeholder="Name of the area"
               />
-
               <InputRouter
                 name="descripcion"
                 type="text"

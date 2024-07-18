@@ -67,7 +67,7 @@ function UserSelect({ users, leadAssigned }) {
         className="hidden"
         readOnly
         value={selectedStatus?.id}
-        name="assigned"
+        name="assigned_id"
       />
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -76,10 +76,10 @@ function UserSelect({ users, leadAssigned }) {
               <>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
-                    src={selectedStatus?.user_image || selectedStatus?.url}
+                    src={selectedStatus?.image || selectedStatus?.user_image}
                   />
                   <AvatarFallback>
-                    {selectedStatus?.name.slice(1)}
+                    {selectedStatus?.name?.slice(1)}
                   </AvatarFallback>
                 </Avatar>
               </>
@@ -104,6 +104,7 @@ function UserSelect({ users, leadAssigned }) {
                 {data?.map((user, i) => (
                   <CommandItem
                     key={user.id}
+                    className="flex gap-2"
                     value={user.id}
                     onSelect={() => {
                       setSelectedStatus(
@@ -112,6 +113,12 @@ function UserSelect({ users, leadAssigned }) {
                       setOpen(false);
                     }}
                   >
+                    <Avatar className="size-5">
+                      <AvatarImage src={user?.user_image} />
+                      <AvatarFallback>
+                        {selectedStatus?.name?.slice(1)}
+                      </AvatarFallback>
+                    </Avatar>
                     <span>
                       {user?.name} {user?.last_name} {user?.second_last_name}
                     </span>

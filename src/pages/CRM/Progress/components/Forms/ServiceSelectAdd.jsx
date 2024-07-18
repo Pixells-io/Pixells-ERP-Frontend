@@ -37,6 +37,7 @@ function ServiceSelectAdd({ services }) {
             method="post"
             className="flex h-full flex-col gap-2"
           >
+            <input type="hidden" value="set-services" name="action" />
             <div className="px-4 pt-4">
               <SelectRouter
                 name="serviceId"

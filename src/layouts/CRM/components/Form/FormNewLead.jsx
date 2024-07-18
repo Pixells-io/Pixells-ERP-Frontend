@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Form } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -9,12 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import { personAdd } from "ionicons/icons";
 
-import FormInput from "./FormInput";
-import FormSelect from "./FormSelect";
 import FromMultiSelect from "./FromMultiSelect";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
@@ -29,6 +27,19 @@ const businessInputs = [
     name: "business_phone",
     type: "text",
     placeholder: "Business Phone",
+  },
+];
+
+const individualInputs = [
+  {
+    name: "business_name",
+    type: "text",
+    placeholder: "Personal Name",
+  },
+  {
+    name: "business_phone",
+    type: "text",
+    placeholder: "Personal Phone",
   },
 ];
 
@@ -104,6 +115,7 @@ const channelArray = [
 
 function FormNewLead({ services, navigation }) {
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -113,7 +125,7 @@ function FormNewLead({ services, navigation }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <Button
           variant="ghost"
           className="group flex w-full justify-start gap-6 p-0 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500"
@@ -135,31 +147,70 @@ function FormNewLead({ services, navigation }) {
           className="flex flex-col gap-8 px-6"
           action="/crm"
           method="post"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              console.log(e.key);
+              e.preventDefault();
+            }
+          }}
         >
           <div className="flex px-4 py-2">
-            <input type="hidden" name="register_type_function" value={"1"} />
+            <input
+              type="hidden"
+              hidden
+              readOnly
+              name="action"
+              value="save-lead"
+            />
             <SelectRouter
               name="register_type"
               options={typeArray}
               placeholder="Type of Oportunity"
+              onChange={(e) => setType(e.value)}
             />
           </div>
 
-          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
-            <div className="text-lg font-normal text-[#696974]">
-              Business Information
+          {type == "" && (
+            <div className="flex flex-col rounded-lg px-4 font-roboto">
+              <div className="text-center font-normal text-grisSubText">
+                Select type of Oportunity
+              </div>
             </div>
-            <div className="flex flex-col gap-4 pb-4 font-light">
-              {businessInputs?.map((input, i) => (
-                <InputRouter
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                />
-              ))}
+          )}
+
+          {type == 1 ? (
+            <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+              <div className="text-lg font-normal text-[#696974]">
+                Individual Information
+              </div>
+              <div className="flex flex-col gap-4 pb-4 font-light">
+                {individualInputs?.map((input, i) => (
+                  <InputRouter
+                    key={i}
+                    name={input.name}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+              <div className="text-lg font-normal text-[#696974]">
+                Business Information
+              </div>
+              <div className="flex flex-col gap-4 pb-4 font-light">
+                {businessInputs?.map((input, i) => (
+                  <InputRouter
+                    key={i}
+                    name={input.name}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="text-lg font-normal text-[#696974]">

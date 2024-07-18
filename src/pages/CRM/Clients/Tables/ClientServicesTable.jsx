@@ -18,6 +18,8 @@ function ClientServicesTable({ services }) {
 
   const data = services;
 
+  console.log(services);
+
   const columnHelper = createColumnHelper();
 
   const columns = [
@@ -42,13 +44,21 @@ function ClientServicesTable({ services }) {
       },
     },
     {
+      accessorKey: "step",
+      header: "Step",
+      cell: ({ row }) => {
+        console.log(row?.original);
+        return <p>Step numero</p>;
+      },
+    },
+    {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => {
         // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + $ ${row.original.price}
+            + ${row.original.price}
           </span>
         );
       },
@@ -60,7 +70,7 @@ function ClientServicesTable({ services }) {
         // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + $ ${row.original.price}
+            + ${row.original.price}
           </span>
         );
       },

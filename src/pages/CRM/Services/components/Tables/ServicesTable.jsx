@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   useReactTable,
@@ -6,14 +6,11 @@ import {
   flexRender,
   getCoreRowModel,
 } from "@tanstack/react-table";
-
+import EditCategoryForm from "../Forms/EditCategoryForm";
 import { IonIcon } from "@ionic/react";
-import {
-  informationCircle,
-  chatbubbleEllipses,
-  bookmark,
-} from "ionicons/icons";
-import { Link } from "react-router-dom";
+import { informationCircle } from "ionicons/icons";
+import EditServiceForm from "../Forms/EditServicesForm";
+
 function ServicesTable({ services }) {
   const columnHelper = createColumnHelper();
 
@@ -40,6 +37,20 @@ function ServicesTable({ services }) {
       id: "created",
       header: "CREATED",
     }),
+    {
+      accessorKey: "actions",
+      header: "ACTIONS",
+      cell: ({ row }) => {
+        // console.log(row?.original?.id);
+        return (
+          <div className="flex gap-2 text-[#696974]">
+            <a href={`/crm/services/${row.original.id}`}>
+              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            </a>
+          </div>
+        );
+      },
+    },
   ];
 
   const table = useReactTable({

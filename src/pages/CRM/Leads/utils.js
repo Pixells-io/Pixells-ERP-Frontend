@@ -1,4 +1,4 @@
-import { getServices, getUsers } from "@/lib/actions";
+import { getPackages, getServices, getUsers } from "@/lib/actions";
 import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
@@ -20,13 +20,14 @@ export async function getSteps() {
 }
 
 export async function multiLoaderStageLeads() {
-  const [steps, services, users] = await Promise.all([
+  const [steps, services, users, membership] = await Promise.all([
     getSteps(),
     getServices(),
     getUsers(),
+    getPackages(),
   ]);
 
-  return json({ steps, services, users });
+  return json({ steps, services, users, membership });
 }
 
 export async function getLeadInfo(leadId) {
@@ -61,6 +62,15 @@ export async function getLeadById({ params }) {
   }
 }
 
+export async function multiloaderSideLayoutLead({ params }) {
+  const [leadLoader, servicesLoader] = await Promise.all([
+    getLeadById({ params }),
+    getServices(),
+  ]);
+
+  return json({ leadLoader, servicesLoader });
+}
+
 export async function prospectLeadForm(data) {
   const prospect = {
     lead_id: Number(data.get("lead_id")),
@@ -68,7 +78,7 @@ export async function prospectLeadForm(data) {
     day_of_contact: format(new Date(data.get("date")), "yyyy-MM-dd"),
     coments: data.get("comment"),
     archive: data.get("file"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -92,7 +102,7 @@ export async function potencialLeadForm(data) {
     lead_id: Number(data.get("lead_id")),
     payment_recurrency: data.get("payment_recurrency"),
     total_ammount: data.get("total_ammount"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -122,7 +132,7 @@ export async function followupLeadForm(data) {
     comments: data.get("comments"),
     archive: data.get("document"),
     next_step: data.get("next_step"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -148,7 +158,7 @@ export async function proposalLeadForm(data) {
     subject: format(new Date(data.get("subject")), "yyyy-MM-dd"),
     comments: data.get("comments"),
     document: data.get("document"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -178,16 +188,23 @@ export async function closingLeadForm(data) {
     services: data.getAll("service"),
     recurrency: data.getAll("recurrency"),
     ammount: data.getAll("ammount"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
+    type_sale: data.get("type_sale"),
+    membership_id: data.get("membership_id"),
+    recurrency_membership: data.get("recurrency_membership"),
+    ammount_membership: data.get("ammount_membership"),
   };
 
-  // validaciones?
+  const formData = new FormData();
+  formData.append("service_payment", data.get("service_payment"));
+  formData.append("service_agreement", data.get("service_agreement"));
+  formData.append("info", JSON.stringify(closing));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process/closing`,
     {
       method: "POST",
-      body: JSON.stringify(closing),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -203,7 +220,7 @@ export async function payLeadForm(data) {
     total: data.get("total"),
     comments: data.get("comments"),
     date_of_pay: data.get("recurrent_pay"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -232,7 +249,7 @@ export async function onboardingLeadForm(data) {
     contact_last_name: data.get("contact_last_name"),
     contact_phone: data.get("contact_phone"),
     contact_email: data.get("contact_email"),
-    assigned: data.get("assigned"),
+    assigned: data.get("assigned_id"),
   };
 
   // validaciones?
@@ -242,6 +259,54 @@ export async function onboardingLeadForm(data) {
     {
       method: "POST",
       body: JSON.stringify(onboarding),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editLeadForm(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    business_name: data.get("bussines_name"),
+    business_phone: data.get("bussines_phone"),
+    contact_name: data.get("contact_name"),
+    contact_middle_name: data.get("contact_middle_name"),
+    contact_last_name: data.get("contact_last_name"),
+    contact_phone: data.get("contact_phone"),
+    contact_email: data.get("contact_email"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process/edit-lead`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function addCommentLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/post-lead-comment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

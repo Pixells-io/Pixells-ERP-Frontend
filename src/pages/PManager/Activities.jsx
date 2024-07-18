@@ -19,7 +19,7 @@ import {
   trash,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import { completeTask, destroyTask, editTask } from "./utils";
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
@@ -34,7 +34,7 @@ const HEADERS = [
   { name: "EXPIRATION" },
   { name: "RESPONSABLE" },
   { name: "CSF" },
-  { name: "SO" },
+  { name: "GOAL" },
   { name: "STATUS" },
   { name: "CREATED" },
   { name: "ACTIONS" },
@@ -106,8 +106,6 @@ function Activities() {
     setTaskId(taskId);
     setDestroyTaskModal(true);
   }
-
-  console.log(activitiesData);
 
   return (
     <div className="flex w-full overflow-scroll">
@@ -194,13 +192,13 @@ function Activities() {
                 }
               >
                 <p className="px-2 text-sm font-semibold text-gris2">
-                  {header.name}
+                  {header?.name}
                 </p>
               </div>
             ))}
           </div>
           <div>
-            {activitiesData?.days.map((day, i) => (
+            {activitiesData?.days?.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
                   <AccordionTrigger className="group flex px-4 !no-underline">
@@ -215,57 +213,48 @@ function Activities() {
 
                     <div className="flex w-full group-aria-expanded:hidden">
                       <div className="w-1/12 text-start">
-                        {day.priority === 1 ? (
+                        {day?.priority == 1 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
-                              className="mr-2 text-xs text-[#00A259]"
+                              className="mr-2 text-xs text-[#F9D994]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Low
-                            </span>
                           </div>
-                        ) : day.priority === 2 ? (
+                        ) : day?.priority == 2 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
-                              className="mr-2 text-xs text-primario"
+                              className="mr-2 text-xs text-[#F9B894]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Half
-                            </span>
                           </div>
-                        ) : activitiesData.priority === 3 ? (
-                          <div>
-                            <IonIcon
-                              icon={ellipse}
-                              className="mr-2 text-xs text-[#FAA364]"
-                            />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Important
-                            </span>
-                          </div>
-                        ) : (
+                        ) : day?.priority == 3 ? (
                           <div>
                             <IonIcon
                               icon={ellipse}
                               className="mr-2 text-xs text-[#D7586B]"
                             />
-                            <span className="font-roboto text-sm font-normal leading-4 text-grisHeading">
-                              Urgent
-                            </span>
                           </div>
+                        ) : (
+                          <div></div>
                         )}
                       </div>
-                      <div className="w-5/12 text-start">
-                        <span className="font-roboto text-xs font-normal text-grisHeading">
-                          {day.title}
-                        </span>
-                      </div>
+                      {day?.priority == 4 ? (
+                        <div className="w-5/12 text-start">
+                          <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
+                            {day?.title}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="w-5/12 text-start">
+                          <span className="font-roboto text-xs font-normal text-grisHeading">
+                            {day?.title}
+                          </span>
+                        </div>
+                      )}
                       <div className="w-1/12 text-start">
-                        {day.task_count > 1 ? (
+                        {day?.task_count > 1 ? (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
-                            + {day.task_count} more
+                            + {day?.task_count} more
                           </span>
                         ) : (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
@@ -348,18 +337,18 @@ function Activities() {
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
                           <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
                             title={task?.fce}
                           >
-                            HO
+                            {task?.inicial_fce}
                           </p>
                         </div>
                         <div className="col-span-1 flex items-center justify-end">
                           <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light text-primarioBotones"
+                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
                             title={task?.goal}
                           >
-                            O1
+                            {task?.inicial_goal}
                           </p>
                         </div>
                         <div className="col-span-1 flex justify-end">
@@ -444,14 +433,12 @@ export async function Action({ request }) {
   switch (data.get("type_of_request")) {
     case "1":
       completeTask(data);
-      break;
+      return 1;
     case "2":
       editTask(data);
-      break;
+      return 1;
     case "3":
       destroyTask(data);
-      break;
+      return 1;
   }
-
-  return 1;
 }

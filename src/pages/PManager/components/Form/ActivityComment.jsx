@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IonIcon } from "@ionic/react";
-import { send } from "ionicons/icons";
+import { chatbubbleEllipsesOutline, send } from "ionicons/icons";
 import { Form, useParams, useSubmit } from "react-router-dom";
 
 function ActivityComment({ activity_id, comments }) {
@@ -38,11 +38,13 @@ function ActivityComment({ activity_id, comments }) {
             <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-full rounded-bl-none bg-grisDisabled">
               <Avatar className="size-6">
                 <AvatarImage src={comments?.slice(-1)[0]?.img} />
-                <AvatarFallback>??</AvatarFallback>
+                <AvatarFallback>
+                  <IonIcon src={chatbubbleEllipsesOutline} className="size-4" />
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="h-[280px] w-[320px]">
-              <div className="flex h-full flex-col items-center justify-between px-4">
+              <div className="flex h-full flex-col justify-between px-4">
                 <div className="flex h-full flex-col gap-2 overflow-scroll pt-2">
                   {comments
                     ?.slice(0)
@@ -83,7 +85,7 @@ function ActivityComment({ activity_id, comments }) {
                     <input
                       type="text"
                       name="comment"
-                      className="group flex rounded-lg rounded-r-none bg-grisBg px-4 py-2 text-grisSubText placeholder:font-roboto placeholder:font-light placeholder:text-grisSubText"
+                      className="group flex rounded-lg bg-grisBg px-4 py-2 text-grisSubText placeholder:font-roboto placeholder:font-light placeholder:text-grisSubText"
                       placeholder="Type a comment"
                       value={commentInput}
                       onChange={(e) => setCommentInput(e.target.value)}
@@ -103,9 +105,9 @@ function ActivityComment({ activity_id, comments }) {
                       readOnly
                     />
                   </Form>
-                  <div className="flex h-full items-center rounded-lg rounded-l-none bg-grisBg pr-5">
+                  {/* <div className="flex h-full items-center rounded-lg rounded-l-none bg-grisBg pr-5">
                     <IonIcon icon={send} className="size-6 text-primario" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </DropdownMenuContent>

@@ -115,13 +115,6 @@ const academyGrade = [
   },
 ];
 
-const workingbenefits = [
-  {
-    label: "Health Insurance",
-    value: "Health Insurance",
-  },
-];
-
 const contracts = [
   {
     label: "Example",
@@ -370,18 +363,6 @@ function MainUser() {
             Show User
           </h2>
           <div className="flex items-center gap-6">
-            {/* <div className="flex items-center gap-3">
-              <p>Edit Mode</p>
-              <span
-                className={
-                  disabled
-                    ? "rounded-full bg-red-400 px-4 py-1 text-white"
-                    : "rounded-full bg-green-400 px-4 py-1 text-white"
-                }
-              >
-                {disabled ? "OFF" : "ON"}
-              </span>
-            </div> */}
             <button
               className={`flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blancoBox p-2`}
               onClick={() => setDisabled(!disabled)}
@@ -552,6 +533,12 @@ function MainUser() {
                       <div className="w-full">
                         {/* <FileRouter name={"curp_file"} label={"CURP"} /> */}
                         <DropzoneFile name={"curp_file"} label={"CURP"} />
+                        {user.data?.user.curp_file !== "N/A" ? (
+                          <iframe
+                            src={user.data?.user.curp_file}
+                            frameborder="0"
+                          ></iframe>
+                        ) : null}
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -566,6 +553,12 @@ function MainUser() {
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
                         <DropzoneFile name={"rfc_file"} label={"RFC"} />
+                        {user.data?.user.rfc_file !== "N/A" ? (
+                          <iframe
+                            src={user.data?.user.rfc_file}
+                            frameborder="0"
+                          ></iframe>
+                        ) : null}
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -580,6 +573,12 @@ function MainUser() {
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
                         <DropzoneFile name={"nss_file"} label={"NSS"} />
+                        {user.data?.user.nss_file !== "N/A" ? (
+                          <iframe
+                            src={user.data?.user.nss_file}
+                            frameborder="0"
+                          ></iframe>
+                        ) : null}
                       </div>
                       <div className="w-full">
                         <InputRouter
@@ -600,10 +599,22 @@ function MainUser() {
                       name={"birth_certificade"}
                       label={"Birth Certificate"}
                     />
+                    {user.data?.user.birth_certificade !== "N/A" ? (
+                      <iframe
+                        src={user.data?.user.birth_certificade}
+                        frameborder="0"
+                      ></iframe>
+                    ) : null}
                   </div>
                   <div className="flex items-center gap-3 pr-6 pt-4">
                     <div className="w-1/2">
                       <DropzoneFile name={"id_file"} label={"ID"} />
+                      {user.data?.user.id_file !== "N/A" ? (
+                        <iframe
+                          src={user.data?.user.id_file}
+                          frameborder="0"
+                        ></iframe>
+                      ) : null}
                     </div>
                     <div className="w-1/2">
                       <InputRouter
@@ -720,6 +731,12 @@ function MainUser() {
                         name={"address_voucher"}
                         label={"Adress Voucher"}
                       />
+                      {user.data?.user.address_voucher !== "N/A" ? (
+                        <iframe
+                          src={user.data?.user.address_voucher}
+                          frameborder="0"
+                        ></iframe>
+                      ) : null}
                     </div>
                   </div>
 
@@ -842,6 +859,12 @@ function MainUser() {
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
                       />
+                      {user.data?.user.academic_voucher !== "N/A" ? (
+                        <iframe
+                          src={user.data?.user.academic_voucher}
+                          frameborder="0"
+                        ></iframe>
+                      ) : null}
                     </div>
                     {i !== 0 || academicInfo.length !== i + 1 ? (
                       <button
@@ -991,6 +1014,9 @@ function MainUser() {
                 </div>
                 <div className="w-1/3 pl-4">
                   <DropzoneFile name={"cv"} label={"CV"} />
+                  {user.data?.user.cv !== "N/A" ? (
+                    <iframe src={user.data?.user.cv} frameborder="0"></iframe>
+                  ) : null}
                 </div>
               </div>
 

@@ -27,7 +27,9 @@ function StatisticsBlock({ data }) {
             className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-xl font-bold text-blue-500">${data.new_sales}</div>
+        <div className="truncate text-xl font-bold text-blue-500">
+          ${Number(data.new_sales).toFixed(2)}
+        </div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">SALES</span>
@@ -93,8 +95,7 @@ function StatisticsBlock({ data }) {
           </div>
         </div>
       </div>
-      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3"></div>
-      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg px-4 py-3">
+      <div className="flex w-52 flex-col justify-end gap-2 rounded-lg px-4 py-3">
         <button
           className="ml-28 mt-16 h-10 w-10 rounded-full bg-[#E8E8E8]"
           onClick={() => setModal(true)}
