@@ -36,6 +36,7 @@ function FormRequireDocument({ modal, setModal, customer, stepId }) {
           className="flex h-full w-full flex-col gap-3 px-6"
           action={`/crm/progress/${id}`}
           method="post"
+          encType="multipart/form-data"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
@@ -56,12 +57,13 @@ function FormRequireDocument({ modal, setModal, customer, stepId }) {
             </div>
           </div>
           <DialogFooter className="px-10 pb-6">
-            <Button
+            <button
               type="submit"
               className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+              onClick={setModal(false)}
             >
               Save
-            </Button>
+            </button>
           </DialogFooter>
         </Form>
       </DialogContent>
