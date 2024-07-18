@@ -225,8 +225,14 @@ export default SidelayoutLead;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  editLeadForm(data);
+  switch (action) {
+    case "edit-lead":
+      await editLeadForm(data);
+      return;
 
-  return "1";
+    default:
+      return;
+  }
 }

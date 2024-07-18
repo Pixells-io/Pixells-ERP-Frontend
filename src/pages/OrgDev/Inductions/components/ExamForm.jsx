@@ -76,8 +76,8 @@ function ExamForm() {
       questions.map((item, idx) =>
         idx === index
           ? { ...item, answers: [...item.answers, newAnswer] }
-          : item
-      )
+          : item,
+      ),
     );
   }
 
@@ -89,24 +89,24 @@ function ExamForm() {
               ...item,
               answers: item.answers.filter((answer, i) => i !== answerIndex),
             }
-          : item
-      )
+          : item,
+      ),
     );
   }
 
   function onChangeQuestion(questionIndex, e) {
     setQuestions(
       questions.map((item, idx) =>
-        idx === questionIndex ? { ...item, question: e.target.value } : item
-      )
+        idx === questionIndex ? { ...item, question: e.target.value } : item,
+      ),
     );
   }
 
   function onChangeType(questionIndex, e) {
     setQuestions(
       questions.map((item, idx) =>
-        idx === questionIndex ? { ...item, type: e } : item
-      )
+        idx === questionIndex ? { ...item, type: e } : item,
+      ),
     );
   }
 
@@ -117,11 +117,11 @@ function ExamForm() {
           ? {
               ...question,
               answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, answer: e.target.value } : item
+                i === answerIdx ? { ...item, answer: e.target.value } : item,
               ),
             }
-          : question
-      )
+          : question,
+      ),
     );
   }
 
@@ -132,17 +132,17 @@ function ExamForm() {
           ? {
               ...question,
               answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, correct: !item.correct } : item
+                i === answerIdx ? { ...item, correct: !item.correct } : item,
               ),
             }
-          : question
-      )
+          : question,
+      ),
     );
   }
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
+      <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
         <div className="px-6 py-3">
           <p className="font-medium text-grisText">Nombre del Exámen</p>
         </div>
@@ -156,14 +156,14 @@ function ExamForm() {
             type="text"
             name="exam_title"
             placeholder="Escribe el nombre del exámen"
-            className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
+            className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
           <input
             type="number"
             name="exam_duration"
-            className="placeholder:bg-blancoForms border-b text-xs placeholder:text-xs placeholder:p-2 p-2 bg-blancoForms w-[80px]"
+            className="w-[80px] border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
-          <span className="text-[8px] text-grisSubText self-end">Minutos</span>
+          <span className="self-end text-[8px] text-grisSubText">Minutos</span>
           <input
             type="text"
             className="hidden"
@@ -205,7 +205,7 @@ function ExamForm() {
         <IonIcon
           icon={addCircleOutline}
           size=""
-          className="text-primarioBotones hover:text-primario w-5 h-5"
+          className="h-5 w-5 text-primarioBotones hover:text-primario"
         ></IonIcon>
       </button>
     </div>
