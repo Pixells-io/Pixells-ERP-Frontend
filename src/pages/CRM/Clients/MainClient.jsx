@@ -30,6 +30,7 @@ import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
 import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
+import { addCommentClient } from "../Progress/util";
 
 function MainClient() {
   const { data } = useLoaderData();
@@ -526,8 +527,11 @@ export async function Action({ params, request }) {
       return redirect(`/crm/client/${params.id}`);
 
     case "10":
-      console.log("corre ruta");
       changeStatusClient(data);
+      return redirect(`/crm/client/${params.id}`);
+
+    case "11":
+      await addCommentClient(data);
       return redirect(`/crm/client/${params.id}`);
   }
 }

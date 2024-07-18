@@ -15,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import AddCommentsClient from "../AddCommentsClient";
+
 function ClientServicesTable({ services }) {
   const params = useParams();
   const submit = useSubmit();
@@ -72,7 +74,6 @@ function ClientServicesTable({ services }) {
       accessorKey: "step",
       header: "Step",
       cell: ({ row }) => {
-        console.log(row?.original);
         return <p> {row.original.step} </p>;
       },
     },
@@ -80,7 +81,6 @@ function ClientServicesTable({ services }) {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
             + ${row.original.price}
@@ -120,6 +120,18 @@ function ClientServicesTable({ services }) {
       },
     },
     {
+      accessorKey: "comments",
+      header: "Comments",
+      cell: ({ row }) => {
+        return (
+          <AddCommentsClient
+            customerId={row?.original.id}
+            comments={row?.original.comments}
+          />
+        );
+      },
+    },
+    {
       accessorKey: "active",
       header: "Active",
       cell: ({ row }) => {
@@ -155,7 +167,6 @@ function ClientServicesTable({ services }) {
                       className="h-12 px-4 text-left align-middle font-roboto text-base font-medium text-[#2C2E2C] text-muted-foreground [&:has([role=checkbox])]:pr-0"
                       id={header.id}
                     >
-                      {" "}
                       {header.isPlaceholder
                         ? null
                         : flexRender(
