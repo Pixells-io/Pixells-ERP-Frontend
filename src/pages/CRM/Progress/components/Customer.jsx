@@ -30,7 +30,6 @@ function Customer({ customer, stepId }) {
     setInfo(parsedInfo);
   }, []);
 
-  console.log(customer);
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
       <FormRequireDocument
