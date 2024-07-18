@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
 import {
   assignInterview,
+  changeStatusClient,
   deleteAddress,
   deleteContact,
   deleteDocument,
@@ -483,38 +484,50 @@ function MainClient() {
 
 export default MainClient;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
+  const action = data.get("type");
 
-  switch (data.get("type")) {
+  switch (action) {
     case "1":
       storeCustomerAdress(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "2":
       storeCustomerContacts(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "3":
       storeCustomerDocuments(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "4":
       deleteAddress(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "5":
       deleteContact(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "6":
       deleteDocument(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "7":
       editClientInfo(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "8":
       editAccessInfo(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "9":
       assignInterview(data);
-      break;
-  }
+      return redirect(`/crm/client/${params.id}`);
 
-  return 1;
+    case "10":
+      console.log("corre ruta");
+      changeStatusClient(data);
+      return redirect(`/crm/client/${params.id}`);
+  }
 }

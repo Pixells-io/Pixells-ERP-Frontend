@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { useParams, useSubmit } from "react-router-dom";
 
 import {
   useReactTable,
@@ -8,19 +8,27 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 
-import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
-import { getArea, getAreas } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function ClientServicesTable({ services }) {
+  const params = useParams();
+  const submit = useSubmit();
   //Web Socket
-
   const data = services;
 
-  console.log(services);
-
   const columnHelper = createColumnHelper();
+
+  function setStatusClient() {
+    submit(
+      { client_id: params.id, type: "10" },
+      { method: "post", action: `/crm/client/${params.id}` },
+    );
+  }
 
   const columns = [
     columnHelper.accessor((row) => `${row.id}`, {
@@ -35,19 +43,28 @@ function ClientServicesTable({ services }) {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
-          <>
-            {row.original.status === 1 ? (
-              <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              {row.original.status == 1 ? (
+                <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
+                  Active
+                </span>
+              ) : (
+                <span className="rounded-2xl border bg-[#D7586B40] px-3 py-1 text-xs font-normal text-[#D7586B]">
+                  Inactive
+                </span>
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => setStatusClient()}>
                 Active
-              </span>
-            ) : (
-              <span className="rounded-2xl border bg-red-400 px-3 py-1 text-xs font-normal text-red-600">
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusClient()}>
                 Inactive
-              </span>
-            )}
-          </>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         );
       },
     },
