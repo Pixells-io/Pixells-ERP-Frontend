@@ -66,8 +66,6 @@ function MainClient() {
     setModalDestroyDocuments(true);
   }
 
-  console.log(client);
-
   return (
     <>
       <FormCreateAdress
