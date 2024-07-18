@@ -243,13 +243,13 @@ import LayoutCalendar, {
 } from "./pages/Calendar/LayoutCalendar";
 
 //Accounting
-import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
-import MainCatalog from "./pages/Accounting/catalog/MainCatalog";
-import MainPolicy from "./pages/Accounting/policy/MainPolicy";
-import CreateAccount from "./pages/Accounting/policy/New/newAccounting";
-import AccountDetail from "./pages/Accounting/policy/Details/AccountDetails";
-import MainBook from "./pages/Accounting/book/MainBook";
-import MainCost from "./pages/Accounting/cost/MainCost";
+import SideLayoutAccounting from "./layouts/accounting/SideLayoutAccounting";
+import MainCatalog from "./pages/accounting/catalog/MainCatalog";
+import MainPolicy from "./pages/accounting/policy/MainPolicy";
+import CreateAccount from "./pages/accounting/policy/new/newAccounting";
+import AccountDetail from "./pages/accounting/policy/Details/AccountDetails";
+import MainBook from "./pages/accounting/book/MainBook";
+import MainCost from "./pages/accounting/cost/MainCost";
 
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
@@ -741,45 +741,41 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/payment/record/:id",
             element: <PaymentRecord />,
-          }
-          //acounting
+          },
+        ],
+      },
+      //acounting
       {
         path: "/accounting",
         element: <SideLayoutAccounting />,
         children: [
           {
-            index:true,
-            element: <MainCatalog/>
+            index: true,
+            element: <MainCatalog />,
           },
           {
             //account Policy
             path: "/accounting/policy",
             element: <MainPolicy />,
-            
           },
           {
             path: "/accounting/policy/create",
             element: <CreateAccount />,
-            
           },
           {
             path: "/accounting/policy/details",
             element: <AccountDetail />,
-            
           },
           {
             //account book
             path: "/accounting/book",
             element: <MainBook />,
-            
           },
-         { 
-          path: "/accounting/cost",
-          element: <MainCost />
-        }
-        ]
-      },
-    ],
+          {
+            path: "/accounting/cost",
+            element: <MainCost />,
+          },
+        ],
       },
     ],
   },
