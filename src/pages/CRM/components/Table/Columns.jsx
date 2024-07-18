@@ -31,10 +31,25 @@ export const columns = [
     },
   },
   {
-    accessorKey: "contact",
-    header: "CONTACT",
+    accessorKey: "name",
+    header: "NAME",
     cell: ({ row }) => {
+      console.log(row.original);
       return <span>{row.original.contact}</span>;
+    },
+  },
+  {
+    accessorKey: "middleName",
+    header: "MIDDLE NAME",
+    cell: ({ row }) => {
+      return <span>Middle</span>;
+    },
+  },
+  {
+    accessorKey: "lastName",
+    header: "LAST NAME",
+    cell: ({ row }) => {
+      return <span>Last</span>;
     },
   },
   {

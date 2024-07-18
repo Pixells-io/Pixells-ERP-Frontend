@@ -27,7 +27,9 @@ function StatisticsBlock({ data }) {
             className="text-xl text-grisSubText"
           ></IonIcon>
         </div>
-        <div className="text-xl font-bold text-blue-500">${data.new_sales}</div>
+        <div className="truncate text-xl font-bold text-blue-500">
+          ${Number(data.new_sales).toFixed(2)}
+        </div>
         <div className="flex justify-between">
           <div className="flex flex-col text-gris2">
             <span className="text-sm font-semibold">SALES</span>

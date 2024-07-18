@@ -62,6 +62,15 @@ export async function getLeadById({ params }) {
   }
 }
 
+export async function multiloaderSideLayoutLead({ params }) {
+  const [leadLoader, servicesLoader] = await Promise.all([
+    getLeadById({ params }),
+    getServices(),
+  ]);
+
+  return json({ leadLoader, servicesLoader });
+}
+
 export async function prospectLeadForm(data) {
   const prospect = {
     lead_id: Number(data.get("lead_id")),

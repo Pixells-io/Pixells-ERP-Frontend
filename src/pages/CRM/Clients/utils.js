@@ -121,7 +121,7 @@ export async function deleteDocument(data) {
 
 export async function editClientInfo(data) {
   const edit = {
-    client_id: data.get("client_id"),
+    lead_id: data.get("client_id"),
     business_name: data.get("business_name"),
     business_phone: data.get("business_phone"),
     contact_name: data.get("contact_name"),
