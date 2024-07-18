@@ -40,7 +40,7 @@ export const columns = [
     header: "NAME",
     cell: ({ row }) => {
       console.log(row.original);
-      return <span>{row.original.contact}</span>;
+      return <span>{row.original.contact_name}</span>;
     },
     meta: {
       filterButton: true,
@@ -51,14 +51,14 @@ export const columns = [
     accessorKey: "middleName",
     header: "MIDDLE NAME",
     cell: ({ row }) => {
-      return <span>Middle</span>;
+      return <span>{row.original.contact_middle_name}</span>;
     },
   },
   {
     accessorKey: "lastName",
     header: "LAST NAME",
     cell: ({ row }) => {
-      return <span>Last</span>;
+      return <span>{row.original.contact_last_name}</span>;
     },
   },
   // {
