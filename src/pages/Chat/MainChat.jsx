@@ -256,10 +256,10 @@ function MainChat() {
                 </button>
               ) : (
                 <div className="flex">
-                  <IonIcon
+                  {/* <IonIcon
                     icon={mic}
                     className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
-                  ></IonIcon>
+                  ></IonIcon> */}
                   <IonIcon
                     icon={addCircle}
                     className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
