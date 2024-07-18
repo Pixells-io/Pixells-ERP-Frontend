@@ -30,16 +30,24 @@ export const clientColumns = [
     header: "COMPANY",
   },
   {
-    accessorKey: "contact_name",
-    header: "CONTACT",
+    accessorKey: "name",
+    header: "NAME",
     cell: ({ row }) => {
-      const info = row.original.type;
-      return (
-        <div>
-          {row.original.contact_name} {row.original.contact_middle_name}{" "}
-          {row.original.contact_last_name}
-        </div>
-      );
+      return <span>{row?.original.contact_name}</span>;
+    },
+  },
+  {
+    accessorKey: "middleName",
+    header: "MIDDLE NAME",
+    cell: ({ row }) => {
+      return <span>{row?.original.contact_middle_name}</span>;
+    },
+  },
+  {
+    accessorKey: "lastName",
+    header: "LAST NAME",
+    cell: ({ row }) => {
+      return <span>{row?.original.contact_last_name}</span>;
     },
   },
   {

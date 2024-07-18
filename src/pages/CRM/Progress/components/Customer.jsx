@@ -20,18 +20,14 @@ function Customer({ customer, stepId }) {
   const [info, setInfo] = useState({});
 
   useEffect(() => {
-    if (customer?.step_latest === "null") {
-      setInfo({});
-    } else {
-      console.log("Para aca");
-      const parsedInfo = JSON.parse(customer?.step_latest);
-      delete parsedInfo.id;
-      delete parsedInfo.customer_id;
-      delete parsedInfo.user_id;
-      delete parsedInfo.created_at;
-      delete parsedInfo.updated_at;
-      setInfo(parsedInfo);
-    }
+    //Parse the entry information
+    const parsedInfo = JSON.parse(customer?.step_latest);
+    delete parsedInfo.id;
+    delete parsedInfo.customer_id;
+    delete parsedInfo.user_id;
+    delete parsedInfo.created_at;
+    delete parsedInfo.updated_at;
+    setInfo(parsedInfo);
   }, []);
 
   return (

@@ -16,7 +16,11 @@ import MainLeads, {
 } from "./pages/CRM/Leads/MainLeads";
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
-import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
+import {
+  getLeadById,
+  multiloaderSideLayoutLead,
+  multiLoaderStageLeads,
+} from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead, {
   Action as LeadsEditFunction,
@@ -392,7 +396,7 @@ const router = createBrowserRouter([
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
         action: LeadsEditFunction,
-        loader: getLeadById,
+        loader: multiloaderSideLayoutLead,
         children: [
           {
             index: true,

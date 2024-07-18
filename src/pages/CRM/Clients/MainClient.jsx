@@ -66,6 +66,8 @@ function MainClient() {
     setModalDestroyDocuments(true);
   }
 
+  console.log(client);
+
   return (
     <>
       <FormCreateAdress
@@ -107,7 +109,7 @@ function MainClient() {
         setModal={setModalEdit}
         info={client?.info}
         client={client?.master}
-        link={`/crm/client/${client?.id}`}
+        link={`/crm/client/${client?.master?.id}`}
       />
       <ModalClientAccess
         modal={accessModal}

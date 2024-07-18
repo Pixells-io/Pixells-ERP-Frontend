@@ -288,6 +288,7 @@ function MainLead() {
               </div>
             </div>
           ) : null}
+
           {pay != null ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}

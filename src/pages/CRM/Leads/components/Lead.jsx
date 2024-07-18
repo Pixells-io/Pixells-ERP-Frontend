@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import CommentsLead from "./CommentsLead";
 
 function Lead({ lead, setModal }) {
-  console.log(lead);
+  console.log(lead.services);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
@@ -255,9 +255,11 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Month Billing
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing?.month_billing}
-                </span>
+                {lead.services.map((service, i) => (
+                  <span className="line-clamp-none text-[12px] text-grisHeading">
+                    {service.service} {service.recurency} {service.ammount}
+                  </span>
+                ))}
               </div>
               <div>
                 <p className="text-[10px] font-medium text-grisText">

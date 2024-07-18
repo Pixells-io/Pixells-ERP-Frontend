@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
-import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { IonIcon } from "@ionic/react";
-import { create, person } from "ionicons/icons";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User } from "lucide-react";
+import { create } from "ionicons/icons";
+
+import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 import EditLeadInformation from "./Modals/EditLeadInformation";
 import { editLeadForm } from "../utils";
 
 function SidelayoutLead() {
+  const { leadLoader, servicesLoader } = useLoaderData();
+
   const {
     data: lead,
     services,
@@ -21,7 +31,7 @@ function SidelayoutLead() {
     closing,
     pay,
     onBoarding,
-  } = useLoaderData();
+  } = leadLoader;
 
   const [modalEdit, setModalEdit] = useState(false);
 
@@ -37,6 +47,8 @@ function SidelayoutLead() {
         setModal={setModalEdit}
         info={info}
         lead={lead}
+        serviceSelected={services}
+        services={servicesLoader}
       />
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* Top block */}
@@ -147,6 +159,7 @@ function SidelayoutLead() {
                   </span>
                 </div>
               </div>
+              {/* 
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox text-grisText">
                   <div className="flex">
@@ -161,6 +174,32 @@ function SidelayoutLead() {
                     Contact Method
                   </span>
                 </div>
+              </div> 
+              */}
+              <div className="flex flex-col gap-2 pt-2">
+                <p className="font-poppins text-lg font-semibold text-grisHeading">
+                  Status
+                </p>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex w-fit">
+                    {lead?.status == "Active" ? (
+                      <Badge className="w-fit bg-[#00A259]">Active</Badge>
+                    ) : lead?.status == "Suspended" ? (
+                      <Badge className="w-fit bg-[#FAA364]">Suspended</Badge>
+                    ) : lead?.status == "Canceled" ? (
+                      <Badge className="w-fit bg-[#D7586B]">Canceled</Badge>
+                    ) : (
+                      <Badge className="w-fit bg-primario">Done</Badge>
+                    )}
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Active</DropdownMenuItem>
+                    <DropdownMenuItem>Suspended</DropdownMenuItem>
+                    <DropdownMenuItem>Canceled</DropdownMenuItem>
+                    <DropdownMenuItem>Done</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>
