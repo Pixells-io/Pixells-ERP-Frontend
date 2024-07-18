@@ -37,9 +37,17 @@ function ClientServicesTable({ services }) {
       cell: ({ row }) => {
         // console.log(row?.original?.id);
         return (
-          <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
-            Active
-          </span>
+          <>
+            {row.original.status === 1 ? (
+              <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
+                Active
+              </span>
+            ) : (
+              <span className="rounded-2xl border bg-red-400 px-3 py-1 text-xs font-normal text-red-600">
+                Inactive
+              </span>
+            )}
+          </>
         );
       },
     },
@@ -48,7 +56,7 @@ function ClientServicesTable({ services }) {
       header: "Step",
       cell: ({ row }) => {
         console.log(row?.original);
-        return <p>Step numero</p>;
+        return <p> {row.original.step} </p>;
       },
     },
     {
