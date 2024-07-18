@@ -25,9 +25,9 @@ function ClientServicesTable({ services }) {
 
   const columnHelper = createColumnHelper();
 
-  function setStatusClient() {
+  function setStatusClient(id) {
     submit(
-      { client_id: params.id, type: "10" },
+      { client_id: id, type: "10" },
       { method: "post", action: `/crm/client/${params.id}` },
     );
   }
@@ -59,10 +59,14 @@ function ClientServicesTable({ services }) {
               )}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setStatusClient()}>
+              <DropdownMenuItem
+                onClick={() => setStatusClient(row.original.id)}
+              >
                 Active
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setStatusClient()}>
+              <DropdownMenuItem
+                onClick={() => setStatusClient(row.original.id)}
+              >
                 Inactive
               </DropdownMenuItem>
             </DropdownMenuContent>
