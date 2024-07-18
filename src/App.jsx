@@ -243,13 +243,13 @@ import LayoutCalendar, {
 } from "./pages/Calendar/LayoutCalendar";
 
 //Accounting
-import SideLayoutAccounting from "./layouts/accounting/SideLayoutAccounting";
-import MainCatalog from "./pages/accounting/catalog/MainCatalog";
-import MainPolicy from "./pages/accounting/policy/MainPolicy";
-import CreateAccount from "./pages/accounting/policy/new/newAccounting";
-import AccountDetail from "./pages/accounting/policy/Details/AccountDetails";
-import MainBook from "./pages/accounting/book/MainBook";
-import MainCost from "./pages/accounting/cost/MainCost";
+import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
+import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
+import CreateAccount from "./pages/Accounting/Policy/new/newAccounting";
+import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
+import MainBook from "./pages/Accounting/Book/MainBook";
+import MainCost from "./pages/Accounting/Cost/MainCost";
 
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
