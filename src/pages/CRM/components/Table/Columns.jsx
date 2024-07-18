@@ -21,7 +21,7 @@ export const columns = [
     accessorKey: "bussines_name",
     header: "COMPANY",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -36,18 +36,14 @@ export const columns = [
     },
   },
   {
-<<<<<<< Updated upstream
-    accessorKey: "name",
-=======
     accessorKey: "contact",
->>>>>>> Stashed changes
     header: "NAME",
     cell: ({ row }) => {
       console.log(row.original);
       return <span>{row.original.contact}</span>;
     },
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -65,8 +61,6 @@ export const columns = [
       return <span>Last</span>;
     },
   },
-<<<<<<< Updated upstream
-=======
   // {
   //   accessorKey: "contact",
   //   header: "CONTACT",
@@ -78,7 +72,6 @@ export const columns = [
   //   },
   //   filterFn: "equals",
   // },
->>>>>>> Stashed changes
   {
     accessorKey: "phone",
     header: "PHONE",
