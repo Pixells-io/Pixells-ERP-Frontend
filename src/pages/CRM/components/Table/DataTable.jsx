@@ -80,7 +80,7 @@ function DataTable({ services, leads: leadsInit }) {
   });
 
   return (
-    <div className="rounded-xl bg-[#FBFBFB] px-4">
+    <div className="w-full rounded-xl bg-[#FBFBFB] px-4">
       <div className="flex items-center justify-end gap-4 py-4">
         {filter !== "" && (
           <Button
@@ -161,7 +161,7 @@ function DataTable({ services, leads: leadsInit }) {
         </div>
       </div>
 
-      <div className="">
+      <div className="flex flex-col">
         <Table className="">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

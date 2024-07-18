@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IonIcon } from "@ionic/react";
-import { send } from "ionicons/icons";
+import { chatbubbleEllipsesOutline, send } from "ionicons/icons";
 import { Form, useParams, useSubmit } from "react-router-dom";
 
 function ActivityComment({ activity_id, comments }) {
@@ -38,7 +38,9 @@ function ActivityComment({ activity_id, comments }) {
             <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-full rounded-bl-none bg-grisDisabled">
               <Avatar className="size-6">
                 <AvatarImage src={comments?.slice(-1)[0]?.img} />
-                <AvatarFallback>??</AvatarFallback>
+                <AvatarFallback>
+                  <IonIcon src={chatbubbleEllipsesOutline} className="size-4" />
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="h-[280px] w-[320px]">

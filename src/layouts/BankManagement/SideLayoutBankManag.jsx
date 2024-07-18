@@ -58,7 +58,7 @@ function SideLayoutBankManag() {
             </NavLink>
             
             <NavLink
-              to="/bank-management/2"
+              to="/bank-management/payment"
               className={({ isActive }) =>
                 isActive
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"

@@ -1,23 +1,79 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
+
 import { format } from "date-fns";
 
+import CommentsLead from "./CommentsLead";
+
 function Lead({ lead, setModal }) {
+  console.log(lead);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between border-b-[1px] border-[#D7D7D7] text-[13px] text-grisText">
-          <p>{lead.business_name}</p>
+          <div className="flex w-full flex-col gap-1 pb-1">
+            <p>{lead?.business_name}</p>
+            {lead?.type == 1 ? (
+              <div className="flex w-full justify-between">
+                <span className="w-fit gap-1 rounded-full border border-[#00a9b3] px-2 text-[8px] text-[#00a9b3]">
+                  Individual
+                </span>
+
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
+              </div>
+            ) : (
+              <div className="flex w-full justify-between">
+                <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
+                  Business
+                </span>
+
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
           <button
             type="button"
             className="flex"
@@ -230,16 +286,18 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Month Billing
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.month_billing}
-                </span>
+                {lead.services.map((service, i) => (
+                  <span className="line-clamp-none text-[12px] text-grisHeading">
+                    {service.service} {service.recurency} {service.ammount}
+                  </span>
+                ))}
               </div>
               <div>
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
                 <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing.comments}
+                  {lead?.closing?.comments}
                 </span>
               </div>
             </div>
@@ -266,6 +324,7 @@ function Lead({ lead, setModal }) {
             </div>
           )}
         </Link>
+
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center justify-between gap-1">
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#D7586B] text-sm font-semibold text-white">
@@ -302,11 +361,16 @@ function Lead({ lead, setModal }) {
               </HoverCard>
             </div>
             <div className="flex">
-              <IonIcon
-                icon={chatbubbleEllipses}
-                className="h-6 w-6 text-[#40BD72]"
-              ></IonIcon>
+              <CommentsLead leadId={lead?.id} comments={lead?.comments} />
             </div>
+            {/*
+              <div className="flex">
+                <IonIcon
+                  icon={chatbubbleEllipses}
+                  className="h-6 w-6 text-[#40BD72]"
+                ></IonIcon>
+              </div>
+              */}
           </div>
 
           <div>

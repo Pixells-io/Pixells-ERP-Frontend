@@ -17,6 +17,7 @@ import { useLoaderData, redirect, useNavigation } from "react-router-dom";
 import { saveNewInduction } from "./utils";
 import { pusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
+import DocumentsInduction from "./Inductions/components/DocumentsInduction";
 
 const PEOPLE = [
   {
@@ -179,15 +180,7 @@ function MainOrgDev() {
                     </p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row.archive
-                          ? "w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      Archivos
-                    </p>
+                    <DocumentsInduction />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">

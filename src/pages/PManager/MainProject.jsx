@@ -18,12 +18,14 @@ import ProjectTable from "./components/ProjectTable";
 import {
   completeActivity,
   deleteActivity,
+  deleteDocument,
   deletePhase,
   deleteProject,
   editActivityFile,
   editActivityUser,
   editPhase,
   editProject,
+  removeAssignedActivity,
   saveNewActivitty,
   saveNewPhase,
 } from "./utils";
@@ -188,5 +190,17 @@ export async function Action({ params, request }) {
     case "delete-project":
       await deleteProject(formData);
       return redirect(`/project-manager/${params.id}`);
+
+    case "delete-document":
+      await deleteDocument(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
+
+    case "remove-assigned":
+      await removeAssignedActivity(formData);
+      return redirect(
+        `/project-manager/${params.id}/projects/${params.projectId}`,
+      );
   }
 }

@@ -2,10 +2,8 @@ import Cookies from "js-cookie";
 
 export async function setSelectedService(data) {
   const service = {
-    service_id: data.get("serviceId"),
+    service_id: data.getAll("serviceId"),
   };
-
-  console.log(service);
   // validaciones?
 
   const response = await fetch(
@@ -59,7 +57,8 @@ export async function saveService(data) {
 }
 
 export async function removeSelectedService(data) {
-  const id = data.get("selected_service");
+  const id = data.get("service_id");
+  console.log(id);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/remove-selected-service/${id}`,
@@ -159,5 +158,90 @@ export async function moveProgressColumn(data) {
   if (!response.ok) {
     throw response;
   }
+  return response;
+}
+
+export async function requireDocument(data) {
+  const info = {
+    customer_id: data.get("customer_id"),
+    service_id: data.get("service_id"),
+    name: data.get("name"),
+    comment: data.get("comment"),
+    required_date: data.get("required_date"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/require-document`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}
+
+export async function editStepProcess(data) {
+  const info = {
+    step_id: data.get("step_id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/edit-process-customer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}
+
+export async function deleteStepProcess(data) {
+  const step_id = data.get("step_id");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/destroy-process/${step_id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  if (!response.ok) {
+    throw response;
+  }
+  return response;
+}
+
+export async function addCommentClient(data) {
+  const info = {
+    client_id: data.get("client_id"),
+    comment: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/store-client-comment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
   return response;
 }

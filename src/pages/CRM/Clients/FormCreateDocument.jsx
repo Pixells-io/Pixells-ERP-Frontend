@@ -17,7 +17,7 @@ import DropzoneFile from "@/components/dropzone-files";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormCreateDocuments({ modal, setModal, masterId, url }) {
-  const navigation = useNavigation;
+  const navigation = useNavigation();
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);

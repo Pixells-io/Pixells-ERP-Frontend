@@ -18,9 +18,10 @@ import { useLoaderData } from "react-router-dom";
 
 function MainDashboard({ isDragging }) {
   const newDate = format(new Date(), "PP");
-  const { data } = useLoaderData();
+  const { user, dashboard } = useLoaderData();
 
-  console.log(data);
+  console.log(dashboard.data);
+
   return (
     <div className="flex w-full">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -59,7 +60,8 @@ function MainDashboard({ isDragging }) {
               <div>
                 <div>
                   <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, {data.user.name} {data.user.last_name}
+                    Welcome, {user?.data?.user?.name}{" "}
+                    {user?.data?.user?.last_name}
                   </h2>
                 </div>
                 <div className="pt-2">
@@ -70,30 +72,30 @@ function MainDashboard({ isDragging }) {
               </div>
               <div className="mt-8 flex">
                 <div className="flex w-1/3 gap-6">
-                  <Time title="TOTAL HOURS" time="52" />
-                  <Time title="ACTIVE HOURS" time="24" />
+                  <Time title="TOTAL HOURS" time="0" />
+                  <Time title="ACTIVE HOURS" time="0" />
                 </div>
                 <div className="flex w-2/3 gap-8">
                   <Activities
                     title="Activities"
                     subTitle="Today"
                     percent="20"
-                    number="17"
+                    number={dashboard.data.today_pending}
                     icon={calendar}
+                  />
+                  <Activities
+                    title="Activities"
+                    subTitle="This Week"
+                    percent="20"
+                    number={dashboard.data.week_activity}
+                    icon={listCircle}
                   />
                   <Activities
                     title="Progress"
                     subTitle="This Week"
                     percent="20"
-                    number="80"
+                    number={dashboard.data.week_percent}
                     icon={pieChart}
-                  />
-                  <Activities
-                    title="Activities"
-                    subTitle="Today"
-                    percent="20"
-                    number="17"
-                    icon={listCircle}
                   />
                 </div>
               </div>
@@ -106,6 +108,7 @@ function MainDashboard({ isDragging }) {
             </div>
           </div>
         </div>
+
         <div className="flex rounded-2xl bg-[#F0F0F0]">
           <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">

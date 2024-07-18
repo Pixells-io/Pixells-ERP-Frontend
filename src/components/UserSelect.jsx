@@ -76,7 +76,7 @@ function UserSelect({ users, leadAssigned }) {
               <>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
-                    src={selectedStatus?.image || selectedStatus?.url}
+                    src={selectedStatus?.image || selectedStatus?.user_image}
                   />
                   <AvatarFallback>
                     {selectedStatus?.name?.slice(1)}

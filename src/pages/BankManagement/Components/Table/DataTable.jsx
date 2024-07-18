@@ -5,6 +5,8 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
   useReactTable,
+  getFacetedUniqueValues,
+  filterFns,
 } from "@tanstack/react-table";
 
 import { Input } from "@/components/ui/input";
@@ -36,10 +38,17 @@ import {
   close,
   searchOutline,
 } from "ionicons/icons";
+import { Checkbox } from "@/components/ui/checkbox";
 
-function DataTable({ data, columns, names, searchFilter }) {
+function DataTable({ data, columns, searchFilter, isCheckAll }) {
+  //data: datos que mostrara en la tabla
+  //columns: las columnas headers tabla
+  //searchFilter: el campo columna por la cual filtrara el input
+  //isCheckAll: true muestra el check donde selecciona todos
+
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
+  const [filterKey, setFilterKey] = useState("");
 
   const table = useReactTable({
     data: data,
@@ -48,6 +57,8 @@ function DataTable({ data, columns, names, searchFilter }) {
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    filterFns: filterFns,
     state: {
       columnFilters,
     },
@@ -57,63 +68,85 @@ function DataTable({ data, columns, names, searchFilter }) {
     <div className="rounded-xl bg-[#FBFBFB] px-4">
       <div className="flex items-center justify-end gap-4 py-4">
         <div className="flex items-center gap-4">
-          <div className="flex gap-2">
-            <input
-              className="accent-primarioBotones"
-              type="checkbox"
-              value="All"
-              id="checkBoxAll"
-              // onClick={() => onSelectFilter("crm")}
-              // checked={filters.includes("crm")}
-              readOnly
-            ></input>
-            <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f]">
-              All
-            </label>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
-              >
-                Nombre
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuRadioGroup
-                value={filter}
-                onValueChange={(event) => {
-                  setFilter(event);
-                  table.getColumn("Name")?.setFilterValue(event);
-                }}
-              >
-                {names?.map((name, i) => (
-                  <DropdownMenuRadioItem key={i} value={name.name}>
-                    {name.name}
-                  </DropdownMenuRadioItem>
-                ))}
-                <DropdownMenuRadioItem value="">
-                  Clear filter
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {!!isCheckAll && (
+            <div className="flex gap-2">
+              <Checkbox
+                className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                checked={
+                  table.getIsAllRowsSelected() ||
+                  (table.getIsSomeRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) =>
+                  table.toggleAllRowsSelected(!!value)
+                }
+              />
+              <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f]">
+                All
+              </label>
+            </div>
+          )}
 
-          <Button
-            variant="outline "
-            className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
-          >
-            BANCO
-          </Button>
-          <Button
-            variant="outline"
-            className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
-          >
-            TIPO
-          </Button>
+          {filter !== "" && (
+            <Button
+              className="relative h-6 bg-[#E8E8E8] px-1 text-[10px] text-[#44444F] hover:bg-blue-200 hover:text-white"
+              onClick={() => {
+                table.getColumn(filterKey)?.setFilterValue("");
+                setFilter("");
+              }}
+            >
+              {filter}{" "}
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-[1px] border-blue-400 p-0 text-blue-400">
+                <IonIcon icon={close} size="large"></IonIcon>
+              </span>
+            </Button>
+          )}
+          {table
+            .getAllColumns()
+            .filter((column) => column.columnDef?.meta?.filterButton)
+            .map((column, index) => (
+              <DropdownMenu key={index + "drop"}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
+                  >
+                    {column.columnDef.header}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-full">
+                  <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value={filter}
+                    onValueChange={(event) => {
+                      if (!!filterKey && !!table.getColumn(filterKey)) {
+                        table.getColumn(filterKey)?.setFilterValue("");
+                      }
+                      setFilter(event);
+                      setFilterKey(column.columnDef.accessorKey);
+                      table
+                        .getColumn(column.columnDef.accessorKey)
+                        ?.setFilterValue(event + "");
+                    }}
+                  >
+                    {table?.getColumn(column.columnDef.accessorKey)
+                      ? Array.from(
+                          table
+                            ?.getColumn(column.columnDef.accessorKey)
+                            ?.getFacetedUniqueValues(),
+                        ).map(([key, value], index) => (
+                          <DropdownMenuRadioItem key={index} value={key}>
+                            {key}
+                          </DropdownMenuRadioItem>
+                        ))
+                      : null}
+                    <DropdownMenuRadioItem value="">
+                      Clear filter
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ))}
         </div>
 
         <div className="flex h-10 w-44 items-center rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">

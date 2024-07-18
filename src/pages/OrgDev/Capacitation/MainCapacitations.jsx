@@ -20,6 +20,7 @@ import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import { saveNewTraining } from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import DocumentsCapacitation from "./components/DocumentsCapacitation";
 
 const PEOPLE = [
   {
@@ -205,15 +206,7 @@ function MainCapacitations() {
                     <p className="text-xs text-grisHeading">{row.real_date}</p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row.archive
-                          ? "w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      Archivos
-                    </p>
+                    <DocumentsCapacitation />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">

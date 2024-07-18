@@ -62,3 +62,18 @@ export async function editClientData(data) {
 
   return response;
 }
+
+export async function storeRequiredDocument(data) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/require-document-store`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

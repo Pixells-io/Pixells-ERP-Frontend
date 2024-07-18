@@ -5,23 +5,23 @@ import { barChart, ellipsisHorizontal } from "ionicons/icons";
 
 function ServiceBlock() {
   return (
-    <div className="flex flex-col w-52 py-3 px-4 gap-2 bg-[#E8E8E8] rounded-lg justify-center">
+    <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
       <div className="flex justify-between">
         <IonIcon icon={barChart} size="large" className="text-gris2"></IonIcon>
-        <IonIcon
+        {/* <IonIcon
           icon={ellipsisHorizontal}
           className="text-gris2"
           size="large"
-        ></IonIcon>
+        ></IonIcon> */}
       </div>
-      <div className="text-blue-500 font-bold text-xl">$5,500.00</div>
+      <div className="text-xl font-bold text-blue-500">FALTA AQUI BACK</div>
       <div className="flex justify-between">
         <div className="flex flex-col text-gris2">
           <span className="text-sm font-semibold">SALES</span>
           <span className="text-xs">This Month</span>
         </div>
-        <div className="flex flex-col justify-center items-center text-gris2">
-          <div className="bg-[#00A25940] text-green-600 font-bold rounded-xl px-2">
+        <div className="flex flex-col items-center justify-center text-gris2">
+          <div className="rounded-xl bg-[#00A25940] px-2 font-bold text-green-600">
             +20%
           </div>
           <span className="text-[8px]">vs last month</span>

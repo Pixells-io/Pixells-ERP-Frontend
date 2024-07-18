@@ -20,6 +20,19 @@ function MainBankManagement() {
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
 
+  const handleEdit = (id) => {
+    alert("edit id: " + id);
+  }
+  
+  const handleDelete = (id) => {
+    alert("delete id: " + id);
+  }
+
+  const columns = React.useMemo(
+    () => AccountsColumns(handleEdit, handleDelete),
+    [handleEdit, handleDelete]
+  );
+
   //datos de prueba --------------------------
 
   const data = [
@@ -27,9 +40,9 @@ function MainBankManagement() {
       id: "1",
       name: "Cheque principal",
       bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54,600.00",
+      type: "Banco",
+      accountNumber: "789789788asdasdsaad",
+      balance: "54600.00",
     },
     {
       id: "2",
@@ -37,23 +50,23 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "3",
       name: "Cheque principal",
       bank: "Banamex",
       type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54,600.00",
+      accountNumber: "17897897891",
+      balance: "54600.00",
     },
     {
       id: "4",
       name: "Cheque principal",
       bank: "Banamex",
       type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54,600.00",
+      accountNumber: "7",
+      balance: "54600.00",
     },
     {
       id: "5",
@@ -61,7 +74,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "6",
@@ -69,7 +82,47 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
+    },
+    {
+      id: "7",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "8",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "9",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "10",
+      name: "Cheque principal 7",
+      bank: "Banamex",
+      type: "Banco nacional",
+      accountNumber: "789789789",
+      balance: "54600.00",
+    },
+    {
+      id: "11",
+      name: "Cheque principal 11",
+      bank: "Banamex",
+      type: "Banco nacional 11",
+      accountNumber: "789789789",
+      balance: "54600.00",
     },
   ];
 
@@ -80,7 +133,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "8",
@@ -88,7 +141,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "9",
@@ -96,7 +149,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "10",
@@ -104,7 +157,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "11",
@@ -112,7 +165,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
     {
       id: "12",
@@ -120,7 +173,7 @@ function MainBankManagement() {
       bank: "Banamex",
       type: "Banco nacional",
       accountNumber: "789789789",
-      balance: "54,600.00",
+      balance: "54600.00",
     },
   ];
 
@@ -187,13 +240,13 @@ function MainBankManagement() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    className="w-full hover:cursor-pointer"
+                    className="w-full hover:cursor-pointer focus:bg-hoverModal"
                     onClick={() => setModalAddOwnBank(true)}
                   >
                     Bancos
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="w-full hover:cursor-pointer"
+                    className="w-full hover:cursor-pointer focus:bg-hoverModal"
                     onClick={() => setModalAddBankAccount(true)}
                   >
                     Cuenta Bancaría
@@ -202,18 +255,18 @@ function MainBankManagement() {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex gap-6 pr-6">
+          <div className="flex flex-col sm:flex-row gap-6 pr-6">
             <CardInformation
               title="SALDO"
               subtitle="Bancos y efectivo"
-              total="10,000"
+              total="1002.34"
               percentage="20"
               isPositive={true}
             />
             <CardInformation
               title="DEUDA"
               subtitle="Tarjeta de crédito"
-              total="8,700"
+              total="8700.40"
               percentage="20"
               isPositive={false}
             />
@@ -241,15 +294,14 @@ function MainBankManagement() {
           <TabsContent value="accounts" className="mt-[-60px] p-2">
             <DataTable
               data={data}
-              columns={AccountsColumns}
-              names={[]}
+              columns={columns}
               searchFilter={"bank"}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
               data={data2}
-              columns={AccountsColumns}
+              columns={columns}
               names={[]}
               searchFilter={"bank"}
             />

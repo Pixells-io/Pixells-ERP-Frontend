@@ -16,7 +16,11 @@ import MainLeads, {
 } from "./pages/CRM/Leads/MainLeads";
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
-import { getLeadById, multiLoaderStageLeads } from "./pages/CRM/Leads/utils";
+import {
+  getLeadById,
+  multiloaderSideLayoutLead,
+  multiLoaderStageLeads,
+} from "./pages/CRM/Leads/utils";
 import MainLead from "./pages/CRM/Leads/Lead/MainLead";
 import SidelayoutLead, {
   Action as LeadsEditFunction,
@@ -37,7 +41,9 @@ import MainServices, {
 import MainService, {
   Action as ServiceConsoleFunction,
 } from "./pages/CRM/Services/MainService";
-import MainPackage from "./pages/CRM/Services/MainPackage";
+import MainPackage, {
+  Action as PackageEditFunction,
+} from "./pages/CRM/Services/MainPackage";
 
 //CRM Email
 import MainEmail from "./pages/CRM/Email/MainEmail";
@@ -167,6 +173,7 @@ import {
   showService,
   showCategory,
   multilaoderSideLayoutCRM,
+  multiLoaderDashboard,
 } from "./lib/actions";
 
 //Not Found
@@ -235,6 +242,15 @@ import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
 
+//Accounting
+import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
+import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
+import CreateAccount from "./pages/Accounting/Policy/new/newAccounting";
+import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
+import MainBook from "./pages/Accounting/Book/MainBook";
+import MainCost from "./pages/Accounting/Cost/MainCost";
+
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
@@ -243,6 +259,10 @@ import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollectio
 import MainCategory, {
   Action as MainCategoryFunction,
 } from "./pages/CRM/Services/MainCategory";
+import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecord";
+import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
+import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
+import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
 
 //Client Platform
 import LoginClient, {
@@ -259,7 +279,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainDashboard />,
-        loader: getUserByToken,
+        loader: multiLoaderDashboard,
       },
       // crm
       {
@@ -314,6 +334,7 @@ const router = createBrowserRouter([
             path: "/crm/services/packages/:id",
             element: <MainPackage />,
             loader: getPackageById,
+            action: PackageEditFunction,
           },
           {
             path: "/crm/services",
@@ -384,7 +405,7 @@ const router = createBrowserRouter([
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
         action: LeadsEditFunction,
-        loader: getLeadById,
+        loader: multiloaderSideLayoutLead,
         children: [
           {
             index: true,
@@ -704,6 +725,55 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/collection/create",
             element: <AddNewCollection />,
+          },
+          {
+            path: "/bank-management/collection/record/:id",
+            element: <CollectionRecord />,
+          },
+          {
+            path: "/bank-management/payment",
+            element: <MainPaymentBankManag />,
+          },
+          {
+            path: "/bank-management/payment/create",
+            element: <AddNewPayment />,
+          },
+          {
+            path: "/bank-management/payment/record/:id",
+            element: <PaymentRecord />,
+          },
+        ],
+      },
+      //acounting
+      {
+        path: "/accounting",
+        element: <SideLayoutAccounting />,
+        children: [
+          {
+            index: true,
+            element: <MainCatalog />,
+          },
+          {
+            //account Policy
+            path: "/accounting/policy",
+            element: <MainPolicy />,
+          },
+          {
+            path: "/accounting/policy/create",
+            element: <CreateAccount />,
+          },
+          {
+            path: "/accounting/policy/details",
+            element: <AccountDetail />,
+          },
+          {
+            //account book
+            path: "/accounting/book",
+            element: <MainBook />,
+          },
+          {
+            path: "/accounting/cost",
+            element: <MainCost />,
           },
         ],
       },

@@ -5,12 +5,28 @@ import {
   useOutletContext,
   useLocation,
   useNavigation,
+  Form,
+  useSubmit,
+  redirect,
 } from "react-router-dom";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import NewStepService from "./components/Forms/NewStepService";
 import {
+  addCommentClient,
+  deleteStepProcess,
+  editStepProcess,
   moveProgressColumn,
   progressStepAdvance,
+  requireDocument,
   saveNewServiceStep,
 } from "./util";
 
@@ -19,8 +35,12 @@ import { getServiceSteps } from "@/lib/actions";
 
 import Customer from "./components/Customer";
 import FormStepCustom from "./components/Forms/FormStepCustom";
+import { IonIcon } from "@ionic/react";
+import { ellipsisVertical } from "ionicons/icons";
+import StepOptions from "./components/StepOptions";
 
 function StepsProgress() {
+  const submit = useSubmit();
   const navigation = useNavigation();
   const location = useLocation();
   const { id } = useParams();
@@ -37,12 +57,17 @@ function StepsProgress() {
   const [fields, setFields] = useState([]);
   const [currentStep, setCurrentStep] = useState({});
   const [nextStepName, setNextStepName] = useState("");
+  const [editStepName, setEditStepName] = useState(false);
+
+  const [modal, setModal] = useState(false);
+  const [stepInfo, setStepInfo] = useState({});
 
   useEffect(() => {
     setUrlId(id);
-    pusherClient.subscribe(`get-process-service.${urlId}`);
+    pusherClient.subscribe(`private-get-process.${urlId}`);
 
-    pusherClient.bind("fill-process-service", ({ service }) => {
+    pusherClient.bind("fill-process", ({ service }) => {
+      console.log("cvghj");
       getProcesServiceFunction(service);
     });
 
@@ -52,7 +77,7 @@ function StepsProgress() {
     }
 
     return () => {
-      pusherClient.unsubscribe(`get-process-service.${urlId}`);
+      pusherClient.unsubscribe(`private-get-process.${urlId}`);
     };
   }, [location, urlId]);
 
@@ -93,6 +118,13 @@ function StepsProgress() {
     }
   }
 
+  function onEnterForm(e) {
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      // setEditStepName("");
+    }
+  }
+
   return (
     <div className="flex shrink-0">
       <div className="flex gap-2 overflow-scroll">
@@ -107,6 +139,9 @@ function StepsProgress() {
           step={currentStep}
           nextName={nextStepName}
         />
+
+        <StepOptions open={modal} setOpen={setModal} step={stepInfo} />
+
         <div className="flex gap-2">
           {dataPusher?.data.map((step, i) => (
             <div
@@ -118,7 +153,66 @@ function StepsProgress() {
               }
             >
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
-                <p className="text-base text-grisText">{step?.step.name}</p>
+                <div className="flex w-full items-center justify-between px-2">
+                  {editStepName == false ? (
+                    <p className="flex w-full justify-center truncate pl-4 text-base text-grisText">
+                      {step?.step.name}
+                    </p>
+                  ) : (
+                    <div className="">
+                      <Form
+                        onSubmit={onEnterForm}
+                        id="edit-form-step-name"
+                        action={`/crm/progress/${id}`}
+                        method="post"
+                      >
+                        <input
+                          type="text"
+                          name="name"
+                          className="flex w-28 px-2"
+                          defaultValue={step?.step.name}
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value={step?.step.id}
+                          name="step_id"
+                        />
+                        <input
+                          type="hidden"
+                          hidden
+                          readOnly
+                          value="edit-step"
+                          name="action"
+                        />
+                      </Form>
+                    </div>
+                  )}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <IonIcon
+                        icon={ellipsisVertical}
+                        className="flex size-4 text-grisSubText"
+                      />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem
+                        onClick={() => setEditStepName(!editStepName)}
+                      >
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setModal(true);
+                          setStepInfo(step?.step);
+                        }}
+                      >
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
                 <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
                   <p className="text-xs font-semibold text-grisHeading">
                     {step?.customers?.length}
@@ -172,7 +266,20 @@ export async function Action({ params, request }) {
 
     case "move_column":
       return await moveProgressColumn(data);
-  }
 
-  return 1;
+    case "require_document":
+      return await requireDocument(data);
+
+    case "delete-step":
+      await deleteStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+
+    case "edit-step":
+      await editStepProcess(data);
+      return redirect(`/crm/progress/${params.id}`);
+
+    case "add-comment-client":
+      await addCommentClient(data);
+      return redirect(`/crm/progress/${params.id}`);
+  }
 }

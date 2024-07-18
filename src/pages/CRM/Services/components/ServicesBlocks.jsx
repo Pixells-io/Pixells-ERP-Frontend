@@ -1,24 +1,18 @@
 import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  cashOutline,
-  ellipsisHorizontal,
-  folder,
-  globeOutline,
-} from "ionicons/icons";
+import { folder, globeOutline } from "ionicons/icons";
 
 function ServicesBlocks(data) {
-  console.log(data.data);
   return (
-    <div className="flex gap-8">
-      <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
+    <div className="flex h-full w-full gap-8 overflow-auto">
+      <div className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon icon={folder} size="large" className="text-gris2"></IonIcon>
-          <IonIcon
+          {/* <IonIcon
             icon={ellipsisHorizontal}
             className="text-xl text-grisSubText"
-          ></IonIcon>
+          ></IonIcon> */}
         </div>
         <div className="text-xl font-bold text-blue-500">
           {data.data.services_count}
@@ -37,23 +31,23 @@ function ServicesBlocks(data) {
         </div>
       </div>
 
-      <div className="h-full"></div>
+      <div className="border-r-2"></div>
 
       {data.data.services.map((service, i) => (
-        <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
+        <div className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
           <div className="flex justify-between">
             <IonIcon
               icon={globeOutline}
               size="large"
               className="text-gris2"
             ></IonIcon>
-            <IonIcon
+            {/* <IonIcon
               icon={ellipsisHorizontal}
               className="text-xl text-grisSubText"
-            ></IonIcon>
+            ></IonIcon> */}
           </div>
           <div className="text-xl font-bold text-blue-500">
-            $ {service.ammount}{" "}
+            ${Number(service.ammount).toFixed(2)}
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col text-gris2">

@@ -17,11 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { IonIcon } from "@ionic/react";
-import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
-
-function OnlyDataTable({ data, columns, names }) {
+function OnlyDataTable({ data, columns, titleButton, functionButton }) {
   const [columnFilters, setColumnFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data: data,
@@ -30,10 +28,20 @@ function OnlyDataTable({ data, columns, names }) {
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
+
     state: {
       columnFilters,
+      rowSelection,
+
     },
   });
+
+  const getSelectedRowsData = () => {
+    const selectedRows = table.getFilteredSelectedRowModel().rows;
+    return selectedRows.map(row => row.original);
+
+  };
 
   return (
     <div className="rounded-xl bg-[#FBFBFB] px-4">
@@ -46,7 +54,7 @@ function OnlyDataTable({ data, columns, names }) {
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-sm font-semibold text-[#696974]"
+                      className="border-b-2 border-b-primarioBotones text-sm font-normal"
                     >
                       {header.isPlaceholder
                         ? null
@@ -64,9 +72,9 @@ function OnlyDataTable({ data, columns, names }) {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className="border-t-[#D7D7D7] text-[#44444F]"
+                  className={`border-t-[#D7D7D7] text-[#44444F]  ${(row?.original?.isSelected == "1") && " bg-primario bg-opacity-25"}`}
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={(row.getIsSelected() && (row?.original?.isSelected == "0" || !row?.original?.isSelected)) && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -91,23 +99,25 @@ function OnlyDataTable({ data, columns, names }) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <IonIcon icon={chevronBackCircle} className="h-10 w-10"></IonIcon>
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <IonIcon icon={chevronForwardCircle} className="h-10 w-10"></IonIcon>
-        </Button>
+      <div className="flex items-center justify-end space-x-2 px-4 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length > 0
+            ? table.getFilteredSelectedRowModel().rows.length > 1
+              ? table.getFilteredSelectedRowModel().rows.length +
+                " Cuentas seleccionadas*"
+              : table.getFilteredSelectedRowModel().rows.length +
+                " Cuenta seleccionada*"
+            : ""}
+        </div>
+        <div className="space-x-2">
+          <Button
+              variant="outline"
+              className="rounded-3xl border border-primarioBotones text-primarioBotones text-xs hover:bg-primarioBotones"
+            onClick={() => functionButton(getSelectedRowsData())}
+          >
+            {titleButton}
+          </Button>
+        </div>
       </div>
     </div>
   );

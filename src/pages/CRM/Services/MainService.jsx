@@ -19,10 +19,13 @@ import {
   destroyProcess,
   destroyService,
   editService,
+  saveInterview,
 } from "./utils";
 import ServiceProcessForm from "./components/Forms/ServiceProcessForm";
 import DestroyProcessForm from "./components/Forms/DestroyProcessForm";
 import DestroyServiceForm from "./components/Forms/DestroyServiceForm";
+import ModalCreateInterview from "./components/Forms/ModalCreateInterview";
+import ModalShowInterview from "./components/Forms/ModalShowInterview";
 
 function MainService() {
   const { data } = useLoaderData();
@@ -31,14 +34,33 @@ function MainService() {
   const [modalProcessDestroy, setModalProcessDestroy] = useState(false);
   const [processId, setProcessId] = useState(false);
   const [modalServiceDestroy, setModalServiceDestroy] = useState(false);
+  const [modalCreateInterview, setModalCreateInterview] = useState(false);
+  const [modalShowInterview, setModalShowInterview] = useState(false);
+  const [idInterview, setIdInterview] = useState(false);
+  const [nameInterview, setNameInterview] = useState(false);
+  const [questionsInterview, setQuestionsInterview] = useState([]);
 
   function setProcessIdFunction(id) {
     setProcessId(id);
     setModalProcessDestroy(true);
   }
 
+  function openShowInterview(id, name, questions) {
+    setIdInterview(id);
+    setNameInterview(name);
+    setQuestionsInterview(questions);
+    setModalShowInterview(true);
+  }
+
   return (
     <>
+      <ModalShowInterview
+        modal={modalShowInterview}
+        setModal={setModalShowInterview}
+        id={idInterview}
+        name={nameInterview}
+        questions={questionsInterview}
+      />
       <EditServiceForm
         modal={modal}
         setModal={setModal}
@@ -65,6 +87,12 @@ function MainService() {
         setModal={setModalServiceDestroy}
         id={data?.id}
       />
+      <ModalCreateInterview
+        modal={modalCreateInterview}
+        setModal={setModalCreateInterview}
+        serviceId={data?.id}
+      />
+
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
           <div className="flex items-center gap-4">
@@ -300,6 +328,52 @@ function MainService() {
               </div>
             </div>
           </div>
+          <div className="flex w-52 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex gap-4">
+                <p className="text-[22px] font-semibold text-grisHeading">
+                  INTERVIEWS
+                </p>
+                <button onClick={() => setModalCreateInterview(true)}>
+                  <IonIcon icon={addOutline} className="h-5 w-5"></IonIcon>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 overflow-y-scroll">
+              {data?.interviews.map((interview, i) => (
+                <div className="flex w-full justify-between" key={i}>
+                  <div className="col-span-3 flex items-center gap-2">
+                    <div>
+                      <p className="truncate font-medium text-grisHeading">
+                        {interview.title}
+                      </p>
+                      <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
+                        Created &bull; {interview.created}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex h-fit gap-2 self-end">
+                    <div className="col-span-1 flex h-fit pb-1 pl-2">
+                      <button
+                        type="button"
+                        className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
+                        onClick={() =>
+                          openShowInterview(
+                            interview.id,
+                            interview.title,
+                            interview.questions,
+                          )
+                        }
+                      >
+                        Show
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="flex flex-col gap-4 self-start">
             <div className="flex items-center gap-2">
@@ -358,6 +432,10 @@ export async function Action({ params, request }) {
       //destroy service
       await destroyService(data);
       return redirect("/crm/services");
+      break;
+    case "5":
+      //save interview
+      await saveInterview(data);
       break;
   }
 

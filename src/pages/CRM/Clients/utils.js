@@ -121,7 +121,7 @@ export async function deleteDocument(data) {
 
 export async function editClientInfo(data) {
   const edit = {
-    client_id: data.get("client_id"),
+    lead_id: data.get("client_id"),
     business_name: data.get("business_name"),
     business_phone: data.get("business_phone"),
     contact_name: data.get("contact_name"),
@@ -154,6 +154,26 @@ export async function editAccessInfo(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process-services/edit-client-access`,
+    {
+      method: "POST",
+      body: JSON.stringify(edit),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function assignInterview(data) {
+  const edit = {
+    client_id: data.get("client_id"),
+    interview_id: data.get("interview_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/interview-assign`,
     {
       method: "POST",
       body: JSON.stringify(edit),
