@@ -113,7 +113,7 @@ function MainMyInductions() {
           </p>
         </div>
 
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <div>
             <p className="flex w-16 justify-center rounded-full bg-grisHeading py-1 text-[10px] font-medium text-white">
               Todas
@@ -134,18 +134,18 @@ function MainMyInductions() {
               Puesto
             </p>
           </div>
-        </div>
+        </div> */}
 
         <div className="h-full overflow-auto rounded-lg bg-blancoBg p-2">
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap">
             {myInductionsPusher?.map((card, i) => (
-              <InductionsCard card={card} />
+              <InductionsCard card={card} key={i} />
             ))}
           </div>
         </div>
       </div>
 
-      <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
+      {/* <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
         <div className="flex justify-center">
           <p className="font-poppins text-lg font-semibold text-grisHeading">
             Accesos Rápidos
@@ -183,7 +183,7 @@ function MainMyInductions() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

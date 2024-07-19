@@ -1,5 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
@@ -9,12 +18,8 @@ import {
   checkmarkCircle,
   ellipsisHorizontal,
 } from "ionicons/icons";
-import { Progress } from "@/components/ui/progress";
-import { Link, NavLink } from "react-router-dom";
 
 function InductionsCard({ card }) {
-  const [progress, setProgress] = useState(80);
-
   return (
     <div className="relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
       {card.status != null ? (
@@ -38,10 +43,24 @@ function InductionsCard({ card }) {
           </p>
         )}
 
-        <IonIcon
-          icon={ellipsisHorizontal}
-          className="h-5 w-5 text-grisDisabled"
-        ></IonIcon>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <IonIcon
+              icon={ellipsisHorizontal}
+              className="h-5 w-5 text-grisDisabled"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Documents</DropdownMenuLabel>
+            {card.documents.map((docu, i) => (
+              <DropdownMenuItem key={i}>
+                <Link to={docu?.document} target="_blank">
+                  {docu?.title}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div>
         <p className="font-poppins text-[15px] font-semibold">{card.name}</p>
@@ -56,14 +75,14 @@ function InductionsCard({ card }) {
         </div>
       </div>
 
-      <div className="absolute bottom-5 right-5 h-10 w-10 rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
-        <NavLink to={`/org-development/answer-exam/${card?.exam_id}`}>
+      <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+        <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
           <IonIcon
             icon={caretForwardOutline}
-            className="ml-1 mt-1 text-white"
+            className="flex pl-1 text-white"
             size="large"
           ></IonIcon>
-        </NavLink>
+        </Link>
       </div>
     </div>
   );
