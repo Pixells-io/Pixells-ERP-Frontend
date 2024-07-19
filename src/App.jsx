@@ -174,6 +174,7 @@ import {
   showCategory,
   multilaoderSideLayoutCRM,
   multiLoaderDashboard,
+  getInductionResume,
 } from "./lib/actions";
 
 //Not Found
@@ -549,6 +550,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/induction/:id",
             element: <MainInduction />,
+            loader: getInductionResume,
           },
           {
             path: "/org-development/induction/my-inductions",
