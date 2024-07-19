@@ -214,8 +214,6 @@ export async function storeNewEvaluationExam(data) {
 
 export async function storeDocumentExam(data) {
   try {
-    console.log(data);
-    console.log(data.get("type"));
     const formData = new FormData();
 
     const info = {
