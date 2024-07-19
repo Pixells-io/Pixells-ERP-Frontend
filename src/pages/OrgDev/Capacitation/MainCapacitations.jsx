@@ -17,33 +17,10 @@ import {
 } from "ionicons/icons";
 
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
-import { saveNewTraining } from "../utils";
+import { saveNewTraining, storeDocumentExam } from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
-
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
 
 function MainCapacitations() {
   const navigation = useNavigation();
@@ -76,6 +53,8 @@ function MainCapacitations() {
       pusherClient.unsubscribe("private-get-trainings");
     };
   }, [navigation.state]);
+
+  console.log(capacitacionPusher);
 
   return (
     <div className="flex w-full">
@@ -206,7 +185,10 @@ function MainCapacitations() {
                     <p className="text-xs text-grisHeading">{row.real_date}</p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <DocumentsCapacitation />
+                    <DocumentsCapacitation
+                      rel_id={row.id}
+                      documents={row.archives}
+                    />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">
@@ -248,8 +230,18 @@ export default MainCapacitations;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  const validation = await saveNewTraining(data);
+  switch (action) {
+    case "1":
+      await saveNewTraining(data);
+      return redirect("/org-development/capacitation");
 
-  return redirect("/org-development/capacitation");
+    case "2":
+      await storeDocumentExam(data);
+      return redirect("/org-development/capacitation");
+
+    default:
+      return redirect("/org-development/capacitation");
+  }
 }
