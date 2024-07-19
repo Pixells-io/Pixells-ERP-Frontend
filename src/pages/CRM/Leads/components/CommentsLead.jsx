@@ -30,8 +30,6 @@ function CommentsLead({ leadId, comments }) {
     }
   }
 
-  console.log(comments);
-
   return (
     <HoverCard>
       <HoverCardTrigger>

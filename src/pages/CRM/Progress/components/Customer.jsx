@@ -36,13 +36,12 @@ function Customer({ customer, stepId }) {
         modal={modal}
         setModal={setModal}
         customer={customer}
-        stepId={stepId}
       />
       <div className="flex flex-col gap-2">
         <div className="flex flex-col border-b-[1px] border-[#D7D7D7]">
           <div className="flex items-center justify-between">
             <p className="text-[13px] text-grisText">
-              {customer.customer_name}
+              {customer?.customer_name}
             </p>
             <IonIcon
               icon={addOutline}
@@ -56,20 +55,30 @@ function Customer({ customer, stepId }) {
                 <span className="w-fit gap-1 rounded-full border border-[#00a9b3] px-2 text-[8px] text-[#00a9b3]">
                   Individual
                 </span>
-
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  {customer?.status == 1 ? "Activo" : "Inactivo"}
-                </span>
+                {customer?.status == 1 ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Inactive
+                  </span>
+                )}
               </div>
             ) : (
               <div className="flex w-full items-center justify-between py-1">
                 <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
                   Business
                 </span>
-
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  {customer?.status == 1 ? "Activo" : "Inactivo"}
-                </span>
+                {customer?.status == 1 ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Inactive
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -78,10 +87,36 @@ function Customer({ customer, stepId }) {
         <Link to={`/crm/client/${customer?.master_id}`}>
           <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
             <div className="flex flex-col gap-2">
-              {Object?.entries(info)?.map(([key, value]) => (
-                <div className="flex flex-col gap-1">
-                  <p>{key}</p>
-                  <span>{value}</span>
+              {Object?.entries(info)?.map(([key, value], i) => (
+                <div className="flex flex-col gap-1 leading-none" key={i}>
+                  {key == "file" ? (
+                    <>
+                      <p className="text-[10px] text-grisHeading">
+                        {key.charAt(0).toLocaleUpperCase() + key.slice(1)}
+                      </p>
+                      <span className="text-[9px] text-grisText">
+                        {value == "Documento" ? (
+                          "No document added "
+                        ) : (
+                          <div>
+                            <Link to={value} target="_blank">
+                              {" "}
+                              Document
+                            </Link>
+                          </div>
+                        )}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-[10px] text-grisHeading">
+                        {key.charAt(0).toLocaleUpperCase() + key.slice(1)}
+                      </p>
+                      <span className="text-[9px] text-grisText">
+                        {value.charAt(0).toLocaleUpperCase() + value.slice(1)}
+                      </span>
+                    </>
+                  )}
                 </div>
               ))}
             </div>

@@ -126,8 +126,8 @@ function StepsProgress() {
   }
 
   return (
-    <div className="flex shrink-0">
-      <div className="flex gap-2 overflow-scroll">
+    <div className="flex h-full overflow-auto">
+      <div className="flex h-full gap-2 overflow-auto">
         <FormStepCustom
           fields={fields}
           modal={modalProcess}
@@ -142,7 +142,7 @@ function StepsProgress() {
 
         <StepOptions open={modal} setOpen={setModal} step={stepInfo} />
 
-        <div className="flex gap-2">
+        <div className="flex h-full gap-2">
           {dataPusher?.data.map((step, i) => (
             <div
               key={i}
@@ -219,7 +219,8 @@ function StepsProgress() {
                   </p>
                 </div>
               </div>
-              <div className="flex h-full flex-col gap-2 overflow-scroll rounded-lg bg-blancoBox p-2">
+
+              <div className="flex h-full flex-col gap-2 overflow-auto rounded-lg bg-blancoBox p-2">
                 <ul className="flex h-full flex-col gap-2">
                   {step?.customers.map((customer, i) => (
                     <li

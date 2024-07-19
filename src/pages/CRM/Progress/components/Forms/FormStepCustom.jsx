@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Form, useNavigation, useParams } from "react-router-dom";
 
 import {
   Dialog,
@@ -8,12 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
-
-import { Form, useParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 import UserSelect from "@/components/UserSelect";
 import DropzoneFile from "@/components/dropzone-files";
@@ -41,6 +40,13 @@ function FormStepCustom({
   nextName,
 }) {
   const params = useParams();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="p-0">
