@@ -97,7 +97,7 @@ function Step({ stepInfo, services, users }) {
 
   return (
     <div className="flex h-full gap-2 overflow-auto">
-      <div className="flex gap-2">
+      <div className="flex h-full gap-2 overflow-auto">
         {/* header */}
         <div
           key={step.id}
@@ -119,7 +119,7 @@ function Step({ stepInfo, services, users }) {
         </div>
 
         {/* body */}
-        <div className="flex h-full flex-col gap-2 overflow-scroll rounded-lg bg-blancoBox p-2">
+        <div className="flex h-full flex-col gap-2 overflow-auto rounded-lg bg-blancoBox p-2">
           <ul className="flex h-full flex-col gap-2">
             {customers?.map((customer, i) => (
               <li
