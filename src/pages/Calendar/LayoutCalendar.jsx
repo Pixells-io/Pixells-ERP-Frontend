@@ -10,7 +10,7 @@ import { saveNewMeet } from "./utils";
 function LayoutCalendar() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
-  const [filters, setFilters] = useState(["crm", "meet", "task"]);
+  const [filters, setFilters] = useState(["activity", "meet", "task", "crm"]);
 
   function onSelectFilter(filter) {
     if (filters.includes(filter)) {
@@ -56,12 +56,14 @@ function LayoutCalendar() {
             <div className="flex gap-3">
               <input
                 type="checkbox"
-                value="crm"
-                onClick={() => onSelectFilter("crm")}
-                checked={filters.includes("crm")}
+                value="activity"
+                onClick={() => onSelectFilter("activity")}
+                checked={filters.includes("activity")}
                 readOnly
               />
-              <p className="text-xs font-medium text-grisSubText">CRM</p>
+              <p className="text-xs font-medium text-grisSubText">
+                Project Manager
+              </p>
             </div>
             <div className="flex gap-3">
               <input
