@@ -58,7 +58,7 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.strategic_objetives_task, 5)}
               chartConfig={{
                 number: {
-                  label: "Activities-",
+                  label: "Time-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
