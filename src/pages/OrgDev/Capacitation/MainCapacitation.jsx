@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
+import { useLoaderData } from "react-router-dom";
 
 const DATA = [
   {
@@ -74,6 +75,7 @@ const PEOPLE = [
 ];
 
 function MainCapacitation() {
+  const { data } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -124,9 +126,7 @@ function MainCapacitation() {
           </p>
         </div>
 
-        <div></div>
-
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="pl-4 text-left">
@@ -148,90 +148,51 @@ function MainCapacitation() {
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
-              {DATA.map((row, i) => (
+              {data.map((row, i) => (
                 <div key={i} className="grid w-full grid-cols-5 border-t py-4">
                   <div className="pl-4 text-left">
-                    <p className="text-xs text-grisHeading">{row.nombre}</p>
+                    <p className="text-xs text-grisHeading">{row?.name}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-grisHeading">{row.puesto}</p>
+                    <p className="text-xs text-grisHeading">{row?.position}</p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.estatus == "Hecho"
-                          ? "w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.estatus}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        Completed
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.fecha !== "Pendiente"
-                          ? "w-fit rounded-full border border-[#7794F9] px-3 py-1 text-xs text-[#7794F9]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.fecha}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        {row?.date}
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.calificacion !== "Pendiente"
-                          ? "w-fit rounded-full border border-[#00A259] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.calificacion}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        {row?.qualify}
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
-        <div className="flex justify-center">
-          <p className="font-poppins text-lg font-semibold text-grisHeading">
-            Accesos Rápidos
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {PEOPLE.map((item, i) => (
-            <div className="flex">
-              <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex h-12 w-12 items-center justify-center">
-                  <Avatar className="h-full w-full rounded-lg">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </div>
-                {item.status == "Pending" ? (
-                  <span className="w-fit rounded-full bg-[#FAA36440] px-2 py-[2px] text-[11px] text-[#FAA364]">
-                    {item.status}
-                  </span>
-                ) : (
-                  <span className="w-fit rounded-full bg-[#7794F940] px-2 py-[2px] text-[11px] text-[#7794F9]">
-                    {item.status}
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="text-base font-medium text-grisText">
-                  {item.name}
-                </p>
-                <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                  {item.position}
-                </span>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -4,76 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
-
-const DATA = [
-  {
-    nombre: "Don Fomularo",
-    puesto: "Director Comercial",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Rodrigo Prerez",
-    puesto: "Ejecutivo Comercial",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Clarissa Reynold's",
-    puesto: "Puesto",
-    estatus: "Hecho",
-    fecha: "12 Mayo 24",
-    calificacion: "87",
-  },
-  {
-    nombre: "Daniel Rios",
-    puesto: "General",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Fernando Suarez",
-    puesto: "Area",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Luis Torres",
-    puesto: "Puesto",
-    estatus: "Hecho",
-    fecha: "12 Mayo 24",
-    calificacion: "45",
-  },
-];
-
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
+import { useLoaderData } from "react-router-dom";
 
 function MainInduction() {
+  const { data } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -126,7 +60,7 @@ function MainInduction() {
 
         <div></div>
 
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="pl-4 text-left">
@@ -148,46 +82,46 @@ function MainInduction() {
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
-              {DATA.map((row, i) => (
+              {data.map((row, i) => (
                 <div key={i} className="grid w-full grid-cols-5 border-t py-4">
                   <div className="pl-4 text-left">
-                    <p className="text-xs text-grisHeading">{row.nombre}</p>
+                    <p className="text-xs text-grisHeading">{row?.name}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-grisHeading">{row.puesto}</p>
+                    <p className="text-xs text-grisHeading">{row?.position}</p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.estatus == "Hecho"
-                          ? "w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.estatus}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        Completed
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.fecha !== "Pendiente"
-                          ? "w-fit rounded-full border border-[#7794F9] px-3 py-1 text-xs text-[#7794F9]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.fecha}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        {row?.date}
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <p
-                      className={
-                        row?.calificacion !== "Pendiente"
-                          ? "w-fit rounded-full border border-[#00A259] px-3 py-1 text-xs text-[#00A259]"
-                          : "w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]"
-                      }
-                    >
-                      {row.calificacion}
-                    </p>
+                    {row?.status === 1 ? (
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        {row?.qualify}
+                      </p>
+                    ) : (
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Pending
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
