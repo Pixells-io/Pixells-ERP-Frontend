@@ -6,7 +6,15 @@ import CrmCharts from "./Crm/CrmCharts";
 import TicketCharts from "./Ticket/TicketCharts";
 import ProjectManagerCharts from "./ProjectManager/ProjectManagerCharts";
 
+import { useLoaderData } from "react-router-dom";
+
 function MainAnalytic() {
+  const { crm, ticket, pm } = useLoaderData();
+
+  const crmData = crm.data;
+  const ticketData = ticket.data;
+  const pmData = pm.data;
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -63,13 +71,13 @@ function MainAnalytic() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="crm" className="p-2">
-              <CrmCharts />
+              <CrmCharts data={crmData} />
             </TabsContent>
             <TabsContent className="p-2" value="tickets">
-              <TicketCharts />
+              <TicketCharts data={ticketData} />
             </TabsContent>
             <TabsContent className="p-2" value="projectsManager">
-              <ProjectManagerCharts />
+              <ProjectManagerCharts data={pmData} />
             </TabsContent>
           </Tabs>
         </div>

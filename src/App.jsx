@@ -264,6 +264,7 @@ import { getAuthClient } from "./pages/Clients/utils";
 //Analytics
 import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
 import MainAnalytic from "./pages/Analytic/MainAnalytic";
+import { multiloaderAnalytics } from "./pages/Analytic/utils";
 
 const router = createBrowserRouter([
   {
@@ -748,6 +749,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainAnalytic />,
+            loader: multiloaderAnalytics,
           },
         ],
       },

@@ -28,7 +28,7 @@ const dataKey = [
   { dataKey: "mobile", fill: "var(--color-mobile)" },
 ];
 
-function TicketCharts() {
+function TicketCharts({ data }) {
   return (
     <div className="overflow-auto">
       <div className="grid grid-flow-col grid-cols-12">
@@ -56,7 +56,10 @@ function TicketCharts() {
             />
           </div>
           <div className="col-span-12 rounded-xl drop-shadow sm:col-span-12 xl:col-span-6">
-            <AverageTimeCard title={"Average Time"} hours={200} />
+            <AverageTimeCard
+              title={"Average Time"}
+              days={data.tickets_resolve_days}
+            />
           </div>
         </div>
         <div className="col-span-12 flex justify-center md:col-span-12 xl:col-span-2">

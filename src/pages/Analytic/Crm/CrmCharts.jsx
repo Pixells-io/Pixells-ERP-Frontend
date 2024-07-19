@@ -151,28 +151,25 @@ const chartDataArea = [
 ];
 
 const chartConfigArea = {
-  visitors: {
-    label: "Visitors",
-  },
   desktop: {
-    label: "Desktop",
+    label: "Sales",
     color: "hsl(var(--chart-1))",
   },
 };
 
-function CrmCharts() {
+function CrmCharts({ data }) {
   return (
     <div className="overflow-auto">
       <div className="grid grid-flow-col grid-cols-12">
         <div className="col-span-12 grid grid-cols-12 gap-x-8 gap-y-4 pt-12 md:col-span-12 md:pt-0 xl:col-span-10">
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <BarChartHorComp
-              chartData={chartDataBarHor}
+              chartData={data.services_sales}
               chartConfig={chartConfigBarHor}
               title={"Top 5 Services"}
               subtitle={"puede agregar subTitle"}
-              dataKeyX={"desktop"}
-              dataKeyY={"month"}
+              dataKeyX={"number"}
+              dataKeyY={"name"}
               footerTitle={"puede agregar footerTitle"}
               footerSubTitle={"puede agregar footerSubTitle"}
             />
@@ -192,7 +189,7 @@ function CrmCharts() {
             <PieChartComp
               chartData={chartDataPie}
               chartConfig={chartConfigPie}
-              centerTitle={"Clients"}
+              centerTitle={"Ammount"}
               title={"Top 5 Clients per Sales amount"}
               subtitle={"puede agregar subtitle"}
               footerTitle={"puede agregar footerTitle"}
@@ -212,10 +209,10 @@ function CrmCharts() {
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-12">
             <AreaChartComp
-              chartData={chartDataArea}
+              chartData={data.month_array}
               chartConfig={chartConfigArea}
               title={"Annual Sales"}
-              subtitle={"puede agregar subtitle"}
+              subtitle={"Sales of this year"}
               dataKey={"desktop"}
             />
           </div>
