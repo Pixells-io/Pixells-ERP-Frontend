@@ -175,6 +175,7 @@ import {
   multilaoderSideLayoutCRM,
   multiLoaderDashboard,
   getInductionResume,
+  getTrainingResume,
 } from "./lib/actions";
 
 //Not Found
@@ -567,6 +568,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/:id",
             element: <MainCapacitation />,
+            loader: getTrainingResume,
           },
           {
             path: "/org-development/capacitation/create/:id",
