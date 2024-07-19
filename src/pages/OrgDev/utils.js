@@ -109,7 +109,6 @@ export async function newInductionExam(data) {
 }
 
 export async function newCapacitationExam(data) {
-  console.log(data);
   try {
     const examen = {
       rel_id: data.get("rel_id"),
@@ -118,7 +117,6 @@ export async function newCapacitationExam(data) {
       duration: Number(data.get("exam_duration")),
       questions: data.get("questions"),
     };
-    console.log(examen);
 
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}organization-development/store-examen`,
@@ -194,7 +192,6 @@ export async function storeNewEvaluationExam(data) {
       eval_id: data.get("eval_id"),
       questions: data.get("questions"),
     };
-    console.log(examen);
 
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}organization-development/store-evaluation-exam
@@ -213,4 +210,50 @@ export async function storeNewEvaluationExam(data) {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function storeDocumentExam(data) {
+  try {
+    const formData = new FormData();
+
+    const info = {
+      rel_id: data.get("rel_id"),
+      type: data.get("type"),
+      title: data.get("title"),
+    };
+
+    formData.append("document", data.get("document"));
+    formData.append("info", JSON.stringify(info));
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization-development/store-document
+      `,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response;
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function removeDocumentExam(data) {
+  const id = data.get("document_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization-development/destroy-document/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }

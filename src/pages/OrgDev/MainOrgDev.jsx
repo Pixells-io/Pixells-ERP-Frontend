@@ -14,7 +14,7 @@ import {
 } from "ionicons/icons";
 import NewInductionModal from "./Inductions/components/NewInductionModal";
 import { useLoaderData, redirect, useNavigation } from "react-router-dom";
-import { saveNewInduction } from "./utils";
+import { saveNewInduction, storeDocumentExam } from "./utils";
 import { pusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
@@ -181,7 +181,7 @@ function MainOrgDev() {
                   </div>
                   <div className="flex items-center justify-center">
                     <DocumentsInduction
-                      inductionId={row?.id}
+                      rel_id={row?.id}
                       documents={row?.documents}
                     />
                   </div>
@@ -227,8 +227,18 @@ export default MainOrgDev;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  const validation = await saveNewInduction(data);
+  switch (action) {
+    case "1":
+      await saveNewInduction(data);
+      return redirect("/org-development/induction");
 
-  return redirect("/org-development/induction");
+    case "2":
+      await storeDocumentExam(data);
+      return redirect("/org-development/induction");
+
+    default:
+      return redirect("/org-development/induction");
+  }
 }

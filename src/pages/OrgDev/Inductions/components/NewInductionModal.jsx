@@ -59,18 +59,26 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
+      <DialogContent className="overflow-auto sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create Induction</DialogTitle>
         </DialogHeader>
         <Form
           id="induction-create-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0"
           action="/org-development/induction"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+            <input
+              type="text"
+              hidden
+              readOnly
+              className="hidden"
+              value="1"
+              name="action"
+            />
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <FormInput
                 name="name"
                 type="text"
@@ -102,7 +110,7 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
         <DialogFooter className="h-auto">
           <Button
             form="induction-create-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>

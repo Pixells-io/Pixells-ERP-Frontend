@@ -91,18 +91,26 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
+      <DialogContent className="overflow-auto sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">Create Training</DialogTitle>
         </DialogHeader>
         <Form
           id="training-create-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0"
           action="/org-development/capacitation"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <input
+            type="text"
+            hidden
+            className="hidden"
+            name="action"
+            value="1"
+            readOnly
+          />
+          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <FormInput
                 name="name"
                 type="text"
@@ -169,7 +177,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
         <DialogFooter className="h-auto">
           <Button
             form="training-create-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>
