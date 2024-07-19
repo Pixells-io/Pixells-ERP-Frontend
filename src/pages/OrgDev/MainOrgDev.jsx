@@ -180,7 +180,10 @@ function MainOrgDev() {
                     </p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <DocumentsInduction />
+                    <DocumentsInduction
+                      inductionId={row?.id}
+                      documents={row?.documents}
+                    />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">
