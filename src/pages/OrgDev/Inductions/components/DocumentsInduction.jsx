@@ -7,13 +7,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { add, closeCircle, send } from "ionicons/icons";
+import { add, send } from "ionicons/icons";
 
 import DropzoneFile from "@/components/dropzone-files";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DocumentDestroy from "./DocumentsDestroy";
 
 function DocumentsInduction({ documents, rel_id }) {
   const navigation = useNavigation();
@@ -24,10 +24,6 @@ function DocumentsInduction({ documents, rel_id }) {
       setOpen(false);
     }
   }, [navigation.state]);
-
-  function deleteDocument(id) {
-    console.log(id);
-  }
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -62,12 +58,10 @@ function DocumentsInduction({ documents, rel_id }) {
                 </Avatar> */}
               </div>
 
-              {/* 
               <DocumentDestroy
                 documentId={document.id}
                 name={document?.title}
               />
-            */}
             </div>
           ))}
         </div>

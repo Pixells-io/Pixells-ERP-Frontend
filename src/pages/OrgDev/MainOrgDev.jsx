@@ -14,7 +14,11 @@ import {
 } from "ionicons/icons";
 import NewInductionModal from "./Inductions/components/NewInductionModal";
 import { useLoaderData, redirect, useNavigation } from "react-router-dom";
-import { saveNewInduction, storeDocumentExam } from "./utils";
+import {
+  removeDocumentExam,
+  saveNewInduction,
+  storeDocumentExam,
+} from "./utils";
 import { pusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
@@ -236,6 +240,10 @@ export async function Action({ request }) {
 
     case "2":
       await storeDocumentExam(data);
+      return redirect("/org-development/induction");
+
+    case "3":
+      await removeDocumentExam(data);
       return redirect("/org-development/induction");
 
     default:

@@ -246,7 +246,7 @@ export async function storeDocumentExam(data) {
 export async function removeDocumentExam(data) {
   const id = data.get("document_id");
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}organization-development/destroy-document/${id}`,
+    `${import.meta.env.VITE_SERVER_URL}organization-development/delete-document/${id}`,
     {
       method: "get",
       headers: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -6,11 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -19,7 +16,6 @@ import {
   checkmarkCircle,
   ellipsisHorizontal,
 } from "ionicons/icons";
-import { Progress } from "@/components/ui/progress";
 
 function CapacutationCard({ card }) {
   console.log(card);
@@ -82,11 +78,11 @@ function CapacutationCard({ card }) {
           </div>
         )}
       </div>
-      <div className="absolute bottom-5 right-5 h-10 w-10 rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
-        <Link to="/">
+      <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+        <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
           <IonIcon
             icon={caretForwardOutline}
-            className="ml-1 mt-1 text-white"
+            className="flex pl-1 text-white"
             size="large"
           ></IonIcon>
         </Link>

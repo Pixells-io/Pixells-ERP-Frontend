@@ -7,13 +7,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { add, closeCircle, send } from "ionicons/icons";
+import { add, send } from "ionicons/icons";
 
 import DropzoneFile from "@/components/dropzone-files";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DocumentDestroy from "./DocumentsDestroy";
 
 function DocumentsCapacitation({ rel_id, documents }) {
   const navigation = useNavigation();
@@ -25,9 +25,6 @@ function DocumentsCapacitation({ rel_id, documents }) {
     }
   }, [navigation.state]);
 
-  function deleteDocument(id) {
-    console.log(id);
-  }
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger>
@@ -52,21 +49,12 @@ function DocumentsCapacitation({ rel_id, documents }) {
                 >
                   - {document?.title}
                 </Link>
-
-                {/* <Avatar className="size-4">
-                <AvatarImage src={document?.creator?.img} />
-                <AvatarFallback>
-                  {document?.creator?.name?.slice(0, 2)}
-                </AvatarFallback>
-              </Avatar> */}
               </div>
 
-              {/* 
-            <DocumentDestroy
-              documentId={document.id}
-              name={document?.title}
-            />
-          */}
+              <DocumentDestroy
+                documentId={document.id}
+                name={document?.title}
+              />
             </div>
           ))}
         </div>

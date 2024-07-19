@@ -17,7 +17,11 @@ import {
 } from "ionicons/icons";
 
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
-import { saveNewTraining, storeDocumentExam } from "../utils";
+import {
+  removeDocumentExam,
+  saveNewTraining,
+  storeDocumentExam,
+} from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
@@ -239,6 +243,10 @@ export async function Action({ request }) {
 
     case "2":
       await storeDocumentExam(data);
+      return redirect("/org-development/capacitation");
+
+    case "3":
+      await removeDocumentExam(data);
       return redirect("/org-development/capacitation");
 
     default:
