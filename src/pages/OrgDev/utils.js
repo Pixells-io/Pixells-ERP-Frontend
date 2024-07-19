@@ -214,20 +214,15 @@ export async function storeNewEvaluationExam(data) {
 
 export async function storeDocumentExam(data) {
   try {
-    console.log(data);
-    console.log(data.get("type"));
     const formData = new FormData();
 
     const info = {
       rel_id: data.get("rel_id"),
-      type: "1",
+      type: data.get("type"),
       title: data.get("title"),
     };
 
     formData.append("document", data.get("document"));
-    formData.append("rel_id", data.get("rel_id"));
-    formData.append("type", "1");
-    formData.append("title", data.get("title"));
     formData.append("info", JSON.stringify(info));
 
     const response = await fetch(

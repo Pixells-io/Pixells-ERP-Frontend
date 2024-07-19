@@ -74,8 +74,6 @@ function MainOrgDev() {
     };
   }, [navigation.state]);
 
-  console.log(inductionsPusher);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
