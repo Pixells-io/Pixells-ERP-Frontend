@@ -135,7 +135,7 @@ function MainOrgDev() {
           positions={positions.data}
           areas={areas.data}
         />
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-8 px-4 py-2 text-center">
               <div className="col-span-2 flex items-center pl-4 text-left">
