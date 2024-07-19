@@ -125,16 +125,11 @@ function FormNewLead({ services, navigation }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button
-          variant="ghost"
-          className="group flex w-full justify-start gap-6 p-0 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500"
-        >
-          <IonIcon icon={personAdd} size="large"></IonIcon>
-          <p className="text-base font-medium text-gris2 group-hover:text-blue-500">
-            New Oportunity
-          </p>
-        </Button>
+      <DialogTrigger className="group flex w-full items-center justify-start gap-6 p-0 py-1 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500">
+        <IonIcon icon={personAdd} size="large"></IonIcon>
+        <p className="text-base font-medium text-gris2 group-hover:text-blue-500">
+          New Oportunity
+        </p>
       </DialogTrigger>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">

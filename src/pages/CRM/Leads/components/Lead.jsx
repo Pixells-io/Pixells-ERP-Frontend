@@ -16,6 +16,15 @@ import { format } from "date-fns";
 
 import CommentsLead from "./CommentsLead";
 
+const formatNumber = (number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(number);
+};
+
 function Lead({ lead, setModal }) {
   return (
     <div className="rounded-lg bg-white p-2">
@@ -280,15 +289,27 @@ function Lead({ lead, setModal }) {
           )}
 
           {lead?.step_id == 5 && (
-            <div className="flex flex-col gap-2">
-              <div>
-                <p className="text-[10px] font-medium text-grisText">
-                  Month Billing
-                </p>
+            <div className="flex flex-col gap-3">
+              <p className="text-[10px] font-medium text-grisText">
+                Services{" "}
+                <span className="items-center justify-center rounded-full border border-primario px-1">
+                  {lead.services.length}
+                </span>
+              </p>
+              <div className="flex flex-col gap-1">
                 {lead.services.map((service, i) => (
-                  <span className="line-clamp-none text-[12px] text-grisHeading">
-                    {service.service} {service.recurency} {service.ammount}
-                  </span>
+                  <div className="text-[10px] text-grisHeading" key={i}>
+                    <p>
+                      <span>{i + 1} - </span> {service.service} -
+                      <span>
+                        {" "}
+                        {service.recurency == 0 ? "Monthly" : "Annual"}
+                      </span>{" "}
+                      <span>{formatNumber(service.ammount)}</span>{" "}
+                    </p>
+                    <p> </p>
+                    <p></p>
+                  </div>
                 ))}
               </div>
               <div>

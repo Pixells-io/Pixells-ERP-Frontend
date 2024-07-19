@@ -6,12 +6,14 @@ import { grid, searchOutline } from "ionicons/icons";
 
 function TopMenuCRM() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <NavLink to="/crm">
         <div className="flex items-center gap-6 text-grisText">
           <IonIcon icon={grid} size="large"></IonIcon>
           <div>
-            <p className="text-base font-medium text-grisText font-roboto">Homepage</p>
+            <p className="font-roboto text-base font-medium text-grisText">
+              Homepage
+            </p>
           </div>
         </div>
       </NavLink>
@@ -19,11 +21,13 @@ function TopMenuCRM() {
         <div className="flex items-center gap-6 text-grisText">
           <IonIcon icon={searchOutline} size="large"></IonIcon>
           <div>
-            <p className="text-base font-medium text-grisText font-roboto">Search</p>
+            <p className="font-roboto text-base font-medium text-grisText">
+              Search
+            </p>
           </div>
         </div>
       </NavLink>
-    </>
+    </div>
   );
 }
 

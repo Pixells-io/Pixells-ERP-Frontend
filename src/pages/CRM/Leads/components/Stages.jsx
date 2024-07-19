@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { useLoaderData } from "react-router-dom";
 
 import ProspectForm from "./Forms/ProspectForm";
@@ -9,10 +8,11 @@ import ProposalForm from "./Forms/ProposalForm";
 import ClosingForm from "./Forms/ClosingForm";
 import PayForm from "./Forms/PayForm";
 import KickOffForm from "./Forms/KickOffForm";
+import Lead from "./Lead";
+
 import { getSteps } from "../utils";
 import { pusherClient } from "@/lib/pusher";
 
-import Lead from "./Lead";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,12 +23,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+
 import { IonIcon } from "@ionic/react";
 import { close } from "ionicons/icons";
 
 function Stages() {
   const { steps, services, users, membership } = useLoaderData();
-  // console.log(steps.data);
   const [initialData, setInitialData] = useState(steps.data);
   const [stages, setStages] = useState(initialData);
   const [stagesFilter, setStagesFilter] = useState(initialData);
@@ -62,7 +62,6 @@ function Stages() {
 
   const onDrop = (evt, list) => {
     //const lead = evt.dataTransfer.getData("lead");
-
     openCorrectModal(list, leadInformation);
   };
 
@@ -255,7 +254,7 @@ function Stages() {
         type={type}
       />
 
-      <div>
+      <div className="flex h-full flex-col">
         <div className="flex gap-x-2 p-2">
           {selectTypeFilter !== "all" && (
             <Button
@@ -346,11 +345,12 @@ function Stages() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+
         <div className="flex h-full gap-2">
           {stagesFilter?.map((stage, i) => (
             <div
               key={stage.id}
-              className="flex w-[200px] shrink-0 flex-col gap-2"
+              className="flex h-full w-[200px] flex-col gap-2"
               onDragOver={(evt) => draggingOver(evt)}
               onDrop={(evt) => onDrop(evt, stage.id)}
             >
@@ -365,8 +365,8 @@ function Stages() {
               </div>
 
               {/* body */}
-              <div className="flex h-full flex-col gap-2 rounded-lg bg-blancoBox p-2">
-                <ul className="flex h-full flex-col gap-2 overflow-auto">
+              <div className="flex h-full flex-col gap-2 overflow-auto rounded-lg bg-blancoBox p-2">
+                <ul className="flex h-full flex-col gap-2">
                   {stage?.leads.map((lead, i) => (
                     <li
                       draggable="true"

@@ -30,19 +30,20 @@ function Customer({ customer, stepId }) {
     setInfo(parsedInfo);
   }, []);
 
+  console.log(customer);
+
   return (
     <div id={customer.customer_id} className="rounded-lg bg-white p-2">
       <FormRequireDocument
         modal={modal}
         setModal={setModal}
         customer={customer}
-        stepId={stepId}
       />
       <div className="flex flex-col gap-2">
         <div className="flex flex-col border-b-[1px] border-[#D7D7D7]">
           <div className="flex items-center justify-between">
             <p className="text-[13px] text-grisText">
-              {customer.customer_name}
+              {customer?.customer_name}
             </p>
             <IonIcon
               icon={addOutline}
@@ -78,10 +79,36 @@ function Customer({ customer, stepId }) {
         <Link to={`/crm/client/${customer?.master_id}`}>
           <div className="flex flex-col gap-2 truncate text-[10px] text-grisHeading">
             <div className="flex flex-col gap-2">
-              {Object?.entries(info)?.map(([key, value]) => (
-                <div className="flex flex-col gap-1">
-                  <p>{key}</p>
-                  <span>{value}</span>
+              {Object?.entries(info)?.map(([key, value], i) => (
+                <div className="flex flex-col gap-1 leading-none" key={i}>
+                  {key == "file" ? (
+                    <>
+                      <p className="text-[10px] text-grisHeading">
+                        {key.charAt(0).toLocaleUpperCase() + key.slice(1)}
+                      </p>
+                      <span className="text-[9px] text-grisText">
+                        {value == "Documento" ? (
+                          "No document added "
+                        ) : (
+                          <div>
+                            <Link to={value} target="_blank">
+                              {" "}
+                              Document
+                            </Link>
+                          </div>
+                        )}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-[10px] text-grisHeading">
+                        {key.charAt(0).toLocaleUpperCase() + key.slice(1)}
+                      </p>
+                      <span className="text-[9px] text-grisText">
+                        {value.charAt(0).toLocaleUpperCase() + value.slice(1)}
+                      </span>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
