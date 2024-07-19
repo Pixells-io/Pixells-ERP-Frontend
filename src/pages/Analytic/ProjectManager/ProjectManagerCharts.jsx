@@ -41,7 +41,7 @@ const chartConfigLine = {
   },
 };
 
-function ProjectManagerCharts() {
+function ProjectManagerCharts({ data }) {
   return (
     <div className="overflow-auto">
       <div className="grid grid-flow-col grid-cols-12">
@@ -60,11 +60,12 @@ function ProjectManagerCharts() {
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <BarChartComp
-              chartData={chartDataBarHor}
+              chartData={data.activity_created}
               chartConfig={chartConfigBarHor}
               title={"More Activities Completed"}
               subtitle={"January - June 2024"}
-              dataKeyX={"month"}
+              dataKeyX={"name"}
+              dataKeyLabel={"number"}
               footerTitle={"Trending up by 5.2% this month "}
               footerSubTitle={"Showing total visitors for the last 6 months"}
             />{" "}
@@ -93,7 +94,10 @@ function ProjectManagerCharts() {
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
-            <AverageTimeCard title={"Strategic Objective W/M Activities"} hours={"200"} />
+            <AverageTimeCard
+              title={"Strategic Objective W/M Activities"}
+              days={data.task_resolve_days}
+            />
           </div>
         </div>
         <div className="col-span-12 flex justify-center md:col-span-12 xl:col-span-2">
