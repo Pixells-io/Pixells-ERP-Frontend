@@ -41,15 +41,8 @@ function ExamShow() {
     setLocalData(data);
   }, []);
 
-  const [editMode, setEditMode] = useState(false);
-
   const [examTitle, setExamTitle] = useState("");
   const [examDuration, setExamDuration] = useState("");
-
-  const handleToggleEditMode = () => {
-    setEditMode(!editMode);
-    console.log("editMode", editMode);
-  };
 
   const handleTitleChange = (event) => {
     setLocalData({ ...localData, title: event.target.value });
@@ -80,37 +73,14 @@ function ExamShow() {
     // Update the state with the modified data
     setLocalData(updatedData);
   }
+  function onChangeType(questionIndex, type) {
+    const updatedData = { ...localData };
+    updatedData.questions[questionIndex].type = type;
+    setLocalData(updatedData);
+    console.log(type);
+  }
 
   function onChangeCheckBox(questionIdx, answerIdx) {
-    setQuestions(
-      questions.map((question, idx) => {
-        if (idx === questionIdx) {
-          // Checar el tipo de pregunta si es single
-          if (question.type === "0") {
-            const updatedAnswers = question.answers.map((item, i) => ({
-              ...item,
-              correct: false, // Set all answers to incorrect
-            }));
-
-            // setear la respuesta correcta
-            updatedAnswers[answerIdx].correct =
-              !question.answers[answerIdx].correct;
-
-            return { ...question, answers: updatedAnswers };
-          } else {
-            // para las multiples
-            return {
-              ...question,
-              answers: question.answers.map((item, i) =>
-                i === answerIdx ? { ...item, correct: !item.correct } : item,
-              ),
-            };
-          }
-        } else {
-          return question;
-        }
-      }),
-    );
     ////Old Code
     // setQuestions(
     //   questions.map((question, idx) =>
@@ -223,6 +193,7 @@ function ExamShow() {
               setLocalData={setLocalData}
               updateQuestionText={updateQuestionText}
               updateAnswerText={updateAnswerText}
+              onChangeType={onChangeType}
             />
           ))}
         </div>

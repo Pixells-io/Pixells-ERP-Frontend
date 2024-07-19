@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -23,9 +23,11 @@ function ExamQuestionShow({
   questionIndex,
   updateQuestionText,
   updateAnswerText,
+  onChangeType,
 }) {
   const [questionText, setQuestionText] = useState(question?.question || "");
   const [answers, setAnswers] = useState(question?.answers || []);
+  const [questionType, setQuestionType] = useState(question?.type || "");
 
   console.log("question data:", questionText);
 
@@ -38,6 +40,15 @@ function ExamQuestionShow({
     <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
       <div className="flex items-center justify-between px-6 py-3">
         <p className="font-medium text-grisText">Pregunta</p>
+        <Select onValueChange={(e) => onChangeType(questionIndex, e)}>
+          <SelectTrigger className="w-[100px] border-0 border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs">
+            <SelectValue placeholder="Tipo" className="" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Singular</SelectItem>
+            <SelectItem value="1">Multiple</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div className="flex gap-2 border-t px-4 py-4">
         <input
@@ -68,6 +79,16 @@ function ExamQuestionShow({
                 icon={closeOutline}
                 className="h-5 w-5 hover:text-red-700"
               ></IonIcon>
+            )}
+            {questionType == "" ? (
+              <p className="text-[8px]">Selecciona un Tipo</p>
+            ) : (
+              <input
+                onChange={(e) => onChangeCheckBox(questionIndex, index)}
+                checked={answer.correct}
+                type="checkbox"
+                // className="appearance-none rounded-full border border-grisText h-4 w-4"
+              />
             )}
           </div>
         ))}
