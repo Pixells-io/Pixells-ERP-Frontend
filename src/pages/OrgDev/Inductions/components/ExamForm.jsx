@@ -100,6 +100,7 @@ function ExamForm() {
         idx === questionIndex ? { ...item, type: e } : item,
       ),
     );
+    console.log(e);
   }
 
   function onChangeAnswer(questionIdx, answerIdx, e) {
