@@ -87,7 +87,7 @@ function ClientServicesTable({ services }) {
       cell: ({ row }) => {
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + ${row.original.price}
+            +${Number(row.original.price).toFixed(2)}
           </span>
         );
       },
@@ -99,7 +99,7 @@ function ClientServicesTable({ services }) {
         // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + ${row.original.price}
+            +${Number(row.original.price).toFixed(2)}
           </span>
         );
       },

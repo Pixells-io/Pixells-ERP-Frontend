@@ -34,7 +34,10 @@ function ServicesBlocks(data) {
       <div className="border-r-2"></div>
 
       {data.data.services.map((service, i) => (
-        <div className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
+        <div
+          className="flex w-52 shrink-0 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3"
+          key={i}
+        >
           <div className="flex justify-between">
             <IonIcon
               icon={globeOutline}

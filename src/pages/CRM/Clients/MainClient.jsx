@@ -136,7 +136,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {client?.sales_record} USD
+                  $ {Number(client?.sales_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
@@ -151,7 +151,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {client?.monthly_record} USD
+                  $ {Number(client?.monthly_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">

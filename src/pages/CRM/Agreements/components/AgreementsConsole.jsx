@@ -35,7 +35,7 @@ function AgreementsConsole({ services, customers }) {
   }
 
   return (
-    <div className="flex h-full w-full rounded-xl bg-blancoBg p-4">
+    <div className="flex h-full w-full overflow-auto rounded-xl bg-blancoBg p-4">
       <FormCreateContract
         modal={modal}
         setModal={setModal}
@@ -77,10 +77,13 @@ function AgreementsConsole({ services, customers }) {
           <TabsContent
             key={tab.id}
             value={tab.name}
-            className="flex h-full flex-wrap gap-6 overflow-y-scroll"
+            className="flex h-full flex-wrap gap-6 overflow-scroll"
           >
             {tab.agreements.map((agreement, i) => (
-              <div className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox">
+              <div
+                className="flex h-36 w-36 flex-col rounded-lg bg-blancoBox"
+                key={i}
+              >
                 <div className="h-full p-2 text-end">
                   <DropdownMenu>
                     <DropdownMenuTrigger>

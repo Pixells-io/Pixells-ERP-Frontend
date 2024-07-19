@@ -195,12 +195,12 @@ function Stages() {
         ? { ...stage, leads: lendsFilter }
         : { ...stage, leads: [] };
     });
-    
+
     setStagesFilter([...stagesAux]);
   };
 
   return (
-    <div className="flex h-full gap-2 overflow-auto">
+    <div className="flex h-full gap-2">
       {/* modal on drop drag */}
       <ProspectForm
         modal={modal.prospect}
@@ -280,7 +280,7 @@ function Stages() {
                 Type
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="max-h-[300px] w-full overflow-auto">
+            <DropdownMenuContent className="max-h-[300px] w-full">
               <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
@@ -325,7 +325,7 @@ function Stages() {
                 Name
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="max-h-[300px] w-full overflow-auto">
+            <DropdownMenuContent className="max-h-[300px] w-full">
               <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
@@ -346,14 +346,15 @@ function Stages() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="flex gap-2">
+        <div className="flex h-full gap-2">
           {stagesFilter?.map((stage, i) => (
             <div
               key={stage.id}
-              className="flex h-full w-[200px] shrink-0 flex-col gap-2"
+              className="flex w-[200px] shrink-0 flex-col gap-2"
               onDragOver={(evt) => draggingOver(evt)}
               onDrop={(evt) => onDrop(evt, stage.id)}
             >
+              {/* top */}
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
                 <p className="text-base text-grisText">{stage?.name}</p>
                 <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
@@ -362,8 +363,10 @@ function Stages() {
                   </p>
                 </div>
               </div>
-              <div className="flex h-full flex-col gap-2 overflow-scroll rounded-lg bg-blancoBox p-2">
-                <ul className="flex h-full flex-col gap-2">
+
+              {/* body */}
+              <div className="flex h-full flex-col gap-2 rounded-lg bg-blancoBox p-2">
+                <ul className="flex h-full flex-col gap-2 overflow-auto">
                   {stage?.leads.map((lead, i) => (
                     <li
                       draggable="true"

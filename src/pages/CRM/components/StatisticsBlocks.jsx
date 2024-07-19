@@ -22,10 +22,10 @@ function StatisticsBlock({ data }) {
             size="large"
             className="text-gris2"
           ></IonIcon>
-          <IonIcon
+          {/* <IonIcon
             icon={ellipsisHorizontal}
             className="text-xl text-grisSubText"
-          ></IonIcon>
+          ></IonIcon> */}
         </div>
         <div className="truncate text-xl font-bold text-blue-500">
           ${Number(data.new_sales).toFixed(2)}
@@ -47,10 +47,10 @@ function StatisticsBlock({ data }) {
       <div className="flex w-52 flex-col justify-center gap-2 rounded-lg bg-[#E8E8E8] px-4 py-3">
         <div className="flex justify-between">
           <IonIcon icon={walk} size="large" className="text-gris2"></IonIcon>
-          <IonIcon
+          {/* <IonIcon
             icon={ellipsisHorizontal}
             className="text-xl text-grisSubText"
-          ></IonIcon>
+          ></IonIcon> */}
         </div>
         <div className="text-xl font-bold text-blue-500">
           {data.new_clients}
@@ -76,10 +76,10 @@ function StatisticsBlock({ data }) {
             size="large"
             className="text-gris2"
           ></IonIcon>
-          <IonIcon
+          {/* <IonIcon
             icon={ellipsisHorizontal}
             className="text-xl text-grisSubText"
-          ></IonIcon>
+          ></IonIcon> */}
         </div>
         <div className="text-xl font-bold text-blue-500">{data.new_leads}</div>
         <div className="flex justify-between">
