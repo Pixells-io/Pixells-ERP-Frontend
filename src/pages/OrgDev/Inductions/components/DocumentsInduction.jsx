@@ -29,6 +29,8 @@ function DocumentsInduction({ documents, rel_id }) {
     console.log(id);
   }
 
+  console.log(documents);
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger>
@@ -55,9 +57,9 @@ function DocumentsInduction({ documents, rel_id }) {
                 </Link>
 
                 <Avatar className="size-4">
-                  <AvatarImage src={document?.creator.img} />
+                  <AvatarImage src={document?.creator?.img} />
                   <AvatarFallback>
-                    {document?.creator.name.slice(0, 2)}
+                    {document?.creator?.name?.slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
               </div>
