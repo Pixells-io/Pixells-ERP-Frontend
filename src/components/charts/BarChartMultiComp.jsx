@@ -21,6 +21,7 @@ export function BarChartMultiComp({
   chartConfig,
   title,
   subtitle,
+  dataKeyX,
   dataKeys,
   footerTitle,
   footerSubTitle,
@@ -36,14 +37,14 @@ export function BarChartMultiComp({
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey={dataKeyX}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
+              cursor={true}
               content={<ChartTooltipContent indicator="dashed" />}
             />
             {

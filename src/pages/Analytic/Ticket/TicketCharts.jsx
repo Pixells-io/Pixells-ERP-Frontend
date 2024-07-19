@@ -3,30 +3,9 @@ import { Button } from "@/components/ui/button";
 import { BarChartMultiComp } from "@/components/charts/BarChartMultiComp";
 import AverageTimeCard from "../Components/AverageTimeCard";
 
-const chartDataMulti = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
-
-const chartConfigMulti = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
-  },
+const orderNumberAndLimit = (data = [], limit = 0) => {
+  return data.sort((a, b) => b.number - a.number).slice(0, limit);
 };
-
-const dataKey = [
-  { dataKey: "desktop", fill: "var(--color-desktop)" },
-  { dataKey: "mobile", fill: "var(--color-mobile)" },
-];
 
 function TicketCharts({ data }) {
   return (
@@ -35,22 +14,34 @@ function TicketCharts({ data }) {
         <div className="col-span-10 grid grid-cols-12 gap-x-8 gap-y-4 pt-12 md:col-span-12 md:pt-0 xl:col-span-10">
           <div className="col-span-12 sm:col-span-12 xl:col-span-6">
             <BarChartMultiComp
-              chartData={chartDataMulti}
-              chartConfig={chartConfigMulti}
+              chartData={orderNumberAndLimit(data.tickets_created, 5)}
+              chartConfig={{
+                number: {
+                  label: "Created-",
+                  color: "hsl(var(--chart-1))",
+                },
+              }}
+              dataKeyX={"name"}
               title={"Creados"}
               subtitle={"puede agregar subtitle"}
-              dataKeys={dataKey}
+              dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
               footerTitle={"puede agregar footerTitle"}
               footerSubTitle={"puede agregar footerSubTitle"}
             />
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-6">
             <BarChartMultiComp
-              chartData={chartDataMulti}
-              chartConfig={chartConfigMulti}
+              chartData={orderNumberAndLimit(data.tickets_assigned, 5)}
+              chartConfig={{
+                number: {
+                  label: "Assigned-",
+                  color: "hsl(var(--chart-1))",
+                },
+              }}
+              dataKeyX={"name"}
               title={"Asignados"}
               subtitle={"puede agregar subtitle"}
-              dataKeys={dataKey}
+              dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
               footerTitle={"puede agregar footerTitle"}
               footerSubTitle={"puede agregar footerSubTitle"}
             />

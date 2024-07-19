@@ -21,6 +21,7 @@ export function BarChartComp({
   title,
   subtitle,
   dataKeyX,
+  dataKeyY,
   footerTitle,
   footerSubTitle,
 }) {
@@ -42,10 +43,10 @@ export function BarChartComp({
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              cursor={true}
+              content={<ChartTooltipContent />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+            <Bar dataKey={dataKeyY} fill={"var(--color-" +  dataKeyY + ")"} radius={8} />
           </BarChart>
         </ChartContainer>
       </CardContent>

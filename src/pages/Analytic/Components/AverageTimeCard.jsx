@@ -3,7 +3,6 @@ import { IonIcon } from "@ionic/react";
 import { time } from "ionicons/icons";
 
 function AverageTimeCard({ title, days }) {
-  console.log(days);
   return (
     <div className="rounded-md border border-blancoBox bg-white p-6">
       <div className="mb-4 flex justify-between">
@@ -18,7 +17,7 @@ function AverageTimeCard({ title, days }) {
         </span>
       </div>
       <div className="">
-        <span className="text-3xl font-bold text-primarioBotones">{days}</span>
+        <span className="text-3xl font-bold text-primarioBotones">{Math.round(days * 100) / 100}</span>
       </div>
     </div>
   );
