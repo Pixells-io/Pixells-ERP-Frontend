@@ -57,10 +57,10 @@ export function LineChartComp({
             <Line
               dataKey={dataKeyLabel}
               type="natural"
-              stroke="var(--color-desktop)"
+              stroke={"var(--color-" + dataKeyLabel + ")"}
               strokeWidth={2}
               dot={{
-                fill: "var(--color-desktop)",
+                fill: "var(--color-" + dataKeyLabel + ")",
               }}
               activeDot={{
                 r: 6,
@@ -78,7 +78,8 @@ export function LineChartComp({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          {footerTitle} {footerTitle !== "" && <TrendingUp className="h-4 w-4" />}
+          {footerTitle}{" "}
+          {footerTitle !== "" && <TrendingUp className="h-4 w-4" />}
         </div>
         <div className="leading-none text-muted-foreground">
           {footerSubTitle}

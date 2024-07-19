@@ -22,13 +22,14 @@ function PieChartComp({
   chartConfig,
   centerTitle,
   title,
+  total,
+  dataKeyLabel,
+  dataKeyCant,
   subtitle,
   footerTitle,
   footerSubTitle,
 }) {
-  const total = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+
 
   return (
     <Card className="flex flex-col rounded-xl">
@@ -48,8 +49,8 @@ function PieChartComp({
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey={dataKeyCant}
+              nameKey={dataKeyLabel}
               innerRadius={60}
               strokeWidth={5}
             >

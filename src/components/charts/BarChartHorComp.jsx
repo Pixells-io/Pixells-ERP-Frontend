@@ -51,10 +51,10 @@ export function BarChartHorComp({
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              cursor={true}
+              content={<ChartTooltipContent  />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
+            <Bar dataKey={dataKeyX} fill={"var(--color-" + dataKeyX + ")"} radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>

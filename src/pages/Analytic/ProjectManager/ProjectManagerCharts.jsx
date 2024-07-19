@@ -21,24 +21,13 @@ const chartConfigBarHor = {
   },
 };
 
-const chartDataLine = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
 
-const chartConfigLine = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
-  },
+const orderNumberAndLimit = (data = [], limit = 0) => {
+  return data.sort((a, b) => b.number - a.number).slice(0, limit);
+};
+
+const orderDesktopAndLimit = (data = [], limit = 0) => {
+  return data.sort((a, b) => b.desktop - a.desktop).slice(0, limit);
 };
 
 function ProjectManagerCharts({ data }) {
@@ -48,30 +37,41 @@ function ProjectManagerCharts({ data }) {
         <div className="col-span-12 grid grid-cols-12 gap-x-8 gap-y-4 pt-12 md:col-span-12 md:pt-0 xl:col-span-10">
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <LineChartComp
-              chartData={chartDataLine}
-              chartConfig={chartConfigLine}
+              chartData={data.activity_created}
+              chartConfig={{
+                number: {
+                  label: "Created-",
+                  color: "hsl(var(--chart-1))",
+                },
+              }}
               title={"More Activities Created"}
               subtitle={"January - June 2024"}
-              dataKeyX={"month"}
-              dataKeyLabel={"desktop"}
+              dataKeyX={"name"}
+              dataKeyLabel={"number"}
+              dataKeyVar={"number"}
               footerTitle={"Trending up by 5.2% this month"}
               footerSubTitle={"Showing total visitors for the last 6 months"}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <BarChartComp
-              chartData={data.activity_created}
-              chartConfig={chartConfigBarHor}
+              chartData={orderNumberAndLimit(data.activity_complete, 5)}
+              chartConfig={{
+                number: {
+                  label: "Activities-",
+                  color: "hsl(var(--chart-2))",
+                },
+              }}
               title={"More Activities Completed"}
               subtitle={"January - June 2024"}
               dataKeyX={"name"}
-              dataKeyLabel={"number"}
+              dataKeyY={"number"}
               footerTitle={"Trending up by 5.2% this month "}
               footerSubTitle={"Showing total visitors for the last 6 months"}
-            />{" "}
+            />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
-            <BarChartComp
+            {/* <BarChartComp
               chartData={chartDataBarHor}
               chartConfig={chartConfigBarHor}
               title={"Average Time Completed Task"}
@@ -79,18 +79,23 @@ function ProjectManagerCharts({ data }) {
               dataKeyX={"month"}
               footerTitle={"Trending up by 5.2% this month "}
               footerSubTitle={"Showing total visitors for the last 6 months"}
-            />{" "}
+            />{" "} */}
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <BarChartHorComp
-              chartData={chartDataBarHor}
-              chartConfig={chartConfigBarHor}
+              chartData={orderDesktopAndLimit(data.priority, 5)}
+              chartConfig={{
+                desktop: {
+                  label: "Priority-",
+                  color: "hsl(var(--chart-1))",
+                },
+              }}
               title={"Top Priority"}
-              subtitle={"January - June 2024"}
+              subtitle={"puede agregar subTitle"}
               dataKeyX={"desktop"}
-              dataKeyY={"month"}
-              footerTitle={"Trending up by 5.2% this month "}
-              footerSubTitle={"Showing total visitors for the last 6 months"}
+              dataKeyY={"name"}
+              footerTitle={"puede agregar footerTitle"}
+              footerSubTitle={"puede agregar footerSubTitle"}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
