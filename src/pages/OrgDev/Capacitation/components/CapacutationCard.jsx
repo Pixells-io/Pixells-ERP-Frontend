@@ -78,15 +78,17 @@ function CapacutationCard({ card }) {
           </div>
         )}
       </div>
-      <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
-        <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
-          <IonIcon
-            icon={caretForwardOutline}
-            className="flex pl-1 text-white"
-            size="large"
-          ></IonIcon>
-        </Link>
-      </div>
+      {card?.exam_id !== 0 && (
+        <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+          <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
+            <IonIcon
+              icon={caretForwardOutline}
+              className="flex pl-1 text-white"
+              size="large"
+            ></IonIcon>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
