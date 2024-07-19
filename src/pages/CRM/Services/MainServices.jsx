@@ -32,6 +32,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import NewPackageForm from "./components/Forms/NewPackageForm";
 import PackagesTable from "./components/Tables/PackagesTable";
+import DataTable from "@/components/table/DataTable";
+import { ServicesColumns } from "./components/Tables/ServicesColumns";
+import { CategoriesColumns } from "./components/Tables/CategoriesColumns";
+import { PackagesColumns } from "./components/Tables/PackagesColumns";
 
 function MainServices() {
   /* Set Modals Open */
@@ -170,7 +174,7 @@ function MainServices() {
                   MEMBERSHIP
                 </TabsTrigger>
               </div>
-              <div className="w-1/5">
+              {/* <div className="w-1/5">
                 <div className="mt-5 flex h-10 w-44 items-end rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">
                   <Label htmlFor="search">
                     <IonIcon
@@ -184,17 +188,38 @@ function MainServices() {
                     placeholder="SEARCH EMAILS"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </TabsList>
-          <TabsContent value="services">
-            <ServicesTable services={services.data} />
+          <TabsContent value="services" className="mt-[-60px]">
+            <DataTable
+              data={services.data}
+              columns={ServicesColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
+            {/* <ServicesTable services={services.data} /> */}
           </TabsContent>
-          <TabsContent value="categories">
-            <CategoriesTable categories={categories.data} />
+          <TabsContent value="categories" className="mt-[-60px]">
+            <DataTable
+              data={categories.data}
+              columns={CategoriesColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
+            {/* <CategoriesTable categories={categories.data} /> */}
           </TabsContent>
-          <TabsContent value="packages" className="">
-            <PackagesTable packages={packages.data} />
+          <TabsContent value="packages" className="mt-[-60px]">
+            <DataTable
+              data={packages.data}
+              columns={PackagesColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
+            {/* <PackagesTable packages={packages.data} /> */}
           </TabsContent>
         </Tabs>
         <Outlet />
