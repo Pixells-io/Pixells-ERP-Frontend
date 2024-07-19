@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 
 import {
   Card,
@@ -15,43 +15,65 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-
-export function BarChartMultiComp({
+export function LineChartComp({
   chartData,
   chartConfig,
   title,
   subtitle,
-  dataKeys,
+  dataKeyX,
+  dataKeyLabel,
   footerTitle,
   footerSubTitle,
 }) {
   return (
-    <Card className="rounded-xl">
+    <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              top: 20,
+              left: 12,
+              right: 12,
+            }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey={dataKeyX}
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
+              content={<ChartTooltipContent indicator="line" />}
             />
-            {
-              dataKeys.map((dk, index) => (
-                <Bar key={index} dataKey={dk.dataKey} fill={dk.fill} radius={4} />
-              ))
-            }
-          </BarChart>
+            <Line
+              dataKey={dataKeyLabel}
+              type="natural"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={{
+                fill: "var(--color-desktop)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
+            >
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+              />
+            </Line>
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">

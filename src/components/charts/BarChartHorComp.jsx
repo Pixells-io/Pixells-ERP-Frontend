@@ -1,5 +1,5 @@
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -8,34 +8,28 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
+} from "@/components/ui/chart";
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-}
-
-export function BarChartHorComp() {
+export function BarChartHorComp({
+  chartData,
+  chartConfig,
+  title,
+  subtitle,
+  dataKeyX,
+  dataKeyY,
+  footerTitle,
+  footerSubTitle,
+}) {
   return (
     <Card className="rounded-xl">
       <CardHeader>
-        <CardTitle>Bar Chart - Horizontal</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -47,9 +41,9 @@ export function BarChartHorComp() {
               left: -20,
             }}
           >
-            <XAxis type="number" dataKey="desktop" hide />
+            <XAxis type="number" dataKey={dataKeyX} hide />
             <YAxis
-              dataKey="month"
+              dataKey={dataKeyY}
               type="category"
               tickLine={false}
               tickMargin={10}
@@ -66,12 +60,12 @@ export function BarChartHorComp() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          {footerTitle} {footerTitle !== "" && <TrendingUp className="h-4 w-4" />}
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          {footerSubTitle}
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

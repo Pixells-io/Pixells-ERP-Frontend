@@ -4,6 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CrmCharts from "./Crm/CrmCharts";
 import TicketCharts from "./Ticket/TicketCharts";
+import ProjectManagerCharts from "./ProjectManager/ProjectManagerCharts";
 
 function MainAnalytic() {
   return (
@@ -65,7 +66,10 @@ function MainAnalytic() {
               <CrmCharts />
             </TabsContent>
             <TabsContent className="p-2" value="tickets">
-                <TicketCharts />
+              <TicketCharts />
+            </TabsContent>
+            <TabsContent className="p-2" value="projectsManager">
+              <ProjectManagerCharts />
             </TabsContent>
           </Tabs>
         </div>
