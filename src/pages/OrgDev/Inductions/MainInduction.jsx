@@ -195,45 +195,6 @@ function MainInduction() {
           </div>
         </div>
       </div>
-      <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
-        <div className="flex justify-center">
-          <p className="font-poppins text-lg font-semibold text-grisHeading">
-            Accesos Rápidos
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {PEOPLE.map((item, i) => (
-            <div className="flex" key={i}>
-              <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex h-12 w-12 items-center justify-center">
-                  <Avatar className="h-full w-full rounded-lg">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </div>
-                {item.status == "Pending" ? (
-                  <span className="w-fit rounded-full bg-[#FAA36440] px-2 py-[2px] text-[11px] text-[#FAA364]">
-                    {item.status}
-                  </span>
-                ) : (
-                  <span className="w-fit rounded-full bg-[#7794F940] px-2 py-[2px] text-[11px] text-[#7794F9]">
-                    {item.status}
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="text-base font-medium text-grisText">
-                  {item.name}
-                </p>
-                <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                  {item.position}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
