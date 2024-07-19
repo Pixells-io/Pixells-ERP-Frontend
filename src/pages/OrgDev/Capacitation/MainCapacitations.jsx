@@ -142,7 +142,7 @@ function MainCapacitations() {
         />
 
         <div className="rounded-lg bg-blancoBg pt-2">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
                 <p className="text-sm font-semibold text-grisText">NOMBRE</p>
