@@ -67,10 +67,15 @@ function Customer({ customer, stepId }) {
                 <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primario">
                   Business
                 </span>
-
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  {customer?.status == 1 ? "Activo" : "Inactivo"}
-                </span>
+                {customer?.status == 1 ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Inactive
+                  </span>
+                )}
               </div>
             )}
           </div>
