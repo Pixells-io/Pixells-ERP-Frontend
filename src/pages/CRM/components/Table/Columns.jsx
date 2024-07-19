@@ -36,7 +36,7 @@ export const columns = [
     },
   },
   {
-    accessorKey: "contact",
+    accessorKey: "contact_name",
     header: "NAME",
     cell: ({ row }) => {
       console.log(row.original);

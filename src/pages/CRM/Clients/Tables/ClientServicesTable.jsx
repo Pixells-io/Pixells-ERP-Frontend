@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { useParams, useSubmit } from "react-router-dom";
 
 import {
   useReactTable,
@@ -8,19 +8,29 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 
-import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
-import { getArea, getAreas } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import AddCommentsClient from "../AddCommentsClient";
 
 function ClientServicesTable({ services }) {
+  const params = useParams();
+  const submit = useSubmit();
   //Web Socket
-
   const data = services;
 
-  console.log(services);
-
   const columnHelper = createColumnHelper();
+
+  function setStatusClient(id) {
+    submit(
+      { client_id: id, type: "10" },
+      { method: "post", action: `/crm/client/${params.id}` },
+    );
+  }
 
   const columns = [
     columnHelper.accessor((row) => `${row.id}`, {
@@ -35,19 +45,32 @@ function ClientServicesTable({ services }) {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
-          <>
-            {row.original.status === 1 ? (
-              <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              {row.original.status == 1 ? (
+                <span className="rounded-2xl border bg-[#00A25940] px-3 py-1 text-xs font-normal text-[#00A259]">
+                  Active
+                </span>
+              ) : (
+                <span className="rounded-2xl border bg-[#D7586B40] px-3 py-1 text-xs font-normal text-[#D7586B]">
+                  Inactive
+                </span>
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={() => setStatusClient(row.original.id)}
+              >
                 Active
-              </span>
-            ) : (
-              <span className="rounded-2xl border bg-red-400 px-3 py-1 text-xs font-normal text-red-600">
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setStatusClient(row.original.id)}
+              >
                 Inactive
-              </span>
-            )}
-          </>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         );
       },
     },
@@ -55,7 +78,6 @@ function ClientServicesTable({ services }) {
       accessorKey: "step",
       header: "Step",
       cell: ({ row }) => {
-        console.log(row?.original);
         return <p> {row.original.step} </p>;
       },
     },
@@ -63,10 +85,9 @@ function ClientServicesTable({ services }) {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + ${row.original.price}
+            +${Number(row.original.price).toFixed(2)}
           </span>
         );
       },
@@ -78,7 +99,7 @@ function ClientServicesTable({ services }) {
         // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            + ${row.original.price}
+            +${Number(row.original.price).toFixed(2)}
           </span>
         );
       },
@@ -99,6 +120,18 @@ function ClientServicesTable({ services }) {
               </span>
             )}
           </>
+        );
+      },
+    },
+    {
+      accessorKey: "comments",
+      header: "Comments",
+      cell: ({ row }) => {
+        return (
+          <AddCommentsClient
+            customerId={row?.original.id}
+            comments={row?.original.comments}
+          />
         );
       },
     },
@@ -138,7 +171,6 @@ function ClientServicesTable({ services }) {
                       className="h-12 px-4 text-left align-middle font-roboto text-base font-medium text-[#2C2E2C] text-muted-foreground [&:has([role=checkbox])]:pr-0"
                       id={header.id}
                     >
-                      {" "}
                       {header.isPlaceholder
                         ? null
                         : flexRender(

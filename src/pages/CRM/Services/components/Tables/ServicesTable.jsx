@@ -63,7 +63,7 @@ function ServicesTable({ services }) {
     <div className="relative w-full overflow-auto">
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
-          {table.getHeaderGroups().map((headerGroup) => {
+          {table.getHeaderGroups().map((headerGroup, i) => {
             return (
               <tr
                 className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"

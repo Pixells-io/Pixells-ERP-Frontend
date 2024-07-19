@@ -52,13 +52,13 @@ function Customer({ customer, stepId }) {
           </div>
           <div>
             {customer?.type == 1 ? (
-              <div className="flex w-full items-center justify-between">
+              <div className="flex w-full items-center justify-between py-1">
                 <span className="w-fit gap-1 rounded-full border border-[#00a9b3] px-2 text-[8px] text-[#00a9b3]">
                   Individual
                 </span>
 
                 <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
+                  {customer?.status == 1 ? "Activo" : "Inactivo"}
                 </span>
               </div>
             ) : (
@@ -68,7 +68,7 @@ function Customer({ customer, stepId }) {
                 </span>
 
                 <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
+                  {customer?.status == 1 ? "Activo" : "Inactivo"}
                 </span>
               </div>
             )}
