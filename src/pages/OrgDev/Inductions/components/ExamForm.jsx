@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, closeCircle } from "ionicons/icons";
 import ExamQuestion from "./ExamQuestion";
@@ -108,7 +100,6 @@ function ExamForm() {
         idx === questionIndex ? { ...item, type: e } : item,
       ),
     );
-    // console.log("Tipo:", e);
   }
 
   function onChangeAnswer(questionIdx, answerIdx, e) {
@@ -128,17 +119,47 @@ function ExamForm() {
 
   function onChangeCheckBox(questionIdx, answerIdx) {
     setQuestions(
-      questions.map((question, idx) =>
-        idx === questionIdx
-          ? {
+      questions.map((question, idx) => {
+        if (idx === questionIdx) {
+          // Checar el tipo de pregunta si es single
+          if (question.type === "0") {
+            const updatedAnswers = question.answers.map((item, i) => ({
+              ...item,
+              correct: false, // Set all answers to incorrect
+            }));
+
+            // setear la respuesta correcta
+            updatedAnswers[answerIdx].correct =
+              !question.answers[answerIdx].correct;
+
+            return { ...question, answers: updatedAnswers };
+          } else {
+            // para las multiples
+            return {
               ...question,
               answers: question.answers.map((item, i) =>
                 i === answerIdx ? { ...item, correct: !item.correct } : item,
               ),
-            }
-          : question,
-      ),
+            };
+          }
+        } else {
+          return question;
+        }
+      }),
     );
+    ////Old Code
+    // setQuestions(
+    //   questions.map((question, idx) =>
+    //     idx === questionIdx
+    //       ? {
+    //           ...question,
+    //           answers: question.answers.map((item, i) =>
+    //             i === answerIdx ? { ...item, correct: !item.correct } : item,
+    //           ),
+    //         }
+    //       : question,
+    //   ),
+    // );
   }
 
   return (
