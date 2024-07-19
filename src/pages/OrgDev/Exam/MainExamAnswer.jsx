@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -36,6 +36,44 @@ function MainExamAnswer() {
   const { id } = useParams();
 
   const { data } = useLoaderData();
+  console.log(data);
+
+  //CONTADOR
+  const [counter, setCounter] = useState(0);
+  const durationInSeconds = data?.duration * 60;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCounter((prevCounter) => {
+        // Check if the counter has reached the durationInSeconds threshold
+        if (prevCounter >= durationInSeconds - 1) {
+          clearInterval(timer); // Stop the timer
+          onSubmit(); // Call the submit function
+          return prevCounter; // Return the current counter value to avoid incrementing
+        }
+        return prevCounter + 1; // Increment the counter
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); // Ensure the timer is cleared if the component unmounts
+  }, [durationInSeconds]);
+
+  // //SIMPLE TIMER
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCounter((prevCounter) => prevCounter + 1);
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, []);
+
+  async function onSubmit() {
+    console.log("Time Out, Exam Submitted");
+  }
+
+  if (counter >= durationInSeconds) {
+    onSubmit();
+  }
 
   return (
     <div className="flex w-full">
@@ -86,12 +124,12 @@ function MainExamAnswer() {
               <span className="self-end text-[8px] text-grisSubText">
                 Minutos
               </span>
-              <Button
-                form="form-submit-answer-exam"
-                className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
-              >
-                Submit
-              </Button>
+              <div>
+                <p className="font-small text-grisText">Tiempo Transcurrido:</p>
+                <p color="#5B89FF">
+                  {Math.floor(counter / 60)} : {counter % 60} min
+                </p>
+              </div>
             </div>
           </div>
           <Form
@@ -103,10 +141,16 @@ function MainExamAnswer() {
             <input type="hidden" name="type" value="1" />
             {/* Show Questions */}
             {data?.questions.map((question, i) => (
-              <ExamQuestionAnswer question={question} />
+              <ExamQuestionAnswer key={i} question={question} />
             ))}
           </Form>
         </div>
+        <Button
+          form="form-submit-answer-exam"
+          className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+        >
+          Submit
+        </Button>
       </div>
 
       {/* sidebar */}

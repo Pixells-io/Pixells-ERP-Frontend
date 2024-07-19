@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 import {
   Select,
@@ -16,19 +16,47 @@ import {
   closeOutline,
 } from "ionicons/icons";
 
-function ExamQuestionShow({ question }) {
+function ExamQuestionShow({
+  question,
+  localData,
+  setLocalData,
+  questionIndex,
+  updateQuestionText,
+  updateAnswerText,
+  onChangeType,
+}) {
+  const [questionText, setQuestionText] = useState(question?.question || "");
+  const [answers, setAnswers] = useState(question?.answers || []);
+  const [questionType, setQuestionType] = useState(question?.type || "");
+
+  console.log("question data:", questionText);
+
+  const onChangeAnswer = (answerIndex, e) => {
+    // Use the passed updateAnswerText function to update the answer text
+    updateAnswerText(questionIndex, answerIndex, e.target.value);
+  };
   // console.log(index);
   return (
-    <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
-      <div className="flex px-6 py-3 items-center justify-between">
+    <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+      <div className="flex items-center justify-between px-6 py-3">
         <p className="font-medium text-grisText">Pregunta</p>
+        <Select onValueChange={(e) => onChangeType(questionIndex, e)}>
+          <SelectTrigger className="w-[100px] border-0 border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs">
+            <SelectValue placeholder="Tipo" className="" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="0">Singular</SelectItem>
+            <SelectItem value="1">Multiple</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div className="flex gap-2 border-t px-4 py-4">
         <input
-          value={question?.question}
+          value={question.question}
+          onChange={(e) => updateQuestionText(questionIndex, e.target.value)}
           type="text"
           placeholder="Escribe la pregunta"
-          className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
+          className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
         />
       </div>
       <div className="flex flex-col gap-2 px-4 py-4">
@@ -36,20 +64,31 @@ function ExamQuestionShow({ question }) {
           <div className="flex items-center gap-2" key={i}>
             <input
               value={answer.answer}
+              onChange={(e) => onChangeAnswer(i, e)}
               type="text"
               placeholder="Escribe una respuesta"
-              className=" placeholder:bg-blancoForms text-xs placeholder:text-xs placeholder:p-2 p-2 w-3/5 bg-blancoForms"
+              className="w-3/5 bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
             />
             {answer.correct == 1 ? (
               <IonIcon
                 icon={checkmarkOutline}
-                className=" hover:text-green-700 w-5 h-5"
+                className="h-5 w-5 hover:text-green-700"
               ></IonIcon>
             ) : (
               <IonIcon
                 icon={closeOutline}
-                className=" hover:text-red-700 w-5 h-5"
+                className="h-5 w-5 hover:text-red-700"
               ></IonIcon>
+            )}
+            {questionType == "" ? (
+              <p className="text-[8px]">Selecciona un Tipo</p>
+            ) : (
+              <input
+                onChange={(e) => onChangeCheckBox(questionIndex, index)}
+                checked={answer.correct}
+                type="checkbox"
+                // className="appearance-none rounded-full border border-grisText h-4 w-4"
+              />
             )}
           </div>
         ))}
