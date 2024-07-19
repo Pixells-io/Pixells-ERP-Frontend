@@ -5,23 +5,6 @@ import { BarChartComp } from "@/components/charts/BarChartComp";
 import AverageTimeCard from "../Components/AverageTimeCard";
 import { BarChartHorComp } from "@/components/charts/BarChartHorComp";
 
-const chartDataBarHor = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
-
-const chartConfigBarHor = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-};
-
-
 const orderNumberAndLimit = (data = [], limit = 0) => {
   return data.sort((a, b) => b.number - a.number).slice(0, limit);
 };
@@ -37,7 +20,7 @@ function ProjectManagerCharts({ data }) {
         <div className="col-span-12 grid grid-cols-12 gap-x-8 gap-y-4 pt-12 md:col-span-12 md:pt-0 xl:col-span-10">
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <LineChartComp
-              chartData={data.activity_created}
+              chartData={orderNumberAndLimit(data.activity_created, 5)}
               chartConfig={{
                 number: {
                   label: "Created-",
@@ -71,15 +54,21 @@ function ProjectManagerCharts({ data }) {
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
-            {/* <BarChartComp
-              chartData={chartDataBarHor}
-              chartConfig={chartConfigBarHor}
+            <BarChartComp
+              chartData={orderNumberAndLimit(data.strategic_objetives_task, 5)}
+              chartConfig={{
+                number: {
+                  label: "Activities-",
+                  color: "hsl(var(--chart-2))",
+                },
+              }}
               title={"Average Time Completed Task"}
               subtitle={"January - June 2024"}
-              dataKeyX={"month"}
+              dataKeyX={"name"}
+              dataKeyY={"number"}
               footerTitle={"Trending up by 5.2% this month "}
               footerSubTitle={"Showing total visitors for the last 6 months"}
-            />{" "} */}
+            />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <BarChartHorComp
