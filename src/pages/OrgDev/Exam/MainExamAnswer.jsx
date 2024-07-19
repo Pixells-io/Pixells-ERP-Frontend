@@ -125,9 +125,7 @@ function MainExamAnswer() {
                 Minutos
               </span>
               <div>
-                <p className="font-medium text-grisText">
-                  Tiempo Transcurrido:
-                </p>
+                <p className="font-small text-grisText">Tiempo Transcurrido:</p>
                 <p color="#5B89FF">
                   {Math.floor(counter / 60)} : {counter % 60} min
                 </p>
