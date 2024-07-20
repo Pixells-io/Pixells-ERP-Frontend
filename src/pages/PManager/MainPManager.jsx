@@ -30,6 +30,7 @@ import {
   editCSF,
   editGoal,
   editStrategicObjective,
+  editTask,
   saveNewCsf,
   saveNewGoal,
   saveNewTask,
@@ -223,10 +224,10 @@ function MainPManager() {
               Projects
             </NavLink>
             <NavLink
-              to={`/project-manager/${params.id}/projects`}
+              to={`/project-manager/${params.id}/completed`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}/projects`
+                location.pathname === `/project-manager/${params.id}/completed`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
@@ -249,8 +250,6 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
-  console.log();
-
   switch (action) {
     case "goal":
       await saveNewGoal(formData, paramId);
@@ -262,6 +261,10 @@ export async function multiFormAction({ params, request }) {
 
     case "task":
       await saveNewTask(formData);
+      return redirect(`/project-manager/${params.id}`);
+
+    case "edit-task":
+      await editTask(formData);
       return redirect(`/project-manager/${params.id}`);
 
     case "edit-obj":

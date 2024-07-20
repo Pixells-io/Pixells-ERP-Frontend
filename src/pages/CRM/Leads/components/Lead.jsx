@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
 import { call, chatbubbleEllipses, mailOpen } from "ionicons/icons";
+
 import { format } from "date-fns";
+
 import CommentsLead from "./CommentsLead";
 
+const formatNumber = (number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(number);
+};
+
 function Lead({ lead, setModal }) {
-  console.log(lead.services);
   return (
     <div className="rounded-lg bg-white p-2">
       <div className="flex flex-col gap-2">
@@ -27,9 +38,23 @@ function Lead({ lead, setModal }) {
                   Individual
                 </span>
 
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
-                </span>
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
               </div>
             ) : (
               <div className="flex w-full justify-between">
@@ -37,9 +62,23 @@ function Lead({ lead, setModal }) {
                   Business
                 </span>
 
-                <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
-                  Active
-                </span>
+                {lead?.status == "1" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#00A259] px-2 text-[8px] text-[#00A259]">
+                    Active
+                  </span>
+                ) : lead?.status == "2" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#FAA364] px-2 text-[8px] text-[#FAA364]">
+                    Suspended
+                  </span>
+                ) : lead?.status == "3" ? (
+                  <span className="w-fit gap-1 rounded-full border border-[#D7586B] px-2 text-[8px] text-[#D7586B]">
+                    Canceled
+                  </span>
+                ) : (
+                  <span className="w-fit gap-1 rounded-full border border-primarioBotones px-2 text-[8px] text-primarioBotones">
+                    Done
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -250,15 +289,27 @@ function Lead({ lead, setModal }) {
           )}
 
           {lead?.step_id == 5 && (
-            <div className="flex flex-col gap-2">
-              <div>
-                <p className="text-[10px] font-medium text-grisText">
-                  Month Billing
-                </p>
+            <div className="flex flex-col gap-3">
+              <p className="text-[10px] font-medium text-grisText">
+                Services{" "}
+                <span className="items-center justify-center rounded-full border border-primario px-1">
+                  {lead.services.length}
+                </span>
+              </p>
+              <div className="flex flex-col gap-1">
                 {lead.services.map((service, i) => (
-                  <span className="line-clamp-none text-[12px] text-grisHeading">
-                    {service.service} {service.recurency} {service.ammount}
-                  </span>
+                  <div className="text-[10px] text-grisHeading" key={i}>
+                    <p>
+                      <span>{i + 1} - </span> {service.service} -
+                      <span>
+                        {" "}
+                        {service.recurency == 0 ? "Monthly" : "Annual"}
+                      </span>{" "}
+                      <span>{formatNumber(service.ammount)}</span>{" "}
+                    </p>
+                    <p> </p>
+                    <p></p>
+                  </div>
                 ))}
               </div>
               <div>

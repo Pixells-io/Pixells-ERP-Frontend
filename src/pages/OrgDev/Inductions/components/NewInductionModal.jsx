@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { Form } from "react-router-dom";
 import {
@@ -9,13 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import FormInput from "@/layouts/CRM/components/Form/FormInput";
 
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
-import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import SelectMultiple from "@/components/ui/selectMultiple";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function NewInductionModal({ modal, setModal, positions, areas }) {
   const typeOptions = [
@@ -59,24 +56,26 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
-        <DialogHeader>
-          <DialogTitle className="font-poppins">Create Induction</DialogTitle>
-        </DialogHeader>
+      <DialogContent className="h-[500px] overflow-auto sm:max-w-[425px]">
+        <div className="-mx-6 border-b pb-2 pl-2">
+          <DialogHeader className="px-6">
+            <DialogTitle className="font-poppins">Create Induction</DialogTitle>
+          </DialogHeader>
+        </div>
         <Form
           id="induction-create-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0"
           action="/org-development/induction"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
-              <FormInput
+          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
+              <InputRouter
                 name="name"
                 type="text"
                 placeholder="Name of the Induction"
               />
-              <FormInput
+              <InputRouter
                 name="description"
                 type="text"
                 placeholder="Description of the Induction"
@@ -102,7 +101,7 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
         <DialogFooter className="h-auto">
           <Button
             form="induction-create-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>

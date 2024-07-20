@@ -13,6 +13,7 @@ import FormNewLead from "./components/Form/FormNewLead";
 import FormNewSale from "./components/Form/FormNewSale";
 
 import {
+  newSale,
   removeClient,
   removeLead,
   saveImportClients,
@@ -20,7 +21,7 @@ import {
 } from "./utils";
 
 function SideLayout() {
-  const { services, customers } = useLoaderData();
+  const { services, customers, memberships } = useLoaderData();
   const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -40,7 +41,11 @@ function SideLayout() {
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
             {/* <FormNewClient /> */}
-            <FormNewSale navigation={navigation} clients={customers} />
+            <FormNewSale
+              clients={customers}
+              membership={memberships}
+              services={services}
+            />
           </div>
 
           <div className="my-4 border-b border-gris2"></div>
@@ -77,6 +82,10 @@ export async function Action({ request }) {
 
     case "delete-client":
       await removeClient(data);
+      return redirect("/crm");
+
+    case "add-on":
+      await newSale(data);
       return redirect("/crm");
   }
 }

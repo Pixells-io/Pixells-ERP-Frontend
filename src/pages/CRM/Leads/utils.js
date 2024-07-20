@@ -278,6 +278,7 @@ export async function editLeadForm(data) {
     contact_last_name: data.get("contact_last_name"),
     contact_phone: data.get("contact_phone"),
     contact_email: data.get("contact_email"),
+    services: data.getAll("services"),
   };
 
   // validaciones?
@@ -304,6 +305,26 @@ export async function addCommentLead(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}person/post-lead-comment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editStatusLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    status: data.get("status"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/change-lead_status`,
     {
       method: "POST",
       body: JSON.stringify(info),

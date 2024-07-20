@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
+  addCircle,
   card,
   checkmarkCircle,
   chevronBack,
@@ -14,6 +15,8 @@ import {
   time,
 } from "ionicons/icons";
 import CardFollowUp from "./CardFollowUp";
+
+import { format } from "date-fns";
 
 function MainLead() {
   const [
@@ -28,7 +31,7 @@ function MainLead() {
   ] = useOutletContext();
   const step = main_lead.step;
 
-  console.log(onBoarding);
+  console.log(services);
 
   return (
     <div className="flex w-full">
@@ -217,11 +220,50 @@ function MainLead() {
 
         {/* cards */}
         <div className="flex h-full w-full flex-col items-center overflow-auto bg-blancoBg">
+          <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
+            {/* card header */}
+            <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
+              <div className="flex items-center gap-2 p-1">
+                <IonIcon
+                  icon={addCircle}
+                  size="large"
+                  className="text-primario"
+                ></IonIcon>
+
+                <p className="text-[15px] font-medium text-gris2">New Lead</p>
+              </div>
+              <div className="flex items-center gap-2 p-1 text-grisSubText">
+                <div className="flex items-center gap-1">
+                  <IonIcon icon={time} className=""></IonIcon>
+                  <span className="text-[10px]">
+                    {format(lead.created_at, "PP")}
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/* card content */}
+            <div className="flex justify-between px-3">
+              <div className="mt-2 flex gap-6">
+                <div className="gap-1">
+                  {services?.map((service, i) => (
+                    <div className="mt-2 flex gap-4">
+                      <p className="text-xs font-medium text-grisSubText">
+                        Service:
+                      </p>
+                      <p className="text-xs font-medium text-grisSubText">
+                        {service.name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
           {follow_ups?.map((follow, i) => (
             <CardFollowUp info={follow} />
           ))}
           {/* Here is the cards */}
-          {closing != null ? (
+          {closing != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
@@ -259,13 +301,13 @@ function MainLead() {
                       Recurrent Pay
                     </span>
                     <span className="text-xs text-grisHeading">
-                      ${closing.month_billing}
+                      ${closing?.month_billing}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between px-3">
-                {closing.sales.map((sale, i) => (
+              <div className="justify-between px-3">
+                {closing?.sales.map((sale, i) => (
                   <div className="mt-3 flex gap-6" key={i}>
                     <div className="flex flex-col gap-1">
                       <p className="text-xs font-medium text-grisSubText">
@@ -288,7 +330,7 @@ function MainLead() {
               </div>
             </div>
           ) : null}
-          {pay != null ? (
+          {pay != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
@@ -335,7 +377,7 @@ function MainLead() {
               </div>
             </div>
           ) : null}
-          {onBoarding != null ? (
+          {onBoarding != "N/A" ? (
             <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
               {/* card header */}
               <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">

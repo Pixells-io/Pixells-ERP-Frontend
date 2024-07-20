@@ -28,13 +28,21 @@ export const clientColumns = [
   {
     accessorKey: "business_name",
     header: "COMPANY",
+    meta: {
+      filterButton: true,
+    },
+    filterFn: "equals",
   },
   {
-    accessorKey: "name",
+    accessorKey: "contact_name",
     header: "NAME",
     cell: ({ row }) => {
       return <span>{row?.original.contact_name}</span>;
     },
+    meta: {
+      filterButton: true,
+    },
+    filterFn: "equals",
   },
   {
     accessorKey: "middleName",

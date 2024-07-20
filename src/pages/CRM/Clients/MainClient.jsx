@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
 import {
   assignInterview,
+  changeStatusClient,
   deleteAddress,
   deleteContact,
   deleteDocument,
@@ -29,6 +30,7 @@ import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
 import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
+import { addCommentClient } from "../Progress/util";
 
 function MainClient() {
   const { data } = useLoaderData();
@@ -65,8 +67,6 @@ function MainClient() {
     setDocumentsId(id);
     setModalDestroyDocuments(true);
   }
-
-  console.log(client);
 
   return (
     <>
@@ -136,7 +136,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {client?.sales_record} USD
+                  $ {Number(client?.sales_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
@@ -151,7 +151,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {client?.monthly_record} USD
+                  $ {Number(client?.monthly_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
@@ -485,38 +485,53 @@ function MainClient() {
 
 export default MainClient;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
+  const action = data.get("type");
 
-  switch (data.get("type")) {
+  switch (action) {
     case "1":
       storeCustomerAdress(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "2":
       storeCustomerContacts(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "3":
       storeCustomerDocuments(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "4":
       deleteAddress(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "5":
       deleteContact(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "6":
       deleteDocument(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "7":
       editClientInfo(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "8":
       editAccessInfo(data);
-      break;
+      return redirect(`/crm/client/${params.id}`);
+
     case "9":
       assignInterview(data);
-      break;
-  }
+      return redirect(`/crm/client/${params.id}`);
 
-  return 1;
+    case "10":
+      changeStatusClient(data);
+      return redirect(`/crm/client/${params.id}`);
+
+    case "11":
+      await addCommentClient(data);
+      return redirect(`/crm/client/${params.id}`);
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Form, useNavigation, useParams } from "react-router-dom";
 import {
@@ -8,13 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { IonIcon } from "@ionic/react";
-import { add, closeCircle } from "ionicons/icons";
+
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function FormRequireDocument({ modal, setModal, customer, stepId }) {
-  const [processValue, setProcessValue] = useState([]);
+function FormRequireDocument({ modal, setModal, customer }) {
   const navigation = useNavigation();
   const { id } = useParams();
 
@@ -42,7 +39,7 @@ function FormRequireDocument({ modal, setModal, customer, stepId }) {
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <input
                 type="hidden"
-                value={customer.customer_id}
+                value={customer?.customer_id}
                 name="customer_id"
               />
               <input type="hidden" value={id} name="service_id" />
@@ -60,7 +57,7 @@ function FormRequireDocument({ modal, setModal, customer, stepId }) {
             <button
               type="submit"
               className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
-              onClick={setModal(false)}
+              onClick={() => setModal(false)}
             >
               Save
             </button>

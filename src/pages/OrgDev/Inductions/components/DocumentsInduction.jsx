@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Link, useNavigation, useParams } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -7,17 +7,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { add, closeCircle, send } from "ionicons/icons";
+import { add, send } from "ionicons/icons";
 
 import DropzoneFile from "@/components/dropzone-files";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DocumentDestroy from "./DocumentsDestroy";
 
-function DocumentsInduction({ inductionId, documents }) {
+function DocumentsInduction({ documents, rel_id }) {
   const navigation = useNavigation();
-  const { id, projectId } = useParams();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -25,10 +24,6 @@ function DocumentsInduction({ inductionId, documents }) {
       setOpen(false);
     }
   }, [navigation.state]);
-
-  function deleteDocument(id) {
-    console.log(id);
-  }
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -55,20 +50,18 @@ function DocumentsInduction({ inductionId, documents }) {
                   - {document?.title}
                 </Link>
 
-                <Avatar className="size-4">
-                  <AvatarImage src={document?.creator.img} />
+                {/* <Avatar className="size-4">
+                  <AvatarImage src={document?.creator?.img} />
                   <AvatarFallback>
-                    {document?.creator.name.slice(0, 2)}
+                    {document?.creator?.name?.slice(0, 2)}
                   </AvatarFallback>
-                </Avatar>
+                </Avatar> */}
               </div>
 
-              {/* 
               <DocumentDestroy
                 documentId={document.id}
                 name={document?.title}
               />
-            */}
             </div>
           ))}
         </div>
@@ -81,26 +74,16 @@ function DocumentsInduction({ inductionId, documents }) {
         >
           <p>Agregar documento</p>
           <DropzoneFile name="document" label="Document" />
-          <InputRouter
-            name="title"
-            className=""
-            type="text"
-            placeholder="Document Name"
-          />
+          <InputRouter name="title" type="text" placeholder="Document Name" />
           <input
-            name="activity_id"
+            name="rel_id"
             className="hidden"
             hidden
-            value={inductionId}
+            value={rel_id}
             readOnly
           />
-          <input
-            name="action"
-            className="hidden"
-            hidden
-            value="file"
-            readOnly
-          />
+          <input name="action" className="hidden" hidden value="2" readOnly />
+          <input name="type" className="hidden" hidden value="1" readOnly />
           <button
             type="submit"
             className="flex items-center justify-center rounded-lg border bg-primarioBotones py-1 text-white"

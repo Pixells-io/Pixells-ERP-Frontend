@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
+import { Checkbox } from "@/components/ui/checkbox";
+import { formatNumber } from "../../utils";
 
-export const AccountsColumns = [
+export const AccountsColumns = (editFunction, deleteFunction) => [
   {
     id: "name",
     header: "NOMBRE",
@@ -11,31 +12,41 @@ export const AccountsColumns = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-          <input
-            className="accent-primarioBotones"
-            type="checkbox"
-            value="All"
-            // onClick={() => onSelectFilter("crm")}
-            // checked={filters.includes("crm")}
-            readOnly
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+           
           />
           <label>{row?.original?.name}</label>
         </div>
       );
     },
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "bank",
     header: "BANCO",
     accessorKey: "bank",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "type",
     header: "TIPO",
     accessorKey: "type",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
-    id: "Account Number",
+    id: "accountNumber",
     header: "NO. CUENTA",
     accessorKey: "accountNumber",
   },
@@ -44,12 +55,12 @@ export const AccountsColumns = [
     header: "SALDO",
     accessorKey: "balance",
     cell: ({ row }) => {
-      return <>${row?.original?.balance}</>;
+      return <>{formatNumber(row?.original?.balance)}</>;
     },
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
       return (
@@ -60,8 +71,12 @@ export const AccountsColumns = [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-          <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+          <button type="button" onClick={() => editFunction(row?.original?.id)}>
+            <IonIcon  icon={create} className="h-5 w-5"></IonIcon>
+          </button>
+          <button type="button" onClick={() => deleteFunction(row?.original?.id)}>
+            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+          </button>
         </div>
       );
     },

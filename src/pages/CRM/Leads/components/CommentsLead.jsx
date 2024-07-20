@@ -29,6 +29,7 @@ function CommentsLead({ leadId, comments }) {
       setOpen(false);
     }
   }
+
   return (
     <HoverCard>
       <HoverCardTrigger>
@@ -59,7 +60,8 @@ function CommentsLead({ leadId, comments }) {
                           <span className="text-[10px] text-[#ABABAB]">
                             {comment?.diff == 0
                               ? "Hoy"
-                              : "Hace " + comment?.diff + " dias"}
+                              : "Hace " + comment?.diff + " dias"}{" "}
+                            &bull; {comment?.hour}
                           </span>
                         </p>
                       </div>
@@ -125,7 +127,8 @@ function CommentsLead({ leadId, comments }) {
                     <span className="text-[10px] text-[#ABABAB]">
                       {comment?.diff == 0
                         ? "Hoy"
-                        : "Hace " + comment?.diff + " dias"}
+                        : "Hace " + comment?.diff + " dias"}{" "}
+                      &bull; {comment?.hour}
                     </span>
                   </p>
                 </div>

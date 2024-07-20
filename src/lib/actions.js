@@ -44,12 +44,13 @@ export async function getServices() {
 }
 
 export async function multilaoderSideLayoutCRM() {
-  const [services, customers] = await Promise.all([
+  const [services, customers, memberships] = await Promise.all([
     getServices(),
     getCustomers(),
+    getPackages(),
   ]);
 
-  return json({ services, customers });
+  return json({ services, customers, memberships });
 }
 
 export async function getServicesAgreements() {
@@ -919,6 +920,44 @@ export async function getExam({ params }) {
   }
 }
 
+export async function getInductionResume({ params }) {
+  const ind_id = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-induction-resume/${ind_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getTrainingResume({ params }) {
+  const ind_id = params.id;
+  try {
+    const response = await fetch(
+      `${
+        import.meta.env.VITE_SERVER_URL
+      }organization-development/get-training-resume/${ind_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getMyTickets() {
   try {
     const response = await fetch(
@@ -1191,6 +1230,38 @@ export async function getProjectById(projectId) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${projectId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getCompletedActivity(projectId) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-completed-activity`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function destroyNotification(notification) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}notifications/destroy-notification/${notification}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

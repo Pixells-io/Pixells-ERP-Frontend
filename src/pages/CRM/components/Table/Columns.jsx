@@ -20,10 +20,15 @@ export const columns = [
   {
     accessorKey: "bussines_name",
     header: "COMPANY",
+    meta: {
+      filterButton: true,
+    },
+    filterFn: "equals",
   },
   {
     accessorKey: "service",
-    header: () => <div>SERVICE</div>,
+    header: "SERVICE",
+    // header: () => <div>SERVICE</div>,
     cell: ({ row }) => {
       const services = row.getValue("service");
       const serviceStrings = services.map((service) => service.name).join(", ");
@@ -31,27 +36,41 @@ export const columns = [
     },
   },
   {
-    accessorKey: "name",
+    accessorKey: "contact_name",
     header: "NAME",
     cell: ({ row }) => {
-      console.log(row.original);
-      return <span>{row.original.contact}</span>;
+      return <span>{row.original.contact_name}</span>;
     },
+    meta: {
+      filterButton: true,
+    },
+    filterFn: "equals",
   },
   {
     accessorKey: "middleName",
     header: "MIDDLE NAME",
     cell: ({ row }) => {
-      return <span>Middle</span>;
+      return <span>{row.original.contact_middle_name}</span>;
     },
   },
   {
     accessorKey: "lastName",
     header: "LAST NAME",
     cell: ({ row }) => {
-      return <span>Last</span>;
+      return <span>{row.original.contact_last_name}</span>;
     },
   },
+  // {
+  //   accessorKey: "contact",
+  //   header: "CONTACT",
+  //   cell: ({ row }) => {
+  //     return <span>{row.original.contact}</span>;
+  //   },
+  //   meta: {
+  //     filterButton: true
+  //   },
+  //   filterFn: "equals",
+  // },
   {
     accessorKey: "phone",
     header: "PHONE",

@@ -67,22 +67,22 @@ const RESULTS_TABLE = [
 function MainEDI() {
   return (
     <div className="flex w-full">
-      <div className="flex flex-col bg-gris px-8 py-4 ml-4 rounded-lg gap-4 w-full">
+      <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex gap-4 items-center">
-          <div className="flex gap-2  text-gris2">
-            <div className="w-12 h-12">
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 text-gris2">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronBack}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
-                className="bg-blancoBox p-1 rounded-3xl"
+                className="rounded-3xl bg-blancoBox p-1"
               ></IonIcon>
             </div>
           </div>
@@ -91,11 +91,11 @@ function MainEDI() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins font-bold text-xl text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               ORGANIZATION DEVELOPMENT
             </h2>
           </div>
-          <div className="flex gap-3 text-[#8F8F8F] items-center font-roboto">
+          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
             {/* <div className="text-xs">
               {leads?.data.length == 0 ? "0" : leads?.data.length}{" "}
               {leads?.data.length == 1 ? "lead" : "leads"}
@@ -112,11 +112,11 @@ function MainEDI() {
 
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
-            <p className="text-[22px] text-grisHeading font-bold">
+            <p className="text-[22px] font-bold text-grisHeading">
               Mi Perfil/Evaluador
             </p>
             <div className="flex gap-2">
-              <Avatar className="rounded-lg w-12 h-12">
+              <Avatar className="h-12 w-12 rounded-lg">
                 <AvatarImage
                   src="https://github.com/shadcn.png"
                   alt="@shadcn"
@@ -124,10 +124,10 @@ function MainEDI() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="flex flex-col justify-center">
-                <p className="text-grisText text-[16px] font-medium">
+                <p className="text-[16px] font-medium text-grisText">
                   Don Fomularo
                 </p>
-                <span className="text-grisSubText text-[10px] font-medium">
+                <span className="text-[10px] font-medium text-grisSubText">
                   Gerente de Administracion
                 </span>
               </div>
@@ -135,55 +135,55 @@ function MainEDI() {
 
             {/* perfiles */}
             <div className="pt-3">
-              <p className="text-[22px] text-grisHeading font-bold">
+              <p className="text-[22px] font-bold text-grisHeading">
                 Por Evaluar/Evaluados
               </p>
               <div className="flex gap-2 overflow-scroll">
                 <div className="flex flex-col items-center gap-2">
-                  <Avatar className="rounded-lg w-12 h-12">
+                  <Avatar className="h-12 w-12 rounded-lg">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span className="flex bg-[#FAA36440] px-2 rounded-full text-[11px] text-[#FAA364] font-semibold">
+                  <span className="flex rounded-full bg-[#FAA36440] px-2 text-[11px] font-semibold text-[#FAA364]">
                     Pending
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                  <Avatar className="rounded-lg w-12 h-12">
+                  <Avatar className="h-12 w-12 rounded-lg">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span className="flex bg-[#FAA36440] px-2 rounded-full text-[11px] text-[#FAA364] font-semibold">
+                  <span className="flex rounded-full bg-[#FAA36440] px-2 text-[11px] font-semibold text-[#FAA364]">
                     Pending
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                  <Avatar className="rounded-lg w-12 h-12">
+                  <Avatar className="h-12 w-12 rounded-lg">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span className="flex bg-[#FAA36440] px-2 rounded-full text-[11px] text-[#FAA364] font-semibold">
+                  <span className="flex rounded-full bg-[#FAA36440] px-2 text-[11px] font-semibold text-[#FAA364]">
                     Pending
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                  <Avatar className="rounded-lg w-12 h-12">
+                  <Avatar className="h-12 w-12 rounded-lg">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span className="flex bg-[#7794F940] px-2 rounded-full text-[11px] text-[#7794F9] font-semibold">
+                  <span className="flex rounded-full bg-[#7794F940] px-2 text-[11px] font-semibold text-[#7794F9]">
                     Result
                   </span>
                 </div>
@@ -192,32 +192,32 @@ function MainEDI() {
           </div>
 
           {/* tabla */}
-          <div className="w-1/2 bg-[#F0F0F0] rounded-lg py-3">
+          <div className="w-1/2 rounded-lg bg-[#F0F0F0] py-3">
             <div className="flex flex-col">
-              <div className="pb-2 text-center border-b">
+              <div className="border-b pb-2 text-center">
                 <p className="text-[16px] font-semibold text-grisHeading">
                   Results Reference Table
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-3 px-6 py-4">
-                <p className="text-[12px] text-grisText font-semibold">
+                <p className="text-[12px] font-semibold text-grisText">
                   Quali. EDI VALUE
                 </p>
-                <p className="text-[12px] text-grisText font-semibold">
+                <p className="text-[12px] font-semibold text-grisText">
                   Quanti. EDI VALUE
                 </p>
-                <p className="text-[12px] text-grisText font-semibold">
+                <p className="text-[12px] font-semibold text-grisText">
                   Description
                 </p>
                 {RESULTS_TABLE.map((result, i) => (
                   <Fragment key={i}>
-                    <p className="text-[12px] text-grisText font-normal">
+                    <p className="text-[12px] font-normal text-grisText">
                       {result.quali}
                     </p>
-                    <p className="text-[12px] text-grisText font-normal">
+                    <p className="text-[12px] font-normal text-grisText">
                       {result.quanti}
                     </p>
-                    <p className="text-[12px] text-grisText font-normal">
+                    <p className="text-[12px] font-normal text-grisText">
                       {result.description}
                     </p>
                   </Fragment>
@@ -228,37 +228,37 @@ function MainEDI() {
         </div>
 
         {/* tablas eva/retro */}
-        <div className="bg-blancoBg rounded-lg pt-2 h-full">
+        <div className="h-full rounded-lg bg-blancoBg pt-2">
           <Tabs
             defaultValue="evaluacion"
-            className="bg-blancoBg rounded-lg pt-2"
+            className="rounded-lg bg-blancoBg pt-2"
           >
-            <TabsList className="bg-blancoBg flex 2 w-fit rounded-none ml-4">
+            <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
               <TabsTrigger
                 value="evaluacion"
-                className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               >
                 EVALUACION
               </TabsTrigger>
               <TabsTrigger
                 value="retroalimentacion"
-                className="border-b-2 rounded-none text-sm text-grisSubText data-[state=active]:text-primarioBotones data-[state=active]:font-semibold font-normal data-[state=active]:shadow-none data-[state=active]:bg-blancoBg data-[state=active]:border-primarioBotones"
+                className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               >
                 RETROALIMENTACION
               </TabsTrigger>
             </TabsList>
             <TabsContent value="evaluacion" className="p-10">
               <div className="grid grid-cols-5 border-b-2 py-4">
-                <p className="col-span-2 text-grisHeading text-[20px] font-semibold">
+                <p className="col-span-2 text-[20px] font-semibold text-grisHeading">
                   Indicador
                 </p>
-                <p className="text-grisHeading text-[13px] font-semibold">
+                <p className="text-[13px] font-semibold text-grisHeading">
                   Valor%
                 </p>
-                <p className="text-grisHeading text-[13px] font-semibold">
+                <p className="text-[13px] font-semibold text-grisHeading">
                   Resultado
                 </p>
-                <p className="text-grisHeading text-[13px] font-semibold">
+                <p className="text-[13px] font-semibold text-grisHeading">
                   Resultado Ponderado
                 </p>
               </div>
@@ -330,47 +330,6 @@ function MainEDI() {
               </div>
             </TabsContent>
           </Tabs>
-        </div>
-      </div>
-
-      {/* sidebar */}
-      <div className="w-[280px] flex flex-col gap-6 bg-gris px-8 py-4 ml-4 rounded-lg shrink-0">
-        <div className="flex justify-center">
-          <p className="text-grisHeading text-lg font-poppins font-semibold">
-            Accesos Rápidos
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {PEOPLE.map((item, i) => (
-            <div key={i} className="flex">
-              <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex w-12 h-12 items-center justify-center ">
-                  <Avatar className="rounded-lg h-full w-full">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </div>
-                {item.status == "Pending" ? (
-                  <span className="text-[11px] bg-[#FAA36440] text-[#FAA364] px-2 py-[2px] w-fit rounded-full">
-                    {item.status}
-                  </span>
-                ) : (
-                  <span className="text-[11px] bg-[#7794F940] text-[#7794F9] px-2 py-[2px] w-fit rounded-full">
-                    {item.status}
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="text-grisText font-medium text-base">
-                  {item.name}
-                </p>
-                <span className="font-medium text-[10px] text-grisSubText line-clamp-none ">
-                  {item.position}
-                </span>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>

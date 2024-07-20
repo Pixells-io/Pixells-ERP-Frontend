@@ -137,7 +137,7 @@ function Main() {
 
         {/* services */}
         <div className="flex items-center gap-4">
-          <div className="flex gap-4 overflow-scroll">
+          <div className="flex gap-4 overflow-scroll pb-4">
             {selectedServices?.data?.map((service, i) => (
               <div key={i} className="flex shrink-0">
                 <NavLink

@@ -185,3 +185,19 @@ export async function assignInterview(data) {
 
   return response;
 }
+
+export async function changeStatusClient(data) {
+  const client_id = data.get("client_id");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}person/change-client-status/${client_id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -9,83 +16,78 @@ import {
   checkmarkCircle,
   ellipsisHorizontal,
 } from "ionicons/icons";
-import { Progress } from "@/components/ui/progress";
-import { Link, NavLink } from "react-router-dom";
 
 function InductionsCard({ card }) {
-  const [progress, setProgress] = useState(80);
-
   return (
-    <div className="bg-blancoBg border border-grisDisabled rounded-lg px-4 m-4 flex flex-col gap-1 py-3 w-[280px] relative">
-      {card.status != null ? (
+    <div className="relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
+      {card.status === true ? (
         <div className="">
           <IonIcon
             icon={checkmarkCircle}
-            className="w-5 h-5 text-[#00A259] absolute -top-2 -right-2"
+            className="absolute -right-2 -top-2 h-5 w-5 text-[#00A259]"
           ></IonIcon>
         </div>
-      ) : (
-        ""
-      )}
-      <div className="flex justify-between items-center">
+      ) : null}
+      <div className="flex items-center justify-between">
         {card.status == null ? (
-          <p className="text-[11px] font-semibold text-[#7794F9] bg-[#7794F940] rounded-full flex w-[65px] justify-center items-center">
+          <p className="flex w-[65px] items-center justify-center rounded-full bg-[#7794F940] text-[11px] font-semibold text-[#7794F9]">
             {card.status}
           </p>
         ) : (
-          <p className="text-[11px] font-semibold text-[#00A259] bg-[#00A25940] rounded-full flex w-[65px] justify-center items-center">
+          <p className="flex w-[65px] items-center justify-center rounded-full bg-[#00A25940] text-[11px] font-semibold text-[#00A259]">
             {card.status}
           </p>
         )}
 
-        <IonIcon
-          icon={ellipsisHorizontal}
-          className="w-5 h-5 text-grisDisabled"
-        ></IonIcon>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <IonIcon
+              icon={ellipsisHorizontal}
+              className="h-5 w-5 text-grisDisabled"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Documents</DropdownMenuLabel>
+            {card.documents.map((docu, i) => (
+              <DropdownMenuItem key={i}>
+                <Link to={docu?.document} target="_blank">
+                  {docu?.title}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div>
         <p className="font-poppins text-[15px] font-semibold">{card.name}</p>
       </div>
       <div className="flex items-center text-[#696974B2]">
-        <p className="text-[12px] font-normal line-clamp-none">{card.type}</p>
+        <p className="line-clamp-none text-[12px] font-normal">{card.type}</p>
       </div>
       <div className="flex items-center text-grisText">
-        <div className="flex items-center gap-2 bg-[#F1F1F5] rounded-full px-3">
-          <IonIcon icon={calendarOutline} className="w-5 h-5"></IonIcon>
+        <div className="flex items-center gap-2 rounded-full bg-[#F1F1F5] px-3">
+          <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
           <p className="text-[12px]">{card.date}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-1">
-        <p className="self-end text-[8px] text-[#CCCCCC] pr-2">{progress}%</p>
-        <Progress value={progress} className="h-1" />
-        <p className="text-right text-[#92929C] text-[8px] font-semibold">
-          Porcentaje de avance INDUCCIÓN
-        </p>
-      </div>
-      <div className="flex items-center gap-[-4px]">
-        <Avatar className="w-6 h-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar className="w-6 h-6 right-2">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar className="w-6 h-6 right-4">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <p className="text-[10px] text-[#92929C] font-semibold">+ 25 más</p>
-      </div>
-      <div className="bg-primarioBotones h-10 w-10 rounded-full shadow-xl shadow-slate-300 absolute right-5 bottom-5">
-        <NavLink to={`/org-development/answer-exam/${card?.exam_id}`}>
-          <IonIcon
-            icon={caretForwardOutline}
-            className="text-white ml-1 mt-1"
-            size="large"
-          ></IonIcon>
-        </NavLink>
-      </div>
+
+      {card?.exam_id !== 0 && (
+        <>
+          {card?.status != true ? (
+            <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+              <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
+                <IonIcon
+                  icon={caretForwardOutline}
+                  className="flex pl-1 text-white"
+                  size="large"
+                ></IonIcon>
+              </Link>
+            </div>
+          ) : (
+            false
+          )}
+        </>
+      )}
     </div>
   );
 }

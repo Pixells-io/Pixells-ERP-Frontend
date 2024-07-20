@@ -17,33 +17,14 @@ import {
 } from "ionicons/icons";
 
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
-import { saveNewTraining } from "../utils";
+import {
+  removeDocumentExam,
+  saveNewTraining,
+  storeDocumentExam,
+} from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
-
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
 
 function MainCapacitations() {
   const navigation = useNavigation();
@@ -76,6 +57,8 @@ function MainCapacitations() {
       pusherClient.unsubscribe("private-get-trainings");
     };
   }, [navigation.state]);
+
+  console.log(capacitacionPusher);
 
   return (
     <div className="flex w-full">
@@ -142,41 +125,39 @@ function MainCapacitations() {
         />
 
         <div className="rounded-lg bg-blancoBg pt-2">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">FORMA</p>
+                <p className="text-sm font-semibold text-grisText">FORM</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">LUGAR</p>
+                <p className="text-sm font-semibold text-grisText">PLACE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">CAPACITOR</p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-grisText">
-                  FECHA TEN.
-                </p>
+                <p className="text-sm font-semibold text-grisText">TRAINER</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  FECHA REAL
+                  TENTATIVE DATE
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">ARCHIVOS</p>
+                <p className="text-sm font-semibold text-grisText">REAL DATE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">EXÁMEN</p>
+                <p className="text-sm font-semibold text-grisText">DOCS</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">TEST</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-grisText">HISTORY</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
@@ -206,7 +187,10 @@ function MainCapacitations() {
                     <p className="text-xs text-grisHeading">{row.real_date}</p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <DocumentsCapacitation />
+                    <DocumentsCapacitation
+                      rel_id={row.id}
+                      documents={row.archives}
+                    />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">
@@ -248,8 +232,22 @@ export default MainCapacitations;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  const validation = await saveNewTraining(data);
+  switch (action) {
+    case "1":
+      await saveNewTraining(data);
+      return redirect("/org-development/capacitation");
 
-  return redirect("/org-development/capacitation");
+    case "2":
+      await storeDocumentExam(data);
+      return redirect("/org-development/capacitation");
+
+    case "3":
+      await removeDocumentExam(data);
+      return redirect("/org-development/capacitation");
+
+    default:
+      return redirect("/org-development/capacitation");
+  }
 }

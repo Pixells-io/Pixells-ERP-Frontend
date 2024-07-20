@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -36,6 +36,44 @@ function MainExamAnswer() {
   const { id } = useParams();
 
   const { data } = useLoaderData();
+  console.log(data);
+
+  //CONTADOR
+  const [counter, setCounter] = useState(0);
+  const durationInSeconds = data?.duration * 60;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCounter((prevCounter) => {
+        // Check if the counter has reached the durationInSeconds threshold
+        if (prevCounter >= durationInSeconds - 1) {
+          clearInterval(timer); // Stop the timer
+          onSubmit(); // Call the submit function
+          return prevCounter; // Return the current counter value to avoid incrementing
+        }
+        return prevCounter + 1; // Increment the counter
+      });
+    }, 1000);
+
+    return () => clearInterval(timer); // Ensure the timer is cleared if the component unmounts
+  }, [durationInSeconds]);
+
+  // //SIMPLE TIMER
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCounter((prevCounter) => prevCounter + 1);
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, []);
+
+  async function onSubmit() {
+    console.log("Time Out, Exam Submitted");
+  }
+
+  if (counter >= durationInSeconds) {
+    onSubmit();
+  }
 
   return (
     <div className="flex w-full">
@@ -72,26 +110,26 @@ function MainExamAnswer() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-6 overflow-auto py-2">
-          <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+          <div className="flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
             <div className="px-6 py-3">
               <p className="font-medium text-grisText">Nombre del Exámen</p>
             </div>
             <div className="flex gap-2 border-t px-4 py-4">
-              <div className="mr-10 w-full border-b bg-blancoForms p-2 text-xs">
+              <div className="mr-10 w-full border-b bg-[#FBFBFB] p-2 text-xs">
                 {data?.title}
               </div>
-              <div className="w-[80px] border-b bg-blancoForms p-2 text-xs">
+              <div className="w-[80px] border-b bg-[#FBFBFB] p-2 text-xs">
                 {data?.duration}
               </div>
               <span className="self-end text-[8px] text-grisSubText">
                 Minutos
               </span>
-              <Button
-                form="form-submit-answer-exam"
-                className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
-              >
-                Submit
-              </Button>
+              <div>
+                <p className="font-small text-grisText">Tiempo Transcurrido:</p>
+                <p color="#5B89FF">
+                  {Math.floor(counter / 60)} : {counter % 60} min
+                </p>
+              </div>
             </div>
           </div>
           <Form
@@ -103,50 +141,15 @@ function MainExamAnswer() {
             <input type="hidden" name="type" value="1" />
             {/* Show Questions */}
             {data?.questions.map((question, i) => (
-              <ExamQuestionAnswer question={question} />
+              <ExamQuestionAnswer key={i} question={question} />
             ))}
+            <Button
+              form="form-submit-answer-exam"
+              className="mt-4 w-full rounded-3xl bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              Submit
+            </Button>
           </Form>
-        </div>
-      </div>
-
-      {/* sidebar */}
-      <div className="ml-4 flex w-[280px] shrink-0 flex-col gap-6 rounded-lg bg-gris px-8 py-4">
-        <div className="flex justify-center">
-          <p className="font-poppins text-lg font-semibold text-grisHeading">
-            Accesos Rápidos
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {PEOPLE.map((item, i) => (
-            <div key={i} className="flex">
-              <div className="flex w-1/3 flex-col items-center gap-1">
-                <div className="flex h-12 w-12 items-center justify-center">
-                  <Avatar className="h-full w-full rounded-lg">
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </div>
-                {item.status == "Pending" ? (
-                  <span className="w-fit rounded-full bg-[#FAA36440] px-2 py-[2px] text-[11px] text-[#FAA364]">
-                    {item.status}
-                  </span>
-                ) : (
-                  <span className="w-fit rounded-full bg-[#7794F940] px-2 py-[2px] text-[11px] text-[#7794F9]">
-                    {item.status}
-                  </span>
-                )}
-              </div>
-              <div>
-                <p className="text-base font-medium text-grisText">
-                  {item.name}
-                </p>
-                <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                  {item.position}
-                </span>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -175,5 +178,5 @@ export async function Action({ request }) {
   if (data.get("type") === "2") {
   }
 
-  return redirect("/org-development");
+  return redirect("/org-development/induction/my-inductions");
 }

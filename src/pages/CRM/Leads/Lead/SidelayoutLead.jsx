@@ -1,24 +1,30 @@
 import React, { useState } from "react";
-import { useLoaderData, Outlet } from "react-router-dom";
+import {
+  useLoaderData,
+  Outlet,
+  useSubmit,
+  useParams,
+  redirect,
+} from "react-router-dom";
 
-import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 import { IonIcon } from "@ionic/react";
 import { create } from "ionicons/icons";
 
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 import EditLeadInformation from "./Modals/EditLeadInformation";
-import { editLeadForm } from "../utils";
+import { editLeadForm, editStatusLead } from "../utils";
 
 function SidelayoutLead() {
+  const params = useParams();
+  const submit = useSubmit();
   const { leadLoader, servicesLoader } = useLoaderData();
 
   const {
@@ -39,6 +45,15 @@ function SidelayoutLead() {
     if (string == undefined) return "";
     return (string = string[0]?.toUpperCase() + string?.slice(1));
   }
+
+  function changeLeadStatus(e, type) {
+    submit(
+      { status: type, lead_id: params.id, action: "edit-status" },
+      { method: "post", action: `/crm/leads/${params.id}` },
+    );
+  }
+
+  console.log(main_lead);
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -126,18 +141,6 @@ function SidelayoutLead() {
                     {service?.name}
                   </Badge>
                 ))}
-                {/* <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
-                  Entity
-                </Badge>
-                <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
-                  Pay Roll
-                </Badge>
-                <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
-                  Pay Roll
-                </Badge>
-                <Badge className="bg-primario text-blancoBox text-[10px] py-[6px] shrink-0">
-                  Pay Roll
-                </Badge> */}
               </div>
             </div>
 
@@ -183,21 +186,29 @@ function SidelayoutLead() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-fit">
-                    {lead?.status == "Active" ? (
+                    {main_lead?.active == "1" ? (
                       <Badge className="w-fit bg-[#00A259]">Active</Badge>
-                    ) : lead?.status == "Suspended" ? (
+                    ) : main_lead?.active == "2" ? (
                       <Badge className="w-fit bg-[#FAA364]">Suspended</Badge>
-                    ) : lead?.status == "Canceled" ? (
+                    ) : main_lead?.active == "3" ? (
                       <Badge className="w-fit bg-[#D7586B]">Canceled</Badge>
                     ) : (
                       <Badge className="w-fit bg-primario">Done</Badge>
                     )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem>Active</DropdownMenuItem>
-                    <DropdownMenuItem>Suspended</DropdownMenuItem>
-                    <DropdownMenuItem>Canceled</DropdownMenuItem>
-                    <DropdownMenuItem>Done</DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "1")}>
+                      Active
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "2")}>
+                      Suspended
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "3")}>
+                      Canceled
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "4")}>
+                      Done
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -223,10 +234,20 @@ function SidelayoutLead() {
 
 export default SidelayoutLead;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  editLeadForm(data);
+  switch (action) {
+    case "edit-lead":
+      await editLeadForm(data);
+      return redirect(`/crm/leads/${params.id}`);
 
-  return "1";
+    case "edit-status":
+      await editStatusLead(data);
+      return redirect(`/crm/leads/${params.id}`);
+
+    default:
+      return redirect(`/crm/leads/${params.id}`);
+  }
 }

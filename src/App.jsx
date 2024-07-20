@@ -112,6 +112,7 @@ import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
 } from "./pages/PManager/MainProject";
+import Completed from "./pages/PManager/Completed";
 
 // Chat
 import LayoutChat, {
@@ -174,6 +175,9 @@ import {
   showCategory,
   multilaoderSideLayoutCRM,
   multiLoaderDashboard,
+  getInductionResume,
+  getTrainingResume,
+  getCompletedActivity,
 } from "./lib/actions";
 
 //Not Found
@@ -242,6 +246,15 @@ import LayoutCalendar, {
   Action as createMeetCalendar,
 } from "./pages/Calendar/LayoutCalendar";
 
+//Accounting
+// import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+// import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
+// import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
+// import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
+// import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
+// import MainBook from "./pages/Accounting/Book/MainBook";
+// import MainCost from "./pages/Accounting/Cost/MainCost";
+
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
@@ -250,12 +263,21 @@ import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollectio
 import MainCategory, {
   Action as MainCategoryFunction,
 } from "./pages/CRM/Services/MainCategory";
+import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecord";
+import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
+import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
+import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
 
 //Client Platform
 import LoginClient, {
   Action as LoginClientFunction,
 } from "./pages/CRM/ClientPlatform/LoginClient";
 import { getAuthClient } from "./pages/Clients/utils";
+
+//Analytics
+import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
+import MainAnalytic from "./pages/Analytic/MainAnalytic";
+import { multiloaderAnalytics } from "./pages/Analytic/utils";
 
 const router = createBrowserRouter([
   {
@@ -502,6 +524,11 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "/project-manager/completed",
+            element: <Completed />,
+            loader: getCompletedActivity,
+          },
         ],
       },
       //Chat
@@ -540,6 +567,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/induction/:id",
             element: <MainInduction />,
+            loader: getInductionResume,
           },
           {
             path: "/org-development/induction/my-inductions",
@@ -556,6 +584,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/:id",
             element: <MainCapacitation />,
+            loader: getTrainingResume,
           },
           {
             path: "/org-development/capacitation/create/:id",
@@ -712,6 +741,67 @@ const router = createBrowserRouter([
           {
             path: "/bank-management/collection/create",
             element: <AddNewCollection />,
+          },
+          {
+            path: "/bank-management/collection/record/:id",
+            element: <CollectionRecord />,
+          },
+          {
+            path: "/bank-management/payment",
+            element: <MainPaymentBankManag />,
+          },
+          {
+            path: "/bank-management/payment/create",
+            element: <AddNewPayment />,
+          },
+          {
+            path: "/bank-management/payment/record/:id",
+            element: <PaymentRecord />,
+          },
+        ],
+      },
+      //Acounting
+      // {
+      //   path: "/accounting",
+      //   element: <SideLayoutAccounting />,
+      //   children: [
+      //     {
+      //       index: true,
+      //       element: <MainCatalog />,
+      //     },
+      //     {
+      //       //account Policy
+      //       path: "/accounting/policy",
+      //       element: <MainPolicy />,
+      //     },
+      //     {
+      //       path: "/accounting/policy/create",
+      //       element: <CreateAccount />,
+      //     },
+      //     {
+      //       path: "/accounting/policy/details",
+      //       element: <AccountDetail />,
+      //     },
+      //     {
+      //       //account book
+      //       path: "/accounting/book",
+      //       element: <MainBook />,
+      //     },
+      //     {
+      //       path: "/accounting/cost",
+      //       element: <MainCost />,
+      //     },
+      //   ],
+      // },
+      //Analitycs
+      {
+        path: "/analytics",
+        element: <SideLayoutAnalytic />,
+        children: [
+          {
+            index: true,
+            element: <MainAnalytic />,
+            loader: multiloaderAnalytics,
           },
         ],
       },

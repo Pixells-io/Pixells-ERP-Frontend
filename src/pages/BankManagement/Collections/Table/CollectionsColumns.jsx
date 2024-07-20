@@ -1,7 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle, create, trash } from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
+import { Checkbox } from "@/components/ui/checkbox";
+import StatusInProgress from "../../Components/StatusInformation/StatusInProgress";
+import StatusDone from "../../Components/StatusInformation/StatusDone";
+import { formatNumber } from "../../utils";
 
 export const CollectionsColumns = [
   {
@@ -11,28 +14,37 @@ export const CollectionsColumns = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-          <input
-            className="accent-primarioBotones"
-            type="checkbox"
-            value="All"
-            // onClick={() => onSelectFilter("crm")}
-            // checked={filters.includes("crm")}
-            readOnly
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
           />
           <label>{row?.original?.concept}</label>
         </div>
       );
     },
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "noDoc",
     header: "NO. DOC",
     accessorKey: "noDoc",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "typeDoc",
     header: "TIPO DOC.",
     accessorKey: "typeDoc",
+    meta: {
+      filterButton: true
+    },
+    filterFn: "equals",
   },
   {
     id: "paymentMethod",
@@ -44,18 +56,30 @@ export const CollectionsColumns = [
     header: "TOTAL",
     accessorKey: "total",
     cell: ({ row }) => {
-      return <> ${row?.original?.total}</>;
+      return <>{formatNumber(row?.original?.total)}</>;
+    },
+  },
+  {
+    id: "status",
+    header: "ESTATUS",
+    accessorKey: "status",
+    cell: ({ row }) => {
+      
+      return <> 
+      {row?.original?.status == "inProgress" ? <StatusInProgress /> : 
+      row?.original?.status == "done" && <StatusDone />}
+      </>;
     },
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
-            // to={`/crm/leads/${row?.original?.id}`}
+            to={`/bank-management/collection/record/${row?.original?.id}`}
             className="flex items-center"
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>

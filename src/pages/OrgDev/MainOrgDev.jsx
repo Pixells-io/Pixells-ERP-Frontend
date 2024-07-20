@@ -14,7 +14,11 @@ import {
 } from "ionicons/icons";
 import NewInductionModal from "./Inductions/components/NewInductionModal";
 import { useLoaderData, redirect, useNavigation } from "react-router-dom";
-import { saveNewInduction } from "./utils";
+import {
+  removeDocumentExam,
+  saveNewInduction,
+  storeDocumentExam,
+} from "./utils";
 import { pusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
@@ -135,14 +139,14 @@ function MainOrgDev() {
           positions={positions.data}
           areas={areas.data}
         />
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-8 px-4 py-2 text-center">
               <div className="col-span-2 flex items-center pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div className="flex items-center">
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div className="flex items-center">
                 <p className="text-sm font-semibold text-grisText">AREAS</p>
@@ -153,13 +157,13 @@ function MainOrgDev() {
                 </p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">ARCHIVOS</p>
+                <p className="text-sm font-semibold text-grisText">DOCS</p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">EXAMEN</p>
+                <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">HISORTY</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
@@ -180,7 +184,10 @@ function MainOrgDev() {
                     </p>
                   </div>
                   <div className="flex items-center justify-center">
-                    <DocumentsInduction />
+                    <DocumentsInduction
+                      rel_id={row?.id}
+                      documents={row?.documents}
+                    />
                   </div>
                   {row.examen === false ? (
                     <div className="flex items-center justify-center">
@@ -224,8 +231,22 @@ export default MainOrgDev;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  const validation = await saveNewInduction(data);
+  switch (action) {
+    case "1":
+      await saveNewInduction(data);
+      return redirect("/org-development/induction");
 
-  return redirect("/org-development/induction");
+    case "2":
+      await storeDocumentExam(data);
+      return redirect("/org-development/induction");
+
+    case "3":
+      await removeDocumentExam(data);
+      return redirect("/org-development/induction");
+
+    default:
+      return redirect("/org-development/induction");
+  }
 }

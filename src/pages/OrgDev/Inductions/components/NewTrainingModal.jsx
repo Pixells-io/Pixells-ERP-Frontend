@@ -16,7 +16,8 @@ import { add } from "ionicons/icons";
 import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import SelectMultiple from "@/components/ui/selectMultiple";
-import Select from "react-select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import DatePicker from "@/components/date-picker";
 
 function NewTrainingModal({ modal, setModal, users, areas, positions }) {
   const [initialData, setInitialData] = useState(1);
@@ -91,19 +92,27 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
-        <DialogHeader>
+      <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
+        <DialogHeader className="border border-b px-8 py-4">
           <DialogTitle className="font-poppins">Create Training</DialogTitle>
         </DialogHeader>
         <Form
           id="training-create-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0 px-8"
           action="/org-development/capacitation"
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
-              <FormInput
+          <input
+            type="text"
+            hidden
+            className="hidden"
+            name="action"
+            value="1"
+            readOnly
+          />
+          <div className="flex flex-col gap-4 p-4 font-roboto">
+            <div className="flex flex-col gap-4 font-light">
+              <InputRouter
                 name="name"
                 type="text"
                 placeholder="Name of the Training"
@@ -142,34 +151,34 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
                 placeholder={"Type of class"}
                 options={typeOptions}
               />
-              <FormInput
+              <InputRouter
                 name="location"
                 type="text"
                 placeholder="Location of the Training"
               />
-              <FormInput
+              <InputRouter
                 name="teacher_name"
                 type="text"
                 placeholder="Name of the teacher"
               />
-              <FormInput
+              <InputRouter
                 name="teacher_last_name"
                 type="text"
                 placeholder="Last name of the teacher"
               />
-              <FormInput
+              <InputRouter
                 name="teacher_second_last_name"
                 type="text"
                 placeholder="Second last name of the teacher"
               />
-              <FormInput name="class_date" type="date" placeholder="Date" />
+              <DatePicker name="class_date" placeholder="Date" />
             </div>
           </div>
         </Form>
-        <DialogFooter className="h-auto">
+        <DialogFooter className="h-auto px-8 pb-4">
           <Button
             form="training-create-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
             Save
           </Button>
