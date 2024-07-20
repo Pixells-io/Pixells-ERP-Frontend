@@ -158,7 +158,7 @@ function ExamShow() {
           </div>
         </div>
         <div className="flex flex-col items-center gap-6 overflow-auto">
-          <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+          <div className="flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
             <div className="px-6 py-3">
               <p className="font-medium text-grisText">Nombre del Exámen</p>
             </div>
@@ -169,14 +169,14 @@ function ExamShow() {
                 value={localData?.title}
                 onChange={handleTitleChange}
                 placeholder="Escribe el nombre del exámen"
-                className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
+                className="mr-10 w-full border-b bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
               />
               <input
                 type="number"
                 name="exam_duration"
                 value={localData?.duration}
                 onChange={handleDurationChange}
-                className="w-[80px] border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
+                className="w-[80px] border-b bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
               />
               <span className="self-end text-[8px] text-grisSubText">
                 Minutos

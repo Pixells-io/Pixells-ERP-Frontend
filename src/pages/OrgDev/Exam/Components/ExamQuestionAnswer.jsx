@@ -45,7 +45,7 @@ function ExamQuestionAnswer({ question }) {
   };
 
   return (
-    <div className="mt-4 flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+    <div className="mt-4 flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
       <div className="flex items-center justify-between px-6 py-3">
         <p className="font-medium text-grisText">Pregunta</p>
         <p className="font-medium text-grisText">{type}</p>
@@ -55,7 +55,7 @@ function ExamQuestionAnswer({ question }) {
           value={question?.question}
           type="text"
           placeholder="Escribe la pregunta"
-          className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
+          className="mr-10 w-full border-b bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
         />
       </div>
       <div className="flex flex-col gap-2 px-4 py-4">
@@ -65,7 +65,7 @@ function ExamQuestionAnswer({ question }) {
               value={answer.answer}
               type="text"
               placeholder="Escribe una respuesta"
-              className="w-3/5 bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
+              className="w-3/5 bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
               readOnly
             />
             <input

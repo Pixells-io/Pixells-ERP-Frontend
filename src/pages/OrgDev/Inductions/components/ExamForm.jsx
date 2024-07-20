@@ -201,7 +201,6 @@ function ExamForm() {
             name="rel_id"
             readOnly
           />
-          <button type="submit">Enviar</button>
         </Form>
       </div>
 
@@ -230,6 +229,13 @@ function ExamForm() {
           size=""
           className="h-5 w-5 text-primarioBotones hover:text-primario"
         ></IonIcon>
+      </button>
+      <button
+        form="crate-induction-exam"
+        type="submit"
+        className="rounded-3xl bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold text-white"
+      >
+        Enviar
       </button>
     </div>
   );

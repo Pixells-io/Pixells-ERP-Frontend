@@ -110,15 +110,15 @@ function MainExamAnswer() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-6 overflow-auto py-2">
-          <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+          <div className="flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
             <div className="px-6 py-3">
               <p className="font-medium text-grisText">Nombre del Exámen</p>
             </div>
             <div className="flex gap-2 border-t px-4 py-4">
-              <div className="mr-10 w-full border-b bg-blancoForms p-2 text-xs">
+              <div className="mr-10 w-full border-b bg-[#FBFBFB] p-2 text-xs">
                 {data?.title}
               </div>
-              <div className="w-[80px] border-b bg-blancoForms p-2 text-xs">
+              <div className="w-[80px] border-b bg-[#FBFBFB] p-2 text-xs">
                 {data?.duration}
               </div>
               <span className="self-end text-[8px] text-grisSubText">
@@ -143,14 +143,14 @@ function MainExamAnswer() {
             {data?.questions.map((question, i) => (
               <ExamQuestionAnswer key={i} question={question} />
             ))}
+            <Button
+              form="form-submit-answer-exam"
+              className="mt-4 w-full rounded-3xl bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              Submit
+            </Button>
           </Form>
         </div>
-        <Button
-          form="form-submit-answer-exam"
-          className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
-        >
-          Submit
-        </Button>
       </div>
     </div>
   );
