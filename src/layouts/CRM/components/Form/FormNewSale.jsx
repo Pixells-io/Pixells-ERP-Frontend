@@ -12,13 +12,28 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, addCircle, closeCircle } from "ionicons/icons";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function FormNewSale({ clients }) {
-  const [open, setOpen] = useState(false);
+const monthlyArray = [
+  { label: "Monthly", value: "0" },
+  { label: "Annual", value: "1" },
+];
+
+function FormNewSale({ clients, membership, services }) {
   const navigation = useNavigation();
+  const [open, setOpen] = useState(false);
+
+  const [selectServ, setSelectServ] = useState([
+    {
+      service: "",
+      recurrency: "",
+      ammount: "",
+    },
+  ]);
+  const [type, setType] = useState(1);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -26,11 +41,82 @@ function FormNewSale({ clients }) {
     }
   }, [navigation.state]);
 
+  let serviceArray = [];
+  services?.data.map((service, i) => {
+    let newObj = { value: service.id, label: service.name };
+    serviceArray.push(newObj);
+  });
+
   let options = [];
   clients?.data.map((service, i) => {
     let newObj = { value: service.id, label: service.business_name };
     options.push(newObj);
   });
+
+  let typeService = [
+    { label: "Services", value: 1 },
+    { label: "Membership", value: 2 },
+  ];
+
+  function addSelectServInput() {
+    const newInput = {
+      service: "",
+      recurrency: "",
+      ammount: "",
+    };
+    setSelectServ([...selectServ, newInput]);
+  }
+
+  function removeSelecServInput(index) {
+    const newArray = selectServ.filter((item, i) => index !== i);
+    setSelectServ(newArray);
+  }
+
+  function updateSelectServInput(index, e) {
+    const newFields = selectServ.map((inputs, i) =>
+      i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
+    );
+    setSelectServ(newFields);
+  }
+
+  function updateSelectServSelect(index, e) {
+    // console.log(e);
+    const newFields = selectServ.map((inputs, i) =>
+      i === index ? { ...inputs, service: e } : inputs,
+    );
+    setSelectServ(newFields);
+  }
+
+  function updateSelectServSelect2(index, e) {
+    // console.log(e);
+    const newFields = selectServ.map((inputs, i) =>
+      i === index ? { ...inputs, recurrency: e } : inputs,
+    );
+    setSelectServ(newFields);
+  }
+
+  //Membership or Service
+
+  const membership_options = [];
+
+  arrayMembershipAdd(membership_options, membership.data);
+
+  function arrayMembershipAdd(array, data) {
+    data.forEach((element) => {
+      array.push({
+        label: element.name,
+        value: element.id,
+      });
+    });
+  }
+
+  const [membershipPrice, setMembershipPrice] = useState("");
+
+  function changeMembershipPrice(e) {
+    let membership2 = membership.filter((item, i) => item.id === e);
+    setMembershipPrice("");
+    setMembershipPrice(membership2[0].price);
+  }
 
   return (
     <Dialog>
@@ -45,7 +131,7 @@ function FormNewSale({ clients }) {
           </p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="p-0 sm:max-w-[425px]">
+      <DialogContent className="p-0 sm:max-w-[600px]">
         <DialogHeader className="border-b px-8 py-6">
           <DialogTitle>New Sale</DialogTitle>
         </DialogHeader>
@@ -71,6 +157,92 @@ function FormNewSale({ clients }) {
                   options={options}
                 />
               </div>
+              <div className="flex flex-col gap-2 pt-4">
+                <div className="gap-8">
+                  <p>Choose Type of Sale</p>
+                  <SelectRouter
+                    name="type_sale"
+                    placeholder={`Type of sale`}
+                    options={typeService}
+                    onChange={(e) => setType(e.value)}
+                  />
+                </div>
+              </div>
+              {type === 1 ? (
+                <div className="flex flex-col gap-2 pt-4">
+                  <div className="flex gap-8">
+                    <p>Choose Services</p>
+                    <button type="button" onClick={() => addSelectServInput()}>
+                      <IonIcon
+                        icon={addCircle}
+                        className="h-6 w-6 text-primario hover:text-grisText"
+                      />
+                    </button>
+                  </div>
+                  {selectServ?.map((input, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <div className="flex w-full items-center gap-2">
+                        <SelectRouter
+                          name="service"
+                          placeholder={`Service ${i + 1}`}
+                          options={serviceArray}
+                          onChange={(e) =>
+                            updateSelectServSelect(i, e, "service")
+                          }
+                        />
+                        <SelectRouter
+                          name="recurrency"
+                          placeholder="Recurrency"
+                          options={monthlyArray}
+                          onChange={(e) => updateSelectServSelect2(i, e)}
+                        />
+                        <InputRouter
+                          placeholder="Ammount"
+                          name="ammount"
+                          type="number"
+                          value={selectServ[i]?.ammount}
+                          onChange={(e) => updateSelectServInput(i, e)}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeSelecServInput(i)}
+                      >
+                        <IonIcon
+                          icon={closeCircle}
+                          className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2 pt-4">
+                  <div className="flex gap-8">
+                    <p>Choose Membership</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex w-full items-center gap-2">
+                      <SelectRouter
+                        name="membership_id"
+                        placeholder={`Membership`}
+                        options={membership_options}
+                        onChange={(e) => changeMembershipPrice(e.value)}
+                      />
+                      <SelectRouter
+                        name="recurrency_membership"
+                        placeholder="Recurrency"
+                        options={monthlyArray}
+                      />
+                      <InputRouter
+                        name="ammount_membership"
+                        type="number"
+                        placeholder={membershipPrice}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             <div>
               <input type="text" name="action" value="add-on" readOnly hidden />

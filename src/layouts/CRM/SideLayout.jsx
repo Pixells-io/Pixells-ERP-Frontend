@@ -20,7 +20,7 @@ import {
 } from "./utils";
 
 function SideLayout() {
-  const { services, customers } = useLoaderData();
+  const { services, customers, memberships } = useLoaderData();
   const navigation = useNavigation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -40,7 +40,11 @@ function SideLayout() {
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
             {/* <FormNewClient /> */}
-            <FormNewSale navigation={navigation} clients={customers} />
+            <FormNewSale
+              clients={customers}
+              membership={memberships}
+              services={services}
+            />
           </div>
 
           <div className="my-4 border-b border-gris2"></div>

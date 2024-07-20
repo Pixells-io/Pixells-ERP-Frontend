@@ -11,7 +11,6 @@ import {
 import FormImportClient from "../Clients/FormImportClient";
 
 function StatisticsBlock({ data }) {
-  console.log(data);
   const [modal, setModal] = useState(false);
   return (
     <div className="flex gap-8">
