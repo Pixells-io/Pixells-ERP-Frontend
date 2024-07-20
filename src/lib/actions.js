@@ -1242,6 +1242,22 @@ export async function getProjectById(projectId) {
   }
 }
 
+export async function getCompletedActivity(projectId) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-completed-activity`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getTodayActivity() {
   try {
     const response = await fetch(

@@ -5,6 +5,8 @@ import { IonIcon } from "@ionic/react";
 import {
   addCircleOutline,
   checkmarkCircle,
+  listCircle,
+  listCircleOutline,
   megaphone,
   syncCircle,
 } from "ionicons/icons";
@@ -106,6 +108,23 @@ function SideLayoutPManager() {
 
                 <div>
                   <p className="text-base font-medium">Status</p>
+                  <p className="text-[10px] font-medium">Activities</p>
+                </div>
+              </div>
+            </NavLink>
+            <NavLink
+              to="/project-manager/completed"
+              className={({ isActive }) =>
+                isActive
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
+              }
+            >
+              <div className="flex items-center gap-6">
+                <IonIcon icon={listCircle} size="large"></IonIcon>
+
+                <div>
+                  <p className="text-base font-medium">Completed</p>
                   <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>

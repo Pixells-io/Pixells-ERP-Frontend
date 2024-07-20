@@ -177,6 +177,7 @@ import {
   multiLoaderDashboard,
   getInductionResume,
   getTrainingResume,
+  getCompletedActivity,
 } from "./lib/actions";
 
 //Not Found
@@ -517,6 +518,7 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/completed",
             element: <Completed />,
+            loader: getCompletedActivity,
           },
         ],
       },
