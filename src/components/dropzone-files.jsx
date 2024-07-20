@@ -49,7 +49,15 @@ function DropzoneFile({ name, label }) {
                     className="absolute -top-1 right-1"
                   />
                 </button>
-                <img src={yourImage[0].preview} alt="preview" className="" />
+
+                <div className="mx-auto flex h-[200px] w-[200px] overflow-hidden">
+                  <img
+                    src={yourImage[0].preview}
+                    alt="preview"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+
                 <p>{yourImage[0].path}</p>
               </div>
             ) : (
