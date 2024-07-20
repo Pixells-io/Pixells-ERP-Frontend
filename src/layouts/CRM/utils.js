@@ -85,3 +85,29 @@ export async function removeClient(data) {
 
   return response;
 }
+
+export async function newSale(data) {
+  const info = {
+    client_id: data.get("client_id"),
+    type_sale: data.get("type_sale"),
+    services: data.getAll("service"),
+    recurrency: data.getAll("recurrency"),
+    ammount: data.getAll("ammount"),
+    membership_id: data.get("membership_id"),
+    recurrency_membership: data.get("recurrency_membership"),
+    ammount_membership: data.get("ammount_membership"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process/new-sale`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

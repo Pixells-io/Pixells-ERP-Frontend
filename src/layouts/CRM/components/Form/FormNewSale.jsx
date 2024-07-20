@@ -113,7 +113,7 @@ function FormNewSale({ clients, membership, services }) {
   const [membershipPrice, setMembershipPrice] = useState("");
 
   function changeMembershipPrice(e) {
-    let membership2 = membership.filter((item, i) => item.id === e);
+    let membership2 = membership.data.filter((item, i) => item.id === e);
     setMembershipPrice("");
     setMembershipPrice(membership2[0].price);
   }
@@ -140,7 +140,6 @@ function FormNewSale({ clients, membership, services }) {
           className="flex flex-col gap-2 px-6"
           action="/crm"
           method="post"
-          encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               console.log(e.key);
@@ -152,7 +151,7 @@ function FormNewSale({ clients, membership, services }) {
             <div className="flex flex-col gap-4 pb-4 font-light">
               <div>
                 <SelectRouter
-                  name="client"
+                  name="client_id"
                   placeholder="Select Client"
                   options={options}
                 />

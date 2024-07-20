@@ -13,6 +13,7 @@ import FormNewLead from "./components/Form/FormNewLead";
 import FormNewSale from "./components/Form/FormNewSale";
 
 import {
+  newSale,
   removeClient,
   removeLead,
   saveImportClients,
@@ -81,6 +82,10 @@ export async function Action({ request }) {
 
     case "delete-client":
       await removeClient(data);
+      return redirect("/crm");
+
+    case "add-on":
+      await newSale(data);
       return redirect("/crm");
   }
 }
