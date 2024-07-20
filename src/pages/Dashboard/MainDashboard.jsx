@@ -1,4 +1,6 @@
-import * as React from "react";
+import React from "react";
+import { useLoaderData } from "react-router-dom";
+
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -7,23 +9,24 @@ import {
   calendar,
   listCircle,
 } from "ionicons/icons";
+
+import { format } from "date-fns";
+
+import { Calendar } from "@/components/ui/calendar";
 import Time from "./Components/Time";
 import Activities from "./Components/Activities";
-import { Calendar } from "@/components/ui/calendar";
 import TimeManagement from "./Components/TimeManagement";
 import GeneralMetrics from "./Components/Metrics";
 import CustomersGrowth from "./Components/CustomersGrowth";
-import { format } from "date-fns";
-import { useLoaderData } from "react-router-dom";
 
-function MainDashboard({ isDragging }) {
+function MainDashboard() {
   const newDate = format(new Date(), "PP");
   const { user, dashboard } = useLoaderData();
 
   console.log(dashboard.data);
 
   return (
-    <div className="flex w-full">
+    <div className="flex h-full w-full pb-4">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -70,10 +73,10 @@ function MainDashboard({ isDragging }) {
                   </span>
                 </div>
               </div>
-              <div className="mt-8 flex">
-                <div className="flex w-1/3 gap-6">
-                  <Time title="TOTAL HOURS" time="0" />
-                  <Time title="ACTIVE HOURS" time="0" />
+              <div className="mt-8 flex gap-8">
+                <div className="flex gap-8">
+                  <Time title="ACTIVE USERS" time="0" />
+                  <Time title="TOTAL USERS" time="0" />
                 </div>
                 <div className="flex w-2/3 gap-8">
                   <Activities
@@ -100,7 +103,7 @@ function MainDashboard({ isDragging }) {
                 </div>
               </div>
             </div>
-            <div className="w-1/5">
+            <div className="w-fit shrink-0">
               <Calendar
                 mode="single"
                 className="mt-[-71px] rounded-2xl border bg-grisText text-white"
