@@ -8,7 +8,6 @@ import { useLoaderData } from "react-router-dom";
 
 function MainInduction() {
   const { data } = useLoaderData();
-  console.log(data);
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -61,7 +60,7 @@ function MainInduction() {
 
         <div></div>
 
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="pl-4 text-left">

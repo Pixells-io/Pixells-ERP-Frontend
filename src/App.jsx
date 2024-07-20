@@ -112,6 +112,7 @@ import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
 } from "./pages/PManager/MainProject";
+import Completed from "./pages/PManager/Completed";
 
 // Chat
 import LayoutChat, {
@@ -175,6 +176,7 @@ import {
   multilaoderSideLayoutCRM,
   multiLoaderDashboard,
   getInductionResume,
+  getTrainingResume,
 } from "./lib/actions";
 
 //Not Found
@@ -510,6 +512,10 @@ const router = createBrowserRouter([
                 loader: multiloaderProjectPM,
                 action: multiloaderProject,
               },
+              {
+                path: "/project-manager/:id/completed",
+                element: <Completed />,
+              },
             ],
           },
         ],
@@ -567,6 +573,7 @@ const router = createBrowserRouter([
           {
             path: "/org-development/capacitation/:id",
             element: <MainCapacitation />,
+            loader: getTrainingResume,
           },
           {
             path: "/org-development/capacitation/create/:id",
