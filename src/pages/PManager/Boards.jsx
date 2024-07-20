@@ -39,7 +39,6 @@ function Boards() {
     pusherClient.subscribe(`private-pm-get-objetive.${urlId}`);
 
     pusherClient.bind("fill-pm-objetive", ({ objetive }) => {
-      console.log("WEBSOCKET DE OBJETIVO", objetive);
       getPMinfoFuncion(objetive);
     });
 

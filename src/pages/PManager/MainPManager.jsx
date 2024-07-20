@@ -30,6 +30,7 @@ import {
   editCSF,
   editGoal,
   editStrategicObjective,
+  editTask,
   saveNewCsf,
   saveNewGoal,
   saveNewTask,
@@ -249,8 +250,6 @@ export async function multiFormAction({ params, request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
-  console.log();
-
   switch (action) {
     case "goal":
       await saveNewGoal(formData, paramId);
@@ -262,6 +261,10 @@ export async function multiFormAction({ params, request }) {
 
     case "task":
       await saveNewTask(formData);
+      return redirect(`/project-manager/${params.id}`);
+
+    case "edit-task":
+      await editTask(formData);
       return redirect(`/project-manager/${params.id}`);
 
     case "edit-obj":
