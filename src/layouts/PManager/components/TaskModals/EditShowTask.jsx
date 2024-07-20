@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -30,6 +30,7 @@ function EditShowTask({
   start,
 }) {
   const navigation = useNavigation();
+  const params = useParams();
   const [editTaskInputs, setEditTaskInputs] = useState(true);
 
   let priorityInputLabel = "";
@@ -66,12 +67,25 @@ function EditShowTask({
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/activities"
+          action={`/project-manager/${params.id}`}
           method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <input type="hidden" value={taskId} name="task_id" />
+              <input
+                type="hidden"
+                value={taskId}
+                name="task_id"
+                hidden
+                readOnly
+              />
+              <input
+                type="hidden"
+                value="edit-task"
+                name="action"
+                hidden
+                readOnly
+              />
               <input type="hidden" value={2} name="type_of_request" />
               <div className="flex gap-4">
                 <InputRouter
