@@ -96,6 +96,8 @@ function MainLayout() {
 
   const userData = userAuth.data.user;
 
+  console.log(notificationsData);
+
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();

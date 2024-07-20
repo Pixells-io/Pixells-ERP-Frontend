@@ -512,11 +512,11 @@ const router = createBrowserRouter([
                 loader: multiloaderProjectPM,
                 action: multiloaderProject,
               },
-              {
-                path: "/project-manager/:id/completed",
-                element: <Completed />,
-              },
             ],
+          },
+          {
+            path: "/project-manager/completed",
+            element: <Completed />,
           },
         ],
       },
