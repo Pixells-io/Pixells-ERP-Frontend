@@ -145,38 +145,38 @@ function MainCapacitations() {
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">FORMA</p>
+                <p className="text-sm font-semibold text-grisText">FORM</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">LUGAR</p>
+                <p className="text-sm font-semibold text-grisText">PLACE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">CAPACITOR</p>
+                <p className="text-sm font-semibold text-grisText">TRAINER</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  FECHA TEN.
+                TENTATIVE DATE
                 </p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  FECHA REAL
+                REAL DATE
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">ARCHIVOS</p>
+                <p className="text-sm font-semibold text-grisText">DOCS</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">EXÁMEN</p>
+                <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">HISTORY</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
