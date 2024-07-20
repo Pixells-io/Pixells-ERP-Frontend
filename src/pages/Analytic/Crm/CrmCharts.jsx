@@ -40,16 +40,16 @@ function CrmCharts({ data }) {
               chartData={orderNumberAndLimit(data.services_sales, 5)}
               chartConfig={{
                 number: {
-                  label: "Service-",
+                  label: "Sales-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
               title={"Top 5 Services"}
-              subtitle={"puede agregar subTitle"}
+              subtitle={"Sales of the best services"}
               dataKeyX={"number"}
               dataKeyY={"name"}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-6">
@@ -57,16 +57,16 @@ function CrmCharts({ data }) {
               chartData={orderNumberAndLimit(data.categories_sales, 5)}
               chartConfig={{
                 number: {
-                  label: "Categories-",
+                  label: "Sales-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
               title={"Top 5 Categories"}
-              subtitle={"puede agregar subtitle"}
+              subtitle={"Sales of the best categories"}
               dataKeyX={"name"}
               dataKeyY={"number"}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-12">
@@ -74,15 +74,15 @@ function CrmCharts({ data }) {
               chartData={data.month_array}
               chartConfig={{
                 views: {
-                  label: "Number",
+                  label: "Sales",
                 },
                 number: {
-                  label: "Number",
+                  label: "Sales Ammount",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"titulo 1"}
-              subtitle={"subtitle 2"}
+              title={"Annual Sales"}
+              subtitle={"Total sales per month"}
               dataKey={"month"}
               keys={["number"]}
             />
@@ -92,16 +92,16 @@ function CrmCharts({ data }) {
               chartData={orderNumberAndLimit(data.client_sales, 5)}
               chartConfig={{
                 number: {
-                  label: "Service-",
+                  label: "Sales-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Top 5 Services"}
-              subtitle={"puede agregar subTitle"}
+              title={"Top 5 Clients"}
+              subtitle={"Sales of the best clients"}
               dataKeyX={"number"}
               dataKeyY={"name"}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-6">
@@ -115,10 +115,10 @@ function CrmCharts({ data }) {
               dataKeyCant={"number"}
               total={data.type.reduce((acc, curr) => acc + curr.number, 0)}
               centerTitle={"Ammount"}
-              title={"Top 5 Clients per Sales amount"}
-              subtitle={"puede agregar subtitle"}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              title={"Business vs Individual"}
+              subtitle={"Number of registered clients by category"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
         </div>
