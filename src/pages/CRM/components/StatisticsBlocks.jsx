@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  barChart,
-  ellipsisHorizontal,
-  personAdd,
-  push,
-  walk,
-} from "ionicons/icons";
-import FormImportClient from "../Clients/FormImportClient";
+import { barChart, personAdd, walk } from "ionicons/icons";
 
 function StatisticsBlock({ data }) {
   const [modal, setModal] = useState(false);
@@ -94,18 +87,6 @@ function StatisticsBlock({ data }) {
           </div>
         </div>
       </div>
-      <div className="flex w-52 flex-col justify-end gap-2 rounded-lg px-4 py-3">
-        <button
-          className="ml-28 mt-16 h-10 w-10 rounded-full bg-[#E8E8E8]"
-          onClick={() => setModal(true)}
-        >
-          <IonIcon
-            icon={push}
-            className="mt-2 text-xl text-grisSubText"
-          ></IonIcon>
-        </button>
-      </div>
-      <FormImportClient modal={modal} setModal={setModal} />
     </div>
   );
 }
