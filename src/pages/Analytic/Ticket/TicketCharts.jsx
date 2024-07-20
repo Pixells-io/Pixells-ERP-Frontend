@@ -17,16 +17,16 @@ function TicketCharts({ data }) {
               chartData={orderNumberAndLimit(data.tickets_created, 5)}
               chartConfig={{
                 number: {
-                  label: "Created-",
+                  label: "Tickets-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
               dataKeyX={"name"}
-              title={"Creados"}
-              subtitle={"puede agregar subtitle"}
+              title={"Created"}
+              subtitle={"Tickets created by user"}
               dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 sm:col-span-12 xl:col-span-6">
@@ -34,21 +34,22 @@ function TicketCharts({ data }) {
               chartData={orderNumberAndLimit(data.tickets_assigned, 5)}
               chartConfig={{
                 number: {
-                  label: "Assigned-",
+                  label: "Tickets-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
               dataKeyX={"name"}
-              title={"Asignados"}
-              subtitle={"puede agregar subtitle"}
+              title={"Assigned"}
+              subtitle={"Tickets assigned by user"}
               dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 rounded-xl drop-shadow sm:col-span-12 xl:col-span-6">
             <AverageTimeCard
               title={"Average Time"}
+              subtitle={"Days to complete tickets"}
               days={data.tickets_resolve_days}
             />
           </div>

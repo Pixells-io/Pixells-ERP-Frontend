@@ -23,17 +23,17 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.activity_created, 5)}
               chartConfig={{
                 number: {
-                  label: "Created-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"More Activities Created"}
-              subtitle={"January - June 2024"}
+              title={"Activities Created"}
+              subtitle={"Number of activities created per user"}
               dataKeyX={"name"}
               dataKeyLabel={"number"}
               dataKeyVar={"number"}
-              footerTitle={"Trending up by 5.2% this month"}
-              footerSubTitle={"Showing total visitors for the last 6 months"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
@@ -45,12 +45,12 @@ function ProjectManagerCharts({ data }) {
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"More Activities Completed"}
-              subtitle={"January - June 2024"}
+              title={"Activities Completed"}
+              subtitle={"Number of activities completed per user"}
               dataKeyX={"name"}
               dataKeyY={"number"}
-              footerTitle={"Trending up by 5.2% this month "}
-              footerSubTitle={"Showing total visitors for the last 6 months"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
@@ -58,16 +58,16 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.strategic_objetives_task, 5)}
               chartConfig={{
                 number: {
-                  label: "Time-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"Average Time Completed Task"}
-              subtitle={"January - June 2024"}
+              title={"Activities Per Strategic Objective"}
+              subtitle={"Activities generated in the Strategic Objective"}
               dataKeyX={"name"}
               dataKeyY={"number"}
-              footerTitle={"Trending up by 5.2% this month "}
-              footerSubTitle={"Showing total visitors for the last 6 months"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
@@ -75,21 +75,22 @@ function ProjectManagerCharts({ data }) {
               chartData={orderDesktopAndLimit(data.priority, 5)}
               chartConfig={{
                 desktop: {
-                  label: "Priority-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
               title={"Top Priority"}
-              subtitle={"puede agregar subTitle"}
+              subtitle={"Activities generated with an specific priority"}
               dataKeyX={"desktop"}
               dataKeyY={"name"}
-              footerTitle={"puede agregar footerTitle"}
-              footerSubTitle={"puede agregar footerSubTitle"}
+              footerTitle={""}
+              footerSubTitle={""}
             />
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <AverageTimeCard
-              title={"Strategic Objective W/M Activities"}
+              title={"Average Time Completed Task"}
+              subtitle={"Days to complete an activity"}
               days={data.task_resolve_days}
             />
           </div>

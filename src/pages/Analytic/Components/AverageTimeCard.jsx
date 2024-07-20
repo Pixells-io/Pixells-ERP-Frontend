@@ -2,7 +2,7 @@ import React from "react";
 import { IonIcon } from "@ionic/react";
 import { time } from "ionicons/icons";
 
-function AverageTimeCard({ title, days }) {
+function AverageTimeCard({ title, subtitle, days }) {
   return (
     <div className="rounded-md border border-blancoBox bg-white p-6">
       <div className="mb-4 flex justify-between">
@@ -13,7 +13,7 @@ function AverageTimeCard({ title, days }) {
       </div>
       <div>
         <span className="text-md font-roboto font-medium text-grisSubText">
-          Days
+          {subtitle}
         </span>
       </div>
       <div className="">
