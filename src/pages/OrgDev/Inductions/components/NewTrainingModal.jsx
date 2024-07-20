@@ -16,7 +16,6 @@ import { add } from "ionicons/icons";
 import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import SelectMultiple from "@/components/ui/selectMultiple";
-import Select from "react-select";
 
 function NewTrainingModal({ modal, setModal, users, areas, positions }) {
   const [initialData, setInitialData] = useState(1);
