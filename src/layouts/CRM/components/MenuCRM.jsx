@@ -39,7 +39,7 @@ const MENU_ITEMS = [
     subname: "Administration",
     icon: folder,
   },
-  { path: "/crm/email", name: "Email", subname: "Console", icon: mail },
+  // { path: "/crm/email", name: "Email", subname: "Console", icon: mail },
 ];
 
 function MenuCRM() {

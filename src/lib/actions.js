@@ -44,12 +44,13 @@ export async function getServices() {
 }
 
 export async function multilaoderSideLayoutCRM() {
-  const [services, customers] = await Promise.all([
+  const [services, customers, memberships] = await Promise.all([
     getServices(),
     getCustomers(),
+    getPackages(),
   ]);
 
-  return json({ services, customers });
+  return json({ services, customers, memberships });
 }
 
 export async function getServicesAgreements() {

@@ -39,7 +39,6 @@ export const columns = [
     accessorKey: "contact_name",
     header: "NAME",
     cell: ({ row }) => {
-      console.log(row.original);
       return <span>{row.original.contact_name}</span>;
     },
     meta: {
