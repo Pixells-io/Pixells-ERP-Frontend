@@ -216,9 +216,9 @@ export default MainOrgDev;
 export async function Action({ request }) {
   const data = await request.formData();
   const action = data.get("action");
-
   switch (action) {
     case "1":
+      console.log("Hola");
       await saveNewInduction(data);
       return redirect("/org-development/induction");
 

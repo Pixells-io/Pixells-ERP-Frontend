@@ -108,7 +108,7 @@ function MainCapacitations() {
           users={users.data}
         />
 
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
@@ -188,9 +188,11 @@ function MainCapacitations() {
                     </div>
                   ) : (
                     <div className="flex items-center justify-center">
-                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
-                        Exámen
-                      </p>
+                      <NavLink to={`/org-development/exam/${row?.examen_id}`}>
+                        <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                          Exámen
+                        </p>
+                      </NavLink>
                     </div>
                   )}
 

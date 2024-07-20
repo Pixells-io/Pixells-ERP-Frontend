@@ -30,7 +30,8 @@ const HEADERS = [
   { name: "CSF" },
   { name: "GOAL" },
   { name: "CREATED" },
-  { name: "ACTIONS" },
+  /*
+  { name: "ACTIONS" },*/
 ];
 
 const PRIORITY = [
@@ -156,7 +157,7 @@ function Completed() {
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
                     </div>
-
+                    {/* 
                     <div className="col-span-1 flex justify-end">
                       <div className="flex items-center gap-2 text-[#696974]">
                         <IonIcon
@@ -165,7 +166,7 @@ function Completed() {
                           className="h-5 w-5"
                         ></IonIcon>
                       </div>
-                    </div>
+                    </div>*/}
                   </div>
                 ))}
               </div>

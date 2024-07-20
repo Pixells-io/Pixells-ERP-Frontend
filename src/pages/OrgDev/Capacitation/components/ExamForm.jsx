@@ -150,7 +150,7 @@ function ExamForm() {
           className="flex gap-2 border-t px-4 py-4"
           method="post"
           action={`/org-development/capacitation/create/${inductionId}`}
-          id="crate-induction-exam"
+          id="crate-capacitation-exam"
         >
           <input
             type="text"
@@ -207,6 +207,13 @@ function ExamForm() {
           size=""
           className="h-5 w-5 text-primarioBotones hover:text-primario"
         ></IonIcon>
+      </button>
+      <button
+        form="crate-capacitation-exam"
+        type="submit"
+        className="rounded-3xl bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold text-white"
+      >
+        Enviar
       </button>
     </div>
   );
