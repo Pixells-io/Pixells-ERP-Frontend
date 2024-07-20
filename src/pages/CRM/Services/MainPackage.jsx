@@ -22,6 +22,7 @@ import {
 } from "./utils";
 import ModalAddServicesMembership from "./components/Forms/ModalAddServicesMembership";
 import ModalDestroyServicePackage from "./components/Forms/ModalDestroyServicePackage";
+import NavigationHeader from "@/components/navigation-header";
 function MainPackage() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
@@ -57,23 +58,7 @@ function MainPackage() {
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div>crm</div>
-          </div>
+          <NavigationHeader />
 
           {/* top content */}
           <div className="flex items-center gap-4">

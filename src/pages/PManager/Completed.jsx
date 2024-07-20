@@ -21,6 +21,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import ModalDestroyCompleted from "./components/ModalDestroyCompleted";
 import { Link, useLoaderData } from "react-router-dom";
+import NavigationHeader from "@/components/navigation-header";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -29,7 +30,8 @@ const HEADERS = [
   { name: "CSF" },
   { name: "GOAL" },
   { name: "CREATED" },
-  { name: "ACTIONS" },
+  /*
+  { name: "ACTIONS" },*/
 ];
 
 const PRIORITY = [
@@ -62,27 +64,7 @@ function Completed() {
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            project manager
-          </div>
-        </div>
+        <NavigationHeader />
 
         {/* top content */}
         <div className="flex items-center gap-4">
@@ -175,7 +157,7 @@ function Completed() {
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
                     </div>
-
+                    {/* 
                     <div className="col-span-1 flex justify-end">
                       <div className="flex items-center gap-2 text-[#696974]">
                         <IonIcon
@@ -184,7 +166,7 @@ function Completed() {
                           className="h-5 w-5"
                         ></IonIcon>
                       </div>
-                    </div>
+                    </div>*/}
                   </div>
                 ))}
               </div>

@@ -42,7 +42,7 @@ function SideLayoutConfiguration() {
               </div>
             </NavLink>
             <NavLink
-              to="/organization/integrations"
+              to="/organization"
               className={({ isActive }) =>
                 isActive
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"

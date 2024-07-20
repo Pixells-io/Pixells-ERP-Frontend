@@ -80,11 +80,11 @@ const MENU = [
     name: "Ticket",
     icon: ticket,
   },
-  {
+  /*{
     path: "/configuration",
     name: "Config",
     icon: cog,
-  },
+  },*/
 ];
 
 function MainLayout() {

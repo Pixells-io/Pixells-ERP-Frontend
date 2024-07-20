@@ -25,6 +25,7 @@ import {
 import { getTrainings } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
+import NavigationHeader from "@/components/navigation-header";
 
 function MainCapacitations() {
   const navigation = useNavigation();
@@ -64,25 +65,8 @@ function MainCapacitations() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">org-dev</div>
-        </div>
+        <NavigationHeader />
+
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
@@ -124,7 +108,7 @@ function MainCapacitations() {
           users={users.data}
         />
 
-        <div className="rounded-lg bg-blancoBg pt-2">
+        <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
@@ -204,9 +188,11 @@ function MainCapacitations() {
                     </div>
                   ) : (
                     <div className="flex items-center justify-center">
-                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
-                        Exámen
-                      </p>
+                      <NavLink to={`/org-development/exam/${row?.examen_id}`}>
+                        <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                          Exámen
+                        </p>
+                      </NavLink>
                     </div>
                   )}
 

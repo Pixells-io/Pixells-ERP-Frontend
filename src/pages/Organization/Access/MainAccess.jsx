@@ -4,6 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import AccordionModule from "./Components/AccordionModule";
+import NavigationHeader from "@/components/navigation-header";
 
 function MainAccess() {
   const { users, areas } = useLoaderData();
@@ -12,25 +13,8 @@ function MainAccess() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-grisText">organization</div>
-        </div>
+        <NavigationHeader />
+
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>

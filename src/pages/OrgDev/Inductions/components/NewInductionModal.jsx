@@ -68,6 +68,7 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
           action="/org-development/induction"
           method="post"
         >
+          <input type="hidden" name="action" value="1" />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-4 pb-4 font-light">
               <InputRouter

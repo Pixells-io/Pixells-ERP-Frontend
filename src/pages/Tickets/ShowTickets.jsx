@@ -4,6 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import SidebarActionsTicket from "./Components/SidebarActionsTicket";
 import FollowUpCard from "./Components/FollowUpCard";
+import NavigationHeader from "@/components/navigation-header";
 
 function ShowTickets() {
   const { areas, users, myTicket } = useLoaderData();
@@ -15,7 +16,9 @@ function ShowTickets() {
       {/* FollowUp Div */}
       <div className="ml-4 flex w-3/4 flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
+        <NavigationHeader />
+
+        {/* <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
             <div className="h-12 w-12">
               <IonIcon
@@ -32,9 +35,9 @@ function ShowTickets() {
               ></IonIcon>
             </div>
           </div>
-          <div className="font-roboto text-sm text-grisText">
-            tickets {" > "} {ticket.issue}
-          </div>
+        </div> */}
+        <div className="font-roboto text-sm text-grisText">
+          tickets {" > "} {ticket.issue}
         </div>
         {/* top content */}
         <div className="items-center gap-4 overflow-scroll">
