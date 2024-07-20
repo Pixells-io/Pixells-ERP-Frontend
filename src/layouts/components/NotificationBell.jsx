@@ -46,12 +46,12 @@ function NotificationBell({ notificationsData, user }) {
                         </Avatar>
                       </div>
                       <div>
-                        <div className="flex">
+                        <div className="flex gap-2">
                           <span className="flex items-center gap-1 overflow-hidden text-sm font-medium text-grisText">
                             {item.name} &bull;{" "}
                           </span>
                           <span className="text-[10px] text-grisSubText">
-                            Hace 2 días
+                            {item.latest.created}
                           </span>
                         </div>
                         <span className="w-9 overflow-hidden text-xs font-normal text-grisSubText">
@@ -59,11 +59,11 @@ function NotificationBell({ notificationsData, user }) {
                         </span>
                       </div>
                       <div className="flex flex-col items-end">
-                        <span className="flex h-5 w-5 justify-center rounded-full bg-[#D7586B] text-white">
+                        <span className="flex h-5 w-5 justify-center rounded-full bg-[#D7586B] text-sm text-white">
                           {item.count}
                         </span>
                         <span className="text-[10px] text-grisSubText">
-                          13:27
+                          {item.latest.created}
                         </span>
                       </div>
                     </div>
