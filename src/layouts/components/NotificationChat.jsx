@@ -47,6 +47,8 @@ function NotificationChat({ notifications, user }) {
     };
   }, []);
 
+  console.log(notifications);
+
   return (
     <div className="flex">
       {notificationsPusher[0]?.number == 0 ? (
@@ -75,8 +77,7 @@ function NotificationChat({ notifications, user }) {
                 <div className="flex w-64 gap-1 hover:rounded-lg hover:bg-[#7794F926]">
                   <div className="w-1/5">
                     <Avatar>
-                      <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage src={noti?.img} />
                     </Avatar>
                   </div>
                   <div className="w-3/5 overflow-hidden text-start">
