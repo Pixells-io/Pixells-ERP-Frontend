@@ -1,3 +1,4 @@
+import { format, parse } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
@@ -59,7 +60,8 @@ export async function saveNewTraining(data) {
     teacher_name: data.get("teacher_name"),
     teacher_last_name: data.get("teacher_last_name"),
     teacher_second_last_name: data.get("teacher_second_last_name"),
-    class_date: data.get("class_date"),
+    class_date: format(data.get("class_date"), "yyyy-MM-dd"),
+    // class_date: parse(data.get("class_date"), "yyyy/MM/dd", new Date()),
     class_real_date: data.get("class_real_date"),
     areas: areas,
     positions: positions,
