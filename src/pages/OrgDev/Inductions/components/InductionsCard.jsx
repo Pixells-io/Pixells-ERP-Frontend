@@ -20,16 +20,14 @@ import {
 function InductionsCard({ card }) {
   return (
     <div className="relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
-      {card.status != null ? (
+      {card.status === true ? (
         <div className="">
           <IonIcon
             icon={checkmarkCircle}
             className="absolute -right-2 -top-2 h-5 w-5 text-[#00A259]"
           ></IonIcon>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
       <div className="flex items-center justify-between">
         {card.status == null ? (
           <p className="flex w-[65px] items-center justify-center rounded-full bg-[#7794F940] text-[11px] font-semibold text-[#7794F9]">
@@ -74,15 +72,21 @@ function InductionsCard({ card }) {
       </div>
 
       {card?.exam_id !== 0 && (
-        <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
-          <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
-            <IonIcon
-              icon={caretForwardOutline}
-              className="flex pl-1 text-white"
-              size="large"
-            ></IonIcon>
-          </Link>
-        </div>
+        <>
+          {card?.status != true ? (
+            <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+              <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
+                <IonIcon
+                  icon={caretForwardOutline}
+                  className="flex pl-1 text-white"
+                  size="large"
+                ></IonIcon>
+              </Link>
+            </div>
+          ) : (
+            false
+          )}
+        </>
       )}
     </div>
   );

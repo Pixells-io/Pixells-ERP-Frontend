@@ -19,12 +19,19 @@ import {
 
 import { notifications } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { Link, redirect } from "react-router-dom";
+import { destroyNotification } from "@/lib/actions";
 
 function NotificationBell({ notificationsData, user }) {
-  console.log(notificationsData);
+  async function destroyNotificationTwo(noti, url) {
+    await destroyNotification(noti);
+    console.log(url);
+    return redirect(`/${url}`);
+  }
+
   return (
     <div>
-      <DropdownMenu>
+      <DropdownMenu className="overflow-auto">
         <DropdownMenuTrigger>
           <IonIcon
             icon={notifications}
@@ -32,46 +39,79 @@ function NotificationBell({ notificationsData, user }) {
             className="text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="">
+        <DropdownMenuContent className="max-h-96 overflow-auto">
           {notificationsData?.map((item, i) => (
-            <div className="flex flex-col gap-1" key={i}>
-              <Accordion type="single" collapsible>
-                <AccordionItem value={`item-${i}`}>
-                  <AccordionTrigger>
-                    <div className="flex w-full gap-1 hover:rounded-lg hover:bg-[#7794F926]">
-                      <div>
-                        <Avatar>
-                          <AvatarImage src="https://demoback.pixells.io/images/r.jpg" />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                      </div>
-                      <div>
-                        <div className="flex gap-2">
-                          <span className="flex items-center gap-1 overflow-hidden text-sm font-medium text-grisText">
-                            {item.name} &bull;{" "}
-                          </span>
-                          <span className="text-[10px] text-grisSubText">
-                            {item.latest.created}
-                          </span>
+            <>
+              {item.count != "0" ? (
+                <div className="flex flex-col gap-1" key={i}>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value={`item-${i}`}>
+                      <AccordionTrigger className="hover:bg-[#7794F926] hover:no-underline">
+                        <div className="flex w-full gap-1 hover:rounded-lg">
+                          <div>
+                            <Avatar>
+                              <AvatarImage src={item.latest.img} />
+                            </Avatar>
+                          </div>
+                          <div>
+                            <div className="flex gap-2">
+                              <span className="flex items-center gap-1 overflow-hidden text-sm font-medium text-grisText">
+                                {item.name} &bull;{" "}
+                              </span>
+                              <span className="text-[10px] text-grisSubText">
+                                {item.latest.created}
+                              </span>
+                            </div>
+                            <span className="w-9 overflow-hidden text-xs font-normal text-grisSubText">
+                              {item.latest.message}
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <span className="flex h-5 w-5 justify-center rounded-full bg-[#D7586B] text-sm text-white">
+                              {item.count}
+                            </span>
+                            <span className="text-[10px] text-grisSubText">
+                              {item.latest.created}
+                            </span>
+                          </div>
                         </div>
-                        <span className="w-9 overflow-hidden text-xs font-normal text-grisSubText">
-                          Clarissa creó un nuevo cliente
-                        </span>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="flex h-5 w-5 justify-center rounded-full bg-[#D7586B] text-sm text-white">
-                          {item.count}
-                        </span>
-                        <span className="text-[10px] text-grisSubText">
-                          {item.latest.created}
-                        </span>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>{item.name}</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        {item.notifications.map((noti, i) => (
+                          <button
+                            type="button"
+                            key={i}
+                            className="flex w-full gap-1 py-2 hover:rounded-lg hover:bg-[#7794F926]"
+                            onClick={() =>
+                              destroyNotificationTwo(noti.id, noti.url)
+                            }
+                          >
+                            <div>
+                              <Avatar>
+                                <AvatarImage src={noti.img} />
+                              </Avatar>
+                            </div>
+                            <div>
+                              <div className="flex gap-2">
+                                <span className="flex items-center gap-1 overflow-hidden text-sm font-medium text-grisText">
+                                  {noti.name}
+                                </span>
+                                <span className="text-[10px] text-grisSubText">
+                                  {noti.created}
+                                </span>
+                              </div>
+                              <span className="w-9 overflow-hidden text-ellipsis text-xs font-normal text-grisSubText">
+                                {noti.message}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              ) : null}
+            </>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>

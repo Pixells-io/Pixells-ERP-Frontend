@@ -1258,6 +1258,22 @@ export async function getCompletedActivity(projectId) {
   }
 }
 
+export async function destroyNotification(notification) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}notifications/destroy-notification/${notification}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getTodayActivity() {
   try {
     const response = await fetch(

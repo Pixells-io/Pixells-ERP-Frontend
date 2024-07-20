@@ -64,7 +64,7 @@ function FollowUpCard({ followUp, ticket, status }) {
           {/* card header */}
           <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
             <div className="flex items-center gap-2 p-1">
-              <img src={followUp.user_img} className="w-8 rounded-full" />
+              <img src={followUp.user_img} className="h-8 w-8 rounded-full" />
 
               <p className="text-[15px] font-medium text-gris2">
                 {followUp.creator}
@@ -98,15 +98,13 @@ function FollowUpCard({ followUp, ticket, status }) {
               ) : (
                 <iframe src={followUp.comment} frameborder="0"></iframe>
               )}
-              {status != "Complete" ? (
-                <button
-                  type="button"
-                  onClick={() => openModalComment(followUp.id)}
-                  className="mt-2 text-2xl text-primario"
-                >
-                  <IonIcon icon={addCircleSharp}></IonIcon>
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={() => openModalComment(followUp.id)}
+                className="mt-2 text-2xl text-primario"
+              >
+                <IonIcon icon={addCircleSharp}></IonIcon>
+              </button>
             </div>
           </div>
         </div>

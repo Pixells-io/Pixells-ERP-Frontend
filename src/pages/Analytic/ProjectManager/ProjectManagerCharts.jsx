@@ -14,6 +14,7 @@ const orderDesktopAndLimit = (data = [], limit = 0) => {
 };
 
 function ProjectManagerCharts({ data }) {
+  console.log(data);
   return (
     <div className="overflow-auto">
       <div className="grid grid-flow-col grid-cols-12">

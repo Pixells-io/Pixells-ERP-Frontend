@@ -21,7 +21,7 @@ function CapacutationCard({ card }) {
   console.log(card);
   return (
     <div className="relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
-      {card.status == "Hecho" ? (
+      {card.status === true ? (
         <div className="">
           <IonIcon
             icon={checkmarkCircle}
@@ -29,7 +29,7 @@ function CapacutationCard({ card }) {
           ></IonIcon>
         </div>
       ) : (
-        ""
+        false
       )}
       <div className="flex items-center justify-between">
         {card.status == "Pendiente" ? (
@@ -79,15 +79,21 @@ function CapacutationCard({ card }) {
         )}
       </div>
       {card?.exam_id !== 0 && (
-        <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
-          <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
-            <IonIcon
-              icon={caretForwardOutline}
-              className="flex pl-1 text-white"
-              size="large"
-            ></IonIcon>
-          </Link>
-        </div>
+        <>
+          {card?.status != true ? (
+            <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+              <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
+                <IonIcon
+                  icon={caretForwardOutline}
+                  className="flex pl-1 text-white"
+                  size="large"
+                ></IonIcon>
+              </Link>
+            </div>
+          ) : (
+            false
+          )}
+        </>
       )}
     </div>
   );
