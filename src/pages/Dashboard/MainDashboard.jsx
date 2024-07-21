@@ -23,8 +23,6 @@ function MainDashboard() {
   const newDate = format(new Date(), "PP");
   const { user, dashboard } = useLoaderData();
 
-  console.log(dashboard.data);
-
   return (
     <div className="flex h-full w-full pb-4">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

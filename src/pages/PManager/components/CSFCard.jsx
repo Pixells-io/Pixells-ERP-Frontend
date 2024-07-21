@@ -9,8 +9,6 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function CSFCard({ card }) {
-  console.log(card);
-
   return (
     <div className="flex h-[168px] w-[378px] shrink-0 flex-col rounded-2xl border border-grisDisabled px-4 py-1">
       <div className="flex items-center justify-between">
@@ -18,9 +16,6 @@ function CSFCard({ card }) {
           FCE <span className="text-2xl">&bull;</span>
           {card.name}
         </p>
-        <div className="flex text-grisSubText">
-          <IonIcon icon={ellipsisHorizontal} className="h-8 w-8"></IonIcon>
-        </div>
       </div>
       <div className="flex w-fit rounded-full bg-blancoBox px-4 py-1">
         <div className="flex items-center gap-2 text-grisSubText">
@@ -31,19 +26,33 @@ function CSFCard({ card }) {
       <div className="flex justify-between pt-1">
         <div>
           <p className="font-xs font-medium text-grisHeading">Actividades</p>
-          <div className="flex h-16 w-auto flex-col overflow-scroll">
+          <div className="flex h-16 w-56 flex-col overflow-scroll">
             {card?.task.map((task, i) => (
-              <div className="flex items-center gap-1">
-                <p className="text-xs text-grisHeading line-through">
-                  {task.name}
-                </p>
-                <div className="flex">
-                  <Avatar className="h-5 w-5">
-                    <AvatarImage src={task.img} />
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
+              <>
+                {task.progress === 0 ? (
+                  <div className="my-1 flex items-center gap-2">
+                    <div className="flex">
+                      <Avatar className="h-5 w-5">
+                        <AvatarImage src={task.img} />
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <p className="text-xs text-grisHeading">{task.name}</p>
+                  </div>
+                ) : (
+                  <div className="my-1 flex items-center gap-2">
+                    <div className="flex">
+                      <Avatar className="h-5 w-5">
+                        <AvatarImage src={task.img} />
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <p className="text-xs text-grisHeading line-through">
+                      {task.name}
+                    </p>
+                  </div>
+                )}
+              </>
             ))}
           </div>
         </div>
