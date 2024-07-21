@@ -32,7 +32,7 @@ function ProjectCard(project) {
       <div className="flex items-center gap-4 text-grisText">
         <div className="flex">
           <IonIcon icon={attachOutline} className="h-5 w-5"></IonIcon>
-          <p className="text-[12px]">0</p>
+          <p className="text-[12px]"> {data.documents} </p>
         </div>
         <div className="flex items-center gap-2 rounded-full bg-[#D7586B1F] px-4 py-1 text-[#D7586B]">
           <IonIcon icon={timeOutline} className="h-5 w-5"></IonIcon>
@@ -45,7 +45,7 @@ function ProjectCard(project) {
         </p>
         <Progress value={data.percent} className="h-1" />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 overflow-auto">
         {data.users.map((img, i) => (
           <Avatar className="h-6 w-6">
             <AvatarImage src={img.img} alt={img.title} />
