@@ -19,9 +19,10 @@ import {
   trash,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import ModalDestroyCompleted from "./components/ModalDestroyCompleted";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
+import DestroyActivityCardComplete from "./components/Cards/DestroyActivityCard";
+import { destroyActivity } from "./utils";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -30,8 +31,7 @@ const HEADERS = [
   { name: "CSF" },
   { name: "GOAL" },
   { name: "CREATED" },
-  /*
-  { name: "ACTIONS" },*/
+  { name: "ACTIONS" },
 ];
 
 const PRIORITY = [
@@ -43,21 +43,16 @@ const PRIORITY = [
 
 function Completed() {
   const [taskId, setTaskId] = useState(false);
+  const [taskType, setTaskType] = useState(false);
   const [destroyTaskModal, setDestroyTaskModal] = useState(false);
   const { data } = useLoaderData();
 
-  console.log(data);
-
   const [activitiesData, setActivitiesData] = useState(data);
 
-  function openDestroyTaskModal(taskId) {
+  function openDestroyTaskModal(taskId, type) {
     setTaskId(taskId);
+    setTaskType(type);
     setDestroyTaskModal(true);
-  }
-
-  function checkColor(value) {
-    const color = PRIORITY.filter((prio) => prio.value == value);
-    return color[0].color;
   }
 
   return (
@@ -65,6 +60,12 @@ function Completed() {
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
+        <DestroyActivityCardComplete
+          modal={destroyTaskModal}
+          setModal={setDestroyTaskModal}
+          id={taskId}
+          type={taskType}
+        />
 
         {/* top content */}
         <div className="flex items-center gap-4">
@@ -90,12 +91,6 @@ function Completed() {
         {/* outlet */}
         <div className="flex h-full justify-center overflow-auto rounded-3xl bg-blancoBg p-4">
           <div className="flex h-full flex-col overflow-auto rounded-2xl bg-blancoBg p-4">
-            <ModalDestroyCompleted
-              modal={destroyTaskModal}
-              setModal={setDestroyTaskModal}
-              taskId={taskId}
-            />
-
             <div className="grid grid-cols-11 border-b border-grisDisabled pb-4 text-right">
               {HEADERS?.map((header, i) => (
                 <div
@@ -157,16 +152,17 @@ function Completed() {
                         <AvatarFallback></AvatarFallback>
                       </Avatar>
                     </div>
-                    {/* 
                     <div className="col-span-1 flex justify-end">
                       <div className="flex items-center gap-2 text-[#696974]">
                         <IonIcon
                           icon={trash}
-                          onClick={() => openDestroyTaskModal(task?.id)}
+                          onClick={() =>
+                            openDestroyTaskModal(task?.id, task?.type)
+                          }
                           className="h-5 w-5"
                         ></IonIcon>
                       </div>
-                    </div>*/}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -179,3 +175,20 @@ function Completed() {
 }
 
 export default Completed;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+
+  switch (action) {
+    case "Activity":
+      await destroyActivity(1, data.get("id"));
+      return redirect("/project-manager/completed");
+
+    case "Task":
+      await saveImportClients(2, data.get("id"));
+      return redirect("/project-manager/completed");
+  }
+
+  return 1;
+}

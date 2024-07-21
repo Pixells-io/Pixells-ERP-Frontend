@@ -112,7 +112,9 @@ import Boards from "./pages/PManager/Boards";
 import MainProject, {
   Action as multiloaderProject,
 } from "./pages/PManager/MainProject";
-import Completed from "./pages/PManager/Completed";
+import Completed, {
+  Action as CompletedAction,
+} from "./pages/PManager/Completed";
 
 // Chat
 import LayoutChat, {
@@ -528,6 +530,7 @@ const router = createBrowserRouter([
             path: "/project-manager/completed",
             element: <Completed />,
             loader: getCompletedActivity,
+            action: CompletedAction,
           },
         ],
       },

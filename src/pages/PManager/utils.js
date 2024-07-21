@@ -484,3 +484,17 @@ export async function removeAssignedActivity(data) {
 
   return response;
 }
+
+export async function destroyActivity(type, id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-complete/${type}/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

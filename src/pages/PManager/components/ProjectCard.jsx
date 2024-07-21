@@ -13,7 +13,8 @@ import { IonIcon } from "@ionic/react";
 
 function ProjectCard(project) {
   const data = project.project;
-  console.log(data);
+
+  console.log(data, "Hola");
 
   // const [progress, setProgress] = useState(80);
 
@@ -39,7 +40,7 @@ function ProjectCard(project) {
         </div>
         <div className="flex items-center gap-2 rounded-full bg-[#D7586B1F] px-4 py-1 text-[#D7586B]">
           <IonIcon icon={timeOutline} className="h-5 w-5"></IonIcon>
-          <p className="text-[12px] text-[#D7586B]">05 Dic 24</p>
+          <p className="text-[12px] text-[#D7586B]"> {data.latest} </p>
         </div>
       </div>
       <div className="flex flex-col gap-1">
@@ -49,14 +50,11 @@ function ProjectCard(project) {
         <Progress value={data.percent} className="h-1" />
       </div>
       <div className="flex items-center gap-2">
-        <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        {data.users.map((img, i) => (
+          <Avatar className="h-6 w-6">
+            <AvatarImage src={img.img} alt={img.title} />
+          </Avatar>
+        ))}
       </div>
     </div>
   );

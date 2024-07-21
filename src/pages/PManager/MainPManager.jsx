@@ -170,7 +170,6 @@ function MainPManager() {
           <div className="">
             <GoalForm objectiveId={params.id} />
           </div>
-          {/* 
           <div className="flex gap-3">
             <NavLink
               to={`/project-manager/${params.id}`}
@@ -216,7 +215,7 @@ function MainPManager() {
             >
               Completed
             </NavLink>
-          </div>*/}
+          </div>
         </div>
 
         <Outlet />
