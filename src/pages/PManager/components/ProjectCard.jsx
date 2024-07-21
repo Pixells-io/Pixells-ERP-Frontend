@@ -24,10 +24,6 @@ function ProjectCard(project) {
         <p className="font-poppins text-[15px] font-semibold">
           {data.phases} Fases &bull; {data.activities} Actividades
         </p>
-        <IonIcon
-          icon={ellipsisHorizontal}
-          className="h-5 w-5 text-grisDisabled"
-        ></IonIcon>
       </div>
       <div className="flex items-center gap-2 text-grisText">
         <IonIcon icon={listCircleOutline} className="h-5 w-5"></IonIcon>
