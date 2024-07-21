@@ -62,8 +62,8 @@ function ProjectManagerCharts({ data }) {
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"Activities Per Strategic Objective"}
-              subtitle={"Activities generated in the Strategic Objective"}
+              title={"Task and Projects Per Strategic Objective"}
+              subtitle={"Task and projects in the Strategic Objective"}
               dataKeyX={"name"}
               dataKeyY={"number"}
               footerTitle={""}

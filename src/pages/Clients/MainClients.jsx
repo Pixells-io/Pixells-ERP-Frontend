@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Progress } from "@/components/ui/progress";
 
@@ -13,7 +13,7 @@ import {
   chevronForward,
   checkmarkCircleOutline,
 } from "ionicons/icons";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormCreateDocuments from "../CRM/Clients/FormCreateDocument";
 import { editClientData, storeDocument, storeRequiredDocument } from "./utils";
@@ -22,13 +22,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CollectDocumentsClientPlatform from "./Components/CollectDocumentsClientPlatform";
 import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatform";
 import ClientInterviews from "./Components/ClientInterviews";
+import Cookies from "js-cookie";
+import ContractsClientPlatform from "./Components/ContractsClientPlatform";
 
 function MainClients() {
   const { data } = useLoaderData();
   const [modalDocument, setModalDocument] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const token = Cookies.get("token");
+  const navigate = useNavigate();
 
-  console.log(data);
+  useEffect(() => {
+    if (token == undefined || data.status == 500)
+      return navigate("/login-client");
+  }, []);
 
   return (
     <div className="mt-4 flex h-full px-4 pb-4 font-roboto">
@@ -173,6 +180,19 @@ function MainClients() {
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
                 </div>
               </TabsTrigger>
+              <TabsTrigger
+                value="contracts"
+                className="flex items-center gap-2 rounded-3xl bg-white px-6 py-3 text-grisHeading data-[state=active]:bg-grisHeading data-[state=active]:text-white"
+              >
+                <span>Contracts</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium">
+                    {data.contract_count}
+                  </span>
+                  &nbsp;
+                  <IonIcon icon={checkmarkCircleOutline}></IonIcon>
+                </div>
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="interview">
               <ClientInterviews interviews={data.interviews} />
@@ -184,6 +204,9 @@ function MainClients() {
             </TabsContent>
             <TabsContent value="ready">
               <ReadyDocumentsClientPlatform documents={data.documents_ready} />
+            </TabsContent>
+            <TabsContent value="contracts">
+              <ContractsClientPlatform contracts={data.contracts} />
             </TabsContent>
           </Tabs>
         </div>
