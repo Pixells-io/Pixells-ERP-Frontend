@@ -10,7 +10,7 @@ function MainAccess() {
   const { users, areas } = useLoaderData();
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
         {/* navigation inside */}
         <NavigationHeader />
@@ -32,10 +32,11 @@ function MainAccess() {
         <div className="rounded-xl bg-white p-7">
           <div className="flex">
             <Tabs className="w-full">
-              <TabsList className="mb-3 w-full bg-transparent">
-                <div className="flex w-full">
+              <TabsList className="mb-3 w-full bg-transparent overflow-auto">
+                <div className="flex w-full h-[25px]">
                   {areas.data?.map((area, i) => (
                     <TabsTrigger
+                      key={"tt" + i}
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value={area.id}
                     >
@@ -46,7 +47,7 @@ function MainAccess() {
                 </div>
               </TabsList>
               {areas.data?.map((area, i) => (
-                <TabsContent value={area.id}>
+                <TabsContent key={"tc" + i} value={area.id}>
                   <AccordionModule area={area} />
                 </TabsContent>
               ))}
