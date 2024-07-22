@@ -122,6 +122,8 @@ import LayoutChat, {
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
+import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
+
 
 //actions
 import {
@@ -541,6 +543,10 @@ const router = createBrowserRouter([
         loader: multiLoaderChat,
         action: chatLayoutFunction,
         children: [
+          {
+            index: true,
+            element: <WelcomeToChat />
+          },
           {
             path: "/chat/:id",
             element: <MainChat />,
