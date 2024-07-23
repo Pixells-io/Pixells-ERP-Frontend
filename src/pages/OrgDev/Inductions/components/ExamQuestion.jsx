@@ -28,7 +28,7 @@ function ExamQuestion({
   return (
     <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
       <div className="flex px-6 py-3 items-center justify-between">
-        <p className="font-medium text-grisText">Pregunta {index + 1}</p>
+        <p className="font-medium text-grisText">Question {index + 1}</p>
         {index !== 0 && (
           <button type="button" onClick={() => removeQuestion(index)}>
             <IonIcon
@@ -44,12 +44,12 @@ function ExamQuestion({
           value={question.question}
           onChange={(e) => onChangeQuestion(index, e)}
           type="text"
-          placeholder="Escribe la pregunta"
+          placeholder="Write the question"
           className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
         />
         <Select onValueChange={(e) => onChangeType(index, e)}>
           <SelectTrigger className="placeholder:bg-blancoForms border-0 border-b text-xs placeholder:text-xs placeholder:p-2 p-2 bg-blancoForms w-[100px]">
-            <SelectValue placeholder="Tipo" className="" />
+            <SelectValue placeholder="Type" className="" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="0">Singular</SelectItem>

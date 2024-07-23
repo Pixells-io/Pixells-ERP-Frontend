@@ -13,7 +13,7 @@ import { IonIcon } from "@ionic/react";
 import { add, closeCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function ModalAnswerInterview({ modal, setModal, interview }) {
+function ModalAnswerInterview({ modal, setModal, interview, masterId }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -21,8 +21,6 @@ function ModalAnswerInterview({ modal, setModal, interview }) {
       setModal(false);
     }
   }, [navigation.state]);
-
-  console.log(interview);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -39,8 +37,9 @@ function ModalAnswerInterview({ modal, setModal, interview }) {
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <input type="hidden" name="type_of_function" value="5" />
-              <input type="hidden" name="service_id" value={interview.id} />
+              <input type="hidden" name="type" value="9" />
+              <input type="hidden" name="interview_id" value={interview.id} />
+              <input type="hidden" name="master" value={masterId} />
               <InputRouter
                 name="name"
                 type="text"

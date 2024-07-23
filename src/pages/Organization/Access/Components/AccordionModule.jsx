@@ -8,6 +8,14 @@ import {
 } from "@/components/ui/accordion";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
 import CheckboxAccordion from "./CheckboxAccordion";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 function AccordionModule(area) {
   const modulos = [
     {
@@ -62,7 +70,7 @@ function AccordionModule(area) {
   return (
     <div>
       {modulos?.map((modulo, i) => (
-        <Accordion type="single" key={1} collapsible className="">
+        <Accordion type="single" key={"modulo" + i} collapsible className="">
           <AccordionItem value={1}>
             <AccordionTrigger className="bg-[#F2F2F2] p-4 px-4 text-start">
               <p className="col-span-5 pr-2 text-right font-roboto text-sm font-normal text-grisHeading">
@@ -70,11 +78,11 @@ function AccordionModule(area) {
               </p>
             </AccordionTrigger>
             <AccordionContent className="border-0 p-4">
-              <div className="items-center border-b-[1px] px-1">
+              {/* <div className="items-center border-b-[1px] px-1">
                 <div className="border[#D7D7D7] flex border-b py-4">
                   <div className="w-1/6 pl-8"></div>
                   {area.area.positions?.map((position, i) => (
-                    <div>
+                    <div key={"positionOne" + i}>
                       <span className="font-roboto text-sm font-semibold uppercase text-grisText">
                         {position.position_name}
                       </span>
@@ -82,14 +90,14 @@ function AccordionModule(area) {
                   ))}
                 </div>
                 {permision?.map((permiso, i) => (
-                  <div className="border[#D7D7D7] flex border-b py-4">
+                  <div key={"permiso" + i} className="border[#D7D7D7] flex border-b py-4">
                     <div className="w-1/6 pl-8">
                       <span className="font-roboto text-sm font-normal uppercase text-grisHeading">
                         {permiso.name}
                       </span>
                     </div>
                     {area.area.positions?.map((position, i) => (
-                      <div>
+                      <div key={"positionTwo" + i}>
                         <CheckboxAccordion
                           position={position.id}
                           permision={permiso.value}
@@ -99,7 +107,48 @@ function AccordionModule(area) {
                     ))}
                   </div>
                 ))}
-              </div>
+              </div> */}
+
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[100px]"></TableHead>
+                    {area.area.positions?.map((position, i) => (
+                      <TableHead key={"th" + i}>
+                        <div className="flex justify-center">
+                          <span className="text-center font-roboto text-sm font-semibold uppercase text-grisText">
+                            {position.position_name}
+                          </span>
+                        </div>
+                      </TableHead>
+                    ))}
+                    <TableHead className="w-full"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {permision?.map((permiso, i) => (
+                    <TableRow key={i} className="border[#D7D7D7] border-b py-4">
+                      <TableCell>
+                        <span className="font-roboto text-sm font-normal uppercase text-grisHeading">
+                          {permiso.name}
+                        </span>
+                      </TableCell>
+                      {area.area.positions?.map((position, i) => (
+                        <TableCell key={"tc" + i}>
+                          <div className="flex w-full justify-center">
+                            <CheckboxAccordion
+                              position={position.id}
+                              permision={permiso.value}
+                              module={modulo.id}
+                            />
+                          </div>
+                        </TableCell>
+                      ))}
+                      <TableCell></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

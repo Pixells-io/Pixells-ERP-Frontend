@@ -67,14 +67,15 @@ function NotificationChat({ notifications, user }) {
           ></IonIcon>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="flex flex-col">
-          <DropdownMenuItem className="flex flex-col gap-2">
+          <DropdownMenuItem className="flex flex-col gap-1 px-0 py-0 focus:bg-inherit">
             {notificationsPusher[0]?.notifications.map((noti, i) => (
               <button
+                className="px-2 py-1"
                 key={i}
                 type="button"
                 onClick={() => destroyNotificationActivation(noti.chat_id)}
               >
-                <div className="flex w-64 gap-1 hover:rounded-lg hover:bg-[#7794F926]">
+                <div className="flex w-64 gap-1 px-2 py-1 hover:rounded-lg hover:bg-[#7794F926]">
                   <div className="w-1/5">
                     <Avatar>
                       <AvatarImage src={noti?.img} />

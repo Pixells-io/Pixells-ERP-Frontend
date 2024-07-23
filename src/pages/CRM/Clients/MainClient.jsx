@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { redirect, useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
@@ -10,6 +10,7 @@ import {
   deleteDocument,
   editAccessInfo,
   editClientInfo,
+  getClientInfoId,
   storeCustomerAdress,
   storeCustomerContacts,
   storeCustomerDocuments,
@@ -31,10 +32,32 @@ import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
 import { addCommentClient } from "../Progress/util";
+import FormShowInterview from "./FormShowInterview";
+import { pusherClient } from "@/lib/pusher";
 
 function MainClient() {
   const { data } = useLoaderData();
-  const client = data[0];
+  const [cliente, setDatClient] = useState(data);
+
+  //WEB SOCKET
+  useEffect(() => {
+    let channel = pusherClient.subscribe(`get-client.${cliente.master.id}`);
+
+    channel.bind("fill-client-info", ({ client }) => {
+      const dataResponse = getClientDataBack(cliente.master.id);
+      //console.log(dataResponse);
+      //setDatClient(newData);
+    });
+
+    async function getClientDataBack(id) {
+      return await getClientInfoId(id);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`get-client.${cliente.master.id}`);
+      // console.log("unsubscribe");
+    };
+  });
 
   const [modalAdress, setModalAdress] = useState(false);
   const [modalContact, setModalContact] = useState(false);
@@ -49,6 +72,15 @@ function MainClient() {
   const [modalDestroyDocuments, setModalDestroyDocuments] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalAssignInterview, setModalAssignInterview] = useState(false);
+
+  //States show interview
+  const [showInterview, setShowInterview] = useState(false);
+  const [interviewData, setInterviewData] = useState(false);
+
+  function openModalShowInterview(interview) {
+    setInterviewData(interview);
+    setShowInterview(true);
+  }
 
   //States edit login info
   const [accessModal, setAccessModal] = useState(false);
@@ -73,60 +105,65 @@ function MainClient() {
       <FormCreateAdress
         modal={modalAdress}
         setModal={setModalAdress}
-        masterId={client?.master?.id}
+        masterId={cliente?.master?.id}
       />
       <FormCreateContacts
         modal={modalContact}
         setModal={setModalContact}
-        masterId={client?.master?.id}
+        masterId={cliente?.master?.id}
       />
       <FormCreateDocuments
         modal={modalDocument}
         setModal={setModalDocument}
-        masterId={client?.master?.id}
-        url={`/crm/client/${client?.master?.id}`}
+        masterId={cliente?.master?.id}
+        url={`/crm/client/${cliente?.master?.id}`}
       />
       <ModalDestroyAddress
         modal={modalDestroyAddress}
         setModal={setModalDestroyAddress}
         addressId={addressId}
-        masterId={client?.master?.id}
+        masterId={cliente?.master?.id}
       />
       <ModalDestroyContacts
         modal={modalDestroyContacts}
         setModal={setModalDestroyContacts}
         contactId={contactsId}
-        masterId={client?.master?.id}
+        masterId={cliente?.master?.id}
       />
       <ModalDestroyDocuments
         modal={modalDestroyDocuments}
         setModal={setModalDestroyDocuments}
         documentId={documentsId}
-        masterId={client?.master?.id}
+        masterId={cliente?.master?.id}
       />
       <ModalEditClient
         modal={modalEdit}
         setModal={setModalEdit}
-        info={client?.info}
-        client={client?.master}
-        link={`/crm/client/${client?.master?.id}`}
+        info={cliente?.info}
+        client={cliente?.master}
+        link={`/crm/client/${cliente?.master?.id}`}
       />
       <ModalClientAccess
         modal={accessModal}
         setModal={setAccessModal}
-        client_id={client?.master?.id}
-        email={client?.info?.email}
+        client_id={cliente?.master?.id}
+        email={cliente?.info?.email}
       />
       <AssignInterviewModal
         modal={modalAssignInterview}
         setModal={setModalAssignInterview}
-        client_id={client?.master?.id}
-        select={client?.interviews_select}
+        client_id={cliente?.master?.id}
+        select={cliente?.interviews_select}
+      />
+      <FormShowInterview
+        modal={showInterview}
+        setModal={setShowInterview}
+        interview={interviewData}
       />
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
           <span className="font-poppins text-2xl font-bold uppercase text-grisHeading">
-            CLIENT INFORMATION - {client?.info?.business_name}
+            CLIENT INFORMATION - {cliente?.info?.business_name}
           </span>
           <div className="flex gap-10">
             <div className="flex">
@@ -136,7 +173,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {Number(client?.sales_record).toFixed(2)} USD
+                  $ {Number(cliente?.sales_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
@@ -151,7 +188,7 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {Number(client?.monthly_record).toFixed(2)} USD
+                  $ {Number(cliente?.monthly_record).toFixed(2)} USD
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
@@ -165,7 +202,7 @@ function MainClient() {
               SERVICES
             </span>
             <div className="mt-4">
-              <ClientServicesTable services={client?.services_table} />
+              <ClientServicesTable services={cliente?.services_table} />
             </div>
           </div>
         </div>
@@ -178,7 +215,7 @@ function MainClient() {
             <div>
               <p className="text-[16px] font-medium text-grisText">Name</p>
               <span className="text-[10px] font-medium text-grisSubText">
-                {client?.info?.business_name}
+                {cliente?.info?.business_name}
               </span>
             </div>
             <div>
@@ -195,7 +232,7 @@ function MainClient() {
               />
             </div>
             <div className="self-center">
-              {client.info.password === null ? (
+              {cliente.info.password === null ? (
                 <IonIcon
                   icon={keyOutline}
                   className="text-grisHeading"
@@ -221,7 +258,7 @@ function MainClient() {
             </button>
           </div>
           <div className="flex flex-col gap-3 overflow-y-scroll">
-            {client?.adress?.map((adress, i) => (
+            {cliente?.adress?.map((adress, i) => (
               <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <span className="w-7/12 text-[10px] font-medium text-grisSubText">
@@ -262,7 +299,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
-            {client?.contact?.map((contact, i) => (
+            {cliente?.contact?.map((contact, i) => (
               <div className="flex flex-col" key={i}>
                 <div className="flex items-center justify-between">
                   <p className="w-7/12 text-sm text-grisText">
@@ -304,7 +341,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
-            {client?.interviews_assigned.map((interview, i) => (
+            {cliente?.interviews_assigned.map((interview, i) => (
               <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
                   <div>
@@ -321,13 +358,7 @@ function MainClient() {
                     <button
                       type="button"
                       className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
-                      onClick={() =>
-                        openShowInterview(
-                          interview.id,
-                          interview.title,
-                          interview.questions,
-                        )
-                      }
+                      onClick={() => openModalShowInterview(interview)}
                     >
                       Show
                     </button>
@@ -354,7 +385,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
-            {client?.documents?.map((document, i) => (
+            {cliente?.documents?.map((document, i) => (
               <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg">
@@ -406,7 +437,7 @@ function MainClient() {
           </div>
 
           <div className="flex flex-col gap-3 overflow-y-scroll">
-            {client?.collect_documents?.map((document, i) => (
+            {cliente?.collect_documents?.map((document, i) => (
               <div className="flex w-full justify-between" key={i}>
                 <div className="col-span-3 flex items-center gap-2">
                   <div className="h-12 w-12 shrink-0 rounded-lg bg-blancoBg"></div>
@@ -446,16 +477,16 @@ function MainClient() {
             <div className="flex items-center gap-3">
               <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
                 <p className="text-[12px] text-grisText">
-                  {client?.last_service_month}
+                  {cliente?.last_service_month}
                 </p>
                 <span className="text-2xl font-bold text-grisText">
-                  {client?.last_service_day}
+                  {cliente?.last_service_day}
                 </span>
               </div>
               <div className="flex flex-col">
                 <p className="font-medium text-grisText">Last Service</p>
                 <span className="text-[10px] font-medium text-grisSubText">
-                  {client?.last_service_name}
+                  {cliente?.last_service_name}
                 </span>
               </div>
             </div>
@@ -463,10 +494,10 @@ function MainClient() {
             <div className="flex items-center gap-3">
               <div className="flex h-14 w-14 flex-col items-center justify-center rounded-lg bg-blancoBox">
                 <p className="text-[12px] text-grisText">
-                  {client?.last_update_month}
+                  {cliente?.last_update_month}
                 </p>
                 <span className="text-2xl font-bold text-grisText">
-                  {client?.last_update_day}
+                  {cliente?.last_update_day}
                 </span>
               </div>
               <div className="flex flex-col">
