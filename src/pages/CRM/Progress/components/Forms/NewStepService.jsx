@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
 
 const CATEGORIES = [
   //1=Send Email  2=Qualify  3=Folow-up  4=Payment  5=Shipping  6=Close-up  7=Generic  8=Interview
@@ -39,7 +41,11 @@ function NewStepService({ serviceId, submitting, service }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
-          <Plus size={32} className="text-primarioBotones" />
+          <IonIcon
+            icon={add}
+            size={32}
+            className="text-4xl text-primario"
+          ></IonIcon>
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0 sm:max-w-[425px]">

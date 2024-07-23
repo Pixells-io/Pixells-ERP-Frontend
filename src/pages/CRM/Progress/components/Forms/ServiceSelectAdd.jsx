@@ -22,11 +22,13 @@ function ServiceSelectAdd({ services }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <IonIcon
-          icon={add}
-          size={32}
-          className="text-4xl text-primario"
-        ></IonIcon>
+        <Button variant="ghost">
+          <IonIcon
+            icon={add}
+            size={32}
+            className="text-4xl text-primario"
+          ></IonIcon>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="h-[300px] w-64 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
