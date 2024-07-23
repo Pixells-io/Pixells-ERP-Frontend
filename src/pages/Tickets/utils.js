@@ -152,3 +152,26 @@ export async function deleteTicket(id) {
 
   return response;
 }
+
+export async function editTicket(data) {
+  const info = {
+    ticket_id: data.get("ticket_id"),
+    issue: data.get("issue"),
+    description: data.get("description"),
+    importance: data.get("importance"),
+    category_ticket: data.get("category_ticket"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/edit-ticket`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
