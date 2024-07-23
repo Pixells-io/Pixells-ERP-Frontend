@@ -94,7 +94,7 @@ function SideLayoutDevOrg() {
                 <AccordionItem value={`item-${i}`} className="border-0">
                   <AccordionTrigger className="py-2 text-gris2 hover:no-underline">
                     <div className="flex w-full items-center gap-6">
-                      {item.path === location.pathname ? (
+                      {location.pathname.includes(item.path) ? (
                         <div className="flex w-full items-center gap-6 rounded-lg bg-[#E8E8E8] px-4 py-1 text-primario">
                           <IonIcon icon={item.icon} size="large"></IonIcon>
                           <div>
@@ -123,17 +123,22 @@ function SideLayoutDevOrg() {
                         key={i}
                         to={`${link.path}`}
                         className={
-                          link.path === "/org-development"
-                            ? ({ isActive }) =>
-                                isActive &&
-                                location.pathname === "/org-development"
-                                  ? "w-full rounded-lg px-4 text-primario"
-                                  : "w-full px-4 text-gris2"
-                            : ({ isActive }) =>
-                                isActive
-                                  ? "w-full rounded-lg px-4 text-primario"
-                                  : "w-full px-4 text-gris2"
+                          location.pathname === link.path
+                            ? "w-full rounded-lg px-4 text-primario"
+                            : "w-full px-4 text-gris2"
                         }
+                        // className={
+                        //   link.path === "/org-development"
+                        //     ? ({ isActive }) =>
+                        //         isActive &&
+                        //         location.pathname === "/org-development"
+                        //           ? "w-full rounded-lg px-4 text-primario"
+                        //           : "w-full px-4 text-gris2"
+                        //     : ({ isActive }) =>
+                        //         isActive
+                        //           ? "w-full rounded-lg px-4 text-primario"
+                        //           : "w-full px-4 text-gris2"
+                        // }
                       >
                         <div className="flex flex-col gap-4">
                           {location.pathname === link.path ? (
@@ -142,7 +147,7 @@ function SideLayoutDevOrg() {
                               <p className="text-sm font-medium">{link.name}</p>
                             </div>
                           ) : (
-                            <div className="pl-[72px] hover:pl-[56px]">
+                            <div className="pl-[72px]">
                               <p className="text-sm font-medium hover:w-fit hover:rounded-sm hover:bg-blancoBg hover:px-4">
                                 {link.name}
                               </p>
