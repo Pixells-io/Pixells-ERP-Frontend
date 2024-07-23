@@ -16,8 +16,12 @@ import { Button } from "@/components/ui/button";
 import { Form } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function ServiceSelectAdd({ services }) {
+function ServiceSelectAdd({ services, clients }) {
   const options = services.map(({ id, name }) => ({ value: id, label: name }));
+  const clientsArray = clients.map((client) => ({
+    value: client.id,
+    label: client.business_name,
+  }));
 
   return (
     <DropdownMenu>
@@ -33,7 +37,7 @@ function ServiceSelectAdd({ services }) {
       <DropdownMenuContent className="h-[300px] w-64 overflow-scroll">
         <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="relative flex h-full flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <Form
             action="/crm/progress"
             method="post"
@@ -51,6 +55,28 @@ function ServiceSelectAdd({ services }) {
             <div className="flex self-end px-4 pt-4">
               <Button type="submit" className="w-fit bg-primarioBotones px-6">
                 Add
+              </Button>
+            </div>
+          </Form>
+        </div>
+        <div className="relative flex flex-col gap-2">
+          <Form
+            action="/crm/progress"
+            method="post"
+            className="flex h-full flex-col gap-2"
+          >
+            <input type="hidden" value="set-client" name="action" />
+            <div className="px-4 pt-4">
+              <SelectRouter
+                name="client_id"
+                options={clientsArray}
+                isMulti={false}
+                placeholder="Select Client"
+              />
+            </div>
+            <div className="flex self-end px-4 pt-4">
+              <Button type="submit" className="w-fit bg-primarioBotones px-6">
+                Search
               </Button>
             </div>
           </Form>

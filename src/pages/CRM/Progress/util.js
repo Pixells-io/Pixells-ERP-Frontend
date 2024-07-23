@@ -245,3 +245,19 @@ export async function addCommentClient(data) {
 
   return response;
 }
+
+export async function setClientServices(data) {
+  const client_id = data.get("client_id");
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/get-selected-filter/${client_id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

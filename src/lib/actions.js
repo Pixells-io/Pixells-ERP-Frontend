@@ -3,12 +3,13 @@ import { json } from "react-router-dom";
 
 /*SERVICES ACTIONS*/
 export async function getAllServices() {
-  const [selectedServices, services] = await Promise.all([
+  const [selectedServices, services, clients] = await Promise.all([
     getSerivicesSelected(),
     getServices(),
+    getClients(),
   ]);
 
-  return json({ selectedServices, services });
+  return json({ selectedServices, services, clients });
 }
 
 export async function getSerivicesSelected() {

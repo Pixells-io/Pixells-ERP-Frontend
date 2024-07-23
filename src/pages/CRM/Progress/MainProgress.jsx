@@ -32,7 +32,11 @@ import {
   globeOutline,
 } from "ionicons/icons";
 
-import { removeSelectedService, setSelectedService } from "./util";
+import {
+  removeSelectedService,
+  setClientServices,
+  setSelectedService,
+} from "./util";
 import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
 import RemoveSelectedService from "./components/RemoveSelectedService";
 import NavigationHeader from "@/components/navigation-header";
@@ -46,8 +50,10 @@ const FILTERS = [
 
 function Main() {
   const navigation = useNavigation();
-  const { selectedServices, services } = useLoaderData();
+  const { selectedServices, services, clients } = useLoaderData();
   const [modalRemove, setModalRemove] = useState(false);
+
+  //nothing to do with services selected
   const [serviceSelected, setServiceSelected] = useState({});
 
   useEffect(() => {
@@ -119,8 +125,8 @@ function Main() {
         </div>
 
         {/* services */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-4 overflow-scroll pb-4">
+        <div className="flex items-center gap-4 pb-4">
+          <div className="flex items-center gap-4 overflow-scroll">
             {selectedServices?.data?.map((service, i) => (
               <div key={i} className="flex shrink-0">
                 <NavLink
@@ -171,8 +177,11 @@ function Main() {
               </div>
             ))}
           </div>
-          <div className="">
-            <ServiceSelectAdd services={services?.data} />
+          <div className="flex items-center">
+            <ServiceSelectAdd
+              services={services?.data}
+              clients={clients?.data}
+            />
           </div>
         </div>
 
@@ -194,9 +203,12 @@ export async function Action({ request }) {
       //Add Selected Service
       await setSelectedService(data);
       return redirect("/crm/progress");
+    case "set-client":
+      //Add Selected Service
+      await setClientServices(data);
+      return redirect("/crm/progress");
     case "remove-service":
       //Remove selected Service
-      console.log("corre delete");
       await removeSelectedService(data);
       return redirect("/crm/progress");
   }
