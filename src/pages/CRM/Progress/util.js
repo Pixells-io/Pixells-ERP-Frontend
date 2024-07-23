@@ -241,7 +241,7 @@ export async function setClientServices(data) {
   formData.append("clien_id", data.get("client_id"));
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}services/get-selected-filter`,
+    `${import.meta.env.VITE_SERVER_URL}services/selected-services-client`,
     {
       method: "POST",
       body: formData,
