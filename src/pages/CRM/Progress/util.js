@@ -247,12 +247,18 @@ export async function addCommentClient(data) {
 }
 
 export async function setClientServices(data) {
-  const client_id = data.get("client_id");
+  const info = {
+    client_id: data.get("client_id"),
+  };
+
+  const formData = new FormData();
+  formData.append("clien_id", data.get("client_id"));
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}services/get-selected-filter/${client_id}`,
+    `${import.meta.env.VITE_SERVER_URL}services/get-selected-filter`,
     {
-      method: "get",
+      method: "POST",
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

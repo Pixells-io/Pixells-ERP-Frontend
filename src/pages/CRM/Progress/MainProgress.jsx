@@ -62,6 +62,8 @@ function Main() {
     }
   }, [navigation.state]);
 
+  console.log("selectedServices ", selectedServices);
+
   return (
     <div className="flex w-full overflow-auto">
       <Dialog open={modalRemove} onOpenChange={setModalRemove}>
