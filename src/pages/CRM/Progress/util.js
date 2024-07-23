@@ -238,7 +238,7 @@ export async function setClientServices(data) {
   };
 
   const formData = new FormData();
-  formData.append("clien_id", data.get("client_id"));
+  formData.append("client_id", data.get("client_id"));
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/selected-services-client`,
