@@ -32,7 +32,7 @@ const MENU_ITEMS = [
       { path: "/org-development/capacitation", name: "Creator" },
       {
         path: "/org-development/capacitation/my-capacitations",
-        name: "My Inductions",
+        name: "My Training",
       },
     ],
     name: "Training",

@@ -54,7 +54,7 @@ function MainMyInductions() {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Mis Inducciones
+            My Inductions
           </p>
         </div>
 
