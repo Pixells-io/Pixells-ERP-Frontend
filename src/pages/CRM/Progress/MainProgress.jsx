@@ -172,7 +172,7 @@ function Main() {
                         setModalRemove(true);
                       }}
                     >
-                      Delete
+                      Remove
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
