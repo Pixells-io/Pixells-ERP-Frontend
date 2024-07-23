@@ -77,3 +77,18 @@ export async function storeRequiredDocument(data) {
 
   return response;
 }
+
+export async function storeRequiredInterview(data) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client-platform/interview-question-save`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
