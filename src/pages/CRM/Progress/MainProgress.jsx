@@ -62,7 +62,7 @@ function Main() {
     }
   }, [navigation.state]);
 
-  console.log("selectedServices ", selectedServices);
+  console.log("selectedServices ", selectedServices.data);
 
   return (
     <div className="flex w-full overflow-auto">
