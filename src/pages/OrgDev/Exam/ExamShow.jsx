@@ -144,7 +144,7 @@ function ExamShow() {
         <div className="flex flex-col items-center gap-6 overflow-auto">
           <div className="flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
             <div className="px-6 py-3">
-              <p className="font-medium text-grisText">Nombre del Exámen</p>
+              <p className="font-medium text-grisText">Exam Name</p>
             </div>
             <div className="flex gap-2 border-t px-4 py-4">
               <input
@@ -152,7 +152,7 @@ function ExamShow() {
                 name="exam_title"
                 value={localData?.title}
                 onChange={handleTitleChange}
-                placeholder="Escribe el nombre del exámen"
+                placeholder="Write the name of the exam"
                 className="mr-10 w-full border-b bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
               />
               <input
@@ -163,7 +163,7 @@ function ExamShow() {
                 className="w-[80px] border-b bg-[#FBFBFB] p-2 text-xs placeholder:bg-[#FBFBFB] placeholder:p-2 placeholder:text-xs"
               />
               <span className="self-end text-[8px] text-grisSubText">
-                Minutos
+                Minutes
               </span>
             </div>
           </div>

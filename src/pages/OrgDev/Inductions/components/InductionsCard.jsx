@@ -19,7 +19,7 @@ import {
 
 function InductionsCard({ card }) {
   return (
-    <div className="relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3">
+    <div className={"relative m-4 flex w-[280px] flex-col gap-1 rounded-lg border border-grisDisabled bg-blancoBg px-4 py-3 group " + ((!card?.status && card?.exam_id !== 0) ? "shadow-[0px_0px_0px_3px_rgba(91,137,255,0.5)]" : "")}>
       {card.status === true ? (
         <div className="">
           <IonIcon
@@ -62,7 +62,7 @@ function InductionsCard({ card }) {
         <p className="font-poppins text-[15px] font-semibold">{card.name}</p>
       </div>
       <div className="flex items-center text-[#696974B2]">
-        <p className="line-clamp-none text-[12px] font-normal">{card.type}</p>
+        <p className="line-clamp-none text-[12px] px-2 py-0.5 font-normal rounded-lg border-[1px] border-[#696974B2]">{card.type}</p>
       </div>
       <div className="flex items-center text-grisText">
         <div className="flex items-center gap-2 rounded-full bg-[#F1F1F5] px-3">
@@ -74,7 +74,7 @@ function InductionsCard({ card }) {
       {card?.exam_id !== 0 && (
         <>
           {card?.status != true ? (
-            <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300">
+            <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-primarioBotones shadow-xl shadow-slate-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <Link to={`/org-development/answer-exam/${card?.exam_id}`}>
                 <IonIcon
                   icon={caretForwardOutline}

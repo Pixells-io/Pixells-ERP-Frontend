@@ -157,7 +157,7 @@ function MainChat() {
           <div>
             <div className="flex w-full flex-col justify-center gap-1 border-0 border-t px-8 py-2">
               <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1 text-[10px] font-light text-grisSubText">
+                <p className="flex items-center gap-1 text-xs font-light text-grisSubText">
                   Respondiendo a{" "}
                   <span className="font-normal text-grisText">
                     {" "}
@@ -166,11 +166,11 @@ function MainChat() {
                 </p>
                 <IonIcon
                   src={closeCircle}
-                  className="size-3 cursor-pointer text-grisSubText"
+                  className="size-4 cursor-pointer text-grisSubText"
                   onClick={() => setModalReplay(false)}
                 />
               </div>
-              <p className="line-clamp-2 text-[10px] text-[#ABABAB]">
+              <p className="line-clamp-2 text-xs text-[#ABABAB]">
                 {reply.msg}
               </p>
             </div>

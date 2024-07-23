@@ -167,7 +167,7 @@ function ExamForm() {
     <div className="flex flex-col items-center gap-6">
       <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
         <div className="px-6 py-3">
-          <p className="font-medium text-grisText">Nombre del Exámen</p>
+          <p className="font-medium text-grisText">Exam Name</p>
         </div>
         <Form
           className="flex gap-2 border-t px-4 py-4"
@@ -178,7 +178,7 @@ function ExamForm() {
           <input
             type="text"
             name="exam_title"
-            placeholder="Escribe el nombre del exámen"
+            placeholder="Write the name of the exam"
             className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
           <input
@@ -186,7 +186,7 @@ function ExamForm() {
             name="exam_duration"
             className="w-[80px] border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
           />
-          <span className="self-end text-[8px] text-grisSubText">Minutos</span>
+          <span className="self-end text-[8px] text-grisSubText">Minutes</span>
           <input
             type="text"
             className="hidden"
@@ -235,7 +235,7 @@ function ExamForm() {
         type="submit"
         className="rounded-3xl bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold text-white"
       >
-        Enviar
+        Send
       </button>
     </div>
   );
