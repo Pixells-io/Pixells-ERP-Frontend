@@ -282,6 +282,7 @@ import { getAuthClient } from "./pages/Clients/utils";
 import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
 import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
+import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
 
 const router = createBrowserRouter([
   {
@@ -552,6 +553,11 @@ const router = createBrowserRouter([
             element: <MainChat />,
             loader: multiLoaderChat2,
             action: functionMasterChat,
+          },
+          {
+            path: "/chat/:id/user-media-library",
+            element: <UserMediaLibrary />,
+            loader: multiLoaderChat2,
           },
         ],
       },
