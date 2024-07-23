@@ -47,8 +47,6 @@ function NotificationChat({ notifications, user }) {
     };
   }, []);
 
-  console.log(notifications);
-
   return (
     <div className="flex">
       {notificationsPusher[0]?.number == 0 ? (
