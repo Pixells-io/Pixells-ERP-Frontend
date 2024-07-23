@@ -11,7 +11,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import { lockOpen, person, ticket } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
-import { saveNewTicket } from "@/pages/Tickets/utils";
+import { deleteTicket, saveNewTicket } from "@/pages/Tickets/utils";
 
 function SideLayoutTickets() {
   const services = useLoaderData();
@@ -61,8 +61,15 @@ export default SideLayoutTickets;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  switch (data.get("type")) {
+    case "1":
+      await saveNewTicket(data);
+      break;
+    case "2":
+      console.log("Jalo");
+      await deleteTicket(data.get("ticket_id"));
+      break;
+  }
 
-  const validation = await saveNewTicket(data);
-
-  return validation;
+  return "1";
 }

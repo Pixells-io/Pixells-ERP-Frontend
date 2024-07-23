@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function ContractsClientPlatform({ contracts }) {
   return (
-    <div className="mt-2 w-full rounded-xl bg-white px-8 py-8">
+    <div className="mt-2 w-full overflow-auto rounded-xl bg-white px-8 py-8">
       <div className="flex w-full px-3 py-3">
         <div className="w-1/3">
           <span className="font-roboto text-sm font-semibold text-grisText">

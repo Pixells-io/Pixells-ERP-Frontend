@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -10,10 +10,18 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { closeCircleSharp, informationCircle } from "ionicons/icons";
+import TicketDestroy from "./DestroyTicket";
 
 function TicketsTable({ tickets }) {
   const columnHelper = createColumnHelper();
+  const [modal, setModal] = useState(false);
+  const [ticketId, setTicketId] = useState(false);
+
+  function openModalDestroyTicket(id) {
+    setTicketId(id);
+    setModal(true);
+  }
 
   const data = tickets;
 
@@ -68,6 +76,11 @@ function TicketsTable({ tickets }) {
             <NavLink to={`/tickets/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
+            <IonIcon
+              icon={closeCircleSharp}
+              className="h-5 w-5"
+              onClick={() => openModalDestroyTicket(row.original.id)}
+            ></IonIcon>
           </div>
         );
       },
@@ -82,6 +95,7 @@ function TicketsTable({ tickets }) {
 
   return (
     <div className="w-full">
+      <TicketDestroy modal={modal} setModal={setModal} id={ticketId} />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {

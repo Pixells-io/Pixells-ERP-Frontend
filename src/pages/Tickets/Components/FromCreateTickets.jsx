@@ -152,6 +152,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
           action="/tickets"
           method="post"
         >
+          <input type="hidden" name="type" value={1} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex max-h-[500px] flex-col gap-4 overflow-scroll pb-4 font-light">
               {processInputs?.map((input, i) => (

@@ -138,3 +138,17 @@ export async function addDocumentTicket(data) {
 
   return response;
 }
+
+export async function deleteTicket(id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}tickets/destroy-ticket/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
