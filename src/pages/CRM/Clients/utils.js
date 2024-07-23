@@ -89,6 +89,20 @@ export async function deleteAddress(data) {
   return response;
 }
 
+export async function getClientInfoId(id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/get-client/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function deleteContact(data) {
   const id = data.get("contact_id");
   const response = await fetch(

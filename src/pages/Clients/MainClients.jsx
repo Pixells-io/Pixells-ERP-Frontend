@@ -16,7 +16,12 @@ import {
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormCreateDocuments from "../CRM/Clients/FormCreateDocument";
-import { editClientData, storeDocument, storeRequiredDocument } from "./utils";
+import {
+  editClientData,
+  storeDocument,
+  storeRequiredDocument,
+  storeRequiredInterview,
+} from "./utils";
 import ModalEditClient from "../CRM/Clients/Forms/ModalEditClient";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CollectDocumentsClientPlatform from "./Components/CollectDocumentsClientPlatform";
@@ -24,6 +29,8 @@ import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatf
 import ClientInterviews from "./Components/ClientInterviews";
 import Cookies from "js-cookie";
 import ContractsClientPlatform from "./Components/ContractsClientPlatform";
+import { pusherClient } from "@/lib/pusher";
+import { getClientInfoId } from "../CRM/Clients/utils";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -31,6 +38,28 @@ function MainClients() {
   const [modalEdit, setModalEdit] = useState(false);
   const token = Cookies.get("token");
   const navigate = useNavigate();
+  const [cliente, setDatClient] = useState(data);
+
+  //WEB SOCKET
+  useEffect(() => {
+    let channel = pusherClient.subscribe(`get-client.${cliente.user?.id}`);
+
+    channel.bind("fill-client-info", ({ client }) => {
+      getClientDataBack(cliente.user?.id);
+    });
+
+    async function getClientDataBack(id) {
+      console.log("Jalowin");
+      const newData = await getClientInfoId(id);
+      //console.log(cliente, newData);
+      //setDatClient(newData);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`get-client.${cliente.user?.id}`);
+      // console.log("unsubscribe");
+    };
+  });
 
   useEffect(() => {
     if (token == undefined || data.status == 500)
@@ -42,14 +71,14 @@ function MainClients() {
       <FormCreateDocuments
         modal={modalDocument}
         setModal={setModalDocument}
-        masterId={data.user?.id}
+        masterId={cliente.user?.id}
         url={`/client-platform`}
       />
       <ModalEditClient
         modal={modalEdit}
         setModal={setModalEdit}
-        info={data?.user}
-        client={data?.user}
+        info={cliente?.user}
+        client={cliente?.user}
         link={`/client-platform`}
       />
       {/* sidebar left */}
@@ -95,11 +124,11 @@ function MainClients() {
           <div className="flex flex-col">
             <div>
               <h2 className="font-poppins text-xl font-bold uppercase text-[#44444F]">
-                WELCOME {data.user?.business_name}
+                WELCOME {cliente.user?.business_name}
               </h2>
             </div>
             <div className="flex items-center gap-3 text-[#8F8F8F]">
-              <div className="text-sm">{data.today}</div>
+              <div className="text-sm">{cliente.today}</div>
             </div>
           </div>
 
@@ -112,7 +141,7 @@ function MainClients() {
             </div>
 
             <div className="flex w-full gap-4 overflow-scroll py-4">
-              {data.services?.map((service, i) => (
+              {cliente.services?.map((service, i) => (
                 <div
                   className="flex w-44 shrink-0 flex-col gap-2 rounded-2xl bg-blancoBox2 p-3"
                   key={i}
@@ -132,7 +161,7 @@ function MainClients() {
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-[9px] font-semibold text-grisSubText">
-                      {service.percent}%
+                      {service.number}%
                     </span>
                     <Progress value={service.percent} className="h-1 w-full" />
                   </div>
@@ -160,8 +189,8 @@ function MainClients() {
                 <span>Collect Documents</span>
                 <div className="flex items-center">
                   <span className="items-center gap-2 text-xs font-medium">
-                    {data.pending_documents_count} /{" "}
-                    {data.pending_documents_total}
+                    {cliente.pending_documents_count} /{" "}
+                    {cliente.pending_documents_total}
                   </span>
                   &nbsp;
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
@@ -174,7 +203,7 @@ function MainClients() {
                 <span>Documents Ready</span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-medium">
-                    {data.documents_ready_count}
+                    {cliente.documents_ready_count}
                   </span>
                   &nbsp;
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
@@ -187,7 +216,7 @@ function MainClients() {
                 <span>Contracts</span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-medium">
-                    {data.contract_count}
+                    {cliente.contract_count}
                   </span>
                   &nbsp;
                   <IonIcon icon={checkmarkCircleOutline}></IonIcon>
@@ -195,18 +224,23 @@ function MainClients() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="interview">
-              <ClientInterviews interviews={data.interviews} />
+              <ClientInterviews
+                interviews={cliente.interviews}
+                master={cliente.user?.id}
+              />
             </TabsContent>
             <TabsContent value="collect">
               <CollectDocumentsClientPlatform
-                documents={data.pending_documents}
+                documents={cliente.pending_documents}
               />
             </TabsContent>
             <TabsContent value="ready">
-              <ReadyDocumentsClientPlatform documents={data.documents_ready} />
+              <ReadyDocumentsClientPlatform
+                documents={cliente.documents_ready}
+              />
             </TabsContent>
             <TabsContent value="contracts">
-              <ContractsClientPlatform contracts={data.contracts} />
+              <ContractsClientPlatform contracts={cliente.contracts} />
             </TabsContent>
           </Tabs>
         </div>
@@ -219,13 +253,15 @@ export default MainClients;
 
 export async function Action({ request }) {
   const data = await request.formData();
-
   switch (data.get("type")) {
     case "7":
       editClientData(data);
       break;
     case "8":
       storeRequiredDocument(data);
+      break;
+    case "9":
+      storeRequiredInterview(data);
       break;
 
     default:

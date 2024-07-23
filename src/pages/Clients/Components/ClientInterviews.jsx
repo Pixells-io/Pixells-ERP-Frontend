@@ -33,12 +33,11 @@ import {
 import FormUploadPlatform from "./FormUploadPlatform";
 import ModalAnswerInterview from "./ModalAnswerInterview";
 
-function ClientInterviews({ interviews }) {
+function ClientInterviews({ interviews, master }) {
   const [modal, setModal] = useState(false);
   const [interview, setInterview] = useState(false);
 
   function setModalOpen(interview) {
-    console.log(interview);
     setInterview(interview);
     setModal(true);
   }
@@ -49,6 +48,7 @@ function ClientInterviews({ interviews }) {
         modal={modal}
         setModal={setModal}
         interview={interview}
+        masterId={master}
       />
       <div className="flex w-full px-3 py-3">
         <div className="w-4/12">
