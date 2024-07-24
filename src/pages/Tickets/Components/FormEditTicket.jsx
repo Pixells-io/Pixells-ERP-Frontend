@@ -17,7 +17,15 @@ import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function FormCreateTickets({ modal, setModal, areas, users }) {
+function FormEditTickets({
+  modal,
+  setModal,
+  id,
+  name,
+  description,
+  importance,
+  category,
+}) {
   const navigation = useNavigation();
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -144,7 +152,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="w-full sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Create Ticket</DialogTitle>
+          <DialogTitle className="font-poppins">Edit Ticket</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-form"
@@ -152,81 +160,30 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
           action="/tickets"
           method="post"
         >
-          <input type="hidden" name="type" value={1} />
+          <input type="hidden" name="type" value={3} />
+          <input type="hidden" name="ticket_id" value={id} />
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
             <div className="flex max-h-[500px] flex-col gap-4 overflow-scroll pb-4 font-light">
-              {processInputs?.map((input, i) => (
-                <div className="flex w-full items-center gap-2" key={i}>
-                  <div className="flex w-1/2">
-                    <SelectRouter
-                      name={"area_id"}
-                      placeholder={"Area"}
-                      options={areas}
-                      value={input.area_id}
-                      onChange={(e) => handleChangeArea(e, i)}
-                    />
-                  </div>
-                  <div className="flex w-1/2">
-                    <SelectRouter
-                      name={"user_id"}
-                      placeholder={"Responsable"}
-                      options={users}
-                      value={input.user_id}
-                      onChange={(e) => handleChangeUser(e, i)}
-                    />
-                  </div>
-                  {i == 0 ? (
-                    <div className="w-[44px]"></div>
-                  ) : (
-                    <div
-                      className="flex cursor-pointer items-center pl-2"
-                      onClick={() => {
-                        setProcessInputs(
-                          processInputs.filter((input, idx) => idx !== i),
-                        );
-                      }}
-                    >
-                      <IonIcon
-                        src={closeCircle}
-                        className="size-6 text-grisSubText"
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-              <button
-                onClick={() =>
-                  setProcessInputs([
-                    ...processInputs,
-                    {
-                      area_id: "",
-                      user_id: "",
-                    },
-                  ])
-                }
-                type="button"
-                className="flex h-6 w-6 items-center self-end rounded-full bg-primario"
-              >
-                <IonIcon
-                  icon={add}
-                  size="large"
-                  className="text-white"
-                ></IonIcon>
-              </button>
-              <InputRouter name="issue" type="text" placeholder="Issue" />
+              <InputRouter
+                name="issue"
+                type="text"
+                defaultVal={name}
+                placeholder="Issue"
+              />
               <InputRouter
                 name="description"
                 type="text"
+                defaultVal={description}
                 placeholder="Description"
               />
               <SelectRouter
                 name={"importance"}
-                placeholder={"Importance"}
+                placeholder={importance}
                 options={importanceValues}
               />
               <SelectRouter
                 name={"category_ticket"}
-                placeholder={"Category"}
+                placeholder={category}
                 options={categoryValues}
               />
             </div>
@@ -246,4 +203,4 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
   );
 }
 
-export default FormCreateTickets;
+export default FormEditTickets;

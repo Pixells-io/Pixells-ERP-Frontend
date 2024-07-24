@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -10,10 +10,39 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import {
+  closeCircleSharp,
+  create,
+  createOutline,
+  informationCircle,
+  pencilOutline,
+} from "ionicons/icons";
+import TicketDestroy from "./DestroyTicket";
+import FormEditTickets from "./FormEditTicket";
 
 function TicketsTable({ tickets }) {
   const columnHelper = createColumnHelper();
+  const [modal, setModal] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [modalEditName, setModalEditName] = useState(false);
+  const [modalEditDescription, setModalEditDescription] = useState(false);
+  const [modalEditImportance, setModalEditImportance] = useState(false);
+  const [modalEditCategory, setModalEditCategory] = useState(false);
+  const [ticketId, setTicketId] = useState(false);
+
+  function openModalDestroyTicket(id) {
+    setTicketId(id);
+    setModal(true);
+  }
+
+  function openModalEditTicket(id, name, description, importance, category) {
+    setTicketId(id);
+    setModalEditName(name);
+    setModalEditDescription(description);
+    setModalEditImportance(importance);
+    setModalEditCategory(category);
+    setModalEdit(true);
+  }
 
   const data = tickets;
 
@@ -68,6 +97,24 @@ function TicketsTable({ tickets }) {
             <NavLink to={`/tickets/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
+            <IonIcon
+              icon={closeCircleSharp}
+              className="h-5 w-5"
+              onClick={() => openModalDestroyTicket(row.original.id)}
+            ></IonIcon>
+            <IonIcon
+              icon={create}
+              className="h-5 w-5"
+              onClick={() =>
+                openModalEditTicket(
+                  row.original.id,
+                  row.original.issue,
+                  row.original.description,
+                  row.original.importance,
+                  row.original.category,
+                )
+              }
+            ></IonIcon>
           </div>
         );
       },
@@ -82,6 +129,16 @@ function TicketsTable({ tickets }) {
 
   return (
     <div className="w-full">
+      <FormEditTickets
+        modal={modalEdit}
+        setModal={setModalEdit}
+        id={ticketId}
+        name={modalEditName}
+        description={modalEditDescription}
+        importance={modalEditImportance}
+        category={modalEditCategory}
+      />
+      <TicketDestroy modal={modal} setModal={setModal} id={ticketId} />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {

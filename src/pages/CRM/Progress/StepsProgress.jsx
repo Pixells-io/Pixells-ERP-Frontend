@@ -155,7 +155,7 @@ function StepsProgress() {
               <div className="flex h-16 flex-col items-center justify-center gap-2 rounded-lg border-t-2 border-primario bg-[#E8E8E8] pb-3 pt-1">
                 <div className="flex w-full items-center justify-between px-2">
                   {editStepName == false ? (
-                    <p className="flex w-full justify-center truncate pl-4 text-base text-grisText">
+                    <p className={"flex w-full justify-center truncate text-base text-grisText " + (step?.step.name !== "Start" && "pl-4")}>
                       {step?.step.name}
                     </p>
                   ) : (
@@ -189,29 +189,34 @@ function StepsProgress() {
                       </Form>
                     </div>
                   )}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <IonIcon
-                        icon={ellipsisVertical}
-                        className="flex size-4 text-grisSubText"
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem
-                        onClick={() => setEditStepName(!editStepName)}
-                      >
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => {
-                          setModal(true);
-                          setStepInfo(step?.step);
-                        }}
-                      >
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  {
+                    step?.step.name !== "Start" && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <IonIcon
+                            icon={ellipsisVertical}
+                            className="flex size-4 text-grisSubText"
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem
+                            onClick={() => setEditStepName(!editStepName)}
+                          >
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setModal(true);
+                              setStepInfo(step?.step);
+                            }}
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )
+                  }
+                  
                 </div>
                 <div className="w-fit rounded-2xl border-[1px] border-grisHeading px-3">
                   <p className="text-xs font-semibold text-grisHeading">

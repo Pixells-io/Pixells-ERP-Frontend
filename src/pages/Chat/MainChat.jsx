@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Form,
+  Link,
   redirect,
   useLoaderData,
   useLocation,
@@ -63,8 +64,6 @@ function MainChat() {
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // scrollBottom();
-      // console.log("CORRIO EFFECT LOCATION", id);
     }
 
     return () => {
@@ -77,20 +76,11 @@ function MainChat() {
     async function getMensajes() {
       let newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // scrollBottom();
       // console.log("CORRIO EFFECT ID", id);
     }
 
     getMensajes();
   }, [id]);
-
-  function scrollBottom() {
-    setTimeout(() => {
-      scrollBox.current.scrollIntoView({
-        behavior: "smooth",
-      });
-    }, 500);
-  }
 
   function onInputEnter(e) {
     // console.log(e.currentTarget);
@@ -129,9 +119,11 @@ function MainChat() {
             src={chat.data?.participants.img}
             className="h-14 w-14 rounded-full"
           />
-          <span className="font-poppins text-lg font-semibold text-grisHeading">
-            {chat.data?.participants.name}
-          </span>
+          <Link to={"/chat/" + id + "/user-media-library"}>
+            <span className="font-poppins text-lg font-semibold text-grisHeading">
+              {chat.data?.participants.name}
+            </span>
+          </Link>
         </div>
       </div>
 
@@ -170,9 +162,7 @@ function MainChat() {
                   onClick={() => setModalReplay(false)}
                 />
               </div>
-              <p className="line-clamp-2 text-xs text-[#ABABAB]">
-                {reply.msg}
-              </p>
+              <p className="line-clamp-2 text-xs text-[#ABABAB]">{reply.msg}</p>
             </div>
             <Form
               id="form-reply-chat-mensagge"

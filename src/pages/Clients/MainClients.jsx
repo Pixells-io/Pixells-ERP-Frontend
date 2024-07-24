@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import FormCreateDocuments from "../CRM/Clients/FormCreateDocument";
 import {
   editClientData,
+  getAuthClient,
   storeDocument,
   storeRequiredDocument,
   storeRequiredInterview,
@@ -30,7 +31,6 @@ import ClientInterviews from "./Components/ClientInterviews";
 import Cookies from "js-cookie";
 import ContractsClientPlatform from "./Components/ContractsClientPlatform";
 import { pusherClient } from "@/lib/pusher";
-import { getClientInfoId } from "../CRM/Clients/utils";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -41,23 +41,21 @@ function MainClients() {
   const [cliente, setDatClient] = useState(data);
 
   //WEB SOCKET
+
+  async function getClientDataBack() {
+    const newInfo = await getAuthClient();
+    setDatClient(newInfo.data);
+  }
+
   useEffect(() => {
     let channel = pusherClient.subscribe(`get-client.${cliente.user?.id}`);
 
     channel.bind("fill-client-info", ({ client }) => {
-      getClientDataBack(cliente.user?.id);
+      getClientDataBack();
     });
-
-    async function getClientDataBack(id) {
-      console.log("Jalowin");
-      const newData = await getClientInfoId(id);
-      //console.log(cliente, newData);
-      //setDatClient(newData);
-    }
 
     return () => {
       pusherClient.unsubscribe(`get-client.${cliente.user?.id}`);
-      // console.log("unsubscribe");
     };
   });
 
@@ -119,7 +117,7 @@ function MainClients() {
 
       {/* main content */}
       <div className="flex w-full overflow-auto">
-        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+        <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
           {/* top content */}
           <div className="flex flex-col">
             <div>
@@ -239,7 +237,7 @@ function MainClients() {
                 documents={cliente.documents_ready}
               />
             </TabsContent>
-            <TabsContent value="contracts">
+            <TabsContent value="contracts" className="overflow-auto">
               <ContractsClientPlatform contracts={cliente.contracts} />
             </TabsContent>
           </Tabs>

@@ -20,11 +20,11 @@ function ExamAnswer({
         onChange={(e) => onChangeAnswer(questionIndex, index, e)}
         value={answer.answer}
         type="text"
-        placeholder="Escribe una respuesta"
+        placeholder="Write an answer"
         className=" placeholder:bg-blancoForms text-xs placeholder:text-xs placeholder:p-2 p-2 w-3/5 bg-blancoForms"
       />
       {questionType == "" ? (
-        <p className="text-[8px] ">Selecciona un Tipo</p>
+        <p className="text-[8px] ">Select a type</p>
       ) : (
         <input
           onChange={(e) => onChangeCheckBox(questionIndex, index)}

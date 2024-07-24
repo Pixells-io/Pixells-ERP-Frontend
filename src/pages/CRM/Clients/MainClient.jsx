@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, useParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormCreateAdress from "./FormCreateAdress";
 import {
@@ -10,7 +10,6 @@ import {
   deleteDocument,
   editAccessInfo,
   editClientInfo,
-  getClientInfoId,
   storeCustomerAdress,
   storeCustomerContacts,
   storeCustomerDocuments,
@@ -34,28 +33,28 @@ import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
 import { addCommentClient } from "../Progress/util";
 import FormShowInterview from "./FormShowInterview";
 import { pusherClient } from "@/lib/pusher";
+import { getClient } from "@/lib/actions";
 
 function MainClient() {
   const { data } = useLoaderData();
   const [cliente, setDatClient] = useState(data);
+  const params = useParams();
 
   //WEB SOCKET
+  async function getClientDataBack(id) {
+    const newData = await getClient({ params });
+    setDatClient(newData.data);
+  }
+
   useEffect(() => {
     let channel = pusherClient.subscribe(`get-client.${cliente.master.id}`);
 
     channel.bind("fill-client-info", ({ client }) => {
-      const dataResponse = getClientDataBack(cliente.master.id);
-      //console.log(dataResponse);
-      //setDatClient(newData);
+      getClientDataBack(client);
     });
-
-    async function getClientDataBack(id) {
-      return await getClientInfoId(id);
-    }
 
     return () => {
       pusherClient.unsubscribe(`get-client.${cliente.master.id}`);
-      // console.log("unsubscribe");
     };
   });
 

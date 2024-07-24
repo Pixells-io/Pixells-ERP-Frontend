@@ -16,7 +16,6 @@ export async function setSelectedService(data) {
       },
     },
   );
-  console.log(response);
 
   if (!response.ok) {
     throw response;
@@ -33,8 +32,6 @@ export async function saveService(data) {
     color: data.get("color"),
   };
 
-  console.log(service);
-
   // validaciones?
 
   const response = await fetch(
@@ -47,7 +44,6 @@ export async function saveService(data) {
       },
     },
   );
-  console.log(response);
 
   if (!response.ok) {
     throw response;
@@ -58,7 +54,6 @@ export async function saveService(data) {
 
 export async function removeSelectedService(data) {
   const id = data.get("service_id");
-  console.log(id);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/remove-selected-service/${id}`,
@@ -84,8 +79,6 @@ export async function saveNewServiceStep(id, data) {
     type: Number("0"),
   };
 
-  console.log(step);
-
   // validaciones?
 
   const response = await fetch(
@@ -98,7 +91,6 @@ export async function saveNewServiceStep(id, data) {
       },
     },
   );
-  console.log(response);
 
   if (!response.ok) {
     throw response;
@@ -108,13 +100,10 @@ export async function saveNewServiceStep(id, data) {
 }
 
 export async function progressStepAdvance(data) {
-  // console.log(JSON.stringify(data.values()));
-  // console.log(data.values());
   let info = {};
   for (let [name, value] of data) {
     info[name] = value;
   }
-  console.log(info);
 
   // validaciones?
 
@@ -128,7 +117,6 @@ export async function progressStepAdvance(data) {
       },
     },
   );
-  console.log(response);
 
   if (!response.ok) {
     throw response;
@@ -142,8 +130,6 @@ export async function moveProgressColumn(data) {
     step_id: data.get("step_id"),
     step_index: data.get("step_index"),
   };
-
-  console.log(info);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}process-services/edit-step/`,
@@ -237,6 +223,28 @@ export async function addCommentClient(data) {
     {
       method: "POST",
       body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function setClientServices(data) {
+  const info = {
+    client_id: data.get("client_id"),
+  };
+
+  const formData = new FormData();
+  formData.append("client_id", data.get("client_id"));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/selected-services-client`,
+    {
+      method: "POST",
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

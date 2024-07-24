@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function ChatList({ chat }) {
+  console.log(chat);
   return (
     <NavLink to={`/chat/${chat?.chat_id}`}>
       <div
@@ -19,9 +20,15 @@ function ChatList({ chat }) {
             {chat.title}
           </span>
           <div className="mt-[-3px]">
-            <span className="line-clamp-2 font-roboto text-xs font-normal text-grisText">
-              {chat.mensaje.mensaje}
-            </span>
+            {chat?.count != 0 ? (
+              <span className="line-clamp-2 font-roboto text-xs font-semibold text-grisText">
+                {chat.mensaje.mensaje}
+              </span>
+            ) : (
+              <span className="line-clamp-2 font-roboto text-xs font-normal text-grisText">
+                {chat.mensaje.mensaje}
+              </span>
+            )}
           </div>
         </div>
         <div className="w-1/6">
@@ -31,7 +38,7 @@ function ChatList({ chat }) {
             </span>
           </div>
           <div className="text-center">
-            {chat?.count !== 0 && (
+            {chat?.count != 0 && (
               <span className="rounded-full bg-[#00A259] px-2 py-1 font-roboto text-sm font-medium text-white">
                 {chat?.count}
               </span>

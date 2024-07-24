@@ -49,7 +49,12 @@ function FormNewChat({ users }) {
         <DialogHeader className="border-b px-6 py-4">
           <DialogTitle className="font-poppins">Create New Group</DialogTitle>
         </DialogHeader>
-        <Form id="new-group-form" className="flex flex-col gap-2 px-6">
+        <Form
+          id="new-group-form"
+          className="flex flex-col gap-2 px-6"
+          encType="multipart/form-data"
+          action="/chat"
+        >
           <div className="text-center">
             <UserImage name={"group_image"} label={"Group Image"} />
           </div>
@@ -63,15 +68,15 @@ function FormNewChat({ users }) {
               placeholder={"Select Users"}
             />
           </div>
+          <DialogFooter className="px-6 pb-4">
+            <Button
+              type="submit"
+              className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
+            >
+              Save
+            </Button>
+          </DialogFooter>
         </Form>
-        <DialogFooter className="px-6 pb-4">
-          <Button
-            form="new-group-form"
-            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
-          >
-            Save
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

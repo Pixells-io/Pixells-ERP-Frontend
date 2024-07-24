@@ -19,6 +19,7 @@ import {
   saveImportClients,
   saveNewLead,
 } from "./utils";
+import FormNewClient from "./components/Form/FormNewClient";
 
 function SideLayout() {
   const { services, customers, memberships } = useLoaderData();
@@ -40,6 +41,7 @@ function SideLayout() {
           {/*menu top */}
           <div className="flex flex-col gap-4">
             <FormNewLead navigation={navigation} services={services} />
+            <FormNewClient navigation={navigation} />
             {/* <FormNewClient /> */}
             <FormNewSale
               clients={customers}
@@ -69,6 +71,10 @@ export async function Action({ request }) {
 
   switch (action) {
     case "save-lead":
+      await saveNewLead(data);
+      return redirect("/crm");
+
+    case "save-client":
       await saveNewLead(data);
       return redirect("/crm");
 
