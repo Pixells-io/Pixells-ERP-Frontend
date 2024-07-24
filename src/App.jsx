@@ -121,9 +121,12 @@ import LayoutChat, {
   Action as chatLayoutFunction,
 } from "./layouts/Chat/LayoutChat";
 import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
-import { multiLoaderChat2, storeMensagge } from "./pages/Chat/utils";
+import {
+  getChatInfo,
+  multiLoaderChat2,
+  storeMensagge,
+} from "./pages/Chat/utils";
 import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
-
 
 //actions
 import {
@@ -546,7 +549,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <WelcomeToChat />
+            element: <WelcomeToChat />,
           },
           {
             path: "/chat/:id",
@@ -557,7 +560,7 @@ const router = createBrowserRouter([
           {
             path: "/chat/:id/user-media-library",
             element: <UserMediaLibrary />,
-            loader: multiLoaderChat2,
+            loader: getChatInfo,
           },
         ],
       },
