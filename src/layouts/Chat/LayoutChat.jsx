@@ -89,10 +89,10 @@ export default LayoutChat;
 export async function Action({ request }) {
   const data = await request.formData();
   switch (data.get("type_of_function")) {
-    case 1:
+    case "1":
       await SearchAction(data);
       break;
-    case 2:
+    case "2":
       await saveGroup(data);
       break;
   }

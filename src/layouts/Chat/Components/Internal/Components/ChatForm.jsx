@@ -16,6 +16,7 @@ import {
 import SelectMultiple from "@/components/ui/selectMultiple";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import UserImage from "@/layouts/Masters/FormComponents/userImage";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormNewChat({ users }) {
   // console.log(users);
@@ -54,9 +55,11 @@ function FormNewChat({ users }) {
           className="flex flex-col gap-2 px-6"
           encType="multipart/form-data"
           action="/chat"
+          method="post"
         >
+          <input type="hidden" name="type_of_function" value={2} />
           <div className="text-center">
-            <UserImage name={"group_image"} label={"Group Image"} />
+            <DropzoneImage name={"group_image"} />
           </div>
           <div className="">
             <InputRouter name={"name"} placeholder={"Name"} type={"text"} />

@@ -21,23 +21,25 @@ export async function SearchAction(data) {
 
 export async function saveGroup(data) {
   const info = {
-    chat: data.get("chat"),
+    name: data.get("name"),
+    users: data.getAll("users"),
   };
 
-  console.log(data);
+  const formData = new FormData();
 
-  /*const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}chat/search`,
+  formData.append("file", data.get("group_image"));
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/create-chat`,
     {
       method: "POST",
-      body: JSON.stringify(info),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
     },
   );
 
-  return response;*/
-
-  return 1;
+  return response;
 }
