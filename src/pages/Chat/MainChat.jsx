@@ -64,8 +64,6 @@ function MainChat() {
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // scrollBottom();
-      // console.log("CORRIO EFFECT LOCATION", id);
     }
 
     return () => {
@@ -78,20 +76,11 @@ function MainChat() {
     async function getMensajes() {
       let newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // scrollBottom();
       // console.log("CORRIO EFFECT ID", id);
     }
 
     getMensajes();
   }, [id]);
-
-  function scrollBottom() {
-    setTimeout(() => {
-      scrollBox.current.scrollIntoView({
-        behavior: "smooth",
-      });
-    }, 500);
-  }
 
   function onInputEnter(e) {
     // console.log(e.currentTarget);
@@ -125,17 +114,28 @@ function MainChat() {
       />
 
       <div className="flex rounded-t-xl bg-gris px-6 py-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={chat.data?.participants.img}
-            className="h-14 w-14 rounded-full"
-          />
-          <Link to={"/chat/" + id + "/user-media-library" }>
-            <span className="font-poppins text-lg font-semibold text-grisHeading">
-              {chat.data?.participants.name}
-            </span>
-          </Link>
-        </div>
+        {chat.data.type == 0 ? (
+          <div className="flex items-center gap-4">
+            <img
+              src={chat.data?.participants.img}
+              className="h-14 w-14 rounded-full"
+            />
+            <Link to={"/chat/" + id + "/user-media-library"}>
+              <span className="font-poppins text-lg font-semibold text-grisHeading">
+                {chat.data?.participants.name}
+              </span>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <img src={chat.data?.img} className="h-14 w-14 rounded-full" />
+            <Link to={"/chat/" + id + "/user-media-library"}>
+              <span className="font-poppins text-lg font-semibold text-grisHeading">
+                {chat.data?.title}
+              </span>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Chat Card Messages */}
@@ -173,9 +173,7 @@ function MainChat() {
                   onClick={() => setModalReplay(false)}
                 />
               </div>
-              <p className="line-clamp-2 text-xs text-[#ABABAB]">
-                {reply.msg}
-              </p>
+              <p className="line-clamp-2 text-xs text-[#ABABAB]">{reply.msg}</p>
             </div>
             <Form
               id="form-reply-chat-mensagge"

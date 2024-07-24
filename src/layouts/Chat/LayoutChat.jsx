@@ -7,7 +7,7 @@ import { pusherClient } from "@/lib/pusher";
 
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
-import { SearchAction } from "./utils";
+import { saveGroup, SearchAction } from "./utils";
 
 function LayoutChat() {
   const { users, chats } = useLoaderData();
@@ -87,10 +87,15 @@ function LayoutChat() {
 export default LayoutChat;
 
 export async function Action({ request }) {
-  console.log(request);
   const data = await request.formData();
-
-  const validation = await SearchAction(data);
+  switch (data.get("type_of_function")) {
+    case "1":
+      await SearchAction(data);
+      break;
+    case "2":
+      await saveGroup(data);
+      break;
+  }
 
   return 1;
 }

@@ -111,6 +111,7 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
               <img
                 src={msg.img}
                 className="absolute bottom-2 h-8 w-8 rounded-full"
+                title={msg.creator}
               />
             ) : null}
           </div>
@@ -127,6 +128,7 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                 <img
                   src={msg.img}
                   className="absolute bottom-2 h-8 w-8 rounded-full"
+                  title={msg.creator}
                 />
               ) : null}
             </div>

@@ -52,6 +52,23 @@ export async function getAuthUser() {
   }
 }
 
+export async function getChatInfo({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}chat/get-chat-info/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderChat2({ params }) {
   const [chat, user, chats] = await Promise.all([
     getChat({ params }),
