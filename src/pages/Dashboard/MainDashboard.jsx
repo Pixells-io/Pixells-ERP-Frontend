@@ -25,7 +25,7 @@ function MainDashboard() {
 
   return (
     <div className="flex h-full w-full pb-4">
-      <div className="ml-5 mr-5 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-5 mr-5 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -110,12 +110,12 @@ function MainDashboard() {
           </div>
         </div>
 
-        <div className="flex rounded-2xl bg-[#F0F0F0]">
+        <div className="flex min-w-[1300px] rounded-2xl bg-[#F0F0F0] px-4 pb-6 pt-4">
           <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               TIME MANAGEMENT
             </span>
-            <div>
+            <div className="h-full">
               <TimeManagement />
             </div>
           </div>
@@ -123,15 +123,19 @@ function MainDashboard() {
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               METRICS
             </span>
-            <div className="pt-2">
+            <div className="h-full">
               <GeneralMetrics />
             </div>
           </div>
-          <div className="p-4">
+          <div className="w-full p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               CUSTOMERS GROWTH
             </span>
-            <CustomersGrowth />
+            <div className="h-full rounded-xl bg-blancoBox shadow-lg">
+              <div className="">
+                <CustomersGrowth />
+              </div>
+            </div>
           </div>
         </div>
       </div>
