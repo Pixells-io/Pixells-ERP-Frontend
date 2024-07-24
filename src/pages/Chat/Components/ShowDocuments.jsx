@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import React from "react";
 import { closeCircle } from "ionicons/icons";
 
-function ShowMedia({ modal, setModal, documentImage }) {
+function ShowDocuments({ modal, setModal, doc }) {
   if (!modal) return null;
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains("overlay")) {
@@ -11,16 +11,16 @@ function ShowMedia({ modal, setModal, documentImage }) {
     }
   };
 
-  const date = new Date(documentImage?.date);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+  const date = new Date(doc?.date);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses empiezan desde 0
   const year = date.getFullYear();
 
   // Extrae las partes de la hora
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
   return (
     <div
       className="overlay fixed inset-0 z-50 flex flex-col justify-between bg-[#F2F2F2] bg-opacity-90"
@@ -45,20 +45,25 @@ function ShowMedia({ modal, setModal, documentImage }) {
           </button>
         </div>
       </div>
-      <div className="overlay flex h-3/5 w-full justify-center overflow-hidden">
-        <div className="max-h-md overlay flex w-full justify-center">
-          <img src={documentImage?.document} alt="" className="h-auto w-auto bg-white" />
+      <div className="overlay flex h-full w-full justify-center">
+        <div className="h-4/5 w-4/5">
+          <iframe
+            className="h-full w-full"
+            src={doc?.document}
+            frameBorder="0"
+          ></iframe>
         </div>
       </div>
       <div className="overlay flex h-1/5 justify-start gap-2 px-10">
         <div className="flex items-center gap-4">
-          <img src={documentImage?.img} className="h-14 w-14 rounded-full" />
+          <img src={doc?.img} className="h-14 w-14 rounded-full" />
           <div>
             <span className="text-xs font-semibold text-grisText">
-              {documentImage?.name} {documentImage?.last_name} {documentImage?.second_last_name}
+              {doc?.name} {doc?.last_name} {doc?.second_last_name}
             </span>
             <p className="text-xs font-light text-grisText">
-              {year}/{month}/{day}   {hours}:{minutes}:{seconds} {hours > 12 ? "p.m." : "a.m."}
+              {year}/{month}/{day} {hours}:{minutes}:{seconds}{" "}
+              {hours > 12 ? "p.m." : "a.m."}
             </p>
           </div>
         </div>
@@ -67,4 +72,4 @@ function ShowMedia({ modal, setModal, documentImage }) {
   );
 }
 
-export default ShowMedia;
+export default ShowDocuments;

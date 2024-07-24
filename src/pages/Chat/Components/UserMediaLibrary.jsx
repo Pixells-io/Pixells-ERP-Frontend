@@ -6,9 +6,22 @@ import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
+import MediaInformations from "./MediaInformations";
 
 function UserMediaLibrary({ participant }) {
   const { data } = useLoaderData();
+  const [images, setImages] = useState(
+    data.documents.filter((document) => {
+      let extension = document.document.split(".");
+      return ["jpg", "jpeg", "png"].includes(extension.pop());
+    }),
+  );
+  const [documents, setDocuments] = useState(
+    data.documents.filter((document) => {
+      let extension = document.document.split(".");
+      return ["pdf", "csv", "xls", "docx", "txt"].includes(extension.pop());
+    }),
+  );
   const navigate = useNavigate();
 
   return (
@@ -56,22 +69,25 @@ function UserMediaLibrary({ participant }) {
           >
             Documents
           </TabsTrigger>
-          <TabsTrigger
+          {/* <TabsTrigger
             value="links"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
             Links
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
-        <TabsContent value="information"></TabsContent>
+        <TabsContent value="information">
+          <MediaInformations data={data} />
+        </TabsContent>
         <TabsContent value="images">
-          {/* 
-          <MediaImages chat={chat} />*/}
+          <MediaImages images={images} />
         </TabsContent>
         <TabsContent value="documents">
-          <MediaDocuments />
+          <MediaDocuments documents={documents} />
         </TabsContent>
-        <TabsContent value="links"></TabsContent>
+        {/* <TabsContent value="links">
+
+        </TabsContent> */}
       </Tabs>
     </div>
   );
