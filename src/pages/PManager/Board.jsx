@@ -34,8 +34,6 @@ import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask"
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
 
-import { format } from "date-fns";
-
 const HEADERS = [
   { name: "CSF" },
   { name: "ACTIVITY" },
@@ -133,19 +131,27 @@ function Board({ goal, users, csfs }) {
         name={csfSelected.name}
         csfId={csfSelected.id}
       />
+
       <TaskListModal modal={modal} setModal={setModal} tasks={tasksModal} />
+
       <DeleteTask
         modal={destroyTaskModal}
         setModal={setDestroyTaskModal}
         taskId={taskId}
+        action={`/project-manager/${id}`}
+        actionInput="delete-task"
       />
+
       <CompleteTask
         modal={completeTaskModal}
         setModal={setCompleteTaskModal}
         taskId={taskId}
         name={taskName}
         description={taskDescription}
+        action={`/project-manager/${id}`}
+        actionInput="complete-task"
       />
+
       <EditShowTask
         modal={editTaskModal}
         setModal={setEditTaskModal}
@@ -154,6 +160,8 @@ function Board({ goal, users, csfs }) {
         description={taskDescription}
         priority={taskPriority}
         start={taskStart}
+        action={`/project-manager/${id}`}
+        actionInput="edit-task"
       />
       <div className="grid grid-cols-10 text-right">
         {HEADERS?.map((header, i) => (

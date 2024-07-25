@@ -28,6 +28,8 @@ function EditShowTask({
   description,
   priority,
   start,
+  action,
+  actionInput,
 }) {
   const navigation = useNavigation();
   const params = useParams();
@@ -67,7 +69,7 @@ function EditShowTask({
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/project-manager/${params.id}`}
+          action={action}
           method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
@@ -81,7 +83,7 @@ function EditShowTask({
               />
               <input
                 type="hidden"
-                value="edit-task"
+                value={actionInput}
                 name="action"
                 hidden
                 readOnly

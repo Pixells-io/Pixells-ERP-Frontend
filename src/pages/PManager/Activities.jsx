@@ -114,6 +114,8 @@ function Activities() {
         modal={destroyTaskModal}
         setModal={setDestroyTaskModal}
         taskId={taskId}
+        action={"/project-manager/activities"}
+        actionInput="delete-task"
       />
       <CompleteTask
         modal={completeTaskModal}
@@ -121,6 +123,8 @@ function Activities() {
         taskId={taskId}
         name={taskName}
         description={taskDescription}
+        action={"/project-manager/activities"}
+        actionInput="complete-task"
       />
       <EditShowTask
         modal={editTaskModal}
@@ -130,6 +134,8 @@ function Activities() {
         description={taskDescription}
         priority={taskPriority}
         start={taskStart}
+        action={"/project-manager/activities"}
+        actionInput="edit-task"
       />
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
@@ -410,16 +416,17 @@ export default Activities;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  switch (data.get("type_of_request")) {
-    case "1":
+  switch (action) {
+    case "complete-task":
       completeTask(data);
-      return 1;
-    case "2":
+      return redirect("/project-manager/activities");
+    case "edit-task":
       editTask(data);
-      return 1;
-    case "3":
+      return redirect("/project-manager/activities");
+    case "delete-task":
       destroyTask(data);
-      return 1;
+      return redirect("/project-manager/activities");
   }
 }

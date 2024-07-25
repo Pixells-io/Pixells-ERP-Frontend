@@ -156,7 +156,7 @@ const legal_benefits = [
 function MainUser() {
   const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  // console.log(user.data);
+  console.log(user.data);
   const [status, setStatus] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [academicInfo, setAcademicInfo] = useState(user?.data.academy);
@@ -384,7 +384,6 @@ function MainUser() {
                 url={user?.data.user.user_image}
                 initials={`${user?.data.user.name.slice(1)}${user?.data.user.last_name.slice(1)}`}
               />
-              {/* <UserImage name={"user_image"} label={"User Image"} /> */}
             </div>
 
             {/* Personal Info */}
@@ -515,12 +514,11 @@ function MainUser() {
                   <div className="flex w-full gap-3 pt-3">
                     <div className="flex w-full items-center gap-3">
                       <div className="w-full">
-                        {/* <FileRouter name={"curp_file"} label={"CURP"} /> */}
-                        <DropzoneFile name={"curp_file"} label={"CURP"} />
+                        <DropzoneFile name="curp_file" label="CURP" />
                         {user.data?.user.curp_file !== "N/A" ? (
                           <iframe
                             src={user.data?.user.curp_file}
-                            frameborder="0"
+                            frameBorder="0"
                           ></iframe>
                         ) : null}
                       </div>
@@ -540,7 +538,7 @@ function MainUser() {
                         {user.data?.user.rfc_file !== "N/A" ? (
                           <iframe
                             src={user.data?.user.rfc_file}
-                            frameborder="0"
+                            frameBorder="0"
                           ></iframe>
                         ) : null}
                       </div>
@@ -560,7 +558,7 @@ function MainUser() {
                         {user.data?.user.nss_file !== "N/A" ? (
                           <iframe
                             src={user.data?.user.nss_file}
-                            frameborder="0"
+                            frameBorder="0"
                           ></iframe>
                         ) : null}
                       </div>
@@ -586,7 +584,7 @@ function MainUser() {
                     {user.data?.user.birth_certificade !== "N/A" ? (
                       <iframe
                         src={user.data?.user.birth_certificade}
-                        frameborder="0"
+                        frameBorder="0"
                       ></iframe>
                     ) : null}
                   </div>
@@ -596,7 +594,7 @@ function MainUser() {
                       {user.data?.user.id_file !== "N/A" ? (
                         <iframe
                           src={user.data?.user.id_file}
-                          frameborder="0"
+                          frameBorder="0"
                         ></iframe>
                       ) : null}
                     </div>
@@ -718,7 +716,7 @@ function MainUser() {
                       {user.data?.user.address_voucher !== "N/A" ? (
                         <iframe
                           src={user.data?.user.address_voucher}
-                          frameborder="0"
+                          frameBorder="0"
                         ></iframe>
                       ) : null}
                     </div>
@@ -846,7 +844,7 @@ function MainUser() {
                       {user.data?.user.academic_voucher !== "N/A" ? (
                         <iframe
                           src={user.data?.user.academic_voucher}
-                          frameborder="0"
+                          frameBorder="0"
                         ></iframe>
                       ) : null}
                     </div>
@@ -999,7 +997,7 @@ function MainUser() {
                 <div className="w-1/3 pl-4">
                   <DropzoneFile name={"cv"} label={"CV"} />
                   {user.data?.user.cv !== "N/A" ? (
-                    <iframe src={user.data?.user.cv} frameborder="0"></iframe>
+                    <iframe src={user.data?.user.cv} frameBorder="0"></iframe>
                   ) : null}
                 </div>
               </div>
@@ -1248,10 +1246,10 @@ function MainUser() {
 
 export default MainUser;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
 
   const validation = await editUser(data);
 
-  return redirect("/organization");
+  return redirect(`/organization/user/${params.id}`);
 }
