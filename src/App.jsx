@@ -254,13 +254,13 @@ import LayoutCalendar, {
 } from "./pages/Calendar/LayoutCalendar";
 
 //Accounting
-// import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
-// import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
-// import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
-// import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
-// import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
-// import MainBook from "./pages/Accounting/Book/MainBook";
-// import MainCost from "./pages/Accounting/Cost/MainCost";
+import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
+import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
+import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
+import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
+import MainBook from "./pages/Accounting/Book/MainBook";
+import MainCost from "./pages/Accounting/Cost/MainCost";
 
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
@@ -779,38 +779,38 @@ const router = createBrowserRouter([
         ],
       },
       //Acounting
-      // {
-      //   path: "/accounting",
-      //   element: <SideLayoutAccounting />,
-      //   children: [
-      //     {
-      //       index: true,
-      //       element: <MainCatalog />,
-      //     },
-      //     {
-      //       //account Policy
-      //       path: "/accounting/policy",
-      //       element: <MainPolicy />,
-      //     },
-      //     {
-      //       path: "/accounting/policy/create",
-      //       element: <CreateAccount />,
-      //     },
-      //     {
-      //       path: "/accounting/policy/details",
-      //       element: <AccountDetail />,
-      //     },
-      //     {
-      //       //account book
-      //       path: "/accounting/book",
-      //       element: <MainBook />,
-      //     },
-      //     {
-      //       path: "/accounting/cost",
-      //       element: <MainCost />,
-      //     },
-      //   ],
-      // },
+      {
+        path: "/accounting",
+        element: <SideLayoutAccounting />,
+        children: [
+          {
+            index: true,
+            element: <MainCatalog />,
+          },
+          {
+            //account Policy
+            path: "/accounting/policy",
+            element: <MainPolicy />,
+          },
+          {
+            path: "/accounting/policy/create",
+            element: <CreateAccount />,
+          },
+          {
+            path: "/accounting/policy/details",
+            element: <AccountDetail />,
+          },
+          {
+            //account book
+            path: "/accounting/book",
+            element: <MainBook />,
+          },
+          {
+            path: "/accounting/cost",
+            element: <MainCost />,
+          },
+        ],
+      },
       //Analitycs
       {
         path: "/analytics",
