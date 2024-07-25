@@ -2,7 +2,7 @@ import React from "react";
 
 function TimeManagement() {
     return (
-        <div className="bg-blancoBox w-[456px] rounded-xl p-2">
+        <div className="bg-blancoBox w-[456px] rounded-xl p-2 h-full shadow-lg">
             <div className="flex justify-between pb-3 pt-2 pr-[73px] pl-12 ">
                 <span className="text-sm font-medium font-roboto text-grisText">
                     Week 13

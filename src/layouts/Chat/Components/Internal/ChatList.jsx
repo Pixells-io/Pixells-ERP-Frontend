@@ -22,11 +22,23 @@ function ChatList({ chat }) {
           <div className="mt-[-3px]">
             {chat?.count != 0 ? (
               <span className="line-clamp-2 font-roboto text-xs font-semibold text-grisText">
-                {chat.mensaje.mensaje}
+                {chat.type == 1 ? (
+                  <>
+                    {chat.other_user}: {chat.mensaje.mensaje}
+                  </>
+                ) : (
+                  <>{chat.mensaje.mensaje}</>
+                )}
               </span>
             ) : (
               <span className="line-clamp-2 font-roboto text-xs font-normal text-grisText">
-                {chat.mensaje.mensaje}
+                {chat.type == 1 ? (
+                  <>
+                    {chat.other_user}: {chat.mensaje.mensaje}
+                  </>
+                ) : (
+                  <>{chat.mensaje.mensaje}</>
+                )}
               </span>
             )}
           </div>

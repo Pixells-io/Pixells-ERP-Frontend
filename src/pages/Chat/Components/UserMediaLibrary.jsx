@@ -6,12 +6,23 @@ import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
+import MediaInformations from "./MediaInformations";
 
 function UserMediaLibrary({ participant }) {
-  const { chat, user, chats } = useLoaderData();
+  const { data } = useLoaderData();
+  const [images, setImages] = useState(
+    data.documents.filter((document) => {
+      let extension = document.document.split(".");
+      return ["jpg", "jpeg", "png"].includes(extension.pop());
+    }),
+  );
+  const [documents, setDocuments] = useState(
+    data.documents.filter((document) => {
+      let extension = document.document.split(".");
+      return ["pdf", "csv", "xls", "docx", "txt"].includes(extension.pop());
+    }),
+  );
   const navigate = useNavigate();
-
-
 
   return (
     <div className="flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
@@ -25,13 +36,10 @@ function UserMediaLibrary({ participant }) {
         </div>
         <div className="flex flex-col gap-2 rounded-t-xl px-6 py-4">
           <div className="flex items-center gap-4">
-            <img
-              src={chat.data?.participants.img}
-              className="h-14 w-14 rounded-full"
-            />
+            <img src={data.img} className="h-14 w-14 rounded-full" />
             <div>
               <span className="text-xs font-semibold text-grisText">
-                {chat.data?.participants.name}
+                {data.name}
               </span>
               <p className="text-xs font-light text-grisText">Media Library</p>
             </div>
@@ -61,21 +69,25 @@ function UserMediaLibrary({ participant }) {
           >
             Documents
           </TabsTrigger>
-          <TabsTrigger
+          {/* <TabsTrigger
             value="links"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
             Links
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
-        <TabsContent value="information"></TabsContent>
+        <TabsContent value="information">
+          <MediaInformations data={data} />
+        </TabsContent>
         <TabsContent value="images">
-          <MediaImages chat={chat}/>
+          <MediaImages images={images} />
         </TabsContent>
         <TabsContent value="documents">
-          <MediaDocuments />
+          <MediaDocuments documents={documents} />
         </TabsContent>
-        <TabsContent value="links"></TabsContent>
+        {/* <TabsContent value="links">
+
+        </TabsContent> */}
       </Tabs>
     </div>
   );

@@ -114,17 +114,28 @@ function MainChat() {
       />
 
       <div className="flex rounded-t-xl bg-gris px-6 py-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={chat.data?.participants.img}
-            className="h-14 w-14 rounded-full"
-          />
-          <Link to={"/chat/" + id + "/user-media-library"}>
-            <span className="font-poppins text-lg font-semibold text-grisHeading">
-              {chat.data?.participants.name}
-            </span>
-          </Link>
-        </div>
+        {chat.data.type == 0 ? (
+          <div className="flex items-center gap-4">
+            <img
+              src={chat.data?.participants.img}
+              className="h-14 w-14 rounded-full"
+            />
+            <Link to={"/chat/" + id + "/user-media-library"}>
+              <span className="font-poppins text-lg font-semibold text-grisHeading">
+                {chat.data?.participants.name}
+              </span>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <img src={chat.data?.img} className="h-14 w-14 rounded-full" />
+            <Link to={"/chat/" + id + "/user-media-library"}>
+              <span className="font-poppins text-lg font-semibold text-grisHeading">
+                {chat.data?.title}
+              </span>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Chat Card Messages */}
