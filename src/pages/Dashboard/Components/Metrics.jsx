@@ -4,72 +4,108 @@ import {
   notifications,
   chatbubble,
   chevronForward,
-  calendar
+  calendar,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
-function GeneralMetrics() {
-    return (
-        <div className="bg-blancoBox w-[338px] rounded-xl p-2 h-full shadow-lg">
-            <div className="flex pb-3 pt-2 pl-3">
-                <span className="text-sm font-medium font-roboto text-grisText">
-                    General Metrics
-                </span>
+function GeneralMetrics({ notifications, calendar, chats }) {
+  return (
+    <div className="h-full w-[338px] rounded-xl bg-blancoBox p-2 shadow-lg">
+      <div className="flex pb-3 pl-3 pt-2">
+        <span className="font-roboto text-sm font-medium text-grisText">
+          General Metrics
+        </span>
+      </div>
+      <div className="rounded-md bg-[#F0F0F0] p-2">
+        <Link
+          to={"/my-profile/notifications"}
+          className="flex justify-between border-b border-[#D7D7D7] pb-3 pt-3 hover:bg-blancoBox"
+        >
+          <div className="flex w-2/6">
+            <div className="mr-2 w-2/4 text-end">
+              <IonIcon
+                icon={notifications}
+                className="pt-1 text-xl text-grisText"
+              ></IonIcon>
             </div>
-            <div className="bg-[#F0F0F0] rounded-md p-2">
-                <Link to={"/my-profile/notifications"} className="flex justify-between border-b pt-3 pb-3 border-[#D7D7D7] hover:bg-blancoBox">
-                    <div className="flex w-2/6">
-                        <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={notifications} className="text-xl text-grisText pt-1"></IonIcon>
-                        </div>
-                        <div className="w-2/4">
-                            <span className="text-xs font-medium font-roboto text-grisText">23</span>
-                        </div>
-                    </div>
-                    <div className="w-2/6 text-sta">
-                        
-                        <span className="font-roboto text-xs font-light text-grisText">Notifications</span>
-                    </div>
-                    <div className="w-2/6 text-end mr-6">
-                        <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
-                    </div>
-                </Link>
-                <Link to={"/calendar"} className="flex justify-between border-b pt-3 pb-3 border-[#D7D7D7] hover:bg-blancoBox">
-                    <div className="flex w-2/6">
-                        <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={calendar} className="text-xl text-grisText pt-1"></IonIcon>
-                        </div>
-                        <div className="w-2/4">
-                            <span className="text-xs font-medium font-roboto text-grisText">16</span>
-                        </div>
-                    </div>
-                    <div className="w-2/6 text-sta">
-
-                        <span className="font-roboto text-xs font-light text-grisText">Calendar</span>
-                    </div>
-                    <div className="w-2/6 text-end mr-6">
-                        <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
-                    </div>
-                </Link>
-                <Link to={"/chat"} className="flex justify-between border-b pt-3 pb-3 border-[#D7D7D7] hover:bg-blancoBox">
-                    <div className="flex w-2/6">
-                        <div className="w-2/4 text-end mr-2">
-                            <IonIcon icon={chatbubble} className="text-xl text-grisText pt-1"></IonIcon>
-                        </div>
-                        <div className="w-2/4">
-                            <span className="text-xs font-medium font-roboto text-grisText">7</span>
-                        </div>
-                    </div>
-                    <div className="w-2/6 text-sta">
-
-                        <span className="font-roboto text-xs font-light text-grisText">Chats</span>
-                    </div>
-                    <div className="w-2/6 text-end mr-6">
-                        <IonIcon icon={chevronForward} className="text-2xl text-grisText"></IonIcon>
-                    </div>
-                </Link>
+            <div className="w-2/4">
+              <span className="font-roboto text-xs font-medium text-grisText">
+                {notifications}
+              </span>
             </div>
-        </div>
-    );
+          </div>
+          <div className="text-sta w-2/6">
+            <span className="font-roboto text-xs font-light text-grisText">
+              Notifications
+            </span>
+          </div>
+          <div className="mr-6 w-2/6 text-end">
+            <IonIcon
+              icon={chevronForward}
+              className="text-2xl text-grisText"
+            ></IonIcon>
+          </div>
+        </Link>
+        <Link
+          to={"/calendar"}
+          className="flex justify-between border-b border-[#D7D7D7] pb-3 pt-3 hover:bg-blancoBox"
+        >
+          <div className="flex w-2/6">
+            <div className="mr-2 w-2/4 text-end">
+              <IonIcon
+                icon={calendar}
+                className="pt-1 text-xl text-grisText"
+              ></IonIcon>
+            </div>
+            <div className="w-2/4">
+              <span className="font-roboto text-xs font-medium text-grisText">
+                {calendar}
+              </span>
+            </div>
+          </div>
+          <div className="text-sta w-2/6">
+            <span className="font-roboto text-xs font-light text-grisText">
+              Calendar
+            </span>
+          </div>
+          <div className="mr-6 w-2/6 text-end">
+            <IonIcon
+              icon={chevronForward}
+              className="text-2xl text-grisText"
+            ></IonIcon>
+          </div>
+        </Link>
+        <Link
+          to={"/chat"}
+          className="flex justify-between border-b border-[#D7D7D7] pb-3 pt-3 hover:bg-blancoBox"
+        >
+          <div className="flex w-2/6">
+            <div className="mr-2 w-2/4 text-end">
+              <IonIcon
+                icon={chatbubble}
+                className="pt-1 text-xl text-grisText"
+              ></IonIcon>
+            </div>
+            <div className="w-2/4">
+              <span className="font-roboto text-xs font-medium text-grisText">
+                {chats}
+              </span>
+            </div>
+          </div>
+          <div className="text-sta w-2/6">
+            <span className="font-roboto text-xs font-light text-grisText">
+              Chats
+            </span>
+          </div>
+          <div className="mr-6 w-2/6 text-end">
+            <IonIcon
+              icon={chevronForward}
+              className="text-2xl text-grisText"
+            ></IonIcon>
+          </div>
+        </Link>
+      </div>
+    </div>
+  );
 }
 export default GeneralMetrics;

@@ -73,8 +73,11 @@ function MainDashboard() {
               </div>
               <div className="mt-8 flex gap-8">
                 <div className="flex gap-8">
-                  <Time title="ACTIVE USERS" time="0" />
-                  <Time title="TOTAL USERS" time="0" />
+                  <Time
+                    title="ACTIVE USERS"
+                    time={dashboard.data.active_users}
+                  />
+                  <Time title="TOTAL USERS" time={dashboard.data.user_create} />
                 </div>
                 <div className="flex w-2/3 gap-8">
                   <Activities
@@ -124,7 +127,11 @@ function MainDashboard() {
               METRICS
             </span>
             <div className="h-full">
-              <GeneralMetrics />
+              <GeneralMetrics
+                notifications={dashboard.data.notifications}
+                calendar={dashboard.data.calendar}
+                chats={dashboard.data.chats}
+              />
             </div>
           </div>
           <div className="w-full p-4">
