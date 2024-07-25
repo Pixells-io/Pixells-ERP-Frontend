@@ -37,7 +37,7 @@ function CustomersGrowth() {
                 aria-label="Select a value"
                 className="border-b-[2px] border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit p-0"
               >
-                <SelectValue />
+                <SelectValue placeholder="Date" />
               </SelectTrigger>
               <SelectContent className="rounded-xl text-red-300">
                 <SelectItem

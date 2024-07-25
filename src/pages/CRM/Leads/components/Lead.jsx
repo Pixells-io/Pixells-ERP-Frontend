@@ -177,7 +177,7 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
+                <span className="line-clamp-2 text-[12px] text-grisHeading break-words">
                   {lead?.prospect.comments}
                 </span>
               </div>
@@ -252,7 +252,7 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
+                <span className="line-clamp-2 text-[12px] text-grisHeading break-words">
                   {lead?.follow_up[0].comments}
                 </span>
               </div>
@@ -281,7 +281,7 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
+                <span className="line-clamp-2 text-[12px] text-grisHeading break-words">
                   {lead?.proposal.comments}
                 </span>
               </div>
@@ -316,8 +316,9 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
-                  {lead?.closing?.comments}
+                <span className="line-clamp-2 text-[12px] text-grisHeading break-words">
+                  {/* {lead?.closing?.comments} asd */}
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque pariatur, impedit assumenda veritatis nostrum ea voluptas rerum doloremque, autem laudantium provident officiis beatae suscipit dolorem nobis, facere aut! Velit, illum.
                 </span>
               </div>
             </div>
@@ -337,7 +338,7 @@ function Lead({ lead, setModal }) {
                 <p className="text-[10px] font-medium text-grisText">
                   Comments
                 </p>
-                <span className="line-clamp-none text-[12px] text-grisHeading">
+                <span className="line-clamp-2 text-[12px] text-grisHeading break-words">
                   {lead?.pay.comments}
                 </span>
               </div>

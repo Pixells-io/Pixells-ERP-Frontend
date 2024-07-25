@@ -47,7 +47,7 @@ function AgreementsConsole({ services, customers }) {
           <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
             Templates
           </p>
-          <div className="flex h-full flex-col gap-2 border-r pr-2">
+          <div className="flex h-full flex-col gap-2 border-r pr-2 overflow-auto">
             {TABS?.map((tab, i) => (
               <TabsTrigger
                 key={tab.id}
