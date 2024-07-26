@@ -50,9 +50,9 @@ function DropzoneFile({ name, label }) {
                   />
                 </button>
 
-                <div className="mx-auto flex h-[200px] w-[200px] overflow-hidden">
+                <div className="flex h-[200px] w-[200px] items-center justify-center overflow-hidden">
                   <img
-                    src={yourImage[0].preview}
+                    src={yourImage[0]?.preview}
                     alt="preview"
                     className="h-full w-full object-contain"
                   />

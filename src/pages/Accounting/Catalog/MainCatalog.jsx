@@ -33,23 +33,29 @@ const MainCatalog = () => {
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">CONTABILIDAD</h2>
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            CONTABILIDAD
+          </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
             <div className="text-sm">&bull; 25 SFC </div>
             <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-        
-        <div className="flex justify-between items-center">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">Catálogo de Cuentas</p>
+
+        <div className="flex items-center justify-between">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            Catálogo de Cuentas
+          </p>
         </div>
-          <div className="flex gap-x-4 items-center pl-2">
-              <AccountFormModal/>
-            <Button className="bg-inherit text-xs font-light	border border-[#44444F] text-black rounded-3xl h-7 px-4 hover:bg-inherit">Importar</Button>
-          </div>
+        <div className="flex items-center gap-x-4 pl-2">
+          <AccountFormModal />
+          <Button className="h-7 rounded-3xl border border-[#44444F] bg-inherit px-4 text-xs font-light text-black hover:bg-inherit">
+            Importar
+          </Button>
+        </div>
         {/*CONTENT MENU OF CONSOLE */}
-        <CatalogConsole/>
+        <CatalogConsole />
       </div>
     </div>
   );
