@@ -3,6 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import CatalogConsole from "./Components/CatalogConsole";
 import AccountFormModal from "./Components/AccountFormModal";
+import { Button } from "@/components/ui/button";
 
 const MainCatalog = () => {
   return (
@@ -43,8 +44,10 @@ const MainCatalog = () => {
         <div className="flex justify-between items-center">
           <p className="font-poppins text-xl font-bold text-[#44444F]">Catálogo de Cuentas</p>
         </div>
-        
-          <AccountFormModal/>
+          <div className="flex gap-x-4 items-center pl-2">
+              <AccountFormModal/>
+            <Button className="bg-inherit text-xs font-light	border border-[#44444F] text-black rounded-3xl h-7 px-4 hover:bg-inherit">Importar</Button>
+          </div>
         {/*CONTENT MENU OF CONSOLE */}
         <CatalogConsole/>
       </div>

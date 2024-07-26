@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import AccountingAccount from "../../components/AccountingAccount";
+
 const TABS = [
   { id: 1, name: "ACTIVO" },
   { id: 2, name: "PASIVO" },
@@ -19,31 +21,118 @@ const CatalogConsole = () => {
 
   useEffect(() => {
     if (location.pathname === "/accounting") {
-      const activoTab = TABS.find(tab => tab.id === 1 && tab.name === "ACTIVO");
+      const activoTab = TABS.find(
+        (tab) => tab.id === 1 && tab.name === "ACTIVO",
+      );
       if (activoTab) {
         setActiveTab(activoTab.name);
       }
     }
   }, [location]);
 
+  const dataAccounts = [
+    {
+      id: 1,
+      numberAccount: "1000",
+      name: "Activo ",
+      isPermanent: true,
+      subAccounts: [
+        {
+          id: 1,
+          numberAccount: "1100",
+          name: "Activo circulante",
+          isPermanent: true,
+          subAccounts: [
+            {
+              id: 2,
+              numberAccount: "1110",
+              name: "Caja",
+              isPermanent: true,
+              subAccounts: [
+                {
+                  id: 3,
+                  numberAccount: "1111",
+                  name: "Ingreso a caja 1",
+
+                  subAccounts: [{
+                      id: 20,
+                numberAccount: "1110",
+                name: "Caja",
+                subAccounts:[]
+                  }
+                  ],
+                },
+                {
+                  id: 10,
+                  numberAccount: "1112",
+                  name: "Ingreso a caja 2",
+
+                  subAccounts: [],
+                },
+                {
+                  id: 11,
+                  numberAccount: "1113",
+                  name: "Ingreso a caja 3",
+
+                  subAccounts: [],
+                },
+                {
+                  id: 12,
+                  numberAccount: "1114",
+                  name: "Ingreso a caja 4",
+
+                  subAccounts: [],
+                },
+                {
+                  id: 15,
+                  numberAccount: "1115",
+                  name: "Ingreso a caja 5",
+
+                  subAccounts: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 4,
+          numberAccount: "1200",
+          name: "Activo Fijo",
+          isPermanent: true,
+          subAccounts: [
+            {
+              id: 5,
+              numberAccount: "1210",
+              name: "Terrenos",
+              isPermanent: true,
+              subAccounts: [
+                {
+                  id: 6,
+                  numberAccount: "1211",
+                  name: "Terrenos baratos",
+                  subAccounts: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
-    <div className="flex justify-center h-full rounded-xl overflow-auto p-4">
+    <div className="flex h-full justify-center overflow-auto rounded-xl p-0">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="grid grid-cols-12 w-full h-full">
-          <TabsList className="col-span-2 flex flex-col gap-2 justify-normal bg-transparent h-full">
-            <div className="flex flex-col gap-2 pr-2 h-full items-center">
+        <div className="grid h-full w-full grid-cols-12">
+          <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
+            <div className="flex h-full flex-col items-center gap-2 pr-2">
               {TABS.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
                   value={tab.name}
-                  className="text-xs sm:text-sm text-grisText border border-grisSubText hover:bg-blancoBox
-                             data-[state=active]:bg-[#44444F] 
-                             data-[state=active]:sm-none data-[state=active]:font-semibold font-roboto
-                             data-[state=active]:text-white rounded-full data-[state=active]:shadow-lg
-                             h-10 flex items-center justify-center px-2
-                             w-32 sm:w-40"
+                  className="data-[state=active]:sm-none flex h-10 w-32 items-center justify-center rounded-full border border-grisSubText px-2 font-roboto text-xs text-grisText hover:bg-blancoBox data-[state=active]:bg-[#44444F] data-[state=active]:font-semibold data-[state=active]:text-white data-[state=active]:shadow-lg sm:w-40 sm:text-sm"
                 >
-                  <p className="text-xs whitespace-normal text-center leading-tight">
+                  <p className="whitespace-normal text-center text-xs leading-tight">
                     {tab.name}
                   </p>
                 </TabsTrigger>
@@ -54,15 +143,15 @@ const CatalogConsole = () => {
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="pl-4 col-span-10 overflow-auto h-full"
+              className="col-span-10 h-full bg-blancoBg pl-4 overflow-auto"
             >
-              <p>CONTENT HERE</p>
+              <AccountingAccount dataAccounts={dataAccounts}/>
             </TabsContent>
           ))}
         </div>
       </Tabs>
     </div>
   );
-}
+};
 
 export default CatalogConsole;
