@@ -12,7 +12,15 @@ import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import DropzoneFile from "@/components/dropzone-files";
 
-function CompleteTask({ modal, setModal, taskId, name, description }) {
+function CompleteTask({
+  modal,
+  setModal,
+  taskId,
+  name,
+  description,
+  action,
+  actionInput,
+}) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -31,13 +39,13 @@ function CompleteTask({ modal, setModal, taskId, name, description }) {
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/activities"
+          action={action}
           method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <input type="hidden" value={taskId} name="task_id" />
-              <input type="hidden" value={1} name="type_of_request" />
+              <input type="hidden" value={actionInput} name="action" />
               <InputRouter
                 type="text"
                 placeholder="Name of the area"

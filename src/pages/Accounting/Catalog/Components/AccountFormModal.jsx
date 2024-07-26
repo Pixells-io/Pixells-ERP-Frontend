@@ -30,7 +30,7 @@ const AccountFormModal = () => {
         <IonIcon
           icon={addCircleOutline}
           size="large"
-          className="w-12 h-12 text-blue-500 cursor-pointer"
+          className="w-7 h-7 text-blue-500 cursor-pointer"
         />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

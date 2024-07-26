@@ -3,9 +3,6 @@ import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -19,7 +16,7 @@ import {
 
 import { notifications } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { destroyNotification } from "@/lib/actions";
 
 function NotificationBell({ notificationsData, user }) {
@@ -43,9 +40,9 @@ function NotificationBell({ notificationsData, user }) {
         <DropdownMenuContent className="max-h-96 overflow-auto">
           <div className="flex flex-col gap-1 px-0 py-0 focus:bg-inherit">
             {notificationsData?.map((item, i) => (
-              <>
+              <div key={i}>
                 {item.count != "0" ? (
-                  <div className="flex flex-col gap-1" key={i}>
+                  <div className="flex flex-col gap-1">
                     <Accordion type="single" collapsible>
                       <AccordionItem value={`item-${i}`} className="border-b-0">
                         <AccordionTrigger className="rounded px-2 hover:bg-[#7794F926] hover:no-underline active:bg-[#7794F926]">
@@ -117,7 +114,7 @@ function NotificationBell({ notificationsData, user }) {
                     </Accordion>
                   </div>
                 ) : null}
-              </>
+              </div>
             ))}
           </div>
         </DropdownMenuContent>

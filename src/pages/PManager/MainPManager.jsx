@@ -24,9 +24,11 @@ import {
 import { IonIcon } from "@ionic/react";
 
 import {
+  completeTask,
   deleteCSF,
   deleteGoal,
   deleteStrategicObjective,
+  destroyTask,
   editCSF,
   editGoal,
   editStrategicObjective,
@@ -246,6 +248,14 @@ export async function multiFormAction({ params, request }) {
 
     case "edit-task":
       await editTask(formData);
+      return redirect(`/project-manager/${params.id}`);
+
+    case "delete-task":
+      await destroyTask(formData);
+      return redirect(`/project-manager/${params.id}`);
+
+    case "complete-task":
+      await completeTask(formData);
       return redirect(`/project-manager/${params.id}`);
 
     case "edit-obj":
