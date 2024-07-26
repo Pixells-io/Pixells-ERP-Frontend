@@ -16,6 +16,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneFile from "@/components/dropzone-files";
 import { editUser, saveNewUser } from "../../utils";
 import NavigationHeader from "@/components/navigation-header";
+import ImagesShow from "@/components/images-show";
 
 const selectBasics = [
   {
@@ -378,7 +379,7 @@ function MainUser() {
         >
           <input type="hidden" name="user_id" value={id} />
           <div className="">
-            <div className="w-1/4">
+            <div className="w-fit cursor-pointer">
               <DropzoneImage
                 name={"user_image"}
                 url={user?.data.user.user_image}
@@ -391,214 +392,183 @@ function MainUser() {
               <span className="text-roboto text-sm font-medium text-grisText">
                 Personal Information
               </span>
-              <div className="flex pt-4">
-                <div className="w-4/6 pr-8">
-                  <div className="flex gap-3">
-                    <InputRouter
-                      name={"name"}
-                      placeholder={"Name"}
-                      type={"text"}
-                      defaultVal={user?.data.user.name}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"last_name"}
-                      placeholder={"Last Name"}
-                      type={"text"}
-                      defaultVal={user?.data.user.last_name}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"second_last_name"}
-                      placeholder={"Second Last Name"}
-                      type={"text"}
-                      defaultVal={user?.data.user.second_last_name}
-                      disabled={disabled}
-                    />
-                  </div>
-
-                  <div className="mt-3 flex gap-3">
-                    <InputRouter
-                      name={"date_of_birth"}
-                      placeholder={"Date of Birth"}
-                      type={"date"}
-                      defaultVal={user?.data.user.date_of_birth}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"city_of_birth"}
-                      placeholder={"City of Birth"}
-                      type={"text"}
-                      defaultVal={user?.data.user.city_of_birth}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"state_of_birth"}
-                      placeholder={"State of Birth"}
-                      type={"text"}
-                      defaultVal={user?.data.user.state_of_birth}
-                      disabled={disabled}
-                    />
-                  </div>
-
-                  <div className="flex items-center gap-3 pt-3">
-                    <SelectRouter
-                      name={"genre"}
-                      placeholder={"Genre"}
-                      options={genreSelect}
-                      className="w-full text-sm font-light"
-                      defaultVal={genreUser}
-                      disabled={disabled}
-                    />
-                    <SelectRouter
-                      name={"civil_status"}
-                      className="w-full text-sm font-light"
-                      placeholder={"Civil Status"}
-                      options={civilStatus}
-                      defaultVal={civilStatusUser}
-                      onChange={(e) => setStatus(e.value)}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"childrens"}
-                      placeholder={"Children"}
-                      type={"number"}
-                      defaultVal={user?.data.user.childrens}
-                      disabled={disabled}
-                    />
-                  </div>
-
-                  {status === "Married" ? (
-                    <div className="flex gap-3 pt-3">
-                      <InputRouter
-                        name={"spouse_firstname"}
-                        placeholder={"Spouse First Name"}
-                        type={"text"}
-                        defaultVal={user?.data.user.spouse_firstname}
-                        disabled={disabled}
-                      />
-                      <InputRouter
-                        name={"spouse_lastname"}
-                        placeholder={"Spouse Last Name"}
-                        type={"text"}
-                        defaultVal={user?.data.user.spouse_lastname}
-                        disabled={disabled}
-                      />
-                      <InputRouter
-                        name={"spouse_taxid"}
-                        placeholder={"Spouse Tax ID"}
-                        type={"text"}
-                        defaultVal={user?.data.user.spouse_taxid}
-                        disabled={disabled}
-                      />
-                    </div>
-                  ) : null}
-
-                  <div className="flex gap-3 pt-3">
-                    <InputRouter
-                      name={"phone"}
-                      placeholder={"Phone"}
-                      type={"number"}
-                      defaultVal={user?.data.user.phone}
-                      disabled={disabled}
-                    />
-                    <InputRouter
-                      name={"personal_email"}
-                      placeholder={"Personal Email"}
-                      type={"email"}
-                      defaultVal={user?.data.user.personal_email}
-                      disabled={disabled}
-                    />
-                  </div>
-
-                  <div className="flex w-full gap-3 pt-3">
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name="curp_file" label="CURP" />
-                        {user.data?.user.curp_file !== "N/A" ? (
-                          <iframe
-                            src={user.data?.user.curp_file}
-                            frameBorder="0"
-                          ></iframe>
-                        ) : null}
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"curp_text"}
-                          placeholder={"Curp"}
-                          type={"text"}
-                          defaultVal={user?.data.user.curp_text}
-                          disabled={disabled}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name={"rfc_file"} label={"RFC"} />
-                        {user.data?.user.rfc_file !== "N/A" ? (
-                          <iframe
-                            src={user.data?.user.rfc_file}
-                            frameBorder="0"
-                          ></iframe>
-                        ) : null}
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"rfc_text"}
-                          placeholder={"Rfc"}
-                          type={"text"}
-                          defaultVal={user?.data.user.rfc_text}
-                          disabled={disabled}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name={"nss_file"} label={"NSS"} />
-                        {user.data?.user.nss_file !== "N/A" ? (
-                          <iframe
-                            src={user.data?.user.nss_file}
-                            frameBorder="0"
-                          ></iframe>
-                        ) : null}
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"nss_text"}
-                          placeholder={"NSS"}
-                          type={"text"}
-                          defaultVal={user?.data.user.nss_text}
-                          disabled={disabled}
-                        />
-                      </div>
-                    </div>
-                  </div>
+              <div className="flex flex-col pt-4">
+                <div className="flex gap-3">
+                  <InputRouter
+                    name={"name"}
+                    placeholder={"Name"}
+                    type={"text"}
+                    defaultVal={user?.data.user.name}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"last_name"}
+                    placeholder={"Last Name"}
+                    type={"text"}
+                    defaultVal={user?.data.user.last_name}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"second_last_name"}
+                    placeholder={"Second Last Name"}
+                    type={"text"}
+                    defaultVal={user?.data.user.second_last_name}
+                    disabled={disabled}
+                  />
                 </div>
 
-                <div className="w-2/6">
-                  <div>
-                    <DropzoneFile
-                      name={"birth_certificade"}
-                      label={"Birth Certificate"}
+                <div className="mt-3 flex gap-3">
+                  <InputRouter
+                    name={"date_of_birth"}
+                    placeholder={"Date of Birth"}
+                    type={"date"}
+                    defaultVal={user?.data.user.date_of_birth}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"city_of_birth"}
+                    placeholder={"City of Birth"}
+                    type={"text"}
+                    defaultVal={user?.data.user.city_of_birth}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"state_of_birth"}
+                    placeholder={"State of Birth"}
+                    type={"text"}
+                    defaultVal={user?.data.user.state_of_birth}
+                    disabled={disabled}
+                  />
+                </div>
+
+                <div className="flex items-center gap-3 pt-3">
+                  <SelectRouter
+                    name={"genre"}
+                    placeholder={"Genre"}
+                    options={genreSelect}
+                    className="w-full text-sm font-light"
+                    defaultVal={genreUser}
+                    disabled={disabled}
+                  />
+                  <SelectRouter
+                    name={"civil_status"}
+                    className="w-full text-sm font-light"
+                    placeholder={"Civil Status"}
+                    options={civilStatus}
+                    defaultVal={civilStatusUser}
+                    onChange={(e) => setStatus(e.value)}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"childrens"}
+                    placeholder={"Children"}
+                    type={"number"}
+                    defaultVal={user?.data.user.childrens}
+                    disabled={disabled}
+                  />
+                </div>
+
+                {status === "Married" ? (
+                  <div className="flex gap-3 pt-3">
+                    <InputRouter
+                      name={"spouse_firstname"}
+                      placeholder={"Spouse First Name"}
+                      type={"text"}
+                      defaultVal={user?.data.user.spouse_firstname}
+                      disabled={disabled}
                     />
-                    {user.data?.user.birth_certificade !== "N/A" ? (
-                      <iframe
-                        src={user.data?.user.birth_certificade}
-                        frameBorder="0"
-                      ></iframe>
-                    ) : null}
+                    <InputRouter
+                      name={"spouse_lastname"}
+                      placeholder={"Spouse Last Name"}
+                      type={"text"}
+                      defaultVal={user?.data.user.spouse_lastname}
+                      disabled={disabled}
+                    />
+                    <InputRouter
+                      name={"spouse_taxid"}
+                      placeholder={"Spouse Tax ID"}
+                      type={"text"}
+                      defaultVal={user?.data.user.spouse_taxid}
+                      disabled={disabled}
+                    />
                   </div>
-                  <div className="flex items-center gap-3 pr-6 pt-4">
-                    <div className="w-1/2">
-                      <DropzoneFile name={"id_file"} label={"ID"} />
-                      {user.data?.user.id_file !== "N/A" ? (
-                        <iframe
-                          src={user.data?.user.id_file}
-                          frameBorder="0"
-                        ></iframe>
+                ) : null}
+
+                <div className="flex gap-3 pt-3">
+                  <InputRouter
+                    name={"phone"}
+                    placeholder={"Phone"}
+                    type={"number"}
+                    defaultVal={user?.data.user.phone}
+                    disabled={disabled}
+                  />
+                  <InputRouter
+                    name={"personal_email"}
+                    placeholder={"Personal Email"}
+                    type={"email"}
+                    defaultVal={user?.data.user.personal_email}
+                    disabled={disabled}
+                  />
+                </div>
+
+                <div className="flex w-full gap-4 pt-4">
+                  <div className="flex w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name="curp_file" label="CURP" />
+                      <InputRouter
+                        name={"curp_text"}
+                        placeholder={"Curp"}
+                        type={"text"}
+                        defaultVal={user?.data.user.curp_text}
+                        disabled={disabled}
+                      />
+                      {user.data?.user.curp_file !== "N/A" ? (
+                        <div className="flex items-center justify-center">
+                          <ImagesShow image={user.data?.user.curp_file} />
+                        </div>
                       ) : null}
                     </div>
-                    <div className="w-1/2">
+                  </div>
+
+                  <div className="flex w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"rfc_file"} label={"RFC"} />
+                      <InputRouter
+                        name={"rfc_text"}
+                        placeholder={"Rfc"}
+                        type={"text"}
+                        defaultVal={user?.data.user.rfc_text}
+                        disabled={disabled}
+                      />
+                      {user.data?.user.rfc_file !== "N/A" ? (
+                        <div className="flex items-center justify-center">
+                          <ImagesShow image={user.data?.user.rfc_file} />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="flex w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"nss_file"} label={"NSS"} />
+                      <InputRouter
+                        name={"nss_text"}
+                        placeholder={"NSS"}
+                        type={"text"}
+                        defaultVal={user?.data.user.nss_text}
+                        disabled={disabled}
+                      />
+                      {user.data?.user.nss_file !== "N/A" ? (
+                        <div className="flex items-center justify-center">
+                          <ImagesShow image={user.data?.user.nss_file} />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="flex w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"id_file"} label={"ID"} />
                       <InputRouter
                         name={"id_date"}
                         placeholder={"Id Date"}
@@ -606,6 +576,28 @@ function MainUser() {
                         defaultVal={user?.data.user.id_date}
                         disabled={disabled}
                       />
+                      {user.data?.user.id_file !== "N/A" ? (
+                        <div className="flex items-center justify-center">
+                          <ImagesShow image={user.data?.user.id_file} />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="flex w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile
+                        name={"birth_certificade"}
+                        label={"Birth Certificate"}
+                      />
+                      <div className="h-10"></div>
+                      {user.data?.user.birth_certificade !== "N/A" ? (
+                        <div className="flex items-center justify-center">
+                          <ImagesShow
+                            image={user.data?.user.birth_certificade}
+                          />
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -668,90 +660,90 @@ function MainUser() {
                 Address Information
               </span>
               <div className="flex w-full pt-4">
-                <div className="w-full">
-                  <div className="flex w-full items-center gap-3">
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"street"}
-                        placeholder={"Street"}
-                        type={"text"}
-                        defaultVal={user?.data.user.street}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="flex w-1/4 gap-3">
-                      <div className="w-1/2">
+                <div className="flex w-full items-center gap-3">
+                  <div className="flex w-full flex-col gap-3">
+                    <div className="flex w-full gap-3">
+                      <div className="w-1/4">
                         <InputRouter
-                          name={"ext"}
-                          placeholder={"Ext"}
+                          name={"street"}
+                          placeholder={"Street"}
                           type={"text"}
-                          defaultVal={user?.data.user.ext}
+                          defaultVal={user?.data.user.street}
                           disabled={disabled}
                         />
                       </div>
-                      <div className="w-1/2">
+                      <div className="flex w-1/4 gap-3">
+                        <div className="w-1/2">
+                          <InputRouter
+                            name={"ext"}
+                            placeholder={"Ext"}
+                            type={"text"}
+                            defaultVal={user?.data.user.ext}
+                            disabled={disabled}
+                          />
+                        </div>
+                        <div className="w-1/2">
+                          <InputRouter
+                            name={"int"}
+                            placeholder={"Int"}
+                            type={"text"}
+                            defaultVal={user?.data.user.int}
+                            disabled={disabled}
+                          />
+                        </div>
+                      </div>
+                      <div className="w-1/4">
                         <InputRouter
-                          name={"int"}
-                          placeholder={"Int"}
+                          name={"cp"}
+                          placeholder={"CP"}
                           type={"text"}
-                          defaultVal={user?.data.user.int}
+                          defaultVal={user?.data.user.cp}
                           disabled={disabled}
                         />
                       </div>
                     </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"cp"}
-                        placeholder={"CP"}
-                        type={"text"}
-                        defaultVal={user?.data.user.cp}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4">
-                      <DropzoneFile
-                        name={"address_voucher"}
-                        label={"Adress Voucher"}
-                      />
-                      {user.data?.user.address_voucher !== "N/A" ? (
-                        <iframe
-                          src={user.data?.user.address_voucher}
-                          frameBorder="0"
-                        ></iframe>
-                      ) : null}
+                    <div className="flex w-full gap-3">
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"discrict"}
+                          placeholder={"Discrict"}
+                          type={"text"}
+                          defaultVal={user?.data.user.discrict}
+                          disabled={disabled}
+                        />
+                      </div>
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"city"}
+                          placeholder={"City"}
+                          type={"text"}
+                          defaultVal={user?.data.user.city}
+                          disabled={disabled}
+                        />
+                      </div>
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"state"}
+                          placeholder={"State"}
+                          type={"text"}
+                          defaultVal={user?.data.user.state}
+                          disabled={disabled}
+                        />
+                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex w-full gap-3">
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"discrict"}
-                        placeholder={"Discrict"}
-                        type={"text"}
-                        defaultVal={user?.data.user.discrict}
-                        disabled={disabled}
-                      />
+                <div className="flex w-1/3 flex-col gap-2">
+                  <DropzoneFile
+                    name={"address_voucher"}
+                    label={"Adress Voucher"}
+                  />
+                  {user.data?.user.address_voucher !== "N/A" ? (
+                    <div className="flex items-center justify-center">
+                      <ImagesShow image={user.data?.user.address_voucher} />
                     </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"city"}
-                        placeholder={"City"}
-                        type={"text"}
-                        defaultVal={user?.data.user.city}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"state"}
-                        placeholder={"State"}
-                        type={"text"}
-                        defaultVal={user?.data.user.state}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4"></div>
-                  </div>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -836,14 +828,14 @@ function MainUser() {
                         disabled={disabled}
                       />
                     </div>
-                    <div className="w-1/3">
+                    <div className="flex w-1/3 flex-col gap-2">
                       <DropzoneFile
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
                       />
-                      {user.data?.user.academic_voucher !== "N/A" ? (
+                      {academicInfo[i].academic_voucher !== "N/A" ? (
                         <iframe
-                          src={user.data?.user.academic_voucher}
+                          src={academicInfo[i].academic_voucher}
                           frameBorder="0"
                         ></iframe>
                       ) : null}
@@ -994,10 +986,12 @@ function MainUser() {
                     disabled={disabled}
                   />
                 </div>
-                <div className="w-1/3 pl-4">
+                <div className="flex w-1/3 flex-col gap-2 pl-4">
                   <DropzoneFile name={"cv"} label={"CV"} />
                   {user.data?.user.cv !== "N/A" ? (
-                    <iframe src={user.data?.user.cv} frameBorder="0"></iframe>
+                    <div className="flex items-center justify-center">
+                      <ImagesShow image={user.data?.user.cv} />
+                    </div>
                   ) : null}
                 </div>
               </div>
