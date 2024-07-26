@@ -12,6 +12,8 @@ import { saveGroup, SearchAction } from "./utils";
 function LayoutChat() {
   const { users, chats } = useLoaderData();
 
+  console.log(chats);
+
   const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
 
