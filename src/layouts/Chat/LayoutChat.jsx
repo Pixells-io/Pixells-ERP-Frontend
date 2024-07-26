@@ -63,7 +63,7 @@ function LayoutChat() {
             </TabsTrigger>
              */}
           </TabsList>
-          <TabsContent value="internal" className="h-[92%]">
+          <TabsContent value="internal" className="h-[92%] overflow-auto">
             <div className="mt-[-20px] bg-[#f6f6f6] pb-2 pt-6">
               <InternalSearch users={users?.data} />
             </div>

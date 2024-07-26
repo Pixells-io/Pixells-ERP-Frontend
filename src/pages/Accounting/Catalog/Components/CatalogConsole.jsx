@@ -34,7 +34,7 @@ const CatalogConsole = () => {
     {
       id: 1,
       numberAccount: "1000",
-      name: "Activo ",
+      name: "ACTIVO",
       isPermanent: true,
       subAccounts: [
         {
@@ -118,6 +118,55 @@ const CatalogConsole = () => {
         },
       ],
     },
+    {
+      id: 21,
+      numberAccount: "2000",
+      name: "PASIVO",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 22,
+      numberAccount: "3000",
+      name: "CAPITAL CONTABLE",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 23,
+      numberAccount: "4000",
+      name: "INGRESOS",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 24,
+      numberAccount: "5000",
+      name: "COSTO DE VENTAS",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 25,
+      numberAccount: "6000",
+      name: "GASTOS",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 26,
+      numberAccount: "7000",
+      name: "FINANCIEROS",
+      isPermanent: true,
+      subAccounts: []
+    },
+    {
+      id: 27,
+      numberAccount: "8000",
+      name: "OTROS ING Y EGRE",
+      isPermanent: true,
+      subAccounts: []
+    },
   ];
 
   return (
@@ -139,13 +188,13 @@ const CatalogConsole = () => {
               ))}
             </div>
           </TabsList>
-          {TABS.map((tab) => (
+          {dataAccounts.map((tab) => (
             <TabsContent
               key={tab.id}
               value={tab.name}
-              className="col-span-10 h-full bg-blancoBg pl-4 overflow-auto"
+              className="col-span-10 h-full bg-blancoBg pl-4 overflow-auto mt-0"
             >
-              <AccountingAccount dataAccounts={dataAccounts}/>
+              <AccountingAccount account={tab}/>
             </TabsContent>
           ))}
         </div>
