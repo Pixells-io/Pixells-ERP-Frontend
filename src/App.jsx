@@ -287,6 +287,16 @@ import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
 import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
 
+//Inventory
+import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
+import MainGeneral from "./pages/Inventory/General/MainGeneral";
+import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+
+//Sales
+import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
+import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
+import MainQuotes from "./pages/Sales/Quotes/MainQuotes";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -823,6 +833,38 @@ const router = createBrowserRouter([
           },
         ],
       },
+         //inventory
+         {
+          path: "/inventory",
+          element: <SideLayoutInventory />,
+          children: [
+            {
+              index:true,
+              element: <MainGeneral />,
+            },
+            {
+              path:"/inventory/create",
+              element:<CreateArticle/>
+            },
+            
+           
+          ],
+        },
+        //Sales
+         {
+          path: "/sales",
+          element: <SideLayoutSale />,
+          children: [
+            {
+              index:true,
+              element: <MainInvoice />,
+            },
+            {
+              path:"/sales/quotes",
+              element:<MainQuotes/>
+            }
+          ],
+         }
     ],
   },
   //Login
