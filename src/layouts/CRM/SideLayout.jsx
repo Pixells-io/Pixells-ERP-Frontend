@@ -17,6 +17,7 @@ import {
   removeClient,
   removeLead,
   saveImportClients,
+  saveNewClient,
   saveNewLead,
 } from "./utils";
 import FormNewClient from "./components/Form/FormNewClient";
@@ -75,7 +76,7 @@ export async function Action({ request }) {
       return redirect("/crm");
 
     case "save-client":
-      await saveNewLead(data);
+      await saveNewClient(data);
       return redirect("/crm");
 
     case "2":
