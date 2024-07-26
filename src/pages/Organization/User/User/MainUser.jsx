@@ -1245,5 +1245,5 @@ export async function Action({ params, request }) {
 
   const validation = await editUser(data);
 
-  return redirect(`/organization/user/${params.id}`);
+  return redirect(`/organization`);
 }
