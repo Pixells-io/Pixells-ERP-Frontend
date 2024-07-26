@@ -392,7 +392,7 @@ export async function editUser(data) {
   formData.append("birth_certificade", data.get("birth_certificade"));
   formData.append("id_file", data.get("id_file"));
   formData.append("address_voucher", data.get("address_voucher"));
-  formData.append("academic_voucher", data.getAll("academic_voucher"));
+  formData.append("academic_voucher", data.get("academic_voucher"));
   formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
