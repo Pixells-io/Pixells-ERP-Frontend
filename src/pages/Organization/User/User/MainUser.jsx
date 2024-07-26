@@ -833,12 +833,11 @@ function MainUser() {
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
                       />
-                      {user.data?.user.academic_voucher !== "N/A" ? (
-                        <div className="flex items-center justify-center">
-                          <ImagesShow
-                            image={user?.data?.user?.academic_voucher}
-                          />
-                        </div>
+                      {academicInfo[i].academic_voucher !== "N/A" ? (
+                        <iframe
+                          src={academicInfo[i].academic_voucher}
+                          frameBorder="0"
+                        ></iframe>
                       ) : null}
                     </div>
                     {i !== 0 || academicInfo.length !== i + 1 ? (
