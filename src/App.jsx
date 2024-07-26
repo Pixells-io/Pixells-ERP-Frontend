@@ -261,6 +261,7 @@ import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
 import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
 import MainCost from "./pages/Accounting/Cost/MainCost";
+import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
 
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
@@ -797,8 +798,41 @@ const router = createBrowserRouter([
         element: <SideLayoutAccounting />,
         children: [
           {
-            index: true,
             element: <MainCatalog />,
+            children: [
+              {
+                index: true,
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/liabilities-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/equity-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/income-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/cost-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/expense-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/financial-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/other-account",
+                element: <AccountingAccount />,
+              },
+            ]
           },
           {
             //account Policy
