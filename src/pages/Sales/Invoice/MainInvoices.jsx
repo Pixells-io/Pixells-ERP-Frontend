@@ -82,6 +82,7 @@ const MainInvoice = () => {
         <div className="flex w-full items-center justify-center space-x-3">
             
           <IonIcon
+          
             icon={informationCircle}
             className="h-6 w-6 text-grisText"
           />
@@ -143,6 +144,7 @@ const MainInvoice = () => {
           <Link to="">
             <IonIcon
               icon={addCircleOutline}
+              type="button"
               size="large"
               className="mt-5 text-primarioBotones"
             ></IonIcon>

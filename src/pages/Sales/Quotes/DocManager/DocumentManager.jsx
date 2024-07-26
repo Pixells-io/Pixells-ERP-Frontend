@@ -7,16 +7,12 @@ import {
   print,
   create,
 } from "ionicons/icons";
-import CardCarousel from "./components/CardCarousel";
-import SelectsQuote from "./components/SelectGroup";
-import QuoteList from "./components/QuoteList";
-import Total from "./components/TotalQuotes";
-import StatusInformations from "./components/StatusInformation/StatusInformation";
+import CardCarousel from "../components/CardCarousel";
+import StatusInformations from "../components/StatusInformation/StatusInformation";
+import Document from "./DocsFormat/Quotes";
 
-const MainQuotes = () => {
+const DocManager = () => {
   const [status, setStatus] = useState("draft");
-  const [subtotal, setSubtotal] = useState(0.0);
-  const [changes, setChages] = useState(0);
 
   return (
     <div className="flex w-full">
@@ -85,25 +81,20 @@ const MainQuotes = () => {
           </div>
         </div>
         {/* content */}
-        <div className="space-y-3 overflow-auto">
-          <div className="flex h-full flex-col space-y-6">
-          
-                <SelectsQuote />
-                <QuoteList setSubtotal={setSubtotal} />
-                <Total subtotal={subtotal} />
-            
-            <div className="flex justify-end">
+        <div className="space-y-3 justify-center items-center overflow-auto">
+
+          <Document/>
+        <div className="flex justify-end">
               <StatusInformations
                 status={status}
                 saveDraft={""}
                 applyFunction={() => setModalConfirmation(true)}
               />
             </div>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default MainQuotes;
+export default DocManager;

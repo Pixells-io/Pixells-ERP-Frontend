@@ -296,6 +296,7 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
 import MainQuotes from "./pages/Sales/Quotes/MainQuotes";
+import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 
 const router = createBrowserRouter([
   {
@@ -862,7 +863,12 @@ const router = createBrowserRouter([
             {
               path:"/sales/quotes",
               element:<MainQuotes/>
+            },
+            {
+              path:"/sales/quotes/document",
+              element:<DocManager/>
             }
+
           ],
          }
     ],

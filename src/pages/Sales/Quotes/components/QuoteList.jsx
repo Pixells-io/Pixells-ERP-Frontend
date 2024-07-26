@@ -1,67 +1,74 @@
-import React, { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+//  const [documentNumber,setDocumentNumber]=useState(1);
+import React, { useState, useCallback } from "react";
+import SelectField from "./ui/select";
+import InputField from "./ui/Input";
 import QuoteTable from "./Tabs/QuoteDataTable";
 
-const QuoteList = () => {
+const labels = ["Cliente", "RFC", "Teléfono", "Creación", "Vencimiento"];
+
+const QuoteList = ({ setSubtotal }) => {
+  const [documentNumber,setDocumentNumber]=useState(1);
   const [selectValues, setSelectValues] = useState({
     select1: "",
     select2: "",
     select3: "",
     select4: "",
+    select5: "",
   });
-  const [readOnlyValue, setReadOnlyValue] = useState("");
-  const [total, setTotal] = useState(0); // New state for total
 
-  const handleSelectChange = (value, selectName) => {
-    setSelectValues((prev) => ({ ...prev, [selectName]: value }));
-  };
+  const handleSelectChange = useCallback((value, num) => {
+    setSelectValues((prev) => ({
+      ...prev,
+      [`select${num}`]: value,
+    }));
+  }, []);
 
-  const handleTotalChange = (newTotal) => {
-    setTotal(newTotal);
-    setReadOnlyValue(newTotal.toFixed(2));
-  };
+  const handleTotalChange = useCallback((newTotal) => {
+    setSubtotal(newTotal);
+  }, [setSubtotal]);
 
   return (
-    <div className="overflow-auto rounded-xl bg-white p-4">
-      <div className="justify-between">
-        <section className="grid grid-cols-4 items-end gap-2">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <Select
-              key={num}
-              onValueChange={(value) =>
-                handleSelectChange(value, `select${num}`)
-              }
-            >
-              <SelectTrigger className="w-1/5">
-                <SelectValue placeholder={`Select ${num}`} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
-              </SelectContent>
-            </Select>
+    <div className="rounded-xl bg-white p-4">
+      <div className="flex items-start space-x-4">
+        <div className="flex-grow grid grid-cols-4 gap-4">
+          {labels.slice(0, 4).map((label, index) => (
+            <SelectField
+              key={index}
+              label={label}
+              id={`select${index + 1}`}
+              value={selectValues[`select${index + 1}`]}
+              onChange={(value) => handleSelectChange(value, index + 1)}
+              showAddIcon={index === 0}
+            />
           ))}
-        </section>
-        <div className="items-end">
-          <Input
-            className="w-[180px]"
-            value={readOnlyValue}
+          <div className="col-span-1 col-start-4 row-start-3">
+            <SelectField
+              label={labels[4]}
+              value={selectValues.select5}
+              onChange={(value) => handleSelectChange(value, 5)}
+            />
+          </div>
+        </div>
+        <div className="w-20">
+          <InputField
+            label="No"
+            id="documentNumber"
+            value={documentNumber}
+            onChange={(e) => setDocumentNumber(e.target.value)}
             readOnly
-            placeholder="Total"
+            placeholder="Número automático"
           />
         </div>
       </div>
-      <QuoteTable onTotalChange={handleTotalChange} />
+      <div className="mt-6">
+        <QuoteTable onTotalChange={handleTotalChange} />
+      </div>
     </div>
   );
 };
+
+
+
+
 
 export default QuoteList;

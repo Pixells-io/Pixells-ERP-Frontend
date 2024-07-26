@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
+import { addCircleOutline, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
 
 const QuoteTable = ({ onTotalChange }) => {
   const initialRow = {
@@ -55,6 +56,10 @@ const QuoteTable = ({ onTotalChange }) => {
         index === rowIndex ? { ...item, [key]: value } : item
       )
     );
+  }, []);
+
+  const handleDeleteRow = useCallback((rowIndex) => {
+    setTableData((prevData) => prevData.filter((_, index) => index !== rowIndex));
   }, []);
 
   const columns = useMemo(
@@ -117,6 +122,15 @@ const QuoteTable = ({ onTotalChange }) => {
                   </TableCell>
                 ))}
                 <TableCell>{calculateTotal(row).toFixed(2)}</TableCell>
+                <TableCell>
+                  <IonIcon
+                    icon={closeCircle}
+                    type="button"
+                    size="small"
+                    className="text-grisText"
+                    onClick={() => handleDeleteRow((currentPage - 1) * itemsPerPage + rowIndex)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -125,26 +139,27 @@ const QuoteTable = ({ onTotalChange }) => {
       <div className="mt-4 flex justify-between items-center">
         <IonIcon
           icon={addCircleOutline}
+          type="button"
           size="small"
-          className="text-primario cursor-pointer"
+          className="text-primarioBotones cursor-pointer"
           onClick={handleAddRow}
         />
         <div className="flex items-center">
           <IonIcon 
             icon={chevronBack}
+            type="button"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className="mr-2 text-primario"
+            className="mr-2 text-primarioBotones"
           />
           <IonIcon 
             icon={chevronForward}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="ml-2 text-primario"
+            className="ml-2 text-primarioBotones"
           />
         </div>
       </div>
-     
     </>
   );
 };
