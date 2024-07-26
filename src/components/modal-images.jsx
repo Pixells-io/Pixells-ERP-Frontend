@@ -11,7 +11,6 @@ function ModalImages({ modal, setModal, image }) {
     }
   };
 
-  console.log(image);
   return (
     <div
       className="overlay fixed inset-0 z-50 flex flex-col justify-between bg-[#F2F2F2] bg-opacity-90"
@@ -39,7 +38,7 @@ function ModalImages({ modal, setModal, image }) {
       </div>
       <div className="overlay flex h-3/5 w-full justify-center overflow-hidden">
         <div className="max-h-md overlay flex w-full justify-center">
-          {image.includes("pdf") == true ? (
+          {image?.includes("pdf") == true ? (
             <iframe
               className="h-auto w-4/5"
               src={image}
