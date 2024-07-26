@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
+import { closeCircle, copy, create } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const FormDetailAccount = ({ account, setSelectAccount }) => {
@@ -14,10 +14,26 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
           onClick={() => setSelectAccount(null)}
         ></IonIcon>
       </div>
-      <div>
-        <h2 className="text-sm font-normal text-grisText">
-          Detalles de la cuenta
-        </h2>
+      <div className="flex items-center">
+        <div className="w-full">
+          <h2 className="text-sm font-normal text-grisText">
+            Detalles de la Cuenta
+          </h2>
+        </div>
+        <div className="flex w-full justify-center gap-x-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+            <IonIcon
+              icon={copy}
+              className="h-5 w-5 cursor-pointer text-[#696974]"
+            ></IonIcon>
+          </div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+            <IonIcon
+              icon={create}
+              className="h-5 w-5 cursor-pointer text-[#696974]"
+            ></IonIcon>
+          </div>
+        </div>
       </div>
       <form className="mt-4">
         <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
