@@ -660,90 +660,90 @@ function MainUser() {
                 Address Information
               </span>
               <div className="flex w-full pt-4">
-                <div className="w-full">
-                  <div className="flex w-full items-center gap-3">
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"street"}
-                        placeholder={"Street"}
-                        type={"text"}
-                        defaultVal={user?.data.user.street}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="flex w-1/4 gap-3">
-                      <div className="w-1/2">
+                <div className="flex w-full items-center gap-3">
+                  <div className="flex w-full flex-col gap-3">
+                    <div className="flex w-full gap-3">
+                      <div className="w-1/4">
                         <InputRouter
-                          name={"ext"}
-                          placeholder={"Ext"}
+                          name={"street"}
+                          placeholder={"Street"}
                           type={"text"}
-                          defaultVal={user?.data.user.ext}
+                          defaultVal={user?.data.user.street}
                           disabled={disabled}
                         />
                       </div>
-                      <div className="w-1/2">
+                      <div className="flex w-1/4 gap-3">
+                        <div className="w-1/2">
+                          <InputRouter
+                            name={"ext"}
+                            placeholder={"Ext"}
+                            type={"text"}
+                            defaultVal={user?.data.user.ext}
+                            disabled={disabled}
+                          />
+                        </div>
+                        <div className="w-1/2">
+                          <InputRouter
+                            name={"int"}
+                            placeholder={"Int"}
+                            type={"text"}
+                            defaultVal={user?.data.user.int}
+                            disabled={disabled}
+                          />
+                        </div>
+                      </div>
+                      <div className="w-1/4">
                         <InputRouter
-                          name={"int"}
-                          placeholder={"Int"}
+                          name={"cp"}
+                          placeholder={"CP"}
                           type={"text"}
-                          defaultVal={user?.data.user.int}
+                          defaultVal={user?.data.user.cp}
                           disabled={disabled}
                         />
                       </div>
                     </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"cp"}
-                        placeholder={"CP"}
-                        type={"text"}
-                        defaultVal={user?.data.user.cp}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4">
-                      <DropzoneFile
-                        name={"address_voucher"}
-                        label={"Adress Voucher"}
-                      />
-                      {user.data?.user.address_voucher !== "N/A" ? (
-                        <iframe
-                          src={user.data?.user.address_voucher}
-                          frameBorder="0"
-                        ></iframe>
-                      ) : null}
+                    <div className="flex w-full gap-3">
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"discrict"}
+                          placeholder={"Discrict"}
+                          type={"text"}
+                          defaultVal={user?.data.user.discrict}
+                          disabled={disabled}
+                        />
+                      </div>
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"city"}
+                          placeholder={"City"}
+                          type={"text"}
+                          defaultVal={user?.data.user.city}
+                          disabled={disabled}
+                        />
+                      </div>
+                      <div className="w-1/4">
+                        <InputRouter
+                          name={"state"}
+                          placeholder={"State"}
+                          type={"text"}
+                          defaultVal={user?.data.user.state}
+                          disabled={disabled}
+                        />
+                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex w-full gap-3">
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"discrict"}
-                        placeholder={"Discrict"}
-                        type={"text"}
-                        defaultVal={user?.data.user.discrict}
-                        disabled={disabled}
-                      />
+                <div className="flex w-1/3 flex-col gap-2">
+                  <DropzoneFile
+                    name={"address_voucher"}
+                    label={"Adress Voucher"}
+                  />
+                  {user.data?.user.address_voucher !== "N/A" ? (
+                    <div className="flex items-center justify-center">
+                      <ImagesShow image={user.data?.user.address_voucher} />
                     </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"city"}
-                        placeholder={"City"}
-                        type={"text"}
-                        defaultVal={user?.data.user.city}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4">
-                      <InputRouter
-                        name={"state"}
-                        placeholder={"State"}
-                        type={"text"}
-                        defaultVal={user?.data.user.state}
-                        disabled={disabled}
-                      />
-                    </div>
-                    <div className="w-1/4"></div>
-                  </div>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -828,16 +828,17 @@ function MainUser() {
                         disabled={disabled}
                       />
                     </div>
-                    <div className="w-1/3">
+                    <div className="flex w-1/3 flex-col gap-2">
                       <DropzoneFile
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
                       />
                       {user.data?.user.academic_voucher !== "N/A" ? (
-                        <iframe
-                          src={user.data?.user.academic_voucher}
-                          frameBorder="0"
-                        ></iframe>
+                        <div className="flex items-center justify-center">
+                          <ImagesShow
+                            image={user?.data?.user?.academic_voucher}
+                          />
+                        </div>
                       ) : null}
                     </div>
                     {i !== 0 || academicInfo.length !== i + 1 ? (
@@ -986,10 +987,12 @@ function MainUser() {
                     disabled={disabled}
                   />
                 </div>
-                <div className="w-1/3 pl-4">
+                <div className="flex w-1/3 flex-col gap-2 pl-4">
                   <DropzoneFile name={"cv"} label={"CV"} />
                   {user.data?.user.cv !== "N/A" ? (
-                    <iframe src={user.data?.user.cv} frameBorder="0"></iframe>
+                    <div className="flex items-center justify-center">
+                      <ImagesShow image={user.data?.user.cv} />
+                    </div>
                   ) : null}
                 </div>
               </div>

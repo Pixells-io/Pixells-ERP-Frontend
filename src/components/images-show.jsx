@@ -12,7 +12,7 @@ function ImagesShow({ image }) {
           className="h-[120px] w-[120px] rounded-xl border-[2px] border-[#D9D9D9] p-1 hover:cursor-pointer"
           onClick={() => setModal(true)}
         >
-          {image.includes("pdf") == true ? (
+          {image?.includes("pdf") == true ? (
             // <iframe
             //   src={image}
             //   frameBorder="0"
