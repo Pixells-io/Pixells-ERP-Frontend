@@ -275,6 +275,8 @@ export async function saveNewUser(data) {
 
   formData.append("info", JSON.stringify(info));
 
+  console.log(formData);
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/store-user`,
     {
@@ -394,6 +396,8 @@ export async function editUser(data) {
   formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
+
+  console.log(formData);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,

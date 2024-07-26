@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function DeleteTask({ modal, setModal, taskId }) {
+function DeleteTask({ modal, setModal, taskId, action, actionInput }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -30,11 +30,11 @@ function DeleteTask({ modal, setModal, taskId }) {
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/activities"
+          action={action}
           method="post"
         >
           <input type="hidden" value={taskId} name="task_id" />
-          <input type="hidden" value={3} name="type_of_request" />
+          <input type="hidden" value={actionInput} name="action" />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to delete a task, are you sure?
           </span>

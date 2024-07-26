@@ -357,13 +357,3 @@ function ProjectTable() {
 }
 
 export default ProjectTable;
-
-{
-  /* <div className="col-span-1">
-<Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-  <p className="text-[11px] font-semibold">
-    aqui va algo
-  </p>
-</Badge>
-</div> */
-}

@@ -123,6 +123,5 @@ export async function Action({ request }) {
 
   completeActivity(data);
 
-  // return redirect(`/chat/${params.id}`);
   return "1";
 }
