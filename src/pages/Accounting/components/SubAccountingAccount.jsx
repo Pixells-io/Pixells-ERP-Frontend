@@ -20,8 +20,6 @@ const SubAccountingAccount = ({
     setSelectAccount(account);
   };
 
-  console.log(account.id, " : ", selectAccount?.id);
-
   return (
     <Accordion
       type="single"
