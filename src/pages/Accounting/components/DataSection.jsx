@@ -10,38 +10,38 @@ const DataSection = ({ debitTotal, creditTotal }) => {
   }, [debitTotal, creditTotal]);
 
   return (
-    <section className="overflow-80 flex mt-2 mb-2 justify-end items-center rounded-xl border-black-200 bg-white p-7">
+    <section className="overflow-80 border-black-200 mb-2 mt-2 flex items-center justify-end rounded-xl bg-white p-7">
       <div className="flex flex-col">
         <div className="mt-2 flex space-x-3">
-          <p className="mt-2 mr-4 font-roboto">TOTAL: </p>
+          <p className="mr-4 mt-2 text-xs font-medium text-grisText">TOTAL: </p>
           <Input
             name="debitTotal"
-            className="h-8 w-20 ml-4 rounded-full font-roboto"
+            className="ml-4 h-8 w-20 rounded-lg border border-[#8F8F8F] text-xs font-normal text-grisSubText"
             value={"$ " + debitTotal}
             readOnly
           />
           <Input
             name="creditTotal"
-            className="h-8 w-20 rounded-full font-roboto"
+            className="h-8 w-20 rounded-lg border border-[#8F8F8F] text-xs font-normal text-grisSubText"
             value={"$ " + creditTotal}
             readOnly
           />
         </div>
         <div className="mt-2 flex justify-stretch">
           <p
-            className={`mt-2 mr-4 ${
-              total < 0 ? "text-rose-500" : "text-black-200"
-            } font-roboto`}
+            className={`mr-4 mt-2 ${
+              total < 0 ? "text-rose-500" : "text-black-200 text-grisText"
+            } text-xs font-medium`}
           >
             DIFERENCIA:{" "}
           </p>
           <Input
             name="diferencia"
-            className={`h-8 w-20 rounded-full ${
+            className={`h-8 w-20 rounded-lg ${
               total < 0
-                ? "bg-white-200 border-rose-500 text-rose-500"
-                : "bg-white-200"
-            } font-roboto`}
+                ? "bg-white-200 border border-[#8F8F8F] border-rose-500 text-rose-500"
+                : "bg-white-200 text-grisSubText"
+            } text-xs font-normal`}
             value={"$ " + total}
             readOnly
           />
