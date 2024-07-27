@@ -5,6 +5,7 @@ import FormInputs from "../../components/DataInput";
 import TableForm from "../../components/Tabs/DataTableForm";
 import DataSection from "../../components/DataSection";
 import ConfirmationButtons from "../../components/ConfirmationButton";
+import { Button } from "@/components/ui/button";
 
 const CreateAccount = () => {
   const [debitTotal, setDebitTotal] = useState(0);
@@ -32,9 +33,7 @@ const CreateAccount = () => {
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
-            <div>
-            Accounting - policy
-            </div>
+            <div>Accounting - policy</div>
           </div>
         </div>
         {/* top content */}
@@ -44,23 +43,29 @@ const CreateAccount = () => {
           </h2>
         </div>
 
-        <div>
+        <div className="flex gap-x-12">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Asiento contable
           </p>
+          <Button
+            type="button"
+            className=" font-medium	font-poppins text-xs text-[#44444F] bg-inherit rounded-md border-2 border-[#696974] border-dotted hover:bg-inherit h-9 px-8"
+          >
+            Asociar XML
+          </Button>{" "}
         </div>
 
         {/* form new account */}
-        <form id="fileinfo" className="flex h-full overflow-auto flex-col">
+        <form id="fileinfo" className="flex h-full flex-col overflow-auto">
           <FormInputs />
-          <div className="flex-1 overflow-container">
-            <TableForm className="overflow-auto block"
+          <div className="overflow-container flex-1">
+            <TableForm
+              className="block overflow-auto"
               setDebitTotal={setDebitTotal}
               setCreditTotal={setCreditTotal}
             />
           </div>
           <DataSection debitTotal={debitTotal} creditTotal={creditTotal} />
-         
         </form>
         <ConfirmationButtons />
       </div>
