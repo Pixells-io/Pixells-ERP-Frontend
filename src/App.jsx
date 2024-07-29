@@ -295,7 +295,9 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
-import MainQuotes from "./pages/Sales/Quotes/MainQuotes";
+import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
+import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
+import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 
 const router = createBrowserRouter([
@@ -862,11 +864,11 @@ const router = createBrowserRouter([
             },
             {
               path:"/sales/tickets",
-              element: <MainInvoice />,
+              element: <MainSalesTicket />,
             },
             {
               path:"/sales/quotes",
-              element: <MainInvoice />,
+              element: < MainQtGeneral />,
             },
             {
               path:"/sales/quotes/new",

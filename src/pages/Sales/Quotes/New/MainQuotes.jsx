@@ -7,11 +7,11 @@ import {
   print,
   create,
 } from "ionicons/icons";
-import CardCarousel from "./components/CardCarousel";
-import SelectsQuote from "./components/SelectGroup";
-import QuoteList from "./components/QuoteList";
-import Total from "./components/TotalQuotes";
-import StatusInformations from "./components/StatusInformation/StatusInformation";
+import CardCarousel from "../components/CardCarousel";
+import SelectsQuote from "../components/SelectGroup";
+import QuoteList from "../components/QuoteList";
+import Total from "../components/TotalQuotes";
+import StatusInformations from "../components/StatusInformation/StatusInformation";
 
 const MainQuotes = () => {
   const [status, setStatus] = useState("draft");
