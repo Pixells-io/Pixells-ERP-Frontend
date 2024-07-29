@@ -65,28 +65,41 @@ const AddConfig = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="border-black-200 rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-black hover:bg-gray-500">
-          Configuración
+        <Button className="h-8 rounded-full border border-[#44444F] bg-inherit px-4 text-xs font-light text-[#44444F] hover:bg-inherit">
+          Configurar
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-80 overflow-auto">
+      <DialogContent className="max-h-[80vh] overflow-auto">
         <DialogHeader>
-          <DialogTitle>Configuración de Centros de Costos</DialogTitle>
+          <DialogTitle className="text-sm font-semibold text-grisHeading">
+            Configuración de Centros de Costos
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <Table className="min-w-full overflow-auto">
             <TableHeader className="sticky top-0">
               <TableRow>
-                <TableHead>Tipo de cuenta</TableHead>
-                <TableHead className="text-center">Centro de costo</TableHead>
-                <TableHead className="text-center">Obligatorio</TableHead>
+                <TableHead className="font-roboto text-sm font-medium text-grisText">
+                  Tipo de cuenta
+                </TableHead>
+                <TableHead className="font-roboto text-sm font-medium text-grisText">
+                  Centro de costo
+                </TableHead>
+                <TableHead className="font-roboto text-sm font-medium text-grisText">
+                  Obligatorio
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {fields.map((field) => (
                 <TableRow key={field.name}>
                   <TableCell>
-                    <Label htmlFor={field.name} className="text-grisText font-roboto">{field.label}</Label>
+                    <Label
+                      htmlFor={field.name}
+                      className="font-roboto text-sm font-normal text-grisText"
+                    >
+                      {field.label}
+                    </Label>
                   </TableCell>
                   <TableCell className="text-center">
                     <Select
@@ -95,7 +108,7 @@ const AddConfig = () => {
                       }
                       defaultValue={formData[field.name]}
                     >
-                      <SelectTrigger className=" rounded-full">
+                      <SelectTrigger className="rounded-md">
                         <SelectValue placeholder="Seleccione una opción" />
                       </SelectTrigger>
                       <SelectContent>
@@ -139,17 +152,16 @@ const AddConfig = () => {
               ))}
             </TableBody>
           </Table>
-          <div className="mt-4 flex justify-end">
+          <div className="flex justify-end">
             <Button
               type="submit"
-              className="rounded-full bg-primarioBotones px-8"
+              className="h-9 rounded-lg bg-primarioBotones px-8"
             >
-              Enviar
+              Save
             </Button>
           </div>
         </form>
       </DialogContent>
-      
     </Dialog>
   );
 };

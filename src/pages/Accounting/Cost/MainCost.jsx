@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  gridOutline,
+  list,
+  settings,
+} from "ionicons/icons";
 import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
 import AddConfig from "../components/ModalConfig";
@@ -64,9 +70,9 @@ const MainCost = () => {
       {
         id: "acciones",
         accessorKey: "acciones",
-        header: "Acciones",
+        header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
-          <div className="flex">
+          <div className="text-center">
             <AddConfig />
           </div>
         ),
@@ -123,22 +129,33 @@ const MainCost = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Centro de Costos
-          </p>
+        <div className="flex justify-between">
+          <div>
+            <p className="font-poppins text-xl font-bold text-[#44444F]">
+              Centro de Costos
+            </p>
+          </div>
+          <div className="mr-12 flex gap-x-2 text-[#8F8F8F]">
+            <IonIcon icon={gridOutline} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={list} className="h-5 w-5"></IonIcon>
+          </div>
         </div>
-        <AddItemDialog onAddItem={handleAddItem} />
+        <div className="flex items-center justify-between">
+          <AddItemDialog onAddItem={handleAddItem} />
+          <div className="mr-24 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
+            <IonIcon icon={settings} size="small" className="text-grisText" />
+          </div>
+        </div>
 
         {/* Data Table */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
+        <div className="overflow-auto rounded-xl bg-white pt-4">
           <div className="flex items-center">
             <div className="left-2 w-1/5">
               <Tabs
                 defaultValue="CENTRO DE COSTOS"
-                className="top-4 flex h-full rounded-lg pl-4 pt-2"
+                className="flex h-full rounded-lg"
               >
-                <TabsList className="mb-3 w-full bg-transparent">
+                <TabsList className="w-full bg-transparent">
                   <TabsTrigger
                     className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                     value="CENTRO DE COSTOS"
@@ -149,7 +166,7 @@ const MainCost = () => {
               </Tabs>
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-[-60px]">
             <DataTable
               data={tableData}
               columns={columns}

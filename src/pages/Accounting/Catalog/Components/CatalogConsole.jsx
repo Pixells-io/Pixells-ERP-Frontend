@@ -44,7 +44,7 @@ const CatalogConsole = () => {
             className={({ isActive }) =>
               (isActive && location.pathname === "/accounting"
                 ? "bg-[#44444F] text-white shadow-xl"
-                : "text-[#44444F]") +
+                : "text-[#44444F] hover:bg-[#E8E8E8]") +
               " rounded-3xl border border-[#8F8F8F] w-[150px] px-2 py-2 text-sm "
             }
           >
@@ -57,8 +57,8 @@ const CatalogConsole = () => {
               className={({ isActive }) =>
                 (isActive
                   ? "bg-[#44444F] text-white shadow-xl"
-                  : "text-[#44444F]") +
-                " rounded-3xl border border-[#8F8F8F] w-[150px] px-2 py-2 text-sm "
+                  : "text-[#44444F] hover:bg-[#E8E8E8]") +
+                " rounded-3xl border border-[#8F8F8F] w-[150px] px-2 py-2 text-sm"
               }
             >
               <p className="text-center font-medium">{navl.name}</p>
