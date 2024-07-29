@@ -45,6 +45,8 @@ const SupplierForm = () => {
         </div>
         <DialogHeader></DialogHeader>
         <Label className="font-roboto text-sm text-gris2">Información Inicial</Label>
+       
+        <div className="flex items-start justify-between space-x-3">
         <ReSelect
             options={options}
             name="country"
@@ -53,9 +55,6 @@ const SupplierForm = () => {
             placeholder="País"
             label="País"
           />
-        <div className="flex items-start justify-between space-x-3">
-            
-         
           <InputRouter
             type="text"
             name="cBanco"
@@ -67,8 +66,7 @@ const SupplierForm = () => {
           Banco Nacional de México
         </span>
         <Label className="font-roboto text-sm text-gris2">Información Inicial</Label>
-        <div className="flex items-start justify-start space-x-3">
-          <ReSelect
+        <ReSelect
             className="flex grow"
             options={options}
             name="country"
@@ -77,6 +75,8 @@ const SupplierForm = () => {
             placeholder="País"
             label="País"
           />
+        <div className="flex items-start justify-start space-x-3">
+         
           <InputRouter
             type="text"
             name="cBanco"
