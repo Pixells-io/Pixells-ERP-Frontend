@@ -194,4 +194,5 @@ const MainSalesTicket = () => {
   );
 };
 
+
 export default MainSalesTicket;
