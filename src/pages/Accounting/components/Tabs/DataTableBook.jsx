@@ -85,16 +85,16 @@ const TableBook = () => {
       <div className="overflow-auto rounded-xl bg-white p-7 mt-2 mb-2">
         <Table>
           <TableHeader>
-            <TableRow className="text-sm items-center bg-gris border-b-primario border-b-2">
+            <TableRow className="text-xs items-center bg-gris border-b-primario border-b-2 text-grisText">
               {columns.map((column) => (
-                <TableHead key={column} className="text-center">{column}</TableHead>
+                <TableHead key={column} className="text-center font-normal">{column}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody className="text-sm font-roboto">
+          <TableBody className="text-sm font-roboto text-[#44444F] font-normal">
             {paginatedData.map((row, rowIndex) => (
               [0, 1].map((subIndex) => (
-                <TableRow key={`${rowIndex}-${subIndex}`}>
+                <TableRow key={`${rowIndex}-${subIndex}`} className="">
                   <TableCell className="text-center">
                     {subIndex === 0 ? row.poliza : ""}
                   </TableCell>

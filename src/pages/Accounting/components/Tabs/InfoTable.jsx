@@ -1,57 +1,43 @@
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-const InfoTable = () =>{
-    return (<> <Table>
+const InfoTable = () => {
+  return (
+      <Table>
         <TableHeader>
           <TableRow className="border-b-black">
-            <TableHead className="text-[#44444F] font-roboto">PÓLIZA DE ASIENTO CONTABLE</TableHead>
+            <TableHead className="text-md flex gap-x-8 font-roboto font-semibold text-[#44444F] h-8">
+              <div>PÓLIZA DE ASIENTO CONTABLE</div>
+              <div className="text-grisSubText">2588</div>
+            </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="text-[#696974] font-roboto">
+        <TableBody className="font-roboto text-[#696974]">
           <TableRow>
-            <TableCell>Fecha: </TableCell>
-            <TableCell>27/07/2024</TableCell>
+            <TableCell className="font-medium">Fecha: </TableCell>
+            <TableCell className="font-normal">27/07/2024</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Tipo de Poliza Contable</TableCell>
-            <TableCell>Ajuste Contable (AC)</TableCell>
+            <TableCell className="font-medium">Tipo de Poliza Contable</TableCell>
+            <TableCell className="font-normal">Ajuste Contable (AC)</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Numeración</TableCell>
-            <TableCell>Ajuste Contable</TableCell>
+            <TableCell className="font-medium">Numeración</TableCell>
+            <TableCell className="font-normal">Ajuste Contable</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Código</TableCell>
-            <TableCell>AC-1</TableCell>
+            <TableCell className="font-medium">Código</TableCell>
+            <TableCell className="font-normal">AC-1</TableCell>
           </TableRow>
         </TableBody>
       </Table>
-      </>
-      
-      );
-}
+  );
+};
 
 export default InfoTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

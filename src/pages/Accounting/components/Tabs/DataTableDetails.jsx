@@ -16,7 +16,7 @@ const DataTableDetails = ({ data, columns, title }) => {
 
   const paginatedData = data.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -29,22 +29,31 @@ const DataTableDetails = ({ data, columns, title }) => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
-  const totalDebito = data.reduce((sum, row) => sum + parseFloat(row.debito), 0);
-  const totalCredito = data.reduce((sum, row) => sum + parseFloat(row.credito), 0);
+  const totalDebito = data.reduce(
+    (sum, row) => sum + parseFloat(row.debito),
+    0,
+  );
+  const totalCredito = data.reduce(
+    (sum, row) => sum + parseFloat(row.credito),
+    0,
+  );
 
   return (
     <>
-      <div className="overflow-auto mb-8">
+      <div className="mb-8 overflow-auto">
         <div className="mb-4">
-          <p className="font-poppins text-lg font-[16px] text-[#44444F]">
+          <p className="text-md font-poppins font-medium text-[#44444F]">
             {title}
           </p>
         </div>
         <Table>
           <TableHeader>
-            <TableRow className="text-sm items-center bg-gris border-b-primario border-b-2">
+            <TableRow className="items-center border-b-2 border-b-primario bg-gris text-xs">
               {columns.map((column) => (
-                <TableHead key={column.accessorKey} className="text-center">
+                <TableHead
+                  key={column.accessorKey}
+                  className="text-center font-normal"
+                >
                   {column.header}
                 </TableHead>
               ))}
@@ -52,7 +61,10 @@ const DataTableDetails = ({ data, columns, title }) => {
           </TableHeader>
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
+              <TableRow
+                key={rowIndex}
+                className="text-xs font-normal text-[#44444F]"
+              >
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey} className="text-center">
                     {row[column.accessorKey]}
@@ -63,23 +75,23 @@ const DataTableDetails = ({ data, columns, title }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-2 flex justify-between space-x-3 mb-8">
-      <div className="flex items-end space-x-2">
+      <div className="mb-8 mt-2 flex justify-between space-x-3">
+        <div className="flex items-end space-x-2">
           <IonIcon
             icon={chevronBack}
             onClick={handlePrevPage}
-            className={`mr-2 ${currentPage === 1 ? 'text-gray-400' : 'text-primario cursor-pointer'}`}
+            className={`mr-2 ${currentPage === 1 ? "text-gray-400" : "cursor-pointer text-primario"}`}
           />
           <IonIcon
             icon={chevronForward}
             onClick={handleNextPage}
-            className={`ml-2 ${currentPage === totalPages ? 'text-gray-400' : 'text-primario cursor-pointer'}`}
+            className={`ml-2 ${currentPage === totalPages ? "text-gray-400" : "cursor-pointer text-primario"}`}
           />
         </div>
-        <div className="flex grid-cols-8 gap-7 text-sm space-x-3 font-roboto">
-          <div>Total: </div>
-          <div>$ {totalDebito.toFixed(2)}</div>
-          <div>$ {totalCredito.toFixed(2)}</div>
+        <div className="flex grid-cols-8 gap-7 space-x-3 font-roboto text-sm font-medium text-grisText">
+          <div className="p-2">Total: </div>
+          <div className="p-2">$ {totalDebito.toFixed(2)}</div>
+          <div className="p-2">$ {totalCredito.toFixed(2)}</div>
         </div>
       </div>
     </>
