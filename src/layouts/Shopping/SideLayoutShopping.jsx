@@ -3,16 +3,17 @@ import {
   Outlet,
 } from "react-router-dom";
 
-import MenuSales from "./components/MenuSales";
-import TopMenuSale from "./components/TopMenuSale";
+import TopMenuShopping from "./components/TopMenuShopping";
+import MenuShopping from "./components/MenuShopping";
 
-const SideLayoutSale = () => {
+
+const SideLayoutShopping = () => {
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* top block */}
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
-        <TopMenuSale/>
+        <TopMenuShopping/>
         </div>
 
         {/*bottom block */}
@@ -26,7 +27,7 @@ const SideLayoutSale = () => {
 
           {/* menu bottom */}
           <div className=""></div>
-          <MenuSales />
+          <MenuShopping />
         </div>
       </div>
       <Outlet/>
@@ -34,6 +35,6 @@ const SideLayoutSale = () => {
   );
 };
 
-export default SideLayoutSale;
+export default SideLayoutShopping;
 
 

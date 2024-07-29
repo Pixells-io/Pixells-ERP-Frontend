@@ -301,6 +301,10 @@ import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
 import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 
+//Shopping
+import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
+import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -914,7 +918,20 @@ const router = createBrowserRouter([
             }
 
           ],
-         }
+         },
+        //Shopping
+          {
+            path: "/shopping",
+            element: <SideLayoutShopping />,
+            children: [
+              {
+                index:true,
+                element: <MainSupplier/>
+              },
+              
+  
+            ],
+           }
     ],
   },
   //Login
