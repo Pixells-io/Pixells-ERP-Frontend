@@ -861,7 +861,15 @@ const router = createBrowserRouter([
               element: <MainInvoice />,
             },
             {
+              path:"/sales/tickets",
+              element: <MainInvoice />,
+            },
+            {
               path:"/sales/quotes",
+              element: <MainInvoice />,
+            },
+            {
+              path:"/sales/quotes/new",
               element:<MainQuotes/>
             },
             {

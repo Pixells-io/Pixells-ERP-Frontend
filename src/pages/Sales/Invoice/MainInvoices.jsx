@@ -6,36 +6,36 @@ import {
   informationCircle,
   addCircleOutline,
   chatbubbleEllipses,
-  bookmark
-
+  bookmark,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 const MainInvoice = () => {
   const data = [
     {
-        nombre:"Original Constructors",
-        tipo:"Inmigracion",
-        nacionalidad: "Ernest Robles",
-        contacto:"01-700-123-12",
-        email :"correo@mail.com"
+      nombre: "Original Constructors",
+      tipo: "Inmigracion",
+      nacionalidad: "Ernest Robles",
+      contacto: "01-700-123-12",
+      email: "correo@mail.com",
     },
     {
-        nombre:"Original Constructors",
-        tipo:"Inmigracion",
-        nacionalidad: "Ernest Robles",
-        contacto:"01-700-123-12",
-        email :"correo@mail.com"
+      nombre: "Original Constructors",
+      tipo: "Inmigracion",
+      nacionalidad: "Ernest Robles",
+      contacto: "01-700-123-12",
+      email: "correo@mail.com",
     },
     {
-        nombre:"Original Constructors",
-        tipo:"Inmigracion",
-        nacionalidad: "Ernest Robles",
-        contacto:"01-700-123-12",
-        email :"correo@mail.com"
-    }
+      nombre: "Original Constructors",
+      tipo: "Inmigracion",
+      nacionalidad: "Ernest Robles",
+      contacto: "01-700-123-12",
+      email: "correo@mail.com",
+    },
   ];
 
   const columns = [
@@ -49,12 +49,11 @@ const MainInvoice = () => {
               className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
-             
             />
             <label>{row?.original?.nombre}</label>
           </div>
         );
-    },
+      },
       meta: { filterButton: true },
     },
     {
@@ -80,20 +79,12 @@ const MainInvoice = () => {
       header: "Acciones",
       cell: ({ row }) => (
         <div className="flex w-full items-center justify-center space-x-3">
-            
-          <IonIcon
-          
-            icon={informationCircle}
-            className="h-6 w-6 text-grisText"
-          />
+          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
           <IonIcon
             icon={chatbubbleEllipses}
             className="h-6 w-6 text-grisText"
           />
-          <IonIcon
-            icon={bookmark}
-            className="h-6 w-6 text-grisText"
-          />
+          <IonIcon icon={bookmark} className="h-6 w-6 text-grisText" />
         </div>
       ),
     },
@@ -141,13 +132,17 @@ const MainInvoice = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Facturas de Venta
           </p>
-          <Link to="">
-            <IonIcon
-              icon={addCircleOutline}
+          <Link to="/sales/quotes/new" className="inline-block">
+            <Button
               type="button"
-              size="large"
-              className="mt-5 text-primarioBotones"
-            ></IonIcon>
+              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                size="large"
+                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+              />
+            </Button>
           </Link>
         </div>
         {/*content */}
@@ -187,7 +182,7 @@ const MainInvoice = () => {
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">
                   <div className="w-full max-w-4xl">
-                        <p>CONTENIDO</p>
+                    <p>CONTENIDO</p>
                   </div>
                 </div>
               </TabsContent>

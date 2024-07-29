@@ -34,7 +34,12 @@ const QuoteTable = ({ onTotalChange }) => {
     const cantidad = parseFloat(row.cantidad) || 0;
     const descuento = parseFloat(row.descuento) || 0;
     const impuesto = parseFloat(row.impuesto) || 0;
-    return valor * cantidad * (1 - descuento / 100) * (1 + impuesto / 100);
+
+    if (descuento < 0 || descuento >= 100) {
+      return valor * cantidad * (1 + impuesto / 100);
+    } else {
+      return valor * cantidad * (1 - descuento / 100) * (1 + impuesto / 100);
+    }
   }, []);
 
   useEffect(() => {
@@ -59,7 +64,12 @@ const QuoteTable = ({ onTotalChange }) => {
   }, []);
 
   const handleDeleteRow = useCallback((rowIndex) => {
-    setTableData((prevData) => prevData.filter((_, index) => index !== rowIndex));
+    setTableData((prevData) => {
+      if (prevData.length > 1) {
+        return prevData.filter((_, index) => index !== rowIndex);
+      }
+      return prevData;
+    });
   }, []);
 
   const columns = useMemo(
@@ -92,7 +102,7 @@ const QuoteTable = ({ onTotalChange }) => {
 
   return (
     <>
-      <div className="flexbox overflow-auto">
+      <div className="flex overflow-auto">
         <Table>
           <TableHeader>
             <TableRow className="justify-center border-b-primario border-b-2">
@@ -100,6 +110,7 @@ const QuoteTable = ({ onTotalChange }) => {
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
               <TableHead>Total</TableHead>
+              <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -123,13 +134,19 @@ const QuoteTable = ({ onTotalChange }) => {
                 ))}
                 <TableCell>{calculateTotal(row).toFixed(2)}</TableCell>
                 <TableCell>
-                  <IonIcon
-                    icon={closeCircle}
-                    type="button"
-                    size="small"
-                    className="text-grisText"
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => handleDeleteRow((currentPage - 1) * itemsPerPage + rowIndex)}
-                  />
+                    disabled={tableData.length === 1}
+                    className="p-1 rounded-full bg-transparent hover:bg-grisText hover:bg-opacity-10 active:bg-grisText active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 transition-all duration-300"
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      size="small"
+                      className="text-grisText hover:text-grisText-dark active:text-grisText-darker transition-colors duration-300"
+                    />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -137,27 +154,45 @@ const QuoteTable = ({ onTotalChange }) => {
         </Table>
       </div>
       <div className="mt-4 flex justify-between items-center">
-        <IonIcon
-          icon={addCircleOutline}
-          type="button"
-          size="small"
-          className="text-primarioBotones cursor-pointer"
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={handleAddRow}
-        />
+          className="p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+        >
+          <IonIcon
+            icon={addCircleOutline}
+            size="small"
+            className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+          />
+        </Button>
         <div className="flex items-center">
-          <IonIcon 
-            icon={chevronBack}
-            type="button"
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className="mr-2 text-primarioBotones"
-          />
-          <IonIcon 
-            icon={chevronForward}
+            className="mr-2 p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+          >
+            <IonIcon
+              icon={chevronBack}
+              size="small"
+              className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+            />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="ml-2 text-primarioBotones"
-          />
+            className="ml-2 p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+          >
+            <IonIcon
+              icon={chevronForward}
+              size="small"
+              className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+            />
+          </Button>
         </div>
       </div>
     </>

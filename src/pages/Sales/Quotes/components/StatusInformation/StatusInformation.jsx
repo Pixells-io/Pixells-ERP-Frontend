@@ -20,7 +20,7 @@ function StatusInformations({ status, saveDraft, applyFunction }) {
     done: "27 Jun 2024"
   };
   const location = useLocation();
-  const correctLocation = '/sales/quotes';
+  const correctLocation = '/sales/quotes/new';
   const isButtonVisible = location.pathname === correctLocation;
   const navigate = useNavigate();
 

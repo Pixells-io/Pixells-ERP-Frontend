@@ -7,6 +7,7 @@ import {
 
 const MENU_ITEMS = [
   { path: "/sales", name: "Facturas", subname: "de Venta", icon: bagCheck },
+  { path: "/sales/tickets", name: "Ticket/Remisión", subname: "De Venta", icon: cube },
   { path: "/sales/quotes", name: "Cotizaciones", subname: "General", icon: cube },
  
 ];
