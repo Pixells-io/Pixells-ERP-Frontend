@@ -52,14 +52,14 @@ const Document = ({ DocumentType }) => {
 
   const obtenerTitulo = () => {
     switch (DocumentType) {
-      case 'cotizacion':
-        return 'COTIZACIÓN';
-      case 'ticket':
-        return 'TICKET VENTA';
-      case 'factura':
-        return 'FACTURA';
+      case "cotizacion":
+        return "COTIZACIÓN";
+      case "ticket":
+        return "TICKET VENTA";
+      case "factura":
+        return "FACTURA";
       default:
-        return 'COTIZACIÓN';
+        return "COTIZACIÓN";
     }
   };
 
@@ -67,7 +67,7 @@ const Document = ({ DocumentType }) => {
     <div className="flex flex-col overflow-auto rounded-xl bg-white p-4">
       <header className="mb-4 flex items-center justify-between pl-[43px] pt-[20px]">
         <div className="relative flex h-[100px] w-[100px] items-center justify-center rounded-lg border">
-          {DocumentType === 'cotizacion' && (
+          {DocumentType === "cotizacion" && (
             <div className="text-md absolute right-0 top-0 flex h-[40px] w-[250px] origin-top-left translate-x-[65px] translate-y-[70px] -rotate-45 transform items-center justify-center bg-[#FFB27A] pr-6 font-bold text-white">
               PENDIENTE
             </div>
@@ -92,26 +92,30 @@ const Document = ({ DocumentType }) => {
 
       <p className="border-[1px] border-b-primario"></p>
 
-
       <section className="flex justify-between p-4">
         <p>
           <strong>Proveedor:</strong>
-          <p>Coca Cola inc.</p>
-          Santa Sofia 1456-4 Zapopan, Jalisco
           <br />
-          Tel. 01222 <br />
-          proveedor ejemplo <br />
-          correo: email@correo.com
+          <span>Coca Cola inc.</span>
+          <br />
+          <span>
+            Santa Sofia 1456-4 Zapopan, Jalisco
+            <br />
+            Tel. 01222 <br />
+            proveedor ejemplo <br />
+            correo: email@correo.com
+          </span>
         </p>
-
         <p>
           <strong>Entregar por:</strong>
           <br />
-          Santa Sofia 1456-4 Zapopan, Jalisco
-          <br />
-          Tel. 01222 <br />
-          proveedor ejemplo <br />
-          correo: email@correo.com
+          <span>
+            Santa Sofia 1456-4 Zapopan, Jalisco
+            <br />
+            Tel. 01222 <br />
+            proveedor ejemplo <br />
+            correo: email@correo.com
+          </span>
         </p>
       </section>
 
@@ -121,7 +125,6 @@ const Document = ({ DocumentType }) => {
 
       <section className="mt-2 flex justify-between p-4">
         <div>
-         
           {(DocumentType === "ticket" || DocumentType === "factura") && (
             <>
               <h2 className="mb-2 font-roboto text-sm text-[#44444F]">
@@ -131,11 +134,11 @@ const Document = ({ DocumentType }) => {
             </>
           )}
 
-    
           {(DocumentType === "ticket" || DocumentType === "factura") && (
-
-            <section className="justify-start-items-start ml-4 pt-4 flex pb-8">
-              <p className="font-roboto text-sm text-[#44444F]">Aprobado por: </p>
+            <section className="justify-start-items-start ml-4 flex pb-8 pt-4">
+              <p className="font-roboto text-sm text-[#44444F]">
+                Aprobado por:{" "}
+              </p>
             </section>
           )}
         </div>
