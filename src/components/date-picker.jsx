@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
-function DatePicker({ name }) {
-  const [date, setDate] = useState();
+function DatePicker({ name, defaultVal }) {
+  const [date, setDate] = useState(defaultVal);
   // const [formated, setFormated] = useState("");
 
   return (

@@ -111,7 +111,7 @@ function FormCreateArea({ modal, setModal }) {
                   ))}
                 </div>
                 <div className="flex self-center">
-                  {processInputs.length <= 4 ? (
+                  {processInputs?.length <= 4 ? (
                     <button
                       className="flex h-6 w-6 items-center rounded-full bg-primario"
                       onClick={() => addProcessField()}

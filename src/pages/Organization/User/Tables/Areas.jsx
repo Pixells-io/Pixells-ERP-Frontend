@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 
 import {
   useReactTable,
@@ -9,12 +8,7 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import {
-  informationCircle,
-  chatbubbleEllipses,
-  bookmark,
-} from "ionicons/icons";
-import FormCreateArea from "../FormCreateArea";
+import { informationCircle } from "ionicons/icons";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
@@ -75,7 +69,6 @@ function AreasTable({ areas }) {
       accessorKey: "actions",
       header: "ACTIONS",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
             <button onClick={() => setModalAreas(row.original.id)}>

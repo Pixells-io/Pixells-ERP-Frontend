@@ -157,7 +157,6 @@ const legal_benefits = [
 function MainUser() {
   const { id } = useParams();
   const { areas, positions, users, user } = useLoaderData();
-  console.log(user.data);
   const [status, setStatus] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [academicInfo, setAcademicInfo] = useState(user?.data.academy);
@@ -512,7 +511,7 @@ function MainUser() {
                 </div>
 
                 <div className="flex w-full gap-4 pt-4">
-                  <div className="flex w-full items-center gap-3">
+                  <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile name="curp_file" label="CURP" />
                       <InputRouter
@@ -530,7 +529,7 @@ function MainUser() {
                     </div>
                   </div>
 
-                  <div className="flex w-full items-center gap-3">
+                  <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile name={"rfc_file"} label={"RFC"} />
                       <InputRouter
@@ -548,7 +547,7 @@ function MainUser() {
                     </div>
                   </div>
 
-                  <div className="flex w-full items-center gap-3">
+                  <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile name={"nss_file"} label={"NSS"} />
                       <InputRouter
@@ -566,7 +565,7 @@ function MainUser() {
                     </div>
                   </div>
 
-                  <div className="flex w-full items-center gap-3">
+                  <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile name={"id_file"} label={"ID"} />
                       <InputRouter
@@ -584,7 +583,7 @@ function MainUser() {
                     </div>
                   </div>
 
-                  <div className="flex w-full items-center gap-3">
+                  <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile
                         name={"birth_certificade"}

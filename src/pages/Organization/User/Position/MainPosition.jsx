@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-
-import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  add,
-  closeCircle,
-  create,
-} from "ionicons/icons";
 import { Form, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { IonIcon } from "@ionic/react";
+import { add, closeCircle, create } from "ionicons/icons";
+
+import NavigationHeader from "@/components/navigation-header";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import CheckboxRouter from "@/layouts/Masters/FormComponents/checkbox";
-import { editPosition, saveNewPosition } from "../../utils";
-import NavigationHeader from "@/components/navigation-header";
+import { editPosition } from "../../utils";
 
 const selectBasic = [
   {
@@ -260,7 +254,6 @@ const sectorExperience = [
 function MainPosition() {
   const { id } = useParams();
   const { areas, positions, position } = useLoaderData();
-  console.log(position?.data);
   const [disabled, setDisabled] = useState(true);
   const [positionsInputs, setPositionsInputs] = useState(
     position?.data.coordinate,

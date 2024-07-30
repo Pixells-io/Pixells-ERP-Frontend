@@ -23,8 +23,6 @@ function UsersTable({ users }) {
   const [initialData, setInitialData] = useState(users);
   const [data, setDataPusher] = useState(initialData);
 
-  console.log(users);
-
   useEffect(() => {
     pusherClient.subscribe(`private-get-users`);
 
@@ -130,6 +128,7 @@ function UsersTable({ users }) {
                     changeInputValue(row.original.id);
                   }}
                   checked
+                  readOnly
                 />
                 <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
               </label>
