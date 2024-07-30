@@ -17,7 +17,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { editArea, importOrganization, saveNewArea } from "../utils";
+import {
+  destroyArea,
+  editArea,
+  importOrganization,
+  saveNewArea,
+} from "../utils";
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
@@ -163,6 +168,9 @@ export async function Action({ request }) {
       break;
     case "2":
       await editArea(data);
+      break;
+    case "3":
+      await destroyArea(data);
       break;
     case "4":
       await importOrganization(data);

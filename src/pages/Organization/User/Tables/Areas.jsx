@@ -8,10 +8,11 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircle, trash } from "ionicons/icons";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import FormDestroyArea from "../FormDestroyArea";
 
 function AreasTable({ areas }) {
   //Web Socket
@@ -37,6 +38,7 @@ function AreasTable({ areas }) {
   });
 
   const [modal, setModal] = useState(false);
+  const [modalDestroy, setModalDestroy] = useState(false);
   const [areaId, setArea] = useState(false);
 
   const columnHelper = createColumnHelper();
@@ -46,6 +48,11 @@ function AreasTable({ areas }) {
     let areaInformation = await getAreaInformation(area);
     setArea(areaInformation.data);
     setModal(true);
+  }
+
+  function openDestroyModal(id) {
+    setArea(id);
+    setModalDestroy(true);
   }
 
   async function getAreaInformation(area) {
@@ -74,6 +81,9 @@ function AreasTable({ areas }) {
             <button onClick={() => setModalAreas(row.original.id)}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </button>
+            <button onClick={() => openDestroyModal(row.original.id)}>
+              <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+            </button>
           </div>
         );
       },
@@ -88,6 +98,12 @@ function AreasTable({ areas }) {
 
   return (
     <div className="relative w-full overflow-auto">
+      {/*Form Destroy Area */}
+      <FormDestroyArea
+        modal={modalDestroy}
+        setModal={setModalDestroy}
+        id={areaId}
+      />
       {/* Form Edit and Show Areas */}
       <ModalShowArea modal={modal} setModal={setModal} area={areaId} />
       <table className="w-full caption-bottom text-sm">
