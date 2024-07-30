@@ -288,6 +288,7 @@ import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
 import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
 
+<<<<<<< HEAD
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
@@ -304,6 +305,12 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
+=======
+//Transformation
+import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
+import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
+import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
+>>>>>>> origin/Frontend
 
 const router = createBrowserRouter([
   {
@@ -874,6 +881,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+<<<<<<< HEAD
          //inventory
          {
           path: "/inventory",
@@ -932,6 +940,23 @@ const router = createBrowserRouter([
   
             ],
            }
+=======
+      //TRANSFORMATIONS
+      {
+        path: "/transformation",
+        element: <SideLayoutTransformation />,
+        children: [
+          {
+            index: true,
+            element: <MainGeneralFormula />,
+          },
+          {
+            path: "/transformation/create",
+            element: <NewFormula />
+          }
+        ],
+      },
+>>>>>>> origin/Frontend
     ],
   },
   //Login
