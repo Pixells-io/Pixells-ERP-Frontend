@@ -288,6 +288,11 @@ import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
 import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
 
+//Transformation
+import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
+import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
+import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -855,6 +860,21 @@ const router = createBrowserRouter([
             element: <MainAnalytic />,
             loader: multiloaderAnalytics,
           },
+        ],
+      },
+      //TRANSFORMATIONS
+      {
+        path: "/transformation",
+        element: <SideLayoutTransformation />,
+        children: [
+          {
+            index: true,
+            element: <MainGeneralFormula />,
+          },
+          {
+            path: "/transformation/create",
+            element: <NewFormula />
+          }
         ],
       },
     ],
