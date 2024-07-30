@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
 
-function DropzoneFile({ name, label }) {
+function DropzoneFile({ name, label, disabled }) {
   const [yourImage, setYourImage] = useState([]);
 
   const handleDrop = (acceptedFiles) => {
@@ -29,7 +29,7 @@ function DropzoneFile({ name, label }) {
   return (
     <div className="">
       <div {...getRootProps()} className={` ${isDragActive ? "" : ""}`}>
-        <input {...getInputProps()} name={name} />
+        <input {...getInputProps()} name={name} disabled={disabled} />
         {acceptedFiles.length == 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-primario bg-[#DEE5F5] pb-4 pt-4 text-center font-light text-primario">
             <p>{label}</p>

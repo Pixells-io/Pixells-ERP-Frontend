@@ -383,6 +383,7 @@ function MainUser() {
                 name={"user_image"}
                 url={user?.data.user.user_image}
                 initials={`${user?.data.user.name.slice(1)}${user?.data.user.last_name.slice(1)}`}
+                disabled={disabled}
               />
             </div>
 
@@ -513,7 +514,11 @@ function MainUser() {
                 <div className="flex w-full gap-4 pt-4">
                   <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
-                      <DropzoneFile name="curp_file" label="CURP" />
+                      <DropzoneFile
+                        name="curp_file"
+                        label="CURP"
+                        disabled={disabled}
+                      />
                       <InputRouter
                         name={"curp_text"}
                         placeholder={"Curp"}
@@ -531,7 +536,11 @@ function MainUser() {
 
                   <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
-                      <DropzoneFile name={"rfc_file"} label={"RFC"} />
+                      <DropzoneFile
+                        name={"rfc_file"}
+                        label={"RFC"}
+                        disabled={disabled}
+                      />
                       <InputRouter
                         name={"rfc_text"}
                         placeholder={"Rfc"}
@@ -549,7 +558,11 @@ function MainUser() {
 
                   <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
-                      <DropzoneFile name={"nss_file"} label={"NSS"} />
+                      <DropzoneFile
+                        name={"nss_file"}
+                        label={"NSS"}
+                        disabled={disabled}
+                      />
                       <InputRouter
                         name={"nss_text"}
                         placeholder={"NSS"}
@@ -567,7 +580,11 @@ function MainUser() {
 
                   <div className="flex h-full w-full items-center gap-3">
                     <div className="flex w-full flex-col gap-2">
-                      <DropzoneFile name={"id_file"} label={"ID"} />
+                      <DropzoneFile
+                        name={"id_file"}
+                        label={"ID"}
+                        disabled={disabled}
+                      />
                       <InputRouter
                         name={"id_date"}
                         placeholder={"Id Date"}
@@ -588,6 +605,7 @@ function MainUser() {
                       <DropzoneFile
                         name={"birth_certificade"}
                         label={"Birth Certificate"}
+                        disabled={disabled}
                       />
                       <div className="h-10"></div>
                       {user.data?.user.birth_certificade !== "N/A" ? (
@@ -737,6 +755,7 @@ function MainUser() {
                   <DropzoneFile
                     name={"address_voucher"}
                     label={"Adress Voucher"}
+                    disabled={disabled}
                   />
                   {user.data?.user.address_voucher !== "N/A" ? (
                     <div className="flex items-center justify-center">
@@ -831,6 +850,7 @@ function MainUser() {
                       <DropzoneFile
                         name={"academic_voucher"}
                         label={"Academic Voucher"}
+                        disabled={disabled}
                       />
                       {academicInfo[i].academic_voucher !== "N/A" ? (
                         <iframe
@@ -986,7 +1006,7 @@ function MainUser() {
                   />
                 </div>
                 <div className="flex w-1/3 flex-col gap-2 pl-4">
-                  <DropzoneFile name={"cv"} label={"CV"} />
+                  <DropzoneFile name={"cv"} label={"CV"} disabled={disabled} />
                   {user.data?.user.cv !== "N/A" ? (
                     <div className="flex items-center justify-center">
                       <ImagesShow image={user.data?.user.cv} />

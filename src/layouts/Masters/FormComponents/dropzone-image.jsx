@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IonIcon } from "@ionic/react";
 import { personCircle } from "ionicons/icons";
 
-function DropzoneImage({ name, url, initials }) {
+function DropzoneImage({ name, url, initials, disabled }) {
   // console.log(url);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [yourImage, setYourImage] = useState([]);
@@ -35,7 +35,7 @@ function DropzoneImage({ name, url, initials }) {
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "active" : ""}`}
       >
-        <input {...getInputProps()} name={name} />
+        <input {...getInputProps()} name={name} disabled={disabled} />
         {isDragActive ? (
           <p>Drop the file here</p>
         ) : (
