@@ -330,7 +330,7 @@ function FormCreateUser() {
           id="form-create-user"
         >
           <div className="">
-            <div className="w-1/4">
+            <div className="w-fit cursor-pointer">
               <DropzoneImage name={"user_image"} />
             </div>
 
@@ -339,150 +339,143 @@ function FormCreateUser() {
               <span className="text-roboto text-sm font-medium text-grisText">
                 Personal Information
               </span>
-              <div className="flex pt-4">
-                <div className="w-4/6 pr-8">
-                  <div className="flex gap-3">
-                    <InputRouter
-                      name={"name"}
-                      placeholder={"Name"}
-                      type={"text"}
-                      required={"true"}
-                    />
-                    <InputRouter
-                      name={"last_name"}
-                      placeholder={"Last Name"}
-                      type={"text"}
-                    />
-                    <InputRouter
-                      name={"second_last_name"}
-                      placeholder={"Second Last Name"}
-                      type={"text"}
-                    />
-                  </div>
-                  <div className="mt-3 flex gap-3">
-                    <InputRouter
-                      name={"date_of_birth"}
-                      placeholder={"Date of Birth"}
-                      type={"date"}
-                    />
-                    <InputRouter
-                      name={"city_of_birth"}
-                      placeholder={"City of Birth"}
-                      type={"text"}
-                    />
-                    <InputRouter
-                      name={"state_of_birth"}
-                      placeholder={"State of Birth"}
-                      type={"text"}
-                    />
-                  </div>
-                  <div className="flex items-center gap-3 pt-3">
-                    <SelectRouter
-                      name={"genre"}
-                      placeholder={"Genre"}
-                      options={genreSelect}
-                    />
-                    <Select
-                      onChange={(e) => setStatus(e.value)}
-                      options={civilStatus}
-                      name={"civil_status"}
-                      placeholder={"Civil Status"}
-                      className="w-full text-sm font-light"
-                    />
-                    <InputRouter
-                      name={"childrens"}
-                      placeholder={"Children"}
-                      type={"number"}
-                    />
-                  </div>
-                  {status === "Married" ? (
-                    <div className="flex gap-3 pt-3">
-                      <InputRouter
-                        name={"spouse_firstname"}
-                        placeholder={"Spouse First Name"}
-                        type={"text"}
-                      />
-                      <InputRouter
-                        name={"spouse_lastname"}
-                        placeholder={"Spouse Last Name"}
-                        type={"text"}
-                      />
-                      <InputRouter
-                        name={"spouse_taxid"}
-                        placeholder={"Spouse Tax ID"}
-                        type={"text"}
-                      />
-                    </div>
-                  ) : null}
+              <div className="flex flex-col pt-4">
+                <div className="flex gap-3">
+                  <InputRouter
+                    name={"name"}
+                    placeholder={"Name"}
+                    type={"text"}
+                    required={"true"}
+                  />
+                  <InputRouter
+                    name={"last_name"}
+                    placeholder={"Last Name"}
+                    type={"text"}
+                  />
+                  <InputRouter
+                    name={"second_last_name"}
+                    placeholder={"Second Last Name"}
+                    type={"text"}
+                  />
+                </div>
+                <div className="mt-3 flex gap-3">
+                  <InputRouter
+                    name={"date_of_birth"}
+                    placeholder={"Date of Birth"}
+                    type={"date"}
+                  />
+                  <InputRouter
+                    name={"city_of_birth"}
+                    placeholder={"City of Birth"}
+                    type={"text"}
+                  />
+                  <InputRouter
+                    name={"state_of_birth"}
+                    placeholder={"State of Birth"}
+                    type={"text"}
+                  />
+                </div>
+                <div className="flex items-center gap-3 pt-3">
+                  <SelectRouter
+                    name={"genre"}
+                    placeholder={"Genre"}
+                    options={genreSelect}
+                  />
+                  <Select
+                    onChange={(e) => setStatus(e.value)}
+                    options={civilStatus}
+                    name={"civil_status"}
+                    placeholder={"Civil Status"}
+                    className="w-full text-sm font-light"
+                  />
+                  <InputRouter
+                    name={"childrens"}
+                    placeholder={"Children"}
+                    type={"number"}
+                  />
+                </div>
+                {status === "Married" ? (
                   <div className="flex gap-3 pt-3">
                     <InputRouter
-                      name={"phone"}
-                      placeholder={"Phone"}
-                      type={"number"}
+                      name={"spouse_firstname"}
+                      placeholder={"Spouse First Name"}
+                      type={"text"}
                     />
                     <InputRouter
-                      name={"personal_email"}
-                      placeholder={"Personal Email"}
-                      type={"email"}
+                      name={"spouse_lastname"}
+                      placeholder={"Spouse Last Name"}
+                      type={"text"}
+                    />
+                    <InputRouter
+                      name={"spouse_taxid"}
+                      placeholder={"Spouse Tax ID"}
+                      type={"text"}
                     />
                   </div>
-
-                  <div className="flex w-full gap-3 pt-3">
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name={"curp_file"} label={"CURP"} />
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"curp_text"}
-                          placeholder={"Curp"}
-                          type={"text"}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name={"rfc_file"} label={"RFC"} />
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"rfc_text"}
-                          placeholder={"Rfc"}
-                          type={"text"}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex w-full items-center gap-3">
-                      <div className="w-full">
-                        <DropzoneFile name={"nss_file"} label={"NSS"} />
-                      </div>
-                      <div className="w-full">
-                        <InputRouter
-                          name={"nss_text"}
-                          placeholder={"NSS"}
-                          type={"text"}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                ) : null}
+                <div className="flex gap-3 pt-3">
+                  <InputRouter
+                    name={"phone"}
+                    placeholder={"Phone"}
+                    type={"number"}
+                  />
+                  <InputRouter
+                    name={"personal_email"}
+                    placeholder={"Personal Email"}
+                    type={"email"}
+                  />
                 </div>
 
-                <div className="w-2/6">
-                  <div>
-                    <DropzoneFile
-                      name={"birth_certificade"}
-                      label={"Birth Certificate"}
-                    />
-                  </div>
-                  <div className="flex items-center gap-3 pr-6 pt-4">
-                    <div className="w-1/2">
-                      <DropzoneFile name={"id_file"} label={"ID"} />
+                <div className="flex w-full gap-4 pt-4">
+                  <div className="flex h-full w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"curp_file"} label={"CURP"} />
+                      <InputRouter
+                        name={"curp_text"}
+                        placeholder={"Curp"}
+                        type={"text"}
+                      />
                     </div>
-                    <div className="w-1/2">
+                  </div>
+
+                  <div className="flex h-full w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"rfc_file"} label={"RFC"} />
+                      <InputRouter
+                        name={"rfc_text"}
+                        placeholder={"Rfc"}
+                        type={"text"}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex h-full w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"nss_file"} label={"NSS"} />
+                      <InputRouter
+                        name={"nss_text"}
+                        placeholder={"NSS"}
+                        type={"text"}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex h-full w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile name={"id_file"} label={"ID"} />
                       <InputRouter
                         name={"id_date"}
                         placeholder={"Id Date"}
                         type={"date"}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex h-full w-full items-center gap-3">
+                    <div className="flex w-full flex-col gap-2">
+                      <DropzoneFile
+                        name={"birth_certificade"}
+                        label={"Birth Certificate"}
                       />
                     </div>
                   </div>
