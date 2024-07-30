@@ -288,7 +288,6 @@ import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
 import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
 
-<<<<<<< HEAD
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
@@ -305,12 +304,10 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
-=======
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
->>>>>>> origin/Frontend
 
 const router = createBrowserRouter([
   {
@@ -843,7 +840,7 @@ const router = createBrowserRouter([
                 path: "/accounting/other-account",
                 element: <AccountingAccount />,
               },
-            ]
+            ],
           },
           {
             //account Policy
@@ -881,66 +878,59 @@ const router = createBrowserRouter([
           },
         ],
       },
-<<<<<<< HEAD
-         //inventory
-         {
-          path: "/inventory",
-          element: <SideLayoutInventory />,
-          children: [
-            {
-              index:true,
-              element: <MainGeneral />,
-            },
-            {
-              path:"/inventory/create",
-              element:<CreateArticle/>
-            },
-            
-           
-          ],
-        },
-        //Sales
-         {
-          path: "/sales",
-          element: <SideLayoutSale />,
-          children: [
-            {
-              index:true,
-              element: <MainInvoice />,
-            },
-            {
-              path:"/sales/tickets",
-              element: <MainSalesTicket />,
-            },
-            {
-              path:"/sales/quotes",
-              element: < MainQtGeneral />,
-            },
-            {
-              path:"/sales/quotes/new",
-              element:<MainQuotes/>
-            },
-            {
-              path:"/sales/quotes/document",
-              element:<DocManager/>
-            }
-
-          ],
-         },
-        //Shopping
+      //inventory
+      {
+        path: "/inventory",
+        element: <SideLayoutInventory />,
+        children: [
           {
-            path: "/shopping",
-            element: <SideLayoutShopping />,
-            children: [
-              {
-                index:true,
-                element: <MainSupplier/>
-              },
-              
-  
-            ],
-           }
-=======
+            index: true,
+            element: <MainGeneral />,
+          },
+          {
+            path: "/inventory/create",
+            element: <CreateArticle />,
+          },
+        ],
+      },
+      //Sales
+      {
+        path: "/sales",
+        element: <SideLayoutSale />,
+        children: [
+          {
+            index: true,
+            element: <MainInvoice />,
+          },
+          {
+            path: "/sales/tickets",
+            element: <MainSalesTicket />,
+          },
+          {
+            path: "/sales/quotes",
+            element: <MainQtGeneral />,
+          },
+          {
+            path: "/sales/quotes/new",
+            element: <MainQuotes />,
+          },
+          {
+            path: "/sales/quotes/document",
+            element: <DocManager />,
+          },
+        ],
+      },
+      //Shopping
+      {
+        path: "/shopping",
+        element: <SideLayoutShopping />,
+        children: [
+          {
+            index: true,
+            element: <MainSupplier />,
+          },
+        ],
+      },
       //TRANSFORMATIONS
       {
         path: "/transformation",
@@ -952,11 +942,10 @@ const router = createBrowserRouter([
           },
           {
             path: "/transformation/create",
-            element: <NewFormula />
-          }
+            element: <NewFormula />,
+          },
         ],
       },
->>>>>>> origin/Frontend
     ],
   },
   //Login
