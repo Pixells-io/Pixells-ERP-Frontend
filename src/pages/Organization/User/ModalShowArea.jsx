@@ -27,11 +27,15 @@ const DAYS = [
 ];
 
 function ModalShowArea({ modal, setModal, area }) {
-  const [disabled, setDisabled] = useState(true);
-  const navigation = useNavigation();
-
   const [processInputs, setProcessInputs] = useState(area.process);
-  console.log(area);
+  const navigation = useNavigation();
+  const [disabled, setDisabled] = useState(true);
+
+  console.log(area.process);
+
+  useEffect(() => {
+    setProcessInputs(area.process);
+  }, [area]);
 
   useEffect(() => {
     if (navigation.state === "idle") {
