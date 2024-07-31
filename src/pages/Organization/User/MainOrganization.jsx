@@ -31,10 +31,43 @@ import FormImport from "./FormImport";
 import NavigationHeader from "@/components/navigation-header";
 
 function MainOrganization() {
+  const { users, positions, areas, counter, permission } = useLoaderData();
+
+  //MODAL STATES
   const [modal, setModal] = useState(false);
   const [modalImport, setModalImport] = useState(false);
 
-  const { users, positions, areas, counter } = useLoaderData();
+  //PERMISSIONS
+  const [edit, setEdit] = useState(true); //2
+  const [create, setCreate] = useState(true); //3
+  const [destroy, setDestroy] = useState(true); //4
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permission.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEdit(false);
+    }
+
+    const createQuery = permission.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+
+    const destroyQuery = permission.data.filter(
+      (item) => item.permision_capability == "4",
+    );
+
+    if (destroyQuery.length == 0) {
+      setDestroy(false);
+    }
+  });
 
   return (
     <div className="flex w-full">
@@ -60,44 +93,48 @@ function MainOrganization() {
           </div>
         </div>
         {/*button create reg*/}
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <IonIcon
-                icon={addCircleOutline}
-                size="large"
-                className="text-blue-500"
-              ></IonIcon>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem
-                className="w-full hover:cursor-pointer"
-                onClick={() => setModal(true)}
-              >
-                Areas
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <NavLink
-                  className="w-full"
-                  to={"/organization/create-position"}
+        {create == true ? (
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <IonIcon
+                  icon={addCircleOutline}
+                  size="large"
+                  className="text-blue-500"
+                ></IonIcon>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem
+                  className="w-full hover:cursor-pointer"
+                  onClick={() => setModal(true)}
                 >
-                  Position
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <NavLink className="w-full" to={"/organization/create-user"}>
-                  User
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="w-full hover:cursor-pointer"
-                onClick={() => setModalImport(true)}
-              >
-                Import
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+                  Areas
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <NavLink
+                    className="w-full"
+                    to={"/organization/create-position"}
+                  >
+                    Position
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <NavLink className="w-full" to={"/organization/create-user"}>
+                    User
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="w-full hover:cursor-pointer"
+                  onClick={() => setModalImport(true)}
+                >
+                  Import
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          false
+        )}
         {/*component accion*/}
         <div className="h-full overflow-auto rounded-xl bg-white p-7">
           <div className="flex">
@@ -142,13 +179,13 @@ function MainOrganization() {
                 </div>
               </TabsList>
               <TabsContent value="users">
-                <UsersTable users={users?.data} />
+                <UsersTable users={users?.data} edit={edit} />
               </TabsContent>
               <TabsContent value="positions">
-                <PositionsTable positions={positions?.data} />
+                <PositionsTable positions={positions?.data} edit={edit} />
               </TabsContent>
               <TabsContent value="areas">
-                <AreasTable areas={areas?.data} />
+                <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
               </TabsContent>
             </Tabs>
           </div>

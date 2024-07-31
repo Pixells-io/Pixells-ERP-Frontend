@@ -487,14 +487,15 @@ export async function counterAnalyticsOrganization() {
 }
 
 export async function multiLoaderOrganization() {
-  const [areas, positions, users, counter] = await Promise.all([
+  const [areas, positions, users, counter, permission] = await Promise.all([
     getAreas(),
     getPosition(),
     getUsers(),
     counterAnalyticsOrganization(),
+    organizationPermissions(),
   ]);
 
-  return json({ areas, positions, users, counter });
+  return json({ areas, positions, users, counter, permission });
 }
 
 export async function multiLoaderAreasPositions() {
@@ -1425,7 +1426,23 @@ export async function getCalendarData() {
 export async function menuPermissions() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate/0`,
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function organizationPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/1`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

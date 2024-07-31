@@ -136,8 +136,6 @@ function MainLayout() {
     setModuleShow(modulos);
   }, []);
 
-  console.log(moduleShow);
-
   return (
     <div className="flex h-screen min-h-0 flex-col">
       <div className="flex h-[56px] items-center justify-between p-3">
@@ -150,26 +148,29 @@ function MainLayout() {
             ></IonIcon>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="ml-4 grid grid-cols-3 gap-4">
-            {MENU.map((item, i) => (
+            {moduleShow.map((item, i) => (
               <DropdownMenuItem key={i} className="focus:bg-transparent">
                 <div className="flex flex-col">
                   <NavLink
-                    to={item.path}
+                    to={item[0]?.path}
                     className={({ isActive }) =>
                       isActive
                         ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
                         : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
                     }
                   >
-                    <IonIcon icon={item.icon} className="h-10 w-10"></IonIcon>
-                    {location?.pathname === item.path ? (
+                    <IonIcon
+                      icon={item[0]?.icon}
+                      className="h-10 w-10"
+                    ></IonIcon>
+                    {location?.pathname === item[0]?.path ? (
                       <div className="w-11 truncate text-[10px]">
-                        <p className="text-center">{item.name}</p>
+                        <p className="text-center">{item[0]?.name}</p>
                       </div>
                     ) : (
                       <div className="hidden w-11 truncate text-[10px] group-hover:flex">
                         <p className="group-hover:mx-auto group-hover:flex">
-                          {item.name}
+                          {item[0]?.name}
                         </p>
                       </div>
                     )}
