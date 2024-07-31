@@ -17,7 +17,6 @@ import MainLeads, {
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import {
-  getLeadById,
   multiloaderSideLayoutLead,
   multiLoaderStageLeads,
 } from "./pages/CRM/Leads/utils";
@@ -130,16 +129,13 @@ import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
 
 //actions
 import {
-  getAreas,
   getLeads,
-  getServices,
   multiLoaderServices,
   multiLoaderOrganization,
   multiLoaderChat,
   multiLoaderCSF,
   multiLoaderSideLayoutPM,
   getAllServices,
-  categoryShow,
   getPackageById,
   getAgreement,
   multiloaderTablesCRM,
@@ -167,8 +163,6 @@ import {
   getContractCreate,
   getContract,
   getClient,
-  multiloaderCFSView,
-  getProjectById,
   getTodayActivity,
   getMonthActivity,
   getMonthKanban,
@@ -185,6 +179,7 @@ import {
   getInductionResume,
   getTrainingResume,
   getCompletedActivity,
+  multiLoaderObjetivesPm,
 } from "./lib/actions";
 
 //Not Found
@@ -261,6 +256,7 @@ import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
 import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
 import MainCost from "./pages/Accounting/Cost/MainCost";
+import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
 
 //BankManagement
 import MainBankManagement from "./pages/BankManagement/MainBankManagement";
@@ -286,6 +282,29 @@ import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
 import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
 import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
+
+//Inventory
+import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
+import MainGeneral from "./pages/Inventory/General/MainGeneral";
+import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+
+//Sales
+import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
+import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
+import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
+import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
+import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
+import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
+
+//Shopping
+import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
+import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
+import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+//Transformation
+import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
+import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
+import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
+import IntegrationPanel from "./pages/Configurations/Integrations";
 
 const router = createBrowserRouter([
   {
@@ -506,7 +525,7 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
-            loader: getObjectives,
+            loader: multiLoaderObjetivesPm,
             action: multiFormAction,
             children: [
               {
@@ -694,6 +713,10 @@ const router = createBrowserRouter([
             element: <InformationShow />,
             loader: getBusinessInformation,
           },
+          {
+            path: "/configuration/integrations",
+            element: <IntegrationPanel />,
+          },
         ],
       },
       {
@@ -784,8 +807,41 @@ const router = createBrowserRouter([
         element: <SideLayoutAccounting />,
         children: [
           {
-            index: true,
             element: <MainCatalog />,
+            children: [
+              {
+                index: true,
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/liabilities-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/equity-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/income-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/cost-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/expense-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/financial-account",
+                element: <AccountingAccount />,
+              },
+              {
+                path: "/accounting/other-account",
+                element: <AccountingAccount />,
+              },
+            ],
           },
           {
             //account Policy
@@ -820,6 +876,78 @@ const router = createBrowserRouter([
             index: true,
             element: <MainAnalytic />,
             loader: multiloaderAnalytics,
+          },
+        ],
+      },
+      //inventory
+      {
+        path: "/inventory",
+        element: <SideLayoutInventory />,
+        children: [
+          {
+            index: true,
+            element: <MainGeneral />,
+          },
+          {
+            path: "/inventory/create",
+            element: <CreateArticle />,
+          },
+        ],
+      },
+      //Sales
+      {
+        path: "/sales",
+        element: <SideLayoutSale />,
+        children: [
+          {
+            index: true,
+            element: <MainInvoice />,
+          },
+          {
+            path: "/sales/tickets",
+            element: <MainSalesTicket />,
+          },
+          {
+            path: "/sales/quotes",
+            element: <MainQtGeneral />,
+          },
+          {
+            path: "/sales/quotes/new",
+            element: <MainQuotes />,
+          },
+          {
+            path: "/sales/quotes/document",
+            element: <DocManager />,
+          },
+        ],
+      },
+      //Shopping
+      {
+        path: "/shopping",
+        element: <SideLayoutShopping />,
+        children: [
+          {
+            index: true,
+            element: <MainSupplier />,
+          },
+          {
+            path:"/shopping/supplier/create",
+            element: <CreateSupplier/>
+          }
+        ],
+      },
+      //TRANSFORMATIONS
+      {
+        path: "/transformation",
+        element: <SideLayoutTransformation />,
+        children: [
+          {
+            index: true,
+            element: <MainGeneralFormula />,
+          },
+          {
+            path: "/transformation/create",
+            element: <NewFormula />,
           },
         ],
       },

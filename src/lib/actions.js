@@ -45,13 +45,14 @@ export async function getServices() {
 }
 
 export async function multilaoderSideLayoutCRM() {
-  const [services, customers, memberships] = await Promise.all([
+  const [services, customers, memberships, permission] = await Promise.all([
     getServices(),
     getCustomers(),
     getPackages(),
+    crmPermissions(),
   ]);
 
-  return json({ services, customers, memberships });
+  return json({ services, customers, memberships, permission });
 }
 
 export async function getServicesAgreements() {
@@ -105,13 +106,14 @@ export async function getContract({ params }) {
 }
 
 export async function multiloaderAgreements() {
-  const [services, customers, contracts] = await Promise.all([
+  const [services, customers, contracts, permissions] = await Promise.all([
     getServicesAgreements(),
     getCustomers(),
     getContractsCustomer(),
+    crmPermissions(),
   ]);
 
-  return json({ services, customers, contracts });
+  return json({ services, customers, contracts, permissions });
 }
 
 export async function getCategories() {
@@ -186,6 +188,7 @@ export async function multiLoaderServices() {
     positions,
     categoriesServices,
     analytic,
+    permissions,
   ] = await Promise.all([
     getServices(),
     getCategories(),
@@ -193,6 +196,7 @@ export async function multiLoaderServices() {
     getPosition(),
     getCategoriesAndServices(),
     getServicesCards(),
+    crmPermissions(),
   ]);
 
   return json({
@@ -202,6 +206,7 @@ export async function multiLoaderServices() {
     positions,
     categoriesServices,
     analytic,
+    permissions,
   });
 }
 
@@ -348,6 +353,15 @@ export async function getObjectives() {
   }
 }
 
+export async function multiLoaderObjetivesPm() {
+  const [objetive, permissions] = await Promise.all([
+    getObjectives(),
+    pmPermissions(),
+  ]);
+
+  return json({ objetive, permissions });
+}
+
 export async function getGoals(id) {
   try {
     const response = await fetch(
@@ -487,14 +501,15 @@ export async function counterAnalyticsOrganization() {
 }
 
 export async function multiLoaderOrganization() {
-  const [areas, positions, users, counter] = await Promise.all([
+  const [areas, positions, users, counter, permission] = await Promise.all([
     getAreas(),
     getPosition(),
     getUsers(),
     counterAnalyticsOrganization(),
+    organizationPermissions(),
   ]);
 
-  return json({ areas, positions, users, counter });
+  return json({ areas, positions, users, counter, permission });
 }
 
 export async function multiLoaderAreasPositions() {
@@ -546,13 +561,14 @@ export async function multiLoaderDashboard() {
 
 export async function multiLoaderCSF({ params }) {
   const id = params.id;
-  const [goals, users, goalsMaster] = await Promise.all([
+  const [goals, users, goalsMaster, permissions] = await Promise.all([
     getGoals(id),
     getUsers(),
     getGoalsMaster(id),
+    pmPermissions(),
   ]);
 
-  return json({ goals, users, goalsMaster });
+  return json({ goals, users, goalsMaster, permissions });
 }
 
 export async function multiloaderCFSView({ params }) {
@@ -566,9 +582,13 @@ export async function multiloaderCFSView({ params }) {
 }
 
 export async function multiLoaderSideLayoutPM() {
-  const [objectives, areas] = await Promise.all([getObjectives(), getAreas()]);
+  const [objectives, areas, permissions] = await Promise.all([
+    getObjectives(),
+    getAreas(),
+    pmPermissions(),
+  ]);
 
-  return json({ objectives, areas });
+  return json({ objectives, areas, permissions });
 }
 
 export async function getGoalsMaster(id) {
@@ -718,12 +738,13 @@ export async function getClient({ params }) {
 }
 
 export async function multiloaderTablesCRM() {
-  const [leads, clients, dashboard] = await Promise.all([
+  const [leads, clients, dashboard, permissions] = await Promise.all([
     getLeads(),
     getClients(),
     getDashboardCrmAnalytics(),
+    crmPermissions(),
   ]);
-  return json({ leads, clients, dashboard });
+  return json({ leads, clients, dashboard, permissions });
 }
 
 export async function multiloaderProgressSteps({ params }) {
@@ -786,12 +807,13 @@ export async function getNotifications() {
 }
 
 export async function multiloaderNotifications() {
-  const [chat, userAuth, notificationsData] = await Promise.all([
+  const [chat, userAuth, notificationsData, permissions] = await Promise.all([
     getNotificationsChat(),
     getUserByToken(),
     getNotifications(),
+    menuPermissions(),
   ]);
-  return json({ chat, userAuth, notificationsData });
+  return json({ chat, userAuth, notificationsData, permissions });
 }
 
 export async function logOutRequest() {
@@ -884,22 +906,24 @@ export async function getMyTrainings() {
 }
 
 export async function multiloaderOrganizationDevelopment() {
-  const [positions, areas, inductions] = await Promise.all([
+  const [positions, areas, inductions, permissions] = await Promise.all([
     getPosition(),
     getAreas(),
     getInductions(),
+    orgDevPermissions(),
   ]);
-  return json({ positions, areas, inductions });
+  return json({ positions, areas, inductions, permissions });
 }
 
 export async function multiloaderNewTraining() {
-  const [areas, positions, users, trainings] = await Promise.all([
+  const [areas, positions, users, trainings, permissions] = await Promise.all([
     getAreas(),
     getPosition(),
     getUsers(),
     getTrainings(),
+    orgDevPermissions(),
   ]);
-  return json({ areas, positions, users, trainings });
+  return json({ areas, positions, users, trainings, permissions });
 }
 
 export async function getExam({ params }) {
@@ -1008,15 +1032,29 @@ export async function inProcessTickets() {
 }
 
 export async function multiloaderTickets() {
-  const [areas, users, myTickets, assignedTickets, processTickets] =
-    await Promise.all([
-      getAreas(),
-      getUsers(),
-      getMyTickets(),
-      getAssignedTickets(),
-      inProcessTickets(),
-    ]);
-  return json({ areas, users, myTickets, assignedTickets, processTickets });
+  const [
+    areas,
+    users,
+    myTickets,
+    assignedTickets,
+    processTickets,
+    permissions,
+  ] = await Promise.all([
+    getAreas(),
+    getUsers(),
+    getMyTickets(),
+    getAssignedTickets(),
+    inProcessTickets(),
+    ticketsPermissions(),
+  ]);
+  return json({
+    areas,
+    users,
+    myTickets,
+    assignedTickets,
+    processTickets,
+    permissions,
+  });
 }
 
 export async function getTicket({ params }) {
@@ -1409,6 +1447,102 @@ export async function getCalendarData() {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}calendar/get-data/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+/* GET PERMISSIONS */
+export async function menuPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function organizationPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/1`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function crmPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/3`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function orgDevPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/6`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function ticketsPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/7`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function pmPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate-module/2`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

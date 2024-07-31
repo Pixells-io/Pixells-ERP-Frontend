@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
+import { addCircle, chevronBack, chevronForward } from "ionicons/icons";
 
 const TableForm = ({ setDebitTotal, setCreditTotal }) => {
   const initialRow = {
@@ -166,7 +166,7 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleNextPage = () => {
@@ -178,15 +178,16 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
   };
 
   return (
-    <div className="rounded-xl bg-white p-7 mb-2">
+    <div className="mb-2 rounded-xl bg-white p-7">
+      <h1 className="text-md font-poppins font-medium text-grisHeading">
+        Movimientos
+      </h1>
       <div className="max-h-[400px] overflow-y-auto">
         <Table>
           <TableHeader>
-            <TableRow className="justify-center border-b-primario border-b-2">
+            <TableRow className="justify-center border-b-2 border-b-primario text-xs font-normal text-grisText">
               {columns.map((column) => (
-                <TableHead key={column.accessorKey}>
-                  {column.header}
-                </TableHead>
+                <TableHead key={column.accessorKey}>{column.header}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
@@ -195,7 +196,10 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
               <TableRow key={rowIndex}>
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey}>
-                    {column.cell({ row, rowIndex: (currentPage - 1) * itemsPerPage + rowIndex })}
+                    {column.cell({
+                      row,
+                      rowIndex: (currentPage - 1) * itemsPerPage + rowIndex,
+                    })}
                   </TableCell>
                 ))}
               </TableRow>
@@ -203,21 +207,22 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-4 flex justify-between items-center">
+      <div className="mt-4 flex items-center justify-between">
         <IonIcon
-          icon={addCircleOutline}
+          icon={addCircle}
           size="small"
-          className="text-primario cursor-pointer"
+          className="cursor-pointer text-primario"
           onClick={handleAddRow}
         />
         <div className="flex items-center">
-        <IonIcon 
+          <IonIcon
             icon={chevronBack}
             onClick={handlePrevPage}
             disabled={currentPage === 1}
             className="mr-2 text-primario"
           />
-          <IonIcon icon={chevronForward}
+          <IonIcon
+            icon={chevronForward}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
             className="ml-2 text-primario"

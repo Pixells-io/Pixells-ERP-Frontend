@@ -46,11 +46,44 @@ function MainPManager() {
   const params = useParams();
   const navigation = useNavigation();
 
-  const { data } = useLoaderData();
+  const { objetive, permissions } = useLoaderData();
+  const data = objetive.data;
 
   const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
   const [objectiveInfo, setObjectiveInfo] = useState("");
+
+  //PERMISSIONS
+  const [editP, setEditP] = useState(true); //2
+  const [createP, setCreateP] = useState(true); //3
+  const [destroyP, setDestroyP] = useState(true); //4
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEditP(false);
+    }
+
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreateP(false);
+    }
+
+    const destroyQuery = permissions.data.filter(
+      (item) => item.permision_capability == "4",
+    );
+
+    if (destroyQuery.length == 0) {
+      setDestroyP(false);
+    }
+  });
 
   //Set Info
   useEffect(() => {
@@ -150,12 +183,20 @@ function MainPManager() {
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setEdit(!edit)}>
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setOpen(true)}>
-                    Delete
-                  </DropdownMenuItem>
+                  {editP == true ? (
+                    <DropdownMenuItem onClick={() => setEdit(!edit)}>
+                      Edit
+                    </DropdownMenuItem>
+                  ) : (
+                    false
+                  )}
+                  {destroyP == true ? (
+                    <DropdownMenuItem onClick={() => setOpen(true)}>
+                      Delete
+                    </DropdownMenuItem>
+                  ) : (
+                    false
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -170,7 +211,7 @@ function MainPManager() {
 
         <div className="flex items-center gap-8 pl-2">
           <div className="">
-            <GoalForm objectiveId={params.id} />
+            {createP == true ? <GoalForm objectiveId={params.id} /> : false}
           </div>
           <div className="flex gap-3">
             <NavLink

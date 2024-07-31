@@ -1,4 +1,4 @@
-import React, { useState ,useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   informationCircle,
@@ -7,7 +7,7 @@ import {
   chevronForward,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"; 
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 const MainPolicy = () => {
@@ -145,12 +145,11 @@ const MainPolicy = () => {
                 className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
                 checked={row.getIsSelected()}
                 onCheckedChange={(value) => row.toggleSelected(!!value)}
-               
               />
               <label>{row?.original?.tipo}</label>
             </div>
           );
-        },    
+        },
         meta: {
           filterButton: true,
         },
@@ -224,8 +223,6 @@ const MainPolicy = () => {
     [tableData],
   );
 
-
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -273,29 +270,27 @@ const MainPolicy = () => {
           <IonIcon
             icon={addCircleOutline}
             size="large"
-            className="text-blue-500"
+            className="h-7 w-7 cursor-pointer text-blue-500"
           />
         </Link>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
+        <div className="overflow-auto rounded-xl">
           <div className="flex items-start">
-            <div className="left-2 w-1/5">
-              <Tabs
-                defaultValue="ASIENTOS"
-                className="top-4 flex h-full rounded-lg pl-4 pt-2"
-              >
-                <TabsList className="mb-3 w-full bg-transparent">
-                  <TabsTrigger
-                    className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                    value="ASIENTOS"
-                  >
-                    ASIENTOS
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
+            <Tabs
+              defaultValue="ASIENTOS"
+              className="top-4 flex h-full rounded-lg pl-4 pt-2"
+            >
+              <TabsList className="mb-3 w-full bg-transparent">
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                  value="ASIENTOS"
+                >
+                  ASIENTOS
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
-          <div className="mt-4">
+          <div className="mt-[-60px]">
             <DataTable
               data={misDatos}
               columns={columns}

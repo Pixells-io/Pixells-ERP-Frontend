@@ -42,9 +42,9 @@ function SideLayoutConfiguration() {
               </div>
             </NavLink>
             <NavLink
-              to="/organization"
+              to="/configuration/integrations"
               className={({ isActive }) =>
-                isActive
+                isActive && location.pathname === "/configuration/integrations"
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }

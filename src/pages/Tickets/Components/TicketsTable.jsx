@@ -20,7 +20,7 @@ import {
 import TicketDestroy from "./DestroyTicket";
 import FormEditTickets from "./FormEditTicket";
 
-function TicketsTable({ tickets }) {
+function TicketsTable({ tickets, edit, destroy }) {
   const columnHelper = createColumnHelper();
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
@@ -97,24 +97,32 @@ function TicketsTable({ tickets }) {
             <NavLink to={`/tickets/${row.original.id}`}>
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </NavLink>
-            <IonIcon
-              icon={closeCircleSharp}
-              className="h-5 w-5"
-              onClick={() => openModalDestroyTicket(row.original.id)}
-            ></IonIcon>
-            <IonIcon
-              icon={create}
-              className="h-5 w-5"
-              onClick={() =>
-                openModalEditTicket(
-                  row.original.id,
-                  row.original.issue,
-                  row.original.description,
-                  row.original.importance,
-                  row.original.category,
-                )
-              }
-            ></IonIcon>
+            {destroy == true ? (
+              <IonIcon
+                icon={closeCircleSharp}
+                className="h-5 w-5"
+                onClick={() => openModalDestroyTicket(row.original.id)}
+              ></IonIcon>
+            ) : (
+              false
+            )}
+            {edit == true ? (
+              <IonIcon
+                icon={create}
+                className="h-5 w-5"
+                onClick={() =>
+                  openModalEditTicket(
+                    row.original.id,
+                    row.original.issue,
+                    row.original.description,
+                    row.original.importance,
+                    row.original.category,
+                  )
+                }
+              ></IonIcon>
+            ) : (
+              false
+            )}
           </div>
         );
       },

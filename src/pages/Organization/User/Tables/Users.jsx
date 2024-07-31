@@ -17,13 +17,11 @@ import { changeUserStatus } from "../../utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 
-function UsersTable({ users }) {
+function UsersTable({ users, edit }) {
   const columnHelper = createColumnHelper();
 
   const [initialData, setInitialData] = useState(users);
   const [data, setDataPusher] = useState(initialData);
-
-  console.log(users);
 
   useEffect(() => {
     pusherClient.subscribe(`private-get-users`);
@@ -117,34 +115,44 @@ function UsersTable({ users }) {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
-            <NavLink to={`/organization/user/${row.original.id}`}>
-              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </NavLink>
-            {row.original.status === "Active" ? (
-              <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
-                <input
-                  className="peer sr-only"
-                  id="AcceptConditions"
-                  type="checkbox"
-                  onClick={() => {
-                    changeInputValue(row.original.id);
-                  }}
-                  checked
-                />
-                <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
-              </label>
+            {edit == true ? (
+              <>
+                <NavLink to={`/organization/user/${row.original.id}`}>
+                  <IonIcon
+                    icon={informationCircle}
+                    className="h-5 w-5"
+                  ></IonIcon>
+                </NavLink>
+                {row.original.status === "Active" ? (
+                  <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
+                    <input
+                      className="peer sr-only"
+                      id="AcceptConditions"
+                      type="checkbox"
+                      onClick={() => {
+                        changeInputValue(row.original.id);
+                      }}
+                      checked
+                      readOnly
+                    />
+                    <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                  </label>
+                ) : (
+                  <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
+                    <input
+                      className="peer sr-only"
+                      id="AcceptConditions"
+                      type="checkbox"
+                      onClick={() => {
+                        changeInputValue(row.original.id);
+                      }}
+                    />
+                    <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                  </label>
+                )}
+              </>
             ) : (
-              <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
-                <input
-                  className="peer sr-only"
-                  id="AcceptConditions"
-                  type="checkbox"
-                  onClick={() => {
-                    changeInputValue(row.original.id);
-                  }}
-                />
-                <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full bg-white ring-[3px] ring-inset ring-white transition-all peer-checked:start-4 peer-checked:w-1 peer-checked:bg-white peer-checked:ring-transparent"></span>
-              </label>
+              false
             )}
           </div>
         );

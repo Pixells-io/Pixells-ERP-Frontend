@@ -16,7 +16,7 @@ function ModalShowPDF({ modal, setModal, url }) {
           </DialogTitle>
         </DialogHeader>
         <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
-          <iframe src={url} frameborder="0"></iframe>
+          <iframe src={url} frameBorder="0"></iframe>
         </div>
       </DialogContent>
     </Dialog>

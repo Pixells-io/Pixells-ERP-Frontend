@@ -24,7 +24,7 @@ import GoalEdit from "./components/GoalEdit";
 function Boards() {
   const location = useLocation();
   const { id } = useParams();
-  const { goals, users, goalsMaster } = useLoaderData();
+  const { goals, users, goalsMaster, permissions } = useLoaderData();
   const [urlId, setUrlId] = useState(id);
   const [PMdata, setPMdata] = useState(goalsMaster?.data);
   const [open, setOpen] = useState(false);
@@ -32,6 +32,38 @@ function Boards() {
   const [openEdit, setOpenEdit] = useState(false);
 
   const tabDefault = goals?.data[0]?.name;
+
+  //PERMISSIONS
+  const [editP, setEditP] = useState(true); //2
+  const [createP, setCreateP] = useState(true); //3
+  const [destroyP, setDestroyP] = useState(true); //4
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEditP(false);
+    }
+
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreateP(false);
+    }
+
+    const destroyQuery = permissions.data.filter(
+      (item) => item.permision_capability == "4",
+    );
+
+    if (destroyQuery.length == 0) {
+      setDestroyP(false);
+    }
+  });
 
   useEffect(() => {
     setUrlId(id);
@@ -72,14 +104,12 @@ function Boards() {
         goalId={goalSelected?.id}
         name={goalSelected?.name}
       />
-
       <GoalEdit
         modal={openEdit}
         setModal={setOpenEdit}
         goalId={goalSelected?.id}
         name={goalSelected?.name}
       />
-
       <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
         {PMdata?.map(({ goal }, i) => (
           <TabsTrigger
@@ -90,22 +120,30 @@ function Boards() {
             <ContextMenu>
               <ContextMenuTrigger>{goal?.name}</ContextMenuTrigger>
               <ContextMenuContent>
-                <ContextMenuItem
-                  onClick={() => {
-                    setGoalSelected(goal);
-                    setOpenEdit(true);
-                  }}
-                >
-                  Edit
-                </ContextMenuItem>
-                <ContextMenuItem
-                  onClick={() => {
-                    setGoalSelected(goal);
-                    setOpen(true);
-                  }}
-                >
-                  Delete
-                </ContextMenuItem>
+                {editP == true ? (
+                  <ContextMenuItem
+                    onClick={() => {
+                      setGoalSelected(goal);
+                      setOpenEdit(true);
+                    }}
+                  >
+                    Edit
+                  </ContextMenuItem>
+                ) : (
+                  false
+                )}
+                {destroyP == true ? (
+                  <ContextMenuItem
+                    onClick={() => {
+                      setGoalSelected(goal);
+                      setOpen(true);
+                    }}
+                  >
+                    Delete
+                  </ContextMenuItem>
+                ) : (
+                  false
+                )}
               </ContextMenuContent>
             </ContextMenu>
           </TabsTrigger>
@@ -114,7 +152,14 @@ function Boards() {
       {PMdata?.map(({ fces, goal }, i) => (
         <div key={i} className="flex w-full">
           <TabsContent value={goal.name} className="w-full">
-            <Board goal={goal} users={users.data} csfs={fces} />
+            <Board
+              goal={goal}
+              users={users.data}
+              csfs={fces}
+              create={createP}
+              edit={editP}
+              destroy={destroyP}
+            />
           </TabsContent>
         </div>
       ))}

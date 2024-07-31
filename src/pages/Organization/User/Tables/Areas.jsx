@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 
 import {
   useReactTable,
@@ -9,17 +8,13 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import {
-  informationCircle,
-  chatbubbleEllipses,
-  bookmark,
-} from "ionicons/icons";
-import FormCreateArea from "../FormCreateArea";
+import { informationCircle, trash } from "ionicons/icons";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
 import { pusherClient } from "@/lib/pusher";
+import FormDestroyArea from "../FormDestroyArea";
 
-function AreasTable({ areas }) {
+function AreasTable({ areas, edit, destroy }) {
   //Web Socket
   const [initialData, setInitialData] = useState(areas);
   const [data, setDataPusher] = useState(initialData);
@@ -43,6 +38,7 @@ function AreasTable({ areas }) {
   });
 
   const [modal, setModal] = useState(false);
+  const [modalDestroy, setModalDestroy] = useState(false);
   const [areaId, setArea] = useState(false);
 
   const columnHelper = createColumnHelper();
@@ -52,6 +48,11 @@ function AreasTable({ areas }) {
     let areaInformation = await getAreaInformation(area);
     setArea(areaInformation.data);
     setModal(true);
+  }
+
+  function openDestroyModal(id) {
+    setArea(id);
+    setModalDestroy(true);
   }
 
   async function getAreaInformation(area) {
@@ -75,12 +76,22 @@ function AreasTable({ areas }) {
       accessorKey: "actions",
       header: "ACTIONS",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
-            <button onClick={() => setModalAreas(row.original.id)}>
-              <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-            </button>
+            {edit == true ? (
+              <button onClick={() => setModalAreas(row.original.id)}>
+                <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+              </button>
+            ) : (
+              false
+            )}
+            {destroy == true ? (
+              <button onClick={() => openDestroyModal(row.original.id)}>
+                <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+              </button>
+            ) : (
+              false
+            )}
           </div>
         );
       },
@@ -95,6 +106,12 @@ function AreasTable({ areas }) {
 
   return (
     <div className="relative w-full overflow-auto">
+      {/*Form Destroy Area */}
+      <FormDestroyArea
+        modal={modalDestroy}
+        setModal={setModalDestroy}
+        id={areaId}
+      />
       {/* Form Edit and Show Areas */}
       <ModalShowArea modal={modal} setModal={setModal} area={areaId} />
       <table className="w-full caption-bottom text-sm">

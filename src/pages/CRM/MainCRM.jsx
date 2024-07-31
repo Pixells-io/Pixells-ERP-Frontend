@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, useRouteLoaderData, Outlet } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -21,12 +21,36 @@ function MainCRM() {
     leads: loaderLeads,
     clients: loaderClients,
     dashboard,
+    permissions,
   } = useLoaderData();
   const { data: loaderServices } = useRouteLoaderData("side_services");
 
   const [leads, setLeads] = useState(loaderLeads);
   const [services, setServices] = useState(loaderServices);
   const [clients, setClients] = useState(loaderClients);
+
+  //PERMISSIONS
+  const [edit, setEdit] = useState(true); //2
+  const [destroy, setDestroy] = useState(true); //4
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEdit(false);
+    }
+
+    const destroyQuery = permissions.data.filter(
+      (item) => item.permision_capability == "4",
+    );
+
+    if (destroyQuery.length == 0) {
+      setDestroy(false);
+    }
+  });
 
   return (
     <div className="flex h-full w-full">

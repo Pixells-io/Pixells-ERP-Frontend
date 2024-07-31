@@ -32,7 +32,21 @@ function MainCapacitations() {
 
   const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
 
-  const { areas, positions, users, trainings } = useLoaderData();
+  const { areas, positions, users, trainings, permissions } = useLoaderData();
+
+  //PERMISSIONS
+  const [create, setCreate] = useState(true); //3
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
 
   const [initialData, setInitialData] = useState(trainings.data);
   const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);
@@ -92,12 +106,16 @@ function MainCapacitations() {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Trainings
           </p>
-          <IonIcon
-            icon={addCircleOutline}
-            size="large"
-            className="mt-5 text-primarioBotones"
-            onClick={() => setModalCreateTrainings(true)}
-          ></IonIcon>
+          {create == true ? (
+            <IonIcon
+              icon={addCircleOutline}
+              size="large"
+              className="mt-5 text-primarioBotones"
+              onClick={() => setModalCreateTrainings(true)}
+            ></IonIcon>
+          ) : (
+            false
+          )}
         </div>
 
         <NewTrainingModal

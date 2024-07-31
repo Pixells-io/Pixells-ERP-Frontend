@@ -14,10 +14,12 @@ import { cloudDownload } from "ionicons/icons";
 
 const PeriodSelect = () => {
   return (
-    <div className="flex justify-start space-x-4">
+    <div className="flex items-center justify-start space-x-4">
       <Select name="periodo">
-        <label  className="text-sm font-roboto text-gris2 mt-2">Periodo: </label>
-        <SelectTrigger className="w-[200px] rounded-full">
+        <label className="font-roboto text-xs font-light text-gris2">
+          Periodo:
+        </label>
+        <SelectTrigger className="w-[200px] rounded-xl">
           <SelectValue placeholder="Seleccionar" />
         </SelectTrigger>
         <SelectContent>
@@ -32,8 +34,10 @@ const PeriodSelect = () => {
         </SelectContent>
       </Select>
       <Select name="registro">
-      <label className="text-sm font-roboto text-gris2 mt-2">Tipo de registro: </label>
-      <SelectTrigger className="w-[200px] rounded-full">
+        <label className="font-roboto text-sm font-light text-gris2">
+          Tipo de registro:
+        </label>
+        <SelectTrigger className="w-[200px] rounded-xl">
           <SelectValue placeholder="Seleccionar" />
         </SelectTrigger>
         <SelectContent>
@@ -47,16 +51,11 @@ const PeriodSelect = () => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="w-8 h-8 mt-1 text-center bg-gray-200 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-400">
-              <IonIcon
-                icon={ cloudDownload}
-                size="small"
-                className="text-grisText"
-
-              />
+      <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
+        <IonIcon icon={cloudDownload} size="small" className="text-grisText" />
       </div>
     </div>
   );
-}
+};
 
 export default PeriodSelect;

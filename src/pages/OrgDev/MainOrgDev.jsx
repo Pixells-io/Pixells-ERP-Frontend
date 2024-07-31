@@ -50,12 +50,26 @@ const PEOPLE = [
 function MainOrgDev() {
   const navigation = useNavigation();
 
-  const { positions, areas, inductions } = useLoaderData();
+  const { positions, areas, inductions, permissions } = useLoaderData();
 
   const [modalCreateInduccion, setModalCreateInduccion] = useState(false);
 
   const [initialData, setInitialData] = useState(inductions.data);
   const [inductionsPusher, setInductionsListPusher] = useState(initialData);
+
+  //PERMISSIONS
+  const [create, setCreate] = useState(true); //3
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
 
   async function getInductionsFunction() {
     let newData = await getInductions();
@@ -110,12 +124,16 @@ function MainOrgDev() {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Inductions
           </p>
-          <IonIcon
-            icon={addCircleOutline}
-            size="large"
-            className="mt-5 text-primarioBotones"
-            onClick={() => setModalCreateInduccion(true)}
-          ></IonIcon>
+          {create == true ? (
+            <IonIcon
+              icon={addCircleOutline}
+              size="large"
+              className="mt-5 text-primarioBotones"
+              onClick={() => setModalCreateInduccion(true)}
+            ></IonIcon>
+          ) : (
+            false
+          )}
         </div>
         <NewInductionModal
           modal={modalCreateInduccion}

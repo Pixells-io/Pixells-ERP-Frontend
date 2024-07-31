@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import { chevronBack, chevronForward, gridOutline, list } from "ionicons/icons";
 
 import TableBook from "../components/Tabs/DataTableBook";
 import PeriodSelect from "../components/PeriodSelect";
@@ -45,10 +45,16 @@ const MainBook = () => {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Libro Diario
-          </p>
+        <div className="flex justify-between">
+          <div>
+            <p className="font-poppins text-xl font-bold text-[#44444F]">
+              Libro Diario
+            </p>
+          </div>
+          <div className="text-[#8F8F8F] flex gap-x-2 mr-12">
+            <IonIcon icon={gridOutline} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={list} className="h-5 w-5"></IonIcon>
+          </div>
         </div>
 
         {/*content */}
