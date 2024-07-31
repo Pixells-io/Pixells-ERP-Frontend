@@ -188,8 +188,8 @@ function MainGeneralFormula() {
             <DataTable
               data={data}
               columns={GeneralFormulaColumns}
-              searchNameFilter={"Concepto"}
-              searchFilter={"concept"}
+              searchNameFilter={"Nombre"}
+              searchFilter={"name"}
               isCheckAll={true}
             />
           </TabsContent>
@@ -197,8 +197,8 @@ function MainGeneralFormula() {
             <DataTable
               data={data2}
               columns={GeneralFormulaColumns}
-              searchNameFilter={"Concepto"}
-              searchFilter={"concept"}
+              searchNameFilter={"Nombre"}
+              searchFilter={"name"}
               isCheckAll={false}
             />
           </TabsContent>

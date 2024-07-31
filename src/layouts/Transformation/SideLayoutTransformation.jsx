@@ -7,7 +7,7 @@ import TopMenu from "../Masters/Menus/TopMenu";
 
 const menus = [
   {
-    path: "/transformation/collection",
+    path: "/transformation/manufacturing-order",
     name: "Ordenes",
     subName: "De Fabricación",
     icon: pieChart,
@@ -59,7 +59,9 @@ function SideLayoutTransformation() {
             <NavLink
               to="/transformation"
               className={({ isActive }) =>
-                isActive && location.pathname === "/transformation"
+                isActive &&
+                (location.pathname === "/transformation" ||
+                  location.pathname === "/transformation/create")
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }

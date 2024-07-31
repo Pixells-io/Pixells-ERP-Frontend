@@ -303,6 +303,7 @@ import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
+import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/ManufacturingOrder";
 
 const router = createBrowserRouter([
   {
@@ -938,6 +939,10 @@ const router = createBrowserRouter([
           {
             path: "/transformation/create",
             element: <NewFormula />,
+          },
+          {
+            path: "/transformation/manufacturing-order",
+            element: <ManufacturingOrder />,
           },
         ],
       },

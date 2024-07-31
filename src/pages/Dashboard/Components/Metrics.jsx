@@ -1,10 +1,10 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
 import {
-  notifications,
+  notifications as notificationIcon,
   chatbubble,
   chevronForward,
-  calendar,
+  calendar as calendarIcon,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,7 @@ function GeneralMetrics({ notifications, calendar, chats }) {
           <div className="flex w-2/6">
             <div className="mr-2 w-2/4 text-end">
               <IonIcon
-                icon={notifications}
+                icon={notificationIcon}
                 className="pt-1 text-xl text-grisText"
               ></IonIcon>
             </div>
@@ -53,7 +53,7 @@ function GeneralMetrics({ notifications, calendar, chats }) {
           <div className="flex w-2/6">
             <div className="mr-2 w-2/4 text-end">
               <IonIcon
-                icon={calendar}
+                icon={calendarIcon}
                 className="pt-1 text-xl text-grisText"
               ></IonIcon>
             </div>
