@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Outlet,
   useLoaderData,
@@ -23,8 +23,20 @@ import {
 import FormNewClient from "./components/Form/FormNewClient";
 
 function SideLayout() {
-  const { services, customers, memberships } = useLoaderData();
+  const { services, customers, memberships, permission } = useLoaderData();
   const navigation = useNavigation();
+  const [create, setCreate] = useState(true);
+
+  useEffect(() => {
+    const createQuery = permission.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
+
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
@@ -40,16 +52,19 @@ function SideLayout() {
           </p>
 
           {/*menu top */}
-          <div className="flex flex-col gap-4">
-            <FormNewLead navigation={navigation} services={services} />
-            <FormNewClient navigation={navigation} />
-            {/* <FormNewClient /> */}
-            <FormNewSale
-              clients={customers}
-              membership={memberships}
-              services={services}
-            />
-          </div>
+
+          {create == true ? (
+            <div className="flex flex-col gap-4">
+              <FormNewLead navigation={navigation} services={services} />
+              <FormNewClient navigation={navigation} />
+              {/* <FormNewClient /> */}
+              <FormNewSale
+                clients={customers}
+                membership={memberships}
+                services={services}
+              />
+            </div>
+          ) : null}
 
           <div className="my-4 border-b border-gris2"></div>
 

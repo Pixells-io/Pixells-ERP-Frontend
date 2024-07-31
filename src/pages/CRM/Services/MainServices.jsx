@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
@@ -54,7 +54,31 @@ function MainServices() {
     categoriesServices,
     packages,
     analytic,
+    permissions,
   } = useLoaderData();
+
+  //PERMISSIONS
+  const [edit, setEdit] = useState(true); //2
+  const [create, setCreate] = useState(true); //3
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEdit(false);
+    }
+
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
 
   return (
     <div className="flex w-full overflow-auto">
@@ -107,26 +131,30 @@ function MainServices() {
         </div>
 
         <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="width text-start">
-              <IonIcon
-                icon={addCircleOutline}
-                size="large"
-                className="text-blue-500"
-              ></IonIcon>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setModalServices(true)}>
-                Services
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setModalCategories(true)}>
-                Categories
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setModalPackages(true)}>
-                Membership
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {create == true ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="width text-start">
+                <IonIcon
+                  icon={addCircleOutline}
+                  size="large"
+                  className="text-blue-500"
+                ></IonIcon>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setModalServices(true)}>
+                  Services
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModalCategories(true)}>
+                  Categories
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModalPackages(true)}>
+                  Membership
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            false
+          )}
         </div>
 
         {/*<NewServiceForm/>*/}

@@ -179,6 +179,7 @@ import {
   getInductionResume,
   getTrainingResume,
   getCompletedActivity,
+  multiLoaderObjetivesPm,
 } from "./lib/actions";
 
 //Not Found
@@ -522,7 +523,7 @@ const router = createBrowserRouter([
           {
             path: "/project-manager/:id",
             element: <MainPManager />,
-            loader: getObjectives,
+            loader: multiLoaderObjetivesPm,
             action: multiFormAction,
             children: [
               {

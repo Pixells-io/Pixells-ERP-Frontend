@@ -53,7 +53,7 @@ const PRIORITY = [
   { value: 4, color: "#000000" },
 ];
 
-function Board({ goal, users, csfs }) {
+function Board({ goal, users, csfs, create, edit, destroy }) {
   const { id } = useParams();
   const submit = useSubmit();
   const [csfInput, setCsfInput] = useState("");
@@ -183,25 +183,34 @@ function Board({ goal, users, csfs }) {
       </div>
       <div className="mt-3 grid h-12 grid-cols-10 items-center gap-y-6 border-b px-1 text-right">
         <div className="col-span-10">
-          <Form
-            onKeyDown={onInputEnter}
-            id="csf-form"
-            action={`/project-manager/${goal?.strategic_objetive_id}`}
-            method="post"
-            name="csf"
-          >
-            <input
-              type="text"
+          {create == true ? (
+            <Form
+              onKeyDown={onInputEnter}
+              id="csf-form"
+              action={`/project-manager/${goal?.strategic_objetive_id}`}
+              method="post"
               name="csf"
-              placeholder="+ CRITICAL SUCCES FACTOR"
-              className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
-              value={csfInput}
-              onChange={(e) => setCsfInput(e.target.value)}
-            />
+            >
+              <input
+                type="text"
+                name="csf"
+                placeholder="+ CRITICAL SUCCES FACTOR"
+                className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
+                value={csfInput}
+                onChange={(e) => setCsfInput(e.target.value)}
+              />
 
-            <input className="hidden" name="action" value="csf" readOnly />
-            <input className="hidden" name="goalId" value={goal.id} readOnly />
-          </Form>
+              <input className="hidden" name="action" value="csf" readOnly />
+              <input
+                className="hidden"
+                name="goalId"
+                value={goal.id}
+                readOnly
+              />
+            </Form>
+          ) : (
+            false
+          )}
         </div>
       </div>
       <div className="h-full overflow-auto">
@@ -215,17 +224,27 @@ function Board({ goal, users, csfs }) {
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setInputActive(!inputActive)}>
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    setCsfSelected(fce);
-                    setCsfModal(true);
-                  }}
-                >
-                  Delete
-                </DropdownMenuItem>
+                {edit == true ? (
+                  <DropdownMenuItem
+                    onClick={() => setInputActive(!inputActive)}
+                  >
+                    Edit
+                  </DropdownMenuItem>
+                ) : (
+                  false
+                )}
+                {destroy == true ? (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setCsfSelected(fce);
+                      setCsfModal(true);
+                    }}
+                  >
+                    Delete
+                  </DropdownMenuItem>
+                ) : (
+                  false
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -420,24 +439,32 @@ function Board({ goal, users, csfs }) {
                                   )
                                 }
                               ></IonIcon>
-                              <IonIcon
-                                icon={create}
-                                className="h-5 w-5"
-                                onClick={() =>
-                                  openEditModalTask(
-                                    task?.id,
-                                    task?.name,
-                                    task?.description,
-                                    task?.priority,
-                                    task?.start,
-                                  )
-                                }
-                              ></IonIcon>
-                              <IonIcon
-                                icon={trash}
-                                onClick={() => openDestroyTaskModal(task?.id)}
-                                className="h-5 w-5"
-                              ></IonIcon>
+                              {edit == true ? (
+                                <IonIcon
+                                  icon={create}
+                                  className="h-5 w-5"
+                                  onClick={() =>
+                                    openEditModalTask(
+                                      task?.id,
+                                      task?.name,
+                                      task?.description,
+                                      task?.priority,
+                                      task?.start,
+                                    )
+                                  }
+                                ></IonIcon>
+                              ) : (
+                                false
+                              )}
+                              {destroy == true ? (
+                                <IonIcon
+                                  icon={trash}
+                                  onClick={() => openDestroyTaskModal(task?.id)}
+                                  className="h-5 w-5"
+                                ></IonIcon>
+                              ) : (
+                                false
+                              )}
                             </div>
                           </div>
                         ) : (
