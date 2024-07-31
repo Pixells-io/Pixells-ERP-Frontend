@@ -17,7 +17,6 @@ import MainLeads, {
 import Stages from "./pages/CRM/Leads/components/Stages";
 import Timeline from "./pages/CRM/Leads/Timeline";
 import {
-  getLeadById,
   multiloaderSideLayoutLead,
   multiLoaderStageLeads,
 } from "./pages/CRM/Leads/utils";
@@ -130,16 +129,13 @@ import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
 
 //actions
 import {
-  getAreas,
   getLeads,
-  getServices,
   multiLoaderServices,
   multiLoaderOrganization,
   multiLoaderChat,
   multiLoaderCSF,
   multiLoaderSideLayoutPM,
   getAllServices,
-  categoryShow,
   getPackageById,
   getAgreement,
   multiloaderTablesCRM,
@@ -167,8 +163,6 @@ import {
   getContractCreate,
   getContract,
   getClient,
-  multiloaderCFSView,
-  getProjectById,
   getTodayActivity,
   getMonthActivity,
   getMonthKanban,
