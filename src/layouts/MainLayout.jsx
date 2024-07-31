@@ -46,36 +46,43 @@ import NotificationBell from "./components/NotificationBell";
 
 const MENU = [
   {
+    id: "1",
     path: "/organization",
     name: "Organization",
     icon: personCircle,
   },
   {
+    id: "2",
     path: "/project-manager",
     name: "Project Manager",
     icon: flag,
   },
   {
+    id: "3",
     path: "/crm",
     name: "CRM",
     icon: disc,
   },
   {
+    id: "4",
     path: "/chat",
     name: "Chat",
     icon: chatbubble,
   },
   {
+    id: "5",
     path: "/analytics",
     name: "Analytics",
     icon: barChart,
   },
   {
+    id: "6",
     path: "/org-development/induction",
     name: "Org Dev",
     icon: people,
   },
   {
+    id: "7",
     path: "/tickets",
     name: "Ticket",
     icon: ticket,
@@ -92,7 +99,7 @@ function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = Cookies.get("token");
-  const { chat, userAuth, notificationsData } = useLoaderData();
+  const { chat, userAuth, notificationsData, permissions } = useLoaderData();
 
   const userData = userAuth.data.user;
 
@@ -113,6 +120,12 @@ function MainLayout() {
 
     //Redirect to the login
     return navigate("/login");
+  }
+
+  console.log(permissions);
+
+  function checkPermission(module) {
+    //Filter the permission
   }
 
   return (

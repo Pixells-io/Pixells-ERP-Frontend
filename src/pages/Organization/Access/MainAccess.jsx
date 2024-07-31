@@ -32,8 +32,8 @@ function MainAccess() {
         <div className="rounded-xl bg-white p-7">
           <div className="flex">
             <Tabs className="w-full">
-              <TabsList className="mb-3 w-full bg-transparent overflow-auto">
-                <div className="flex w-full h-[25px]">
+              <TabsList className="mb-3 w-full overflow-auto bg-transparent pb-7">
+                <div className="flex h-[25px] w-full">
                   {areas.data?.map((area, i) => (
                     <TabsTrigger
                       key={"tt" + i}

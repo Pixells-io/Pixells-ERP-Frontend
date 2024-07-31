@@ -786,12 +786,13 @@ export async function getNotifications() {
 }
 
 export async function multiloaderNotifications() {
-  const [chat, userAuth, notificationsData] = await Promise.all([
+  const [chat, userAuth, notificationsData, permissions] = await Promise.all([
     getNotificationsChat(),
     getUserByToken(),
     getNotifications(),
+    menuPermissions(),
   ]);
-  return json({ chat, userAuth, notificationsData });
+  return json({ chat, userAuth, notificationsData, permissions });
 }
 
 export async function logOutRequest() {
@@ -1409,6 +1410,22 @@ export async function getCalendarData() {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}calendar/get-data/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+/* GET PERMISSIONS */
+export async function menuPermissions() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/permission-validate/0`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
