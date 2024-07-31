@@ -304,6 +304,7 @@ import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
+import IntegrationPanel from "./pages/Configurations/Integrations";
 
 const router = createBrowserRouter([
   {
@@ -711,6 +712,10 @@ const router = createBrowserRouter([
             index: true,
             element: <InformationShow />,
             loader: getBusinessInformation,
+          },
+          {
+            path: "/configuration/integrations",
+            element: <IntegrationPanel />,
           },
         ],
       },

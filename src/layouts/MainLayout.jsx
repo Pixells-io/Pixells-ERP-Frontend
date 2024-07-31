@@ -87,12 +87,6 @@ const MENU = [
     name: "Ticket",
     icon: ticket,
   },
-  // {
-  //   id: "8",
-  //   path: "/sopasperiflais",
-  //   name: "Pericao",
-  //   icon: ticket,
-  // },
   /*{
     path: "/configuration",
     name: "Config",
