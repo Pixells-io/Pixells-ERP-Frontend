@@ -73,8 +73,9 @@ function SideLayoutTransformation() {
               </div>
             </NavLink>
 
-            {menus.map((menu) => (
+            {menus.map((menu, index) => (
               <NavLink
+                key={index}
                 to={menu.path}
                 className={({ isActive }) =>
                   isActive

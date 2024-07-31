@@ -19,119 +19,19 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import TableForm from "../../Components/TableForm";
+import TableFormWaste from "../../Components/TableFormWaste";
 
 function NewFormula() {
-  const [components, setComponents] = useState([]);
-
-  //datos de prueba --------------------------
-
-  const data = [
-    {
-      id: "1",
-      name: "Original Constructors1",
-      type: "IMMIGRATION, TAX Preparation1",
-      nationality: "Ernest Robles1",
-      contact: "981-476-2244",
-      email: "ernest1@gmail.com",
-    },
-    {
-      id: "2",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "3",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "4",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "5",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "6",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-  ];
-
-  const data2 = [
-    {
-      id: "1",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "2",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "3",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "4",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "5",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "6",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-  ];
-
-  //-------------------------------------------
+  const [products, setProducts] = useState([]);
+  const [subProducts, setSubProducts] = useState([]);
+  const [wastes, setWastes] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalSubProducts, setSubTotalProducts] = useState(0);
+  const [totalWastes, setTotalWastes] = useState(0);
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -265,9 +165,51 @@ function NewFormula() {
           </div>
         </div>
 
-        <div>
-            {/* Agregar datos aqui */}
-          <TableForm rows={[]} setRows={setComponents} columns={[]} />
+        <div className="rounded-xl bg-blancoBg p-4">
+          <div className="max-h-[400px] overflow-auto">
+            <TableForm
+              tableData={products}
+              setTableData={setProducts}
+              setTotalProducts={setTotalProducts}
+            />
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            <div className="flex items-center gap-x-4">
+              <h2 className="text-sm font-medium text-grisText">Total</h2>
+              <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                <p className="text-end text-sm font-medium text-grisText">
+                  {totalProducts}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="h-full rounded-xl bg-blancoBg p-4">
+          <h2 className="text-md font-poppins font-medium text-[#44444F]">
+            SubProductos
+          </h2>
+          <div className="overflow-container flex-1">
+            <TableForm
+              tableData={subProducts}
+              setTableData={setSubProducts}
+              setTotalProducts={setSubTotalProducts}
+            />
+          </div>
+        </div>
+
+        <div className="h-full rounded-xl bg-blancoBg p-4">
+          <h2 className="text-md font-poppins font-medium text-[#44444F]">
+            Desechos
+          </h2>
+          <div className="overflow-container flex-1">
+            <TableFormWaste
+              tableData={wastes}
+              setTableData={setWastes}
+              setTotalProducts={setTotalWastes}
+            />
+          </div>
         </div>
       </div>
     </div>

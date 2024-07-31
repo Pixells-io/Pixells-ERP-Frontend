@@ -29,8 +29,6 @@ const initialRow = {
   amount: 0,
   unit: "",
   cost: 0,
-  amountTax: 16,
-  tax: "",
   subTotal: 0,
 };
 
@@ -61,7 +59,7 @@ const components = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
+const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
@@ -93,9 +91,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           ? {
               ...item,
               amount: value,
-              tax: (item.cost * item.amountTax * value) / 100,
-              subTotal:
-                item.cost * value + (item.cost * item.amountTax * value) / 100,
+              subTotal: item.cost * value,
             }
           : item,
       ),
@@ -109,10 +105,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           ? {
               ...item,
               cost: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal:
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100,
+              subTotal: value * item.amount,
             }
           : item,
       ),
@@ -131,26 +124,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               unit: data.unit,
               cost: data.cost,
               amount: 1,
-              amountTax: 16,
-              tax: (data.cost * 16) / 100,
-              subTotal: data.cost * 1 + (data.cost * 16) / 100,
-            }
-          : item,
-      ),
-    );
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal:
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100,
+              subTotal: data.cost * 1,
             }
           : item,
       ),
@@ -230,27 +204,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           />
         ),
       },
-      {
-        accessorKey: "amountTax",
-        header: "Impuesto",
-        cell: ({ row, rowIndex }) => (
-          <div className="flex w-[150px] items-center gap-x-2">
-            (IVA
-            {
-              <Input
-                className="w-[36px] border-none p-0"
-                name={`tax-${rowIndex}`}
-                value={row.amountTax}
-                placeholder="tax"
-                type="number"
-                disabled={!row.component}
-                onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-              />
-            }
-            %) {!!row.tax && " - $" + row.tax}
-          </div>
-        ),
-      },
+
       {
         accessorKey: "subTotal",
         header: "Subtotal",
@@ -346,4 +300,4 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   );
 };
 
-export default TableForm;
+export default TableFormWaste;
