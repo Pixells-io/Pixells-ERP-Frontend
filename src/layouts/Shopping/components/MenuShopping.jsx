@@ -6,7 +6,8 @@ import {
 } from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { path: "/shopping", name: "Facturas", subname: "de Venta", icon: bagCheck },
+  { path: "/shopping/", name: "Proveedores", subname: "General", icon: bagCheck },
+
    
 ];
 

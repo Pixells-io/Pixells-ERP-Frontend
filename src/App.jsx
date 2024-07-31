@@ -304,6 +304,7 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
+import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
 
 const router = createBrowserRouter([
   {
@@ -927,6 +928,10 @@ const router = createBrowserRouter([
               {
                 index:true,
                 element: <MainSupplier/>
+              },
+              {
+                path:"/shopping/supplier/new",
+                element: <CreateSupplier/>
               },
               
   
