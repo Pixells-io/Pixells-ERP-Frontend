@@ -75,7 +75,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
       0,
     );
 
-    setTotalProducts(TotalP);
+    setTotalProducts(TotalP.toFixed(2));
   }, [tableData]);
 
   const handleAddRow = (e) => {
@@ -94,8 +94,10 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               ...item,
               amount: value,
               tax: (item.cost * item.amountTax * value) / 100,
-              subTotal:
-                item.cost * value + (item.cost * item.amountTax * value) / 100,
+              subTotal: (
+                item.cost * value +
+                (item.cost * item.amountTax * value) / 100
+              ).toFixed(2),
             }
           : item,
       ),
@@ -110,9 +112,10 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               ...item,
               cost: value,
               tax: (value * item.amountTax * item.amount) / 100,
-              subTotal:
+              subTotal: (
                 value * item.amount +
-                (value * item.amountTax * item.amount) / 100,
+                (value * item.amountTax * item.amount) / 100
+              ).toFixed(2),
             }
           : item,
       ),
@@ -133,7 +136,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               amount: 1,
               amountTax: 16,
               tax: (data.cost * 16) / 100,
-              subTotal: data.cost * 1 + (data.cost * 16) / 100,
+              subTotal: (data.cost * 1 + (data.cost * 16) / 100).toFixed(2),
             }
           : item,
       ),
@@ -148,9 +151,10 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               ...item,
               amountTax: value,
               tax: (item.cost * value * item.amount) / 100,
-              subTotal:
+              subTotal: (
                 item.cost * item.amount +
-                (item.cost * value * item.amount) / 100,
+                (item.cost * value * item.amount) / 100
+              ).toFixed(2),
             }
           : item,
       ),
@@ -221,6 +225,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Costo",
         cell: ({ row, rowIndex }) => (
           <Input
+            type="number"
             className="w-[100px] border-none"
             name={`cost-${rowIndex}`}
             value={row.cost}
@@ -298,7 +303,10 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           </TableHeader>
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
+              <TableRow
+                key={rowIndex}
+                className="text-sm font-normal text-[#44444F]"
+              >
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey}>
                     {column.cell({

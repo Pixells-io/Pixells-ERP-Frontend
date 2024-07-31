@@ -20,6 +20,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
+import StatusInformation from "@/components/StatusInformation/status-information";
 
 function NewFormula() {
   const [products, setProducts] = useState([]);
@@ -197,6 +198,13 @@ function NewFormula() {
               setTotalProducts={setSubTotalProducts}
             />
           </div>
+          <div className="rounded-xl bg-blancoBg mt-6">
+              <textarea
+                placeholder="Observaciones"
+                className=" w-[260px] h-[56px]  resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
+                name="template"
+              ></textarea>
+          </div>
         </div>
 
         <div className="h-full rounded-xl bg-blancoBg p-4">
@@ -211,6 +219,14 @@ function NewFormula() {
             />
           </div>
         </div>
+
+        <StatusInformation
+          status={"inProgress"}
+          applyFunction={(addComments) => alert(addComments)}
+          imgUser={
+            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          }
+        />
       </div>
     </div>
   );

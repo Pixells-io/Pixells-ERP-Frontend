@@ -73,7 +73,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
       0,
     );
 
-    setTotalProducts(TotalP);
+    setTotalProducts(TotalP.toFixed(2));
   }, [tableData]);
 
   const handleAddRow = (e) => {
@@ -91,7 +91,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
           ? {
               ...item,
               amount: value,
-              subTotal: item.cost * value,
+              subTotal: (item.cost * value).toFixed(2),
             }
           : item,
       ),
@@ -105,7 +105,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
           ? {
               ...item,
               cost: value,
-              subTotal: value * item.amount,
+              subTotal: (value * item.amount).toFixed(2),
             }
           : item,
       ),
@@ -124,7 +124,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
               unit: data.unit,
               cost: data.cost,
               amount: 1,
-              subTotal: data.cost * 1,
+              subTotal: (data.cost * 1).toFixed(2),
             }
           : item,
       ),
@@ -195,6 +195,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Costo",
         cell: ({ row, rowIndex }) => (
           <Input
+            type="number"
             className="w-[100px] border-none"
             name={`cost-${rowIndex}`}
             value={row.cost}
@@ -252,7 +253,10 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
           </TableHeader>
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
+              <TableRow
+                key={rowIndex}
+                className="text-sm font-normal text-[#44444F]"
+              >
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey}>
                     {column.cell({
