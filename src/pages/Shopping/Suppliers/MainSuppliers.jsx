@@ -4,16 +4,11 @@ import {
   chevronBack,
   chevronForward,
   informationCircle,
-  addCircleOutline,
-  chatbubbleEllipses,
-  bookmark,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import SupplierForm from "./Components/Forms/SupplierFormModal"; 
+import MenuSuppliers from "./Components/Dropdownmenu";
 
 const MainSupplier = () => {
   const data = [
@@ -129,7 +124,7 @@ const MainSupplier = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Proveedores
           </p>
-         <SupplierForm/>
+          <MenuSuppliers/>
         </div>
         {/*content */}
         <div className="overflow-auto rounded-xl bg-white p-4">

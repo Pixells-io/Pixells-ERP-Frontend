@@ -44,7 +44,7 @@ const Inputs = () => {
     <div className="flex justify-center items-start w-full">
       <div className="w-full max-w-7xl bg-white rounded-xl p-6">
         <div className="flex flex-col md:flex-row justify-stretch space-y-6 md:space-y-0 md:space-x-6">
-          <div className="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 font-roboto">
+          <div className="w-full md:w-75 grid grid-cols-1 md:grid-cols-3 gap-4 font-roboto">
             <Input
               type="text"
               className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
