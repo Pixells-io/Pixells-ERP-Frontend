@@ -299,11 +299,13 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
+import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
 import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/ManufacturingOrder";
+import IntegrationPanel from "./pages/Configurations/Integrations";
 
 const router = createBrowserRouter([
   {
@@ -712,6 +714,10 @@ const router = createBrowserRouter([
             element: <InformationShow />,
             loader: getBusinessInformation,
           },
+          {
+            path: "/configuration/integrations",
+            element: <IntegrationPanel />,
+          },
         ],
       },
       {
@@ -925,6 +931,10 @@ const router = createBrowserRouter([
             index: true,
             element: <MainSupplier />,
           },
+          {
+            path:"/shopping/supplier/create",
+            element: <CreateSupplier/>
+          }
         ],
       },
       //TRANSFORMATIONS

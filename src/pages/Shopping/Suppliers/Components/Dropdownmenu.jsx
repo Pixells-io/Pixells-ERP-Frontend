@@ -28,7 +28,7 @@ const MenuSuppliers = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="rounded-xl">
         <DropdownMenuItem asChild>
-          <Link to="/shopping/supplier/new" className="flex items-center w-full">
+          <Link to="/shopping/supplier/create" className="flex items-center w-full">
             <span>Nuevo proveedor</span>
           </Link>
         </DropdownMenuItem>

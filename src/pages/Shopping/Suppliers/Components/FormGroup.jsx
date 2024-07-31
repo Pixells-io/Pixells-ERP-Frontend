@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GralFormSupplier from "./Forms/GeneralForm";
 import ContactForm from "./Forms/ContactForm";
 import InvoiceForm from "./Forms/InvoiceForm";
+import CreditForm from "./Forms/PaymentForm";
 
 const FormGroup = () => {
   const [generalData, setGeneralData] = useState({
@@ -30,6 +31,13 @@ const FormGroup = () => {
     email: "",
   });
 
+  const [condicionData, setcondicionData] = useState({
+    condiciones: "",
+    interesesPorRetraso: "",
+    diasDeCredito: "",
+    limiteDeCredito: "",
+  });
+
   return (
     <div className="w-full overflow-hidden">
       <Tabs defaultValue="general" className="w-full">
@@ -38,7 +46,7 @@ const FormGroup = () => {
             { value: "general", label: "General" },
             { value: "contact", label: "Contactos" },
             { value: "invoice", label: "Inf. Facturación" },
-            { value: "shopping", label: "Compras" },
+            { value: "payment", label: "Condiciones Pago" },
           ].map(({ value, label }) => (
             <TabsTrigger
               key={value}
@@ -52,7 +60,7 @@ const FormGroup = () => {
         <div className="w-full rounded-[10px] bg-white p-4">
           <TabsContent value="general">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-              General
+              GENERAL
             </h2>
             <div className="flex flex-wrap pl-2">
               <GralFormSupplier
@@ -63,7 +71,7 @@ const FormGroup = () => {
           </TabsContent>
           <TabsContent value="contact">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-              Contactos
+              CONTACTOS
             </h2>
             <div className="flex flex-wrap pl-2">
               <ContactForm />
@@ -80,11 +88,15 @@ const FormGroup = () => {
               />
             </div>
           </TabsContent>
-          <TabsContent value="shopping">
+          <TabsContent value="payment">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-              Compras
+              CONDICIONES DE PAGO
             </h2>
-            <div className="flex flex-wrap pl-2"></div>
+            <div className="flex flex-wrap pl-2">
+              <CreditForm
+              condicionData={condicionData} setcondicionData={setcondicionData}
+              />
+            </div>
           </TabsContent>
         </div>
       </Tabs>
