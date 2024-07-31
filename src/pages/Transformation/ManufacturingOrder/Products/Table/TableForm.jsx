@@ -14,6 +14,7 @@ import {
   chevronBack,
   chevronForward,
   closeCircle,
+  statsChart,
 } from "ionicons/icons";
 import {
   Select,
@@ -28,10 +29,8 @@ const initialRow = {
   component: "",
   amount: 0,
   unit: "",
-  cost: 0,
-  amountTax: 16,
-  tax: "",
-  subTotal: 0,
+  const: 0,
+  consume: 0,
 };
 
 const components = [
@@ -65,18 +64,9 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
-  // const [tableData, setTableData] = useState([initialRow]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  useEffect(() => {
-    const TotalP = tableData.reduce(
-      (sum, row) => sum + (parseFloat(row.subTotal) || 0),
-      0,
-    );
-
-    setTotalProducts(TotalP.toFixed(2));
-  }, [tableData]);
 
   const handleAddRow = (e) => {
     e.preventDefault();
@@ -86,6 +76,15 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
     ]);
   };
 
+  useEffect(() => {
+    const TotalP = tableData.reduce(
+      (sum, row) => sum + (parseFloat(row.consume) || 0),
+      0,
+    );
+
+    setTotalProducts(TotalP.toFixed(2));
+  }, [tableData]);
+
   const handleInputChange = useCallback((rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
@@ -93,29 +92,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           ? {
               ...item,
               amount: value,
-              tax: (item.cost * item.amountTax * value) / 100,
-              subTotal: (
-                item.cost * value +
-                (item.cost * item.amountTax * value) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  }, []);
-
-  const handleCostChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              cost: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal: (
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100
-              ).toFixed(2),
+              consume: (item.cost * value).toFixed(2),
             }
           : item,
       ),
@@ -133,27 +110,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               unit: data.unit,
               cost: data.cost,
               amount: 1,
-              amountTax: 16,
-              tax: (data.cost * 16) / 100,
-              subTotal: (data.cost * 1 + (data.cost * 16) / 100).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal: (
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100
-              ).toFixed(2),
+              consume: (data.cost * 1).toFixed(2),
             }
           : item,
       ),
@@ -179,23 +136,25 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "component",
         header: "Componente",
         cell: ({ row, rowIndex }) => (
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px]"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row.component}
-          >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="w-[100px]">
+            <Select
+              name={"selectComponent-" + rowIndex}
+              className="h-10"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row.component}
+            >
+              <SelectTrigger className="w-[220px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectValue placeholder="Selecciona el componente" />
+              </SelectTrigger>
+              <SelectContent>
+                {components.map((component, index) => (
+                  <SelectItem key={"component-" + index} value={component}>
+                    {component.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         ),
       },
       {
@@ -221,47 +180,23 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         ),
       },
       {
-        accessorKey: "cost",
-        header: "Costo",
+        accessorKey: "consume",
+        header: "A consumir ",
         cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className="w-[100px] border-none"
-            name={`cost-${rowIndex}`}
-            value={row.cost}
-            placeholder="ingrese"
-            disabled={!row.component}
-            onChange={(e) => handleCostChange(rowIndex, e.target.value)}
-          />
-        ),
-      },
-      {
-        accessorKey: "amountTax",
-        header: "Impuesto",
-        cell: ({ row, rowIndex }) => (
-          <div className="flex w-[150px] items-center gap-x-2">
-            (IVA
-            {
-              <Input
-                className="w-[36px] border-none p-0"
-                name={`tax-${rowIndex}`}
-                value={row.amountTax}
-                placeholder="tax"
-                type="number"
-                disabled={!row.component}
-                onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-              />
-            }
-            %) {!!row.tax && " - $" + row.tax}
-          </div>
-        ),
-      },
-      {
-        accessorKey: "subTotal",
-        header: "Subtotal",
-        cell: ({ row, rowIndex }) => (
-          <div className="flex w-[100px] justify-between">
-            {row.subTotal}
+          <div className="flex items-center justify-between">
+            <div className="flex w-[100px] items-center gap-x-4">
+              {row.consume}
+              <div className="w-full">
+                <IonIcon
+                  icon={statsChart}
+                  className={`h-[30px] w-[30px] ${
+                    row.consume >= 0 || row.consume == null
+                      ? "text-[#00A259]"
+                      : "text-[#D7586B]"
+                  } `}
+                ></IonIcon>
+              </div>
+            </div>
             <button onClick={() => deleteRowId(row.id)}>
               <IonIcon
                 icon={closeCircle}
