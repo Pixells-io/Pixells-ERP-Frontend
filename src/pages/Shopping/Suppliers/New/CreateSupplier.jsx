@@ -1,12 +1,10 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-} from "ionicons/icons";
+import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const CreateSupplier = () => {
   return (
@@ -30,10 +28,12 @@ const CreateSupplier = () => {
               ></IonIcon>
             </div>
           </div>
+          
           <div className="font-roboto text-sm text-grisText">
             <div>Shopping - General</div>
           </div>
         </div>
+        
         {/* top content */}
 
         <div className="flex items-center gap-4">
@@ -50,7 +50,24 @@ const CreateSupplier = () => {
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Proveedor
+            
           </p>
+          <div className="flex items-end justify-end">
+            <Link to="/shopping">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={closeCircle}
+                size="large"
+                className="bg-trasparent p-1 text-gris2"
+                aria-hidden="true"
+              />
+            </Button>
+          </Link>
+            </div>
         </div>
         {/*content */}
         <div className="overflow-auto w-full space-y-4">

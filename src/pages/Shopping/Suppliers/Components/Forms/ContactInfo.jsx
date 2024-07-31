@@ -1,15 +1,15 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const ContactInfoForm = ({ contactData, setContactData }) => {
   const handleInputChange = (e) => {
     setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
 
-  const handleCheckboxChange = (e) => {
-    setContactData({ ...contactData, [e.target.name]: e.target.checked });
+  const handleCheckboxChange = (checked) => {
+    setContactData({ ...contactData, princ: checked });
   };
 
   const inputClass =
@@ -17,21 +17,18 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <div className="space-y-2">
-        <Label htmlFor="nombre">Nombre</Label>
-        <Input
-          id="nombre"
+      <div className="flex items-center justify-between mb-4">
+      <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="nombre">Nombre</Label>
+        <InputRouter
           name="nombre"
-          className={inputClass}
           value={contactData.nombre}
           onChange={handleInputChange}
           placeholder="Ingresa"
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="apellidop">A. Paterno</Label>
-        <Input
-          id="apellidop"
+      <div className="flex items-center justify-between mb-4">
+          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidop">A. Paterno</Label>
+        <InputRouter
           name="apellidop"
           className={inputClass}
           value={contactData.apellidop}
@@ -39,62 +36,54 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="apellidom">A. Materno</Label>
-        <Input
-          id="apellidom"
+      <div className="flex items-center justify-between mb-4">
+          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidom">A. Materno</Label>
+        <InputRouter
           name="apellidom"
-          className={inputClass}
           value={contactData.apellidom}
           onChange={handleInputChange}
           placeholder="Ingresa"
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="email">E-mail</Label>
-        <Input
-          id="email"
+      <div className="flex items-center justify-between mb-4">
+          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="email">E-mail</Label>
+        <InputRouter
           name="email"
           type="email"
-          className={inputClass}
           value={contactData.email}
           onChange={handleInputChange}
           placeholder="Ingresa"
         />
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="tel">Teléfono</Label>
-        <Input
-          id="tel"
+      <div className="flex items-center justify-between mb-4">
+      <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="tel">Teléfono</Label>
+        <InputRouter
           name="tel"
           type="tel"
-          className={inputClass}
           value={contactData.tel}
           onChange={handleInputChange}
           placeholder="Ingresa"
         />
       </div>
-      <div className="justify-start space-y-2">
-        <Label htmlFor="position">Posición</Label>
-        <Input
-          id="position"
+      <div className="flex items-center justify-between mb-4">
+          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="position">Posición</Label>
+        <InputRouter
           name="position"
-          className={inputClass}
           value={contactData.position}
           onChange={handleInputChange}
           placeholder="Ingresa"
         />
       </div>
       <div className="col-span-3 flex items-start space-x-2">
-      <Label htmlFor="princ">Principal</Label>
         <Checkbox
           id="princ"
-          name="princ"
-          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           checked={contactData.princ}
           onCheckedChange={handleCheckboxChange}
+          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
-       
+        <Label className="font-roboto text-sm text-grisText" htmlFor="princ">
+          Principal
+        </Label>
       </div>
     </div>
   );
