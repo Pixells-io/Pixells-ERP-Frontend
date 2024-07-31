@@ -15,8 +15,46 @@ import NavigationHeader from "@/components/navigation-header";
 
 function MainTickets() {
   const [modal, setModal] = useState(false);
-  const { areas, users, myTickets, assignedTickets, processTickets } =
-    useLoaderData();
+  const {
+    areas,
+    users,
+    myTickets,
+    assignedTickets,
+    processTickets,
+    permissions,
+  } = useLoaderData();
+
+  //PERMISSIONS
+  const [edit, setEdit] = useState(true); //2
+  const [create, setCreate] = useState(true); //3
+  const [destroy, setDestroy] = useState(true); //4
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEdit(false);
+    }
+
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+
+    const destroyQuery = permissions.data.filter(
+      (item) => item.permision_capability == "4",
+    );
+
+    if (destroyQuery.length == 0) {
+      setDestroy(false);
+    }
+  });
 
   const areasOptions = [];
   const usersOptions = [];
@@ -79,12 +117,16 @@ function MainTickets() {
           </div>
         </div>
         <div>
-          <IonIcon
-            icon={addCircleOutline}
-            size="large"
-            className="text-blue-500"
-            onClick={() => setModal(true)}
-          ></IonIcon>
+          {create == true ? (
+            <IonIcon
+              icon={addCircleOutline}
+              size="large"
+              className="text-blue-500"
+              onClick={() => setModal(true)}
+            ></IonIcon>
+          ) : (
+            false
+          )}
         </div>
 
         {/*component accion*/}
@@ -116,13 +158,25 @@ function MainTickets() {
                 </div>
               </TabsList>
               <TabsContent value="users" className="">
-                <TicketsTable tickets={myTickets.data} />
+                <TicketsTable
+                  tickets={myTickets.data}
+                  edit={edit}
+                  destroy={destroy}
+                />
               </TabsContent>
               <TabsContent value="positions">
-                <TicketsTable tickets={assignedTickets.data} />
+                <TicketsTable
+                  tickets={assignedTickets.data}
+                  edit={edit}
+                  destroy={destroy}
+                />
               </TabsContent>
               <TabsContent value="areas">
-                <TicketsTable tickets={processTickets.data} />
+                <TicketsTable
+                  tickets={processTickets.data}
+                  edit={edit}
+                  destroy={destroy}
+                />
               </TabsContent>
             </Tabs>
           </div>

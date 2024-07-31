@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLoaderData, redirect, NavLink } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
@@ -19,7 +19,21 @@ import { saveNewObjective } from "./utils";
 
 function SideLayoutPManager() {
   const [open, setOpen] = useState(false);
-  const { objectives, areas } = useLoaderData();
+  const { objectives, areas, permissions } = useLoaderData();
+
+  //PERMISSIONS
+  const [create, setCreate] = useState(true); //3
+
+  //CHANGE PERMISSIONS
+  useEffect(() => {
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -41,12 +55,16 @@ function SideLayoutPManager() {
               open={open}
               setOpen={setOpen}
             />
-            <button type="button" onClick={() => setOpen(!open)}>
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-6 w-6 text-primarioBotones"
-              />
-            </button>
+            {create == true ? (
+              <button type="button" onClick={() => setOpen(!open)}>
+                <IonIcon
+                  icon={addCircleOutline}
+                  className="h-6 w-6 text-primarioBotones"
+                />
+              </button>
+            ) : (
+              false
+            )}
           </div>
 
           {/*menu top */}

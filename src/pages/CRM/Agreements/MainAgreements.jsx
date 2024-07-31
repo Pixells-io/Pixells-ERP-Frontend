@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { addCircleOutline, chevronBack, chevronForward } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
@@ -9,9 +9,30 @@ import AgreementsConsoleContracts from "./components/AgreementsConsoleContracts"
 import NavigationHeader from "@/components/navigation-header";
 
 function MainAgreements() {
-  const { services, customers, contracts } = useLoaderData();
+  const { services, customers, contracts, permissions } = useLoaderData();
   const data = services.data;
   const contracts_data = contracts.data;
+
+  const [edit, setEdit] = useState(true); //2
+  const [create, setCreate] = useState(true); //3
+
+  useEffect(() => {
+    const editQuery = permissions.data.filter(
+      (item) => item.permision_capability == "2",
+    );
+
+    if (editQuery.length == 0) {
+      setEdit(false);
+    }
+
+    const createQuery = permissions.data.filter(
+      (item) => item.permision_capability == "3",
+    );
+
+    if (createQuery.length == 0) {
+      setCreate(false);
+    }
+  });
 
   return (
     <div className="flex w-full overflow-auto">
@@ -33,7 +54,10 @@ function MainAgreements() {
           </div>
         </div>
 
-        <Tabs defaultValue="template" className="flex h-full w-full flex-col overflow-auto">
+        <Tabs
+          defaultValue="template"
+          className="flex h-full w-full flex-col overflow-auto"
+        >
           <div className="flex w-full items-center gap-3">
             <TabsList className="gap-3 bg-transparent">
               <TabsTrigger
@@ -49,16 +73,28 @@ function MainAgreements() {
                 <p className="text-[10px] font-semibold">Contracts</p>
               </TabsTrigger>
             </TabsList>
-            <Link to={"/crm/agreements/create"}>
-              <IonIcon
-                icon={addCircleOutline}
-                size="large"
-                className="text-primarioBotones"
-              ></IonIcon>
-            </Link>
+            {create == true ? (
+              <Link to={"/crm/agreements/create"}>
+                <IonIcon
+                  icon={addCircleOutline}
+                  size="large"
+                  className="text-primarioBotones"
+                ></IonIcon>
+              </Link>
+            ) : (
+              false
+            )}
           </div>
-          <TabsContent value={"template"} className="h-full w-full overflow-auto">
-            <AgreementsConsole services={data} customers={customers.data} />
+          <TabsContent
+            value={"template"}
+            className="h-full w-full overflow-auto"
+          >
+            <AgreementsConsole
+              services={data}
+              customers={customers.data}
+              edit={edit}
+              create={create}
+            />
           </TabsContent>
           <TabsContent value={"contracts"} className="h-full w-full">
             <AgreementsConsoleContracts info={contracts_data} />

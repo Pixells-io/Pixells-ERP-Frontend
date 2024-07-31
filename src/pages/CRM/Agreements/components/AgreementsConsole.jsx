@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import FormCreateContract from "./FormCreateContract";
 
-function AgreementsConsole({ services, customers }) {
+function AgreementsConsole({ services, customers, edit, create }) {
   const TABS = [];
   tabsFill(services, TABS);
   const [modal, setModal] = useState(false);
@@ -47,7 +47,7 @@ function AgreementsConsole({ services, customers }) {
           <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
             Templates
           </p>
-          <div className="flex h-full flex-col gap-2 border-r pr-2 overflow-auto">
+          <div className="flex h-full flex-col gap-2 overflow-auto border-r pr-2">
             {TABS?.map((tab, i) => (
               <TabsTrigger
                 key={tab.id}
@@ -94,16 +94,26 @@ function AgreementsConsole({ services, customers }) {
                       ></IonIcon>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem>
-                        <Link to={`/crm/agreements/edit/${agreement.id}`}>
-                          Edit
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <button onClick={() => openModalFunction(agreement.id)}>
-                          Create
-                        </button>
-                      </DropdownMenuItem>
+                      {edit == true ? (
+                        <DropdownMenuItem>
+                          <Link to={`/crm/agreements/edit/${agreement.id}`}>
+                            Edit
+                          </Link>
+                        </DropdownMenuItem>
+                      ) : (
+                        false
+                      )}
+                      {create == true ? (
+                        <DropdownMenuItem>
+                          <button
+                            onClick={() => openModalFunction(agreement.id)}
+                          >
+                            Create
+                          </button>
+                        </DropdownMenuItem>
+                      ) : (
+                        false
+                      )}
                     </DropdownMenuContent>
                   </DropdownMenu>
                   <div className="h-full bg-blancoBg"></div>
