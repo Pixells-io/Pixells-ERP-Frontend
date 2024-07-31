@@ -87,6 +87,12 @@ const MENU = [
     name: "Ticket",
     icon: ticket,
   },
+  // {
+  //   id: "8",
+  //   path: "/sopasperiflais",
+  //   name: "Pericao",
+  //   icon: ticket,
+  // },
   /*{
     path: "/configuration",
     name: "Config",
@@ -100,6 +106,7 @@ function MainLayout() {
   const location = useLocation();
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData, permissions } = useLoaderData();
+  const [moduleShow, setModuleShow] = useState(MENU);
 
   const userData = userAuth.data.user;
 
@@ -122,11 +129,14 @@ function MainLayout() {
     return navigate("/login");
   }
 
-  console.log(permissions);
+  useEffect(() => {
+    const modulos = permissions.data.map((module) =>
+      MENU.filter((item) => item.id == module.module_id),
+    );
+    setModuleShow(modulos);
+  }, []);
 
-  function checkPermission(module) {
-    //Filter the permission
-  }
+  console.log(moduleShow);
 
   return (
     <div className="flex h-screen min-h-0 flex-col">
