@@ -65,6 +65,25 @@ export async function editArea(data) {
   return response;
 }
 
+export async function destroyArea(data) {
+  const area = {
+    area_id: data.get("area_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization/destroy-area`,
+    {
+      method: "POST",
+      body: JSON.stringify(area),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function saveNewPosition(data) {
   const position = {
     area_id: data.get("area_id"),

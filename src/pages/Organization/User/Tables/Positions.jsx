@@ -24,6 +24,8 @@ function PositionsTable({ positions }) {
   const [initialData, setInitialData] = useState(positions);
   const [data, setDataPusher] = useState(initialData);
 
+  console.log(positions);
+
   useEffect(() => {
     pusherClient.subscribe(`private-get-puestos`);
 

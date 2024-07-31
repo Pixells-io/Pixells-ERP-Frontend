@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
+
 import {
   Dialog,
   DialogContent,
@@ -7,11 +8,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
 import { IonIcon } from "@ionic/react";
 import { add, closeCircle, create } from "ionicons/icons";
+
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import { Button } from "@/components/ui/button";
-import { Form } from "react-router-dom";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const DAYS = [
   { label: "Monday", value: "Monday" },
@@ -24,7 +27,22 @@ const DAYS = [
 ];
 
 function ModalShowArea({ modal, setModal, area }) {
+  const [processInputs, setProcessInputs] = useState(area.process);
+  const navigation = useNavigation();
   const [disabled, setDisabled] = useState(true);
+
+  console.log(area.process);
+
+  useEffect(() => {
+    setProcessInputs(area.process);
+  }, [area]);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+      setDisabled(true);
+    }
+  }, [navigation.state]);
 
   const selectedDays = [];
 
@@ -40,7 +58,24 @@ function ModalShowArea({ modal, setModal, area }) {
   }
 
   function removeProcessField(index) {
-    removeChild(`#process` + index);
+    const newFields = processInputs.filter((item, i) => index !== i);
+    setProcessInputs(newFields);
+  }
+
+  function addProcessField() {
+    const processInput = {
+      process: "",
+    };
+
+    setProcessInputs([...processInputs, processInput]);
+  }
+
+  function editProcessInput(e, index) {
+    const newFields = processInputs.map((inputs, i) =>
+      i === index ? { process: e.target.value } : inputs,
+    );
+    console.log(newFields);
+    setProcessInputs(newFields);
   }
 
   return (
@@ -59,16 +94,21 @@ function ModalShowArea({ modal, setModal, area }) {
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <div className="flex gap-3">
+              <div className="flex justify-between gap-3">
                 <input type="hidden" name="type" value={2} />
                 <input type="hidden" name="area_id" value={area.area?.id} />
-                <InputRouter
-                  name="nombre"
-                  type="text"
-                  placeholder="Name of the area"
-                  defaultVal={area.area?.nombre}
-                  disabled={disabled}
-                />
+                <div className="flex flex-col gap-1">
+                  <p className="font-poppins text-[12px] font-semibold text-grisHeading">
+                    Nombre
+                  </p>
+                  <InputRouter
+                    name="nombre"
+                    type="text"
+                    placeholder="Name of the area"
+                    defaultVal={area.area?.nombre}
+                    disabled={disabled}
+                  />
+                </div>
                 <Button
                   className="w-16"
                   variant="ghost"
@@ -82,42 +122,76 @@ function ModalShowArea({ modal, setModal, area }) {
                   ></IonIcon>
                 </Button>
               </div>
-              <InputRouter
-                name="descripcion"
-                type="text"
-                placeholder="Description of the area"
-                defaultVal={area.area?.descripcion}
-                disabled={disabled}
-              />
-              {area.process?.map((item, i) => (
-                <div key={i} className="flex gap-4" id={`process` + i}>
-                  <InputRouter
-                    name="proceso"
-                    type="text"
-                    placeholder="Process"
-                    defaultVal={item.process}
-                    disabled={disabled}
-                  />
+              <div className="flex flex-col gap-1">
+                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
+                  Descripcion
+                </p>
+                <InputRouter
+                  name="descripcion"
+                  type="text"
+                  placeholder="Description of the area"
+                  defaultVal={area.area?.descripcion}
+                  disabled={disabled}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
+                  Proceso
+                </p>
+                {processInputs?.map((item, i) => (
+                  <div key={i} className="flex gap-4" id={`process` + i}>
+                    <InputRouter
+                      name="proceso"
+                      type="text"
+                      placeholder="Process"
+                      value={processInputs[i].process}
+                      disabled={disabled}
+                      onChange={(e) => editProcessInput(e, i)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeProcessField(i)}
+                      className="flex items-center"
+                    >
+                      <IonIcon
+                        icon={closeCircle}
+                        className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                      ></IonIcon>
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex self-center">
+                {processInputs?.length <= 4 ? (
                   <button
+                    className="flex h-6 w-6 items-center rounded-full bg-primario"
+                    onClick={() => addProcessField()}
                     type="button"
-                    onClick={() => removeProcessField(i)}
-                    className="flex items-center"
                   >
                     <IonIcon
-                      icon={closeCircle}
-                      className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                      icon={add}
+                      size="large"
+                      className="text-white"
                     ></IonIcon>
                   </button>
-                </div>
-              ))}
-              <Select
-                name="tipo_horario"
-                placeholder={"Working Days"}
-                options={DAYS}
-                isMulti={true}
-                disabled={disabled}
-                defaultValue={selectedDays}
-              />
+                ) : (
+                  <div className="w-6"></div>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
+                  Horario
+                </p>
+                <SelectRouter
+                  name="tipo_horario"
+                  placeholder="Working Days"
+                  options={DAYS}
+                  isMulti={true}
+                  disabled={disabled}
+                  defaultVal={selectedDays}
+                />
+              </div>
               <InputRouter
                 name="inicio"
                 type="time"
@@ -134,19 +208,19 @@ function ModalShowArea({ modal, setModal, area }) {
               />
             </div>
           </div>
+          {disabled === true ? (
+            ""
+          ) : (
+            <DialogFooter className="px-10 pb-6">
+              <Button
+                className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting" ? "Submitting..." : "Save"}
+              </Button>
+            </DialogFooter>
+          )}
         </Form>
-        {disabled === true ? (
-          ""
-        ) : (
-          <DialogFooter className="px-10 pb-6">
-            <Button
-              form="area-edit-form"
-              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
-            >
-              Save
-            </Button>
-          </DialogFooter>
-        )}
       </DialogContent>
     </Dialog>
   );
