@@ -23,6 +23,7 @@ import MenssageCard from "./Components/Mensagge";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle, closeCircle } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
+import { Textarea } from "@/components/ui/textarea";
 
 function MainChat() {
   const location = useLocation();
@@ -185,10 +186,10 @@ function MainChat() {
               <input type="hidden" name="message_id" value={reply.msg_id} />
               <input type="hidden" value={4} name="type_of_function" />
               <div className="w-11/12 px-5">
-                <input
+                <Textarea
                   name="message"
                   type="text"
-                  className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
+                  className="w-full resize-none rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
                   placeholder="Type your message..."
                   value={mssg}
                   onChange={(e) => setMssg(e.target.value)}
@@ -234,10 +235,10 @@ function MainChat() {
             <input type="hidden" value={id} name="chat_id" />
             <input type="hidden" value={1} name="type_of_function" />
             <div className="w-11/12 px-5">
-              <input
+              <Textarea
                 name="message"
                 type="text"
-                className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
+                className="w-full resize-none rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0 focus-visible:ring-primarioBotones"
                 placeholder="Type your message..."
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
