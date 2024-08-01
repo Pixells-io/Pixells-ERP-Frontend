@@ -26,7 +26,11 @@ function MediaLinks({ links }) {
                 className="flex w-fit flex-col gap-2 rounded-lg border p-2 hover:bg-[#D9D9D9]"
               >
                 <p>{mensaje.user}</p>
-                <Link to={word} target="_blank" className="flex text-primario">
+                <Link
+                  to={word.includes("http") ? word : "https://" + word}
+                  target="_blank"
+                  className="flex text-primario"
+                >
                   {word}
                 </Link>
               </div>

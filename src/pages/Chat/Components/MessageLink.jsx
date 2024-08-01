@@ -21,7 +21,12 @@ function MessageLink({ string }) {
     <div className="flex flex-wrap">
       {wordsArray.map((word, i) =>
         isValidURL(word) ? (
-          <Link key={i} to={word} target="_blank" className="text-primario">
+          <Link
+            key={i}
+            to={word.includes("http") ? word : "https://" + word}
+            target="_blank"
+            className="text-primario"
+          >
             {word}&nbsp;
           </Link>
         ) : (

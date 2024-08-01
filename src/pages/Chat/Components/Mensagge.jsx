@@ -70,7 +70,7 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                 </span>
                 <br />
                 <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
-                  {msg.reply_message?.mnsj}
+                  <MessageLink string={msg.reply_message?.mnsj} />
                 </span>
               </div>
             ) : null}
@@ -141,7 +141,7 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                   </span>
                   <br />
                   <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
-                    {msg.reply_message?.mnsj}
+                    <MessageLink string={msg.reply_message?.mnsj} />
                   </span>
                 </div>
               ) : null}
