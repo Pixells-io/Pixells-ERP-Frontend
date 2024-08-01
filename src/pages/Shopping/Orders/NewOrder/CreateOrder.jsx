@@ -8,82 +8,72 @@ import {
   create,
 } from "ionicons/icons";
 import CardCarousel from "./Components/CardCarousel";
-import { Button } from "@/components/ui/button";
-
-/**
- * 
- * @returns 
-          {
-            path:"/shopping/purchase/",
-            element: <MainPurchase/>
-          },
-          {
-            path:"/shopping/purchase/create",
-            element: <CreateOrder/>
-          }
- */
+import InputsGroup from "./Components/ElementGroup";
+import OrderTable from "./Components/OrderFom";
+import Total from "@/components/TotalSection/TotalSection";
+import StatusInformation from "@/components/StatusInformation/status-information";
+import DocumentFormat from "@/components/Document/DocFormat";
+import { getDocumentInfo,getDocumentItems } from "./utils";
+import { DocumentButtons } from "./Components/DocumentButton";
 
 const CreateOrder = () => {
-  const [DocumentType, setDocumentType] = useState("cotizacion"); 
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [selectedWarehouse, setSelectedWarehouse] = useState("");
+  const [selectedCostCenter, setSelectedCostCenter] = useState("");
+  const [subtotal, setSubtotal] = useState(0);
+  const [documentType, setDocumentType] = useState("orden");
 
-  const Convert2Ticket = () => {
-    setDocumentType("ticket");
-  };
+  const documentInfo = getDocumentInfo();
+  const items = getDocumentItems();
 
-  const Convert2Invoice = () => {
-    setDocumentType("factura");
-  };
-
-  const Convert2Quote = () => {
-    setDocumentType("cotizacion");
-  };
-
-  const ChangesDocument = () => {
-    const buttonBaseClass = "rounded-full border-none bg-blancoBox p-2 text-grisText hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 transition-all duration-300";
-  
-    switch (DocumentType) {
-      case "cotizacion":
+  const renderMainContent = () => {
+    switch (documentType) {
+      case "orden":
         return (
-          <>
-            <Button
-              onClick={Convert2Ticket}
-              className={`mr-2 ${buttonBaseClass}`}
-            >
-              Convertir a Ticket
-            </Button>
-            <Button
-              onClick={Convert2Invoice}
-              className={buttonBaseClass}
-            >
-              Convertir a Factura
-            </Button>
-          </>
+          <div className="space-y-3 overflow-auto">
+            <div className="flex h-full flex-col space-y-6">
+              <InputsGroup
+                documentNumber={documentNumber}
+                setDocumentNumber={setDocumentNumber}
+                selectedWarehouse={selectedWarehouse}
+                setSelectedWarehouse={setSelectedWarehouse}
+                selectedCostCenter={selectedCostCenter}
+                setSelectedCostCenter={setSelectedCostCenter}
+              />
+              <OrderTable setSubtotal={setSubtotal} />
+              <Total subtotal={subtotal} />
+              <div className="flex justify-end">
+                <StatusInformation
+                  status={"inProgress"}
+                  applyFunction={(addComments) => alert(addComments)}
+                  imgUser={
+                    "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  }
+                />
+              </div>
+            </div>
+          </div>
         );
-      case "ticket":
-      case "factura":
+      case "cotizacion":
+      case "pedido":
         return (
-          <Button
-            onClick={Convert2Quote}
-            className={buttonBaseClass}
-          >
-            Volver a Cotización
-          </Button>
+          <div className="space-y-3 overflow-auto">
+            <DocumentFormat
+              documentType={documentType}
+              documentInfo={documentInfo}
+              items={items}
+            />
+          </div>
         );
       default:
         return null;
     }
   };
-  
-  const [status, setStatus] = useState("draft");
-  const [subtotal, setSubtotal] = useState(0.0);
-  const [changes, setChages] = useState(0);
-
-
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
+        {/* Navigation icons */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
             <div className="h-12 w-12">
@@ -91,21 +81,24 @@ const CreateOrder = () => {
                 icon={chevronBack}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+                aria-label="Back"
+              />
             </div>
             <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+                aria-label="Forward"
+              />
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
             <div>Invoice - General</div>
           </div>
         </div>
-        {/* top content */}
+
+        {/* Header */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             COMPRAS
@@ -117,49 +110,57 @@ const CreateOrder = () => {
           </div>
         </div>
 
+        {/* Title */}
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Orden de Compra
+            {documentType === "orden"
+              ? "Nueva Orden de Compra"
+              : documentType === "cotizacion"
+              ? "Nueva Cotización"
+              : "Nuevo Pedido"}
           </p>
-          
         </div>
-        <div className="flex items-center justify-between gap-4  pl-4 pt-4">
-            <div className="flex gap-2">{ChangesDocument()}</div>
-            <div className="flex items-center gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={print}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={create}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <CardCarousel />
+
+        {/* Actions */}
+        <div className="flex items-center justify-between gap-4 pl-4 pt-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <DocumentButtons
+              className="rounded-lg bg-gris2 border-none"
+                documentType={documentType}
+                setDocumentType={setDocumentType}
+              />
             </div>
-          </div>
-        {/* content */}
-        <div className="space-y-3 overflow-auto">
-          <div className="flex h-full flex-col space-y-6">
-          
-              
-            <div className="flex justify-end">
-              
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={copy}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+                aria-label="Copy"
+              />
             </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={print}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+                aria-label="Print"
+              />
+            </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={create}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+                aria-label="Create"
+              />
+            </div>
+            <CardCarousel />
           </div>
         </div>
+
+        {/* Main content */}
+        {renderMainContent()}
       </div>
     </div>
   );
