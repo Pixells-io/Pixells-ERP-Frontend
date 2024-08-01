@@ -300,6 +300,10 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
+
+
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
@@ -934,6 +938,17 @@ const router = createBrowserRouter([
           {
             path:"/shopping/supplier/create",
             element: <CreateSupplier/>
+          },
+          {
+            path:"/shopping/purchase/",
+            element: <MainPurchase/>
+          },
+          {
+            path:"/shopping/purchase/create",
+            element: <CreateOrder/>
+          },
+          {
+            path: "/shopping/purchase/document"
           }
         ],
       },

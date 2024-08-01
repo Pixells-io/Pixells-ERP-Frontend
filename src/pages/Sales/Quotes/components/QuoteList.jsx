@@ -1,4 +1,3 @@
-//  const [documentNumber,setDocumentNumber]=useState(1);
 import React, { useState, useCallback } from "react";
 import SelectField from "./ui/select";
 import InputField from "./ui/Input";
