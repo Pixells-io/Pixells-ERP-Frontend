@@ -21,6 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Products from "./Products/Product";
+import OperationProcess from "./OperationProcess/OperationProcess";
 
 function ManufacturingOrder() {
   return (
@@ -193,7 +194,7 @@ function ManufacturingOrder() {
             <Products />
           </TabsContent>
           <TabsContent className="p-2" value="operationProcess">
-            
+            <OperationProcess />
           </TabsContent>
         </Tabs>
       </div>
