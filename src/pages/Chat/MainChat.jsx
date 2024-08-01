@@ -242,7 +242,6 @@ function MainChat() {
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
                 ref={inputFocusRef}
-                fieldSizing="normal"
               />
             </div>
             <div className="m-auto mt-2 flex w-1/12">
