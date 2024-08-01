@@ -56,10 +56,7 @@ function MainChat() {
       getMensajes(chat);
     });
 
-    channel.bind(`client-typing-user`, (userInfo) => {
-      console.log(userInfo);
-      console.log("Holi");
-    });
+    channel.bind(`client-typing-user`, (userInfo) => {});
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
@@ -68,7 +65,6 @@ function MainChat() {
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${urlId}`);
-      // console.log("unsubscribe");
     };
   }, [location, urlId]);
 
@@ -76,14 +72,12 @@ function MainChat() {
     async function getMensajes() {
       let newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // console.log("CORRIO EFFECT ID", id);
     }
 
     getMensajes();
   }, [id]);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setMssg("");
@@ -91,7 +85,6 @@ function MainChat() {
   }
 
   function onInputEnter2(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setMssg("");

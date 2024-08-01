@@ -7,22 +7,25 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
 import MediaInformations from "./MediaInformations";
+import MediaLinks from "./MediaLinks";
 
 function UserMediaLibrary({ participant }) {
+  const navigate = useNavigate();
   const { data } = useLoaderData();
+
   const [images, setImages] = useState(
     data.documents.filter((document) => {
       let extension = document.document.split(".");
       return ["jpg", "jpeg", "png"].includes(extension.pop());
     }),
   );
+
   const [documents, setDocuments] = useState(
     data.documents.filter((document) => {
       let extension = document.document.split(".");
       return ["pdf", "csv", "xls", "docx", "txt"].includes(extension.pop());
     }),
   );
-  const navigate = useNavigate();
 
   return (
     <div className="flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
@@ -69,12 +72,12 @@ function UserMediaLibrary({ participant }) {
           >
             Documents
           </TabsTrigger>
-          {/* <TabsTrigger
+          <TabsTrigger
             value="links"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
             Links
-          </TabsTrigger> */}
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="information">
           <MediaInformations data={data} />
@@ -85,9 +88,9 @@ function UserMediaLibrary({ participant }) {
         <TabsContent value="documents">
           <MediaDocuments documents={documents} />
         </TabsContent>
-        {/* <TabsContent value="links">
-
-        </TabsContent> */}
+        <TabsContent value="links">
+          <MediaLinks links={data.msg} />
+        </TabsContent>
       </Tabs>
     </div>
   );
