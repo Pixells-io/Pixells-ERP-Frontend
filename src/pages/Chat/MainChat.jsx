@@ -41,12 +41,18 @@ function MainChat() {
   const [reply, setReply] = useState("");
   const [modalReplay, setModalReplay] = useState(false);
 
+  const inputFocusRef = useRef(null);
+
   const userInfo = [
     {
       id: user.data.user.id,
       name: user.data.user.name + " " + user.data.user.last_name,
     },
   ];
+
+  useEffect(() => {
+    inputFocusRef.current.focus();
+  }, []);
 
   useEffect(() => {
     setUrlId(id);
@@ -186,6 +192,7 @@ function MainChat() {
                   placeholder="Type your message..."
                   value={mssg}
                   onChange={(e) => setMssg(e.target.value)}
+                  ref={inputFocusRef}
                 />
               </div>
               <div className="m-auto mt-2 flex w-1/12">
@@ -234,6 +241,7 @@ function MainChat() {
                 placeholder="Type your message..."
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
+                ref={inputFocusRef}
               />
             </div>
             <div className="m-auto mt-2 flex w-1/12">
