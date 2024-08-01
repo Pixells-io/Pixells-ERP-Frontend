@@ -147,7 +147,7 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
               ) : null}
               {msg.type === 0 ? (
                 <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
-                  {msg.mensaje}
+                  <MessageLink string={msg.mensaje} />
                 </span>
               ) : (
                 <iframe src={msg.file} frameBorder="0"></iframe>
