@@ -1,44 +1,39 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 
-export const DocumentButtons = ({ documentType, setDocumentType }) => {
-  const buttonClassName = "rounded-lg bg-[#F0F0F0] text-gris2 ";
+const ConversionButtons = ({ documentType, onConvert }) => {
+  const buttonStyle = "font-roboto text-gris2 bg-[#F0F0F0] hover:bg-gray-200 text-sm rounded-lg focus:outline-none focus:ring-0";
 
-  switch (documentType) {
-    case "orden":
-      return (
-        <>
-          <Button
-            onClick={() => setDocumentType("cotizacion")}
-            variant="outline"
-            size="sm"
-            className={buttonClassName}
-          >
-            Convertir en cotización
-          </Button>
-          <Button
-            onClick={() => setDocumentType("pedido")}
-            variant="outline"
-            size="sm"
-            className={buttonClassName}
-          >
-            Convertir en pedido
-          </Button>
-        </>
-      );
-    case "cotizacion":
-    case "pedido":
-      return (
-        <Button
-          onClick={() => setDocumentType("orden")}
-          variant="outline"
-          size="sm"
-          className={buttonClassName}
+
+  if (documentType === "orden") {
+    return (
+      <div className="flex gap-1 text-xs">
+        <Button 
+          className={buttonStyle}
+          onClick={() => onConvert("cotizacion")}
         >
-          Volver a la orden
+          Convertir a cotización
         </Button>
-      );
-    default:
-      return null;
+        <Button 
+          className={buttonStyle}
+          onClick={() => onConvert("pedido")}
+        >
+          Convertir a pedido
+        </Button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Button 
+          className={buttonStyle}
+          onClick={() => onConvert("orden")}
+        >
+          Volver a orden
+        </Button>
+      </div>
+    );
   }
 };
+
+export default ConversionButtons;

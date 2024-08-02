@@ -14,6 +14,7 @@ import OrderTable from "./Components/OrderFom";
 import Total from "@/components/TotalSection/TotalSection";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import DocumentFormat from "@/components/Document/DocFormat";
+import ConversionButtons from "./Components/DocumentButton";
 import { getDocumentInfo, getDocumentItems } from "./utils";
 
 const CreateOrder = () => {
@@ -31,8 +32,8 @@ const CreateOrder = () => {
   };
 
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+    <div className="flex w-full h-screen">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4 overflow-hidden">
         {/* Navigation icons */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -78,16 +79,9 @@ const CreateOrder = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between gap-4 pl-4 pt-4">
-          <div className="flex gap-2">
-            <Button onClick={() => handleConvert("cotizacion")}>
-              Convertir en Cotización
-            </Button>
-            <Button onClick={() => handleConvert("pedido")}>
-              Convertir en Pedido
-            </Button>
-          </div>
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pl-4 pt-4 ml-2">
+  <ConversionButtons documentType={documentType} onConvert={handleConvert} />
+  <div className="flex items-center gap-2 sm:gap-4">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
               <IonIcon
                 icon={copy}
@@ -109,14 +103,14 @@ const CreateOrder = () => {
                 className="cursor-pointer text-[#696974]"
               />
             </div>
-            <CardCarousel />
+            <CardCarousel  />
           </div>
         </div>
 
         {/* Main content */}
-        <div className="space-y-3 overflow-auto">
+        
           {documentType === "orden" ? (
-            <div className="flex h-full flex-col space-y-6">
+            <div className="flex flex-col space-y-4 overflow-auto pr-12">
               <InputsGroup
                 documentNumber={documentNumber}
                 setDocumentNumber={setDocumentNumber}
@@ -138,13 +132,15 @@ const CreateOrder = () => {
               </div>
             </div>
           ) : (
-            <DocumentFormat
-              documentType={documentType}
-              documentInfo={documentInfo}
-              items={items}
-            />
+            <div className="flex justify-center overflow-auto max-w-full">
+              <DocumentFormat
+                documentType={documentType}
+                documentInfo={documentInfo}
+                items={items}
+              />
+            </div>
           )}
-        </div>
+        
       </div>
     </div>
   );
