@@ -14,8 +14,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Form } from "react-router-dom";
 
 function NewTopic({ modal, setModal, functionModal }) {
-
-    const [stepped, setStepped] = useState(1);
+  const [stepped, setStepped] = useState(1);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -66,9 +65,44 @@ function NewTopic({ modal, setModal, functionModal }) {
           </div>
         </div>
 
+        {/* FORMA 1 */}
         <Form>
-            
+          {stepped == 1 ? (
+            <div>
+              Paso 1
+              <button type="button" onClick={() => setStepped(2)}>
+                {" "}
+                Change Step 2
+              </button>
+            </div>
+          ) : stepped == 2 ? (
+            <div>
+              Paso 2
+              <button type="button" onClick={() => setStepped(3)}>
+                Change Step 3
+              </button>
+            </div>
+          ) : stepped == 3 ? (
+            <div>Paso 3</div>
+          ) : null}
         </Form>
+        <br />
+        {/* FORMA 2 */}
+        <div className={stepped == 1 ? "hidden" : "block"}>
+          Paso 1
+          <button type="button" onClick={() => setStepped(2)}>
+            {" "}
+            Change Step 2
+          </button>
+        </div>
+        <div className={stepped == 2 ? "hidden" : "block"}>
+          Paso 2
+          <button type="button" onClick={() => setStepped(2)}>
+            {" "}
+            Change Step 3
+          </button>
+        </div>
+        <div className={stepped == 2 ? "hidden" : "block"}>Paso 3</div>
 
         <DialogDescription></DialogDescription>
 
