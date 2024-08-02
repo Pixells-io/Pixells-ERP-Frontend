@@ -315,6 +315,10 @@ import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
 
+//Topics
+import SideLayoutTopics from "./layouts/Topics/SideLayoutTopics";
+import MainTopics from "./pages/Topics/MainTopics";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -988,6 +992,16 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/topics",
+        element : <SideLayoutTopics />,
+        children: [
+          {
+            index: true,
+            element: <MainTopics />,
+          },
+        ]
+      }
     ],
   },
   //Login
