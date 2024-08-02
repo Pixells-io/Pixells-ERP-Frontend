@@ -14,6 +14,7 @@ import { IonIcon } from "@ionic/react";
 import { checkmarkDoneOutline, ellipsisVerticalOutline } from "ionicons/icons";
 
 import ResendModal from "./ResendModal";
+import MessageLink from "./MessageLink";
 
 function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
   let msg = data;
@@ -69,13 +70,13 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                 </span>
                 <br />
                 <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
-                  {msg.reply_message?.mnsj}
+                  <MessageLink string={msg.reply_message?.mnsj} />
                 </span>
               </div>
             ) : null}
             {msg.type === 0 ? (
               <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
-                {msg.mensaje}
+                <MessageLink string={msg.mensaje} />
               </span>
             ) : (
               <iframe src={msg.file} frameBorder="0"></iframe>
@@ -140,13 +141,13 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                   </span>
                   <br />
                   <span className="line-clamp-1 font-roboto text-xs leading-4 text-grisSubText">
-                    {msg.reply_message?.mnsj}
+                    <MessageLink string={msg.reply_message?.mnsj} />
                   </span>
                 </div>
               ) : null}
               {msg.type === 0 ? (
                 <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
-                  {msg.mensaje}
+                  <MessageLink string={msg.mensaje} />
                 </span>
               ) : (
                 <iframe src={msg.file} frameBorder="0"></iframe>
