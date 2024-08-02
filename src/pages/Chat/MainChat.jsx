@@ -23,6 +23,7 @@ import MenssageCard from "./Components/Mensagge";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle, closeCircle } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
+import { Textarea } from "@/components/ui/textarea";
 
 function MainChat() {
   const location = useLocation();
@@ -41,12 +42,18 @@ function MainChat() {
   const [reply, setReply] = useState("");
   const [modalReplay, setModalReplay] = useState(false);
 
+  const inputFocusRef = useRef(null);
+
   const userInfo = [
     {
       id: user.data.user.id,
       name: user.data.user.name + " " + user.data.user.last_name,
     },
   ];
+
+  useEffect(() => {
+    inputFocusRef.current.focus();
+  }, []);
 
   useEffect(() => {
     setUrlId(id);
@@ -56,10 +63,7 @@ function MainChat() {
       getMensajes(chat);
     });
 
-    channel.bind(`client-typing-user`, (userInfo) => {
-      console.log(userInfo);
-      console.log("Holi");
-    });
+    channel.bind(`client-typing-user`, (userInfo) => {});
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
@@ -68,7 +72,6 @@ function MainChat() {
 
     return () => {
       pusherClient.unsubscribe(`private-get-chat.${urlId}`);
-      // console.log("unsubscribe");
     };
   }, [location, urlId]);
 
@@ -76,14 +79,12 @@ function MainChat() {
     async function getMensajes() {
       let newData = await getChatWithId(id);
       setChatMessagesPusher(newData.data.msg);
-      // console.log("CORRIO EFFECT ID", id);
     }
 
     getMensajes();
   }, [id]);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setMssg("");
@@ -91,7 +92,6 @@ function MainChat() {
   }
 
   function onInputEnter2(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setMssg("");
@@ -193,6 +193,7 @@ function MainChat() {
                   placeholder="Type your message..."
                   value={mssg}
                   onChange={(e) => setMssg(e.target.value)}
+                  ref={inputFocusRef}
                 />
               </div>
               <div className="m-auto mt-2 flex w-1/12">
@@ -236,11 +237,11 @@ function MainChat() {
             <div className="w-11/12 px-5">
               <input
                 name="message"
-                type="text"
-                className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
+                className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0 focus-visible:ring-primarioBotones"
                 placeholder="Type your message..."
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
+                ref={inputFocusRef}
               />
             </div>
             <div className="m-auto mt-2 flex w-1/12">

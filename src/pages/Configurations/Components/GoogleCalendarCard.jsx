@@ -6,6 +6,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import UserImage from "@/layouts/Masters/FormComponents/userImage";
 import { Button } from "@/components/ui/button";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
+import DropzoneFile from "@/components/dropzone-files";
 
 function GoogleCalendarCard() {
   return (
@@ -14,87 +15,39 @@ function GoogleCalendarCard() {
         <span className="text-sm font-normal text-grisText">
           Google Calendar Api Keys
         </span>
-        <div className="flex">
-          <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
-            <div className="text-center">
-              {/* <UserImage name={"logo"} label={"Company Logo"} /> */}
-              <DropzoneImage name="logo" />
-            </div>
-            <InputRouter
-              name={"business_email"}
-              placeholder={"Business Email"}
-              type={"text"}
-            />
-            <InputRouter
-              name={"user_master_id"}
-              placeholder={"User Master"}
-              type={"text"}
-            />
-          </div>
-          <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
-            <InputRouter
-              name={"legal_name"}
-              placeholder={"Legal Name"}
-              type={"text"}
-            />
-            <InputRouter
-              name={"id_fiscal"}
-              placeholder={"ID Fiscal"}
-              type={"text"}
-            />
-            <InputRouter name={"street"} placeholder={"Street"} type={"text"} />
-            <InputRouter
-              name={"location"}
-              placeholder={"Location"}
-              type={"text"}
-            />
-            <InputRouter name={"state"} placeholder={"State"} type={"text"} />
-          </div>
-          <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
-            <InputRouter
-              name={"comercial_name"}
-              placeholder={"Comercial Name"}
-              type={"text"}
-            />
-            <InputRouter
-              name={"country"}
-              placeholder={"Country"}
-              type={"text"}
-            />
-            <div className="flex gap-4">
-              <InputRouter name={"ext"} placeholder={"Ext"} type={"text"} />
-              <InputRouter name={"int"} placeholder={"Int"} type={"text"} />
-            </div>
-            <InputRouter name={"city"} placeholder={"City"} type={"text"} />
-            <div className="flex gap-4">
-              <InputRouter name={"cp"} placeholder={"cp"} type={"text"} />
-              <InputRouter name={"phone"} placeholder={"phone"} type={"text"} />
+        <Form
+          className="flex h-auto flex-col gap-0"
+          action="/configuration/integrations"
+          method="post"
+          encType="multipart/form-data"
+        >
+          <div className="flex">
+            <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
+              <div className="text-center">
+                <DropzoneFile name={"keys"} label={"Keys"} />
+                <br />
+                <InputRouter
+                  name={"id"}
+                  placeholder={"Google Calendar Id"}
+                  type={"text"}
+                />
+                <br />
+                <InputRouter
+                  name={"impersonate"}
+                  placeholder={"Google Calendar Impersonate"}
+                  type={"text"}
+                />
+                <br />
+                <Button
+                  type="submit"
+                  className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
+                >
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="ml-4 mt-8 flex w-full flex-col space-y-4 rounded-lg bg-white px-8 py-4">
-        <span className="text-sm font-normal text-grisText">
-          Additional Information
-        </span>
-        <div className="flex gap-4">
-          <InputRouter name={"sector"} placeholder={"Sector"} type={"text"} />
-          <InputRouter
-            name={"employee_number"}
-            placeholder={"Number of Employees"}
-            type={"text"}
-          />
-          <InputRouter
-            name={"currency"}
-            placeholder={"Currency"}
-            type={"text"}
-          />
-          <InputRouter
-            name={"more_info"}
-            placeholder={"More Info"}
-            type={"text"}
-          />
-        </div>
+        </Form>
       </div>
     </div>
   );

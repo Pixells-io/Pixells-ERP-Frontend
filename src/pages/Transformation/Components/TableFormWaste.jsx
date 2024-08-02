@@ -119,8 +119,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         index === rowIndex
           ? {
               ...item,
-              component_id: data.id,
-              component: data.name,
+              component: data,
               unit: data.unit,
               cost: data.cost,
               amount: 1,
@@ -154,6 +153,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
             name={"selectComponent-" + rowIndex}
             className="h-10 w-[100px]"
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
+            value={row.component}
           >
             <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
               <SelectValue placeholder="Selecciona el componente" />
@@ -212,7 +212,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex w-[100px] justify-between">
             {row.subTotal}
-            <button onClick={() => deleteRowId(row.id)}>
+            <button type="button" onClick={() => deleteRowId(row.id)}>
               <IonIcon
                 icon={closeCircle}
                 size="small"
@@ -282,21 +282,13 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
             icon={chevronBack}
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className={
-              "mr-2 " +
-              (currentPage !== 1 ? "text-primario" : "text-grisText") +
-              (currentPage !== 1 && "hover:cursor-pointer")
-            }
+            className={`mr-2 ${currentPage !== 1 ? "text-primario" : "text-grisText"} ${currentPage !== 1 && "hover:cursor-pointer"}`}
           />
           <IonIcon
             icon={chevronForward}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className={
-              "ml-2 " +
-              (currentPage === totalPages ? "text-grisText" : "text-primario") +
-              (currentPage !== totalPages && "hover:cursor-pointer")
-            }
+            className={`ml-2 ${currentPage === totalPages ? "text-grisText" : "text-primario"} ${currentPage !== totalPages && "hover:cursor-pointer"}`}
           />
         </div>
       </div>

@@ -359,6 +359,7 @@ export async function editUser(data) {
     emergency_phone: data.get("emergency_phone"),
 
     // Academic Info
+    latest_academic_id: data.getAll("latest_id"),
     academics: data.get("academics"), //NO
     academic_grade: data.getAll("academic_grade"),
     specify_academic: data.getAll("specify_academic"),

@@ -7,10 +7,6 @@ export const GeneralFormulaColumns = [
     id: "name",
     header: "NOMBRE",
     accessorKey: "name",
-    meta: {
-      filterButton: true
-    },
-    filterFn: "equals",
   },
   {
     id: "type",

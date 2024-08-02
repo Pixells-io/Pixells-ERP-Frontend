@@ -7,6 +7,8 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import NavigationHeader from "@/components/navigation-header";
 import GoogleCalendarCard from "./Components/GoogleCalendarCard";
+import { saveCalendarApiInfo } from "./utils";
+import { redirect } from "react-router-dom";
 
 // import Table from "@/components/DataTable";
 // import TableClients from "./components/Table/TableClients";
@@ -56,3 +58,11 @@ function IntegrationPanel() {
 }
 
 export default IntegrationPanel;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const response = await saveCalendarApiInfo(data);
+
+  return redirect("/configuration/integrations");
+}

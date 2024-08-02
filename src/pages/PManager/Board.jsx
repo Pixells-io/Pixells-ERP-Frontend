@@ -387,7 +387,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                         {task?.type == 1 ? (
                           <div className="flex flex-col items-center px-2">
                             <p className="w-full text-right text-[8px] font-normal text-grisHeading">
-                              {percent}%
+                              {Number(percent).toFixed(2)}%
                             </p>
                             <Progress
                               value={percent}

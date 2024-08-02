@@ -72,10 +72,11 @@ function ProjectTable() {
   const [phaseSelected, setPhaseSelected] = useState("");
 
   useEffect(() => {
+    console.log("hola", urlId, pusherClient);
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {
-      console.log("WEBSCOKET PROJECT -> ", project);
+      // console.log("WEBSCOKET PROJECT -> ", project);
       getPMinfoFuncion(project);
     });
 
@@ -102,8 +103,6 @@ function ProjectTable() {
       submit(e.currentTarget);
     }
   }
-
-  console.log(Projectdata);
 
   return (
     <div className="flex h-full flex-col px-4 pb-10">
