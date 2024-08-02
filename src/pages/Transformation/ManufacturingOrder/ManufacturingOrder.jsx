@@ -108,7 +108,7 @@ function ManufacturingOrder() {
           <div className="flex justify-evenly gap-x-2 w-full items-center overflow-x-auto rounded-xl bg-blancoBg px-6 py-2">
             <div>
               <Select name="article" className="h-10">
-                <SelectTrigger className="w-[180px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectTrigger className="w-[180px] rounded-md border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
                   <SelectValue placeholder="Selecciona el Artículo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -129,7 +129,7 @@ function ManufacturingOrder() {
             </div>
             <div>
               <Input
-                className="w-[180px] rounded-none border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText"
+                className="w-[180px] rounded-md border border-[#696974] bg-inherit text-xs font-light text-grisSubText"
                 name={`date`}
                 // value={row.amount}
                 placeholder="Fecha Prevista de Producción"
@@ -138,7 +138,7 @@ function ManufacturingOrder() {
             </div>
             <div>
               <Select name="accountingAccount" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[180px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectTrigger className="w-[180px] rounded-md border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
                   <SelectValue placeholder="Cuenta Contable" />
                 </SelectTrigger>
                 <SelectContent>
@@ -150,7 +150,7 @@ function ManufacturingOrder() {
             </div>
             <div>
               <Select name="store" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[180px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectTrigger className="w-[180px] rounded-md border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
                   <SelectValue placeholder="Almacen" />
                 </SelectTrigger>
                 <SelectContent>

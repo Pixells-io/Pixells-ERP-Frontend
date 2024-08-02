@@ -11,11 +11,12 @@ import { Input } from "@/components/ui/input";
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
+  checkmark,
   chevronBack,
   chevronForward,
   closeCircle,
   pause,
-  statsChart,
+  play,
 } from "ionicons/icons";
 import {
   Select,
@@ -158,103 +159,136 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           </div>
         ),
       },
-      // {
-      //   accessorKey: "amount",
-      //   header: "Proceso de Operación",
-      //   cell: ({ row, rowIndex }) => (
-      //     <Input
-      //       className="w-[100px] border-none"
-      //       name={`amount-${rowIndex}`}
-      //       value={row.amount}
-      //       placeholder="ingrese"
-      //       type="number"
-      //       disabled={!row.component}
-      //       onChange={(e) => handleInputChange(rowIndex, e.target.value)}
-      //     />
-      //   ),
-      // },
-      // {
-      //   accessorKey: "component",
-      //   header: "Producto",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="w-[100px]">
-      //       <Select
-      //         name={"selectComponent-" + rowIndex}
-      //         className="h-10"
-      //         onValueChange={(value) => handleDataInRow(value, rowIndex)}
-      //         value={row.component}
-      //       >
-      //         <SelectTrigger className="w-[100px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-      //           <SelectValue placeholder="Selecciona el componente" />
-      //         </SelectTrigger>
-      //         <SelectContent>
-      //           {components.map((component, index) => (
-      //             <SelectItem key={"component-" + index} value={component}>
-      //               {component.name}
-      //             </SelectItem>
-      //           ))}
-      //         </SelectContent>
-      //       </Select>
-      //     </div>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "unit",
-      //   header: "Cantidad",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="w-[100px]">{row.unit}</div>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "unit",
-      //   header: "Fecha",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="w-[100px]">{row.unit}</div>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "unit",
-      //   header: "Duración Estimada",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="w-[100px]">{row.unit}</div>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "unit",
-      //   header: "Duración Real",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="w-[100px]">{row.unit}</div>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "consume",
-      //   header: "Estado ",
-      //   cell: ({ row, rowIndex }) => (
-      //     <div className="flex items-center justify-between">
-      //       <div className="flex items-center gap-x-4">
-      //         <div className="bg-[#FFB82F] bg-opacity-25 px-2 py-1 rounded-full flex items-center">
-      //           <label className="text-[#FFB82F] text-xs font-semibold">
-      //             En proceso
-      //           </label>
-      //         </div>
-      //         <button onClick={() => deleteRowId(row.id)}>
-      //         <IonIcon
-      //           icon={pause}
-      //           size="small"
-      //           className="cursor-pointer text-grisDisabled"
-      //         ></IonIcon>
-      //       </button>
-      //       </div>
-      //       <button onClick={() => deleteRowId(row.id)}>
-      //         <IonIcon
-      //           icon={closeCircle}
-      //           size="small"
-      //           className="cursor-pointer text-grisDisabled"
-      //         ></IonIcon>
-      //       </button>
-      //     </div>
-      //   ),
-      // },
+      {
+        accessorKey: "amount",
+        header: "Proceso de Operación",
+        cell: ({ row, rowIndex }) => (
+          <Input
+            className="w-[100px] border-none"
+            name={`amount-${rowIndex}`}
+            value={row.amount}
+            placeholder="ingrese"
+            type="number"
+            disabled={!row.component}
+            onChange={(e) => handleInputChange(rowIndex, e.target.value)}
+          />
+        ),
+      },
+      {
+        accessorKey: "product",
+        header: "Producto",
+        cell: ({ row, rowIndex }) => (
+          <div className="w-[100px]">
+            <Select
+              name={"selectComponent-" + rowIndex}
+              className="h-10"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row.component}
+            >
+              <SelectTrigger className="w-[100px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectValue placeholder="Selecciona el componente" />
+              </SelectTrigger>
+              <SelectContent>
+                {components.map((component, index) => (
+                  <SelectItem key={"component-" + index} value={component}>
+                    {component.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "unit",
+        header: "Cantidad",
+        cell: ({ row, rowIndex }) => (
+          <div className="w-[100px]">{row.unit}</div>
+        ),
+      },
+      {
+        accessorKey: "date",
+        header: "Fecha",
+        cell: ({ row, rowIndex }) => (
+          <div className="w-[100px]">{row.unit}</div>
+        ),
+      },
+      {
+        accessorKey: "estimatedDuration",
+        header: "Duración Estimada",
+        cell: ({ row, rowIndex }) => (
+          <div className="w-[100px]">{row.unit}</div>
+        ),
+      },
+      {
+        accessorKey: "realDuration",
+        header: "Duración Real",
+        cell: ({ row, rowIndex }) => (
+          <div className="w-[100px]">{row.unit}</div>
+        ),
+      },
+      {
+        accessorKey: "status",
+        header: "Estado ",
+        cell: ({ row, rowIndex }) => (
+          <div className="flex w-[200px] items-center justify-between">
+            {rowIndex == 0 ? (
+              <div className="flex items-center gap-x-2">
+                <div className="flex items-center justify-center rounded-full bg-[#FFB82F] bg-opacity-25 w-20 py-1">
+                  <label className="text-xs font-semibold text-[#FFB82F]">
+                    En proceso
+                  </label>
+                </div>
+                <button
+                  onClick={() => deleteRowId(row.id)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F9D994] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
+                >
+                  <IonIcon
+                    icon={pause}
+                    className="cursor-pointer text-white"
+                  ></IonIcon>
+                </button>
+                <button
+                  onClick={() => deleteRowId(row.id)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-[#00A259] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
+                >
+                  <IonIcon
+                    icon={checkmark}
+                    className="cursor-pointer text-white"
+                  ></IonIcon>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-2">
+                <div className="flex justify-center items-center rounded-full bg-[#FAA364] bg-opacity-25 w-20 py-1">
+                  <label className="text-xs font-semibold text-[#FAA364]">
+                    Por iniciar
+                  </label>
+                </div>
+                <button
+                  onClick={() => deleteRowId(row.id)}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-[#5B89FF] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
+                >
+                  <IonIcon
+                    icon={play}
+                    className="cursor-pointer text-white p-0"
+                  ></IonIcon>
+                </button>
+              </div>
+            )}
+            <button
+              onClick={() => deleteRowId(row.id)}
+              className="flex items-center"
+            >
+              <IonIcon
+                icon={closeCircle}
+                size="small"
+                className="h-6 w-6 cursor-pointer text-grisDisabled"
+              ></IonIcon>
+            </button>
+          </div>
+        ),
+      },
     ],
     [handleInputChange, deleteRowId],
   );

@@ -18,6 +18,7 @@ function StatusInformation({
   //status 2 = In progress
   //status 3 = Done
   //imgUser = url de la imagen persona
+  //saveDraft = funcion opcional si no se manda no muestra el boton Guardar Borrador
   //comments = aparece el comentario cuando es status 3
   //approvedBy = nombre persona aprobo, aparece status 3.
   //date = aparece la fecha aprobado, aparece status 3.

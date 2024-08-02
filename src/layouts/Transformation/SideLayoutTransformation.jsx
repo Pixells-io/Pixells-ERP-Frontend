@@ -31,7 +31,7 @@ const menus = [
     icon: pieChart,
   },
   {
-    path: "/transformation/collection",
+    path: "/transformation/work-orders",
     name: "Ordenes",
     subName: "De Trabajo",
     icon: pieChart,

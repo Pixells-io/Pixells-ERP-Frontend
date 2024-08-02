@@ -306,6 +306,9 @@ import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransfo
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
 import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/ManufacturingOrder";
 import IntegrationPanel from "./pages/Configurations/Integrations";
+import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
+import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
+import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
 
 const router = createBrowserRouter([
   {
@@ -947,12 +950,24 @@ const router = createBrowserRouter([
             element: <MainGeneralFormula />,
           },
           {
+            path: "/transformation/manufacturing-order",
+            element: <ManufacturingOrder />,
+          },
+          {
             path: "/transformation/create",
             element: <NewFormula />,
           },
           {
-            path: "/transformation/manufacturing-order",
-            element: <ManufacturingOrder />,
+            path: "/transformation/work-orders",
+            element: <WorkOrder />,
+          },
+          {
+            path: "/transformation/work-orders/order-process/:id",
+            element: <OrderProcess />,
+          },
+          {
+            path: "/transformation/work-orders/order-cut/:id",
+            element: <OrderCut />,
           },
         ],
       },
