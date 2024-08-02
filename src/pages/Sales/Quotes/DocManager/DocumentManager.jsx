@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 const DocManager = () => {
   const [status, setStatus] = useState("draft");
-  const [DocumentType, setDocumentType] = useState("cotizacion"); 
+  const [DocumentType, setDocumentType] = useState("cotizacion");
 
   const Convert2Ticket = () => {
     setDocumentType("ticket");
@@ -29,8 +29,9 @@ const DocManager = () => {
   };
 
   const ChangesDocument = () => {
-    const buttonBaseClass = "rounded-full border-none bg-blancoBox p-2 text-grisText hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 transition-all duration-300";
-  
+    const buttonBaseClass =
+      "rounded-full border-none bg-blancoBox p-2 text-grisText hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 transition-all duration-300";
+
     switch (DocumentType) {
       case "cotizacion":
         return (
@@ -41,10 +42,7 @@ const DocManager = () => {
             >
               Convertir a Ticket
             </Button>
-            <Button
-              onClick={Convert2Invoice}
-              className={buttonBaseClass}
-            >
+            <Button onClick={Convert2Invoice} className={buttonBaseClass}>
               Convertir a Factura
             </Button>
           </>
@@ -52,10 +50,7 @@ const DocManager = () => {
       case "ticket":
       case "factura":
         return (
-          <Button
-            onClick={Convert2Quote}
-            className={buttonBaseClass}
-          >
+          <Button onClick={Convert2Quote} className={buttonBaseClass}>
             Volver a Cotización
           </Button>
         );
@@ -105,35 +100,34 @@ const DocManager = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nueva Cotización
           </p>
-         
         </div>
-        <div className="flex items-center justify-between gap-4  pl-4 pt-4">
-            <div className="flex gap-2">{ChangesDocument()}</div>
-            <div className="flex items-center gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={print}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={create}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                />
-              </div>
-              <CardCarousel />
+        <div className="flex items-center justify-between gap-4 pl-4 pt-4">
+          <div className="flex gap-2">{ChangesDocument()}</div>
+          <div className="flex items-center gap-4">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={copy}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+              />
             </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={print}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+              />
+            </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={create}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+              />
+            </div>
+            <CardCarousel />
           </div>
+        </div>
         {/* content */}
         <div className="flex flex-col items-center justify-center overflow-auto">
           <div className="overflow-auto">
