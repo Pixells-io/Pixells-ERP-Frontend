@@ -197,7 +197,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                 ></IonIcon>
               </div>
             </div>
-            <button onClick={() => deleteRowId(row.id)}>
+            <button type="button" onClick={() => deleteRowId(row.id)}>
               <IonIcon
                 icon={closeCircle}
                 size="small"

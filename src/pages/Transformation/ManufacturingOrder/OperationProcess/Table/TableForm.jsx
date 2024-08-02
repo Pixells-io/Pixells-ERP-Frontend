@@ -240,6 +240,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                   </label>
                 </div>
                 <button
+                  type="button"
                   onClick={() => deleteRowId(row.id)}
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F9D994] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
                 >
@@ -249,6 +250,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                   ></IonIcon>
                 </button>
                 <button
+                  type="button"
                   onClick={() => deleteRowId(row.id)}
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-[#00A259] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
                 >
@@ -266,6 +268,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                   </label>
                 </div>
                 <button
+                  type="button"
                   onClick={() => deleteRowId(row.id)}
                   className="flex h-6 w-6 items-center justify-center rounded-full bg-[#5B89FF] shadow-[0_0_4px_2px_rgba(215,215,215,1)]"
                 >
@@ -277,6 +280,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               </div>
             )}
             <button
+              type="button"
               onClick={() => deleteRowId(row.id)}
               className="flex items-center"
             >

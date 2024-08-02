@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
+  checkmark,
   chevronBack,
   chevronForward,
-  copy,
-  print,
-  create,
   closeCircle,
+  pause,
 } from "ionicons/icons";
 import OnlyTable from "../../Components/OnlyTable";
 import { WordOrderColumns } from "../Table/WordOrderColumns";
@@ -55,34 +54,9 @@ function OrderCut() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Ordenes de Trabajo
+            Ordenes de Corte
           </p>
 
-          <div className="flex items-center justify-end gap-5">
-            <div className="flex gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={print}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={create}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-            </div>
-          </div>
           <div className="flex items-end justify-center">
             <Link to={"/transformation/work-orders"}>
               <IonIcon
@@ -94,8 +68,37 @@ function OrderCut() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-[#FBFBFB] px-4 py-2">
-          <OnlyTable columns={WordOrderColumns} data={[]} />
+        <div className="rounded-xl bg-[#FBFBFB] h-full px-4 py-2">
+          <OnlyTable
+            columns={WordOrderColumns}
+            data={[
+              {
+                id: 1,
+                operation: "Corte",
+                operationProcess: "Corte",
+                product: "Tamal",
+                amount: "",
+                date: "",
+                estimatedDuration: "30:00",
+                realDuration: "08:32",
+                state: 1,
+              },
+            ]}
+          />
+          <div className="mt-6 flex justify-center gap-x-8">
+            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F9D994] shadow-[0_0_4px_2px_rgba(215,215,215,1)]">
+              <IonIcon
+                icon={pause}
+                className="h-7 w-7 cursor-pointer text-white"
+              ></IonIcon>
+            </button>
+            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00A259] shadow-[0_0_4px_2px_rgba(215,215,215,1)]">
+              <IonIcon
+                icon={checkmark}
+                className="h-7 w-7 cursor-pointer text-white"
+              ></IonIcon>
+            </button>
+          </div>
         </div>
       </div>
     </div>

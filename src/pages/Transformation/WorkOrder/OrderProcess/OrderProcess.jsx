@@ -93,29 +93,21 @@ function OrderProcess() {
           </div>
         </div>
 
-        <div>
-          <h2>asd</h2>
-        </div>
+        <div className="px-24">
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="rounded-full bg-[#00A259] px-5 py-2 text-xs font-semibold text-[#FBFBFB]"
+            >
+              Finalizar Proceso
+            </button>
+          </div>
 
-        <div className="flex flex-wrap gap-4">
-          <CardProcess
-            id={1}
-            status={3}
-            title={"Corte"}
-            advance={100}
-          />
-          <CardProcess
-            id={2}
-            status={2}
-            title={"Ensamblado"}
-            advance={70}
-          />
-          <CardProcess
-            id={3}
-            status={1}
-            title={"Pintado"}
-            advance={0}
-          />
+          <div className="my-6 flex flex-wrap gap-x-8 gap-y-4">
+            <CardProcess id={1} status={3} title={"Corte"} advance={100} />
+            <CardProcess id={2} status={2} title={"Ensamblado"} advance={70} />
+            <CardProcess id={3} status={1} title={"Pintado"} advance={0} />
+          </div>
         </div>
       </div>
     </div>

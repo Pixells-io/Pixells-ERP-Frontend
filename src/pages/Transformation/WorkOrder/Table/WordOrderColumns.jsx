@@ -1,3 +1,6 @@
+import Finalized from "../../Components/status/Finalized";
+import InProgress from "../../Components/status/InProgress";
+import Pending from "../../Components/status/Pending";
 
 export const WordOrderColumns = [
   {
@@ -39,5 +42,15 @@ export const WordOrderColumns = [
     id: "state",
     header: "Estado",
     accessorKey: "state",
+    cell: ({ row }) => {
+      return <>
+        {
+
+          row?.original?.state == 1 ? (<Pending />) :
+          row?.original?.state == 2 ? (<InProgress />) :
+          row?.original?.state == 3 && (<Finalized />)
+        }
+      </>;
+    },
   },
 ];

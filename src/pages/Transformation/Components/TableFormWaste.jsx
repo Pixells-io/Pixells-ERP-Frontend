@@ -212,7 +212,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex w-[100px] justify-between">
             {row.subTotal}
-            <button onClick={() => deleteRowId(row.id)}>
+            <button type="button" onClick={() => deleteRowId(row.id)}>
               <IonIcon
                 icon={closeCircle}
                 size="small"

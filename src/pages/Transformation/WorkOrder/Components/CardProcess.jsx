@@ -4,6 +4,9 @@ import { IonIcon } from "@ionic/react";
 import { ellipsisHorizontal } from "ionicons/icons";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
+import Pending from "../../Components/status/Pending";
+import InProgress from "../../Components/status/InProgress";
+import Finalized from "../../Components/status/Finalized";
 
 function CardProcess({ id, status, title, advance }) {
   return (
@@ -14,19 +17,11 @@ function CardProcess({ id, status, title, advance }) {
       <div className="flex w-full justify-between">
         <div>
           {status == 1 ? (
-            <label className="rounded-full bg-[#FAA364] bg-opacity-25 px-3 py-2 text-xs font-semibold text-[#FAA364]">
-              Pendiente
-            </label>
+            <Pending />
           ) : status == 2 ? (
-            <label className="rounded-full bg-[#FAA364] bg-opacity-25 px-3 py-2 text-xs font-semibold text-[#FAA364]">
-              En Progreso
-            </label>
+            <InProgress />
           ) : (
-            status == 3 && (
-              <label className="rounded-full bg-[#00A259] bg-opacity-25 px-3 py-2 text-xs font-semibold text-[#00A259]">
-                Finalizado
-              </label>
-            )
+            status == 3 && <Finalized />
           )}
         </div>
         <IonIcon
