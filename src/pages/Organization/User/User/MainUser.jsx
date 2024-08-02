@@ -827,6 +827,11 @@ function MainUser() {
                 {academicInfo?.map((item, i) => (
                   <div key={i} className="flex w-full items-center gap-3">
                     <div className="w-1/3">
+                      <input
+                        type="hidden"
+                        name="latest_id"
+                        value={academicInfo[i].id}
+                      />
                       <SelectRouter
                         name={"academic_grade"}
                         placeholder={"Academic Grade"}
@@ -910,16 +915,13 @@ function MainUser() {
                   readOnly
                   name="working-info"
                 />
-
-                {workingInfo?.map((item, i) => (
-                  <div key={i} className="flex w-full items-center gap-3">
+                {workingInfo?.length == 0 ? (
+                  <div className="flex w-full items-center gap-3">
                     <div className="w-1/3">
                       <InputRouter
                         name={"company_experience"}
                         placeholder={"Company"}
                         type={"text"}
-                        value={workingInfo[i].company_experience}
-                        onChange={(e) => updateWorkingField(i, e)}
                         disabled={disabled}
                       />
                     </div>
@@ -928,8 +930,6 @@ function MainUser() {
                         name={"position_experience"}
                         placeholder={"Position"}
                         type={"text"}
-                        value={workingInfo[i].position_experience}
-                        onChange={(e) => updateWorkingField(i, e)}
                         disabled={disabled}
                       />
                     </div>
@@ -938,45 +938,81 @@ function MainUser() {
                         name={"experience_years"}
                         placeholder={"Years of Experience"}
                         type={"number"}
-                        value={Number(workingInfo[i].experience_years)}
-                        onChange={(e) => updateWorkingField(i, e)}
                         disabled={disabled}
                       />
                     </div>
-                    {i !== 0 || workingInfo.length !== i + 1 ? (
-                      <button
-                        type="button"
-                        className="flex items-center"
-                        onClick={() => removeWorkingInputs(i)}
-                        disabled={disabled}
-                      >
-                        <IonIcon
-                          icon={closeCircle}
-                          size=""
-                          className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                        ></IonIcon>
-                      </button>
-                    ) : (
-                      <div className="w-[22px]"></div>
-                    )}
-
-                    {workingInfo.length == i + 1 && workingInfo.length <= 2 ? (
-                      <button
-                        type="button"
-                        className="flex"
-                        onClick={() => addWorkingInputs()}
-                        disabled={disabled}
-                      >
-                        <IonIcon
-                          icon={addCircle}
-                          className="h-8 w-8 text-primario"
-                        ></IonIcon>
-                      </button>
-                    ) : (
-                      <div className="w-9"></div>
-                    )}
                   </div>
-                ))}
+                ) : (
+                  <>
+                    {workingInfo?.map((item, i) => (
+                      <div key={i} className="flex w-full items-center gap-3">
+                        <div className="w-1/3">
+                          <InputRouter
+                            name={"company_experience"}
+                            placeholder={"Company"}
+                            type={"text"}
+                            value={workingInfo[i].company_experience}
+                            onChange={(e) => updateWorkingField(i, e)}
+                            disabled={disabled}
+                          />
+                        </div>
+                        <div className="w-1/3">
+                          <InputRouter
+                            name={"position_experience"}
+                            placeholder={"Position"}
+                            type={"text"}
+                            value={workingInfo[i].position_experience}
+                            onChange={(e) => updateWorkingField(i, e)}
+                            disabled={disabled}
+                          />
+                        </div>
+                        <div className="w-1/3">
+                          <InputRouter
+                            name={"experience_years"}
+                            placeholder={"Years of Experience"}
+                            type={"number"}
+                            value={Number(workingInfo[i].experience_years)}
+                            onChange={(e) => updateWorkingField(i, e)}
+                            disabled={disabled}
+                          />
+                        </div>
+                        {i !== 0 || workingInfo.length !== i + 1 ? (
+                          <button
+                            type="button"
+                            className="flex items-center"
+                            onClick={() => removeWorkingInputs(i)}
+                            disabled={disabled}
+                          >
+                            <IonIcon
+                              icon={closeCircle}
+                              size=""
+                              className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                            ></IonIcon>
+                          </button>
+                        ) : (
+                          <div className="w-[22px]"></div>
+                        )}
+
+                        {workingInfo.length == i + 1 &&
+                        workingInfo.length <= 2 ? (
+                          <button
+                            type="button"
+                            className="flex"
+                            onClick={() => addWorkingInputs()}
+                            disabled={disabled}
+                          >
+                            <IonIcon
+                              icon={addCircle}
+                              className="h-8 w-8 text-primario"
+                            ></IonIcon>
+                          </button>
+                        ) : (
+                          <div className="w-9"></div>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
             </div>
 
