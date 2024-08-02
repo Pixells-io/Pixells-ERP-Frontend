@@ -72,6 +72,7 @@ function ProjectTable() {
   const [phaseSelected, setPhaseSelected] = useState("");
 
   useEffect(() => {
+    console.log("hola", urlId, pusherClient);
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {

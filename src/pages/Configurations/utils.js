@@ -42,3 +42,29 @@ export async function saveBusinessInformation(data) {
 
   return response;
 }
+
+export async function saveCalendarApiInfo(data) {
+  const info = {
+    id: data.get("id"),
+    impersonate: data.get("impersonate"),
+  };
+
+  const formData = new FormData();
+
+  formData.append("keys", data.get("keys"));
+
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}configuration/post-google-calendar`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

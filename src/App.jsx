@@ -209,6 +209,9 @@ import SideLayoutConfiguration, {
 } from "./layouts/Configuration/SideLayoutConfiguration";
 import InformationShow from "./pages/Configurations/InformationShow";
 import InformationCreateShow from "./pages/Configurations/InformationCreateShow";
+import IntegrationPanel, {
+  Action as PostIntegrationsData,
+} from "./pages/Configurations/Integrations";
 
 // DEV ORG
 import SideLayoutDevOrg from "./layouts/OrgDev/SideLayoutDevOrg";
@@ -303,13 +306,11 @@ import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 
-
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
 import SideLayoutTransformation from "./layouts/Transformation/SideLayoutTransformation";
 import NewFormula from "./pages/Transformation/GeneralFormula/New/NewFormula";
 import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/ManufacturingOrder";
-import IntegrationPanel from "./pages/Configurations/Integrations";
 import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
@@ -724,6 +725,7 @@ const router = createBrowserRouter([
           {
             path: "/configuration/integrations",
             element: <IntegrationPanel />,
+            action: PostIntegrationsData,
           },
         ],
       },
@@ -939,20 +941,20 @@ const router = createBrowserRouter([
             element: <MainSupplier />,
           },
           {
-            path:"/shopping/supplier/create",
-            element: <CreateSupplier/>
+            path: "/shopping/supplier/create",
+            element: <CreateSupplier />,
           },
           {
-            path:"/shopping/purchase/",
-            element: <MainPurchase/>
+            path: "/shopping/purchase/",
+            element: <MainPurchase />,
           },
           {
-            path:"/shopping/purchase/create",
-            element: <CreateOrder/>
+            path: "/shopping/purchase/create",
+            element: <CreateOrder />,
           },
           {
-            path: "/shopping/purchase/document"
-          }
+            path: "/shopping/purchase/document",
+          },
         ],
       },
       //TRANSFORMATIONS

@@ -15,26 +15,39 @@ function GoogleCalendarCard() {
         <span className="text-sm font-normal text-grisText">
           Google Calendar Api Keys
         </span>
-        <div className="flex">
-          <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
-            <div className="text-center">
-              <DropzoneFile name={"keys"} label={"Keys"} />
-              <br />
-              <InputRouter
-                name={"id"}
-                placeholder={"Google Calendar Id"}
-                type={"text"}
-              />
-              <br />
-              <InputRouter
-                name={"impersonate"}
-                placeholder={"Google Calendar Impersonate"}
-                type={"text"}
-              />
+        <Form
+          className="flex h-auto flex-col gap-0"
+          action="/configuration/integrations"
+          method="post"
+          encType="multipart/form-data"
+        >
+          <div className="flex">
+            <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
+              <div className="text-center">
+                <DropzoneFile name={"keys"} label={"Keys"} />
+                <br />
+                <InputRouter
+                  name={"id"}
+                  placeholder={"Google Calendar Id"}
+                  type={"text"}
+                />
+                <br />
+                <InputRouter
+                  name={"impersonate"}
+                  placeholder={"Google Calendar Impersonate"}
+                  type={"text"}
+                />
+                <br />
+                <Button
+                  type="submit"
+                  className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
+                >
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4"></div>
-        </div>
+        </Form>
       </div>
     </div>
   );
