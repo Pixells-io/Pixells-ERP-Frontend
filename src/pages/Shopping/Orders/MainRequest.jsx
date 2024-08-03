@@ -7,14 +7,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const MainPurchase = () => {
+const MainRequestOrder = () => {
   const data = [
     {
       ndocumento: "DOC001",
       codproveedor: "PROV001",
-      nproveedor: "Proveedor A",
-      importe: 1000.0,
-      impuesto: 160.0,
+      nproveedor: "Proveedor PEPSICO",
+      importe: 1320.0,
+      impuesto: 5740.0,
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
@@ -22,43 +22,13 @@ const MainPurchase = () => {
     {
       ndocumento: "DOC002",
       codproveedor: "PROV002",
-      nproveedor: "Proveedor B",
-      importe: 1500.5,
+      nproveedor: "Proveedor PEPSICO",
+      importe: 15030.5,
       impuesto: 240.08,
       fechac: "2024-07-16",
       fechad: "2024-07-12",
       tipo: "Nota de crédito",
-    },
-    {
-      ndocumento: "DOC003",
-      codproveedor: "PROV003",
-      nproveedor: "Proveedor C",
-      importe: 750.25,
-      impuesto: 120.04,
-      fechac: "2024-07-17",
-      fechad: "2024-07-14",
-      tipo: "Factura",
-    },
-    {
-      ndocumento: "DOC004",
-      codproveedor: "PROV001",
-      nproveedor: "Proveedor A",
-      importe: 2000.0,
-      impuesto: 320.0,
-      fechac: "2024-07-18",
-      fechad: "2024-07-16",
-      tipo: "Factura",
-    },
-    {
-      ndocumento: "DOC005",
-      codproveedor: "PROV004",
-      nproveedor: "Proveedor D",
-      importe: 3000.75,
-      impuesto: 480.12,
-      fechac: "2024-07-19",
-      fechad: "2024-07-17",
-      tipo: "Nota de débito",
-    },
+    }
   ];
 
   const columns = [
@@ -151,10 +121,10 @@ const MainPurchase = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Ordenes de compra
+            Pedidos General
           </p>
           <div className="flex items-start justify-start">
-            <Link to="/shopping/purchase/create">
+            <Link to="/shopping/request-orders/create">
               <Button
                 variant="ghost"
                 size="icon"
@@ -174,15 +144,15 @@ const MainPurchase = () => {
         <div className="overflow-auto rounded-xl bg-white p-4">
           <div className="w-full">
             <Tabs
-              defaultValue="orders"
+              defaultValue="request"
               className="flex h-full flex-col rounded-lg pt-2"
             >
               <TabsList className="mb-3 flex justify-start bg-transparent">
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="orders"
+                  value="request"
                 >
-                  ORDENES
+                  PEDIDOS
                 </TabsTrigger>
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
@@ -191,7 +161,7 @@ const MainPurchase = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="orders" className="w-full">
+              <TabsContent value="request" className="w-full">
                 <div className="flex w-full justify-center">
                   <div className="w-full max-w-4xl">
                     <DataTable
@@ -219,4 +189,4 @@ const MainPurchase = () => {
   );
 };
 
-export default MainPurchase;
+export default MainRequestOrder;
