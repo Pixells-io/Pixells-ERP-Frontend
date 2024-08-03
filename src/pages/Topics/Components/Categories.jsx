@@ -108,7 +108,7 @@ function Categories() {
         <h3 className="font-poppins text-xl font-semibold text-grisHeading">
           All
         </h3>
-        <div className="mt-3 flex max-h-[300px] flex-col gap-y-4 overflow-auto">
+        <div className="mt-3 flex max-h-[250px] flex-col gap-y-4 overflow-auto">
           {allCategories.map((allCAtegory) => (
             <NavLink
               key={"allCategory-" + allCAtegory.id}

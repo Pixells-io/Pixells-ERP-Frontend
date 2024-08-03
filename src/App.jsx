@@ -316,7 +316,9 @@ import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderPro
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
 
 //Topics
-import SideLayoutTopics from "./layouts/Topics/SideLayoutTopics";
+import SideLayoutTopics, {
+  Action as NewTopicFunction,
+} from "./layouts/Topics/SideLayoutTopics";
 import MainTopics from "./pages/Topics/MainTopics";
 
 const router = createBrowserRouter([
@@ -995,6 +997,7 @@ const router = createBrowserRouter([
       {
         path: "/topics",
         element : <SideLayoutTopics />,
+        action: NewTopicFunction,
         children: [
           {
             index: true,

@@ -4,11 +4,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Form } from "react-router-dom";
@@ -18,77 +16,87 @@ function NewTopic({ modal, setModal, functionModal }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="overflow-auto bg-blancoBg p-0">
+      <DialogContent className="h-[380px] overflow-auto bg-blancoBg p-0">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading">
             Agregar Topic
           </DialogTitle>
         </DialogHeader>
 
-        <div className="rounded-xl bg-[#FBFBFB] px-4">
-          <div className="mb-8 grid grid-cols-12 gap-x-8 gap-y-4">
-            <div className="col-span-12 md:col-span-6 xl:col-span-6">
-              <div className="flex items-center gap-x-2">
-                <img
-                  src={"https://picsum.photos/id/237/200/300"}
-                  className="h-8 w-8 rounded-full"
-                />
-                <span className="text-sm font-semibold text-grisText">
-                  Don Formularo
-                </span>
+        {/* FORMA 1 */}
+        <form
+        //   onSubmit={handleSubmit}
+          encType="multipart/form-data"
+          action="/topics"
+          method="post"
+        >
+          <div className={stepped == 1 ? "block" : "hidden"}>
+            <div className="rounded-xl bg-[#FBFBFB] px-4">
+              <div className="mb-8 grid grid-cols-12 gap-x-8 gap-y-4">
+                <div className="col-span-12 md:col-span-6 xl:col-span-6">
+                  <div className="flex items-center gap-x-2">
+                    <img
+                      src={"https://picsum.photos/id/237/200/300"}
+                      className="h-8 w-8 rounded-full"
+                    />
+                    <span className="text-sm font-semibold text-grisText">
+                      Don Formularo
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-6">
+                  <SelectRouter
+                    name={"categories"}
+                    className="w-full text-sm font-light"
+                    placeholder={"Selecciona Categoría"}
+                    options={[]}
+                    // onChange={(e) => setStatus(e.value)}
+                  />
+                </div>
+
+                <div className="col-span-12">
+                  <InputRouter
+                    name="title"
+                    placeholder="Agrega Título"
+                    type="text"
+                  />
+                </div>
+                <div className="col-span-12">
+                  <InputRouter
+                    name="text"
+                    placeholder={"Que deseas compartir, Arturo Sáncehz?"}
+                    type="text"
+                  />
+                </div>
+                <div className="col-span-12">
+                  <div className="flex w-full justify-end">
+                    <button
+                      type="button"
+                      className="rounded-xl bg-primario p-2 text-white"
+                      onClick={() => setStepped(2)}
+                    >
+                      next
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="col-span-12 md:col-span-6 xl:col-span-6">
-              <SelectRouter
-                name={"categories"}
-                className="w-full text-sm font-light"
-                placeholder={"Selecciona Categoría"}
-                options={[]}
-                // onChange={(e) => setStatus(e.value)}
-              />
-            </div>
-
-            <div className="col-span-12">
-              <InputRouter
-                name={"title"}
-                placeholder={"Agrega Título"}
-                type={"text"}
-              />
-            </div>
-            <div className="col-span-12">
-              <InputRouter
-                name={"text"}
-                placeholder={"Que deseas compartir, Arturo Sáncehz?"}
-                type={"text"}
-              />
-            </div>
           </div>
-        </div>
 
-        {/* FORMA 1 */}
-        <Form>
-          {stepped == 1 ? (
-            <div>
-              Paso 1
-              <button type="button" onClick={() => setStepped(2)}>
-                {" "}
-                Change Step 2
-              </button>
-            </div>
-          ) : stepped == 2 ? (
-            <div>
-              Paso 2
-              <button type="button" onClick={() => setStepped(3)}>
-                Change Step 3
-              </button>
-            </div>
-          ) : stepped == 3 ? (
-            <div>Paso 3</div>
-          ) : null}
-        </Form>
+          <div className={stepped == 2 ? "block" : "hidden"}>
+            <input
+              type="file"
+              accept="image/*"
+              multiple="multiple"
+              name="fileInput[]"
+              id="fileInput"
+            />
+            <button type="submit">submit</button>
+          </div>
+        </form>
         <br />
         {/* FORMA 2 */}
-        <div className={stepped == 1 ? "hidden" : "block"}>
+        {/* <div className={stepped == 1 ? "hidden" : "block"}>
           Paso 1
           <button type="button" onClick={() => setStepped(2)}>
             {" "}
@@ -102,18 +110,9 @@ function NewTopic({ modal, setModal, functionModal }) {
             Change Step 3
           </button>
         </div>
-        <div className={stepped == 2 ? "hidden" : "block"}>Paso 3</div>
+        <div className={stepped == 2 ? "hidden" : "block"}>Paso 3</div> */}
 
         <DialogDescription></DialogDescription>
-
-        <DialogFooter className="px-6 pb-6">
-          <Button
-            form="formDataTab"
-            className="h-8 justify-normal rounded-lg rounded-xl bg-primarioBotones px-6 text-xs font-semibold"
-          >
-            Continuar
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

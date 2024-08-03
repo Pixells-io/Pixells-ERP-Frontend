@@ -116,21 +116,21 @@ function Publication({ image }) {
               className="h-8 w-8 rounded-full"
             />
             <div className="w-5/6">
-              <label>
+              <p style={{ lineHeight: "1.1" }}>
                 <span className="text-sm font-semibold text-grisText">
-                  Don Formularo
+                  Don Formularos
                 </span>
                 <span className="ml-2 text-xs font-normal text-[#44444F]">
                   Exelent article, this is awesome! lore
                 </span>
-              </label>
+              </p>
             </div>
             <IonIcon
               icon={heartOutline}
-              className="h-5 w-6 text-[#696974]"
+              className="h-3 w-4 text-[#696974]"
             ></IonIcon>
           </div>
-          <div className="ml-16 flex items-start gap-x-4">
+          <div className="ml-16 mt-1 flex items-start gap-x-4">
             <span className="text-xs font-medium text-grisSubText">4 d</span>
             <span className="text-xs font-medium text-grisSubText">
               2 likes

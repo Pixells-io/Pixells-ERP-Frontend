@@ -104,4 +104,10 @@ function SideLayoutTopics() {
 
 export default SideLayoutTopics;
 
-export async function Action({ request }) {}
+export async function Action({ request }) {
+  const data = await request.formData();
+  console.log(data, request);
+  
+
+  return "1";
+}
