@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
 
-const CreateOrder = () => {
+const CreateQuoteOrder = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-  const [type,setType] = useState("pedido");
 
-  const getTitle = "Nueva Orden de Compra";
+
+  const getTitle = "Nueva Cotización";
 
  
 
@@ -26,11 +26,10 @@ const CreateOrder = () => {
           setSelectedCostCenter={setSelectedCostCenter}
           setSubtotal={setSubtotal}
           subtotal={subtotal}
-          type={type}
         />
       </div>
     </div>
   );
 };
 
-export default CreateOrder;
+export default CreateQuoteOrder;
