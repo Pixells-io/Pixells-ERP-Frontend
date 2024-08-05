@@ -19,21 +19,28 @@ const MENU_ITEMS = [
     name: "Pedidos", 
     subname: "General", 
     icon: cube,
-    subRoutes: ["/shopping/request-orders/create"]
+    subRoutes: [
+      "/shopping/request-orders/create",
+      "/shopping/document/pedido"
+    ]
   },
   { 
     path: "/shopping/purchase", 
     name: "Ordenes", 
     subname: "De Compra", 
     icon: cube,
-    subRoutes: ["/shopping/purchase/create"]
+    subRoutes: ["/shopping/purchase/create",
+      "/shopping/document/orden"
+    ]
   },
   { 
     path: "/shopping/quotes-orders", 
     name: "Cotizaciones", 
     subname: "De Compra", 
     icon: cube,
-    subRoutes: ["/shopping/quotes-orders/create"]
+    subRoutes: ["/shopping/quotes-orders/create",
+      "/shopping/document/cotizacion"
+    ]
   },
   
 ];

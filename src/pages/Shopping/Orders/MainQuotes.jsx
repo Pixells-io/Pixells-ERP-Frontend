@@ -6,6 +6,7 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import MenuItem from "./Components/Menu";
 
 const MainQuotesOrder = () => {
   const data = [
@@ -30,7 +31,18 @@ const MainQuotesOrder = () => {
       tipo: "Nota de crédito",
     },
   ];
-
+  const menuItems = [
+    {
+      label: 'Edit',
+      isLink: true,
+      to: '/shopping/supplier/create'
+    },
+    {
+      label: 'Cancel',
+      isLink: false,
+      onClick: () => console.log("Cancel action")
+    },
+  ];
   const columns = [
     {
       accessorKey: "ndocumento",
@@ -78,6 +90,21 @@ const MainQuotesOrder = () => {
     {
       accessorKey: "tipo",
       header: "Tipo",
+    },
+    {
+      accessorKey: "estatus",
+      header: "Estatus",
+    },
+    {
+      accessorKey: "acciones",
+      header: "Acciones",
+      cell: ({ row }) => {
+        return (
+          <div className="flex items-center justify-center">
+           <MenuItem menuItems={menuItems}/>
+          </div>
+        );
+      },
     },
   ];
 
