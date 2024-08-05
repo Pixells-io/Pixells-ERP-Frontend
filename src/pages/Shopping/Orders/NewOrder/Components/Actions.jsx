@@ -5,17 +5,18 @@ import CardCarousel from "./CardCarousel";
 import { IonIcon } from "@ionic/react";
 import { copy, print, create } from "ionicons/icons";
 
-const Actions = ({ documentType, onConvert }) => {
+const Actions = ({ onConvert }) => {
   const location = useLocation();
 
-  const isNotPurchaseRequestCreate = location.pathname !== "/shopping/request-orders/create";
-  const isPedidos = location.pathname.includes("/shopping/request-orders/creat");
+  const isNotPurchaseRequestCreate = !location.pathname.includes("/shopping/request-orders/create");
+  const isPedidos = location.pathname.includes("/shopping/request-orders/create");
+  const isConvertibleDocument = location.pathname.includes("/shopping/document/orden") || location.pathname.includes("/shopping/document/cotizacion");
 
   return (
-    <div className={`ml-2 flex flex-col items-center justify-between gap-4 pl-4 pt-4 sm:flex-row ${isPedidos ? 'sm:justify-center' : ''}`}>
+    <div className="ml-2 flex flex-col items-center justify-end gap-4  pt-4 sm:flex-row">
       <div className={`flex items-center gap-2 sm:gap-4 ${isPedidos ? 'justify-center' : ''}`}>
-        {isNotPurchaseRequestCreate && !isPedidos && (
-          <ConversionButtons documentType={documentType} onConvert={onConvert} />
+        {isNotPurchaseRequestCreate && !isPedidos && isConvertibleDocument && (
+          <ConversionButtons onConvert={onConvert} />
         )}
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
           <IonIcon

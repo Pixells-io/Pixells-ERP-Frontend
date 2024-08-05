@@ -7,7 +7,7 @@ const CreateQuoteOrder = () => {
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-
+  const [type,setType] = useState("cotizacion");
 
   const getTitle = "Nueva Cotización";
 
@@ -26,6 +26,7 @@ const CreateQuoteOrder = () => {
           setSelectedCostCenter={setSelectedCostCenter}
           setSubtotal={setSubtotal}
           subtotal={subtotal}
+          type={type}
         />
       </div>
     </div>

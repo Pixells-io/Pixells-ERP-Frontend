@@ -1,11 +1,13 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
 
-const ConversionButtons = ({ documentType, onConvert }) => {
+const ConversionButtons = ({ onConvert }) => {
+  const location = useLocation();
   const buttonStyle =
     "font-roboto text-gris2 bg-[#F0F0F0] hover:bg-gray-200 text-sm rounded-lg focus:outline-none focus:ring-0";
 
-  if (documentType === "orden") {
+  if (location.pathname === "/shopping/document/orden") {
     return (
       <div className="flex p-2 pl-8 text-xs">
         <Button className={buttonStyle} onClick={() => onConvert("pedido")}>
@@ -15,14 +17,14 @@ const ConversionButtons = ({ documentType, onConvert }) => {
     );
   }
 
-  if (documentType === "cot") {
+  if (location.pathname === "/shopping/document/cotizacion") {
     return (
       <div className="flex gap-1 pl-0 text-[10px]">
         <Button
           className={`${buttonStyle} px-2 py-1`}
-          onClick={() => onConvert("cotizacion")}
+          onClick={() => onConvert("orden")}
         >
-          Convertir a cotización
+          Convertir a OC
         </Button>
         <Button
           className={`${buttonStyle} px-2 py-1`}
@@ -34,13 +36,7 @@ const ConversionButtons = ({ documentType, onConvert }) => {
     );
   }
 
-  return (
-    <div className="flex items-center gap-2 pl-8 text-xs">
-      <Button className={buttonStyle} onClick={() => onConvert("cot")}>
-        Volver al menú
-      </Button>
-    </div>
-  );
+  return null;  // No renderizar nada si el tipo de documento no coincide
 };
 
 export default ConversionButtons;

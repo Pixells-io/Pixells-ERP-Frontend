@@ -9,7 +9,7 @@ const CreateOrder = () => {
   const [subtotal, setSubtotal] = useState(0);
   const [type,setType] = useState("pedido");
 
-  const getTitle = "Nueva Orden de Compra";
+  const getTitle = "Nuevo pedido";
 
  
 

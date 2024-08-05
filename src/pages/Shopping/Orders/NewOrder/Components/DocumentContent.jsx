@@ -15,9 +15,7 @@ const DocumentContent = ({
   subtotal,
   type,
 }) => {
-  const handleApply = (comments) => {
-    console.log("Aplicando con comentarios:", comments);
-    // Simula un clic en el NavLink
+  const handleApply = () => {
     document.getElementById("documentNavLink").click();
   };
 

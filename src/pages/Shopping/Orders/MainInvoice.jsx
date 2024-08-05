@@ -8,30 +8,42 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MenuItem from "./Components/Menu";
 
-const MainRequestOrder = () => {
+const MainInvoice = () => {
   const data = [
     {
       ndocumento: "DOC001",
       codproveedor: "PROV001",
-      nproveedor: "Proveedor PEPSICO",
-      importe: 1320.0,
-      impuesto: 5740.0,
+      nproveedor: "Proveedor A",
+      importe: 1000.0,
+      impuesto: 160.0,
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
+      estatus: "en progreso",
     },
     {
       ndocumento: "DOC002",
       codproveedor: "PROV002",
-      nproveedor: "Proveedor PEPSICO",
-      importe: 15030.5,
+      nproveedor: "Proveedor B",
+      importe: 1500.5,
       impuesto: 240.08,
       fechac: "2024-07-16",
       fechad: "2024-07-12",
       tipo: "Nota de crédito",
-    }
+      estatus: "Finalizada",
+    },
+    {
+      ndocumento: "DOC003",
+      codproveedor: "PROV003",
+      nproveedor: "Proveedor C",
+      importe: 750.25,
+      impuesto: 120.04,
+      fechac: "2024-07-17",
+      fechad: "2024-07-14",
+      tipo: "Factura",
+      estatus: "en progreso",
+    },
   ];
-
 
   const menuItems = [
     {
@@ -45,7 +57,6 @@ const MainRequestOrder = () => {
       onClick: () => console.log("Cancel action")
     },
   ];
-
 
   const columns = [
     {
@@ -112,6 +123,7 @@ const MainRequestOrder = () => {
     },
   ];
 
+ 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -152,10 +164,10 @@ const MainRequestOrder = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Pedidos General
+            Ordenes de compra
           </p>
           <div className="flex items-start justify-start">
-            <Link to="/shopping/request-orders/create">
+            <Link to="/shopping/purchase/create">
               <Button
                 variant="ghost"
                 size="icon"
@@ -175,15 +187,15 @@ const MainRequestOrder = () => {
         <div className="overflow-auto rounded-xl bg-white p-4">
           <div className="w-full">
             <Tabs
-              defaultValue="request"
+              defaultValue="orders"
               className="flex h-full flex-col rounded-lg pt-2"
             >
               <TabsList className="mb-3 flex justify-start bg-transparent">
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="request"
+                  value="orders"
                 >
-                  PEDIDOS
+                  ORDENES
                 </TabsTrigger>
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
@@ -192,7 +204,7 @@ const MainRequestOrder = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="request" className="w-full">
+              <TabsContent value="orders" className="w-full">
                 <div className="flex w-full justify-center">
                   <div className="w-full max-w-4xl">
                     <DataTable
@@ -220,4 +232,4 @@ const MainRequestOrder = () => {
   );
 };
 
-export default MainRequestOrder;
+export default MainInvoice;
