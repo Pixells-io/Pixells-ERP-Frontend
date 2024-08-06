@@ -59,12 +59,12 @@ function Publication({ image }) {
             {true ? (
               <IonIcon
                 icon={bookmark}
-                className="h-4 w-5 text-[#696974] cursor-pointer"
+                className="h-4 w-5 cursor-pointer text-[#696974]"
               ></IonIcon>
             ) : (
               <IonIcon
                 icon={bookmarkOutline}
-                className="h-4 w-5 text-[#696974] cursor-pointer"
+                className="h-4 w-5 cursor-pointer text-[#696974]"
               ></IonIcon>
             )}
           </div>
@@ -90,9 +90,14 @@ function Publication({ image }) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-white p-2 text-inherit opacity-30" />
-
-            <CarouselNext className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-white p-2 text-inherit opacity-30" />
+            <CarouselPrevious
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-white/[0.6] p-2 text-inherit hover:bg-[#44444F]/[0.8]"
+              colorIcon="group-hover:text-white/[0.4] text-[#44444F]/[0.8]"
+            />
+            <CarouselNext
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-white/[0.6] p-2 text-inherit hover:bg-[#44444F]/[0.8]"
+              colorIcon="group-hover:text-white/[0.4] text-[#44444F]/[0.8]"
+            />
           </Carousel>
         </div>
       </div>
@@ -102,12 +107,12 @@ function Publication({ image }) {
             {true ? (
               <IonIcon
                 icon={heart}
-                className="h-5 w-6 text-[#DF354F] cursor-pointer"
+                className="h-5 w-6 cursor-pointer text-[#DF354F]"
               ></IonIcon>
             ) : (
               <IonIcon
                 icon={heartOutline}
-                className="h-5 w-6 text-[#696974] cursor-pointer"
+                className="h-5 w-6 cursor-pointer text-[#696974]"
               ></IonIcon>
             )}
 
@@ -116,7 +121,7 @@ function Publication({ image }) {
           <div className="flex items-center gap-x-1">
             <IonIcon
               icon={chatbubbleOutline}
-              className="h-5 w-6 text-[#696974] cursor-pointer"
+              className="h-5 w-6 cursor-pointer text-[#696974]"
             ></IonIcon>
             <label className="text-sm font-medium text-grisText">4</label>
           </div>
@@ -141,12 +146,12 @@ function Publication({ image }) {
               {true ? (
                 <IonIcon
                   icon={heart}
-                  className="h-3 w-4 text-[#DF354F] cursor-pointer"
+                  className="h-3 w-4 cursor-pointer text-[#DF354F]"
                 ></IonIcon>
               ) : (
                 <IonIcon
                   icon={heartOutline}
-                  className="h-3 w-4 text-[#696974] cursor-pointer"
+                  className="h-3 w-4 cursor-pointer text-[#696974]"
                 ></IonIcon>
               )}
             </div>

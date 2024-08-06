@@ -209,8 +209,14 @@ function NewTopic({ modal, setModal, functionModal }) {
                 ))}
               </CarouselContent>
 
-              <CarouselPrevious className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-white p-2 text-inherit opacity-30" />
-              <CarouselNext className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-white p-2 text-inherit opacity-30" />
+              <CarouselPrevious
+                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
+                colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
+              />
+              <CarouselNext
+                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
+                colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
+              />
 
               <Button
                 type="button"
