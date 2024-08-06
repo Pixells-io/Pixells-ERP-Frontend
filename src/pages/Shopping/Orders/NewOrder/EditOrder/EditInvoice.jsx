@@ -1,26 +1,49 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Header from '../Components/Header';
-import DocumentContent from '../Components/DocumentContent';
-import Actions from './Components/Actions';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../Components/Header";
+import DocumentContent from "../Components/DocumentContent";
+import ActionsGroup from "../Components/ActionsGroup";
+import CardCarousel from "../Components/CardCarousel";
 
-const EditInvoice = () => {
-  const { id } = useParams(); 
-
+const EditInvoices = () => {
+  const { id } = useParams();
+  
   const [documentNumber, setDocumentNumber] = useState(id);
-  const [selectedWarehouse, setSelectedWarehouse] = useState('');
-  const [selectedCostCenter, setSelectedCostCenter] = useState('');
+  const [selectedWarehouse, setSelectedWarehouse] = useState("almacen2");
+  const [selectedCostCenter, setSelectedCostCenter] = useState("cc2");
   const [subtotal, setSubtotal] = useState(0);
+  const [selectedProveedor, setSelectedProveedor] = useState("proveedor3");
+  const [selectedFechaDoc, setSelectedFechaDoc] = useState("fecha1");
+  const [selectedFechaEntrega, setSelectedFechaEntrega] = useState("entrega1");
+  const [selectedCondicionPago, setSelectedCondicionPago] = useState("condicion1");
+  const [editable, setEditable] = useState(false);
+  const [items, setItems] = useState([
+    {
+      item: "321",
+      codigo: "001",
+      valor: "100",
+      descuento: "10",
+      impuesto: "19",
+      cantidad: "2",
+      unidad: "unidad",
+      fechaEntrega: "2024-08-15",
+    }
+  ]);
 
-  const saveUrl = "/shopping/invoices-requests";
-  const getTitle = `Editando factura: ${id}`;
+  const saveUrl = "/shopping/invoices-orders";
+  const getTitle = `Consultando factura: ${id}`;
   const url = `/shopping/document/factura/${id}`;
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
-        <Actions url={url} />
+        <div className="flex justify-between">
+          <ActionsGroup url={url} setEditable={setEditable} />
+          <div className="flex justify-end">
+            <CardCarousel />
+          </div>
+        </div>
         <DocumentContent
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
@@ -28,13 +51,24 @@ const EditInvoice = () => {
           setSelectedWarehouse={setSelectedWarehouse}
           selectedCostCenter={selectedCostCenter}
           setSelectedCostCenter={setSelectedCostCenter}
-          setSubtotal={setSubtotal}
           subtotal={subtotal}
+          setSubtotal={setSubtotal}
+          selectedProveedor={selectedProveedor}
+          setSelectedProveedor={setSelectedProveedor}
+          selectedFechaDoc={selectedFechaDoc}
+          setSelectedFechaDoc={setSelectedFechaDoc}
+          selectedFechaEntrega={selectedFechaEntrega}
+          setSelectedFechaEntrega={setSelectedFechaEntrega}
+          selectedCondicionPago={selectedCondicionPago}
+          setSelectedCondicionPago={setSelectedCondicionPago}
           saveUrl={saveUrl}
+          isEditable={editable}
+          items={items}
+          setItems={setItems}
         />
       </div>
     </div>
   );
 };
 
-export default EditInvoice;
+export default EditInvoices;

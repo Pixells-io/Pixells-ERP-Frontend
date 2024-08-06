@@ -3,7 +3,6 @@ import { useParams, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import DocumentFormat from "@/components/Document/DocFormat";
 import { getDocumentInfo, getDocumentItems } from "../utils";
-import Actions from "../Components/Actions";
 import ConversionButtons from "../Components/DocumentButton";
 
 const DocumentPDF = () => {
@@ -14,7 +13,7 @@ const DocumentPDF = () => {
   const Items=getDocumentItems();
 
 
-  const getTitle = `Documento: ${documentType || ''}`;
+  const getTitle = `Documento: ${documentType} ${id}`;
 
   const handleConvert = (convertTo) => {
     setDocumentType(convertTo);
@@ -34,7 +33,7 @@ const DocumentPDF = () => {
             documentType={documentType}
           />
           <div className="flex-grow flex justify-end">
-            <Actions />
+            
           </div>
         </div>
         {/* CONTENT */}

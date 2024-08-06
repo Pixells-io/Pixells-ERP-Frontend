@@ -9,9 +9,13 @@ import {
 
 const StyleSelect = "w-full rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-function SelectField({ name, placeholder, options, onChange }) {
+function SelectField({ name, placeholder, options, onChange, value }) {
   return (
-    <Select name={name} onValueChange={onChange}>
+    <Select
+      name={name}
+      value={value}
+      onValueChange={(selectedValue) => onChange(selectedValue)}
+    >
       <SelectTrigger className={StyleSelect}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

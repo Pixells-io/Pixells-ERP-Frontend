@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
-
+import CardCarousel from './Components/CardCarousel';
 const CreateQuoteOrder = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
@@ -16,6 +16,9 @@ const CreateQuoteOrder = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
+        <div className="flex justify-end">
+        <CardCarousel/>
+        </div>
         <DocumentContent
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
@@ -25,7 +28,6 @@ const CreateQuoteOrder = () => {
           setSelectedCostCenter={setSelectedCostCenter}
           setSubtotal={setSubtotal}
           subtotal={subtotal}
-          type={type}
           saveUrl={saveUrl}
         />
       </div>
