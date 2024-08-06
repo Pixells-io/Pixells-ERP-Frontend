@@ -75,7 +75,7 @@ const allCategories = [
 ];
 function Categories() {
   return (
-    <div className="flex flex-col gap-y-6 overflow-auto rounded-md bg-blancoForms pb-2 pl-4 pr-2 pt-4">
+    <div className="flex flex-col gap-y-6 overflow-auto rounded-md bg-blancoForms pb-2 pl-4 pr-1 pt-4 min-w-[230px]">
       <h2 className="font-poppins text-xl font-semibold text-grisHeading">
         CATEGORIES
       </h2>
@@ -91,7 +91,7 @@ function Categories() {
             >
               {({ isActive }) => (
                 <p
-                  className={`w-[112px] rounded-3xl px-3 py-2 text-xs font-medium ${
+                  className={`w-[112px] rounded-3xl px-3 py-2 text-xs font-medium text-center ${
                     isActive
                       ? "bg-primario text-white"
                       : "bg-[#E0E0E0] text-[#44444F]"
@@ -117,10 +117,10 @@ function Categories() {
               {({ isActive }) => (
                 <div className="flex items-center gap-x-2">
                   <p
-                    className={`w-[112px] rounded-3xl px-2 py-2 text-xs font-medium ${
+                    className={`w-[112px] rounded-3xl px-2 py-2 text-xs font-medium text-center ${
                       isActive
                         ? "bg-primario text-white"
-                        : "border-2 border-[#44444F] bg-inherit text-[#44444F]"
+                        : "border border-[#44444F] bg-inherit text-[#44444F]"
                     }`}
                   >
                     {allCAtegory.name}
@@ -138,24 +138,26 @@ function Categories() {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-y-1 rounded-2xl bg-[#E8E8E8] px-2 py-1">
-        <div>
-          <label className="text-xs font-medium text-grisText">Created</label>.
-          <label className="text-xs font-medium text-grisText">
-            12 Jan 2024
-          </label>
-        </div>
-        <div className="flex gap-x-2">
-          <img
-            src={"https://picsum.photos/id/237/200/300"}
-            className="h-5 w-5 rounded-full"
-          />
-          <span className="text-xs font-medium text-grisText">
-            Don Formularo
-          </span>
-        </div>
-        <div>
-          <label className="text-xs font-medium text-grisText">1 Post</label>
+      <div className="pr-3 mt-4">
+        <div className="flex flex-col gap-y-1 rounded-2xl bg-[#E8E8E8] px-2 py-1">
+          <div>
+            <label className="text-xs font-medium text-grisText">Created</label>.
+            <label className="text-xs font-medium text-grisText">
+              12 Jan 2024
+            </label>
+          </div>
+          <div className="flex gap-x-2">
+            <img
+              src={"https://picsum.photos/id/237/200/300"}
+              className="h-5 w-5 rounded-full"
+            />
+            <span className="text-xs font-medium text-grisText">
+              Don Formularo
+            </span>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-grisText">1 Post</label>
+          </div>
         </div>
       </div>
     </div>

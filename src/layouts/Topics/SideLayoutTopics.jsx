@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  addCircle,
-  addCircleOutline,
-  bagCheck,
-  home,
-  search,
-} from "ionicons/icons";
+import { addCircleOutline, home, searchOutline } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
 import NewTopic from "@/pages/Topics/New/NewTopic";
 import NewCategory from "@/pages/Topics/New/NewCategory";
@@ -51,30 +45,24 @@ function SideLayoutTopics() {
           </p>
 
           {/*menu top */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <NavLink
-              to="/transformation"
-              className={({ isActive }) =>
-                isActive &&
-                (location.pathname === "/transformation" ||
-                  location.pathname === "/transformation/create")
-                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
-                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
-              }
+              to="/topics"
+              className="w-full px-4 py-2 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
             >
-              <div className="flex items-center gap-6">
+              <div className="flex w-full items-center gap-6 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]">
                 <IonIcon icon={home} size="large"></IonIcon>
                 <p className="text-base font-medium">Home</p>
               </div>
             </NavLink>
-            <div className="flex items-center gap-6 px-4">
-              <IonIcon icon={search} size="large"></IonIcon>
+            <div className="flex w-full items-center gap-6 px-4 py-2 text-gris2 hover:cursor-pointer hover:rounded-lg hover:bg-[#EAEAEA]">
+              <IonIcon icon={searchOutline} size="large"></IonIcon>
               <p className="text-base font-medium">Search</p>
             </div>
-            <div className="flex items-center gap-6 px-4">
+            <div className="flex w-full items-center gap-6">
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <div className="flex items-center gap-x-6">
+                <DropdownMenuTrigger className="w-full py-2 pl-4 hover:rounded-lg hover:bg-[#EAEAEA]">
+                  <div className="flex w-full items-center gap-x-6 text-gris2">
                     <IonIcon icon={addCircleOutline} size="large"></IonIcon>
                     <p className="text-base font-medium">Create</p>
                   </div>
@@ -108,7 +96,6 @@ export default SideLayoutTopics;
 export async function Action({ request }) {
   const data = await request.formData();
   await saveNewTopic(data);
-  
 
   return "1";
 }
