@@ -1,9 +1,11 @@
 import React from "react";
+import { Form, useNavigate } from "react-router-dom";
 import InputsGroup from "./ElementGroup";
 import OrderTable from "./OrderFom";
 import Total from "@/components/TotalSection/TotalSection";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { NavLink } from "react-router-dom";
+
+
 const DocumentContent = ({
   documentNumber,
   setDocumentNumber,
@@ -13,16 +15,18 @@ const DocumentContent = ({
   setSelectedCostCenter,
   setSubtotal,
   subtotal,
-  type,
+  saveUrl, // URL para redirigir después de guardar
 }) => {
-  const handleApply = (comments) => {
-    console.log("Aplicando con comentarios:", comments);
-    // Simula un clic en el NavLink
-    document.getElementById("documentNavLink").click();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+
+    // Navegar a la URL especificada
+    navigate(saveUrl);
   };
 
   return (
-    <div className="flex flex-col space-y-4 overflow-auto pr-12 pt-0">
+    <Form onSubmit={handleSubmit} className="flex flex-col space-y-4 overflow-auto pr-12 pt-0">
       <InputsGroup
         documentNumber={documentNumber}
         setDocumentNumber={setDocumentNumber}
@@ -36,18 +40,13 @@ const DocumentContent = ({
       <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}
-          applyFunction={handleApply}
+          applyFunction={() => handleSubmit()}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
         />
-        <NavLink
-          to={`/shopping/document/${type}`}
-          id="documentNavLink"
-          style={{ display: "none" }}
-        />
       </div>
-    </div>
+    </Form>
   );
 };
 

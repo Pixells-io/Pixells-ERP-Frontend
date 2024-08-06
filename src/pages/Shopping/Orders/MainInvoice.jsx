@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MenuItem from "./Components/Menu";
 
-const MainPurchase = () => {
+const MainInvoice = () => {
   const data = [
     {
+      id: 1, // Añade un identificador único para cada documento
       ndocumento: "DOC001",
       codproveedor: "PROV001",
       nproveedor: "Proveedor A",
@@ -22,6 +23,7 @@ const MainPurchase = () => {
       estatus: "en progreso",
     },
     {
+      id: 2, // Añade un identificador único para cada documento
       ndocumento: "DOC002",
       codproveedor: "PROV002",
       nproveedor: "Proveedor B",
@@ -33,6 +35,7 @@ const MainPurchase = () => {
       estatus: "Finalizada",
     },
     {
+      id: 3, // Añade un identificador único para cada documento
       ndocumento: "DOC003",
       codproveedor: "PROV003",
       nproveedor: "Proveedor C",
@@ -49,7 +52,7 @@ const MainPurchase = () => {
     {
       label: 'Edit',
       isLink: true,
-      to: `/shopping/purchase/edit/${id}`, 
+      to: `/shopping/invoices-order/edit/${id}`, // Incluye el id en la URL
     },
     {
       label: 'Cancel',
@@ -126,7 +129,6 @@ const MainPurchase = () => {
     },
   ];
 
- 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -235,4 +237,4 @@ const MainPurchase = () => {
   );
 };
 
-export default MainPurchase;
+export default MainInvoice;

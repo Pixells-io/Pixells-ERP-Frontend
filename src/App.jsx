@@ -303,8 +303,13 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
-import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
+import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import CreateRequest from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
+import MainQuotesOrder from "./pages/Shopping/Orders/MainQuotes";
+import CreateQuoteOrder from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
+import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -951,16 +956,33 @@ const router = createBrowserRouter([
             element: <CreateSupplier />,
           },
           {
+            path: "/shopping/request-orders",
+            element: <MainRequestOrder />,
+          },
+          {
+            path: "/shopping/request-orders/create",
+            element: <CreateOrder />,
+          },
+          {
             path: "/shopping/purchase/",
             element: <MainPurchase />,
           },
           {
             path: "/shopping/purchase/create",
-            element: <CreateOrder />,
+            element: <CreateRequest />,
           },
           {
-            path: "/shopping/purchase/document",
+            path: "/shopping/quotes-orders",
+            element: <MainQuotesOrder />,
           },
+          {
+            path: "/shopping/quotes-orders/create",
+            element: <CreateQuoteOrder />,
+          },
+          {
+            path:"/shopping/document/:type/:id",
+            element:<DocumentPDF/>
+          }
         ],
       },
       //TRANSFORMATIONS

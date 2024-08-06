@@ -8,9 +8,8 @@ const CreateQuoteOrder = () => {
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
 
-
   const getTitle = "Nueva Cotización";
-
+  const saveUrl ="/shopping/quotes-orders"
  
 
   return (
@@ -26,6 +25,8 @@ const CreateQuoteOrder = () => {
           setSelectedCostCenter={setSelectedCostCenter}
           setSubtotal={setSubtotal}
           subtotal={subtotal}
+          type={type}
+          saveUrl={saveUrl}
         />
       </div>
     </div>

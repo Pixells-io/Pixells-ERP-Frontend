@@ -80,11 +80,11 @@ function NotificationChat({ notifications, user }) {
                     </Avatar>
                   </div>
                   <div className="w-3/5 overflow-hidden text-start">
-                    <p className="text-sm font-medium text-grisText">
+                    <p className="line-clamp-1 text-sm font-medium text-grisText">
                       {noti?.title}
                     </p>
                     <span
-                      className="text-xs font-normal text-grisSubText"
+                      className="line-clamp-1 text-xs font-normal text-grisSubText"
                       title={noti?.message}
                     >
                       {noti?.message}

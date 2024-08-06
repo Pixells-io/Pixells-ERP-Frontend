@@ -84,6 +84,8 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
 
   const obtenerTitulo = () => {
     switch (documentType) {
+      case "orden":
+        return "ORDEN DE COMPRA";
       case "cotizacion":
         return "COTIZACIÓN";
       case "pedido":
@@ -107,7 +109,7 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
       {/* Header section */}
       <header className="mb-4 flex items-center justify-between pl-[43px] pt-[20px]">
         <div className="relative flex h-[100px] w-[100px] items-center justify-center rounded-lg border">
-          {documentType === "cotizacion" && (
+          {(documentType === "cotizacion") && (
             <div className="text-md absolute right-0 top-0 flex h-[40px] w-[250px] origin-top-left translate-x-[65px] translate-y-[70px] -rotate-45 transform items-center justify-center bg-[#FFB27A] pr-6 font-bold text-white">
               PENDIENTE
             </div>

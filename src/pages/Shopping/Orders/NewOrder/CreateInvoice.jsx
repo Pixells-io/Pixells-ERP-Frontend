@@ -8,9 +8,9 @@ const CreateOrder = () => {
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-  const saveUrl ="/shopping/purchase"
+  const saveUrl ="/shopping/invoices-orders"
 
-  const getTitle = "Nuevo pedido";
+  const getTitle = "Nueva factura";
 
  
 

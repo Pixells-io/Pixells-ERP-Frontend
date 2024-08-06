@@ -38,4 +38,3 @@ export const getDocumentInfo = () => ({
     },
     // ... más items si es necesario
   ];
-  

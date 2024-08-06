@@ -6,6 +6,7 @@ import {
   chevronForward,
   keyOutline,
   laptopOutline,
+  logoGoogle,
   notificationsOutline,
   searchOutline,
 } from "ionicons/icons";
@@ -115,11 +116,11 @@ function MainSecurity() {
         {/*component accion*/}
         <div className="mx-48 flex h-full gap-10 overflow-auto rounded-xl bg-white p-7">
           <Form
-            id="area-form"
             className="flex h-full w-2/4 flex-col gap-3 px-6"
             action="/my-profile"
             method="post"
           >
+            <input type="hidden" name="type_function" value={1} />
             <span className="font-roboto text-xs font-light text-grisHeading">
               Current Password
             </span>
@@ -139,6 +140,23 @@ function MainSecurity() {
               Update
             </Button>
           </Form>
+          <div className="w-2/4">
+            <span className="">Integrations</span>
+            <Form
+              className="flex h-full w-full flex-col gap-3 px-6 pt-2"
+              action="/my-profile"
+              method="post"
+            >
+              <input type="hidden" name="type_function" value={2} />
+              <Button
+                type="submit"
+                className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+              >
+                <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
+                Login In Google
+              </Button>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
