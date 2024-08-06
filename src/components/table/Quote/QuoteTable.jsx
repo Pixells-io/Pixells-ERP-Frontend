@@ -9,11 +9,27 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { IonIcon } from "@ionic/react";
-import { addCircle, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+import {
+  addCircle,
+  chevronBack,
+  chevronForward,
+  closeCircle,
+} from "ionicons/icons";
+import { useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { calculateTotal, handleAddRow, handleInputChange, handleDeleteRow } from "./quoteTableUtils";
+import {
+  calculateTotal,
+  handleAddRow,
+  handleDeleteRow,
+  handleInputChange,
+} from "./Utils";
 
-const QuoteTable = ({ setTotalChanges }) => {
+const QuoteTable = ({
+  initialItems,
+  setItems,
+  isEditable,
+  setTotalChanges,
+}) => {
   const initialRow = {
     item: "",
     codigo: "",
@@ -24,13 +40,26 @@ const QuoteTable = ({ setTotalChanges }) => {
     unidad: "",
     fechaEntrega: "",
   };
+  const location = useLocation();
 
-  const [tableData, setTableData] = useState([initialRow]);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    if (location.pathname.includes('edit')) {
+      setTableData(initialItems.length > 0 ? initialItems : [initialRow]);
+    } else {
+      setTableData([initialRow]);
+    }
+  }, [location.pathname, initialItems]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
-    const newTotal = tableData.reduce((sum, row) => sum + calculateTotal(row), 0);
+    const newTotal = tableData.reduce(
+      (sum, row) => sum + calculateTotal(row),
+      0,
+    );
     if (setTotalChanges) {
       setTotalChanges(newTotal);
     }
@@ -38,22 +67,22 @@ const QuoteTable = ({ setTotalChanges }) => {
 
   const columns = useMemo(
     () => [
-      { key: 'item', header: 'Item', type: 'text' },
-      { key: 'codigo', header: 'Código', type: 'text' },
-      { key: 'valor', header: 'Valor', type: 'number' },
-      { key: 'descuento', header: 'Descuento (%)', type: 'number' },
-      { key: 'impuesto', header: 'Impuesto (%)', type: 'number' },
-      { key: 'cantidad', header: 'Cantidad', type: 'number' },
-      { key: 'unidad', header: 'Unidad', type: 'text' },
-      { key: 'fechaEntrega', header: 'Fecha de Entrega', type: 'date' },
+      { key: "item", header: "Item", type: "text" },
+      { key: "codigo", header: "Código", type: "text" },
+      { key: "valor", header: "Valor", type: "number" },
+      { key: "descuento", header: "Descuento (%)", type: "number" },
+      { key: "impuesto", header: "Impuesto (%)", type: "number" },
+      { key: "cantidad", header: "Cantidad", type: "number" },
+      { key: "unidad", header: "Unidad", type: "text" },
+      { key: "fechaEntrega", header: "Fecha de Entrega", type: "date" },
     ],
-    []
+    [],
   );
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleNextPage = () => {
@@ -69,7 +98,7 @@ const QuoteTable = ({ setTotalChanges }) => {
       <div className="flex overflow-auto">
         <Table>
           <TableHeader>
-            <TableRow className="justify-center border-b-primario border-b-2">
+            <TableRow className="justify-center border-b-2 border-b-primario">
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
@@ -85,14 +114,14 @@ const QuoteTable = ({ setTotalChanges }) => {
                     <Input
                       type={column.type}
                       name={`data[${(currentPage - 1) * itemsPerPage + rowIndex}][${column.key}]`}
-                      className="border p-1 h-auto focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-inherit text-xs font-normal text-grisHeading"
+                      className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
                       onChange={(e) =>
                         handleInputChange(
                           (currentPage - 1) * itemsPerPage + rowIndex,
                           column.key,
                           e.target.value,
-                          setTableData
+                          setTableData,
                         )
                       }
                     />
@@ -107,16 +136,16 @@ const QuoteTable = ({ setTotalChanges }) => {
                       handleDeleteRow(
                         (currentPage - 1) * itemsPerPage + rowIndex,
                         setTableData,
-                        tableData
+                        tableData,
                       )
                     }
                     disabled={tableData.length === 1}
-                    className="p-1 rounded-full bg-transparent hover:bg-grisText hover:bg-opacity-10 active:bg-grisText active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 transition-all duration-300"
+                    className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 active:bg-grisText active:bg-opacity-20"
                   >
                     <IonIcon
                       icon={closeCircle}
                       size="small"
-                      className="text-grisText hover:text-grisText-dark active:text-grisText-darker transition-colors duration-300"
+                      className="hover:text-grisText-dark active:text-grisText-darker text-grisText transition-colors duration-300"
                     />
                   </Button>
                 </TableCell>
@@ -125,17 +154,17 @@ const QuoteTable = ({ setTotalChanges }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-4 flex justify-between items-center">
+      <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"
           size="icon"
           onClick={(e) => handleAddRow(e, setTableData, initialRow)}
-          className="p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+          className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon
             icon={addCircle}
             size="small"
-            className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+            className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
           />
         </Button>
         <div className="flex items-center">
@@ -144,12 +173,12 @@ const QuoteTable = ({ setTotalChanges }) => {
             size="icon"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className="mr-2 p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+            className="mr-2 rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
           >
             <IonIcon
               icon={chevronBack}
               size="small"
-              className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+              className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
             />
           </Button>
           <Button
@@ -157,12 +186,12 @@ const QuoteTable = ({ setTotalChanges }) => {
             size="icon"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="ml-2 p-1 rounded-full bg-transparent hover:bg-primarioBotones hover:bg-opacity-10 active:bg-primarioBotones active:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 transition-all duration-300"
+            className="ml-2 rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
           >
             <IonIcon
               icon={chevronForward}
               size="small"
-              className="text-primarioBotones hover:text-primarioBotones-dark active:text-primarioBotones-darker transition-colors duration-300"
+              className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
             />
           </Button>
         </div>
@@ -172,4 +201,3 @@ const QuoteTable = ({ setTotalChanges }) => {
 };
 
 export default QuoteTable;
-

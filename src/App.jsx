@@ -312,6 +312,12 @@ import CreateRequest from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
 import MainQuotesOrder from "./pages/Shopping/Orders/MainQuotes";
 import CreateQuoteOrder from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
 import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
+import MainInvoices from "./pages/Shopping/Orders/MainInvoice";
+import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
+import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
+import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
+import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
+import EditQuotes from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -947,8 +953,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //Shopping
-      {
+       //Shopping
+       {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -961,12 +967,28 @@ const router = createBrowserRouter([
             element: <CreateSupplier />,
           },
           {
+            path: "/shopping/invoices-orders",
+            element: <MainInvoices/>,
+          },
+          {
+            path: "/shopping/invoices-orders/create",
+            element: <CreateInvoices />,
+          },
+          {
+            path: "/shopping/invoices-orders/edit/:id",
+            element: <EditInvoices />,
+          },
+          {
             path: "/shopping/request-orders",
             element: <MainRequestOrder />,
           },
           {
             path: "/shopping/request-orders/create",
             element: <CreateOrder />,
+          },
+          {
+            path: "/shopping/request-orders/edit/:id",
+            element: <EditRequests />,
           },
           {
             path: "/shopping/purchase/",
@@ -977,6 +999,10 @@ const router = createBrowserRouter([
             element: <CreateRequest />,
           },
           {
+            path: "/shopping/purchase/edit/:id",
+            element: <EditOrders />,
+          },
+          {
             path: "/shopping/quotes-orders",
             element: <MainQuotesOrder />,
           },
@@ -985,9 +1011,13 @@ const router = createBrowserRouter([
             element: <CreateQuoteOrder />,
           },
           {
-            path: "/shopping/document/:type/:id",
-            element: <DocumentPDF />,
+            path: "/shopping/quotes-orders/edit/:id",
+            element: <EditQuotes />,
           },
+          {
+            path:"/shopping/document/:type/:id",
+            element:<DocumentPDF/>
+          }
         ],
       },
       //TRANSFORMATIONS

@@ -147,9 +147,8 @@ const MainSupplier = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="PROVEEDOR" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
+              <TabsContent value="PROVEEDOR" className="w-full h-full flex flex-col">
+                <div className="flex-grow">
                     <DataTable
                       data={data}
                       columns={columns}
@@ -157,7 +156,7 @@ const MainSupplier = () => {
                       searchNameFilter="Buscar por nombre"
                       isCheckAll={true}
                     />
-                  </div>
+                    
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">

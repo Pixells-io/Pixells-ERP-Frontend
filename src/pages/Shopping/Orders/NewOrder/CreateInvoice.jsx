@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
-import Actions from './Components/Actions';
+import CardCarousel from './Components/CardCarousel';
 
-const CreateOrder = () => {
+const CreateInvoices = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
@@ -18,7 +18,9 @@ const CreateOrder = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
-        <Actions/>
+        <div className="flex justify-end">
+        <CardCarousel/>
+        </div>
         <DocumentContent
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
@@ -35,4 +37,4 @@ const CreateOrder = () => {
   );
 };
 
-export default CreateOrder;
+export default CreateInvoices;

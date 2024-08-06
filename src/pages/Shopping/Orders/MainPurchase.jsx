@@ -19,7 +19,7 @@ const MainPurchase = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
-      estatus: "en progreso",
+      estatus: "En progreso",
     },
     {
       ndocumento: "DOC002",
@@ -41,18 +41,18 @@ const MainPurchase = () => {
       fechac: "2024-07-17",
       fechad: "2024-07-14",
       tipo: "Factura",
-      estatus: "en progreso",
+      estatus: "En progreso",
     },
   ];
 
   const getMenuItems = (id) => [
     {
-      label: 'Edit',
+      label: "Edit",
       isLink: true,
-      to: `/shopping/purchase/edit/${id}`, 
+      to: `/shopping/purchase/edit/${id}`,
     },
     {
-      label: 'Cancel',
+      label: "Cancel",
       isLink: false,
       onClick: () => console.log("Cancel action"),
     },
@@ -61,7 +61,7 @@ const MainPurchase = () => {
   const columns = [
     {
       accessorKey: "ndocumento",
-      header: "No. Documento",
+      header: "No. Doc",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -78,12 +78,12 @@ const MainPurchase = () => {
     },
     {
       accessorKey: "codproveedor",
-      header: "Código de proveedor",
+      header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
       accessorKey: "nproveedor",
-      header: "Nombre de proveedor",
+      header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
@@ -116,7 +116,7 @@ const MainPurchase = () => {
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(index);
-    
+
         return (
           <div className="flex items-center justify-center">
             <MenuItem menuItems={menuItems} />
@@ -126,7 +126,6 @@ const MainPurchase = () => {
     },
   ];
 
- 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -207,17 +206,18 @@ const MainPurchase = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="orders" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="ndocumento"
-                      searchNameFilter="Buscar por No. Documento"
-                      isCheckAll={true}
-                    />
-                  </div>
+              <TabsContent
+                value="orders"
+                className="flex h-full w-full flex-col"
+              >
+                <div className="flex-grow">
+                  <DataTable
+                    data={data}
+                    columns={columns}
+                    searchFilter="ndocumento"
+                    searchNameFilter="Buscar por No. Documento"
+                    isCheckAll={true}
+                  />
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
