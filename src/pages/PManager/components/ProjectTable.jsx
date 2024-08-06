@@ -236,7 +236,11 @@ function ProjectTable() {
                       className="grid h-12 grid-cols-12 items-center gap-y-6 border-t-[1px] text-center"
                     >
                       <div className="col-span-1 flex justify-center gap-2">
-                        <p>{activity.id}</p>
+                        {activity.user_id == 1 ? (
+                          <p>&ball; {activity.id}</p>
+                        ) : (
+                          <p className="text-grisSubText">{activity.id}</p>
+                        )}
                         <Form
                           action={`/project-manager/${id}/projects/${projectId}`}
                           method="post"
