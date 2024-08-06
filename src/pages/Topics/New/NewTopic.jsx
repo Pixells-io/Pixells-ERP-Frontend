@@ -32,7 +32,7 @@ function NewTopic({ modal, setModal, functionModal }) {
   const [stepped, setStepped] = useState(1);
   const [files, setFiles] = useState([]);
 
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps, acceptedFiles, inputRef } = useDropzone({
     onDrop: (acceptedFiles) => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -56,7 +56,6 @@ function NewTopic({ modal, setModal, functionModal }) {
     setFiles([]);
   };
 
-  // Maneja la eliminación de un archivo
   const handleDelete = (index) => {
     acceptedFiles.splice(index, 1);
     const filesAuxDelete = files.filter((file, i) => i !== index);
@@ -64,6 +63,14 @@ function NewTopic({ modal, setModal, functionModal }) {
     if (filesAuxDelete.length == 0) {
       setStepped(2);
     }
+
+    //dataTransfer mandando imagenes y pdf
+    let list = new DataTransfer();
+    filesAuxDelete.forEach(file => {
+      list.items.add(file);
+    });
+    inputRef.current.files = list.files;
+
   };
 
   return (
