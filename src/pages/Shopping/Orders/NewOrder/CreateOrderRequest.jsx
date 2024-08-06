@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
-
+import CardCarousel from './Components/CardCarousel';
 const CreateRequest = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
@@ -15,6 +15,9 @@ const CreateRequest = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
+        <div className="flex justify-end">
+        <CardCarousel/>
+        </div>
         <DocumentContent
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}

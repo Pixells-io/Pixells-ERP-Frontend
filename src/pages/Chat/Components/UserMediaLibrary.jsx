@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
-import { chevronBack } from "ionicons/icons";
+import { add, chevronBack, create } from "ionicons/icons";
 
 import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   editGroupChat,
   removeParticipantChat,
 } from "../utils";
+import ModalEditChat from "./ModalEditChat";
 
 function UserMediaLibrary({ participant }) {
   const navigate = useNavigate();
@@ -38,14 +39,14 @@ function UserMediaLibrary({ participant }) {
   return (
     <div className="ml-4 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB]">
       <div className="flex items-center">
-        <div className="flex w-10 justify-center">
+        <div className="flex w-10 shrink-0 justify-center">
           <IonIcon
             src={chevronBack}
             className="size-8 rounded text-grisText hover:cursor-pointer"
             onClick={() => navigate(-1)}
           />
         </div>
-        <div className="flex flex-col gap-2 rounded-t-xl px-6 py-4">
+        <div className="flex shrink-0 flex-col gap-2 rounded-t-xl px-6 py-4">
           <div className="flex items-center gap-4">
             <img
               src={data.img}
@@ -58,6 +59,9 @@ function UserMediaLibrary({ participant }) {
               <p className="text-xs font-light text-grisText">Media Library</p>
             </div>
           </div>
+        </div>
+        <div className="flex w-full justify-end pr-14">
+          <ModalEditChat chat_id={data.id} data={data} />
         </div>
       </div>
 
@@ -117,10 +121,14 @@ export async function action({ request }) {
   switch (action) {
     case "edit-group":
       await editGroupChat(data);
+      return "1";
     case "remove-participant":
       await removeParticipantChat(data);
+      return "1";
+
     case "add-participant":
       await addParticipantChat(data);
+      return "1";
   }
 
   return "1";

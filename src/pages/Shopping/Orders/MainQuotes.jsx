@@ -19,6 +19,7 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-04",
       tipo: "Factura",
+      estatus: "En progreso"
     },
     {
       ndocumento: "DOC002",
@@ -29,6 +30,7 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-16",
       fechad: "2024-07-15",
       tipo: "Nota de crédito",
+      estatus: "Finalizado"
     },
   ];
   const getMenuItems = (id) => [
@@ -46,7 +48,7 @@ const MainQuotesOrder = () => {
   const columns = [
     {
       accessorKey: "ndocumento",
-      header: "No. Documento",
+      header: "No. Doc",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -63,12 +65,12 @@ const MainQuotesOrder = () => {
     },
     {
       accessorKey: "codproveedor",
-      header: "Código de proveedor",
+      header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
       accessorKey: "nproveedor",
-      header: "Nombre de proveedor",
+      header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
@@ -191,9 +193,8 @@ const MainQuotesOrder = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="quotes" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
+              <TabsContent value="quotes" className="w-full h-full flex flex-col">
+              <div className="flex-grow">
                     <DataTable
                       data={data}
                       columns={columns}
@@ -201,7 +202,6 @@ const MainQuotesOrder = () => {
                       searchNameFilter="Buscar por No. Documento"
                       isCheckAll={true}
                     />
-                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">

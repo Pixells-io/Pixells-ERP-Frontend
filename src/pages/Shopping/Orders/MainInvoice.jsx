@@ -8,10 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MenuItem from "./Components/Menu";
 
-const MainInvoice = () => {
+const MainInvoices = () => {
   const data = [
     {
-      id: 1, // Añade un identificador único para cada documento
       ndocumento: "DOC001",
       codproveedor: "PROV001",
       nproveedor: "Proveedor A",
@@ -20,10 +19,9 @@ const MainInvoice = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
-      estatus: "en progreso",
+      estatus: "En progreso",
     },
     {
-      id: 2, // Añade un identificador único para cada documento
       ndocumento: "DOC002",
       codproveedor: "PROV002",
       nproveedor: "Proveedor B",
@@ -35,7 +33,6 @@ const MainInvoice = () => {
       estatus: "Finalizada",
     },
     {
-      id: 3, // Añade un identificador único para cada documento
       ndocumento: "DOC003",
       codproveedor: "PROV003",
       nproveedor: "Proveedor C",
@@ -44,7 +41,7 @@ const MainInvoice = () => {
       fechac: "2024-07-17",
       fechad: "2024-07-14",
       tipo: "Factura",
-      estatus: "en progreso",
+      estatus: "En progreso",
     },
   ];
 
@@ -52,7 +49,7 @@ const MainInvoice = () => {
     {
       label: 'Edit',
       isLink: true,
-      to: `/shopping/invoices-order/edit/${id}`, // Incluye el id en la URL
+      to: `/shopping/invoices-orders/edit/${id}`, // Incluye el id en la URL
     },
     {
       label: 'Cancel',
@@ -64,7 +61,7 @@ const MainInvoice = () => {
   const columns = [
     {
       accessorKey: "ndocumento",
-      header: "No. Documento",
+      header: "No. Doc",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -81,12 +78,12 @@ const MainInvoice = () => {
     },
     {
       accessorKey: "codproveedor",
-      header: "Código de proveedor",
+      header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
       accessorKey: "nproveedor",
-      header: "Nombre de proveedor",
+      header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
@@ -169,10 +166,10 @@ const MainInvoice = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Ordenes de compra
+            Facturas de compra
           </p>
           <div className="flex items-start justify-start">
-            <Link to="/shopping/purchase/create">
+            <Link to="/shopping/invoices-orders/create">
               <Button
                 variant="ghost"
                 size="icon"
@@ -192,15 +189,15 @@ const MainInvoice = () => {
         <div className="overflow-auto rounded-xl bg-white p-4">
           <div className="w-full">
             <Tabs
-              defaultValue="orders"
+              defaultValue="invoices"
               className="flex h-full flex-col rounded-lg pt-2"
             >
               <TabsList className="mb-3 flex justify-start bg-transparent">
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="orders"
+                  value="invoices"
                 >
-                  ORDENES
+                  FACTURAS
                 </TabsTrigger>
                 <TabsTrigger
                   className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
@@ -209,17 +206,15 @@ const MainInvoice = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="orders" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="ndocumento"
-                      searchNameFilter="Buscar por No. Documento"
-                      isCheckAll={true}
-                    />
-                  </div>
+              <TabsContent value="invoices" className="w-full h-full flex flex-col">
+                <div className="flex-grow">
+                  <DataTable
+                    data={data}
+                    columns={columns}
+                    searchFilter="ndocumento"
+                    searchNameFilter="Buscar por No. Documento"
+                    isCheckAll={true}
+                  />
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
@@ -237,4 +232,4 @@ const MainInvoice = () => {
   );
 };
 
-export default MainInvoice;
+export default MainInvoices;

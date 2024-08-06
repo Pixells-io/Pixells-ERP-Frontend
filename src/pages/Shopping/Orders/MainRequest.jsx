@@ -19,6 +19,7 @@ const MainRequestOrder = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
+      estatus: "En progreso"
     },
     {
       ndocumento: "DOC002",
@@ -29,6 +30,7 @@ const MainRequestOrder = () => {
       fechac: "2024-07-16",
       fechad: "2024-07-12",
       tipo: "Nota de crédito",
+      estatus: "Finalizado"
     }
   ];
 
@@ -50,7 +52,7 @@ const MainRequestOrder = () => {
   const columns = [
     {
       accessorKey: "ndocumento",
-      header: "No. Documento",
+      header: "No. Doc",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -67,12 +69,12 @@ const MainRequestOrder = () => {
     },
     {
       accessorKey: "codproveedor",
-      header: "Código de proveedor",
+      header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
       accessorKey: "nproveedor",
-      header: "Nombre de proveedor",
+      header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
@@ -196,9 +198,8 @@ const MainRequestOrder = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="request" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
+              <TabsContent value="request" className="w-full h-full flex flex-col">
+              <div className="flex-grow">
                     <DataTable
                       data={data}
                       columns={columns}
@@ -206,7 +207,6 @@ const MainRequestOrder = () => {
                       searchNameFilter="Buscar por No. Documento"
                       isCheckAll={true}
                     />
-                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
