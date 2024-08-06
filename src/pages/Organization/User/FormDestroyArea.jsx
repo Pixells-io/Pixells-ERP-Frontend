@@ -34,11 +34,17 @@ function FormDestroyArea({ modal, setModal, id }) {
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/organization`}
-          method="post"
+          action="/organization"
+          method="POST"
         >
-          <input type="hidden" value={id} name="area_id" />
-          <input type="hidden" value={3} name="type" />
+          <input type="text" value={id} name="area_id" hidden readOnly />
+          <input
+            type="text"
+            value="destroy-area"
+            name="action"
+            hidden
+            readOnly
+          />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to delete a area, are you sure?
           </span>

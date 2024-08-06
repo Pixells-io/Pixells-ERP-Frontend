@@ -31,8 +31,6 @@ function ModalShowArea({ modal, setModal, area }) {
   const navigation = useNavigation();
   const [disabled, setDisabled] = useState(true);
 
-  console.log(area.process);
-
   useEffect(() => {
     setProcessInputs(area.process);
   }, [area]);
@@ -74,7 +72,6 @@ function ModalShowArea({ modal, setModal, area }) {
     const newFields = processInputs.map((inputs, i) =>
       i === index ? { process: e.target.value } : inputs,
     );
-    console.log(newFields);
     setProcessInputs(newFields);
   }
 
@@ -90,13 +87,25 @@ function ModalShowArea({ modal, setModal, area }) {
           id="area-edit-form"
           className="flex h-full w-full flex-col gap-3 px-6"
           action="/organization"
-          method="post"
+          method="POST"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <div className="flex justify-between gap-3">
-                <input type="hidden" name="type" value={2} />
-                <input type="hidden" name="area_id" value={area.area?.id} />
+                <input
+                  type="text"
+                  name="action"
+                  value="edit-area"
+                  hidden
+                  readOnly
+                />
+                <input
+                  type="text"
+                  name="area_id"
+                  value={area.area?.id}
+                  hidden
+                  readOnly
+                />
                 <div className="flex flex-col gap-1">
                   <p className="font-poppins text-[12px] font-semibold text-grisHeading">
                     Nombre

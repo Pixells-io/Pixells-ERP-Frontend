@@ -65,11 +65,17 @@ function FormCreateArea({ modal, setModal }) {
           id="area-form"
           className="flex h-full w-full flex-col gap-3 px-6"
           action="/organization"
-          method="post"
+          method="POST"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <input type="hidden" name="type" value={1} />
+              <input
+                type="text"
+                name="action"
+                value="create-area"
+                hidden
+                readOnly
+              />
               <InputRouter
                 name="nombre"
                 type="text"

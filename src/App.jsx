@@ -78,7 +78,7 @@ import Login, { action as loginAction } from "./layouts/Login/LoginLayout";
 //Organization
 import SideLayoutOrganization from "./layouts/Organization/components/SideLayout";
 import MainOrganization, {
-  Action as newArea,
+  action as newArea,
 } from "./pages/Organization/User/MainOrganization";
 import MainAccess from "./pages/Organization/Access/MainAccess";
 import FormCreateUser, {
@@ -320,6 +320,7 @@ import SideLayoutTopics, {
   Action as NewTopicFunction,
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics from "./pages/Topics/MainTopics";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -473,8 +474,9 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            loader: multiLoaderOrganization,
             element: <MainOrganization />,
+            loader: multiLoaderOrganization,
+            action: newArea,
           },
           {
             path: "/organization/access",
@@ -996,15 +998,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/topics",
-        element : <SideLayoutTopics />,
+        element: <SideLayoutTopics />,
         action: NewTopicFunction,
         children: [
           {
             index: true,
             element: <MainTopics />,
           },
-        ]
-      }
+        ],
+      },
     ],
   },
   //Login
@@ -1028,7 +1030,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
+  );
 }
 
 export default App;

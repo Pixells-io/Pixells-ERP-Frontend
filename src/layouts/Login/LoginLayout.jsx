@@ -11,11 +11,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 
 function Login() {
-  const [user, setUser] = useState("");
-  const navigate = useNavigate();
-  const token = Cookies.get("token");
   const { toast } = useToast();
+  const token = Cookies.get("token");
+
+  const navigate = useNavigate();
   let actionData = useActionData();
+
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -85,7 +87,7 @@ function Login() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-blancoBg">
-      <Toaster />
+      {/* <Toaster /> */}
       <div className="p-20">
         <div className="text-center">
           <span className="font-roboto text-2xl font-light text-grisText">

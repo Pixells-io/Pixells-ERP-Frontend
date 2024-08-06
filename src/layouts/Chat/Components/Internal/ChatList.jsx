@@ -18,7 +18,7 @@ function ChatList({ chat }) {
           <span className="font-roboto text-sm font-medium text-grisText">
             {chat.title}
           </span>
-          <div className="mt-[-3px]">
+          <div className="">
             {chat?.count != 0 ? (
               <span className="line-clamp-2 font-roboto text-xs font-semibold text-grisText">
                 {chat.type == 1 ? (

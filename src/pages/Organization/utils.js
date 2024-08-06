@@ -29,7 +29,7 @@ export async function saveNewArea(data) {
     },
   );
 
-  return response;
+  return response.json();
 }
 
 export async function editArea(data) {
@@ -81,7 +81,7 @@ export async function destroyArea(data) {
     },
   );
 
-  return response;
+  return response.json();
 }
 
 export async function saveNewPosition(data) {
