@@ -37,7 +37,7 @@ const imgs = [
 
 function Publication({ image }) {
   return (
-    <div className="w-[473px] rounded-lg bg-blancoBg">
+    <div className="w-[473px] rounded-lg bg-blancoBg shadow-md">
       <div className="flex flex-col gap-y-1 p-2">
         <div className="flex justify-between">
           <div className="flex items-center gap-4">

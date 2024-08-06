@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import Header from './Components/Header';
+import Header from '../Components/Header';
 import DocumentContent from './Components/DocumentContent';
 import Actions from './Components/Actions';
+import { useParams } from 'react-router-dom';
 
-const CreateOrder = () => {
-  const [documentNumber, setDocumentNumber] = useState('');
+const EditRequest = () => {
+  const id = useParams();
+  const [documentNumber, setDocumentNumber] = useState(id);
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
-  const saveUrl ="/shopping/purchase"
 
-  const getTitle = "Nuevo pedido";
+  const saveUrl ="/shopping/request-orders"
+  const getTitle = `Editando pedido: ${id}`;
+  const url = `/shopping/document/pedido/${id}`;
 
  
 
@@ -18,7 +21,7 @@ const CreateOrder = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
-        <Actions/>
+        <Actions url={url}/>
         <DocumentContent
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
@@ -35,4 +38,4 @@ const CreateOrder = () => {
   );
 };
 
-export default CreateOrder;
+export default EditRequest;

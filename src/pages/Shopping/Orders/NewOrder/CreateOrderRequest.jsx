@@ -8,8 +8,8 @@ const CreateRequest = () => {
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [subtotal, setSubtotal] = useState(0);
  
-  const getTitle = "Nuevo pedido";
-
+  const getTitle = "Nueva orden de compra";
+  const saveUrl ="/shopping/request-orders"
 
   return (
     <div className="flex w-full">
@@ -24,6 +24,7 @@ const CreateRequest = () => {
           setSelectedCostCenter={setSelectedCostCenter}
           setSubtotal={setSubtotal}
           subtotal={subtotal}
+          saveUrl={saveUrl}
         />
       </div>
     </div>

@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { saveNewTopic } from "@/pages/Topics/utils";
 
 function SideLayoutTopics() {
   const location = useLocation();
@@ -106,7 +107,7 @@ export default SideLayoutTopics;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  console.log(data, request);
+  await saveNewTopic(data);
   
 
   return "1";
