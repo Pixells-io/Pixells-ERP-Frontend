@@ -21,7 +21,7 @@ function InputRouter({
         type={type}
         className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         name={name}
-        placeholder={placeholder}
+        // placeholder={placeholder}
         defaultValue={defaultVal}
         disabled={disabled}
         require={required}

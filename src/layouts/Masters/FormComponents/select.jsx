@@ -22,7 +22,7 @@ function SelectRouter({
       <Select
         options={options}
         name={name}
-        placeholder={placeholder}
+        // placeholder={placeholder}
         className="w-full text-sm font-light"
         isMulti={isMulti}
         isDisabled={disabled}
