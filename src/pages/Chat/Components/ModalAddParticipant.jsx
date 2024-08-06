@@ -26,7 +26,7 @@ function ModalAddParticipant({ chat_id, users }) {
     }
   }, [navigation.state]);
   return (
-    <Dialog open={true} onOpenChange={setModal}>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>
         <IonIcon
           icon={personAdd}
@@ -45,7 +45,11 @@ function ModalAddParticipant({ chat_id, users }) {
           encType="multipart/form-data"
           className="flex flex-col gap-4 px-6"
         >
-          <SelectRouter name="user_id" placeholder="Select User" />
+          <SelectRouter
+            name="user_id"
+            placeholder="Select User"
+            options={users}
+          />
 
           <input
             type="text"

@@ -18,6 +18,21 @@ function MediaInformations({ data, users }) {
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses empiezan desde 0
   const year = date.getFullYear();
 
+  let options = [];
+  users?.data.map((user, i) => {
+    let newObj = {
+      value: user.id,
+      label: user.name + " " + user.last_name + " " + user.second_last_name,
+    };
+    options.push(newObj);
+  });
+
+  const pepe = options.filter(
+    (user) => !data.participants_array.map((part) => part.id !== user.value),
+  );
+
+  console.log(pepe);
+
   return (
     <>
       <ModalConfirmation
@@ -33,7 +48,7 @@ function MediaInformations({ data, users }) {
 
       <div className="flex w-full items-center justify-between">
         <h1 className="py-2">Participantes</h1>
-        <ModalAddParticipant chat_id={data.id} />
+        <ModalAddParticipant chat_id={data.id} users={options} />
       </div>
       {data.participants_array.map((participant, index) => (
         <div
