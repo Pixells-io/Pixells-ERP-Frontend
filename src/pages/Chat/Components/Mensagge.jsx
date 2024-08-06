@@ -15,6 +15,7 @@ import { checkmarkDoneOutline, ellipsisVerticalOutline } from "ionicons/icons";
 
 import ResendModal from "./ResendModal";
 import MessageLink from "./MessageLink";
+import ImagesShow from "@/components/images-show";
 
 function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
   let msg = data;
@@ -79,7 +80,8 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                 <MessageLink string={msg.mensaje} />
               </span>
             ) : (
-              <iframe src={msg.file} frameBorder="0"></iframe>
+              // <iframe src={msg.file} frameBorder="0"></iframe>
+              <ImagesShow image={msg.file} />
             )}
             <div className="mt-[-8px] flex justify-end">
               <div>
@@ -150,7 +152,8 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                   <MessageLink string={msg.mensaje} />
                 </span>
               ) : (
-                <iframe src={msg.file} frameBorder="0"></iframe>
+                // <iframe src={msg.file} frameBorder="0"></iframe>
+                <ImagesShow image={msg.file} />
               )}
               <div className="mt-[-8px] flex justify-end">
                 <div>
