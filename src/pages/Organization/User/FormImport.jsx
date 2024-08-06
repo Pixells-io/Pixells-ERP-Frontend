@@ -60,12 +60,18 @@ function FormImport({ modal, setModal }) {
           id="area-form"
           className="flex h-full w-full flex-col gap-3 px-6"
           action="/organization"
-          method="post"
+          method="POST"
           encType="multipart/form-data"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <input type="hidden" name="type" value={4} />
+              <input
+                type="text"
+                name="action"
+                value="import-org"
+                hidden
+                readOnly
+              />
               <Select
                 name="type"
                 placeholder={"Working Days"}

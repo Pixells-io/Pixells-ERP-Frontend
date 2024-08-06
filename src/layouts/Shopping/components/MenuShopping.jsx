@@ -15,12 +15,34 @@ const MENU_ITEMS = [
     subRoutes: ["/shopping/supplier/create"]
   },
   { 
+    path: "/shopping/request-orders", 
+    name: "Pedidos", 
+    subname: "General", 
+    icon: cube,
+    subRoutes: [
+      "/shopping/request-orders/create",
+      "/shopping/document/pedido"
+    ]
+  },
+  { 
     path: "/shopping/purchase", 
     name: "Ordenes", 
     subname: "De Compra", 
     icon: cube,
-    subRoutes: ["/shopping/purchase/create"]
+    subRoutes: ["/shopping/purchase/create",
+      "/shopping/document/orden"
+    ]
   },
+  { 
+    path: "/shopping/quotes-orders", 
+    name: "Cotizaciones", 
+    subname: "De Compra", 
+    icon: cube,
+    subRoutes: ["/shopping/quotes-orders/create",
+      "/shopping/document/cotizacion"
+    ]
+  },
+  
 ];
 
 const MenuShopping = () => {

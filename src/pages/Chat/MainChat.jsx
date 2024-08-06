@@ -105,7 +105,7 @@ function MainChat() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
+    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-4">
       {/* Chat Header */}
       <MensaggeFileModal
         chat_id={id}
@@ -118,7 +118,7 @@ function MainChat() {
           <div className="flex items-center gap-4">
             <img
               src={chat.data?.participants.img}
-              className="h-14 w-14 rounded-full"
+              className="h-14 w-14 rounded-full object-cover"
             />
             <Link to={"/chat/" + id + "/user-media-library"}>
               <span className="font-poppins text-lg font-semibold text-grisHeading">
@@ -128,7 +128,10 @@ function MainChat() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <img src={chat.data?.img} className="h-14 w-14 rounded-full" />
+            <img
+              src={chat.data?.img}
+              className="h-14 w-14 rounded-full object-cover"
+            />
             <Link to={"/chat/" + id + "/user-media-library"}>
               <span className="font-poppins text-lg font-semibold text-grisHeading">
                 {chat.data?.title}
@@ -139,7 +142,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Messages */}
-      <div className="flex h-full w-full flex-col-reverse overflow-scroll px-12 py-3">
+      <div className="scrollbar-hidden flex h-full w-full flex-col-reverse overflow-y-scroll px-12 py-3">
         <div ref={scrollBox}></div>
         {chatMessagesPusher?.map((mensagge, i) => (
           <MenssageCard

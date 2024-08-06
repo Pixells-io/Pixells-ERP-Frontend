@@ -6,7 +6,7 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
+import MenuItem from "./Components/Menu";
 
 const MainPurchase = () => {
   const data = [
@@ -19,6 +19,7 @@ const MainPurchase = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-10",
       tipo: "Factura",
+      estatus: "en progreso",
     },
     {
       ndocumento: "DOC002",
@@ -29,6 +30,7 @@ const MainPurchase = () => {
       fechac: "2024-07-16",
       fechad: "2024-07-12",
       tipo: "Nota de crédito",
+      estatus: "Finalizada",
     },
     {
       ndocumento: "DOC003",
@@ -39,26 +41,20 @@ const MainPurchase = () => {
       fechac: "2024-07-17",
       fechad: "2024-07-14",
       tipo: "Factura",
+      estatus: "en progreso",
+    },
+  ];
+
+  const getMenuItems = (id) => [
+    {
+      label: 'Edit',
+      isLink: true,
+      to: `/shopping/purchase/edit/${id}`, 
     },
     {
-      ndocumento: "DOC004",
-      codproveedor: "PROV001",
-      nproveedor: "Proveedor A",
-      importe: 2000.0,
-      impuesto: 320.0,
-      fechac: "2024-07-18",
-      fechad: "2024-07-16",
-      tipo: "Factura",
-    },
-    {
-      ndocumento: "DOC005",
-      codproveedor: "PROV004",
-      nproveedor: "Proveedor D",
-      importe: 3000.75,
-      impuesto: 480.12,
-      fechac: "2024-07-19",
-      fechad: "2024-07-17",
-      tipo: "Nota de débito",
+      label: 'Cancel',
+      isLink: false,
+      onClick: () => console.log("Cancel action"),
     },
   ];
 
@@ -110,8 +106,27 @@ const MainPurchase = () => {
       accessorKey: "tipo",
       header: "Tipo",
     },
+    {
+      accessorKey: "estatus",
+      header: "Estatus",
+    },
+    {
+      accessorKey: "acciones",
+      header: "Acciones",
+      cell: ({ row }) => {
+        const index = row.original.ndocumento; // Obtén el índice de la fila
+        const menuItems = getMenuItems(index);
+    
+        return (
+          <div className="flex items-center justify-center">
+            <MenuItem menuItems={menuItems} />
+          </div>
+        );
+      },
+    },
   ];
 
+ 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -156,20 +171,20 @@ const MainPurchase = () => {
           </p>
           <div className="flex items-start justify-start">
             <Link to="/shopping/purchase/create">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                size="large"
-                className=" text-primarioBotones"
-                aria-hidden="true"
-              />
-            </Button>
-          </Link>
-            </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              >
+                <IonIcon
+                  icon={addCircleOutline}
+                  size="large"
+                  className="text-primarioBotones"
+                  aria-hidden="true"
+                />
+              </Button>
+            </Link>
+          </div>
         </div>
         {/*content */}
         <div className="overflow-auto rounded-xl bg-white p-4">

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,7 +19,8 @@ import UserImage from "@/layouts/Masters/FormComponents/userImage";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormNewChat({ users }) {
-  // console.log(users);
+  const [open, setOpen] = useState(false);
+  const navigation = useNavigation();
 
   const selectUsers = [];
 
@@ -36,8 +37,14 @@ function FormNewChat({ users }) {
     });
   }
 
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setOpen(false);
+    }
+  }, [navigation.state]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
@@ -58,7 +65,7 @@ function FormNewChat({ users }) {
           method="post"
         >
           <input type="hidden" name="type_of_function" value={2} />
-          <div className="text-center">
+          <div className="flex justify-center">
             <DropzoneImage name={"group_image"} />
           </div>
           <div className="">
@@ -71,12 +78,13 @@ function FormNewChat({ users }) {
               placeholder={"Select Users"}
             />
           </div>
-          <DialogFooter className="px-6 pb-4">
+          <DialogFooter className="py-4">
             <Button
               type="submit"
+              disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             >
-              Save
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
             </Button>
           </DialogFooter>
         </Form>

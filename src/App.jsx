@@ -78,7 +78,7 @@ import Login, { action as loginAction } from "./layouts/Login/LoginLayout";
 //Organization
 import SideLayoutOrganization from "./layouts/Organization/components/SideLayout";
 import MainOrganization, {
-  Action as newArea,
+  action as newArea,
 } from "./pages/Organization/User/MainOrganization";
 import MainAccess from "./pages/Organization/Access/MainAccess";
 import FormCreateUser, {
@@ -123,6 +123,7 @@ import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import {
   getChatInfo,
   multiLoaderChat2,
+  multiloaderChatLibrary,
   storeMensagge,
 } from "./pages/Chat/utils";
 import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
@@ -171,7 +172,6 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
-  getObjectives,
   showService,
   showCategory,
   multilaoderSideLayoutCRM,
@@ -284,7 +284,9 @@ import { getAuthClient } from "./pages/Clients/utils";
 import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
 import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
-import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
+import UserMediaLibrary, {
+  action as multiActionsMedia,
+} from "./pages/Chat/Components/UserMediaLibrary";
 
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
@@ -303,8 +305,13 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
-import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
+import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import CreateRequest from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
+import MainQuotesOrder from "./pages/Shopping/Orders/MainQuotes";
+import CreateQuoteOrder from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
+import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -314,6 +321,13 @@ import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/Manufa
 import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
+
+//Topics
+import SideLayoutTopics, {
+  Action as NewTopicFunction,
+} from "./layouts/Topics/SideLayoutTopics";
+import MainTopics from "./pages/Topics/MainTopics";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -467,8 +481,9 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            loader: multiLoaderOrganization,
             element: <MainOrganization />,
+            loader: multiLoaderOrganization,
+            action: newArea,
           },
           {
             path: "/organization/access",
@@ -588,7 +603,8 @@ const router = createBrowserRouter([
           {
             path: "/chat/:id/user-media-library",
             element: <UserMediaLibrary />,
-            loader: getChatInfo,
+            loader: multiloaderChatLibrary,
+            action: multiActionsMedia,
           },
         ],
       },
@@ -945,15 +961,32 @@ const router = createBrowserRouter([
             element: <CreateSupplier />,
           },
           {
+            path: "/shopping/request-orders",
+            element: <MainRequestOrder />,
+          },
+          {
+            path: "/shopping/request-orders/create",
+            element: <CreateOrder />,
+          },
+          {
             path: "/shopping/purchase/",
             element: <MainPurchase />,
           },
           {
             path: "/shopping/purchase/create",
-            element: <CreateOrder />,
+            element: <CreateRequest />,
           },
           {
-            path: "/shopping/purchase/document",
+            path: "/shopping/quotes-orders",
+            element: <MainQuotesOrder />,
+          },
+          {
+            path: "/shopping/quotes-orders/create",
+            element: <CreateQuoteOrder />,
+          },
+          {
+            path: "/shopping/document/:type/:id",
+            element: <DocumentPDF />,
           },
         ],
       },
@@ -988,6 +1021,17 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/topics",
+        element: <SideLayoutTopics />,
+        action: NewTopicFunction,
+        children: [
+          {
+            index: true,
+            element: <MainTopics />,
+          },
+        ],
+      },
     ],
   },
   //Login
@@ -1011,7 +1055,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
+  );
 }
 
 export default App;

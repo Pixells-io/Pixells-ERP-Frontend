@@ -21,3 +21,20 @@ export async function storeChangeNewPassword(data) {
 
   return response;
 }
+
+export async function loginGoogleToken() {
+  console.log("Match 2");
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}google/google`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

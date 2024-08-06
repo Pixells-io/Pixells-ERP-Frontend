@@ -39,11 +39,11 @@ function LayoutChat() {
         {/* top block */}
         <Tabs
           defaultValue="internal"
-          className="h-[100%] w-full rounded-xl bg-[#FBFBFB]"
+          className="h-full w-full rounded-xl bg-[#FBFBFB]"
         >
-          <TabsList className="mb-3 w-full bg-blancoForms pt-6">
+          <TabsList className="w-full bg-blancoForms pt-6">
             <TabsTrigger
-              className="rounded-none border-b-2 border-slate-300 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+              className="rounded-none border-b-2 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               value="internal"
             >
               INTERNAL
@@ -63,8 +63,8 @@ function LayoutChat() {
             </TabsTrigger>
              */}
           </TabsList>
-          <TabsContent value="internal" className="h-[92%] overflow-auto">
-            <div className="mt-[-20px] bg-[#f6f6f6] pb-2 pt-6">
+          <TabsContent value="internal" className="m-0 h-[92%] overflow-auto">
+            <div className="bg-[#f6f6f6] pb-2 pt-6">
               <InternalSearch users={users?.data} />
             </div>
             <div className="mx-2 my-4 h-auto overflow-hidden rounded-b-md bg-[#fbfbfb]">

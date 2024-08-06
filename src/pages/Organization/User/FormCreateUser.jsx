@@ -16,6 +16,7 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
+import { Label } from "@/components/ui/label";
 
 const selectBasics = [
   {
@@ -381,13 +382,19 @@ function FormCreateUser() {
                     placeholder={"Genre"}
                     options={genreSelect}
                   />
-                  <Select
-                    onChange={(e) => setStatus(e.value)}
-                    options={civilStatus}
-                    name={"civil_status"}
-                    placeholder={"Civil Status"}
-                    className="w-full text-sm font-light"
-                  />
+                  <Label className="flex w-full flex-col gap-2">
+                    <p className="pl-1 text-[11px] font-light text-grisHeading">
+                      Civil Status
+                    </p>
+                    <Select
+                      onChange={(e) => setStatus(e.value)}
+                      options={civilStatus}
+                      name={"civil_status"}
+                      placeholder={"Civil Status"}
+                      className="w-full text-sm font-light"
+                    />
+                  </Label>
+
                   <InputRouter
                     name={"childrens"}
                     placeholder={"Children"}
@@ -432,7 +439,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"curp_file"} label={"CURP"} />
                       <InputRouter
                         name={"curp_text"}
-                        placeholder={"Curp"}
+                        placeholder={"CURP"}
                         type={"text"}
                       />
                     </div>
@@ -443,7 +450,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"rfc_file"} label={"RFC"} />
                       <InputRouter
                         name={"rfc_text"}
-                        placeholder={"Rfc"}
+                        placeholder={"RFC"}
                         type={"text"}
                       />
                     </div>
@@ -465,7 +472,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"id_file"} label={"ID"} />
                       <InputRouter
                         name={"id_date"}
-                        placeholder={"Id Date"}
+                        placeholder={"ID Date"}
                         type={"date"}
                       />
                     </div>
@@ -954,7 +961,7 @@ function FormCreateUser() {
                 <div className="w-1/3">
                   <InputRouter
                     name={"bank_account"}
-                    placeholder={"bank Account"}
+                    placeholder={"Bank Account"}
                     type={"text"}
                   />
                 </div>

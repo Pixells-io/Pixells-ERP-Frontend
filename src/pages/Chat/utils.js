@@ -1,4 +1,4 @@
-import { getChats } from "@/lib/actions";
+import { getChats, getUsers } from "@/lib/actions";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
@@ -67,6 +67,15 @@ export async function getChatInfo({ params }) {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function multiloaderChatLibrary({ params }) {
+  const [chatInfo, users] = await Promise.all([
+    getChatInfo({ params }),
+    getUsers(),
+  ]);
+
+  return json({ chatInfo, users });
 }
 
 export async function multiLoaderChat2({ params }) {
@@ -144,6 +153,71 @@ export async function storeMensaggeReply(data) {
     {
       method: "POST",
       body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function removeParticipantChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/destroy-chat-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function addParticipantChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/create-chat-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editGroupChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    name: data.get("name"),
+  };
+
+  const formData = new FormData();
+
+  formData.append("file", data.get("group_image"));
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/edit-chat`,
+    {
+      method: "POST",
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

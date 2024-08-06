@@ -221,7 +221,7 @@ function MainLayout() {
                       {userData?.second_last_name}
                     </p>
                     <p className="text-[12px] text-grisSubText">
-                      {userData?.personal_email}
+                      {userData?.email}
                     </p>
                   </div>
                 </div>

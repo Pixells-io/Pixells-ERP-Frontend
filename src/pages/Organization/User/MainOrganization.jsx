@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, redirect, useLoaderData } from "react-router-dom";
 import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  searchOutline,
-} from "ionicons/icons";
+  NavLink,
+  redirect,
+  useLoaderData,
+  useOutletContext,
+} from "react-router-dom";
+
+import { addCircleOutline, searchOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +25,7 @@ import {
   importOrganization,
   saveNewArea,
 } from "../utils";
+
 import UsersTable from "./Tables/Users";
 import PositionsTable from "./Tables/Positions";
 import AreasTable from "./Tables/Areas";
@@ -30,8 +33,22 @@ import FormCreateArea from "./FormCreateArea";
 import FormImport from "./FormImport";
 import NavigationHeader from "@/components/navigation-header";
 
+import { useToast } from "@/components/ui/use-toast";
+
 function MainOrganization() {
   const { users, positions, areas, counter, permission } = useLoaderData();
+  const { actionInfo } = useOutletContext();
+  const { toast } = useToast();
+
+  console.log(actionInfo);
+
+  useEffect(() => {
+    if (actionInfo?.code == 201) {
+      toast({
+        title: actionInfo?.message,
+      });
+    }
+  }, [actionInfo]);
 
   //MODAL STATES
   const [modal, setModal] = useState(false);
@@ -196,22 +213,27 @@ function MainOrganization() {
 }
 export default MainOrganization;
 
-export async function Action({ request }) {
+export async function action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
+  let response;
 
-  switch (data.get("type")) {
-    case "1":
-      await saveNewArea(data);
-      break;
-    case "2":
-      await editArea(data);
-      break;
-    case "3":
-      await destroyArea(data);
-      break;
-    case "4":
+  switch (action) {
+    case "create-area":
+      response = await saveNewArea(data);
+      return response;
+
+    case "edit-area":
+      response = await editArea(data);
+      return response;
+
+    case "destroy-area":
+      response = await destroyArea(data);
+      return response;
+
+    case "import-org":
       await importOrganization(data);
-      break;
+      return response;
   }
 
   return redirect("/organization");

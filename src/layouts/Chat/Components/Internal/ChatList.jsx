@@ -12,13 +12,13 @@ function ChatList({ chat }) {
         }
       >
         <div className="w-1/6">
-          <img src={chat.img} className="h-12 w-12 rounded-full" />
+          <img src={chat.img} className="h-12 w-12 rounded-full object-cover" />
         </div>
         <div className="w-4/6 text-left">
           <span className="font-roboto text-sm font-medium text-grisText">
             {chat.title}
           </span>
-          <div className="mt-[-3px]">
+          <div className="">
             {chat?.count != 0 ? (
               <span className="line-clamp-2 font-roboto text-xs font-semibold text-grisText">
                 {chat.type == 1 ? (

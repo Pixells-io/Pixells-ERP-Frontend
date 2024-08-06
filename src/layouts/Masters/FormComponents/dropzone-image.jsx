@@ -43,7 +43,10 @@ function DropzoneImage({ name, url, initials, disabled }) {
             {yourImage.length !== 0 ? (
               <div className="ml-3 flex">
                 <Avatar className="h-40 w-40">
-                  <AvatarImage src={yourImage[0].preview} />
+                  <AvatarImage
+                    src={yourImage[0].preview}
+                    className="object-cover"
+                  />
                 </Avatar>
               </div>
             ) : (

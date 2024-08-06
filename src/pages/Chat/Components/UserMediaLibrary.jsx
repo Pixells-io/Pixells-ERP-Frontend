@@ -8,10 +8,18 @@ import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
 import MediaInformations from "./MediaInformations";
 import MediaLinks from "./MediaLinks";
+import {
+  addParticipantChat,
+  editGroupChat,
+  removeParticipantChat,
+} from "../utils";
 
 function UserMediaLibrary({ participant }) {
   const navigate = useNavigate();
-  const { data } = useLoaderData();
+  const {
+    chatInfo: { data },
+    users,
+  } = useLoaderData();
 
   const [images, setImages] = useState(
     data.documents.filter((document) => {
@@ -28,7 +36,7 @@ function UserMediaLibrary({ participant }) {
   );
 
   return (
-    <div className="flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB] px-4 pb-4">
+    <div className="ml-4 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB]">
       <div className="flex items-center">
         <div className="flex w-10 justify-center">
           <IonIcon
@@ -39,7 +47,10 @@ function UserMediaLibrary({ participant }) {
         </div>
         <div className="flex flex-col gap-2 rounded-t-xl px-6 py-4">
           <div className="flex items-center gap-4">
-            <img src={data.img} className="h-14 w-14 rounded-full" />
+            <img
+              src={data.img}
+              className="h-14 w-14 rounded-full object-cover"
+            />
             <div>
               <span className="text-xs font-semibold text-grisText">
                 {data.name}
@@ -49,6 +60,7 @@ function UserMediaLibrary({ participant }) {
           </div>
         </div>
       </div>
+
       <Tabs
         defaultValue="information"
         className="ml-10 rounded-lg bg-inherit px-6 pt-2"
@@ -80,7 +92,7 @@ function UserMediaLibrary({ participant }) {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="information">
-          <MediaInformations data={data} />
+          <MediaInformations data={data} users={users} />
         </TabsContent>
         <TabsContent value="images">
           <MediaImages images={images} />
@@ -97,3 +109,19 @@ function UserMediaLibrary({ participant }) {
 }
 
 export default UserMediaLibrary;
+
+export async function action({ request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+
+  switch (action) {
+    case "edit-group":
+      await editGroupChat(data);
+    case "remove-participant":
+      await removeParticipantChat(data);
+    case "add-participant":
+      await addParticipantChat(data);
+  }
+
+  return "1";
+}
