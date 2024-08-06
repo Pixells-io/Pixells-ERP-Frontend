@@ -172,7 +172,6 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
-  getObjectives,
   showService,
   showCategory,
   multilaoderSideLayoutCRM,

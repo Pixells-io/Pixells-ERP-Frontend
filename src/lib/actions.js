@@ -337,10 +337,10 @@ export async function getProcessLeads() {
   }
 }
 
-export async function getObjectives() {
+export async function getObjectives(year) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive/${year}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -355,7 +355,7 @@ export async function getObjectives() {
 
 export async function multiLoaderObjetivesPm() {
   const [objetive, permissions] = await Promise.all([
-    getObjectives(),
+    getObjectives(0),
     pmPermissions(),
   ]);
 
@@ -583,7 +583,7 @@ export async function multiloaderCFSView({ params }) {
 
 export async function multiLoaderSideLayoutPM() {
   const [objectives, areas, permissions] = await Promise.all([
-    getObjectives(),
+    getObjectives(0),
     getAreas(),
     pmPermissions(),
   ]);
