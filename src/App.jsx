@@ -123,6 +123,7 @@ import MainChat, { Action as functionMasterChat } from "./pages/Chat/MainChat";
 import {
   getChatInfo,
   multiLoaderChat2,
+  multiloaderChatLibrary,
   storeMensagge,
 } from "./pages/Chat/utils";
 import WelcomeToChat from "./layouts/Chat/Components/WelcomeToChat";
@@ -171,7 +172,6 @@ import {
   multiloaderProjectPM,
   getCalendarData,
   getUserByToken,
-  getObjectives,
   showService,
   showCategory,
   multilaoderSideLayoutCRM,
@@ -284,7 +284,9 @@ import { getAuthClient } from "./pages/Clients/utils";
 import SideLayoutAnalytic from "./layouts/Analytic/SideLayoutAnalytic";
 import MainAnalytic from "./pages/Analytic/MainAnalytic";
 import { multiloaderAnalytics } from "./pages/Analytic/utils";
-import UserMediaLibrary from "./pages/Chat/Components/UserMediaLibrary";
+import UserMediaLibrary, {
+  action as multiActionsMedia,
+} from "./pages/Chat/Components/UserMediaLibrary";
 
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
@@ -601,7 +603,8 @@ const router = createBrowserRouter([
           {
             path: "/chat/:id/user-media-library",
             element: <UserMediaLibrary />,
-            loader: getChatInfo,
+            loader: multiloaderChatLibrary,
+            action: multiActionsMedia,
           },
         ],
       },
@@ -982,9 +985,9 @@ const router = createBrowserRouter([
             element: <CreateQuoteOrder />,
           },
           {
-            path:"/shopping/document/:type/:id",
-            element:<DocumentPDF/>
-          }
+            path: "/shopping/document/:type/:id",
+            element: <DocumentPDF />,
+          },
         ],
       },
       //TRANSFORMATIONS

@@ -3,21 +3,13 @@ import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { IonIcon } from "@ionic/react";
-import { personRemove, personRemoveOutline, trash } from "ionicons/icons";
+import { personRemove } from "ionicons/icons";
+import { Crown } from "lucide-react";
 
 import ModalConfirmation from "./ModalConfirmation";
+import ModalAddParticipant from "./ModalAddParticipant";
 
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-  Crown,
-} from "lucide-react";
-
-function MediaInformations({ data }) {
+function MediaInformations({ data, users }) {
   const [modalConfirmation, setModalConfirmation] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -26,17 +18,8 @@ function MediaInformations({ data }) {
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses empiezan desde 0
   const year = date.getFullYear();
 
-  const openModalDelete = (id) => {
-    setUserId(id);
-    setModalConfirmation(true);
-  };
-
-  const deleteUser = () => {
-    setModalConfirmation(false);
-  };
-
   return (
-    <div>
+    <>
       <ModalConfirmation
         title={"Confirmación"}
         description={
@@ -44,14 +27,18 @@ function MediaInformations({ data }) {
         }
         modal={modalConfirmation}
         setModal={setModalConfirmation}
-        modalFunction={deleteUser}
+        user_id={userId}
+        chat_id={data.id}
       />
 
-      <h1>Participantes</h1>
+      <div className="flex w-full items-center justify-between">
+        <h1 className="py-2">Participantes</h1>
+        <ModalAddParticipant chat_id={data.id} />
+      </div>
       {data.participants_array.map((participant, index) => (
         <div
           key={"participants" + index}
-          className="flex flex-col gap-2 rounded-t-xl px-6 py-4"
+          className="flex flex-col gap-2 rounded-t-xl px-6 py-1"
         >
           <div className="flex items-center justify-between hover:rounded-lg hover:bg-grisBg">
             <div className="flex items-center gap-4 py-2 pl-4">
@@ -77,16 +64,19 @@ function MediaInformations({ data }) {
               <IonIcon
                 icon={personRemove}
                 className="size-5 pr-4 text-grisText hover:cursor-pointer hover:text-red-500"
-                onClick={() => openModalDelete(participant.id)}
+                onClick={() => {
+                  setUserId(participant.id);
+                  setModalConfirmation(true);
+                }}
               />
             </div>
           </div>
         </div>
       ))}
-      <p className="text-xs font-semibold text-grisText">
+      <p className="pt-4 text-xs font-semibold text-grisText">
         Creado {year}/{month}/{day}
       </p>
-    </div>
+    </>
   );
 }
 

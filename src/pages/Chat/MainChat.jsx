@@ -118,7 +118,7 @@ function MainChat() {
           <div className="flex items-center gap-4">
             <img
               src={chat.data?.participants.img}
-              className="h-14 w-14 rounded-full"
+              className="h-14 w-14 rounded-full object-cover"
             />
             <Link to={"/chat/" + id + "/user-media-library"}>
               <span className="font-poppins text-lg font-semibold text-grisHeading">
@@ -128,7 +128,10 @@ function MainChat() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <img src={chat.data?.img} className="h-14 w-14 rounded-full" />
+            <img
+              src={chat.data?.img}
+              className="h-14 w-14 rounded-full object-cover"
+            />
             <Link to={"/chat/" + id + "/user-media-library"}>
               <span className="font-poppins text-lg font-semibold text-grisHeading">
                 {chat.data?.title}
