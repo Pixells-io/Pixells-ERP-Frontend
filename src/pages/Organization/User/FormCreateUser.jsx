@@ -432,7 +432,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"curp_file"} label={"CURP"} />
                       <InputRouter
                         name={"curp_text"}
-                        placeholder={"Curp"}
+                        placeholder={"CURP"}
                         type={"text"}
                       />
                     </div>
@@ -443,7 +443,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"rfc_file"} label={"RFC"} />
                       <InputRouter
                         name={"rfc_text"}
-                        placeholder={"Rfc"}
+                        placeholder={"RFC"}
                         type={"text"}
                       />
                     </div>
@@ -465,7 +465,7 @@ function FormCreateUser() {
                       <DropzoneFile name={"id_file"} label={"ID"} />
                       <InputRouter
                         name={"id_date"}
-                        placeholder={"Id Date"}
+                        placeholder={"ID Date"}
                         type={"date"}
                       />
                     </div>
@@ -954,7 +954,7 @@ function FormCreateUser() {
                 <div className="w-1/3">
                   <InputRouter
                     name={"bank_account"}
-                    placeholder={"bank Account"}
+                    placeholder={"Bank Account"}
                     type={"text"}
                   />
                 </div>
