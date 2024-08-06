@@ -16,6 +16,7 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
+import { Label } from "@/components/ui/label";
 
 const selectBasics = [
   {
@@ -381,13 +382,19 @@ function FormCreateUser() {
                     placeholder={"Genre"}
                     options={genreSelect}
                   />
-                  <Select
-                    onChange={(e) => setStatus(e.value)}
-                    options={civilStatus}
-                    name={"civil_status"}
-                    placeholder={"Civil Status"}
-                    className="w-full text-sm font-light"
-                  />
+                  <Label className="flex w-full flex-col gap-2">
+                    <p className="pl-1 text-[11px] font-light text-grisHeading">
+                      Civil Status
+                    </p>
+                    <Select
+                      onChange={(e) => setStatus(e.value)}
+                      options={civilStatus}
+                      name={"civil_status"}
+                      placeholder={"Civil Status"}
+                      className="w-full text-sm font-light"
+                    />
+                  </Label>
+
                   <InputRouter
                     name={"childrens"}
                     placeholder={"Children"}
