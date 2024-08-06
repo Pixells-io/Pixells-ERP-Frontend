@@ -27,11 +27,10 @@ function MediaInformations({ data, users }) {
     options.push(newObj);
   });
 
-  const pepe = options.filter(
-    (user) => !data.participants_array.map((part) => part.id !== user.value),
+  options = options.filter(
+    (user) =>
+      !data.participants_array.some((part) => part.user_id == user.value),
   );
-
-  console.log(pepe);
 
   return (
     <>
