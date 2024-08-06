@@ -41,6 +41,7 @@ import {
 import GoalForm from "./components/Form/GoalForm";
 import ObjectiveDestroy from "./components/ObjectiveDestroy";
 import NavigationHeader from "@/components/navigation-header";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function MainPManager() {
   const params = useParams();
@@ -102,6 +103,53 @@ function MainPManager() {
     }
   }, [navigation.state]);
 
+  const yearsOption = [
+    {
+      label: "2024",
+      value: "2024",
+    },
+    {
+      label: "2025",
+      value: "2025",
+    },
+    {
+      label: "2026",
+      value: "2026",
+    },
+    {
+      label: "2027",
+      value: "2027",
+    },
+    {
+      label: "2028",
+      value: "2028",
+    },
+    {
+      label: "2029",
+      value: "2029",
+    },
+    {
+      label: "2030",
+      value: "2030",
+    },
+    {
+      label: "2031",
+      value: "2031",
+    },
+    {
+      label: "2032",
+      value: "2032",
+    },
+    {
+      label: "2033",
+      value: "2033",
+    },
+    {
+      label: "2034",
+      value: "2034",
+    },
+  ];
+
   return (
     <div className="flex w-full overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
@@ -149,7 +197,12 @@ function MainPManager() {
                     name="name"
                     type="text"
                     defaultValue={objectiveInfo?.name}
-                    className="font-poppins text-xl font-bold text-[#44444F]"
+                    className="mt-5 h-9 font-poppins text-xl font-bold text-[#44444F]"
+                  />
+                  <SelectRouter
+                    name={"year"}
+                    placeholder={"Year"}
+                    options={yearsOption}
                   />
                   <input
                     name="objective_id"
@@ -169,7 +222,7 @@ function MainPManager() {
                   />
                   <button
                     type="submit"
-                    className="rounded-xl border border-primarioBotones px-4 py-1 font-medium text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                    className="mt-5 h-9 rounded-xl border border-primarioBotones px-4 py-1 font-medium text-primarioBotones hover:bg-primarioBotones hover:text-white"
                   >
                     Edit
                   </button>
