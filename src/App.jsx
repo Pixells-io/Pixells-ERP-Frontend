@@ -980,7 +980,7 @@ const router = createBrowserRouter([
             element: <CreateQuoteOrder />,
           },
           {
-            path:"/shopping/document/:type",
+            path:"/shopping/document/:type/:id",
             element:<DocumentPDF/>
           }
         ],

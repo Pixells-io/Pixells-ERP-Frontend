@@ -1,13 +1,10 @@
 import React from 'react';
 import { IonIcon } from '@ionic/react';
 import { chevronBack, chevronForward } from 'ionicons/icons';
-import { useLocation } from 'react-router-dom';
-import CardCarousel from './CardCarousel';
+
 
 const Header = ({ title }) => {
-  const location = useLocation();
-  const hideCardCarousel = location.pathname.startsWith('/shopping/document/');
-
+ 
   return (
     <>
       <div className="flex items-center gap-4">
@@ -47,10 +44,6 @@ const Header = ({ title }) => {
         <span className="font-poppins text-xl font-bold text-[#44444F]">
           {title}
         </span>
-        
-        <div className="flex justify-end">
-          {!hideCardCarousel && <CardCarousel />}
-        </div>
       </div>
     </>
   );

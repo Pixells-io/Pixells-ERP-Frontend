@@ -45,16 +45,16 @@ const MainPurchase = () => {
     },
   ];
 
-  const menuItems = [
+  const getMenuItems = (id) => [
     {
       label: 'Edit',
       isLink: true,
-      to: '/shopping/supplier/create'
+      to: `/shopping/purchase/edit/${id}`, 
     },
     {
       label: 'Cancel',
       isLink: false,
-      onClick: () => console.log("Cancel action")
+      onClick: () => console.log("Cancel action"),
     },
   ];
 
@@ -114,9 +114,12 @@ const MainPurchase = () => {
       accessorKey: "acciones",
       header: "Acciones",
       cell: ({ row }) => {
+        const index = row.original.ndocumento; // Obtén el índice de la fila
+        const menuItems = getMenuItems(index);
+    
         return (
           <div className="flex items-center justify-center">
-           <MenuItem menuItems={menuItems}/>
+            <MenuItem menuItems={menuItems} />
           </div>
         );
       },

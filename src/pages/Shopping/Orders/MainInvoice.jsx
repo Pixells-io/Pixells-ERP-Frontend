@@ -11,6 +11,7 @@ import MenuItem from "./Components/Menu";
 const MainInvoice = () => {
   const data = [
     {
+      id: 1, // Añade un identificador único para cada documento
       ndocumento: "DOC001",
       codproveedor: "PROV001",
       nproveedor: "Proveedor A",
@@ -22,6 +23,7 @@ const MainInvoice = () => {
       estatus: "en progreso",
     },
     {
+      id: 2, // Añade un identificador único para cada documento
       ndocumento: "DOC002",
       codproveedor: "PROV002",
       nproveedor: "Proveedor B",
@@ -33,6 +35,7 @@ const MainInvoice = () => {
       estatus: "Finalizada",
     },
     {
+      id: 3, // Añade un identificador único para cada documento
       ndocumento: "DOC003",
       codproveedor: "PROV003",
       nproveedor: "Proveedor C",
@@ -45,16 +48,16 @@ const MainInvoice = () => {
     },
   ];
 
-  const menuItems = [
+  const getMenuItems = (id) => [
     {
       label: 'Edit',
       isLink: true,
-      to: '/shopping/supplier/create'
+      to: `/shopping/invoices-order/edit/${id}`, // Incluye el id en la URL
     },
     {
       label: 'Cancel',
       isLink: false,
-      onClick: () => console.log("Cancel action")
+      onClick: () => console.log("Cancel action"),
     },
   ];
 
@@ -114,16 +117,18 @@ const MainInvoice = () => {
       accessorKey: "acciones",
       header: "Acciones",
       cell: ({ row }) => {
+        const index = row.original.ndocumento; // Obtén el índice de la fila
+        const menuItems = getMenuItems(index);
+    
         return (
           <div className="flex items-center justify-center">
-           <MenuItem menuItems={menuItems}/>
+            <MenuItem menuItems={menuItems} />
           </div>
         );
       },
     },
   ];
 
- 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
