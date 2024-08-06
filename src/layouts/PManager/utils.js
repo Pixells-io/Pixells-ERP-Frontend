@@ -4,6 +4,7 @@ export async function saveNewObjective(data) {
   try {
     const objective = {
       name: data.get("objetivo"),
+      year: data.get("year"),
       description: data.get("area"),
     };
 
