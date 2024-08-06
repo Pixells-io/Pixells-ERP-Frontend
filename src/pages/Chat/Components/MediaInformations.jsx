@@ -68,7 +68,7 @@ function MediaInformations({ data }) {
                   {participant.second_last_name}
                 </span>
               </div>
-              {participant.admin !== 0 && (
+              {participant.admin == 1 && (
                 <Crown className="size-4 text-[#FFC34E]" />
               )}
             </div>
