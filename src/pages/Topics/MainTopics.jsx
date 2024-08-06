@@ -30,12 +30,12 @@ function MainTopics() {
           <div className="font-roboto text-sm text-grisText">tickets </div>
         </div>
         {/* top content */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-y-2">
           <h2 className="font-poppins text-xl font-bold text-grisHeading">
             Topics
           </h2>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
+          <div className="font-roboto text-grisSubText">
+            <div className="text-xs">General Notices</div>
           </div>
         </div>
 

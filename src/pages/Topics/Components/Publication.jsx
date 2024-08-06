@@ -5,13 +5,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Input } from "@/components/ui/input";
 import { IonIcon } from "@ionic/react";
 import {
   bookmark,
   bookmarkOutline,
-  chatbubble,
   chatbubbleOutline,
   ellipse,
+  heart,
   heartOutline,
 } from "ionicons/icons";
 import React, { useState } from "react";
@@ -55,14 +56,17 @@ function Publication({ image }) {
             <span className="text-sm font-medium text-grisSubText">4 d</span>
           </div>
           <div className="flex items-center">
-            <IonIcon
-              icon={bookmarkOutline}
-              className="h-4 w-5 text-[#696974]"
-            ></IonIcon>
-            <IonIcon
-              icon={bookmark}
-              className="h-4 w-5 text-[#696974]"
-            ></IonIcon>
+            {true ? (
+              <IonIcon
+                icon={bookmark}
+                className="h-4 w-5 text-[#696974] cursor-pointer"
+              ></IonIcon>
+            ) : (
+              <IonIcon
+                icon={bookmarkOutline}
+                className="h-4 w-5 text-[#696974] cursor-pointer"
+              ></IonIcon>
+            )}
           </div>
         </div>
         <div>
@@ -95,16 +99,24 @@ function Publication({ image }) {
       <div className="flex w-full flex-col gap-y-4 p-4">
         <div className="flex gap-x-2">
           <div className="flex items-center gap-x-1">
-            <IonIcon
-              icon={heartOutline}
-              className="h-5 w-6 text-[#696974]"
-            ></IonIcon>
+            {true ? (
+              <IonIcon
+                icon={heart}
+                className="h-5 w-6 text-[#DF354F] cursor-pointer"
+              ></IonIcon>
+            ) : (
+              <IonIcon
+                icon={heartOutline}
+                className="h-5 w-6 text-[#696974] cursor-pointer"
+              ></IonIcon>
+            )}
+
             <label className="text-sm font-medium text-grisText">4</label>
           </div>
           <div className="flex items-center gap-x-1">
             <IonIcon
               icon={chatbubbleOutline}
-              className="h-5 w-6 text-[#696974]"
+              className="h-5 w-6 text-[#696974] cursor-pointer"
             ></IonIcon>
             <label className="text-sm font-medium text-grisText">4</label>
           </div>
@@ -125,10 +137,19 @@ function Publication({ image }) {
                 </span>
               </p>
             </div>
-            <IonIcon
-              icon={heartOutline}
-              className="h-3 w-4 text-[#696974]"
-            ></IonIcon>
+            <div>
+              {true ? (
+                <IonIcon
+                  icon={heart}
+                  className="h-3 w-4 text-[#DF354F] cursor-pointer"
+                ></IonIcon>
+              ) : (
+                <IonIcon
+                  icon={heartOutline}
+                  className="h-3 w-4 text-[#696974] cursor-pointer"
+                ></IonIcon>
+              )}
+            </div>
           </div>
           <div className="ml-16 mt-1 flex items-start gap-x-4">
             <span className="text-xs font-medium text-grisSubText">4 d</span>
@@ -141,11 +162,11 @@ function Publication({ image }) {
           </div>
           <div className="mt-2">
             <div>
-              <input
+              <Input
                 type="text"
                 name="comment"
                 placeholder="Add a comment..."
-                className="flex w-full rounded-md bg-blancoBg px-2 py-1 font-roboto text-xs text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
+                className="border-0 bg-inherit text-sm font-normal text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
             </div>
           </div>

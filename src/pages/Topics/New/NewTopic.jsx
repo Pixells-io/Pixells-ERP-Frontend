@@ -7,8 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Form } from "react-router-dom";
 import {
   Carousel,
@@ -18,21 +16,23 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { IonIcon } from "@ionic/react";
-import {
-  addOutline,
-  arrowForward,
-  chevronBack,
-  close,
-  image,
-} from "ionicons/icons";
+import { addOutline, arrowForward, chevronBack, close } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import { useDropzone } from "react-dropzone";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function NewTopic({ modal, setModal, functionModal }) {
   const [stepped, setStepped] = useState(1);
   const [files, setFiles] = useState([]);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop: (acceptedFiles) => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -56,9 +56,19 @@ function NewTopic({ modal, setModal, functionModal }) {
     setFiles([]);
   };
 
+  // Maneja la eliminación de un archivo
+  const handleDelete = (index) => {
+    acceptedFiles.splice(index, 1);
+    const filesAuxDelete = files.filter((file, i) => i !== index);
+    setFiles(filesAuxDelete);
+    if (filesAuxDelete.length == 0) {
+      setStepped(2);
+    }
+  };
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="h-[380px] gap-0 overflow-auto bg-blancoBg p-0">
+      <DialogContent className="max-h-[380px] gap-0 overflow-auto bg-blancoBg p-0">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading">
             Agregar Topic
@@ -70,11 +80,11 @@ function NewTopic({ modal, setModal, functionModal }) {
           encType="multipart/form-data"
           action="/topics"
           method="post"
-          className={`h-[318px] w-full ${stepped !== 3 ? "flex items-center justify-center" : "hidden"} `}
+          className={`w-full ${stepped !== 3 ? "flex items-center justify-center" : "hidden"} `}
         >
-          <div className={stepped == 1 ? "flex w-full" : "hidden"}>
-            <div className="w-full px-4">
-              <div className="mb-8 grid grid-cols-12 gap-x-8 gap-y-4">
+          <div className={stepped == 1 ? "flex h-[250px] w-full" : "hidden"}>
+            <div className="w-full px-4 pt-4">
+              <div className="grid grid-cols-12 gap-x-8 gap-y-4">
                 <div className="col-span-12 md:col-span-6 xl:col-span-6">
                   <div className="flex items-center gap-x-2">
                     <img
@@ -87,27 +97,35 @@ function NewTopic({ modal, setModal, functionModal }) {
                   </div>
                 </div>
                 <div className="col-span-12 md:col-span-6 xl:col-span-6">
-                  <SelectRouter
-                    name={"categories"}
-                    className="w-full text-sm font-light"
-                    placeholder={"Selecciona Categoría"}
-                    options={[]}
-                    // onChange={(e) => setStatus(e.value)}
-                  />
+                  <Select name={"categories"}>
+                    <SelectTrigger className="rounded-full border border-[#D9D9D9] text-xs font-light text-[#44444F]">
+                      <SelectValue placeholder={"Selecciona Categoría"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem key="1" value="global">
+                        Global
+                      </SelectItem>
+                      <SelectItem key="2" value="notice">
+                        Noticias
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="col-span-12">
-                  <InputRouter
+                  <Input
                     name="title"
                     placeholder="Agrega Título"
                     type="text"
+                    className="border-0 bg-inherit text-sm font-light text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
                 </div>
                 <div className="col-span-12">
-                  <InputRouter
+                  <Input
                     name="subtitle"
-                    placeholder={"Que deseas compartir, Arturo Sáncehz?"}
+                    placeholder={"Que deseas compartir, Arturo Sánchez?"}
                     type="text"
+                    className="border-0 bg-inherit text-sm font-light text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
                 </div>
                 <div className="col-span-12">
@@ -159,7 +177,20 @@ function NewTopic({ modal, setModal, functionModal }) {
             <Carousel className="w-full">
               <CarouselContent className="ml-0 h-[318px] w-full">
                 {files.map((file, index) => (
-                  <CarouselItem key={"cItem-" + index} className="h-full pl-0">
+                  <CarouselItem
+                    key={"cItem-" + index}
+                    className="relative h-full pl-0"
+                  >
+                    <Button
+                      type="button"
+                      className="absolute right-2 top-2 h-6 w-6 cursor-pointer rounded-full bg-[#44444F]/[0.8] p-1"
+                      onClick={() => handleDelete(index)}
+                    >
+                      <IonIcon
+                        icon={close}
+                        className="h-6 w-6 text-white"
+                      ></IonIcon>
+                    </Button>
                     {file.typeDocument == "application/pdf" ? (
                       <iframe
                         className="h-full w-full"
@@ -197,13 +228,6 @@ function NewTopic({ modal, setModal, functionModal }) {
                 className="absolute bottom-1 right-4 z-10 bg-primarioBotones"
               >
                 Agregar
-              </Button>
-
-              <Button
-                type="button"
-                className="absolute right-4 top-1 z-10 h-6 w-6 cursor-pointer rounded-full bg-[#44444F]/[0.8] p-1"
-              >
-                <IonIcon icon={close} className="h-6 w-6 text-white"></IonIcon>
               </Button>
             </Carousel>
           </div>
