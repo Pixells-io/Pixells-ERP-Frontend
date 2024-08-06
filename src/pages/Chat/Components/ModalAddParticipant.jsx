@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
 import {
   Dialog,
@@ -7,19 +8,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Form, useNavigation } from "react-router-dom";
-import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
-function ModalConfirmation({
-  title,
-  description,
-  user_id,
-  chat_id,
-  modal,
-  setModal,
-}) {
+import { IonIcon } from "@ionic/react";
+import { personAdd } from "ionicons/icons";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+
+function ModalAddParticipant({ chat_id, users }) {
+  const [modal, setModal] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -27,33 +25,28 @@ function ModalConfirmation({
       setModal(false);
     }
   }, [navigation.state]);
-
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="max-w-[250px] border-0 bg-[#242424] p-6">
-        <DialogHeader className="">
-          <DialogTitle className="text-md font-roboto font-semibold text-white">
-            {title}
-          </DialogTitle>
+    <Dialog open={true} onOpenChange={setModal}>
+      <DialogTrigger>
+        <IonIcon
+          icon={personAdd}
+          className="size-5 pr-10 text-primarioBotones hover:cursor-pointer hover:text-primario"
+        />
+      </DialogTrigger>
+      <DialogContent className="flex max-w-[400px] flex-col gap-4">
+        <DialogHeader>
+          <DialogTitle>Add participant to the group</DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
-        <DialogDescription className="font-roboto text-xs text-grisSubText">
-          {description}
-        </DialogDescription>
         <Form
-          id="remove-group-participant"
+          id="add-group-participant"
           action={`/chat/${chat_id}/user-media-library`}
           method="post"
           encType="multipart/form-data"
-          className="flex flex-col gap-2 px-6"
+          className="flex flex-col gap-4 px-6"
         >
-          <input
-            type="text"
-            hidden
-            readOnly
-            className="hidden"
-            value={user_id}
-            name="user_id"
-          />
+          <SelectRouter name="user_id" placeholder="Select User" />
+
           <input
             type="text"
             hidden
@@ -67,7 +60,7 @@ function ModalConfirmation({
             hidden
             readOnly
             className="hidden"
-            value="remove-participant"
+            value="add-participant"
             name="action"
           />
           <DialogFooter>
@@ -96,4 +89,4 @@ function ModalConfirmation({
   );
 }
 
-export default ModalConfirmation;
+export default ModalAddParticipant;
