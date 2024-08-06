@@ -59,7 +59,7 @@ function DropzoneImage({ name, url, initials, disabled }) {
                 ) : (
                   <div className="flex pb-2">
                     <Avatar className="h-40 w-40">
-                      <AvatarImage src={url} />
+                      <AvatarImage src={url} className="object-cover" />
                       <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>
                   </div>
