@@ -152,3 +152,68 @@ export async function storeMensaggeReply(data) {
 
   return response;
 }
+
+export async function removeParticipantChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/destroy-chat-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function addParticipantChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    user_id: data.get("user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/create-chat-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editGroupChat(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+    name: data.get("name"),
+  };
+
+  const formData = new FormData();
+
+  formData.append("file", data.get("group_image"));
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/edit-chat`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -15,15 +15,15 @@ function MediaInformations({ data }) {
   const openModalDelete = (id) => {
     setUserId(id);
     setModalConfirmation(true);
-  }
+  };
 
   const deleteUser = () => {
     setModalConfirmation(false);
-  }
+  };
 
   return (
     <div>
-      <ModalConfirmation 
+      <ModalConfirmation
         title={"Confirmación"}
         description={
           "Una ves realizada esta acción, el documento no podrá modificarse"
@@ -32,6 +32,7 @@ function MediaInformations({ data }) {
         setModal={setModalConfirmation}
         modalFunction={deleteUser}
       />
+
       <h1>Participantes</h1>
       {data.participants_array.map((participant, index) => (
         <div

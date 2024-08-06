@@ -8,10 +8,17 @@ import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
 import MediaInformations from "./MediaInformations";
 import MediaLinks from "./MediaLinks";
+import {
+  addParticipantChat,
+  editGroupChat,
+  removeParticipantChat,
+} from "../utils";
 
 function UserMediaLibrary({ participant }) {
   const navigate = useNavigate();
   const { data } = useLoaderData();
+
+  console.log(data);
 
   const [images, setImages] = useState(
     data.documents.filter((document) => {
@@ -97,3 +104,25 @@ function UserMediaLibrary({ participant }) {
 }
 
 export default UserMediaLibrary;
+
+export async function action({ request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+
+  switch (action) {
+    case "edit-group":
+      await editGroupChat(data);
+      break;
+    case "remove-participant":
+      await removeParticipantChat(data);
+      break;
+    case "add-participant":
+      await addParticipantChat(data);
+      break;
+
+    default:
+      break;
+  }
+
+  return "1";
+}

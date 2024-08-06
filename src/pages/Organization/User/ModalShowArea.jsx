@@ -106,18 +106,14 @@ function ModalShowArea({ modal, setModal, area }) {
                   hidden
                   readOnly
                 />
-                <div className="flex flex-col gap-1">
-                  <p className="font-poppins text-[12px] font-semibold text-grisHeading">
-                    Nombre
-                  </p>
-                  <InputRouter
-                    name="nombre"
-                    type="text"
-                    placeholder="Name of the area"
-                    defaultVal={area.area?.nombre}
-                    disabled={disabled}
-                  />
-                </div>
+
+                <InputRouter
+                  name="nombre"
+                  type="text"
+                  placeholder="Name of the area"
+                  defaultVal={area.area?.nombre}
+                  disabled={disabled}
+                />
                 <Button
                   className="w-16"
                   variant="ghost"
@@ -131,46 +127,37 @@ function ModalShowArea({ modal, setModal, area }) {
                   ></IonIcon>
                 </Button>
               </div>
-              <div className="flex flex-col gap-1">
-                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
-                  Descripcion
-                </p>
-                <InputRouter
-                  name="descripcion"
-                  type="text"
-                  placeholder="Description of the area"
-                  defaultVal={area.area?.descripcion}
-                  disabled={disabled}
-                />
-              </div>
 
-              <div className="flex flex-col gap-1">
-                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
-                  Proceso
-                </p>
-                {processInputs?.map((item, i) => (
-                  <div key={i} className="flex gap-4" id={`process` + i}>
-                    <InputRouter
-                      name="proceso"
-                      type="text"
-                      placeholder="Process"
-                      value={processInputs[i].process}
-                      disabled={disabled}
-                      onChange={(e) => editProcessInput(e, i)}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeProcessField(i)}
-                      className="flex items-center"
-                    >
-                      <IonIcon
-                        icon={closeCircle}
-                        className="h-5 w-5 text-grisDisabled hover:text-grisText"
-                      ></IonIcon>
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <InputRouter
+                name="descripcion"
+                type="text"
+                placeholder="Description of the area"
+                defaultVal={area.area?.descripcion}
+                disabled={disabled}
+              />
+
+              {processInputs?.map((item, i) => (
+                <div key={i} className="flex gap-4" id={`process` + i}>
+                  <InputRouter
+                    name="proceso"
+                    type="text"
+                    placeholder="Process"
+                    value={processInputs[i].process}
+                    disabled={disabled}
+                    onChange={(e) => editProcessInput(e, i)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeProcessField(i)}
+                    className="flex items-center"
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      className="h-5 w-5 text-grisDisabled hover:text-grisText"
+                    ></IonIcon>
+                  </button>
+                </div>
+              ))}
               <div className="flex self-center">
                 {processInputs?.length <= 4 ? (
                   <button
@@ -188,19 +175,15 @@ function ModalShowArea({ modal, setModal, area }) {
                   <div className="w-6"></div>
                 )}
               </div>
-              <div className="flex flex-col gap-1">
-                <p className="font-poppins text-[12px] font-semibold text-grisHeading">
-                  Horario
-                </p>
-                <SelectRouter
-                  name="tipo_horario"
-                  placeholder="Working Days"
-                  options={DAYS}
-                  isMulti={true}
-                  disabled={disabled}
-                  defaultVal={selectedDays}
-                />
-              </div>
+
+              <SelectRouter
+                name="tipo_horario"
+                placeholder="Working Days"
+                options={DAYS}
+                isMulti={true}
+                disabled={disabled}
+                defaultVal={selectedDays}
+              />
               <InputRouter
                 name="inicio"
                 type="time"
