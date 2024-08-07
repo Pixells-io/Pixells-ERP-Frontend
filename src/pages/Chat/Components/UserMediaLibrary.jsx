@@ -1,21 +1,25 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IonIcon } from "@ionic/react";
-import { add, chevronBack, create } from "ionicons/icons";
-
 import React, { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { IonIcon } from "@ionic/react";
+import { chevronBack } from "ionicons/icons";
+
+import {
+  addParticipantChat,
+  deleteChatGroup,
+  editGroupChat,
+  removeParticipantChat,
+} from "../utils";
+
 import MediaImages from "./MediaImages";
 import MediaDocuments from "./MediaDocument";
 import MediaInformations from "./MediaInformations";
 import MediaLinks from "./MediaLinks";
-import {
-  addParticipantChat,
-  editGroupChat,
-  removeParticipantChat,
-} from "../utils";
 import ModalEditChat from "./ModalEditChat";
 
-function UserMediaLibrary({ participant }) {
+function UserMediaLibrary() {
   const navigate = useNavigate();
   const {
     chatInfo: { data },
@@ -35,6 +39,8 @@ function UserMediaLibrary({ participant }) {
       return ["pdf", "csv", "xls", "docx", "txt"].includes(extension.pop());
     }),
   );
+
+  console.log(data);
 
   return (
     <div className="ml-4 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB]">
@@ -60,9 +66,11 @@ function UserMediaLibrary({ participant }) {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-end pr-14">
-          <ModalEditChat chat_id={data.id} data={data} />
-        </div>
+        {data.is_admin == 1 && (
+          <div className="flex w-full justify-end pr-14">
+            <ModalEditChat chat_id={data.id} data={data} />
+          </div>
+        )}
       </div>
 
       <Tabs
@@ -122,6 +130,7 @@ export async function action({ request }) {
     case "edit-group":
       await editGroupChat(data);
       return "1";
+
     case "remove-participant":
       await removeParticipantChat(data);
       return "1";
@@ -129,6 +138,10 @@ export async function action({ request }) {
     case "add-participant":
       await addParticipantChat(data);
       return "1";
+
+    case "delete-group":
+      await deleteChatGroup(data);
+      return redirect("/chat");
   }
 
   return "1";

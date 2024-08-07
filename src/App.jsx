@@ -180,6 +180,7 @@ import {
   getTrainingResume,
   getCompletedActivity,
   multiLoaderObjetivesPm,
+  getNotifications,
 } from "./lib/actions";
 
 //Not Found
@@ -795,6 +796,7 @@ const router = createBrowserRouter([
           {
             path: "/my-profile/notifications",
             element: <MainNotifications />,
+            loader: getNotifications,
           },
         ],
       },
@@ -953,8 +955,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-       //Shopping
-       {
+      //Shopping
+      {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -968,7 +970,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/shopping/invoices-orders",
-            element: <MainInvoices/>,
+            element: <MainInvoices />,
           },
           {
             path: "/shopping/invoices-orders/create",
@@ -1015,9 +1017,9 @@ const router = createBrowserRouter([
             element: <EditQuotes />,
           },
           {
-            path:"/shopping/document/:type/:id",
-            element:<DocumentPDF/>
-          }
+            path: "/shopping/document/:type/:id",
+            element: <DocumentPDF />,
+          },
         ],
       },
       //TRANSFORMATIONS

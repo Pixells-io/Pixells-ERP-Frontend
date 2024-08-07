@@ -5,7 +5,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const ContactInfoForm = ({ contactData, setContactData }) => {
   const handleInputChange = (e) => {
-    setContactData({ ...contactData, [e.target.name]: e.target.value });
+    setContactData({ ...contactData, [e.target.name]: [e.target.value] });
   };
 
   const handleCheckboxChange = (checked) => {
@@ -18,7 +18,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
   return (
     <div className="grid grid-cols-3 gap-4">
       <div className="flex items-center justify-between mb-4">
-      <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="nombre">Nombre</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="nombre">Nombre</Label>
         <InputRouter
           name="nombre"
           value={contactData.nombre}
@@ -27,7 +27,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         />
       </div>
       <div className="flex items-center justify-between mb-4">
-          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidop">A. Paterno</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidop">A. Paterno</Label>
         <InputRouter
           name="apellidop"
           className={inputClass}
@@ -37,7 +37,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         />
       </div>
       <div className="flex items-center justify-between mb-4">
-          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidom">A. Materno</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidom">A. Materno</Label>
         <InputRouter
           name="apellidom"
           value={contactData.apellidom}
@@ -46,7 +46,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         />
       </div>
       <div className="flex items-center justify-between mb-4">
-          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="email">E-mail</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="email">E-mail</Label>
         <InputRouter
           name="email"
           type="email"
@@ -56,7 +56,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         />
       </div>
       <div className="flex items-center justify-between mb-4">
-      <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="tel">Teléfono</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="tel">Teléfono</Label>
         <InputRouter
           name="tel"
           type="tel"
@@ -66,7 +66,7 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         />
       </div>
       <div className="flex items-center justify-between mb-4">
-          <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="position">Posición</Label>
+        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="position">Posición</Label>
         <InputRouter
           name="position"
           value={contactData.position}
@@ -90,3 +90,4 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
 };
 
 export default ContactInfoForm;
+

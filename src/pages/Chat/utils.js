@@ -226,3 +226,22 @@ export async function editGroupChat(data) {
 
   return response;
 }
+
+export async function deleteChatGroup(data) {
+  const info = {
+    chat_id: data.get("chat_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}chat/destroy-chat`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
