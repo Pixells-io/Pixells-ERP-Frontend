@@ -6,11 +6,13 @@ import { add } from "ionicons/icons";
 import { Calendar } from "@/components/ui/calendar";
 import FormCreateMeet from "./Components/FormCreateMeet";
 import { saveNewMeet } from "./utils";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function LayoutCalendar() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
   const [filters, setFilters] = useState(["activity", "meet", "task", "crm"]);
+  const [userFilter, setUserFilter] = useState(0);
 
   function onSelectFilter(filter) {
     if (filters.includes(filter)) {
@@ -18,6 +20,23 @@ function LayoutCalendar() {
     } else {
       setFilters([...filters, filter]);
     }
+  }
+
+  const userArray = [];
+
+  arrayFillUser(data, userArray);
+
+  function arrayFillUser(data, array) {
+    data.forEach((element) => {
+      array.push({
+        label: element.name + " " + element.last_name,
+        value: element.id,
+      });
+    });
+  }
+
+  async function changeUserFilter(e) {
+    setUserFilter(e.value);
   }
 
   return (
@@ -85,10 +104,18 @@ function LayoutCalendar() {
               />
               <p className="text-xs font-medium text-grisSubText">Meet</p>
             </div>
+            <div>
+              <SelectRouter
+                name={"user"}
+                placeholder={"Select User"}
+                options={userArray}
+                onChange={(e) => changeUserFilter(e)}
+              />
+            </div>
           </div>
         </div>
       </div>
-      <Outlet context={[filters]} />
+      <Outlet context={[filters, userFilter]} />
     </div>
   );
 }

@@ -61,7 +61,7 @@ function NotificationBell({ notificationsData, user }) {
                                   {item.latest.created}
                                 </span>
                               </div>
-                              <span className="w-9 overflow-hidden truncate text-xs font-normal text-grisSubText">
+                              <span className="w-9 overflow-hidden truncate text-left text-xs font-normal text-grisSubText">
                                 {item.latest.message}
                               </span>
                             </div>

@@ -8,12 +8,17 @@ import FormShowMeet from "./Components/FormShowMeet";
 import { getFollowUp, getMeet } from "./utils";
 import FormShowFollowUp from "./Components/FormShowFollowUp";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
-import { set } from "date-fns";
 import CompleteActivity from "@/layouts/PManager/components/TaskModals/CompleteActivity";
+import { getCalendarDataId } from "@/lib/actions";
 
 function MainCalendar() {
   const { data } = useLoaderData();
-  const [filters] = useOutletContext();
+  const [filters, userFilter] = useOutletContext();
+
+  /*if (userFilter != 0) {
+    const newData = getCalendarDataId(userFilter);
+    console.log(newData);
+  }*/
 
   useEffect(() => {
     const newArray = Object.keys(data).map((key) => {
@@ -22,10 +27,8 @@ function MainCalendar() {
         value: data[key],
       };
     });
-    // console.log("Obj to Array ->", newArray);
 
     const newShowData = newArray.filter((item) => filters.includes(item.name));
-    // console.log("ArrayFiltered", newShowData);
 
     const res2 = newShowData.map(({ key, value }) =>
       value.map((item) => {

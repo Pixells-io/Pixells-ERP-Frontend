@@ -30,8 +30,7 @@ const DocumentContent = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     navigate(saveUrl);
   };
 
