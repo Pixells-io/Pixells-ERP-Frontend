@@ -47,6 +47,7 @@ const DocumentContent = ({
         setSelectedWarehouse={setSelectedWarehouse}
         selectedCostCenter={selectedCostCenter}
         setSelectedCostCenter={setSelectedCostCenter}
+        isEditable={isEditable}
       />
       <div className="rounded-xl bg-white p-4">
       <OrderTable
@@ -58,6 +59,7 @@ const DocumentContent = ({
         setSelectedFechaEntrega={setSelectedFechaEntrega}
         selectedCondicionPago={selectedCondicionPago}
         setSelectedCondicionPago={setSelectedCondicionPago}
+        isEditable={isEditable}
       />
       <div className="mt-6">
         <QuoteTable

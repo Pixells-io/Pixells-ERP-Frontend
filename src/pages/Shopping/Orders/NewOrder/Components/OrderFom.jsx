@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
-
 
 const OrderTable = ({
   selectedProveedor,
@@ -14,6 +13,7 @@ const OrderTable = ({
   setSelectedFechaEntrega,
   selectedCondicionPago,
   setSelectedCondicionPago,
+  isEditable, // Agregar la prop isEditable
 }) => {
   const proveedorOptions = [
     { value: "proveedor1", label: "Proveedor 1" },
@@ -39,51 +39,52 @@ const OrderTable = ({
     { value: "condicion3", label: "Condición 3" },
   ];
 
-
   return (
-    
-      <div className="flex pt-4 justify-between space-x-3">
-        <SelectField
-          name="proveedor"
-          placeholder="Seleccionar Proveedor"
-          options={proveedorOptions}
-          onChange={setSelectedProveedor}
-          value={selectedProveedor}
+    <div className="flex pt-4 justify-between space-x-3">
+      <SelectField
+        name="proveedor"
+        placeholder="Seleccionar Proveedor"
+        options={proveedorOptions}
+        onChange={isEditable ? setSelectedProveedor : undefined}
+        value={selectedProveedor}
+        isDisabled={!isEditable} // Desactivar el campo si no es editable
+      />
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
+        disabled={!isEditable} // Desactivar el botón si no es editable
+      >
+        <IonIcon
+          icon={addCircleOutline}
+          size="small"
+          className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
-        >
-          <IonIcon
-            icon={addCircleOutline}
-            size="small"
-            className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
-          />
-        </Button>
-        <SelectField
-          name="fechaDoc"
-          placeholder="Seleccionar Fecha de Doc"
-          options={fechaDocOptions}
-          onChange={setSelectedFechaDoc}
-          value={selectedFechaDoc}
-        />
-        <SelectField
-          name="fechaEntrega"
-          placeholder="Seleccionar Fecha de Entrega"
-          options={fechaEntregaOptions}
-          onChange={setSelectedFechaEntrega}
-          value={selectedFechaEntrega}
-        />
-        <SelectField
-          name="condicionPago"
-          placeholder="Seleccionar Condición de Pago"
-          options={condicionPagoOptions}
-          onChange={setSelectedCondicionPago}
-          value={selectedCondicionPago}
-        />
-      </div>
-      
+      </Button>
+      <SelectField
+        name="fechaDoc"
+        placeholder="Seleccionar Fecha de Doc"
+        options={fechaDocOptions}
+        onChange={isEditable ? setSelectedFechaDoc : undefined}
+        value={selectedFechaDoc}
+        isDisabled={!isEditable} // Desactivar el campo si no es editable
+      />
+      <SelectField
+        name="fechaEntrega"
+        placeholder="Seleccionar Fecha de Entrega"
+        options={fechaEntregaOptions}
+        onChange={isEditable ? setSelectedFechaEntrega : undefined}
+        value={selectedFechaEntrega}
+      />
+      <SelectField
+        name="condicionPago"
+        placeholder="Seleccionar Condición de Pago"
+        options={condicionPagoOptions}
+        onChange={isEditable ? setSelectedCondicionPago : undefined}
+        value={selectedCondicionPago}
+        isDisabled={!isEditable} // Desactivar el campo si no es editable
+      />
+    </div>
   );
 };
 

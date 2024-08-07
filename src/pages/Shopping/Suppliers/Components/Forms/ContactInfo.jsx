@@ -1,11 +1,12 @@
 import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const ContactInfoForm = ({ contactData, setContactData }) => {
+const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
   const handleInputChange = (e) => {
-    setContactData({ ...contactData, [e.target.name]: [e.target.value] });
+    setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
 
   const handleCheckboxChange = (checked) => {
@@ -17,8 +18,13 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="nombre">Nombre</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label
+          className="pr-2 font-roboto text-sm text-grisText"
+          htmlFor="nombre"
+        >
+          Nombre
+        </Label>
         <InputRouter
           name="nombre"
           value={contactData.nombre}
@@ -26,8 +32,13 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidop">A. Paterno</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label
+          className="pr-2 font-roboto text-sm text-grisText"
+          htmlFor="apellidop"
+        >
+          A. Paterno
+        </Label>
         <InputRouter
           name="apellidop"
           className={inputClass}
@@ -36,8 +47,13 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="apellidom">A. Materno</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label
+          className="pr-2 font-roboto text-sm text-grisText"
+          htmlFor="apellidom"
+        >
+          A. Materno
+        </Label>
         <InputRouter
           name="apellidom"
           value={contactData.apellidom}
@@ -45,8 +61,13 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="email">E-mail</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label
+          className="pr-2 font-roboto text-sm text-grisText"
+          htmlFor="email"
+        >
+          E-mail
+        </Label>
         <InputRouter
           name="email"
           type="email"
@@ -55,8 +76,10 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="tel">Teléfono</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label className="pr-2 font-roboto text-sm text-grisText" htmlFor="tel">
+          Teléfono
+        </Label>
         <InputRouter
           name="tel"
           type="tel"
@@ -65,8 +88,13 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="flex items-center justify-between mb-4">
-        <Label className="font-roboto text-sm text-grisText pr-2" htmlFor="position">Posición</Label>
+      <div className="mb-4 flex items-center justify-between">
+        <Label
+          className="pr-2 font-roboto text-sm text-grisText"
+          htmlFor="position"
+        >
+          Posición
+        </Label>
         <InputRouter
           name="position"
           value={contactData.position}
@@ -84,6 +112,17 @@ const ContactInfoForm = ({ contactData, setContactData }) => {
         <Label className="font-roboto text-sm text-grisText" htmlFor="princ">
           Principal
         </Label>
+      </div>
+      <div className="flex flex-col pt-4">
+        <Button
+          type="button"
+          className="w-[100px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
+          onClick={onDelete}
+        >
+          <Label className="font-roboto text-sm text-[#D7586B]">
+            Eliminar
+          </Label>
+        </Button>
       </div>
     </div>
   );
