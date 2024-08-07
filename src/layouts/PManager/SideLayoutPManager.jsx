@@ -112,8 +112,8 @@ function SideLayoutPManager() {
             Objetivos Estratégicos
           </p>
 
-          <div className="flex w-full gap-x-12 px-4">
-            <div className="w-full max-w-[120px]">
+          <div className="flex w-full flex-col items-center justify-center gap-2 px-4">
+            <div className="flex w-full max-w-[120px]">
               <Select
                 name={"year"}
                 // value={academicInfo[i].academic_grade}
