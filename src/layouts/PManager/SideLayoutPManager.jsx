@@ -112,7 +112,7 @@ function SideLayoutPManager() {
             Objetivos Estratégicos
           </p>
 
-          <div className="flex w-full flex-col items-center justify-center gap-2 px-4">
+          <div className="flex w-full items-center justify-around gap-2 px-4">
             <div className="flex w-full max-w-[120px]">
               <Select
                 name={"year"}
