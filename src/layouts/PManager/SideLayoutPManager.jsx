@@ -141,7 +141,7 @@ function SideLayoutPManager() {
             ) : (
               false
             )}
-            <div className="ml-5 w-full">
+            {/* <div className="ml-5 w-full">
               <SelectRouter
                 name={"year"}
                 placeholder={"Año"}
@@ -149,7 +149,7 @@ function SideLayoutPManager() {
                 onChange={(e) => changeYear(e)}
                 // value={academicInfo[i].academic_grade}
               />
-            </div>
+            </div> */}
           </div>
 
           {/*menu top */}
