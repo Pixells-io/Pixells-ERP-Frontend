@@ -18,6 +18,13 @@ import NewObjectiveForm from "./components/Form/NewObjectiveForm";
 import { saveNewObjective } from "./utils";
 import SelectRouter from "../Masters/FormComponents/select";
 import { getObjectives } from "@/lib/actions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const yearsOption = [
   {
@@ -85,10 +92,9 @@ function SideLayoutPManager() {
     }
   });
 
-  async function changeYear(e) {
-    const newQuery = await getObjectives(e.value);
+  async function changeYear(value) {
+    const newQuery = await getObjectives(value);
     setObjectivesData(newQuery);
-    console.log(newQuery);
   }
 
   return (
@@ -102,29 +108,47 @@ function SideLayoutPManager() {
         {/*bottom block */}
         <div className="flex h-full flex-col gap-4 rounded-md bg-gris px-4 py-8">
           <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
-            Strategic Objectives
+            Objetivos Estratégicos
           </p>
 
-          <div className="flex w-full px-4">
+          <div className="flex w-full items-center justify-between gap-2 px-4">
+            <div className="flex w-full max-w-[120px]">
+              <Select
+                name={"year"}
+                // value={academicInfo[i].academic_grade}
+                onValueChange={(e) => changeYear(e)}
+              >
+                <SelectTrigger className="rounded-full border border-[#D9D9D9] text-sm font-light text-[#44444F] focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <SelectValue placeholder={"Year"} />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  {yearsOption.map((year, index) => (
+                    <SelectItem key={"year" + index} value={year.value}>
+                      {year.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             {create == true ? (
               <button type="button" onClick={() => setOpen(!open)}>
                 <IonIcon
                   icon={addCircleOutline}
-                  className="h-6 w-6 align-middle text-primarioBotones"
+                  className="h-5 w-5 align-middle text-primarioBotones"
                 />
               </button>
             ) : (
               false
             )}
-            <div className="ml-5 w-full">
+            {/* <div className="ml-5 w-full">
               <SelectRouter
                 name={"year"}
-                placeholder={"Year"}
+                placeholder={"Año"}
                 options={yearsOption}
                 onChange={(e) => changeYear(e)}
                 // value={academicInfo[i].academic_grade}
               />
-            </div>
+            </div> */}
           </div>
 
           {/*menu top */}
@@ -151,8 +175,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={megaphone} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Today</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Hoy</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>
@@ -168,8 +192,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Activities</p>
-                  <p className="text-[10px] font-medium">Summary</p>
+                  <p className="text-base font-medium">Actividades</p>
+                  <p className="text-[10px] font-medium">Resumen</p>
                 </div>
               </div>
             </NavLink>
@@ -185,8 +209,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={syncCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Status</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Estado</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>
@@ -202,8 +226,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={listCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Completed</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Terminado</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>

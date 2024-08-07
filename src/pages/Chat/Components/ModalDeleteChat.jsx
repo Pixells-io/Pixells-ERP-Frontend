@@ -29,7 +29,7 @@ function ModalDeleteChat({ chat_id }) {
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
-          <DialogTitle>DELETE CHAT GROUP</DialogTitle>
+          <DialogTitle>BORRAR GRUPO DE CHAT</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <Form
@@ -62,14 +62,14 @@ function ModalDeleteChat({ chat_id }) {
                 className="w-1/2 bg-[#343434] font-roboto text-xs font-semibold hover:bg-primarioBotones"
                 onClick={() => setModal(false)}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 type="submit"
                 className="w-1/2 bg-red-400 font-roboto text-xs font-semibold hover:bg-red-600"
                 disabled={navigation.state === "submitting"}
               >
-                {navigation.state === "submitting" ? "Submitting..." : "DELETE"}
+                {navigation.state === "submitting" ? "Submitting..." : "Borrar"}
               </Button>
             </div>
           </DialogFooter>

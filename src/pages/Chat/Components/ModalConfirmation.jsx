@@ -77,16 +77,14 @@ function ModalConfirmation({
                 className="w-1/2 bg-[#343434] font-roboto text-xs font-semibold"
                 onClick={() => setModal(false)}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 type="submit"
                 className="w-1/2 bg-primarioBotones font-roboto text-xs font-semibold"
                 disabled={navigation.state === "submitting"}
               >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Confirm"}
+                {navigation.state === "submitting" ? "Submitting..." : "Borrar"}
               </Button>
             </div>
           </DialogFooter>

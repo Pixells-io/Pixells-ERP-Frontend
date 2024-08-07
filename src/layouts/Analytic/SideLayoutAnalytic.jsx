@@ -34,12 +34,11 @@ function SideLayoutAnalytic() {
               <div className="flex items-center gap-6">
                 <IonIcon icon={pieChart} size="large"></IonIcon>
                 <div>
-                  <p className="text-base font-medium">Analytics</p>
+                  <p className="text-base font-medium">Analítica</p>
                   <p className="text-[10px] font-medium">General</p>
                 </div>
               </div>
             </NavLink>
-
           </div>
         </div>
       </div>
@@ -50,6 +49,4 @@ function SideLayoutAnalytic() {
 
 export default SideLayoutAnalytic;
 
-export async function Action({ request }) {
-  
-}
+export async function Action({ request }) {}

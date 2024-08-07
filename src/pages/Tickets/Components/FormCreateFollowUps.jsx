@@ -21,31 +21,36 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
   }, [navigation.state]);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogContent className="sm:max-w-[425px] overflow-auto">
+      <DialogContent className="overflow-auto sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-poppins">{title}</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-follow-up-form"
-          className="flex flex-col gap-0 h-auto"
+          className="flex h-auto flex-col gap-0"
           action={`/tickets/${ticket}`}
           method="post"
         >
-          <div className="flex flex-col gap-4 font-roboto bg-[#F6F6F6] rounded-lg p-4">
-            <div className="flex flex-col font-light gap-4 pb-4">
+          <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">
+            <div className="flex flex-col gap-4 pb-4 font-light">
               <input type="hidden" value={"1"} name="form" />
               <input type="hidden" value={value} name="type" />
               <input type="hidden" value={ticket} name="ticket" />
-              <FormInput name="comments" type="text" placeholder="Comments" />
+              <FormInput
+                name="comments"
+                type="text"
+                placeholder="Commentario"
+              />
             </div>
           </div>
         </Form>
         <DialogFooter className="h-auto">
           <Button
             form="ticket-follow-up-form"
-            className="font-roboto font-semibold text-xs justify-normal pr-6 pl-6 rounded-lg bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+            className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Añadir"}
           </Button>
         </DialogFooter>
       </DialogContent>

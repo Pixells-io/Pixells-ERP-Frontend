@@ -48,11 +48,11 @@ function PositionsTable({ positions, edit }) {
   const columns = [
     columnHelper.accessor((row) => `${row.position_type}`, {
       id: "PositionType",
-      header: "POSITION TYPE",
+      header: "TIPO DE POSICIÓN",
     }),
     columnHelper.accessor((row) => `${row.position_name}`, {
       id: "PositionName",
-      header: "POSITION NAME",
+      header: "NOMBRE DEL PUESTO",
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
@@ -60,15 +60,15 @@ function PositionsTable({ positions, edit }) {
     }),
     columnHelper.accessor((row) => `${row.boss}`, {
       id: "Boss",
-      header: "BOSS",
+      header: "JEFE",
     }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "Created",
-      header: "CREATED",
+      header: "CREADO",
     }),
     {
       accessorKey: "actions",
-      header: "ACTIONS",
+      header: "ACCIONES",
       cell: ({ row }) => {
         return (
           <div className="flex items-center gap-2 text-[#696974]">

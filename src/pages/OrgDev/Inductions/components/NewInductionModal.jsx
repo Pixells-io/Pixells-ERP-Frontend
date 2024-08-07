@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
-import { Form } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,14 @@ import SelectMultiple from "@/components/ui/selectMultiple";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function NewInductionModal({ modal, setModal, positions, areas }) {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   const typeOptions = [
     {
       label: "General",
@@ -59,7 +67,7 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
       <DialogContent className="h-[500px] overflow-auto sm:max-w-[425px]">
         <div className="-mx-6 border-b pb-2 pl-2">
           <DialogHeader className="px-6">
-            <DialogTitle className="font-poppins">Create Induction</DialogTitle>
+            <DialogTitle className="font-poppins">Crear Inducción</DialogTitle>
           </DialogHeader>
         </div>
         <Form
@@ -74,26 +82,26 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
               <InputRouter
                 name="name"
                 type="text"
-                placeholder="Name of the Induction"
+                placeholder="Nombre de la inducción"
               />
               <InputRouter
                 name="description"
                 type="text"
-                placeholder="Description of the Induction"
+                placeholder="Descripción de la inducción"
               />
               <SelectRouter
                 name={"tipo"}
-                placeholder={"Type of Induction"}
+                placeholder={"Tipo de inducción"}
                 options={typeOptions}
               />
               <SelectRouter
                 name={"responsable"}
-                placeholder={"Select a responsable position"}
+                placeholder={"Seleccione un puesto de responsabilidad"}
                 options={optionsPositions}
               />
               <SelectMultiple
                 name={"areas"}
-                placeholder={"Select the areas"}
+                placeholder={"Seleccione las áreas"}
                 options={optionsAreas}
               />
             </div>
@@ -102,9 +110,10 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
         <DialogFooter className="h-auto">
           <Button
             form="induction-create-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </DialogFooter>
       </DialogContent>

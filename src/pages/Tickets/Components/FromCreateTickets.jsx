@@ -144,7 +144,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="w-full sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Create Ticket</DialogTitle>
+          <DialogTitle className="font-poppins">Crear Ticket</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-form"
@@ -213,20 +213,20 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   className="text-white"
                 ></IonIcon>
               </button>
-              <InputRouter name="issue" type="text" placeholder="Issue" />
+              <InputRouter name="issue" type="text" placeholder="Tema" />
               <InputRouter
                 name="description"
                 type="text"
-                placeholder="Description"
+                placeholder="Descripción"
               />
               <SelectRouter
                 name={"importance"}
-                placeholder={"Importance"}
+                placeholder={"Importancia"}
                 options={importanceValues}
               />
               <SelectRouter
                 name={"category_ticket"}
-                placeholder={"Category"}
+                placeholder={"Categoría"}
                 options={categoryValues}
               />
             </div>
@@ -238,7 +238,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </DialogFooter>
       </DialogContent>

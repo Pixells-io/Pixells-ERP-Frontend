@@ -34,7 +34,7 @@ function SideLayoutTicketsShow() {
         {/*bottom block */}
         <div className="flex h-full w-[280px] flex-col gap-4 overflow-auto rounded-md bg-gris p-4">
           <p className="px-4 font-poppins text-base font-semibold text-grisHeading">
-            Information
+            Información
           </p>
 
           {/*menu top */}
@@ -59,12 +59,12 @@ function SideLayoutTicketsShow() {
                 <div className="ml-4 w-4/5">
                   <div className="mt-1">
                     <span className="text-base font-medium text-grisText">
-                      Created
+                      Creado
                     </span>
                   </div>
                   <div className="mt-[-5px]">
                     <span className="text-[10px] font-medium text-grisSubText">
-                      Days Ago
+                      Hace días
                     </span>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ function SideLayoutTicketsShow() {
                 <div className="ml-4 w-4/5">
                   <div className="mt-1">
                     <span className="text-base font-medium text-grisText">
-                      Created
+                      Creado
                     </span>
                   </div>
                   <div className="mt-[-5px]">
@@ -100,12 +100,12 @@ function SideLayoutTicketsShow() {
                 <div className="ml-4 w-4/5">
                   <div className="mt-1">
                     <span className="text-base font-medium text-grisText">
-                      Updated
+                      Actualizado
                     </span>
                   </div>
                   <div className="mt-[-5px]">
                     <span className="text-[10px] font-medium text-grisSubText">
-                      Days Ago
+                      Hace días
                     </span>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ function SideLayoutTicketsShow() {
               {/* Description Bar */}
               <div>
                 <p className="mt-6 font-poppins text-base font-semibold text-grisHeading">
-                  Description
+                  Descripción
                 </p>
                 <span className="font-roboto text-xs font-normal text-grisSubText">
                   {ticket.description}
@@ -141,7 +141,7 @@ function SideLayoutTicketsShow() {
               {/* Category */}
               <div>
                 <p className="mb-2 mt-4 font-poppins text-base font-semibold text-grisHeading">
-                  Category
+                  Categoría
                 </p>
                 <span className="rounded-2xl bg-primario px-3 py-1 text-xs font-medium text-white">
                   {ticket.category}

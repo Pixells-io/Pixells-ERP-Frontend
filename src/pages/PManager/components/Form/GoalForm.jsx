@@ -29,11 +29,11 @@ function GoalForm({ objectiveId }) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="flex items-center justify-center gap-1 rounded-full bg-primario px-4 py-[6px] text-[11px] font-light text-white">
           <IonIcon icon={add} className="h-4 w-4" size="" />
-          <p className="flex pr-2 text-left">Goal</p>
+          <p className="flex pr-2 text-left">Meta</p>
         </DialogTrigger>
         <DialogContent className="p-0">
           <DialogHeader className="flex flex-col gap-2 border-b px-8 py-6">
-            <DialogTitle>Add Goal</DialogTitle>
+            <DialogTitle>Añadir Meta</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-4 rounded-lg p-4 px-10">
             <Form
@@ -49,7 +49,7 @@ function GoalForm({ objectiveId }) {
                   className="bg-primarioBotones px-10 hover:bg-primario"
                   type="submit"
                 >
-                  Save
+                  Guardar
                 </Button>
               </div>
             </Form>

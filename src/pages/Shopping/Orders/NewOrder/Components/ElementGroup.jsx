@@ -8,21 +8,27 @@ const InputsGroup = ({
   selectedWarehouse, 
   setSelectedWarehouse, 
   selectedCostCenter, 
-  setSelectedCostCenter 
+  setSelectedCostCenter,
+  isEditable // Añadir prop isEditable
 }) => {
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex justify-between w-full space-x-4">
         <Input 
-          className="rounded-lg  focus-visible:ring-2 focus-visible:ring-primario focus-visible:ring-offset-2 focus-visible:outline-none"
+          className="rounded-lg focus-visible:ring-2 focus-visible:ring-primario focus-visible:ring-offset-2 focus-visible:outline-none"
           placeholder="Número de Documento"
           type="text"
           name="ndocument"
           value={documentNumber}
-          onChange={(e) => setDocumentNumber(e.target.value)}
+          onChange={isEditable ? (e) => setDocumentNumber(e.target.value) : undefined} // Cambiar el valor solo si es editable
+          disabled={!isEditable} // Desactivar el campo si no es editable
         />
-        <Select value={selectedWarehouse} onValueChange={setSelectedWarehouse}>
-          <SelectTrigger name="warehouse" className="rounded-lg  focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
+        <Select 
+          value={selectedWarehouse} 
+          onValueChange={isEditable ? setSelectedWarehouse : undefined} // Cambiar el valor solo si es editable
+          disabled={!isEditable} // Desactivar el campo si no es editable
+        >
+          <SelectTrigger name="warehouse" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
@@ -31,7 +37,11 @@ const InputsGroup = ({
             <SelectItem value="almacen3">Almacén Sur</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={selectedCostCenter} onValueChange={setSelectedCostCenter}>
+        <Select 
+          value={selectedCostCenter} 
+          onValueChange={isEditable ? setSelectedCostCenter : undefined} // Cambiar el valor solo si es editable
+          disabled={!isEditable} // Desactivar el campo si no es editable
+        >
           <SelectTrigger name="ccenter" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
             <SelectValue placeholder="Seleccionar Centro de Costos" />
           </SelectTrigger>

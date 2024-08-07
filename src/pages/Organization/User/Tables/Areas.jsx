@@ -62,19 +62,19 @@ function AreasTable({ areas, edit, destroy }) {
   const columns = [
     columnHelper.accessor((row) => `${row.nombre}`, {
       id: "name",
-      header: "NAME",
+      header: "NOMBRE",
     }),
     columnHelper.accessor((row) => `${row.description}`, {
       id: "description",
-      header: "DESCRIPTION",
+      header: "DESCRIPCIÓN",
     }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "created",
-      header: "CREATED",
+      header: "CREADO",
     }),
     {
       accessorKey: "actions",
-      header: "ACTIONS",
+      header: "ACCIONES",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">

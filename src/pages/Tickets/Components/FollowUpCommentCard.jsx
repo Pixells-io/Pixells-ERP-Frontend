@@ -4,21 +4,21 @@ import { IonIcon } from "@ionic/react";
 
 function FollowUpCommentCard({ comment }) {
   return (
-    <div className="w-full flex">
-      <div className="w-1/6 p-8 ">
-        <div className="text-primario border border-primario w-12 rounded-full h-12 text-center pt-2">
+    <div className="flex w-full">
+      <div className="w-1/6 p-8">
+        <div className="h-12 w-12 rounded-full border border-primario pt-2 text-center text-primario">
           <IonIcon icon={chatbubbleSharp} size="large"></IonIcon>
         </div>
       </div>
-      <div className="my-6 shrink-0 flex flex-col w-[460px] bg-gris shadow-sm drop-shadow-sm rounded-lg ml-12">
+      <div className="my-6 ml-12 flex w-[460px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
         {/* card header */}
         <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-          <div className="flex items-center p-1 gap-2">
-            <span className="font-roboto font-medium text-xs text-grisSubText ml-2">
-              A comment was created
+          <div className="flex items-center gap-2 p-1">
+            <span className="ml-2 font-roboto text-xs font-medium text-grisSubText">
+              Se ha creado un comentario
             </span>
           </div>
-          <div className="flex items-center p-1 text-grisSubText gap-2">
+          <div className="flex items-center gap-2 p-1 text-grisSubText">
             <div className="flex items-center gap-1">
               <IonIcon icon={time}></IonIcon>
               <span className="text-[10px]">{comment.date}</span>
@@ -29,8 +29,8 @@ function FollowUpCommentCard({ comment }) {
         </div>
         {/* card content */}
         <div className="justify-between">
-          <div className="mt-4 ml-4">
-            <p className="text-grisSubText text-xs font-normal pb-2">
+          <div className="ml-4 mt-4">
+            <p className="pb-2 text-xs font-normal text-grisSubText">
               {comment.comment}
             </p>
           </div>

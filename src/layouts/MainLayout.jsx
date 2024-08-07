@@ -32,10 +32,7 @@ import {
   person,
   grid,
   bookmark,
-  toggle,
-  desktop,
   logOut,
-  cog,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -302,7 +299,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                  My Profile
+                  Mi Perfil
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -311,7 +308,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                  Notifications
+                  Notificaciones
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -323,7 +320,7 @@ function MainLayout() {
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
-                Saved
+                Guardado
               </DropdownMenuItem>
               {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
@@ -345,7 +342,7 @@ function MainLayout() {
                   onClick={logOutFunction}
                 >
                   <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
-                  Log Out
+                  Cerrar Sesión
                 </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
