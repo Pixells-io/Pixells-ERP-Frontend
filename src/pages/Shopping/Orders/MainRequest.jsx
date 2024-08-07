@@ -178,7 +178,7 @@ const MainRequestOrder = () => {
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
+        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="request"

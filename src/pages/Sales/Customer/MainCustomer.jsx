@@ -13,28 +13,28 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-const MainSalesTicket = () => {
+const MainCustomer = () => {
   const data = [
     {
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
+      nombre: "Haleon SA de CV",
+      tipo: "Inmigracion",
+      nacionalidad: "Americana",
+      contacto: "01-432-143-12",
+      email: "haleonadmin@mail.com",
     },
     {
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
+      nombre: "SONEPAR RL",
+      tipo: "Inmigracion",
+      nacionalidad: "Americana",
+      contacto: "01-733-342-12",
+      email: "halenonrho@mail.com",
     },
     {
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
+      nombre: "Merpol",
+      tipo: "Inmigracion",
+      nacionalidad: "Nacional",
+      contacto: "01-650-983-12",
+      email: "supporthaleon@mail.com",
     },
   ];
 
@@ -130,9 +130,9 @@ const MainSalesTicket = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Ticket/Remisíon de ventas
+            CLIENTES GENERAL
           </p>
-          <Link to="/sales/quotes/new" className="inline-block">
+          <Link to="/sales/customer/new" className="inline-block">
             <Button
               type="button"
               className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -146,18 +146,18 @@ const MainSalesTicket = () => {
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl  bg-transparent p-4">
+        <div className="overflow-auto rounded-xl   p-4">
           <div className="w-full">
-          <Tabs
-              defaultValue="tickets"
+            <Tabs
+              defaultValue="customer"
                className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
                   className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="tickets"
+                  value="customer"
                 >
-                  TICKETS/REMISIONES
+                  CLIENTES GENERAL
                 </TabsTrigger>
                 <TabsTrigger 
                 className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
@@ -166,7 +166,7 @@ const MainSalesTicket = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="tickets"  className="mt-[-60px] p-2">
+              <TabsContent value="customer" className="mt-[-60px] p-2">
                     <DataTable
                       data={data}
                       columns={columns}
@@ -176,8 +176,11 @@ const MainSalesTicket = () => {
                     />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
-                
+                <div className="flex w-full justify-center">
+                  <div className="w-full max-w-4xl">
                     <p>CONTENIDO</p>
+                  </div>
+                </div>
               </TabsContent>
             </Tabs>
           </div>
@@ -187,5 +190,4 @@ const MainSalesTicket = () => {
   );
 };
 
-
-export default MainSalesTicket;
+export default MainCustomer;

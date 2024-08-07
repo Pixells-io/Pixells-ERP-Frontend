@@ -296,6 +296,8 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
+import MainCustomer from "./pages/Sales/Customer/MainCustomer";
+import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
 import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
@@ -306,6 +308,7 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
@@ -939,6 +942,14 @@ const router = createBrowserRouter([
             element: <MainInvoice />,
           },
           {
+            path: "/sales/customer",
+            element:<MainCustomer/>
+          },
+          {
+            path: "/sales/customer/new",
+            element:<CreateCustomer/>
+          },
+          {
             path: "/sales/tickets",
             element: <MainSalesTicket />,
           },
@@ -956,8 +967,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //Shopping
-      {
+       //Shopping
+       {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -968,6 +979,11 @@ const router = createBrowserRouter([
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+          },
+          {
+            path: "/shopping/customer/create",
+            element: <CustomerProfile/>
+
           },
           {
             path: "/shopping/invoices-orders",

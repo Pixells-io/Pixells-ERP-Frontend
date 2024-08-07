@@ -186,7 +186,7 @@ const MainInvoices = () => {
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
+        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="invoices"
@@ -216,11 +216,7 @@ const MainInvoices = () => {
                 />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
                     <p>CONTENIDO</p>
-                  </div>
-                </div>
               </TabsContent>
             </Tabs>
           </div>
