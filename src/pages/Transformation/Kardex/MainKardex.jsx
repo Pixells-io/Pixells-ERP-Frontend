@@ -298,9 +298,35 @@ function MainKardex() {
               </SelectContent>
             </Select>
           </div>
+          <div>
+            <Input
+              className="w-[100px] rounded-xl border border-[#696974] bg-inherit text-xs font-light"
+              name={`code`}
+              // value={row.amount}
+              placeholder="Código"
+              type="text"
+            />
+          </div>
+          <div>
+            <Select name="store" className="h-10">
+              <SelectTrigger className="w-[180px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectValue placeholder="Almacén" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <h2 className="text-poppins text-sm font-bold text-[#44444F]">
+              Método: Costo Medio
+            </h2>
+          </div>
         </div>
 
-        <div className="p-1 bg-blancoBg rounded-xl">
+        <div className="rounded-xl bg-blancoBg p-1">
           <AverageCostTable data={data} columns={AverageCostColumns} />
         </div>
       </div>
