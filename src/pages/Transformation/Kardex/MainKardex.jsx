@@ -300,7 +300,7 @@ function MainKardex() {
           </div>
         </div>
 
-        <div className="flex h-full overflow-auto">
+        <div className="p-1 bg-blancoBg rounded-xl">
           <AverageCostTable data={data} columns={AverageCostColumns} />
         </div>
       </div>

@@ -101,8 +101,9 @@ function AverageCostTable({ data, columns }) {
         )}
       </TableBody>
       <TableFooter className="bg-inherit">
-        <br />
-        <br />
+        <TableRow>
+          <TableCell></TableCell>
+        </TableRow>
         <TableRow className="font-normal text-[#44444F]">
           <TableCell></TableCell>
           <TableCell></TableCell>
