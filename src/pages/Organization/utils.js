@@ -504,3 +504,19 @@ export async function importOrganization(data) {
 
   return response;
 }
+
+export async function CrmApiFunction(email) {
+  const formData = new FormData();
+
+  formData.append("email", email);
+
+  const response = await fetch(`https://crm.savihub.org/api/crm-log`, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Authorization: "Bearer " + Cookies.get("token"),
+    },
+  });
+
+  return response.json();
+}
