@@ -76,7 +76,7 @@ function Stages() {
 
     //Open the menu
     switch (column_id) {
-      /*case 1:
+      case 1:
         setModal({
           ...modal,
           prospect: true,
@@ -102,7 +102,7 @@ function Stages() {
           ...modal,
           proposal: true,
         });
-        break;*/
+        break;
 
       case 5:
         setModal({
