@@ -23,13 +23,15 @@ function MediaLinks({ links }) {
             isValidURL(word) && (
               <div
                 key={i}
-                className="flex w-fit flex-col gap-2 rounded-lg border p-2 hover:bg-[#D9D9D9]"
+                className="group flex w-fit flex-col gap-2 rounded-lg border p-2 px-6 hover:bg-[#D9D9D9]"
               >
-                <p>{mensaje.user}</p>
+                <p className="text-sm text-grisText group-hover:text-primario">
+                  {mensaje.user}
+                </p>
                 <Link
                   to={word.includes("http") ? word : "https://" + word}
                   target="_blank"
-                  className="flex text-primario"
+                  className="flex text-xs text-primario"
                 >
                   {word}
                 </Link>
