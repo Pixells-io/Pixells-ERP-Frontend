@@ -42,9 +42,10 @@ function NewCategory({ modal, setModal, functionModal }) {
             >
               <Input
                 name={"category"}
+                required
                 placeholder={"Agrega una Categoría"}
                 type={"text"}
-                className="border-0 bg-inherit text-sm font-light text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="border-0 bg-inherit text-sm font-light text-[#44444f] placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
             </Form>
           </div>
