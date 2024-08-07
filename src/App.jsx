@@ -956,8 +956,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //Shopping
-      {
+       //Shopping
+       {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -968,6 +968,11 @@ const router = createBrowserRouter([
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+          },
+          {
+            path: "/shopping/customer/create",
+            element: <CustomerProfile/>
+
           },
           {
             path: "/shopping/invoices-orders",

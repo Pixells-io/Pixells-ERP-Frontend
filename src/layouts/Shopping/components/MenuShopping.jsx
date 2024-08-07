@@ -12,7 +12,9 @@ const MENU_ITEMS = [
     name: "Proveedores", 
     subname: "General", 
     icon: bagCheck,
-    subRoutes: ["/shopping/supplier/create"]
+    subRoutes: [
+      "/shopping/supplier/create",
+      "/shopping/customer/create"]
   },
   { 
     path: "/shopping/invoices-orders", 

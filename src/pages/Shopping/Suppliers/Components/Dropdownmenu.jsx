@@ -33,10 +33,10 @@ const MenuSuppliers = () => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onSelect={() => console.log("Cliente existente seleccionado")}
         >
-      
-          <span>Cliente existente</span>
+          <Link to="/shopping/customer/create" className="flex items-center w-full">
+            <span>Clientes existentes</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
