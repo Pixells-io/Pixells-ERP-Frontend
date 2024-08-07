@@ -9,11 +9,28 @@ import {
   notificationsOutline,
   searchOutline,
 } from "ionicons/icons";
+import { useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { NavLink, useLoaderData, useLocation } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@radix-ui/react-accordion";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { destroyNotification } from "@/lib/actions";
 function MainNotifications() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { data } = useLoaderData();
+
+  async function destroyNotificationTwo(noti, url) {
+    await destroyNotification(noti);
+    return navigate("/" + url);
+  }
 
   return (
     <div className="flex w-full">
@@ -119,6 +136,102 @@ function MainNotifications() {
             <span className="font-roboto text-xs font-medium text-grisHeading">
               Newest
             </span>
+          </div>
+          <div className="mt-3 w-full focus:bg-inherit">
+            {data?.map((item, i) => (
+              <div key={i}>
+                {item.count != "0" ? (
+                  <div className="flex w-full flex-col gap-1">
+                    <Accordion type="single" className="w-full" collapsible>
+                      <AccordionItem
+                        value={`item-${i}`}
+                        className="w-full border-b-0"
+                      >
+                        <AccordionTrigger className="w-full gap-4 rounded px-2 py-2 hover:bg-[#7794F926] hover:no-underline active:bg-[#7794F926]">
+                          <div className="flex w-full items-center gap-2.5 hover:rounded-lg">
+                            <div className="w-1/12 text-left">
+                              <Avatar>
+                                <AvatarImage
+                                  className="rounded-full"
+                                  src={item.latest.img}
+                                  width={40}
+                                  height={40}
+                                />
+                              </Avatar>
+                            </div>
+                            <div className="w-9/12 text-left">
+                              <div className="flex gap-2 text-left">
+                                <span className="flex items-center gap-1 overflow-hidden text-xs font-medium text-grisText">
+                                  {item.name} &bull;{" "}
+                                </span>
+                                <span className="text-[10px] text-grisSubText">
+                                  {item.latest.created}
+                                </span>
+                              </div>
+                              <span className="w-9 overflow-hidden truncate text-left text-xs font-normal text-grisSubText">
+                                {item.latest.message}
+                              </span>
+                            </div>
+                            <div className="flex w-2/12 flex-col items-end">
+                              <div className="h-5 w-5 rounded-full bg-[#D7586B]">
+                                <span className="mt-[2px] flex justify-center rounded-full text-xs text-white">
+                                  {item.count}
+                                </span>
+                              </div>
+                              <span className="text-[10px] text-grisSubText">
+                                {item.latest.created}
+                              </span>
+                            </div>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          {item.notifications.map((noti, i) => (
+                            <button
+                              type="button"
+                              key={i}
+                              className="flex w-full gap-4 px-2 py-2 hover:rounded-lg hover:bg-[#7794F926]"
+                              onClick={() =>
+                                destroyNotificationTwo(noti.id, noti.url)
+                              }
+                            >
+                              <div className="mt-2">
+                                <Avatar>
+                                  <AvatarImage
+                                    className="rounded-full"
+                                    src={noti.img}
+                                    width={40}
+                                    height={40}
+                                  />
+                                </Avatar>
+                              </div>
+                              <div className="flex w-full flex-col gap-y-1">
+                                <div className="flex w-full">
+                                  <div className="w-2/4 text-left">
+                                    <span className="text-xs font-medium text-grisSubText">
+                                      {noti.creator}
+                                    </span>
+                                  </div>
+                                  <div className="w-2/4 text-end">
+                                    <span className="text-right text-xs font-medium text-grisSubText">
+                                      {noti.created}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="flex text-left">
+                                  <span className="overflow-hidden text-ellipsis text-left text-xs font-normal text-grisSubText">
+                                    {noti.message}
+                                  </span>
+                                </div>
+                              </div>
+                            </button>
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
+                ) : null}
+              </div>
+            ))}
           </div>
         </div>
       </div>

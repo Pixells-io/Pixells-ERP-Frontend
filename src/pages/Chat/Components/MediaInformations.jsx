@@ -8,6 +8,8 @@ import { Crown } from "lucide-react";
 
 import ModalConfirmation from "./ModalConfirmation";
 import ModalAddParticipant from "./ModalAddParticipant";
+import { Form } from "react-router-dom";
+import ModalDeleteChat from "./ModalDeleteChat";
 
 function MediaInformations({ data, users }) {
   const [modalConfirmation, setModalConfirmation] = useState(false);
@@ -33,7 +35,7 @@ function MediaInformations({ data, users }) {
   );
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <ModalConfirmation
         title={"Confirmación"}
         description={
@@ -47,7 +49,9 @@ function MediaInformations({ data, users }) {
 
       <div className="flex w-full items-center justify-between">
         <h1 className="py-2">Participantes</h1>
-        <ModalAddParticipant chat_id={data.id} users={options} />
+        {data.is_admin == 1 && (
+          <ModalAddParticipant chat_id={data.id} users={options} />
+        )}
       </div>
       {data.participants_array.map((participant, index) => (
         <div
@@ -73,24 +77,30 @@ function MediaInformations({ data, users }) {
                 <Crown className="size-4 text-[#FFC34E]" />
               )}
             </div>
-
-            <div>
-              <IonIcon
-                icon={personRemove}
-                className="size-5 pr-4 text-grisText hover:cursor-pointer hover:text-red-500"
-                onClick={() => {
-                  setUserId(participant.id);
-                  setModalConfirmation(true);
-                }}
-              />
-            </div>
+            {data.is_admin == 1 && (
+              <div>
+                <IonIcon
+                  icon={personRemove}
+                  className="size-5 pr-4 text-grisText hover:cursor-pointer hover:text-red-500"
+                  onClick={() => {
+                    setUserId(participant.id);
+                    setModalConfirmation(true);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}
       <p className="pt-4 text-xs font-semibold text-grisText">
         Creado {year}/{month}/{day}
       </p>
-    </>
+      {data.is_admin == 1 && (
+        <div className="flex w-full justify-end">
+          <ModalDeleteChat chat_id={data.id} />
+        </div>
+      )}
+    </div>
   );
 }
 

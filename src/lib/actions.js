@@ -1458,6 +1458,22 @@ export async function getCalendarData() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function getCalendarDataId(user_id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}calendar/get-data/${user_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 /* GET PERMISSIONS */
 export async function menuPermissions() {
   try {
