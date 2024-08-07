@@ -117,6 +117,7 @@ const QuoteTable = ({
                       className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
                       onChange={(e) =>
+                        isEditable &&
                         handleInputChange(
                           (currentPage - 1) * itemsPerPage + rowIndex,
                           column.key,
@@ -124,6 +125,7 @@ const QuoteTable = ({
                           setTableData,
                         )
                       }
+                      readOnly={!isEditable}
                     />
                   </TableCell>
                 ))}
@@ -133,13 +135,14 @@ const QuoteTable = ({
                     variant="ghost"
                     size="icon"
                     onClick={() =>
+                      isEditable &&
                       handleDeleteRow(
                         (currentPage - 1) * itemsPerPage + rowIndex,
                         setTableData,
                         tableData,
                       )
                     }
-                    disabled={tableData.length === 1}
+                    disabled={tableData.length === 1 || !isEditable}
                     className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 active:bg-grisText active:bg-opacity-20"
                   >
                     <IonIcon
@@ -158,7 +161,10 @@ const QuoteTable = ({
         <Button
           variant="ghost"
           size="icon"
-          onClick={(e) => handleAddRow(e, setTableData, initialRow)}
+          onClick={(e) =>
+            isEditable && handleAddRow(e, setTableData, initialRow)
+          }
+          disabled={!isEditable}
           className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon

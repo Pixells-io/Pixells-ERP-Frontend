@@ -190,27 +190,25 @@ const MainPurchase = () => {
           <div className="w-full">
             <Tabs
               defaultValue="orders"
-              className="flex h-full flex-col rounded-lg pt-2"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList className="mb-3 flex justify-start bg-transparent">
+               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="orders"
                 >
                   ORDENES
                 </TabsTrigger>
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="OTRO"
                 >
                   OTRO
                 </TabsTrigger>
               </TabsList>
               <TabsContent
-                value="orders"
-                className="flex h-full w-full flex-col"
+                value="orders" className="mt-[-60px] p-2"
               >
-                <div className="flex-grow">
                   <DataTable
                     data={data}
                     columns={columns}
@@ -218,7 +216,6 @@ const MainPurchase = () => {
                     searchNameFilter="Buscar por No. Documento"
                     isCheckAll={true}
                   />
-                </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">
