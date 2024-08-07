@@ -95,7 +95,6 @@ function SideLayoutPManager() {
   async function changeYear(value) {
     const newQuery = await getObjectives(value);
     setObjectivesData(newQuery);
-    console.log(newQuery);
   }
 
   return (
@@ -112,7 +111,7 @@ function SideLayoutPManager() {
             Objetivos Estratégicos
           </p>
 
-          <div className="flex w-full items-center justify-around gap-2 px-4">
+          <div className="flex w-full items-center justify-between gap-2 px-4">
             <div className="flex w-full max-w-[120px]">
               <Select
                 name={"year"}
