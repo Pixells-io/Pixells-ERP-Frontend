@@ -47,12 +47,12 @@ const MainInvoices = () => {
 
   const getMenuItems = (id) => [
     {
-      label: 'Edit',
+      label: "Edit",
       isLink: true,
       to: `/shopping/invoices-orders/edit/${id}`, // Incluye el id en la URL
     },
     {
-      label: 'Cancel',
+      label: "Cancel",
       isLink: false,
       onClick: () => console.log("Cancel action"),
     },
@@ -116,7 +116,7 @@ const MainInvoices = () => {
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(index);
-    
+
         return (
           <div className="flex items-center justify-center">
             <MenuItem menuItems={menuItems} />
@@ -190,32 +190,30 @@ const MainInvoices = () => {
           <div className="w-full">
             <Tabs
               defaultValue="invoices"
-              className="flex h-full flex-col rounded-lg pt-2"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList className="mb-3 flex justify-start bg-transparent">
+              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                   value="invoices"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
                   FACTURAS
                 </TabsTrigger>
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                   value="OTRO"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
-                  OTRO
+                  OTROS
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="invoices" className="w-full h-full flex flex-col">
-                <div className="flex-grow">
-                  <DataTable
-                    data={data}
-                    columns={columns}
-                    searchFilter="ndocumento"
-                    searchNameFilter="Buscar por No. Documento"
-                    isCheckAll={true}
-                  />
-                </div>
+              <TabsContent value="invoices" className="mt-[-60px] p-2">
+                <DataTable
+                  data={data}
+                  columns={columns}
+                  searchFilter="ndocumento"
+                  searchNameFilter="Buscar por No. Documento"
+                  isCheckAll={true}
+                />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">

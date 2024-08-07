@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
+
+import { Button } from "@/components/ui/button";
+
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, add, closeCircle } from "ionicons/icons";
-import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
+
+import { saveNewPosition } from "../utils";
+
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
-import { Button } from "@/components/ui/button";
-import { saveNewPosition } from "../utils";
 
 const selectBasic = [
   {
@@ -470,13 +474,13 @@ function FormCreatePosition() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
-              USER MANAGEMENT
+              GESTIÓN DE USUARIOS
             </h2>
           </div>
         </div>
         <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            New Position
+            Nueva posición
           </h2>
           <NavLink to={"/organization"}>
             <IonIcon
@@ -497,21 +501,21 @@ function FormCreatePosition() {
             {/* General Information */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
-                General Information
+                Información general
               </span>
               <div className="w-full pr-1 pt-4">
                 <div className="flex w-full items-center gap-3">
                   <div className="w-1/4">
                     <SelectRouter
                       name={"area_id"}
-                      placeholder={"Select Area"}
+                      placeholder={"Seleccionar área"}
                       options={selectArea}
                     />
                   </div>
                   <div className="w-1/4">
                     <SelectRouter
                       name={"position_type"}
-                      placeholder={"Position Type"}
+                      placeholder={"Tipo de Posición"}
                       options={positionNames}
                     />
                   </div>
@@ -519,13 +523,13 @@ function FormCreatePosition() {
                     <InputRouter
                       name={"position_name"}
                       type={"text"}
-                      placeholder={"Position Name"}
+                      placeholder={"Nombre del puesto"}
                     />
                   </div>
                   <div className="w-1/4">
                     <SelectRouter
                       name={"permision_access"}
-                      placeholder={"Permission Access"}
+                      placeholder={"Acceso de permiso"}
                       options={selectBasic}
                     />
                   </div>
@@ -536,7 +540,7 @@ function FormCreatePosition() {
                     <div className="w-1/4 shrink-0">
                       <SelectRouter
                         name={"boss_id"}
-                        placeholder={"Boss Position"}
+                        placeholder={"Posición de jefe"}
                         options={selectPosition}
                       />
                     </div>
@@ -546,7 +550,7 @@ function FormCreatePosition() {
                           <div className="flex w-full">
                             <SelectRouter
                               name={"coordinate_id"}
-                              placeholder={"Coordinate Position"}
+                              placeholder={"Coordinar Posiciónes"}
                               options={selectPosition}
                               onChange={(e) => updatePositionInput(i, e)}
                               value={positionsInputs[i]?.coordinate_id}
@@ -597,7 +601,7 @@ function FormCreatePosition() {
                   <InputRouter
                     name={"objetive"}
                     type={"text"}
-                    placeholder={"Objectives of the position"}
+                    placeholder={"Objetivos del puesto"}
                   />
                 </div>
               </div>
@@ -606,7 +610,7 @@ function FormCreatePosition() {
             {/*Authority of the Position*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Authority of the Position
+                Autoridad del Cargo
               </span>
               <div className="flex items-center justify-between gap-10 px-2 pt-2">
                 <div className="flex w-full flex-col gap-3 py-4">
@@ -616,7 +620,7 @@ function FormCreatePosition() {
                         <InputRouter
                           name={"authority"}
                           type={"text"}
-                          placeholder={"Authority Name"}
+                          placeholder={"Nombre de la autoridad"}
                           value={authInputs[i]?.authority}
                           onChange={(e) => updateAuthInput(i, e)}
                         />
@@ -625,12 +629,12 @@ function FormCreatePosition() {
                         <CheckboxRouter name="total" label="Total" />
                       </div>
                       <div className="flex w-1/4 justify-center">
-                        <CheckboxRouter name="shared" label="Shared" />
+                        <CheckboxRouter name="shared" label="Compartida" />
                       </div>
                       <div className="w-1/4">
                         <SelectRouter
                           name={"authority_cordinate_id"}
-                          placeholder={"With"}
+                          placeholder={"Con"}
                           options={selectPosition}
                           value={authInputs[i].authority_cordinate_id}
                           onChange={(e) => updateAuthSelect(i, e)}
@@ -675,7 +679,7 @@ function FormCreatePosition() {
             {/*Responsability of the position*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Responsability of the Position
+                Responsabilidad del Cargo
               </span>
               <div className="flex items-center justify-between gap-4 pr-2 pt-4">
                 <div className="flex w-2/4 flex-col gap-3">
@@ -684,7 +688,7 @@ function FormCreatePosition() {
                       <InputRouter
                         name="responsability_input"
                         type="text"
-                        placeholder="Responsability"
+                        placeholder="Responsabilidad"
                         value={resInputs[i].responsability_input}
                         onChange={(e) => updateResInput(i, e)}
                       />
@@ -729,7 +733,7 @@ function FormCreatePosition() {
             {/*Description of the position*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Description of the position
+                Descripción del puesto
               </span>
               <div className="flex w-full pr-2 pt-4">
                 <div className="w-full">
@@ -737,7 +741,7 @@ function FormCreatePosition() {
                     <div className="w-1/3">
                       <SelectRouter
                         name={"experience_years"}
-                        placeholder={"Experience Years"}
+                        placeholder={"Años de experiencia"}
                         options={experienceYears}
                       />
                     </div>
@@ -745,7 +749,7 @@ function FormCreatePosition() {
                       <SelectRouter
                         isMulti={true}
                         name={"experience_sector"}
-                        placeholder={"Sector of Experience"}
+                        placeholder={"Sector de Experiencia"}
                         options={sectorExperience}
                       />
                     </div>
@@ -753,7 +757,7 @@ function FormCreatePosition() {
                       <InputRouter
                         name={"experience_description"}
                         type={"text"}
-                        placeholder={"Describe the Experience"}
+                        placeholder={"Describe la experiencia"}
                       />
                     </div>
                   </div>
@@ -762,7 +766,7 @@ function FormCreatePosition() {
                     <div className="w-2/6">
                       <SelectRouter
                         name={"academy"}
-                        placeholder={"Required Studies"}
+                        placeholder={"Estudios requeridos"}
                         options={academyGrade}
                       />
                     </div>
@@ -770,20 +774,20 @@ function FormCreatePosition() {
                       <InputRouter
                         name={"name_studies"}
                         type={"text"}
-                        placeholder={"Describe the Studies"}
+                        placeholder={"Describe los estudios"}
                       />
                     </div>
                     <div className="ml-4 w-1/6">
                       <SelectRouter
                         name={"home_office"}
-                        placeholder={"Home Office"}
+                        placeholder={"Oficina en casa"}
                         options={selectBasic}
                       />
                     </div>
                     <div className="w-1/6">
                       <SelectRouter
                         name={"position_work_type"}
-                        placeholder={"Type of Work"}
+                        placeholder={"Tipo de trabajo"}
                         options={positionType}
                       />
                     </div>
@@ -796,7 +800,7 @@ function FormCreatePosition() {
                           <div className="w-2/6">
                             <SelectRouter
                               name={"language"}
-                              placeholder={"Language"}
+                              placeholder={"Idioma"}
                               options={languageOptions}
                               value={lenguageInputs[i]?.language}
                               onChange={(e) => updateLenguageSelect(i, e)}
@@ -852,7 +856,7 @@ function FormCreatePosition() {
                     <div className="w-2/6">
                       <SelectRouter
                         name={"working_day"}
-                        placeholder={"Working Day"}
+                        placeholder={"Días laborables"}
                         options={workingDay}
                       />
                     </div>
@@ -860,14 +864,14 @@ function FormCreatePosition() {
                       <InputRouter
                         name={"start"}
                         type={"time"}
-                        placeholder={"Start"}
+                        placeholder={"Inicio"}
                       />
                     </div>
                     <div className="w-1/6">
                       <InputRouter
                         name={"end"}
                         type={"time"}
-                        placeholder={"End"}
+                        placeholder={"Fin"}
                       />
                     </div>
                   </div>
@@ -880,7 +884,7 @@ function FormCreatePosition() {
                             <InputRouter
                               name={"knowledge"}
                               type={"text"}
-                              placeholder={"Knowledge/Skill"}
+                              placeholder={"Conocimiento/Habilidad"}
                               value={skillsInputs[i]?.knowledge}
                               onChange={(e) => updateSkillInput(i, e)}
                             />
@@ -928,7 +932,7 @@ function FormCreatePosition() {
                       form="position-form"
                       className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
                     >
-                      Save Position
+                      Guardar
                     </Button>
                   </div>
                 </div>

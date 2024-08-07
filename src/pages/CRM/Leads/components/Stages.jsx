@@ -76,53 +76,67 @@ function Stages() {
 
     //Open the menu
     switch (column_id) {
-      /*case 1:
-        setModal({
-          ...modal,
-          prospect: true,
-        });
+      case 1:
+        if (next_column == 1) {
+          setModal({
+            ...modal,
+            prospect: true,
+          });
+        }
         break;
 
       case 2:
-        setModal({
-          ...modal,
-          potential: true,
-        });
+        if (next_column == 2) {
+          setModal({
+            ...modal,
+            potential: true,
+          });
+        }
         break;
 
       case 3:
-        setModal({
-          ...modal,
-          followup: true,
-        });
+        if (next_column == 3) {
+          setModal({
+            ...modal,
+            followup: true,
+          });
+        }
         break;
 
       case 4:
-        setModal({
-          ...modal,
-          proposal: true,
-        });
-        break;*/
+        if (next_column == 4) {
+          setModal({
+            ...modal,
+            proposal: true,
+          });
+        }
+        break;
 
       case 5:
-        setModal({
-          ...modal,
-          closing: true,
-        });
+        if (next_column == 5) {
+          setModal({
+            ...modal,
+            closing: true,
+          });
+        }
         break;
 
       case 6:
-        setModal({
-          ...modal,
-          pay: true,
-        });
+        if (next_column == 6) {
+          setModal({
+            ...modal,
+            pay: true,
+          });
+        }
         break;
 
       case 7:
-        setModal({
-          ...modal,
-          kickoff: true,
-        });
+        if (next_column == 7) {
+          setModal({
+            ...modal,
+            kickoff: true,
+          });
+        }
         break;
     }
   }
@@ -199,7 +213,7 @@ function Stages() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-auto">
+    <div className="flex h-full flex-col gap-2 overflow-scroll">
       {/* modal on drop drag */}
       <ProspectForm
         modal={modal.prospect}
@@ -254,7 +268,7 @@ function Stages() {
         type={type}
       />
 
-      <div className="flex gap-x-2 p-2">
+      <div className="flex w-32 p-2">
         {selectTypeFilter !== "all" && (
           <Button
             className="relative h-6 w-16 bg-[#E8E8E8] text-[10px] text-[#44444F] hover:bg-blue-200 hover:text-white"
@@ -343,7 +357,7 @@ function Stages() {
         </DropdownMenu>
       </div>
 
-      <div className="flex h-full gap-2 overflow-auto">
+      <div className="flex h-full gap-2 overflow-scroll">
         {stagesFilter?.map((stage, i) => (
           <div
             key={stage.id}

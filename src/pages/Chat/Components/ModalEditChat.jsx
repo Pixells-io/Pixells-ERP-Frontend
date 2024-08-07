@@ -34,7 +34,7 @@ function ModalEditChat({ chat_id, data }) {
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
-          <DialogTitle>Edit chat group</DialogTitle>
+          <DialogTitle>Editar grupo de chat</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <Form
@@ -49,7 +49,7 @@ function ModalEditChat({ chat_id, data }) {
           </div>
           <InputRouter
             name={"name"}
-            placeholder={"Name"}
+            placeholder={"Nombre"}
             type={"text"}
             defaultVal={data.name}
           />
@@ -77,7 +77,7 @@ function ModalEditChat({ chat_id, data }) {
                 className="w-1/2 bg-[#343434] font-roboto text-xs font-semibold"
                 onClick={() => setModal(false)}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 type="submit"
@@ -86,7 +86,7 @@ function ModalEditChat({ chat_id, data }) {
               >
                 {navigation.state === "submitting"
                   ? "Submitting..."
-                  : "Confirm"}
+                  : "Guardar"}
               </Button>
             </div>
           </DialogFooter>

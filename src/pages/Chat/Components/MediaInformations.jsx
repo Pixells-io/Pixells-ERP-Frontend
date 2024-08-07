@@ -38,9 +38,7 @@ function MediaInformations({ data, users }) {
     <div className="flex flex-col gap-3">
       <ModalConfirmation
         title={"Confirmación"}
-        description={
-          "Una ves realizada esta acción, el documento no podrá modificarse"
-        }
+        description={"Borrar usuario de la conversación"}
         modal={modalConfirmation}
         setModal={setModalConfirmation}
         user_id={userId}

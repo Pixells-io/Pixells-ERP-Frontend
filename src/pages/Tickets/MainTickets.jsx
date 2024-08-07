@@ -111,9 +111,9 @@ function MainTickets() {
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div className="text-xs">4 created</div>
+            {/* <div className="text-xs">4 created</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">9 assigned</div>
+            <div className="text-xs">9 assigned</div> */}
           </div>
         </div>
         <div>
@@ -140,19 +140,19 @@ function MainTickets() {
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="users"
                     >
-                      MY TICKETS
+                      MIS TICKETS
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="positions"
                     >
-                      ASSIGNED
+                      ASIGNADO
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="areas"
                     >
-                      IN PROCESS
+                      EN PROCESO
                     </TabsTrigger>
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import React, { useRef } from "react";
 import { Form, useSubmit } from "react-router-dom";
 
@@ -41,11 +42,17 @@ function Search(users) {
       <input type="hidden" name="type_of_function" value="1" hidden readOnly />
       <Select
         options={selectUser}
-        placeholder="SEARCH"
+        placeholder="BUSCAR"
         name="chat"
         className="rounded-2xl"
         onChange={() => onInputEnter()}
       />
+      {/* <SelectRouter
+        options={selectUser}
+        name="chat"
+        className="rounded-2xl"
+        onChange={() => onInputEnter()}
+      /> */}
     </Form>
   );
 }

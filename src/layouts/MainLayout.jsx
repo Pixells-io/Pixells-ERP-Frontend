@@ -32,10 +32,7 @@ import {
   person,
   grid,
   bookmark,
-  toggle,
-  desktop,
   logOut,
-  cog,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -152,7 +149,6 @@ function MainLayout() {
               <>
                 {item[0]?.id == "3" ? (
                   <>
-                    {/* 
                     <DropdownMenuItem key={i} className="focus:bg-transparent">
                       <div className="flex flex-col">
                         <NavLink
@@ -179,33 +175,6 @@ function MainLayout() {
                             </div>
                           )}
                         </NavLink>
-                      </div>
-                    </DropdownMenuItem>*/}
-                    <DropdownMenuItem
-                      key={i * 2}
-                      className="focus:bg-transparent"
-                    >
-                      <div className="flex flex-col">
-                        <button
-                          className="group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
-                          onClick={() => functionActivateApi()}
-                        >
-                          <IonIcon
-                            icon={item[0]?.icon}
-                            className="h-10 w-10"
-                          ></IonIcon>
-                          {location?.pathname === item[0]?.path ? (
-                            <div className="w-11 truncate text-[10px]">
-                              <p className="text-center">CRM</p>
-                            </div>
-                          ) : (
-                            <div className="hidden w-11 truncate text-[10px] group-hover:flex">
-                              <p className="group-hover:mx-auto group-hover:flex">
-                                CRM
-                              </p>
-                            </div>
-                          )}
-                        </button>
                       </div>
                     </DropdownMenuItem>
                   </>
@@ -302,7 +271,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                  My Profile
+                  Mi Perfil
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -311,7 +280,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                  Notifications
+                  Notificaciones
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -323,7 +292,7 @@ function MainLayout() {
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
-                Saved
+                Guardado
               </DropdownMenuItem>
               {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
@@ -345,7 +314,7 @@ function MainLayout() {
                   onClick={logOutFunction}
                 >
                   <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
-                  Log Out
+                  Cerrar Sesión
                 </button>
               </DropdownMenuItem>
             </DropdownMenuContent>

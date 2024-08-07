@@ -95,7 +95,6 @@ function SideLayoutPManager() {
   async function changeYear(value) {
     const newQuery = await getObjectives(value);
     setObjectivesData(newQuery);
-    console.log(newQuery);
   }
 
   return (
@@ -109,11 +108,11 @@ function SideLayoutPManager() {
         {/*bottom block */}
         <div className="flex h-full flex-col gap-4 rounded-md bg-gris px-4 py-8">
           <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
-            Strategic Objectives
+            Objetivos Estratégicos
           </p>
 
-          <div className="flex w-full gap-x-12 px-4">
-            <div className="w-full max-w-[120px]">
+          <div className="flex w-full items-center justify-between gap-2 px-4">
+            <div className="flex w-full max-w-[120px]">
               <Select
                 name={"year"}
                 // value={academicInfo[i].academic_grade}
@@ -141,6 +140,15 @@ function SideLayoutPManager() {
             ) : (
               false
             )}
+            {/* <div className="ml-5 w-full">
+              <SelectRouter
+                name={"year"}
+                placeholder={"Año"}
+                options={yearsOption}
+                onChange={(e) => changeYear(e)}
+                // value={academicInfo[i].academic_grade}
+              />
+            </div> */}
           </div>
 
           {/*menu top */}
@@ -167,8 +175,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={megaphone} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Today</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Hoy</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>
@@ -184,8 +192,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Activities</p>
-                  <p className="text-[10px] font-medium">Summary</p>
+                  <p className="text-base font-medium">Actividades</p>
+                  <p className="text-[10px] font-medium">Resumen</p>
                 </div>
               </div>
             </NavLink>
@@ -201,8 +209,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={syncCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Status</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Estado</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>
@@ -218,8 +226,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={listCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Completed</p>
-                  <p className="text-[10px] font-medium">Activities</p>
+                  <p className="text-base font-medium">Terminado</p>
+                  <p className="text-[10px] font-medium">Actividades</p>
                 </div>
               </div>
             </NavLink>

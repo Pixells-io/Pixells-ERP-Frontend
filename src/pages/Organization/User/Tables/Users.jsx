@@ -48,7 +48,7 @@ function UsersTable({ users, edit }) {
   const columns = [
     {
       accessorKey: "Name",
-      header: "NAME",
+      header: "NOMBRE",
       id: "Name",
       cell: ({ row }) => {
         return (
@@ -98,11 +98,11 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.position}`, {
       id: "Position",
-      header: "POSITION",
+      header: "POSICION",
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
       id: "Phone",
-      header: "PHONE",
+      header: "TELÉFONO",
     }),
     columnHelper.accessor((row) => `${row.email}`, {
       id: "Email",
@@ -110,7 +110,7 @@ function UsersTable({ users, edit }) {
     }),
     {
       accessorKey: "actions",
-      header: "ACTIONS",
+      header: "ACCIONES",
       id: "Actions",
       cell: ({ row }) => {
         return (

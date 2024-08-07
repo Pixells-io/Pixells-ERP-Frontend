@@ -19,7 +19,6 @@ import { Badge } from "@/components/ui/badge";
 
 import {
   checkmarkCircleOutline,
-  create,
   ellipsisVertical,
   informationCircle,
   trash,
@@ -35,15 +34,15 @@ import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
 
 const HEADERS = [
-  { name: "CSF" },
-  { name: "ACTIVITY" },
-  { name: "TYPE" },
-  { name: "PROGRESS" },
-  { name: "EXPIRATION" },
+  { name: "FCE" },
+  { name: "ACTIVIDAD" },
+  { name: "TIPO" },
+  { name: "PROGRESO" },
+  { name: "VENCIMIENTO" },
   { name: "RESPONSABLE" },
-  { name: "STATUS" },
-  { name: "CREATED" },
-  { name: "ACTIONS" },
+  { name: "ESTADO" },
+  { name: "CREADO" },
+  { name: "ACCIONES" },
 ];
 
 const PRIORITY = [
@@ -194,7 +193,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
               <input
                 type="text"
                 name="csf"
-                placeholder="+ CRITICAL SUCCES FACTOR"
+                placeholder="+ FACTOR CRÍTICO DE ÉXITO"
                 className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
                 value={csfInput}
                 onChange={(e) => setCsfInput(e.target.value)}
@@ -228,7 +227,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                   <DropdownMenuItem
                     onClick={() => setInputActive(!inputActive)}
                   >
-                    Edit
+                    Editar
                   </DropdownMenuItem>
                 ) : (
                   false
@@ -240,7 +239,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       setCsfModal(true);
                     }}
                   >
-                    Delete
+                    Borrar
                   </DropdownMenuItem>
                 ) : (
                   false
@@ -381,7 +380,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 
                         <div>
                           <p className="pr-4 text-[12px] font-normal text-grisHeading">
-                            {task?.type == 0 ? "Task" : "Project"}
+                            {task?.type == 0 ? "Tarea" : "Proyecto"}
                           </p>
                         </div>
                         {task?.type == 1 ? (

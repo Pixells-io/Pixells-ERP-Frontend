@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +22,14 @@ import DatePicker from "@/components/date-picker";
 function NewTrainingModal({ modal, setModal, users, areas, positions }) {
   const [initialData, setInitialData] = useState(1);
   const [inputShow, setinputShow] = useState(initialData);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
 
   const typeOptions = [
     {
@@ -94,7 +102,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border border-b px-8 py-4">
-          <DialogTitle className="font-poppins">Create Training</DialogTitle>
+          <DialogTitle className="font-poppins">Crear Formación</DialogTitle>
         </DialogHeader>
         <Form
           id="training-create-form"
@@ -115,7 +123,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
               <InputRouter
                 name="name"
                 type="text"
-                placeholder="Name of the Training"
+                placeholder="Nombre de la formación"
               />
               <select
                 name="type"
@@ -123,64 +131,65 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
                 onChange={(e) => setinputShow(e.target.value)}
               >
                 <option value="1">Area</option>
-                <option value="2">Position</option>
-                <option value="3">User</option>
+                <option value="2">Posición</option>
+                <option value="3">Usuario</option>
               </select>
               {inputShow == "1" ? (
                 <SelectMultiple
                   name={"areas"}
-                  placeholder={"Select the areas"}
+                  placeholder={"Seleccione las áreas"}
                   options={optionsAreas}
                 />
               ) : inputShow == "2" ? (
                 <SelectMultiple
                   name={"positions"}
-                  placeholder={"Select the positions"}
+                  placeholder={"Seleccione las posiciones"}
                   options={optionsPositions}
                 />
               ) : (
                 <SelectMultiple
                   name={"users"}
-                  placeholder={"Select the users"}
+                  placeholder={"Seleccione los usuarios"}
                   options={optionsUsers}
                 />
               )}
 
               <SelectRouter
                 name={"class_type"}
-                placeholder={"Type of class"}
+                placeholder={"Tipo de formación"}
                 options={typeOptions}
               />
               <InputRouter
                 name="location"
                 type="text"
-                placeholder="Location of the Training"
+                placeholder="Lugar de la formación"
               />
               <InputRouter
                 name="teacher_name"
                 type="text"
-                placeholder="Name of the teacher"
+                placeholder="Nombre del profesor"
               />
               <InputRouter
                 name="teacher_last_name"
                 type="text"
-                placeholder="Last name of the teacher"
+                placeholder="Apellido paterno del profesor"
               />
               <InputRouter
                 name="teacher_second_last_name"
                 type="text"
-                placeholder="Second last name of the teacher"
+                placeholder="Apellido materno del profesorr"
               />
-              <DatePicker name="class_date" placeholder="Date" />
+              <DatePicker name="class_date" placeholder="Fecha" />
             </div>
           </div>
         </Form>
         <DialogFooter className="h-auto px-8 pb-4">
           <Button
             form="training-create-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </DialogFooter>
       </DialogContent>
