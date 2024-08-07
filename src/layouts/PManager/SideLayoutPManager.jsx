@@ -18,6 +18,13 @@ import NewObjectiveForm from "./components/Form/NewObjectiveForm";
 import { saveNewObjective } from "./utils";
 import SelectRouter from "../Masters/FormComponents/select";
 import { getObjectives } from "@/lib/actions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const yearsOption = [
   {
@@ -85,8 +92,8 @@ function SideLayoutPManager() {
     }
   });
 
-  async function changeYear(e) {
-    const newQuery = await getObjectives(e.value);
+  async function changeYear(value) {
+    const newQuery = await getObjectives(value);
     setObjectivesData(newQuery);
     console.log(newQuery);
   }
@@ -105,26 +112,35 @@ function SideLayoutPManager() {
             Strategic Objectives
           </p>
 
-          <div className="flex w-full px-4">
+          <div className="flex w-full gap-x-12 px-4">
+            <div className="w-full max-w-[120px]">
+              <Select
+                name={"year"}
+                // value={academicInfo[i].academic_grade}
+                onValueChange={(e) => changeYear(e)}
+              >
+                <SelectTrigger className="rounded-full border border-[#D9D9D9] text-sm font-light text-[#44444F] focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <SelectValue placeholder={"Year"} />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  {yearsOption.map((year, index) => (
+                    <SelectItem key={"year" + index} value={year.value}>
+                      {year.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             {create == true ? (
               <button type="button" onClick={() => setOpen(!open)}>
                 <IonIcon
                   icon={addCircleOutline}
-                  className="h-6 w-6 align-middle text-primarioBotones"
+                  className="h-5 w-5 align-middle text-primarioBotones"
                 />
               </button>
             ) : (
               false
             )}
-            <div className="ml-5 w-full">
-              <SelectRouter
-                name={"year"}
-                placeholder={"Year"}
-                options={yearsOption}
-                onChange={(e) => changeYear(e)}
-                // value={academicInfo[i].academic_grade}
-              />
-            </div>
           </div>
 
           {/*menu top */}
