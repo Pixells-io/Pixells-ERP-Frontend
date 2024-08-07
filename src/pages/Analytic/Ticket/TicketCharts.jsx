@@ -22,8 +22,8 @@ function TicketCharts({ data }) {
                 },
               }}
               dataKeyX={"name"}
-              title={"Created"}
-              subtitle={"Tickets created by user"}
+              title={"Creado"}
+              subtitle={"Tickets creados por el usuario"}
               dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
               footerTitle={""}
               footerSubTitle={""}
@@ -39,8 +39,8 @@ function TicketCharts({ data }) {
                 },
               }}
               dataKeyX={"name"}
-              title={"Assigned"}
-              subtitle={"Tickets assigned by user"}
+              title={"Asignado"}
+              subtitle={"Tickets asignados por el usuario"}
               dataKeys={[{ dataKey: "number", fill: "var(--color-number)" }]}
               footerTitle={""}
               footerSubTitle={""}
@@ -48,8 +48,8 @@ function TicketCharts({ data }) {
           </div>
           <div className="col-span-12 rounded-xl drop-shadow sm:col-span-12 xl:col-span-6">
             <AverageTimeCard
-              title={"Average Time"}
-              subtitle={"Days to complete tickets"}
+              title={"Duración media"}
+              subtitle={"Días para completar los tickets"}
               days={data.tickets_resolve_days}
             />
           </div>
@@ -59,7 +59,7 @@ function TicketCharts({ data }) {
             variant="outline"
             className="h-6 rounded-3xl border-[1px] border-[#696974] bg-inherit text-xs font-medium text-grisText"
           >
-            Download
+            Descargar
           </Button>
         </div>
       </div>

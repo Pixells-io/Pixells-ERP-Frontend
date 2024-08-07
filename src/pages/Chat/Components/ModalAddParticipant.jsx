@@ -35,7 +35,7 @@ function ModalAddParticipant({ chat_id, users }) {
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
-          <DialogTitle>Add participant to the group</DialogTitle>
+          <DialogTitle>Añadir un participante al grupo</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <Form
@@ -47,7 +47,7 @@ function ModalAddParticipant({ chat_id, users }) {
         >
           <SelectRouter
             name="user_id"
-            placeholder="Select User"
+            placeholder="Seleccionar Usuarios"
             options={users}
           />
 
@@ -74,7 +74,7 @@ function ModalAddParticipant({ chat_id, users }) {
                 className="w-1/2 bg-[#343434] font-roboto text-xs font-semibold"
                 onClick={() => setModal(false)}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 type="submit"
@@ -83,7 +83,7 @@ function ModalAddParticipant({ chat_id, users }) {
               >
                 {navigation.state === "submitting"
                   ? "Submitting..."
-                  : "Confirm"}
+                  : "Guardar"}
               </Button>
             </div>
           </DialogFooter>

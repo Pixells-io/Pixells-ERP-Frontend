@@ -25,7 +25,7 @@ function MensaggeFileModal({ modal, setModal, chat_id }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
-            Send File
+            Enviar archivo
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -46,9 +46,10 @@ function MensaggeFileModal({ modal, setModal, chat_id }) {
         <DialogFooter className="px-10 pb-6">
           <Button
             form="area-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
           >
-            Send File
+            {navigation.state === "submitting" ? "Submitting..." : "Enviar"}
           </Button>
         </DialogFooter>
       </DialogContent>

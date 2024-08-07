@@ -110,17 +110,22 @@ function TaskForm({ users, csfId }) {
                 <InputRouter name="name" placeholder="Título" />
               </div>
               <div className="col-span-2">
-                <Select name="priority">
-                  <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
-                    <SelectValue placeholder="Prioridad" />
-                  </SelectTrigger>
-                  <SelectContent className="text-grisText">
-                    <SelectItem value="1">Baja</SelectItem>
-                    <SelectItem value="2">Media</SelectItem>
-                    <SelectItem value="3">Importante</SelectItem>
-                    <SelectItem value="4">Urgente</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label htmlFor="flex flex-col ">
+                  <p className="pb-1 text-[11px] font-light text-grisHeading">
+                    Prioridad
+                  </p>
+                  <Select name="priority">
+                    <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
+                      <SelectValue placeholder="Prioridad" />
+                    </SelectTrigger>
+                    <SelectContent className="text-grisText">
+                      <SelectItem value="1">Baja</SelectItem>
+                      <SelectItem value="2">Media</SelectItem>
+                      <SelectItem value="3">Importante</SelectItem>
+                      <SelectItem value="4">Urgente</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </label>
               </div>
             </div>
 
@@ -136,7 +141,7 @@ function TaskForm({ users, csfId }) {
                   <InputRouter
                     type="textarea"
                     name="description"
-                    placeholder="Description"
+                    placeholder="Descripción"
                   />
                 </div>
               </div>
@@ -184,7 +189,7 @@ function TaskForm({ users, csfId }) {
                       <InputRouter
                         type="textarea"
                         name="description"
-                        placeholder="Description"
+                        placeholder="Descripción"
                       />
                     </div>
                   </>
@@ -220,7 +225,7 @@ function TaskForm({ users, csfId }) {
                       <InputRouter
                         type="textarea"
                         name="description"
-                        placeholder="Description"
+                        placeholder="Descripción"
                       />
                       {/* <Textarea
                         name="description"
@@ -242,7 +247,9 @@ function TaskForm({ users, csfId }) {
                 type="submit"
                 disabled={navigation.state === "submitting"}
               >
-                {navigation.state === "submitting" ? "Submitting..." : "Save"}
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
               </Button>
             </DialogFooter>
           </Form>

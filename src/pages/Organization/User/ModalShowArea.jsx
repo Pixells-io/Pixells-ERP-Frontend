@@ -80,7 +80,7 @@ function ModalShowArea({ modal, setModal, area }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
-            Area
+            Área
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -110,7 +110,7 @@ function ModalShowArea({ modal, setModal, area }) {
                 <InputRouter
                   name="nombre"
                   type="text"
-                  placeholder="Name of the area"
+                  placeholder="Nombre del área"
                   defaultVal={area.area?.nombre}
                   disabled={disabled}
                 />
@@ -131,7 +131,7 @@ function ModalShowArea({ modal, setModal, area }) {
               <InputRouter
                 name="descripcion"
                 type="text"
-                placeholder="Description of the area"
+                placeholder="Descripción del área"
                 defaultVal={area.area?.descripcion}
                 disabled={disabled}
               />
@@ -141,7 +141,7 @@ function ModalShowArea({ modal, setModal, area }) {
                   <InputRouter
                     name="proceso"
                     type="text"
-                    placeholder="Process"
+                    placeholder="Proceso"
                     value={processInputs[i].process}
                     disabled={disabled}
                     onChange={(e) => editProcessInput(e, i)}
@@ -178,7 +178,7 @@ function ModalShowArea({ modal, setModal, area }) {
 
               <SelectRouter
                 name="tipo_horario"
-                placeholder="Working Days"
+                placeholder="Días laborables"
                 options={DAYS}
                 isMulti={true}
                 disabled={disabled}
@@ -187,14 +187,14 @@ function ModalShowArea({ modal, setModal, area }) {
               <InputRouter
                 name="inicio"
                 type="time"
-                placeholder="Description of the area"
+                placeholder="Inicio"
                 defaultVal={area.area?.inicio}
                 disabled={disabled}
               />
               <InputRouter
                 name="fin"
                 type="time"
-                placeholder="Description of the area"
+                placeholder="Fin"
                 defaultVal={area.area?.fin}
                 disabled={disabled}
               />
@@ -208,7 +208,9 @@ function ModalShowArea({ modal, setModal, area }) {
                 className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
                 disabled={navigation.state === "submitting"}
               >
-                {navigation.state === "submitting" ? "Submitting..." : "Save"}
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
               </Button>
             </DialogFooter>
           )}

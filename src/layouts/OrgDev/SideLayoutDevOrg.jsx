@@ -16,26 +16,26 @@ const MENU_ITEMS = [
   {
     path: "/org-development/induction",
     subpath: [
-      { path: "/org-development/induction", name: "Creator" },
+      { path: "/org-development/induction", name: "Creador" },
       {
         path: "/org-development/induction/my-inductions",
-        name: "My inductions",
+        name: "Mis inducciones",
       },
     ],
-    name: "Induction",
+    name: "Inducción",
     subname: "General",
     icon: copy,
   },
   {
     path: "/org-development/capacitation",
     subpath: [
-      { path: "/org-development/capacitation", name: "Creator" },
+      { path: "/org-development/capacitation", name: "Creador" },
       {
         path: "/org-development/capacitation/my-capacitations",
-        name: "My Trainings",
+        name: "Mis formaciones",
       },
     ],
-    name: "Training",
+    name: "Formación",
     subname: "General",
     icon: book,
   },

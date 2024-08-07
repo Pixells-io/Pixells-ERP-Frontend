@@ -33,7 +33,7 @@ function DocumentDestroy({ documentId, name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Document - {name}
+            Borrar Document - {name}
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -50,23 +50,21 @@ function DocumentDestroy({ documentId, name }) {
             name="document_id"
           />
           <input type="hidden" hidden readOnly value="3" name="action" />
-          <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </span>
+          <span className="font-roboto text-[#A6A6A6]"></span>
           <DialogFooter className="flex gap-4 py-6">
             <Button
               type="submit"
+              disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-red-600 px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Delete
+              {navigation.state === "submitting" ? "Submitting..." : "Borrar"}
             </Button>
             <Button
               type="button"
               onClick={() => setModal(false)}
               className="justify-normal rounded-lg bg-grisText px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Cancel
+              Cancelar
             </Button>
           </DialogFooter>
         </Form>
