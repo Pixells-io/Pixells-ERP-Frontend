@@ -326,7 +326,7 @@ function MainKardex() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-blancoBg p-1">
+        <div className="rounded-xl bg-blancoBg px-2 py-4">
           <AverageCostTable data={data} columns={AverageCostColumns} />
         </div>
       </div>
