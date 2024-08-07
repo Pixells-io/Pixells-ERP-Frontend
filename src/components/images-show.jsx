@@ -7,9 +7,9 @@ function ImagesShow({ image }) {
     <>
       <ModalImages modal={modal} setModal={setModal} image={image} />
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 p-2">
         <div
-          className="h-[120px] w-[120px] rounded-xl border-[2px] border-[#D9D9D9] p-1 hover:cursor-pointer"
+          className="h-[120px] w-[120px] rounded-xl border-[1px] border-[#D9D9D9] hover:cursor-pointer"
           onClick={() => setModal(true)}
         >
           {image?.includes("pdf") == true ? (

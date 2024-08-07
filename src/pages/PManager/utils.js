@@ -266,6 +266,7 @@ export async function editTask(data) {
 export async function editStrategicObjective(data) {
   const objective = {
     objetive_id: data.get("objective_id"),
+    year: data.get("year"),
     name: data.get("name"),
   };
 
