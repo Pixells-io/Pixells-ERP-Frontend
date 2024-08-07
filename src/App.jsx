@@ -306,6 +306,7 @@ import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
@@ -328,6 +329,7 @@ import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/Manufa
 import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
+import MainKardex from "./pages/Transformation/Kardex/MainKardex";
 
 //Topics
 import SideLayoutTopics, {
@@ -955,8 +957,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //Shopping
-      {
+       //Shopping
+       {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -967,6 +969,11 @@ const router = createBrowserRouter([
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+          },
+          {
+            path: "/shopping/customer/create",
+            element: <CustomerProfile/>
+
           },
           {
             path: "/shopping/invoices-orders",
@@ -1051,6 +1058,10 @@ const router = createBrowserRouter([
             path: "/transformation/work-orders/order-cut/:id",
             element: <OrderCut />,
           },
+          {
+            path: "/transformation/kardex",
+            element: <MainKardex />,
+          }
         ],
       },
       {

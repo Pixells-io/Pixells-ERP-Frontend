@@ -149,7 +149,6 @@ function MainLayout() {
               <>
                 {item[0]?.id == "3" ? (
                   <>
-                    {/* 
                     <DropdownMenuItem key={i} className="focus:bg-transparent">
                       <div className="flex flex-col">
                         <NavLink
@@ -176,33 +175,6 @@ function MainLayout() {
                             </div>
                           )}
                         </NavLink>
-                      </div>
-                    </DropdownMenuItem>*/}
-                    <DropdownMenuItem
-                      key={i * 2}
-                      className="focus:bg-transparent"
-                    >
-                      <div className="flex flex-col">
-                        <button
-                          className="group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
-                          onClick={() => functionActivateApi()}
-                        >
-                          <IonIcon
-                            icon={item[0]?.icon}
-                            className="h-10 w-10"
-                          ></IonIcon>
-                          {location?.pathname === item[0]?.path ? (
-                            <div className="w-11 truncate text-[10px]">
-                              <p className="text-center">CRM</p>
-                            </div>
-                          ) : (
-                            <div className="hidden w-11 truncate text-[10px] group-hover:flex">
-                              <p className="group-hover:mx-auto group-hover:flex">
-                                CRM
-                              </p>
-                            </div>
-                          )}
-                        </button>
                       </div>
                     </DropdownMenuItem>
                   </>

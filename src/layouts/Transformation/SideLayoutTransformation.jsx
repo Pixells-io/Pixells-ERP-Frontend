@@ -13,9 +13,9 @@ const menus = [
     icon: pieChart,
   },
   {
-    path: "/transformation/collection",
+    path: "/transformation/kardex",
     name: "Kardex",
-    subName: "De Producciones",
+    subName: "De Productos",
     icon: pieChart,
   },
   {
