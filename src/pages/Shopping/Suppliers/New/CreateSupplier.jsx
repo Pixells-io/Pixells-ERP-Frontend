@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 const CreateSupplier = () => {
   const [supplierValues, setSupplierValues] = useState({
     supplierNumber: "",
-    supplierName: "",
     supplierType: "",
+    supplierName: "",
+    rfc: "",
     supplierGroup: "",
     supplierCurrency: "",
     supplierCFDI: "",
@@ -21,12 +22,7 @@ const CreateSupplier = () => {
     {
       name: "supplierNumber",
       type: "input",
-      placeholder: "Número de Proveedor",
-    },
-    {
-      name: "supplierName",
-      type: "input",
-      placeholder: "Nombre del Proveedor",
+      placeholder: "Codigo de Proveedor",
     },
     {
       name: "supplierType",
@@ -36,6 +32,16 @@ const CreateSupplier = () => {
         { value: "local", label: "Local" },
         { value: "international", label: "Internacional" },
       ],
+    },
+    {
+      name: "supplierNumber",
+      type: "input",
+      placeholder: "Nombre o razon social",
+    },
+    {
+      name: "rfc",
+      type: "input",
+      placeholder: "RFC",
     },
     {
       name: "supplierGroup",

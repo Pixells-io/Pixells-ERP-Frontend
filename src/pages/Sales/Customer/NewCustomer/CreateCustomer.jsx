@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 const CreateCustomer = () => {
   const [clientValues, setClientValues] = useState({
     clientNumber: "",
-    clientName: "",
+    RFC:"",
     clientType: "",
     clientStatus: "",
   });
@@ -17,7 +17,7 @@ const CreateCustomer = () => {
   // Configuración de los campos del formulario
   const clientFields = [
     { name: "clientNumber", type: "input", placeholder: "Número de Cliente" },
-    { name: "clientName", type: "input", placeholder: "Nombre del Cliente" },
+    { name: "rfc", type: "input", placeholder: "RFC" },
     {
       name: "clientType",
       type: "select",
@@ -102,8 +102,9 @@ const CreateCustomer = () => {
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
           <InputsGroup fields={clientFields} initialValues={clientValues} />
-          <FormGroup />
+          <FormGroup/>
         </div>
+        
       </div>
     </div>
   );

@@ -70,10 +70,10 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden flex">
+    <div className="w-full flex">
       <Tabs value={currentTab} onValueChange={handleTabChange} className="flex w-full">
-        <div className="w-[200px] flex flex-col">
-          <TabsList className="h-[400px] overflow-auto flex-col space-y-2 bg-transparent">
+        <div className="w-32 h-full flex flex-col overflow-auto space-y-14">
+          <TabsList className="w-full h-full flex-col overflow-x-[200px] space-y-2 bg-transparent">
             {contacts.map(({ value, label }) => (
               <TabsTrigger
                 key={value}
@@ -84,7 +84,7 @@ const ContactForm = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-         
+         <div></div>
         </div>
         <div className="mt-2 flex space-x-2">
             <Button
@@ -112,4 +112,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
