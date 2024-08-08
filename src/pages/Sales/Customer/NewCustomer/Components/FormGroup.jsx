@@ -73,7 +73,7 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONTACTOS
             </h2>
-            <div className="flex flex-wrap pl-2 pt-2 overflow-auto">
+            <div className="flex flex-wrap pl-2 pt-2">
               <ContactForm />
             </div>
           </TabsContent>

@@ -19,92 +19,51 @@ function MainMerchandiseMovements() {
 
   const data = [
     {
-      codigo: "0987",
-      categoria: "Metales",
-      nombre: "Tornillos",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "21/07/2024",
+      code: "0987",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      codigo: "0988",
-      categoria: "Metales",
-      nombre: "Tuercas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario3.jpg",
-      creacion: "19/07/2024",
+      code: "0988",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      codigo: "0989",
-      categoria: "Metales",
-      nombre: "Rondanas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "12/04/2024",
-    },
-  ];
-
-  const data2 = [
-    {
-      id: "1",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      code: "0989",
+      category: "Metales",
+      name: "Clavos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      id: "2",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "3",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "4",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "5",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "6",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      code: "0990",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
   ];
 
   const columns = [
     {
-      accessorKey: "codigo",
-      header: "Código",
+      accessorKey: "code",
+      header: "CÓDIGO",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -113,47 +72,49 @@ function MainMerchandiseMovements() {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.codigo}</label>
+            <label>{row?.original?.code}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "categoria",
-      header: "Categoría",
+      accessorKey: "category",
+      header: "CATEGORÍA",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nombre",
-      header: "Nombre",
+      accessorKey: "name",
+      header: "NOMBRE",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "unidadMedida",
-      header: "Unidad Medida",
+      accessorKey: "unitMeasurement",
+      header: "UNIDAD MEDIDA",
     },
     {
-      accessorKey: "cuentaContable",
-      header: "Cuenta Contable",
+      accessorKey: "accountingAccount",
+      header: "CUENTA CONTABLE",
     },
     {
-      accessorKey: "tipo",
-      header: "Tipo",
+      accessorKey: "type",
+      header: "TIPO",
     },
     {
-      accessorKey: "creadoPor",
-      header: "Creado Por",
+      accessorKey: "createdBy",
+      header: "CREADO POR",
       cell: ({ row }) => (
-        <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <div className="flex justify-center">
+          <Avatar className="h-6 w-6">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </div>
       ),
     },
     {
-      accessorKey: "creacion",
-      header: "Creación",
+      accessorKey: "createdAt",
+      header: "CREACIÓN",
     },
     {
       id: "acciones",
@@ -245,7 +206,7 @@ function MainMerchandiseMovements() {
               data={data}
               columns={columns}
               searchNameFilter={"Nombre"}
-              searchFilter={"nombre"}
+              searchFilter={"name"}
               isCheckAll={true}
             />
           </TabsContent>
