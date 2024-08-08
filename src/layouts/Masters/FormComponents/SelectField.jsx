@@ -7,10 +7,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
+/**
+ * SelectFiel with style in ring without 
+ * border and background gray
+ */
 const StyleSelect = "w-full rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-function SelectField({ name, placeholder, options, value, onValueChange, isDisabled }) {
-  // Manejar el cambio internamente
+function SelectField({ name, placeholder, options, value, onValueChange}) {
+
+  // changes in value 
   const handleChange = (selectedValue) => {
     if (onValueChange) {
       onValueChange(selectedValue);
