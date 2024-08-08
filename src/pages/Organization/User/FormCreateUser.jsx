@@ -123,38 +123,49 @@ const academyGrade = [
 
 const contracts = [
   {
-    label: "Example",
-    value: "Example",
+    label: "Contrato determinado",
+    value: "Contrato determinado",
+  },
+  {
+    label: "Contrato indeterminado",
+    value: "Contrato indeterminado",
   },
 ];
 
 const banks = [
-  {
-    label: "Bank",
-    value: "Bank",
-  },
+  { label: "Banco de México", value: "BANXICO" },
+  { label: "BBVA", value: "BBVA" },
+  { label: "Citibanamex", value: "CITIBANAMEX" },
+  { label: "Santander", value: "SANTANDER" },
+  { label: "HSBC", value: "HSBC" },
+  { label: "Banorte", value: "BANORTE" },
+  { label: "Scotiabank", value: "SCOTIABANK" },
+  { label: "Inbursa", value: "INBURSA" },
+  { label: "Banregio", value: "BANREGIO" },
+  { label: "Banco Azteca", value: "BANCO_AZTECA" },
+  { label: "Núcleo", value: "NUCLEO" },
+  { label: "Afirme", value: "AFIRME" },
+  { label: "Mifel", value: "MIFEL" },
+  { label: "Multiva", value: "MULTIVA" },
+  { label: "Bancoppel", value: "BANCOPPEL" },
+  { label: "Compartamos Banco", value: "COMPARTAMOS" },
+  { label: "Famsa", value: "FAMSA" },
+  { label: "Núbank", value: "NUBANK" },
+  { label: "Albo", value: "ALBO" },
 ];
 
 const legal_benefits = [
   {
-    label: "Benefit 1",
-    value: "Benefit 1",
+    label: "Prestaciones de ley",
+    value: "Prestaciones de ley",
   },
   {
-    label: "Benefit 2",
-    value: "Benefit 2",
+    label: "Prestaciones de ley + vales de gasolina",
+    value: "Prestaciones de ley + vales de gasolina",
   },
   {
-    label: "Benefit 3",
-    value: "Benefit 3",
-  },
-  {
-    label: "Benefit 4",
-    value: "Benefit 4",
-  },
-  {
-    label: "Benefit 5",
-    value: "Benefit 5",
+    label: "Prestaciones de ley + vales de gasolina + SGMM",
+    value: "Prestaciones de ley + vales de gasolina + SGMM",
   },
 ];
 
