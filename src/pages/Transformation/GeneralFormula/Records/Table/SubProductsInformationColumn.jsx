@@ -1,8 +1,8 @@
-export const SubProductsColumn = [
+export const SubProductsInformationColumn = [
   {
-    id: "component",
+    id: "componentName",
     header: "Componente",
-    accessorKey: "component",
+    accessorKey: "componentName",
   },
   {
     id: "amount",
@@ -20,9 +20,9 @@ export const SubProductsColumn = [
     accessorKey: "cost",
   },
   {
-    id: "iva",
+    id: "amountTax",
     header: "Impuesto",
-    accessorKey: "iva",
+    accessorKey: "amountTax",
   },
   {
     id: "subTotal",

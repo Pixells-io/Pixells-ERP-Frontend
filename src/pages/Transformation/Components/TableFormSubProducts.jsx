@@ -61,7 +61,7 @@ const components = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
+const TableFormSubProducts = ({ tableData, setTableData, setTotalProducts }) => {
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -192,7 +192,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Componente",
         cell: ({ row, rowIndex }) => (
           <Select
-            name={"selectComponent-" + rowIndex}
+            name={"selectComponent-subProduct-" + rowIndex}
             className="h-10 w-[100px]"
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
             value={row?.component}
@@ -216,7 +216,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             className="w-[100px] border-none"
-            name={`amount-${rowIndex}`}
+            name={`amount-subProduct-${rowIndex}`}
             value={row.amount}
             placeholder="ingrese"
             type="number"
@@ -239,7 +239,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           <Input
             type="number"
             className="w-[100px] border-none"
-            name={`cost-${rowIndex}`}
+            name={`cost-subProduct-${rowIndex}`}
             value={row.cost}
             placeholder="ingrese"
             disabled={!row.component}
@@ -256,7 +256,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
             {
               <Input
                 className="w-[36px] border-none p-0"
-                name={`tax-${rowIndex}`}
+                name={`tax-subProduct-${rowIndex}`}
                 value={row.amountTax}
                 placeholder="tax"
                 type="number"
@@ -278,7 +278,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               type="hidden"
               hidden
               value={row.subTotal}
-              name={"subTotal-" + rowIndex}
+              name={"subTotal-subProduct-" + rowIndex}
             />
             <button type="button" onClick={() => deleteRowId(row.idAux)}>
               <IonIcon
@@ -364,4 +364,4 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   );
 };
 
-export default TableForm;
+export default TableFormSubProducts;

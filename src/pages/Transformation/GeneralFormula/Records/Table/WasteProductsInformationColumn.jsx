@@ -1,8 +1,8 @@
-export const WasteProductsColumn = [
+export const WasteProductsInformationColumn = [
   {
-    id: "component",
+    id: "componentName",
     header: "Componente",
-    accessorKey: "component",
+    accessorKey: "componentName",
   },
   {
     id: "amount",

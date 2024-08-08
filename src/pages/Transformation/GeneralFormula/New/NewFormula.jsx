@@ -21,6 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
 import StatusInformation from "@/components/StatusInformation/status-information";
+import TableFormSubProducts from "../../Components/TableFormSubProducts";
 
 function NewFormula() {
   const [products, setProducts] = useState([]);
@@ -194,7 +195,7 @@ function NewFormula() {
             SubProductos
           </h2>
           <div className="overflow-container flex-1">
-            <TableForm
+            <TableFormSubProducts
               tableData={subProducts}
               setTableData={setSubProducts}
               setTotalProducts={setSubTotalProducts}
