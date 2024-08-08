@@ -293,6 +293,7 @@ import UserMediaLibrary, {
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -929,6 +930,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/create",
             element: <CreateArticle />,
+          },
+          {
+            path: "/inventory/merchandise-movements",
+            element: <MainMerchandiseMovements />,
           },
         ],
       },

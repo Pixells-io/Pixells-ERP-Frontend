@@ -9,7 +9,7 @@ const MENU_ITEMS = [
   { path: "/inventory", name: "Artículos", subname: "General", icon: bagCheck },
   { path: "/", name: "Almacenes", subname: "Generales", icon: cube },
   { path: "/", name: "Ubicaciones", subname: "De Almacén", icon: fileTray },
-  { path: "/", name: "Movimientos", subname: "De Mercancías", icon: arrowForwardCircle },
+  { path: "/inventory/merchandise-movements", name: "Movimientos", subname: "De Mercancías", icon: arrowForwardCircle },
   { path: "/", name: "Listas", subname: "De Precios", icon: clipboard },
   { path: "/", name: "Stock", subname: "De Articulos", icon: statsChart },
 ];
