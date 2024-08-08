@@ -167,15 +167,15 @@ function MainGeneralFormula() {
         </div>
 
         <Tabs
-          defaultValue="suppliers"
+          defaultValue="formulas"
           className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
             <TabsTrigger
-              value="suppliers"
+              value="formulas"
               className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
-              PROVEEDORES
+              FORMULAS
             </TabsTrigger>
             <TabsTrigger
               value="other"
@@ -184,7 +184,7 @@ function MainGeneralFormula() {
               OTRO
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="suppliers" className="mt-[-60px] p-2">
+          <TabsContent value="formulas" className="mt-[-60px] p-2">
             <DataTable
               data={data}
               columns={GeneralFormulaColumns}

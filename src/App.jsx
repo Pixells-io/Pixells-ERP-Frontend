@@ -333,6 +333,7 @@ import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
 import MainKardex from "./pages/Transformation/Kardex/MainKardex";
+import FormulaRecords from "./pages/Transformation/GeneralFormula/Records/FormulaRecords";
 
 //Topics
 import SideLayoutTopics, {
@@ -1059,6 +1060,10 @@ const router = createBrowserRouter([
           {
             path: "/transformation/create",
             element: <NewFormula />,
+          },
+          {
+            path: "/transformation/record/:id",
+            element: <FormulaRecords />,
           },
           {
             path: "/transformation/work-orders",
