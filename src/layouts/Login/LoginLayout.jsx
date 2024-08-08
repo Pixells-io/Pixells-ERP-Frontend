@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
+
 import Cookies from "js-cookie";
 
 import { IonIcon } from "@ionic/react";
@@ -7,17 +8,11 @@ import { arrowForwardCircle } from "ionicons/icons";
 
 import { loginUser } from "@/pages/Organization/utils";
 import { getUserByToken } from "@/lib/actions";
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/components/ui/use-toast";
 
 function Login() {
-  const { toast } = useToast();
-  const token = Cookies.get("token");
-
   const navigate = useNavigate();
-  let actionData = useActionData();
-
   const [user, setUser] = useState("");
+  const token = Cookies.get("token");
 
   useEffect(() => {
     async function fetchData() {
@@ -87,7 +82,6 @@ function Login() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-blancoBg">
-      {/* <Toaster /> */}
       <div className="p-20">
         <div className="text-center">
           <span className="font-roboto text-2xl font-light text-grisText">
@@ -160,11 +154,9 @@ export async function action({ request }) {
   const formData = await request.formData();
   const response = await loginUser(formData);
   if (response.code === 201) {
-    Cookies.set("token", response.access_token, { expires: 0.5 });
+    Cookies.set("token", response.access_token);
     return redirect("/");
   } else {
-    return "Hola que pedo";
+    return redirect("/login");
   }
-
-  return new Response({ message: "Error" });
 }

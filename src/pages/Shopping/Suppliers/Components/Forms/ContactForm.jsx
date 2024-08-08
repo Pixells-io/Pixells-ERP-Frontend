@@ -48,17 +48,19 @@ const ContactForm = () => {
     const updatedContacts = contacts.map((contact) =>
       contact.value === currentTab
         ? { ...contact, label: data.nombre || "Nuevo", data }
-        : contact
+        : contact,
     );
     setContacts(updatedContacts);
   };
 
   const handleDeleteContact = () => {
     if (contacts.length <= 1) {
-      return; // No permitir la eliminación si queda solo un contacto
+      return; 
     }
-    
-    const updatedContacts = contacts.filter((contact) => contact.value !== currentTab);
+
+    const updatedContacts = contacts.filter(
+      (contact) => contact.value !== currentTab,
+    );
     setContacts(updatedContacts);
     if (updatedContacts.length > 0) {
       setCurrentTab(updatedContacts[0].value);
@@ -70,31 +72,38 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-full flex">
-      <Tabs value={currentTab} onValueChange={handleTabChange} className="flex w-full">
-        <div className="w-32 h-full flex flex-col overflow-auto space-y-14">
-          <TabsList className="w-full h-full flex-col overflow-x-[200px] space-y-2 bg-transparent">
-            {contacts.map(({ value, label }) => (
-              <TabsTrigger
-                key={value}
-                value={value}
-                className="flex w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
-              >
-                <span className="truncate max-w-[90%]">{label}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-         <div></div>
+    <div className="flex w-full">
+      <Tabs
+        value={currentTab}
+        onValueChange={handleTabChange}
+        className="flex w-full"
+      >
+        <div className="space-y-auto flex w-[180px] flex-col">
+          <div className="pt-2 w-full h-full max-h-[180px] overflow-auto">
+            <TabsList className="w-full flex-col space-y-2 bg-transparent">
+              {contacts.map(({ value, label }) => (
+                <TabsTrigger
+                  key={value}
+                  value={value}
+                  className="w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
+                >
+                  <span className="max-w-[90%] truncate">{label}</span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          <div></div>
         </div>
         <div className="mt-2 flex space-x-2">
-            <Button
-              type='button'
-              className="flex items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
-              onClick={addNewTab}
-            >
-              <IonIcon icon={addCircle} className="text-xl text-primario" />
-            </Button>
-          </div>
+          <Button
+            type="button"
+            className="flex items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
+            onClick={addNewTab}
+          >
+            <IonIcon icon={addCircle} className="text-xl text-primario" />
+          </Button>
+        </div>
         <div className="flex-grow">
           {contacts.map(({ value }) => (
             <TabsContent key={value} value={value} className="h-auto">
