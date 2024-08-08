@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -21,16 +21,66 @@ import { Checkbox } from "@/components/ui/checkbox";
 import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
 import StatusInformation from "@/components/StatusInformation/status-information";
+import OnlyTable from "../../Components/OnlyTable";
+import { ProductsColumn } from "./Table/ProductsColumn";
+import { SubProductsColumn } from "./Table/SubProductsColumn";
+import { WasteProductsColumn } from "./Table/WasteProductsColumn";
 
-function NewFormula() {
+const productsPrueba = [
+    {
+        component: "Aceite vegetal",
+        amount: 3,
+        unit: "L",
+        cost: "60.00",
+        iva: "16",
+        subTotal: "208.80"
+    },
+    {
+        component: "Aceite vegetal",
+        amount: 3,
+        unit: "L",
+        cost: "60.00",
+        iva: "16",
+        subTotal: "208.80"
+    },
+    {
+        component: "Aceite vegetal",
+        amount: 3,
+        unit: "L",
+        cost: "60.00",
+        iva: "16",
+        subTotal: "208.80"
+    },
+];
+
+const subProductsPrueba = [
+    {
+        component: "Aguacate",
+        amount: 1,
+        unit: "U",
+        cost: "10.00",
+        iva: "16",
+        subTotal: "16.80"
+    },
+];
+
+const wateProductsPrueba = [
+    {
+        component: "Cascara",
+        amount: 1,
+        unit: "U",
+        cost: "3.00",
+        subTotal: "3.00"
+    },
+];
+
+function FormulaRecords() {
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
   const [wastes, setWastes] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(203);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
   const [totalWastes, setTotalWastes] = useState(0);
-
-  const navigate = useNavigate();
 
   return (
     <div className="flex w-full">
@@ -73,7 +123,7 @@ function NewFormula() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nueva Formula
+            Registro de Formula
           </p>
 
           <div className="flex items-center justify-end gap-5">
@@ -112,7 +162,7 @@ function NewFormula() {
           </div>
         </div>
 
-        <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
+        {/* <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
           <div>
             <Select name="article" className="h-10 min-w-0 flex-1">
               <SelectTrigger className="w-[240px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
@@ -166,15 +216,16 @@ function NewFormula() {
               <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="rounded-xl bg-blancoBg p-4">
           <div className="max-h-[400px] overflow-auto">
-            <TableForm
+            {/* <TableForm
               tableData={products}
               setTableData={setProducts}
               setTotalProducts={setTotalProducts}
-            />
+            /> */}
+            <OnlyTable data={productsPrueba} columns={ProductsColumn} />
           </div>
 
           <div className="mt-4 flex justify-end">
@@ -194,11 +245,12 @@ function NewFormula() {
             SubProductos
           </h2>
           <div className="overflow-container flex-1">
-            <TableForm
+            {/* <TableForm
               tableData={subProducts}
               setTableData={setSubProducts}
               setTotalProducts={setSubTotalProducts}
-            />
+            /> */}
+            <OnlyTable data={subProductsPrueba} columns={SubProductsColumn} />
           </div>
           <div className="rounded-xl bg-blancoBg mt-6">
               <textarea
@@ -214,17 +266,20 @@ function NewFormula() {
             Desechos
           </h2>
           <div className="overflow-container flex-1">
-            <TableFormWaste
+            {/* <TableFormWaste
               tableData={wastes}
               setTableData={setWastes}
               setTotalProducts={setTotalWastes}
-            />
+            /> */}
+            <OnlyTable data={wateProductsPrueba} columns={WasteProductsColumn} />
           </div>
         </div>
 
         <StatusInformation
-          status={"inProgress"}
-          applyFunction={(addComments) => navigate("/transformation/record/1")}
+          status={"done"}
+          comments={"Todo los productos, subProductos y desechos estan correctamente registrados"}
+          approvedBy={"Agustin Hdez"}
+          date={"08 Agosto 2024"}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
@@ -234,4 +289,4 @@ function NewFormula() {
   );
 }
 
-export default NewFormula;
+export default FormulaRecords;
