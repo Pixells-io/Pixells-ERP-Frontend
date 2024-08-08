@@ -1,22 +1,23 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { bagCheck, cube } from "ionicons/icons";
+import { person,bagCheck,ticket,clipboard } from "ionicons/icons";
 
 const MENU_ITEMS = [
+  { path: "/sales/customer", name: "Clientes", subname: "General", icon: person },
   { path: "/sales", name: "Facturas", subname: "de Venta", icon: bagCheck },
-  { path: "/sales/customer", name: "Clientes", subname: "General", icon: cube },
+  
   {
     path: "/sales/tickets",
     name: "Ticket/Remisión",
     subname: "De Venta",
-    icon: cube,
+    icon: ticket,
   },
   {
     path: "/sales/quotes",
     name: "Cotizaciones",
     subname: "General",
-    icon: cube,
+    icon: clipboard,
   },
 ];
 
