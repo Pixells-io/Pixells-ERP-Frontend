@@ -330,22 +330,3 @@ function MainLayout() {
 }
 
 export default MainLayout;
-
-// {iconosMenu.map((item, i) => (
-//   <DropdownMenuItem
-//     className="group w-[90px] h-[80px] hover:bg-blue-500 text-gris2 truncate hover:p-0 hover:m-0"
-//     key={i}
-//   >
-//     <div className="relative w-fit flex flex-col mx-auto items-center gap-2 group-hover:text-white">
-//       <div className="">
-//         <IconLucide name={item.icono} size={32} />
-//       </div>
-//       <span className="w-[50px] text-white text-center">
-//         {item.name}
-//       </span>
-//       {/* <div className="truncate text-white p-2">
-//                                 {item.name}
-//                             </div> */}
-//     </div>
-//   </DropdownMenuItem>
-// ))}

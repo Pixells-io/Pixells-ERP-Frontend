@@ -42,13 +42,15 @@ import {
   searchOutline,
 } from "ionicons/icons";
 import { getLeads } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 function DataTable({ services, leads: leadsInit }) {
   const [initialData, setInitialData] = useState(leadsInit.data);
   const [leads, setLeads] = useState(initialData);
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-lead-table");

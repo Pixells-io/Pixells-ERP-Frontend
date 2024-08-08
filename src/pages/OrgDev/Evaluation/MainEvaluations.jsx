@@ -6,15 +6,10 @@ import {
   useNavigation,
 } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { createPusherClient } from "@/lib/pusher";
 
 import { IonIcon } from "@ionic/react";
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  informationCircle,
-} from "ionicons/icons";
+import { addCircleOutline, informationCircle } from "ionicons/icons";
 
 import NewEvaluationModal from "../Inductions/components/NewEvaluationModal";
 import { storeNewEvaluation } from "../utils";
@@ -58,6 +53,8 @@ function MainEvaluations() {
 
   //   setCapacitacionListPusher(newData.data);
   // }
+
+  // const pusherClient = createPusherClient();
 
   // useEffect(() => {
   //   if (navigation.state === "idle") {

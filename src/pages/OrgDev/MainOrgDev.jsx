@@ -19,7 +19,7 @@ import {
   saveNewInduction,
   storeDocumentExam,
 } from "./utils";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
 import NavigationHeader from "@/components/navigation-header";
@@ -76,6 +76,8 @@ function MainOrgDev() {
 
     setInductionsListPusher(newData.data);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     if (navigation.state === "idle") {

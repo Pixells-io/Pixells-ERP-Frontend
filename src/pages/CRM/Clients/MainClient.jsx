@@ -32,13 +32,15 @@ import ModalClientAccess from "./Forms/ModalClientAccess";
 import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
 import { addCommentClient } from "../Progress/util";
 import FormShowInterview from "./FormShowInterview";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getClient } from "@/lib/actions";
 
 function MainClient() {
   const { data } = useLoaderData();
   const [cliente, setDatClient] = useState(data);
   const params = useParams();
+
+  const pusherClient = createPusherClient();
 
   //WEB SOCKET
   async function getClientDataBack(id) {

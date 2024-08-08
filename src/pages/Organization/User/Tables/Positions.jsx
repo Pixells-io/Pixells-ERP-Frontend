@@ -17,12 +17,14 @@ import {
 } from "ionicons/icons";
 import ModalShowPDF from "@/layouts/Masters/Modals/ModalShowPDF";
 import { getPosition } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 function PositionsTable({ positions, edit }) {
   //Web Socket
   const [initialData, setInitialData] = useState(positions);
   const [data, setDataPusher] = useState(initialData);
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe(`private-get-puestos`);
