@@ -57,7 +57,7 @@ export const GeneralFormulaColumns = [
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
-            to={`/bank-management/collection/record/${row?.original?.id}`}
+            to={`/transformation/record/${row?.original?.id}`}
             className="flex items-center"
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
