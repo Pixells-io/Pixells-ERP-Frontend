@@ -1,73 +1,39 @@
 import React,{useState} from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
-import InputsGroup from "../Components/DataGroup";
-import FormGroup from "../Components/FormGroup";
+import InputsGroup from "./Components/DataGroup";
+import FormGroup from "./Components/FormGroup";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const CreateSupplier = () => {
-  const [supplierValues, setSupplierValues] = useState({
-    supplierNumber: "",
-    supplierType: "",
-    supplierName: "",
-    rfc: "",
-    supplierGroup: "",
-    supplierCurrency: "",
-    supplierCFDI: "",
+const CreateCustomer = () => {
+  const [clientValues, setClientValues] = useState({
+    clientNumber: "",
+    RFC:"",
+    clientType: "",
+    clientStatus: "",
   });
 
   // Configuración de los campos del formulario
-  const supplierFields = [
+  const clientFields = [
+    { name: "clientNumber", type: "input", placeholder: "Número de Cliente" },
+    { name: "rfc", type: "input", placeholder: "RFC" },
     {
-      name: "supplierNumber",
-      type: "input",
-      placeholder: "Codigo de Proveedor",
-    },
-    {
-      name: "supplierType",
+      name: "clientType",
       type: "select",
-      placeholder: "Tipo de Proveedor",
+      placeholder: "Tipo de Cliente",
       options: [
-        { value: "local", label: "Local" },
-        { value: "international", label: "Internacional" },
+        { value: "individual", label: "Individual" },
+        { value: "company", label: "Empresa" },
       ],
     },
     {
-      name: "supplierNumber",
-      type: "input",
-      placeholder: "Nombre o razon social",
-    },
-    {
-      name: "rfc",
-      type: "input",
-      placeholder: "RFC",
-    },
-    {
-      name: "supplierGroup",
+      name: "clientStatus",
       type: "select",
-      placeholder: "Grupo de Proveedor",
+      placeholder: "Estado del Cliente",
       options: [
-        { value: "group1", label: "Grupo 1" },
-        { value: "group2", label: "Grupo 2" },
-      ],
-    },
-    {
-      name: "supplierCurrency",
-      type: "select",
-      placeholder: "Moneda",
-      options: [
-        { value: "usd", label: "USD" },
-        { value: "eur", label: "EUR" },
-      ],
-    },
-    {
-      name: "supplierCFDI",
-      type: "select",
-      placeholder: "Uso de CFDI",
-      options: [
-        { value: "cfdi1", label: "CFDI 1" },
-        { value: "cfdi2", label: "CFDI 2" },
+        { value: "active", label: "Activo" },
+        { value: "inactive", label: "Inactivo" },
       ],
     },
   ];
@@ -114,10 +80,10 @@ const CreateSupplier = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Proveedor
+            Nuevo Cliente
           </p>
           <div className="flex items-end justify-end">
-            <Link to="/shopping">
+            <Link to="/sales">
               <Button
                 variant="ghost"
                 size="icon"
@@ -135,12 +101,13 @@ const CreateSupplier = () => {
         </div>
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
-          <InputsGroup fields={supplierFields} initialValues={supplierValues} />
-          <FormGroup />
+          <InputsGroup fields={clientFields} initialValues={clientValues} />
+          <FormGroup/>
         </div>
+        
       </div>
     </div>
   );
 };
 
-export default CreateSupplier;
+export default CreateCustomer;

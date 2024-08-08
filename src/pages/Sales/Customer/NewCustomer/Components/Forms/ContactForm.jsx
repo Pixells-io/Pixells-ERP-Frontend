@@ -73,11 +73,7 @@ const ContactForm = () => {
 
   return (
     <div className="flex w-full">
-      <Tabs
-        value={currentTab}
-        onValueChange={handleTabChange}
-        className="flex w-full"
-      >
+      <Tabs value={currentTab} onValueChange={handleTabChange} className="flex w-full" >
         <div className="space-y-auto flex w-[180px] flex-col">
           <div className="pt-2 w-full h-full max-h-[180px] overflow-auto">
             <TabsList className="w-full flex-col space-y-2 bg-transparent">
@@ -92,8 +88,6 @@ const ContactForm = () => {
               ))}
             </TabsList>
           </div>
-
-          <div></div>
         </div>
         <div className="mt-2 flex space-x-2">
           <Button
@@ -121,3 +115,5 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
+
+

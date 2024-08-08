@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 import {
@@ -17,7 +17,7 @@ import { IonIcon } from "@ionic/react";
 function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
-
+  const pusherClient = createPusherClient();
   if (notificationsPusher === undefined) return;
 
   const navigate = useNavigate();

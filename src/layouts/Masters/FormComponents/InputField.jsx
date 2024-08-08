@@ -11,24 +11,18 @@ import { Input } from "@/components/ui/input";
  */
 
 const InputField = ({
-  label,
-  id,
+  name,
   value,
-  onChange,
-  readOnly = false,
+  readOnly,
   placeholder,
 }) => (
-  <div className="flex flex-col">
-    <Label htmlFor={id} className="mb-1 font-roboto text-sm text-grisText">
-      {label}
-    </Label>
+  <div > 
     <Input
-      id={id}
+      name={name}
       value={value}
-      onChange={onChange}
       readOnly={readOnly}
       placeholder={placeholder}
-      className="border-gris-transparent w-full rounded border placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+      className="rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
     />
   </div>
 );

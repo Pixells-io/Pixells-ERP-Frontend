@@ -25,7 +25,7 @@ import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 import { getMonthActivity } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import NavigationHeader from "@/components/navigation-header";
 
 const HEADERS = [
@@ -58,6 +58,8 @@ function Activities() {
 
     setActivitiesData(newData);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-pm-activities");

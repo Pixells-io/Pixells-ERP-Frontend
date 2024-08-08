@@ -1,115 +1,132 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  addCircleOutline,
+  informationCircle,
+} from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
-import { GeneralFormulaColumns } from "./Table/GeneralFormulaColumns";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Checkbox } from "@/components/ui/checkbox";
 
-function MainGeneralFormula() {
+function MainMerchandiseMovements() {
   //datos de prueba --------------------------
 
   const data = [
     {
-      id: "1",
-      name: "Original Constructors1",
-      type: "IMMIGRATION, TAX Preparation1",
-      nationality: "Ernest Robles1",
-      contact: "981-476-2244",
-      email: "ernest1@gmail.com",
+      code: "0987",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      id: "2",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      code: "0988",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      id: "3",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      code: "0989",
+      category: "Metales",
+      name: "Clavos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      id: "4",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "5",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
-    },
-    {
-      id: "6",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      code: "0990",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
   ];
 
-  const data2 = [
+  const columns = [
     {
-      id: "1",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "code",
+      header: "CÓDIGO",
+      cell: ({ row }) => {
+        return (
+          <div className="flex gap-2">
+            <Checkbox
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+              checked={row.getIsSelected()}
+              onCheckedChange={(value) => row.toggleSelected(!!value)}
+            />
+            <label>{row?.original?.code}</label>
+          </div>
+        );
+      },
+      meta: { filterButton: true },
     },
     {
-      id: "2",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "category",
+      header: "CATEGORÍA",
+      meta: { filterButton: true },
     },
     {
-      id: "3",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "name",
+      header: "NOMBRE",
+      meta: { filterButton: true },
     },
     {
-      id: "4",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "unitMeasurement",
+      header: "UNIDAD MEDIDA",
     },
     {
-      id: "5",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "accountingAccount",
+      header: "CUENTA CONTABLE",
     },
     {
-      id: "6",
-      name: "Original Constructors",
-      type: "IMMIGRATION, TAX Preparation",
-      nationality: "Ernest Robles",
-      contact: "981-476-2245",
-      email: "ernest@gmail.com",
+      accessorKey: "type",
+      header: "TIPO",
+    },
+    {
+      accessorKey: "createdBy",
+      header: "CREADO POR",
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <Avatar className="h-6 w-6">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "createdAt",
+      header: "CREACIÓN",
+    },
+    {
+      id: "acciones",
+      header: "Acciones",
+      cell: ({ row }) => (
+        <div className="flex w-full items-center justify-center">
+          <IonIcon
+            icon={informationCircle}
+            className="text-gris2-500 h-6 w-6"
+          />
+        </div>
+      ),
     },
   ];
 
@@ -142,7 +159,7 @@ function MainGeneralFormula() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-grisHeading">
-              TRANSFORMACIÓN
+              INVENTARIO
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-grisSubText">
@@ -156,7 +173,7 @@ function MainGeneralFormula() {
 
         <div>
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Formulas General
+            Movimientos de Mercancía
           </p>
           <Link to="/transformation/create">
             <IonIcon
@@ -167,45 +184,37 @@ function MainGeneralFormula() {
         </div>
 
         <Tabs
-          defaultValue="formulas"
+          defaultValue="inputs"
           className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
             <TabsTrigger
-              value="formulas"
+              value="inputs"
               className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
-              FORMULAS
+              ENTRADAS
             </TabsTrigger>
             <TabsTrigger
-              value="other"
+              value="outputs"
               className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
-              OTRO
+              SALIDAS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="formulas" className="mt-[-60px] p-2">
+          <TabsContent value="inputs" className="mt-[-60px] p-2">
             <DataTable
               data={data}
-              columns={GeneralFormulaColumns}
+              columns={columns}
               searchNameFilter={"Nombre"}
               searchFilter={"name"}
               isCheckAll={true}
             />
           </TabsContent>
-          <TabsContent value="other" className="mt-[-60px] p-2">
-            <DataTable
-              data={data2}
-              columns={GeneralFormulaColumns}
-              searchNameFilter={"Nombre"}
-              searchFilter={"name"}
-              isCheckAll={false}
-            />
-          </TabsContent>
+          <TabsContent value="outputs" className="mt-[-60px] p-2"></TabsContent>
         </Tabs>
       </div>
     </div>
   );
 }
 
-export default MainGeneralFormula;
+export default MainMerchandiseMovements;

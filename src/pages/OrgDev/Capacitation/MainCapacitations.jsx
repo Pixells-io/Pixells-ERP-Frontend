@@ -23,7 +23,7 @@ import {
   storeDocumentExam,
 } from "../utils";
 import { getTrainings } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
 import NavigationHeader from "@/components/navigation-header";
 
@@ -57,6 +57,8 @@ function MainCapacitations() {
     setCapacitacionListPusher(newData.data);
   }
 
+  const pusherClient = createPusherClient();
+
   useEffect(() => {
     if (navigation.state === "idle") {
       setModalCreateTrainings(false);
@@ -72,8 +74,6 @@ function MainCapacitations() {
       pusherClient.unsubscribe("private-get-trainings");
     };
   }, [navigation.state]);
-
-  console.log(capacitacionPusher);
 
   return (
     <div className="flex w-full">

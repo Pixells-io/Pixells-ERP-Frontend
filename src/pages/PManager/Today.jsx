@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Checkbox } from "@/components/ui/checkbox";
-
-import {
-  chevronBack,
-  chevronForward,
-  ellipsisHorizontal,
-  searchOutline,
-} from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import DayListActivityCard from "./components/Cards/DayListActivityCard";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getTodayActivity } from "@/lib/actions";
 import NavigationHeader from "@/components/navigation-header";
 
@@ -27,6 +17,8 @@ function Today() {
 
     setTodayData(newData);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-pm-today");

@@ -30,7 +30,7 @@ import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatf
 import ClientInterviews from "./Components/ClientInterviews";
 import Cookies from "js-cookie";
 import ContractsClientPlatform from "./Components/ContractsClientPlatform";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -39,6 +39,8 @@ function MainClients() {
   const token = Cookies.get("token");
   const navigate = useNavigate();
   const [cliente, setDatClient] = useState(data);
+
+  const pusherClient = createPusherClient();
 
   //WEB SOCKET
 

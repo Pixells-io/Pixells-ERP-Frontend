@@ -13,7 +13,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-4 p-4">
+      <div className="grid grid-cols-3 gap-4">
       <div className="flex items-center justify-between mb-4">
       <Label className="font-roboto text-sm text-grisText" htmlFor="regimenFiscal">Régimen Fisc.</Label>
           <InputRouter

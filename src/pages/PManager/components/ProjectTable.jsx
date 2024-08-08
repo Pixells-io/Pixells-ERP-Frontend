@@ -35,7 +35,7 @@ import AddUserActivity from "./Form/AddUserActivity";
 import ActivityNameInput from "./Form/ActivityNameInput";
 import ActivityComment from "./Form/ActivityComment";
 import ActivityDocument from "./Form/ActivityDocument";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getProjectById } from "@/lib/actions";
 import ActivityDestroy from "./ActivityDestroy";
 import PhaseDestroy from "./PhaseDestroy";
@@ -71,8 +71,10 @@ function ProjectTable() {
   const [phaseModal, setPhaseModal] = useState(false);
   const [phaseSelected, setPhaseSelected] = useState("");
 
+  const pusherClient = createPusherClient();
+
   useEffect(() => {
-    console.log("hola", urlId, pusherClient);
+    // console.log("hola", urlId, pusherClient);
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {

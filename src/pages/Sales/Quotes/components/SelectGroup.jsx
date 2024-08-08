@@ -16,62 +16,55 @@ const SelectsQuote = () => {
   const [select2Value, setSelect2Value] = useState("");
   const [select3Value, setSelect3Value] = useState("");
 
-  const SelectItemClass = "w-1/4 rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones";
+  const selectTriggerClass = "flex rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones";
+  const selectContentClass = "border border-gris2-transparent bg-white";
 
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex space-x-3 justify-center items-center">
         <Input 
-          className={SelectItemClass}
-          placeholder="Ingrese texto"
+          name="list"
+          className="flex rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+          placeholder="Lista de precios"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
         
-        <Select value={select1Value} onValueChange={setSelect1Value}>
-          <SelectTrigger className={SelectItemClass}>
-            <SelectValue placeholder="Select 1" />
+        <Select name="user" value={select1Value} onValueChange={setSelect1Value}>
+          <SelectTrigger className={selectTriggerClass}>
+            <SelectValue placeholder="Usuario" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className={selectContentClass}>
             <SelectGroup>
-              <SelectLabel>Select 1</SelectLabel>
-              <SelectItem value="option1">Option 1</SelectItem>
-              <SelectItem value="option2">Option 2</SelectItem>
-              <SelectItem value="option3">Option 3</SelectItem>
-              <SelectItem value="option4">Option 4</SelectItem>
-              <SelectItem value="option5">Option 5</SelectItem>
+              <SelectItem value="option1">usuario 1</SelectItem>
+              <SelectItem value="option2">usuario 2</SelectItem>
+              <SelectItem value="option3">usuario 3</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
 
-        <Select value={select2Value} onValueChange={setSelect2Value}>
-          <SelectTrigger className={SelectItemClass}>
-            <SelectValue placeholder="Select 2" />
+        <Select name="ccost" value={select2Value} onValueChange={setSelect2Value}>
+          <SelectTrigger className={selectTriggerClass}>
+            <SelectValue placeholder="Centro de Costos" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className={selectContentClass}>
             <SelectGroup>
-              <SelectLabel>Select 2</SelectLabel>
-              <SelectItem value="option1">Option 1</SelectItem>
-              <SelectItem value="option2">Option 2</SelectItem>
-              <SelectItem value="option3">Option 3</SelectItem>
-              <SelectItem value="option4">Option 4</SelectItem>
-              <SelectItem value="option5">Option 5</SelectItem>
+              <SelectItem value="option1">Centro de costos 1</SelectItem>
+              <SelectItem value="option2">Centro de costos 2</SelectItem>
+              <SelectItem value="option3">Centro de costos 3</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
 
-        <Select value={select3Value} onValueChange={setSelect3Value}>
-          <SelectTrigger className={SelectItemClass}>
-            <SelectValue placeholder="Select 3" />
+        <Select name="stored" value={select3Value} onValueChange={setSelect3Value}>
+          <SelectTrigger className={selectTriggerClass}>
+            <SelectValue placeholder="Almacén" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className={selectContentClass}>
             <SelectGroup>
-              <SelectLabel>Select 3</SelectLabel>
-              <SelectItem value="option1">Option 1</SelectItem>
-              <SelectItem value="option2">Option 2</SelectItem>
-              <SelectItem value="option3">Option 3</SelectItem>
-              <SelectItem value="option4">Option 4</SelectItem>
-              <SelectItem value="option5">Option 5</SelectItem>
+              <SelectItem value="option1">Almacen Norte</SelectItem>
+              <SelectItem value="option2">Almacen Sur</SelectItem>
+              <SelectItem value="option3">Almacen Este</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

@@ -34,9 +34,9 @@ function AverageCostTable({ data, columns }) {
   });
 
   return (
-    <Table className="relative flex h-full w-full flex-col justify-between overflow-hidden">
-      <TableHeader className="flex w-full flex-col [&_tr]:border-b-0">
-        <TableRow className="w-full">
+    <Table className="">
+      <TableHeader className="[&_tr]:border-b-0">
+        <TableRow>
           <TableHead colSpan={3}></TableHead>
           <TableHead
             colSpan={3}
@@ -58,7 +58,7 @@ function AverageCostTable({ data, columns }) {
           </TableHead>
         </TableRow>
         {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id} className="w-full bg-red-100">
+          <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               return (
                 <TableHead
@@ -77,17 +77,16 @@ function AverageCostTable({ data, columns }) {
           </TableRow>
         ))}
       </TableHeader>
-
-      <TableBody className="flex w-full flex-col overflow-y-scroll [&_tr:last-child(2)]:border">
+      <TableBody className="[&_tr:last-child(2)]:border">
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <TableRow
               key={row.id}
-              className="w-full border-b border-b-[#D7D7D7] font-normal text-[#44444F] [&_td:nth-child(10)]:border-l [&_td:nth-child(10)]:border-l-[#D7D7D7] [&_td:nth-child(4)]:border-l [&_td:nth-child(4)]:border-l-[#D7D7D7] [&_td:nth-child(7)]:border-l [&_td:nth-child(7)]:border-l-[#D7D7D7]"
+              className="border-b border-b-[#D7D7D7] font-normal text-[#44444F] [&_td:nth-child(10)]:border-l [&_td:nth-child(10)]:border-l-[#D7D7D7] [&_td:nth-child(4)]:border-l [&_td:nth-child(4)]:border-l-[#D7D7D7] [&_td:nth-child(7)]:border-l [&_td:nth-child(7)]:border-l-[#D7D7D7]"
               data-state={row.getIsSelected() && "selected"}
             >
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id} className="w-full">
+                <TableCell key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
@@ -101,8 +100,10 @@ function AverageCostTable({ data, columns }) {
           </TableRow>
         )}
       </TableBody>
-
-      <TableFooter className="w-full bg-white">
+      <TableFooter className="bg-inherit">
+        <TableRow>
+          <TableCell></TableCell>
+        </TableRow>
         <TableRow className="font-normal text-[#44444F]">
           <TableCell></TableCell>
           <TableCell></TableCell>
@@ -111,35 +112,35 @@ function AverageCostTable({ data, columns }) {
           </TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#00A259] px-2 py-1 text-xs font-medium text-grisText">
-              1003434.00
+              1500
             </p>
           </TableCell>
           <TableCell></TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#00A259] px-2 py-1 text-xs font-medium text-grisText">
-              7650000.6
+              765.6
             </p>
           </TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#D7586B] px-2 py-1 text-xs font-medium text-grisText">
-              1500000.00
+              150.00
             </p>
           </TableCell>
           <TableCell></TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#D7586B] px-2 py-1 text-xs font-medium text-grisText">
-              765000.60
+              765.60
             </p>
           </TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#5B89FF] px-2 py-1 text-xs font-medium text-grisText">
-              1500000
+              1500
             </p>
           </TableCell>
           <TableCell></TableCell>
           <TableCell className="p-2">
             <p className="min-w-[50px] rounded-lg border border-[#5B89FF] px-2 py-1 text-xs font-medium text-grisText">
-              765123123.6
+              765.6
             </p>
           </TableCell>
         </TableRow>

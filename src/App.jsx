@@ -293,9 +293,12 @@ import UserMediaLibrary, {
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
+import MainCustomer from "./pages/Sales/Customer/MainCustomer";
+import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
 import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
@@ -330,6 +333,7 @@ import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
 import MainKardex from "./pages/Transformation/Kardex/MainKardex";
+import FormulaRecords from "./pages/Transformation/GeneralFormula/Records/FormulaRecords";
 
 //Topics
 import SideLayoutTopics, {
@@ -928,6 +932,10 @@ const router = createBrowserRouter([
             path: "/inventory/create",
             element: <CreateArticle />,
           },
+          {
+            path: "/inventory/merchandise-movements",
+            element: <MainMerchandiseMovements />,
+          },
         ],
       },
       //Sales
@@ -938,6 +946,14 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainInvoice />,
+          },
+          {
+            path: "/sales/customer",
+            element: <MainCustomer />,
+          },
+          {
+            path: "/sales/customer/new",
+            element: <CreateCustomer />,
           },
           {
             path: "/sales/tickets",
@@ -957,8 +973,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-       //Shopping
-       {
+      //Shopping
+      {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -972,8 +988,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/shopping/customer/create",
-            element: <CustomerProfile/>
-
+            element: <CustomerProfile />,
           },
           {
             path: "/shopping/invoices-orders",
@@ -1047,6 +1062,10 @@ const router = createBrowserRouter([
             element: <NewFormula />,
           },
           {
+            path: "/transformation/record/:id",
+            element: <FormulaRecords />,
+          },
+          {
             path: "/transformation/work-orders",
             element: <WorkOrder />,
           },
@@ -1061,7 +1080,7 @@ const router = createBrowserRouter([
           {
             path: "/transformation/kardex",
             element: <MainKardex />,
-          }
+          },
         ],
       },
       {

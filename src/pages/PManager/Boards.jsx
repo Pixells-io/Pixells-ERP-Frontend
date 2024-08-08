@@ -14,7 +14,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getGoalsMaster } from "@/lib/actions";
 
 import Board from "./Board";
@@ -64,6 +64,8 @@ function Boards() {
       setDestroyP(false);
     }
   });
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     setUrlId(id);
