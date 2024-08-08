@@ -11,17 +11,18 @@ import {
 import { IonIcon } from "@ionic/react";
 import { informationCircle } from "ionicons/icons";
 
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
 import { changeUserStatus } from "../../utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 
 function UsersTable({ users, edit }) {
   const columnHelper = createColumnHelper();
 
   const [initialData, setInitialData] = useState(users);
   const [data, setDataPusher] = useState(initialData);
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe(`private-get-users`);

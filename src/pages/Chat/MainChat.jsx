@@ -16,14 +16,13 @@ import {
   storeMensaggeReply,
   storeMensaggeResend,
 } from "./utils";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 import MenssageCard from "./Components/Mensagge";
 
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle, closeCircle } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
-import { Textarea } from "@/components/ui/textarea";
 
 function MainChat() {
   const location = useLocation();
@@ -54,6 +53,8 @@ function MainChat() {
   useEffect(() => {
     inputFocusRef.current.focus();
   }, []);
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     setUrlId(id);

@@ -1,79 +1,7 @@
 import React from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
 import { useLoaderData } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
-
-const DATA = [
-  {
-    nombre: "Don Fomularo",
-    puesto: "Director Comercial",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Rodrigo Prerez",
-    puesto: "Ejecutivo Comercial",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Clarissa Reynold's",
-    puesto: "Puesto",
-    estatus: "Hecho",
-    fecha: "12 Mayo 24",
-    calificacion: "87",
-  },
-  {
-    nombre: "Daniel Rios",
-    puesto: "General",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Fernando Suarez",
-    puesto: "Area",
-    estatus: "Pendiente",
-    fecha: "Pendiente",
-    calificacion: "Pendiente",
-  },
-  {
-    nombre: "Luis Torres",
-    puesto: "Puesto",
-    estatus: "Hecho",
-    fecha: "12 Mayo 24",
-    calificacion: "45",
-  },
-];
-
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
 
 function MainCapacitation() {
   const { data } = useLoaderData();

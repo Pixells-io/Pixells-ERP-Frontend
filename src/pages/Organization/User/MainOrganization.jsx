@@ -40,7 +40,7 @@ function MainOrganization() {
   const { actionInfo } = useOutletContext();
   const { toast } = useToast();
 
-  console.log(actionInfo);
+  // console.log(actionInfo);
 
   useEffect(() => {
     if (actionInfo?.code == 201) {

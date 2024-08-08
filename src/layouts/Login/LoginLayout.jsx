@@ -7,7 +7,6 @@ import { IonIcon } from "@ionic/react";
 import { arrowForwardCircle } from "ionicons/icons";
 
 import { loginUser } from "@/pages/Organization/utils";
-import { getUserByToken } from "@/lib/actions";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,11 +14,6 @@ function Login() {
   const token = Cookies.get("token");
 
   useEffect(() => {
-    async function fetchData() {
-      const user = await getUserByToken();
-      setUser(user);
-    }
-    fetchData();
     if (token !== undefined || user.code == 201) return navigate("/");
   }, []);
 
@@ -31,7 +25,7 @@ function Login() {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, updateFormData] = React.useState(initialFormData);
+  const [formData, updateFormData] = useState(initialFormData);
 
   const emailChange = (e) => {
     updateFormData({
@@ -154,9 +148,16 @@ export async function action({ request }) {
   const formData = await request.formData();
   const response = await loginUser(formData);
   if (response.code === 201) {
-    Cookies.set("token", response.access_token);
+    await setCookie("token", response.access_token);
     return redirect("/");
   } else {
     return redirect("/login");
   }
+}
+
+async function setCookie(key, value) {
+  return new Promise((res) => {
+    Cookies.set(key, value);
+    return res();
+  });
 }

@@ -948,11 +948,11 @@ const router = createBrowserRouter([
           },
           {
             path: "/sales/customer",
-            element:<MainCustomer/>
+            element: <MainCustomer />,
           },
           {
             path: "/sales/customer/new",
-            element:<CreateCustomer/>
+            element: <CreateCustomer />,
           },
           {
             path: "/sales/tickets",
@@ -972,8 +972,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-       //Shopping
-       {
+      //Shopping
+      {
         path: "/shopping",
         element: <SideLayoutShopping />,
         children: [
@@ -987,8 +987,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/shopping/customer/create",
-            element: <CustomerProfile/>
-
+            element: <CustomerProfile />,
           },
           {
             path: "/shopping/invoices-orders",
@@ -1076,7 +1075,7 @@ const router = createBrowserRouter([
           {
             path: "/transformation/kardex",
             element: <MainKardex />,
-          }
+          },
         ],
       },
       {
