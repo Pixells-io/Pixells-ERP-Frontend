@@ -73,12 +73,12 @@ const ContactForm = () => {
     <div className="w-full overflow-hidden flex">
       <Tabs value={currentTab} onValueChange={handleTabChange} className="flex w-full">
         <div className="w-[200px] flex flex-col">
-          <TabsList className="h-[400px] overflow-auto flex-col space-y-2 bg-transparent">
+          <TabsList className="   h-[400px] overflow-auto flex-col space-y-2 bg-transparent">
             {contacts.map(({ value, label }) => (
               <TabsTrigger
                 key={value}
                 value={value}
-                className="flex w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
+                className="flex-shrink-0 w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
               >
                 <span className="truncate max-w-[90%]">{label}</span>
               </TabsTrigger>
