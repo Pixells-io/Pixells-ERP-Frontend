@@ -9,12 +9,20 @@ import {
 
 const StyleSelect = "w-full rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-function SelectField({ name, placeholder, options, onChange, value }) {
+function SelectField({ name, placeholder, options, value, onValueChange, isDisabled }) {
+  // Manejar el cambio internamente
+  const handleChange = (selectedValue) => {
+    if (onValueChange) {
+      onValueChange(selectedValue);
+    }
+  };
+
   return (
     <Select
       name={name}
       value={value}
-      onValueChange={(selectedValue) => onChange(selectedValue)}
+      onValueChange={handleChange}
+      disabled={isDisabled}
     >
       <SelectTrigger className={StyleSelect}>
         <SelectValue placeholder={placeholder} />
@@ -31,3 +39,4 @@ function SelectField({ name, placeholder, options, onChange, value }) {
 }
 
 export default SelectField;
+

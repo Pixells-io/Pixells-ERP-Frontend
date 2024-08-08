@@ -20,12 +20,11 @@ const InputsGroup = ({
           type="text"
           name="ndocument"
           value={documentNumber}
-          onChange={isEditable ? (e) => setDocumentNumber(e.target.value) : undefined} // Cambiar el valor solo si es editable
           disabled={!isEditable} // Desactivar el campo si no es editable
         />
         <Select 
           value={selectedWarehouse} 
-          onValueChange={isEditable ? setSelectedWarehouse : undefined} // Cambiar el valor solo si es editable
+          onValueChange={setSelectedWarehouse} // Cambiar el valor solo si es editable
           disabled={!isEditable} // Desactivar el campo si no es editable
         >
           <SelectTrigger name="warehouse" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
@@ -39,8 +38,8 @@ const InputsGroup = ({
         </Select>
         <Select 
           value={selectedCostCenter} 
-          onValueChange={isEditable ? setSelectedCostCenter : undefined} // Cambiar el valor solo si es editable
-          disabled={!isEditable} // Desactivar el campo si no es editable
+          onValueChange={setSelectedCostCenter} 
+          // Desactivar el campo si no es editable
         >
           <SelectTrigger name="ccenter" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
             <SelectValue placeholder="Seleccionar Centro de Costos" />

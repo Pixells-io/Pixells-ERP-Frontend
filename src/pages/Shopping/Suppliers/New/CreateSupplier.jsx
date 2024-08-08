@@ -34,7 +34,7 @@ const CreateSupplier = () => {
       ],
     },
     {
-      name: "supplierNumber",
+      name: "socialNumber",
       type: "input",
       placeholder: "Nombre o razon social",
     },

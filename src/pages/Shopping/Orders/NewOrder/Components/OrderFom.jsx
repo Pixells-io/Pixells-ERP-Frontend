@@ -13,7 +13,7 @@ const OrderTable = ({
   setSelectedFechaEntrega,
   selectedCondicionPago,
   setSelectedCondicionPago,
-  isEditable, // Agregar la prop isEditable
+  isEditable, // Propiedad para determinar si los campos son editables
 }) => {
   const proveedorOptions = [
     { value: "proveedor1", label: "Proveedor 1" },
@@ -45,8 +45,8 @@ const OrderTable = ({
         name="proveedor"
         placeholder="Seleccionar Proveedor"
         options={proveedorOptions}
-        onChange={isEditable ? setSelectedProveedor : undefined}
         value={selectedProveedor}
+        onValueChange={setSelectedProveedor} // Función para actualizar el estado
         isDisabled={!isEditable} // Desactivar el campo si no es editable
       />
       <Button
@@ -65,23 +65,24 @@ const OrderTable = ({
         name="fechaDoc"
         placeholder="Seleccionar Fecha de Doc"
         options={fechaDocOptions}
-        onChange={isEditable ? setSelectedFechaDoc : undefined}
         value={selectedFechaDoc}
+        onValueChange={setSelectedFechaDoc} // Función para actualizar el estado
         isDisabled={!isEditable} // Desactivar el campo si no es editable
       />
       <SelectField
         name="fechaEntrega"
         placeholder="Seleccionar Fecha de Entrega"
         options={fechaEntregaOptions}
-        onChange={isEditable ? setSelectedFechaEntrega : undefined}
         value={selectedFechaEntrega}
+        onValueChange={setSelectedFechaEntrega} // Función para actualizar el estado
+        isDisabled={!isEditable} // Desactivar el campo si no es editable
       />
       <SelectField
         name="condicionPago"
         placeholder="Seleccionar Condición de Pago"
         options={condicionPagoOptions}
-        onChange={isEditable ? setSelectedCondicionPago : undefined}
         value={selectedCondicionPago}
+        onValueChange={setSelectedCondicionPago} // Función para actualizar el estado
         isDisabled={!isEditable} // Desactivar el campo si no es editable
       />
     </div>
