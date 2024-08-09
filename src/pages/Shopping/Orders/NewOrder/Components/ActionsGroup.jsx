@@ -6,16 +6,21 @@ import { copy, create, print } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
 
 const ActionsGroup = ({ url, setEditable }) => {
-  const location = useLocation();
-  
+
+  const location = useLocation(); 
+
+  const currentPath = location.pathname;
+
+  const isEditRoute = currentPath.startsWith("/shopping/invoices-orders/edit");
+
   const handlerConvert = (value) => {
-    setEditable(value);
+    setisEditable(value);
   };
   
   const isShoppingDocumentRoute = location.pathname.startsWith("/shopping/document");
 
   return (
-    <div className="flex pl-[400px] pr-2 items-end">
+    <div className="flex pr-2 items-end">
       <Button
         variant="ghost"
         size="icon"
@@ -42,6 +47,7 @@ const ActionsGroup = ({ url, setEditable }) => {
           </Button>
         </NavLink>
       )}
+      {!isEditRoute && (
       <Button
         variant="ghost"
         size="icon"
@@ -54,6 +60,7 @@ const ActionsGroup = ({ url, setEditable }) => {
           className="cursor-pointer text-[#696974]"
         />
       </Button>
+        )}
     </div>
   );
 };

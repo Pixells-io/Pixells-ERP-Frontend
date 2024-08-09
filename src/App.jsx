@@ -304,6 +304,7 @@ import InvoiceForm from "./pages/Sales/Invoice/NewInvoice/InvoiceForm";
 import InvoicesDetails from "./pages/Sales/Invoice/EditInvoice/InvoiceEditor";
 import InvoicePDF from "./pages/Sales/Components/DocFormat/DocumentPreview";
 import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
+import TicketDetails from "./pages/Sales/Ticket/EditTicket/TicketEditor";
 import TicketForm from "./pages/Sales/Ticket/NewTicket/TicketForm";
 import TicketPDF from "./pages/Sales/Components/DocFormat/DocumentTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
@@ -984,8 +985,12 @@ const router = createBrowserRouter([
             element: <MainSalesTicket />,
           },
           {
-            path: "/sales/tickets/edit/:id",
+            path: "/sales/tickets/new",
             element: <TicketForm />,
+          },
+          {
+            path: "/sales/tickets/edit/:id",
+            element: <TicketDetails />,
           },
           {
             path: "/sales/tickets/document/:id",

@@ -71,7 +71,7 @@ const TicketDetails = () => {
         {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            FACTURAS
+            TICKETS/REMSION
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -82,7 +82,7 @@ const TicketDetails = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Factura: {id}
+            Consultando Ticket/Remisión: {id}
           </p>
           <div className="flex flex-row">
             <ActionGroup url={url} setisEditable={setisEditable} />
