@@ -100,7 +100,6 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   }, []);
 
   const handleDataInRow = useCallback((data, rowIndex) => {
-    console.log(data);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex

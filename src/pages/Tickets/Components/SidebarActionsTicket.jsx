@@ -13,8 +13,6 @@ function SidebarActionsTicket({ ticket, areas, users }) {
 
   const [modalDocument, setModalDocument] = useState(false);
 
-  console.log(ticket.status);
-
   function setModalFollowUp(value) {
     let title = "";
 

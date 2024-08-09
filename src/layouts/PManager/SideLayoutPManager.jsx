@@ -88,7 +88,6 @@ function SideLayoutPManager() {
   async function changeYear(e) {
     const newQuery = await getObjectives(e.value);
     setObjectivesData(newQuery);
-    console.log(newQuery);
   }
 
   return (

@@ -32,8 +32,6 @@ function MainLead() {
   ] = useOutletContext();
   const step = main_lead.step;
 
-  console.log(services);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

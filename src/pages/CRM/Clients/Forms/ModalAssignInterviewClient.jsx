@@ -35,7 +35,6 @@ function AssignInterviewModal({ modal, setModal, client_id, select }) {
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

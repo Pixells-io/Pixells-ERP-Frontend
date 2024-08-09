@@ -6,7 +6,7 @@ import CapacutationCard from "./components/CapacutationCard";
 
 import { useLoaderData } from "react-router-dom";
 import { getMyTrainings } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import NavigationHeader from "@/components/navigation-header";
 
 function MainMyCapacitations() {
@@ -21,6 +21,8 @@ function MainMyCapacitations() {
 
     setMyCapacitacionListPusher(newData.data);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-trainings");

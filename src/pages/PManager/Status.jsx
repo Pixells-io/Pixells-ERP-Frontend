@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  attachOutline,
-  calendarOutline,
-  checkmarkCircleOutline,
-  chevronBack,
-  chevronForward,
-  ellipsisHorizontal,
-  listCircleOutline,
-} from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
-import { Progress } from "@/components/ui/progress";
 import { useLoaderData } from "react-router-dom";
 import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
 import { getMonthKanban } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { completeActivity } from "./utils";
 import NavigationHeader from "@/components/navigation-header";
 
@@ -28,6 +16,8 @@ function Status() {
 
     setstatusData(newData);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-pm-status");

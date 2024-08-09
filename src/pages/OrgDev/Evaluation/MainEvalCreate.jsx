@@ -94,8 +94,6 @@ export default MainEvalCreate;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  console.log(data);
-
   const validation = await storeNewEvaluationExam(data);
 
   return new Response("ok");

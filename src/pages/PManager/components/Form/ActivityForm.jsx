@@ -5,10 +5,8 @@ function ActivityForm({ phase_id }) {
   const submit = useSubmit();
   const { id, projectId } = useParams();
   const [activityInput, setActivityInput] = useState("");
-  // console.log(phase_id);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       setActivityInput("");

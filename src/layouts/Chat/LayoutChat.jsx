@@ -3,7 +3,7 @@ import { Outlet, useLoaderData } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 import InternalSearch from "./Components/Internal/InternalSearch";
 import ChatList from "./Components/Internal/ChatList";
@@ -20,6 +20,8 @@ function LayoutChat() {
 
     setChatListPusher(newData.data);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-chat-list");

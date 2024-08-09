@@ -6,10 +6,8 @@ function ActivityNameInPut({ activity_id, defaultName, status }) {
   const inputRef = useRef(null);
   const { id, projectId } = useParams();
   const [activityInput, setActivityInput] = useState(defaultName);
-  // console.log(phase_id);
 
   function onInputEnter(e) {
-    // console.log(e.currentTarget);
     if (e.code == "Enter") {
       submit(e.currentTarget);
       inputRef.current.blur();

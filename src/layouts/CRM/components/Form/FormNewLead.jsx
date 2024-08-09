@@ -144,7 +144,6 @@ function FormNewLead({ services, navigation }) {
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

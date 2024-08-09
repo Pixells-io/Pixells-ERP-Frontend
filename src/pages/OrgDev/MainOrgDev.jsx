@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { IonIcon } from "@ionic/react";
-
 import { NavLink } from "react-router-dom";
 
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  informationCircle,
-} from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+import { addCircleOutline, informationCircle } from "ionicons/icons";
+
 import NewInductionModal from "./Inductions/components/NewInductionModal";
 import { useLoaderData, redirect, useNavigation } from "react-router-dom";
 import {
@@ -19,33 +11,11 @@ import {
   saveNewInduction,
   storeDocumentExam,
 } from "./utils";
-import { pusherClient } from "@/lib/pusher";
+
+import { createPusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
 import NavigationHeader from "@/components/navigation-header";
-
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
 
 function MainOrgDev() {
   const navigation = useNavigation();
@@ -76,6 +46,8 @@ function MainOrgDev() {
 
     setInductionsListPusher(newData.data);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -236,7 +208,6 @@ export async function Action({ request }) {
   const action = data.get("action");
   switch (action) {
     case "1":
-      console.log("Hola");
       await saveNewInduction(data);
       return redirect("/org-development/induction");
 

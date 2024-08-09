@@ -11,13 +11,15 @@ import { IonIcon } from "@ionic/react";
 import { informationCircle, trash } from "ionicons/icons";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import FormDestroyArea from "../FormDestroyArea";
 
 function AreasTable({ areas, edit, destroy }) {
   //Web Socket
   const [initialData, setInitialData] = useState(areas);
   const [data, setDataPusher] = useState(initialData);
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe(`private-get-areas`);

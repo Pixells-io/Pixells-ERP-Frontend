@@ -29,13 +29,10 @@ function ExamQuestionShow({
   const [answers, setAnswers] = useState(question?.answers || []);
   const [questionType, setQuestionType] = useState(question?.type || "");
 
-  console.log("question data:", questionText);
-
   const onChangeAnswer = (answerIndex, e) => {
     // Use the passed updateAnswerText function to update the answer text
     updateAnswerText(questionIndex, answerIndex, e.target.value);
   };
-  // console.log(index);
   return (
     <div className="flex w-[520px] flex-col rounded-2xl bg-[#FBFBFB] drop-shadow">
       <div className="flex items-center justify-between px-6 py-3">

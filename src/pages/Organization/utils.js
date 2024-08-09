@@ -275,8 +275,6 @@ export async function saveNewUser(data) {
     confirm_password: data.get("confirm_password"),
   };
 
-  // console.log(info);
-
   const formData = new FormData();
 
   //User Image
@@ -293,8 +291,6 @@ export async function saveNewUser(data) {
   formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
-
-  console.log(formData);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/store-user`,
@@ -398,8 +394,6 @@ export async function editUser(data) {
     confirm_password: data.get("confirm_password"),
   };
 
-  // console.log(info);
-
   const formData = new FormData();
 
   //User Image
@@ -416,8 +410,6 @@ export async function editUser(data) {
   formData.append("cv", data.get("cv"));
 
   formData.append("info", JSON.stringify(info));
-
-  console.log(formData);
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}organization/edit-user`,

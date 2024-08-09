@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
 
 import {
@@ -28,6 +28,8 @@ function NotificationChat({ notifications, user }) {
     //Redirect to the chat
     return navigate(`/chat/${chat}`);
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     async function getNotifications() {

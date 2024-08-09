@@ -23,7 +23,6 @@ export async function storeChangeNewPassword(data) {
 }
 
 export async function loginGoogleToken() {
-  console.log("Match 2");
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}google/google`,

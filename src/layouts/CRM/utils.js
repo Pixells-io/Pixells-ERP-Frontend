@@ -32,7 +32,6 @@ export async function saveNewLead(data) {
       },
     },
   );
-  console.log(response);
 
   return response;
 }

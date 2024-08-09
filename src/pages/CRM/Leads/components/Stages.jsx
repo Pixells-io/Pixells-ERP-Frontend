@@ -11,7 +11,7 @@ import KickOffForm from "./Forms/KickOffForm";
 import Lead from "./Lead";
 
 import { getSteps } from "../utils";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 import {
   DropdownMenu,
@@ -126,6 +126,8 @@ function Stages() {
         break;
     }
   }
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     async function getStepsUrl() {

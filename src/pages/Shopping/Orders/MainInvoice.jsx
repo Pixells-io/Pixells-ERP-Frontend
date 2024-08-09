@@ -47,14 +47,14 @@ const MainInvoices = () => {
 
   const getMenuItems = (id) => [
     {
-      label: 'Edit',
+      label: "Edit",
       isLink: true,
       to: `/shopping/invoices-orders/edit/${id}`, // Incluye el id en la URL
     },
     {
-      label: 'Cancel',
+      label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
 
@@ -116,7 +116,7 @@ const MainInvoices = () => {
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(index);
-    
+
         return (
           <div className="flex items-center justify-center">
             <MenuItem menuItems={menuItems} />
@@ -206,7 +206,10 @@ const MainInvoices = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="invoices" className="w-full h-full flex flex-col">
+              <TabsContent
+                value="invoices"
+                className="flex h-full w-full flex-col"
+              >
                 <div className="flex-grow">
                   <DataTable
                     data={data}

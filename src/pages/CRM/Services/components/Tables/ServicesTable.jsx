@@ -41,7 +41,6 @@ function ServicesTable({ services }) {
       accessorKey: "actions",
       header: "ACTIONS",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <div className="flex gap-2 text-[#696974]">
             <a href={`/crm/services/${row.original.id}`}>

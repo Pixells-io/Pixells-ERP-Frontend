@@ -6,49 +6,23 @@ import {
   useNavigation,
 } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { IonIcon } from "@ionic/react";
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  informationCircle,
-} from "ionicons/icons";
+import { addCircleOutline, informationCircle } from "ionicons/icons";
 
 import NewEvaluationModal from "../Inductions/components/NewEvaluationModal";
 import { storeNewEvaluation } from "../utils";
 import NavigationHeader from "@/components/navigation-header";
 
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
+import { createPusherClient } from "@/lib/pusher";
+
 function MainEvaluations() {
   const navigation = useNavigation();
 
   const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
 
   const { data } = useLoaderData();
-  console.log(data);
+
+  // const pusherClient = createPusherClient();
 
   // const [initialData, setInitialData] = useState(trainings.data);
   // const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);

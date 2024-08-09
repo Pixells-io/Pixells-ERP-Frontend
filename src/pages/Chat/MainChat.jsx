@@ -16,7 +16,7 @@ import {
   storeMensaggeReply,
   storeMensaggeResend,
 } from "./utils";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 import MenssageCard from "./Components/Mensagge";
 
@@ -54,6 +54,8 @@ function MainChat() {
   useEffect(() => {
     inputFocusRef.current.focus();
   }, []);
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     setUrlId(id);

@@ -17,7 +17,7 @@ const MenuSuppliers = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon
             icon={addCircleOutline}
@@ -28,14 +28,14 @@ const MenuSuppliers = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="rounded-xl">
         <DropdownMenuItem asChild>
-          <Link to="/shopping/supplier/create" className="flex items-center w-full">
+          <Link
+            to="/shopping/supplier/create"
+            className="flex w-full items-center"
+          >
             <span>Nuevo proveedor</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onSelect={() => console.log("Cliente existente seleccionado")}
-        >
-      
+        <DropdownMenuItem onSelect={() => {}}>
           <span>Cliente existente</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

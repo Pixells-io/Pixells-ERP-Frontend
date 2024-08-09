@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 
 function ReadyDocumentsClientPlatform({ documents }) {
-  console.log(documents);
   return (
     <div className="mt-2 w-full rounded-xl bg-white px-8 py-8">
       <div className="flex w-full px-3 py-3">

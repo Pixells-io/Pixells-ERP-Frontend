@@ -16,7 +16,6 @@ const SubAccountingAccount = ({
   const paddingLeft = `${level * 6}px`; // Ajusta el padding en función del nivel
 
   const showDetail = (account) => {
-    console.log(account);
     setSelectAccount(account);
   };
 
@@ -30,21 +29,21 @@ const SubAccountingAccount = ({
       <AccordionItem value={"item-" + account.id}>
         <div
           className={cn(
-            "flex items-center justify-between pl-2 pr-2 group hover:bg-grisBg",
+            "group flex items-center justify-between pl-2 pr-2 hover:bg-grisBg",
             account.id == selectAccount?.id &&
               "rounded-xl border border-[#44444F] bg-white",
           )}
         >
           <AccordionTrigger
             className={
-              "text-xs text-black py-3 " +
+              "py-3 text-xs text-black " +
               (level == 1 ? "font-normal" : "font-light")
             }
           >
             {account.numberAccount} - {account.name}
           </AccordionTrigger>
           {!account?.isPermanent && (
-            <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <label
                 className={
                   "rounded-3xl border border-[#44444F] bg-inherit px-4 py-1 text-xs font-light text-black hover:cursor-pointer hover:bg-[#44444F] hover:text-white"

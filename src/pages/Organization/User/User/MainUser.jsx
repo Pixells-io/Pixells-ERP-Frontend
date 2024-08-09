@@ -267,16 +267,13 @@ function MainUser() {
 
   function removeAcademicField(index) {
     const newFields = academicInfo.filter((item, i) => index !== i);
-    console.log(newFields);
     setAcademicInfo(newFields);
   }
 
   function updateAcademicField(index, e) {
-    // console.log(e.target.name);
     const newFields = academicInfo.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    console.log(newFields);
     setAcademicInfo(newFields);
   }
 
@@ -291,16 +288,13 @@ function MainUser() {
 
   function removeWorkingInputs(index) {
     const newFields = workingInfo.filter((item, i) => index !== i);
-    // console.log(newFields);
     setWorkingInfo(newFields);
   }
 
   function updateWorkingField(index, e) {
-    // console.log(e.target);
     const newFields = workingInfo.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    console.log(newFields);
     setWorkingInfo(newFields);
   }
 
@@ -315,16 +309,13 @@ function MainUser() {
 
   function removeContractInputs(index) {
     const newFields = contractsInfo.filter((item, i) => index !== i);
-    // console.log(newFields);
     setContratcsInfo(newFields);
   }
 
   function updateContractField(index, e) {
-    // console.log(e.target);
     const newFields = contractsInfo.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    console.log(newFields);
     setContratcsInfo(newFields);
   }
 

@@ -7,7 +7,6 @@ import { IonIcon } from "@ionic/react";
 import { personCircle } from "ionicons/icons";
 
 function DropzoneImage({ name, url, initials, disabled }) {
-  // console.log(url);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [yourImage, setYourImage] = useState([]);
 

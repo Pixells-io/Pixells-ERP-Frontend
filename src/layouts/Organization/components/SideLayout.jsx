@@ -27,8 +27,6 @@ function SideLayoutOrganization() {
     }
   }, [actionData]);
 
-  // console.log("actionData Sidelayout ", actionData);
-
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <div className="flex flex-col gap-4">

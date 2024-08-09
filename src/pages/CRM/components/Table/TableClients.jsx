@@ -37,7 +37,7 @@ import {
   searchOutline,
 } from "ionicons/icons";
 import { getClients } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 function TableClients({ services, clients: clientsInit }) {
   const [initialData, setInitialData] = useState(clientsInit.data);
@@ -56,6 +56,8 @@ function TableClients({ services, clients: clientsInit }) {
       columnFilters,
     },
   });
+
+  const pusherClient = createPusherClient();
 
   useEffect(() => {
     pusherClient.subscribe("private-get-lead-table");

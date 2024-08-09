@@ -54,7 +54,7 @@ const MainPurchase = () => {
     {
       label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
 

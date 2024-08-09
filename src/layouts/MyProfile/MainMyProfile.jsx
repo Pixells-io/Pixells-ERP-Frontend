@@ -18,8 +18,6 @@ function MainMyProfile() {
   const position = data.position;
   const location = useLocation();
 
-  console.log(location.pathname);
-
   const businessInfo = [
     {
       label: "Work Location",

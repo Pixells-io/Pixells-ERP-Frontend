@@ -59,7 +59,6 @@ const AddConfig = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submitted data:", { ...formData, ...checkboxes });
   };
 
   return (

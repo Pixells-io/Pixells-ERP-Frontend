@@ -7,7 +7,7 @@ import InductionsCard from "./components/InductionsCard";
 
 import { useLoaderData } from "react-router-dom";
 import { getMyInductions } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import NavigationHeader from "@/components/navigation-header";
 
 function MainMyInductions() {
@@ -22,6 +22,8 @@ function MainMyInductions() {
     setMyInductionsListPusher(newData.data);
   }
 
+  const pusherClient = createPusherClient();
+
   useEffect(() => {
     pusherClient.subscribe("private-get-inductions");
 
@@ -33,8 +35,6 @@ function MainMyInductions() {
       pusherClient.unsubscribe("private-get-inductions");
     };
   });
-
-  console.log(data);
 
   return (
     <div className="flex w-full">

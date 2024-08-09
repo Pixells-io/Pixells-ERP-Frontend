@@ -6,15 +6,8 @@ import {
   useNavigation,
 } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { IonIcon } from "@ionic/react";
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  informationCircle,
-} from "ionicons/icons";
+import { addCircleOutline, informationCircle } from "ionicons/icons";
 
 import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import {
@@ -23,7 +16,7 @@ import {
   storeDocumentExam,
 } from "../utils";
 import { getTrainings } from "@/lib/actions";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
 import NavigationHeader from "@/components/navigation-header";
 
@@ -36,6 +29,8 @@ function MainCapacitations() {
 
   //PERMISSIONS
   const [create, setCreate] = useState(true); //3
+
+  const pusherClient = createPusherClient();
 
   //CHANGE PERMISSIONS
   useEffect(() => {
@@ -72,8 +67,6 @@ function MainCapacitations() {
       pusherClient.unsubscribe("private-get-trainings");
     };
   }, [navigation.state]);
-
-  console.log(capacitacionPusher);
 
   return (
     <div className="flex w-full">

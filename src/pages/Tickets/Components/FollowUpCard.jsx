@@ -21,7 +21,6 @@ function FollowUpCard({ followUp, ticket, status }) {
   function openModalComment(value) {
     setModal(true);
     setIdModal(value);
-    console.log(value);
   }
 
   return (

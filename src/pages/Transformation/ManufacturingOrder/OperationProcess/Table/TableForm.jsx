@@ -102,7 +102,6 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   }, []);
 
   const handleDataInRow = useCallback((data, rowIndex) => {
-    console.log(data);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -234,7 +233,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
           <div className="flex w-[200px] items-center justify-between">
             {rowIndex == 0 ? (
               <div className="flex items-center gap-x-2">
-                <div className="flex items-center justify-center rounded-full bg-[#FFB82F] bg-opacity-25 w-20 py-1">
+                <div className="flex w-20 items-center justify-center rounded-full bg-[#FFB82F] bg-opacity-25 py-1">
                   <label className="text-xs font-semibold text-[#FFB82F]">
                     En proceso
                   </label>
@@ -262,7 +261,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               </div>
             ) : (
               <div className="flex items-center gap-x-2">
-                <div className="flex justify-center items-center rounded-full bg-[#FAA364] bg-opacity-25 w-20 py-1">
+                <div className="flex w-20 items-center justify-center rounded-full bg-[#FAA364] bg-opacity-25 py-1">
                   <label className="text-xs font-semibold text-[#FAA364]">
                     Por iniciar
                   </label>
@@ -274,7 +273,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                 >
                   <IonIcon
                     icon={play}
-                    className="cursor-pointer text-white p-0"
+                    className="cursor-pointer p-0 text-white"
                   ></IonIcon>
                 </button>
               </div>

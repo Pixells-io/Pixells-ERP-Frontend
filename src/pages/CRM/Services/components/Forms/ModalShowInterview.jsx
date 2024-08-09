@@ -23,8 +23,6 @@ function ModalShowInterview({ modal, setModal, id, name, questions }) {
     }
   }, [navigation.state]);
 
-  console.log(questions);
-
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">

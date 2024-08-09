@@ -17,7 +17,6 @@ function MainCalendar() {
 
   /*if (userFilter != 0) {
     const newData = getCalendarDataId(userFilter);
-    console.log(newData);
   }*/
 
   useEffect(() => {
@@ -68,7 +67,6 @@ function MainCalendar() {
   const [completeActivityModal, setCompleteActivityModal] = useState(false);
 
   function openCompleteTaskModal(taskId, name, description) {
-    console.log(description);
     setTaskId(taskId);
     setTaskName(name);
     setTaskDescription(description);
@@ -114,8 +112,6 @@ function MainCalendar() {
 
     //Set the values
     const array_bulk = [];
-    console.log(tasks, "task d");
-    console.log(crm, "crm d");
 
     if (tasks === true) {
       arrayFill(data.task, array_bulk);

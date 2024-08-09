@@ -174,11 +174,9 @@ function NewServiceForm({
   }
 
   function updateProcessInput(index, e) {
-    // console.log(e);
     const newFields = process.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setProcess(newFields);
   }
 
@@ -209,7 +207,6 @@ function NewServiceForm({
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

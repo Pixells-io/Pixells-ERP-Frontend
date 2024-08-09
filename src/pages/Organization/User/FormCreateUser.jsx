@@ -236,16 +236,13 @@ function FormCreateUser() {
 
   function removeAcademicField(index) {
     const newFields = academicInfo.filter((item, i) => index !== i);
-    console.log(newFields);
     setAcademicInfo(newFields);
   }
 
   function updateAcademicField(index, e) {
-    // console.log(e);
     const newFields = academicInfo.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setAcademicInfo(newFields);
   }
 
@@ -260,7 +257,6 @@ function FormCreateUser() {
 
   function removeWorkingInputs(index) {
     const newFields = workingInfo.filter((item, i) => index !== i);
-    // console.log(newFields);
     setWorkingInfo(newFields);
   }
 
@@ -275,7 +271,6 @@ function FormCreateUser() {
 
   function removeContractInputs(index) {
     const newFields = contractsInfo.filter((item, i) => index !== i);
-    // console.log(newFields);
     setContratcsInfo(newFields);
   }
 

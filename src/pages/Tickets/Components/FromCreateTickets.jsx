@@ -118,7 +118,6 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
   ];
 
   const handleChangeArea = (event, index) => {
-    console.log(event.value);
     setProcessInputs(
       processInputs.map((item, i) =>
         i === index

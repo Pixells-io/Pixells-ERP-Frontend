@@ -23,8 +23,6 @@ function ModalAddServicesMembership({ modal, setModal, id, services }) {
     }
   }, [navigation.state]);
 
-  console.log(services);
-
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
@@ -41,7 +39,6 @@ function ModalAddServicesMembership({ modal, setModal, id, services }) {
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

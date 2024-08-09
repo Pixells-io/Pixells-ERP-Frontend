@@ -30,7 +30,7 @@ import ReadyDocumentsClientPlatform from "./Components/ReadyDocumentsClientPlatf
 import ClientInterviews from "./Components/ClientInterviews";
 import Cookies from "js-cookie";
 import ContractsClientPlatform from "./Components/ContractsClientPlatform";
-import { pusherClient } from "@/lib/pusher";
+import { createPusherClient } from "@/lib/pusher";
 
 function MainClients() {
   const { data } = useLoaderData();
@@ -41,6 +41,7 @@ function MainClients() {
   const [cliente, setDatClient] = useState(data);
 
   //WEB SOCKET
+  const pusherClient = createPusherClient();
 
   async function getClientDataBack() {
     const newInfo = await getAuthClient();

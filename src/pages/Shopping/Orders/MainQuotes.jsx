@@ -19,7 +19,7 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-04",
       tipo: "Factura",
-      estatus: "En progreso"
+      estatus: "En progreso",
     },
     {
       ndocumento: "DOC002",
@@ -30,19 +30,19 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-16",
       fechad: "2024-07-15",
       tipo: "Nota de crédito",
-      estatus: "Finalizado"
+      estatus: "Finalizado",
     },
   ];
   const getMenuItems = (id) => [
     {
-      label: 'Edit',
+      label: "Edit",
       isLink: true,
-      to: `/shopping/quotes-orders/edit/${id}`, 
+      to: `/shopping/quotes-orders/edit/${id}`,
     },
     {
-      label: 'Cancel',
+      label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
   const columns = [
@@ -103,7 +103,7 @@ const MainQuotesOrder = () => {
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(index);
-    
+
         return (
           <div className="flex items-center justify-center">
             <MenuItem menuItems={menuItems} />
@@ -193,15 +193,18 @@ const MainQuotesOrder = () => {
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="quotes" className="w-full h-full flex flex-col">
-              <div className="flex-grow">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="ndocumento"
-                      searchNameFilter="Buscar por No. Documento"
-                      isCheckAll={true}
-                    />
+              <TabsContent
+                value="quotes"
+                className="flex h-full w-full flex-col"
+              >
+                <div className="flex-grow">
+                  <DataTable
+                    data={data}
+                    columns={columns}
+                    searchFilter="ndocumento"
+                    searchNameFilter="Buscar por No. Documento"
+                    isCheckAll={true}
+                  />
                 </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">

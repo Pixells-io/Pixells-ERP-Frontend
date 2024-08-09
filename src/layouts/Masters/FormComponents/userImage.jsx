@@ -28,7 +28,6 @@ function UserImage({ name, label }) {
       <div>
         <div className="pb-4 pt-3">
           {yourImage.map((upFile, i) => {
-            console.log(upFile);
             return (
               <div key={i} {...getRootProps()}>
                 <input {...getInputProps()} name={name} />
