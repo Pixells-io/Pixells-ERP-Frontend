@@ -7,16 +7,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-
 /**
- * SelectFiel with style in ring without 
+ * SelectField with style in ring without 
  * border and background gray
  */
 const StyleSelect = "w-full rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-function SelectField({ name, placeholder, options, value, onValueChange}) {
-
-  // changes in value 
+function SelectField({ name, placeholder, options, value, onValueChange }) {
+  // Handle value change
   const handleChange = (selectedValue) => {
     if (onValueChange) {
       onValueChange(selectedValue);
@@ -28,7 +26,6 @@ function SelectField({ name, placeholder, options, value, onValueChange}) {
       name={name}
       value={value}
       onValueChange={handleChange}
-      disabled={isDisabled}
     >
       <SelectTrigger className={StyleSelect}>
         <SelectValue placeholder={placeholder} />
@@ -45,4 +42,3 @@ function SelectField({ name, placeholder, options, value, onValueChange}) {
 }
 
 export default SelectField;
-

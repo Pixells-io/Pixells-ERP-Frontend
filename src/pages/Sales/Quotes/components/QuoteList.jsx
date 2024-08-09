@@ -7,18 +7,9 @@ import { addCircleOutline } from "ionicons/icons";
 import QuoteTable from "./Tabs/QuoteDataTable";
 
 const options = [
-  {
-    label: "Opción 1",
-    value: "opcion1",
-  },
-  {
-    label: "Opción 2",
-    value: "opcion2",
-  },
-  {
-    label: "Opción 3",
-    value: "opcion3",
-  },
+  { label: "Opción 1", value: "opcion1" },
+  { label: "Opción 2", value: "opcion2" },
+  { label: "Opción 3", value: "opcion3" },
 ];
 
 const QuoteList = ({ setSubtotal }) => {
@@ -33,13 +24,13 @@ const QuoteList = ({ setSubtotal }) => {
     (newTotal) => {
       setSubtotal(newTotal);
     },
-    [setSubtotal],
+    [setSubtotal]
   );
 
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex flex-wrap space-x-4 gap-4">
-        <div className="flex flex-col w-10 ">
+        <div className="flex flex-col w-10">
           <Label className="mb-1 font-roboto text-sm text-grisText">No.</Label>
           <InputField
             name="documentNumber"
@@ -54,8 +45,8 @@ const QuoteList = ({ setSubtotal }) => {
             name="cliente"
             placeholder="Seleccionar"
             options={options}
-            onChange={(value) => setSelectedClient(value)}
             value={selectedClient}
+            onValueChange={setSelectedClient} 
           />
         </div>
         <div className="flex pt-4 items-center justify-center">
@@ -71,8 +62,8 @@ const QuoteList = ({ setSubtotal }) => {
             name="rfc"
             placeholder="Seleccionar"
             options={options}
-            onChange={(value) => setSelectedRFC(value)}
             value={selectedRFC}
+            onValueChange={setSelectedRFC}
           />
         </div>
         <div className="flex-1">
@@ -81,8 +72,8 @@ const QuoteList = ({ setSubtotal }) => {
             name="telefono"
             placeholder="Seleccionar"
             options={options}
-            onChange={(value) => setSelectedPhone(value)}
             value={selectedPhone}
+            onValueChange={setSelectedPhone} 
           />
         </div>
         <div className="flex-1">
@@ -91,8 +82,8 @@ const QuoteList = ({ setSubtotal }) => {
             name="creacion"
             placeholder="Seleccionar"
             options={options}
-            onChange={(value) => setSelectedCreation(value)}
             value={selectedCreation}
+            onValueChange={setSelectedCreation} 
           />
         </div>
         <div className="flex-1">
@@ -101,8 +92,8 @@ const QuoteList = ({ setSubtotal }) => {
             name="vencimiento"
             placeholder="Seleccionar"
             options={options}
-            onChange={(value) => setSelectedExpiry(value)}
             value={selectedExpiry}
+            onValueChange={setSelectedExpiry} e
           />
         </div>
       </div>
