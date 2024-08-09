@@ -4,7 +4,6 @@ import InputField from "@/layouts/Masters/FormComponents/InputField";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
-import QuoteTable from "./Tabs/QuoteDataTable";
 
 const options = [
   { label: "Opción 1", value: "opcion1" },
@@ -96,10 +95,6 @@ const QuoteList = ({ setSubtotal }) => {
             onValueChange={setSelectedExpiry} e
           />
         </div>
-      </div>
-
-      <div className="mt-6">
-        <QuoteTable onTotalChange={handleTotalChange} />
       </div>
     </div>
   );

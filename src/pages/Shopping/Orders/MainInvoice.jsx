@@ -114,7 +114,7 @@ const MainInvoices = () => {
       accessorKey: "acciones",
       header: "Acciones",
       cell: ({ row }) => {
-        const index = row.original.ndocumento; // Obtén el índice de la fila
+        const index = row.original.ndocumento;
         const menuItems = getMenuItems(index);
 
         return (

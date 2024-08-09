@@ -9,11 +9,12 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack,chevronForward } from "ionicons/icons";
 import SelectDetails from "../../Components/SelectDetails";
 
-const MainQuotes = () => {
+const TicketForm = () => {
+    
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/sales/quotes");
+    navigate("/sales/tickets");
   };
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
@@ -22,6 +23,7 @@ const MainQuotes = () => {
   const handleTotalChange = (newSubtotal) => {
     setSubTotal(newSubtotal);
   };
+
 
 
   return (
@@ -35,14 +37,14 @@ const MainQuotes = () => {
                 icon={chevronBack}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
             <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
@@ -52,7 +54,7 @@ const MainQuotes = () => {
         {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            COTIZACIONES
+            FACTURAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -63,7 +65,7 @@ const MainQuotes = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Cotización
+            Nuevo Ticket/Remisión
           </p>
           <div className="flex justify-end">
             <CardCarousel />
@@ -102,4 +104,4 @@ const MainQuotes = () => {
   );
 };
 
-export default MainQuotes;
+export default TicketForm;

@@ -300,10 +300,16 @@ import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
 import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
+import InvoiceForm from "./pages/Sales/Invoice/NewInvoice/InvoiceForm";
+import InvoicesDetails from "./pages/Sales/Invoice/EditInvoice/InvoiceEditor";
+import InvoicePDF from "./pages/Sales/Components/DocFormat/DocumentPreview";
 import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
+import TicketForm from "./pages/Sales/Ticket/NewTicket/TicketForm";
+import TicketPDF from "./pages/Sales/Components/DocFormat/DocumentTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
 import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
-import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
+import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
+import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -342,6 +348,7 @@ import SideLayoutTopics, {
 import MainTopics from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
 import NewEntry from "./pages/Inventory/MerchandiseMovements/NewEntry/NewEntry";
+
 
 const router = createBrowserRouter([
   {
@@ -950,19 +957,39 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MainInvoice />,
-          },
-          {
-            path: "/sales/customer",
-            element: <MainCustomer />,
+            element: <MainCustomer />
           },
           {
             path: "/sales/customer/new",
             element: <CreateCustomer />,
           },
           {
+            path: "/sales/invoices",
+            element: <MainInvoice />,
+          },
+          {
+            path: "/sales/invoices/new",
+            element: <InvoiceForm />,
+          },
+          {
+            path: "/sales/invoices/edit/:id",
+            element: <InvoicesDetails />,
+          },
+          {
+            path: "/sales/invoices/document/:id",
+            element: <InvoicePDF />,
+          },
+          {
             path: "/sales/tickets",
             element: <MainSalesTicket />,
+          },
+          {
+            path: "/sales/tickets/edit/:id",
+            element: <TicketForm />,
+          },
+          {
+            path: "/sales/tickets/document/:id",
+            element: <TicketPDF />,
           },
           {
             path: "/sales/quotes",
@@ -973,8 +1000,12 @@ const router = createBrowserRouter([
             element: <MainQuotes />,
           },
           {
-            path: "/sales/quotes/document",
-            element: <DocManager />,
+            path: "/sales/quotes/edit/:id",
+            element: <QuotesDetails />,
+          },
+          {
+            path: "/sales/quotes/document/:id",
+            element: <QuotePDF />,
           },
         ],
       },

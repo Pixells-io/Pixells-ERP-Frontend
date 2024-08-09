@@ -5,8 +5,6 @@ import {
   chevronForward,
   informationCircle,
   addCircleOutline,
-  chatbubbleEllipses,
-  bookmark,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
@@ -16,6 +14,7 @@ import { Link } from "react-router-dom";
 const MainSalesTicket = () => {
   const data = [
     {
+      id:1,
       nombre: "Coca Cola",
       tipo: "Nacional",
       nacionalidad: "Mexicana",
@@ -23,19 +22,14 @@ const MainSalesTicket = () => {
       email: "cor21s@mail.com",
     },
     {
+      id:2,
       nombre: "Coca Cola",
       tipo: "Nacional",
       nacionalidad: "Mexicana",
       contacto: "01-800-999",
       email: "cor21s@mail.com",
     },
-    {
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
-    },
+   
   ];
 
   const columns = [
@@ -79,12 +73,18 @@ const MainSalesTicket = () => {
       header: "Acciones",
       cell: ({ row }) => (
         <div className="flex w-full items-center justify-center space-x-3">
-          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
-          <IonIcon
-            icon={chatbubbleEllipses}
-            className="h-6 w-6 text-grisText"
-          />
-          <IonIcon icon={bookmark} className="h-6 w-6 text-grisText" />
+          <Link to={`/sales/tickets/edit/${row.original.id}`} className="inline-block">
+            <Button
+              type="button"
+              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                size="small"
+                className="text-grisText"
+              />
+            </Button>
+          </Link>
         </div>
       ),
     },
@@ -132,14 +132,14 @@ const MainSalesTicket = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ticket/Remisíon de ventas
           </p>
-          <Link to="/sales/quotes/new" className="inline-block">
+          <Link to="/sales/tickets/new" className="inline-block">
             <Button
               type="button"
               className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
+                size="small"
                 className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
               />
             </Button>
