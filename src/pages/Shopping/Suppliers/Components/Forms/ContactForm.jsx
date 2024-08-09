@@ -6,35 +6,74 @@ import { addCircle } from "ionicons/icons";
 import ContactInfoForm from "./ContactInfo";
 
 const ContactForm = () => {
-  const initialRow = {
-    nombre: "",
-    apellidop: "",
-    apellidom: "",
-    email: "",
-    tel: "",
-    position: "",
-    princ: false,
-  };
+  // Datos iniciales para las filas
+  const initialRow = [
+    {
+      nombre: "juan",
+      apellidop: "guzman",
+      apellidom: "getta",
+      email: "example@mail.com",
+      tel: "3122434",
+      position: "administrador",
+      princ: true,
+    },
+    {
+      nombre: "maria",
+      apellidop: "hernandez",
+      apellidom: "hernandez",
+      email: "maria@mail.com",
+      tel: "23423432",
+      position: "empleado",
+      princ: false,
+    },
+    {
+      nombre: "pedro",
+      apellidop: "ortega",
+      apellidom: "villanueva",
+      email: "pedro@mail.com",
+      tel: "123131231",
+      position: "administrador",
+      princ: true,
+    },
+    {
+      nombre: "ana",
+      apellidop: "orozco",
+      apellidom: "beltran",
+      email: "ana@mail.com",
+      tel: "12342423",
+      position: "empleado",
+      princ: false,
+    },
+  ];
 
+  // Estado inicial de los contactos
   const [contacts, setContacts] = useState([
-    { value: "juan", label: "Juan", data: initialRow },
-    { value: "maria", label: "Maria", data: initialRow },
-    { value: "pedro", label: "Pedro", data: initialRow },
-    { value: "ana", label: "Ana", data: initialRow },
+    { value: "juan", label: "Juan", data: initialRow[0] },
+    { value: "maria", label: "Maria", data: initialRow[1] },
+    { value: "pedro", label: "Pedro", data: initialRow[2] },
+    { value: "ana", label: "Ana", data: initialRow[3] },
   ]);
 
   const [currentTab, setCurrentTab] = useState(contacts[0].value);
-  const [contactData, setContactData] = useState(initialRow);
+  const [contactData, setContactData] = useState(contacts[0].data);
 
   const addNewTab = () => {
     const newTab = {
       value: `${contacts.length}`,
       label: "Nuevo",
-      data: initialRow,
+      data: {
+        nombre: "",
+        apellidop: "",
+        apellidom: "",
+        email: "",
+        tel: "",
+        position: "",
+        princ: false,
+      },
     };
     setContacts([...contacts, newTab]);
     setCurrentTab(newTab.value);
-    setContactData(initialRow);
+    setContactData(newTab.data);
   };
 
   const handleTabChange = (value) => {
@@ -67,7 +106,15 @@ const ContactForm = () => {
       setContactData(updatedContacts[0].data);
     } else {
       setCurrentTab("");
-      setContactData(initialRow);
+      setContactData({
+        nombre: "",
+        apellidop: "",
+        apellidom: "",
+        email: "",
+        tel: "",
+        position: "",
+        princ: false,
+      });
     }
   };
 

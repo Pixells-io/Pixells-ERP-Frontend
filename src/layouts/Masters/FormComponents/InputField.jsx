@@ -1,11 +1,9 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 /**
- * Using input for id document
- * Label: no document
- * onChange: change in id document or another value
+ * Using input with style in ring 
+ * 
  *
  * @returns Input
  */

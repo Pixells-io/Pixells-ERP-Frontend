@@ -36,7 +36,7 @@ const InventoryForm = ({ data, setData }) => {
         <div className="flex items-center">
           <Label
             htmlFor="costeo"
-            className="text-md mb-1 mr-4 w-1/4 font-roboto text-gris2"
+            className="text-md mb-1 mr-4 w-auto font-roboto text-gris2"
           >
             Método de Costeo
           </Label>
@@ -63,7 +63,7 @@ const InventoryForm = ({ data, setData }) => {
         <div className="flex items-center">
           <Label
             htmlFor="minimo"
-            className="text-md mb-1 mr-4 w-1/4 font-roboto text-gris2"
+            className="text-md mb-1 mr-4 w-auto font-roboto text-gris2"
           >
             Mínimo
           </Label>
@@ -80,7 +80,7 @@ const InventoryForm = ({ data, setData }) => {
         <div className="flex items-center">
           <Label
             htmlFor="maximo"
-            className="text-md mb-1 mr-4 w-1/4 font-roboto text-gris2"
+            className="text-md mb-1 mr-4 w-auto font-roboto text-gris2"
           >
             Máximo
           </Label>

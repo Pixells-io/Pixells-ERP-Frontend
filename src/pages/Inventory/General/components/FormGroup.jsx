@@ -61,13 +61,13 @@ const FormGroup = () => {
           </TabsContent>
           <TabsContent value="storage">
           <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">Almacén</h2>
-            <div className="flex flex-wrap pl-2">
+            <div className="flex pl-2">
             < WarehouseForm/>
             </div>
           </TabsContent>
           <TabsContent value="shopping">
           <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">Compras</h2>
-          <div className="flex flex-wrap pl-2">
+          <div className="flex w-full pl-2">
           <CheckForm data={checkData} setData={setCheckData} />
             </div>
           </TabsContent>
