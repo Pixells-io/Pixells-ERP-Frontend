@@ -341,6 +341,7 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
+import NewEntry from "./pages/Inventory/MerchandiseMovements/NewEntry/NewEntry";
 
 const router = createBrowserRouter([
   {
@@ -935,6 +936,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
+          },
+          {
+            path: "/inventory/merchandise-movements/new-entry",
+            element: <NewEntry />,
           },
         ],
       },

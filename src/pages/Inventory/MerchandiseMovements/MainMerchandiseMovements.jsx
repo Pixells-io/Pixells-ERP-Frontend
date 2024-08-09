@@ -13,6 +13,12 @@ import {
 import DataTable from "@/components/table/DataTable";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function MainMerchandiseMovements() {
   //datos de prueba --------------------------
@@ -175,12 +181,35 @@ function MainMerchandiseMovements() {
           <p className="font-poppins text-xl font-bold text-grisHeading">
             Movimientos de Mercancía
           </p>
-          <Link to="/transformation/create">
-            <IonIcon
-              icon={addCircleOutline}
-              className="mt-5 h-7 w-7 text-blue-500"
-            ></IonIcon>
-          </Link>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <IonIcon
+                  icon={addCircleOutline}
+                  size="large"
+                  className="mt-5 cursor-pointer text-blue-500"
+                ></IonIcon>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem className="hover:cursor-pointer focus:bg-hoverModal">
+                  <Link
+                    to="/inventory/merchandise-movements/new-entry"
+                    className="w-full"
+                  >
+                    Entrada
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
+                  <Link
+                    to="/inventory/merchandise-movements/new-entry"
+                    className="w-full"
+                  >
+                    Salida
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
 
         <Tabs
