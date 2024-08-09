@@ -22,8 +22,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import TableForm from "./Table/TableForm";
 
 function NewEntry() {
+
+  const [commodity, setCommodity] = useState([]);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
@@ -130,6 +134,10 @@ function NewEntry() {
               ></IonIcon>
             </button>
           </div>
+        </div>
+
+        <div className="bg-blancoBg p-6 rounded-xl">
+          <TableForm tableData={commodity} setTableData={setCommodity} />
         </div>
 
         <div className="rounded-xl bg-blancoBg px-4 py-6">
