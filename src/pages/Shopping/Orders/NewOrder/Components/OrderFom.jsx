@@ -13,7 +13,7 @@ const OrderTable = ({
   setSelectedFechaEntrega,
   selectedCondicionPago,
   setSelectedCondicionPago,
-  isEditable, // Propiedad para determinar si los campos son editables
+  isEditable,
 }) => {
   const proveedorOptions = [
     { value: "proveedor1", label: "Proveedor 1" },
@@ -39,21 +39,27 @@ const OrderTable = ({
     { value: "condicion3", label: "Condición 3" },
   ];
 
+ 
+  const disabledClass = "opacity-50 cursor-not-allowed";
+  const enabledClass = "opacity-100 cursor-pointer";
+
   return (
     <div className="flex pt-4 justify-between space-x-3">
-      <SelectField
-        name="proveedor"
-        placeholder="Seleccionar Proveedor"
-        options={proveedorOptions}
-        value={selectedProveedor}
-        onValueChange={setSelectedProveedor} // Función para actualizar el estado
-        isDisabled={!isEditable} // Desactivar el campo si no es editable
-      />
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
+        <SelectField
+          name="proveedor"
+          placeholder="Seleccionar Proveedor"
+          options={proveedorOptions}
+          value={selectedProveedor}
+          onValueChange={isEditable ? setSelectedProveedor : () => {}}
+          className={!isEditable ? disabledClass : ""}
+        />
+      </div>
       <Button
         variant="ghost"
         size="icon"
         className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
-        disabled={!isEditable} // Desactivar el botón si no es editable
+        disabled={!isEditable}
       >
         <IonIcon
           icon={addCircleOutline}
@@ -61,32 +67,39 @@ const OrderTable = ({
           className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
         />
       </Button>
-      <SelectField
-        name="fechaDoc"
-        placeholder="Seleccionar Fecha de Doc"
-        options={fechaDocOptions}
-        value={selectedFechaDoc}
-        onValueChange={setSelectedFechaDoc} // Función para actualizar el estado
-        isDisabled={!isEditable} // Desactivar el campo si no es editable
-      />
-      <SelectField
-        name="fechaEntrega"
-        placeholder="Seleccionar Fecha de Entrega"
-        options={fechaEntregaOptions}
-        value={selectedFechaEntrega}
-        onValueChange={setSelectedFechaEntrega} // Función para actualizar el estado
-        isDisabled={!isEditable} // Desactivar el campo si no es editable
-      />
-      <SelectField
-        name="condicionPago"
-        placeholder="Seleccionar Condición de Pago"
-        options={condicionPagoOptions}
-        value={selectedCondicionPago}
-        onValueChange={setSelectedCondicionPago} // Función para actualizar el estado
-        isDisabled={!isEditable} // Desactivar el campo si no es editable
-      />
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
+        <SelectField
+          name="fechaDoc"
+          placeholder="Seleccionar Fecha de Doc"
+          options={fechaDocOptions}
+          value={selectedFechaDoc}
+          onValueChange={isEditable ? setSelectedFechaDoc : () => {}}
+          className={!isEditable ? disabledClass : ""}
+        />
+      </div>
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
+        <SelectField
+          name="fechaEntrega"
+          placeholder="Seleccionar Fecha de Entrega"
+          options={fechaEntregaOptions}
+          value={selectedFechaEntrega}
+          onValueChange={isEditable ? setSelectedFechaEntrega : () => {}}
+          className={!isEditable ? disabledClass : ""}
+        />
+      </div>
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
+        <SelectField
+          name="condicionPago"
+          placeholder="Seleccionar Condición de Pago"
+          options={condicionPagoOptions}
+          value={selectedCondicionPago}
+          onValueChange={isEditable ? setSelectedCondicionPago : () => {}}
+          className={!isEditable ? disabledClass : ""}
+        />
+      </div>
     </div>
   );
 };
 
 export default OrderTable;
+
