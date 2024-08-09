@@ -296,13 +296,6 @@ function FormulaRecords() {
               />
             )}
           </div>
-          <div className="mt-6 rounded-xl bg-blancoBg">
-            <textarea
-              placeholder="Observaciones"
-              className="h-[56px] w-[260px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-              name="template"
-            ></textarea>
-          </div>
         </div>
 
         <div className="h-full rounded-xl bg-blancoBg p-4">
