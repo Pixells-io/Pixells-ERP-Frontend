@@ -25,6 +25,7 @@ function MainMerchandiseMovements() {
 
   const data = [
     {
+      id: 1,
       code: "0987",
       category: "Metales",
       name: "Tornillos",
@@ -35,6 +36,7 @@ function MainMerchandiseMovements() {
       createdAt: "21/07/2024",
     },
     {
+      id: 2,
       code: "0988",
       category: "Metales",
       name: "Tornillos",
@@ -45,6 +47,7 @@ function MainMerchandiseMovements() {
       createdAt: "21/07/2024",
     },
     {
+      id: 3,
       code: "0989",
       category: "Metales",
       name: "Clavos",
@@ -55,6 +58,7 @@ function MainMerchandiseMovements() {
       createdAt: "21/07/2024",
     },
     {
+      id: 4,
       code: "0990",
       category: "Metales",
       name: "Tornillos",
@@ -126,12 +130,15 @@ function MainMerchandiseMovements() {
       id: "acciones",
       header: "Acciones",
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center">
+        <Link
+          to={"/inventory/merchandise-movements/record/" + row?.original?.id}
+          className="flex w-full items-center justify-center"
+        >
           <IonIcon
             icon={informationCircle}
             className="text-gris2-500 h-6 w-6"
           />
-        </div>
+        </Link>
       ),
     },
   ];
@@ -201,7 +208,7 @@ function MainMerchandiseMovements() {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
                   <Link
-                    to="/inventory/merchandise-movements/new-entry"
+                    to="/inventory/merchandise-movements/"
                     className="w-full"
                   >
                     Salida

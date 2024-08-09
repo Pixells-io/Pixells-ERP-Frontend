@@ -7,9 +7,7 @@ import {
   chevronForward,
   copy,
   print,
-  create,
   closeCircle,
-  qrCodeOutline,
 } from "ionicons/icons";
 
 import StatusInformation from "@/components/StatusInformation/status-information";
@@ -22,23 +20,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import TableForm from "./Table/TableForm";
-import AlertMessage from "./Modal/AlertMessage";
-import AlertConfirmation from "./Modal/AlertConfirmation";
-import AlertDoNotComply from "./Modal/AlertDoNotComply";
 
-function NewEntry() {
-  const [commodity, setCommodity] = useState([]);
-  const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
-  const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
-  const [modalDoNotComply, setModalDoNotComply] = useState(false);
-
+function MerchandiseMovRecord() {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
-      <AlertMessage setModal={setModalQuantityOverCome} modal={modalQuantityOverCome} />
-      <AlertConfirmation setModal={setModalAlertConfirmation} modal={modalAlertConfirmation} />
-      <AlertDoNotComply setModal={setModalDoNotComply} modal={modalDoNotComply} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -77,18 +63,33 @@ function NewEntry() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nueva Entrada de Mercancía
+            Entrada de Mercancia
           </p>
 
           <div className="flex items-center justify-end gap-5">
-            <Button
-              type="button"
-              className="rounded-3xl bg-[#F0F0F0] text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
-            >
-              Convertir a Pedido
-            </Button>
+            <div>
+              <Button
+                type="button"
+                className="rounded-3xl bg-[#F0F0F0] text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
+              >
+                Convertir a Pedido
+              </Button>
+            </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={copy}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+              ></IonIcon>
+            </div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+              <IonIcon
+                icon={print}
+                size="small"
+                className="cursor-pointer text-[#696974]"
+              ></IonIcon>
+            </div>
           </div>
-          <div></div>
           <div className="flex items-end justify-center">
             <Link to={"/inventory/merchandise-movements"}>
               <IonIcon
@@ -123,65 +124,21 @@ function NewEntry() {
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Input
-                className="w-[94px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText"
-                name={`order`}
-                // value={row.amount}
-                placeholder="Pedido"
-                type="text"
-              />
-            </div>
           </div>
-          <div className="flex w-full justify-center px-8">
-            <button type="button" onClick={() => alert("qr")}>
-              <IonIcon
-                icon={qrCodeOutline}
-                size="large"
-                className="text-[#5B89FF]"
-              ></IonIcon>
-            </button>
-          </div>
-        </div>
-
-        <div className="rounded-xl bg-blancoBg p-6">
-          <TableForm tableData={commodity} setTableData={setCommodity} />
-        </div>
-
-        <div className="rounded-xl bg-blancoBg px-4 py-6">
-          <textarea
-            placeholder="Observaciones (esto será visible en la OC)"
-            className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-            name="template"
-          ></textarea>
         </div>
 
         <StatusInformation
-          status="inProgress"
+          status="done"
+          approvedBy={"Oziel duran"}
+          date={"20 agosto 2024"}
+          comments={"Todo Bien"}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
-        >
-          <Button
-            type="button"
-            variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-            onClick={() => alert("cancelar")}
-          >
-            Cancelar
-          </Button>
-
-          <Button
-            type="button"
-            onClick={() => setModalDoNotComply(true)}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Crear
-          </Button>
-        </StatusInformation>
+        ></StatusInformation>
       </div>
     </div>
   );
 }
 
-export default NewEntry;
+export default MerchandiseMovRecord;
