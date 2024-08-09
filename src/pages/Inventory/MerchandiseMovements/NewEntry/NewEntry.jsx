@@ -25,7 +25,6 @@ import { Input } from "@/components/ui/input";
 import TableForm from "./Table/TableForm";
 
 function NewEntry() {
-
   const [commodity, setCommodity] = useState([]);
 
   return (
@@ -136,7 +135,7 @@ function NewEntry() {
           </div>
         </div>
 
-        <div className="bg-blancoBg p-6 rounded-xl">
+        <div className="rounded-xl bg-blancoBg p-6">
           <TableForm tableData={commodity} setTableData={setCommodity} />
         </div>
 

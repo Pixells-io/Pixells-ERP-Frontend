@@ -24,37 +24,23 @@ import {
 
 const initialRow = {
   idAux: 1,
-  component: "",
-  amount: 0,
-  unit: "",
-  cost: 0,
-  amountTax: 16,
+  articleNumber: "",
+  description: "",
+  expectedQuantity: 10,
+  receivedQuantity: "",
+  unitPrice: 0,
+  total: 120,
+  ubication: null,
 };
 
-const components = [
+const ubications = [
   {
     id: 1,
-    name: "Aceite vegetal",
-    unit: "L",
-    cost: "60.00",
+    name: "Almacen PM",
   },
   {
     id: 2,
-    name: "Aceite Motor",
-    unit: "L",
-    cost: "210.00",
-  },
-  {
-    id: 3,
-    name: "Aguacate",
-    unit: "U",
-    cost: "30.00",
-  },
-  {
-    id: 4,
-    name: "Huevos",
-    unit: "U",
-    cost: "7.00",
+    name: "Almace MP",
   },
 ];
 
@@ -74,43 +60,21 @@ const TableForm = ({ tableData, setTableData }) => {
     ]);
   };
 
-  const handleInputChange = useCallback((rowIndex, value) => {
+  const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amount: value,
-            }
-          : item,
-      ),
-    );
-  }, []);
-
-  const handleCostChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              cost: value,
-            }
-          : item,
+        index === rowIndex ? { ...item, [accessorKey]: value } : item,
       ),
     );
   }, []);
 
   const handleDataInRow = useCallback((data, rowIndex) => {
-    const comp = getComponentId(data);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
-              component: comp.id,
-              unit: comp.unit,
-              cost: comp.cost,
-              amount: 1,
+              ubication_id: data,
             }
           : item,
       ),
@@ -130,33 +94,20 @@ const TableForm = ({ tableData, setTableData }) => {
     return 0;
   };
 
-  const getComponentId = (id) => {
-    return components.find((component) => component.id == id);
-  };
-
   const columns = useMemo(
     () => [
       {
         accessorKey: "articleNumber",
         header: "Numero Articulo",
         cell: ({ row, rowIndex }) => (
-          <Select
-            name={"selectComponent-subProduct-" + rowIndex}
-            className="h-10 w-[100px]"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Input
+            className="w-[100px] border-none"
+            name={`article-number-${rowIndex}`}
+            value={row?.articleNumber}
+            placeholder="ingrese"
+            type="number"
+            onChange={(e) => handleInputChange(rowIndex, "articleNumber", e.target.value)}
+          />
         ),
       },
       {
@@ -165,27 +116,36 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             className="w-[100px] border-none"
-            name={`amount-subProduct-${rowIndex}`}
-            value={row.amount}
+            name={`description-${rowIndex}`}
+            value={row.description}
             placeholder="ingrese"
-            type="number"
-            disabled={!row.component}
-            onChange={(e) => handleInputChange(rowIndex, e.target.value)}
+            type="text"
+            onChange={(e) => handleInputChange(rowIndex, "description", e.target.value)}
           />
         ),
       },
       {
-        accessorKey: "amount",
-        header: "Cantidad",
+        accessorKey: "expectedQuantity",
+        header: "Cantidad esperada",
+        cell: ({ row, rowIndex }) => (
+          <div>
+            {
+              row?.expectedQuantity
+            }
+          </div>
+        ),
+      },
+      {
+        accessorKey: "receivedQuantity",
+        header: "Recibido",
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none"
-            name={`cost-subProduct-${rowIndex}`}
-            value={row.cost}
+            className={`w-[100px] border-none ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
+            name={`received-quantity-${rowIndex}`}
+            value={row?.receivedQuantity}
             placeholder="ingrese"
-            disabled={!row.component}
-            onChange={(e) => handleCostChange(rowIndex, e.target.value)}
+            onChange={(e) => handleInputChange(rowIndex, "receivedQuantity", e.target.value)}
           />
         ),
       },
@@ -197,35 +157,42 @@ const TableForm = ({ tableData, setTableData }) => {
             type="number"
             className="w-[100px] border-none"
             name={`cost-subProduct-${rowIndex}`}
-            value={row.cost}
+            value={row?.unitPrice}
             placeholder="ingrese"
-            disabled={!row.component}
-            onChange={(e) => handleCostChange(rowIndex, e.target.value)}
+            onChange={(e) => handleInputChange(rowIndex, "unitPrice", e.target.value)}
           />
         ),
       },
       {
-        accessorKey: "amountTax",
+        accessorKey: "total",
         header: "Total",
         cell: ({ row, rowIndex }) => (
-          <div className="flex w-[150px] items-center gap-x-2">
-            IVA {row.amountTax}%
+          <div>
+            {row.total}
           </div>
         ),
       },
       {
-        accessorKey: "ubication",
+        accessorKey: "ubication_id",
         header: "Ubicación",
         cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className="w-[100px] border-none"
-            name={`cost-subProduct-${rowIndex}`}
-            value={row.cost}
-            placeholder="ingrese"
-            disabled={!row.component}
-            onChange={(e) => handleCostChange(rowIndex, e.target.value)}
-          />
+          <Select
+            name={"selectComponent-ubication-" + rowIndex}
+            className="h-10 w-[100px]"
+            onValueChange={(value) => handleDataInRow(value, rowIndex)}
+            value={row?.ubication_id}
+          >
+            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+              <SelectValue placeholder="Ubicación" />
+            </SelectTrigger>
+            <SelectContent>
+              {ubications.map((ubication, index) => (
+                <SelectItem key={"ubication-" + index} value={ubication.id}>
+                  {ubication.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         ),
       },
     ],
