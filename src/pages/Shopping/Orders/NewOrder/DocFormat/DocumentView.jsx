@@ -15,13 +15,6 @@ const DocumentPDF = () => {
 
   const getTitle = `Documento: ${documentType} ${id}`;
 
-  const handleConvert = (convertTo) => {
-    setDocumentType(convertTo);
-  };
-
-  if (notFound) {
-    return <div>No encontrado</div>;
-  }
 
   return (
     <div className="flex w-full">

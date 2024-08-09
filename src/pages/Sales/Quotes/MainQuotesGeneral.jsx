@@ -5,8 +5,6 @@ import {
   chevronForward,
   informationCircle,
   addCircleOutline,
-  chatbubbleEllipses,
-  bookmark,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
@@ -16,6 +14,7 @@ import { Link } from "react-router-dom";
 const MainQtGeneral = () => {
   const data = [
     {
+      id:1,
       nombre: "PEPSICO",
       tipo: "NACIONAL",
       nacionalidad: "EXTRANJERA",
@@ -23,13 +22,7 @@ const MainQtGeneral = () => {
       email: "PEPSICO@mail.com",
     },
     {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-    {
+      id:2,
       nombre: "PEPSICO",
       tipo: "NACIONAL",
       nacionalidad: "EXTRANJERA",
@@ -79,12 +72,18 @@ const MainQtGeneral = () => {
       header: "Acciones",
       cell: ({ row }) => (
         <div className="flex w-full items-center justify-center space-x-3">
-          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
-          <IonIcon
-            icon={chatbubbleEllipses}
-            className="h-6 w-6 text-grisText"
-          />
-          <IonIcon icon={bookmark} className="h-6 w-6 text-grisText" />
+          <Link to={`/sales/quotes/edit/${row.original.id}`} className="inline-block">
+            <Button
+              type="button"
+              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                size="small"
+                className="text-grisText"
+              />
+            </Button>
+          </Link>
         </div>
       ),
     },
@@ -139,7 +138,7 @@ const MainQtGeneral = () => {
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
+                size="small"
                 className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
               />
             </Button>
