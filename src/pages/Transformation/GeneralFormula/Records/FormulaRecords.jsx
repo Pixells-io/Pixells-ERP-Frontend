@@ -26,6 +26,7 @@ import { ProductsInformationColumn } from "./Table/ProductsInformationColumn";
 import { SubProductsInformationColumn } from "./Table/SubProductsInformationColumn";
 import { WasteProductsInformationColumn } from "./Table/WasteProductsInformationColumn";
 import TableFormSubProducts from "../../Components/TableFormSubProducts";
+import { Button } from "@/components/ui/button";
 
 const productsPrueba = [
   {
@@ -325,11 +326,18 @@ function FormulaRecords() {
           }
           approvedBy={"Agustin Hdez"}
           date={"08 Agosto 2024"}
-          applyFunction={() => setIsEdit(false)}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
-        />
+        >
+          <Button
+            type="button"
+            onClick={() => setIsEdit(false)}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Aplicar
+          </Button>
+        </StatusInformation>
       </div>
     </div>
   );

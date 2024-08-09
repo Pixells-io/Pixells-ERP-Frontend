@@ -22,6 +22,7 @@ import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import TableFormSubProducts from "../../Components/TableFormSubProducts";
+import { Button } from "@/components/ui/button";
 
 function NewFormula() {
   const [products, setProducts] = useState([]);
@@ -77,7 +78,6 @@ function NewFormula() {
             Nueva Formula
           </p>
 
-         
           <div className="flex items-end justify-center">
             <Link to={"/transformation"}>
               <IonIcon
@@ -194,11 +194,18 @@ function NewFormula() {
 
         <StatusInformation
           status={"inProgress"}
-          applyFunction={(addComments) => navigate("/transformation/record/1")}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
-        />
+        >
+          <Button
+            type="button"
+            onClick={() => navigate("/transformation/record/1")}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Save
+          </Button>
+        </StatusInformation>
       </div>
     </div>
   );
