@@ -14,7 +14,7 @@ const ActionsGroup = ({ url, setEditable }) => {
   const isEditRoute = currentPath.startsWith("/shopping/invoices-orders/edit");
 
   const handlerConvert = (value) => {
-    setisEditable(value);
+    setEditable(value);
   };
   
   const isShoppingDocumentRoute = location.pathname.startsWith("/shopping/document");
