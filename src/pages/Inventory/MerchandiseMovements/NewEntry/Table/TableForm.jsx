@@ -13,6 +13,7 @@ import {
   addCircle,
   chevronBack,
   chevronForward,
+  closeCircle,
 } from "ionicons/icons";
 import {
   Select,
@@ -46,7 +47,7 @@ const ubications = [
 
 const TableForm = ({ tableData, setTableData }) => {
   useEffect(() => {
-      setTableData([initialRow]);    
+    setTableData([initialRow]);
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -106,7 +107,9 @@ const TableForm = ({ tableData, setTableData }) => {
             value={row?.articleNumber}
             placeholder="ingrese"
             type="number"
-            onChange={(e) => handleInputChange(rowIndex, "articleNumber", e.target.value)}
+            onChange={(e) =>
+              handleInputChange(rowIndex, "articleNumber", e.target.value)
+            }
           />
         ),
       },
@@ -120,20 +123,16 @@ const TableForm = ({ tableData, setTableData }) => {
             value={row.description}
             placeholder="ingrese"
             type="text"
-            onChange={(e) => handleInputChange(rowIndex, "description", e.target.value)}
+            onChange={(e) =>
+              handleInputChange(rowIndex, "description", e.target.value)
+            }
           />
         ),
       },
       {
         accessorKey: "expectedQuantity",
         header: "Cantidad esperada",
-        cell: ({ row, rowIndex }) => (
-          <div>
-            {
-              row?.expectedQuantity
-            }
-          </div>
-        ),
+        cell: ({ row, rowIndex }) => <div>{row?.expectedQuantity}</div>,
       },
       {
         accessorKey: "receivedQuantity",
@@ -145,7 +144,9 @@ const TableForm = ({ tableData, setTableData }) => {
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
             placeholder="ingrese"
-            onChange={(e) => handleInputChange(rowIndex, "receivedQuantity", e.target.value)}
+            onChange={(e) =>
+              handleInputChange(rowIndex, "receivedQuantity", e.target.value)
+            }
           />
         ),
       },
@@ -159,40 +160,47 @@ const TableForm = ({ tableData, setTableData }) => {
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
             placeholder="ingrese"
-            onChange={(e) => handleInputChange(rowIndex, "unitPrice", e.target.value)}
+            onChange={(e) =>
+              handleInputChange(rowIndex, "unitPrice", e.target.value)
+            }
           />
         ),
       },
       {
         accessorKey: "total",
         header: "Total",
-        cell: ({ row, rowIndex }) => (
-          <div>
-            {row.total}
-          </div>
-        ),
+        cell: ({ row, rowIndex }) => <div>{row.total}</div>,
       },
       {
         accessorKey: "ubication_id",
         header: "Ubicación",
         cell: ({ row, rowIndex }) => (
-          <Select
-            name={"selectComponent-ubication-" + rowIndex}
-            className="h-10 w-[100px]"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.ubication_id}
-          >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-              <SelectValue placeholder="Ubicación" />
-            </SelectTrigger>
-            <SelectContent>
-              {ubications.map((ubication, index) => (
-                <SelectItem key={"ubication-" + index} value={ubication.id}>
-                  {ubication.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex items-center justify-between gap-x-2">
+            <Select
+              name={"selectComponent-ubication-" + rowIndex}
+              className="h-10 w-[100px]"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row?.ubication_id}
+            >
+              <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+                <SelectValue placeholder="Ubicación" />
+              </SelectTrigger>
+              <SelectContent>
+                {ubications.map((ubication, index) => (
+                  <SelectItem key={"ubication-" + index} value={ubication.id}>
+                    {ubication.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <button type="button" onClick={() => deleteRowId(row.idAux)}>
+              <IonIcon
+                icon={closeCircle}
+                size="small"
+                className="cursor-pointer text-grisDisabled"
+              ></IonIcon>
+            </button>
+          </div>
         ),
       },
     ],

@@ -220,10 +220,16 @@ function MainMerchandiseMovements() {
         </div>
 
         <Tabs
-          defaultValue="inputs"
+          defaultValue="pendings"
           className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
+            <TabsTrigger
+              value="pendings"
+              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+            >
+              PENDIENTES
+            </TabsTrigger>
             <TabsTrigger
               value="inputs"
               className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
@@ -237,6 +243,15 @@ function MainMerchandiseMovements() {
               SALIDAS
             </TabsTrigger>
           </TabsList>
+          <TabsContent value="pendings" className="mt-[-60px] p-2">
+            <DataTable
+              data={data}
+              columns={columns}
+              searchNameFilter={"Nombre"}
+              searchFilter={"name"}
+              isCheckAll={true}
+            />
+          </TabsContent>
           <TabsContent value="inputs" className="mt-[-60px] p-2">
             <DataTable
               data={data}
