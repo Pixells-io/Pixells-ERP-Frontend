@@ -181,6 +181,7 @@ import {
   getCompletedActivity,
   multiLoaderObjetivesPm,
   getNotifications,
+  getProfileGoogle,
 } from "./lib/actions";
 
 //Not Found
@@ -350,7 +351,6 @@ import MainTopics from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
 import NewEntry from "./pages/Inventory/MerchandiseMovements/NewEntry/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/NewEntry/Records/MerchandiseMovRecord";
-
 
 const router = createBrowserRouter([
   {
@@ -808,6 +808,7 @@ const router = createBrowserRouter([
           {
             path: "/my-profile/security",
             element: <MainSecurity />,
+            loader: getProfileGoogle,
           },
           {
             path: "/my-profile/notifications",
@@ -963,7 +964,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MainCustomer />
+            element: <MainCustomer />,
           },
           {
             path: "/sales/customer/new",
