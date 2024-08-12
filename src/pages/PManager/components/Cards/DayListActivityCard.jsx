@@ -92,23 +92,13 @@ function DayListActivityCard({ task, index }) {
         </Avatar>
         <p className="text-[10px] text-grisHeading">Creador</p>
         <div className="flex w-[80px] flex-col items-center justify-center">
-          <div className="flex w-full justify-center overflow-scroll">
-            <Avatar className="size-6">
-              <AvatarImage src={task?.creator.img} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-            <Avatar className="size-6">
-              <AvatarImage src={task?.creator.img} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-            <Avatar className="size-6">
-              <AvatarImage src={task?.creator.img} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-            <Avatar className="size-6">
-              <AvatarImage src={task?.creator.img} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
+          <div className="flex w-full justify-center gap-1 overflow-scroll">
+            {task.responsibles?.map((item, i) => (
+              <Avatar className="size-6" index={i} title={item.name}>
+                <AvatarImage src={item.img} />
+                <AvatarFallback></AvatarFallback>
+              </Avatar>
+            ))}
           </div>
 
           <p className="text-[9px] text-[#ABABAB]">Responsables</p>
@@ -116,47 +106,55 @@ function DayListActivityCard({ task, index }) {
       </div>
       <div className="flex w-full flex-col justify-between px-2">
         <div>
-          <div className="flex justify-between">
-            <p className="font-poppins text-[10px] font-semibold text-grisHeading">
-              Nombre de Actividad
-            </p>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <IonIcon
-                  icon={ellipsisHorizontal}
-                  className="flex h-5 w-5 text-grisSubText"
-                ></IonIcon>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <button
-                    type="button"
-                    className="w-full text-left"
-                    onClick={() =>
-                      openEditModalTask(
-                        task?.id,
-                        task?.name,
-                        task?.description,
-                        task?.priority,
-                        task?.start,
-                      )
-                    }
-                  >
-                    Edit
-                  </button>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <button
-                    type="button"
-                    className="w-full text-left"
-                    onClick={() => openDestroyTaskModal(task?.id)}
-                  >
-                    Destroy
-                  </button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          {task.reg === 1 ? (
+            <div className="flex justify-between">
+              <p className="font-poppins text-[10px] font-semibold text-grisHeading">
+                Nombre de la Tarea
+              </p>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <IonIcon
+                    icon={ellipsisHorizontal}
+                    className="flex h-5 w-5 text-grisSubText"
+                  ></IonIcon>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <button
+                      type="button"
+                      className="w-full text-left"
+                      onClick={() =>
+                        openEditModalTask(
+                          task?.id,
+                          task?.name,
+                          task?.description,
+                          task?.priority,
+                          task?.start,
+                        )
+                      }
+                    >
+                      Edit
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <button
+                      type="button"
+                      className="w-full text-left"
+                      onClick={() => openDestroyTaskModal(task?.id)}
+                    >
+                      Destroy
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="flex justify-between">
+              <p className="font-poppins text-[10px] font-semibold text-grisHeading">
+                Nombre de la Actividad
+              </p>
+            </div>
+          )}
           <span className="text-xs text-grisHeading">{task?.name}</span>
         </div>
         <div className="flex items-center gap-2 pb-1">

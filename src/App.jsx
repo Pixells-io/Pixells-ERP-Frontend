@@ -294,6 +294,8 @@ import UserMediaLibrary, {
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
+import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 
 //Sales
@@ -944,6 +946,14 @@ const router = createBrowserRouter([
           {
             path: "/inventory/create",
             element: <CreateArticle />,
+          },
+          {
+            path: "/inventory/general-warehouses",
+            element: <MainGW />,
+          },
+          {
+            path: "/inventory/general-warehouses/create",
+            element: <CreateWH />,
           },
           {
             path: "/inventory/merchandise-movements",

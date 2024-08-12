@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
  */
 
 const InputField = ({
+  type,
   name,
   value,
   readOnly,
@@ -16,6 +17,7 @@ const InputField = ({
 }) => (
   <div > 
     <Input
+      type={type}
       name={name}
       value={value}
       readOnly={readOnly}

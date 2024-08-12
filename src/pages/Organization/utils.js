@@ -520,3 +520,43 @@ export async function CrmApiFunction(email) {
 
   return response.json();
 }
+
+export async function deleteUser(data) {
+  const info = {
+    user_id: data.get("id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization/destroy-user
+`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function deletePosition(data) {
+  const info = {
+    position_id: data.get("id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization/destroy-user
+`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

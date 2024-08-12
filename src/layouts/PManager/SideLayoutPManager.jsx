@@ -76,6 +76,7 @@ const yearsOption = [
 function SideLayoutPManager() {
   const [open, setOpen] = useState(false);
   const { objectives, areas, permissions } = useLoaderData();
+  const [date, setDate] = useState("2024");
 
   //PERMISSIONS
   const [create, setCreate] = useState(true); //3
@@ -90,12 +91,22 @@ function SideLayoutPManager() {
     if (createQuery.length == 0) {
       setCreate(false);
     }
-  });
+  }, []);
 
   async function changeYear(value) {
     const newQuery = await getObjectives(value);
+    setDate(value);
     setObjectivesData(newQuery);
   }
+
+  useEffect(() => {
+    async function changeYear(value) {
+      const newQuery = await getObjectives(value);
+      setDate(value);
+      setObjectivesData(newQuery);
+    }
+    changeYear(date);
+  }, [date, objectives]);
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -244,7 +255,7 @@ export default SideLayoutPManager;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const validation = await saveNewObjective(data);
+  await saveNewObjective(data);
 
   return redirect("/project-manager");
 }

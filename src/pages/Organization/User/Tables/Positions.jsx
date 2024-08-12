@@ -18,6 +18,7 @@ import {
 import ModalShowPDF from "@/layouts/Masters/Modals/ModalShowPDF";
 import { getPosition } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
+import ModalDelete from "@/components/modal-delete";
 
 function PositionsTable({ positions, edit }) {
   //Web Socket
@@ -90,6 +91,11 @@ function PositionsTable({ positions, edit }) {
                     className="h-5 w-5"
                   ></IonIcon>
                 </NavLink>
+                <ModalDelete
+                  id={row.original.id}
+                  name="Position"
+                  action="delete-position"
+                />
                 <button
                   className="text-roboto flex items-center rounded-xl bg-[#e0e0e0] px-2 pt-[2px] text-[0.6875rem] font-semibold text-grisText"
                   onClick={setModal}
