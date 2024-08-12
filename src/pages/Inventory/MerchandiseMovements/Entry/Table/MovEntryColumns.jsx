@@ -57,7 +57,7 @@ export const MovEntryColumns = [
     cell: ({ row }) => (
       <div className="flex justify-center">
         <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarImage src={row?.original?.createdBy} alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
