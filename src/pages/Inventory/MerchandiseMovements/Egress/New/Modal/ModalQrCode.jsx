@@ -25,15 +25,15 @@ function ModalQrCode({ setModal, modal }) {
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger></DialogTrigger>
-      <DialogContent className="flex max-w-[260px] flex-col gap-4">
-        <DialogHeader>
-          <DialogTitle className="text-md font-robot font-medium">
+      <DialogContent className="max-w-[380px] p-0">
+        <DialogHeader className="rounded-t-lg border-b bg-blancoForms pt-2">
+          <DialogTitle className="px-8 py-2 font-poppins text-sm font-semibold text-grisHeading">
             Código QR/Barras
           </DialogTitle>
         </DialogHeader>
-        <DialogDescription className="text-xs font-medium text-grisSubText">
+        <DialogDescription className="flex justify-center px-4 py-2">
           <Input
-            className="w-full rounded-3xl border border-[#696974] bg-inherit text-center text-sm font-medium text-grisText placeholder:text-center placeholder:text-grisText"
+            className="w-full max-w-[180px] rounded-3xl border border-[#696974] bg-inherit text-center text-sm font-medium text-grisText placeholder:text-center placeholder:text-grisText"
             name="code"
             // value={row.amount}
             placeholder="CÓDIGO"
@@ -41,7 +41,7 @@ function ModalQrCode({ setModal, modal }) {
           />
         </DialogDescription>
 
-        <DialogFooter>
+        <DialogFooter className="p-3">
           <div className="flex w-full justify-center">
             <Button
               type="button"

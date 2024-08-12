@@ -7,7 +7,9 @@ import {
   chevronForward,
   copy,
   print,
+  create,
   closeCircle,
+  qrCodeOutline,
 } from "ionicons/icons";
 
 import StatusInformation from "@/components/StatusInformation/status-information";
@@ -20,44 +22,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import NoDocument from "../Components/NoDocument";
-import OnlyTable from "../Components/OnlyTable";
-import { MerchandiseRecordColumns } from "./Table/MerchandiseRecordColumns";
+import TableForm from "./Table/TableForm";
+import AlertMessage from "./Modal/AlertMessage";
+import AlertConfirmation from "./Modal/AlertConfirmation";
+import AlertDoNotComply from "./Modal/AlertDoNotComply";
+import ModalQrCode from "./Modal/ModalQrCode";
 
-const data = [
-  {
-    id: 1,
-    articleNumber: "239846",
-    description: "Aceite Vegetal",
-    receivedQuantity: "8",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén MP",
-  },
-  {
-    id: 2,
-    articleNumber: "239847",
-    description: "Aceite Vegetal",
-    receivedQuantity: "5",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén PM",
-  },
-  {
-    id: 3,
-    articleNumber: "239848",
-    description: "Aceite Vegetal",
-    receivedQuantity: "8",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén MP",
-  },
-];
+function NewEntry() {
+  const [commodity, setCommodity] = useState([]);
+  const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
+  const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
+  const [modalDoNotComply, setModalDoNotComply] = useState(false);
+  const [modalQr, setModalQr] = useState(false);
 
-function MerchandiseMovRecord() {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
+        <AlertMessage
+          setModal={setModalQuantityOverCome}
+          modal={modalQuantityOverCome}
+        />
+        <AlertConfirmation
+          setModal={setModalAlertConfirmation}
+          modal={modalAlertConfirmation}
+        />
+        <AlertDoNotComply
+          setModal={setModalDoNotComply}
+          modal={modalDoNotComply}
+        />
+        <ModalQrCode setModal={setModalQr} modal={modalQr} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -96,38 +89,18 @@ function MerchandiseMovRecord() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Entrada de Mercancia
+            Nueva Entrada de Mercancía
           </p>
 
-          <div className="flex items-center justify-end gap-12">
-            <div>
-              <Button
-                type="button"
-                className="rounded-3xl bg-[#F0F0F0] text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
-              >
-                Convertir a Pedido
-              </Button>
-            </div>
-            <div className="flex gap-x-5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={print}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-            </div>
-            <div className="flex w-[250px] items-center gap-2">
-              <NoDocument />
-            </div>
+          <div className="flex items-center justify-end gap-5">
+            <Button
+              type="button"
+              className="rounded-3xl bg-[#F0F0F0] h-[28px] px-2 text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
+            >
+              Convertir a Pedido
+            </Button>
           </div>
+          <div></div>
           <div className="flex items-end justify-center">
             <Link to={"/inventory/merchandise-movements"}>
               <IonIcon
@@ -162,14 +135,32 @@ function MerchandiseMovRecord() {
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <Input
+                className="w-[94px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText"
+                name={`order`}
+                // value={row.amount}
+                placeholder="Pedido"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="flex w-full justify-center px-8">
+            <button type="button" onClick={() => setModalQr(true)}>
+              <IonIcon
+                icon={qrCodeOutline}
+                size="large"
+                className="text-[#5B89FF]"
+              ></IonIcon>
+            </button>
           </div>
         </div>
 
-        <div className="rounded-xl bg-blancoBg p-4">
-          <OnlyTable data={data} columns={MerchandiseRecordColumns} />
+        <div className="rounded-xl bg-blancoBg p-6">
+          <TableForm tableData={commodity} setTableData={setCommodity} />
         </div>
 
-        <div className="rounded-xl bg-blancoBg px-4 py-6">
+        <div className="rounded-xl bg-blancoBg px-8 py-6">
           <textarea
             placeholder="Observaciones (esto será visible en la OC)"
             className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
@@ -178,17 +169,30 @@ function MerchandiseMovRecord() {
         </div>
 
         <StatusInformation
-          status="done"
-          approvedBy={"Oziel duran"}
-          date={"20 agosto 2024"}
-          comments={"Todo Bien"}
+          status="inProgress"
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
-        ></StatusInformation>
+        >
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+            onClick={() => alert("cancelar")}
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setModalDoNotComply(true)}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Crear
+          </Button>
+        </StatusInformation>
       </div>
     </div>
   );
 }
 
-export default MerchandiseMovRecord;
+export default NewEntry;

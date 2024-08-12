@@ -349,8 +349,10 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
-import NewEntry from "./pages/Inventory/MerchandiseMovements/NewEntry/NewEntry";
-import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Records/MerchandiseMovRecord";
+import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
+import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
+import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
+import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
 
 const router = createBrowserRouter([
   {
@@ -948,12 +950,20 @@ const router = createBrowserRouter([
             element: <MainMerchandiseMovements />,
           },
           {
-            path: "/inventory/merchandise-movements/new-entry",
+            path: "/inventory/merchandise-movements/entry/new",
             element: <NewEntry />,
           },
           {
-            path: "/inventory/merchandise-movements/record/:id",
+            path: "/inventory/merchandise-movements/entry/record/:id",
             element: <MerchandiseMovRecord />,
+          },
+          {
+            path: "/inventory/merchandise-movements/egress/new",
+            element: <NewEgress />,
+          },
+          {
+            path: "/inventory/merchandise-movements/egress/record/:id",
+            element: <MerchandiseMovRecordEgress />,
           },
         ],
       },

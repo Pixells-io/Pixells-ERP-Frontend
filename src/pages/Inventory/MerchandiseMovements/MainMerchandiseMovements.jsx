@@ -8,17 +8,16 @@ import {
   chevronBack,
   chevronForward,
   addCircleOutline,
-  informationCircle,
 } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
+import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
 
 function MainMerchandiseMovements() {
   //datos de prueba --------------------------
@@ -70,76 +69,39 @@ function MainMerchandiseMovements() {
     },
   ];
 
-  const columns = [
+  const dataEgress = [
     {
-      accessorKey: "code",
-      header: "CÓDIGO",
-      cell: ({ row }) => {
-        return (
-          <div className="flex gap-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={row.getIsSelected()}
-              onCheckedChange={(value) => row.toggleSelected(!!value)}
-            />
-            <label>{row?.original?.code}</label>
-          </div>
-        );
-      },
-      meta: { filterButton: true },
+      id: 1,
+      code: "0990",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      accessorKey: "category",
-      header: "CATEGORÍA",
-      meta: { filterButton: true },
+      id: 2,
+      code: "0991",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
     {
-      accessorKey: "name",
-      header: "NOMBRE",
-      meta: { filterButton: true },
-    },
-    {
-      accessorKey: "unitMeasurement",
-      header: "UNIDAD MEDIDA",
-    },
-    {
-      accessorKey: "accountingAccount",
-      header: "CUENTA CONTABLE",
-    },
-    {
-      accessorKey: "type",
-      header: "TIPO",
-    },
-    {
-      accessorKey: "createdBy",
-      header: "CREADO POR",
-      cell: ({ row }) => (
-        <div className="flex justify-center">
-          <Avatar className="h-6 w-6">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </div>
-      ),
-    },
-    {
-      accessorKey: "createdAt",
-      header: "CREACIÓN",
-    },
-    {
-      id: "acciones",
-      header: "Acciones",
-      cell: ({ row }) => (
-        <Link
-          to={"/inventory/merchandise-movements/record/" + row?.original?.id}
-          className="flex w-full items-center justify-center"
-        >
-          <IonIcon
-            icon={informationCircle}
-            className="text-gris2-500 h-6 w-6"
-          />
-        </Link>
-      ),
+      id: 3,
+      code: "0992",
+      category: "Metales",
+      name: "Clavos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "usuario1.jpg",
+      createdAt: "21/07/2024",
     },
   ];
 
@@ -200,7 +162,7 @@ function MainMerchandiseMovements() {
               <DropdownMenuContent>
                 <DropdownMenuItem className="hover:cursor-pointer focus:bg-hoverModal">
                   <Link
-                    to="/inventory/merchandise-movements/new-entry"
+                    to="/inventory/merchandise-movements/entry/new"
                     className="w-full"
                   >
                     Entrada
@@ -208,7 +170,7 @@ function MainMerchandiseMovements() {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
                   <Link
-                    to="/inventory/merchandise-movements/"
+                    to="/inventory/merchandise-movements/egress/new"
                     className="w-full"
                   >
                     Salida
@@ -246,7 +208,7 @@ function MainMerchandiseMovements() {
           <TabsContent value="pendings" className="mt-[-60px] p-2">
             <DataTable
               data={data}
-              columns={columns}
+              columns={MovEntryColumns}
               searchNameFilter={"Nombre"}
               searchFilter={"name"}
               isCheckAll={true}
@@ -255,13 +217,21 @@ function MainMerchandiseMovements() {
           <TabsContent value="inputs" className="mt-[-60px] p-2">
             <DataTable
               data={data}
-              columns={columns}
+              columns={MovEntryColumns}
               searchNameFilter={"Nombre"}
               searchFilter={"name"}
               isCheckAll={true}
             />
           </TabsContent>
-          <TabsContent value="outputs" className="mt-[-60px] p-2"></TabsContent>
+          <TabsContent value="outputs" className="mt-[-60px] p-2">
+            <DataTable
+              data={dataEgress}
+              columns={MovEgressColumns}
+              searchNameFilter={"Nombre"}
+              searchFilter={"name"}
+              isCheckAll={true}
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </div>

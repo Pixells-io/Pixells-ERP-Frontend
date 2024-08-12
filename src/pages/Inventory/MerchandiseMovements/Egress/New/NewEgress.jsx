@@ -5,9 +5,6 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  copy,
-  print,
-  create,
   closeCircle,
   qrCodeOutline,
 } from "ionicons/icons";
@@ -28,7 +25,7 @@ import AlertConfirmation from "./Modal/AlertConfirmation";
 import AlertDoNotComply from "./Modal/AlertDoNotComply";
 import ModalQrCode from "./Modal/ModalQrCode";
 
-function NewEntry() {
+function NewEgress() {
   const [commodity, setCommodity] = useState([]);
   const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
   const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
@@ -89,13 +86,13 @@ function NewEntry() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nueva Entrada de Mercancía
+            Nueva Salida de Mercancía
           </p>
 
           <div className="flex items-center justify-end gap-5">
             <Button
               type="button"
-              className="rounded-3xl bg-[#F0F0F0] text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
+              className="rounded-3xl bg-[#F0F0F0] h-[28px] px-2 text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
             >
               Convertir a Pedido
             </Button>
@@ -160,7 +157,7 @@ function NewEntry() {
           <TableForm tableData={commodity} setTableData={setCommodity} />
         </div>
 
-        <div className="rounded-xl bg-blancoBg px-4 py-6">
+        <div className="rounded-xl bg-blancoBg px-8 py-6">
           <textarea
             placeholder="Observaciones (esto será visible en la OC)"
             className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
@@ -195,4 +192,4 @@ function NewEntry() {
   );
 }
 
-export default NewEntry;
+export default NewEgress;
