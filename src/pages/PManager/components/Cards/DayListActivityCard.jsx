@@ -21,6 +21,7 @@ import {
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
+import CompleteActivity from "../Modal/CompleteActivity";
 
 function DayListActivityCard({ task, index }) {
   const [taskId, setTaskId] = useState(false);
@@ -72,6 +73,8 @@ function DayListActivityCard({ task, index }) {
         taskId={taskId}
         name={taskName}
         description={taskDescription}
+        action="/project-manager"
+        actionInput="complete-task"
       />
       <EditShowTask
         modal={editTaskModal}
@@ -94,7 +97,7 @@ function DayListActivityCard({ task, index }) {
         <div className="flex w-[80px] flex-col items-center justify-center">
           <div className="flex w-full justify-center gap-1 overflow-scroll">
             {task.responsibles?.map((item, i) => (
-              <Avatar className="size-6" index={i} title={item.name}>
+              <Avatar key={i} className="size-6" index={i} title={item.name}>
                 <AvatarImage src={item.img} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
@@ -184,7 +187,7 @@ function DayListActivityCard({ task, index }) {
             )}
           </div>
           <div>
-            {task.progress === 1 ? (
+            {task?.progress === 1 ? (
               <span className="rounded-2xl border border-[#00A259] px-2 py-1 text-sm font-normal text-[#00A259]">
                 Completado
               </span>
@@ -195,20 +198,33 @@ function DayListActivityCard({ task, index }) {
             )}
           </div>
           <div>
-            {task.progress === 1 ? (
+            {task?.reg === 1 ? (
+              task?.progress === 1 ? (
+                <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
+                  Task Done
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() =>
+                    openCompleteTaskModal(task.id, task.name, task.description)
+                  }
+                  className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
+                >
+                  Complete
+                </button>
+              )
+            ) : task?.progress === 1 ? (
               <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
-                Complete
+                Activity Done
               </span>
             ) : (
-              <button
-                type="button"
-                onClick={() =>
-                  openCompleteTaskModal(task.id, task.name, task.description)
-                }
-                className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
-              >
-                Complete
-              </button>
+              <CompleteActivity
+                activity_id={task?.id}
+                task={task}
+                action="complete-activity"
+                actionRoute="/project-manager"
+              />
             )}
           </div>
         </div>

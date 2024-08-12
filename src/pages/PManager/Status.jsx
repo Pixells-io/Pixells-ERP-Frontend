@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { redirect, useLoaderData } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  attachOutline,
-  calendarOutline,
-  checkmarkCircleOutline,
-  chevronBack,
-  chevronForward,
-  ellipsisHorizontal,
-  listCircleOutline,
-} from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
-import { Progress } from "@/components/ui/progress";
-import { useLoaderData } from "react-router-dom";
-import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
-import { getMonthKanban } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
-import { completeActivity } from "./utils";
+import { getMonthKanban } from "@/lib/actions";
+import { completeActivity, completeTask } from "./utils";
+
 import NavigationHeader from "@/components/navigation-header";
+import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
 
 function Status() {
   const { data } = useLoaderData();
@@ -122,8 +111,16 @@ export default Status;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  completeActivity(data);
+  switch (action) {
+    case "complete-task":
+      await completeTask(data);
+      return redirect("/project-manager/status");
+    case "complete-activity":
+      await completeActivity(data);
+      return redirect("/project-manager/status");
+  }
 
-  return "1";
+  return redirect("/project-manager/status");
 }
