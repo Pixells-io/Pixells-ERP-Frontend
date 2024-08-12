@@ -5,6 +5,7 @@ import QuoteTable from "@/components/table/Quote/QuoteTable";
 import Total from "@/components/TotalSection/TotalSection";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { chevronBack,chevronForward } from "ionicons/icons";
 import SelectDetails from "../../Components/SelectDetails";
@@ -89,14 +90,29 @@ const InvoiceForm = () => {
             <div className=""></div>
             <Total subtotal={subtotal} />
             <div className="flex justify-end">
-              <StatusInformation
-                status={"inProgress"}
-                applyFunction={handleSubmit}
-                imgUser={
-                  "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                }
-              />
-            </div>
+        <StatusInformation
+          status={"inProgress"}
+          applyFunction={handleSubmit}
+          imgUser={
+            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          }
+        >
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+          >
+            Save
+          </Button>
+          <Button
+            type="button"
+            onClick={() => alert("save")}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Save for Aproval
+          </Button>
+        </StatusInformation>
+        </div>
           </Form>
         </div>
       </div>
