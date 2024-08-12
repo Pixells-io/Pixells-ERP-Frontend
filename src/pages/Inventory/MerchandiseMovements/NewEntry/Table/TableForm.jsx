@@ -99,7 +99,7 @@ const TableForm = ({ tableData, setTableData }) => {
     () => [
       {
         accessorKey: "articleNumber",
-        header: "Numero Articulo",
+        header: "Numero Artículo",
         cell: ({ row, rowIndex }) => (
           <Input
             className="w-[100px] border-none"

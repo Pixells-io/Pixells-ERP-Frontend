@@ -20,6 +20,39 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import NoDocument from "../Components/NoDocument";
+import OnlyTable from "../Components/OnlyTable";
+import { MerchandiseRecordColumns } from "./Table/MerchandiseRecordColumns";
+
+const data = [
+  {
+    id: 1,
+    articleNumber: "239846",
+    description: "Aceite Vegetal",
+    receivedQuantity: "8",
+    unitPrice: "55.00",
+    total: "550.00",
+    ubication: "Almacén MP",
+  },
+  {
+    id: 2,
+    articleNumber: "239847",
+    description: "Aceite Vegetal",
+    receivedQuantity: "5",
+    unitPrice: "55.00",
+    total: "550.00",
+    ubication: "Almacén PM",
+  },
+  {
+    id: 3,
+    articleNumber: "239848",
+    description: "Aceite Vegetal",
+    receivedQuantity: "8",
+    unitPrice: "55.00",
+    total: "550.00",
+    ubication: "Almacén MP",
+  },
+];
 
 function MerchandiseMovRecord() {
   return (
@@ -66,7 +99,7 @@ function MerchandiseMovRecord() {
             Entrada de Mercancia
           </p>
 
-          <div className="flex items-center justify-end gap-5">
+          <div className="flex items-center justify-end gap-12">
             <div>
               <Button
                 type="button"
@@ -75,19 +108,24 @@ function MerchandiseMovRecord() {
                 Convertir a Pedido
               </Button>
             </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-              <IonIcon
-                icon={copy}
-                size="small"
-                className="cursor-pointer text-[#696974]"
-              ></IonIcon>
+            <div className="flex gap-x-5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+                <IonIcon
+                  icon={copy}
+                  size="small"
+                  className="cursor-pointer text-[#696974]"
+                ></IonIcon>
+              </div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
+                <IonIcon
+                  icon={print}
+                  size="small"
+                  className="cursor-pointer text-[#696974]"
+                ></IonIcon>
+              </div>
             </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-              <IonIcon
-                icon={print}
-                size="small"
-                className="cursor-pointer text-[#696974]"
-              ></IonIcon>
+            <div className="flex w-[250px] items-center gap-2">
+              <NoDocument />
             </div>
           </div>
           <div className="flex items-end justify-center">
@@ -125,6 +163,18 @@ function MerchandiseMovRecord() {
               </Select>
             </div>
           </div>
+        </div>
+
+        <div className="rounded-xl bg-blancoBg p-4">
+          <OnlyTable data={data} columns={MerchandiseRecordColumns} />
+        </div>
+
+        <div className="rounded-xl bg-blancoBg px-4 py-6">
+          <textarea
+            placeholder="Observaciones (esto será visible en la OC)"
+            className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
+            name="template"
+          ></textarea>
         </div>
 
         <StatusInformation

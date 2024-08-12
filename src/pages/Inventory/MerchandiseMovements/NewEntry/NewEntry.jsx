@@ -26,19 +26,31 @@ import TableForm from "./Table/TableForm";
 import AlertMessage from "./Modal/AlertMessage";
 import AlertConfirmation from "./Modal/AlertConfirmation";
 import AlertDoNotComply from "./Modal/AlertDoNotComply";
+import ModalQrCode from "./Modal/ModalQrCode";
 
 function NewEntry() {
   const [commodity, setCommodity] = useState([]);
   const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
   const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
   const [modalDoNotComply, setModalDoNotComply] = useState(false);
+  const [modalQr, setModalQr] = useState(false);
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
-      <AlertMessage setModal={setModalQuantityOverCome} modal={modalQuantityOverCome} />
-      <AlertConfirmation setModal={setModalAlertConfirmation} modal={modalAlertConfirmation} />
-      <AlertDoNotComply setModal={setModalDoNotComply} modal={modalDoNotComply} />
+        <AlertMessage
+          setModal={setModalQuantityOverCome}
+          modal={modalQuantityOverCome}
+        />
+        <AlertConfirmation
+          setModal={setModalAlertConfirmation}
+          modal={modalAlertConfirmation}
+        />
+        <AlertDoNotComply
+          setModal={setModalDoNotComply}
+          modal={modalDoNotComply}
+        />
+        <ModalQrCode setModal={setModalQr} modal={modalQr} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -134,7 +146,7 @@ function NewEntry() {
             </div>
           </div>
           <div className="flex w-full justify-center px-8">
-            <button type="button" onClick={() => alert("qr")}>
+            <button type="button" onClick={() => setModalQr(true)}>
               <IonIcon
                 icon={qrCodeOutline}
                 size="large"
@@ -170,7 +182,6 @@ function NewEntry() {
           >
             Cancelar
           </Button>
-
           <Button
             type="button"
             onClick={() => setModalDoNotComply(true)}
