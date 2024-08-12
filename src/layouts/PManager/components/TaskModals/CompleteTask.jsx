@@ -39,35 +39,58 @@ function CompleteTask({
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
+          method="POST"
+          encType="multipart/form-data"
           action={action}
-          method="post"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
-              <input type="hidden" value={taskId} name="task_id" />
-              <input type="hidden" value={actionInput} name="action" />
+              <input
+                type="hidden"
+                readOnly
+                hidden
+                value={taskId}
+                name="task_id"
+              />
+              <input
+                type="hidden"
+                readOnly
+                hidden
+                value={actionInput}
+                name="action"
+              />
               <InputRouter
                 type="text"
                 placeholder="Name of the area"
                 readOnly={true}
-                value={name}
+                defaultVal={name}
               />
               <InputRouter
                 type="text"
                 placeholder="Description of the area"
                 readOnly={true}
-                value={description}
+                defaultVal={description}
               />
               <InputRouter name="comment" type="text" placeholder="Comment" />
               <DropzoneFile name={"document"} label={"Voucher"} />
             </div>
           </div>
-          <DialogFooter className="px-10 pb-6">
+          <DialogFooter className="flex gap-2 px-10 pb-6">
+            <Button
+              type="button"
+              onClick={() => setModal(false)}
+              className="flex w-full rounded-lg px-6 py-2 text-center font-roboto text-xs font-semibold"
+            >
+              Cancel
+            </Button>
             <Button
               type="submit"
-              className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
+              disabled={navigation.state === "submitting"}
+              className="w-full rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold hover:bg-primario"
             >
-              Save
+              {navigation.state === "submitting"
+                ? "Submitting..."
+                : "Completar"}
             </Button>
           </DialogFooter>
         </Form>

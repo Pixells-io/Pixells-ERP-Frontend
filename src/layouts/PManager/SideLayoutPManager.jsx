@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { completeActivity, completeTask } from "@/pages/PManager/utils";
 
 const yearsOption = [
   {
@@ -254,8 +255,19 @@ export default SideLayoutPManager;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  await saveNewObjective(data);
+  switch (action) {
+    case "complete-activity":
+      await completeActivity(data);
+      return redirect("/project-manager");
 
-  return redirect("/project-manager");
+    case "complete-task":
+      await completeTask(data);
+      return redirect("/project-manager");
+
+    case "create-objective":
+      await saveNewObjective(data);
+      return redirect("/project-manager");
+  }
 }

@@ -31,7 +31,11 @@ const MENU_ITEMS = [
     name: "Movimientos",
     subname: "De Mercancías",
     icon: arrowForwardCircle,
-    subRoutes: ["/inventory/merchandise-movements/new-entry"],
+    subRoutes: ["/inventory/merchandise-movements/entry/new",
+      "/inventory/merchandise-movements/egress/new",
+      "/inventory/merchandise-movements/entry/record/",
+      "/inventory/merchandise-movements/egress/record/"
+    ],
   },
   { path: "/", name: "Listas", subname: "De Precios", icon: clipboard },
   { path: "/", name: "Stock", subname: "De Articulos", icon: statsChart },

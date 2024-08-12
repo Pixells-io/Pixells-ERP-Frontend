@@ -146,7 +146,7 @@ function MainLayout() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="ml-4 grid grid-cols-3 gap-4">
             {moduleShow.map((item, i) => (
-              <>
+              <div key={i}>
                 {item[0]?.id == "3" ? (
                   <>
                     <DropdownMenuItem key={i} className="focus:bg-transparent">
@@ -208,7 +208,7 @@ function MainLayout() {
                     </div>
                   </DropdownMenuItem>
                 )}
-              </>
+              </div>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
