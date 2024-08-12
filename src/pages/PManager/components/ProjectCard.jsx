@@ -1,23 +1,23 @@
 import React, { useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 
-import {
-  attachOutline,
-  ellipsisHorizontal,
-  listCircleOutline,
-  timeOutline,
-} from "ionicons/icons";
+import { attachOutline, listCircleOutline, timeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function ProjectCard(project) {
   const data = project.project;
+  const { id } = useParams();
 
-  // const [progress, setProgress] = useState(80);
+  // console.log(id, data);
 
   return (
-    <div className="flex h-[160px] w-[280px] shrink-0 flex-col justify-center gap-2 rounded-2xl border border-grisDisabled px-4 py-1">
+    <NavLink
+      to={`/project-manager/${id}/projects/${data.id}`}
+      className="flex h-[160px] w-[280px] shrink-0 flex-col justify-center gap-2 rounded-2xl border border-grisDisabled px-4 py-1"
+    >
       <div className="flex items-center justify-between">
         <p className="font-poppins text-[15px] font-semibold">
           {data.phases} Fases &bull; {data.activities} Actividades
@@ -50,7 +50,7 @@ function ProjectCard(project) {
           </Avatar>
         ))}
       </div>
-    </div>
+    </NavLink>
   );
 }
 
