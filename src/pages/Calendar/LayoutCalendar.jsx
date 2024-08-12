@@ -14,6 +14,8 @@ function LayoutCalendar() {
   const [filters, setFilters] = useState(["activity", "meet", "task", "crm"]);
   const [userFilter, setUserFilter] = useState(0);
 
+  console.log(data);
+
   function onSelectFilter(filter) {
     if (filters.includes(filter)) {
       setFilters(filters.filter((item) => item !== filter));
@@ -40,13 +42,13 @@ function LayoutCalendar() {
   }
 
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
+    <div className="flex h-full overflow-auto px-4 pb-4 font-roboto">
       <FormCreateMeet modal={modal} setModal={setModal} users={data} />
       <div className="flex w-[350px] shrink-0 flex-col gap-4 rounded-xl">
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenu main={"/"} />
         </div>
-        <div className="flex h-full flex-col gap-4 rounded-lg bg-gris px-4 py-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg bg-gris px-4 py-4">
           <span className="font-popins text-lg font-semibold text-grisHeading">
             Menu
           </span>

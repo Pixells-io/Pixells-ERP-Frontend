@@ -14,8 +14,6 @@ import { IonIcon } from "@ionic/react";
 function ProjectCard(project) {
   const data = project.project;
 
-  console.log(data, "Hola");
-
   // const [progress, setProgress] = useState(80);
 
   return (
