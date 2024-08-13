@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const MainQtGeneral = () => {
   const data = [
     {
-      id:1,
+      id: 1,
       nombre: "PEPSICO",
       tipo: "NACIONAL",
       nacionalidad: "EXTRANJERA",
@@ -22,7 +22,7 @@ const MainQtGeneral = () => {
       email: "PEPSICO@mail.com",
     },
     {
-      id:2,
+      id: 2,
       nombre: "PEPSICO",
       tipo: "NACIONAL",
       nacionalidad: "EXTRANJERA",
@@ -69,17 +69,17 @@ const MainQtGeneral = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <Link to={`/sales/quotes/edit/${row.original.id}`} className="inline-block">
+        <div className="flex items-center justify-center">
+          <Link to={`/sales/quotes/edit/${row.original.id}`}>
             <Button
               type="button"
               className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={informationCircle}
-                size="small"
+                size="large"
                 className="text-grisText"
               />
             </Button>
@@ -134,55 +134,55 @@ const MainQtGeneral = () => {
           <Link to="/sales/quotes/new" className="inline-block">
             <Button
               type="button"
-              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="small"
-                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+                size="large"
+                className="text-primarioBotones"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl  bg-transparent p-4">
-          <div className="w-full">
+        <div className="w-full">
           <Tabs
-              defaultValue="quotes"
-               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="quotes"
-                >
-                  COTIZACIONES
-                </TabsTrigger>
-                <TabsTrigger 
-                className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="OTRO"
-                >
-                  OTRO
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="quotes" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="nombre"
-                  searchNameFilter="Buscar por nombre"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-              <TabsContent value="OTRO" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <p>CONTENIDO</p>
-                  </div>
+            defaultValue="quotes"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="quotes"
+              >
+                COTIZACIONES
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="OTRO"
+              >
+                OTRO
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="quotes" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="nombre"
+                searchNameFilter="Buscar por nombre"
+                isCheckAll={true}
+              />
+            </TabsContent>
+            <TabsContent value="OTRO" className="w-full">
+              <div className="flex w-full justify-center">
+                <div className="w-full max-w-4xl">
+                  <p>CONTENIDO</p>
                 </div>
-              </TabsContent>
-            </Tabs>
-          </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

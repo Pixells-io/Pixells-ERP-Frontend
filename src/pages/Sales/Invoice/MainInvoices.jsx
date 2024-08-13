@@ -69,17 +69,17 @@ const MainInvoice = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <Link to={`/sales/invoices/edit/${row.original.id}`} className="inline-block">
+        <div className="flex items-center justify-center">
+          <Link to={`/sales/invoices/edit/${row.original.id}`}>
             <Button
               type="button"
               className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={informationCircle}
-                size="small"
+                size="large"
                 className="text-grisText"
               />
             </Button>
@@ -131,21 +131,22 @@ const MainInvoice = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Facturas de Venta
           </p>
-          <Link to="/sales/invoices/new" className="inline-block">
-            <Button
+          <Link to="/sales/invoices/new">
+          <Button
               type="button"
-              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="small"
-                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+                size="large"
+                className="text-primarioBotones"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl   p-4">
           <div className="w-full">
             <Tabs
               defaultValue="invoices"
@@ -185,7 +186,6 @@ const MainInvoice = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
