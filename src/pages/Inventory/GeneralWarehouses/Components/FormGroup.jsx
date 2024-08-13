@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GeneralForm from "./Forms/GeneralForm";
 import DataTable from "./Table/AccountTable";
+
 const FormGroup = () => {
   const sampleData = [
     { nombre: 'Cuenta A', codigoCuenta: '001', nombreCuenta: 'Cuenta de Ejemplo A' },
@@ -15,18 +16,21 @@ const FormGroup = () => {
     { nombre: 'Cuenta I', codigoCuenta: '009', nombreCuenta: 'Cuenta de Ejemplo I' },
     { nombre: 'Cuenta J', codigoCuenta: '010', nombreCuenta: 'Cuenta de Ejemplo J' },
     { nombre: 'Cuenta K', codigoCuenta: '011', nombreCuenta: 'Cuenta de Ejemplo K' }
-   
-  ]
+  ];
 
   const [generalData, setGeneralData] = useState({
-    sImpuesto: false,
-    fabricante: "",
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: ""
+    active: false,
+    inactive: false,
+    calle: "",
+    numInt: "",
+    numExt: "",
+    col: "",
+    cp: "",
+    city: "",
+    state: "",
+    country: ""
   });
+
 
   return (
     <div className="w-full overflow-auto">
@@ -48,12 +52,13 @@ const FormGroup = () => {
         <div className="w-full bg-white rounded-[10px] p-4">
           <TabsContent value="general">
             <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">GENERAL</h2>
-
-           <GeneralForm/>
+            <GeneralForm data={generalData} setData={setGeneralData} />
           </TabsContent>
           <TabsContent value="account">
-          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">ASOCIAR CUENTAS CONTABLES</h2>
-          <DataTable data={sampleData}/>
+            <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">ASOCIAR CUENTAS CONTABLES</h2>
+            
+            <DataTable data={sampleData}/>
+            
           </TabsContent>
         </div>
       </Tabs>

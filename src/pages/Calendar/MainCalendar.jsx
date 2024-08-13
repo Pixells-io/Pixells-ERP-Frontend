@@ -22,8 +22,8 @@ function MainCalendar() {
     }
 
     async function getOtherCalendar(user) {
-      const newInfo = await getCalendarDataId(user);
-      setStatusData(newInfo);
+      const { data } = await getCalendarDataId(user);
+      setStatusData(data);
     }
   }, [userFilter]);
 
@@ -50,7 +50,7 @@ function MainCalendar() {
     );
 
     setEvents(res2.flat());
-  }, [filters]);
+  }, [filters, statusData]);
 
   //Use States Var
   const [tasks, setTasks] = useState(false);
@@ -75,7 +75,6 @@ function MainCalendar() {
   const [completeActivityModal, setCompleteActivityModal] = useState(false);
 
   function openCompleteTaskModal(taskId, name, description) {
-    console.log(description);
     setTaskId(taskId);
     setTaskName(name);
     setTaskDescription(description);
@@ -104,7 +103,7 @@ function MainCalendar() {
     }
 
     setEvents(arrayfIllVar);
-  }, []);
+  }, [statusData]);
 
   function filterEventsCalendar($module) {
     setEvents([]);
@@ -194,7 +193,7 @@ function MainCalendar() {
     }
 
     return (
-      <>
+      <div>
         {complete === 1 ? (
           <>
             <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
@@ -265,7 +264,7 @@ function MainCalendar() {
             ) : null}
           </>
         )}
-      </>
+      </div>
     );
   }
 
