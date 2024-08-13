@@ -130,16 +130,16 @@ function MainCapacitations() {
           <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">FORM</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">LUGAR</p>
+                <p className="text-sm font-semibold text-grisText">PLACE</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">FORMADOR</p>
@@ -150,9 +150,7 @@ function MainCapacitations() {
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">
-                  FECHA REAL
-                </p>
+                <p className="text-sm font-semibold text-grisText">REAL DATE</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">DOCS</p>
@@ -161,7 +159,7 @@ function MainCapacitations() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">HISTORY</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">

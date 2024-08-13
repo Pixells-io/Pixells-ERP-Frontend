@@ -147,10 +147,10 @@ function MainOrgDev() {
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-8 px-4 py-2 text-center">
               <div className="col-span-2 flex items-center pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div className="flex items-center">
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div className="flex items-center">
                 <p className="text-sm font-semibold text-grisText">AREAS</p>
@@ -167,7 +167,7 @@ function MainOrgDev() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">HISTORY</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
