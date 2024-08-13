@@ -102,6 +102,7 @@ function MainCalendar() {
       });
     }
 
+    console.log(arrayfIllVar);
     setEvents(arrayfIllVar);
   }, [statusData]);
 
@@ -124,16 +125,16 @@ function MainCalendar() {
     console.log(tasks, "task d");
     console.log(crm, "crm d");
 
-    if (tasks === true) {
+    if (tasks == true) {
       arrayFill(statusData.task, array_bulk);
       arrayFill(statusData.activity, array_bulk);
     }
 
-    if (crm === true) {
+    if (crm == true) {
       arrayFill(statusData.crm, array_bulk);
     }
 
-    if (meet === true) {
+    if (meet == true) {
       arrayFill(statusData.meet, array_bulk);
     }
 
@@ -194,20 +195,18 @@ function MainCalendar() {
 
     return (
       <div>
-        {complete === 1 ? (
-          <>
-            <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
-              <span
-                className="rounded-3xl font-roboto text-xs font-normal text-grisSubText"
-                title={eventInfo.event.title}
-              >
-                {eventInfo.event.title}
-              </span>
-            </div>
-          </>
+        {complete == 1 ? (
+          <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-grisSubText"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
         ) : (
-          <>
-            {type === 1 ? (
+          <div>
+            {type == 1 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border border-primario bg-transparent pl-2 pr-2"
                 onClick={() =>
@@ -225,7 +224,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 2 ? (
+            ) : type == 2 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -237,7 +236,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 3 ? (
+            ) : type == 3 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -249,7 +248,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 4 ? (
+            ) : type == 4 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border bg-primario pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -262,7 +261,7 @@ function MainCalendar() {
                 </span>
               </div>
             ) : null}
-          </>
+          </div>
         )}
       </div>
     );
@@ -287,11 +286,15 @@ function MainCalendar() {
           taskId={taskId}
           name={taskName}
           description={taskDescription}
+          action="/calendar"
+          actionInput="complete-task"
         />
         <CompleteActivity
           modal={completeActivityModal}
           setModal={setCompleteActivityModal}
           activity={activityId}
+          action="/calendar"
+          actionInput="complete-activity"
         />
       </div>
       <FullCalendar

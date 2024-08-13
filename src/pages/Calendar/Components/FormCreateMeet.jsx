@@ -49,9 +49,17 @@ function FormCreateMeet({ modal, setModal, users }) {
         <Form
           id="form-create-meet"
           className="flex h-full w-full flex-col gap-3 px-6"
+          method="POST"
           action="/calendar"
-          method="post"
         >
+          <input
+            type="text"
+            name="action"
+            value="new-meet"
+            className="hidden"
+            readOnly
+            hidden
+          />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <InputRouter name="name" type="text" placeholder="Add Title" />
