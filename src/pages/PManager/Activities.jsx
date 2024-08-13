@@ -54,9 +54,9 @@ function Activities() {
   const [activitiesData, setActivitiesData] = useState(data);
 
   async function getActivitiesData() {
-    let newData = await getMonthActivity();
+    let { data } = await getMonthActivity();
 
-    setActivitiesData(newData);
+    setActivitiesData(data);
   }
 
   const pusherClient = createPusherClient();

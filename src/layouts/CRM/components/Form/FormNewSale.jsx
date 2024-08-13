@@ -80,7 +80,6 @@ function FormNewSale({ clients, membership, services }) {
   }
 
   function updateSelectServSelect(index, e) {
-    // console.log(e);
     const newFields = selectServ.map((inputs, i) =>
       i === index ? { ...inputs, service: e } : inputs,
     );
@@ -88,7 +87,6 @@ function FormNewSale({ clients, membership, services }) {
   }
 
   function updateSelectServSelect2(index, e) {
-    // console.log(e);
     const newFields = selectServ.map((inputs, i) =>
       i === index ? { ...inputs, recurrency: e } : inputs,
     );
@@ -142,7 +140,6 @@ function FormNewSale({ clients, membership, services }) {
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

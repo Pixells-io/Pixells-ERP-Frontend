@@ -148,7 +148,7 @@ export async function action({ request }) {
   const formData = await request.formData();
   const response = await loginUser(formData);
   if (response.code === 201) {
-    await setCookie("token", response.access_token);
+    await setCookie("token", response.access_token, { expires: 0.5 });
     return redirect("/");
   } else {
     return redirect("/login");

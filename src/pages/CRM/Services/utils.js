@@ -105,7 +105,6 @@ export async function destroyService(data) {
 }
 
 export async function savePackage(data) {
-  console.log(data);
   const services = [];
 
   for (const [key, value] of data.entries()) {

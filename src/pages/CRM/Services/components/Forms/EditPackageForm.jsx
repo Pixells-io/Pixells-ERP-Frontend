@@ -16,8 +16,6 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 function EditPackageForm({ modal, setModal, id, name, description, price }) {
   const navigation = useNavigation();
 
-  console.log(name);
-
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
@@ -40,7 +38,6 @@ function EditPackageForm({ modal, setModal, id, name, description, price }) {
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

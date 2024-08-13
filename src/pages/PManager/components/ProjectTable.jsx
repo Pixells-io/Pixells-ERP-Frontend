@@ -74,11 +74,9 @@ function ProjectTable() {
   const pusherClient = createPusherClient();
 
   useEffect(() => {
-    // console.log("hola", urlId, pusherClient);
     pusherClient.subscribe(`private-pm-get-project.${urlId}`);
 
     pusherClient.bind("fill-pm-project", ({ project }) => {
-      // console.log("WEBSCOKET PROJECT -> ", project);
       getPMinfoFuncion(project);
     });
 

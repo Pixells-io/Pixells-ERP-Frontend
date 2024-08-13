@@ -69,7 +69,6 @@ function StepsProgress() {
     pusherClient.subscribe(`private-get-process.${urlId}`);
 
     pusherClient.bind("fill-process", ({ service }) => {
-      console.log("cvghj");
       getProcesServiceFunction(service);
     });
 

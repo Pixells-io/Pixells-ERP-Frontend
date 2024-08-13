@@ -109,8 +109,6 @@ function FormulaRecords() {
     formData.forEach((value, key) => {
       data[key] = value;
     });
-
-    console.log(data); // Mostrar los datos en la consola  };
   };
 
   return (

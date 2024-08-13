@@ -54,7 +54,7 @@ const MainPurchase = () => {
     {
       label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
 
@@ -192,30 +192,28 @@ const MainPurchase = () => {
               defaultValue="orders"
               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="orders"
                 >
                   ORDENES
                 </TabsTrigger>
                 <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="OTRO"
                 >
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent
-                value="orders" className="mt-[-60px] p-2"
-              >
-                  <DataTable
-                    data={data}
-                    columns={columns}
-                    searchFilter="ndocumento"
-                    searchNameFilter="Buscar por No. Documento"
-                    isCheckAll={true}
-                  />
+              <TabsContent value="orders" className="mt-[-60px] p-2">
+                <DataTable
+                  data={data}
+                  columns={columns}
+                  searchFilter="ndocumento"
+                  searchNameFilter="Buscar por No. Documento"
+                  isCheckAll={true}
+                />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">

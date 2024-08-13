@@ -51,7 +51,6 @@ function AddUserActivity({ activity_id, users }) {
     formData.append("activity_id", activity_id);
     formData.append("user_id", user[0].value);
     formData.append("action", "edit");
-    console.log(formData);
     submit(formData, {
       method: "post",
       action: `/project-manager/${id}/projects/${projectId}`,

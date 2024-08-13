@@ -53,8 +53,6 @@ function SidelayoutLead() {
     );
   }
 
-  console.log(main_lead);
-
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <EditLeadInformation

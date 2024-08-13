@@ -37,7 +37,6 @@ function MainExamAnswer() {
   const { id } = useParams();
 
   const { data } = useLoaderData();
-  console.log(data);
 
   //CONTADOR
   const [counter, setCounter] = useState(0);
@@ -68,9 +67,7 @@ function MainExamAnswer() {
   //   return () => clearInterval(timer);
   // }, []);
 
-  async function onSubmit() {
-    console.log("Time Out, Exam Submitted");
-  }
+  async function onSubmit() {}
 
   if (counter >= durationInSeconds) {
     onSubmit();

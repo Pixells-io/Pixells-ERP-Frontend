@@ -23,8 +23,6 @@ export async function saveNewAgreementTemplate(data) {
 }
 
 export async function saveEditAgreementTemplate(data) {
-  console.log(data);
-
   const info = {
     id: data.get("id"),
     name: data.get("name"),
@@ -47,8 +45,6 @@ export async function saveEditAgreementTemplate(data) {
 }
 
 export async function saveEditContractTemplate(data) {
-  console.log(data);
-
   const info = {
     id: data.get("id"),
     template: data.get("template"),
@@ -69,8 +65,6 @@ export async function saveEditContractTemplate(data) {
 }
 
 export async function saveNewContract(data) {
-  console.log(data);
-
   const info = {
     person_id: data.get("customer_id"),
     service_id: data.get("service_id"),

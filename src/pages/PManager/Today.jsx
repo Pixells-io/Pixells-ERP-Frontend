@@ -32,9 +32,7 @@ function Today() {
     };
   }, []);
 
-  function changeInputToday(projectId) {
-    // console.log(projectId);
-  }
+  function changeInputToday(projectId) {}
 
   return (
     <div className="flex w-full overflow-auto">

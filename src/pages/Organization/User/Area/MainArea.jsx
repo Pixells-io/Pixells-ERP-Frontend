@@ -48,7 +48,6 @@ function MainArea() {
 
   function removeProcessField(index) {
     const newFields = processInputs.filter((item, i) => index !== i);
-    console.log(newFields);
     setProcessInputs(newFields);
   }
 
@@ -60,8 +59,6 @@ function MainArea() {
     // setDefaultDays(newArray);
   }
 
-  console.log(createArray());
-
   // useEffect(() => {
   //   function arrangeWorkingDays() {
   //     let newArray = [];
@@ -69,7 +66,6 @@ function MainArea() {
   //       const capitalized = day.charAt(0).toUpperCase() + day.slice(1);
   //       newArray.push({ label: capitalized, value: capitalized });
   //     }
-  //     // console.log(newArray);
   //     setDefaultDays(newArray);
   //   }
   //   arrangeWorkingDays();

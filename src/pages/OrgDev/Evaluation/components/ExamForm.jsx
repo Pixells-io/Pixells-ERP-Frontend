@@ -119,7 +119,6 @@ function ExamForm() {
 
   // score update
   function onChangeCheckBox(questionIdx, answerIdx, e) {
-    // console.log(e);
     setQuestions(
       questions.map((question, idx) =>
         idx === questionIdx

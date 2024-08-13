@@ -3,7 +3,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 
 import { createPusherClient } from "@/lib/pusher";
 import { getMonthKanban } from "@/lib/actions";
-import { completeActivity, completeTask } from "./utils";
+import { completeActivity, completeTask, editTask } from "./utils";
 
 import NavigationHeader from "@/components/navigation-header";
 import ActivityKanbanCard from "./components/Cards/ActivityKanbanCard";
@@ -13,9 +13,9 @@ function Status() {
   const [statusData, setstatusData] = useState(data);
 
   async function getStatusData() {
-    let newData = await getMonthKanban();
+    let { data } = await getMonthKanban();
 
-    setstatusData(newData);
+    setstatusData(data);
   }
 
   const pusherClient = createPusherClient();
@@ -69,7 +69,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {statusData?.expirated.map((task, i) => (
+                {statusData?.expirated?.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
@@ -82,7 +82,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {statusData?.pending.map((task, i) => (
+                {statusData?.pending?.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
               </div>
@@ -95,7 +95,7 @@ function Status() {
                 </p>
               </div>
               <div className="overflow-scroll">
-                {statusData?.complete.map((task, i) => (
+                {statusData?.complete?.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={false} key={i} />
                 ))}
               </div>
@@ -119,6 +119,9 @@ export async function Action({ request }) {
       return redirect("/project-manager/status");
     case "complete-activity":
       await completeActivity(data);
+      return redirect("/project-manager/status");
+    case "edit-task":
+      await editTask(data);
       return redirect("/project-manager/status");
   }
 

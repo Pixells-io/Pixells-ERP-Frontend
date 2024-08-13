@@ -16,8 +16,6 @@ function MainAnalytic() {
   const ticketData = ticket.data;
   const pmData = pm.data;
 
-  console.log(crmData);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">

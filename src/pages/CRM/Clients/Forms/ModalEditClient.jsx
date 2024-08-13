@@ -34,7 +34,6 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

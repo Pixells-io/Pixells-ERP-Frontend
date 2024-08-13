@@ -29,7 +29,6 @@ const CATEGORIES = [
 function NewStepService({ serviceId, submitting, service }) {
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
-  // console.log(service);
 
   useEffect(() => {
     if (navigation.state === "idle") {

@@ -41,8 +41,6 @@ function ModalCreateInterview({ modal, setModal, serviceId }) {
     }
   }, [navigation.state]);
 
-  console.log(serviceId);
-
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">

@@ -71,7 +71,6 @@ function FormStepCustom({
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

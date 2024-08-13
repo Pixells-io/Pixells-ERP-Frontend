@@ -20,7 +20,6 @@ const ConfirmationButtons = () => {
         return null;
       })
       .filter((item) => item !== null);
-    console.log(formDataArray);
     setIsOpen(false);
   };
 

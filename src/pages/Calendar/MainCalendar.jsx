@@ -42,9 +42,10 @@ function MainCalendar() {
         return {
           title: item.name,
           start: item.date,
-          id_element: item.id,
+          id_item: item.id,
           type: item.type,
           description: item.description,
+          complete: item.complete,
         };
       }),
     );
@@ -81,29 +82,29 @@ function MainCalendar() {
     setCompleteTaskModal(true);
   }
 
-  useEffect(() => {
-    const arrayfIllVar = [];
+  // useEffect(() => {
+  //   const arrayfIllVar = [];
 
-    arrayFill(statusData.task, arrayfIllVar);
-    arrayFill(statusData.crm, arrayfIllVar);
-    arrayFill(statusData.meet, arrayfIllVar);
-    arrayFill(statusData.activity, arrayfIllVar);
+  //   arrayFill(statusData.task, arrayfIllVar);
+  //   arrayFill(statusData.crm, arrayfIllVar);
+  //   arrayFill(statusData.meet, arrayfIllVar);
+  //   arrayFill(statusData.activity, arrayfIllVar);
 
-    function arrayFill(data, array) {
-      data.forEach((element) => {
-        array.push({
-          title: element.name,
-          start: element.date,
-          id_element: element.id,
-          type: element.type,
-          description: element.description,
-          complete: element.complete,
-        });
-      });
-    }
+  //   function arrayFill(data, array) {
+  //     data.forEach((element) => {
+  //       array.push({
+  //         title: element.name,
+  //         start: element.date,
+  //         id_element: element.id,
+  //         type: element.type,
+  //         description: element.description,
+  //         complete: element.complete,
+  //       });
+  //     });
+  //   }
 
-    setEvents(arrayfIllVar);
-  }, [statusData]);
+  //   setEvents(arrayfIllVar);
+  // }, [statusData, filters]);
 
   function filterEventsCalendar($module) {
     setEvents([]);
@@ -121,19 +122,17 @@ function MainCalendar() {
 
     //Set the values
     const array_bulk = [];
-    console.log(tasks, "task d");
-    console.log(crm, "crm d");
 
-    if (tasks === true) {
+    if (tasks == true) {
       arrayFill(statusData.task, array_bulk);
       arrayFill(statusData.activity, array_bulk);
     }
 
-    if (crm === true) {
+    if (crm == true) {
       arrayFill(statusData.crm, array_bulk);
     }
 
-    if (meet === true) {
+    if (meet == true) {
       arrayFill(statusData.meet, array_bulk);
     }
 
@@ -155,7 +154,7 @@ function MainCalendar() {
 
   function renderEventContent(eventInfo) {
     const type = eventInfo.event.extendedProps.type;
-    const id = eventInfo.event.extendedProps.id_element;
+    const id = eventInfo.event.extendedProps.id_item;
     const complete = eventInfo.event.extendedProps.complete;
 
     //Find Meet Info
@@ -194,20 +193,18 @@ function MainCalendar() {
 
     return (
       <div>
-        {complete === 1 ? (
-          <>
-            <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
-              <span
-                className="rounded-3xl font-roboto text-xs font-normal text-grisSubText"
-                title={eventInfo.event.title}
-              >
-                {eventInfo.event.title}
-              </span>
-            </div>
-          </>
+        {complete == 1 ? (
+          <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
+            <span
+              className="rounded-3xl font-roboto text-xs font-normal text-grisSubText"
+              title={eventInfo.event.title}
+            >
+              {eventInfo.event.title}
+            </span>
+          </div>
         ) : (
-          <>
-            {type === 1 ? (
+          <div>
+            {type == 1 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border border-primario bg-transparent pl-2 pr-2"
                 onClick={() =>
@@ -225,7 +222,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 2 ? (
+            ) : type == 2 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -237,7 +234,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 3 ? (
+            ) : type == 3 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -249,7 +246,7 @@ function MainCalendar() {
                   {eventInfo.event.title}
                 </span>
               </div>
-            ) : type === 4 ? (
+            ) : type == 4 ? (
               <div
                 className="py w-full overflow-hidden text-ellipsis rounded-xl border bg-primario pl-2 pr-2"
                 onClick={() => openModalFunction(type, id)}
@@ -262,7 +259,7 @@ function MainCalendar() {
                 </span>
               </div>
             ) : null}
-          </>
+          </div>
         )}
       </div>
     );
@@ -287,11 +284,15 @@ function MainCalendar() {
           taskId={taskId}
           name={taskName}
           description={taskDescription}
+          action="/calendar"
+          actionInput="complete-task"
         />
         <CompleteActivity
           modal={completeActivityModal}
           setModal={setCompleteActivityModal}
           activity={activityId}
+          action="/calendar"
+          actionInput="complete-activity"
         />
       </div>
       <FullCalendar

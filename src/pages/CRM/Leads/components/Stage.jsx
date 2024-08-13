@@ -38,7 +38,6 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
                 event.dataTransfer.getData("assigned_image");
               const assignedName = event.dataTransfer.getData("assigned_name");
               const assignedId = event.dataTransfer.getData("assigned_id");
-              // console.log("assigned: ", assignedImage);
               setLeadId(data);
               setLeadAssigned({
                 url: assignedImage,
@@ -88,19 +87,14 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
           // onDragOver={(event) => {
           //   event.preventDefault();
           //   event.stopPropagation();
-          //   console.log(leadToMove.stage_id == Number(stageId));
           //   if (leadToMove.stage_id + 1 == Number(stageId)) {
           //     setAcceptDrop(true);
           //   }
           // }}
           onDragOver={(event) => {
-            // console.log(event);
             event.preventDefault();
             event.stopPropagation();
-            // console.log("drag over");
             const data = event.dataTransfer.getData("stage_id");
-            // console.log("stage id ", event.dataTransfer.getData("stage_id"));
-            // console.log("leadtomove ", leadToMove.stage_id);
             // if (Number(data) + 1 == Number(stageId)) {
             //   setAcceptDrop(true);
             // }
@@ -127,8 +121,3 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
 }
 
 export default Stage;
-
-// console.log(event);
-// console.log(data);
-// console.log("ondrop");
-// console.log(event.currentTarget);
