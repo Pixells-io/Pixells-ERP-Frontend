@@ -6,9 +6,9 @@ import { gridOutline, list } from "ionicons/icons";
 
 const SideLayoutPos = () => {
   return (
-    <div className="flex flex-col gap-2 h-full px-4 pb-4 font-roboto">
-      <div className="grid h-[76px] w-full grid-cols-10 bg-[#F9F9F9] px-4">
-        <div className="col-span-1 flex flex-col items-center justify-center">
+    <div className="flex h-full w-full flex-col gap-2 px-4 pb-4 font-roboto">
+      <div className="grid min-h-[76px] w-full grid-cols-12 gap-x-2 px-4">
+        <div className="col-span-1 flex w-full flex-col items-center justify-center">
           <h2 className="font-poppins text-xl font-bold text-grisHeading">
             Home
           </h2>
@@ -16,7 +16,7 @@ const SideLayoutPos = () => {
             21 FEB 2024
           </label>
         </div>
-        <div className="col-span-6 flex flex-wrap items-center gap-5">
+        <div className="col-span-7 flex w-full items-center gap-5 overflow-x-auto">
           <Button
             type="button"
             className="rounded-3xl bg-[#F0F0F0] font-roboto text-xs font-medium text-[#44444F] hover:bg-[#F0F0F0]"
@@ -59,8 +59,8 @@ const SideLayoutPos = () => {
             REIMPRIMIR TICKET
           </Button>
         </div>
-        <div className="col-span-3 flex justify-center gap-x-6">
-          <div className="flex flex-col gap-y-2">
+        <div className="overflow-y-none col-span-4 flex w-full justify-center gap-x-6 overflow-x-auto">
+          <div className="flex flex-col gap-y-1">
             <div>
               <label className="text-xs font-semibold text-grisText">
                 Tienda
@@ -72,7 +72,7 @@ const SideLayoutPos = () => {
               </label>
             </div>
           </div>
-          <div className="flex flex-col gap-y-2">
+          <div className="flex flex-col gap-y-1">
             <div>
               <label className="text-xs font-semibold text-grisText">
                 Vendedor
