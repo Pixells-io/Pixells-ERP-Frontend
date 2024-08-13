@@ -297,6 +297,7 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -980,6 +981,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/egress/record/:id",
             element: <MerchandiseMovRecordEgress />,
+          },
+          {
+            path: "/inventory/prices-lists",
+            element: <MainPriceList />,
           },
           {
             path: "/inventory/stock-items",
