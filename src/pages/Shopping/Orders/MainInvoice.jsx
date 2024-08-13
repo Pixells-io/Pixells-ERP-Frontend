@@ -171,22 +171,21 @@ const MainInvoices = () => {
           <div className="flex items-start justify-start">
             <Link to="/shopping/invoices-orders/create">
               <Button
+                type="button"
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
                 <IonIcon
                   icon={addCircleOutline}
                   size="large"
                   className="text-primarioBotones"
-                  aria-hidden="true"
                 />
               </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="invoices"
@@ -222,7 +221,6 @@ const MainInvoices = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

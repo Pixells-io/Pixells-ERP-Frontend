@@ -157,23 +157,22 @@ const MainQuotesOrder = () => {
           </p>
           <div className="flex items-start justify-start">
             <Link to="/shopping/quotes-orders/create">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-              >
-                <IonIcon
-                  icon={addCircleOutline}
-                  size="large"
-                  className="text-primarioBotones"
-                  aria-hidden="true"
-                />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                size="large"
+                className="text-primarioBotones"
+              />
               </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="quotes"
@@ -213,7 +212,6 @@ const MainQuotesOrder = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

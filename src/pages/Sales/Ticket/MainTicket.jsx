@@ -70,17 +70,17 @@ const MainSalesTicket = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <Link to={`/sales/tickets/edit/${row.original.id}`} className="inline-block">
-            <Button
+        <div className="flex items-center justify-center">
+          <Link to={`/sales/tickets/edit/${row.original.id}`} >
+          <Button
               type="button"
               className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={informationCircle}
-                size="small"
+                size="large"
                 className="text-grisText"
               />
             </Button>
@@ -132,21 +132,22 @@ const MainSalesTicket = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ticket/Remisíon de ventas
           </p>
-          <Link to="/sales/tickets/new" className="inline-block">
-            <Button
+          <Link to="/sales/tickets/new" >
+          <Button
               type="button"
-              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="small"
-                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+                size="large"
+                className="text-primarioBotones"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl  bg-transparent p-4">
           <div className="w-full">
           <Tabs
               defaultValue="tickets"
@@ -183,7 +184,6 @@ const MainSalesTicket = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

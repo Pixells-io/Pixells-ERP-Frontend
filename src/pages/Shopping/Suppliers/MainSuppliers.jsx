@@ -73,12 +73,15 @@ const MainSupplier = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
-        </div>
-      ),
+        <div className="flex justify-center items-center">
+          <IonIcon
+            icon={informationCircle}
+            size="large"
+            className="text-gris2"
+          />
+        </div>)
     },
   ];
 
@@ -127,7 +130,6 @@ const MainSupplier = () => {
           <MenuSuppliers/>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="PROVEEDOR"
@@ -166,7 +168,6 @@ const MainSupplier = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
