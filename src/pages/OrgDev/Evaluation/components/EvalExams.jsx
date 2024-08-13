@@ -11,7 +11,6 @@ function EvalExams() {
 
   function handleSelect() {}
 
-  console.log(data);
   return (
     <div className="flex flex-col pt-4">
       {/* menu */}

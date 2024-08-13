@@ -40,8 +40,6 @@ function UserMediaLibrary() {
     }),
   );
 
-  console.log(data);
-
   return (
     <div className="ml-4 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB]">
       <div className="flex items-center">

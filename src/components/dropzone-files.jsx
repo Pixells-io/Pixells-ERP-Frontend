@@ -16,7 +16,6 @@ function DropzoneFile({ name, label, disabled }) {
         }),
       ),
     );
-    console.log(acceptedFiles[0]);
   };
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =

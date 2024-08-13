@@ -65,7 +65,6 @@ const yearsOption = [
 
 function NewObjectiveForm({ open, setOpen, areas }) {
   const navigation = useNavigation();
-  // console.log(areas);
 
   useEffect(() => {
     if (navigation.state === "idle") {

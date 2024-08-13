@@ -103,7 +103,6 @@ function MainCalendar() {
   //     });
   //   }
 
-  //   console.log(arrayfIllVar);
   //   setEvents(arrayfIllVar);
   // }, [statusData, filters]);
 
@@ -123,8 +122,6 @@ function MainCalendar() {
 
     //Set the values
     const array_bulk = [];
-    console.log(tasks, "task d");
-    console.log(crm, "crm d");
 
     if (tasks == true) {
       arrayFill(statusData.task, array_bulk);

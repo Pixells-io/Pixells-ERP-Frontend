@@ -34,8 +34,6 @@ function Step({ stepInfo, services, users }) {
     //The column is the correct
     const next_column = lead.step_id + 1;
 
-    console.log(next_column, column_id);
-
     if (next_column === column_id) {
       //Set the information
       setLeadAssigned(lead.assigned);

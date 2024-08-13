@@ -74,7 +74,6 @@ function AddNewPayment() {
   const openModalPaymentMethods = (value) => {
     setModalPaymentMethods(true);
     setDataSelectTable(value);
-    console.log(value);
   };
 
   const InProgressValue = (value) => {
@@ -86,8 +85,6 @@ function AddNewPayment() {
     });
 
     setData(auxData);
-
-    console.log(auxData);
   };
 
   const saveValue = () => {

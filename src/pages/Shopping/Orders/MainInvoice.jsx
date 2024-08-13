@@ -54,7 +54,7 @@ const MainInvoices = () => {
     {
       label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
 
@@ -195,13 +195,13 @@ const MainInvoices = () => {
               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
                   value="invoices"
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
                   FACTURAS
                 </TabsTrigger>
                 <TabsTrigger
                   value="OTRO"
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
                   OTROS
                 </TabsTrigger>
@@ -216,7 +216,7 @@ const MainInvoices = () => {
                 />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
-                    <p>CONTENIDO</p>
+                <p>CONTENIDO</p>
               </TabsContent>
             </Tabs>
           </div>

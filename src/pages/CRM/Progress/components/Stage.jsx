@@ -21,8 +21,6 @@ function Stage({ name, stageId, leads, setModal }) {
         onDrop={(event) => {
           event.preventDefault();
           event.stopPropagation();
-          console.log(event);
-          console.log("ondrop");
           setModal(true);
         }}
       >

@@ -85,7 +85,5 @@ export async function Action({ request }) {
 
   const validation = await newCapacitationExam(data);
 
-  console.log(data);
-
   return redirect("/org-development/capacitation");
 }

@@ -27,9 +27,7 @@ function ActivityDocument({ activity_id, documents }) {
     }
   }, [navigation.state]);
 
-  function deleteDocument(id) {
-    console.log(id);
-  }
+  function deleteDocument(id) {}
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>

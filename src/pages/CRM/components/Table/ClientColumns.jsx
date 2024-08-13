@@ -74,7 +74,6 @@ export const clientColumns = [
       const serviceStrings = services
         .map((service) => service.service?.name)
         .join(", ");
-      // console.log(serviceStrings);
 
       return <div>{serviceStrings}</div>;
     },
@@ -91,8 +90,6 @@ export const clientColumns = [
           setOpen(false);
         }
       }, [navigation.state]);
-
-      console.log(row.original);
 
       return (
         <div className="flex items-center gap-2 text-[#696974]">

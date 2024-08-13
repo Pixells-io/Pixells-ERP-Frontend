@@ -8,7 +8,6 @@ import NavigationHeader from "@/components/navigation-header";
 
 function InformationShow() {
   const { data } = useLoaderData();
-  console.log(data);
   return (
     <div className="flex w-full">
       {/* FollowUp Div */}

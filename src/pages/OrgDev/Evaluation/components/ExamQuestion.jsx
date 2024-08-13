@@ -22,19 +22,18 @@ function ExamQuestion({
   onChangeAnswer,
   onChangeCheckBox,
 }) {
-  // console.log(index);
   const questionIndex = index;
   const [puntuacion, setPuntuacion] = useState(["1", "2", "3", "4"]);
   return (
-    <div className="flex flex-col rounded-2xl bg-blancoForms w-[520px] drop-shadow">
-      <div className="flex px-6 py-3 items-center justify-between">
+    <div className="flex w-[520px] flex-col rounded-2xl bg-blancoForms drop-shadow">
+      <div className="flex items-center justify-between px-6 py-3">
         <p className="font-medium text-grisText">Pregunta {index + 1}</p>
         {index !== 0 && (
           <button type="button" onClick={() => removeQuestion(index)}>
             <IonIcon
               icon={closeCircle}
               size=""
-              className="text-grisDisabled hover:text-grisText w-5 h-5"
+              className="h-5 w-5 text-grisDisabled hover:text-grisText"
             ></IonIcon>
           </button>
         )}
@@ -45,7 +44,7 @@ function ExamQuestion({
           onChange={(e) => onChangeQuestion(index, e)}
           type="text"
           placeholder="Escribe la pregunta"
-          className=" placeholder:bg-blancoForms border-b text-xs placeholder:text-xs w-full mr-10 placeholder:p-2 p-2 bg-blancoForms"
+          className="mr-10 w-full border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs"
         />
       </div>
 

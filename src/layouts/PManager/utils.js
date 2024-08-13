@@ -8,8 +8,6 @@ export async function saveNewObjective(data) {
       description: data.get("area"),
     };
 
-    // console.log(objective);
-
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}project-manager/create-objetive`,
       {

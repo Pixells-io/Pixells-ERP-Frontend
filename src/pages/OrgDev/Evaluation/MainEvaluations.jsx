@@ -43,7 +43,6 @@ function MainEvaluations() {
   const [modalCreateTrainings, setModalCreateTrainings] = useState(false);
 
   const { data } = useLoaderData();
-  console.log(data);
 
   // const [initialData, setInitialData] = useState(trainings.data);
   // const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);

@@ -10,7 +10,6 @@ import NavigationHeader from "@/components/navigation-header";
 
 function ShowAgreements() {
   const { data } = useLoaderData();
-  console.log(data);
   return (
     <div className="flex w-full overflow-auto">
       <Form
