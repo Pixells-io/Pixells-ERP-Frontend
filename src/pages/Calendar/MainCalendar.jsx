@@ -50,7 +50,6 @@ function MainCalendar() {
       }),
     );
 
-    console.log(res2.flat());
     setEvents(res2.flat());
   }, [filters, statusData]);
 
@@ -158,7 +157,7 @@ function MainCalendar() {
 
   function renderEventContent(eventInfo) {
     const type = eventInfo.event.extendedProps.type;
-    const id = eventInfo.event.extendedProps.id_element;
+    const id = eventInfo.event.extendedProps.id_item;
     const complete = eventInfo.event.extendedProps.complete;
 
     //Find Meet Info
