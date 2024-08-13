@@ -358,6 +358,10 @@ import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/E
 import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
 import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
 
+//POS
+import MainPos from "./pages/Pos/MainPos";
+import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -1168,6 +1172,16 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainTopics />,
+          },
+        ],
+      },
+      {
+        path: "/pos",
+        element: <SideLayoutPos />,
+        children: [
+          {
+            index: true,
+            element: <MainPos />,
           },
         ],
       },
