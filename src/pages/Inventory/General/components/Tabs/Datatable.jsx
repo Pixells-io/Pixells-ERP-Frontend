@@ -23,9 +23,9 @@ const DataTable = ({ columns, data }) => {
   const totalPages = Math.ceil(data.length / pageSize);
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="flex flex-col w-full overflow-x-auto">
       <Table>
-        <TableHeader >
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} >
               {headerGroup.headers.map((header) => {

@@ -41,10 +41,10 @@ const Inputs = () => {
   const selectClasses = "w-full rounded-xl border border-gris2-transparent placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="flex justify-center items-start w-full">
-      <div className="w-full max-w-7xl bg-white rounded-xl p-6">
-        <div className="flex flex-col md:flex-row justify-stretch space-y-6 md:space-y-0 md:space-x-6">
-          <div className="w-full md:w-75 grid grid-cols-1 md:grid-cols-3 gap-4 font-roboto">
+    <div className="bg-white rounded-xl p-4 w-full">
+      <div className="flex flex-wrap gap-4">
+        <div className="flex-grow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
               type="text"
               className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
@@ -148,36 +148,39 @@ const Inputs = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="w-full md:w-1/4 flex justify-center md:justify-start">
-            <div className="flex flex-row space-x-4">
-              <div className="flex flex-col space-y-4">
-                <label htmlFor="inventario" className="text-sm font-roboto text-gris2">Inventario</label>
-                <label htmlFor="compra" className="text-sm font-roboto text-gris2">Compra</label>
-                <label htmlFor="venta" className="text-sm font-roboto text-gris2">Venta</label>
-              </div>
-              <div className="flex flex-col space-y-4">
-                <Checkbox
-                  id="inventario"
-                  name="inventario"
-                  checked={inputsData.inventario}
-                  onCheckedChange={(checked) => handleCheckboxChange("inventario", checked)}
-                  className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-                />
-                <Checkbox
-                  id="compra"
-                  name="compra"
-                  checked={inputsData.compra}
-                  onCheckedChange={(checked) => handleCheckboxChange("compra", checked)}
-                  className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-                />
-                <Checkbox
-                  id="venta"
-                  name="venta"
-                  checked={inputsData.venta}
-                  onCheckedChange={(checked) => handleCheckboxChange("venta", checked)}
-                  className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-                />
-              </div>
+        </div>
+
+        <div className="flex-shrink-0 ml-6">
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center">
+              <Checkbox
+                id="inventario"
+                name="inventario"
+                checked={inputsData.inventario}
+                onCheckedChange={(checked) => handleCheckboxChange("inventario", checked)}
+                className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+              />
+              <label htmlFor="inventario" className="ml-2 text-sm font-roboto text-gris2">Inventario</label>
+            </div>
+            <div className="flex items-center">
+              <Checkbox
+                id="compra"
+                name="compra"
+                checked={inputsData.compra}
+                onCheckedChange={(checked) => handleCheckboxChange("compra", checked)}
+                className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+              />
+              <label htmlFor="compra" className="ml-2 text-sm font-roboto text-gris2">Compra</label>
+            </div>
+            <div className="flex items-center">
+              <Checkbox
+                id="venta"
+                name="venta"
+                checked={inputsData.venta}
+                onCheckedChange={(checked) => handleCheckboxChange("venta", checked)}
+                className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+              />
+              <label htmlFor="venta" className="ml-2 text-sm font-roboto text-gris2">Venta</label>
             </div>
           </div>
         </div>

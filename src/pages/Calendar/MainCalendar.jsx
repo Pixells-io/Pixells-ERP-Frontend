@@ -14,17 +14,24 @@ import { getCalendarDataId } from "@/lib/actions";
 function MainCalendar() {
   const { data } = useLoaderData();
   const [filters, userFilter] = useOutletContext();
-
-  /*if (userFilter != 0) {
-    const newData = getCalendarDataId(userFilter);
-    console.log(newData);
-  }*/
+  const [statusData, setStatusData] = useState(data);
 
   useEffect(() => {
-    const newArray = Object.keys(data).map((key) => {
+    if (userFilter != 0) {
+      getOtherCalendar(userFilter);
+    }
+
+    async function getOtherCalendar(user) {
+      const { data } = await getCalendarDataId(user);
+      setStatusData(data);
+    }
+  }, [userFilter]);
+
+  useEffect(() => {
+    const newArray = Object.keys(statusData).map((key) => {
       return {
         name: key,
-        value: data[key],
+        value: statusData[key],
       };
     });
 
@@ -43,7 +50,7 @@ function MainCalendar() {
     );
 
     setEvents(res2.flat());
-  }, [filters]);
+  }, [filters, statusData]);
 
   //Use States Var
   const [tasks, setTasks] = useState(false);
@@ -68,7 +75,6 @@ function MainCalendar() {
   const [completeActivityModal, setCompleteActivityModal] = useState(false);
 
   function openCompleteTaskModal(taskId, name, description) {
-    console.log(description);
     setTaskId(taskId);
     setTaskName(name);
     setTaskDescription(description);
@@ -78,10 +84,10 @@ function MainCalendar() {
   useEffect(() => {
     const arrayfIllVar = [];
 
-    arrayFill(data.task, arrayfIllVar);
-    arrayFill(data.crm, arrayfIllVar);
-    arrayFill(data.meet, arrayfIllVar);
-    arrayFill(data.activity, arrayfIllVar);
+    arrayFill(statusData.task, arrayfIllVar);
+    arrayFill(statusData.crm, arrayfIllVar);
+    arrayFill(statusData.meet, arrayfIllVar);
+    arrayFill(statusData.activity, arrayfIllVar);
 
     function arrayFill(data, array) {
       data.forEach((element) => {
@@ -91,12 +97,13 @@ function MainCalendar() {
           id_element: element.id,
           type: element.type,
           description: element.description,
+          complete: element.complete,
         });
       });
     }
 
     setEvents(arrayfIllVar);
-  }, []);
+  }, [statusData]);
 
   function filterEventsCalendar($module) {
     setEvents([]);
@@ -118,16 +125,16 @@ function MainCalendar() {
     console.log(crm, "crm d");
 
     if (tasks === true) {
-      arrayFill(data.task, array_bulk);
-      arrayFill(data.activity, array_bulk);
+      arrayFill(statusData.task, array_bulk);
+      arrayFill(statusData.activity, array_bulk);
     }
 
     if (crm === true) {
-      arrayFill(data.crm, array_bulk);
+      arrayFill(statusData.crm, array_bulk);
     }
 
     if (meet === true) {
-      arrayFill(data.meet, array_bulk);
+      arrayFill(statusData.meet, array_bulk);
     }
 
     function arrayFill(data, array) {
@@ -138,6 +145,7 @@ function MainCalendar() {
           id_element: element.id,
           type: element.type,
           description: element.description,
+          complete: element.complete,
         });
       });
     }
@@ -148,6 +156,7 @@ function MainCalendar() {
   function renderEventContent(eventInfo) {
     const type = eventInfo.event.extendedProps.type;
     const id = eventInfo.event.extendedProps.id_element;
+    const complete = eventInfo.event.extendedProps.complete;
 
     //Find Meet Info
     async function findMeetInfo(meetId) {
@@ -184,63 +193,78 @@ function MainCalendar() {
     }
 
     return (
-      <>
-        {type === 1 ? (
-          <div
-            className="py w-full overflow-hidden text-ellipsis rounded-xl border border-primario bg-transparent pl-2 pr-2"
-            onClick={() =>
-              openCompleteTaskModal(
-                id,
-                eventInfo.event.title,
-                eventInfo.event.extendedProps?.description,
-              )
-            }
-          >
-            <span
-              className="rounded-3xl font-roboto text-xs font-normal text-primario"
-              title={eventInfo.event.title}
-            >
-              {eventInfo.event.title}
-            </span>
-          </div>
-        ) : type === 2 ? (
-          <div
-            className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
-            onClick={() => openModalFunction(type, id)}
-          >
-            <span
-              className="rounded-3xl font-roboto text-xs font-normal text-white"
-              title={eventInfo.event.title}
-            >
-              {eventInfo.event.title}
-            </span>
-          </div>
-        ) : type === 3 ? (
-          <div
-            className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
-            onClick={() => openModalFunction(type, id)}
-          >
-            <span
-              className="rounded-3xl font-roboto text-xs font-normal text-grisText"
-              title={eventInfo.event.title}
-            >
-              {eventInfo.event.title}
-            </span>
-          </div>
-        ) : type === 4 ? (
-          <div
-            className="py w-full overflow-hidden text-ellipsis rounded-xl border bg-primario pl-2 pr-2"
-            onClick={() => openModalFunction(type, id)}
-          >
-            <span
-              className="rounded-3xl font-roboto text-xs font-normal text-white"
-              title={eventInfo.event.title}
-            >
-              {eventInfo.event.title}
-            </span>
-          </div>
-        ) : null}
-      </>
+      <div>
+        {complete === 1 ? (
+          <>
+            <div className="py w-full overflow-hidden text-ellipsis rounded-xl border border-grisDisabled bg-grisDisabled pl-2 pr-2">
+              <span
+                className="rounded-3xl font-roboto text-xs font-normal text-grisSubText"
+                title={eventInfo.event.title}
+              >
+                {eventInfo.event.title}
+              </span>
+            </div>
+          </>
+        ) : (
+          <>
+            {type === 1 ? (
+              <div
+                className="py w-full overflow-hidden text-ellipsis rounded-xl border border-primario bg-transparent pl-2 pr-2"
+                onClick={() =>
+                  openCompleteTaskModal(
+                    id,
+                    eventInfo.event.title,
+                    eventInfo.event.extendedProps?.description,
+                  )
+                }
+              >
+                <span
+                  className="rounded-3xl font-roboto text-xs font-normal text-primario"
+                  title={eventInfo.event.title}
+                >
+                  {eventInfo.event.title}
+                </span>
+              </div>
+            ) : type === 2 ? (
+              <div
+                className="py w-full overflow-hidden text-ellipsis rounded-xl bg-[#00A9B3] pl-2 pr-2"
+                onClick={() => openModalFunction(type, id)}
+              >
+                <span
+                  className="rounded-3xl font-roboto text-xs font-normal text-white"
+                  title={eventInfo.event.title}
+                >
+                  {eventInfo.event.title}
+                </span>
+              </div>
+            ) : type === 3 ? (
+              <div
+                className="py w-full overflow-hidden text-ellipsis rounded-xl border border-[#00A9B3] pl-2 pr-2"
+                onClick={() => openModalFunction(type, id)}
+              >
+                <span
+                  className="rounded-3xl font-roboto text-xs font-normal text-grisText"
+                  title={eventInfo.event.title}
+                >
+                  {eventInfo.event.title}
+                </span>
+              </div>
+            ) : type === 4 ? (
+              <div
+                className="py w-full overflow-hidden text-ellipsis rounded-xl border bg-primario pl-2 pr-2"
+                onClick={() => openModalFunction(type, id)}
+              >
+                <span
+                  className="rounded-3xl font-roboto text-xs font-normal text-white"
+                  title={eventInfo.event.title}
+                >
+                  {eventInfo.event.title}
+                </span>
+              </div>
+            ) : null}
+          </>
+        )}
+      </div>
     );
   }
 

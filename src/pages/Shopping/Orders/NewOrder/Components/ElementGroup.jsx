@@ -9,8 +9,17 @@ const InputsGroup = ({
   setSelectedWarehouse, 
   selectedCostCenter, 
   setSelectedCostCenter,
-  isEditable // Añadir prop isEditable
+  isEditable 
 }) => {
+  
+  const handleWarehouseChange = (value) => {
+    if (isEditable) setSelectedWarehouse(value);
+  };
+
+  const handleCostCenterChange = (value) => {
+    if (isEditable) setSelectedCostCenter(value);
+  };
+
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex justify-between w-full space-x-4">
@@ -20,13 +29,13 @@ const InputsGroup = ({
           type="text"
           name="ndocument"
           value={documentNumber}
-          onChange={isEditable ? (e) => setDocumentNumber(e.target.value) : undefined} // Cambiar el valor solo si es editable
-          disabled={!isEditable} // Desactivar el campo si no es editable
+          onChange={(e) => isEditable && setDocumentNumber(e.target.value)} 
+          disabled={!isEditable} 
         />
         <Select 
           value={selectedWarehouse} 
-          onValueChange={isEditable ? setSelectedWarehouse : undefined} // Cambiar el valor solo si es editable
-          disabled={!isEditable} // Desactivar el campo si no es editable
+          onValueChange={handleWarehouseChange} 
+          disabled={!isEditable} 
         >
           <SelectTrigger name="warehouse" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
             <SelectValue placeholder="Seleccionar Almacén" />
@@ -39,8 +48,8 @@ const InputsGroup = ({
         </Select>
         <Select 
           value={selectedCostCenter} 
-          onValueChange={isEditable ? setSelectedCostCenter : undefined} // Cambiar el valor solo si es editable
-          disabled={!isEditable} // Desactivar el campo si no es editable
+          onValueChange={handleCostCenterChange} // Ensure onValueChange is always defined
+          disabled={!isEditable}
         >
           <SelectTrigger name="ccenter" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
             <SelectValue placeholder="Seleccionar Centro de Costos" />

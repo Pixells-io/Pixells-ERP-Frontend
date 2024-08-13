@@ -139,7 +139,7 @@ const MainCustomer = () => {
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
+                size="small"
                 className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
               />
             </Button>

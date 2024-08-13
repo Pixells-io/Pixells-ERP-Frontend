@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 
 const initialRow = {
-  id: 1,
+  idAux: 1,
   component: "",
   amount: 0,
   unit: "",
@@ -63,7 +63,15 @@ const components = [
 
 const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   useEffect(() => {
-    setTableData([initialRow]);
+    if (tableData.length == 0) {
+      setTableData([initialRow]);
+    } else {
+      const updateTableDataIdAux = tableData.map((item, index) => ({
+        ...item,
+        idAux: index + 1,
+      }));
+      setTableData(updateTableDataIdAux);
+    }
   }, []);
   // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,7 +90,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
     e.preventDefault();
     setTableData((prevData) => [
       ...prevData,
-      { ...initialRow, id: getUltimateRowId() + 1 },
+      { ...initialRow, idAux: getUltimateRowId() + 1 },
     ]);
   };
 
@@ -123,19 +131,19 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
   }, []);
 
   const handleDataInRow = useCallback((data, rowIndex) => {
-    console.log(data);
+    const comp = getComponentId(data);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
-              component: data,
-              unit: data.unit,
-              cost: data.cost,
+              component: comp.id,
+              unit: comp.unit,
+              cost: comp.cost,
               amount: 1,
               amountTax: 16,
-              tax: (data.cost * 16) / 100,
-              subTotal: (data.cost * 1 + (data.cost * 16) / 100).toFixed(2),
+              tax: (comp.cost * 16) / 100,
+              subTotal: (comp.cost * 1 + (comp.cost * 16) / 100).toFixed(2),
             }
           : item,
       ),
@@ -162,15 +170,19 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
-    const auxRowDelete = tableData.filter((row) => row.id !== id);
+    const auxRowDelete = tableData.filter((row) => row.idAux !== id);
     setTableData(auxRowDelete);
   };
 
   const getUltimateRowId = () => {
     if (tableData.length > 0) {
-      return tableData[tableData.length - 1].id;
+      return tableData[tableData.length - 1].idAux;
     }
     return 0;
+  };
+
+  const getComponentId = (id) => {
+    return components.find((component) => component.id == id);
   };
 
   const columns = useMemo(
@@ -183,14 +195,14 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
             name={"selectComponent-" + rowIndex}
             className="h-10 w-[100px]"
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row.component}
+            value={row?.component}
           >
             <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
               <SelectValue placeholder="Selecciona el componente" />
             </SelectTrigger>
             <SelectContent>
               {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component}>
+                <SelectItem key={"component-" + index} value={component.id}>
                   {component.name}
                 </SelectItem>
               ))}
@@ -262,7 +274,13 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex w-[100px] justify-between">
             {row.subTotal}
-            <button type="button" onClick={() => deleteRowId(row.id)}>
+            <input
+              type="hidden"
+              hidden
+              value={row.subTotal}
+              name={"subTotal-" + rowIndex}
+            />
+            <button type="button" onClick={() => deleteRowId(row.idAux)}>
               <IonIcon
                 icon={closeCircle}
                 size="small"

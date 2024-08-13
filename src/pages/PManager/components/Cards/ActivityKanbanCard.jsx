@@ -75,6 +75,8 @@ function ActivityKanbanCard({ task, actions }) {
         taskId={taskId}
         name={taskName}
         description={taskDescription}
+        action="/project-manager/status"
+        actionInput="complete-task"
       />
       <EditShowTask
         modal={editTaskModal}
@@ -211,7 +213,7 @@ function ActivityKanbanCard({ task, actions }) {
       </div>
       <div className="flex items-center gap-2">
         <Avatar className="h-6 w-6">
-          <AvatarImage src={task.assigned.img} alt="@shadcn" />
+          <AvatarImage src={task.assigned.img} />
           <AvatarFallback></AvatarFallback>
         </Avatar>
       </div>

@@ -15,6 +15,7 @@ import { createPusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
 import { changeUserStatus } from "../../utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import ModalDelete from "@/components/modal-delete";
 
 function UsersTable({ users, edit }) {
   const columnHelper = createColumnHelper();
@@ -124,6 +125,11 @@ function UsersTable({ users, edit }) {
                     className="h-5 w-5"
                   ></IonIcon>
                 </NavLink>
+                <ModalDelete
+                  id={row.original.id}
+                  name="User"
+                  action="delete-user"
+                />
                 {row.original.status === "Active" ? (
                   <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
                     <input

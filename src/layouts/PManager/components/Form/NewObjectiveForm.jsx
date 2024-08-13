@@ -105,6 +105,14 @@ function NewObjectiveForm({ open, setOpen, areas }) {
             action="/project-manager"
             method="post"
           >
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="action"
+              value="create-objective"
+            />
             <InputRouter name="objetivo" placeholder="Nombre del Objetivo" />
             <SelectRouter
               name={"year"}

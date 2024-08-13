@@ -18,7 +18,7 @@ const GeneralForm = ({ data, setData }) => {
       {/* Primera columna */}
       <div className="space-y-4">
         <div className="flex items-center justify-start">
-          <Label htmlFor="sImpuesto" className="w-2/3 mr-14 text-md text-gris2 font-roboto">Sujeto a impuestos</Label>
+          <Label htmlFor="sImpuesto" className="w-auto mr-14 text-md text-gris2 font-roboto">Sujeto a impuestos</Label>
           <Checkbox 
             name="sImpuesto" 
             checked={data.sImpuesto}
@@ -27,7 +27,7 @@ const GeneralForm = ({ data, setData }) => {
           />
         </div>
         <div className="flex items-center">
-          <Label htmlFor="fabricante" className="mb-1 mr-4 w-1/4 text-md text-gris2 font-roboto">Fabricante</Label> 
+          <Label htmlFor="fabricante" className="mb-1 mr-4 w-auto text-md text-gris2 font-roboto">Fabricante</Label> 
           <Input 
             type="text" 
             name="fabricante" 
@@ -37,7 +37,7 @@ const GeneralForm = ({ data, setData }) => {
             className="ml-4 w-full sm:w-96 lg:w-[500px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg" 
           />
         </div>
-        <div className="flex justify-start space-x-3 w-[300px]">
+        <div className="flex justify-start space-x-3  md:w-[300px]">
           <Label htmlFor="comentarios" className="mb-1 text-md text-gris2 font-roboto">Comentarios</Label>
           <Textarea 
             name="comentarios" 
@@ -50,9 +50,9 @@ const GeneralForm = ({ data, setData }) => {
       </div>
 
       {/* Segunda columna */}
-      <div className="space-y-4 ml-16">
+      <div className="space-y-4 ml-16 pl-6">
         <div className="flex items-center justify-start">
-          <Label htmlFor="activo" className="w-1/2 text-md text-gris2 font-roboto">Activo</Label>
+          <Label htmlFor="activo" className="pr-8 text-md text-gris2 font-roboto">Activo</Label>
           <Checkbox 
             name="activo" 
             checked={data.activo}
@@ -61,7 +61,7 @@ const GeneralForm = ({ data, setData }) => {
           />
         </div>
         <div className="flex items-center justify-start">
-          <Label htmlFor="inactivo" className="w-1/2 text-md text-gris2 font-roboto">Inactivo</Label>
+          <Label htmlFor="inactivo" className=" pr-6 text-md text-gris2 font-roboto">Inactivo</Label>
           <Checkbox 
             name="inactivo" 
             checked={data.inactivo}

@@ -20,6 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import {
+  deletePosition,
+  deleteUser,
   destroyArea,
   editArea,
   importOrganization,
@@ -235,6 +237,14 @@ export async function action({ request }) {
 
     case "import-org":
       await importOrganization(data);
+      return response;
+
+    case "delete-user":
+      await deleteUser(data);
+      return response;
+
+    case "delete-position":
+      await deletePosition(data);
       return response;
   }
 
