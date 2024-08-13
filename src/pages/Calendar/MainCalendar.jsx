@@ -42,13 +42,15 @@ function MainCalendar() {
         return {
           title: item.name,
           start: item.date,
-          id_element: item.id,
+          id_item: item.id,
           type: item.type,
           description: item.description,
+          complete: item.complete,
         };
       }),
     );
 
+    console.log(res2.flat());
     setEvents(res2.flat());
   }, [filters, statusData]);
 
@@ -81,30 +83,30 @@ function MainCalendar() {
     setCompleteTaskModal(true);
   }
 
-  useEffect(() => {
-    const arrayfIllVar = [];
+  // useEffect(() => {
+  //   const arrayfIllVar = [];
 
-    arrayFill(statusData.task, arrayfIllVar);
-    arrayFill(statusData.crm, arrayfIllVar);
-    arrayFill(statusData.meet, arrayfIllVar);
-    arrayFill(statusData.activity, arrayfIllVar);
+  //   arrayFill(statusData.task, arrayfIllVar);
+  //   arrayFill(statusData.crm, arrayfIllVar);
+  //   arrayFill(statusData.meet, arrayfIllVar);
+  //   arrayFill(statusData.activity, arrayfIllVar);
 
-    function arrayFill(data, array) {
-      data.forEach((element) => {
-        array.push({
-          title: element.name,
-          start: element.date,
-          id_element: element.id,
-          type: element.type,
-          description: element.description,
-          complete: element.complete,
-        });
-      });
-    }
+  //   function arrayFill(data, array) {
+  //     data.forEach((element) => {
+  //       array.push({
+  //         title: element.name,
+  //         start: element.date,
+  //         id_element: element.id,
+  //         type: element.type,
+  //         description: element.description,
+  //         complete: element.complete,
+  //       });
+  //     });
+  //   }
 
-    console.log(arrayfIllVar);
-    setEvents(arrayfIllVar);
-  }, [statusData]);
+  //   console.log(arrayfIllVar);
+  //   setEvents(arrayfIllVar);
+  // }, [statusData, filters]);
 
   function filterEventsCalendar($module) {
     setEvents([]);
