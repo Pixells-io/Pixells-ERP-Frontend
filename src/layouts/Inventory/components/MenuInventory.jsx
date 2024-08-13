@@ -37,7 +37,7 @@ const MENU_ITEMS = [
       "/inventory/merchandise-movements/egress/record/"
     ],
   },
-  { path: "/", name: "Listas", subname: "De Precios", icon: clipboard },
+  { path: "/inventory/prices-lists", name: "Listas", subname: "De Precios", icon: clipboard },
   { 
     path: "/inventory/stock-items", 
     name: "Stock", 
