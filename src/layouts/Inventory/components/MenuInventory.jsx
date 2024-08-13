@@ -38,7 +38,13 @@ const MENU_ITEMS = [
     ],
   },
   { path: "/", name: "Listas", subname: "De Precios", icon: clipboard },
-  { path: "/", name: "Stock", subname: "De Articulos", icon: statsChart },
+  { 
+    path: "/inventory/stock-items", 
+    name: "Stock", 
+    subname: "De Articulos", 
+    icon: statsChart,
+    subRoutes: ["/inventory/stock-items/"],
+  },
 ];
 
 const MenuInventory = () => {

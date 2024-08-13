@@ -355,6 +355,8 @@ import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry"
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
 import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
+import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
+import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
 
 const router = createBrowserRouter([
   {
@@ -974,6 +976,14 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/egress/record/:id",
             element: <MerchandiseMovRecordEgress />,
+          },
+          {
+            path: "/inventory/stock-items",
+            element: <MainStockItem />,
+          },
+          {
+            path: "/inventory/stock-items/:id",
+            element: <StockWarehouse />,
           },
         ],
       },
