@@ -109,7 +109,7 @@ function MainLayout() {
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
-  }, []);
+  }, [token]);
 
   async function logOutFunction() {
     //First send the request
