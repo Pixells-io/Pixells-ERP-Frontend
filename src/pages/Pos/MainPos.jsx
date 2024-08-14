@@ -3,16 +3,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, list } from "ionicons/icons";
 import React, { useState } from "react";
+import PosTableForm from "./Table/PosTableForm";
 
 function MainPos() {
   const [tickets, setTickets] = useState([
     {
-      products: [],
+      products: [
+        {
+          image: "None",
+          article: "PLAYERA",
+          sku: "07863548",
+          description: "Playera de algodón azul",
+          quantity: 7,
+          price: 95,
+          discount: 0,
+          iva: 16,
+          subTotal: 106,
+        },
+      ],
     },
     {
       products: [],
     },
   ]);
+
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const addTickets = () => {
     setTickets([...tickets, { products: [] }]);
@@ -47,8 +62,8 @@ function MainPos() {
       </div>
 
       {/* tickets */}
-      <div className="flex items-center">
-        <Tabs defaultValue="crm" className="mt-2 rounded-lg bg-inherit">
+      <div className="flex w-full items-center">
+        <Tabs defaultValue="crm" className="mt-2 w-full rounded-lg bg-inherit">
           <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
             <IonIcon
               onClick={() => addTickets()}
@@ -67,7 +82,13 @@ function MainPos() {
           </TabsList>
           {tickets.map((ticket, index) => (
             <TabsContent key={index} value={index} className="p-2">
-              <h2>content {index}</h2>
+              <div className="w-full">
+                <PosTableForm
+                  tableData={ticket.products}
+                  setTotalProducts={setTotalProducts}
+                />
+                <h2>Total: {totalProducts}</h2>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
