@@ -298,6 +298,8 @@ import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
+import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -985,6 +987,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/prices-lists",
             element: <MainPriceList />,
+          },
+          {
+            path: "/inventory/prices-lists/create",
+            element: <CreatePriceList />,
           },
           {
             path: "/inventory/stock-items",
