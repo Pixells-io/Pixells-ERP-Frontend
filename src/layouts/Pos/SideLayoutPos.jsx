@@ -7,7 +7,7 @@ import { gridOutline, list } from "ionicons/icons";
 const SideLayoutPos = () => {
   return (
     <div className="flex h-full w-full flex-col gap-2 px-4 pb-4 font-roboto">
-      <div className="grid min-h-[76px] w-full grid-cols-12 gap-x-2 px-4">
+      <div className="grid min-h-[76px] w-full grid-cols-12 gap-x-2 px-4 bg-[#F9F9F9] rounded-lg">
         <div className="col-span-1 flex w-full flex-col items-center justify-center">
           <h2 className="font-poppins text-xl font-bold text-grisHeading">
             Home
