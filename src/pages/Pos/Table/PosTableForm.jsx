@@ -110,7 +110,7 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
   );
 
   return (
-    <Table>
+    <Table className="bg-[#FFFFFF] rounded">
       <TableHeader>
         <TableRow className="border-b-2 border-b-primario">
           {columns.map((column) => (

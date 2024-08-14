@@ -5,8 +5,8 @@ import { gridOutline, list } from "ionicons/icons";
 
 const SideLayoutPos = () => {
   return (
-    <div className="px-4 pb-4 font-roboto">
-      <div className="h-full w-full pb-4 font-roboto">
+    <div className="h-full px-4 pb-4 font-roboto">
+      <div className="w-full pb-4 font-roboto">
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
           <div className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading">
             {/* <h2 className="font-poppins text-xl font-bold text-grisHeading">
@@ -168,8 +168,9 @@ const SideLayoutPos = () => {
           </div>
         </div>
       </div>
-
-      <Outlet />
+      <div className="flex">
+        <Outlet />
+      </div>
     </div>
   );
 };
