@@ -112,7 +112,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 
   function checkColor(value) {
     const color = PRIORITY.filter((prio) => prio.value == value);
-    return color[0].color;
+    return color[0]?.color;
   }
 
   return (
@@ -167,9 +167,9 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
           <div
             key={i}
             className={
-              header?.name === "ACTIVITY"
+              header?.name === "ACTIVIDAD"
                 ? "col-span-2"
-                : "" || header?.name === "CSF"
+                : "" || header?.name === "FCE"
                   ? "pl-2 text-left"
                   : "pl-4 text-center"
             }
@@ -265,7 +265,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                         className="text-sm font-medium text-primario"
                         type="text"
                         name="name"
-                        defaultValue={fce?.name.toUpperCase()}
+                        defaultValue={fce?.name?.toUpperCase()}
                       />
                       <input
                         type="text"
@@ -402,7 +402,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                           </p>
                         </div>
                         <div>
-                          <div className="flex justify-end gap-2">
+                          <div className="flex justify-center gap-2">
                             <div className="">
                               <Avatar className="h-6 w-6">
                                 <AvatarImage src={task?.assigned?.image} />
@@ -411,7 +411,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div className="flex justify-center">
                           <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
                             <p className="text-[11px] font-semibold">
                               {task?.status || "Pending"}
@@ -438,9 +438,9 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                   )
                                 }
                               ></IonIcon>
-                              {edit == true ? (
+                              {edit && (
                                 <IonIcon
-                                  icon={create}
+                                  icon={informationCircle}
                                   className="h-5 w-5"
                                   onClick={() =>
                                     openEditModalTask(
@@ -452,17 +452,13 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                     )
                                   }
                                 ></IonIcon>
-                              ) : (
-                                false
                               )}
-                              {destroy == true ? (
+                              {destroy && (
                                 <IonIcon
                                   icon={trash}
                                   onClick={() => openDestroyTaskModal(task?.id)}
                                   className="h-5 w-5"
                                 ></IonIcon>
-                              ) : (
-                                false
                               )}
                             </div>
                           </div>

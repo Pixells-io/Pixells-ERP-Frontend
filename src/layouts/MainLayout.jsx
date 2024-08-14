@@ -105,7 +105,8 @@ function MainLayout() {
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
-      setUser(user.data);
+      if (user.code == 400) return navigate("/login");
+      setUser(user?.data);
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");

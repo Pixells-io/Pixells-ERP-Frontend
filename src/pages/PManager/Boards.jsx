@@ -40,27 +40,27 @@ function Boards() {
 
   //CHANGE PERMISSIONS
   useEffect(() => {
-    const editQuery = permissions.data.filter(
-      (item) => item.permision_capability == "2",
+    const editQuery = permissions?.data?.filter(
+      (item) => item?.permision_capability == "2",
     );
 
     if (editQuery.length == 0) {
       setEditP(false);
     }
 
-    const createQuery = permissions.data.filter(
-      (item) => item.permision_capability == "3",
+    const createQuery = permissions?.data?.filter(
+      (item) => item?.permision_capability == "3",
     );
 
-    if (createQuery.length == 0) {
+    if (createQuery?.length == 0) {
       setCreateP(false);
     }
 
-    const destroyQuery = permissions.data.filter(
-      (item) => item.permision_capability == "4",
+    const destroyQuery = permissions?.data?.filter(
+      (item) => item?.permision_capability == "4",
     );
 
-    if (destroyQuery.length == 0) {
+    if (destroyQuery?.length == 0) {
       setDestroyP(false);
     }
   });
@@ -77,8 +77,8 @@ function Boards() {
     });
 
     async function getPMinfoFuncion(id) {
-      const newData = await getGoalsMaster(id);
-      setPMdata(newData.data);
+      const { data } = await getGoalsMaster(id);
+      setPMdata(data);
     }
 
     return () => {
@@ -88,8 +88,8 @@ function Boards() {
 
   useEffect(() => {
     async function getGoals() {
-      let newData = await getGoalsMaster(id);
-      setPMdata(newData.data);
+      let { data } = await getGoalsMaster(id);
+      setPMdata(data);
     }
 
     getGoals();
@@ -153,10 +153,10 @@ function Boards() {
       </TabsList>
       {PMdata?.map(({ fces, goal }, i) => (
         <div key={i} className="flex w-full">
-          <TabsContent value={goal.name} className="w-full">
+          <TabsContent value={goal?.name} className="w-full">
             <Board
               goal={goal}
-              users={users.data}
+              users={users?.data}
               csfs={fces}
               create={createP}
               edit={editP}

@@ -363,6 +363,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     loader: multiloaderNotifications,
+    // errorElement: <NotFound />,
     children: [
       {
         index: true,
