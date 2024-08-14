@@ -52,15 +52,15 @@ function TaskListModal({ modal, setModal, tasks }) {
         priority={taskPriority}
         start={taskStart}
       />
-      <DialogContent className="max-w-[200px] bg-[#F0F0F0] p-0">
+      <DialogContent className="flex max-h-[350px] max-w-[250px] flex-col bg-[#F0F0F0] p-0">
         <DialogHeader className="px-8 py-4">
           <DialogTitle>
             <p className="text-center text-xs font-medium text-grisText">
-              Repeticiones de Actividad &bull; {tasks[0]?.name}
+              Repeticiones de Actividad &bull; <br /> {tasks[0]?.name}
             </p>
           </DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col gap-2 pb-4">
+        <div className="flex h-full flex-col gap-2 overflow-y-scroll pb-4">
           {tasks !== "" &&
             tasks?.map((task, i) => (
               <div

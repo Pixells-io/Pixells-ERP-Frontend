@@ -42,8 +42,6 @@ function MainOrganization() {
   const { actionInfo } = useOutletContext();
   const { toast } = useToast();
 
-  // console.log(actionInfo);
-
   useEffect(() => {
     if (actionInfo?.code == 201) {
       toast({
@@ -237,15 +235,15 @@ export async function action({ request }) {
 
     case "import-org":
       await importOrganization(data);
-      return response;
+      return;
 
     case "delete-user":
       await deleteUser(data);
-      return response;
+      return;
 
     case "delete-position":
       await deletePosition(data);
-      return response;
+      return;
   }
 
   return redirect("/organization");

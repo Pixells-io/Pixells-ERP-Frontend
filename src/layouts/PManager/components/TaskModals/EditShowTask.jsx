@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
 import { create } from "ionicons/icons";
+import { Label } from "@/components/ui/label";
+import DatePicker from "@/components/date-picker";
 
 function EditShowTask({
   modal,
@@ -28,6 +30,7 @@ function EditShowTask({
   description,
   priority,
   start,
+  end,
   action,
   actionInput,
 }) {
@@ -112,29 +115,38 @@ function EditShowTask({
               </div>
               <InputRouter
                 type="text"
-                placeholder="Name of the area"
+                placeholder="Description"
                 name="description"
                 disabled={editTaskInputs}
                 defaultVal={description}
               />
-              <Select name="priority">
-                <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
-                  <SelectValue placeholder={priorityInputLabel} />
-                </SelectTrigger>
-                <SelectContent className="text-grisText">
-                  <SelectItem value="1">Baja</SelectItem>
-                  <SelectItem value="2">Media</SelectItem>
-                  <SelectItem value="3">Importante</SelectItem>
-                  <SelectItem value="4">Urgente</SelectItem>
-                </SelectContent>
-              </Select>
-              <InputRouter
-                name="start"
-                defaultVal={start}
-                disabled={editTaskInputs}
-                type="date"
-                placeholder="Comment"
-              />
+              <Label className="flex flex-col gap-1">
+                <span className="pl-1 text-[11px] font-light text-grisHeading">
+                  Priority
+                </span>
+                <Select name="priority" disabled={editTaskInputs}>
+                  <SelectTrigger className="rounded-lg border-0 border-b bg-gris font-light text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
+                    <SelectValue placeholder={priorityInputLabel} />
+                  </SelectTrigger>
+                  <SelectContent className="text-grisHeading">
+                    <SelectItem value="1">Baja</SelectItem>
+                    <SelectItem value="2">Media</SelectItem>
+                    <SelectItem value="3">Importante</SelectItem>
+                    <SelectItem value="4">Urgente</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Label>
+
+              <Label className="flex flex-col gap-1">
+                <span className="pl-1 text-[11px] font-light text-grisHeading">
+                  Date
+                </span>
+                <DatePicker
+                  name="end"
+                  defaultVal={end}
+                  disabled={editTaskInputs}
+                />
+              </Label>
             </div>
           </div>
           <DialogFooter className="px-10 pb-6">

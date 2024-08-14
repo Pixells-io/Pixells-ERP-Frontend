@@ -32,6 +32,7 @@ import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask"
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
+import EditTask from "./components/Modal/EditTask";
 
 const HEADERS = [
   { name: "FCE" },
@@ -66,6 +67,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
   const [taskDescription, setTaskDescription] = useState(false);
   const [taskPriority, setTaskPriority] = useState(false);
   const [taskStart, setTaskStart] = useState(false);
+  const [taskEnd, setTaskEnd] = useState(false);
   const [editTaskModal, setEditTaskModal] = useState(false);
   const [completeTaskModal, setCompleteTaskModal] = useState(false);
   const [csfModal, setCsfModal] = useState(false);
@@ -82,13 +84,14 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
     setCompleteTaskModal(true);
   }
 
-  function openEditModalTask(taskId, name, description, priority, start) {
+  function openEditModalTask(taskId, name, description, priority, start, end) {
     setTaskId(taskId);
     setTaskName(name);
     setTaskDescription(description);
     setTaskPriority(priority);
     setTaskStart(start);
     setEditTaskModal(true);
+    setTaskEnd(end);
   }
 
   function openDestroyTaskModal(taskId) {
@@ -159,6 +162,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
         description={taskDescription}
         priority={taskPriority}
         start={taskStart}
+        end={taskEnd}
         action={`/project-manager/${id}`}
         actionInput="edit-task"
       />
@@ -439,19 +443,25 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                 }
                               ></IonIcon>
                               {edit && (
-                                <IonIcon
-                                  icon={informationCircle}
-                                  className="h-5 w-5"
-                                  onClick={() =>
-                                    openEditModalTask(
-                                      task?.id,
-                                      task?.name,
-                                      task?.description,
-                                      task?.priority,
-                                      task?.start,
-                                    )
-                                  }
-                                ></IonIcon>
+                                <EditTask
+                                  users={users}
+                                  task={task}
+                                  csfId={""}
+                                />
+                                // <IonIcon
+                                //   icon={informationCircle}
+                                //   className="h-5 w-5"
+                                //   onClick={() =>
+                                //     openEditModalTask(
+                                //       task?.id,
+                                //       task?.name,
+                                //       task?.description,
+                                //       task?.priority,
+                                //       task?.start,
+                                //       task?.end,
+                                //     )
+                                //   }
+                                // ></IonIcon>
                               )}
                               {destroy && (
                                 <IonIcon

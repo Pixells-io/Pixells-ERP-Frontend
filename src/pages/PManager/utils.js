@@ -244,7 +244,8 @@ export async function editTask(data) {
     name: data.get("name"),
     description: data.get("description"),
     priority: data.get("priority"),
-    start: data.get("start"),
+    // start: data.get("start"),
+    end: format(data.get("end"), "dd-MM-yyyy"),
   };
 
   // validaciones?
