@@ -3,10 +3,12 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
+  closeCircle
 } from "ionicons/icons";
+import Inputs from "../Components/SelectGroup";
 
-const MainPriceList = () => {
- 
+
+const CreatePL = () => {
 
   return (
     <div className="flex w-full">
@@ -50,13 +52,29 @@ const MainPriceList = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nueva Lista de Precios
           </p>
-          
+          <div className="flex items-end justify-end">
+            <Link to="/inventory/prices-lists">
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              >
+                <IonIcon
+                  icon={closeCircle}
+                  size="large"
+                  className="bg-trasparent p-1 text-gris2"
+                  aria-hidden="true"
+                />
+              </Button>
+            </Link>
+          </div>
         </div>
         {/*content */}
-          
+          <Inputs/>
         </div>
       </div>
   );
 };
 
-export default MainPriceList;
+export default CreatePL;
