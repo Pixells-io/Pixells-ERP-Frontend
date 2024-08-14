@@ -24,6 +24,7 @@ const CreatePriceList = () => {
     roundValues: false,
     roundingMethod: "truncate",
   });
+  const [indRef, setIndRef] = useState(2.1);
 
   const handleDataChange = (newData) => {
     setData(newData);
@@ -34,6 +35,10 @@ const CreatePriceList = () => {
       roundValues: isRounded || false,
       roundingMethod: method || "truncate",
     });
+  };
+
+  const handleIndRefChange = (newIndRef) => {
+    setIndRef(parseFloat(newIndRef));
   };
 
   return (
@@ -98,13 +103,17 @@ const CreatePriceList = () => {
         </div>
         {/*content */}
         <div className="space-y-3 overflow-auto">
-          <Inputs onRoundingChange={handleRoundingChange} />
+        <Inputs 
+            onRoundingChange={handleRoundingChange} 
+            onIndRefChange={handleIndRefChange}
+          />
           <DataTable
             initialData={data}
             onDataChange={handleDataChange}
             roundValues={roundingSettings.roundValues}
             roundingMethod={roundingSettings.roundingMethod}
             decimalPlaces={2}
+            indRef={indRef}
           />
           <ObservationsSection/>
           <div className="justify-end">

@@ -7,7 +7,7 @@ import { addCircle, chevronBack, chevronForward, closeCircle } from "ionicons/ic
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatNumber, formatDecimalInput } from "./utils";
 
-const DataTable = ({ initialData, onDataChange, roundValues, roundingMethod, decimalPlaces = 2 }) => {
+const DataTable = ({ initialData, onDataChange, roundValues, roundingMethod, decimalPlaces = 2, indRef }) => {
   const [tableData, setTableData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -54,7 +54,17 @@ const DataTable = ({ initialData, onDataChange, roundValues, roundingMethod, dec
     });
   };
 
-  const handleAddRow = () => setTableData([...tableData, columns.reduce((acc, col) => ({ ...acc, [col.key]: col.type === "number" ? 0 : "" }), {})]);
+  const handleAddRow = () => {
+    setTableData([...tableData, {
+      nuevoArticulo: "",
+      descripcion: "",
+      listaPrecioBase: "",
+      precioBase: 0,
+      precioUnitario: 0,
+      indiceRefactorizacion: indRef,
+      precioRefactorizacion: 0,
+    }]);
+  };
   const handleDeleteRow = (rowIndex) => tableData.length > 1 && setTableData(tableData.filter((_, index) => index !== rowIndex));
   const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
   const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));

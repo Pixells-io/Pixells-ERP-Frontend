@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const Inputs = ({ onRoundingChange }) => {
+const Inputs = ({ onRoundingChange, onIndRefChange }) => {
   const [inputsData, setInputsData] = useState({
     namList: "",
     prList: "option1",
@@ -23,11 +23,15 @@ const Inputs = ({ onRoundingChange }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setInputsData((prevData) => {
+      const newData = { ...prevData, [name]: value };
+      if (name === 'indRef') {
+        onIndRefChange(value);
+      }
+      return newData;
+    });
   };
+
   const handleCheckboxChange = (name, checked) => {
     setInputsData((prevData) => {
       const newData = { ...prevData, [name]: checked };
