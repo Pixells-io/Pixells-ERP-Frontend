@@ -4,8 +4,10 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import Publication from "./Components/Publication";
 import Categories from "./Components/Categories";
+import { useLoaderData } from "react-router-dom";
 
 function MainTopics() {
+  const { categories, topics } = useLoaderData();
   return (
     <div className="flex w-full gap-x-4">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
@@ -39,12 +41,13 @@ function MainTopics() {
           </div>
         </div>
 
-        <div className="flex items-center flex-col gap-y-4">
-            <Publication />
-            <Publication />
+        <div className="flex flex-col items-center gap-y-4">
+          {topics.data.map((topic, i) => (
+            <Publication topic={topic} key={i} />
+          ))}
         </div>
       </div>
-      <Categories />
+      <Categories categories={categories.data} />
     </div>
   );
 }

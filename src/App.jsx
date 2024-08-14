@@ -360,6 +360,7 @@ import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgre
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
 import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
 import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
+import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
 
 //POS
 import MainPos from "./pages/Pos/MainPos";
@@ -1176,13 +1177,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/topics",
+        path: "/topics/",
         element: <SideLayoutTopics />,
         action: NewTopicFunction,
+        loader: multiLoaderTopics2,
         children: [
           {
-            index: true,
+            path: "/topics/:id",
             element: <MainTopics />,
+            loader: multiLoaderTopics,
           },
         ],
       },
