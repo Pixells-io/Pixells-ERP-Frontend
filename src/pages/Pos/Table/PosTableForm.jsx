@@ -7,13 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { IonIcon } from "@ionic/react";
-import { addCircle, chevronBack, chevronForward } from "ionicons/icons";
 
 const PosTableForm = ({ tableData, setTotalProducts }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
   useEffect(() => {
     const TotalP = tableData.reduce(
       (sum, row) => sum + (parseFloat(row.subTotal) || 0),
@@ -27,123 +22,125 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
     () => [
       {
         id: "image",
-        header: "imagen",
+        header: "",
         accessorKey: "image",
-        cell: ({ row }) => <>{row?.image}</>,
+        cell: ({ row }) => (
+          <div className="flex justify-center">
+            <div className="h-[46px] w-[46px]">
+              <img
+                loading="lazy"
+                width={46}
+                className="max-h-[46px] max-w-[46px]"
+                src={row?.image}
+              />
+            </div>
+          </div>
+        ),
       },
       {
         id: "article",
         header: "ARTICULO",
         accessorKey: "article",
-        cell: ({ row }) => <>{row?.article}</>,
+        cell: ({ row }) => (
+          <p className="font-poppins text-xs font-medium text-[#44444F]">
+            {row?.article}
+          </p>
+        ),
       },
       {
         id: "sku",
         header: "SKU.",
         accessorKey: "sku",
-        cell: ({ row }) => <>{row?.sku}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.sku}</p>
+        ),
       },
       {
         id: "description",
         header: "DESCRIPCION",
         accessorKey: "description",
-        cell: ({ row }) => <>{row?.description}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">
+            {row?.description}
+          </p>
+        ),
       },
       {
         id: "quantity",
         header: "CANTIDAD",
         accessorKey: "quantity",
-        cell: ({ row }) => <>{row?.quantity}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.quantity}</p>
+        ),
       },
       {
         id: "price",
         header: "PRECIO",
         accessorKey: "price",
-        cell: ({ row }) => <>{row?.price}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.price}</p>
+        ),
       },
       {
         id: "discount",
         header: "DESCUENTO",
         accessorKey: "discount",
-        cell: ({ row }) => <>{row?.discount}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.discount}</p>
+        ),
       },
       {
         id: "iva",
         header: "IMPUESTO",
         accessorKey: "iva",
-        cell: ({ row }) => <>{row?.iva}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.iva}</p>
+        ),
       },
       {
         id: "subTotal",
         header: "SUBTOTAL",
         accessorKey: "subTotal",
-        cell: ({ row }) => <>{row?.subTotal}</>,
+        cell: ({ row }) => (
+          <p className="text-xs font-light text-[#44444F]">{row?.subTotal}</p>
+        ),
       },
     ],
     [],
   );
 
-  const totalPages = Math.ceil(tableData.length / itemsPerPage);
-  const paginatedData = tableData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
-
-  const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
-
   return (
-    <div className="mb-2 rounded-xl">
-      <div className="">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-2 border-b-primario text-xs font-normal text-grisText">
-              {columns.map((column) => (
-                <TableHead key={column.accessorKey}>{column.header}</TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedData.map((row, rowIndex) => (
-              <TableRow
-                key={rowIndex}
-                className="text-sm font-normal text-[#44444F]"
-              >
-                {columns.map((column) => (
-                  <TableCell key={column.accessorKey}>
-                    {column.cell({
-                      row,
-                      rowIndex: (currentPage - 1) * itemsPerPage + rowIndex,
-                    })}
-                  </TableCell>
-                ))}
-              </TableRow>
+    <Table>
+      <TableHeader>
+        <TableRow className="border-b-2 border-b-primario">
+          {columns.map((column) => (
+            <TableHead
+              key={column.accessorKey}
+              className="text-sm font-semibold text-grisText"
+            >
+              {column.header}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {tableData.map((row, rowIndex) => (
+          <TableRow
+            key={rowIndex}
+            className="text-sm font-normal text-[#44444F]"
+          >
+            {columns.map((column) => (
+              <TableCell key={column.accessorKey}>
+                {column.cell({
+                  row,
+                  rowIndex: rowIndex,
+                })}
+              </TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="mt-4 flex items-center justify-between">
-        <div className="flex items-center">
-          <IonIcon
-            icon={chevronBack}
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className={`mr-2 ${currentPage !== 1 ? "text-primario" : "text-grisText"} ${currentPage !== 1 && "hover:cursor-pointer"}`}
-          />
-          <IonIcon
-            icon={chevronForward}
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className={`ml-2 ${currentPage === totalPages ? "text-grisText" : "text-primario"} ${currentPage !== totalPages && "hover:cursor-pointer"}`}
-          />
-        </div>
-      </div>
-    </div>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
