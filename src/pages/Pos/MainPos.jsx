@@ -33,6 +33,18 @@ const productsOptions = [
     discount: 0,
     iva: 16,
   },
+  {
+    id: 3,
+    isGranel: false,
+    image: "https://picsum.photos/200/300?grayscale",
+    article: "PLAYERA",
+    sku: "07863548",
+    description: "Playera de algodón azul",
+    quantity: 1,
+    price: 95,
+    discount: 0,
+    iva: 16,
+  },
 ];
 
 const clientsOptions = [
@@ -51,35 +63,7 @@ const clientsOptions = [
 ];
 
 function MainPos() {
-  const [tickets, setTickets] = useState([
-    {
-      products: [
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 6,
-          price: 95,
-          discount: 0,
-          iva: 16,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-        },
-      ],
-    },
-    {
-      products: [],
-    },
-  ]);
+  const [tickets, setTickets] = useState([]);
   const [subTotalProducts, setSubTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
   const [modalScanItemN, setModalScanItemN] = useState(false);
@@ -200,12 +184,10 @@ function MainPos() {
             className="flex-1 overflow-auto p-2"
           >
             <div className="flex h-full w-full flex-col justify-between">
-              <div className="h-full overflow-auto rounded bg-[#FFFFFF]">
-                <PosTableForm
-                  tableData={ticket.products}
-                  setTotalProducts={setSubTotalProducts}
-                />
-              </div>
+              <PosTableForm
+                tableData={ticket.products}
+                setTotalProducts={setSubTotalProducts}
+              />
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">
                   <div className="col-span-4 flex items-center">
@@ -236,7 +218,7 @@ function MainPos() {
                         COBRAR
                       </span>
                       <span className="font-poppins text-xl font-semibold text-white">
-                        {subTotalProducts}
+                        ${subTotalProducts}
                       </span>
                     </Button>
                   </div>
