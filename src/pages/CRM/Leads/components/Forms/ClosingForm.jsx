@@ -80,7 +80,6 @@ function ClosingForm({
   }
 
   function updateSelectServSelect(index, e) {
-    // console.log(e);
     const newFields = selectServ.map((inputs, i) =>
       i === index ? { ...inputs, service: e } : inputs,
     );
@@ -88,7 +87,6 @@ function ClosingForm({
   }
 
   function updateSelectServSelect2(index, e) {
-    // console.log(e);
     const newFields = selectServ.map((inputs, i) =>
       i === index ? { ...inputs, recurrency: e } : inputs,
     );

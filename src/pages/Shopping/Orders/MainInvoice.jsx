@@ -54,7 +54,7 @@ const MainInvoices = () => {
     {
       label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
 
@@ -171,22 +171,21 @@ const MainInvoices = () => {
           <div className="flex items-start justify-start">
             <Link to="/shopping/invoices-orders/create">
               <Button
+                type="button"
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
                 <IonIcon
                   icon={addCircleOutline}
                   size="large"
                   className="text-primarioBotones"
-                  aria-hidden="true"
                 />
               </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="invoices"
@@ -195,13 +194,13 @@ const MainInvoices = () => {
               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
                   value="invoices"
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
                   FACTURAS
                 </TabsTrigger>
                 <TabsTrigger
                   value="OTRO"
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 >
                   OTROS
                 </TabsTrigger>
@@ -216,13 +215,12 @@ const MainInvoices = () => {
                 />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
-                    <p>CONTENIDO</p>
+                <p>CONTENIDO</p>
               </TabsContent>
             </Tabs>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

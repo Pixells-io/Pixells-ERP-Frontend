@@ -15,7 +15,7 @@ import StepOne from "./Steps/StepOne";
 import StepTwo from "./Steps/StepTwo";
 import StepThree from "./Steps/StepThree";
 
-function NewTopic({ modal, setModal, functionModal }) {
+function NewTopic({ modal, setModal, functionModal, categories, user }) {
   const [stepped, setStepped] = useState(1);
   const [files, setFiles] = useState([]);
 
@@ -59,8 +59,13 @@ function NewTopic({ modal, setModal, functionModal }) {
           method="post"
           className={`w-full ${stepped !== 3 ? "flex items-center justify-center" : "hidden"} `}
         >
+          <input type="hidden" name="type_function" value={1} />
           <div className={stepped == 1 ? "flex h-[250px] w-full" : "hidden"}>
-            <StepOne setStepped={setStepped} />
+            <StepOne
+              setStepped={setStepped}
+              category={categories}
+              user={user}
+            />
           </div>
 
           <div
@@ -82,7 +87,6 @@ function NewTopic({ modal, setModal, functionModal }) {
             inputRef={inputRef}
           />
         </div>
-        
 
         <DialogDescription></DialogDescription>
       </DialogContent>

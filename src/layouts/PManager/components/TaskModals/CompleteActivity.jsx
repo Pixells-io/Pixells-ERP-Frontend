@@ -20,7 +20,7 @@ const DAYS = [
   { label: "Sunday", value: "Sunday" },
 ];
 
-function CompleteActivity({ modal, setModal, activity }) {
+function CompleteActivity({ modal, setModal, activity, action, actionInput }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -40,11 +40,11 @@ function CompleteActivity({ modal, setModal, activity }) {
         <Form
           id="modal-complete-activity"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/status"
+          action={action}
           method="POST"
         >
           <input hidden readOnly value={activity} name="activity_id" />
-          <input hidden readOnly value="complete-activity" name="action" />
+          <input hidden readOnly value={actionInput} name="action" />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to complete a activity, are you sure?
           </span>

@@ -19,7 +19,7 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-15",
       fechad: "2024-07-04",
       tipo: "Factura",
-      estatus: "En progreso"
+      estatus: "En progreso",
     },
     {
       ndocumento: "DOC002",
@@ -30,19 +30,19 @@ const MainQuotesOrder = () => {
       fechac: "2024-07-16",
       fechad: "2024-07-15",
       tipo: "Nota de crédito",
-      estatus: "Finalizado"
+      estatus: "Finalizado",
     },
   ];
   const getMenuItems = (id) => [
     {
-      label: 'Edit',
+      label: "Edit",
       isLink: true,
-      to: `/shopping/quotes-orders/edit/${id}`, 
+      to: `/shopping/quotes-orders/edit/${id}`,
     },
     {
-      label: 'Cancel',
+      label: "Cancel",
       isLink: false,
-      onClick: () => console.log("Cancel action"),
+      onClick: () => {},
     },
   ];
   const columns = [
@@ -103,7 +103,7 @@ const MainQuotesOrder = () => {
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(index);
-    
+
         return (
           <div className="flex items-center justify-center">
             <MenuItem menuItems={menuItems} />
@@ -157,50 +157,49 @@ const MainQuotesOrder = () => {
           </p>
           <div className="flex items-start justify-start">
             <Link to="/shopping/quotes-orders/create">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-              >
-                <IonIcon
-                  icon={addCircleOutline}
-                  size="large"
-                  className="text-primarioBotones"
-                  aria-hidden="true"
-                />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                size="large"
+                className="text-primarioBotones"
+              />
               </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-transparent p-4">
           <div className="w-full">
             <Tabs
               defaultValue="quotes"
-             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList  className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="quotes"
                 >
                   COTIZACIONES
                 </TabsTrigger>
                 <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="OTRO"
                 >
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="quotes"  className="mt-[-60px] p-2">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="ndocumento"
-                      searchNameFilter="Buscar por No. Documento"
-                      isCheckAll={true}
-                    />
+              <TabsContent value="quotes" className="mt-[-60px] p-2">
+                <DataTable
+                  data={data}
+                  columns={columns}
+                  searchFilter="ndocumento"
+                  searchNameFilter="Buscar por No. Documento"
+                  isCheckAll={true}
+                />
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">
@@ -213,7 +212,6 @@ const MainQuotesOrder = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

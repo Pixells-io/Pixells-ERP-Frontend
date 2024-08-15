@@ -73,12 +73,13 @@ const allCategories = [
     name: "Example13",
   },
 ];
-function Categories() {
+function Categories({ categories }) {
   return (
-    <div className="flex flex-col gap-y-6 overflow-auto rounded-md bg-blancoForms pb-2 pl-4 pr-1 pt-4 min-w-[230px]">
+    <div className="flex min-w-[230px] flex-col gap-y-6 overflow-auto rounded-md bg-blancoForms pb-2 pl-4 pr-1 pt-4">
       <h2 className="font-poppins text-xl font-semibold text-grisHeading">
         CATEGORIES
       </h2>
+      {/* 
       <div>
         <h3 className="font-poppins text-xl font-semibold text-grisHeading">
           Favorite Categories
@@ -91,7 +92,7 @@ function Categories() {
             >
               {({ isActive }) => (
                 <p
-                  className={`w-[112px] rounded-3xl px-3 py-2 text-xs font-medium text-center ${
+                  className={`w-[112px] rounded-3xl px-3 py-2 text-center text-xs font-medium ${
                     isActive
                       ? "bg-primario text-white"
                       : "bg-[#E0E0E0] text-[#44444F]"
@@ -104,26 +105,24 @@ function Categories() {
           ))}
         </div>
       </div>
+      */}
       <div>
         <h3 className="font-poppins text-xl font-semibold text-grisHeading">
           All
         </h3>
         <div className="mt-3 flex max-h-[250px] flex-col gap-y-4 overflow-auto">
-          {allCategories.map((allCAtegory) => (
-            <NavLink
-              key={"allCategory-" + allCAtegory.id}
-              to={"/topics/" + allCAtegory.path}
-            >
+          {categories.map((cat) => (
+            <NavLink key={"allCategory-" + cat.id} to={"/topics/" + cat.id}>
               {({ isActive }) => (
                 <div className="flex items-center gap-x-2">
                   <p
-                    className={`w-[112px] rounded-3xl px-2 py-2 text-xs font-medium text-center ${
+                    className={`w-[112px] rounded-3xl px-2 py-2 text-center text-xs font-medium ${
                       isActive
                         ? "bg-primario text-white"
                         : "border border-[#44444F] bg-inherit text-[#44444F]"
                     }`}
                   >
-                    {allCAtegory.name}
+                    {cat.name}
                   </p>
                   {isActive && (
                     <IonIcon
@@ -138,10 +137,11 @@ function Categories() {
           ))}
         </div>
       </div>
-      <div className="pr-3 mt-4">
+      <div className="mt-4 pr-3">
         <div className="flex flex-col gap-y-1 rounded-2xl bg-[#E8E8E8] px-2 py-1">
           <div>
-            <label className="text-xs font-medium text-grisText">Created</label>.
+            <label className="text-xs font-medium text-grisText">Created</label>
+            .
             <label className="text-xs font-medium text-grisText">
               12 Jan 2024
             </label>

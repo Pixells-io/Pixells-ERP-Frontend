@@ -78,7 +78,6 @@ function ExamShow() {
     const updatedData = { ...localData };
     updatedData.questions[questionIndex].type = type;
     setLocalData(updatedData);
-    console.log(type);
   }
 
   function onChangeCheckBox(questionIdx, answerIdx) {
@@ -96,9 +95,6 @@ function ExamShow() {
     //   ),
     // );
   }
-
-  console.log("DATA FROM BACKEND:", data);
-  console.log("DATA FROM STATE:", localData);
 
   return (
     <div className="flex w-full">

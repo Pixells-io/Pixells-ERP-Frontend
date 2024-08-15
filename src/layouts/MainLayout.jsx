@@ -33,6 +33,7 @@ import {
   grid,
   bookmark,
   logOut,
+  albumsOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -84,6 +85,12 @@ const MENU = [
     path: "/tickets",
     name: "Ticket",
     icon: ticket,
+  },
+  {
+    id: "8",
+    path: "/topics/0",
+    name: "Topics",
+    icon: albumsOutline,
   },
   /*{
     path: "/configuration",

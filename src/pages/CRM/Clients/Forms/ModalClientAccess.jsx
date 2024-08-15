@@ -34,7 +34,6 @@ function ModalClientAccess({ modal, setModal, client_id, email }) {
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}

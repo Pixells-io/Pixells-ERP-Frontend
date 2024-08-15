@@ -49,7 +49,7 @@ const CreateWH = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Almacenes generales
+            Nuevo almacén
           </p>
           
         </div>

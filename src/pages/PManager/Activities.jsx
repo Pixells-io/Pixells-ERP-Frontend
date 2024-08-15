@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { redirect, useLoaderData } from "react-router-dom";
 
 import {
   Accordion,
@@ -9,24 +10,19 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import NavigationHeader from "@/components/navigation-header";
 
-import {
-  checkmarkCircleOutline,
-  chevronBack,
-  chevronForward,
-  create,
-  ellipse,
-  trash,
-} from "ionicons/icons";
+import { checkmarkCircleOutline, create, ellipse, trash } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { redirect, useLoaderData } from "react-router-dom";
-import { completeTask, destroyTask, editTask } from "./utils";
+
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
 import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask";
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
+
 import { getMonthActivity } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
-import NavigationHeader from "@/components/navigation-header";
+
+import { completeTask, destroyTask, editTask } from "./utils";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -54,9 +50,9 @@ function Activities() {
   const [activitiesData, setActivitiesData] = useState(data);
 
   async function getActivitiesData() {
-    let newData = await getMonthActivity();
+    let { data } = await getMonthActivity();
 
-    setActivitiesData(newData);
+    setActivitiesData(data);
   }
 
   const pusherClient = createPusherClient();
@@ -77,7 +73,7 @@ function Activities() {
 
   function checkColor(value) {
     const color = PRIORITY.filter((prio) => prio.value == value);
-    return color[0].color;
+    return color[0]?.color;
   }
 
   const [taskId, setTaskId] = useState(false);

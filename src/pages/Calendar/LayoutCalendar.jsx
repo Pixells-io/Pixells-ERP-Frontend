@@ -7,14 +7,13 @@ import { Calendar } from "@/components/ui/calendar";
 import FormCreateMeet from "./Components/FormCreateMeet";
 import { saveNewMeet } from "./utils";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { completeActivity, completeTask } from "../PManager/utils";
 
 function LayoutCalendar() {
   const { data } = useLoaderData();
   const [modal, setModal] = useState(false);
   const [filters, setFilters] = useState(["activity", "meet", "task", "crm"]);
   const [userFilter, setUserFilter] = useState(0);
-
-  console.log(data);
 
   function onSelectFilter(filter) {
     if (filters.includes(filter)) {
@@ -126,9 +125,19 @@ export default LayoutCalendar;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  saveNewMeet(data);
+  switch (action) {
+    case "new-meet":
+      await saveNewMeet(data);
+      return redirect("/calendar");
+    case "complete-task":
+      await completeTask(data);
+      return redirect("/calendar");
+    case "complete-activity":
+      await completeActivity(data);
+      return redirect("/calendar");
+  }
 
-  return 1;
-  //return redirect("/calendar");
+  return redirect("/calendar");
 }

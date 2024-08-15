@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useLoaderData } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, home, searchOutline } from "ionicons/icons";
@@ -12,10 +12,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { saveNewTopic } from "@/pages/Topics/utils";
+import { saveNewCategory, saveNewTopic } from "@/pages/Topics/utils";
 
 function SideLayoutTopics() {
   const location = useLocation();
+  const { user, categories } = useLoaderData();
 
   const [newTopic, setNewTopic] = useState(false);
   const [newCategory, setNewCategory] = useState(false);
@@ -24,6 +25,8 @@ function SideLayoutTopics() {
     <div className="flex h-full px-4 pb-4 font-roboto">
       <NewTopic
         modal={newTopic}
+        categories={categories.data}
+        user={user.data}
         setModal={setNewTopic}
         functionModal={() => alert("hola")}
       />
@@ -31,6 +34,7 @@ function SideLayoutTopics() {
         modal={newCategory}
         setModal={setNewCategory}
         functionModal={() => alert("hola")}
+        user={user.data.user}
       />
       <div className="flex flex-col gap-4">
         {/* top block */}
@@ -47,7 +51,7 @@ function SideLayoutTopics() {
           {/*menu top */}
           <div className="flex flex-col gap-2">
             <NavLink
-              to="/topics"
+              to="/topics/0"
               className="w-full px-4 py-2 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
             >
               <div className="flex w-full items-center gap-6 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]">
@@ -95,7 +99,17 @@ export default SideLayoutTopics;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  await saveNewTopic(data);
+
+  switch (data.get("type_function")) {
+    case "1":
+      //Create Topic
+      await saveNewTopic(data);
+      break;
+    case "2":
+      //Create Category
+      await saveNewCategory(data);
+      break;
+  }
 
   return "1";
 }

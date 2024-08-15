@@ -86,6 +86,8 @@ function ActivityKanbanCard({ task, actions }) {
         description={taskDescription}
         priority={taskPriority}
         start={taskStart}
+        action="/project-manager/status"
+        actionInput="edit-task"
       />
       <CompleteActivity
         modal={completeActivityModal}

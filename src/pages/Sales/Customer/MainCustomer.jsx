@@ -5,8 +5,6 @@ import {
   chevronForward,
   informationCircle,
   addCircleOutline,
-  chatbubbleEllipses,
-  bookmark,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
@@ -76,17 +74,15 @@ const MainCustomer = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
+        <div className="flex justify-center items-center">
           <IonIcon
-            icon={chatbubbleEllipses}
-            className="h-6 w-6 text-grisText"
+            icon={informationCircle}
+            size="large"
+            className="text-gris2"
           />
-          <IonIcon icon={bookmark} className="h-6 w-6 text-grisText" />
-        </div>
-      ),
+        </div>)
     },
   ];
 
@@ -135,55 +131,56 @@ const MainCustomer = () => {
           <Link to="/sales/customer/new" className="inline-block">
             <Button
               type="button"
-              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="small"
-                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+                size="large"
+                className="text-primarioBotones"
+                aria-hidden="true"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl   p-4">
-          <div className="w-full">
-            <Tabs
-              defaultValue="customer"
-               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-               <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="customer"
-                >
-                  CLIENTES GENERAL
-                </TabsTrigger>
-                <TabsTrigger 
-                className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="OTRO"
-                >
-                  OTRO
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="customer" className="mt-[-60px] p-2">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="nombre"
-                      searchNameFilter="Buscar por nombre"
-                      isCheckAll={true}
-                    />
-              </TabsContent>
-              <TabsContent value="OTRO" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <p>CONTENIDO</p>
-                  </div>
+        <div className="w-full">
+          <Tabs
+            defaultValue="customer"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="customer"
+              >
+                CLIENTES GENERAL
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="OTRO"
+              >
+                OTRO
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="customer" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="nombre"
+                searchNameFilter="Buscar por nombre"
+                isCheckAll={true}
+              />
+            </TabsContent>
+            <TabsContent value="OTRO" className="w-full">
+              <div className="flex w-full justify-center">
+                <div className="w-full max-w-4xl">
+                  <p>CONTENIDO</p>
                 </div>
-              </TabsContent>
-            </Tabs>
-          </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

@@ -35,7 +35,6 @@ function TaskListModal({ modal, setModal, tasks }) {
     setTaskId(taskId);
     setDestroyTaskModal(true);
   }
-  // console.log(tasks);
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DeleteTask

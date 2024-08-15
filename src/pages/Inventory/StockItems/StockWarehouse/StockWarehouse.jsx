@@ -2,6 +2,29 @@ import React from "react";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import DataTable from "../Table/Datatable";
+import { StockWarehouseColumns } from "../Table/StockWarehouseColumns";
+
+const data = [
+  {
+    warehouseCode: "01",
+    warehouseName: "Guadalajara",
+    inStock: 54,
+    committed: 10,
+    order: "",
+    available: 44,
+    ctotal: 5436,
+  },
+  {
+    warehouseCode: "02",
+    warehouseName: "Monterrey",
+    inStock: 2,
+    committed: "",
+    order: 15,
+    available: 17,
+    ctotal: "",
+  },
+];
 
 function StockWarehouse() {
   return (
@@ -53,11 +76,11 @@ function StockWarehouse() {
           <p className="text-md font-poppins font-medium text-grisHeading">
             General
           </p>
-          <div className="grid max-w-[300px] grid-cols-2 content-center gap-y-4 p-4">
+          <div className="grid max-w-[300px] grid-cols-3 content-center gap-y-4 p-4">
             <div>
               <label className="text-xs font-light text-grisText">COSTO</label>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="text-md font-poppins font-medium">
                 $300.00
               </label>
@@ -65,7 +88,7 @@ function StockWarehouse() {
             <div>
               <label className="text-xs font-light text-grisText">PRECIO</label>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="text-md font-poppins font-medium">
                 $450.00
               </label>
@@ -75,7 +98,7 @@ function StockWarehouse() {
                 DISPONIBLE
               </label>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="text-md font-poppins font-medium">
                 120 UNIDADES
               </label>
@@ -85,12 +108,19 @@ function StockWarehouse() {
                 PENDIENTE
               </label>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="text-md font-poppins font-medium">
                 60 UNIDADES
               </label>
             </div>
           </div>
+        </div>
+
+        <div className="overflow-auto rounded-xl bg-blancoBg p-6">
+          <p className="text-md font-poppins font-medium text-grisHeading">
+            STOCK POR ALMACEN
+          </p>
+          <DataTable data={data} columns={StockWarehouseColumns} />
         </div>
       </div>
     </div>

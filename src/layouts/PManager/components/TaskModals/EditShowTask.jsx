@@ -71,31 +71,38 @@ function EditShowTask({
           </DialogTitle>
         </DialogHeader>
         <Form
+          id="edit-task-form"
           className="flex h-full w-full flex-col gap-3 px-6"
           action={action}
-          method="post"
+          method="POST"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <input
-                type="hidden"
+                className="hidden"
                 value={taskId}
                 name="task_id"
                 hidden
                 readOnly
               />
               <input
-                type="hidden"
+                className="hidden"
                 value={actionInput}
                 name="action"
                 hidden
                 readOnly
               />
-              <input type="hidden" value={2} name="type_of_request" />
+              <input
+                className="hidden"
+                value={actionInput}
+                name="action"
+                readOnly
+                hidden
+              />
               <div className="flex gap-4">
                 <InputRouter
                   type="text"
-                  placeholder="Name of the area"
+                  placeholder="Description"
                   name="name"
                   disabled={editTaskInputs}
                   defaultVal={name}
@@ -155,9 +162,10 @@ function EditShowTask({
             ) : (
               <Button
                 type="submit"
+                disabled={navigation.state === "submitting"}
                 className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
               >
-                Save
+                {navigation.state === "submitting" ? "Submitting..." : "Editar"}
               </Button>
             )}
           </DialogFooter>

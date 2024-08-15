@@ -136,7 +136,7 @@ function EditTask({ users, csfId, task }) {
               <>
                 <div className="col-span-2">
                   {/* <input type="date" name="star_date" /> */}
-                  <DatePicker name="end_date" defaultVal={task?.end} />
+                  <DatePicker name="end" defaultVal={task?.end} />
                 </div>
                 <div className="col-span-4">
                   {/* <Textarea
@@ -156,11 +156,11 @@ function EditTask({ users, csfId, task }) {
               <>
                 <div className="col-span-2">
                   {/* <input type="date" name="star_date" /> */}
-                  <DatePicker name="star_date" defaultVal={task?.start} />
+                  <DatePicker name="start" defaultVal={task?.start} />
                 </div>
                 <div className="col-span-2">
                   {/* <input type="date" name="end_date" /> */}
-                  <DatePicker name="end_date" defaultVal={task?.end} />
+                  <DatePicker name="end" defaultVal={task?.end} />
                 </div>
 
                 <Select name="sequence">
@@ -199,7 +199,13 @@ function EditTask({ users, csfId, task }) {
             readOnly
             hidden
           />
-          {/* <Input className="hidden" name="fce_id" value={csfId} readOnly /> */}
+          <input
+            className="hidden"
+            name="task_id"
+            value={task?.id}
+            readOnly
+            hidden
+          />
 
           <DialogFooter>
             <Button

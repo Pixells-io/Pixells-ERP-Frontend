@@ -305,11 +305,9 @@ function MainPosition() {
   }
 
   function updatePositionInput(index, e) {
-    // console.log(e);
     const newFields = positionsInputs.map((inputs, i) =>
       i === index ? { ...inputs, coordinate_id: e } : inputs,
     );
-    // console.log(newFields);
     setPositionsInputs(newFields);
   }
 
@@ -330,29 +328,23 @@ function MainPosition() {
   }
 
   function updateAuthInput(index, e) {
-    // console.log(e);
     const newFields = authInputs.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setAuthInputs(newFields);
   }
 
   function updateAuthCheckbox(index, e) {
-    // console.log(e);
     const newFields = authInputs.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setAuthInputs(newFields);
   }
 
   function updateAuthSelect(index, e) {
-    // console.log(e);
     const newFields = authInputs.map((inputs, i) =>
       i === index ? { ...inputs, authority_cordinate_id: e } : inputs,
     );
-    // console.log(newFields);
     setAuthInputs(newFields);
   }
 
@@ -370,11 +362,9 @@ function MainPosition() {
   }
 
   function updateResInput(index, e) {
-    console.log(e.target);
     const newFields = resInputs.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setResInputs(newFields);
   }
 
@@ -393,20 +383,16 @@ function MainPosition() {
   }
 
   function updateLenguageInput(index, e) {
-    // console.log(e);
     const newFields = lenguageInputs.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setLenguageInputs(newFields);
   }
 
   function updateLenguageSelect(index, e) {
-    // console.log(e);
     const newFields = lenguageInputs.map((inputs, i) =>
       i === index ? { ...inputs, language: e } : inputs,
     );
-    // console.log(newFields);
     setLenguageInputs(newFields);
   }
 
@@ -424,11 +410,9 @@ function MainPosition() {
   }
 
   function updateSkillInput(index, e) {
-    // console.log(e);
     const newFields = skillsInputs.map((inputs, i) =>
       i === index ? { ...inputs, [e.target.name]: e.target.value } : inputs,
     );
-    // console.log(newFields);
     setSkillsInputs(newFields);
   }
 
@@ -1000,8 +984,6 @@ export default MainPosition;
 
 export async function Action({ request }) {
   const data = await request.formData();
-
-  console.log(data);
 
   const validation = await editPosition(data);
 

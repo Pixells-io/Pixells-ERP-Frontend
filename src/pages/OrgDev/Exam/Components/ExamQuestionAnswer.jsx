@@ -17,8 +17,6 @@ import {
 } from "ionicons/icons";
 
 function ExamQuestionAnswer({ question }) {
-  console.log(question?.type);
-
   const questionType = () => {
     if (question?.type === "0") {
       return "Singular";

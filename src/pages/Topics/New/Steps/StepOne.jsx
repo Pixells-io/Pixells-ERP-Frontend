@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function StepOne({ setStepped }) {
+function StepOne({ setStepped, category, user }) {
   const [formValues, setFormValues] = useState({
     title: "",
     subtitle: "",
@@ -63,12 +63,11 @@ function StepOne({ setStepped }) {
               <SelectValue placeholder={"Selecciona Categoría"} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem key="1" value="global">
-                Global
-              </SelectItem>
-              <SelectItem key="2" value="notice">
-                Noticias
-              </SelectItem>
+              {category.map((cat, i) => (
+                <SelectItem key={cat.id} value={cat.id}>
+                  {cat.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -90,7 +89,7 @@ function StepOne({ setStepped }) {
             onChange={handleChange}
             value={formValues.subtitle}
             name="subtitle"
-            placeholder={"Que deseas compartir, Arturo Sánchez?"}
+            placeholder={`Que deseas compartir, ${user.user.name} ${user.user.last_name}?`}
             type="text"
             className="border-0 bg-inherit text-sm font-light text-[#44444f] placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
           />

@@ -13,12 +13,9 @@ function Lead({ lead, index, stageId, setModal }) {
         onDragOver={(event) => {
           event.preventDefault();
           event.stopPropagation();
-          // console.log(event);
         }}
         onDragLeave={(event) => {
           event.stopPropagation();
-          // console.log(event);
-          // console.log("ondragleave");
         }}
       >
         <div className="flex flex-col gap-1">

@@ -56,6 +56,7 @@ const DataTable = ({ data }) => {
                       e.target.value,
                     )
                   }
+                  placeholder={"ingresa"}
                 />
               </TableCell>
               <TableCell>
@@ -69,6 +70,7 @@ const DataTable = ({ data }) => {
                       e.target.value,
                     )
                   }
+                  placeholder={"ingresa"}
                 />
               </TableCell>
             </TableRow>

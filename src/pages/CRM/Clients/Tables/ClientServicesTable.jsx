@@ -96,7 +96,6 @@ function ClientServicesTable({ services }) {
       accessorKey: "ammount",
       header: "Amount",
       cell: ({ row }) => {
-        // console.log(row?.original?.id);
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
             +${Number(row.original.price).toFixed(2)}

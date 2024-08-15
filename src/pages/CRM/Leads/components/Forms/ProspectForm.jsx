@@ -49,7 +49,6 @@ const channelArray = [
 function ProspectForm({ modal, setModal, leadId, users, leadAssigned }) {
   const [date, setDate] = useState();
   const navigation = useNavigation();
-  // console.log(leadAssigned);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -76,7 +75,6 @@ function ProspectForm({ modal, setModal, leadId, users, leadAssigned }) {
           encType="multipart/form-data"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              console.log(e.key);
               e.preventDefault();
             }
           }}
