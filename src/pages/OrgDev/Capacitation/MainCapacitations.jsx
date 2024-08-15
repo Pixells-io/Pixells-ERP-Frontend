@@ -104,7 +104,7 @@ function MainCapacitations() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Formación
+            Capacitación
           </p>
           {create == true ? (
             <IonIcon
