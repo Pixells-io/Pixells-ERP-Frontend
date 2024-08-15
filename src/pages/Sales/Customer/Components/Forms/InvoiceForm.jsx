@@ -1,9 +1,9 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { Button } from "@/components/ui/button";
 
 const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
   const handleInputChange = (e) => {
@@ -12,7 +12,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
 
 
   return (
-    <div className="space-y-6">
+    <div className="flex w-full space-y-6">
       <div className="grid grid-cols-3 gap-4">
       <div className="flex items-center justify-between mb-4">
       <Label className="font-roboto text-sm text-grisText" htmlFor="regimenFiscal">Régimen Fisc.</Label>
@@ -62,9 +62,9 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
           />
         </div>
         <div className="flex items-center justify-end">
-          <button className="flex h-12 w-12 items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox">
+          <Button type="button" className="flex h-12 w-12 items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox">
             <IonIcon icon={addCircle} className="text-xl text-primario" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

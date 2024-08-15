@@ -1,54 +1,56 @@
-import React,{useState} from "react";
+import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useParams } from "react-router-dom";
 
-const CreateCustomer = () => {
-
+const EditCustomer = () => {
+  const { id } = useParams();
   const initialValues = {
-    clientNumber: "",
-    clientType: "",
-    socialNumber: "",
-    rfc: "",
-    clientGroup: "",
-    currency: "",
-    CFDI: ""
+    clientNumber: "23123",
+    clientType: "international",
+    socialNumber: "we231221d12",
+    rfc: "AU0X0X0X0X",
+    clientGroup: "group2",
+    currency: "usd",
+    CFDI: "cfdi2",
   };
 
-  const contactForm={
-    comentarios: "",
-    activo: false,
+  const contactForm = {
+    comentarios: "Faltan algunos datos",
+    activo: true,
     inactivo: false,
-    desde: "",
-    hasta: "",
-    calle: "",
-    colonia: "",
-    estado: "",
-    encargadoCompras: "",
-    numeroInterno: "",
-    codigoPostal: "",
-    pais: "",
-    numeroExterior: "",
-    ciudad: "",
-  }
+    desde: "2024-03-22",
+    hasta: "2024-02-06",
+    calle: "Periferico Sur",
+    colonia: "Buena vista",
+    estado: "Ciudad de México",
+    encargadoCompras: "juan",
+    numeroInterno: "2",
+    codigoPostal: "08912",
+    pais: "México",
+    numeroExterior: "3",
+    ciudad: "Distrito Federal",
+  };
 
- const  facturacion={
-    regimenFiscal: "",
-    metodoPago: "",
-    formaPago: "",
-    usoCFDI: "",
-    email: "",
-  }
+  const facturacion = {
+    regimenFiscal: "Sin obligaciones fiscales",
+    metodoPago: "Efectivo",
+    formaPago: "Efectivo",
+    usoCFDI: "ewefewf",
+    email: "ejemplo@mail.com",
+  };
 
-  const condiciones=
-    {condiciones: "",
-    interesesPorRetraso: "",
-    diasDeCredito: "",
-    limiteDeCredito: "",}
-  
+  const condiciones = {
+    condiciones: "option1",
+    interesesPorRetraso: "option2",
+    diasDeCredito: "option2",
+    limiteDeCredito: "option1",
+  };
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -91,7 +93,7 @@ const CreateCustomer = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Cliente
+            Consultando Cliente: {id}{" "}
           </p>
           <div className="flex items-end justify-end">
             <Link to="/sales">
@@ -113,13 +115,16 @@ const CreateCustomer = () => {
         </div>
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
-          <InputsGroup  initialValues={initialValues}/>
-          <FormGroup contactForm={contactForm} facturacion={facturacion} condiciones={condiciones}/>
+          <InputsGroup initialValues={initialValues} />
+          <FormGroup
+            contactForm={contactForm}
+            facturacion={facturacion}
+            condiciones={condiciones}
+          />
         </div>
-        
       </div>
     </div>
   );
 };
 
-export default CreateCustomer;
+export default EditCustomer;

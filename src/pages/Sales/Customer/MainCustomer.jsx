@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 const MainCustomer = () => {
   const data = [
     {
+      id:1,
       nombre: "Haleon SA de CV",
       tipo: "Inmigracion",
       nacionalidad: "Americana",
@@ -21,6 +22,7 @@ const MainCustomer = () => {
       email: "haleonadmin@mail.com",
     },
     {
+      id:2,
       nombre: "SONEPAR RL",
       tipo: "Inmigracion",
       nacionalidad: "Americana",
@@ -28,6 +30,7 @@ const MainCustomer = () => {
       email: "halenonrho@mail.com",
     },
     {
+      id:3,
       nombre: "Merpol",
       tipo: "Inmigracion",
       nacionalidad: "Nacional",
@@ -76,13 +79,21 @@ const MainCustomer = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center items-center">
-          <IonIcon
-            icon={informationCircle}
-            size="large"
-            className="text-gris2"
-          />
-        </div>)
+        <div className="flex items-center justify-center">
+          <Link to={`/sales/customer/edit/${row.original.id}`}>
+            <Button
+              type="button"
+              className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                size="large"
+                className="text-grisText"
+              />
+            </Button>
+          </Link>
+        </div>
+      ),
     },
   ];
 

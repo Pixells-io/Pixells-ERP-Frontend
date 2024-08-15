@@ -304,6 +304,7 @@ import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePLis
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
 import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
+import EditCustomer from "./pages/Sales/Customer/EditCustomer/CustomerEditor";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
 import InvoiceForm from "./pages/Sales/Invoice/NewInvoice/InvoiceForm";
 import InvoicesDetails from "./pages/Sales/Invoice/EditInvoice/InvoiceEditor";
@@ -1015,6 +1016,10 @@ const router = createBrowserRouter([
           {
             path: "/sales/customer/new",
             element: <CreateCustomer />,
+          },
+          {
+            path: "/sales/customer/edit/:id",
+            element: <EditCustomer />,
           },
           {
             path: "/sales/invoices",
