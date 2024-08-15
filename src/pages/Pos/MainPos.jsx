@@ -1,10 +1,56 @@
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, list } from "ionicons/icons";
+import { addCircleOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import PosTableForm from "./Table/PosTableForm";
 import { Button } from "@/components/ui/button";
+import ModalScanItemNum from "./Modal/ModalScanItemNum";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import ModalItemGranel from "./Modal/ModalItemGranel";
+
+const productsOptions = [
+  {
+    id: 1,
+    isGranel: true,
+    image: "https://picsum.photos/200/300?grayscale",
+    article: "Balon Brazuca",
+    sku: "0345444",
+    description: "Balon profesional mundial 2014",
+    quantity: 1,
+    price: 300,
+    discount: 0,
+    iva: 16,
+    subTotal: 20,
+  },
+  {
+    id: 2,
+    isGranel: false,
+    image: "https://picsum.photos/200/300?grayscale",
+    article: "Calzado",
+    sku: "0345432",
+    description: "Calzado adidas",
+    quantity: 1,
+    price: 800,
+    discount: 0,
+    iva: 16,
+    subTotal: 800,
+  },
+];
+
+const clientsOptions = [
+  {
+    value: "1",
+    label: "Agustin Hdez",
+  },
+  {
+    value: "2",
+    label: "Luis Daniel",
+  },
+  {
+    value: "3",
+    label: "Antonio",
+  },
+];
 
 function MainPos() {
   const [tickets, setTickets] = useState([
@@ -32,208 +78,99 @@ function MainPos() {
           iva: 16,
           subTotal: 106,
         },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
       ],
     },
     {
       products: [],
     },
   ]);
+  const [subTotalProducts, setSubTotalProducts] = useState(0);
+  const [totalInProducts, setTotalInProducts] = useState(0);
+  const [modalScanItemN, setModalScanItemN] = useState(false);
+  const [modalItemGranel, setModalItemGranel] = useState(false);
+  const [productSelect, setProductSelect] = useState({});
+  const [onSelectTab, setOnSelectTab] = useState(null);
 
-  const [totalProducts, setTotalProducts] = useState(0);
+  let productsArray = [];
+  productsOptions?.map((product, i) => {
+    let newObj = {
+      ...product,
+      label: product.article,
+      value: product.id,
+    };
+    productsArray.push(newObj);
+  });
 
   const addTickets = () => {
     setTickets([...tickets, { products: [] }]);
   };
 
+  const validateIsGranel = (value) => {
+    if (onSelectTab === null) return;
+    setProductSelect(value);
+
+    if (value.isGranel) {
+      setModalItemGranel(true);
+    } else {
+      addProduct(value);
+    }
+  };
+
+  const addProduct = (value) => {
+    let ticketsAux = tickets.map((ticket, i) => {
+      if (i == onSelectTab) {
+        return {
+          ...ticket,
+          products: [...ticket.products, value],
+        };
+      }
+      return ticket;
+    });
+
+    setTickets(ticketsAux);
+  };
+
+  const openConfirmSale = (tProducts) => {
+    setTotalInProducts(tProducts);
+    setModalScanItemN(true);
+  };
+
   return (
     <div className="flex w-full flex-col rounded-lg bg-[#F9F9F9] px-4 py-4">
+      {/* Modals */}
+      <ModalScanItemNum
+        modal={modalScanItemN}
+        setModal={setModalScanItemN}
+        totalProducts={totalInProducts}
+      />
+      <ModalItemGranel
+        modal={modalItemGranel}
+        setModal={setModalItemGranel}
+        functionModal={addProduct}
+        product={productSelect}
+      />
       {/* add */}
       <div className="grid w-full grid-cols-12 gap-10">
         <div className="col-span-7 flex flex-col">
           <h2 className="font-poppins text-lg font-normal text-grisHeading">
             Productos
           </h2>
-          <Input
-            type={"text"}
-            placeholder={"Agregar"}
+          <SelectRouter
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
-            name={"name"}
+            name={"article"}
+            options={productsArray}
+            onChange={(e) => validateIsGranel(e)}
           />
         </div>
         <div className="col-span-5 flex flex-col">
           <h2 className="font-poppins text-lg font-normal text-grisHeading">
             Cliente
           </h2>
-          <Input
-            type={"text"}
-            placeholder={"Agregar"}
+          <SelectRouter
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
-            name={"name"}
+            name={"clients"}
+            options={clientsOptions}
+            // onChange={(e) => addProduct(e)}
           />
         </div>
       </div>
@@ -242,6 +179,7 @@ function MainPos() {
       <Tabs
         defaultValue="crm"
         className="mt-2 h-full w-full rounded-lg bg-inherit"
+        onValueChange={(value) => setOnSelectTab(value)}
       >
         <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
           <IonIcon
@@ -264,7 +202,7 @@ function MainPos() {
             <div className="w-full">
               <PosTableForm
                 tableData={ticket.products}
-                setTotalProducts={setTotalProducts}
+                setTotalProducts={setSubTotalProducts}
               />
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">
@@ -278,7 +216,7 @@ function MainPos() {
                   <div className="col-span-3"></div>
                   <div className="col-span-1">
                     <h2 className="text-md font-poppins font-semibold text-[#44444F]">
-                      Total: {totalProducts}
+                      Total: {subTotalProducts}
                     </h2>
                   </div>
                 </div>
@@ -293,6 +231,11 @@ function MainPos() {
                   <Button
                     type="button"
                     className="text-md rounded-3xl bg-primarioBotones font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                    onClick={() =>
+                      openConfirmSale(
+                        ticket.products.reduce((a, c) => a + c.quantity, 0),
+                      )
+                    }
                   >
                     COBRAR
                   </Button>
