@@ -20,7 +20,6 @@ const productsOptions = [
     price: 300,
     discount: 0,
     iva: 16,
-    subTotal: 20,
   },
   {
     id: 2,
@@ -33,7 +32,6 @@ const productsOptions = [
     price: 800,
     discount: 0,
     iva: 16,
-    subTotal: 800,
   },
 ];
 
@@ -65,7 +63,6 @@ function MainPos() {
           price: 95,
           discount: 0,
           iva: 16,
-          subTotal: 106,
         },
         {
           image: "https://picsum.photos/id/237/200/300",
@@ -76,7 +73,6 @@ function MainPos() {
           price: 95,
           discount: 0,
           iva: 16,
-          subTotal: 106,
         },
       ],
     },
@@ -206,39 +202,38 @@ function MainPos() {
               />
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">
-                  <div className="col-span-4"></div>
-                  <div className="col-span-1">
-                    <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                      ARTICULOS:
+                  <div className="col-span-4 flex items-center">
+                    <Button
+                      type="button"
+                      className="text-md rounded-3xl bg-grisDisabled px-6 py-7 font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                    >
+                      CANCELAR
+                    </Button>
+                  </div>
+                  <div className="col-span-1 flex items-center">
+                    <h2 className="font-poppins text-lg font-medium text-[#44444F]">
+                      ARTICULOS:&nbsp;
                       {ticket.products.reduce((a, c) => a + c.quantity, 0)}
                     </h2>
                   </div>
-                  <div className="col-span-3"></div>
-                  <div className="col-span-1">
-                    <h2 className="text-md font-poppins font-semibold text-[#44444F]">
-                      Total: {subTotalProducts}
-                    </h2>
+                  <div className="col-span-4 flex items-center justify-end">
+                    <Button
+                      type="button"
+                      className="flex min-w-[260px] justify-between rounded-3xl bg-primarioBotones py-7 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                      onClick={() =>
+                        openConfirmSale(
+                          ticket.products.reduce((a, c) => a + c.quantity, 0),
+                        )
+                      }
+                    >
+                      <span className="text-lg font-medium text-white">
+                        COBRAR
+                      </span>
+                      <span className="font-poppins text-xl font-semibold text-white">
+                        {subTotalProducts}
+                      </span>
+                    </Button>
                   </div>
-                </div>
-
-                <div className="my-4 flex w-full justify-between">
-                  <Button
-                    type="button"
-                    className="text-md rounded-3xl bg-grisDisabled font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                  >
-                    CANCELAR
-                  </Button>
-                  <Button
-                    type="button"
-                    className="text-md rounded-3xl bg-primarioBotones font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                    onClick={() =>
-                      openConfirmSale(
-                        ticket.products.reduce((a, c) => a + c.quantity, 0),
-                      )
-                    }
-                  >
-                    COBRAR
-                  </Button>
                 </div>
               </div>
             </div>

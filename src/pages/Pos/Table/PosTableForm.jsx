@@ -11,7 +11,7 @@ import {
 const PosTableForm = ({ tableData, setTotalProducts }) => {
   useEffect(() => {
     const TotalP = tableData.reduce(
-      (sum, row) => sum + (parseFloat(row.subTotal) || 0),
+      (sum, row) => sum + (parseFloat(row?.price * row?.quantity) || 0),
       0,
     );
 
@@ -102,7 +102,9 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
         header: "SUBTOTAL",
         accessorKey: "subTotal",
         cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.subTotal}</p>
+          <p className="text-xs font-light text-[#44444F]">
+            {row?.price * row?.quantity}
+          </p>
         ),
       },
     ],
@@ -110,7 +112,7 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
   );
 
   return (
-    <Table className="bg-[#FFFFFF] rounded">
+    <Table className="rounded bg-[#FFFFFF]">
       <TableHeader>
         <TableRow className="border-b-2 border-b-primario">
           {columns.map((column) => (
