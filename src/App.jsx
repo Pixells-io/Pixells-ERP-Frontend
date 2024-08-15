@@ -362,7 +362,7 @@ import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWar
 import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
 
 //POS
-import MainPos from "./pages/Pos/MainPos";
+import MainPos from "./pages/Pos/MainPos/MainPos";
 import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
 
 const router = createBrowserRouter([

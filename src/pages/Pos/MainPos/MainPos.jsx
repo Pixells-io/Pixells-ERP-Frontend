@@ -12,7 +12,7 @@ const productsOptions = [
   {
     id: 1,
     isGranel: true,
-    image: "https://picsum.photos/200/300?grayscale",
+    image: "https://picsum.photos/id/237/200/300",
     article: "Balon Brazuca",
     sku: "0345444",
     description: "Balon profesional mundial 2014",
@@ -36,7 +36,7 @@ const productsOptions = [
   {
     id: 3,
     isGranel: false,
-    image: "https://picsum.photos/200/300?grayscale",
+    image: "https://picsum.photos/id/200/200/300",
     article: "PLAYERA",
     sku: "07863548",
     description: "Playera de algodón azul",
@@ -75,7 +75,7 @@ function MainPos() {
   productsOptions?.map((product, i) => {
     let newObj = {
       ...product,
-      label: product.article,
+      label: product.article + "si",
       value: product.id,
     };
     productsArray.push(newObj);
