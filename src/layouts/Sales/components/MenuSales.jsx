@@ -9,7 +9,7 @@ const MENU_ITEMS = [
     subname: "General", 
     icon: person,
     subRoutes: [
-      "/sales/customer/new",
+      "/sales/customer/",
     ] },
   {
     path: "/sales/invoices",
@@ -17,9 +17,7 @@ const MENU_ITEMS = [
     subname: "de Venta",
     icon: bagCheck,
     subRoutes: [
-      "/sales/invoices/new",
-      "/sales/invoices/edit",
-      "/sales/invoices/document/"
+      "/sales/invoices/",
     ] 
   },
 
@@ -29,9 +27,7 @@ const MENU_ITEMS = [
     subname: "De Venta",
     icon: ticket,
     subRoutes: [
-      "/sales/tickets/new",
-      "/sales/tickets/edit",
-      "/sales/tickets/document/"
+      "/sales/tickets/",
     ] 
   },
   {
@@ -40,9 +36,8 @@ const MENU_ITEMS = [
     subname: "General",
     icon: clipboard,
     subRoutes: [
-      "/sales/quotes/new",
-      "/sales/quotes/edit",
-      "/sales/quotes/document"]
+      "/sales/quotes/",
+    ]
   },
 ];
 

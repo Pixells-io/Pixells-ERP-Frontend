@@ -7,7 +7,10 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const GralFormSupplier = ({ generalData, setGeneralData }) => {
   const handleInputChange = (e) => {
-    setGeneralData({ ...generalData, [e.target.name]: e.target.value });
+    setGeneralData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSelectChange = (value, name) => {
@@ -19,7 +22,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
   };
 
   const inputClass =
-    "rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
+    "rounded-xl border border-gris2-transparent font-roboto text-xs text-grisText font-lights placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
   const selectClass =
     "rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
 
@@ -37,7 +40,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
             <InputRouter
               name="calle"
               placeholder="Ingresa"
-              value={generalData.calle}
+              value={generalData.calle || ""}
               onChange={handleInputChange}
             />
           </div>
