@@ -132,7 +132,7 @@ function MainPos() {
   };
 
   return (
-    <div className="flex w-full flex-col rounded-lg bg-[#F9F9F9] px-4 py-4 bg-red-300 h-full">
+    <div className="flex h-full w-full flex-col overflow-auto rounded-lg bg-[#F9F9F9] px-4 py-4">
       {/* Modals */}
       <ModalScanItemNum
         modal={modalScanItemN}
@@ -174,7 +174,7 @@ function MainPos() {
       {/* tickets */}
       <Tabs
         defaultValue="crm"
-        className="mt-2 w-full rounded-lg bg-inherit"
+        className="mt-2 flex h-full w-full flex-col overflow-auto rounded-lg bg-inherit"
         onValueChange={(value) => setOnSelectTab(value)}
       >
         <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
@@ -194,12 +194,18 @@ function MainPos() {
           ))}
         </TabsList>
         {tickets.map((ticket, index) => (
-          <TabsContent key={index} value={index} className="h-full p-2">
-            <div className="w-full">
-              <PosTableForm
-                tableData={ticket.products}
-                setTotalProducts={setSubTotalProducts}
-              />
+          <TabsContent
+            key={index}
+            value={index}
+            className="flex-1 overflow-auto p-2"
+          >
+            <div className="flex h-full w-full flex-col justify-between">
+              <div className="h-full overflow-auto rounded bg-[#FFFFFF]">
+                <PosTableForm
+                  tableData={ticket.products}
+                  setTotalProducts={setSubTotalProducts}
+                />
+              </div>
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">
                   <div className="col-span-4 flex items-center">
