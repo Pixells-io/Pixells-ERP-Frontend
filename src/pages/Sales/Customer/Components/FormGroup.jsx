@@ -5,38 +5,10 @@ import ContactForm from "./Forms/ContactForm";
 import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
 
-const FormGroup = () => {
-  const [generalData, setGeneralData] = useState({
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: "",
-    calle: "",
-    colonia: "",
-    estado: "",
-    encargadoCompras: "",
-    numeroInterno: "",
-    codigoPostal: "",
-    pais: "",
-    numeroExterior: "",
-    ciudad: "",
-  });
-
-  const [facturacionData, setFacturacionData] = useState({
-    regimenFiscal: "",
-    metodoPago: "",
-    formaPago: "",
-    usoCFDI: "",
-    email: "",
-  });
-
-  const [condicionData, setcondicionData] = useState({
-    condiciones: "",
-    interesesPorRetraso: "",
-    diasDeCredito: "",
-    limiteDeCredito: "",
-  });
+const FormGroup = ({ contactForm, facturacion, condiciones }) => {
+  const [generalData, setGeneralData] = useState(contactForm);
+  const [facturacionData, setFacturacionData] = useState(facturacion);
+  const [condicionData, setcondicionData] = useState(condiciones);
 
   return (
     <div className="w-full overflow-hidden">
@@ -62,7 +34,7 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               GENERAL
             </h2>
-            <div className="flex flex-wrap pl-2">
+            <div className="flex w-full pl-2">
               <GralFormSupplier
                 generalData={generalData}
                 setGeneralData={setGeneralData}
@@ -73,7 +45,7 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONTACTOS
             </h2>
-            <div className="flex flex-wrap pl-2 pt-2">
+            <div className="flex w-full pl-2 pt-2">
               <ContactForm />
             </div>
           </TabsContent>
@@ -81,7 +53,7 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               INFORMACIÓN DE FACTURACIÓN
             </h2>
-            <div className="flex flex-wrap pl-2">
+            <div className="flex w-full pl-2">
               <InvoiceForm
                 facturacionData={facturacionData}
                 setFacturacionData={setFacturacionData}
@@ -92,9 +64,10 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONDICIONES DE PAGO
             </h2>
-            <div className="flex flex-wrap pl-2">
+            <div className="flex w-full pl-2">
               <CreditForm
-              condicionData={condicionData} setcondicionData={setcondicionData}
+                condicionData={condicionData}
+                setcondicionData={setcondicionData}
               />
             </div>
           </TabsContent>

@@ -9,7 +9,7 @@ const ContactForm = () => {
   // Datos iniciales para las filas
   const initialRow = [
     {
-      nombre: "juan",
+      nombre: "Juan",
       apellidop: "guzman",
       apellidom: "getta",
       email: "example@mail.com",
@@ -18,7 +18,7 @@ const ContactForm = () => {
       princ: true,
     },
     {
-      nombre: "maria",
+      nombre: "Maria",
       apellidop: "hernandez",
       apellidom: "hernandez",
       email: "maria@mail.com",
@@ -27,7 +27,7 @@ const ContactForm = () => {
       princ: false,
     },
     {
-      nombre: "pedro",
+      nombre: "Pedro",
       apellidop: "ortega",
       apellidom: "villanueva",
       email: "pedro@mail.com",
@@ -36,7 +36,7 @@ const ContactForm = () => {
       princ: true,
     },
     {
-      nombre: "ana",
+      nombre: "Ana",
       apellidop: "orozco",
       apellidom: "beltran",
       email: "ana@mail.com",
@@ -48,10 +48,10 @@ const ContactForm = () => {
 
   // Estado inicial de los contactos
   const [contacts, setContacts] = useState([
-    { value: "juan", label: "Juan", data: initialRow[0] },
-    { value: "maria", label: "Maria", data: initialRow[1] },
-    { value: "pedro", label: "Pedro", data: initialRow[2] },
-    { value: "ana", label: "Ana", data: initialRow[3] },
+    { value: "juan", label: initialRow[0].nombre, data: initialRow[0] },
+    { value: "maria", label: initialRow[1].nombre, data: initialRow[1] },
+    { value: "pedro", label: initialRow[2].nombre, data: initialRow[2] },
+    { value: "ana", label: initialRow[3].nombre, data: initialRow[3] },
   ]);
 
   const [currentTab, setCurrentTab] = useState(contacts[0].value);

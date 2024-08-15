@@ -12,7 +12,7 @@ const productsOptions = [
   {
     id: 1,
     isGranel: true,
-    image: "https://picsum.photos/200/300?grayscale",
+    image: "https://picsum.photos/id/237/200/300",
     article: "Balon Brazuca",
     sku: "0345444",
     description: "Balon profesional mundial 2014",
@@ -20,10 +20,21 @@ const productsOptions = [
     price: 300,
     discount: 0,
     iva: 16,
-    subTotal: 20,
   },
   {
     id: 2,
+    isGranel: false,
+    image: "https://picsum.photos/id/180/200/300",
+    article: "Playera Femenil",
+    sku: "123321",
+    description: "Playera de algodón rosita",
+    quantity: 1,
+    price: 740,
+    discount: 0,
+    iva: 16,
+  },
+  {
+    id: 3,
     isGranel: false,
     image: "https://picsum.photos/200/300?grayscale",
     article: "Calzado",
@@ -33,7 +44,18 @@ const productsOptions = [
     price: 800,
     discount: 0,
     iva: 16,
-    subTotal: 800,
+  },
+  {
+    id: 4,
+    isGranel: false,
+    image: "https://picsum.photos/id/200/200/300",
+    article: "PLAYERA",
+    sku: "07863548",
+    description: "Playera de algodón azul",
+    quantity: 1,
+    price: 95,
+    discount: 0,
+    iva: 16,
   },
 ];
 
@@ -53,53 +75,13 @@ const clientsOptions = [
 ];
 
 function MainPos() {
-  const [tickets, setTickets] = useState([
-    {
-      products: [
-        {
-          image: "https://picsum.photos/200/300?grayscale",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 6,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-        {
-          image: "https://picsum.photos/id/237/200/300",
-          article: "PLAYERA",
-          sku: "07863548",
-          description: "Playera de algodón azul",
-          quantity: 7,
-          price: 95,
-          discount: 0,
-          iva: 16,
-          subTotal: 106,
-        },
-      ],
-    },
-    {
-      products: [],
-    },
-  ]);
+  const [tickets, setTickets] = useState([]);
   const [subTotalProducts, setSubTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
   const [modalScanItemN, setModalScanItemN] = useState(false);
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
   const [onSelectTab, setOnSelectTab] = useState(null);
-
-  let productsArray = [];
-  productsOptions?.map((product, i) => {
-    let newObj = {
-      ...product,
-      label: product.article,
-      value: product.id,
-    };
-    productsArray.push(newObj);
-  });
 
   const addTickets = () => {
     setTickets([...tickets, { products: [] }]);
@@ -136,7 +118,7 @@ function MainPos() {
   };
 
   return (
-    <div className="flex w-full flex-col rounded-lg bg-[#F9F9F9] px-4 py-4">
+    <div className="flex h-full w-full flex-col overflow-auto rounded-lg bg-[#F9F9F9] px-4 py-4">
       {/* Modals */}
       <ModalScanItemNum
         modal={modalScanItemN}
@@ -158,8 +140,21 @@ function MainPos() {
           <SelectRouter
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
             name={"article"}
-            options={productsArray}
+            options={productsOptions}
             onChange={(e) => validateIsGranel(e)}
+            getOptionLabel={(option) => option.article + " - " + option.sku}
+            getOptionValue={(option) => option.id}
+            filterOption={(option, value) => {
+              return (
+                option.data.article
+                  .toLowerCase()
+                  .includes(value.toLowerCase()) ||
+                option.data.sku.toLowerCase().includes(value.toLowerCase()) ||
+                option.data.description
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
+              );
+            }}
           />
         </div>
         <div className="col-span-5 flex flex-col">
@@ -178,7 +173,7 @@ function MainPos() {
       {/* tickets */}
       <Tabs
         defaultValue="crm"
-        className="mt-2 h-full w-full rounded-lg bg-inherit"
+        className="mt-2 flex h-full w-full flex-col overflow-auto rounded-lg bg-inherit"
         onValueChange={(value) => setOnSelectTab(value)}
       >
         <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
@@ -198,47 +193,50 @@ function MainPos() {
           ))}
         </TabsList>
         {tickets.map((ticket, index) => (
-          <TabsContent key={index} value={index} className="h-full p-2">
-            <div className="w-full">
+          <TabsContent
+            key={index}
+            value={index}
+            className="flex-1 overflow-auto p-2"
+          >
+            <div className="flex h-full w-full flex-col justify-between">
               <PosTableForm
                 tableData={ticket.products}
                 setTotalProducts={setSubTotalProducts}
               />
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">
-                  <div className="col-span-4"></div>
-                  <div className="col-span-1">
-                    <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                      ARTICULOS:
+                  <div className="col-span-4 flex items-center">
+                    <Button
+                      type="button"
+                      className="text-md rounded-3xl bg-grisDisabled px-6 py-7 font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                    >
+                      CANCELAR
+                    </Button>
+                  </div>
+                  <div className="col-span-1 flex items-center">
+                    <h2 className="font-poppins text-lg font-medium text-[#44444F]">
+                      ARTICULOS:&nbsp;
                       {ticket.products.reduce((a, c) => a + c.quantity, 0)}
                     </h2>
                   </div>
-                  <div className="col-span-3"></div>
-                  <div className="col-span-1">
-                    <h2 className="text-md font-poppins font-semibold text-[#44444F]">
-                      Total: {subTotalProducts}
-                    </h2>
+                  <div className="col-span-4 flex items-center justify-end">
+                    <Button
+                      type="button"
+                      className="flex min-w-[260px] justify-between rounded-3xl bg-primarioBotones py-7 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                      onClick={() =>
+                        openConfirmSale(
+                          ticket.products.reduce((a, c) => a + c.quantity, 0),
+                        )
+                      }
+                    >
+                      <span className="text-lg font-medium text-white">
+                        COBRAR
+                      </span>
+                      <span className="font-poppins text-xl font-semibold text-white">
+                        ${subTotalProducts}
+                      </span>
+                    </Button>
                   </div>
-                </div>
-
-                <div className="my-4 flex w-full justify-between">
-                  <Button
-                    type="button"
-                    className="text-md rounded-3xl bg-grisDisabled font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                  >
-                    CANCELAR
-                  </Button>
-                  <Button
-                    type="button"
-                    className="text-md rounded-3xl bg-primarioBotones font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                    onClick={() =>
-                      openConfirmSale(
-                        ticket.products.reduce((a, c) => a + c.quantity, 0),
-                      )
-                    }
-                  >
-                    COBRAR
-                  </Button>
                 </div>
               </div>
             </div>

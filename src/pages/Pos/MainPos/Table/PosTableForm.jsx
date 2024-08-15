@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 import {
   Table,
   TableBody,
@@ -9,13 +9,21 @@ import {
 } from "@/components/ui/table";
 
 const PosTableForm = ({ tableData, setTotalProducts }) => {
+  const tablePosRef = useRef(null);
+
   useEffect(() => {
     const TotalP = tableData.reduce(
-      (sum, row) => sum + (parseFloat(row.subTotal) || 0),
+      (sum, row) => sum + (parseFloat(row?.price * row?.quantity) || 0),
       0,
     );
 
     setTotalProducts(TotalP.toFixed(2));
+  }, [tableData]);
+
+  useEffect(() => {
+    if (!!tablePosRef.current) {
+      tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
+    }
   }, [tableData]);
 
   const columns = useMemo(
@@ -102,7 +110,9 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
         header: "SUBTOTAL",
         accessorKey: "subTotal",
         cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.subTotal}</p>
+          <p className="text-xs font-light text-[#44444F]">
+            {row?.price * row?.quantity}
+          </p>
         ),
       },
     ],
@@ -110,37 +120,42 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
   );
 
   return (
-    <Table className="bg-[#FFFFFF] rounded">
-      <TableHeader>
-        <TableRow className="border-b-2 border-b-primario">
-          {columns.map((column) => (
-            <TableHead
-              key={column.accessorKey}
-              className="text-sm font-semibold text-grisText"
-            >
-              {column.header}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tableData.map((row, rowIndex) => (
-          <TableRow
-            key={rowIndex}
-            className="text-sm font-normal text-[#44444F]"
-          >
+    <div
+      ref={tablePosRef}
+      className="h-full overflow-auto rounded bg-[#FFFFFF]"
+    >
+      <Table>
+        <TableHeader>
+          <TableRow className="border-b-2 border-b-primario">
             {columns.map((column) => (
-              <TableCell key={column.accessorKey}>
-                {column.cell({
-                  row,
-                  rowIndex: rowIndex,
-                })}
-              </TableCell>
+              <TableHead
+                key={column.accessorKey}
+                className="text-sm font-semibold text-grisText"
+              >
+                {column.header}
+              </TableHead>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {tableData.map((row, rowIndex) => (
+            <TableRow
+              key={rowIndex}
+              className="text-sm font-normal text-[#44444F]"
+            >
+              {columns.map((column) => (
+                <TableCell key={column.accessorKey}>
+                  {column.cell({
+                    row,
+                    rowIndex: rowIndex,
+                  })}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
