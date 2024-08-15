@@ -218,32 +218,31 @@ export default MainOrganization;
 export async function action({ request }) {
   const data = await request.formData();
   const action = data.get("action");
-  let response;
 
   switch (action) {
     case "create-area":
-      response = await saveNewArea(data);
-      return;
+      await saveNewArea(data);
+      redirect("/organization");
 
     case "edit-area":
-      response = await editArea(data);
-      return;
+      await editArea(data);
+      redirect("/organization");
 
     case "destroy-area":
-      response = await destroyArea(data);
-      return;
+      await destroyArea(data);
+      redirect("/organization");
 
     case "import-org":
       await importOrganization(data);
-      return;
+      redirect("/organization");
 
     case "delete-user":
       await deleteUser(data);
-      return;
+      redirect("/organization");
 
     case "delete-position":
       await deletePosition(data);
-      return;
+      redirect("/organization");
   }
 
   return redirect("/organization");
