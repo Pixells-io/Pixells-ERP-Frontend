@@ -132,7 +132,7 @@ function MainPos() {
   };
 
   return (
-    <div className="flex w-full flex-col rounded-lg bg-[#F9F9F9] px-4 py-4">
+    <div className="flex w-full flex-col rounded-lg bg-[#F9F9F9] px-4 py-4 bg-red-300 h-full">
       {/* Modals */}
       <ModalScanItemNum
         modal={modalScanItemN}
@@ -174,7 +174,7 @@ function MainPos() {
       {/* tickets */}
       <Tabs
         defaultValue="crm"
-        className="mt-2 h-full w-full rounded-lg bg-inherit"
+        className="mt-2 w-full rounded-lg bg-inherit"
         onValueChange={(value) => setOnSelectTab(value)}
       >
         <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
