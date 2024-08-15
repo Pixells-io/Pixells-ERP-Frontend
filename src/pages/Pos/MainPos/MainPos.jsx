@@ -24,6 +24,18 @@ const productsOptions = [
   {
     id: 2,
     isGranel: false,
+    image: "https://picsum.photos/id/180/200/300",
+    article: "Playera Femenil",
+    sku: "123321",
+    description: "Playera de algodón rosita",
+    quantity: 1,
+    price: 740,
+    discount: 0,
+    iva: 16,
+  },
+  {
+    id: 3,
+    isGranel: false,
     image: "https://picsum.photos/200/300?grayscale",
     article: "Calzado",
     sku: "0345432",
@@ -34,7 +46,7 @@ const productsOptions = [
     iva: 16,
   },
   {
-    id: 3,
+    id: 4,
     isGranel: false,
     image: "https://picsum.photos/id/200/200/300",
     article: "PLAYERA",
@@ -70,16 +82,6 @@ function MainPos() {
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
   const [onSelectTab, setOnSelectTab] = useState(null);
-
-  let productsArray = [];
-  productsOptions?.map((product, i) => {
-    let newObj = {
-      ...product,
-      label: product.article + "si",
-      value: product.id,
-    };
-    productsArray.push(newObj);
-  });
 
   const addTickets = () => {
     setTickets([...tickets, { products: [] }]);
@@ -138,8 +140,21 @@ function MainPos() {
           <SelectRouter
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
             name={"article"}
-            options={productsArray}
+            options={productsOptions}
             onChange={(e) => validateIsGranel(e)}
+            getOptionLabel={(option) => option.article + " - " + option.sku}
+            getOptionValue={(option) => option.id}
+            filterOption={(option, value) => {
+              return (
+                option.data.article
+                  .toLowerCase()
+                  .includes(value.toLowerCase()) ||
+                option.data.sku.toLowerCase().includes(value.toLowerCase()) ||
+                option.data.description
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
+              );
+            }}
           />
         </div>
         <div className="col-span-5 flex flex-col">
