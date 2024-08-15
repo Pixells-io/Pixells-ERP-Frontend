@@ -77,7 +77,7 @@ function Activities() {
 
   function checkColor(value) {
     const color = PRIORITY.filter((prio) => prio.value == value);
-    return color[0].color;
+    return color[0]?.color;
   }
 
   const [taskId, setTaskId] = useState(false);
