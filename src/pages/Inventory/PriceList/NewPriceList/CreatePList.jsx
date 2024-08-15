@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  closeCircle
-} from "ionicons/icons";
+import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
+import DataTable from "../Components/DataTable/PriceListTable";
+import { Link } from "react-router-dom";
+import ObservationsSection from "../Components/Section";
+import StatusInformation from "@/components/StatusInformation/status-information";
 
+const CreatePriceList = () => {
+  const [data, setData] = useState([
+    {
+      nuevoArticulo: "1231",
+      descripcion: "ACEITE VEGETAL",
+      listaPrecioBase: "53.30",
+      precioBase: 53.30,
+      precioUnitario: 53.30,
+      indiceRefactorizacion: 2.1,
+      precioRefactorizacion: 111.93,
+    },
+  ]);
+  const [roundingSettings, setRoundingSettings] = useState({
+    roundValues: false,
+    roundingMethod: "truncate",
+  });
+  const [indRef, setIndRef] = useState(2.1);
 
-const CreatePL = () => {
+  const handleDataChange = (newData) => {
+    setData(newData);
+  };
+
+  const handleRoundingChange = (isRounded, method) => {
+    setRoundingSettings({
+      roundValues: isRounded || false,
+      roundingMethod: method || "truncate",
+    });
+  };
+
+  const handleIndRefChange = (newIndRef) => {
+    setIndRef(parseFloat(newIndRef));
+  };
 
   return (
     <div className="flex w-full">
@@ -71,10 +102,47 @@ const CreatePL = () => {
           </div>
         </div>
         {/*content */}
-          <Inputs/>
+        <div className="space-y-3 overflow-auto">
+        <Inputs 
+            onRoundingChange={handleRoundingChange} 
+            onIndRefChange={handleIndRefChange}
+          />
+          <DataTable
+            initialData={data}
+            onDataChange={handleDataChange}
+            roundValues={roundingSettings.roundValues}
+            roundingMethod={roundingSettings.roundingMethod}
+            decimalPlaces={2}
+            indRef={indRef}
+          />
+          <ObservationsSection/>
+          <div className="justify-end">
+          <StatusInformation
+          status={"inProgress"}
+          imgUser={
+            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          }
+        >
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="button"
+            onClick={() => alert("save")}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Crear
+          </Button>
+        </StatusInformation>
+          </div>
         </div>
       </div>
+    </div>
   );
 };
 
-export default CreatePL;
+export default CreatePriceList;

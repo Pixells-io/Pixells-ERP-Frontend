@@ -134,7 +134,7 @@ const MainPriceList = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Listas de precios
           </p>
-          <Link to="/inventory/create">
+          <Link to="/inventory/prices-lists/create">
           <Button
               type="button"
               variant="ghost"

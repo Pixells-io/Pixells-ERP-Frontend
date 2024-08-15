@@ -298,6 +298,8 @@ import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
+import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -358,6 +360,7 @@ import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgre
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
 import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
 import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
+import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
 
 //POS
 import MainPos from "./pages/Pos/MainPos";
@@ -987,6 +990,10 @@ const router = createBrowserRouter([
             element: <MainPriceList />,
           },
           {
+            path: "/inventory/prices-lists/create",
+            element: <CreatePriceList />,
+          },
+          {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
           },
@@ -1170,13 +1177,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/topics",
+        path: "/topics/",
         element: <SideLayoutTopics />,
         action: NewTopicFunction,
+        loader: multiLoaderTopics2,
         children: [
           {
-            index: true,
+            path: "/topics/:id",
             element: <MainTopics />,
+            loader: multiLoaderTopics,
           },
         ],
       },
