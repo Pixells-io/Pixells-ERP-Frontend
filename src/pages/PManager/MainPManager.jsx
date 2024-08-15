@@ -260,14 +260,14 @@ function MainPManager() {
 
         <div className="flex items-center gap-8 pl-2">
           <div className="">
-            {createP == true ? <GoalForm objectiveId={params.id} /> : false}
+            {createP == true ? <GoalForm objectiveId={params?.id} /> : false}
           </div>
           <div className="flex gap-3">
             <NavLink
-              to={`/project-manager/${params.id}`}
+              to={`/project-manager/${params?.id}`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}`
+                location.pathname === `/project-manager/${params?.id}`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
@@ -275,10 +275,10 @@ function MainPManager() {
               Board
             </NavLink>
             <NavLink
-              to={`/project-manager/${params.id}/csf`}
+              to={`/project-manager/${params?.id}/csf`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}/csf`
+                location.pathname === `/project-manager/${params?.id}/csf`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
@@ -286,7 +286,7 @@ function MainPManager() {
               FCE
             </NavLink>
             <NavLink
-              to={`/project-manager/${params.id}/projects`}
+              to={`/project-manager/${params?.id}/projects`}
               className={({ isActive }) =>
                 isActive &&
                 location.pathname === `/project-manager/${params.id}/projects`
@@ -300,7 +300,7 @@ function MainPManager() {
               to={`/project-manager/completed`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}/completed`
+                location.pathname === `/project-manager/${params?.id}/completed`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }

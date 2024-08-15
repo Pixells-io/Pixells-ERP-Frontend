@@ -223,27 +223,27 @@ export async function action({ request }) {
   switch (action) {
     case "create-area":
       response = await saveNewArea(data);
-      return response;
+      return;
 
     case "edit-area":
       response = await editArea(data);
-      return response;
+      return;
 
     case "destroy-area":
       response = await destroyArea(data);
-      return response;
+      return;
 
     case "import-org":
       await importOrganization(data);
-      return response;
+      return;
 
     case "delete-user":
       await deleteUser(data);
-      return response;
+      return;
 
     case "delete-position":
       await deletePosition(data);
-      return response;
+      return;
   }
 
   return redirect("/organization");

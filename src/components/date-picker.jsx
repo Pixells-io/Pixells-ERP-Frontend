@@ -11,21 +11,15 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
-function DatePicker({ name, defaultVal }) {
+function DatePicker({ name, defaultVal, disabled }) {
   const [date, setDate] = useState(defaultVal);
-  // const [formated, setFormated] = useState("");
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex">
-      <input
-        name={name}
-        className="hidden"
-        hidden
-        defaultValue={date}
-        readOnly
-      />
-      <Popover>
-        <PopoverTrigger asChild>
+      <input name={name} className="hidden" hidden value={date} readOnly />
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild disabled={disabled}>
           <Button
             variant={"outline"}
             className={cn(
@@ -41,8 +35,10 @@ function DatePicker({ name, defaultVal }) {
         <PopoverContent className="w-auto p-0">
           <Calendar
             mode="single"
-            selected={date}
-            onSelect={setDate}
+            selected={new Date(date)}
+            onSelect={(e) => {
+              setDate(e), setOpen(false);
+            }}
             initialFocus
           />
         </PopoverContent>

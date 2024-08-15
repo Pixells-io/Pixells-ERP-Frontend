@@ -519,8 +519,7 @@ export async function deleteUser(data) {
   };
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}organization/destroy-user
-`,
+    `${import.meta.env.VITE_SERVER_URL}organization/destroy-puesto`,
     {
       method: "POST",
       body: JSON.stringify(info),

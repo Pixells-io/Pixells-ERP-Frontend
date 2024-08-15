@@ -10,11 +10,12 @@ import { loginUser } from "@/pages/Organization/utils";
 
 function Login() {
   const navigate = useNavigate();
-  const [user, setUser] = useState("");
   const token = Cookies.get("token");
 
   useEffect(() => {
-    if (token !== undefined || user.code == 201) return navigate("/");
+    Cookies.remove("token");
+
+    if (token !== undefined) return navigate("/");
   }, []);
 
   const passwordInputRef = useRef(null);

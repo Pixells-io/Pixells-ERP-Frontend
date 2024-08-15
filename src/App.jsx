@@ -300,7 +300,6 @@ import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/Mai
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 
-
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
@@ -371,6 +370,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     loader: multiloaderNotifications,
+    // errorElement: <NotFound />,
     children: [
       {
         index: true,
