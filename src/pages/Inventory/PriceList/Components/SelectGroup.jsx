@@ -90,7 +90,6 @@ const Inputs = ({ onRoundingChange, onIndRefChange }) => {
           className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
           value={inputsData.indRef}
           onChange={handleChange}
-          readOnly
         />
       </div>
       <div className="flex">

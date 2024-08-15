@@ -73,7 +73,7 @@ const DataTable = ({ initialData, onDataChange, roundValues, roundingMethod, dec
     <div className="flex flex-col rounded-lg bg-white p-4">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="boder-[1px] border-b-primarioBotones">
             {columns.map(column => <TableHead key={column.key}>{column.header}</TableHead>)}
             <TableHead>Acciones</TableHead>
           </TableRow>
