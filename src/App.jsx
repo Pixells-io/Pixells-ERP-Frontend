@@ -365,6 +365,7 @@ import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
 //POS
 import MainPos from "./pages/Pos/MainPos/MainPos";
 import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
+import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
 
 const router = createBrowserRouter([
   {
@@ -1201,6 +1202,15 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainPos />,
+          },
+          {
+            path: "/pos/:id",
+            element: <MainPos />,
+            children:[{
+              index: true,
+              element: <ProductsPos />
+            }
+            ],
           },
         ],
       },
