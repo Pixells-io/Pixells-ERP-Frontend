@@ -81,7 +81,7 @@ function AddUserActivity({ activity_id, users }) {
                   key={user?.value}
                   value={user?.value}
                   onSelect={() => {
-                    setValue(user?.value === value ? "" : user?.value);
+                    setValue(user?.value === value ? value : user?.value);
                     setOpen(false);
                     onSelectedUser(user?.value);
                   }}
