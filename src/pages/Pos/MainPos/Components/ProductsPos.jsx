@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import ModalScanItemNum from "../Modal/ModalScanItemNum";
 
 function ProductsPos() {
-  const [products, setProducts] = useOutletContext();
+  const [products, setProducts, cancelTicket] = useOutletContext();
 
   const [subTotalProducts, setSubTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
@@ -35,6 +35,7 @@ function ProductsPos() {
               <Button
                 type="button"
                 className="text-md rounded-3xl bg-grisDisabled px-6 py-7 font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
+                onClick={() => cancelTicket()}
               >
                 CANCELAR
               </Button>

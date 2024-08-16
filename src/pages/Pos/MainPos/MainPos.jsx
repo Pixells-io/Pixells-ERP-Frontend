@@ -3,7 +3,7 @@ import { addCircleOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import ModalItemGranel from "./Modal/ModalItemGranel";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 
 const productsOptions = [
   {
@@ -71,7 +71,7 @@ const clientsOptions = [
   },
 ];
 
-//datos simulando guardado bd
+//datos simulando guardado bd-----------------------------------------------------------
 const saveTickets = () => {
   let ticketsBd = JSON.parse(localStorage.getItem("tickets"));
   if (!ticketsBd) {
@@ -106,7 +106,12 @@ const getProducts = (ticket) => {
   }
   return productsBD;
 };
-//------------------------------------------------
+
+const deleteTicket = (ticket, tickets) => {
+  localStorage.removeItem("products-" + ticket);
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+};
+//-----------------------------------------------------------------------------------------
 
 function MainPos() {
   const { id } = useParams();
@@ -115,6 +120,8 @@ function MainPos() {
   const [tickets, setTickets] = useState(getTickets);
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
+  const [clientSelect, SetClientSelect] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setProducts(getProducts(id));
@@ -137,6 +144,13 @@ function MainPos() {
   const addProduct = (value) => {
     let productBd = saveProducts(products, value, id);
     setProducts(productBd);
+  };
+
+  const cancelTicket = () => {
+    const auxTickets = tickets.filter((ticket) => ticket.id != id);
+    setTickets(auxTickets);
+    deleteTicket(id, auxTickets);
+    navigate("/pos");
   };
 
   return (
@@ -176,13 +190,16 @@ function MainPos() {
         </div>
         <div className="col-span-5 flex flex-col">
           <h2 className="font-poppins text-lg font-normal text-grisHeading">
-            Cliente
+            Cliente &nbsp;&nbsp;&nbsp;
+            <span className="font-poppins text-xl font-normal text-[#5B89FF]">
+              {clientSelect.label}
+            </span>
           </h2>
           <SelectRouter
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
             name={"clients"}
             options={clientsOptions}
-            // onChange={(e) => addProduct(e)}
+            onChange={(e) => SetClientSelect(e)}
           />
         </div>
       </div>
@@ -208,7 +225,7 @@ function MainPos() {
         ))}
       </div>
 
-      <Outlet context={[products, setProducts]} />
+      <Outlet context={[products, setProducts, cancelTicket]} />
     </div>
   );
 }

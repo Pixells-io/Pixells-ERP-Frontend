@@ -123,7 +123,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex items-center justify-between">
             <p className="text-xs font-normal text-[#44444F]">
-              {row?.price * row?.quantity}
+              {parseFloat(row?.price * row?.quantity) || 0}
             </p>
             {row?.isSelected && (
               <button
