@@ -54,7 +54,7 @@ function MainMyCapacitations() {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Mis Formaciones
+            Mis Capacitaciones
           </p>
         </div>
 

@@ -12,6 +12,9 @@ function SelectRouter({
   defaultVal,
   value,
   onChange,
+  getOptionValue,
+  getOptionLabel,
+  filterOption
 }) {
   return (
     <Label className="flex w-full flex-col gap-2">
@@ -28,6 +31,9 @@ function SelectRouter({
         defaultValue={defaultVal}
         value={value}
         onChange={onChange}
+        getOptionValue={getOptionValue}
+        getOptionLabel={getOptionLabel}
+        filterOption={filterOption}
       />
     </Label>
   );

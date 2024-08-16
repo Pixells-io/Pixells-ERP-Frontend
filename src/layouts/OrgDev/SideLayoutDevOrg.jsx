@@ -32,10 +32,10 @@ const MENU_ITEMS = [
       { path: "/org-development/capacitation", name: "  Creator" },
       {
         path: "/org-development/capacitation/my-capacitations",
-        name: "Mis formaciones",
+        name: "Mis capacitaciones",
       },
     ],
-    name: "Formación",
+    name: "Capacitación",
     subname: "General",
     icon: book,
   },

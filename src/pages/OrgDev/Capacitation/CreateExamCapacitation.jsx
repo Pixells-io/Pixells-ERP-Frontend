@@ -64,7 +64,7 @@ function CreateExamCapacitation() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Trainings
+            Capacitación
           </p>
         </div>
 
