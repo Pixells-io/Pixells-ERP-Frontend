@@ -42,9 +42,9 @@ function ProjectCard(project) {
         <Progress value={data?.percent} className="h-1" />
       </div>
       <div className="flex items-center gap-2 overflow-auto">
-        {data?.users.map((img, i) => (
+        {Object.values(data?.users).map((img, i) => (
           <Avatar className="h-6 w-6" key={i}>
-            <AvatarImage src={img?.img} alt={img.title} />
+            <AvatarImage src={img?.img} alt={img?.title} />
           </Avatar>
         ))}
       </div>

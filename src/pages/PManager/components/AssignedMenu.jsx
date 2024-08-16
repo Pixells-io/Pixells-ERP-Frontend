@@ -45,7 +45,7 @@ function AssignedMenu({ users }) {
         <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
           <DialogHeader className="pt-2">
             <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-              Delete Assigned - {assigned.name}
+              Borrar Asignado
             </DialogTitle>
           </DialogHeader>
           <Form
@@ -57,8 +57,8 @@ function AssignedMenu({ users }) {
             <input type="hidden" value={assigned.id_reg} name="assigned_id" />
             <input type="hidden" value="remove-assigned" name="action" />
             <span className="font-roboto text-[#A6A6A6]">
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Esta acción no se puede deshacer. Esto eliminará permanentemente
+              (de la tarea) a {assigned.name}.
             </span>
             <DialogFooter className="flex gap-4 py-6">
               <Button
