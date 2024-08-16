@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 
 const InputsGroup = ({ initialValues }) => {
   const [values, setValues] = useState(initialValues);
@@ -13,23 +19,24 @@ const InputsGroup = ({ initialValues }) => {
     setValues({ ...values, [name]: value });
   };
 
-  const commonStyle = "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones";
+  const commonStyle =
+    "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones";
 
   return (
     <div className="grid grid-cols-3 gap-4 bg-white p-4">
       <div>
-        <Input 
-          type="text" 
-          name="clientNumber" 
-          placeholder="Código de Cliente" 
-          value={values.clientNumber}
+        <Input
+          type="text"
+          name="clientNumber"
+          placeholder="Código de Cliente"
+          value={values?.clientNumber}
           onChange={handleInputChange}
           className={commonStyle}
         />
       </div>
       <div>
-        <Select 
-          value={values.clientType} 
+        <Select
+          value={values.clientType}
           onValueChange={(value) => handleSelectChange(value, "clientType")}
         >
           <SelectTrigger className={commonStyle}>
@@ -42,28 +49,28 @@ const InputsGroup = ({ initialValues }) => {
         </Select>
       </div>
       <div>
-        <Input 
-          type="text" 
-          name="socialNumber" 
-          placeholder="Nombre o razón social" 
+        <Input
+          type="text"
+          name="socialNumber"
+          placeholder="Nombre o razón social"
           value={values.socialNumber}
           onChange={handleInputChange}
           className={commonStyle}
         />
       </div>
       <div>
-        <Input 
-          type="text" 
-          name="rfc" 
-          placeholder="RFC" 
+        <Input
+          type="text"
+          name="rfc"
+          placeholder="RFC"
           value={values.rfc}
           onChange={handleInputChange}
           className={commonStyle}
         />
       </div>
       <div>
-        <Select 
-          value={values.clientGroup} 
+        <Select
+          value={values.clientGroup}
           onValueChange={(value) => handleSelectChange(value, "clientGroup")}
         >
           <SelectTrigger className={commonStyle}>
@@ -76,8 +83,8 @@ const InputsGroup = ({ initialValues }) => {
         </Select>
       </div>
       <div>
-        <Select 
-          value={values.currency} 
+        <Select
+          value={values.currency}
           onValueChange={(value) => handleSelectChange(value, "currency")}
         >
           <SelectTrigger className={commonStyle}>
@@ -90,8 +97,8 @@ const InputsGroup = ({ initialValues }) => {
         </Select>
       </div>
       <div>
-        <Select 
-          value={values.CFDI} 
+        <Select
+          value={values.CFDI}
           onValueChange={(value) => handleSelectChange(value, "CFDI")}
         >
           <SelectTrigger className={commonStyle}>
@@ -105,6 +112,6 @@ const InputsGroup = ({ initialValues }) => {
       </div>
     </div>
   );
-}
+};
 
 export default InputsGroup;

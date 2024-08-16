@@ -57,8 +57,7 @@ function DocumentDestroy({ documentId, name }) {
             name="action"
           />
           <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Estas tratando de eliminar un documento, ¿Estas seguro?.
           </span>
           <DialogFooter className="flex gap-4 py-6">
             <Button
