@@ -46,10 +46,11 @@ function AddUserActivity({ activity_id, users }) {
 
   function onSelectedUser(currentValue) {
     const user = arrayUsers?.filter((user) => user?.label == currentValue);
+    console.log(user);
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
-    formData.append("user_id", user[0]?.value);
+    formData.append("user_id", user?.value);
     formData.append("action", "edit");
 
     submit(formData, {
