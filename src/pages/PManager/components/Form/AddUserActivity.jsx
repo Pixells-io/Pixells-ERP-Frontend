@@ -45,7 +45,7 @@ function AddUserActivity({ activity_id, users }) {
   }
 
   function onSelectedUser(currentValue) {
-    const user = arrayUsers?.filter((user) => user?.label == currentValue);
+    const user = arrayUsers?.filter((user) => user?.id == currentValue);
     console.log(user);
     const formData = new FormData();
 
@@ -81,12 +81,12 @@ function AddUserActivity({ activity_id, users }) {
                 <CommandItem
                   key={user?.value}
                   value={user?.value}
-                  onSelect={(currentValue) => {
-                    console.log(currentValue);
+                  onSelect={() => {
+                    console.log(user?.id);
                     console.log(value);
-                    setValue(currentValue === value ? "" : currentValue);
+                    setValue(user?.id === value ? "" : user?.id);
                     setOpen(false);
-                    onSelectedUser(currentValue);
+                    onSelectedUser(user?.id);
                   }}
                 >
                   <Check
