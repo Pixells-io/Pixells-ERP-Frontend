@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import Publication from "./Components/Publication";
 import Categories from "./Components/Categories";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useParams } from "react-router-dom";
+import { getTopics } from "./utils";
+import { createPusherClient } from "@/lib/pusher";
 
 function MainTopics() {
   const { categories, topics } = useLoaderData();
+  const location = useLocation();
+  const { id } = useParams();
+
+  const [topicsData, setTopicsData] = useState(topics);
+  const [categoryId, setCategoryId] = useState(id);
+
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    setCategoryId(id);
+    let channel = pusherClient.subscribe(`private-get-topics.${categoryId}`);
+
+    channel.bind("fill-topics", ({ category }) => {
+      getTopicsArray(category);
+    });
+
+    async function getTopicsArray(category) {
+      let newData = await getTopics(category);
+
+      setTopicsData(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-topics.${categoryId}`);
+    };
+  }, [location, categoryId]);
+
   return (
     <div className="flex w-full gap-x-4">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
@@ -42,7 +71,7 @@ function MainTopics() {
         </div>
 
         <div className="flex flex-col items-center gap-y-4">
-          {topics.data.map((topic, i) => (
+          {topicsData.data.map((topic, i) => (
             <Publication topic={topic} key={i} />
           ))}
         </div>
