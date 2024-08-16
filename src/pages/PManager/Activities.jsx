@@ -189,7 +189,7 @@ function Activities() {
                   <AccordionTrigger className="group flex px-4 !no-underline">
                     <div className="w-2/12 text-start">
                       <span className="font-poppins text-base font-medium text-grisHeading">
-                        {day.day}
+                        {day?.day}
                       </span>
                       <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
                         {activitiesData?.month}
