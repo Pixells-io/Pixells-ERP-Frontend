@@ -103,7 +103,13 @@ function MainPos() {
       if (i == onSelectTab) {
         return {
           ...ticket,
-          products: [...ticket.products, value],
+          products: [
+            ...ticket.products,
+            {
+              ...value,
+              isSelected: false,
+            },
+          ],
         };
       }
       return ticket;
@@ -202,6 +208,9 @@ function MainPos() {
               <PosTableForm
                 tableData={ticket.products}
                 setTotalProducts={setSubTotalProducts}
+                tickets={tickets}
+                setTickets={setTickets}
+                onSelectTab={onSelectTab}
               />
               <div className="mt-4 w-full">
                 <div className="grid w-full grid-cols-9">

@@ -7,8 +7,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IonIcon } from "@ionic/react";
+import { closeCircle } from "ionicons/icons";
 
-const PosTableForm = ({ tableData, setTotalProducts }) => {
+const PosTableForm = ({
+  tableData,
+  setTotalProducts,
+  tickets,
+  setTickets,
+  onSelectTab,
+}) => {
   const tablePosRef = useRef(null);
 
   useEffect(() => {
@@ -25,6 +33,20 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
       tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
     }
   }, [tableData]);
+
+  const deleteProduct = (event, index) => {
+    event.stopPropagation();
+    let ticketsAux = tickets.map((ticket, i) => {
+      if (i == onSelectTab) {
+        const updateProducts = ticket.products.filter(
+          (_, index_p) => index_p !== index,
+        );
+        return { ...ticket, products: updateProducts };
+      }
+      return ticket;
+    });
+    setTickets(ticketsAux);
+  };
 
   const columns = useMemo(
     () => [
@@ -109,15 +131,48 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
         id: "subTotal",
         header: "SUBTOTAL",
         accessorKey: "subTotal",
-        cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">
-            {row?.price * row?.quantity}
-          </p>
+        cell: ({ row, rowIndex }) => (
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-normal text-[#44444F]">
+              {row?.price * row?.quantity}
+            </p>
+            {row?.isSelected && (
+              <button
+                type="button"
+                onClick={(event) => deleteProduct(event, rowIndex)}
+              >
+                <IonIcon
+                  icon={closeCircle}
+                  className="h-6 w-6 cursor-pointer text-[#8F8F8F]"
+                ></IonIcon>
+              </button>
+            )}
+          </div>
         ),
       },
     ],
-    [],
+    [deleteProduct],
   );
+
+  const selectedRow = (index) => {
+    let ticketsAux = tickets.map((ticket, i) => {
+      if (i == onSelectTab) {
+        const updateProducts = ticket.products.map((product, index_p) => {
+          if (index_p == index) {
+            return {
+              ...product,
+              isSelected: !product.isSelected,
+            };
+          }
+          return product;
+        });
+        return { ...ticket, products: updateProducts };
+      }
+
+      return ticket;
+    });
+    setTickets(ticketsAux);
+  };
 
   return (
     <div
@@ -141,7 +196,8 @@ const PosTableForm = ({ tableData, setTotalProducts }) => {
           {tableData.map((row, rowIndex) => (
             <TableRow
               key={rowIndex}
-              className="text-sm font-normal text-[#44444F]"
+              className={`text-sm font-normal text-[#44444F] ${row.isSelected && "bg-primario/25 hover:hover:bg-primario/20"}`}
+              onClick={() => selectedRow(rowIndex)}
             >
               {columns.map((column) => (
                 <TableCell key={column.accessorKey}>
