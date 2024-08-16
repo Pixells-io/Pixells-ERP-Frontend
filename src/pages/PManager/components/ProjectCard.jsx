@@ -11,8 +11,6 @@ function ProjectCard(project) {
   const data = project.project;
   const { id } = useParams();
 
-  console.log(data);
-
   return (
     <NavLink
       to={`/project-manager/${id}/projects/${data?.id}`}
