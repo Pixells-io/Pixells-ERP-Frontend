@@ -36,8 +36,8 @@ function ProjectDestroy({ modal, setModal, projectId, name }) {
           <input type="hidden" value={projectId} name="project_id" />
           <input type="hidden" value="delete-project" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete the{" "}
+            {name}.
           </span>
           <DialogFooter className="flex gap-4 py-6">
             <Button

@@ -79,12 +79,13 @@ function ActivityDocument({ activity_id, documents }) {
           className="flex h-full flex-col gap-2 overflow-scroll"
         >
           <p>Agregar documento</p>
-          <DropzoneFile name="document" label="Document" />
+          <DropzoneFile name="document" label="Document" required />
           <InputRouter
             name="title"
             className=""
             type="text"
             placeholder="Document Name"
+            required
           />
           <input
             name="activity_id"
