@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import PosTableForm from "../Table/PosTableForm";
 import { useOutletContext } from "react-router-dom";
 import ModalScanItemNum from "../Modal/ModalScanItemNum";
+import PaymentMethods from "../Modal/PaymentMethods";
 
 function ProductsPos() {
   const [products, setProducts, cancelTicket] = useOutletContext();
@@ -10,6 +11,7 @@ function ProductsPos() {
   const [subTotalProducts, setSubTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
   const [modalScanItemN, setModalScanItemN] = useState(false);
+  const [modalPaymentMethod, setModalPaymentMethod] = useState(false);
 
   const openConfirmSale = (tProducts) => {
     setTotalInProducts(tProducts);
@@ -22,6 +24,11 @@ function ProductsPos() {
         modal={modalScanItemN}
         setModal={setModalScanItemN}
         totalProducts={totalInProducts}
+        setModalPaymentMethod={setModalPaymentMethod}
+      />
+       <PaymentMethods
+        modal={modalPaymentMethod}
+        setModal={setModalPaymentMethod}
       />
       <div className="flex h-full w-full flex-col justify-between">
         <PosTableForm

@@ -10,8 +10,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalScanItemNum({ modal, setModal, functionModal, totalProducts }) {
-  const handleSubmit = (event) => {};
+function ModalScanItemNum({ modal, setModal, setModalPaymentMethod, totalProducts }) {
+
+  const openModalPaymentMethod = () => {
+    setModalPaymentMethod(true);
+    setModal(false);
+  }
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -40,6 +44,7 @@ function ModalScanItemNum({ modal, setModal, functionModal, totalProducts }) {
             <Button
               type="button"
               className="text-roboto text-md w-[190px] rounded-3xl bg-primarioBotones font-semibold text-white"
+              onClick={() => openModalPaymentMethod()}
             >
               Continuar
             </Button>

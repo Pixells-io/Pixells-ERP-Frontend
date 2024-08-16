@@ -120,7 +120,7 @@ function MainPos() {
   const [tickets, setTickets] = useState(getTickets);
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
-  const [clientSelect, SetClientSelect] = useState({});
+  const [clientSelect, setClientSelect] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -199,7 +199,7 @@ function MainPos() {
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
             name={"clients"}
             options={clientsOptions}
-            onChange={(e) => SetClientSelect(e)}
+            onChange={(e) => setClientSelect(e)}
           />
         </div>
       </div>
