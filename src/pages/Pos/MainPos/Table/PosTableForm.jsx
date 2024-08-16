@@ -159,7 +159,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   return (
     <div
       ref={tablePosRef}
-      className="h-full overflow-auto rounded bg-[#FFFFFF]"
+      className="h-full overflow-auto rounded bg-[#FFFFFF] px-2"
     >
       <Table>
         <TableHeader>
