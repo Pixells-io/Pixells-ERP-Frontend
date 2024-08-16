@@ -143,6 +143,11 @@ function ProductsPos() {
       <PaymentMethods
         modal={modalPaymentMethod}
         setModal={setModalPaymentMethod}
+        information={{
+          totalArticles: products.reduce((a, c) => a + c.quantity, 0),
+          subTotal: subTotalProducts,
+          total: subTotalProducts,
+        }}
       />
 
       {/* add */}
@@ -187,6 +192,7 @@ function ProductsPos() {
         </div>
       </div>
 
+      {/* table */}
       <div className="mt-4 flex-1 overflow-auto">
         <div className="flex h-full w-full flex-col justify-between">
           <PosTableForm

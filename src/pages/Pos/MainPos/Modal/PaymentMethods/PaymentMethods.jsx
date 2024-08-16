@@ -15,8 +15,9 @@ import OptionsPayments from "./OptionsPayment";
 import SaleInformation from "./SaleInformation";
 import { Input } from "@/components/ui/input";
 
-function PaymentMethods({ modal, setModal }) {
+function PaymentMethods({ modal, setModal, information }) {
   const [method, setMethod] = useState("none");
+  const [paymentCash, setPaymentCash] = useState(0);
 
   const selectPaymentMethod = (m) => {
     if (m === method) {
@@ -26,6 +27,8 @@ function PaymentMethods({ modal, setModal }) {
     }
   };
 
+  const saveSale = () => {};
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="max-h-[535px] w-[668px] max-w-[668px] overflow-auto bg-blancoBg p-0">
@@ -34,9 +37,9 @@ function PaymentMethods({ modal, setModal }) {
             Seleccionar Método de Pago
           </DialogTitle>
         </DialogHeader>
-        <div className="flex h-[385px] px-6 pb-4">
+        <div className="flex h-[385px] px-6 pb-2">
           <div className="flex h-full w-full flex-col">
-            <SaleInformation />
+            <SaleInformation information={information} />
             <div className="mt-10 flex flex-1 flex-col">
               {method == "cash" ? (
                 <div className="grid w-full grid-cols-12 gap-y-5 py-3 pr-7">
@@ -50,6 +53,8 @@ function PaymentMethods({ modal, setModal }) {
                       className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       name="cash-payment"
                       type="number"
+                      value={paymentCash}
+                      onChange={(e) => setPaymentCash(e.target.value)}
                     />
                   </div>
 
@@ -60,7 +65,7 @@ function PaymentMethods({ modal, setModal }) {
                   </div>
                   <div className="col-span-8">
                     <p className="text-center font-roboto text-xl font-medium text-[#5B89FF]">
-                      $58.00
+                      ${paymentCash - information.total}
                     </p>
                   </div>
                 </div>
@@ -146,7 +151,7 @@ function PaymentMethods({ modal, setModal }) {
             method={method}
           />
         </div>
-
+        <DialogDescription className="hidden"></DialogDescription>
         <DialogFooter>
           <div className="flex w-full items-center justify-between py-2 pl-8 pr-14">
             <div className="flex gap-4">
