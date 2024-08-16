@@ -46,7 +46,7 @@ function AddUserActivity({ activity_id, users }) {
   }
 
   function onSelectedUser(currentValue) {
-    const user = arrayUsers?.filter((user) => user?.id == currentValue);
+    const user = arrayUsers?.filter((user) => user?.value == currentValue);
     console.log(user);
     const formData = new FormData();
 
@@ -83,11 +83,9 @@ function AddUserActivity({ activity_id, users }) {
                   key={user?.value}
                   value={user?.value}
                   onSelect={() => {
-                    console.log(user);
-                    console.log(value);
-                    setValue(user?.id === value ? "" : user?.id);
+                    setValue(user?.value === value ? "" : user?.value);
                     setOpen(false);
-                    onSelectedUser(user?.id);
+                    onSelectedUser(user?.value);
                   }}
                 >
                   <Check
