@@ -36,7 +36,6 @@ function AddUserActivity({ activity_id, users }) {
     let dataParse = data;
 
     dataParse.forEach((element) => {
-      console.log(element);
       array.push({
         label: `${element.name} ${element.last_name} ${element.second_last_name}`,
         value: element.id,
@@ -47,7 +46,6 @@ function AddUserActivity({ activity_id, users }) {
 
   function onSelectedUser(currentValue) {
     const user = arrayUsers?.filter((user) => user?.value == currentValue);
-    console.log(user);
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
