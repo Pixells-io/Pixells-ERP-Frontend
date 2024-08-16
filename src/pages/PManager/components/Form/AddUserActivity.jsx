@@ -36,6 +36,7 @@ function AddUserActivity({ activity_id, users }) {
     let dataParse = data;
 
     dataParse.forEach((element) => {
+      console.log(element);
       array.push({
         label: `${element.name} ${element.last_name} ${element.second_last_name}`,
         value: element.id,
@@ -82,7 +83,7 @@ function AddUserActivity({ activity_id, users }) {
                   key={user?.value}
                   value={user?.value}
                   onSelect={() => {
-                    console.log(user?.id);
+                    console.log(user);
                     console.log(value);
                     setValue(user?.id === value ? "" : user?.id);
                     setOpen(false);
