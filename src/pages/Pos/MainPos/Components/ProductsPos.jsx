@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import PosTableForm from "../Table/PosTableForm";
 import { useOutletContext } from "react-router-dom";
 import ModalScanItemNum from "../Modal/ModalScanItemNum";
-import PaymentMethods from "../Modal/PaymentMethods";
+import PaymentMethods from "../Modal/PaymentMethods/PaymentMethods";
 
 function ProductsPos() {
   const [products, setProducts, cancelTicket] = useOutletContext();
