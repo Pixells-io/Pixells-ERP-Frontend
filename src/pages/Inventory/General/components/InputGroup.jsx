@@ -38,7 +38,7 @@ const Inputs = () => {
     setInputsData(prevData => ({ ...prevData, [name]: checked }));
   };
 
-  const selectClasses = "w-full rounded-xl border border-gris2-transparent placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="bg-white rounded-xl p-4 w-full">
@@ -47,7 +47,7 @@ const Inputs = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
               type="text"
-              className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+              className="w-full rounded-xl border border-gris2-transparent font-roboto text-xs font-light text-grisSubText placeholder:text-grisHeading focus-visible:ring-primarioBotones"
               placeholder="Código de Articulo"
               name="codigoDeArticulo"
               value={inputsData.codigoDeArticulo}

@@ -157,19 +157,10 @@ const MainGeneral = () => {
             Artículos general
           </p>
           <Link to="/inventory/create">
-          <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                size="large"
-                className="text-primarioBotones"
-                aria-hidden="true"
-              />
-            </Button>
+          <IonIcon
+              icon={addCircleOutline}
+              className="mt-5 h-7 w-7 text-blue-500"
+            ></IonIcon>
           </Link>
         </div>
         {/*content */}
