@@ -45,12 +45,13 @@ function AddUserActivity({ activity_id, users }) {
   }
 
   function onSelectedUser(currentValue) {
-    const user = arrayUsers.filter((user) => user.label == currentValue);
+    const user = arrayUsers?.filter((user) => user?.label == currentValue);
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
-    formData.append("user_id", user[0].value);
+    formData.append("user_id", user[0]?.value);
     formData.append("action", "edit");
+
     submit(formData, {
       method: "post",
       action: `/project-manager/${id}/projects/${projectId}`,
@@ -77,8 +78,8 @@ function AddUserActivity({ activity_id, users }) {
             <CommandGroup>
               {arrayUsers?.map((user, i) => (
                 <CommandItem
-                  key={user.value}
-                  value={user.value}
+                  key={user?.value}
+                  value={user?.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
@@ -88,14 +89,14 @@ function AddUserActivity({ activity_id, users }) {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === user.label ? "opacity-100" : "opacity-0",
+                      value === user?.label ? "opacity-100" : "opacity-0",
                     )}
                   />
                   <div className="flex gap-2">
                     <Avatar className="flex h-6 w-6">
-                      <AvatarImage src={user.url} />
+                      <AvatarImage src={user?.url} />
                     </Avatar>
-                    {user.label}
+                    {user?.label}
                   </div>
                 </CommandItem>
               ))}
