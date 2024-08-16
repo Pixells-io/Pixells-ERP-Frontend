@@ -17,6 +17,7 @@ const CreatePriceList = () => {
       precioBase: 53.30,
       precioUnitario: 53.30,
       indiceRefactorizacion: 2.1,
+      indiceEditable: 2.1,
       precioRefactorizacion: 111.93,
     },
   ]);
@@ -32,8 +33,8 @@ const CreatePriceList = () => {
 
   const handleRoundingChange = (isRounded, method) => {
     setRoundingSettings({
-      roundValues: isRounded || false,
-      roundingMethod: method || "truncate",
+      roundValues: isRounded,
+      roundingMethod: method ,
     });
   };
 
@@ -112,7 +113,6 @@ const CreatePriceList = () => {
             onDataChange={handleDataChange}
             roundValues={roundingSettings.roundValues}
             roundingMethod={roundingSettings.roundingMethod}
-            decimalPlaces={2}
             indRef={indRef}
           />
           <ObservationsSection/>

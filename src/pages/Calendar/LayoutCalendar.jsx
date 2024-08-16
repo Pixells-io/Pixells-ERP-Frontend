@@ -47,7 +47,7 @@ function LayoutCalendar() {
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenu main={"/"} />
         </div>
-        <div className="flex flex-col gap-4 overflow-auto rounded-lg bg-gris px-4 py-4">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-lg bg-gris px-4 py-4">
           <span className="font-popins text-lg font-semibold text-grisHeading">
             Menu
           </span>
