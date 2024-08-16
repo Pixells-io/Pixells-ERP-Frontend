@@ -164,7 +164,7 @@ const DataTable = ({
               <TableCell>
                 <Input
                   name={`precioBase-${rowIndex}`}
-                  value={row.precioBase}
+                  value={formatNumber(row.precioBase,2,false)}
                   readOnly
                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
@@ -173,7 +173,7 @@ const DataTable = ({
                 <Input
                   type="text"
                   name={`precioUnitario-${rowIndex}`}
-                  value={formatNumber(row.precioUnitario,2,false)}
+                  value={row.precioUnitario}
                   onChange={(e) =>
                     handleInputChange(
                       rowIndex,
@@ -196,7 +196,7 @@ const DataTable = ({
                 <Input
                   type="number"
                   name={`indiceEditable-${rowIndex}`}
-                  value={row.indiceEditable}
+                  value={formatNumber(row.indiceEditable,2,false)}
                   onChange={(e) =>
                     handleInputChange(
                       rowIndex,
