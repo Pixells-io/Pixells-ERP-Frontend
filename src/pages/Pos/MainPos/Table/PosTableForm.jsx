@@ -9,15 +9,11 @@ import {
 } from "@/components/ui/table";
 import { IonIcon } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
+import { useParams } from "react-router-dom";
 
-const PosTableForm = ({
-  tableData,
-  setTotalProducts,
-  tickets,
-  setTickets,
-  onSelectTab,
-}) => {
+const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   const tablePosRef = useRef(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const TotalP = tableData.reduce(
@@ -36,16 +32,9 @@ const PosTableForm = ({
 
   const deleteProduct = (event, index) => {
     event.stopPropagation();
-    let ticketsAux = tickets.map((ticket, i) => {
-      if (i == onSelectTab) {
-        const updateProducts = ticket.products.filter(
-          (_, index_p) => index_p !== index,
-        );
-        return { ...ticket, products: updateProducts };
-      }
-      return ticket;
-    });
-    setTickets(ticketsAux);
+    const updateProducts = tableData.filter((_, index_p) => index_p !== index);
+    localStorage.setItem("products-" + id, JSON.stringify(updateProducts));
+    setProducts(updateProducts);
   };
 
   const columns = useMemo(
@@ -155,23 +144,16 @@ const PosTableForm = ({
   );
 
   const selectedRow = (index) => {
-    let ticketsAux = tickets.map((ticket, i) => {
-      if (i == onSelectTab) {
-        const updateProducts = ticket.products.map((product, index_p) => {
-          if (index_p == index) {
-            return {
-              ...product,
-              isSelected: !product.isSelected,
-            };
-          }
-          return product;
-        });
-        return { ...ticket, products: updateProducts };
+    const updateProducts = tableData.map((product, index_p) => {
+      if (index_p == index) {
+        return {
+          ...product,
+          isSelected: !product.isSelected,
+        };
       }
-
-      return ticket;
+      return product;
     });
-    setTickets(ticketsAux);
+    setProducts(updateProducts);
   };
 
   return (

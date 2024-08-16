@@ -1,12 +1,9 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
-import React, { useState } from "react";
-import PosTableForm from "./Table/PosTableForm";
-import { Button } from "@/components/ui/button";
-import ModalScanItemNum from "./Modal/ModalScanItemNum";
+import React, { useEffect, useState } from "react";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import ModalItemGranel from "./Modal/ModalItemGranel";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 
 const productsOptions = [
   {
@@ -74,24 +71,63 @@ const clientsOptions = [
   },
 ];
 
+//datos simulando guardado bd
+const saveTickets = () => {
+  let ticketsBd = JSON.parse(localStorage.getItem("tickets"));
+  if (!ticketsBd) {
+    ticketsBd = [];
+  }
+
+  let newId = (ticketsBd[ticketsBd.length - 1]?.id || 0) + 1;
+  ticketsBd.push({ id: newId, name: "T-" + newId });
+  localStorage.setItem("tickets", JSON.stringify(ticketsBd));
+  return ticketsBd;
+};
+
+const getTickets = () => {
+  let ticketsBd = JSON.parse(localStorage.getItem("tickets"));
+  if (!ticketsBd) {
+    ticketsBd = [];
+  }
+  return ticketsBd;
+};
+
+const saveProducts = (products, product, ticket) => {
+  let newId = (products[products.length - 1]?.id || 0) + 1;
+  let auxProducts = [...products, { ...product, id: newId, isSelected: false }];
+  localStorage.setItem("products-" + ticket, JSON.stringify(auxProducts));
+  return auxProducts;
+};
+
+const getProducts = (ticket) => {
+  let productsBD = JSON.parse(localStorage.getItem("products-" + ticket));
+  if (!productsBD) {
+    productsBD = [];
+  }
+  return productsBD;
+};
+//------------------------------------------------
+
 function MainPos() {
-  const [tickets, setTickets] = useState([]);
-  const [subTotalProducts, setSubTotalProducts] = useState(0);
-  const [totalInProducts, setTotalInProducts] = useState(0);
-  const [modalScanItemN, setModalScanItemN] = useState(false);
+  const { id } = useParams();
+  const [products, setProducts] = useState(getProducts(id));
+
+  const [tickets, setTickets] = useState(getTickets);
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
-  const [onSelectTab, setOnSelectTab] = useState(null);
+
+  useEffect(() => {
+    setProducts(getProducts(id));
+  }, [id]);
 
   const addTickets = () => {
-    setTickets([...tickets, { products: [] }]);
+    const ticketsBd = saveTickets();
+    setTickets(ticketsBd);
   };
 
   const validateIsGranel = (value) => {
-    if (onSelectTab === null) return;
-    setProductSelect(value);
-
     if (value.isGranel) {
+      setProductSelect(value);
       setModalItemGranel(true);
     } else {
       addProduct(value);
@@ -99,38 +135,13 @@ function MainPos() {
   };
 
   const addProduct = (value) => {
-    let ticketsAux = tickets.map((ticket, i) => {
-      if (i == onSelectTab) {
-        return {
-          ...ticket,
-          products: [
-            ...ticket.products,
-            {
-              ...value,
-              isSelected: false,
-            },
-          ],
-        };
-      }
-      return ticket;
-    });
-
-    setTickets(ticketsAux);
-  };
-
-  const openConfirmSale = (tProducts) => {
-    setTotalInProducts(tProducts);
-    setModalScanItemN(true);
+    let productBd = saveProducts(products, value, id);
+    setProducts(productBd);
   };
 
   return (
     <div className="flex h-full w-full flex-col overflow-auto rounded-lg bg-[#F9F9F9] px-4 py-4">
       {/* Modals */}
-      <ModalScanItemNum
-        modal={modalScanItemN}
-        setModal={setModalScanItemN}
-        totalProducts={totalInProducts}
-      />
       <ModalItemGranel
         modal={modalItemGranel}
         setModal={setModalItemGranel}
@@ -176,82 +187,28 @@ function MainPos() {
         </div>
       </div>
 
-      {/* tickets */}
-      <Tabs
-        defaultValue="crm"
-        className="mt-2 flex h-full w-full flex-col overflow-auto rounded-lg bg-inherit"
-        onValueChange={(value) => setOnSelectTab(value)}
-      >
-        <TabsList className="flex w-fit gap-x-3 rounded-none bg-inherit">
-          <IonIcon
-            onClick={() => addTickets()}
-            icon={addCircleOutline}
-            className="h-6 w-6 cursor-pointer text-primarioBotones"
-          ></IonIcon>
-          {tickets.map((ticket, index) => (
-            <TabsTrigger
-              key={index}
-              value={index}
-              className="rounded-3xl bg-[#F0F0F0] px-4 py-2 text-xs font-medium text-grisText data-[state=active]:bg-[#44444F] data-[state=active]:text-white data-[state=active]:shadow-[0px_0px_8px_1px_rgba(0,0,0,0.25)]"
-            >
-              T {index}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <div className="mt-2 flex w-fit gap-x-3 rounded-none bg-inherit">
+        <IonIcon
+          onClick={() => addTickets()}
+          icon={addCircleOutline}
+          className="h-6 w-6 cursor-pointer text-primarioBotones"
+        ></IonIcon>
         {tickets.map((ticket, index) => (
-          <TabsContent
-            key={index}
-            value={index}
-            className="flex-1 overflow-auto p-2"
+          <NavLink
+            key={"tickets" + index}
+            to={"/pos/" + ticket.id}
+            className={({ isActive }) =>
+              isActive
+                ? "rounded-3xl bg-[#44444F] px-4 py-2 text-xs font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.25)]"
+                : "rounded-3xl bg-[#F0F0F0] px-4 py-2 text-xs font-medium text-grisText"
+            }
           >
-            <div className="flex h-full w-full flex-col justify-between">
-              <PosTableForm
-                tableData={ticket.products}
-                setTotalProducts={setSubTotalProducts}
-                tickets={tickets}
-                setTickets={setTickets}
-                onSelectTab={onSelectTab}
-              />
-              <div className="mt-4 w-full">
-                <div className="grid w-full grid-cols-9">
-                  <div className="col-span-4 flex items-center">
-                    <Button
-                      type="button"
-                      className="text-md rounded-3xl bg-grisDisabled px-6 py-7 font-medium text-white shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                    >
-                      CANCELAR
-                    </Button>
-                  </div>
-                  <div className="col-span-1 flex items-center">
-                    <h2 className="font-poppins text-lg font-medium text-[#44444F]">
-                      ARTICULOS:&nbsp;
-                      {ticket.products.reduce((a, c) => a + c.quantity, 0)}
-                    </h2>
-                  </div>
-                  <div className="col-span-4 flex items-center justify-end">
-                    <Button
-                      type="button"
-                      className="flex min-w-[260px] justify-between rounded-3xl bg-primarioBotones py-7 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
-                      onClick={() =>
-                        openConfirmSale(
-                          ticket.products.reduce((a, c) => a + c.quantity, 0),
-                        )
-                      }
-                    >
-                      <span className="text-lg font-medium text-white">
-                        COBRAR
-                      </span>
-                      <span className="font-poppins text-xl font-semibold text-white">
-                        ${subTotalProducts}
-                      </span>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
+            <span>{ticket.name}</span>
+          </NavLink>
         ))}
-      </Tabs>
+      </div>
+
+      <Outlet context={[products, setProducts]} />
     </div>
   );
 }
