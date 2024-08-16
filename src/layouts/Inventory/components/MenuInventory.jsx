@@ -61,7 +61,7 @@ const MenuInventory = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {MENU_ITEMS.map((item, i) => (
         <NavLink
           key={i}

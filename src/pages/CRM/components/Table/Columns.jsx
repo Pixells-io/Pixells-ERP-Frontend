@@ -107,12 +107,10 @@ export const columns = [
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>
-                  Delete Lead - {row?.original?.bussines_name}?
-                </DialogTitle>
+                <DialogTitle>Borrar Lead</DialogTitle>
                 <DialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  Esta acción no se puede deshacer. Esto eliminará
+                  permanentemente {row?.original?.business_name}.
                 </DialogDescription>
               </DialogHeader>
               <Form id="form-delete-lead" action={"/crm"} method="post">

@@ -23,7 +23,7 @@ function Products() {
       <div className="mt-4 flex flex-row justify-between rounded-xl bg-blancoBg px-4 py-6">
         <textarea
           placeholder="Observaciones"
-          className="h-[50px] w-[280px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs font-light text-grisSubText"
+          className="h-[50px] w-[280px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB]  px-3 py-2 text-xs font-light text-grisSubText"
           name="observations"
         ></textarea>
         <div className="flex items-center justify-end">

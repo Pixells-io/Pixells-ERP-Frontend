@@ -197,7 +197,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
             value={row?.component}
           >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+            <SelectTrigger className="rounded-xl border border-gris2-transparent text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
               <SelectValue placeholder="Selecciona el componente" />
             </SelectTrigger>
             <SelectContent>
