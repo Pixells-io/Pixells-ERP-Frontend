@@ -1,5 +1,5 @@
-import React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import React, { useState } from "react";
+import { useParams, useSubmit } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,17 +16,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
+import { Check } from "lucide-react";
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
-import { useParams, useSubmit } from "react-router-dom";
 
 function AddUserActivity({ activity_id, users }) {
   const { id, projectId } = useParams();
   const submit = useSubmit();
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
   const arrayUsers = [];
 
@@ -50,7 +50,7 @@ function AddUserActivity({ activity_id, users }) {
     const formData = new FormData();
 
     formData.append("activity_id", activity_id);
-    formData.append("user_id", user?.value);
+    formData.append("user_id", user[0]?.value);
     formData.append("action", "edit");
 
     submit(formData, {
@@ -82,6 +82,8 @@ function AddUserActivity({ activity_id, users }) {
                   key={user?.value}
                   value={user?.value}
                   onSelect={(currentValue) => {
+                    console.log(currentValue);
+                    console.log(value);
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                     onSelectedUser(currentValue);
