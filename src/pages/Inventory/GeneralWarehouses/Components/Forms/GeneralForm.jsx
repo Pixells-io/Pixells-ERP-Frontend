@@ -15,8 +15,8 @@ const GeneralForm = ({ data, setData }) => {
 
   return (
     <div className="pl-4 grid w-full grid-cols-3 grid-rows-4 gap-4">
-      <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="active" className="text-md font-roboto text-gris2">Activo</Label>
+      <div className="col-span-1 flex items-center space-x-3">
+        <Label htmlFor="active" className=" text-[14px] w-24 font-roboto text-gris2">Activo</Label>
         <Checkbox
           id="active"
           name="active"
@@ -26,7 +26,7 @@ const GeneralForm = ({ data, setData }) => {
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="inactive" className="text-md font-roboto text-gris2">Inactivo</Label>
+        <Label htmlFor="inactive" className=" text-[14px] w-24 font-roboto text-gris2">Inactivo</Label>
         <Checkbox
           id="inactive"
           name="inactive"
@@ -38,93 +38,93 @@ const GeneralForm = ({ data, setData }) => {
       <div className="col-span-1"></div>
 
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="calle" className="text-md w-24 font-roboto text-gris2">Calle:</Label>
+        <Label htmlFor="calle" className="text-[14px] w-24 font-roboto text-gris2">Calle:</Label>
         <InputRouter
           id="calle"
           type="text"
           name="calle"
           value={data.calle}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="numInt" className="text-md w-24 font-roboto text-gris2">Número int:</Label>
+        <Label htmlFor="numInt" className="text-[14px] w-24 font-roboto text-gris2">Número int:</Label>
         <InputRouter
           id="numInt"
           type="number"
           name="numInt"
           value={data.numInt}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="numExt" className="text-md w-24 font-roboto text-gris2">Número ext:</Label>
+        <Label htmlFor="numExt" className=" text-[14px] w-24 font-roboto text-gris2">Número ext:</Label>
         <InputRouter
           id="numExt"
           type="number"
           name="numExt"
           value={data.numExt}
           onChange={handleChange}
-          placeholder="ingresa"
+         placeholder="Ingresa"
         />
       </div>
 
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="col" className="text-md w-24 font-roboto text-gris2">Colonia:</Label>
+        <Label htmlFor="col" className=" text-[14px] w-24 font-roboto text-gris2">Colonia:</Label>
         <InputRouter
           id="col"
           type="text"
           name="col"
           value={data.col}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="cp" className="text-md w-24 font-roboto text-gris2">Código postal:</Label>
+        <Label htmlFor="cp" className=" text-[14px] w-24 font-roboto text-gris2 whitespace-nowrap">Código postal:</Label>
         <InputRouter
           id="cp"
           type="number"
           name="cp"
           value={data.cp}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="city" className="text-md w-24 font-roboto text-gris2">Ciudad:</Label>
+        <Label htmlFor="city" className="text-[14px] w-24 font-roboto text-gris2">Ciudad:</Label>
         <InputRouter
           id="city"
           type="text"
           name="city"
           value={data.city}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
 
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="state" className="text-md w-24 font-roboto text-gris2">Estado:</Label>
+        <Label htmlFor="state" className=" text-[14px] w-24 font-roboto text-gris2">Estado:</Label>
         <InputRouter
           id="state"
           type="text"
           name="state"
           value={data.state}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-2">
-        <Label htmlFor="country" className="text-md w-24 font-roboto text-gris2">País:</Label>
+        <Label htmlFor="country" className=" text-[14px] w-24 font-roboto text-gris2">País:</Label>
         <InputRouter
           id="country"
           type="text"
           name="country"
           value={data.country}
           onChange={handleChange}
-          placeholder="ingresa"
+          placeholder="Ingresa"
         />
       </div>
     </div>
@@ -132,3 +132,4 @@ const GeneralForm = ({ data, setData }) => {
 };
 
 export default GeneralForm;
+ 

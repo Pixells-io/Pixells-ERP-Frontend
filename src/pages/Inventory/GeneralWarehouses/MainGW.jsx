@@ -104,13 +104,14 @@ const MainGW = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <IonIcon
             icon={informationCircle}
             size="large"
             className="text-gris2"
           />
-        </div>)
+        </div>
+      ),
     },
   ];
 
@@ -157,48 +158,45 @@ const MainGW = () => {
             Almacenes generales
           </p>
           <Link to="/inventory/general-warehouses/create">
-            <Button
+          <Button
               type="button"
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex mt-4 h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
-                className="text-primarioBotones"
+                className=" h-7 w-7 text-primarioBotones"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-      
-          <div className="w-full">
-            <Tabs
-              defaultValue="warehouse"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="warehouse"
-                >
-                  ALMACENES
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="warehouse" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="codigo"
-                  searchNameFilter="Buscar por código"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-            </Tabs>
-          </div>
+
+        <div className="w-full">
+          <Tabs
+            defaultValue="warehouse"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="warehouse"
+              >
+                ALMACENES
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="warehouse" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="codigo"
+                searchNameFilter="Buscar por código"
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
+    </div>
   );
 };
 

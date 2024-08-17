@@ -48,25 +48,25 @@ const FormGroup = () => {
         </TabsList>
         <div className="w-full bg-white rounded-[10px] p-4">
           <TabsContent value="general">
-            <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">General</h2>
+            <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">GENERAL</h2>
             <div className="flex flex-wrap pl-2">
             <GeneralForm data={generalData} setData={setGeneralData} />
             </div>
           </TabsContent>
           <TabsContent value="inventory">
-          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">Inventario</h2>
+          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">INVENTARIO</h2>
             <div className="flex flex-wrap pl-2">
             <InventoryForm data={inventoryData} setData={setInventoryData} />
             </div>
           </TabsContent>
           <TabsContent value="storage">
-          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">Almacén</h2>
+          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">ALMACÉN</h2>
             <div className="flex pl-2">
             < WarehouseForm/>
             </div>
           </TabsContent>
           <TabsContent value="shopping">
-          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">Compras</h2>
+          <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">COMPRAS</h2>
           <div className="flex w-full pl-2">
           <CheckForm data={checkData} setData={setCheckData} />
             </div>

@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  addCircleOutline,
-} from "ionicons/icons";
+import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import {
   DropdownMenu,
@@ -16,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
 import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
 
@@ -104,7 +101,7 @@ function MainMerchandiseMovements() {
       createdAt: "21/07/2024",
     },
   ];
-  
+
   const dataPendings = [
     {
       id: 10,
@@ -167,11 +164,15 @@ function MainMerchandiseMovements() {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <IonIcon
-                  icon={addCircleOutline}
-                  size="large"
-                  className="mt-5 cursor-pointer text-blue-500"
-                ></IonIcon>
+                <Button
+                  type="button"
+                  className="mt-4 flex h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                >
+                  <IonIcon
+                    icon={addCircleOutline}
+                    className="h-7 w-7 text-primarioBotones"
+                  />
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem className="hover:cursor-pointer focus:bg-hoverModal">

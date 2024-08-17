@@ -151,7 +151,8 @@ const DataTable = ({
                     handleInputChange(rowIndex, "listaPrecioBase", value)
                   }
                 >
-                  <SelectTrigger className="h-auto border focus-visible:ring-primarioBotones rounded-lg bg-inherit p-1 text-xs font-normal">
+                  <SelectTrigger className="
+                  rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                     <SelectValue placeholder="Lista de precio base" />
                   </SelectTrigger>
                   <SelectContent>

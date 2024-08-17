@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputField from "@/layouts/Masters/FormComponents/InputField";
+import { Input } from "@/components/ui/input";
 
 const Inputs = () => {
   const [inputsData, setInputsData] = useState({
@@ -20,21 +20,21 @@ const Inputs = () => {
     <div className="w-full rounded-xl bg-white p-4">
       <div className="flex flex-row space-x-4">
         <div className="flex-1">
-          <InputField
+          <Input
             type="text"
             name="codArt"
             placeholder="Código de articulo"
-            className="w-full"
+            className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             value={inputsData.codArt}
             onChange={handleChange}
           />
         </div>
         <div className="flex-1">
-          <InputField
+          <Input
             type="text"
             name="descrp"
             placeholder="Nombre o Descripción"
-            className="w-full"
+            className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             value={inputsData.descrp}
             onChange={handleChange}
           />
