@@ -52,8 +52,6 @@ function MainCapacitations() {
     setCapacitacionListPusher(newData.data);
   }
 
-  const pusherClient = createPusherClient();
-
   useEffect(() => {
     if (navigation.state === "idle") {
       setModalCreateTrainings(false);

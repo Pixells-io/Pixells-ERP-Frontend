@@ -49,7 +49,7 @@ function Stages() {
   const [leadAssigned, setLeadAssigned] = useState("");
   const [type, setType] = useState("");
 
-  const pusherClient = createPusherClient();
+  console.log(steps);
 
   //FUNCTIONS DRAG AND DROP
 
@@ -79,66 +79,59 @@ function Stages() {
     //Open the menu
     switch (column_id) {
       case 1:
-        if (next_column == 1) {
-          setModal({
-            ...modal,
-            prospect: true,
-          });
-        }
+        setModal({
+          ...modal,
+          prospect: true,
+        });
+
         break;
 
       case 2:
-        if (next_column == 2) {
-          setModal({
-            ...modal,
-            potential: true,
-          });
-        }
+        setModal({
+          ...modal,
+          potential: true,
+        });
+
         break;
 
       case 3:
-        if (next_column == 3) {
-          setModal({
-            ...modal,
-            followup: true,
-          });
-        }
+        setModal({
+          ...modal,
+          followup: true,
+        });
+
         break;
 
       case 4:
-        if (next_column == 4) {
-          setModal({
-            ...modal,
-            proposal: true,
-          });
-        }
+        setModal({
+          ...modal,
+          proposal: true,
+        });
+
         break;
 
       case 5:
-        if (next_column == 5) {
-          setModal({
-            ...modal,
-            closing: true,
-          });
-        }
+        setModal({
+          ...modal,
+          closing: true,
+        });
+
         break;
 
       case 6:
-        if (next_column == 6) {
-          setModal({
-            ...modal,
-            pay: true,
-          });
-        }
+        setModal({
+          ...modal,
+          pay: true,
+        });
+
         break;
 
       case 7:
-        if (next_column == 7) {
-          setModal({
-            ...modal,
-            kickoff: true,
-          });
-        }
+        setModal({
+          ...modal,
+          kickoff: true,
+        });
+
         break;
     }
   }

@@ -29,8 +29,6 @@ function NotificationChat({ notifications, user }) {
     return navigate(`/chat/${chat}`);
   }
 
-  const pusherClient = createPusherClient();
-
   useEffect(() => {
     async function getNotifications() {
       let newData = await getNotificationsChat();

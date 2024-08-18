@@ -15,8 +15,6 @@ import NewEvaluationModal from "../Inductions/components/NewEvaluationModal";
 import { storeNewEvaluation } from "../utils";
 import NavigationHeader from "@/components/navigation-header";
 
-import { createPusherClient } from "@/lib/pusher";
-
 function MainEvaluations() {
   const navigation = useNavigation();
 

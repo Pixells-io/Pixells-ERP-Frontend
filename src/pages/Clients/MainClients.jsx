@@ -42,9 +42,6 @@ function MainClients() {
 
   const pusherClient = createPusherClient();
 
-  //WEB SOCKET
-  const pusherClient = createPusherClient();
-
   async function getClientDataBack() {
     const newInfo = await getAuthClient();
     setDatClient(newInfo.data);
