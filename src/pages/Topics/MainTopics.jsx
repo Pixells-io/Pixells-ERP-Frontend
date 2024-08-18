@@ -20,7 +20,7 @@ function MainTopics() {
 
   useEffect(() => {
     setCategoryId(id);
-    let channel = pusherClient.subscribe(`private-get-topics.${categoryId}`);
+    let channel = pusherClient.subscribe(`private-get-topics`);
 
     channel.bind("fill-topics", ({ category }) => {
       getTopicsArray(category);
@@ -29,11 +29,13 @@ function MainTopics() {
     async function getTopicsArray(category) {
       let newData = await getTopics(category);
 
-      setTopicsData(newData.data);
+      console.log(newData, "New Data");
+      setTopicsData(newData);
+      console.log(topicsData, "Topic Data");
     }
 
     return () => {
-      pusherClient.unsubscribe(`private-get-topics.${categoryId}`);
+      pusherClient.unsubscribe(`private-get-topics`);
     };
   }, [location, categoryId]);
 

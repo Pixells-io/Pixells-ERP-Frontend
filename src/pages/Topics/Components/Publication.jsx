@@ -46,8 +46,6 @@ function Publication({ topic }) {
     async function getTopicInfo(topic) {
       let { data } = await getTopic(topic.id);
       setTopicData(data);
-
-      console.log(data);
     }
   }, []);
 

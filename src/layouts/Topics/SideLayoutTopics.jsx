@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Outlet, NavLink, useLocation, useLoaderData } from "react-router-dom";
+import {
+  Outlet,
+  NavLink,
+  useLocation,
+  useLoaderData,
+  redirect,
+  useNavigate,
+} from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, home, searchOutline } from "ionicons/icons";
@@ -16,6 +23,7 @@ import { saveNewCategory, saveNewTopic } from "@/pages/Topics/utils";
 
 function SideLayoutTopics() {
   const location = useLocation();
+
   const { user, categories } = useLoaderData();
 
   const [newTopic, setNewTopic] = useState(false);
@@ -104,12 +112,12 @@ export async function Action({ request }) {
     case "1":
       //Create Topic
       await saveNewTopic(data);
+      return redirect("/topics/0");
       break;
     case "2":
       //Create Category
       await saveNewCategory(data);
+      return redirect("/topics/0");
       break;
   }
-
-  return "1";
 }
