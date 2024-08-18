@@ -141,6 +141,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
 
               <SelectRouter
                 options={typeTrainingOptions}
+                name={"type"}
                 defaultVal={{ label: "Área", value: "1" }}
                 onChange={(e) => setinputShow(e.value)}
               />
