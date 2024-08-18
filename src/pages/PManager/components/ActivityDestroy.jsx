@@ -33,7 +33,7 @@ function ActivityDestroy({ activityId, name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Activity - {name}
+            Borrar Actividad
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -45,8 +45,8 @@ function ActivityDestroy({ activityId, name }) {
           <input type="hidden" value={activityId} name="activity_id" />
           <input type="hidden" value="delete-activity" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Esta acción no se puede deshacer. Esto eliminará permanentemente{" "}
+            {name}.
           </span>
           <DialogFooter className="flex gap-4 py-6">
             <Button

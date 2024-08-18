@@ -16,11 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import {
-  chevronBack,
-  chevronForward,
-  ellipsisHorizontal,
-} from "ionicons/icons";
+import { ellipsisHorizontal } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import {
@@ -160,15 +156,15 @@ function MainPManager() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-[22px] font-bold text-[#44444F]">
-              PROJECT MANAGER
+              GESTOR DE PROYECTOS
             </h2>
           </div>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
-            <div className="text-xs">{data?.length} objectives</div>
+            <div className="text-xs">{data?.length} objetivos</div>
+            {/* <div className="text-2xl">&bull;</div>
+            <div className="text-xs">25 FCE</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 Activities</div>
+            <div className="text-xs">43 actividades</div> */}
           </div>
         </div>
 
@@ -224,7 +220,7 @@ function MainPManager() {
                     type="submit"
                     className="mt-5 h-9 rounded-xl border border-primarioBotones px-4 py-1 font-medium text-primarioBotones hover:bg-primarioBotones hover:text-white"
                   >
-                    Edit
+                    Editar
                   </button>
                 </Form>
               )}
@@ -238,14 +234,14 @@ function MainPManager() {
                 <DropdownMenuContent>
                   {editP == true ? (
                     <DropdownMenuItem onClick={() => setEdit(!edit)}>
-                      Edit
+                      Editar
                     </DropdownMenuItem>
                   ) : (
                     false
                   )}
                   {destroyP == true ? (
                     <DropdownMenuItem onClick={() => setOpen(true)}>
-                      Delete
+                      Borrar
                     </DropdownMenuItem>
                   ) : (
                     false
@@ -255,7 +251,7 @@ function MainPManager() {
             </div>
 
             <span className="text-xs font-medium text-grisText">
-              Strategic Category
+              Categoría Estratégica
             </span>
           </div>
         </div>
@@ -264,14 +260,14 @@ function MainPManager() {
 
         <div className="flex items-center gap-8 pl-2">
           <div className="">
-            {createP == true ? <GoalForm objectiveId={params.id} /> : false}
+            {createP == true ? <GoalForm objectiveId={params?.id} /> : false}
           </div>
           <div className="flex gap-3">
             <NavLink
-              to={`/project-manager/${params.id}`}
+              to={`/project-manager/${params?.id}`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}`
+                location.pathname === `/project-manager/${params?.id}`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
@@ -279,18 +275,18 @@ function MainPManager() {
               Board
             </NavLink>
             <NavLink
-              to={`/project-manager/${params.id}/csf`}
+              to={`/project-manager/${params?.id}/csf`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}/csf`
+                location.pathname === `/project-manager/${params?.id}/csf`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
             >
-              CSF
+              FCE
             </NavLink>
             <NavLink
-              to={`/project-manager/${params.id}/projects`}
+              to={`/project-manager/${params?.id}/projects`}
               className={({ isActive }) =>
                 isActive &&
                 location.pathname === `/project-manager/${params.id}/projects`
@@ -298,18 +294,18 @@ function MainPManager() {
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
             >
-              Projects
+              Proyectos
             </NavLink>
             <NavLink
               to={`/project-manager/completed`}
               className={({ isActive }) =>
                 isActive &&
-                location.pathname === `/project-manager/${params.id}/completed`
+                location.pathname === `/project-manager/${params?.id}/completed`
                   ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[10px] font-medium text-white`
                   : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[10px] font-medium text-grisHeading`
               }
             >
-              Completed
+              Terminado
             </NavLink>
           </div>
         </div>

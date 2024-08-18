@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
-
 
 const OrderTable = ({
   selectedProveedor,
@@ -14,6 +13,7 @@ const OrderTable = ({
   setSelectedFechaEntrega,
   selectedCondicionPago,
   setSelectedCondicionPago,
+  isEditable,
 }) => {
   const proveedorOptions = [
     { value: "proveedor1", label: "Proveedor 1" },
@@ -39,52 +39,67 @@ const OrderTable = ({
     { value: "condicion3", label: "Condición 3" },
   ];
 
+ 
+  const disabledClass = "opacity-50 cursor-not-allowed";
+  const enabledClass = "opacity-100 cursor-pointer";
 
   return (
-    
-      <div className="flex pt-4 justify-between space-x-3">
+    <div className="flex pt-4 justify-between space-x-3">
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
           name="proveedor"
           placeholder="Seleccionar Proveedor"
           options={proveedorOptions}
-          onChange={setSelectedProveedor}
           value={selectedProveedor}
+          onValueChange={isEditable ? setSelectedProveedor : () => {}}
+          className={!isEditable ? disabledClass : ""}
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
-        >
-          <IonIcon
-            icon={addCircleOutline}
-            size="small"
-            className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
-          />
-        </Button>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
+        disabled={!isEditable}
+      >
+        <IonIcon
+          icon={addCircleOutline}
+          size="small"
+          className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+        />
+      </Button>
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
           name="fechaDoc"
           placeholder="Seleccionar Fecha de Doc"
           options={fechaDocOptions}
-          onChange={setSelectedFechaDoc}
           value={selectedFechaDoc}
+          onValueChange={isEditable ? setSelectedFechaDoc : () => {}}
+          className={!isEditable ? disabledClass : ""}
         />
+      </div>
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
           name="fechaEntrega"
           placeholder="Seleccionar Fecha de Entrega"
           options={fechaEntregaOptions}
-          onChange={setSelectedFechaEntrega}
           value={selectedFechaEntrega}
+          onValueChange={isEditable ? setSelectedFechaEntrega : () => {}}
+          className={!isEditable ? disabledClass : ""}
         />
+      </div>
+      <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
           name="condicionPago"
           placeholder="Seleccionar Condición de Pago"
           options={condicionPagoOptions}
-          onChange={setSelectedCondicionPago}
           value={selectedCondicionPago}
+          onValueChange={isEditable ? setSelectedCondicionPago : () => {}}
+          className={!isEditable ? disabledClass : ""}
         />
       </div>
-      
+    </div>
   );
 };
 
 export default OrderTable;
+

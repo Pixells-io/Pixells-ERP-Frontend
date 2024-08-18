@@ -73,12 +73,15 @@ const MainSupplier = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center space-x-3">
-          <IonIcon icon={informationCircle} className="h-6 w-6 text-grisText" />
-        </div>
-      ),
+        <div className="flex justify-center items-center">
+          <IonIcon
+            icon={informationCircle}
+            size="large"
+            className="text-gris2"
+          />
+        </div>)
     },
   ];
 
@@ -127,28 +130,25 @@ const MainSupplier = () => {
           <MenuSuppliers/>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
           <div className="w-full">
             <Tabs
               defaultValue="PROVEEDOR"
-              className="flex h-full flex-col rounded-lg pt-2"
+               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList className="mb-3 flex justify-start bg-transparent">
+              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="PROVEEDOR"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"                  value="PROVEEDOR"
                 >
                   PROVEEDOR
                 </TabsTrigger>
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                   value="OTRO"
                 >
                   OTRO
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="PROVEEDOR" className="w-full h-full flex flex-col">
-                <div className="flex-grow">
+              <TabsContent value="PROVEEDOR" className="mt-[-60px] p-2">
                     <DataTable
                       data={data}
                       columns={columns}
@@ -156,8 +156,6 @@ const MainSupplier = () => {
                       searchNameFilter="Buscar por nombre"
                       isCheckAll={true}
                     />
-                    
-                </div>
               </TabsContent>
               <TabsContent value="OTRO" className="w-full">
                 <div className="flex w-full justify-center">
@@ -170,7 +168,6 @@ const MainSupplier = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

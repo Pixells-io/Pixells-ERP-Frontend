@@ -181,6 +181,7 @@ import {
   getCompletedActivity,
   multiLoaderObjetivesPm,
   getNotifications,
+  getProfileGoogle,
 } from "./lib/actions";
 
 //Not Found
@@ -293,19 +294,35 @@ import UserMediaLibrary, {
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
+import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
+import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
+import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
+import MainCustomer from "./pages/Sales/Customer/MainCustomer";
+import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
+import EditCustomer from "./pages/Sales/Customer/EditCustomer/CustomerEditor";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
+import InvoiceForm from "./pages/Sales/Invoice/NewInvoice/InvoiceForm";
+import InvoicesDetails from "./pages/Sales/Invoice/EditInvoice/InvoiceEditor";
+import InvoicePDF from "./pages/Sales/Components/DocFormat/DocumentPreview";
 import MainSalesTicket from "./pages/Sales/Ticket/MainTicket";
+import TicketDetails from "./pages/Sales/Ticket/EditTicket/TicketEditor";
+import TicketForm from "./pages/Sales/Ticket/NewTicket/TicketForm";
+import TicketPDF from "./pages/Sales/Components/DocFormat/DocumentTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
 import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
-import DocManager from "./pages/Sales/Quotes/DocManager/DocumentManager";
+import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
+import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
 import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
@@ -328,6 +345,8 @@ import ManufacturingOrder from "./pages/Transformation/ManufacturingOrder/Manufa
 import WorkOrder from "./pages/Transformation/WorkOrder/WorkOrder";
 import OrderProcess from "./pages/Transformation/WorkOrder/OrderProcess/OrderProcess";
 import OrderCut from "./pages/Transformation/WorkOrder/OrderCut/OrderCut";
+import MainKardex from "./pages/Transformation/Kardex/MainKardex";
+import FormulaRecords from "./pages/Transformation/GeneralFormula/Records/FormulaRecords";
 
 //Topics
 import SideLayoutTopics, {
@@ -335,12 +354,25 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
+import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
+import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
+import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
+import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
+import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
+import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
+import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
+
+//POS
+import MainPos from "./pages/Pos/MainPos/MainPos";
+import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
+import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     loader: multiloaderNotifications,
+    // errorElement: <NotFound />,
     children: [
       {
         index: true,
@@ -792,6 +824,7 @@ const router = createBrowserRouter([
           {
             path: "/my-profile/security",
             element: <MainSecurity />,
+            loader: getProfileGoogle,
           },
           {
             path: "/my-profile/notifications",
@@ -926,6 +959,50 @@ const router = createBrowserRouter([
             path: "/inventory/create",
             element: <CreateArticle />,
           },
+          {
+            path: "/inventory/general-warehouses",
+            element: <MainGW />,
+          },
+          {
+            path: "/inventory/general-warehouses/create",
+            element: <CreateWH />,
+          },
+          {
+            path: "/inventory/merchandise-movements",
+            element: <MainMerchandiseMovements />,
+          },
+          {
+            path: "/inventory/merchandise-movements/entry/new",
+            element: <NewEntry />,
+          },
+          {
+            path: "/inventory/merchandise-movements/entry/record/:id",
+            element: <MerchandiseMovRecord />,
+          },
+          {
+            path: "/inventory/merchandise-movements/egress/new",
+            element: <NewEgress />,
+          },
+          {
+            path: "/inventory/merchandise-movements/egress/record/:id",
+            element: <MerchandiseMovRecordEgress />,
+          },
+          {
+            path: "/inventory/prices-lists",
+            element: <MainPriceList />,
+          },
+          {
+            path: "/inventory/prices-lists/create",
+            element: <CreatePriceList />,
+          },
+          {
+            path: "/inventory/stock-items",
+            element: <MainStockItem />,
+          },
+          {
+            path: "/inventory/stock-items/:id",
+            element: <StockWarehouse />,
+          },
         ],
       },
       //Sales
@@ -935,11 +1012,47 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <MainCustomer />,
+          },
+          {
+            path: "/sales/customer/new",
+            element: <CreateCustomer />,
+          },
+          {
+            path: "/sales/customer/edit/:id",
+            element: <EditCustomer />,
+          },
+          {
+            path: "/sales/invoices",
             element: <MainInvoice />,
+          },
+          {
+            path: "/sales/invoices/new",
+            element: <InvoiceForm />,
+          },
+          {
+            path: "/sales/invoices/edit/:id",
+            element: <InvoicesDetails />,
+          },
+          {
+            path: "/sales/invoices/document/:id",
+            element: <InvoicePDF />,
           },
           {
             path: "/sales/tickets",
             element: <MainSalesTicket />,
+          },
+          {
+            path: "/sales/tickets/new",
+            element: <TicketForm />,
+          },
+          {
+            path: "/sales/tickets/edit/:id",
+            element: <TicketDetails />,
+          },
+          {
+            path: "/sales/tickets/document/:id",
+            element: <TicketPDF />,
           },
           {
             path: "/sales/quotes",
@@ -950,8 +1063,12 @@ const router = createBrowserRouter([
             element: <MainQuotes />,
           },
           {
-            path: "/sales/quotes/document",
-            element: <DocManager />,
+            path: "/sales/quotes/edit/:id",
+            element: <QuotesDetails />,
+          },
+          {
+            path: "/sales/quotes/document/:id",
+            element: <QuotePDF />,
           },
         ],
       },
@@ -967,6 +1084,10 @@ const router = createBrowserRouter([
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+          },
+          {
+            path: "/shopping/customer/create",
+            element: <CustomerProfile />,
           },
           {
             path: "/shopping/invoices-orders",
@@ -1040,6 +1161,10 @@ const router = createBrowserRouter([
             element: <NewFormula />,
           },
           {
+            path: "/transformation/record/:id",
+            element: <FormulaRecords />,
+          },
+          {
             path: "/transformation/work-orders",
             element: <WorkOrder />,
           },
@@ -1051,16 +1176,41 @@ const router = createBrowserRouter([
             path: "/transformation/work-orders/order-cut/:id",
             element: <OrderCut />,
           },
+          {
+            path: "/transformation/kardex",
+            element: <MainKardex />,
+          },
         ],
       },
       {
-        path: "/topics",
+        path: "/topics/",
         element: <SideLayoutTopics />,
         action: NewTopicFunction,
+        loader: multiLoaderTopics2,
+        children: [
+          {
+            path: "/topics/:id",
+            element: <MainTopics />,
+            loader: multiLoaderTopics,
+          },
+        ],
+      },
+      {
+        path: "/pos",
+        element: <SideLayoutPos />,
         children: [
           {
             index: true,
-            element: <MainTopics />,
+            element: <MainPos />,
+          },
+          {
+            path: "/pos/:id",
+            element: <MainPos />,
+            children:[{
+              index: true,
+              element: <ProductsPos />
+            }
+            ],
           },
         ],
       },

@@ -58,7 +58,7 @@ function FormCreateArea({ modal, setModal }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
-            Create Area
+            Crear área
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -79,12 +79,12 @@ function FormCreateArea({ modal, setModal }) {
               <InputRouter
                 name="nombre"
                 type="text"
-                placeholder="Name of the area"
+                placeholder="Nombre de área"
               />
               <InputRouter
                 name="descripcion"
                 type="text"
-                placeholder="Description of the area"
+                placeholder="Descripción de área"
               />
               <input
                 name="procesos_del_area"
@@ -97,7 +97,7 @@ function FormCreateArea({ modal, setModal }) {
                 <div className="flex w-full flex-col gap-3">
                   {processInputs?.map((input, i) => (
                     <div key={i} className="flex w-full gap-3">
-                      <InputRouter name="proceso" placeholder="Process" />
+                      <InputRouter name="proceso" placeholder="Proceso" />
                       {i >= 1 ? (
                         <button
                           type="button"
@@ -137,21 +137,22 @@ function FormCreateArea({ modal, setModal }) {
 
               <Select
                 name="tipo_horario"
-                placeholder={"Working Days"}
+                placeholder={"Días laborables"}
                 options={DAYS}
                 isMulti={true}
               />
-              <InputRouter name="inicio" type="time" placeholder="Start" />
-              <InputRouter name="fin" type="time" placeholder="End" />
+              <InputRouter name="inicio" type="time" placeholder="Inicio" />
+              <InputRouter name="fin" type="time" placeholder="Fin" />
             </div>
           </div>
         </Form>
         <DialogFooter className="px-10 pb-6">
           <Button
             form="area-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </DialogFooter>
       </DialogContent>

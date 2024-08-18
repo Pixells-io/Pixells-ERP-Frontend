@@ -11,7 +11,6 @@ import {
   saveNewInduction,
   storeDocumentExam,
 } from "./utils";
-
 import { createPusherClient } from "@/lib/pusher";
 import { getInductions } from "@/lib/actions";
 import DocumentsInduction from "./Inductions/components/DocumentsInduction";
@@ -75,7 +74,7 @@ function MainOrgDev() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              ORGANIZATION DEVELOPMENT
+              DESARROLLO ORGANIZACIONAL
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -94,7 +93,7 @@ function MainOrgDev() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Inductions
+            Inducciones
           </p>
           {create == true ? (
             <IonIcon
@@ -117,10 +116,10 @@ function MainOrgDev() {
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-8 px-4 py-2 text-center">
               <div className="col-span-2 flex items-center pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NAME</p>
+                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
               </div>
               <div className="flex items-center">
-                <p className="text-sm font-semibold text-grisText">TYPE</p>
+                <p className="text-sm font-semibold text-grisText">TIPO</p>
               </div>
               <div className="flex items-center">
                 <p className="text-sm font-semibold text-grisText">AREAS</p>
@@ -137,7 +136,7 @@ function MainOrgDev() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">HISORTY</p>
+                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">

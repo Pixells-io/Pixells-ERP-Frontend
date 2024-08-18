@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import StatusInformation from "@/components/StatusInformation/status-information";
 import TableForm from "./Table/TableForm";
+import { Button } from "@/components/ui/button";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ function Products() {
       <div className="mt-4 flex flex-row justify-between rounded-xl bg-blancoBg px-4 py-6">
         <textarea
           placeholder="Observaciones"
-          className="h-[50px] w-[280px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs font-light text-grisSubText"
+          className="h-[50px] w-[280px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB]  px-3 py-2 text-xs font-light text-grisSubText"
           name="observations"
         ></textarea>
         <div className="flex items-center justify-end">
@@ -39,11 +40,18 @@ function Products() {
 
       <StatusInformation
         status={"inProgress"}
-        applyFunction={(addComments) => alert(addComments)}
         imgUser={
           "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
         }
-      />
+      >
+        <Button                
+          type="button"
+          onClick={() => alert("save")}
+          className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+        >
+          Save
+        </Button>
+      </StatusInformation>
     </div>
   );
 }

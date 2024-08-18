@@ -40,6 +40,8 @@ function MainClients() {
   const navigate = useNavigate();
   const [cliente, setDatClient] = useState(data);
 
+  const pusherClient = createPusherClient();
+
   //WEB SOCKET
   const pusherClient = createPusherClient();
 

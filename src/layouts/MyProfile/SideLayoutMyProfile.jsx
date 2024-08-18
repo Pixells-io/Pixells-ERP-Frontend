@@ -4,7 +4,7 @@ import { Outlet, NavLink, useLocation, redirect } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import TopMenu from "../Masters/Menus/TopMenu";
 import { keyOutline, notificationsOutline, person } from "ionicons/icons";
-import { loginGoogleToken, storeChangeNewPassword } from "./utils";
+import { getEmails, loginGoogleToken, storeChangeNewPassword } from "./utils";
 
 function SideLayoutMyProfile() {
   const location = useLocation();
@@ -92,7 +92,15 @@ export async function Action({ request }) {
       break;
     case "2":
       const responseUrl = await loginGoogleToken();
-      return redirect(responseUrl.data.url);
+      if (responseUrl.code != 400) {
+        return redirect(responseUrl.data.url);
+      } else {
+        return "Token already Exist";
+      }
+      break;
+    case "3":
+      const response = await getEmails();
+      return 1;
       break;
   }
 }

@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
 import { create } from "ionicons/icons";
+import { Label } from "@/components/ui/label";
+import DatePicker from "@/components/date-picker";
 
 function EditShowTask({
   modal,
@@ -28,6 +30,7 @@ function EditShowTask({
   description,
   priority,
   start,
+  end,
   action,
   actionInput,
 }) {
@@ -68,31 +71,38 @@ function EditShowTask({
           </DialogTitle>
         </DialogHeader>
         <Form
+          id="edit-task-form"
           className="flex h-full w-full flex-col gap-3 px-6"
           action={action}
-          method="post"
+          method="POST"
         >
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-3 pb-4 font-light">
               <input
-                type="hidden"
+                className="hidden"
                 value={taskId}
                 name="task_id"
                 hidden
                 readOnly
               />
               <input
-                type="hidden"
+                className="hidden"
                 value={actionInput}
                 name="action"
                 hidden
                 readOnly
               />
-              <input type="hidden" value={2} name="type_of_request" />
+              <input
+                className="hidden"
+                value={actionInput}
+                name="action"
+                readOnly
+                hidden
+              />
               <div className="flex gap-4">
                 <InputRouter
                   type="text"
-                  placeholder="Name of the area"
+                  placeholder="Description"
                   name="name"
                   disabled={editTaskInputs}
                   defaultVal={name}
@@ -117,24 +127,33 @@ function EditShowTask({
                 disabled={editTaskInputs}
                 defaultVal={description}
               />
-              <Select name="priority">
-                <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
-                  <SelectValue placeholder={priorityInputLabel} />
-                </SelectTrigger>
-                <SelectContent className="text-grisText">
-                  <SelectItem value="1">Baja</SelectItem>
-                  <SelectItem value="2">Media</SelectItem>
-                  <SelectItem value="3">Importante</SelectItem>
-                  <SelectItem value="4">Urgente</SelectItem>
-                </SelectContent>
-              </Select>
-              <InputRouter
-                name="start"
-                defaultVal={start}
-                disabled={editTaskInputs}
-                type="date"
-                placeholder="Comment"
-              />
+              <Label className="flex flex-col gap-1">
+                <span className="pl-1 text-[11px] font-light text-grisHeading">
+                  Priority
+                </span>
+                <Select name="priority" disabled={editTaskInputs}>
+                  <SelectTrigger className="rounded-lg border-0 border-b bg-gris font-light text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
+                    <SelectValue placeholder={priorityInputLabel} />
+                  </SelectTrigger>
+                  <SelectContent className="text-grisHeading">
+                    <SelectItem value="1">Baja</SelectItem>
+                    <SelectItem value="2">Media</SelectItem>
+                    <SelectItem value="3">Importante</SelectItem>
+                    <SelectItem value="4">Urgente</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Label>
+
+              <Label className="flex flex-col gap-1">
+                <span className="pl-1 text-[11px] font-light text-grisHeading">
+                  Date
+                </span>
+                <DatePicker
+                  name="end"
+                  defaultVal={end}
+                  disabled={editTaskInputs}
+                />
+              </Label>
             </div>
           </div>
           <DialogFooter className="px-10 pb-6">
@@ -143,9 +162,10 @@ function EditShowTask({
             ) : (
               <Button
                 type="submit"
+                disabled={navigation.state === "submitting"}
                 className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
               >
-                Save
+                {navigation.state === "submitting" ? "Submitting..." : "Editar"}
               </Button>
             )}
           </DialogFooter>

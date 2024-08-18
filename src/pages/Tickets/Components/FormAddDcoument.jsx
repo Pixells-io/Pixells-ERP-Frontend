@@ -27,7 +27,7 @@ function FormAddDcoument({ open, setOpen, ticket }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Document?</DialogTitle>
+          <DialogTitle>¿Añadir documento?</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <Form
@@ -37,7 +37,7 @@ function FormAddDcoument({ open, setOpen, ticket }) {
           method="post"
           encType="multipart/form-data"
         >
-          <DropzoneFile name="document" label="Add Document" />
+          <DropzoneFile name="document" label="Cargar Documento" />
           <input
             type="hidden"
             hidden
@@ -53,7 +53,7 @@ function FormAddDcoument({ open, setOpen, ticket }) {
               disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+              {navigation.state === "submitting" ? "Submitting..." : "Cargar"}
             </Button>
           </DialogFooter>
         </Form>

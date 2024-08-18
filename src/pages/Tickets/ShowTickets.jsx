@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { chevronBack, chevronForward } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
+
+import NavigationHeader from "@/components/navigation-header";
+
 import SidebarActionsTicket from "./Components/SidebarActionsTicket";
 import FollowUpCard from "./Components/FollowUpCard";
-import NavigationHeader from "@/components/navigation-header";
 
 function ShowTickets() {
   const { areas, users, myTicket } = useLoaderData();
@@ -18,24 +18,6 @@ function ShowTickets() {
         {/* navigation inside */}
         <NavigationHeader />
 
-        {/* <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-        </div> */}
         <div className="font-roboto text-sm text-grisText">
           tickets {" > "} {ticket.issue}
         </div>
@@ -43,7 +25,7 @@ function ShowTickets() {
         <div className="items-center gap-4 overflow-scroll">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              FOLLOW UP
+              SEGUIMIENTO
             </h2>
           </div>
           <div className="ml-4 mt-6">
@@ -69,6 +51,7 @@ function ShowTickets() {
           </div>
         </div>
       </div>
+
       {/* Actions Div */}
       <div className="mr-5 h-full w-1/4">
         <SidebarActionsTicket ticket={ticket} areas={areas} users={users} />

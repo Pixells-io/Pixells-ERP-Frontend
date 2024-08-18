@@ -80,19 +80,19 @@ function UserMediaLibrary() {
             value="information"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
-            Information
+            Información
           </TabsTrigger>
           <TabsTrigger
             value="images"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
-            Images
+            Imágenes
           </TabsTrigger>
           <TabsTrigger
             value="documents"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"
           >
-            Documents
+            Documentos
           </TabsTrigger>
           <TabsTrigger
             value="links"

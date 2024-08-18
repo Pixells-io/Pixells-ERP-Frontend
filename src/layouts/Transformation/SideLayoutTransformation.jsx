@@ -13,9 +13,9 @@ const menus = [
     icon: pieChart,
   },
   {
-    path: "/transformation/collection",
+    path: "/transformation/kardex",
     name: "Kardex",
-    subName: "De Producciones",
+    subName: "De Productos",
     icon: pieChart,
   },
   {
@@ -61,7 +61,8 @@ function SideLayoutTransformation() {
               className={({ isActive }) =>
                 isActive &&
                 (location.pathname === "/transformation" ||
-                  location.pathname === "/transformation/create")
+                  location.pathname === "/transformation/create" || 
+                  location.pathname.includes("/transformation/record/"))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }

@@ -17,6 +17,7 @@ import SelectMultiple from "@/components/ui/selectMultiple";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import UserImage from "@/layouts/Masters/FormComponents/userImage";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function FormNewChat({ users }) {
   const [open, setOpen] = useState(false);
@@ -55,11 +56,11 @@ function FormNewChat({ users }) {
       </DialogTrigger>
       <DialogContent className="h-fit overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-6 py-4">
-          <DialogTitle className="font-poppins">Create New Group</DialogTitle>
+          <DialogTitle className="font-poppins">Crear nuevo grupo</DialogTitle>
         </DialogHeader>
         <Form
           id="new-group-form"
-          className="flex flex-col gap-2 px-6"
+          className="flex flex-col gap-6 px-6"
           encType="multipart/form-data"
           action="/chat"
           method="post"
@@ -69,22 +70,26 @@ function FormNewChat({ users }) {
             <DropzoneImage name={"group_image"} />
           </div>
           <div className="">
-            <InputRouter name={"name"} placeholder={"Name"} type={"text"} />
+            <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
           </div>
-          <div>
-            <SelectMultiple
+          {/* <SelectMultiple
               name={"users"}
               options={selectUsers}
-              placeholder={"Select Users"}
-            />
-          </div>
+              placeholder={"Seleccionar Usuarios"}
+            /> */}
+          <SelectRouter
+            name="users"
+            options={selectUsers}
+            placeholder="Seleccionar Usuarios"
+            isMulti={true}
+          />
           <DialogFooter className="py-4">
             <Button
               type="submit"
               disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Save"}
+              {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
             </Button>
           </DialogFooter>
         </Form>

@@ -95,7 +95,6 @@ function Stage({ name, stageId, leads, setModal, setLeadId, setLeadAssigned }) {
             event.preventDefault();
             event.stopPropagation();
             const data = event.dataTransfer.getData("stage_id");
-
             // if (Number(data) + 1 == Number(stageId)) {
             //   setAcceptDrop(true);
             // }

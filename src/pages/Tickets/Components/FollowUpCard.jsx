@@ -13,6 +13,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import FormCreateFollowUpComments from "./FormCreateFollowUpComments";
 import FollowUpCommentCard from "./FollowUpCommentCard";
+import ImagesShow from "@/components/images-show";
 
 function FollowUpCard({ followUp, ticket, status }) {
   const [modal, setModal] = useState(false);
@@ -74,7 +75,7 @@ function FollowUpCard({ followUp, ticket, status }) {
                 </span>
               ) : (
                 <span className="font-roboto text-xs font-medium text-grisSubText">
-                  Upload a Document
+                  Cargar documento
                 </span>
               )}
             </div>
@@ -95,7 +96,8 @@ function FollowUpCard({ followUp, ticket, status }) {
                   {followUp.comment}
                 </p>
               ) : (
-                <iframe src={followUp.comment} frameborder="0"></iframe>
+                // <iframe src={followUp.comment} frameborder="0"></iframe>
+                <ImagesShow image={followUp.comment} />
               )}
               <button
                 type="button"

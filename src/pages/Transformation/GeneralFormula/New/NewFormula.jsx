@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -21,6 +21,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
 import StatusInformation from "@/components/StatusInformation/status-information";
+import TableFormSubProducts from "../../Components/TableFormSubProducts";
+import { Button } from "@/components/ui/button";
 
 function NewFormula() {
   const [products, setProducts] = useState([]);
@@ -29,6 +31,8 @@ function NewFormula() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
   const [totalWastes, setTotalWastes] = useState(0);
+
+  const navigate = useNavigate();
 
   return (
     <div className="flex w-full">
@@ -74,33 +78,8 @@ function NewFormula() {
             Nueva Formula
           </p>
 
-          <div className="flex items-center justify-end gap-5">
-            <div className="flex gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={copy}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={print}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-                <IonIcon
-                  icon={create}
-                  size="small"
-                  className="cursor-pointer text-[#696974]"
-                ></IonIcon>
-              </div>
-            </div>
-          </div>
           <div className="flex items-end justify-center">
-            <Link to={"/transformation/"}>
+            <Link to={"/transformation"}>
               <IonIcon
                 icon={closeCircle}
                 size="small"
@@ -113,7 +92,7 @@ function NewFormula() {
         <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
           <div>
             <Select name="article" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+              <SelectTrigger className="w-[240px] rounded-xl border border-black text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Selecciona el Artículo" />
               </SelectTrigger>
               <SelectContent>
@@ -125,7 +104,7 @@ function NewFormula() {
           </div>
           <div>
             <Select name="accountingAccount" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+              <SelectTrigger className="w-[240px] rounded-xl border border-black text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Cuenta Contable" />
               </SelectTrigger>
               <SelectContent>
@@ -192,18 +171,11 @@ function NewFormula() {
             SubProductos
           </h2>
           <div className="overflow-container flex-1">
-            <TableForm
+            <TableFormSubProducts
               tableData={subProducts}
               setTableData={setSubProducts}
               setTotalProducts={setSubTotalProducts}
             />
-          </div>
-          <div className="rounded-xl bg-blancoBg mt-6">
-              <textarea
-                placeholder="Observaciones"
-                className=" w-[260px] h-[56px]  resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-                name="template"
-              ></textarea>
           </div>
         </div>
 
@@ -222,11 +194,18 @@ function NewFormula() {
 
         <StatusInformation
           status={"inProgress"}
-          applyFunction={(addComments) => alert(addComments)}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
-        />
+        >
+          <Button
+            type="button"
+            onClick={() => navigate("/transformation/record/1")}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Save
+          </Button>
+        </StatusInformation>
       </div>
     </div>
   );

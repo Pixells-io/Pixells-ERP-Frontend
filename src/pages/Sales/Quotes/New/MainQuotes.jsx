@@ -1,22 +1,29 @@
 import React, { useState } from "react";
+import CardCarousel from "../../Components/CardCarousel";
+import SelectsQuote from "../../Components/SelectGroup";
+import QuoteTable from "@/components/table/Quote/QuoteTable";
+import Total from "@/components/TotalSection/TotalSection";
+import StatusInformation from "@/components/StatusInformation/status-information";
+import { Form, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  copy,
-  print,
-  create,
-} from "ionicons/icons";
-import CardCarousel from "../components/CardCarousel";
-import SelectsQuote from "../components/SelectGroup";
-import QuoteList from "../components/QuoteList";
-import Total from "../components/TotalQuotes";
-import StatusInformations from "../components/StatusInformation/StatusInformation";
+import { chevronBack,chevronForward } from "ionicons/icons";
+import SelectDetails from "../../Components/SelectDetails";
 
 const MainQuotes = () => {
-  const [status, setStatus] = useState("draft");
-  const [subtotal, setSubtotal] = useState(0.0);
-  const [changes, setChages] = useState(0);
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate("/sales/quotes");
+  };
+  const [items, setItems] = useState([]);
+  const [isEditable, setisEditable] = useState(true);
+
+  const [subtotal, setSubTotal] = useState(0);
+  const handleTotalChange = (newSubtotal) => {
+    setSubTotal(newSubtotal);
+  };
+
 
   return (
     <div className="flex w-full">
@@ -59,47 +66,52 @@ const MainQuotes = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nueva Cotización
           </p>
-          <div className="flex gap-4 pl-4 pt-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-              <IonIcon
-                icon={copy}
-                size="small"
-                className="cursor-pointer text-[#696974]"
-              />
-            </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-              <IonIcon
-                icon={print}
-                size="small"
-                className="cursor-pointer text-[#696974]"
-              />
-            </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
-              <IonIcon
-                icon={create}
-                size="small"
-                className="cursor-pointer text-[#696974]"
-              />
-            </div>
+          <div className="flex justify-end">
             <CardCarousel />
           </div>
         </div>
         {/* content */}
         <div className="space-y-3 overflow-auto">
-          <div className="flex h-full flex-col space-y-6">
-          
-                <SelectsQuote />
-                <QuoteList setSubtotal={setSubtotal} />
-                <Total subtotal={subtotal} />
-            
-            <div className="flex justify-end">
-              <StatusInformations
-                status={status}
-                saveDraft={""}
-                applyFunction={() => setModalConfirmation(true)}
-              />
+          <Form onSubmit={handleSubmit}>
+            <div className="flex h-full flex-col space-y-6">
+              <SelectsQuote isEditable={isEditable}/>
+              <div className="mt-6 rounded-xl bg-white p-4">
+                <SelectDetails isEditable={isEditable}/>
+                <QuoteTable
+                  initialItems={items}
+                  setItems={setItems}
+                  isEditable={isEditable}
+                  setTotalChanges={handleTotalChange}
+                />
+              </div>
             </div>
-          </div>
+            <div className=""></div>
+            <Total subtotal={subtotal} />
+            <div className="flex justify-end">
+        <StatusInformation
+          status={"inProgress"}
+          applyFunction={handleSubmit}
+          imgUser={
+            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          }
+        >
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+          >
+            Save
+          </Button>
+          <Button
+            type="button"
+            onClick={() => alert("save")}
+            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+          >
+            Save for Aproval
+          </Button>
+        </StatusInformation>
+        </div>
+          </Form>
         </div>
       </div>
     </div>

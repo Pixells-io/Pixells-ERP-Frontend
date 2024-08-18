@@ -6,6 +6,8 @@ import {
   useNavigation,
 } from "react-router-dom";
 
+import { createPusherClient } from "@/lib/pusher";
+
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline, informationCircle } from "ionicons/icons";
 
@@ -22,8 +24,6 @@ function MainEvaluations() {
 
   const { data } = useLoaderData();
 
-  // const pusherClient = createPusherClient();
-
   // const [initialData, setInitialData] = useState(trainings.data);
   // const [capacitacionPusher, setCapacitacionListPusher] = useState(initialData);
 
@@ -32,6 +32,8 @@ function MainEvaluations() {
 
   //   setCapacitacionListPusher(newData.data);
   // }
+
+  // const pusherClient = createPusherClient();
 
   // useEffect(() => {
   //   if (navigation.state === "idle") {

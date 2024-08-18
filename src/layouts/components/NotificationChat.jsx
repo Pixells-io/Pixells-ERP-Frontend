@@ -17,7 +17,7 @@ import { IonIcon } from "@ionic/react";
 function NotificationChat({ notifications, user }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
-
+  const pusherClient = createPusherClient();
   if (notificationsPusher === undefined) return;
 
   const navigate = useNavigate();

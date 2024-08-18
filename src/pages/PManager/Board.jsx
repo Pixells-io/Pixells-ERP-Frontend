@@ -19,7 +19,6 @@ import { Badge } from "@/components/ui/badge";
 
 import {
   checkmarkCircleOutline,
-  create,
   ellipsisVertical,
   informationCircle,
   trash,
@@ -33,17 +32,18 @@ import CompleteTask from "@/layouts/PManager/components/TaskModals/CompleteTask"
 import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask";
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
+import EditTask from "./components/Modal/EditTask";
 
 const HEADERS = [
-  { name: "CSF" },
-  { name: "ACTIVITY" },
-  { name: "TYPE" },
-  { name: "PROGRESS" },
-  { name: "EXPIRATION" },
+  { name: "FCE" },
+  { name: "ACTIVIDAD" },
+  { name: "TIPO" },
+  { name: "PROGRESO" },
+  { name: "VENCIMIENTO" },
   { name: "RESPONSABLE" },
-  { name: "STATUS" },
-  { name: "CREATED" },
-  { name: "ACTIONS" },
+  { name: "ESTADO" },
+  { name: "CREADO" },
+  { name: "ACCIONES" },
 ];
 
 const PRIORITY = [
@@ -67,6 +67,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
   const [taskDescription, setTaskDescription] = useState(false);
   const [taskPriority, setTaskPriority] = useState(false);
   const [taskStart, setTaskStart] = useState(false);
+  const [taskEnd, setTaskEnd] = useState(false);
   const [editTaskModal, setEditTaskModal] = useState(false);
   const [completeTaskModal, setCompleteTaskModal] = useState(false);
   const [csfModal, setCsfModal] = useState(false);
@@ -83,13 +84,14 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
     setCompleteTaskModal(true);
   }
 
-  function openEditModalTask(taskId, name, description, priority, start) {
+  function openEditModalTask(taskId, name, description, priority, start, end) {
     setTaskId(taskId);
     setTaskName(name);
     setTaskDescription(description);
     setTaskPriority(priority);
     setTaskStart(start);
     setEditTaskModal(true);
+    setTaskEnd(end);
   }
 
   function openDestroyTaskModal(taskId) {
@@ -113,7 +115,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 
   function checkColor(value) {
     const color = PRIORITY.filter((prio) => prio.value == value);
-    return color[0].color;
+    return color[0]?.color;
   }
 
   return (
@@ -160,6 +162,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
         description={taskDescription}
         priority={taskPriority}
         start={taskStart}
+        end={taskEnd}
         action={`/project-manager/${id}`}
         actionInput="edit-task"
       />
@@ -168,9 +171,9 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
           <div
             key={i}
             className={
-              header?.name === "ACTIVITY"
+              header?.name === "ACTIVIDAD"
                 ? "col-span-2"
-                : "" || header?.name === "CSF"
+                : "" || header?.name === "FCE"
                   ? "pl-2 text-left"
                   : "pl-4 text-center"
             }
@@ -194,7 +197,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
               <input
                 type="text"
                 name="csf"
-                placeholder="+ CRITICAL SUCCES FACTOR"
+                placeholder="+ FACTOR CRÍTICO DE ÉXITO"
                 className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
                 value={csfInput}
                 onChange={(e) => setCsfInput(e.target.value)}
@@ -228,7 +231,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                   <DropdownMenuItem
                     onClick={() => setInputActive(!inputActive)}
                   >
-                    Edit
+                    Editar
                   </DropdownMenuItem>
                 ) : (
                   false
@@ -240,7 +243,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       setCsfModal(true);
                     }}
                   >
-                    Delete
+                    Borrar
                   </DropdownMenuItem>
                 ) : (
                   false
@@ -266,7 +269,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                         className="text-sm font-medium text-primario"
                         type="text"
                         name="name"
-                        defaultValue={fce?.name.toUpperCase()}
+                        defaultValue={fce?.name?.toUpperCase()}
                       />
                       <input
                         type="text"
@@ -381,7 +384,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 
                         <div>
                           <p className="pr-4 text-[12px] font-normal text-grisHeading">
-                            {task?.type == 0 ? "Task" : "Project"}
+                            {task?.type == 0 ? "Tarea" : "Proyecto"}
                           </p>
                         </div>
                         {task?.type == 1 ? (
@@ -403,7 +406,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                           </p>
                         </div>
                         <div>
-                          <div className="flex justify-end gap-2">
+                          <div className="flex justify-center gap-2">
                             <div className="">
                               <Avatar className="h-6 w-6">
                                 <AvatarImage src={task?.assigned?.image} />
@@ -412,7 +415,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div className="flex justify-center">
                           <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
                             <p className="text-[11px] font-semibold">
                               {task?.status || "Pending"}
@@ -439,31 +442,33 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                   )
                                 }
                               ></IonIcon>
-                              {edit == true ? (
-                                <IonIcon
-                                  icon={create}
-                                  className="h-5 w-5"
-                                  onClick={() =>
-                                    openEditModalTask(
-                                      task?.id,
-                                      task?.name,
-                                      task?.description,
-                                      task?.priority,
-                                      task?.start,
-                                    )
-                                  }
-                                ></IonIcon>
-                              ) : (
-                                false
+                              {edit && (
+                                <EditTask
+                                  users={users}
+                                  task={task}
+                                  csfId={""}
+                                />
+                                // <IonIcon
+                                //   icon={informationCircle}
+                                //   className="h-5 w-5"
+                                //   onClick={() =>
+                                //     openEditModalTask(
+                                //       task?.id,
+                                //       task?.name,
+                                //       task?.description,
+                                //       task?.priority,
+                                //       task?.start,
+                                //       task?.end,
+                                //     )
+                                //   }
+                                // ></IonIcon>
                               )}
-                              {destroy == true ? (
+                              {destroy && (
                                 <IonIcon
                                   icon={trash}
                                   onClick={() => openDestroyTaskModal(task?.id)}
                                   className="h-5 w-5"
                                 ></IonIcon>
-                              ) : (
-                                false
                               )}
                             </div>
                           </div>

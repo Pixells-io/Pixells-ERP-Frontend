@@ -15,7 +15,7 @@ import { createPusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
 import { changeUserStatus } from "../../utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
+import ModalDelete from "@/components/modal-delete";
 
 function UsersTable({ users, edit }) {
   const columnHelper = createColumnHelper();
@@ -50,7 +50,7 @@ function UsersTable({ users, edit }) {
   const columns = [
     {
       accessorKey: "Name",
-      header: "NAME",
+      header: "NOMBRE",
       id: "Name",
       cell: ({ row }) => {
         return (
@@ -100,11 +100,11 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.position}`, {
       id: "Position",
-      header: "POSITION",
+      header: "POSICION",
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
       id: "Phone",
-      header: "PHONE",
+      header: "TELÉFONO",
     }),
     columnHelper.accessor((row) => `${row.email}`, {
       id: "Email",
@@ -112,7 +112,7 @@ function UsersTable({ users, edit }) {
     }),
     {
       accessorKey: "actions",
-      header: "ACTIONS",
+      header: "ACCIONES",
       id: "Actions",
       cell: ({ row }) => {
         return (
@@ -125,6 +125,11 @@ function UsersTable({ users, edit }) {
                     className="h-5 w-5"
                   ></IonIcon>
                 </NavLink>
+                <ModalDelete
+                  id={row.original.id}
+                  name="User"
+                  action="delete-user"
+                />
                 {row.original.status === "Active" ? (
                   <label className="relative inline-block h-5 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-primario">
                     <input

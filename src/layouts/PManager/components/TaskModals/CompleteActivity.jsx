@@ -20,7 +20,7 @@ const DAYS = [
   { label: "Sunday", value: "Sunday" },
 ];
 
-function CompleteActivity({ modal, setModal, activity }) {
+function CompleteActivity({ modal, setModal, activity, action, actionInput }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -38,22 +38,32 @@ function CompleteActivity({ modal, setModal, activity }) {
           </DialogTitle>
         </DialogHeader>
         <Form
-          id="form-destroy-task"
+          id="modal-complete-activity"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action="/project-manager/status"
-          method="post"
+          action={action}
+          method="POST"
         >
-          <input type="hidden" value={activity} name="activity_id" />
-          <input type="hidden" value={3} name="type_of_request" />
+          <input hidden readOnly value={activity} name="activity_id" />
+          <input hidden readOnly value={actionInput} name="action" />
           <span className="font-roboto text-[#A6A6A6]">
             You are trying to complete a activity, are you sure?
           </span>
-          <DialogFooter className="px-10 pb-6 pt-6">
+          <DialogFooter className="flex gap-2 px-10 pb-6">
+            <Button
+              type="button"
+              onClick={() => setModal(false)}
+              className="flex w-full rounded-lg px-6 py-2 text-center font-roboto text-xs font-semibold"
+            >
+              Cancel
+            </Button>
             <Button
               type="submit"
-              className="justify-normal rounded-lg bg-green-600 px-6 py-2 font-roboto text-xs font-semibold text-white"
+              disabled={navigation.state === "submitting"}
+              className="w-full rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold hover:bg-primario"
             >
-              Complete
+              {navigation.state === "submitting"
+                ? "Submitting..."
+                : "Completar"}
             </Button>
           </DialogFooter>
         </Form>

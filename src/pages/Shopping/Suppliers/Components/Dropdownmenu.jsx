@@ -15,14 +15,15 @@ const MenuSuppliers = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          type="button"
           variant="ghost"
           size="icon"
-          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
+          className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon
             icon={addCircleOutline}
             size="large"
-            className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
+            className="text-primarioBotones"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -35,8 +36,13 @@ const MenuSuppliers = () => {
             <span>Nuevo proveedor</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => {}}>
-          <span>Cliente existente</span>
+        <DropdownMenuItem>
+          <Link
+            to="/shopping/customer/create"
+            className="flex w-full items-center"
+          >
+            <span>Clientes existentes</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

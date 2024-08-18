@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
+
 import Cookies from "js-cookie";
 
 import { IonIcon } from "@ionic/react";
@@ -10,12 +11,11 @@ import { loginUser } from "@/pages/Organization/utils";
 function Login() {
   const navigate = useNavigate();
   const token = Cookies.get("token");
-  let actionData = useActionData();
-
-  const [user, setUser] = useState("");
 
   useEffect(() => {
-    if (token !== undefined || user.code == 201) return navigate("/");
+    Cookies.remove("token");
+
+    if (token !== undefined) return navigate("/");
   }, []);
 
   const passwordInputRef = useRef(null);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import DocumentContent from "../Components/DocumentContent";
@@ -38,7 +38,7 @@ const EditInvoices = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
-        <div className="flex justify-between">
+        <div className="flex justify-end flex-row">
           <ActionsGroup url={url} setEditable={setEditable} />
           <div className="flex justify-end">
             <CardCarousel />

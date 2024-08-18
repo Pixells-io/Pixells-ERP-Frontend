@@ -32,10 +32,8 @@ import {
   person,
   grid,
   bookmark,
-  toggle,
-  desktop,
   logOut,
-  cog,
+  albumsOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -43,6 +41,7 @@ import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
+import { CrmApiFunction } from "@/pages/Organization/utils";
 
 const MENU = [
   {
@@ -87,6 +86,12 @@ const MENU = [
     name: "Ticket",
     icon: ticket,
   },
+  {
+    id: "8",
+    path: "/topics/0",
+    name: "Topics",
+    icon: albumsOutline,
+  },
   /*{
     path: "/configuration",
     name: "Config",
@@ -107,11 +112,12 @@ function MainLayout() {
   useEffect(() => {
     async function fetchData() {
       const user = await getUserByToken();
-      setUser(user.data);
+      if (user.code == 400) return navigate("/login");
+      setUser(user?.data);
     }
     fetchData();
     if (token == undefined || user.status == 500) return navigate("/login");
-  }, []);
+  }, [token]);
 
   async function logOutFunction() {
     //First send the request
@@ -130,6 +136,11 @@ function MainLayout() {
     setModuleShow(modulos);
   }, []);
 
+  async function functionActivateApi() {
+    const request = await CrmApiFunction(user.user.email);
+    window.location.href = request.data;
+  }
+
   return (
     <div className="flex h-screen min-h-0 flex-col">
       <div className="flex h-[56px] items-center justify-between p-3">
@@ -143,34 +154,69 @@ function MainLayout() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="ml-4 grid grid-cols-3 gap-4">
             {moduleShow.map((item, i) => (
-              <DropdownMenuItem key={i} className="focus:bg-transparent">
-                <div className="flex flex-col">
-                  <NavLink
-                    to={item[0]?.path}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
-                        : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
-                    }
-                  >
-                    <IonIcon
-                      icon={item[0]?.icon}
-                      className="h-10 w-10"
-                    ></IonIcon>
-                    {location?.pathname === item[0]?.path ? (
-                      <div className="w-11 truncate text-[10px]">
-                        <p className="text-center">{item[0]?.name}</p>
+              <div key={i}>
+                {item[0]?.id == "3" ? (
+                  <>
+                    <DropdownMenuItem key={i} className="focus:bg-transparent">
+                      <div className="flex flex-col">
+                        <NavLink
+                          to={item[0]?.path}
+                          className={({ isActive }) =>
+                            isActive
+                              ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
+                              : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
+                          }
+                        >
+                          <IonIcon
+                            icon={item[0]?.icon}
+                            className="h-10 w-10"
+                          ></IonIcon>
+                          {location?.pathname === item[0]?.path ? (
+                            <div className="w-11 truncate text-[10px]">
+                              <p className="text-center">{item[0]?.name}</p>
+                            </div>
+                          ) : (
+                            <div className="hidden w-11 truncate text-[10px] group-hover:flex">
+                              <p className="group-hover:mx-auto group-hover:flex">
+                                {item[0]?.name}
+                              </p>
+                            </div>
+                          )}
+                        </NavLink>
                       </div>
-                    ) : (
-                      <div className="hidden w-11 truncate text-[10px] group-hover:flex">
-                        <p className="group-hover:mx-auto group-hover:flex">
-                          {item[0]?.name}
-                        </p>
-                      </div>
-                    )}
-                  </NavLink>
-                </div>
-              </DropdownMenuItem>
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <DropdownMenuItem key={i} className="focus:bg-transparent">
+                    <div className="flex flex-col">
+                      <NavLink
+                        to={item[0]?.path}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
+                            : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
+                        }
+                      >
+                        <IonIcon
+                          icon={item[0]?.icon}
+                          className="h-10 w-10"
+                        ></IonIcon>
+                        {location?.pathname === item[0]?.path ? (
+                          <div className="w-11 truncate text-[10px]">
+                            <p className="text-center">{item[0]?.name}</p>
+                          </div>
+                        ) : (
+                          <div className="hidden w-11 truncate text-[10px] group-hover:flex">
+                            <p className="group-hover:mx-auto group-hover:flex">
+                              {item[0]?.name}
+                            </p>
+                          </div>
+                        )}
+                      </NavLink>
+                    </div>
+                  </DropdownMenuItem>
+                )}
+              </div>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -233,7 +279,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                  My Profile
+                  Mi Perfil
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -242,7 +288,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                  Notifications
+                  Notificaciones
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -254,7 +300,7 @@ function MainLayout() {
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
-                Saved
+                Guardado
               </DropdownMenuItem>
               {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
@@ -276,7 +322,7 @@ function MainLayout() {
                   onClick={logOutFunction}
                 >
                   <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
-                  Log Out
+                  Cerrar Sesión
                 </button>
               </DropdownMenuItem>
             </DropdownMenuContent>

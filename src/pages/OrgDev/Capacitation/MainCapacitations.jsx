@@ -52,6 +52,8 @@ function MainCapacitations() {
     setCapacitacionListPusher(newData.data);
   }
 
+  const pusherClient = createPusherClient();
+
   useEffect(() => {
     if (navigation.state === "idle") {
       setModalCreateTrainings(false);
@@ -78,7 +80,7 @@ function MainCapacitations() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              ORGANIZATION DEVELOPMENT
+              DESARROLLO ORGANIZACIONAL
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -97,7 +99,7 @@ function MainCapacitations() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Trainings
+            Capacitación
           </p>
           {create == true ? (
             <IonIcon
@@ -123,27 +125,29 @@ function MainCapacitations() {
           <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NAME</p>
+                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TYPE</p>
+                <p className="text-sm font-semibold text-grisText">TIPO</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">FORM</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">PLACE</p>
+                <p className="text-sm font-semibold text-grisText">LUGAR</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TRAINER</p>
+                <p className="text-sm font-semibold text-grisText">FORMADOR</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  TENTATIVE DATE
+                  FECHA TENTATIVA
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">REAL DATE</p>
+                <p className="text-sm font-semibold text-grisText">
+                  FECHA REAL
+                </p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">DOCS</p>
@@ -152,7 +156,7 @@ function MainCapacitations() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">HISTORY</p>
+                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">

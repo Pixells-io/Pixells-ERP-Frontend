@@ -36,8 +36,8 @@ const EditOrders = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
-        <div className="flex justify-between">
-          <ActionsGroup url={url} />
+        <div className="flex justify-end flex-row">
+          <ActionsGroup url={url} setEditable={setEditable}  />
           <div className="flex justify-end">
             <CardCarousel />
           </div>

@@ -59,7 +59,7 @@ function FormCreateResponsible({ modal, setModal, ticket, areas, users }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-auto overflow-auto sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Create Responsible</DialogTitle>
+          <DialogTitle className="font-poppins">Crear Responsable</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-responsible-form"
@@ -89,9 +89,10 @@ function FormCreateResponsible({ modal, setModal, ticket, areas, users }) {
         <DialogFooter className="h-auto">
           <Button
             form="ticket-responsible-form"
+            disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Añadir"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -13,7 +13,7 @@ const WarehouseForm = () => {
                 </div>
             ),
             header: () => (
-              <div className="border-l border-t border-r border-primario rounded-t-lg p-4">
+              <div className=" border-l border-t border-r border-primario rounded-t-lg p-4">
                     En Stock
                 </div>
             )
@@ -173,7 +173,7 @@ const WarehouseForm = () => {
     ];
 
     return (
-        <div >
+        <div className="w-full">
             <DataTable 
                 columns={columns} 
                 data={data}   

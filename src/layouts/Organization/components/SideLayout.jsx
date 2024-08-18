@@ -54,8 +54,8 @@ function SideLayoutOrganization() {
               <div className="flex items-center gap-6">
                 <IonIcon icon={person} size="large"></IonIcon>
                 <div>
-                  <p className="text-base font-medium">User</p>
-                  <p className="text-[10px] font-medium">Management</p>
+                  <p className="text-base font-medium">Usuarios</p>
+                  <p className="text-[10px] font-medium">Gestión</p>
                 </div>
               </div>
             </NavLink>
@@ -70,7 +70,7 @@ function SideLayoutOrganization() {
               <div className="flex items-center gap-6">
                 <IonIcon icon={lockOpen} size="large"></IonIcon>
                 <div>
-                  <p className="text-base font-medium">Access</p>
+                  <p className="text-base font-medium">Acceso</p>
                   <p className="text-[10px] font-medium">Control</p>
                 </div>
               </div>

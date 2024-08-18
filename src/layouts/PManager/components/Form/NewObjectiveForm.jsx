@@ -86,48 +86,54 @@ function NewObjectiveForm({ open, setOpen, areas }) {
   }
 
   return (
-    <div>
-      <Dialog open={open} onOpenChange={setOpen}>
-        {/* <DialogTrigger className="flex items-center justify-center rounded-full border-2 !outline-none !ring-0">
+    <Dialog open={open} onOpenChange={setOpen}>
+      {/* <DialogTrigger className="flex items-center justify-center rounded-full border-2 !outline-none !ring-0">
           <IonIcon
             icon={addCircleOutline}
             className="h-6 w-6 text-primarioBotones"
           />
         </DialogTrigger> */}
-        <DialogContent className="p-0">
-          <DialogHeader className="flex border-b px-8 py-6">
-            <DialogTitle className="">Agregar Objetivo Estratégico</DialogTitle>
-          </DialogHeader>
-          <div className="flex flex-col gap-4 rounded-lg px-12">
-            <Form
-              className="flex flex-col gap-4"
-              id="objective-form"
-              action="/project-manager"
-              method="post"
-            >
-              <InputRouter name="objetivo" placeholder="Nombre del Objetivo" />
-              <SelectRouter
-                name={"year"}
-                placeholder={"Year"}
-                options={yearsOption}
-                // onChange={(e) => updateAcademicField(i, e)}
-                // value={academicInfo[i].academic_grade}
-              />
-              <SelectRouter
-                name="area"
-                placeholder="Select Area"
-                options={areaArray}
-              />
-              <div className="flex self-end pb-4">
-                <Button className="bg-primario px-8" type="submit">
-                  Save
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+      <DialogContent className="p-0">
+        <DialogHeader className="flex border-b px-8 py-6">
+          <DialogTitle className="">Agregar Objetivo Estratégico</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-col gap-4 rounded-lg px-12">
+          <Form
+            className="flex flex-col gap-4"
+            id="objective-form"
+            action="/project-manager"
+            method="post"
+          >
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="action"
+              value="create-objective"
+            />
+            <InputRouter name="objetivo" placeholder="Nombre del Objetivo" />
+            <SelectRouter
+              name={"year"}
+              placeholder={"Year"}
+              options={yearsOption}
+              // onChange={(e) => updateAcademicField(i, e)}
+              // value={academicInfo[i].academic_grade}
+            />
+            <SelectRouter
+              name="area"
+              placeholder="Select Area"
+              options={areaArray}
+            />
+            <div className="flex self-end pb-4">
+              <Button className="bg-primario px-8" type="submit">
+                Save
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

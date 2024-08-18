@@ -10,30 +10,18 @@ function StatusInformation({
   approvedBy,
   imgUser,
   comments,
-  saveDraft,
-  applyFunction,
   date,
+  children,
 }) {
   //status 1 = Draft
   //status 2 = In progress
   //status 3 = Done
   //imgUser = url de la imagen persona
-  //saveDraft = funcion opcional si no se manda no muestra el boton Guardar Borrador
   //comments = aparece el comentario cuando es status 3
   //approvedBy = nombre persona aprobo, aparece status 3.
   //date = aparece la fecha aprobado, aparece status 3.
 
   const [additionalComments, setAdditionalComments] = useState("");
-
-  const save = () => {
-    if(status == "draft") return;
-    applyFunction(additionalComments);
-  };
-
-  const saveD = () => {
-    if(status == "draft") return;
-    saveDraft(additionalComments);
-  };
 
   const handleChange = (event) => {
     setAdditionalComments(event.target.value);
@@ -111,23 +99,9 @@ function StatusInformation({
         <div className="col-span-12 xl:col-span-3">
           {(status == "draft" || status == "inProgress") && (
             <div className="flex h-full items-center justify-end gap-2">
-              {!!saveDraft && (
-                <Button
-                  variant="outline"
-                  className="rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-                  onClick={() => saveD()}
-                >
-                  Guardar Borrador
-                </Button>
-              )}
-
-              <Button
-                onClick={() => save()}
-                className={`rounded-lg px-10 text-xs ${status == "inProgress" && "bg-primarioBotones hover:bg-primarioBotones"}`}
-                disabled={status == "draft"}
-              >
-                Aplicar
-              </Button>
+              {
+                children
+              }
             </div>
           )}
         </div>

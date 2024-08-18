@@ -1,102 +1,115 @@
 import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 const GeneralForm = ({ data, setData }) => {
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setData({
-      ...data,
-      [name]: type === 'checkbox' ? checked : value
-    });
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckboxChange = (name) => {
+    setData({ ...data, [name]: !data[name] });
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {/* Primera columna */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-start">
-          <Label htmlFor="sImpuesto" className="w-2/3 mr-14 text-md text-gris2 font-roboto">Sujeto a impuestos</Label>
-          <Checkbox 
-            name="sImpuesto" 
-            checked={data.sImpuesto}
-            onCheckedChange={(checked) => setData({...data, sImpuesto: checked})}
-            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-          />
-        </div>
-        <div className="flex items-center">
-          <Label htmlFor="fabricante" className="mb-1 mr-4 w-1/4 text-md text-gris2 font-roboto">Fabricante</Label> 
-          <Input 
-            type="text" 
-            name="fabricante" 
-            value={data.fabricante}
-            onChange={handleChange}
-            placeholder="Ingresa" 
-            className="ml-4 w-full sm:w-96 lg:w-[500px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg" 
-          />
-        </div>
-        <div className="flex justify-start space-x-3 w-[300px]">
-          <Label htmlFor="comentarios" className="mb-1 text-md text-gris2 font-roboto">Comentarios</Label>
-          <Textarea 
-            name="comentarios" 
-            value={data.comentarios}
-            onChange={handleChange}
-            placeholder="Ingresa tus comentarios" 
-            className=" rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg" 
-          />
-        </div>
+    <div className="grid w-full grid-cols-3 grid-rows-3 gap-4 pl-4">
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label
+          htmlFor="sImpuesto"
+          className="font-roboto text-[14px] text-gris2"
+        >
+          Sujeto a impuestos
+        </Label>
+        <Checkbox
+          id="sImpuesto"
+          name="sImpuesto"
+          checked={data.sImpuesto}
+          onCheckedChange={() => handleCheckboxChange("sImpuesto")}
+          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+        />
       </div>
-
-      {/* Segunda columna */}
-      <div className="space-y-4 ml-16">
-        <div className="flex items-center justify-start">
-          <Label htmlFor="activo" className="w-1/2 text-md text-gris2 font-roboto">Activo</Label>
-          <Checkbox 
-            name="activo" 
-            checked={data.activo}
-            onCheckedChange={(checked) => setData({...data, activo: checked})}
-            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-          />
-        </div>
-        <div className="flex items-center justify-start">
-          <Label htmlFor="inactivo" className="w-1/2 text-md text-gris2 font-roboto">Inactivo</Label>
-          <Checkbox 
-            name="inactivo" 
-            checked={data.inactivo}
-            onCheckedChange={(checked) => setData({...data, inactivo: checked})}
-            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-          />
-        </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label htmlFor="activo" className="flex font-roboto text-[14px] text-gris2">
+          Activo
+        </Label>
+        <Checkbox
+          id="activo"
+          name="activo"
+          checked={data.activo}
+          onCheckedChange={() => handleCheckboxChange("activo")}
+          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+        />
       </div>
-
-      {/* Tercera columna */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-start">
-          <Label htmlFor="desde" className="mb-1 mr-2 text-md text-gris2 font-roboto">Desde</Label>
-          <Input 
-            type="date" 
-            name="desde" 
-            value={data.desde}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg" 
-          />
-        </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label
+          htmlFor="inactivo"
+          className="font-roboto text-[14px] text-gris2"
+        >
+          Inactivo
+        </Label>
+        <Checkbox
+          id="inactivo"
+          name="inactivo"
+          checked={data.inactivo}
+          onCheckedChange={() => handleCheckboxChange("inactivo")}
+          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+        />
       </div>
-
-      {/* Cuarta columna */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-start">
-          <Label htmlFor="hasta" className="mb-1 mr-2 text-md text-gris2 font-roboto">Hasta</Label>
-          <Input 
-            type="date" 
-            name="hasta" 
-            value={data.hasta}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg" 
-          />
-        </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label
+          htmlFor="fabricante"
+          className="mr-3 font-roboto text-[14px] text-gris2 "
+        >
+          Fabricante:
+        </Label>
+        <InputRouter
+          type="text"
+          name="fabricante"
+          value={data.fabricante}
+          onChange={handleChange}
+          placeholder="Ingresa"
+        />
+      </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label htmlFor="desde" className="font-roboto text-[14px] text-gris2">
+          Desde:
+        </Label>
+        <InputRouter
+          type="date"
+          name="desde"
+          value={data.desde}
+          onChange={handleChange}
+          placeholder="Ingresa"
+        />
+      </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label htmlFor="hasta" className="font-roboto text-[14px] text-gris2">
+          Hasta:
+        </Label>
+        <InputRouter
+          type="date"
+          name="hasta"
+          value={data.hasta}
+          onChange={handleChange}
+          placeholder="Ingresa"
+        />
+      </div>
+      <div className="col-span-1 flex items-center space-x-6">
+        <Label
+          htmlFor="comentarios"
+          className="mb-1 font-roboto text-[14px] text-gris2"
+        >
+          Comentarios
+        </Label>
+        <Textarea
+          name="comentarios"
+          value={data.comentarios}
+          onChange={handleChange}
+          placeholder="Ingresa tus comentarios"
+          className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+        />
       </div>
     </div>
   );

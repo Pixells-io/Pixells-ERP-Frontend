@@ -23,7 +23,6 @@ import MenssageCard from "./Components/Mensagge";
 import { IonIcon } from "@ionic/react";
 import { send, mic, addCircle, closeCircle } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
-import { Textarea } from "@/components/ui/textarea";
 
 function MainChat() {
   const location = useLocation();
@@ -195,7 +194,7 @@ function MainChat() {
                   name="message"
                   type="text"
                   className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
-                  placeholder="Type your message..."
+                  placeholder="Escribe tu mensaje..."
                   value={mssg}
                   onChange={(e) => setMssg(e.target.value)}
                   ref={inputFocusRef}
@@ -243,7 +242,7 @@ function MainChat() {
               <input
                 name="message"
                 className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0 focus-visible:ring-primarioBotones"
-                placeholder="Type your message..."
+                placeholder="Escribe tu mensaje..."
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
                 ref={inputFocusRef}

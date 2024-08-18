@@ -4,13 +4,14 @@ import {
   chevronBack,
   chevronForward,
   informationCircle,
-  addCircleOutline
+  addCircleOutline,
 } from "ionicons/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 const MainGeneral = () => {
   const data = [
     {
@@ -24,25 +25,25 @@ const MainGeneral = () => {
       creacion: "21/07/2024",
     },
     {
-        codigo: "0988",
-        categoria: "Metales",
-        nombre: "Tuercas",
-        unidadMedida: "Pieza",
-        cuentaContable: "Activos",
-        tipo: "Inventario",
-        creadoPor: "usuario3.jpg",
-        creacion: "19/07/2024",
-      },
-      {
-        codigo: "0989",
-        categoria: "Metales",
-        nombre: "Rondanas",
-        unidadMedida: "Pieza",
-        cuentaContable: "Activos",
-        tipo: "Inventario",
-        creadoPor: "usuario1.jpg",
-        creacion: "12/04/2024",
-      },
+      codigo: "0988",
+      categoria: "Metales",
+      nombre: "Tuercas",
+      unidadMedida: "Pieza",
+      cuentaContable: "Activos",
+      tipo: "Inventario",
+      creadoPor: "usuario3.jpg",
+      creacion: "19/07/2024",
+    },
+    {
+      codigo: "0989",
+      categoria: "Metales",
+      nombre: "Rondanas",
+      unidadMedida: "Pieza",
+      cuentaContable: "Activos",
+      tipo: "Inventario",
+      creadoPor: "usuario1.jpg",
+      creacion: "12/04/2024",
+    },
   ];
 
   const columns = [
@@ -56,12 +57,11 @@ const MainGeneral = () => {
               className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
-             
             />
             <label>{row?.original?.codigo}</label>
           </div>
         );
-    },
+      },
       meta: { filterButton: true },
     },
     {
@@ -90,7 +90,7 @@ const MainGeneral = () => {
       accessorKey: "creadoPor",
       header: "Creado Por",
       cell: ({ row }) => (
-        <Avatar className="w-6 h-6">
+        <Avatar className="h-6 w-6">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
@@ -102,12 +102,13 @@ const MainGeneral = () => {
     },
     {
       id: "acciones",
-      header: "Acciones",
+      header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex w-full items-center justify-center">
+        <div className="flex items-center justify-center">
           <IonIcon
             icon={informationCircle}
-            className="h-6 w-6 text-gris2-500"
+            size="large"
+            className="text-gris2"
           />
         </div>
       ),
@@ -157,62 +158,56 @@ const MainGeneral = () => {
             Artículos general
           </p>
           <Link to="/inventory/create">
-            <IonIcon
-              icon={addCircleOutline}
-              size="large"
-              className="mt-5 text-blue-500"
-            ></IonIcon>
+          <Button
+              type="button"
+              className="flex mt-4 h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                className=" h-7 w-7 text-primarioBotones"
+              />
+            </Button>
           </Link>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl bg-white p-4">
-          <div className="w-full">
-            <Tabs
-              defaultValue="ARTÍCULOS"
-              className="flex h-full flex-col rounded-lg pt-2"
-            >
-              <TabsList className="mb-3 flex justify-start bg-transparent">
-                <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="ARTÍCULOS"
-                >
-                  ARTÍCULOS
-                </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                  value="CATEGORIAS"
-                >
-                  CATEGORÍAS
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="ARTÍCULOS" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="codigo"
-                      searchNameFilter="Buscar por código"
-                      isCheckAll={true}
-                    />
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="CATEGORIAS" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                  <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="codigo"
-                      searchNameFilter="Buscar por código"
-                      isCheckAll={true}
-                    />
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
+        <div className="w-full">
+          <Tabs
+            defaultValue="ARTÍCULOS"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="ARTÍCULOS"
+              >
+                ARTÍCULOS
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="CATEGORIAS"
+              >
+                CATEGORÍAS
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="codigo"
+                searchNameFilter="Buscar por código"
+                isCheckAll={true}
+              />
+            </TabsContent>
+            <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="codigo"
+                searchNameFilter="Buscar por código"
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

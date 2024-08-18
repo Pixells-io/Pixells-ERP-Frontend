@@ -7,6 +7,7 @@ import { Calendar } from "@/components/ui/calendar";
 import FormCreateMeet from "./Components/FormCreateMeet";
 import { saveNewMeet } from "./utils";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { completeActivity, completeTask } from "../PManager/utils";
 
 function LayoutCalendar() {
   const { data } = useLoaderData();
@@ -40,13 +41,13 @@ function LayoutCalendar() {
   }
 
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
+    <div className="flex h-full overflow-auto px-4 pb-4 font-roboto">
       <FormCreateMeet modal={modal} setModal={setModal} users={data} />
       <div className="flex w-[350px] shrink-0 flex-col gap-4 rounded-xl">
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
           <TopMenu main={"/"} />
         </div>
-        <div className="flex h-full flex-col gap-4 rounded-lg bg-gris px-4 py-4">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-lg bg-gris px-4 py-4">
           <span className="font-popins text-lg font-semibold text-grisHeading">
             Menu
           </span>
@@ -124,9 +125,19 @@ export default LayoutCalendar;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  saveNewMeet(data);
+  switch (action) {
+    case "new-meet":
+      await saveNewMeet(data);
+      return redirect("/calendar");
+    case "complete-task":
+      await completeTask(data);
+      return redirect("/calendar");
+    case "complete-activity":
+      await completeActivity(data);
+      return redirect("/calendar");
+  }
 
-  return 1;
-  //return redirect("/calendar");
+  return redirect("/calendar");
 }

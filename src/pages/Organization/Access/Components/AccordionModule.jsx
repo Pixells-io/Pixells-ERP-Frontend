@@ -46,6 +46,10 @@ function AccordionModule(area) {
       name: "Tickets",
       id: 7,
     },
+    {
+      name: "Topics",
+      id: 8,
+    },
   ];
 
   const permision = [

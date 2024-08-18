@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 
 const initialRow = {
-  id: 1,
+  idAux: 1,
   component: "",
   amount: 0,
   unit: "",
@@ -61,7 +61,15 @@ const components = [
 
 const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
   useEffect(() => {
-    setTableData([initialRow]);
+    if (tableData.length == 0) {
+      setTableData([initialRow]);
+    } else {
+      const updateTableDataIdAux = tableData.map((item, index) => ({
+        ...item,
+        idAux: index + 1,
+      }));
+      setTableData(updateTableDataIdAux);
+    }
   }, []);
   // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +88,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
     e.preventDefault();
     setTableData((prevData) => [
       ...prevData,
-      { ...initialRow, id: getUltimateRowId() + 1 },
+      { ...initialRow, idAux: getUltimateRowId() + 1 },
     ]);
   };
 
@@ -113,16 +121,17 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
   }, []);
 
   const handleDataInRow = useCallback((data, rowIndex) => {
+    const comp = getComponentId(data);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
-              component: data,
-              unit: data.unit,
-              cost: data.cost,
+              component: comp.id,
+              unit: comp.unit,
+              cost: comp.cost,
               amount: 1,
-              subTotal: (data.cost * 1).toFixed(2),
+              subTotal: (comp.cost * 1).toFixed(2),
             }
           : item,
       ),
@@ -131,17 +140,20 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
-    const auxRowDelete = tableData.filter((row) => row.id !== id);
+    const auxRowDelete = tableData.filter((row) => row.idAux !== id);
     setTableData(auxRowDelete);
   };
 
   const getUltimateRowId = () => {
     if (tableData.length > 0) {
-      return tableData[tableData.length - 1].id;
+      return tableData[tableData.length - 1].idAux;
     }
     return 0;
   };
 
+  const getComponentId = (id) => {
+    return components.find((component) => component.id == id);
+  };
   const columns = useMemo(
     () => [
       {
@@ -149,17 +161,17 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Componente",
         cell: ({ row, rowIndex }) => (
           <Select
-            name={"selectComponent-" + rowIndex}
+            name={"selectComponent-waste-" + rowIndex}
             className="h-10 w-[100px]"
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row.component}
+            value={row?.component}
           >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+            <SelectTrigger className="border-gris2-transparent rounded-xl border text-xs font-light text-grisSubText placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
               <SelectValue placeholder="Selecciona el componente" />
             </SelectTrigger>
             <SelectContent>
               {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component}>
+                <SelectItem key={"component-" + index} value={component.id}>
                   {component.name}
                 </SelectItem>
               ))}
@@ -173,7 +185,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             className="w-[100px] border-none"
-            name={`amount-${rowIndex}`}
+            name={`amount-waste-${rowIndex}`}
             value={row.amount}
             placeholder="ingrese"
             type="number"
@@ -186,7 +198,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "unit",
         header: "Unidad",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row.unit}</div>
+          <div className="w-[100px]">{row?.unit}</div>
         ),
       },
       {
@@ -196,7 +208,7 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
           <Input
             type="number"
             className="w-[100px] border-none"
-            name={`cost-${rowIndex}`}
+            name={`cost-waste-${rowIndex}`}
             value={row.cost}
             placeholder="ingrese"
             disabled={!row.component}
@@ -211,7 +223,13 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex w-[100px] justify-between">
             {row.subTotal}
-            <button type="button" onClick={() => deleteRowId(row.id)}>
+            <input
+              type="hidden"
+              hidden
+              value={row.subTotal}
+              name={"subTotal-waste" + rowIndex}
+            />
+            <button type="button" onClick={() => deleteRowId(row.idAux)}>
               <IonIcon
                 icon={closeCircle}
                 size="small"

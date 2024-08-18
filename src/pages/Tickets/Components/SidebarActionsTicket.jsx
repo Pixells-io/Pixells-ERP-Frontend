@@ -65,7 +65,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       />
 
       <p className="font-poppins text-base font-semibold text-grisHeading">
-        ACTIONS
+        ACCIONES
       </p>
 
       <div className="mt-6 flex gap-4">
@@ -74,14 +74,14 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(1)}
         >
-          Visit
+          Visita
         </button>
         <button
           type="button"
           className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(2)}
         >
-          Phone Call
+          Llamada Telefónica
         </button>
       </div>
       <div className="mt-4 flex gap-4">
@@ -90,7 +90,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           className="w-24 rounded-2xl bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalFollowUp(3)}
         >
-          Message
+          Mensaje
         </button>
         <button
           type="button"
@@ -106,14 +106,14 @@ function SidebarActionsTicket({ ticket, areas, users }) {
           className="w-24 rounded-2xl border bg-blancoBox2 px-3 py-1 text-sm font-medium text-grisText"
           onClick={() => setModalDocument(true)}
         >
-          Document
+          Documento
         </button>
         <button
           type="button"
           className="w-24 rounded-2xl border border-primario px-3 py-1 text-sm font-medium text-primario hover:bg-primario hover:text-white"
           onClick={() => setModalFollowUp(5)}
         >
-          Finish
+          Finalizar
         </button>
       </div>
       <div className="mt-8">
@@ -124,14 +124,14 @@ function SidebarActionsTicket({ ticket, areas, users }) {
         >
           <IonIcon icon={add} size="large"></IonIcon>
           <p className="mr-1 mt-1 text-lg font-medium text-blue-500">
-            Responsibles
+            Responsables
           </p>
         </button>
       </div>
 
       <div className="mt-8">
         <p className="font-poppins text-base font-semibold text-grisHeading">
-          Responsibles
+          Responsables
         </p>
         <div className="mt-2">
           {ticket?.responsible.map((data, i) => (
@@ -155,7 +155,7 @@ function SidebarActionsTicket({ ticket, areas, users }) {
       </div>
       <div className="mt-8">
         <p className="font-poppins text-base font-semibold text-grisHeading">
-          Involved
+          Involucrados
         </p>
         <div className="mt-2">
           {ticket?.involved.map((data, i) => (

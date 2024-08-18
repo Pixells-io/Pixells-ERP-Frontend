@@ -31,6 +31,7 @@ const CreateInvoices = () => {
           setSubtotal={setSubtotal}
           subtotal={subtotal}
           saveUrl={saveUrl}
+          isEditable={true}
         />
       </div>
     </div>
