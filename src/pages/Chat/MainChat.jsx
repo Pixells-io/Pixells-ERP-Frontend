@@ -47,8 +47,8 @@ function MainChat() {
 
   const userInfo = [
     {
-      id: user.data.user.id,
-      name: user.data.user.name + " " + user.data.user.last_name,
+      id: user?.data.user.id,
+      name: user?.data.user.name + " " + user?.data.user.last_name,
     },
   ];
 
@@ -120,7 +120,7 @@ function MainChat() {
         setModal={setModalSendFile}
       />
 
-      <div className="flex rounded-t-xl bg-gris px-6 py-4">
+      <div className="flex rounded-t-xl bg-gris px-2 py-4 md:px-6">
         {chat.data.type == 0 ? (
           <div className="flex items-center gap-4">
             <IonIcon
@@ -159,7 +159,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Messages */}
-      <div className="scrollbar-hidden flex h-full w-full flex-col-reverse overflow-y-scroll px-12 py-3">
+      <div className="scrollbar-hidden flex h-full w-full flex-col-reverse overflow-y-scroll px-0 py-3 md:px-12">
         <div ref={scrollBox}></div>
         {chatMessagesPusher?.map((mensagge, i) => (
           <MenssageCard
@@ -175,7 +175,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Footer */}
-      <div className="flex flex-col rounded-b-xl bg-[#FBFBFB] px-5 py-2">
+      <div className="flex flex-col rounded-b-xl bg-[#FBFBFB] px-1 py-2 md:px-5">
         {modalReplay == true ? (
           <div>
             <div className="flex w-full flex-col justify-center gap-1 border-0 border-t px-8 py-2">
@@ -216,7 +216,7 @@ function MainChat() {
                   ref={inputFocusRef}
                 />
               </div>
-              <div className="m-auto mt-2 flex w-1/12">
+              <div className="m-auto mt-2 flex md:w-1/12">
                 {mssg != "" ? (
                   <button
                     type="submit"
@@ -264,7 +264,7 @@ function MainChat() {
                 ref={inputFocusRef}
               />
             </div>
-            <div className="m-auto mt-2 flex w-1/12">
+            <div className="m-auto mt-2 flex md:w-1/12">
               {mssg != "" ? (
                 <button
                   type="submit"
