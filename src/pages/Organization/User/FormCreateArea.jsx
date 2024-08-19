@@ -58,7 +58,7 @@ function FormCreateArea({ modal, setModal }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
-            Crear área
+            Create area
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -76,15 +76,11 @@ function FormCreateArea({ modal, setModal }) {
                 hidden
                 readOnly
               />
-              <InputRouter
-                name="nombre"
-                type="text"
-                placeholder="Nombre de área"
-              />
+              <InputRouter name="nombre" type="text" placeholder="Area Name" />
               <InputRouter
                 name="descripcion"
                 type="text"
-                placeholder="Descripción de área"
+                placeholder="Area Description"
               />
               <input
                 name="procesos_del_area"
@@ -97,7 +93,7 @@ function FormCreateArea({ modal, setModal }) {
                 <div className="flex w-full flex-col gap-3">
                   {processInputs?.map((input, i) => (
                     <div key={i} className="flex w-full gap-3">
-                      <InputRouter name="proceso" placeholder="Proceso" />
+                      <InputRouter name="proceso" placeholder="Process" />
                       {i >= 1 ? (
                         <button
                           type="button"
@@ -137,12 +133,12 @@ function FormCreateArea({ modal, setModal }) {
 
               <Select
                 name="tipo_horario"
-                placeholder={"Días laborables"}
+                placeholder={"Working Days"}
                 options={DAYS}
                 isMulti={true}
               />
-              <InputRouter name="inicio" type="time" placeholder="Inicio" />
-              <InputRouter name="fin" type="time" placeholder="Fin" />
+              <InputRouter name="inicio" type="time" placeholder="Start" />
+              <InputRouter name="fin" type="time" placeholder="End" />
             </div>
           </div>
         </Form>
@@ -152,7 +148,7 @@ function FormCreateArea({ modal, setModal }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

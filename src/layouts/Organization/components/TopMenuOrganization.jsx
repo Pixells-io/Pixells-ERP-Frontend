@@ -12,7 +12,7 @@ function TopMenuCRM() {
           <IonIcon icon={grid} size="large"></IonIcon>
           <div>
             <p className="font-roboto text-base font-medium text-grisText">
-              Inicio
+              Home
             </p>
           </div>
         </div>
@@ -22,7 +22,7 @@ function TopMenuCRM() {
           <IonIcon icon={searchOutline} size="large"></IonIcon>
           <div>
             <p className="font-roboto text-base font-medium text-grisText">
-              Buscar
+              Search
             </p>
           </div>
         </div>

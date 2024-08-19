@@ -279,7 +279,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={person} className="h-5 w-5"></IonIcon>
-                  Mi Perfil
+                  My Profile
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -288,7 +288,7 @@ function MainLayout() {
                   className="ml-4 flex gap-4 text-grisText"
                 >
                   <IonIcon icon={notifications} className="h-5 w-5"></IonIcon>
-                  Notificaciones
+                  Notifications
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -300,7 +300,7 @@ function MainLayout() {
               </DropdownMenuItem>
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
                 <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
-                Guardado
+                Bookmarks
               </DropdownMenuItem>
               {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
@@ -322,7 +322,7 @@ function MainLayout() {
                   onClick={logOutFunction}
                 >
                   <IonIcon icon={logOut} className="h-5 w-5"></IonIcon>
-                  Cerrar Sesión
+                  Sign Out
                 </button>
               </DropdownMenuItem>
             </DropdownMenuContent>

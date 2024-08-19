@@ -17,6 +17,7 @@ import {
   closeCircle,
 } from "ionicons/icons";
 import { Label } from "@/components/ui/label";
+import NavigationHeader from "@/components/navigation-header";
 
 const selectBasics = [
   {
@@ -123,12 +124,12 @@ const academyGrade = [
 
 const contracts = [
   {
-    label: "Contrato determinado",
-    value: "Contrato determinado",
+    label: "Specific contract",
+    value: "Specific contract",
   },
   {
-    label: "Contrato indeterminado",
-    value: "Contrato indeterminado",
+    label: "Indeterminate contract",
+    value: "Indeterminate contract",
   },
 ];
 
@@ -289,36 +290,18 @@ function FormCreateUser() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">organization</div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold leading-8 text-[#44444F]">
-              GESTIÓN DE USUARIOS
+              USER MANAGEMENT{" "}
             </h2>
           </div>
         </div>
         <div className="flex justify-between">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Usuario
+            New User
           </h2>
           <NavLink to={"/organization"}>
             <IonIcon
@@ -344,48 +327,48 @@ function FormCreateUser() {
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Informacion Personal
+                Personal Information
               </span>
               <div className="flex flex-col pt-4">
                 <div className="flex gap-3">
                   <InputRouter
                     name={"name"}
-                    placeholder={"Niombre"}
+                    placeholder={"Name"}
                     type={"text"}
                     required={"true"}
                   />
                   <InputRouter
                     name={"last_name"}
-                    placeholder={"Apellido Paterno"}
+                    placeholder={"Last Name"}
                     type={"text"}
                   />
                   <InputRouter
                     name={"second_last_name"}
-                    placeholder={"Apellido Materno"}
+                    placeholder={"Second Last Name"}
                     type={"text"}
                   />
                 </div>
                 <div className="mt-3 flex gap-3">
                   <InputRouter
                     name={"date_of_birth"}
-                    placeholder={"Fecha de nacimiento"}
+                    placeholder={"Date of Birth"}
                     type={"date"}
                   />
                   <InputRouter
                     name={"city_of_birth"}
-                    placeholder={"Ciudad de nacimiento"}
+                    placeholder={"City of Birth"}
                     type={"text"}
                   />
                   <InputRouter
                     name={"state_of_birth"}
-                    placeholder={"Estado de nacimiento"}
+                    placeholder={"State of Birth"}
                     type={"text"}
                   />
                 </div>
                 <div className="flex items-center gap-3 pt-3">
                   <SelectRouter
                     name={"genre"}
-                    placeholder={"Género"}
+                    placeholder={"Genre"}
                     options={genreSelect}
                   />
                   <Label className="flex w-full flex-col gap-2">
@@ -396,14 +379,14 @@ function FormCreateUser() {
                       onChange={(e) => setStatus(e.value)}
                       options={civilStatus}
                       name={"civil_status"}
-                      placeholder={"Estado civil"}
+                      placeholder={"Civil Status"}
                       className="w-full text-sm font-light"
                     />
                   </Label>
 
                   <InputRouter
                     name={"childrens"}
-                    placeholder={"Hijos"}
+                    placeholder={"Children"}
                     type={"number"}
                   />
                 </div>
@@ -411,17 +394,17 @@ function FormCreateUser() {
                   <div className="flex gap-3 pt-3">
                     <InputRouter
                       name={"spouse_firstname"}
-                      placeholder={"Nombre del cónyuge"}
+                      placeholder={"Spouse Firstname"}
                       type={"text"}
                     />
                     <InputRouter
                       name={"spouse_lastname"}
-                      placeholder={"Apellido del cónyuge"}
+                      placeholder={"Spouse Lastname"}
                       type={"text"}
                     />
                     <InputRouter
                       name={"spouse_taxid"}
-                      placeholder={"Identificación fiscal del cónyuge"}
+                      placeholder={"Spouse Tax ID"}
                       type={"text"}
                     />
                   </div>
@@ -429,12 +412,12 @@ function FormCreateUser() {
                 <div className="flex gap-3 pt-3">
                   <InputRouter
                     name={"phone"}
-                    placeholder={"Teléfono"}
+                    placeholder={"Phone"}
                     type={"number"}
                   />
                   <InputRouter
                     name={"personal_email"}
-                    placeholder={"Email personal"}
+                    placeholder={"Personal Emial"}
                     type={"email"}
                   />
                 </div>
@@ -488,7 +471,7 @@ function FormCreateUser() {
                     <div className="flex w-full flex-col gap-2">
                       <DropzoneFile
                         name={"birth_certificade"}
-                        label={"Certificado de nacimiento"}
+                        label={"Birth Certificade"}
                       />
                     </div>
                   </div>
@@ -499,35 +482,35 @@ function FormCreateUser() {
             {/*Health Card*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Información de salud
+                Health information
               </span>
               <div className="flex pt-4">
                 <div className="flex w-full items-center gap-3">
                   <div className="w-1/4">
                     <SelectRouter
                       name={"chronic_diseases"}
-                      placeholder={"Enfermedades crónicas"}
+                      placeholder={"Chronic Diseases"}
                       options={selectBasics}
                     />
                   </div>
                   <div className="w-1/4">
                     <SelectRouter
                       name={"alergic"}
-                      placeholder={"Alergias"}
+                      placeholder={"Allergic"}
                       options={selectBasics}
                     />
                   </div>
                   <div className="w-1/4">
                     <InputRouter
                       name={"specify_allergy"}
-                      placeholder={"Especifique la/s alergia/s"}
+                      placeholder={"Specify Allergy"}
                       type={"text"}
                     />
                   </div>
                   <div className="w-1/4">
                     <SelectRouter
                       name={"blood"}
-                      placeholder={"Tipo de sangre"}
+                      placeholder={"Blood Type"}
                       options={bloodType}
                     />
                   </div>
@@ -538,7 +521,7 @@ function FormCreateUser() {
             {/*Address Card*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Datos del Domicilio
+                Address information
               </span>
               <div className="flex w-full pt-4">
                 <div className="w-full">
@@ -546,7 +529,7 @@ function FormCreateUser() {
                     <div className="w-1/4">
                       <InputRouter
                         name={"street"}
-                        placeholder={"Calle"}
+                        placeholder={"Street"}
                         type={"text"}
                       />
                     </div>
@@ -576,7 +559,7 @@ function FormCreateUser() {
                     <div className="w-1/4">
                       <DropzoneFile
                         name={"address_voucher"}
-                        label={"Comprobante de dirección"}
+                        label={"Address Voucher"}
                       />
                     </div>
                   </div>
@@ -585,21 +568,21 @@ function FormCreateUser() {
                     <div className="w-1/4">
                       <InputRouter
                         name={"discrict"}
-                        placeholder={"Distrito"}
+                        placeholder={"District"}
                         type={"text"}
                       />
                     </div>
                     <div className="w-1/4">
                       <InputRouter
                         name={"city"}
-                        placeholder={"Ciudad"}
+                        placeholder={"City"}
                         type={"text"}
                       />
                     </div>
                     <div className="w-1/4">
                       <InputRouter
                         name={"state"}
-                        placeholder={"Estado"}
+                        placeholder={"State"}
                         type={"text"}
                       />
                     </div>
@@ -612,34 +595,34 @@ function FormCreateUser() {
             {/*Emergency Contact*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Contacto de emergencia
+                Emergency contact
               </span>
               <div className="flex w-full gap-3 pt-5">
                 <InputRouter
                   name={"emergency_name"}
-                  placeholder={"Nombre"}
+                  placeholder={"Name"}
                   type={"text"}
                 />
                 <InputRouter
                   name={"emergency_last_name"}
-                  placeholder={"Apellido Paterno"}
+                  placeholder={"Lastname"}
                   type={"text"}
                 />
                 <InputRouter
                   name={"emergency_second_last_name"}
-                  placeholder={"Apellido Materno"}
+                  placeholder={"Second Lastname"}
                   type={"text"}
                 />
 
                 <InputRouter
                   name={"emergency_relationship"}
-                  placeholder={"Relación"}
+                  placeholder={"Relationship"}
                   type={"text"}
                 />
 
                 <InputRouter
                   name={"emergency_phone"}
-                  placeholder={"Teléfono"}
+                  placeholder={"Phone"}
                   type={"text"}
                 />
               </div>
@@ -648,7 +631,7 @@ function FormCreateUser() {
             {/*Academic Information*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Información Académica
+                Academic Information
               </span>
               <div className="flex flex-col items-center gap-3 pt-4">
                 <input
@@ -663,7 +646,7 @@ function FormCreateUser() {
                     <div className="w-1/3">
                       <SelectRouter
                         name={"academic_grade"}
-                        placeholder={"Grado Académico"}
+                        placeholder={"Academic Grade"}
                         options={academyGrade}
                         // onChange={(e) => updateAcademicField(i, e)}
                         // value={academicInfo[i].academic_grade}
@@ -672,7 +655,7 @@ function FormCreateUser() {
                     <div className="w-1/3">
                       <InputRouter
                         name={"specify_academic"}
-                        placeholder={"Especificar el grado académico"}
+                        placeholder={"Specify Academic Grade"}
                         type={"text"}
                         onChange={(e) => updateAcademicField(i, e)}
                         value={academicInfo[i].specify_academic}
@@ -681,7 +664,7 @@ function FormCreateUser() {
                     <div className="w-1/3">
                       <DropzoneFile
                         name={"academic_voucher"}
-                        label={"Comprobante Académico"}
+                        label={"Academic Voucher"}
                       />
                     </div>
                     {i !== 0 || academicInfo.length !== i + 1 ? (
@@ -723,7 +706,7 @@ function FormCreateUser() {
             {/* Last Working Information */}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Último trabajo
+                Last job
               </span>
               <div className="flex flex-col items-center gap-3 pt-4">
                 <input
@@ -739,21 +722,21 @@ function FormCreateUser() {
                     <div className="w-1/3">
                       <InputRouter
                         name={"company_experience"}
-                        placeholder={"Compañía"}
+                        placeholder={"Company Experience"}
                         type={"text"}
                       />
                     </div>
                     <div className="w-1/3">
                       <InputRouter
                         name={"position_experience"}
-                        placeholder={"Posición"}
+                        placeholder={"Position"}
                         type={"text"}
                       />
                     </div>
                     <div className="w-1/3">
                       <InputRouter
                         name={"years_experience"}
-                        placeholder={"Años de experiencia"}
+                        placeholder={"Years of Experience"}
                         type={"number"}
                       />
                     </div>
@@ -795,21 +778,21 @@ function FormCreateUser() {
             {/*Working Information*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Posición actual a mantener
+                Current position to maintain
               </span>
 
               <div className="flex w-full items-center gap-3 pt-4">
                 <div className="w-1/3">
                   <InputRouter
                     name={"working_center"}
-                    placeholder={"Centro de Trabajo"}
+                    placeholder={"Work Center"}
                     type={"text"}
                   />
                 </div>
                 <div className="w-1/3">
                   <InputRouter
                     name={"income_date"}
-                    placeholder={"Fecha de ingreso"}
+                    placeholder={"Entry date"}
                     type={"date"}
                   />
                 </div>
@@ -829,14 +812,14 @@ function FormCreateUser() {
                 <div className="mt-4 w-1/3">
                   <SelectRouter
                     name={"boss"}
-                    placeholder={"Jefe"}
+                    placeholder={"Boss"}
                     options={selectUsers}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
                   <SelectRouter
                     name={"position"}
-                    placeholder={"Posición"}
+                    placeholder={"Position"}
                     options={selectPosition}
                   />
                 </div>
@@ -846,14 +829,14 @@ function FormCreateUser() {
                 <div className="w-1/3">
                   <InputRouter
                     name={"monthly_pay"}
-                    placeholder={"Pago mensual"}
+                    placeholder={"Monthly Pay"}
                     type={"number"}
                   />
                 </div>
                 <div className="w-1/3">
                   <SelectRouter
                     name="legal_benefits"
-                    placeholder={"Beneficios legales"}
+                    placeholder={"Legal Benefits"}
                     isMulti={true}
                     options={legal_benefits}
                   />
@@ -865,14 +848,14 @@ function FormCreateUser() {
                 <div className="w-1/3">
                   <InputRouter
                     name={"institutional_email"}
-                    placeholder={"Correo Institucional"}
+                    placeholder={"Institutional Email"}
                     type={"email"}
                   />
                 </div>
                 <div className="w-1/3">
                   <InputRouter
                     name={"institutional_phone"}
-                    placeholder={"Teléfono Institucional"}
+                    placeholder={"Institutional Phone"}
                     type={"phone"}
                   />
                 </div>
@@ -900,7 +883,7 @@ function FormCreateUser() {
                     <div className="w-1/3">
                       <SelectRouter
                         name={"contract"}
-                        placeholder={"Tipo de contrato"}
+                        placeholder={"Contract Type"}
                         options={contracts}
                       />
                     </div>
@@ -908,14 +891,14 @@ function FormCreateUser() {
                       <div className="w-1/2">
                         <InputRouter
                           name={"start_contract"}
-                          placeholder={"Inicio del contrato"}
+                          placeholder={"Contract Start"}
                           type={"date"}
                         />
                       </div>
                       <div className="w-1/2">
                         <InputRouter
                           name={"end_contract"}
-                          placeholder={"Fin del contrato"}
+                          placeholder={"Contract End"}
                           type={"date"}
                         />
                       </div>
@@ -960,21 +943,21 @@ function FormCreateUser() {
                 <div className="w-1/3">
                   <SelectRouter
                     name={"bank"}
-                    placeholder={"Banco"}
+                    placeholder={"Bank"}
                     options={banks}
                   />
                 </div>
                 <div className="w-1/3">
                   <InputRouter
                     name={"bank_account"}
-                    placeholder={"Cuenta bancaria"}
+                    placeholder={"Bank Account"}
                     type={"text"}
                   />
                 </div>
                 <div className="w-1/3">
                   <SelectRouter
                     name={"regulation"}
-                    placeholder={"Regulación"}
+                    placeholder={"Regulation"}
                     options={selectBasics}
                   />
                 </div>
@@ -984,7 +967,7 @@ function FormCreateUser() {
             {/*Password*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
               <span className="text-roboto text-sm font-medium text-grisText">
-                Contraseña
+                Password
               </span>
               <div className="flex pt-4">
                 <div className="flex w-full gap-3">
@@ -1007,7 +990,7 @@ function FormCreateUser() {
                       type="submit"
                       className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
                     >
-                      Guardar
+                      Save
                     </Button>
                   </div>
                 </div>

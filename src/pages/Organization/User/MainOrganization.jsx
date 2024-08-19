@@ -98,15 +98,13 @@ function MainOrganization() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              GESTIÓN DE USUARIOS
+              USER MANAGEMENT
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div className="text-xs">{counter.data["users"]} usuarios</div>
+            <div className="text-xs">{counter.data["users"]} users</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">
-              {counter.data["positions"]} posiciones
-            </div>
+            <div className="text-xs">{counter.data["positions"]} positions</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">{counter.data["areas"]} areas</div>
           </div>
@@ -134,19 +132,19 @@ function MainOrganization() {
                     className="w-full"
                     to={"/organization/create-position"}
                   >
-                    Posiciones
+                    Positions
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <NavLink className="w-full" to={"/organization/create-user"}>
-                    Usuarios
+                    Users
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="w-full hover:cursor-pointer"
                   onClick={() => setModalImport(true)}
                 >
-                  Importar
+                  Import
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -165,13 +163,13 @@ function MainOrganization() {
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="users"
                     >
-                      USUARIOS
+                      USERS
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="positions"
                     >
-                      POSICIONES
+                      POSITIONS
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
@@ -191,7 +189,7 @@ function MainOrganization() {
                       <Input
                         id="search"
                         className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
-                        placeholder="BUSCAR EMAILS"
+                        placeholder="SEARCH EMAILS"
                       />
                     </div>
                   </div>
