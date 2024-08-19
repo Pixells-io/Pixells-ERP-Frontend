@@ -102,10 +102,10 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Numero Artículo",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`article-number-${rowIndex}`}
             value={row?.articleNumber}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             type="number"
             onChange={(e) =>
               handleInputChange(rowIndex, "articleNumber", e.target.value)
@@ -118,10 +118,10 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`description-${rowIndex}`}
             value={row.description}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             type="text"
             onChange={(e) =>
               handleInputChange(rowIndex, "description", e.target.value)
@@ -143,7 +143,7 @@ const TableForm = ({ tableData, setTableData }) => {
             className={`w-[100px] border-none ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             onChange={(e) =>
               handleInputChange(rowIndex, "receivedQuantity", e.target.value)
             }
@@ -156,10 +156,10 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             onChange={(e) =>
               handleInputChange(rowIndex, "unitPrice", e.target.value)
             }
@@ -182,8 +182,8 @@ const TableForm = ({ tableData, setTableData }) => {
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
             >
-              <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-                <SelectValue placeholder="Ubicación" />
+              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectValue placeholder="Ubicación" />
               </SelectTrigger>
               <SelectContent>
                 {ubications.map((ubication, index) => (
