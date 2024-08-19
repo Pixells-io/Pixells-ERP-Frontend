@@ -56,7 +56,7 @@ function FormNewChat({ users }) {
       </DialogTrigger>
       <DialogContent className="h-fit overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-6 py-4">
-          <DialogTitle className="font-poppins">Crear nuevo grupo</DialogTitle>
+          <DialogTitle className="font-poppins">Create new group</DialogTitle>
         </DialogHeader>
         <Form
           id="new-group-form"
@@ -70,7 +70,7 @@ function FormNewChat({ users }) {
             <DropzoneImage name={"group_image"} />
           </div>
           <div className="">
-            <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
+            <InputRouter name={"name"} placeholder={"Name"} type={"text"} />
           </div>
           {/* <SelectMultiple
               name={"users"}
@@ -80,7 +80,7 @@ function FormNewChat({ users }) {
           <SelectRouter
             name="users"
             options={selectUsers}
-            placeholder="Seleccionar Usuarios"
+            placeholder="Select Users"
             isMulti={true}
           />
           <DialogFooter className="py-4">
@@ -89,7 +89,7 @@ function FormNewChat({ users }) {
               disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+              {navigation.state === "submitting" ? "Submitting..." : "Create"}
             </Button>
           </DialogFooter>
         </Form>

@@ -37,8 +37,8 @@ function MediaInformations({ data, users }) {
   return (
     <div className="flex flex-col gap-3">
       <ModalConfirmation
-        title={"Confirmación"}
-        description={"Borrar usuario de la conversación"}
+        title={"Confirmation"}
+        description={"Delete user from conversation"}
         modal={modalConfirmation}
         setModal={setModalConfirmation}
         user_id={userId}
@@ -46,7 +46,7 @@ function MediaInformations({ data, users }) {
       />
 
       <div className="flex w-full items-center justify-between">
-        <h1 className="py-2">Participantes</h1>
+        <h1 className="py-2">Participants</h1>
         {data.is_admin == 1 && (
           <ModalAddParticipant chat_id={data.id} users={options} />
         )}
@@ -91,7 +91,7 @@ function MediaInformations({ data, users }) {
         </div>
       ))}
       <p className="pt-4 text-xs font-semibold text-grisText">
-        Creado {year}/{month}/{day}
+        Created {year}/{month}/{day}
       </p>
       {data.is_admin == 1 && (
         <div className="flex w-full justify-end">

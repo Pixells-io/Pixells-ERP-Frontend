@@ -48,7 +48,7 @@ function LayoutChat() {
               className="rounded-none border-b-2 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               value="internal"
             >
-              INTERNO
+              INTERNAL
             </TabsTrigger>
             {/*
             <TabsTrigger
