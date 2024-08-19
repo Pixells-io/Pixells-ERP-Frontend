@@ -5,6 +5,7 @@ import {
   redirect,
   useLoaderData,
   useLocation,
+  useNavigate,
   useParams,
   useSubmit,
 } from "react-router-dom";
@@ -21,12 +22,13 @@ import { createPusherClient } from "@/lib/pusher";
 import MenssageCard from "./Components/Mensagge";
 
 import { IonIcon } from "@ionic/react";
-import { send, mic, addCircle, closeCircle } from "ionicons/icons";
+import { send, mic, addCircle, closeCircle, chevronBack } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
 
 function MainChat() {
   const location = useLocation();
   const { id } = useParams();
+  const navigate = useNavigate();
   const { chat, user, chats } = useLoaderData();
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
@@ -106,7 +108,11 @@ function MainChat() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-4">
+    <div
+      className={
+        "flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-0 md:flex md:overflow-auto md:pl-4"
+      }
+    >
       {/* Chat Header */}
       <MensaggeFileModal
         chat_id={id}
@@ -117,6 +123,11 @@ function MainChat() {
       <div className="flex rounded-t-xl bg-gris px-6 py-4">
         {chat.data.type == 0 ? (
           <div className="flex items-center gap-4">
+            <IonIcon
+              icon={chevronBack}
+              className="flex size-8 cursor-pointer text-grisText md:hidden"
+              onClick={() => navigate("/chat")}
+            />
             <img
               src={chat.data?.participants.img}
               className="h-14 w-14 rounded-full object-cover"
@@ -129,6 +140,11 @@ function MainChat() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
+            <IonIcon
+              icon={chevronBack}
+              className="flex size-8 cursor-pointer text-grisText md:hidden"
+              onClick={() => navigate("/chat")}
+            />
             <img
               src={chat.data?.img}
               className="h-14 w-14 rounded-full object-cover"
