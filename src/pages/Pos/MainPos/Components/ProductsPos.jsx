@@ -57,6 +57,18 @@ const productsOptions = [
     discount: 0,
     iva: 16,
   },
+  {
+    id: 5,
+    isGranel: true,
+    image: "https://picsum.photos/id/203/200/300",
+    article: "Naranja",
+    sku: "0433422",
+    description: "Naranja Chihuahua",
+    quantity: 1,
+    price: 20,
+    discount: 0,
+    iva: 16,
+  },
 ];
 
 const clientsOptions = [
@@ -144,7 +156,10 @@ function ProductsPos() {
         modal={modalPaymentMethod}
         setModal={setModalPaymentMethod}
         information={{
-          totalArticles: products.reduce((a, c) => a + c.quantity, 0),
+          totalArticles: products.reduce(
+            (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
+            0,
+          ),
           subTotal: subTotalProducts,
           total: subTotalProducts,
         }}
@@ -214,7 +229,10 @@ function ProductsPos() {
               <div className="col-span-1 flex items-center">
                 <h2 className="font-poppins text-lg font-medium text-[#44444F]">
                   ARTICULOS:&nbsp;
-                  {products.reduce((a, c) => a + c.quantity, 0)}
+                  {products.reduce(
+                    (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
+                    0,
+                  )}
                 </h2>
               </div>
               <div className="col-span-4 flex items-center justify-end">
@@ -223,7 +241,10 @@ function ProductsPos() {
                   className="flex min-w-[260px] justify-between rounded-3xl bg-primarioBotones py-7 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)]"
                   onClick={() =>
                     openConfirmSale(
-                      products.reduce((a, c) => a + c.quantity, 0),
+                      products.reduce(
+                        (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
+                        0,
+                      ),
                     )
                   }
                 >

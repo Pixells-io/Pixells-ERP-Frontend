@@ -63,6 +63,7 @@ function ModalItemGranel({ modal, setModal, functionModal, product }) {
                   name="quantity"
                   type="number"
                   value={quantity}
+                  min={0}
                   onChange={(event) => setQuantity(event.target.value)}
                 />
                 <span>KG</span>
