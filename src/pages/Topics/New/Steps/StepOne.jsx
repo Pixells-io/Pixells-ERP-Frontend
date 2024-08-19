@@ -39,12 +39,9 @@ function StepOne({ setStepped, category, user }) {
       <div className="grid grid-cols-12 gap-x-8 gap-y-4">
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
           <div className="flex items-center gap-x-2">
-            <img
-              src={"https://picsum.photos/id/237/200/300"}
-              className="h-8 w-8 rounded-full"
-            />
+            <img src={user.user.user_image} className="h-8 w-8 rounded-full" />
             <span className="text-sm font-semibold text-grisText">
-              Don Formularo
+              {user.user.name} {user.user.last_name}
             </span>
           </div>
         </div>
@@ -64,7 +61,7 @@ function StepOne({ setStepped, category, user }) {
             </SelectTrigger>
             <SelectContent>
               {category.map((cat, i) => (
-                <SelectItem key={cat.id} value={cat.id}>
+                <SelectItem key={cat.id} value={cat.id.toString()}>
                   {cat.name}
                 </SelectItem>
               ))}

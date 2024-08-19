@@ -17,37 +17,37 @@ import {
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { getTopic } from "../utils";
-
-const imgs = [
-  {
-    id: 1,
-    url: "https://picsum.photos/200/300?grayscale",
-  },
-  {
-    id: 2,
-    url: "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-  },
-  {
-    id: 3,
-    url: "https://picsum.photos/id/0/5000/3333",
-  },
-  {
-    id: 4,
-    url: "https://picsum.photos/id/19/2500/1667",
-  },
-];
+import { createPusherClient } from "@/lib/pusher";
+import { Form, useParams } from "react-router-dom";
 
 function Publication({ topic }) {
   const [topicData, setTopicData] = useState(null);
+  const [topicId, setTopicId] = useState(topic.id);
+  const [showComments, setShowComments] = useState(0);
+  const pusherClient = createPusherClient();
+  const { id } = useParams();
 
   useEffect(() => {
-    getTopicInfo(topic);
+    setTopicId(topic.id);
+
+    getTopicInfo(topicId);
 
     async function getTopicInfo(topic) {
-      let { data } = await getTopic(topic.id);
+      let { data } = await getTopic(topic);
       setTopicData(data);
     }
-  }, []);
+
+    //Web Socket
+    let channel = pusherClient.subscribe(`private-get-topic.${topicId}`);
+
+    channel.bind("fill-topic-info", ({ topic }) => {
+      getTopicInfo(topic);
+    });
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-topic.${topicId}`);
+    };
+  }, [topicId]);
 
   return (
     <div className="w-[473px] rounded-lg bg-blancoBg shadow-md">
@@ -121,19 +121,24 @@ function Publication({ topic }) {
       </div>
       <div className="flex w-full flex-col gap-y-4 p-4">
         <div className="flex gap-x-2">
-          <div className="flex items-center gap-x-1">
-            {topicData?.my_like == true ? (
-              <IonIcon
-                icon={heart}
-                className="h-5 w-6 cursor-pointer text-[#DF354F]"
-              ></IonIcon>
-            ) : (
-              <IonIcon
-                icon={heartOutline}
-                className="h-5 w-6 cursor-pointer text-[#696974]"
-              ></IonIcon>
-            )}
-
+          <div className="mt-1 flex items-center gap-x-1">
+            <Form action={`/topics/${id}`} method="post">
+              <input type="hidden" name="topic" value={topicId} />
+              <input type="hidden" name="type" value={1} />
+              <button type="submit">
+                {topicData?.my_like > 0 ? (
+                  <IonIcon
+                    icon={heart}
+                    className="h-5 w-6 cursor-pointer text-[#DF354F]"
+                  ></IonIcon>
+                ) : (
+                  <IonIcon
+                    icon={heartOutline}
+                    className="h-5 w-6 cursor-pointer text-[#696974]"
+                  ></IonIcon>
+                )}
+              </button>
+            </Form>
             <label className="text-sm font-medium text-grisText">
               {topicData?.likes}
             </label>
@@ -148,54 +153,180 @@ function Publication({ topic }) {
             </label>
           </div>
         </div>
-        <div className="flex flex-col">
-          <div className="flex w-full justify-between gap-x-2">
-            <img
-              src={"https://picsum.photos/200/300?grayscale"}
-              className="h-8 w-8 rounded-full"
-            />
-            <div className="w-5/6">
-              <p style={{ lineHeight: "1.1" }}>
-                <span className="text-sm font-semibold text-grisText">
-                  Don Formularos
+        {showComments == 0 ? (
+          <>
+            {topicData?.main_comment?.length != "0" ? (
+              <>
+                <div className="flex flex-col">
+                  <div className="flex w-full justify-between gap-x-2">
+                    <img
+                      src={topicData?.main_comment?.img}
+                      className="h-8 w-8 rounded-full"
+                    />
+                    <div className="w-5/6">
+                      <p style={{ lineHeight: "1.1" }}>
+                        <span className="text-sm font-semibold text-grisText">
+                          {topicData?.main_comment?.name}
+                        </span>
+                        <span className="ml-2 text-xs font-normal text-[#44444F]">
+                          {topicData?.main_comment?.comment}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      {topicData?.main_comment?.my_like_comment > 0 ? (
+                        <Form action={`/topics/${id}`} method="post">
+                          <input
+                            type="hidden"
+                            name="comment"
+                            value={topicData?.main_comment?.id}
+                          />
+                          <input type="hidden" name="type" value={3} />
+                          <button type="submit">
+                            <IonIcon
+                              icon={heart}
+                              className="h-3 w-4 cursor-pointer text-[#DF354F]"
+                            ></IonIcon>
+                          </button>
+                        </Form>
+                      ) : (
+                        <Form action={`/topics/${id}`} method="post">
+                          <input
+                            type="hidden"
+                            name="comment"
+                            value={topicData?.main_comment?.id}
+                          />
+                          <input type="hidden" name="type" value={3} />
+                          <button type="submit">
+                            <IonIcon
+                              icon={heartOutline}
+                              className="h-3 w-4 cursor-pointer text-[#696974]"
+                            ></IonIcon>
+                          </button>
+                        </Form>
+                      )}
+                    </div>
+                  </div>
+                  <div className="ml-16 mt-1 flex items-start gap-x-4">
+                    {topicData?.main_comment?.latest > 0 ? (
+                      <span className="text-xs font-medium text-grisSubText">
+                        {topicData?.main_comment?.latest} d
+                      </span>
+                    ) : (
+                      <span className="text-xs font-medium text-grisSubText">
+                        Today
+                      </span>
+                    )}
+                    <span className="text-xs font-medium text-grisSubText">
+                      {topicData?.main_comment?.likes} likes
+                    </span>
+                    {/* 
+                      <span className="text-xs font-medium text-grisSubText hover:cursor-pointer">
+                        Responder
+                      </span>
+                      */}
+                  </div>
+                </div>
+                <span
+                  className="text-xs font-medium text-grisSubText"
+                  onClick={() => setShowComments(1)}
+                >
+                  Ver Mas
                 </span>
-                <span className="ml-2 text-xs font-normal text-[#44444F]">
-                  Exelent article, this is awesome! lore
-                </span>
-              </p>
-            </div>
-            <div>
-              {true ? (
-                <IonIcon
-                  icon={heart}
-                  className="h-3 w-4 cursor-pointer text-[#DF354F]"
-                ></IonIcon>
-              ) : (
-                <IonIcon
-                  icon={heartOutline}
-                  className="h-3 w-4 cursor-pointer text-[#696974]"
-                ></IonIcon>
-              )}
-            </div>
-          </div>
-          <div className="ml-16 mt-1 flex items-start gap-x-4">
-            <span className="text-xs font-medium text-grisSubText">4 d</span>
-            <span className="text-xs font-medium text-grisSubText">
-              2 likes
+              </>
+            ) : null}
+          </>
+        ) : (
+          <>
+            {topicData?.comments?.map((comment, i) => (
+              <div className="flex flex-col">
+                <div className="flex w-full justify-between gap-x-2">
+                  <img src={comment.img} className="h-8 w-8 rounded-full" />
+                  <div className="w-5/6">
+                    <p style={{ lineHeight: "1.1" }}>
+                      <span className="text-sm font-semibold text-grisText">
+                        {comment.name}
+                      </span>
+                      <span className="ml-2 text-xs font-normal text-[#44444F]">
+                        {comment.comment}
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    {comment.my_like_comment > 0 ? (
+                      <Form action={`/topics/${id}`} method="post">
+                        <input
+                          type="hidden"
+                          name="comment"
+                          value={comment.id}
+                        />
+                        <input type="hidden" name="type" value={3} />
+                        <button type="submit">
+                          <IonIcon
+                            icon={heart}
+                            className="h-3 w-4 cursor-pointer text-[#DF354F]"
+                          ></IonIcon>
+                        </button>
+                      </Form>
+                    ) : (
+                      <Form action={`/topics/${id}`} method="post">
+                        <input
+                          type="hidden"
+                          name="comment"
+                          value={comment.id}
+                        />
+                        <input type="hidden" name="type" value={3} />
+                        <button type="submit">
+                          <IonIcon
+                            icon={heartOutline}
+                            className="h-3 w-4 cursor-pointer text-[#696974]"
+                          ></IonIcon>
+                        </button>
+                      </Form>
+                    )}
+                  </div>
+                </div>
+                <div className="ml-16 mt-1 flex items-start gap-x-4">
+                  {comment.latest > 0 ? (
+                    <span className="text-xs font-medium text-grisSubText">
+                      {comment.latest} d
+                    </span>
+                  ) : (
+                    <span className="text-xs font-medium text-grisSubText">
+                      Today
+                    </span>
+                  )}
+                  <span className="text-xs font-medium text-grisSubText">
+                    {comment.likes} likes
+                  </span>
+                  {/* 
+              <span className="text-xs font-medium text-grisSubText hover:cursor-pointer">
+                Responder
+              </span>
+              */}
+                </div>
+              </div>
+            ))}
+            <span
+              className="text-xs font-medium text-grisSubText"
+              onClick={() => setShowComments(0)}
+            >
+              Ver Menos
             </span>
-            <span className="text-xs font-medium text-grisSubText hover:cursor-pointer">
-              Responder
-            </span>
-          </div>
-        </div>
+          </>
+        )}
         <div>
           <div>
-            <Input
-              type="text"
-              name="comment"
-              placeholder="Add a comment..."
-              className="border-0 bg-inherit text-sm font-normal text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-            />
+            <Form action={`/topics/${id}`} method="post">
+              <input type="hidden" name="topic" value={topicId} />
+              <input type="hidden" name="type" value={2} />
+              <Input
+                type="text"
+                name="comment"
+                placeholder="Add a comment..."
+                className="border-0 bg-inherit text-sm font-normal text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+            </Form>
           </div>
         </div>
       </div>

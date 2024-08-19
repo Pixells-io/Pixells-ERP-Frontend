@@ -5,11 +5,11 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import Publication from "./Components/Publication";
 import Categories from "./Components/Categories";
 import { useLoaderData, useLocation, useParams } from "react-router-dom";
-import { getTopics } from "./utils";
+import { getTopics, storeComment, storeLike, storeLikeComment } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 
 function MainTopics() {
-  const { categories, topics } = useLoaderData();
+  const { categories, topics, analytic } = useLoaderData();
   const location = useLocation();
   const { id } = useParams();
 
@@ -29,9 +29,7 @@ function MainTopics() {
     async function getTopicsArray(category) {
       let newData = await getTopics(category);
 
-      console.log(newData, "New Data");
       setTopicsData(newData);
-      console.log(topicsData, "Topic Data");
     }
 
     return () => {
@@ -78,9 +76,26 @@ function MainTopics() {
           ))}
         </div>
       </div>
-      <Categories categories={categories.data} />
+      <Categories categories={categories.data} analytic={analytic.data} />
     </div>
   );
 }
 
 export default MainTopics;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type")) {
+    case "1":
+      await storeLike(data);
+      break;
+    case "2":
+      await storeComment(data);
+      break;
+    case "3":
+      await storeLikeComment(data);
+      break;
+  }
+  return "1";
+}
