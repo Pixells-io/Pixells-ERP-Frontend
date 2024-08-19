@@ -22,7 +22,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
     "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
   return (
     <div className="flex justify-between">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid w-full grid-cols-2 gap-4">
         <div className="space-y-4">
           <div className="flex w-full items-center space-x-4">
             <Label

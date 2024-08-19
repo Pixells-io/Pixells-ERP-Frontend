@@ -20,7 +20,7 @@ const InputsGroup = ({ initialValues }) => {
   };
 
   const commonStyle =
-    "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones";
+    "w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="grid grid-cols-3 gap-4 bg-white p-4">
@@ -31,8 +31,8 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="Código de Cliente"
           value={values?.clientNumber}
           onChange={handleInputChange}
-          className={commonStyle}
-        />
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          />
       </div>
       <div>
         <Select
@@ -55,8 +55,8 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="Nombre o razón social"
           value={values.socialNumber}
           onChange={handleInputChange}
-          className={commonStyle}
-        />
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          />
       </div>
       <div>
         <Input
@@ -65,8 +65,8 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="RFC"
           value={values.rfc}
           onChange={handleInputChange}
-          className={commonStyle}
-        />
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          />
       </div>
       <div>
         <Select
