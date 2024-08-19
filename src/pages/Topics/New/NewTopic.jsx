@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 import { useDropzone } from "react-dropzone";
 
@@ -18,6 +18,13 @@ import StepThree from "./Steps/StepThree";
 function NewTopic({ modal, setModal, functionModal, categories, user }) {
   const [stepped, setStepped] = useState(1);
   const [files, setFiles] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
 
   const { getRootProps, getInputProps, acceptedFiles, inputRef } = useDropzone({
     onDrop: (acceptedFiles) => {

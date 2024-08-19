@@ -61,7 +61,7 @@ function StepOne({ setStepped, category, user }) {
             </SelectTrigger>
             <SelectContent>
               {category.map((cat, i) => (
-                <SelectItem key={cat.id} value={cat.id}>
+                <SelectItem key={cat.id} value={cat.id.toString()}>
                   {cat.name}
                 </SelectItem>
               ))}
