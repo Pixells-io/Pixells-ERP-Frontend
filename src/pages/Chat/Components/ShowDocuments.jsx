@@ -26,8 +26,8 @@ function ShowDocuments({ modal, setModal, doc }) {
       className="overlay fixed inset-0 z-50 flex flex-col justify-between bg-[#F2F2F2] bg-opacity-90"
       onClick={handleOverlayClick}
     >
-      <div className="overlay flex h-1/5 items-center justify-end px-10">
-        <div className="flex gap-x-4">
+      <div className="overlay flex h-1/5 items-center justify-end px-2 md:px-10">
+        <div className="flex flex-wrap gap-4">
           <button className="rounded-3xl border-[1px] border-[#44444F] bg-inherit px-5 py-1 text-xs font-light text-[#44444F]">
             Reenviar
           </button>

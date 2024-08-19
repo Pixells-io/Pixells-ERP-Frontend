@@ -65,18 +65,17 @@ function FormNewChat({ users }) {
           action="/chat"
           method="post"
         >
-          <input type="hidden" name="type_of_function" value={2} />
+          <input
+            type="hidden"
+            name="type_of_function"
+            value={2}
+            hidden
+            readOnly
+          />
           <div className="flex justify-center">
             <DropzoneImage name={"group_image"} />
           </div>
-          <div className="">
-            <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
-          </div>
-          {/* <SelectMultiple
-              name={"users"}
-              options={selectUsers}
-              placeholder={"Seleccionar Usuarios"}
-            /> */}
+          <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
           <SelectRouter
             name="users"
             options={selectUsers}

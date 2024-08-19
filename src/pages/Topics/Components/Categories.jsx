@@ -73,7 +73,7 @@ const allCategories = [
     name: "Example13",
   },
 ];
-function Categories({ categories }) {
+function Categories({ categories, analytic }) {
   return (
     <div className="flex min-w-[230px] flex-col gap-y-6 overflow-auto rounded-md bg-blancoForms pb-2 pl-4 pr-1 pt-4">
       <h2 className="font-poppins text-xl font-semibold text-grisHeading">
@@ -143,20 +143,19 @@ function Categories({ categories }) {
             <label className="text-xs font-medium text-grisText">Created</label>
             .
             <label className="text-xs font-medium text-grisText">
-              12 Jan 2024
+              {analytic.ultimate_date}
             </label>
           </div>
           <div className="flex gap-x-2">
-            <img
-              src={"https://picsum.photos/id/237/200/300"}
-              className="h-5 w-5 rounded-full"
-            />
+            <img src={analytic.img} className="h-5 w-5 rounded-full" />
             <span className="text-xs font-medium text-grisText">
-              Don Formularo
+              {analytic.user}
             </span>
           </div>
           <div>
-            <label className="text-xs font-medium text-grisText">1 Post</label>
+            <label className="text-xs font-medium text-grisText">
+              {analytic.count_topics} Post
+            </label>
           </div>
         </div>
       </div>
