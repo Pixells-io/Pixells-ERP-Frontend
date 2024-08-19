@@ -28,21 +28,19 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
           setSelect3Value(value);
           break;
         default:
-          console.warn('Nombre no reconocido');
           break;
       }
     }
   };
 
-  const selectTriggerClass = "flex rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones";
-  const selectContentClass = "border border-gris2-transparent bg-white";
+  const selectTriggerClass = "flex rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex space-x-3 justify-center items-center">
         <Input 
           name="list"
-          className="flex rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+          className="flex rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           placeholder="Lista de precios"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -58,7 +56,7 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
           <SelectTrigger className={selectTriggerClass}>
             <SelectValue placeholder="Usuario" />
           </SelectTrigger>
-          <SelectContent className={selectContentClass}>
+          <SelectContent>
             <SelectGroup>
               <SelectItem value="opcion1">usuario 1</SelectItem>
               <SelectItem value="opcion2">usuario 2</SelectItem>
@@ -76,7 +74,7 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
           <SelectTrigger className={selectTriggerClass}>
             <SelectValue placeholder="Centro de Costos" />
           </SelectTrigger>
-          <SelectContent className={selectContentClass}>
+          <SelectContent >
             <SelectGroup>
               <SelectItem value="opcion1">Centro de costos 1</SelectItem>
               <SelectItem value="opcion2">Centro de costos 2</SelectItem>
@@ -94,7 +92,7 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
           <SelectTrigger className={selectTriggerClass}>
             <SelectValue placeholder="Almacén" />
           </SelectTrigger>
-          <SelectContent className={selectContentClass}>
+          <SelectContent>
             <SelectGroup>
               <SelectItem value="opcion1">Almacen Norte</SelectItem>
               <SelectItem value="opcion2">Almacen Sur</SelectItem>
