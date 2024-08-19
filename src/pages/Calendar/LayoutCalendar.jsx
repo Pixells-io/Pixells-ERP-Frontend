@@ -62,7 +62,7 @@ function LayoutCalendar() {
             ></IonIcon>
             <div>
               <span className="text-roboto text-base font-medium text-grisText">
-                Agregar
+                Add Meet
               </span>
             </div>
           </button>
