@@ -22,9 +22,7 @@ const MENU_ITEMS = [
     subname: "de Compras", 
     icon: cube,
     subRoutes: [
-      "/shopping/invoices-orders/create",
-      "/shopping/invoices-orders/edit/",
-      "/shopping/document/factura"
+      "/shopping/invoices-orders/"
     ]
   },
   { 
@@ -33,9 +31,7 @@ const MENU_ITEMS = [
     subname: "General", 
     icon: cube,
     subRoutes: [
-      "/shopping/request-orders/create",
-      "/shopping/request-orders/edit/",
-      "/shopping/document/pedido"
+      "/shopping/request-orders/"
     ]
   },
   { 
@@ -43,9 +39,7 @@ const MENU_ITEMS = [
     name: "Ordenes", 
     subname: "De Compra", 
     icon: cube,
-    subRoutes: ["/shopping/purchase/create",
-      "/shopping/purchase/edit/",
-      "/shopping/document/orden"
+    subRoutes: ["/shopping/purchase/"
     ]
   },
   { 
@@ -53,9 +47,7 @@ const MENU_ITEMS = [
     name: "Cotizaciones", 
     subname: "De Compra", 
     icon: cube,
-    subRoutes: ["/shopping/quotes-orders/create",
-      "/shopping/quotes-orders/edit/",
-      "/shopping/document/cotizacion"
+    subRoutes: ["/shopping/quotes-orders/"
     ]
   },
   

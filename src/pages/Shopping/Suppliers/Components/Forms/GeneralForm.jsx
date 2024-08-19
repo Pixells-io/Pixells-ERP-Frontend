@@ -19,18 +19,15 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
   };
 
   const inputClass =
-    "rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
-  const selectClass =
-    "rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
-
+    "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
   return (
     <div className="flex justify-between">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-4">
-          <div className="flex items-center space-x-4">
+          <div className="flex w-full items-center space-x-4">
             <Label
               htmlFor="calle"
-              className="w-32 font-roboto text-sm text-grisText"
+               className="w-full font-roboto text-[14px] text-gris2"
             >
               Calle:
             </Label>
@@ -44,7 +41,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="colonia"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Colonia:
             </Label>
@@ -58,7 +55,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="estado"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Estado:
             </Label>
@@ -72,7 +69,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="encargadoCompras"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-32 font-roboto text-[14px] text-gris2"
             >
               Encargado de Compras:
             </Label>
@@ -80,7 +77,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               name="encargadoCompras"
               placeholder="Selecciona"
               value={generalData.encargadoCompras}
-              onChange={(value) =>
+              onValueChange={(value) =>
                 handleSelectChange(value, "encargadoCompras")
               }
               options={[
@@ -88,12 +85,13 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
                 { value: "maria", label: "María Gómez" },
                 { value: "carlos", label: "Carlos Rodríguez" },
               ]}
+              className="flex-grow min-w-[200px]"
             />
           </div>
           <div className="flex items-start space-x-4">
             <Label
               htmlFor="activo"
-              className="w-32 font-roboto text-sm text-grisText"
+               className="w-full font-roboto text-[14px] text-gris2"
             >
               Activo
             </Label>
@@ -107,7 +105,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="inactivo"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Inactivo
             </Label>
@@ -122,7 +120,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4 space-y-4">
             <Label
               htmlFor="desde"
-              className="w-32 font-roboto text-sm text-grisText"
+             className="w-full font-roboto text-[14px] text-gris2"
             >
               Desde:
             </Label>
@@ -142,7 +140,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="numeroInterno"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Número Interno:
             </Label>
@@ -156,7 +154,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="codigoPostal"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Código Postal:
             </Label>
@@ -170,7 +168,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="pais"
-              className="w-32 font-roboto text-sm text-grisText"
+             className="w-full font-roboto text-[14px] text-gris2"
             >
               País:
             </Label>
@@ -184,7 +182,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4">
             <Label
               htmlFor="comentarios"
-              className="w-32 font-roboto text-sm text-grisText"
+              className="w-full font-roboto text-[14px] text-gris2"
             >
               Comentarios:
             </Label>
@@ -201,7 +199,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           <div className="flex items-center space-x-4 space-y-4 pt-4">
             <Label
               htmlFor="hasta"
-              className="w-32 pt-4 font-roboto text-sm text-grisText"
+               className="w-full font-roboto text-[14px] text-gris2"
             >
               Hasta:
             </Label>
@@ -222,7 +220,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
         <div className="flex items-center space-x-4">
           <Label
             htmlFor="numeroExterior"
-            className="w-32 font-roboto text-sm text-grisText"
+           className="w-full font-roboto text-[14px] text-gris2"
           >
             Número Exterior:
           </Label>
@@ -236,7 +234,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
         <div className="flex items-center space-x-4">
           <Label
             htmlFor="ciudad"
-            className="w-32 font-roboto text-sm text-grisText"
+            className="w-full font-roboto text-[14px] text-gris2"
           >
             Ciudad:
           </Label>
