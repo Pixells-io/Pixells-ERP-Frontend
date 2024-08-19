@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
@@ -159,10 +158,15 @@ function MainGeneralFormula() {
             Formulas General
           </p>
           <Link to="/transformation/create">
-            <IonIcon
-              icon={addCircleOutline}
-              className="mt-5 h-7 w-7 text-blue-500"
-            ></IonIcon>
+          <Button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                className="h-7 w-7 text-primarioBotones"
+              />
+            </Button>
           </Link>
         </div>
 

@@ -104,13 +104,17 @@ const MainGW = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center">
+        <Button
+          type="button"
+          className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+        >
           <IonIcon
             icon={informationCircle}
-            size="large"
-            className="text-gris2"
+            className="h-5 w-5 text-[#696974]"
           />
-        </div>
+        </Button>
+      </div>
       ),
     },
   ];
@@ -160,11 +164,11 @@ const MainGW = () => {
           <Link to="/inventory/general-warehouses/create">
           <Button
               type="button"
-              className="flex mt-4 h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                className=" h-7 w-7 text-primarioBotones"
+                className="h-7 w-7 text-primarioBotones"
               />
             </Button>
           </Link>

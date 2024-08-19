@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
@@ -102,10 +103,10 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Numero Artículo",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`article-number-${rowIndex}`}
             value={row?.articleNumber}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             type="number"
             onChange={(e) =>
               handleInputChange(rowIndex, "articleNumber", e.target.value)
@@ -118,10 +119,10 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`description-${rowIndex}`}
             value={row.description}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             type="text"
             onChange={(e) =>
               handleInputChange(rowIndex, "description", e.target.value)
@@ -140,10 +141,10 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className={`w-[100px] border-none ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
+            className={`w-[100px] border-none bg-inherit p-1 focus-visible:ring-primarioBotones ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             onChange={(e) =>
               handleInputChange(rowIndex, "receivedQuantity", e.target.value)
             }
@@ -156,10 +157,10 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none"
+            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
-            placeholder="ingrese"
+            placeholder="Ingrese"
             onChange={(e) =>
               handleInputChange(rowIndex, "unitPrice", e.target.value)
             }
@@ -178,11 +179,11 @@ const TableForm = ({ tableData, setTableData }) => {
           <div className="flex items-center justify-between gap-x-2">
             <Select
               name={"selectComponent-ubication-" + rowIndex}
-              className="h-10 w-[100px]"
+              className="h-10 w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
             >
-              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Ubicación" />
               </SelectTrigger>
               <SelectContent>
@@ -258,19 +259,33 @@ const TableForm = ({ tableData, setTableData }) => {
           className="cursor-pointer text-primario"
           onClick={handleAddRow}
         />
-        <div className="flex items-center">
-          <IonIcon
-            icon={chevronBack}
+       <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className={`mr-2 ${currentPage !== 1 ? "text-primario" : "text-grisText"} ${currentPage !== 1 && "hover:cursor-pointer"}`}
-          />
-          <IonIcon
-            icon={chevronForward}
+            className="mr-2 rounded-full bg-transparent p-1"
+          >
+            <IonIcon
+              icon={chevronBack}
+              size="small"
+              className="text-primarioBotones"
+            />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className={`ml-2 ${currentPage === totalPages ? "text-grisText" : "text-primario"} ${currentPage !== totalPages && "hover:cursor-pointer"}`}
-          />
+            className="ml-2 rounded-full bg-transparent p-1"
+          >
+            <IonIcon
+              icon={chevronForward}
+              size="small"
+              className="text-primarioBotones"
+            />
+          </Button>
         </div>
       </div>
     </div>

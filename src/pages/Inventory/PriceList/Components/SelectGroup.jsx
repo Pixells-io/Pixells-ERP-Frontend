@@ -53,16 +53,16 @@ const Inputs = ({ onRoundingChange, onIndRefChange }) => {
   };
 
   const selectClasses =
-    "w-full rounded-xl border border-gris2-transparent placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="flex w-full flex-row items-center space-x-4 rounded-xl bg-white p-4">
       <div className="flex-1">
-        <InputField
+        <Input
           type="text"
           name="namList"
           placeholder="Nombre"
-          className="w-full"
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           value={inputsData.namList}
           onChange={handleChange}
         />
@@ -87,7 +87,7 @@ const Inputs = ({ onRoundingChange, onIndRefChange }) => {
           type="number"
           name="indRef"
           placeholder="Indice Refact."
-          className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           value={inputsData.indRef}
           onChange={handleChange}
         />

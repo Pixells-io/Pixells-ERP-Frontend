@@ -104,12 +104,16 @@ const MainGeneral = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center justify-center">
-          <IonIcon
-            icon={informationCircle}
-            size="large"
-            className="text-gris2"
-          />
+        <div className="flex items-center">
+          <Button
+            type="button"
+            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+          >
+            <IonIcon
+              icon={informationCircle}
+              className="h-5 w-5 text-[#696974]"
+            />
+          </Button>
         </div>
       ),
     },
@@ -158,13 +162,13 @@ const MainGeneral = () => {
             Artículos general
           </p>
           <Link to="/inventory/create">
-          <Button
+            <Button
               type="button"
-              className="flex mt-4 h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                className=" h-7 w-7 text-primarioBotones"
+                className="h-7 w-7 text-primarioBotones"
               />
             </Button>
           </Link>

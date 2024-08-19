@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import InputField from "@/layouts/Masters/FormComponents/InputField";
+import { Input } from "@/components/ui/input";
 
 const DataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +46,7 @@ const DataTable = ({ data }) => {
             <TableRow key={`${item.nombre}-${index}`}>
               <TableCell>{item.nombre}</TableCell>
               <TableCell>
-                <InputField
+                <Input
                   name={`codcuenta-${index}`}
                   value={item.codigoCuenta}
                   onChange={(e) =>
@@ -57,10 +57,11 @@ const DataTable = ({ data }) => {
                     )
                   }
                   placeholder={"ingresa"}
+                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
-                <InputField
+                <Input
                   name={`nomcuenta-${index}`}
                   value={item.nombreCuenta}
                   onChange={(e) =>
@@ -71,6 +72,7 @@ const DataTable = ({ data }) => {
                     )
                   }
                   placeholder={"ingresa"}
+                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
             </TableRow>

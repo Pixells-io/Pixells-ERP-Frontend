@@ -164,15 +164,15 @@ function MainMerchandiseMovements() {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Button
-                  type="button"
-                  className="mt-4 flex h-7 w-7 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-                >
-                  <IonIcon
-                    icon={addCircleOutline}
-                    className="h-7 w-7 text-primarioBotones"
-                  />
-                </Button>
+              <Button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={addCircleOutline}
+                className="h-7 w-7 text-primarioBotones"
+              />
+            </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem className="hover:cursor-pointer focus:bg-hoverModal">
