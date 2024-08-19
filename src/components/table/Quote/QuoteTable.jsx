@@ -15,7 +15,7 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   calculateTotal,
@@ -45,7 +45,7 @@ const QuoteTable = ({
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    if (location.pathname.includes('edit')) {
+    if (location.pathname.includes("edit")) {
       setTableData(initialItems.length > 0 ? initialItems : [initialRow]);
     } else {
       setTableData([initialRow]);
@@ -103,7 +103,6 @@ const QuoteTable = ({
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
               <TableHead>Total</TableHead>
-              <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -129,28 +128,30 @@ const QuoteTable = ({
                     />
                   </TableCell>
                 ))}
-                <TableCell>{calculateTotal(row).toFixed(2)}</TableCell>
                 <TableCell>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() =>
-                      isEditable &&
-                      handleDeleteRow(
-                        (currentPage - 1) * itemsPerPage + rowIndex,
-                        setTableData,
-                        tableData,
-                      )
-                    }
-                    disabled={tableData.length === 1 || !isEditable}
-                    className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-grisText hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-grisText focus:ring-opacity-50 active:bg-grisText active:bg-opacity-20"
-                  >
-                    <IonIcon
-                      icon={closeCircle}
-                      size="small"
-                      className="hover:text-grisText-dark active:text-grisText-darker text-grisText transition-colors duration-300"
-                    />
-                  </Button>
+                  <div className="flex items-center justify-between gap-x-2">
+                    ${calculateTotal(row).toFixed(2)}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() =>
+                        isEditable &&
+                        handleDeleteRow(
+                          (currentPage - 1) * itemsPerPage + rowIndex,
+                          setTableData,
+                          tableData,
+                        )
+                      }
+                      disabled={tableData.length === 1 || !isEditable}
+                      className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
+                    >
+                      <IonIcon
+                        icon={closeCircle}
+                        size="small"
+                        className="cursor-pointer text-grisDisabled"
+                      />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

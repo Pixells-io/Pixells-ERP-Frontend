@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from "react";
+import React, { useMemo, useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,10 +8,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IonIcon } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
+import {
+  addCircleOutline,
+  closeCircle,
+  removeCircleOutline,
+} from "ionicons/icons";
 import { useParams } from "react-router-dom";
+import ModalItemGranel from "../Modal/ModalItemGranel";
 
 const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
+  const [modalItemGranel, setModalItemGranel] = useState(false);
+  const [productSelect, setProductSelect] = useState({});
+  const [indexProductSelect, setIndexProductSelec] = useState(null);
+
   const tablePosRef = useRef(null);
   const { id } = useParams();
 
@@ -34,6 +43,58 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
     event.stopPropagation();
     const updateProducts = tableData.filter((_, index_p) => index_p !== index);
     localStorage.setItem("products-" + id, JSON.stringify(updateProducts));
+    setProducts(updateProducts);
+  };
+
+  const incrementProduct = (event, index) => {
+    event.stopPropagation();
+    const updateProducts = tableData.map((product, index_p) => {
+      if (index_p == index) {
+        return {
+          ...product,
+          quantity: product.quantity + 1,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
+  const decrementProduct = (event, index) => {
+    event.stopPropagation();
+    const updateProducts = tableData.map((product, index_p) => {
+      if (index_p == index && product.quantity > 1) {
+        return {
+          ...product,
+          quantity: product.quantity - 1,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
+  const openModalGranel = (event, index, isGranel, isSelected) => {
+    if (!isGranel || !isSelected) {
+      return;
+    } else {
+      event.stopPropagation();
+      setIndexProductSelec(index);
+      let productFind = tableData.find((product, index_p) => index_p == index);
+      setProductSelect(productFind);
+      setModalItemGranel(true);
+    }
+  };
+
+  const editProductGranel = (newProduct) => {
+    const updateProducts = tableData.map((product, index_p) => {
+      if (index_p == indexProductSelect) {
+        return {
+          ...newProduct,
+        };
+      }
+      return product;
+    });
     setProducts(updateProducts);
   };
 
@@ -88,8 +149,42 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         id: "quantity",
         header: "CANTIDAD",
         accessorKey: "quantity",
-        cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.quantity}</p>
+        cell: ({ row, rowIndex }) => (
+          <div className="flex w-fit min-w-[120px] items-center justify-center gap-x-2">
+            {row?.isSelected && !row?.isGranel && (
+              <button
+                type="button"
+                onClick={(event) => decrementProduct(event, rowIndex)}
+                className="flex"
+              >
+                <IonIcon
+                  icon={removeCircleOutline}
+                  className="h-7 w-7 cursor-pointer text-[#5B89FF]"
+                ></IonIcon>
+              </button>
+            )}
+
+            <p
+              onClick={(event) =>
+                openModalGranel(event, rowIndex, row?.isGranel, row?.isSelected)
+              }
+              className="min-w-12 rounded-3xl border border-[#44444F] py-0.5 text-center text-xs font-light text-[#44444F] hover:cursor-pointer"
+            >
+              {row?.quantity}
+            </p>
+            {row?.isSelected && !row?.isGranel && (
+              <button
+                type="button"
+                onClick={(event) => incrementProduct(event, rowIndex)}
+                className="flex"
+              >
+                <IonIcon
+                  icon={addCircleOutline}
+                  className="h-7 w-7 cursor-pointer text-[#5B89FF]"
+                ></IonIcon>
+              </button>
+            )}
+          </div>
         ),
       },
       {
@@ -140,7 +235,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         ),
       },
     ],
-    [deleteProduct],
+    [deleteProduct, incrementProduct, decrementProduct],
   );
 
   const selectedRow = (index) => {
@@ -161,6 +256,12 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
       ref={tablePosRef}
       className="h-full overflow-auto rounded bg-[#FFFFFF] px-2"
     >
+      <ModalItemGranel
+        modal={modalItemGranel}
+        setModal={setModalItemGranel}
+        functionModal={editProductGranel}
+        product={productSelect}
+      />
       <Table>
         <TableHeader>
           <TableRow className="border-b-2 border-b-primario">

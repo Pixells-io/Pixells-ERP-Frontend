@@ -16,7 +16,7 @@ const InputsGroup = ({ fields, initialValues }) => {
     setValues({ ...values, [name]: value });
   };
 
-  const selectStyle = "w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones";
+  const selectStyle = "w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="w-full bg-white rounded-xl p-4">
@@ -27,7 +27,7 @@ const InputsGroup = ({ fields, initialValues }) => {
               <div key={field.name}>
                 <Input
                   name={field.name}
-                  className="w-full rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+                  className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
                   placeholder={field.placeholder}
                   value={values[field.name]}
                   onChange={handleInputChange}

@@ -24,7 +24,7 @@ const InputsGroup = ({
     <div className="rounded-xl bg-white p-4">
       <div className="flex justify-between w-full space-x-4">
         <Input 
-          className="rounded-lg focus-visible:ring-2 focus-visible:ring-primario focus-visible:ring-offset-2 focus-visible:outline-none"
+          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           placeholder="Número de Documento"
           type="text"
           name="ndocument"
@@ -37,7 +37,7 @@ const InputsGroup = ({
           onValueChange={handleWarehouseChange} 
           disabled={!isEditable} 
         >
-          <SelectTrigger name="warehouse" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
+          <SelectTrigger name="warehouse" className="w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
@@ -48,10 +48,10 @@ const InputsGroup = ({
         </Select>
         <Select 
           value={selectedCostCenter} 
-          onValueChange={handleCostCenterChange} // Ensure onValueChange is always defined
+          onValueChange={handleCostCenterChange} 
           disabled={!isEditable}
         >
-          <SelectTrigger name="ccenter" className="rounded-lg focus:ring-2 focus:ring-primario focus:ring-offset-2 focus:outline-none">
+          <SelectTrigger name="ccenter" className="w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Centro de Costos" />
           </SelectTrigger>
           <SelectContent>

@@ -80,7 +80,7 @@ const CreateCustomer = () => {
 
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            COMPRAS
+            VENTAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -101,12 +101,11 @@ const CreateCustomer = () => {
                 size="icon"
                 className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
-                <IonIcon
-                  icon={closeCircle}
-                  size="large"
-                  className="bg-trasparent p-1 text-gris2"
-                  aria-hidden="true"
-                />
+                 <IonIcon
+                icon={closeCircle}
+                size="small"
+                className="cursor-pointer text-grisDisabled"
+              />
               </Button>
             </Link>
           </div>
