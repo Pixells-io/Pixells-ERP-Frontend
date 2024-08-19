@@ -352,7 +352,7 @@ import FormulaRecords from "./pages/Transformation/GeneralFormula/Records/Formul
 import SideLayoutTopics, {
   Action as NewTopicFunction,
 } from "./layouts/Topics/SideLayoutTopics";
-import MainTopics from "./pages/Topics/MainTopics";
+import MainTopics, { Action as ActionTopic } from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
 import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
@@ -1191,6 +1191,7 @@ const router = createBrowserRouter([
           {
             path: "/topics/:id",
             element: <MainTopics />,
+            action: ActionTopic,
             loader: multiLoaderTopics,
           },
         ],
@@ -1206,10 +1207,11 @@ const router = createBrowserRouter([
           {
             path: "/pos/:id",
             element: <MainPos />,
-            children:[{
-              index: true,
-              element: <ProductsPos />
-            }
+            children: [
+              {
+                index: true,
+                element: <ProductsPos />,
+              },
             ],
           },
         ],
