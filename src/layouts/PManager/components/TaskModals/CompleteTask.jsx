@@ -88,9 +88,7 @@ function CompleteTask({
               disabled={navigation.state === "submitting"}
               className="w-full rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold hover:bg-primario"
             >
-              {navigation.state === "submitting"
-                ? "Submitting..."
-                : "Completar"}
+              {navigation.state === "submitting" ? "Submitting..." : "Complete"}
             </Button>
           </DialogFooter>
         </Form>

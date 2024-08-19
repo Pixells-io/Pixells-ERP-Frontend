@@ -35,15 +35,15 @@ import ProjectDestroy from "./components/ProjectDestroy";
 import EditTask from "./components/Modal/EditTask";
 
 const HEADERS = [
-  { name: "FCE" },
-  { name: "ACTIVIDAD" },
-  { name: "TIPO" },
-  { name: "PROGRESO" },
-  { name: "VENCIMIENTO" },
-  { name: "RESPONSABLE" },
-  { name: "ESTADO" },
-  { name: "CREADO" },
-  { name: "ACCIONES" },
+  { name: "CSF" },
+  { name: "ACTIVITY" },
+  { name: "TYPE" },
+  { name: "PROGRESS" },
+  { name: "EXPIRATION" },
+  { name: "RESPONSIBLE" },
+  { name: "STATE" },
+  { name: "CREATED" },
+  { name: "ACTIONS" },
 ];
 
 const PRIORITY = [
@@ -171,9 +171,9 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
           <div
             key={i}
             className={
-              header?.name === "ACTIVIDAD"
+              header?.name === "ACTIVITY"
                 ? "col-span-2"
-                : "" || header?.name === "FCE"
+                : "" || header?.name === "CSF"
                   ? "pl-2 text-left"
                   : "pl-4 text-center"
             }
@@ -197,7 +197,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
               <input
                 type="text"
                 name="csf"
-                placeholder="+ FACTOR CRÍTICO DE ÉXITO"
+                placeholder="+ CRITICAL SUCCESS FACTOR"
                 className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
                 value={csfInput}
                 onChange={(e) => setCsfInput(e.target.value)}
@@ -231,7 +231,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                   <DropdownMenuItem
                     onClick={() => setInputActive(!inputActive)}
                   >
-                    Editar
+                    Edit
                   </DropdownMenuItem>
                 ) : (
                   false
@@ -243,7 +243,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       setCsfModal(true);
                     }}
                   >
-                    Borrar
+                    Delete
                   </DropdownMenuItem>
                 ) : (
                   false

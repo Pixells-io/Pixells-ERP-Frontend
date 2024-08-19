@@ -136,10 +136,10 @@ function EditShowTask({
                     <SelectValue placeholder={priorityInputLabel} />
                   </SelectTrigger>
                   <SelectContent className="text-grisHeading">
-                    <SelectItem value="1">Baja</SelectItem>
-                    <SelectItem value="2">Media</SelectItem>
-                    <SelectItem value="3">Importante</SelectItem>
-                    <SelectItem value="4">Urgente</SelectItem>
+                    <SelectItem value="1">Low</SelectItem>
+                    <SelectItem value="2">Average</SelectItem>
+                    <SelectItem value="3">Important</SelectItem>
+                    <SelectItem value="4">Urgent</SelectItem>
                   </SelectContent>
                 </Select>
               </Label>
@@ -165,7 +165,7 @@ function EditShowTask({
                 disabled={navigation.state === "submitting"}
                 className="justify-normal rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold"
               >
-                {navigation.state === "submitting" ? "Submitting..." : "Editar"}
+                {navigation.state === "submitting" ? "Submitting..." : "Edit"}
               </Button>
             )}
           </DialogFooter>

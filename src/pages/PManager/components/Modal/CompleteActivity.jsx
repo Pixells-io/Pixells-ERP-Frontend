@@ -29,9 +29,9 @@ function CompleteActivity({ task_id, action, task, actionRoute }) {
       </DialogTrigger>
       <DialogContent className="max-w-[350px]">
         <DialogHeader>
-          <DialogTitle>Completar Actividad?</DialogTitle>
+          <DialogTitle>Complete Activity?</DialogTitle>
           <DialogDescription className="pt-1">
-            Completar {task?.name}
+            Complete {task?.name}
           </DialogDescription>
         </DialogHeader>
         <Form id="complete-activity" method="POST" action={actionRoute}>
@@ -62,9 +62,7 @@ function CompleteActivity({ task_id, action, task, actionRoute }) {
               disabled={navigation.state === "submitting"}
               className="hover:primarioBotones rounded-lg bg-primarioBotones px-6 py-2 font-roboto text-xs font-semibold hover:bg-primario"
             >
-              {navigation.state === "submitting"
-                ? "Submitting..."
-                : "Completar"}
+              {navigation.state === "submitting" ? "Submitting..." : "Complete"}
             </Button>
           </DialogFooter>
         </Form>

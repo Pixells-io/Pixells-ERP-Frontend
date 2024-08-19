@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 
 import { IonIcon } from "@ionic/react";
-import { personOutline, repeatOutline } from "ionicons/icons";
+import { repeatOutline } from "ionicons/icons";
+
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import DatePicker from "@/components/date-picker";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
@@ -64,7 +64,7 @@ function TaskForm({ users, csfId }) {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="flex flex-col gap-6">
-            <DialogTitle>Agregar Tarea</DialogTitle>
+            <DialogTitle>Add Task</DialogTitle>
           </DialogHeader>
 
           <Form
@@ -83,7 +83,7 @@ function TaskForm({ users, csfId }) {
                     : "cursor-pointer rounded-lg bg-gris px-3 py-2 text-[10px] font-light text-grisSubText"
                 }
               >
-                Tarea
+                Task
               </div>
               <div
                 onClick={() => setSelectTaskType("proyecto")}
@@ -93,7 +93,7 @@ function TaskForm({ users, csfId }) {
                     : "cursor-pointer rounded-lg bg-gris px-3 py-2 text-[10px] font-light text-grisSubText"
                 }
               >
-                Proyecto
+                Project
               </div>
               <Input
                 className="hidden"
@@ -112,17 +112,17 @@ function TaskForm({ users, csfId }) {
               <div className="col-span-2">
                 <label htmlFor="flex flex-col ">
                   <p className="pb-1 text-[11px] font-light text-grisHeading">
-                    Prioridad
+                    Priority
                   </p>
                   <Select name="priority">
                     <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                       <SelectValue placeholder="Prioridad" />
                     </SelectTrigger>
                     <SelectContent className="text-grisText">
-                      <SelectItem value="1">Baja</SelectItem>
-                      <SelectItem value="2">Media</SelectItem>
-                      <SelectItem value="3">Importante</SelectItem>
-                      <SelectItem value="4">Urgente</SelectItem>
+                      <SelectItem value="1">Low</SelectItem>
+                      <SelectItem value="2">Average</SelectItem>
+                      <SelectItem value="3">Important</SelectItem>
+                      <SelectItem value="4">Urgent</SelectItem>
                     </SelectContent>
                   </Select>
                 </label>
@@ -141,7 +141,7 @@ function TaskForm({ users, csfId }) {
                   <InputRouter
                     type="textarea"
                     name="description"
-                    placeholder="Descripción"
+                    placeholder="Description"
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ function TaskForm({ users, csfId }) {
                 <div className="col-span-4">
                   <SelectRouter
                     name="userId"
-                    placeholder={"Responsable"}
+                    placeholder={"Responsible"}
                     options={arrayUsers}
                   />
                 </div>
@@ -165,12 +165,12 @@ function TaskForm({ users, csfId }) {
                   <SelectTrigger className="col-span-2 rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                     <div className="flex items-center gap-2">
                       <IonIcon className="" icon={repeatOutline}></IonIcon>
-                      <SelectValue placeholder="Repetición" />
+                      <SelectValue placeholder="Repetition" />
                     </div>
                   </SelectTrigger>
                   <SelectContent className="text-grisText">
                     <SelectItem value="0">No</SelectItem>
-                    <SelectItem value="1">Si</SelectItem>
+                    <SelectItem value="1">Yes</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -189,7 +189,7 @@ function TaskForm({ users, csfId }) {
                       <InputRouter
                         type="textarea"
                         name="description"
-                        placeholder="Descripción"
+                        placeholder="Description"
                       />
                     </div>
                   </>
@@ -208,7 +208,7 @@ function TaskForm({ users, csfId }) {
                       <SelectTrigger className="col-span-4 rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                         <div className="flex items-center gap-2">
                           <SelectValue
-                            placeholder="¿Cada cuanto se repite?"
+                            placeholder="How often is it repeated?"
                             className="placeholder:text-[10px]"
                           />
                         </div>
@@ -225,7 +225,7 @@ function TaskForm({ users, csfId }) {
                       <InputRouter
                         type="textarea"
                         name="description"
-                        placeholder="Descripción"
+                        placeholder="Description"
                       />
                       {/* <Textarea
                         name="description"
@@ -247,9 +247,7 @@ function TaskForm({ users, csfId }) {
                 type="submit"
                 disabled={navigation.state === "submitting"}
               >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Guardar"}
+                {navigation.state === "submitting" ? "Submitting..." : "Save"}
               </Button>
             </DialogFooter>
           </Form>

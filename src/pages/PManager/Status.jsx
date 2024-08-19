@@ -65,7 +65,7 @@ function Status() {
             <div className="flex w-[320px] flex-col rounded-lg bg-grisBg">
               <div className="rounded-t-lg bg-[#D7586B]">
                 <p className="py-1 text-center text-sm font-bold text-[#F5F5F5]">
-                  VENCIDAS
+                  EXPIRED
                 </p>
               </div>
               <div className="overflow-scroll">
@@ -78,7 +78,7 @@ function Status() {
             <div className="flex w-[320px] flex-col rounded-lg bg-grisBg">
               <div className="rounded-t-lg bg-[#FAA364]">
                 <p className="py-1 text-center text-sm font-bold text-[#F5F5F5]">
-                  PENDIENTES
+                  PENDING
                 </p>
               </div>
               <div className="overflow-scroll">
@@ -91,7 +91,7 @@ function Status() {
             <div className="flex w-[320px] flex-col rounded-lg bg-grisBg">
               <div className="rounded-t-lg bg-[#00A259]">
                 <p className="py-1 text-center text-sm font-bold text-[#F5F5F5]">
-                  COMPLETADAS
+                  COMPLETED
                 </p>
               </div>
               <div className="overflow-scroll">

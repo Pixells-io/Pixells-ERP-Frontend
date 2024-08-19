@@ -64,7 +64,7 @@ function EditTask({ users, csfId, task }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-6">
-          <DialogTitle>Editar Tarea</DialogTitle>
+          <DialogTitle>Edit Task</DialogTitle>
         </DialogHeader>
 
         <Form
@@ -78,24 +78,24 @@ function EditTask({ users, csfId, task }) {
             <div className="col-span-4">
               <InputRouter
                 name="name"
-                placeholder="Título"
+                placeholder="Name"
                 defaultVal={task?.name}
               />
             </div>
             <div className="col-span-2">
               <label htmlFor="flex flex-col ">
                 <p className="pb-1 text-[11px] font-light text-grisHeading">
-                  Prioridad
+                  Priority
                 </p>
                 <Select name="priority" defaultValue={task.priority + ""}>
                   <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="text-grisText">
-                    <SelectItem value="1">Baja</SelectItem>
-                    <SelectItem value="2">Media</SelectItem>
-                    <SelectItem value="3">Importante</SelectItem>
-                    <SelectItem value="4">Urgente</SelectItem>
+                    <SelectItem value="1">Low</SelectItem>
+                    <SelectItem value="2">Average</SelectItem>
+                    <SelectItem value="3">Important</SelectItem>
+                    <SelectItem value="4">Urgent</SelectItem>
                   </SelectContent>
                 </Select>
               </label>
@@ -107,7 +107,7 @@ function EditTask({ users, csfId, task }) {
             <div className="col-span-4">
               <SelectRouter
                 name="userId"
-                placeholder={"Responsable"}
+                placeholder={"Responsible"}
                 options={arrayUsers}
                 defaultVal={userSelected}
               />
@@ -128,7 +128,7 @@ function EditTask({ users, csfId, task }) {
               </SelectTrigger>
               <SelectContent className="text-grisText">
                 <SelectItem value="0">No</SelectItem>
-                <SelectItem value="1">Si</SelectItem>
+                <SelectItem value="1">Yes</SelectItem>
               </SelectContent>
             </Select>
 
@@ -147,7 +147,7 @@ function EditTask({ users, csfId, task }) {
                   <InputRouter
                     type="textarea"
                     name="description"
-                    placeholder="Descripción"
+                    placeholder="Description"
                     defaultVal={task?.description}
                   />
                 </div>
@@ -167,7 +167,7 @@ function EditTask({ users, csfId, task }) {
                   <SelectTrigger className="col-span-4 rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                     <div className="flex items-center gap-2">
                       <SelectValue
-                        placeholder="¿Cada cuanto se repite?"
+                        placeholder="How often is it repeated?"
                         className="placeholder:text-[10px]"
                       />
                     </div>
@@ -184,7 +184,7 @@ function EditTask({ users, csfId, task }) {
                   <InputRouter
                     type="textarea"
                     name="description"
-                    placeholder="Descripción"
+                    placeholder="Description"
                     defaultVal={task?.description}
                   />
                 </div>
@@ -213,7 +213,7 @@ function EditTask({ users, csfId, task }) {
               type="submit"
               disabled={navigation.state === "submitting"}
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Editar"}
+              {navigation.state === "submitting" ? "Submitting..." : "Edit"}
             </Button>
           </DialogFooter>
         </Form>

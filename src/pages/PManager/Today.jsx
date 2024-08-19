@@ -47,13 +47,13 @@ function Today() {
               PROJECT MANAGER
             </h2>
           </div>
-          <div className="flex items-center gap-3 text-[#8F8F8F]">
+          {/* <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
+            <div className="text-xs">25 CSF</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">43 Activities</div>
-          </div>
+          </div> */}
         </div>
 
         {/* top content sub */}

@@ -112,7 +112,7 @@ function DayListActivityCard({ task, index }) {
           {task.reg === 1 ? (
             <div className="flex justify-between">
               <p className="font-poppins text-[10px] font-semibold text-grisHeading">
-                Nombre de la Tarea
+                Task Name
               </p>
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -154,7 +154,7 @@ function DayListActivityCard({ task, index }) {
           ) : (
             <div className="flex justify-between">
               <p className="font-poppins text-[10px] font-semibold text-grisHeading">
-                Nombre de la Actividad
+                Activity Name
               </p>
             </div>
           )}
@@ -189,11 +189,11 @@ function DayListActivityCard({ task, index }) {
           <div>
             {task?.progress === 1 ? (
               <span className="rounded-2xl border border-[#00A259] px-2 py-1 text-sm font-normal text-[#00A259]">
-                Completado
+                Completed
               </span>
             ) : (
               <span className="rounded-2xl border border-[#FAA364] px-2 py-1 text-sm font-normal text-[#FAA364]">
-                Pendiente
+                Pending
               </span>
             )}
           </div>

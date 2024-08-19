@@ -169,7 +169,7 @@ function ActivityKanbanCard({ task, actions }) {
           <>
             <IonIcon icon={listCircleOutline} className="h-5 w-5"></IonIcon>
             <p className="text-[12px] font-normal">
-              Proyecto: {task.description}
+              Project: {task.description}
             </p>
           </>
         ) : (

@@ -120,7 +120,7 @@ function SideLayoutPManager() {
         {/*bottom block */}
         <div className="flex h-full flex-col gap-4 rounded-md bg-gris px-4 py-8">
           <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
-            Objetivos Estratégicos
+            Strategic Objectives
           </p>
 
           <div className="flex w-full items-center justify-between gap-2 px-4">
@@ -164,7 +164,7 @@ function SideLayoutPManager() {
           </div>
 
           {/*menu top */}
-          <div className="flex max-h-[260px] flex-col gap-4 overflow-scroll">
+          <div className="flex max-h-[200px] flex-col gap-4 overflow-scroll">
             {objectivesData?.data?.map((objective, i) => (
               <ObjectiveLink key={i} objective={objective} areas={areas} />
             ))}
@@ -187,8 +187,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={megaphone} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Hoy</p>
-                  <p className="text-[10px] font-medium">Actividades</p>
+                  <p className="text-base font-medium">Today</p>
+                  <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>
             </NavLink>
@@ -204,8 +204,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Actividades</p>
-                  <p className="text-[10px] font-medium">Resumen</p>
+                  <p className="text-base font-medium">Activities</p>
+                  <p className="text-[10px] font-medium">Summary</p>
                 </div>
               </div>
             </NavLink>
@@ -221,8 +221,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={syncCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Estado</p>
-                  <p className="text-[10px] font-medium">Actividades</p>
+                  <p className="text-base font-medium">Status</p>
+                  <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>
             </NavLink>
@@ -238,8 +238,8 @@ function SideLayoutPManager() {
                 <IonIcon icon={listCircle} size="large"></IonIcon>
 
                 <div>
-                  <p className="text-base font-medium">Terminado</p>
-                  <p className="text-[10px] font-medium">Actividades</p>
+                  <p className="text-base font-medium">Completed</p>
+                  <p className="text-[10px] font-medium">Activities</p>
                 </div>
               </div>
             </NavLink>

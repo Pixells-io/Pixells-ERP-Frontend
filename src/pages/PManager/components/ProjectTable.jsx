@@ -42,7 +42,7 @@ import PhaseDestroy from "./PhaseDestroy";
 import AssignedMenu from "./AssignedMenu";
 
 const HEADERS = [
-  { name: "FASE" },
+  { name: "PHASE" },
   { name: "ACTIVITY" },
   { name: "ASSIGNED" },
   { name: "DURATION" },
@@ -137,7 +137,7 @@ function ProjectTable() {
           <input
             type="text"
             name="name"
-            placeholder="+ FASE"
+            placeholder="+ PHASE"
             className="flex w-full rounded-full bg-blancoBg px-4 py-2 font-roboto text-grisSubText caret-primario outline-none placeholder:text-sm placeholder:font-normal placeholder:text-grisSubText focus:border-2 focus:border-primario"
             value={faseInput}
             onChange={(e) => setFaseInput(e.target.value)}

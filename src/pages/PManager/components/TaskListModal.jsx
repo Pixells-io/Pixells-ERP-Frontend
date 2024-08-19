@@ -55,7 +55,7 @@ function TaskListModal({ modal, setModal, tasks }) {
         <DialogHeader className="px-8 py-4">
           <DialogTitle>
             <p className="text-center text-xs font-medium text-grisText">
-              Repeticiones de Actividad &bull; <br /> {tasks[0]?.name}
+              Activity Repetitions &bull; <br /> {tasks[0]?.name}
             </p>
           </DialogTitle>
         </DialogHeader>
