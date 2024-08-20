@@ -1,10 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { saveNewSuppliers } from "../utils";
 
 const CreateSupplier = () => {
   const [supplierValues, setSupplierValues] = useState({
@@ -124,10 +125,10 @@ const CreateSupplier = () => {
                 className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
                 <IonIcon
-                icon={closeCircle}
-                size="small"
-                className="cursor-pointer text-grisDisabled"
-              />
+                  icon={closeCircle}
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
+                />
               </Button>
             </Link>
           </div>
@@ -143,3 +144,11 @@ const CreateSupplier = () => {
 };
 
 export default CreateSupplier;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  await saveNewSuppliers(data);
+
+  return redirect(`/shopping`);
+}

@@ -321,7 +321,9 @@ import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
-import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import CreateSupplier, {
+  Action as createNewSupplier,
+} from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
@@ -373,6 +375,7 @@ import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
 import SavedTopics, {
   Action as SavedTopicsActions,
 } from "./layouts/MyProfile/SavedTopics";
+import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 
 const router = createBrowserRouter([
   {
@@ -1093,10 +1096,12 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainSupplier />,
+            loader: getSuppliers,
           },
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+            action: createNewSupplier,
           },
           {
             path: "/shopping/customer/create",
