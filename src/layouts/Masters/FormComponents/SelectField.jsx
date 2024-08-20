@@ -8,10 +8,9 @@ import {
 } from "@/components/ui/select";
 
 /**
- * SelectField with style in ring without 
+ * SelectField with style in ring without
  * border and background gray
  */
-const StyleSelect = "w-full rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
 function SelectField({ name, placeholder, options, value, onValueChange }) {
   // Handle value change
@@ -22,12 +21,8 @@ function SelectField({ name, placeholder, options, value, onValueChange }) {
   };
 
   return (
-    <Select
-      name={name}
-      value={value}
-      onValueChange={handleChange}
-    >
-      <SelectTrigger className={StyleSelect}>
+    <Select name={name} value={value} onValueChange={handleChange}>
+      <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

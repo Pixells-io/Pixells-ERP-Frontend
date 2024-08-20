@@ -20,6 +20,7 @@ import FormPaymentMethods from "./Modal/FormPaymentMethods";
 import StatusInformation from "../Components/StatusInformation/StatusInformation";
 import ModalConfirmation from "../Components/ModalConfirmation";
 import TableForm from "../Components/Table/TableForm";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function AddNewPayment() {
   const navigate = useNavigate();
@@ -191,11 +192,13 @@ function AddNewPayment() {
             <p className="flex items-center justify-center rounded-lg bg-[#F4F4F4] px-4 text-xs font-normal text-grisSubText">
               {dateNow}
             </p>
-            <SelectRouter
+            <div className="w-full pt-4">
+            <SelectField
               name="supplier"
               options={[]}
               placeholder="Proveedor"
             />
+            </div>
             <InputRouter
               name="register_accountName"
               type="text"

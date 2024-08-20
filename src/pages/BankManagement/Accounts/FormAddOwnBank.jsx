@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function FormAddOwnBank({ modal, setModal }) {
   return (
@@ -36,15 +37,16 @@ function FormAddOwnBank({ modal, setModal }) {
                 </div>
                 <div className="flex flex-col gap-4">
                   <div className="flex gap-6">
-                    <SelectRouter
-                      name="register_country"
-                      options={[
-                        { label: "México", value: "MX" },
-                        { label: "EUA", value: "EUA" },
-                      ]}
-                      placeholder="País"
-                    />
-
+                    <div className="w-full pt-4">
+                      <SelectField
+                        name="register_country"
+                        options={[
+                          { label: "México", value: "MX" },
+                          { label: "EUA", value: "EUA" },
+                        ]}
+                        placeholder="País"
+                      />
+                    </div>
                     <InputRouter
                       name="register_bankKey"
                       type="text"
@@ -61,7 +63,7 @@ function FormAddOwnBank({ modal, setModal }) {
                 <div className="text-sm font-normal text-[#696974]">
                   Datos del Banco Propio
                 </div>
-                <SelectRouter
+                <SelectField
                   name="register_society"
                   options={[]}
                   placeholder="Sociedad"

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function FormAddBankAccount({ modal, setModal }) {
   return (
@@ -33,18 +34,17 @@ function FormAddBankAccount({ modal, setModal }) {
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-4">
                   <div className="flex gap-6">
-                    <SelectRouter
+                    <SelectField
                       name="register_society"
                       options={[]}
                       placeholder="País"
-                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
-
+                      className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                     />
-                    <SelectRouter
+                    <SelectField
                       name="register_ownBank"
                       options={[]}
                       placeholder="Banco Propio"
-                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
+                      className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                     />
                   </div>
                   <div className="flex gap-6">
@@ -78,25 +78,23 @@ function FormAddBankAccount({ modal, setModal }) {
                       placeholder="Nombre de cuenta"
                     />
                   </div>
-                  <div className="basis-1/2">
-                    <SelectRouter
+                  <div className="basis-1/2 pt-5">
+                    <SelectField
                       name="register_accountingAccount"
                       options={[]}
                       placeholder="Cuenta Contable"
-                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
-
+                      className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                     />
                   </div>
-                  <div className="basis-auto">
-                    <SelectRouter
+                  <div className="basis-auto pt-5">
+                    <SelectField
                       name="register_currency"
                       options={[
                         { label: "MXN", value: "MXN" },
                         { label: "DLLS", value: "DLLS" },
                       ]}
                       placeholder="Moneda"
-                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
-
+                      className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                     />
                   </div>
                 </div>
@@ -152,8 +150,7 @@ function FormAddBankAccount({ modal, setModal }) {
             </div>
           </div>
         </Form>
-        <DialogDescription>
-        </DialogDescription>
+        <DialogDescription></DialogDescription>
         <DialogFooter className="px-10 pb-6">
           <Button
             form="bank-account-form"
