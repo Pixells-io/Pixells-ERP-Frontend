@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { gridOutline, list, lockClosed } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
+import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 
 const EnabledPos = ({ setIsDisabled }) => {
+  const [openConsultArticle, setOpenConsultArticle] = useState(false);
+
   return (
     <div className="flex h-full flex-col px-4 pb-4 font-roboto">
+      <ConsultArticle 
+        modal={openConsultArticle}
+        setModal={setOpenConsultArticle}
+      />
       <div className="w-full pb-4 font-roboto">
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
           <div className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading">
@@ -22,20 +30,13 @@ const EnabledPos = ({ setIsDisabled }) => {
           </div>
           <div className="col-span-8 flex w-full items-center justify-center">
             <div className="flex w-fit gap-6 overflow-x-auto">
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
+              <Button
+                type="button"
+                className="w-full whitespace-nowrap rounded-3xl bg-[#F0F0F0] p-3 font-roboto text-xs font-medium text-[#44444F] hover:bg-blancoBox2"
+                onClick={() => setOpenConsultArticle(true)}
               >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    CONSULTAR ARTICULO
-                  </p>
-                </div>
-              </NavLink>
+                CONSULTAR ARTICULO
+              </Button>
 
               <NavLink
                 to="/pos"
