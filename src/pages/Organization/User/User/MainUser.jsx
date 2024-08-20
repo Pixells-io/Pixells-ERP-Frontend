@@ -129,39 +129,88 @@ const contracts = [
 ];
 
 const banks = [
-  { label: "Banco de México", value: "BANXICO" },
-  { label: "BBVA", value: "BBVA" },
-  { label: "Citibanamex", value: "CITIBANAMEX" },
-  { label: "Santander", value: "SANTANDER" },
-  { label: "HSBC", value: "HSBC" },
-  { label: "Banorte", value: "BANORTE" },
-  { label: "Scotiabank", value: "SCOTIABANK" },
-  { label: "Inbursa", value: "INBURSA" },
-  { label: "Banregio", value: "BANREGIO" },
-  { label: "Banco Azteca", value: "BANCO_AZTECA" },
-  { label: "Núcleo", value: "NUCLEO" },
-  { label: "Afirme", value: "AFIRME" },
-  { label: "Mifel", value: "MIFEL" },
-  { label: "Multiva", value: "MULTIVA" },
-  { label: "Bancoppel", value: "BANCOPPEL" },
-  { label: "Compartamos Banco", value: "COMPARTAMOS" },
-  { label: "Famsa", value: "FAMSA" },
-  { label: "Núbank", value: "NUBANK" },
-  { label: "Albo", value: "ALBO" },
+  { label: "JPMorgan Chase", value: "JPMorgan Chase" },
+  { label: "Bank of America", value: "Bank of America" },
+  { label: "Wells Fargo", value: "Wells Fargo" },
+  { label: "Citibank ", value: "Citibank " },
+  { label: "U.S. Bank", value: "U.S. Bank" },
+  { label: "PNC Bank", value: "PNC Bank" },
+  { label: "Truist Financial ", value: "Truist Financial " },
+  { label: "Goldman Sachs", value: "Goldman Sachs" },
+  { label: "Capital One", value: "Capital One" },
+  { label: "Bank of New York Mellon", value: "Bank of New York Mellon" },
+  { label: "TD Bank ", value: "TD Bank " },
+  { label: "American Express Bank", value: "American Express Bank" },
+  { label: "Ally Bank", value: "Ally Bank" },
+  { label: "Regions Bank", value: "Regions Bank" },
+  { label: "Fifth Third Bank", value: "Fifth Third Bank" },
+  { label: "KeyBank", value: "KeyBank" },
+  { label: "Huntington National Bank", value: "Huntington National Bank" },
+  { label: "M&T Bank", value: "M&T Bank" },
+  { label: "Comerica Bank", value: "Comerica Bank" },
+  { label: "Citizens Bank", value: "Citizens Bank" },
+  { label: "First Republic Bank", value: "First Republic Bank" },
+  { label: "Zions Bank", value: "Zions Bank" },
+  { label: "Silicon Valley Bank", value: "Silicon Valley Bank" },
+  { label: "Navy Federal Credit Union", value: "Navy Federal Credit Union" },
+  {
+    label: "State Employees’ Credit Union",
+    value: "State Employees’ Credit Union",
+  },
+  {
+    label: "Pentagon Federal Credit Union (PenFed)",
+    value: "Pentagon Federal Credit Union (PenFed)",
+  },
+  {
+    label: "Boeing Employees Credit Union (BECU)",
+    value: "Boeing Employees Credit Union (BECU)",
+  },
+  {
+    label: "SchoolsFirst Federal Credit Union",
+    value: "SchoolsFirst Federal Credit Union",
+  },
 ];
 
 const legal_benefits = [
   {
-    label: "Prestaciones de ley",
-    value: "Prestaciones de ley",
+    label: "Minimum Wage",
+    value: "Minimum Wage",
   },
   {
-    label: "Prestaciones de ley + vales de gasolina",
-    value: "Prestaciones de ley + vales de gasolina",
+    label: "Overtime Pay",
+    value: "Overtime Pay",
   },
   {
-    label: "Prestaciones de ley + vales de gasolina + SGMM",
-    value: "Prestaciones de ley + vales de gasolina + SGMM",
+    label: "Unemployment Insurance",
+    value: "Unemployment Insurance",
+  },
+  {
+    label: "Workers' Compensation",
+    value: "Workers' Compensation",
+  },
+  {
+    label: "Family and Medical Leave (FMLA)",
+    value: "Family and Medical Leave (FMLA)",
+  },
+  {
+    label: "Social Security and Medicare",
+    value: "Social Security and Medicare",
+  },
+  {
+    label: "Health Insurance (ACA)",
+    value: "Health Insurance (ACA)",
+  },
+  {
+    label: "Anti-Discrimination Laws",
+    value: "Anti-Discrimination Laws",
+  },
+  {
+    label: "Layoff Notice (WARN Act)",
+    value: "Layoff Notice (WARN Act)",
+  },
+  {
+    label: "Paid Vacation and Sick Leave",
+    value: "Paid Vacation and Sick Leave",
   },
 ];
 
