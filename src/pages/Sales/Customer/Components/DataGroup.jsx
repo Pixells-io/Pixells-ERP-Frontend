@@ -20,7 +20,7 @@ const InputsGroup = ({ initialValues }) => {
   };
 
   const commonStyle =
-    "w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="grid grid-cols-3 gap-4 bg-white p-4">

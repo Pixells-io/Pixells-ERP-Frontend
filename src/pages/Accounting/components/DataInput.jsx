@@ -24,15 +24,15 @@ const FormInputs = () => {
           onChange={handleDateChange}
           name="fecha"
           placeholder="Fecha"
-          className="rounded-xl border border-[#696974]"
+          className="rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
         />
         <Input
           name="numeracion"
           placeholder="Numeracion"
-          className="rounded-xl border border-[#696974]"
+          className="rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
         />
         <Select name="tipoasiento" className="h-10 min-w-0 flex-1">
-          <SelectTrigger className="h-full rounded rounded-xl border border-[#696974]">
+          <SelectTrigger className="h-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Tipo de asiento contable" />
           </SelectTrigger>
           <SelectContent>
@@ -42,7 +42,7 @@ const FormInputs = () => {
           </SelectContent>
         </Select>
         <Select name="codigo" className="h-10 min-w-0 flex-1">
-          <SelectTrigger className="h-full rounded rounded-xl border border-[#696974]">
+          <SelectTrigger className="h-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Codigo" />
           </SelectTrigger>
           <SelectContent>

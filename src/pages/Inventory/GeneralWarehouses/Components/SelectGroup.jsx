@@ -24,7 +24,7 @@ const Inputs = () => {
             type="text"
             name="codArt"
             placeholder="Código de articulo"
-            className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+            className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             value={inputsData.codArt}
             onChange={handleChange}
           />
@@ -34,7 +34,7 @@ const Inputs = () => {
             type="text"
             name="descrp"
             placeholder="Nombre o Descripción"
-            className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+            className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             value={inputsData.descrp}
             onChange={handleChange}
           />

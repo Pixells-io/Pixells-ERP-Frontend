@@ -84,7 +84,7 @@ const TableForm = ({ rows, setRows, columns }) => {
                     />
                   ) : col.typeColumn == "select" && (
                     <Select>
-                      <SelectTrigger className="w-[100px] border-0 border-b bg-blancoForms p-2 text-xs placeholder:bg-blancoForms placeholder:p-2 placeholder:text-xs">
+                      <SelectTrigger className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                         <SelectValue
                           placeholder={col.placeholder}
                           className=""

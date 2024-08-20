@@ -37,11 +37,14 @@ function FormAddBankAccount({ modal, setModal }) {
                       name="register_society"
                       options={[]}
                       placeholder="País"
+                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
+
                     />
                     <SelectRouter
                       name="register_ownBank"
                       options={[]}
                       placeholder="Banco Propio"
+                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
                     />
                   </div>
                   <div className="flex gap-6">
@@ -80,6 +83,8 @@ function FormAddBankAccount({ modal, setModal }) {
                       name="register_accountingAccount"
                       options={[]}
                       placeholder="Cuenta Contable"
+                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
+
                     />
                   </div>
                   <div className="basis-auto">
@@ -90,6 +95,8 @@ function FormAddBankAccount({ modal, setModal }) {
                         { label: "DLLS", value: "DLLS" },
                       ]}
                       placeholder="Moneda"
+                      className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
+
                     />
                   </div>
                 </div>

@@ -19,7 +19,7 @@ const PeriodSelect = () => {
         <label className="font-roboto text-xs font-light text-gris2">
           Periodo:
         </label>
-        <SelectTrigger className="w-[200px] rounded-xl">
+        <SelectTrigger className="w-[200px] rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
           <SelectValue placeholder="Seleccionar" />
         </SelectTrigger>
         <SelectContent>
@@ -37,7 +37,7 @@ const PeriodSelect = () => {
         <label className="font-roboto text-sm font-light text-gris2">
           Tipo de registro:
         </label>
-        <SelectTrigger className="w-[200px] rounded-xl">
+        <SelectTrigger className="w-[200px] rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
           <SelectValue placeholder="Seleccionar" />
         </SelectTrigger>
         <SelectContent>

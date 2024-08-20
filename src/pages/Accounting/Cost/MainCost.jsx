@@ -148,17 +148,17 @@ const MainCost = () => {
         </div>
 
         {/* Data Table */}
-        <div className="overflow-auto rounded-xl bg-white pt-4">
+        <div className="overflow-auto rounded-xl pt-4">
           <div className="flex items-center">
             <div className="left-2 w-1/5">
               <Tabs
                 defaultValue="CENTRO DE COSTOS"
-                className="flex h-full rounded-lg"
-              >
-                <TabsList className="w-full bg-transparent">
+                className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+                >
+                <TabsList  className="ml-4 flex w-fit rounded-none bg-blancoBg">
                   <TabsTrigger
-                    className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                    value="CENTRO DE COSTOS"
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="CENTRO DE COSTOS"
                   >
                     CENTRO DE COSTOS
                   </TabsTrigger>
