@@ -52,7 +52,7 @@ function StepOne({ setStepped, category, user }) {
             onValueChange={(value) => {
               setFormValues({
                 ...formValues,
-                category: value,
+                category: Number(value),
               });
             }}
           >
@@ -61,7 +61,7 @@ function StepOne({ setStepped, category, user }) {
             </SelectTrigger>
             <SelectContent>
               {category.map((cat, i) => (
-                <SelectItem key={cat.id} value={cat.id.toString()}>
+                <SelectItem key={cat.id} value={cat.id}>
                   {cat.name}
                 </SelectItem>
               ))}
