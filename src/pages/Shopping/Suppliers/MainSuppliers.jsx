@@ -10,35 +10,14 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import MenuSuppliers from "./Components/Dropdownmenu";
 import { Button } from "@/components/ui/button";
+import { useLoaderData } from "react-router-dom";
 
 const MainSupplier = () => {
-  const data = [
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-  ];
+  const {data} = useLoaderData();
 
   const columns = [
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       cell: ({ row }) => {
         return (
@@ -48,24 +27,24 @@ const MainSupplier = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.name}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nacionalidad",
+      accessorKey: "nationality",
       header: "Nacionalidad",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "contacto",
+      accessorKey: "contact",
       header: "Contacto",
     },
     {
@@ -157,7 +136,7 @@ const MainSupplier = () => {
                     <DataTable
                       data={data}
                       columns={columns}
-                      searchFilter="nombre"
+                      searchFilter="name"
                       searchNameFilter="Buscar por nombre"
                       isCheckAll={true}
                     />

@@ -3,30 +3,24 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewSuppliers } from "../utils";
 
 const CreateSupplier = () => {
   const [supplierValues, setSupplierValues] = useState({
-    supplierNumber: "",
-    supplierType: "",
-    supplierName: "",
+    type_supplier: "",
+    fiscal_name: "",
     rfc: "",
-    supplierGroup: "",
-    supplierCurrency: "",
-    supplierCFDI: "",
+    group_supplier: "",
+    currency: "",
+    cfdi_use: "",
   });
 
   // Configuración de los campos del formulario
   const supplierFields = [
     {
-      name: "supplierNumber",
-      type: "input",
-      placeholder: "Codigo de Proveedor",
-    },
-    {
-      name: "supplierType",
+      name: "type_supplier",
       type: "select",
       placeholder: "Tipo de Proveedor",
       options: [
@@ -35,7 +29,7 @@ const CreateSupplier = () => {
       ],
     },
     {
-      name: "socialNumber",
+      name: "fiscal_name",
       type: "input",
       placeholder: "Nombre o razon social",
     },
@@ -45,7 +39,7 @@ const CreateSupplier = () => {
       placeholder: "RFC",
     },
     {
-      name: "supplierGroup",
+      name: "group_supplier",
       type: "select",
       placeholder: "Grupo de Proveedor",
       options: [
@@ -54,7 +48,7 @@ const CreateSupplier = () => {
       ],
     },
     {
-      name: "supplierCurrency",
+      name: "currency",
       type: "select",
       placeholder: "Moneda",
       options: [
@@ -63,7 +57,7 @@ const CreateSupplier = () => {
       ],
     },
     {
-      name: "supplierCFDI",
+      name: "cfdi_use",
       type: "select",
       placeholder: "Uso de CFDI",
       options: [
@@ -136,7 +130,7 @@ const CreateSupplier = () => {
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
           <InputsGroup fields={supplierFields} initialValues={supplierValues} />
-          <FormGroup />
+          {/* <FormGroup /> */}
         </div>
       </div>
     </div>
@@ -147,7 +141,6 @@ export default CreateSupplier;
 
 export async function Action({ request }) {
   const data = await request.formData();
-
   await saveNewSuppliers(data);
 
   return redirect(`/shopping`);

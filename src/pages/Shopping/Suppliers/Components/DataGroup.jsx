@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
+import { Form } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const InputsGroup = ({ fields, initialValues }) => {
   // Estado para mantener los valores de los campos
@@ -20,41 +22,50 @@ const InputsGroup = ({ fields, initialValues }) => {
 
   return (
     <div className="w-full bg-white rounded-xl p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {fields.map((field) => {
-          if (field.type === "input") {
-            return (
-              <div key={field.name}>
-                <Input
-                  name={field.name}
-                  className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-                  placeholder={field.placeholder}
-                  value={values[field.name]}
-                  onChange={handleInputChange}
-                />
-              </div>
-            );
-          } else if (field.type === "select") {
-            return (
-              <div key={field.name}>
-                <Select value={values[field.name]} onValueChange={(value) => handleSelectChange(value, field.name)}>
-                  <SelectTrigger name={field.name} className={selectStyle}>
-                    <SelectValue placeholder={field.placeholder} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {field.options.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            );
-          }
-          return null;
-        })}
-      </div>
+      <Form
+        id="form-supplier"
+        action="/shopping/supplier/create"
+        method="post"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {fields.map((field) => {
+            if (field.type === "input") {
+              return (
+                <div key={field.name}>
+                  <Input
+                    name={field.name}
+                    className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+                    placeholder={field.placeholder}
+                    value={values[field.name]}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              );
+            } else if (field.type === "select") {
+              return (
+                <div key={field.name}>
+                  <Select value={values[field.name]} name={field.name} onValueChange={(value) => handleSelectChange(value, field.name)}>
+                    <SelectTrigger  className={selectStyle}>
+                      <SelectValue placeholder={field.placeholder} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {field.options.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+        <div className="flex justify-end mt-2">
+          <Button className="bg-primarioBotones">Crear</Button>
+        </div>
+      </Form>
     </div>
   );
 };
