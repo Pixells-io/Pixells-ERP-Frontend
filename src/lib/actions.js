@@ -906,13 +906,14 @@ export async function getMyTrainings() {
 }
 
 export async function multiloaderOrganizationDevelopment() {
-  const [positions, areas, inductions, permissions] = await Promise.all([
+  const [positions, areas, inductions, permissions, users] = await Promise.all([
     getPosition(),
     getAreas(),
     getInductions(),
     orgDevPermissions(),
+    getUsers(),
   ]);
-  return json({ positions, areas, inductions, permissions });
+  return json({ positions, areas, inductions, permissions, users });
 }
 
 export async function multiloaderNewTraining() {

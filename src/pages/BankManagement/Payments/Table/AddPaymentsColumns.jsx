@@ -41,7 +41,7 @@ export const AddPaymentsColumns = [
           <select
             value={selectedOption} // Valor inicial del select
             onChange={handleChange}
-           className="w-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
+           className="w-full rounded rounded-xl border border-gris2-transparent bg-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent"
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>

@@ -198,7 +198,8 @@ function FormulaRecords() {
           <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
             <div>
               <Select name="article" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[240px] rounded-xl border border-[#696974] text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                <SelectTrigger className="border-gris2-transparent w-[240px] rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  {" "}
                   <SelectValue placeholder="Selecciona el Artículo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -210,7 +211,8 @@ function FormulaRecords() {
             </div>
             <div>
               <Select name="accountingAccount" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[240px] rounded-xl border border-[#696974] text-xs font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                <SelectTrigger className="border-gris2-transparent w-[240px] rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  {" "}
                   <SelectValue placeholder="Cuenta Contable" />
                 </SelectTrigger>
                 <SelectContent>

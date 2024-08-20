@@ -50,7 +50,7 @@ const PEOPLE = [
 function MainOrgDev() {
   const navigation = useNavigation();
 
-  const { positions, areas, inductions, permissions } = useLoaderData();
+  const { positions, areas, inductions, permissions, users } = useLoaderData();
 
   const [modalCreateInduccion, setModalCreateInduccion] = useState(false);
 
@@ -142,6 +142,7 @@ function MainOrgDev() {
           setModal={setModalCreateInduccion}
           positions={positions.data}
           areas={areas.data}
+          users={users.data}
         />
         <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">

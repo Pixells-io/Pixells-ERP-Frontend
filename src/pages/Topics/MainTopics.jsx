@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
 import Publication from "./Components/Publication";
 import Categories from "./Components/Categories";
-import { useLoaderData, useLocation, useParams } from "react-router-dom";
+import {
+  redirect,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import {
   getTopics,
   storeComment,
@@ -13,6 +16,7 @@ import {
   storeLikeComment,
 } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
+import NavigationHeader from "@/components/navigation-header";
 
 function MainTopics() {
   const { categories, topics, analytic } = useLoaderData();
@@ -47,25 +51,7 @@ function MainTopics() {
     <div className="flex w-full gap-x-4">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex flex-col gap-y-2">
           <h2 className="font-poppins text-xl font-bold text-grisHeading">
@@ -89,22 +75,23 @@ function MainTopics() {
 
 export default MainTopics;
 
-export async function Action({ request }) {
+export async function Action({ request, params }) {
   const data = await request.formData();
+  const type = data.get("type");
 
-  switch (data.get("type")) {
+  switch (type) {
     case "1":
       await storeLike(data);
-      break;
+      return redirect(`/topics/${params.id}`);
     case "2":
       await storeComment(data);
-      break;
+      return redirect(`/topics/${params.id}`);
     case "3":
       await storeLikeComment(data);
-      break;
+      return redirect(`/topics/${params.id}`);
     case "4":
       await storeFavorite(data);
-      break;
+      return redirect(`/topics/${params.id}`);
   }
-  return "1";
+  return redirect(`/topics/${params.id}`);
 }

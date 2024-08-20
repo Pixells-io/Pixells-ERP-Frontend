@@ -12,6 +12,7 @@ import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 const AccountFormModal = () => {
   const [newItem, setNewItem] = useState({
@@ -53,7 +54,7 @@ const AccountFormModal = () => {
             <div>
               <Label
                 htmlFor="rubro"
-                className="font-roboto text-sm font-light text-grisText"
+                className="font-roboto text-[14px] font-light text-grisText"
               >
                 Rubro
               </Label>
@@ -68,7 +69,7 @@ const AccountFormModal = () => {
             <div>
               <Label
                 htmlFor="ccontable"
-                className="font-roboto text-sm font-light text-grisText"
+                className="font-roboto text-[14px] font-light text-grisText"
               >
                 Cuenta contable
               </Label>
@@ -83,8 +84,7 @@ const AccountFormModal = () => {
             <div>
               <Label
                 htmlFor="nivel"
-                className="font-roboto text-sm font-light text-grisText"
-              >
+                className="font-roboto text-[14px] font-light text-grisText"              >
                 Nivel
               </Label>
               <InputRouter
@@ -95,20 +95,20 @@ const AccountFormModal = () => {
                 type="text"
               />
             </div>
-            <div>
+            <div className="w-full pt-2"> 
               <Label
                 htmlFor="moneda"
-                className="font-roboto text-sm font-light text-grisText"
-              >
+                className="font-roboto text-[14px] font-light text-grisText" >
                 Moneda
               </Label>
-              <SelectRouter
+              <SelectField
                 name="moneda"
                 options={[
                   { label: "MXN", value: "MXN" },
                   { label: "USD", value: "USD" },
                 ]}
                 placeholder="Moneda"
+                className="rounded-xl"
               />
             </div>
           </div>
@@ -116,7 +116,7 @@ const AccountFormModal = () => {
           <div className="mt-4">
             <Label
               htmlFor="nombre"
-              className="font-roboto text-sm font-light text-grisText"
+              className="font-roboto text-[14px] font-light text-grisText"
             >
               Nombre
             </Label>
@@ -132,8 +132,7 @@ const AccountFormModal = () => {
           <div className="mt-4">
             <Label
               htmlFor="saldo"
-              className="font-roboto text-sm font-light text-grisText"
-            >
+              className="font-roboto text-[14px] font-light text-grisText">
               Saldo
             </Label>
             <InputRouter
@@ -148,11 +147,11 @@ const AccountFormModal = () => {
           <div className="mt-4">
             <Label
               htmlFor="tcuenta"
-              className="font-roboto text-sm font-light text-grisText"
+              className="font-roboto text-[14px] font-light text-grisText"
             >
               Tipo de Cuenta
             </Label>
-            <SelectRouter
+            <SelectField
               name="tcuenta"
               options={[]}
               placeholder="Tipo de Cuenta"
@@ -162,7 +161,7 @@ const AccountFormModal = () => {
           <div className="mt-4">
             <Label
               htmlFor="sat"
-              className="font-roboto text-sm font-light text-grisText"
+              className="font-roboto text-[14px] font-light text-grisText"
             >
               Código Agrupador SAT (Contabilidad Electrónica)
             </Label>
@@ -178,7 +177,7 @@ const AccountFormModal = () => {
           <div className="mt-4">
             <Label
               htmlFor="descripcion"
-              className="font-roboto text-sm font-light text-grisText"
+             className="font-roboto text-[14px] font-light text-grisText"
             >
               Descripción
             </Label>

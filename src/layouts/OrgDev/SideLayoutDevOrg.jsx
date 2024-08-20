@@ -94,23 +94,27 @@ function SideLayoutDevOrg() {
                 <AccordionItem value={`item-${i}`} className="border-0">
                   <AccordionTrigger className="py-2 text-gris2 hover:no-underline">
                     <div className="flex w-full items-center gap-6">
-                      {location.pathname.includes(item.path) ? (
+                      {location.pathname.includes(item?.path) ? (
                         <div className="flex w-full items-center gap-6 rounded-lg bg-[#E8E8E8] px-4 py-1 text-primario">
-                          <IonIcon icon={item.icon} size="large"></IonIcon>
+                          <IonIcon icon={item?.icon} size="large"></IonIcon>
                           <div>
-                            <p className="text-base font-medium">{item.name}</p>
+                            <p className="text-base font-medium">
+                              {item?.name}
+                            </p>
                             <p className="text-left text-[10px] font-medium">
-                              {item.subname}
+                              {item?.subname}
                             </p>
                           </div>
                         </div>
                       ) : (
                         <div className="flex w-full items-center gap-6 rounded-lg px-4 py-1 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]">
-                          <IonIcon icon={item.icon} size="large"></IonIcon>
+                          <IonIcon icon={item?.icon} size="large"></IonIcon>
                           <div>
-                            <p className="text-base font-medium">{item.name}</p>
+                            <p className="text-base font-medium">
+                              {item?.name}
+                            </p>
                             <p className="text-left text-[10px] font-medium text-grisSubText">
-                              {item.subname}
+                              {item?.subname}
                             </p>
                           </div>
                         </div>
@@ -118,12 +122,12 @@ function SideLayoutDevOrg() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="py-0">
-                    {item.subpath.map((link, i) => (
+                    {item?.subpath.map((link, i) => (
                       <NavLink
                         key={i}
-                        to={`${link.path}`}
+                        to={`${link?.path}`}
                         className={
-                          location.pathname === link.path
+                          location?.pathname === link?.path
                             ? "w-full rounded-lg px-4 text-primario"
                             : "w-full px-4 text-gris2"
                         }
@@ -141,15 +145,17 @@ function SideLayoutDevOrg() {
                         // }
                       >
                         <div className="flex flex-col gap-4">
-                          {location.pathname === link.path ? (
+                          {location?.pathname === link?.path ? (
                             <div className="flex items-center gap-1 pl-16">
                               <span className="">&bull;</span>
-                              <p className="text-sm font-medium">{link.name}</p>
+                              <p className="text-sm font-medium">
+                                {link?.name}
+                              </p>
                             </div>
                           ) : (
                             <div className="pl-[72px]">
                               <p className="text-sm font-medium hover:w-fit hover:rounded-sm hover:bg-blancoBg hover:px-4">
-                                {link.name}
+                                {link?.name}
                               </p>
                             </div>
                           )}

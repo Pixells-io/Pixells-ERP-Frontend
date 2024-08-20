@@ -18,6 +18,7 @@ import StatusInformation from "../Components/StatusInformation/StatusInformation
 import NoDocument from "../Components/NoDocument";
 import { PaymentsRecordColumns } from "./Table/PaymentsRecordColumns";
 import OnlyTable from "../Components/Table/OnlyTable";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function PaymentRecord() {
   const [status, setStatus] = useState("done");
@@ -132,7 +133,7 @@ function PaymentRecord() {
             <p className="flex items-center justify-center rounded-lg bg-[#F4F4F4] px-4 text-xs font-normal text-grisSubText">
               {dateNow}
             </p>
-            <SelectRouter name="client" options={[]} placeholder="Cliente" />
+            <SelectField name="client" options={[]} placeholder="Cliente" />
             <InputRouter
               name="register_accountName"
               type="text"

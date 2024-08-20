@@ -32,7 +32,7 @@ export const GeneralFormulaColumns = [
   },
   {
     id: "nationality",
-    header: "NACIONALIDAD.",
+    header: "NACIONALIDAD",
     accessorKey: "nationality",
     meta: {
       filterButton: true

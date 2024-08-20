@@ -53,6 +53,8 @@ function MainService() {
     setModalShowInterview(true);
   }
 
+  console.log(data?.process);
+
   return (
     <>
       <ModalShowInterview
