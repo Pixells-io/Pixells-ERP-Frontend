@@ -63,7 +63,13 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <div className="mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-[#E4F0FF] px-2 py-1">
+          <div
+            className={
+              !msg.file
+                ? "mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-[#E4F0FF] px-2 py-1"
+                : "mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-none px-2 py-1"
+            }
+          >
             {msg.reply === 1 ? (
               <div className="mt-2 rounded-xl border border-primario bg-[#7794F940] px-2 py-1">
                 <span className="font-roboto text-xs font-medium leading-4 text-grisSubText">
@@ -135,7 +141,13 @@ function MenssageCard({ data, user, chats, chat, setReplay, setModalReplay }) {
                 />
               ) : null}
             </div>
-            <div className="mb-1 w-fit max-w-[65%] rounded-r-xl rounded-t-xl bg-[#F0F0F0] px-2 py-1">
+            <div
+              className={
+                !msg.file
+                  ? "mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-[#F0F0F0] px-2 py-1"
+                  : "mb-1 w-fit max-w-[65%] rounded-s-xl rounded-t-xl bg-none px-2 py-1"
+              }
+            >
               {msg.reply === 1 ? (
                 <div className="mt-2 rounded-xl border border-primario bg-[#7794F940] px-2 py-1">
                   <span className="font-roboto text-xs font-medium leading-4 text-grisSubText">

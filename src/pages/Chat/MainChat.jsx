@@ -5,6 +5,7 @@ import {
   redirect,
   useLoaderData,
   useLocation,
+  useNavigate,
   useParams,
   useSubmit,
 } from "react-router-dom";
@@ -21,12 +22,13 @@ import { createPusherClient } from "@/lib/pusher";
 import MenssageCard from "./Components/Mensagge";
 
 import { IonIcon } from "@ionic/react";
-import { send, mic, addCircle, closeCircle } from "ionicons/icons";
+import { send, mic, addCircle, closeCircle, chevronBack } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
 
 function MainChat() {
   const location = useLocation();
   const { id } = useParams();
+  const navigate = useNavigate();
   const { chat, user, chats } = useLoaderData();
   const submit = useSubmit();
   const [mssg, setMssg] = useState("");
@@ -45,8 +47,8 @@ function MainChat() {
 
   const userInfo = [
     {
-      id: user.data.user.id,
-      name: user.data.user.name + " " + user.data.user.last_name,
+      id: user?.data.user.id,
+      name: user?.data.user.name + " " + user?.data.user.last_name,
     },
   ];
 
@@ -106,7 +108,11 @@ function MainChat() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-4">
+    <div
+      className={
+        "flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-0 md:flex md:overflow-auto md:pl-4"
+      }
+    >
       {/* Chat Header */}
       <MensaggeFileModal
         chat_id={id}
@@ -114,9 +120,14 @@ function MainChat() {
         setModal={setModalSendFile}
       />
 
-      <div className="flex rounded-t-xl bg-gris px-6 py-4">
+      <div className="flex rounded-t-xl bg-gris px-2 py-4 md:px-6">
         {chat.data.type == 0 ? (
           <div className="flex items-center gap-4">
+            <IonIcon
+              icon={chevronBack}
+              className="flex size-8 cursor-pointer text-grisText md:hidden"
+              onClick={() => navigate("/chat")}
+            />
             <img
               src={chat.data?.participants.img}
               className="h-14 w-14 rounded-full object-cover"
@@ -129,6 +140,11 @@ function MainChat() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
+            <IonIcon
+              icon={chevronBack}
+              className="flex size-8 cursor-pointer text-grisText md:hidden"
+              onClick={() => navigate("/chat")}
+            />
             <img
               src={chat.data?.img}
               className="h-14 w-14 rounded-full object-cover"
@@ -143,7 +159,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Messages */}
-      <div className="scrollbar-hidden flex h-full w-full flex-col-reverse overflow-y-scroll px-12 py-3">
+      <div className="scrollbar-hidden flex h-full w-full flex-col-reverse overflow-y-scroll px-0 py-3 md:px-12">
         <div ref={scrollBox}></div>
         {chatMessagesPusher?.map((mensagge, i) => (
           <MenssageCard
@@ -159,7 +175,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Footer */}
-      <div className="flex flex-col rounded-b-xl bg-[#FBFBFB] px-5 py-2">
+      <div className="flex flex-col rounded-b-xl bg-[#FBFBFB] px-1 py-2 md:px-5">
         {modalReplay == true ? (
           <div>
             <div className="flex w-full flex-col justify-center gap-1 border-0 border-t px-8 py-2">
@@ -194,13 +210,13 @@ function MainChat() {
                   name="message"
                   type="text"
                   className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0"
-                  placeholder="Type your message..."
+                  placeholder="Write your message..."
                   value={mssg}
                   onChange={(e) => setMssg(e.target.value)}
                   ref={inputFocusRef}
                 />
               </div>
-              <div className="m-auto mt-2 flex w-1/12">
+              <div className="m-auto mt-2 flex md:w-1/12">
                 {mssg != "" ? (
                   <button
                     type="submit"
@@ -242,13 +258,13 @@ function MainChat() {
               <input
                 name="message"
                 className="w-full rounded-3xl px-4 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0 focus-visible:ring-primarioBotones"
-                placeholder="Type your message..."
+                placeholder="Write your message..."
                 value={mssg}
                 onChange={(e) => setMssg(e.target.value)}
                 ref={inputFocusRef}
               />
             </div>
-            <div className="m-auto mt-2 flex w-1/12">
+            <div className="m-auto mt-2 flex md:w-1/12">
               {mssg != "" ? (
                 <button
                   type="submit"

@@ -7,11 +7,11 @@ function ChatList({ chat }) {
       <div
         className={
           location.pathname === `/chat/${chat?.chat_id}`
-            ? "flex border-b border-grisDisabled bg-[#F0F0F0] px-5 py-2"
-            : "flex border-b border-grisDisabled px-5 py-2 hover:bg-[#F4F4F4]"
+            ? "flex gap-2 border-b border-grisDisabled bg-[#F0F0F0] px-5 py-2 md:gap-0"
+            : "flex gap-2 border-b border-grisDisabled px-5 py-2 hover:bg-[#F4F4F4] md:gap-0"
         }
       >
-        <div className="w-1/6">
+        <div className="w-1/6 shrink-0">
           <img src={chat.img} className="h-12 w-12 rounded-full object-cover" />
         </div>
         <div className="w-4/6 text-left">
