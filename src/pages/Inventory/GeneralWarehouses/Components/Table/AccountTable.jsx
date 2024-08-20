@@ -57,7 +57,7 @@ const DataTable = ({ data }) => {
                     )
                   }
                   placeholder={"ingresa"}
-                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                   className="h-auto border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -72,7 +72,7 @@ const DataTable = ({ data }) => {
                     )
                   }
                   placeholder={"ingresa"}
-                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                   className="h-auto border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
             </TableRow>
