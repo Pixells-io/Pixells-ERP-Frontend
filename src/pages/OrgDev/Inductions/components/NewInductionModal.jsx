@@ -86,7 +86,7 @@ function NewInductionModal({ modal, setModal, positions, areas, users }) {
   }
 
   return (
-    <Dialog open={true} onOpenChange={setModal}>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[500px] overflow-auto sm:max-w-[425px]">
         <div className="-mx-6 border-b pb-2 pl-2">
           <DialogHeader className="px-6">
