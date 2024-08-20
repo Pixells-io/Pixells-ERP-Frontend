@@ -13,6 +13,9 @@ import { clientColumns } from "./components/Table/ClientColumns";
 import DataTable from "@/components/table/DataTable";
 import NavigationHeader from "@/components/navigation-header";
 
+import { createPusherClient } from "@/lib/pusher";
+import { getLeads } from "@/lib/actions";
+
 // import Table from "@/components/DataTable";
 // import TableClients from "./components/Table/TableClients";
 
@@ -51,6 +54,26 @@ function MainCRM() {
       setDestroy(false);
     }
   });
+
+  const pusherClient = createPusherClient();
+
+  async function getLeadsInfo() {
+    let newData = await getLeads();
+
+    setLeads(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-fill-table-leads");
+
+    pusherClient.bind("make-table-leads", ({ message }) => {
+      getLeadsInfo();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-fill-table-leads");
+    };
+  }, []);
 
   return (
     <div className="flex h-full w-full">
