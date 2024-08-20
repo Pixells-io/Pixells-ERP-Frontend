@@ -23,7 +23,7 @@ function FormCreateFollowUpComments({ modal, setModal, followUpId, ticket }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Añadir Comentario</DialogTitle>
+          <DialogTitle className="font-poppins">Add Comment</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-follow-up-form"
@@ -35,7 +35,7 @@ function FormCreateFollowUpComments({ modal, setModal, followUpId, ticket }) {
             <div className="flex flex-col gap-4 pb-4 font-light">
               <input type="hidden" value={"2"} name="form" />
               <input type="hidden" value={followUpId} name="follow_up_id" />
-              <FormInput name="comment" type="text" placeholder="Comments" />
+              <FormInput name="comment" type="text" placeholder="Comment" />
             </div>
           </div>
         </Form>
@@ -45,7 +45,7 @@ function FormCreateFollowUpComments({ modal, setModal, followUpId, ticket }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Añadir"}
+            {navigation.state === "submitting" ? "Submitting..." : "Add"}
           </Button>
         </DialogFooter>
       </DialogContent>

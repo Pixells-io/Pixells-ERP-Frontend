@@ -19,6 +19,7 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
       setModal(false);
     }
   }, [navigation.state]);
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto sm:max-w-[425px]">
@@ -36,11 +37,7 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
               <input type="hidden" value={"1"} name="form" />
               <input type="hidden" value={value} name="type" />
               <input type="hidden" value={ticket} name="ticket" />
-              <FormInput
-                name="comments"
-                type="text"
-                placeholder="Commentario"
-              />
+              <FormInput name="comments" type="text" placeholder="Comment" />
             </div>
           </div>
         </Form>
@@ -50,7 +47,11 @@ function FormCreateFollowUps({ modal, setModal, title, value, ticket }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Añadir"}
+            {navigation.state === "submitting"
+              ? "Submitting..."
+              : title == "Finish Ticket"
+                ? "Finish"
+                : "Add"}
           </Button>
         </DialogFooter>
       </DialogContent>

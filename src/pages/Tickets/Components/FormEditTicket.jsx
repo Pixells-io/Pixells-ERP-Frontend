@@ -151,7 +151,7 @@ function FormEditTickets({
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="w-full sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Editar Ticket</DialogTitle>
+          <DialogTitle className="font-poppins">Edit Ticket</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-form"
@@ -167,23 +167,23 @@ function FormEditTickets({
                 name="issue"
                 type="text"
                 defaultVal={name}
-                placeholder="Tema"
+                placeholder="Issue"
               />
               <InputRouter
                 name="description"
                 type="text"
                 defaultVal={description}
-                placeholder="Descripción"
+                placeholder="Description"
               />
               <SelectRouter
                 name={"importance"}
-                placeholder={"Importancia"}
+                placeholder={"Importance"}
                 defaultVal={importance}
                 options={importanceValues}
               />
               <SelectRouter
                 name={"category_ticket"}
-                placeholder={"Categoría"}
+                placeholder={"Category"}
                 defaultVal={category}
                 options={categoryValues}
               />
@@ -196,7 +196,7 @@ function FormEditTickets({
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+            {navigation.state === "submitting" ? "Submitting..." : "Edit"}
           </Button>
         </DialogFooter>
       </DialogContent>

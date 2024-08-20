@@ -1,21 +1,14 @@
 import React from "react";
-import {
-  Outlet,
-  useLoaderData,
-  useNavigation,
-  redirect,
-  NavLink,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
+
+import TopMenu from "../Masters/Menus/TopMenu";
 
 import { IonIcon } from "@ionic/react";
-import { lockOpen, person, ticket } from "ionicons/icons";
-import TopMenu from "../Masters/Menus/TopMenu";
+import { ticket } from "ionicons/icons";
+
 import { deleteTicket, editTicket, saveNewTicket } from "@/pages/Tickets/utils";
 
 function SideLayoutTickets() {
-  const services = useLoaderData();
-  const navigation = useNavigation();
   const location = useLocation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">

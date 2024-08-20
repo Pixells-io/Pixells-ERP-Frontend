@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  searchOutline,
-} from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
 import { useLoaderData } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { addCircleOutline } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+
 import FormCreateTickets from "./Components/FromCreateTickets";
-import TicketsTable from "./Components/TicketsTable";
 import NavigationHeader from "@/components/navigation-header";
+import TicketsTable from "./Components/TicketsTable";
 
 function MainTickets() {
   const [modal, setModal] = useState(false);
@@ -140,19 +137,19 @@ function MainTickets() {
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="users"
                     >
-                      MIS TICKETS
+                      MY TICKETS
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="positions"
                     >
-                      ASIGNADO
+                      ASSIGNED
                     </TabsTrigger>
                     <TabsTrigger
                       className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
                       value="areas"
                     >
-                      EN PROCESO
+                      IN PROGRESS
                     </TabsTrigger>
                   </div>
                 </div>

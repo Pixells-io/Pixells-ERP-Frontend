@@ -25,7 +25,7 @@ function ShowTickets() {
         <div className="items-center gap-4 overflow-scroll">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              SEGUIMIENTO
+              FOLLOW-UP
             </h2>
           </div>
           <div className="ml-4 mt-6">

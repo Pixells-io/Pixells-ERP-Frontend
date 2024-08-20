@@ -49,15 +49,15 @@ function TicketsTable({ tickets, edit, destroy }) {
   const columns = [
     columnHelper.accessor((row) => `${row.issue}`, {
       id: "Issue",
-      header: "TEMA",
+      header: "ISSUE",
     }),
     columnHelper.accessor((row) => `${row.importance}`, {
       id: "Importance",
-      header: "IMPORTANCIA",
+      header: "IMPORTANCE",
     }),
     columnHelper.accessor((row) => `${row.status}`, {
       id: "Status",
-      header: "ESTADO",
+      header: "STATE",
       accessorKey: "status",
       cell: ({ row }) => {
         return (
@@ -81,15 +81,15 @@ function TicketsTable({ tickets, edit, destroy }) {
     }),
     columnHelper.accessor((row) => `${row.category}`, {
       id: "Category",
-      header: "CATEGORÍA",
+      header: "CATEGORY",
     }),
     columnHelper.accessor((row) => `${row.creator}`, {
       id: "Creator",
-      header: "CREADOR",
+      header: "CREATOR",
     }),
     {
       accessorKey: "actions",
-      header: "ACCIONES",
+      header: "ACTIONS",
       id: "Actions",
       cell: ({ row }) => {
         return (

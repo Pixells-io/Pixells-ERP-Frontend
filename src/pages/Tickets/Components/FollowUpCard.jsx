@@ -75,7 +75,7 @@ function FollowUpCard({ followUp, ticket, status }) {
                 </span>
               ) : (
                 <span className="font-roboto text-xs font-medium text-grisSubText">
-                  Cargar documento
+                  Upload document
                 </span>
               )}
             </div>

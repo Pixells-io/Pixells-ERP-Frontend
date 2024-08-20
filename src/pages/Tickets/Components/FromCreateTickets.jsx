@@ -143,7 +143,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="w-full sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="font-poppins">Crear Ticket</DialogTitle>
+          <DialogTitle className="font-poppins">Create Ticket</DialogTitle>
         </DialogHeader>
         <Form
           id="ticket-form"
@@ -168,7 +168,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   <div className="flex w-1/2">
                     <SelectRouter
                       name={"user_id"}
-                      placeholder={"Responsable"}
+                      placeholder={"Responsible"}
                       options={users}
                       value={input.user_id}
                       onChange={(e) => handleChangeUser(e, i)}
@@ -212,20 +212,20 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
                   className="text-white"
                 ></IonIcon>
               </button>
-              <InputRouter name="issue" type="text" placeholder="Tema" />
+              <InputRouter name="issue" type="text" placeholder="Issue" />
               <InputRouter
                 name="description"
                 type="text"
-                placeholder="Descripción"
+                placeholder="Description"
               />
               <SelectRouter
                 name={"importance"}
-                placeholder={"Importancia"}
+                placeholder={"Importance"}
                 options={importanceValues}
               />
               <SelectRouter
                 name={"category_ticket"}
-                placeholder={"Categoría"}
+                placeholder={"Category"}
                 options={categoryValues}
               />
             </div>
@@ -237,7 +237,7 @@ function FormCreateTickets({ modal, setModal, areas, users }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

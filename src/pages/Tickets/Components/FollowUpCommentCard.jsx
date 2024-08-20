@@ -15,7 +15,7 @@ function FollowUpCommentCard({ comment }) {
         <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
           <div className="flex items-center gap-2 p-1">
             <span className="ml-2 font-roboto text-xs font-medium text-grisSubText">
-              Se ha creado un comentario
+              A comment has been added
             </span>
           </div>
           <div className="flex items-center gap-2 p-1 text-grisSubText">
