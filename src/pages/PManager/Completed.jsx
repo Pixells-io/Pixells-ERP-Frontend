@@ -171,7 +171,7 @@ export async function Action({ request }) {
       return redirect("/project-manager/completed");
 
     case "Task":
-      await saveImportClients(2, data.get("id"));
+      await destroyActivity(2, data.get("id"));
       return redirect("/project-manager/completed");
   }
 
