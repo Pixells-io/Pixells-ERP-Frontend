@@ -132,7 +132,7 @@ function NewInductionModal({ modal, setModal, positions, areas, users }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

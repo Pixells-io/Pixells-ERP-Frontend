@@ -34,38 +34,38 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
       value: "General",
     },
     {
-      label: "Técnica del área",
-      value: "Técnica del área",
+      label: "Area technique",
+      value: "Area technique",
     },
     {
-      label: "Técnica del puesto",
-      value: "Técnica del puesto",
+      label: "Position technique",
+      value: "Position technique",
     },
     {
-      label: "Seguridad, Higiene y Medio Ambiente",
-      value: "Seguridad, Higiene y Medio Ambiente",
+      label: "Safety, Hygiene and Environment",
+      value: "Safety, Hygiene and Environment",
     },
     {
-      label: "Desarrollo Humano",
-      value: "Desarrollo Humano",
+      label: "Human Development",
+      value: "Human Development",
     },
     {
-      label: "Habilidades Gerenciales",
-      value: "Habilidades Gerenciales",
+      label: "Management Skills",
+      value: "Management Skills",
     },
   ];
 
   const typeTrainingOptions = [
     {
-      label: "Área",
+      label: "Area",
       value: "1",
     },
     {
-      label: "Posición",
+      label: "Position",
       value: "2",
     },
     {
-      label: "Usuario",
+      label: "User",
       value: "3",
     },
   ];
@@ -115,7 +115,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="flex max-h-[500px] flex-col p-0 sm:max-w-[425px]">
         <DialogHeader className="border border-b px-8 py-4">
-          <DialogTitle className="font-poppins">Crear Capacitación</DialogTitle>
+          <DialogTitle className="font-poppins">Create Training</DialogTitle>
         </DialogHeader>
         <Form
           id="training-create-form"
@@ -136,33 +136,34 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
               <InputRouter
                 name="name"
                 type="text"
-                placeholder="Nombre de la capacitación"
+                placeholder="Training Name"
               />
 
               <SelectRouter
                 options={typeTrainingOptions}
                 name={"type"}
-                defaultVal={{ label: "Área", value: "1" }}
+                defaultVal={{ label: "Area", value: "1" }}
                 onChange={(e) => setinputShow(e.value)}
+                placeholder={"Select type"}
               />
               {inputShow == "1" ? (
                 <SelectRouter
                   name={"areas"}
-                  placeholder={"Seleccione las áreas"}
+                  placeholder={"Select areas"}
                   options={optionsAreas}
                   isMulti={true}
                 />
               ) : inputShow == "2" ? (
                 <SelectRouter
                   name={"positions"}
-                  placeholder={"Seleccione las posiciones"}
+                  placeholder={"Select positions"}
                   options={optionsPositions}
                   isMulti={true}
                 />
               ) : (
                 <SelectRouter
                   name={"users"}
-                  placeholder={"Seleccione los usuarios"}
+                  placeholder={"Select users"}
                   options={optionsUsers}
                   isMulti={true}
                 />
@@ -170,18 +171,18 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
 
               <SelectRouter
                 name={"class_type"}
-                placeholder={"Tipo de capacitación"}
+                placeholder={"Training type"}
                 options={typeOptions}
               />
 
               <SelectRouter
                 name={"mode"}
-                placeholder={"Modalidad"}
+                placeholder={"Mode"}
                 onChange={(e) => {
                   setMode(e.value);
                 }}
                 options={[
-                  { label: "Presencial", value: "1" },
+                  { label: "In person", value: "1" },
                   { label: "Virtual", value: "2" },
                 ]}
               />
@@ -190,8 +191,8 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
                 name={"mode_type"}
                 placeholder={"Tipo de Modalidad"}
                 options={[
-                  { label: "Interna", value: "1" },
-                  { label: "Externa", value: "2" },
+                  { label: "Internal", value: "1" },
+                  { label: "External", value: "2" },
                 ]}
               />
 
@@ -200,22 +201,22 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
                 type="text"
                 placeholder={
                   mode == "1"
-                    ? "Lugar de la capacitación"
+                    ? "Training location"
                     : mode == "2"
-                      ? "Link de la capacitación"
-                      : "Seleccione Modalidad"
+                      ? "Training link"
+                      : "Select Mode"
                 }
               />
               <InputRouter
                 name="teacher_name"
                 type="text"
-                placeholder="Nombre del capacitador"
+                placeholder="Trainer name"
               />
               <Label className="flex w-full flex-col gap-2">
                 <p className="pl-1 text-[11px] font-light text-grisHeading">
-                  Fecha de la capacitación
+                  Training date
                 </p>
-                <DatePicker name="class_date" placeholder="Fecha" />
+                <DatePicker name="class_date" placeholder="Date" />
               </Label>
             </div>
           </div>
@@ -226,7 +227,7 @@ function NewTrainingModal({ modal, setModal, users, areas, positions }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

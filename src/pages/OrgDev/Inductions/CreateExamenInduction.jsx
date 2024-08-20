@@ -1,36 +1,10 @@
 import React from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
-import ExamForm from "./components/ExamForm";
 import { redirect, useParams } from "react-router-dom";
-import { newInductionExam } from "../utils";
-import NavigationHeader from "@/components/navigation-header";
 
-const PEOPLE = [
-  {
-    name: "Rodrigo Gómez",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Clarissa Reynold’s",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Alberto Lenus",
-    position: "Gerente de Administración",
-    status: "Pending",
-  },
-  {
-    name: "Ana Lenovsky",
-    position: "Gerente de Administración",
-    status: "Result",
-  },
-];
+import NavigationHeader from "@/components/navigation-header";
+import ExamForm from "./components/ExamForm";
+
+import { newInductionExam } from "../utils";
 
 function CreateExamenInduction() {
   const { id: inductionId } = useParams();
@@ -44,7 +18,7 @@ function CreateExamenInduction() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATIONAL DEVELOPMENT
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -63,7 +37,7 @@ function CreateExamenInduction() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Inducciones
+            Inductions
           </p>
         </div>
 

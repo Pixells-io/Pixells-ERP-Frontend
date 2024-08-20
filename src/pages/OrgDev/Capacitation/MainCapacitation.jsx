@@ -15,7 +15,7 @@ function MainCapacitation() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATIONAL DEVELOPMENT
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -34,7 +34,7 @@ function MainCapacitation() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Capacitaciones
+            Trainings
           </p>
         </div>
 
@@ -42,21 +42,19 @@ function MainCapacitation() {
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-5 px-4 py-2 text-center">
               <div className="pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">PUESTO</p>
+                <p className="text-sm font-semibold text-grisText">POSITION</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">ESTATUS</p>
+                <p className="text-sm font-semibold text-grisText">STATUS</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">FECHA</p>
+                <p className="text-sm font-semibold text-grisText">DATE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">
-                  CALIFICACIÓN
-                </p>
+                <p className="text-sm font-semibold text-grisText">SCORE</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">

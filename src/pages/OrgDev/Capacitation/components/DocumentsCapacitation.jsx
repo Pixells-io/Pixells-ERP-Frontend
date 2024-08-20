@@ -32,7 +32,7 @@ function DocumentsCapacitation({ rel_id, documents }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="flex max-h-[400px] w-[250px] flex-col gap-2 p-4">
         <div className="flex items-center gap-4">
-          Lista de documentos{" "}
+          List of documents{" "}
           <span className="flex size-5 items-center justify-center rounded-full bg-primarioBotones text-[12px] text-white">
             {documents?.length}
           </span>
@@ -65,7 +65,7 @@ function DocumentsCapacitation({ rel_id, documents }) {
           encType="multipart/form-data"
           className="flex h-full flex-col gap-2 overflow-scroll"
         >
-          <p>Agregar documento</p>
+          <p>Add document</p>
           <DropzoneFile name="document" label="Document" />
           <InputRouter name="title" type="text" placeholder="Document Name" />
           <input

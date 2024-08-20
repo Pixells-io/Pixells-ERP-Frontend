@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline, closeCircle } from "ionicons/icons";
+import { addCircleOutline } from "ionicons/icons";
 import ExamQuestion from "./ExamQuestion";
 
 const EXAMN_TEMPLATE = {

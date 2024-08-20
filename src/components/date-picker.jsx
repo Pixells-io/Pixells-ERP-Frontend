@@ -28,7 +28,7 @@ function DatePicker({ name, defaultVal, disabled }) {
               !date && "text-muted-foreground",
             )}
           >
-            {date ? format(date, "PPP") : <span>Seleccione Fecha</span>}
+            {date ? format(date, "PPP") : <span>Select Date</span>}
             <CalendarIcon className="mr-2 h-4 w-4" />
           </Button>
         </PopoverTrigger>

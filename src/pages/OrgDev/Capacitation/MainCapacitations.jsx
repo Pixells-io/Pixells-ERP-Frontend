@@ -78,7 +78,7 @@ function MainCapacitations() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATIONAL DEVELOPMENT
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -97,7 +97,7 @@ function MainCapacitations() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Capacitación
+            Training
           </p>
           {create == true ? (
             <IonIcon
@@ -123,28 +123,28 @@ function MainCapacitations() {
           <div className="flex flex-col justify-center overflow-auto">
             <div className="grid w-full grid-cols-11 px-4 py-2 text-center">
               <div className="col-span-2 pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">FORM</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">LUGAR</p>
+                <p className="text-sm font-semibold text-grisText">PLACE</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">FORMADOR</p>
+                <p className="text-sm font-semibold text-grisText">TRAINER</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  FECHA TENTATIVA
+                  TENTATIVE DATE
                 </p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-grisText">
-                  FECHA REAL
+                  ACTUAL DATE
                 </p>
               </div>
               <div>
@@ -154,7 +154,7 @@ function MainCapacitations() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">RECORD</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
@@ -195,7 +195,7 @@ function MainCapacitations() {
                         to={`/org-development/capacitation/create/${row?.id}`}
                       >
                         <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
-                          Exámen
+                          Exam
                         </p>
                       </NavLink>
                     </div>
@@ -203,7 +203,7 @@ function MainCapacitations() {
                     <div className="flex items-center justify-center">
                       <NavLink to={`/org-development/exam/${row?.examen_id}`}>
                         <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
-                          Exámen
+                          Exam
                         </p>
                       </NavLink>
                     </div>
