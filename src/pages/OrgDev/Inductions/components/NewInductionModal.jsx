@@ -14,7 +14,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import SelectMultiple from "@/components/ui/selectMultiple";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function NewInductionModal({ modal, setModal, positions, areas }) {
+function NewInductionModal({ modal, setModal, positions, areas, users }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -29,8 +29,12 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
       value: "General",
     },
     {
-      label: "Position",
-      value: "Position",
+      label: "Técnica de Área",
+      value: "Técnica de Área",
+    },
+    {
+      label: "Técnica de Posición",
+      value: "Técnica de Posición",
     },
   ];
 
@@ -62,6 +66,26 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
     }
   }
 
+  const selectUsers = [];
+
+  arrayFillUsers(users, selectUsers);
+
+  function arrayFillUsers(data, array) {
+    let dataParse = data;
+
+    dataParse.forEach((element) => {
+      array.push({
+        label:
+          element.name +
+          " " +
+          element.last_name +
+          " " +
+          element.second_last_name,
+        value: element.id,
+      });
+    });
+  }
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[500px] overflow-auto sm:max-w-[425px]">
@@ -84,25 +108,21 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
                 type="text"
                 placeholder="Nombre de la inducción"
               />
-              <InputRouter
-                name="description"
-                type="text"
-                placeholder="Descripción de la inducción"
-              />
               <SelectRouter
                 name={"tipo"}
                 placeholder={"Tipo de inducción"}
                 options={typeOptions}
               />
               <SelectRouter
-                name={"responsable"}
-                placeholder={"Seleccione un puesto de responsabilidad"}
-                options={optionsPositions}
-              />
-              <SelectMultiple
                 name={"areas"}
                 placeholder={"Seleccione las áreas"}
                 options={optionsAreas}
+                isMulti={true}
+              />
+              <SelectRouter
+                name={"responsable"}
+                placeholder={"Seleccione un responsable"}
+                options={selectUsers}
               />
             </div>
           </div>
