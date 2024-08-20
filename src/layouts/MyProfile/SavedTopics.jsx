@@ -15,6 +15,12 @@ import NavigationHeader from "@/components/navigation-header";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { destroyNotification } from "@/lib/actions";
 import Publication from "@/pages/Topics/Components/Publication";
+import {
+  storeComment,
+  storeFavorite,
+  storeLike,
+  storeLikeComment,
+} from "@/pages/Topics/utils";
 function SavedTopics() {
   const navigate = useNavigate();
 
