@@ -19,7 +19,7 @@ import NavigationHeader from "@/components/navigation-header";
 function MainOrgDev() {
   const navigation = useNavigation();
 
-  const { positions, areas, inductions, permissions } = useLoaderData();
+  const { positions, areas, inductions, permissions, users } = useLoaderData();
 
   const [modalCreateInduccion, setModalCreateInduccion] = useState(false);
 
@@ -74,7 +74,7 @@ function MainOrgDev() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              DESARROLLO ORGANIZACIONAL
+              ORGANIZATIONAL DEVELOPMENT
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -93,7 +93,7 @@ function MainOrgDev() {
         </div>
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Inducciones
+            Inductions
           </p>
           {create == true ? (
             <IonIcon
@@ -111,22 +111,23 @@ function MainOrgDev() {
           setModal={setModalCreateInduccion}
           positions={positions.data}
           areas={areas.data}
+          users={users.data}
         />
         <div className="overflow-auto rounded-lg bg-blancoBg pt-2">
           <div className="flex flex-col justify-center">
             <div className="grid w-full grid-cols-8 px-4 py-2 text-center">
               <div className="col-span-2 flex items-center pl-4 text-left">
-                <p className="text-sm font-semibold text-grisText">NOMBRE</p>
+                <p className="text-sm font-semibold text-grisText">NAME</p>
               </div>
               <div className="flex items-center">
-                <p className="text-sm font-semibold text-grisText">TIPO</p>
+                <p className="text-sm font-semibold text-grisText">TYPE</p>
               </div>
               <div className="flex items-center">
                 <p className="text-sm font-semibold text-grisText">AREAS</p>
               </div>
               <div className="flex items-center">
                 <p className="text-sm font-semibold text-grisText">
-                  RESPONSABLE
+                  RESPONSIBLE
                 </p>
               </div>
               <div className="flex items-center justify-center">
@@ -136,7 +137,7 @@ function MainOrgDev() {
                 <p className="text-sm font-semibold text-grisText">TEST</p>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-sm font-semibold text-grisText">HISTORIAL</p>
+                <p className="text-sm font-semibold text-grisText">RECORD</p>
               </div>
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
@@ -168,7 +169,7 @@ function MainOrgDev() {
                         to={`/org-development/induction/create/${row?.id}`}
                       >
                         <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
-                          Exámen
+                          Exam
                         </p>
                       </NavLink>
                     </div>
@@ -176,7 +177,7 @@ function MainOrgDev() {
                     <div className="flex items-center justify-center">
                       <NavLink to={`/org-development/exam/${row?.examen_id}`}>
                         <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
-                          Exámen
+                          Exam
                         </p>
                       </NavLink>
                     </div>

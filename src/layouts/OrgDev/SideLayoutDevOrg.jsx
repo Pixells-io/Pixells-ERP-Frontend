@@ -16,26 +16,26 @@ const MENU_ITEMS = [
   {
     path: "/org-development/induction",
     subpath: [
-      { path: "/org-development/induction", name: "Creador" },
+      { path: "/org-development/induction", name: "Creator" },
       {
         path: "/org-development/induction/my-inductions",
-        name: "Mis inducciones",
+        name: "My inductions",
       },
     ],
-    name: "Inducción",
+    name: "Induction",
     subname: "General",
     icon: copy,
   },
   {
     path: "/org-development/capacitation",
     subpath: [
-      { path: "/org-development/capacitation", name: "Creador" },
+      { path: "/org-development/capacitation", name: "Creator" },
       {
         path: "/org-development/capacitation/my-capacitations",
-        name: "Mis capacitaciones",
+        name: "My trainings",
       },
     ],
-    name: "Capacitación",
+    name: "Training",
     subname: "General",
     icon: book,
   },
@@ -96,11 +96,13 @@ function SideLayoutDevOrg() {
                     <div className="flex w-full items-center gap-6">
                       {location.pathname.includes(item.path) ? (
                         <div className="flex w-full items-center gap-6 rounded-lg bg-[#E8E8E8] px-4 py-1 text-primario">
-                          <IonIcon icon={item.icon} size="large"></IonIcon>
+                          <IonIcon icon={item?.icon} size="large"></IonIcon>
                           <div>
-                            <p className="text-base font-medium">{item.name}</p>
+                            <p className="text-base font-medium">
+                              {item?.name}
+                            </p>
                             <p className="text-left text-[10px] font-medium">
-                              {item.subname}
+                              {item?.subname}
                             </p>
                           </div>
                         </div>
@@ -110,7 +112,7 @@ function SideLayoutDevOrg() {
                           <div>
                             <p className="text-base font-medium">{item.name}</p>
                             <p className="text-left text-[10px] font-medium text-grisSubText">
-                              {item.subname}
+                              {item?.subname}
                             </p>
                           </div>
                         </div>
@@ -118,7 +120,7 @@ function SideLayoutDevOrg() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="py-0">
-                    {item.subpath.map((link, i) => (
+                    {item?.subpath.map((link, i) => (
                       <NavLink
                         key={i}
                         to={`${link.path}`}
@@ -149,7 +151,7 @@ function SideLayoutDevOrg() {
                           ) : (
                             <div className="pl-[72px]">
                               <p className="text-sm font-medium hover:w-fit hover:rounded-sm hover:bg-blancoBg hover:px-4">
-                                {link.name}
+                                {link?.name}
                               </p>
                             </div>
                           )}

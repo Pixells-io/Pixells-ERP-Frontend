@@ -11,10 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import SelectMultiple from "@/components/ui/selectMultiple";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function NewInductionModal({ modal, setModal, positions, areas }) {
+function NewInductionModal({ modal, setModal, positions, areas, users }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -29,8 +28,12 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
       value: "General",
     },
     {
-      label: "Position",
-      value: "Position",
+      label: "Area Technique",
+      value: "Area Technique",
+    },
+    {
+      label: "Position Technique",
+      value: "Position Technique",
     },
   ];
 
@@ -62,12 +65,32 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
     }
   }
 
+  const selectUsers = [];
+
+  arrayFillUsers(users, selectUsers);
+
+  function arrayFillUsers(data, array) {
+    let dataParse = data;
+
+    dataParse.forEach((element) => {
+      array.push({
+        label:
+          element.name +
+          " " +
+          element.last_name +
+          " " +
+          element.second_last_name,
+        value: element.id,
+      });
+    });
+  }
+
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
+    <Dialog open={true} onOpenChange={setModal}>
       <DialogContent className="h-[500px] overflow-auto sm:max-w-[425px]">
         <div className="-mx-6 border-b pb-2 pl-2">
           <DialogHeader className="px-6">
-            <DialogTitle className="font-poppins">Crear Inducción</DialogTitle>
+            <DialogTitle className="font-poppins">Create Induction</DialogTitle>
           </DialogHeader>
         </div>
         <Form
@@ -82,27 +105,23 @@ function NewInductionModal({ modal, setModal, positions, areas }) {
               <InputRouter
                 name="name"
                 type="text"
-                placeholder="Nombre de la inducción"
-              />
-              <InputRouter
-                name="description"
-                type="text"
-                placeholder="Descripción de la inducción"
+                placeholder="Induction Name"
               />
               <SelectRouter
                 name={"tipo"}
-                placeholder={"Tipo de inducción"}
+                placeholder={"Induction type"}
                 options={typeOptions}
               />
               <SelectRouter
-                name={"responsable"}
-                placeholder={"Seleccione un puesto de responsabilidad"}
-                options={optionsPositions}
-              />
-              <SelectMultiple
                 name={"areas"}
-                placeholder={"Seleccione las áreas"}
+                placeholder={"Select areas"}
                 options={optionsAreas}
+                isMulti={true}
+              />
+              <SelectRouter
+                name={"responsable"}
+                placeholder={"Select a responsible"}
+                options={selectUsers}
               />
             </div>
           </div>
