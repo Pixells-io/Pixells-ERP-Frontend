@@ -44,7 +44,7 @@ function FormNewChat({ users }) {
   }, [navigation.state]);
 
   return (
-    <Dialog open={true} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
