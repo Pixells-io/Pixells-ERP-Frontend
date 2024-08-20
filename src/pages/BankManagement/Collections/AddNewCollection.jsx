@@ -10,17 +10,22 @@ import {
   create,
   closeCircle,
 } from "ionicons/icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import OnlyDataTable from "../Components/Table/OnlyDataTable";
 import { AddCollectionsColumns } from "./Table/AddCollectionColumns";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import InfoPaymentAndCollection from "../Components/InfoPaymentAndCollection";
 import FormPaymentMethods from "./Modal/FormPaymentMethods";
 import StatusInformation from "../Components/StatusInformation/StatusInformation";
 import ModalConfirmation from "../Components/ModalConfirmation";
 import TableForm from "../Components/Table/TableForm";
-import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function AddNewCollection() {
   const navigate = useNavigate();
@@ -92,6 +97,7 @@ function AddNewCollection() {
     setModalConfirmation(false);
     navigate(`/bank-management/collection/record/1`);
   };
+  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="flex w-full">
@@ -188,17 +194,32 @@ function AddNewCollection() {
         </div>
 
         <div className="flex justify-between rounded-xl bg-blancoBg px-8 py-3">
-          <div className="flex gap-2">
-            <p className="flex items-center justify-center rounded-lg bg-[#F4F4F4] px-4 text-xs font-normal text-grisSubText">
-              {dateNow}
-            </p>
-            <div className="w-full pt-5">
-            <SelectField name="client" options={[]} placeholder="Cliente" />
-            </div>
-            <InputRouter
+          <div className="flex gap-4">
+          <Input
+              name="date"
+              type="text"
+              value={dateNow}
+              className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+              readOnly
+            />
+           
+            <Select 
+             name="client" 
+            >
+              <SelectTrigger className={selectClasses}>
+                <SelectValue placeholder="Cliente" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="option1">Option 1</SelectItem>
+                <SelectItem value="option2">Option 2</SelectItem>
+                <SelectItem value="option3">Option 3</SelectItem>
+              </SelectContent>
+            </Select>
+            <Input
               name="register_accountName"
               type="text"
               placeholder="Entradas de diario"
+              className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             />
           </div>
           <div className="flex w-1/3 items-center justify-center gap-2">

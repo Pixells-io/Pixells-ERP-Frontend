@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import InfoPaymentAndCollection from "../../Components/InfoPaymentAndCollection";
 
 function TabCreditCard() {
-  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="rounded-xl bg-[#FBFBFB] px-4">
@@ -34,7 +34,7 @@ function TabCreditCard() {
       </div>
       <div className="mt-3 mb-8 grid grid-cols-12 gap-x-8 gap-y-4">
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
-          <p className="mb-1 font-roboto text-sm font-light text-grisHeading">
+          <p className="mb-1 font-roboto text-[14px] font-light text-grisHeading">
             Cuenta Contable
           </p>
           <Select 
@@ -50,7 +50,7 @@ function TabCreditCard() {
             </Select>
         </div>
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
-          <p className="mb-1 font-roboto text-sm font-light text-grisHeading">
+          <p className="mb-1 font-roboto text-[14px] font-light text-grisHeading">
             Cuenta de Banco
           </p>
           <Select 
@@ -67,7 +67,7 @@ function TabCreditCard() {
         </div>
 
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
-          <p className="mb-1 font-roboto text-sm font-light text-grisHeading">
+          <p className="mb-1 font-roboto text-[14px] font-light text-grisHeading">
             Nombre Tarjeta crédito
           </p>
           <Input
@@ -79,7 +79,7 @@ function TabCreditCard() {
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
           <div className="grid grid-cols-12 gap-x-8">
             <div className="col-span-6 md:col-span-5 xl:col-span-5">
-              <p className="mb-1 font-roboto text-sm font-light text-grisHeading">
+              <p className="mb-1 font-roboto text-[14px] font-light text-grisHeading">
                 No. de pagos
               </p>
               <Input

@@ -15,7 +15,7 @@ import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function TabChecks() {
   const [rowChecks, setRowChecks] = useState([]);
-  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="mt-3 flex flex-col gap-8 px-4">

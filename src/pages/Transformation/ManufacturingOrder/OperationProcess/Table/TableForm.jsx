@@ -144,7 +144,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row.component}
             >
-              <SelectTrigger className="w-[100px] rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectTrigger className="w-[100px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Selecciona el componente" />
               </SelectTrigger>
               <SelectContent>
@@ -163,7 +163,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Proceso de Operación",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
+            className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             name={`amount-${rowIndex}`}
             value={row.amount}
             placeholder="ingrese"
@@ -177,7 +177,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "product",
         header: "Producto",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">
+          <div className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent">
             <Select
               name={"selectComponent-" + rowIndex}
               className="h-10"
@@ -202,28 +202,52 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "unit",
         header: "Cantidad",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row.unit}</div>
+          <Input
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
         ),
       },
       {
         accessorKey: "date",
         header: "Fecha",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row.unit}</div>
+          <Input
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
         ),
       },
       {
         accessorKey: "estimatedDuration",
         header: "Duración Estimada",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row.unit}</div>
+          <Input
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
         ),
       },
       {
         accessorKey: "realDuration",
         header: "Duración Real",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row.unit}</div>
+          <Input
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
         ),
       },
       {
