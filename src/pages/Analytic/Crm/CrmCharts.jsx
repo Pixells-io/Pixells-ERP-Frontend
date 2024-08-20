@@ -44,8 +44,8 @@ function CrmCharts({ data }) {
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Top 5 Servicios"}
-              subtitle={"Venta de los mejores servicios"}
+              title={"Top 5 Services"}
+              subtitle={"Sale of the best services"}
               dataKeyX={"number"}
               dataKeyY={"name"}
               footerTitle={""}
@@ -57,12 +57,12 @@ function CrmCharts({ data }) {
               chartData={orderNumberAndLimit(data.categories_sales, 5)}
               chartConfig={{
                 number: {
-                  label: "Ventas-",
+                  label: "Sales-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"Top 5 Categorías"}
-              subtitle={"Ventas de las mejores categorías"}
+              title={"Top 5 Categories"}
+              subtitle={"Sales of the best categories"}
               dataKeyX={"name"}
               dataKeyY={"number"}
               footerTitle={""}
@@ -74,15 +74,15 @@ function CrmCharts({ data }) {
               chartData={data.month_array}
               chartConfig={{
                 views: {
-                  label: "Ventas",
+                  label: "Sales",
                 },
                 number: {
-                  label: "Importe de ventas",
+                  label: "Sales amount",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Ventas Anuales"}
-              subtitle={"Ventas totales al mes"}
+              title={"Annual Sales"}
+              subtitle={"Total sales per month"}
               dataKey={"month"}
               keys={["number"]}
             />
@@ -96,8 +96,8 @@ function CrmCharts({ data }) {
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Top 5 Clientes"}
-              subtitle={"Venta de los mejores clientes"}
+              title={"Top 5 Clients"}
+              subtitle={"Selling the best clients"}
               dataKeyX={"number"}
               dataKeyY={"name"}
               footerTitle={""}
@@ -115,8 +115,8 @@ function CrmCharts({ data }) {
               dataKeyCant={"number"}
               total={data.type.reduce((acc, curr) => acc + curr.number, 0)}
               centerTitle={"Ammount"}
-              title={"Empresas vs Persona Física"}
-              subtitle={"Número de clientes registrados por categoría"}
+              title={"Companies vs. Individual"}
+              subtitle={"Number of registered clients by category"}
               footerTitle={""}
               footerSubTitle={""}
             />
@@ -127,7 +127,7 @@ function CrmCharts({ data }) {
             variant="outline"
             className="h-6 rounded-3xl border-[1px] border-[#696974] bg-inherit text-xs font-medium text-grisText"
           >
-            Descargar
+            Download
           </Button>
         </div>
       </div>

@@ -372,7 +372,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     loader: multiloaderNotifications,
-    // errorElement: <NotFound />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
@@ -1206,10 +1206,11 @@ const router = createBrowserRouter([
           {
             path: "/pos/:id",
             element: <MainPos />,
-            children:[{
-              index: true,
-              element: <ProductsPos />
-            }
+            children: [
+              {
+                index: true,
+                element: <ProductsPos />,
+              },
             ],
           },
         ],

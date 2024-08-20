@@ -23,12 +23,12 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.activity_created, 5)}
               chartConfig={{
                 number: {
-                  label: "Actividades-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Actividades Creadas"}
-              subtitle={"Número de actividades creadas por usuario"}
+              title={"Created Activities"}
+              subtitle={"Number of activities created per user"}
               dataKeyX={"name"}
               dataKeyLabel={"number"}
               dataKeyVar={"number"}
@@ -41,12 +41,12 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.activity_complete, 5)}
               chartConfig={{
                 number: {
-                  label: "Actividades-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"Actividades Completadas"}
-              subtitle={"Número de actividades realizadas por usuario"}
+              title={"Completed Activities"}
+              subtitle={"Number of activities performed per user"}
               dataKeyX={"name"}
               dataKeyY={"number"}
               footerTitle={""}
@@ -58,12 +58,12 @@ function ProjectManagerCharts({ data }) {
               chartData={orderNumberAndLimit(data.strategic_objetives_task, 5)}
               chartConfig={{
                 number: {
-                  label: "Actividades-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-2))",
                 },
               }}
-              title={"Tareas y Proyectos por Objetivo Estratégico"}
-              subtitle={"Tareas y Proyectos del Objetivo Estratégico"}
+              title={"Tasks and Projects by Strategic Objective"}
+              subtitle={"Tasks and Projects of the Strategic Objective"}
               dataKeyX={"name"}
               dataKeyY={"number"}
               footerTitle={""}
@@ -75,12 +75,12 @@ function ProjectManagerCharts({ data }) {
               chartData={orderDesktopAndLimit(data.priority, 5)}
               chartConfig={{
                 desktop: {
-                  label: "Actividades-",
+                  label: "Activities-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
-              title={"Máxima Prioridad"}
-              subtitle={"Actividades generadas con una prioridad específica"}
+              title={"Top Priority"}
+              subtitle={"Activities generated with a specific priority"}
               dataKeyX={"desktop"}
               dataKeyY={"name"}
               footerTitle={""}
@@ -89,8 +89,8 @@ function ProjectManagerCharts({ data }) {
           </div>
           <div className="col-span-12 rounded-3xl sm:col-span-12 xl:col-span-6">
             <AverageTimeCard
-              title={"Tiempo Medio de Realización de la Tarea"}
-              subtitle={"Días para completar una actividad"}
+              title={"Average Task Completion Time"}
+              subtitle={"Days to complete an activity"}
               days={data.task_resolve_days}
             />
           </div>
@@ -100,7 +100,7 @@ function ProjectManagerCharts({ data }) {
             variant="outline"
             className="h-6 rounded-3xl border-[1px] border-[#696974] bg-inherit text-xs font-medium text-grisText"
           >
-            Descargar
+            Download
           </Button>
         </div>
       </div>

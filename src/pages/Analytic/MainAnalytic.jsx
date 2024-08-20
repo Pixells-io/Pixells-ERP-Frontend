@@ -26,7 +26,7 @@ function MainAnalytic() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              ANÁLISIS GENERAL
+              GENERAL ANALYSIS
             </h2>
           </div>
           <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]"></div>
@@ -51,7 +51,7 @@ function MainAnalytic() {
                 value="projectsManager"
                 className="rounded-3xl border-[1px] border-[#696974] px-4 text-xs font-medium text-grisText data-[state=active]:border-[#D7D7D7] data-[state=active]:bg-[#D7D7D7] data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
               >
-                Gestor de Proyectos
+                Project Manager
               </TabsTrigger>
             </TabsList>
             <TabsContent value="crm" className="p-2">
