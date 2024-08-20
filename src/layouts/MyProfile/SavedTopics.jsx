@@ -41,7 +41,11 @@ function SavedTopics() {
         </div>
         <div className="flex flex-col items-center gap-y-4 overflow-auto">
           {data.map((topic, i) => (
-            <Publication topic={topic} key={i} />
+            <Publication
+              topic={topic}
+              key={i}
+              url={`/my-profile/topic-saved`}
+            />
           ))}
         </div>
       </div>
@@ -49,3 +53,23 @@ function SavedTopics() {
   );
 }
 export default SavedTopics;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type")) {
+    case "1":
+      await storeLike(data);
+      break;
+    case "2":
+      await storeComment(data);
+      break;
+    case "3":
+      await storeLikeComment(data);
+      break;
+    case "4":
+      await storeFavorite(data);
+      break;
+  }
+  return "1";
+}

@@ -370,7 +370,9 @@ import {
 import MainPos from "./pages/Pos/MainPos/MainPos";
 import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
 import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
-import SavedTopics from "./layouts/MyProfile/SavedTopics";
+import SavedTopics, {
+  Action as SavedTopicsActions,
+} from "./layouts/MyProfile/SavedTopics";
 
 const router = createBrowserRouter([
   {
@@ -840,6 +842,7 @@ const router = createBrowserRouter([
             path: "/my-profile/topic-saved",
             element: <SavedTopics />,
             loader: getTopicSaved,
+            action: SavedTopicsActions,
           },
         ],
       },

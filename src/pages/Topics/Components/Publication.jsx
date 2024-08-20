@@ -20,12 +20,11 @@ import { getTopic } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
 import { Form, useParams } from "react-router-dom";
 
-function Publication({ topic }) {
+function Publication({ topic, url }) {
   const [topicData, setTopicData] = useState(null);
   const [topicId, setTopicId] = useState(topic.id);
   const [showComments, setShowComments] = useState(0);
   const pusherClient = createPusherClient();
-  const { id } = useParams();
 
   useEffect(() => {
     setTopicId(topic.id);
@@ -68,7 +67,7 @@ function Publication({ topic }) {
           </div>
           <div className="flex items-center">
             {topicData?.favorite > 0 ? (
-              <Form action={`/topics/${id}`} method="post">
+              <Form action={url} method="post">
                 <input type="hidden" name="topic" value={topicId} />
                 <input type="hidden" name="type" value={4} />
                 <button type="submit">
@@ -79,7 +78,7 @@ function Publication({ topic }) {
                 </button>
               </Form>
             ) : (
-              <Form action={`/topics/${id}`} method="post">
+              <Form action={url} method="post">
                 <input type="hidden" name="topic" value={topicId} />
                 <input type="hidden" name="type" value={4} />
                 <button type="submit">
@@ -134,7 +133,7 @@ function Publication({ topic }) {
       <div className="flex w-full flex-col gap-y-4 p-4">
         <div className="flex gap-x-2">
           <div className="mt-1 flex items-center gap-x-1">
-            <Form action={`/topics/${id}`} method="post">
+            <Form action={url} method="post">
               <input type="hidden" name="topic" value={topicId} />
               <input type="hidden" name="type" value={1} />
               <button type="submit">
@@ -187,7 +186,7 @@ function Publication({ topic }) {
                     </div>
                     <div>
                       {topicData?.main_comment?.my_like_comment > 0 ? (
-                        <Form action={`/topics/${id}`} method="post">
+                        <Form action={url} method="post">
                           <input
                             type="hidden"
                             name="comment"
@@ -202,7 +201,7 @@ function Publication({ topic }) {
                           </button>
                         </Form>
                       ) : (
-                        <Form action={`/topics/${id}`} method="post">
+                        <Form action={url} method="post">
                           <input
                             type="hidden"
                             name="comment"
@@ -266,7 +265,7 @@ function Publication({ topic }) {
                   </div>
                   <div>
                     {comment.my_like_comment > 0 ? (
-                      <Form action={`/topics/${id}`} method="post">
+                      <Form action={url} method="post">
                         <input
                           type="hidden"
                           name="comment"
@@ -281,7 +280,7 @@ function Publication({ topic }) {
                         </button>
                       </Form>
                     ) : (
-                      <Form action={`/topics/${id}`} method="post">
+                      <Form action={url} method="post">
                         <input
                           type="hidden"
                           name="comment"
@@ -329,7 +328,7 @@ function Publication({ topic }) {
         )}
         <div>
           <div>
-            <Form action={`/topics/${id}`} method="post">
+            <Form action={url} method="post">
               <input type="hidden" name="topic" value={topicId} />
               <input type="hidden" name="type" value={2} />
               <Input

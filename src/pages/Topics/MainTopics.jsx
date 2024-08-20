@@ -78,7 +78,7 @@ function MainTopics() {
 
         <div className="flex flex-col items-center gap-y-4">
           {topicsData.data.map((topic, i) => (
-            <Publication topic={topic} key={i} />
+            <Publication topic={topic} key={i} url={`/topics/${id}`} />
           ))}
         </div>
       </div>
