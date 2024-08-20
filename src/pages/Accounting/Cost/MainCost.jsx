@@ -11,6 +11,7 @@ import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
 import AddConfig from "../components/ModalConfig";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TabsContent } from "@radix-ui/react-tabs";
 
 const MainCost = () => {
   const [misDatos, setMisDatos] = useState([
@@ -148,32 +149,28 @@ const MainCost = () => {
         </div>
 
         {/* Data Table */}
-        <div className="overflow-auto rounded-xl pt-4">
-          <div className="flex items-center">
-            <div className="left-2 w-1/5">
-              <Tabs
-                defaultValue="CENTRO DE COSTOS"
-                className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-                >
-                <TabsList  className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                  <TabsTrigger
+        <div className="w-full overflow-auto">
+          <Tabs
+            defaultValue="CENTRO DE COSTOS"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
                 className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
                 value="CENTRO DE COSTOS"
-                  >
-                    CENTRO DE COSTOS
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
-          </div>
-          <div className="mt-[-60px]">
-            <DataTable
-              data={tableData}
-              columns={columns}
-              searchFilter={"codigo"}
-              searchNameFilter={"Ingrese el código"}
-            />
-          </div>
+              >
+                CENTRO DE COSTOS
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="CENTRO DE COSTOS" className="mt-[-60px] p-2">
+              <DataTable
+                data={tableData}
+                columns={columns}
+                searchFilter={"codigo"}
+                searchNameFilter={"Ingrese el código"}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

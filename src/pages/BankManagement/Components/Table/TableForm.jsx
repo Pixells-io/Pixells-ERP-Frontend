@@ -74,7 +74,7 @@ const TableForm = ({ rows, setRows, columns }) => {
                 <TableCell key={col.key} className="p-1">
                   {col.typeColumn == "input" ? (
                     <Input
-                      className="border p-1 h-auto focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-inherit text-xs font-normal text-grisHeading"
+                      className="border p-1 h-auto bg-inherit text-xs font-normal text-grisHeading font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
                       type={col.type}
                       placeholder={col.placeholder}
                       value={row[col.key]}
@@ -84,9 +84,9 @@ const TableForm = ({ rows, setRows, columns }) => {
                     />
                   ) : col.typeColumn == "select" && (
                     <Select>
-                      <SelectTrigger className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                      <SelectTrigger className="w-[150px] rounded border p-[8px] border-gris2-transparent  h-auto bg-inherit text-xs font-roboto text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                         <SelectValue
-                          placeholder={col.placeholder}
+                          placeholder="País"
                           className=""
                         />
                       </SelectTrigger>

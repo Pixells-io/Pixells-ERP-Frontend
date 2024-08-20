@@ -20,6 +20,7 @@ import FormPaymentMethods from "./Modal/FormPaymentMethods";
 import StatusInformation from "../Components/StatusInformation/StatusInformation";
 import ModalConfirmation from "../Components/ModalConfirmation";
 import TableForm from "../Components/Table/TableForm";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 
 function AddNewCollection() {
   const navigate = useNavigate();
@@ -191,8 +192,9 @@ function AddNewCollection() {
             <p className="flex items-center justify-center rounded-lg bg-[#F4F4F4] px-4 text-xs font-normal text-grisSubText">
               {dateNow}
             </p>
-            <SelectRouter name="client" options={[]} placeholder="Cliente" />
-
+            <div className="w-full pt-5">
+            <SelectField name="client" options={[]} placeholder="Cliente" />
+            </div>
             <InputRouter
               name="register_accountName"
               type="text"
