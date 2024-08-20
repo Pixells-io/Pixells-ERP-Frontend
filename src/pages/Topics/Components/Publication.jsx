@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation, useParams } from "react-router-dom";
+
 import {
   Carousel,
   CarouselContent,
@@ -6,6 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
+
 import { IonIcon } from "@ionic/react";
 import {
   bookmark,
@@ -15,15 +19,19 @@ import {
   heart,
   heartOutline,
 } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+
 import { getTopic } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
-import { Form, useParams } from "react-router-dom";
 
 function Publication({ topic, url }) {
+  const navigation = useNavigation();
   const [topicData, setTopicData] = useState(null);
   const [topicId, setTopicId] = useState(topic.id);
   const [showComments, setShowComments] = useState(0);
+
+  //input states
+  const [commentInput, setCommentInput] = useState("");
+
   const pusherClient = createPusherClient();
 
   useEffect(() => {
@@ -47,6 +55,12 @@ function Publication({ topic, url }) {
       pusherClient.unsubscribe(`private-get-topic.${topicId}`);
     };
   }, [topicId]);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setCommentInput("");
+    }
+  }, [navigation.state]);
 
   return (
     <div className="w-[473px] rounded-lg bg-blancoBg shadow-md">
@@ -336,6 +350,8 @@ function Publication({ topic, url }) {
                 name="comment"
                 placeholder="Add a comment..."
                 className="border-0 bg-inherit text-sm font-normal text-grisSubText placeholder:text-grisSubText focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                value={commentInput}
+                onChange={(e) => setCommentInput(e.target.value)}
               />
             </Form>
           </div>
