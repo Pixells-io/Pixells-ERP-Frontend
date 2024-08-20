@@ -1,23 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 
-import {
-  checkmarkCircleOutline,
-  chevronBack,
-  chevronForward,
-  create,
-  ellipse,
-  trash,
-} from "ionicons/icons";
+import { trash } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";

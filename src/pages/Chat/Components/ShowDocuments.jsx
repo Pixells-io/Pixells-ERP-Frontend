@@ -29,13 +29,13 @@ function ShowDocuments({ modal, setModal, doc }) {
       <div className="overlay flex h-1/5 items-center justify-end px-10">
         <div className="flex gap-x-4">
           <button className="rounded-3xl border-[1px] border-[#44444F] bg-inherit px-5 py-1 text-xs font-light text-[#44444F]">
-            Reenviar
+            Forward
           </button>
           <button className="rounded-3xl border-[1px] border-[#44444F] bg-inherit px-5 py-1 text-xs font-light text-[#44444F]">
-            Responder
+            Reply
           </button>
           <button className="rounded-3xl border-[1px] border-[#44444F] bg-inherit px-5 py-1 text-xs font-light text-[#44444F]">
-            Descargar
+            Download
           </button>
           <button className="flex items-center" onClick={() => setModal(false)}>
             <IonIcon
