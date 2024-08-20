@@ -171,6 +171,25 @@ export async function storeLikeComment(data) {
   return response;
 }
 
+export async function storeFavorite(data) {
+  const info = {
+    topic_id: data.get("topic"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}topics/topics-favorite-save`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function storeComment(data) {
   const info = {
     topic_id: data.get("topic"),
@@ -189,4 +208,20 @@ export async function storeComment(data) {
   );
 
   return response;
+}
+
+export async function getTopicSaved() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}topics/get-topics-favorites`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }

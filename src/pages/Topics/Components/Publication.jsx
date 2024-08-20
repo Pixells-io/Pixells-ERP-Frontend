@@ -67,16 +67,28 @@ function Publication({ topic }) {
             </span>
           </div>
           <div className="flex items-center">
-            {true ? (
-              <IonIcon
-                icon={bookmark}
-                className="h-4 w-5 cursor-pointer text-[#696974]"
-              ></IonIcon>
+            {topicData?.favorite > 0 ? (
+              <Form action={`/topics/${id}`} method="post">
+                <input type="hidden" name="topic" value={topicId} />
+                <input type="hidden" name="type" value={4} />
+                <button type="submit">
+                  <IonIcon
+                    icon={bookmark}
+                    className="h-4 w-5 cursor-pointer text-[#696974]"
+                  ></IonIcon>
+                </button>
+              </Form>
             ) : (
-              <IonIcon
-                icon={bookmarkOutline}
-                className="h-4 w-5 cursor-pointer text-[#696974]"
-              ></IonIcon>
+              <Form action={`/topics/${id}`} method="post">
+                <input type="hidden" name="topic" value={topicId} />
+                <input type="hidden" name="type" value={4} />
+                <button type="submit">
+                  <IonIcon
+                    icon={bookmarkOutline}
+                    className="h-4 w-5 cursor-pointer text-[#696974]"
+                  ></IonIcon>
+                </button>
+              </Form>
             )}
           </div>
         </div>

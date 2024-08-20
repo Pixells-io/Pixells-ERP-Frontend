@@ -360,12 +360,17 @@ import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgre
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
 import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
 import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
-import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
+import {
+  getTopicSaved,
+  multiLoaderTopics,
+  multiLoaderTopics2,
+} from "./pages/Topics/utils";
 
 //POS
 import MainPos from "./pages/Pos/MainPos/MainPos";
 import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
 import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
+import SavedTopics from "./layouts/MyProfile/SavedTopics";
 
 const router = createBrowserRouter([
   {
@@ -830,6 +835,11 @@ const router = createBrowserRouter([
             path: "/my-profile/notifications",
             element: <MainNotifications />,
             loader: getNotifications,
+          },
+          {
+            path: "/my-profile/topic-saved",
+            element: <SavedTopics />,
+            loader: getTopicSaved,
           },
         ],
       },

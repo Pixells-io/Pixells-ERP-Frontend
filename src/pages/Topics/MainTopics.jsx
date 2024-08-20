@@ -5,7 +5,13 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import Publication from "./Components/Publication";
 import Categories from "./Components/Categories";
 import { useLoaderData, useLocation, useParams } from "react-router-dom";
-import { getTopics, storeComment, storeLike, storeLikeComment } from "./utils";
+import {
+  getTopics,
+  storeComment,
+  storeFavorite,
+  storeLike,
+  storeLikeComment,
+} from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 
 function MainTopics() {
@@ -95,6 +101,9 @@ export async function Action({ request }) {
       break;
     case "3":
       await storeLikeComment(data);
+      break;
+    case "4":
+      await storeFavorite(data);
       break;
   }
   return "1";

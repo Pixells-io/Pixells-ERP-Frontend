@@ -3,7 +3,12 @@ import { Outlet, NavLink, useLocation, redirect } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import TopMenu from "../Masters/Menus/TopMenu";
-import { keyOutline, notificationsOutline, person } from "ionicons/icons";
+import {
+  albumsOutline,
+  keyOutline,
+  notificationsOutline,
+  person,
+} from "ionicons/icons";
 import { getEmails, loginGoogleToken, storeChangeNewPassword } from "./utils";
 
 function SideLayoutMyProfile() {
@@ -68,6 +73,22 @@ function SideLayoutMyProfile() {
                 <IonIcon icon={notificationsOutline} size="large"></IonIcon>
                 <div>
                   <p className="text-base font-medium">Notifications</p>
+                  <p className="text-[10px] font-medium">General</p>
+                </div>
+              </div>
+            </NavLink>
+            <NavLink
+              to="/my-profile/topic-saved"
+              className={({ isActive }) =>
+                isActive && location.pathname === "/my-profile/topic-saved"
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
+              }
+            >
+              <div className="flex items-center gap-6">
+                <IonIcon icon={albumsOutline} size="large"></IonIcon>
+                <div>
+                  <p className="text-base font-medium">Saved Topics</p>
                   <p className="text-[10px] font-medium">General</p>
                 </div>
               </div>
