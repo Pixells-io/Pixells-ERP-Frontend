@@ -102,7 +102,7 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Numero Artículo",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`article-number-${rowIndex}`}
             value={row?.articleNumber}
             placeholder="Ingrese"
@@ -118,7 +118,7 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`description-${rowIndex}`}
             value={row.description}
             placeholder="Ingrese"
@@ -140,7 +140,7 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className={`w-[100px] border-none ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
+            className={`w-[100px] border-gris2-transparent ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
             placeholder="Ingrese"
@@ -156,7 +156,7 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
             placeholder="Ingrese"

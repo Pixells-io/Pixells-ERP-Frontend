@@ -39,8 +39,12 @@ const Inputs = () => {
     setInputsData((prevData) => ({ ...prevData, [name]: checked }));
   };
 
+  const handleUnitMeasureSelect = (value) => {
+    setInputsData((prevData) => ({ ...prevData, unidadesDeMedida: value }));
+  };
+
   const selectClasses =
-    "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-grisSubText placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="w-full rounded-xl bg-white p-4">
@@ -49,7 +53,7 @@ const Inputs = () => {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <Input
               type="text"
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de Articulo"
               name="codigoDeArticulo"
               value={inputsData.codigoDeArticulo}
@@ -57,7 +61,7 @@ const Inputs = () => {
             />
             <Input
               type="text"
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Nombre o descripcion"
               name="nombreODescripcion"
               value={inputsData.nombreODescripcion}
@@ -111,7 +115,7 @@ const Inputs = () => {
               </SelectContent>
             </Select>
             <Input
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Precio unitario"
               name="precioUnitario"
               value={inputsData.precioUnitario}
@@ -132,18 +136,18 @@ const Inputs = () => {
               </SelectContent>
             </Select>
             <Input
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de barras"
               name="codigoDeBarras"
               value={inputsData.codigoDeBarras}
               onChange={handleInputChange}
             />
-              <Input
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+            <Input
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Unidades de Medida"
               name="unidadDeMedida"
               value={inputsData.unidadesDeMedida}
-              onChange={handleInputChange}
+              readOnly
             />
           </div>
         </div>
@@ -200,9 +204,13 @@ const Inputs = () => {
               >
                 Venta
               </label>
-             
             </div>
-           <div>boton</div>
+            <div className="pl-0 ml-0 pt-4">
+              <UnitMeasure
+                onSelect={handleUnitMeasureSelect}
+                initialValue={inputsData.unidadesDeMedida}
+              />
+            </div>
           </div>
         </div>
       </div>

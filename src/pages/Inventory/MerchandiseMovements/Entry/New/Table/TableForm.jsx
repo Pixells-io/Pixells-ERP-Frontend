@@ -103,7 +103,7 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Numero Artículo",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`article-number-${rowIndex}`}
             value={row?.articleNumber}
             placeholder="Ingrese"
@@ -119,7 +119,7 @@ const TableForm = ({ tableData, setTableData }) => {
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`description-${rowIndex}`}
             value={row.description}
             placeholder="Ingrese"
@@ -141,7 +141,7 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className={`w-[100px] border-none bg-inherit p-1 focus-visible:ring-primarioBotones ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
+            className={`w-[100px] border-gris2-transparent bg-inherit p-1 focus-visible:ring-primarioBotones ${row?.expectedQuantity == row?.receivedQuantity ? "text-[#00A259]" : "text-[#D7586B]"}`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
             placeholder="Ingrese"
@@ -157,7 +157,7 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+            className="w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
             placeholder="Ingrese"
@@ -179,7 +179,7 @@ const TableForm = ({ tableData, setTableData }) => {
           <div className="flex items-center justify-between gap-x-2">
             <Select
               name={"selectComponent-ubication-" + rowIndex}
-              className="h-10 w-[100px] border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+              className="h-10 w-[100px] border-gris2-transparent bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
             >

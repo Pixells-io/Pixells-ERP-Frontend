@@ -171,5 +171,5 @@ export async function Action({ request }) {
   if (data.get("type") === "2") {
   }
 
-  return redirect("/org-development/induction/my-inductions");
+  return redirect("/org-development");
 }

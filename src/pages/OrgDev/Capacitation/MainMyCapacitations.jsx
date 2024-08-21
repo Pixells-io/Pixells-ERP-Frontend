@@ -59,7 +59,7 @@ function MainMyCapacitations() {
         </div>
 
         <div className="h-full overflow-auto rounded-lg bg-blancoBg p-2">
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap">
             {capacitacionPusher?.map((card, i) => (
               <CapacutationCard card={card} key={i} />
             ))}

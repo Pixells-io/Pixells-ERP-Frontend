@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const InputsGroup = ({ fields, initialValues }) => {
   const navigation = useNavigation();
+  const { id } = useParams();
 
   // Estado para mantener los valores de los campos
   const [values, setValues] = useState(initialValues);
@@ -26,9 +27,11 @@ const InputsGroup = ({ fields, initialValues }) => {
     <div className="w-full bg-white rounded-xl p-4">
       <Form
         id="form-supplier"
-        action="/shopping/supplier/create"
+        action={"/shopping/supplier/edit/" + id}
         method="post"
       >
+        <input type="hidden" name="supplier_id" value={id} />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {fields.map((field) => {
             if (field.type === "input") {
