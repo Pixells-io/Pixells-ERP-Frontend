@@ -46,7 +46,7 @@ export async function getSupplier({params}) {
 
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}supplier/get/${id}`,
+      `${import.meta.env.VITE_SERVER_URL}supplier/get-supplier/${id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -72,6 +72,37 @@ export async function editSupplier(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}supplier/edit`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function createGeneralInfo(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+    street: data.get("street"),
+    ext: data.get("ext"),
+    int: data.get("int"),
+    cp: data.get("cp"),
+    city: data.get("city"),
+    cologne: data.get("cologne"),
+    state: data.get("state"),
+    country: data.get("country"),
+    shopping_person: data.get("shopping_person"),
+    comment: data.get("comment"),
+    start: data.get("start"),
+    end: data.get("end"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/create-general-info`,
     {
       method: "POST",
       body: JSON.stringify(info),

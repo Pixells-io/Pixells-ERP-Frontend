@@ -379,6 +379,7 @@ import SavedTopics, {
   Action as SavedTopicsActions,
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
+import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 
 const router = createBrowserRouter([
   {
@@ -1110,6 +1111,7 @@ const router = createBrowserRouter([
             path: "/shopping/supplier/edit/:id",
             element: <EditSupplier />,
             action: editSupllier,
+            loader: getSupplier,
           },
           {
             path: "/shopping/customer/create",

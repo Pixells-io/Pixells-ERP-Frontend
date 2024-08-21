@@ -4,23 +4,25 @@ import GralFormSupplier from "./Forms/GeneralForm";
 import ContactForm from "./Forms/ContactForm";
 import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
+import { Form } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const FormGroup = () => {
+const FormGroup = ({ data }) => {
   const [generalData, setGeneralData] = useState({
-    comentarios: "",
+    comment: "",
     activo: false,
     inactivo: false,
-    desde: "",
-    hasta: "",
-    calle: "",
-    colonia: "",
-    estado: "",
-    encargadoCompras: "",
-    numeroInterno: "",
-    codigoPostal: "",
-    pais: "",
-    numeroExterior: "",
-    ciudad: "",
+    start: "",
+    end: "",
+    street: "",
+    cologne: "",
+    state: "",
+    shopping_person: "",
+    int: "",
+    cp: "",
+    country: "",
+    ext: "",
+    city: "",
   });
 
   const [facturacionData, setFacturacionData] = useState({
@@ -62,18 +64,39 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               GENERAL
             </h2>
-            <div className="flex flex-wrap pl-2">
-              <GralFormSupplier
-                generalData={generalData}
-                setGeneralData={setGeneralData}
-              />
+            <div className="flex w-full flex-wrap pl-2">
+              <Form
+                id="form-supplier-general"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"createGeneralInfo"} />
+
+                <GralFormSupplier
+                  generalData={generalData}
+                  setGeneralData={setGeneralData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-general"
+                className="bg-primarioBotones rounded-3xl"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
           <TabsContent value="contact">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONTACTOS
             </h2>
-            <div className="flex flex-wrap pl-2 pt-2 overflow-auto">
+            <div className="flex flex-wrap overflow-auto pl-2 pt-2">
               <ContactForm />
             </div>
           </TabsContent>
@@ -94,7 +117,8 @@ const FormGroup = () => {
             </h2>
             <div className="flex flex-wrap pl-2">
               <CreditForm
-              condicionData={condicionData} setcondicionData={setcondicionData}
+                condicionData={condicionData}
+                setcondicionData={setcondicionData}
               />
             </div>
           </TabsContent>

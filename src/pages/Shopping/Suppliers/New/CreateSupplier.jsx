@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewSuppliers } from "../utils";
 
@@ -16,6 +16,7 @@ const CreateSupplier = () => {
     currency: "",
     cfdi_use: "",
   });
+  const navigation = useNavigation();
 
   // Configuración de los campos del formulario
   const supplierFields = [
@@ -129,7 +130,16 @@ const CreateSupplier = () => {
         </div>
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
-          <InputsGroup fields={supplierFields} initialValues={supplierValues} />
+          <Form
+            id="form-supplier"
+            action="/shopping/supplier/create"
+            method="post"
+          >
+            <InputsGroup
+              fields={supplierFields}
+              initialValues={supplierValues}
+            />
+          </Form>
           {/* <FormGroup /> */}
         </div>
       </div>

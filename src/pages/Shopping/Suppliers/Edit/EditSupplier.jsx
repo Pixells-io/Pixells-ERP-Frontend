@@ -3,18 +3,20 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { editSupplier } from "../utils";
+import { createGeneralInfo, editSupplier } from "../utils";
 
 const EditSupplier = () => {
+  const { data } = useLoaderData();
+
   const [supplierValues, setSupplierValues] = useState({
-    type_supplier: "",
-    fiscal_name: "",
-    rfc: "",
-    group_supplier: "",
-    currency: "",
-    cfdi_use: "",
+    type_supplier: data.type_supplier,
+    fiscal_name: data.fiscal_name,
+    rfc: data.rfc,
+    group_supplier: data.group_supplier,
+    currency: data.currency,
+    cfdi_use: data.cfdi_use,
   });
 
   // Configuración de los campos del formulario
@@ -109,7 +111,7 @@ const EditSupplier = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Proveedor
+            Editar Proveedor
           </p>
           <div className="flex items-end justify-end">
             <Link to="/shopping">
@@ -129,8 +131,20 @@ const EditSupplier = () => {
         </div>
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
-          <InputsGroup fields={supplierFields} initialValues={supplierValues} />
-          {/* <FormGroup /> */}
+          <Form
+            id="form-supplier"
+            action={"/shopping/supplier/edit/" + data.id}
+            method="post"
+          >
+            <input type="hidden" name="supplier_id" value={data.id} />
+
+            <InputsGroup
+              fields={supplierFields}
+              initialValues={supplierValues}
+              id={data.id}
+            />
+          </Form>
+          <FormGroup data={data} />
         </div>
       </div>
     </div>
@@ -141,7 +155,15 @@ export default EditSupplier;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  await editSupplier(data);
+
+  switch (data.get("type")) {
+    case "createGeneralInfo":
+      await createGeneralInfo(data);
+      break;
+    default:
+      await editSupplier(data);
+      break;
+  }
 
   return redirect(`/shopping`);
 }
