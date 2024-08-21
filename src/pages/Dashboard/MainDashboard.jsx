@@ -105,7 +105,7 @@ function MainDashboard() {
               />
             </div>
           </div>
-          <div className="hidden w-full p-4 md:flex">
+          <div className="hidden h-full w-full flex-col p-4 md:flex">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               CUSTOMERS GROWTH
             </span>
