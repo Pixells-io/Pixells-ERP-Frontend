@@ -143,7 +143,7 @@ function MerchandiseMovRecord() {
           <div className="flex w-full gap-x-8">
             <div>
               <Input
-                className="w-[243px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText"
+                className="w-[243px] rounded-xl border border-gris2-transparent bg-inherit text-[14px] font-roboto text-grisSubText placeholder:text-grisSubText focus:ring-2 focus-visible:ring-primarioBotones focus:border-transparent"
                 name={`documentNumber`}
                 // value={row.amount}
                 placeholder="Numero de Documento"
@@ -152,7 +152,7 @@ function MerchandiseMovRecord() {
             </div>
             <div>
               <Select name="priceList" className="h-10">
-                <SelectTrigger className="w-[243px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText">
+                <SelectTrigger className="w-[243px] rounded-xl border border-gris2-transparent bg-inherit text-[14px] font-roboto text-grisSubText placeholder:text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                   <SelectValue placeholder="Lista de Precios" />
                 </SelectTrigger>
                 <SelectContent>

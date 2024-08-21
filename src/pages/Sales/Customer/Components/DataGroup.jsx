@@ -31,7 +31,7 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="Código de Cliente"
           value={values?.clientNumber}
           onChange={handleInputChange}
-          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           />
       </div>
       <div>
@@ -55,7 +55,7 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="Nombre o razón social"
           value={values.socialNumber}
           onChange={handleInputChange}
-          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           />
       </div>
       <div>
@@ -65,7 +65,7 @@ const InputsGroup = ({ initialValues }) => {
           placeholder="RFC"
           value={values.rfc}
           onChange={handleInputChange}
-          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           />
       </div>
       <div>

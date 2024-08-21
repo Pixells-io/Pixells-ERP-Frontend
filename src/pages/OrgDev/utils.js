@@ -244,6 +244,27 @@ export async function storeDocumentExam(data) {
   }
 }
 
+export async function editRealDateCapacitation(data) {
+  const info = {
+    training_id: data.get("training_id"),
+    real_date: format(data.get("real_date"), "yyyy--MM-dd"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}organization-development/change-real-date
+      `,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function removeDocumentExam(data) {
   const id = data.get("document_id");
   const response = await fetch(

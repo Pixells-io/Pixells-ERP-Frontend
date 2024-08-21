@@ -6,26 +6,24 @@ import {
   useNavigation,
 } from "react-router-dom";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { IonIcon } from "@ionic/react";
-import {
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
-  informationCircle,
-} from "ionicons/icons";
+import { addCircleOutline, informationCircle } from "ionicons/icons";
 
-import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import {
+  editRealDateCapacitation,
   removeDocumentExam,
   saveNewTraining,
   storeDocumentExam,
 } from "../utils";
 import { getTrainings } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
+
+import NewTrainingModal from "../Inductions/components/NewTrainingModal";
 import DocumentsCapacitation from "./components/DocumentsCapacitation";
 import NavigationHeader from "@/components/navigation-header";
+import DatePickerDevOrg from "./components/DatePickerDevOrg";
+
+import { format } from "date-fns";
 
 function MainCapacitations() {
   const navigation = useNavigation();
@@ -166,7 +164,10 @@ function MainCapacitations() {
             </div>
             <div className="flex flex-col gap-2 px-4 py-2 text-center">
               {capacitacionPusher?.map((row, i) => (
-                <div key={i} className="grid w-full grid-cols-11 border-t py-4">
+                <div
+                  key={i}
+                  className="grid w-full grid-cols-11 items-center border-t py-4"
+                >
                   <div className="col-span-2 pl-4 text-left">
                     <p className="text-xs text-grisHeading">{row.name}</p>
                   </div>
@@ -187,43 +188,49 @@ function MainCapacitations() {
                   <div>
                     <p className="text-xs text-grisHeading">{row.date}</p>
                   </div>
-                  <div>
-                    <p className="text-xs text-grisHeading">{row.real_date}</p>
+                  <div className="">
+                    {/* <p className="text-xs text-grisHeading">{row.real_date}</p> */}
+                    <DatePickerDevOrg
+                      name="real_date"
+                      dataDate={row.real_date}
+                      capacitation_id={row.id}
+                    />
                   </div>
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center pt-2">
                     <DocumentsCapacitation
                       rel_id={row.id}
                       documents={row.archives}
                     />
                   </div>
                   {row.examen === false ? (
-                    <div className="flex items-center justify-center">
-                      <NavLink
-                        to={`/org-development/capacitation/create/${row?.id}`}
-                      >
-                        <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
-                          Exámen
-                        </p>
-                      </NavLink>
-                    </div>
+                    <NavLink
+                      to={`/org-development/capacitation/create/${row?.id}`}
+                      className="flex items-center justify-center"
+                    >
+                      <p className="w-fit rounded-full bg-[#7794F940] px-3 py-1 text-xs text-[#7794F9]">
+                        Exámen
+                      </p>
+                    </NavLink>
                   ) : (
-                    <div className="flex items-center justify-center">
-                      <NavLink to={`/org-development/exam/${row?.examen_id}`}>
-                        <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
-                          Exámen
-                        </p>
-                      </NavLink>
-                    </div>
+                    <NavLink
+                      to={`/org-development/exam/${row?.examen_id}`}
+                      className="flex items-center justify-center"
+                    >
+                      <p className="w-fit rounded-full bg-[#00A25940] px-3 py-1 text-xs text-[#00A259]">
+                        Exámen
+                      </p>
+                    </NavLink>
                   )}
 
-                  <div className="flex items-center justify-center">
-                    <NavLink to={`/org-development/capacitation/${row?.id}`}>
-                      <IonIcon
-                        icon={informationCircle}
-                        className="h-6 w-6 text-grisText"
-                      ></IonIcon>
-                    </NavLink>
-                  </div>
+                  <NavLink
+                    to={`/org-development/capacitation/${row?.id}`}
+                    className="flex items-center justify-center"
+                  >
+                    <IonIcon
+                      icon={informationCircle}
+                      className="h-6 w-6 text-grisText"
+                    ></IonIcon>
+                  </NavLink>
                 </div>
               ))}
             </div>
@@ -251,6 +258,10 @@ export async function Action({ request }) {
 
     case "3":
       await removeDocumentExam(data);
+      return redirect("/org-development/capacitation");
+
+    case "4":
+      await editRealDateCapacitation(data);
       return redirect("/org-development/capacitation");
 
     default:
