@@ -24,7 +24,7 @@ const InputsGroup = ({
     <div className="rounded-xl bg-white p-4">
       <div className="flex justify-between w-full space-x-4">
         <Input 
-          className="w-full rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           placeholder="Número de Documento"
           type="text"
           name="ndocument"
@@ -37,7 +37,7 @@ const InputsGroup = ({
           onValueChange={handleWarehouseChange} 
           disabled={!isEditable} 
         >
-          <SelectTrigger name="warehouse" className="w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+          <SelectTrigger name="warehouse" className="w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
@@ -51,7 +51,7 @@ const InputsGroup = ({
           onValueChange={handleCostCenterChange} 
           disabled={!isEditable}
         >
-          <SelectTrigger name="ccenter" className="w-full rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+          <SelectTrigger name="ccenter" className="w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Centro de Costos" />
           </SelectTrigger>
           <SelectContent>
