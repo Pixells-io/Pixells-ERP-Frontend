@@ -40,3 +40,46 @@ export async function saveNewSuppliers(data) {
 
   return response;
 }
+
+export async function getSupplier({params}) {
+  const id = params.id;
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}supplier/get/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function editSupplier(data) {
+  const info = {
+    rfc: data.get("rfc"),
+    cfdi_use: data.get("cfdi_use"),
+    type_supplier: data.get("type_supplier"),
+    group_supplier: data.get("group_supplier"),
+    fiscal_name: data.get("fiscal_name"),
+    currency: data.get("currency"),
+    supplier_id: data.get("supplier_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/edit`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

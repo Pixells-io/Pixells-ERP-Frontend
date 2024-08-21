@@ -338,6 +338,9 @@ import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase"
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
 import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
 import EditQuotes from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
+import EditSupplier, {
+  Action as editSupllier,
+} from "./pages/Shopping/Suppliers/Edit/EditSupplier";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1102,6 +1105,11 @@ const router = createBrowserRouter([
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
             action: createNewSupplier,
+          },
+          {
+            path: "/shopping/supplier/edit/:id",
+            element: <EditSupplier />,
+            action: editSupllier,
           },
           {
             path: "/shopping/customer/create",
