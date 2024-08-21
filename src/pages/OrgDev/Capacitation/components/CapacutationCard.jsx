@@ -16,6 +16,7 @@ import {
   checkmarkCircle,
   ellipsisHorizontal,
 } from "ionicons/icons";
+import { format } from "date-fns";
 
 function CapacutationCard({ card }) {
   return (
@@ -79,12 +80,12 @@ function CapacutationCard({ card }) {
       <div className="flex items-center gap-2 text-grisText">
         <div className="flex items-center gap-2 rounded-full bg-[#F1F1F5] px-3">
           <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
-          <p className="text-[12px]">{card.date}</p>
+          <p className="text-[12px]">{card.real_date}</p>
         </div>
-        {card.real_date && (
+        {card.status == true && (
           <div className="flex items-center gap-2 rounded-full bg-[#00A25940] px-3 text-[#00A259]">
             <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
-            <p className="text-[12px]">{card.date}</p>
+            <p className="text-[12px]">{card.completed}</p>
           </div>
         )}
       </div>

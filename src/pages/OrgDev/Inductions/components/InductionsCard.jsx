@@ -74,11 +74,17 @@ function InductionsCard({ card }) {
           {card.type}
         </p>
       </div>
-      <div className="flex items-center text-grisText">
+      <div className="flex items-center justify-between text-grisText">
         <div className="flex items-center gap-2 rounded-full bg-[#F1F1F5] px-3">
           <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
           <p className="text-[12px]">{card.date}</p>
         </div>
+        {card.status == true && (
+          <div className="flex items-center gap-2 rounded-full bg-[#00A25940] px-3 text-[#00A259]">
+            <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
+            <p className="text-[12px]">{card.completed}</p>
+          </div>
+        )}
       </div>
 
       {card?.exam_id !== 0 && (
