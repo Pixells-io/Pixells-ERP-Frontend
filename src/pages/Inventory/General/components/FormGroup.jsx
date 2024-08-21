@@ -8,6 +8,7 @@ const FormGroup = () => {
 
   const [generalData, setGeneralData] = useState({
     sImpuesto: false,
+    devo: false,
     fabricante: "",
     comentarios: "",
     activo: false,
