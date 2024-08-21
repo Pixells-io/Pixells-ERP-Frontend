@@ -10,7 +10,7 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import MenuSuppliers from "./Components/Dropdownmenu";
 import { Button } from "@/components/ui/button";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const MainSupplier = () => {
   const {data} = useLoaderData();
@@ -55,16 +55,16 @@ const MainSupplier = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center">
-          <Button
-            type="button"
+        <div className="flex justify-center items-center">
+          <Link
+            to={"/shopping/supplier/edit/" + row?.original?.id}
             className="flex h-5 w-5 rounded-full items-center justify-center bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
           >
             <IonIcon
               icon={informationCircle}
               className="h-5 w-5 text-[#696974]"
             />
-          </Button>
+          </Link>
         </div>)
     },
   ];
