@@ -87,8 +87,9 @@ const InvoiceForm = () => {
                 />
               </div>
             </div>
-            <div className=""></div>
+            <div className="pt-6">
             <Total subtotal={subtotal} />
+            </div>
             <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}

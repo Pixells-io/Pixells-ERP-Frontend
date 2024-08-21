@@ -48,7 +48,7 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
   return (
     <div className="flex flex-wrap space-x-4 gap-4">
       <div className="flex flex-col w-10">
-        <Label className="mb-1 font-roboto text-sm text-grisText">No.</Label>
+        <Label className="mb-1 font-roboto text-[14px] text-grisText">No.</Label>
         <InputField
           name="documentNumber"
           value={documentNumber}
@@ -57,7 +57,7 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
         />
       </div>
       <div className="flex-1">
-        <Label className="mb-1 font-roboto text-sm text-grisText">Cliente</Label>
+        <Label className="mb-1 font-roboto text-[14px] text-grisText">Cliente</Label>
         <SelectField
           name="cliente"
           placeholder="Seleccionar"
@@ -86,7 +86,7 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
         />
       </div>
       <div className="flex-1">
-        <Label className="mb-1 font-roboto text-sm text-grisText">Teléfono</Label>
+        <Label className="mb-1 font-roboto text-[14px] text-grisText">Teléfono</Label>
         <SelectField
           name="telefono"
           placeholder="Seleccionar"
@@ -97,7 +97,7 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
         />
       </div>
       <div className="flex-1">
-        <Label className="mb-1 font-roboto text-sm text-grisText">Creación</Label>
+        <Label className="mb-1 font-roboto text-[14px] text-grisText">Creación</Label>
         <SelectField
           name="creacion"
           placeholder="Seleccionar"
@@ -108,7 +108,7 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
         />
       </div>
       <div className="flex-1">
-        <Label className="mb-1 font-roboto text-sm text-grisText">Vencimiento</Label>
+        <Label className="mb-1 font-roboto text-[14px] text-grisText">Vencimiento</Label>
         <SelectField
           name="vencimiento"
           placeholder="Seleccionar"

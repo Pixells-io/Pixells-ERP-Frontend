@@ -78,7 +78,7 @@ export const StockItemColumns = [
         }
         className="flex w-full items-center justify-center"
       >
-        <IonIcon icon={informationCircle} className="text-gris2-500 h-6 w-6" />
+        <IonIcon icon={informationCircle} className="text-gris2 h-6 w-6" />
       </Link>
     ),
   },

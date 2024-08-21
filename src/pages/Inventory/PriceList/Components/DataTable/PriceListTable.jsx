@@ -131,7 +131,7 @@ const DataTable = ({
                     handleInputChange(rowIndex, "nuevoArticulo", e.target.value)
                   }
                   placeholder={"Ingresa"}
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -142,7 +142,7 @@ const DataTable = ({
                     handleInputChange(rowIndex, "descripcion", e.target.value)
                   }
                   placeholder={"Ingresa"}
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -152,8 +152,7 @@ const DataTable = ({
                     handleInputChange(rowIndex, "listaPrecioBase", value)
                   }
                 >
-                  <SelectTrigger className="
-                  rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                  <SelectTrigger className="border-gris2-transparent h-auto  rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                     <SelectValue placeholder="Lista de precio base" />
                   </SelectTrigger>
                   <SelectContent>
@@ -166,9 +165,9 @@ const DataTable = ({
               <TableCell>
                 <Input
                   name={`precioBase-${rowIndex}`}
-                  value={formatNumber(row.precioBase,2,false)}
+                  value={formatNumber(row.precioBase, 2, false)}
                   readOnly
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -184,7 +183,7 @@ const DataTable = ({
                     )
                   }
                   placeholder={"Ingresa"}
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -192,14 +191,14 @@ const DataTable = ({
                   name={`indiceRefactorizacion-${rowIndex}`}
                   value={row.indiceRefactorizacion}
                   readOnly
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
                 <Input
                   type="number"
                   name={`indiceEditable-${rowIndex}`}
-                  value={formatNumber(row.indiceEditable,2,false)}
+                  value={formatNumber(row.indiceEditable, 2, false)}
                   onChange={(e) =>
                     handleInputChange(
                       rowIndex,
@@ -208,35 +207,36 @@ const DataTable = ({
                     )
                   }
                   placeholder={"Ingresa"}
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
-              <div className="flex items-center justify-between gap-x-2">
-                <Input
-                  name={`precioRefactorizacion-${rowIndex}`}
-                  value={formatNumber(
-                    row.precioRefactorizacion,
-                    2,
-                    roundValues,
-                    roundingMethod,
-                  )}
-                  readOnly
-                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
-                />
-                 <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleDeleteRow(rowIndex)}
-                  disabled={tableData.length === 1}
-                  className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                >
-                  <IonIcon
-                    icon={closeCircle}
-                    size="small"
-                    className="cursor-pointer text-grisDisabled"
+                <div className="flex items-center justify-between gap-x-2">
+                  <Input
+                    name={`precioRefactorizacion-${rowIndex}`}
+                    value={formatNumber(
+                      row.precioRefactorizacion,
+                      2,
+                      roundValues,
+                      roundingMethod,
+                    )}
+                    readOnly
+                    className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                   />
-                </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDeleteRow(rowIndex)}
+                    disabled={tableData.length === 1}
+                    className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      size="small"
+                      className="cursor-pointer text-grisDisabled"
+                    />
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>
