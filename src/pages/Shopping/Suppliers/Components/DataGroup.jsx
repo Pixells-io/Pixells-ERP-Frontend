@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from "@/components/ui/select";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const InputsGroup = ({ fields, initialValues }) => {
+  const navigation = useNavigation();
+
   // Estado para mantener los valores de los campos
   const [values, setValues] = useState(initialValues);
 
@@ -63,7 +65,12 @@ const InputsGroup = ({ fields, initialValues }) => {
           })}
         </div>
         <div className="flex justify-end mt-2">
-          <Button className="bg-primarioBotones">Crear</Button>
+          <Button 
+          className="bg-primarioBotones"           
+            disabled={navigation.state === "submitting"}
+          >
+          {navigation.state === "submitting" ? "Submitting..." : "Crear"}
+          </Button>
         </div>
       </Form>
     </div>
