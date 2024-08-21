@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useParams } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
@@ -11,6 +11,8 @@ import { saveGroup, SearchAction } from "./utils";
 
 function LayoutChat() {
   const { users, chats } = useLoaderData();
+  const params = useParams();
+  const [mobileState, setMobileState] = useState("");
 
   const [initialData, setInitialData] = useState(chats.data);
   const [chatListPusher, setChatListPusher] = useState(initialData);
@@ -22,6 +24,10 @@ function LayoutChat() {
   }
 
   const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    setMobileState(params.id ? "hidden" : "flex");
+  }, [params]);
 
   useEffect(() => {
     pusherClient.subscribe("private-get-chat-list");
@@ -37,48 +43,50 @@ function LayoutChat() {
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex w-[450px] shrink-0 flex-col gap-4 rounded-xl">
+      <div
+        className={
+          "w-full max-w-[450px] shrink-0 flex-col gap-4 rounded-xl md:flex" +
+          " " +
+          mobileState
+        }
+      >
         {/* top block */}
         <Tabs
           defaultValue="internal"
-          className="h-full w-full rounded-xl bg-[#FBFBFB]"
+          className="h-full w-full rounded-xl bg-[#f6f6f6]"
         >
-          <TabsList className="w-full bg-blancoForms pt-6">
+          <TabsList className="w-full rounded-tr-xl bg-blancoForms pb-7 pt-4">
             <TabsTrigger
-              className="rounded-none border-b-2 bg-transparent p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+              className="rounded-none border-b-2 bg-transparent p-3 pb-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               value="internal"
             >
               INTERNO
             </TabsTrigger>
-            {/*
-            <TabsTrigger
-              className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+            {/* <TabsTrigger
+              className="rounded-none border-b-2 bg-transparent p-3 pb-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               value="whatsapp"
             >
               WHATSAPP
             </TabsTrigger>
             <TabsTrigger
-              className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+              className="rounded-none border-b-2 bg-transparent p-3 pb-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:font-medium data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
               value="meta"
             >
               META
-            </TabsTrigger>
-             */}
+            </TabsTrigger> */}
           </TabsList>
-          <TabsContent value="internal" className="m-0 h-[92%] overflow-auto">
-            <div className="bg-[#f6f6f6] pb-2 pt-6">
+          <TabsContent value="internal" className="m-0 flex h-[92%] flex-col">
+            <div className="pt- bg-[#f6f6f6] pb-2">
               <InternalSearch users={users?.data} />
             </div>
-            <div className="mx-2 my-4 h-auto overflow-hidden rounded-b-md bg-[#fbfbfb]">
+            <div className="mx-2 my-4 h-auto overflow-auto rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
                 <ChatList chat={chat} key={i} />
               ))}
             </div>
           </TabsContent>
-          {/*
-          <TabsContent value="whatsapp"></TabsContent>
-          <TabsContent value="meta"></TabsContent>
-           */}
+          {/* <TabsContent value="whatsapp"></TabsContent>
+          <TabsContent value="meta"></TabsContent> */}
         </Tabs>
       </div>
       <Outlet />

@@ -116,7 +116,7 @@ function NewEntry() {
           <div className="flex w-full gap-x-8">
             <div>
               <Input
-                className="w-[243px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText"
+                className="w-[243px] rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
                 name={`documentNumber`}
                 // value={row.amount}
                 placeholder="Numero de Documento"
@@ -125,7 +125,7 @@ function NewEntry() {
             </div>
             <div>
               <Select name="priceList" className="h-10">
-                <SelectTrigger className="w-[243px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText">
+                <SelectTrigger className="w-[243px] rounded-xl border border-grisText font-roboto text-[14px] text-gris2 placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                   <SelectValue placeholder="Lista de Precios" />
                 </SelectTrigger>
                 <SelectContent>
@@ -137,7 +137,7 @@ function NewEntry() {
             </div>
             <div>
               <Input
-                className="w-[94px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText placeholder:text-grisSubText"
+                className="w-[94px] rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
                 name={`order`}
                 // value={row.amount}
                 placeholder="Pedido"

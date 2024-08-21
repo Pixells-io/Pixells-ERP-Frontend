@@ -86,34 +86,25 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
           <div className="flex flex-col gap-2 rounded-lg p-4 font-roboto">
             <div className="flex flex-col gap-5 pb-1">
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  {typeName} Name
-                </span>
                 <InputRouter
                   value={formData?.business_name}
                   onChange={handleInputChange}
                   type="text"
                   name="business_name"
-                  placeholder="Business Name"
+                  placeholder={typeName + "Name"}
                   className="flex rounded-none border-0 border-b border-grisSubText bg-transparent !ring-0 !ring-offset-0 focus:border-b-2 focus:border-primarioBotones"
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  {typeName} Phone
-                </span>
                 <InputRouter
                   name="business_phone"
                   value={formData?.business_phone}
                   onChange={handleInputChange}
                   type="text"
-                  placeholder="Business Phone"
+                  placeholder={typeName + "Phone"}
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  Contact Name
-                </span>
                 <InputRouter
                   value={formData?.contact_name}
                   onChange={handleInputChange}
@@ -123,9 +114,6 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  Contact Middle Name
-                </span>
                 <InputRouter
                   value={formData?.contact_middle_name}
                   onChange={handleInputChange}
@@ -135,9 +123,6 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  Contact Last Name
-                </span>
                 <InputRouter
                   value={formData?.contact_last_name}
                   onChange={handleInputChange}
@@ -147,9 +132,6 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  Contact Phone
-                </span>
                 <InputRouter
                   value={formData?.contact_phone}
                   onChange={handleInputChange}
@@ -159,9 +141,6 @@ function KickOffForm({ modal, setModal, leadId, users, leadAssigned, type }) {
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-grisSubText">
-                  Email
-                </span>
                 <InputRouter
                   value={formData?.contact_email}
                   onChange={handleInputChange}

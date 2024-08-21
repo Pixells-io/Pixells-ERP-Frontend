@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 function GeneralMetrics({ notifications, calendar, chats }) {
   return (
-    <div className="h-full w-[338px] rounded-xl bg-blancoBox p-2 shadow-lg">
+    <div className="h-full w-full rounded-xl bg-blancoBox p-2 shadow-lg md:w-[338px]">
       <div className="flex pb-3 pl-3 pt-2">
         <span className="font-roboto text-sm font-medium text-grisText">
           General Metrics

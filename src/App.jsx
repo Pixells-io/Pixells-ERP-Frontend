@@ -321,7 +321,9 @@ import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
 import MainSupplier from "./pages/Shopping/Suppliers/MainSuppliers";
-import CreateSupplier from "./pages/Shopping/Suppliers/New/CreateSupplier";
+import CreateSupplier, {
+  Action as createNewSupplier,
+} from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
@@ -352,7 +354,7 @@ import FormulaRecords from "./pages/Transformation/GeneralFormula/Records/Formul
 import SideLayoutTopics, {
   Action as NewTopicFunction,
 } from "./layouts/Topics/SideLayoutTopics";
-import MainTopics from "./pages/Topics/MainTopics";
+import MainTopics, { Action as ActionTopic } from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
 import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
@@ -360,12 +362,20 @@ import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgre
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
 import MainStockItem from "./pages/Inventory/StockItems/MainStockItem";
 import StockWarehouse from "./pages/Inventory/StockItems/StockWarehouse/StockWarehouse";
-import { multiLoaderTopics, multiLoaderTopics2 } from "./pages/Topics/utils";
+import {
+  getTopicSaved,
+  multiLoaderTopics,
+  multiLoaderTopics2,
+} from "./pages/Topics/utils";
 
 //POS
 import MainPos from "./pages/Pos/MainPos/MainPos";
 import SideLayoutPos from "./layouts/Pos/SideLayoutPos";
 import ProductsPos from "./pages/Pos/MainPos/Components/ProductsPos";
+import SavedTopics, {
+  Action as SavedTopicsActions,
+} from "./layouts/MyProfile/SavedTopics";
+import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 
 const router = createBrowserRouter([
   {
@@ -831,6 +841,12 @@ const router = createBrowserRouter([
             element: <MainNotifications />,
             loader: getNotifications,
           },
+          {
+            path: "/my-profile/topic-saved",
+            element: <SavedTopics />,
+            loader: getTopicSaved,
+            action: SavedTopicsActions,
+          },
         ],
       },
       //BANK MANAGEMENT
@@ -1080,10 +1096,12 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainSupplier />,
+            loader: getSuppliers,
           },
           {
             path: "/shopping/supplier/create",
             element: <CreateSupplier />,
+            action: createNewSupplier,
           },
           {
             path: "/shopping/customer/create",
@@ -1191,6 +1209,7 @@ const router = createBrowserRouter([
           {
             path: "/topics/:id",
             element: <MainTopics />,
+            action: ActionTopic,
             loader: multiLoaderTopics,
           },
         ],
@@ -1206,10 +1225,11 @@ const router = createBrowserRouter([
           {
             path: "/pos/:id",
             element: <MainPos />,
-            children:[{
-              index: true,
-              element: <ProductsPos />
-            }
+            children: [
+              {
+                index: true,
+                element: <ProductsPos />,
+              },
             ],
           },
         ],

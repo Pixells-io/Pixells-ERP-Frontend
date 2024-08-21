@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
-
 import { Form, useNavigation } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,11 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import SelectMultiple from "@/components/ui/selectMultiple";
+
+import { IonIcon } from "@ionic/react";
+import { addCircleOutline } from "ionicons/icons";
+
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import UserImage from "@/layouts/Masters/FormComponents/userImage";
-import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 
 function FormNewChat({ users }) {
   const [open, setOpen] = useState(false);
@@ -65,18 +64,17 @@ function FormNewChat({ users }) {
           action="/chat"
           method="post"
         >
-          <input type="hidden" name="type_of_function" value={2} />
+          <input
+            type="hidden"
+            name="type_of_function"
+            value={2}
+            hidden
+            readOnly
+          />
           <div className="flex justify-center">
             <DropzoneImage name={"group_image"} />
           </div>
-          <div className="">
-            <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
-          </div>
-          {/* <SelectMultiple
-              name={"users"}
-              options={selectUsers}
-              placeholder={"Seleccionar Usuarios"}
-            /> */}
+          <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
           <SelectRouter
             name="users"
             options={selectUsers}

@@ -109,7 +109,7 @@ const DataTable = ({
     <div className="flex flex-col rounded-lg bg-white p-4">
       <Table>
         <TableHeader>
-          <TableRow className="border-b-primarioBotones">
+          <TableRow className="border-b-primarioBotones text-xs font-normal text-grisText">
             <TableHead>Nuevo artículo</TableHead>
             <TableHead>Descripción</TableHead>
             <TableHead>Lista de precio base</TableHead>
@@ -118,7 +118,6 @@ const DataTable = ({
             <TableHead>Índice de refactorización</TableHead>
             <TableHead>Índice editable</TableHead>
             <TableHead>Precio de refactorización</TableHead>
-            <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -131,7 +130,8 @@ const DataTable = ({
                   onChange={(e) =>
                     handleInputChange(rowIndex, "nuevoArticulo", e.target.value)
                   }
-                  className="h-auto border bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  placeholder={"Ingresa"}
+                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -141,7 +141,8 @@ const DataTable = ({
                   onChange={(e) =>
                     handleInputChange(rowIndex, "descripcion", e.target.value)
                   }
-                  className="h-auto border bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  placeholder={"Ingresa"}
+                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -151,7 +152,8 @@ const DataTable = ({
                     handleInputChange(rowIndex, "listaPrecioBase", value)
                   }
                 >
-                  <SelectTrigger className="h-auto border focus-visible:ring-primarioBotones rounded-lg bg-inherit p-1 text-xs font-normal">
+                  <SelectTrigger className="
+                  rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                     <SelectValue placeholder="Lista de precio base" />
                   </SelectTrigger>
                   <SelectContent>
@@ -181,7 +183,8 @@ const DataTable = ({
                       parseFloat(e.target.value),
                     )
                   }
-                  className="h-auto border bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  placeholder={"Ingresa"}
+                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
@@ -204,10 +207,12 @@ const DataTable = ({
                       parseFloat(e.target.value),
                     )
                   }
-                  className="h-auto border bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
+                  placeholder={"Ingresa"}
+                  className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
               </TableCell>
               <TableCell>
+              <div className="flex items-center justify-between gap-x-2">
                 <Input
                   name={`precioRefactorizacion-${rowIndex}`}
                   value={formatNumber(
@@ -219,9 +224,7 @@ const DataTable = ({
                   readOnly
                   className="h-auto border-none bg-inherit p-1 text-xs font-normal focus-visible:ring-primarioBotones"
                 />
-              </TableCell>
-              <TableCell>
-                <Button
+                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => handleDeleteRow(rowIndex)}
@@ -231,9 +234,10 @@ const DataTable = ({
                   <IonIcon
                     icon={closeCircle}
                     size="small"
-                    className="text-grisText"
+                    className="cursor-pointer text-grisDisabled"
                   />
                 </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}

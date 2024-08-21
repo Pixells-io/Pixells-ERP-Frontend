@@ -26,7 +26,7 @@ const CheckForm = ({ data, setData }) => {
         <div className="flex items-center">
           <Label
             htmlFor="proveedor"
-            className="text-md mb-1 mr-4 w-1/4 font-roboto text-gris2"
+            className="text-[14px] mb-1 mr-4 w-32 font-roboto text-gris2"
           >
             Proveedor predeterminado
           </Label>

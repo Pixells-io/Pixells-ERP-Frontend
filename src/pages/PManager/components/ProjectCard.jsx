@@ -44,7 +44,7 @@ function ProjectCard(project) {
       <div className="flex items-center gap-2 overflow-auto">
         {Object.values(data?.users).map((img, i) => (
           <Avatar className="h-6 w-6" key={i}>
-            <AvatarImage src={img.img} alt={img.title} />
+            <AvatarImage src={img?.img} alt={img?.title} />
           </Avatar>
         ))}
       </div>

@@ -1,14 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 
-import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  pieChart,
-  calendar,
-  listCircle,
-} from "ionicons/icons";
+import { pieChart, calendar, listCircle } from "ionicons/icons";
 
 import { format } from "date-fns";
 
@@ -18,6 +11,7 @@ import Activities from "./Components/Activities";
 import TimeManagement from "./Components/TimeManagement";
 import GeneralMetrics from "./Components/Metrics";
 import CustomersGrowth from "./Components/CustomersGrowth";
+import NavigationHeader from "@/components/navigation-header";
 
 function MainDashboard() {
   const newDate = format(new Date(), "PP");
@@ -27,25 +21,7 @@ function MainDashboard() {
     <div className="flex h-full w-full pb-4">
       <div className="ml-5 mr-5 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">dashboard</div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-16">
           <div>
@@ -55,31 +31,26 @@ function MainDashboard() {
           </div>
         </div>
         {/* Dashboard Card One */}
-        <div className="items-center gap-16 pl-4 pt-5">
+        <div className="ml-0 items-center gap-16 pt-5 md:pl-4">
           <div className="flex">
             <div className="w-4/5">
-              <div>
-                <div>
-                  <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                    Welcome, {user?.data?.user?.name}{" "}
-                    {user?.data?.user?.last_name}
-                  </h2>
-                </div>
-                <div className="pt-2">
-                  <span className="font-roboto text-sm font-medium text-[#44444F]">
-                    {newDate}
-                  </span>
-                </div>
+              <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+                Welcome, {user?.data?.user?.name} {user?.data?.user?.last_name}
+              </h2>
+              <div className="pt-2">
+                <span className="font-roboto text-sm font-medium text-[#44444F]">
+                  {newDate}
+                </span>
               </div>
-              <div className="mt-8 flex gap-8">
-                <div className="flex gap-8">
+              <div className="mt-8 flex flex-wrap gap-8">
+                <div className="flex flex-col gap-8 md:flex-row">
                   <Time
                     title="ACTIVE USERS"
                     time={dashboard.data.active_users}
                   />
                   <Time title="TOTAL USERS" time={dashboard.data.user_create} />
                 </div>
-                <div className="flex w-2/3 gap-8">
+                <div className="flex w-full flex-wrap gap-8 md:w-2/3">
                   <Activities
                     title="Activities"
                     subTitle="Today"
@@ -104,7 +75,7 @@ function MainDashboard() {
                 </div>
               </div>
             </div>
-            <div className="w-fit shrink-0">
+            <div className="hidden h-fit w-fit shrink-0 md:flex">
               <Calendar
                 mode="single"
                 className="mt-[-71px] rounded-2xl border bg-grisText text-white"
@@ -113,7 +84,7 @@ function MainDashboard() {
           </div>
         </div>
 
-        <div className="flex min-w-[1300px] rounded-2xl bg-[#F0F0F0] px-4 pb-6 pt-4">
+        <div className="flex w-full flex-col rounded-2xl bg-[#F0F0F0] px-1 pb-6 pt-4 md:min-w-[1300px] md:flex-row md:px-4">
           <div className="p-4">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               TIME MANAGEMENT
@@ -134,7 +105,7 @@ function MainDashboard() {
               />
             </div>
           </div>
-          <div className="w-full p-4">
+          <div className="hidden h-full w-full flex-col p-4 md:flex">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
               CUSTOMERS GROWTH
             </span>

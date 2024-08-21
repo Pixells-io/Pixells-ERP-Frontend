@@ -59,8 +59,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Cuenta contable",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`numero-cuenta-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`numero-cuenta-${rowIndex}`}
             value={row.cuenta}
             placeholder="ingrese"
             onChange={(e) =>
@@ -74,7 +74,7 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Cliente/Proveedor",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
             name={`nombre-cliente-${rowIndex}`}
             value={row.cliente}
             placeholder="ingrese"
@@ -89,8 +89,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "No. de documento",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`numero-documento-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`numero-documento-${rowIndex}`}
             value={row.documento}
             placeholder="ingrese"
             onChange={(e) =>
@@ -104,8 +104,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`detalle-transaccion-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`detalle-transaccion-${rowIndex}`}
             value={row.descripcion}
             placeholder="ingrese"
             onChange={(e) =>
@@ -119,8 +119,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Centro de costos",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`valor-costos-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`valor-costos-${rowIndex}`}
             value={row.costos}
             placeholder="ingrese"
             onChange={(e) =>
@@ -134,8 +134,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Débito",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`monto-debito-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`monto-debito-${rowIndex}`}
             value={row.debito}
             placeholder="ingrese"
             onChange={(e) =>
@@ -149,8 +149,8 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
         header: "Crédito",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-full border-none"
-            name={`monto-credito-${rowIndex}`}
+          className="h-auto border bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          name={`monto-credito-${rowIndex}`}
             value={row.credito}
             placeholder="ingrese"
             onChange={(e) =>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { bookmark, chatbubbleEllipses, informationCircle } from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export const GeneralFormulaColumns = [
@@ -32,7 +32,7 @@ export const GeneralFormulaColumns = [
   },
   {
     id: "nationality",
-    header: "NACIONALIDAD.",
+    header: "NACIONALIDAD",
     accessorKey: "nationality",
     meta: {
       filterButton: true
@@ -62,9 +62,6 @@ export const GeneralFormulaColumns = [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <IonIcon className="hover:cursor-pointer h-5 w-5" icon={chatbubbleEllipses}></IonIcon>
-          <IonIcon icon={bookmark} className="h-5 w-5 hover:cursor-pointer"></IonIcon>
-
         </div>
       );
     },

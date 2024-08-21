@@ -30,9 +30,9 @@ function ModalDelete({ id, name, action }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>¿Estás absolutamente seguro?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete the{" "}
+            Esta acción no se puede deshacer. Esto eliminará permanentemente{" "}
             {name}.
           </DialogDescription>
         </DialogHeader>

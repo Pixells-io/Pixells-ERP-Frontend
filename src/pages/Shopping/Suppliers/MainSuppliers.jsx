@@ -9,35 +9,15 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import MenuSuppliers from "./Components/Dropdownmenu";
+import { Button } from "@/components/ui/button";
+import { useLoaderData } from "react-router-dom";
 
 const MainSupplier = () => {
-  const data = [
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-    {
-      nombre: "PEPSICO",
-      tipo: "NACIONAL",
-      nacionalidad: "EXTRANJERA",
-      contacto: "01-222-2932",
-      email: "PEPSICO@mail.com",
-    },
-  ];
+  const {data} = useLoaderData();
 
   const columns = [
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       cell: ({ row }) => {
         return (
@@ -47,24 +27,24 @@ const MainSupplier = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.name}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nacionalidad",
+      accessorKey: "nationality",
       header: "Nacionalidad",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "contacto",
+      accessorKey: "contact",
       header: "Contacto",
     },
     {
@@ -75,12 +55,16 @@ const MainSupplier = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center items-center">
-          <IonIcon
-            icon={informationCircle}
-            size="large"
-            className="text-gris2"
-          />
+        <div className="flex items-center">
+          <Button
+            type="button"
+            className="flex h-5 w-5 rounded-full items-center justify-center bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+          >
+            <IonIcon
+              icon={informationCircle}
+              className="h-5 w-5 text-[#696974]"
+            />
+          </Button>
         </div>)
     },
   ];
@@ -152,7 +136,7 @@ const MainSupplier = () => {
                     <DataTable
                       data={data}
                       columns={columns}
-                      searchFilter="nombre"
+                      searchFilter="name"
                       searchNameFilter="Buscar por nombre"
                       isCheckAll={true}
                     />

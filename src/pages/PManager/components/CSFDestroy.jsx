@@ -37,7 +37,7 @@ function CSFDestroy({ modal, setModal, csfId, name }) {
           <input type="hidden" value={csfId} name="csf_id" />
           <input type="hidden" value="delete-csf" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete the{" "}
+            Esta acción no se puede deshacer. Esto eliminará permanentemente{" "}
             {name}.
           </span>
           <DialogFooter className="flex gap-4 py-6">
@@ -45,14 +45,14 @@ function CSFDestroy({ modal, setModal, csfId, name }) {
               type="submit"
               className="justify-normal rounded-lg bg-red-600 px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Delete
+              Borrar
             </Button>
             <Button
               type="button"
               onClick={() => setModal(false)}
               className="justify-normal rounded-lg bg-grisText px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Cancel
+              Cancelar
             </Button>
           </DialogFooter>
         </Form>

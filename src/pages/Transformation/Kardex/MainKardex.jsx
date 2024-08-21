@@ -288,8 +288,8 @@ function MainKardex() {
         <div className="flex w-full items-center gap-x-12 rounded-xl bg-blancoBg px-6 py-6">
           <div>
             <Select name="article" className="h-10">
-              <SelectTrigger className="w-[180px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-                <SelectValue placeholder="Selecciona el Artículo" />
+            <SelectTrigger className="w-[180px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+            <SelectValue placeholder="Selecciona el Artículo" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="light">Light</SelectItem>
@@ -300,7 +300,7 @@ function MainKardex() {
           </div>
           <div>
             <Input
-              className="w-[100px] rounded-xl border border-[#696974] bg-inherit text-xs font-light"
+              className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
               name={`code`}
               // value={row.amount}
               placeholder="Código"
@@ -309,7 +309,7 @@ function MainKardex() {
           </div>
           <div>
             <Select name="store" className="h-10">
-              <SelectTrigger className="w-[180px] rounded-xl border border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+              <SelectTrigger className="w-[180px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>

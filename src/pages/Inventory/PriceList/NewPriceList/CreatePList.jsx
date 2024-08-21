@@ -14,8 +14,8 @@ const CreatePriceList = () => {
       nuevoArticulo: "1231",
       descripcion: "ACEITE VEGETAL",
       listaPrecioBase: "53.30",
-      precioBase: 53.30,
-      precioUnitario: 53.30,
+      precioBase: 53.3,
+      precioUnitario: 53.3,
       indiceRefactorizacion: 2.1,
       indiceEditable: 2.1,
       precioRefactorizacion: 111.93,
@@ -34,7 +34,7 @@ const CreatePriceList = () => {
   const handleRoundingChange = (isRounded, method) => {
     setRoundingSettings({
       roundValues: isRounded,
-      roundingMethod: method ,
+      roundingMethod: method,
     });
   };
 
@@ -94,9 +94,8 @@ const CreatePriceList = () => {
               >
                 <IonIcon
                   icon={closeCircle}
-                  size="large"
-                  className="bg-trasparent p-1 text-gris2"
-                  aria-hidden="true"
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
                 />
               </Button>
             </Link>
@@ -104,8 +103,8 @@ const CreatePriceList = () => {
         </div>
         {/*content */}
         <div className="space-y-3 overflow-auto">
-        <Inputs 
-            onRoundingChange={handleRoundingChange} 
+          <Inputs
+            onRoundingChange={handleRoundingChange}
             onIndRefChange={handleIndRefChange}
           />
           <DataTable
@@ -115,29 +114,29 @@ const CreatePriceList = () => {
             roundingMethod={roundingSettings.roundingMethod}
             indRef={indRef}
           />
-          <ObservationsSection/>
+          <ObservationsSection />
           <div className="justify-end">
-          <StatusInformation
-          status={"inProgress"}
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        >
-          <Button
-            type="button"
-            variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-          >
-            Cancelar
-          </Button>
-          <Button
-            type="button"
-            onClick={() => alert("save")}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Crear
-          </Button>
-        </StatusInformation>
+            <StatusInformation
+              status={"inProgress"}
+              imgUser={
+                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              }
+            >
+              <Button
+                type="button"
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                onClick={() => alert("save")}
+                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+              >
+                Crear
+              </Button>
+            </StatusInformation>
           </div>
         </div>
       </div>

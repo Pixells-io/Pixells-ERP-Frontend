@@ -104,11 +104,10 @@ const EditCustomer = () => {
                 className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
                 <IonIcon
-                  icon={closeCircle}
-                  size="large"
-                  className="bg-trasparent p-1 text-gris2"
-                  aria-hidden="true"
-                />
+                icon={closeCircle}
+                size="small"
+                className="cursor-pointer text-grisDisabled"
+              />
               </Button>
             </Link>
           </div>

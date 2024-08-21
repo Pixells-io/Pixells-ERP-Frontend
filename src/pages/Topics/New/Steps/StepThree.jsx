@@ -10,8 +10,10 @@ import {
 import { IonIcon } from "@ionic/react";
 import { chevronBack, close } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
+import { useNavigation } from "react-router-dom";
 
 function StepThree({ setStepped, files, setFiles, acceptedFiles, inputRef }) {
+  const navigation = useNavigation();
 
   const handleDelete = (index) => {
     acceptedFiles.splice(index, 1);
@@ -83,8 +85,9 @@ function StepThree({ setStepped, files, setFiles, acceptedFiles, inputRef }) {
           form="form-topic"
           type="submit"
           className="absolute bottom-1 right-4 z-10 bg-primarioBotones"
+          disabled={navigation.state === "submitting"}
         >
-          Agregar
+          {navigation.state === "submitting" ? "Submitting..." : "Agregar"}
         </Button>
       </Carousel>
     </div>

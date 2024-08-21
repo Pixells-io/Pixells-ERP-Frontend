@@ -161,16 +161,13 @@ const MainRequestOrder = () => {
             <Link to="/shopping/request-orders/create">
             <Button
               type="button"
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
-                className="text-primarioBotones"
+                className="h-7 w-7 text-primarioBotones"
               />
-              </Button>
+            </Button>
             </Link>
           </div>
         </div>

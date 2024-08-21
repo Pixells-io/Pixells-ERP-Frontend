@@ -298,9 +298,14 @@ function MainLayout() {
                   Dashboards
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">
-                <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
-                Guardado
+              <DropdownMenuItem>
+                <Link
+                  to={"/my-profile/topic-saved"}
+                  className="ml-4 flex gap-4 text-grisText"
+                >
+                  <IonIcon icon={bookmark} className="h-5 w-5"></IonIcon>
+                  Guardado
+                </Link>
               </DropdownMenuItem>
               {/*
               <DropdownMenuItem className="ml-4 flex gap-4 text-grisText">

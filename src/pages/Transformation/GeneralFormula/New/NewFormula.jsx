@@ -92,7 +92,7 @@ function NewFormula() {
         <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
           <div>
             <Select name="article" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+              <SelectTrigger className="w-[240px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Selecciona el Artículo" />
               </SelectTrigger>
               <SelectContent>
@@ -103,8 +103,8 @@ function NewFormula() {
             </Select>
           </div>
           <div>
-            <Select name="accountingAccount" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
+            <Select name="accountingAccount" className="h-10 min-w-0 space-x-3 flex-1">
+              <SelectTrigger className="w-[240px] rounded-xl border  border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Cuenta Contable" />
               </SelectTrigger>
               <SelectContent>
@@ -118,7 +118,7 @@ function NewFormula() {
             <div className="flex gap-2">
               <label
                 htmlFor="checkBoxProduct"
-                className="text-xs font-light text-grisText"
+                className="text-[14px] font-light text-grisText"
               >
                 Producto
               </label>
@@ -127,7 +127,7 @@ function NewFormula() {
             <div className="flex gap-2">
               <label
                 htmlFor="checBoxKit"
-                className="text-xs font-light text-grisText"
+                className="text-[14px] font-light text-grisText"
               >
                 Kit
               </label>
@@ -136,7 +136,7 @@ function NewFormula() {
             <div className="flex gap-2">
               <label
                 htmlFor="checkBoxMultiProcess"
-                className="text-xs font-light text-grisText"
+                className="text-[14px] font-light text-grisText"
               >
                 MultiProceso
               </label>

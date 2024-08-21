@@ -25,7 +25,7 @@ function PhaseDestroy({ phase, modal, setModal }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-white">
-            Delete Phase - {phase?.name}
+            Borrar Fase
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -37,22 +37,22 @@ function PhaseDestroy({ phase, modal, setModal }) {
           <input type="hidden" value={phase?.id} name="phase_id" />
           <input type="hidden" value="delete-phase" name="action" />
           <span className="font-roboto text-[#A6A6A6]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Esta acción no se puede deshacer. Esto eliminará permanentemente{" "}
+            {phase?.name}.
           </span>
           <DialogFooter className="flex gap-4 py-6">
             <Button
               type="submit"
               className="justify-normal rounded-lg bg-red-600 px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Delete
+              Borrar
             </Button>
             <Button
               type="button"
               onClick={() => setModal(false)}
               className="justify-normal rounded-lg bg-grisText px-6 py-2 font-roboto text-xs font-semibold text-white"
             >
-              Cancel
+              Cancelar
             </Button>
           </DialogFooter>
         </Form>

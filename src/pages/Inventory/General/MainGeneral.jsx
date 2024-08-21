@@ -104,13 +104,18 @@ const MainGeneral = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center items-center">
-          <IonIcon
-            icon={informationCircle}
-            size="large"
-            className="text-gris2"
-          />
-        </div>)
+        <div className="flex items-center">
+          <Button
+            type="button"
+            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+          >
+            <IonIcon
+              icon={informationCircle}
+              className="h-5 w-5 text-[#696974]"
+            />
+          </Button>
+        </div>
+      ),
     },
   ];
 
@@ -157,63 +162,59 @@ const MainGeneral = () => {
             Artículos general
           </p>
           <Link to="/inventory/create">
-          <Button
+            <Button
               type="button"
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
                 icon={addCircleOutline}
-                size="large"
-                className="text-primarioBotones"
-                aria-hidden="true"
+                className="h-7 w-7 text-primarioBotones"
               />
             </Button>
           </Link>
         </div>
         {/*content */}
-          <div className="w-full">
-            <Tabs
-              defaultValue="ARTÍCULOS"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="ARTÍCULOS"
-                >
-                  ARTÍCULOS
-                </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="CATEGORIAS"
-                >
-                  CATEGORÍAS
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="codigo"
-                  searchNameFilter="Buscar por código"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-              <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="codigo"
-                  searchNameFilter="Buscar por código"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-            </Tabs>
-          </div>
+        <div className="w-full">
+          <Tabs
+            defaultValue="ARTÍCULOS"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="ARTÍCULOS"
+              >
+                ARTÍCULOS
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="CATEGORIAS"
+              >
+                CATEGORÍAS
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="codigo"
+                searchNameFilter="Buscar por código"
+                isCheckAll={true}
+              />
+            </TabsContent>
+            <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
+              <DataTable
+                data={data}
+                columns={columns}
+                searchFilter="codigo"
+                searchNameFilter="Buscar por código"
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
+    </div>
   );
 };
 

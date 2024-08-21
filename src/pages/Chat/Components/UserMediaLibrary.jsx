@@ -41,13 +41,13 @@ function UserMediaLibrary() {
   );
 
   return (
-    <div className="ml-4 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB]">
+    <div className="ml-0 flex h-full w-full flex-col overflow-auto rounded-xl bg-[#FBFBFB] md:ml-4">
       <div className="flex items-center">
         <div className="flex w-10 shrink-0 justify-center">
           <IonIcon
             src={chevronBack}
             className="size-8 rounded text-grisText hover:cursor-pointer"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(`/chat/${data.id}`)}
           />
         </div>
         <div className="flex shrink-0 flex-col gap-2 rounded-t-xl px-6 py-4">
@@ -73,9 +73,9 @@ function UserMediaLibrary() {
 
       <Tabs
         defaultValue="information"
-        className="ml-10 rounded-lg bg-inherit px-6 pt-2"
+        className="ml-0 flex flex-col rounded-lg bg-inherit px-0 pt-2 md:ml-10 md:px-6"
       >
-        <TabsList className="flex w-fit gap-x-4 rounded-none bg-inherit px-0">
+        <TabsList className="flex h-fit w-fit flex-wrap gap-4 rounded-none bg-inherit px-0">
           <TabsTrigger
             value="information"
             className="rounded-3xl border-[1px] border-[#D9D9D9] px-4 text-xs font-light text-[#44444F] data-[state=active]:border-[#44444F] data-[state=active]:bg-grisBg data-[state=active]:font-normal data-[state=active]:shadow-none"

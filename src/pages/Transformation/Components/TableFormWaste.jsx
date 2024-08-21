@@ -166,8 +166,8 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
             value={row?.component}
           >
-            <SelectTrigger className="border-b border-l-0 border-r-0 border-t-0 border-[#696974] bg-inherit text-xs font-light text-grisSubText">
-              <SelectValue placeholder="Selecciona el componente" />
+            <SelectTrigger className="rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+            <SelectValue placeholder="Selecciona el componente" />
             </SelectTrigger>
             <SelectContent>
               {components.map((component, index) => (
@@ -184,8 +184,8 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Cantidad",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] border-none"
-            name={`amount-waste-${rowIndex}`}
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`amount-waste-${rowIndex}`}
             value={row.amount}
             placeholder="ingrese"
             type="number"
@@ -198,7 +198,13 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "unit",
         header: "Unidad",
         cell: ({ row, rowIndex }) => (
-          <div className="w-[100px]">{row?.unit}</div>
+          <Input
+          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
         ),
       },
       {
@@ -207,8 +213,8 @@ const TableFormWaste = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] border-none"
-            name={`cost-waste-${rowIndex}`}
+            className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+            name={`cost-subProduct-${rowIndex}`}
             value={row.cost}
             placeholder="ingrese"
             disabled={!row.component}
