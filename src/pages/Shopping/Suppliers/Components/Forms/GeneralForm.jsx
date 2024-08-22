@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const GralFormSupplier = ({ generalData, setGeneralData }) => {
+const GralFormSupplier = ({ generalData, setGeneralData, isDisabled }) => {
   const handleInputChange = (e) => {
     setGeneralData({ ...generalData, [e.target.name]: e.target.value });
   };
@@ -36,6 +36,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               placeholder="Ingresa"
               value={generalData.street}
               onChange={handleInputChange}
+              disabled={isDisabled}
             />
           </div>
           <div className="flex items-center space-x-4">
@@ -50,6 +51,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               placeholder="Ingresa"
               value={generalData.cologne}
               onChange={handleInputChange}
+              disabled={isDisabled}
             />
           </div>
           <div className="flex items-center space-x-4">
@@ -64,6 +66,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               placeholder="Ingresa"
               value={generalData.state}
               onChange={handleInputChange}
+              disabled={isDisabled}
             />
           </div>
           <div className="flex items-center space-x-4">
@@ -77,6 +80,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               name="shopping_person"
               placeholder="Selecciona"
               value={generalData.shopping_person}
+              disabled={isDisabled}
               onValueChange={(value) =>
                 handleSelectChange(value, "shopping_person")
               }
@@ -100,23 +104,12 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               id="status"
               value={generalData.status}
               checked={generalData.status}
+              disabled={isDisabled}
               className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
               onCheckedChange={() => handleCheckboxChange("status")}
             />
           </div>
           <div className="flex items-center space-x-4">
-            {/* <Label
-              htmlFor="inactivo"
-              className="w-full font-roboto text-[14px] text-gris2"
-            >
-              Inactivo
-            </Label>
-            <Checkbox
-              name="inactivo"
-              checked={generalData.inactivo}
-              className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-              onCheckedChange={() => handleCheckboxChange("inactivo")}
-            /> */}
           </div>
 
           <div className="flex items-center space-x-4 space-y-4">
@@ -133,6 +126,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               className="w-64"
               placeholder="Ingresa"
               value={generalData.start}
+              disabled={isDisabled}
               onChange={handleInputChange}
             />
           </div>
@@ -150,6 +144,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               name="int"
               placeholder="Ingresa"
               value={generalData.int}
+              disabled={isDisabled}
               onChange={handleInputChange}
             />
           </div>
@@ -164,6 +159,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               name="cp"
               placeholder="Ingresa"
               value={generalData.cp}
+              disabled={isDisabled}
               onChange={handleInputChange}
             />
           </div>
@@ -178,6 +174,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               name="country"
               placeholder="Ingresa"
               value={generalData.country}
+              disabled={isDisabled}
               onChange={handleInputChange}
             />
           </div>
@@ -193,6 +190,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               className={inputClass}
               placeholder="Ingresa"
               value={generalData.comment}
+              disabled={isDisabled}
               onChange={handleInputChange}
               rows={4}
             />
@@ -212,6 +210,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               className="w-64"
               placeholder="Ingresa"
               value={generalData.end}
+              disabled={isDisabled}
               onChange={handleInputChange}
             />
           </div>
@@ -230,6 +229,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
             name="ext"
             placeholder="Ingresa"
             value={generalData.ext}
+            disabled={isDisabled}
             onChange={handleInputChange}
           />
         </div>
@@ -244,6 +244,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
             name="city"
             placeholder="Ingresa"
             value={generalData.city}
+            disabled={isDisabled}
             onChange={handleInputChange}
           />
         </div>

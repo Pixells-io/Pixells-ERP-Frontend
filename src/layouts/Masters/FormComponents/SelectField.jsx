@@ -12,7 +12,7 @@ import {
  * border and background gray
  */
 
-function SelectField({ name, placeholder, options, value, onValueChange }) {
+function SelectField({ name, placeholder, options, value, onValueChange, disabled }) {
   // Handle value change
   const handleChange = (selectedValue) => {
     if (onValueChange) {
@@ -21,7 +21,7 @@ function SelectField({ name, placeholder, options, value, onValueChange }) {
   };
 
   return (
-    <Select name={name} value={value} onValueChange={handleChange}>
+    <Select name={name} value={value} onValueChange={handleChange} disabled={disabled}>
       <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

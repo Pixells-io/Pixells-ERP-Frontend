@@ -136,7 +136,8 @@ const EditSupplier = () => {
             action={"/shopping/supplier/edit/" + data.id}
             method="post"
           >
-            <input type="hidden" name="supplier_id" value={data.id} />
+            <input type="hidden" hidden name="supplier_id" value={data.id} />
+            <input type="hidden" hidden name="type" value={"supplierPrincipal"} />
 
             <InputsGroup
               fields={supplierFields}
@@ -144,7 +145,7 @@ const EditSupplier = () => {
               id={data.id}
             />
           </Form>
-          <FormGroup data={data} />
+          <FormGroup data={data} isDisabled={false} />
         </div>
       </div>
     </div>
@@ -157,6 +158,9 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   switch (data.get("type")) {
+    case "supplierPrincipal":
+      await editSupplier(data);
+      break;
     case "generalInfo":
       if(!!data.get("info_id")){
         await editGeneralInfo(data);
@@ -174,10 +178,7 @@ export async function Action({ request }) {
         await createPaymentConditions(data);
       }
       break;
-    default:
-      await editSupplier(data);
-      break;
   }
-
-  return redirect(`/shopping`);
+  
+  return "0";
 }
