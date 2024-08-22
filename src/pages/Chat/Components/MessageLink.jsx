@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function MessageLink({ string }) {
   const wordsArray = string.split(" ");
 
-  function isValidURL(url) {
+  /*function isValidURL(url) {
     const pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
         "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
@@ -15,11 +15,11 @@ function MessageLink({ string }) {
       "i",
     );
     return pattern.test(url);
-  }
+  }*/
 
   return (
     <div className="flex flex-wrap">
-      {wordsArray.map((word, i) =>
+      {/*       {wordsArray.map((word, i) =>
         isValidURL(word) ? (
           <Link
             key={i}
@@ -32,7 +32,9 @@ function MessageLink({ string }) {
         ) : (
           <span key={i}>{word}&nbsp;</span>
         ),
-      )}
+      )}*/}
+
+      <span>{string}</span>
     </div>
   );
 }
