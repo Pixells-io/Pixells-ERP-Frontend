@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 
@@ -11,6 +11,15 @@ import { loginUser } from "@/pages/Organization/utils";
 function Login() {
   const navigate = useNavigate();
   const token = Cookies.get("token");
+  const [error, setError] = useState(0);
+
+  let actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData === "Login Error") {
+      setError(1);
+    }
+  }, [actionData]);
 
   useEffect(() => {
     Cookies.remove("token");
@@ -84,10 +93,16 @@ function Login() {
           </span>
         </div>
         <Form method="POST" action="/login">
-          <div className="mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText">
+          <div
+            className={
+              error === 1
+                ? "mt-4 flex h-10 w-96 rounded-3xl border border-solid border-red-500 bg-red-100"
+                : "mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText"
+            }
+          >
             <input
               type="text"
-              className="flex w-4/5 rounded-3xl bg-blancoBg pl-5 text-sm font-normal text-grisText outline-none outline-0"
+              className="flex w-4/5 rounded-3xl bg-transparent pl-5 text-sm font-normal text-grisText outline-none outline-0"
               onKeyPress={emailChange}
               onChange={emailChange}
               placeholder="Email"
@@ -103,11 +118,17 @@ function Login() {
             )}
           </div>
           {isOpen && (
-            <div className="mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText">
+            <div
+              className={
+                error === 1
+                  ? "mt-4 flex h-10 w-96 rounded-3xl border border-solid border-red-500 bg-red-100"
+                  : "mt-4 flex h-10 w-96 rounded-3xl border border-solid border-grisText"
+              }
+            >
               <input
                 type="password"
                 ref={passwordInputRef}
-                className="flex w-4/5 rounded-3xl bg-blancoBg pl-5 text-sm font-normal text-grisText outline-none outline-0"
+                className="flex w-4/5 rounded-3xl bg-transparent pl-5 text-sm font-normal text-grisText outline-none outline-0"
                 onChange={paswordChange}
                 placeholder="Password"
                 name="password"
@@ -125,6 +146,13 @@ function Login() {
             </div>
           )}
         </Form>
+        {error === 1 ? (
+          <div className="ml-2 mt-3 w-96">
+            <span className="font-montserrat text-sm font-semibold tracking-wider text-red-400">
+              Las credenciales no coinciden, revisa tu correo y contraseña.
+            </span>
+          </div>
+        ) : null}
       </div>
       <div className="absolute inset-x-0 bottom-0 bg-grisBg">
         <div className="mb-3 mt-3 flex w-screen">
@@ -151,9 +179,12 @@ export async function action({ request }) {
   if (response.code === 201) {
     await setCookie("token", response.access_token, { expires: 0.5 });
     return redirect("/");
-  } else {
-    return redirect("/login");
   }
+  if (response.code === 400) {
+    return "Login Error";
+  }
+
+  return null;
 }
 
 async function setCookie(key, value) {
