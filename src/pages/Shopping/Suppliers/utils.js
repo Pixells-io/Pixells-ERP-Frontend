@@ -149,6 +149,58 @@ export async function editGeneralInfo(data) {
   return response;
 }
 
+export async function createContact(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+    name: data.get("name"),
+    middle_name: data.get("middle_name"),
+    last_name: data.get("last_name"),
+    email: data.get("email"),
+    phone: data.get("phone"),
+    position: data.get("position"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/create-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editContact(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+    name: data.get("name"),
+    middle_name: data.get("middle_name"),
+    last_name: data.get("last_name"),
+    email: data.get("email"),
+    phone: data.get("phone"),
+    position: data.get("position"),
+    contact_id: data.get("contact_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/edit-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+
 export async function createBillingInfo(data) {
   const info = {
     supplier_id: data.get("supplier_id"),

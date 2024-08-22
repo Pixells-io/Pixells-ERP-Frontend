@@ -4,13 +4,15 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
 import ContactInfoForm from "./ContactInfo";
+import { Form, useNavigation } from "react-router-dom";
 
-const ContactForm = ({ isDisabled }) => {
+const ContactForm = ({ isDisabled, data }) => {
   // Datos iniciales para las filas
   const [positionTap, setPositionTap] = useState(0);
+  const navigation = useNavigation();
 
   // Estado inicial de los contactos
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(data.contacts);
 
   const addNewTab = () => {
     const newTab = {
@@ -25,10 +27,10 @@ const ContactForm = ({ isDisabled }) => {
     setContacts([...contacts, newTab]);
   };
 
-  const handleContactDataChange = (data) => {
+  const handleContactDataChange = (value) => {
     const updatedContacts = contacts.map((contact, index) => {
       if (positionTap == index) {
-        return data;
+        return value;
       } else {
         return contact;
       }
@@ -44,25 +46,8 @@ const ContactForm = ({ isDisabled }) => {
     const updatedContacts = contacts.filter(
       (contact, index) => index !== positionTap,
     );
-    // poner principal por default.
-    if (contacts.find((contact) => contact.princ)) {
-      const auxContacts = updatedContacts.map((contact, index) => {
-        if ((updatedContacts.length - 1) == index) {
-          return {
-            ...contact,
-            princ: true,
-          };
-        } else {
-          return {
-            ...contact,
-          };
-        }
-      });
 
-      setContacts(auxContacts);
-    } else {
-      setContacts(updatedContacts);
-    }
+    setContacts(updatedContacts);
     setPositionTap(updatedContacts.length - 1);
   };
 
@@ -85,11 +70,11 @@ const ContactForm = ({ isDisabled }) => {
                 >
                   <span className="max-w-[90%] truncate">
                     {!!contact?.id
-                      ? !!contact.nombre
-                        ? contact.nombre
+                      ? !!contact.name
+                        ? contact.name
                         : "N/A"
-                      : !!contact.nombre
-                        ? contact.nombre
+                      : !!contact.name
+                        ? contact.name
                         : "Nuevo"}
                   </span>
                 </TabsTrigger>
@@ -110,16 +95,54 @@ const ContactForm = ({ isDisabled }) => {
         <div className="flex-grow">
           {contacts.map((contact, index) => (
             <TabsContent key={index} value={index} className="h-auto">
-              <ContactInfoForm
-                contactData={contact}
-                setContactData={handleContactDataChange}
-                onDelete={handleDeleteContact}
-                setContacts={setContacts}
-                contacts={contacts}
-                positionTap={positionTap}
-                isDisabled={isDisabled}
-                index={index}
-              />
+              <Form
+                method="post"
+                action={"/shopping/supplier/edit/" + data.id}
+                id="contact-form"
+                name="contact-name"
+              >
+                <input
+                  type="hidden"
+                  hidden
+                  name="supplier_id"
+                  value={data.id}
+                />
+                <input
+                  type="hidden"
+                  hidden
+                  name="contact_id"
+                  value={contact?.id}
+                />
+                <input
+                  type="hidden"
+                  hidden
+                  name="type"
+                  value={"contact"}
+                />
+
+                <ContactInfoForm
+                  contactData={contact}
+                  setContactData={handleContactDataChange}
+                  onDelete={handleDeleteContact}
+                  setContacts={setContacts}
+                  contacts={contacts}
+                  positionTap={positionTap}
+                  isDisabled={isDisabled}
+                  index={index}
+                />
+                {contacts.length > 0 && (
+                  <div className="mt-2 flex w-full justify-end pr-2">
+                    <Button
+                      className="rounded-3xl bg-primarioBotones"
+                      disabled={navigation.state === "submitting"}
+                    >
+                      {navigation.state === "submitting"
+                        ? "Submitting..."
+                        : "Guardar"}
+                    </Button>
+                  </div>
+                )}
+              </Form>
             </TabsContent>
           ))}
         </div>
