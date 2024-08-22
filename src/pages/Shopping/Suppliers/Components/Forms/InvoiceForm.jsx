@@ -74,14 +74,6 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             className="ml-2 w-full"
           />
         </div>
-        <div className="flex items-center justify-end col-span-3">
-          <Button
-            type="button"
-            className="flex h-12 w-12 items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
-          >
-            <IonIcon icon={addCircle} className="text-xl text-primario" />
-          </Button>
-        </div>
       </div>
     </div>
   );

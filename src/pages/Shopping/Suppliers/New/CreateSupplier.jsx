@@ -151,7 +151,6 @@ export default CreateSupplier;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  await saveNewSuppliers(data);
-
-  return redirect(`/shopping`);
+  const response = await saveNewSuppliers(data);
+  return redirect(`/shopping/supplier/edit/${response.data}`);
 }

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const FormGroup = ({ data }) => {
   const [generalData, setGeneralData] = useState({
-    comment: data.general.comment,
+    comment: data.general.comments,
     status: data.status == "1" ? true: false,
     // inactivo: false,
     start: data.general.start,

@@ -38,7 +38,7 @@ export async function saveNewSuppliers(data) {
     },
   );
 
-  return response;
+  return response.json();
 }
 
 export async function getSupplier({params}) {
