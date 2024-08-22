@@ -10,18 +10,7 @@ const ContactForm = ({ isDisabled }) => {
   const [positionTap, setPositionTap] = useState(0);
 
   // Estado inicial de los contactos
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      nombre: "juan",
-      apellidop: "guzman",
-      apellidom: "getta",
-      email: "example@mail.com",
-      tel: "3122434",
-      position: "administrador",
-      princ: false,
-    },
-  ]);
+  const [contacts, setContacts] = useState([]);
 
   const addNewTab = () => {
     const newTab = {
@@ -31,7 +20,7 @@ const ContactForm = ({ isDisabled }) => {
       email: "",
       tel: "",
       position: "",
-      princ: false,
+      princ: contacts.length > 0 ? false : true,
     };
     setContacts([...contacts, newTab]);
   };
