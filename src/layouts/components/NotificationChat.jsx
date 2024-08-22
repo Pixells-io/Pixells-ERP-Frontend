@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { destroyNotificationsChat, getNotificationsChat } from "@/lib/actions";
+import { getNotificationsChat } from "@/lib/actions";
 
 import {
   DropdownMenu,
@@ -23,8 +23,6 @@ function NotificationChat({ notifications, user }) {
   const navigate = useNavigate();
 
   function destroyNotificationActivation(chat) {
-    destroyNotificationsChat(chat);
-
     //Redirect to the chat
     return navigate(`/chat/${chat}`);
   }
@@ -36,14 +34,14 @@ function NotificationChat({ notifications, user }) {
       setnotificationsPusher(newData.data);
     }
 
-    pusherClient.subscribe("private-get-chat-notification");
+    pusherClient.subscribe("private-get-chat-list");
 
-    pusherClient.bind("fill-chat-notification", ({ message }) => {
+    pusherClient.bind("fill-chat-list", ({ list }) => {
       getNotifications();
     });
 
     return () => {
-      pusherClient.unsubscribe("private-get-chat-notification");
+      pusherClient.unsubscribe("private-get-chat-list");
     };
   }, []);
 

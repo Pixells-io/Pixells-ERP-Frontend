@@ -61,9 +61,11 @@ function NotificationBell({ notificationsData, user }) {
                                   {item.latest.created}
                                 </span>
                               </div>
-                              <span className="w-9 overflow-hidden truncate text-left text-xs font-normal text-grisSubText">
-                                {item.latest.message}
-                              </span>
+                              <div className="text-left">
+                                <span className="w-9 overflow-hidden truncate text-left text-xs font-normal text-grisSubText">
+                                  {item.latest.message}
+                                </span>
+                              </div>
                             </div>
                             <div className="flex w-1/5 flex-col items-end">
                               <div className="h-5 w-5 rounded-full bg-[#D7586B]">
