@@ -13,6 +13,9 @@ const ContactForm = ({ isDisabled, data }) => {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
+    if(contacts.length !== data?.contacts){
+      setPositionTap(0);
+    }
     setContacts(data?.contacts || []);
   }, [data]);
 
@@ -56,7 +59,7 @@ const ContactForm = ({ isDisabled, data }) => {
   return (
     <div className="flex w-full">
       <Tabs
-        defaultValue={0}
+        defaultValue={positionTap}
         value={positionTap}
         onValueChange={(value) => setPositionTap(value)}
         className="flex w-full"
