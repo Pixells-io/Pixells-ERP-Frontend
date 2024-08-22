@@ -7,22 +7,21 @@ import CreditForm from "./Forms/PaymentForm";
 import { Form } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const FormGroup = ({ data }) => {
+const FormGroup = ({ data, isDisabled }) => {
   const [generalData, setGeneralData] = useState({
-    comment: data.general.comments,
-    status: data.status == "1" ? true: false,
-    // inactivo: false,
-    start: data.general.start,
-    end: data.general.end,
-    street: data.general.street,
-    cologne: data.general.cologne,
-    state: data.general.state,
-    shopping_person: data.general.shopping_person,
-    int: data.general.int,
-    cp: data.general.cp,
-    country: data.general.country,
-    ext: data.general.ext,
-    city: data.general.city,
+    comment: data?.general?.comments,
+    status: data?.status == "1" ? true: false,
+    start: data?.general?.start,
+    end: data?.general?.end,
+    street: data?.general?.street,
+    cologne: data?.general?.cologne,
+    state: data?.general?.state,
+    shopping_person: data?.general?.shopping_person,
+    int: data?.general?.int,
+    cp: data?.general?.cp,
+    country: data?.general?.country,
+    ext: data?.general?.ext,
+    city: data?.general?.city,
   });
 
   const [facturacionData, setFacturacionData] = useState({
@@ -34,10 +33,10 @@ const FormGroup = ({ data }) => {
   });
 
   const [condicionData, setcondicionData] = useState({
-    conditions: data.payment.conditions,
-    interest: data.payment.interest,
-    days_of_credit: data.payment.days_of_credit,
-    credit_limit: data.payment.credit_limit,
+    conditions: data?.payment?.conditions,
+    interest: data?.payment?.interest,
+    days_of_credit: data?.payment?.days_of_credit,
+    credit_limit: data?.payment?.credit_limit,
   });
 
   return (
@@ -67,38 +66,42 @@ const FormGroup = ({ data }) => {
             <div className="flex w-full flex-wrap pl-2">
               <Form
                 id="form-supplier-general"
-                action={"/shopping/supplier/edit/" + data.id}
+                action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data.id} />
-                <input type="hidden" name="info_id" value={data.general.id} />
+                <input type="hidden" name="supplier_id" value={data?.id} />
+                <input type="hidden" name="info_id" value={data?.general?.id} />
                 <input type="hidden" name="type" value={"generalInfo"} />
 
                 <GralFormSupplier
                   generalData={generalData}
                   setGeneralData={setGeneralData}
+                  isDisabled={isDisabled}
                 />
               </Form>
             </div>
-
-            <div className="mt-2 flex w-full justify-end pr-2">
-              <Button
-                form="form-supplier-general"
-                className="rounded-3xl bg-primarioBotones"
-                disabled={navigation.state === "submitting"}
-              >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Guardar"}
-              </Button>
-            </div>
+            {
+              !isDisabled && (
+                <div className="mt-2 flex w-full justify-end pr-2">
+                  <Button
+                    form="form-supplier-general"
+                    className="rounded-3xl bg-primarioBotones"
+                    disabled={navigation.state === "submitting"}
+                  >
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Guardar"}
+                  </Button>
+                </div>
+              )
+            }
           </TabsContent>
           <TabsContent value="contact">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONTACTOS
             </h2>
             <div className="flex flex-wrap overflow-auto pl-2 pt-2">
-              <ContactForm />
+              <ContactForm isDisabled={isDisabled} />
             </div>
           </TabsContent>
           <TabsContent value="invoice">
@@ -108,30 +111,34 @@ const FormGroup = ({ data }) => {
             <div className="flex flex-wrap pl-2">
               <Form
                 id="form-supplier-invoceInformation"
-                action={"/shopping/supplier/edit/" + data.id}
+                action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="supplier_id" value={data?.id} />
                 <input type="hidden" name="type" value={"invoceInformation"} />
 
                 <InvoiceForm
                   facturacionData={facturacionData}
                   setFacturacionData={setFacturacionData}
+                  isDisabled={isDisabled}
                 />
               </Form>
             </div>
-
-            <div className="mt-2 flex w-full justify-end pr-2">
-              <Button
-                form="form-supplier-invoceInformation"
-                className="rounded-3xl bg-primarioBotones"
-                disabled={navigation.state === "submitting"}
-              >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Guardar"}
-              </Button>
-            </div>
+            {
+              !isDisabled && (
+                <div className="mt-2 flex w-full justify-end pr-2">
+                  <Button
+                    form="form-supplier-invoceInformation"
+                    className="rounded-3xl bg-primarioBotones"
+                    disabled={navigation.state === "submitting"}
+                  >
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Guardar"}
+                  </Button>
+                </div>
+              )
+            }
           </TabsContent>
           <TabsContent value="payment">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
@@ -140,30 +147,34 @@ const FormGroup = ({ data }) => {
             <div className="flex flex-wrap pl-2">
               <Form
                 id="form-supplier-payment"
-                action={"/shopping/supplier/edit/" + data.id}
+                action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data.id} />
-                <input type="hidden" name="payment_id" value={data.payment.id} />
+                <input type="hidden" name="supplier_id" value={data?.id} />
+                <input type="hidden" name="payment_id" value={data?.payment?.id} />
                 <input type="hidden" name="type" value={"paymentConditions"} />
                 <CreditForm
                   condicionData={condicionData}
                   setcondicionData={setcondicionData}
+                  isDisabled={isDisabled}
                 />
               </Form>
             </div>
-
-            <div className="mt-2 flex w-full justify-end pr-2">
-              <Button
-                form="form-supplier-payment"
-                className="rounded-3xl bg-primarioBotones"
-                disabled={navigation.state === "submitting"}
-              >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Guardar"}
-              </Button>
-            </div>
+            {
+              !isDisabled && (
+                <div className="mt-2 flex w-full justify-end pr-2">
+                  <Button
+                    form="form-supplier-payment"
+                    className="rounded-3xl bg-primarioBotones"
+                    disabled={navigation.state === "submitting"}
+                  >
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Guardar"}
+                  </Button>
+                </div>
+              )
+            }
           </TabsContent>
         </div>
       </Tabs>

@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
+const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) => {
   const handleInputChange = (e) => {
     setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
@@ -31,6 +31,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-1 flex items-center gap-2">
@@ -46,6 +47,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-1 flex items-center gap-2">
@@ -61,6 +63,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-1 flex items-center gap-2">
@@ -77,6 +80,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-1 flex items-center gap-2">
@@ -93,6 +97,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-1 flex items-center gap-2">
@@ -108,6 +113,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-3 flex items-center gap-2">
@@ -119,6 +125,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           checked={contactData.princ}
           onCheckedChange={handleCheckboxChange}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+          disabled={isDisabled}
         />
       </div>
       <div className="col-span-3 flex justify-start pt-4">
@@ -126,6 +133,7 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
           type="button"
           className="w-[100px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
           onClick={onDelete}
+          disabled={isDisabled}
         >
           <Label className="font-roboto text-[14px] text-[#D7586B]">
             Eliminar

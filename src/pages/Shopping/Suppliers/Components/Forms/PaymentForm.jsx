@@ -10,7 +10,7 @@ import {
 // Clase común para los SelectTrigger
 const selectClass = "w-[200px] rounded-xl border border-transparent bg-grisBg placeholder:text-grisHeading placeholder:text-xs text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-const CreditForm = ({ condicionData, setcondicionData }) => {
+const CreditForm = ({ condicionData, setcondicionData, isDisabled }) => {
   // Maneja el cambio del valor del select
   const handleSelectChange = (field, value) => {
     setcondicionData(prevData => ({
@@ -36,6 +36,7 @@ const CreditForm = ({ condicionData, setcondicionData }) => {
             value={condicionData[field]}
             onValueChange={(value) => handleSelectChange(field, value)}
             name={field}
+            disabled={isDisabled}
           >
             <SelectTrigger className={selectClass}>
               <SelectValue placeholder="Selecciona" />

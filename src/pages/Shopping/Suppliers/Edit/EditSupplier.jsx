@@ -144,7 +144,7 @@ const EditSupplier = () => {
               id={data.id}
             />
           </Form>
-          <FormGroup data={data} />
+          <FormGroup data={data} isDisabled={false} />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
 import ContactInfoForm from "./ContactInfo";
 
-const ContactForm = () => {
+const ContactForm = ({isDisabled}) => {
   // Datos iniciales para las filas
   const initialRow = [
     {
@@ -158,6 +158,7 @@ const ContactForm = () => {
                 contactData={contactData}
                 setContactData={handleContactDataChange}
                 onDelete={handleDeleteContact}
+                isDisabled={isDisabled}
               />
             </TabsContent>
           ))}
