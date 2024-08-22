@@ -105,11 +105,11 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
   const currentData = items.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col overflow-auto rounded-xl bg-white p-4">
+    <div className="flex w-[820px] h-[1000px] flex-col overflow-auto rounded-xl bg-white p-4">
       {/* Header section */}
       <header className="mb-4 flex items-center justify-between pl-[43px] pt-[20px]">
         <div className="relative flex h-[100px] w-[100px] items-center justify-center rounded-lg border">
-          {(documentType === "cotizacion") && (
+          {documentType === "cotizacion" && (
             <div className="text-md absolute right-0 top-0 flex h-[40px] w-[250px] origin-top-left translate-x-[65px] translate-y-[70px] -rotate-45 transform items-center justify-center bg-[#FFB27A] pr-6 font-bold text-white">
               PENDIENTE
             </div>
@@ -187,7 +187,7 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
               ))}
             </TableBody>
           </Table>
-          <div className="mt-4 flex items-center justify-end p-2">
+          <div className="mt-4 flex items-center justify-end p-4">
             <Button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
@@ -213,7 +213,8 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
       {/* Comments and approval section */}
       <section className="mt-2 flex justify-between p-4">
         <div>
-          {(documentType === "pedido" ||
+          {(documentType === "cotizacion" ||
+            documentType === "pedido" ||
             documentType === "ticket" ||
             documentType === "factura") && (
             <>
@@ -224,7 +225,8 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
             </>
           )}
 
-          {(documentType === "pedido" ||
+          {(documentType === "cotizacion" ||
+            documentType === "pedido" ||
             documentType === "ticket" ||
             documentType === "factura") && (
             <section className="justify-start-items-start ml-4 flex pb-8 pt-4">
@@ -235,9 +237,11 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
           )}
         </div>
 
-        <div className="font-roboto text-sm text-[#44444F]">
-          {(documentType === "pedido" || documentType === "ticket") && (
-            <div className="grid grid-cols-2 gap-x-4 text-right">
+        <div className="p-4 font-roboto text-[14px] text-[#44444F]">
+          {(documentType === "pedido" ||
+            documentType === "ticket" ||
+            documentType === "cotizacion") && (
+            <div className="grid grid-cols-2 gap-x-2 text-right">
               <span>Subtotal</span>
               <span>${documentInfo.totales.subtotal}</span>
               <span>Impuesto</span>
@@ -256,8 +260,8 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
           )}
 
           {documentType === "pedido" && (
-            <div className="justify-center pt-4 pl-4">
-              <div className="ml-4 relative flex h-[100px] w-[100px] items-end justify-end">
+            <div className="justify-center pl-4 pt-4">
+              <div className="relative ml-4 flex h-[100px] w-[100px] items-end justify-end">
                 <img
                   src={documentInfo.logoUrl}
                   alt="Código qr"
@@ -267,7 +271,7 @@ const DocumentFormat = ({ documentType, documentInfo, items }) => {
             </div>
           )}
           {documentType === "factura" && (
-            <div className="grid grid-cols-2 gap-x-4 rounded-lg border border-grisDisabled text-right">
+            <div className="grid grid-cols-2 gap-x-2 rounded-lg border border-grisDisabled text-right">
               <span>Subtotal</span>
               <span>${documentInfo.totales.subtotal}</span>
               <span>Impuesto</span>

@@ -4,14 +4,29 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) => {
+const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled, positionTap, contacts, setContacts }) => {
   const handleInputChange = (e) => {
     setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
 
   const handleCheckboxChange = (checked) => {
-    setContactData({ ...contactData, princ: checked });
+    const auxContacts = contacts.map((contact, index) => {
+      if(positionTap == index) {
+        return {
+          ...contact,
+          princ: true,
+        }
+      } else {
+        return {
+          ...contact,
+          princ: false,
+        }
+      }
+    })
+
+    setContacts(auxContacts);
   };
+
 
   const inputClass =
     "w-[300px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
@@ -21,13 +36,13 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
       <div className="col-span-1 flex items-center gap-2">
         <Label
           className="w-32 font-roboto text-[14px] text-gris2"
-          htmlFor="nombre"
+          htmlFor="name"
         >
           Nombre
         </Label>
         <InputRouter
-          name="nombre"
-          value={contactData.nombre}
+          name="name"
+          value={contactData.name}
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
@@ -37,13 +52,13 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
       <div className="col-span-1 flex items-center gap-2">
         <Label
          className="w-32 font-roboto text-[14px] text-gris2"
-          htmlFor="apellidop"
+          htmlFor="middle_name"
         >
           A. Paterno
         </Label>
         <InputRouter
-          name="apellidop"
-          value={contactData.apellidop}
+          name="middle_name"
+          value={contactData.middle_name}
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
@@ -53,13 +68,13 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
       <div className="col-span-1 flex items-center gap-2">
         <Label
          className="w-32 font-roboto text-[14px] text-gris2"
-          htmlFor="apellidom"
+          htmlFor="last_name"
         >
           A. Materno
         </Label>
         <InputRouter
-          name="apellidom"
-          value={contactData.apellidom}
+          name="last_name"
+          value={contactData.last_name}
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
@@ -86,14 +101,14 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
       <div className="col-span-1 flex items-center gap-2">
         <Label
          className="w-32 font-roboto text-[14px] text-gris2"
-          htmlFor="tel"
+          htmlFor="phone"
         >
           Teléfono
         </Label>
         <InputRouter
-          name="tel"
-          type="tel"
-          value={contactData.tel}
+          name="phone"
+          type="phone"
+          value={contactData.phone}
           onChange={handleInputChange}
           placeholder="Ingresa"
           className={inputClass}
@@ -117,12 +132,12 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
         />
       </div>
       <div className="col-span-3 flex items-center gap-2">
-      <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="princ">
+      <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="principal">
           Principal
         </Label>
         <Checkbox
-          id="princ"
-          checked={contactData.princ}
+          id="principal"
+          checked={contactData.principal}
           onCheckedChange={handleCheckboxChange}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           disabled={isDisabled}
@@ -135,9 +150,9 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
           onClick={onDelete}
           disabled={isDisabled}
         >
-          <Label className="font-roboto text-[14px] text-[#D7586B]">
+          <span className="font-roboto text-[14px] text-[#D7586B]">
             Eliminar
-          </Label>
+          </span>
         </Button>
       </div>
     </div>

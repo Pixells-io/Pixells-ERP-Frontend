@@ -4,10 +4,12 @@ import GralFormSupplier from "./Forms/GeneralForm";
 import ContactForm from "./Forms/ContactForm";
 import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const FormGroup = ({ data, isDisabled }) => {
+  const navigation = useNavigation();
+
   const [generalData, setGeneralData] = useState({
     comment: data?.general?.comments,
     status: data?.status == "1" ? true: false,
@@ -101,7 +103,7 @@ const FormGroup = ({ data, isDisabled }) => {
               CONTACTOS
             </h2>
             <div className="flex flex-wrap overflow-auto pl-2 pt-2">
-              <ContactForm isDisabled={isDisabled} />
+              <ContactForm isDisabled={isDisabled} data={data} />
             </div>
           </TabsContent>
           <TabsContent value="invoice">

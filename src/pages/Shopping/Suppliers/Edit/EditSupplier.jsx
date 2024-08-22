@@ -5,7 +5,7 @@ import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createBillingInfo, createGeneralInfo, createPaymentConditions, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
+import { createBillingInfo, createContact, createGeneralInfo, createPaymentConditions, editContact, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
@@ -166,6 +166,13 @@ export async function Action({ request }) {
         await editGeneralInfo(data);
       } else {
         await createGeneralInfo(data);
+      }
+      break;
+    case "contact":
+      if(!!data.get("contact_id")){
+        await editContact(data);
+      } else {
+        await createContact(data);
       }
       break;
     case "invoceInformation":

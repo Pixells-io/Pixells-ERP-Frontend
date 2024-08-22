@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewSuppliers } from "../utils";
 
@@ -16,7 +16,6 @@ const CreateSupplier = () => {
     currency: "",
     cfdi_use: "",
   });
-  const navigation = useNavigation();
 
   // Configuración de los campos del formulario
   const supplierFields = [
