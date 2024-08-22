@@ -45,13 +45,6 @@ function MainChat() {
 
   const inputFocusRef = useRef(null);
 
-  const userInfo = [
-    {
-      id: user?.data.user.id,
-      name: user?.data.user.name + " " + user?.data.user.last_name,
-    },
-  ];
-
   useEffect(() => {
     inputFocusRef.current.focus();
   }, []);

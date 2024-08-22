@@ -4,38 +4,40 @@ import GralFormSupplier from "./Forms/GeneralForm";
 import ContactForm from "./Forms/ContactForm";
 import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
+import { Form } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const FormGroup = () => {
+const FormGroup = ({ data }) => {
   const [generalData, setGeneralData] = useState({
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: "",
-    calle: "",
-    colonia: "",
-    estado: "",
-    encargadoCompras: "",
-    numeroInterno: "",
-    codigoPostal: "",
-    pais: "",
-    numeroExterior: "",
-    ciudad: "",
+    comment: data.general.comment,
+    status: data.status == "1" ? true: false,
+    // inactivo: false,
+    start: data.general.start,
+    end: data.general.end,
+    street: data.general.street,
+    cologne: data.general.cologne,
+    state: data.general.state,
+    shopping_person: data.general.shopping_person,
+    int: data.general.int,
+    cp: data.general.cp,
+    country: data.general.country,
+    ext: data.general.ext,
+    city: data.general.city,
   });
 
   const [facturacionData, setFacturacionData] = useState({
-    regimenFiscal: "",
-    metodoPago: "",
-    formaPago: "",
-    usoCFDI: "",
+    regimen_fiscal: "",
+    uso_cfdi: "",
+    metodo_pago: "",
     email: "",
+    forma_pago: "",
   });
 
   const [condicionData, setcondicionData] = useState({
-    condiciones: "",
-    interesesPorRetraso: "",
-    diasDeCredito: "",
-    limiteDeCredito: "",
+    conditions: data.payment.conditions,
+    interest: data.payment.interest,
+    days_of_credit: data.payment.days_of_credit,
+    credit_limit: data.payment.credit_limit,
   });
 
   return (
@@ -62,18 +64,39 @@ const FormGroup = () => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               GENERAL
             </h2>
-            <div className="flex flex-wrap pl-2">
-              <GralFormSupplier
-                generalData={generalData}
-                setGeneralData={setGeneralData}
-              />
+            <div className="flex w-full flex-wrap pl-2">
+              <Form
+                id="form-supplier-general"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"createGeneralInfo"} />
+
+                <GralFormSupplier
+                  generalData={generalData}
+                  setGeneralData={setGeneralData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-general"
+                className="rounded-3xl bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
           <TabsContent value="contact">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               CONTACTOS
             </h2>
-            <div className="flex flex-wrap pl-2 pt-2 overflow-auto">
+            <div className="flex flex-wrap overflow-auto pl-2 pt-2">
               <ContactForm />
             </div>
           </TabsContent>
@@ -82,10 +105,31 @@ const FormGroup = () => {
               INFORMACIÓN DE FACTURACIÓN
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InvoiceForm
-                facturacionData={facturacionData}
-                setFacturacionData={setFacturacionData}
-              />
+              <Form
+                id="form-supplier-invoceInformation"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"invoceInformation"} />
+
+                <InvoiceForm
+                  facturacionData={facturacionData}
+                  setFacturacionData={setFacturacionData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-invoceInformation"
+                className="rounded-3xl bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
           <TabsContent value="payment">
@@ -93,9 +137,30 @@ const FormGroup = () => {
               CONDICIONES DE PAGO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <CreditForm
-              condicionData={condicionData} setcondicionData={setcondicionData}
-              />
+              <Form
+                id="form-supplier-payment"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"paymentConditions"} />
+                <CreditForm
+                  condicionData={condicionData}
+                  setcondicionData={setcondicionData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-payment"
+                className="rounded-3xl bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
         </div>

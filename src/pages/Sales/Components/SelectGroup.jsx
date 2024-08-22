@@ -33,14 +33,14 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
     }
   };
 
-  const selectTriggerClass = "flex rounded-xl border border-grisText font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const selectTriggerClass = "flex rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex space-x-3 justify-center items-center">
         <Input 
           name="list"
-          className="flex rounded-xl border border-[#696974] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+          className="flex rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
           placeholder="Lista de precios"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

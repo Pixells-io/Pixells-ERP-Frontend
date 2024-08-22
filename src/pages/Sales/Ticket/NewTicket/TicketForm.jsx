@@ -73,7 +73,7 @@ const TicketForm = () => {
           </div>
         </div>
         {/* content */}
-        <div className="space-y-3 overflow-auto">
+        <div className="space-y-6 overflow-auto">
           <Form onSubmit={handleSubmit}>
             <div className="flex h-full flex-col space-y-6">
               <SelectsQuote isEditable={isEditable}/>
@@ -87,7 +87,7 @@ const TicketForm = () => {
                 />
               </div>
             </div>
-            <div className=""></div>
+            
             <Total subtotal={subtotal} />
             <div className="flex justify-end">
         <StatusInformation

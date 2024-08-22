@@ -1,7 +1,10 @@
 import React from "react";
 import InfoPayment from "./InfoPayment";
 import { calculateImpuesto,calculateTotal } from "./utils";
-
+/**
+ * Component for total, comments and taxes
+ * 
+ */
 const Total = ({ subtotal, taxRate = 0.16, observationPlaceholder = "Observaciones" }) => {
   const impuesto = calculateImpuesto(subtotal, taxRate);
   const total = calculateTotal(subtotal, impuesto);

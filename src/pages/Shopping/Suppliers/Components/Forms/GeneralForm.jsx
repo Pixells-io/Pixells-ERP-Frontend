@@ -26,59 +26,59 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
         <div className="space-y-4">
           <div className="flex w-full items-center space-x-4">
             <Label
-              htmlFor="calle"
+              htmlFor="street"
                className="w-full font-roboto text-[14px] text-gris2"
             >
               Calle:
             </Label>
             <InputRouter
-              name="calle"
+              name="street"
               placeholder="Ingresa"
-              value={generalData.calle}
+              value={generalData.street}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="colonia"
+              htmlFor="cologne"
               className="w-full font-roboto text-[14px] text-gris2"
             >
               Colonia:
             </Label>
             <InputRouter
-              name="colonia"
+              name="cologne"
               placeholder="Ingresa"
-              value={generalData.colonia}
+              value={generalData.cologne}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="estado"
+              htmlFor="state"
               className="w-full font-roboto text-[14px] text-gris2"
             >
               Estado:
             </Label>
             <InputRouter
-              name="estado"
+              name="state"
               placeholder="Ingresa"
-              value={generalData.estado}
+              value={generalData.state}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="encargadoCompras"
+              htmlFor="shopping_person"
               className="w-32 font-roboto text-[14px] text-gris2"
             >
               Encargado de Compras:
             </Label>
             <SelectField
-              name="encargadoCompras"
+              name="shopping_person"
               placeholder="Selecciona"
-              value={generalData.encargadoCompras}
+              value={generalData.shopping_person}
               onValueChange={(value) =>
-                handleSelectChange(value, "encargadoCompras")
+                handleSelectChange(value, "shopping_person")
               }
               options={[
                 { value: "juan", label: "Juan Pérez" },
@@ -90,20 +90,22 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           </div>
           <div className="flex items-start space-x-4">
             <Label
-              htmlFor="activo"
+              htmlFor="status"
                className="w-full font-roboto text-[14px] text-gris2"
             >
               Activo
             </Label>
             <Checkbox
-              name="activo"
-              checked={generalData.activo}
+              name="status"
+              id="status"
+              value={generalData.status}
+              checked={generalData.status}
               className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-              onCheckedChange={() => handleCheckboxChange("activo")}
+              onCheckedChange={() => handleCheckboxChange("status")}
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label
+            {/* <Label
               htmlFor="inactivo"
               className="w-full font-roboto text-[14px] text-gris2"
             >
@@ -114,23 +116,23 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               checked={generalData.inactivo}
               className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
               onCheckedChange={() => handleCheckboxChange("inactivo")}
-            />
+            /> */}
           </div>
 
           <div className="flex items-center space-x-4 space-y-4">
             <Label
-              htmlFor="desde"
+              htmlFor="start"
              className="w-full font-roboto text-[14px] text-gris2"
             >
               Desde:
             </Label>
             <InputRouter
               type="date"
-              name="desde"
-              id="desde"
+              name="start"
+              id="start"
               className="w-64"
               placeholder="Ingresa"
-              value={generalData.desde}
+              value={generalData.start}
               onChange={handleInputChange}
             />
           </div>
@@ -139,77 +141,77 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
         <div className="space-y-4">
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="numeroInterno"
+              htmlFor="int"
               className="w-full font-roboto text-[14px] text-gris2"
             >
               Número Interno:
             </Label>
             <InputRouter
-              name="numeroInterno"
+              name="int"
               placeholder="Ingresa"
-              value={generalData.numeroInterno}
+              value={generalData.int}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="codigoPostal"
+              htmlFor="cp"
               className="w-full font-roboto text-[14px] text-gris2"
             >
               Código Postal:
             </Label>
             <InputRouter
-              name="codigoPostal"
+              name="cp"
               placeholder="Ingresa"
-              value={generalData.codigoPostal}
+              value={generalData.cp}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="pais"
+              htmlFor="country"
              className="w-full font-roboto text-[14px] text-gris2"
             >
               País:
             </Label>
             <InputRouter
-              name="pais"
+              name="country"
               placeholder="Ingresa"
-              value={generalData.pais}
+              value={generalData.country}
               onChange={handleInputChange}
             />
           </div>
           <div className="flex items-center space-x-4">
             <Label
-              htmlFor="comentarios"
+              htmlFor="comment"
               className="w-full font-roboto text-[14px] text-gris2"
             >
               Comentarios:
             </Label>
             <Textarea
-              name="comentarios"
+              name="comment"
               className={inputClass}
               placeholder="Ingresa"
-              value={generalData.comentarios}
+              value={generalData.comment}
               onChange={handleInputChange}
               rows={4}
             />
           </div>
 
-          <div className="flex items-center space-x-4 space-y-4 pt-4">
+          <div className="flex items-center space-x-4 space-y-4">
             <Label
-              htmlFor="hasta"
+              htmlFor="end"
                className="w-full font-roboto text-[14px] text-gris2"
             >
               Hasta:
             </Label>
             <InputRouter
               type="date"
-              name="hasta"
-              id="hasta"
+              name="end"
+              id="end"
               className="w-64"
               placeholder="Ingresa"
-              value={generalData.hasta}
+              value={generalData.end}
               onChange={handleInputChange}
             />
           </div>
@@ -219,29 +221,29 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
       <div className="ml-4 flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
           <Label
-            htmlFor="numeroExterior"
+            htmlFor="ext"
            className="w-full font-roboto text-[14px] text-gris2"
           >
             Número Exterior:
           </Label>
           <InputRouter
-            name="numeroExterior"
+            name="ext"
             placeholder="Ingresa"
-            value={generalData.numeroExterior}
+            value={generalData.ext}
             onChange={handleInputChange}
           />
         </div>
         <div className="flex items-center space-x-4">
           <Label
-            htmlFor="ciudad"
+            htmlFor="city"
             className="w-full font-roboto text-[14px] text-gris2"
           >
             Ciudad:
           </Label>
           <InputRouter
-            name="ciudad"
+            name="city"
             placeholder="Ingresa"
-            value={generalData.ciudad}
+            value={generalData.city}
             onChange={handleInputChange}
           />
         </div>

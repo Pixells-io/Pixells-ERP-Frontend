@@ -774,22 +774,6 @@ export async function getNotificationsChat() {
   }
 }
 
-export async function destroyNotificationsChat(id) {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}notifications/destroy-chat/${id}`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
-
 export async function getNotifications() {
   try {
     const response = await fetch(
