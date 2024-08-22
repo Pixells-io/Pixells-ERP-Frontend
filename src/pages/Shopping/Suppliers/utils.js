@@ -116,6 +116,39 @@ export async function createGeneralInfo(data) {
   return response;
 }
 
+export async function editGeneralInfo(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+    street: data.get("street"),
+    ext: data.get("ext"),
+    int: data.get("int"),
+    cp: data.get("cp"),
+    city: data.get("city"),
+    cologne: data.get("cologne"),
+    state: data.get("state"),
+    country: data.get("country"),
+    shopping_person: data.get("shopping_person"),
+    comment: data.get("comment"),
+    start: data.get("start"),
+    end: data.get("end"),
+    info_id: data.get("info_id"),
+    status: data.get("status") == "true" ? "1" : "0" ,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/edit-general-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function createBillingInfo(data) {
   const info = {
     supplier_id: data.get("supplier_id"),
@@ -151,6 +184,29 @@ export async function createPaymentConditions(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}supplier/create-payment-conditions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editPaymentConditions(data) {
+  const info = {
+    payment_id: data.get("payment_id"),
+    conditions: data.get("conditions"),
+    interest: data.get("interest"),
+    days_of_credit: data.get("days_of_credit"),
+    credit_limit: data.get("credit_limit"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/edit-payment-conditions`,
     {
       method: "POST",
       body: JSON.stringify(info),

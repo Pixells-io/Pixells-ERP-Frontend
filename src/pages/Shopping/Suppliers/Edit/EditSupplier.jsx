@@ -5,7 +5,7 @@ import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createBillingInfo, createGeneralInfo, createPaymentConditions, editSupplier } from "../utils";
+import { createBillingInfo, createGeneralInfo, createPaymentConditions, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
@@ -111,7 +111,7 @@ const EditSupplier = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Editar Proveedor
+            Proveedor: {data.fiscal_name}
           </p>
           <div className="flex items-end justify-end">
             <Link to="/shopping">
@@ -157,14 +157,22 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   switch (data.get("type")) {
-    case "createGeneralInfo":
-      await createGeneralInfo(data);
+    case "generalInfo":
+      if(!!data.get("info_id")){
+        await editGeneralInfo(data);
+      } else {
+        await createGeneralInfo(data);
+      }
       break;
     case "invoceInformation":
       await createBillingInfo(data);
       break;
     case "paymentConditions":
-      await createPaymentConditions(data);
+      if(!!data.get("payment_id")){
+        editPaymentConditions(data);
+      } else {
+        await createPaymentConditions(data);
+      }
       break;
     default:
       await editSupplier(data);

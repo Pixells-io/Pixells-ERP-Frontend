@@ -71,7 +71,8 @@ const FormGroup = ({ data }) => {
                 method="post"
               >
                 <input type="hidden" name="supplier_id" value={data.id} />
-                <input type="hidden" name="type" value={"createGeneralInfo"} />
+                <input type="hidden" name="info_id" value={data.general.id} />
+                <input type="hidden" name="type" value={"generalInfo"} />
 
                 <GralFormSupplier
                   generalData={generalData}
@@ -143,6 +144,7 @@ const FormGroup = ({ data }) => {
                 method="post"
               >
                 <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="payment_id" value={data.payment.id} />
                 <input type="hidden" name="type" value={"paymentConditions"} />
                 <CreditForm
                   condicionData={condicionData}
