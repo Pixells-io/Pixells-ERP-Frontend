@@ -10,7 +10,7 @@ const ContactForm = ({ isDisabled, data }) => {
   const [positionTap, setPositionTap] = useState(0);
 
   // Estado inicial de los contactos
-  const [contacts, setContacts] = useState(data.contacts);
+  const [contacts, setContacts] = useState(data?.contacts || []);
 
   const addNewTab = () => {
     const newTab = {
@@ -86,6 +86,7 @@ const ContactForm = ({ isDisabled, data }) => {
             type="button"
             className="flex items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
             onClick={addNewTab}
+            disabled={isDisabled}
           >
             <IonIcon icon={addCircle} className="text-xl text-primario" />
           </Button>
