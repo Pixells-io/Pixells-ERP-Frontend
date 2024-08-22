@@ -100,8 +100,6 @@ function MainChat() {
     setMssg("");
   }
 
-  console.log(chat);
-
   return (
     <div
       className={

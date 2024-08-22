@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function ChatList({ chat }) {
-  console.log(chat);
   return (
     <NavLink to={`/chat/${chat?.chat_id}`}>
       <div
