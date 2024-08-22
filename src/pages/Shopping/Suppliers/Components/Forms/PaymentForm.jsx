@@ -22,10 +22,10 @@ const CreditForm = ({ condicionData, setcondicionData }) => {
   return (
     <div className="max-w-md">
       {[
-        { label: 'Condiciones', field: 'condiciones' },
-        { label: '% intereses por retraso', field: 'interesesPorRetraso' },
-        { label: 'Días de crédito', field: 'diasDeCredito' },
-        { label: 'Límite de crédito', field: 'limiteDeCredito' }
+        { label: 'Condiciones', field: 'conditions' },
+        { label: '% intereses por retraso', field: 'interest' },
+        { label: 'Días de crédito', field: 'days_of_credit' },
+        { label: 'Límite de crédito', field: 'credit_limit' }
       ].map(({ label, field }) => (
         <div className="flex items-center justify-between mb-4" key={field}>
           <label htmlFor={field} className="font-roboto text-[14px] text-gris2">
@@ -35,6 +35,7 @@ const CreditForm = ({ condicionData, setcondicionData }) => {
             id={field}
             value={condicionData[field]}
             onValueChange={(value) => handleSelectChange(field, value)}
+            name={field}
           >
             <SelectTrigger className={selectClass}>
               <SelectValue placeholder="Selecciona" />

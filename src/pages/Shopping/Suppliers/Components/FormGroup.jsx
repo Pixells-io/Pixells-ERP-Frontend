@@ -9,35 +9,35 @@ import { Button } from "@/components/ui/button";
 
 const FormGroup = ({ data }) => {
   const [generalData, setGeneralData] = useState({
-    comment: "",
-    activo: false,
-    inactivo: false,
-    start: "",
-    end: "",
-    street: "",
-    cologne: "",
-    state: "",
-    shopping_person: "",
-    int: "",
-    cp: "",
-    country: "",
-    ext: "",
-    city: "",
+    comment: data.general.comment,
+    status: data.status == "1" ? true: false,
+    // inactivo: false,
+    start: data.general.start,
+    end: data.general.end,
+    street: data.general.street,
+    cologne: data.general.cologne,
+    state: data.general.state,
+    shopping_person: data.general.shopping_person,
+    int: data.general.int,
+    cp: data.general.cp,
+    country: data.general.country,
+    ext: data.general.ext,
+    city: data.general.city,
   });
 
   const [facturacionData, setFacturacionData] = useState({
-    regimenFiscal: "",
-    metodoPago: "",
-    formaPago: "",
-    usoCFDI: "",
+    regimen_fiscal: "",
+    uso_cfdi: "",
+    metodo_pago: "",
     email: "",
+    forma_pago: "",
   });
 
   const [condicionData, setcondicionData] = useState({
-    condiciones: "",
-    interesesPorRetraso: "",
-    diasDeCredito: "",
-    limiteDeCredito: "",
+    conditions: data.payment.conditions,
+    interest: data.payment.interest,
+    days_of_credit: data.payment.days_of_credit,
+    credit_limit: data.payment.credit_limit,
   });
 
   return (
@@ -83,7 +83,7 @@ const FormGroup = ({ data }) => {
             <div className="mt-2 flex w-full justify-end pr-2">
               <Button
                 form="form-supplier-general"
-                className="bg-primarioBotones rounded-3xl"
+                className="rounded-3xl bg-primarioBotones"
                 disabled={navigation.state === "submitting"}
               >
                 {navigation.state === "submitting"
@@ -105,10 +105,31 @@ const FormGroup = ({ data }) => {
               INFORMACIÓN DE FACTURACIÓN
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InvoiceForm
-                facturacionData={facturacionData}
-                setFacturacionData={setFacturacionData}
-              />
+              <Form
+                id="form-supplier-invoceInformation"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"invoceInformation"} />
+
+                <InvoiceForm
+                  facturacionData={facturacionData}
+                  setFacturacionData={setFacturacionData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-invoceInformation"
+                className="rounded-3xl bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
           <TabsContent value="payment">
@@ -116,10 +137,30 @@ const FormGroup = ({ data }) => {
               CONDICIONES DE PAGO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <CreditForm
-                condicionData={condicionData}
-                setcondicionData={setcondicionData}
-              />
+              <Form
+                id="form-supplier-payment"
+                action={"/shopping/supplier/edit/" + data.id}
+                method="post"
+              >
+                <input type="hidden" name="supplier_id" value={data.id} />
+                <input type="hidden" name="type" value={"paymentConditions"} />
+                <CreditForm
+                  condicionData={condicionData}
+                  setcondicionData={setcondicionData}
+                />
+              </Form>
+            </div>
+
+            <div className="mt-2 flex w-full justify-end pr-2">
+              <Button
+                form="form-supplier-payment"
+                className="rounded-3xl bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
             </div>
           </TabsContent>
         </div>

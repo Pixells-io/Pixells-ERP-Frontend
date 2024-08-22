@@ -5,7 +5,7 @@ import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createGeneralInfo, editSupplier } from "../utils";
+import { createBillingInfo, createGeneralInfo, createPaymentConditions, editSupplier } from "../utils";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
@@ -159,6 +159,12 @@ export async function Action({ request }) {
   switch (data.get("type")) {
     case "createGeneralInfo":
       await createGeneralInfo(data);
+      break;
+    case "invoceInformation":
+      await createBillingInfo(data);
+      break;
+    case "paymentConditions":
+      await createPaymentConditions(data);
       break;
     default:
       await editSupplier(data);

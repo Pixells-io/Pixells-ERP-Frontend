@@ -90,20 +90,22 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
           </div>
           <div className="flex items-start space-x-4">
             <Label
-              htmlFor="activo"
+              htmlFor="status"
                className="w-full font-roboto text-[14px] text-gris2"
             >
               Activo
             </Label>
             <Checkbox
-              name="activo"
-              checked={generalData.activo}
+              name="status"
+              id="status"
+              value={generalData.status}
+              checked={generalData.status}
               className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-              onCheckedChange={() => handleCheckboxChange("activo")}
+              onCheckedChange={() => handleCheckboxChange("status")}
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label
+            {/* <Label
               htmlFor="inactivo"
               className="w-full font-roboto text-[14px] text-gris2"
             >
@@ -114,7 +116,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
               checked={generalData.inactivo}
               className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
               onCheckedChange={() => handleCheckboxChange("inactivo")}
-            />
+            /> */}
           </div>
 
           <div className="flex items-center space-x-4 space-y-4">
@@ -196,7 +198,7 @@ const GralFormSupplier = ({ generalData, setGeneralData }) => {
             />
           </div>
 
-          <div className="flex items-center space-x-4 space-y-4 pt-4">
+          <div className="flex items-center space-x-4 space-y-4">
             <Label
               htmlFor="end"
                className="w-full font-roboto text-[14px] text-gris2"
