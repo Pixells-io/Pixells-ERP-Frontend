@@ -28,6 +28,14 @@ function NotificationChat({ notifications, user }) {
   }
 
   useEffect(() => {
+    let newTitle =
+      notificationsPusher[0]?.number == 0
+        ? "ERP"
+        : `(${notificationsPusher[0]?.number}) ERP`;
+    document.title = newTitle;
+  }, [notificationsPusher]);
+
+  useEffect(() => {
     async function getNotifications() {
       let newData = await getNotificationsChat();
 
