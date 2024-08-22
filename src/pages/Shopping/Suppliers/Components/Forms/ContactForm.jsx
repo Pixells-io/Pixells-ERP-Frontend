@@ -5,143 +5,110 @@ import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
 import ContactInfoForm from "./ContactInfo";
 
-const ContactForm = ({isDisabled}) => {
+const ContactForm = ({ isDisabled }) => {
   // Datos iniciales para las filas
-  const initialRow = [
+  const [positionTap, setPositionTap] = useState(0);
+
+  // Estado inicial de los contactos
+  const [contacts, setContacts] = useState([
     {
+      id: 1,
       nombre: "juan",
       apellidop: "guzman",
       apellidom: "getta",
       email: "example@mail.com",
       tel: "3122434",
       position: "administrador",
-      princ: true,
-    },
-    {
-      nombre: "maria",
-      apellidop: "hernandez",
-      apellidom: "hernandez",
-      email: "maria@mail.com",
-      tel: "23423432",
-      position: "empleado",
       princ: false,
     },
-    {
-      nombre: "pedro",
-      apellidop: "ortega",
-      apellidom: "villanueva",
-      email: "pedro@mail.com",
-      tel: "123131231",
-      position: "administrador",
-      princ: true,
-    },
-    {
-      nombre: "ana",
-      apellidop: "orozco",
-      apellidom: "beltran",
-      email: "ana@mail.com",
-      tel: "12342423",
-      position: "empleado",
-      princ: false,
-    },
-  ];
-
-  // Estado inicial de los contactos
-  const [contacts, setContacts] = useState([
-    { value: "juan", label: "Juan", data: initialRow[0] },
-    { value: "maria", label: "Maria", data: initialRow[1] },
-    { value: "pedro", label: "Pedro", data: initialRow[2] },
-    { value: "ana", label: "Ana", data: initialRow[3] },
   ]);
-
-  const [currentTab, setCurrentTab] = useState(contacts[0].value);
-  const [contactData, setContactData] = useState(contacts[0].data);
 
   const addNewTab = () => {
     const newTab = {
-      value: `${contacts.length}`,
-      label: "Nuevo",
-      data: {
-        nombre: "",
-        apellidop: "",
-        apellidom: "",
-        email: "",
-        tel: "",
-        position: "",
-        princ: false,
-      },
+      nombre: "",
+      apellidop: "",
+      apellidom: "",
+      email: "",
+      tel: "",
+      position: "",
+      princ: false,
     };
     setContacts([...contacts, newTab]);
-    setCurrentTab(newTab.value);
-    setContactData(newTab.data);
-  };
-
-  const handleTabChange = (value) => {
-    const selectedTab = contacts.find((tab) => tab.value === value);
-    setCurrentTab(value);
-    setContactData(selectedTab.data);
   };
 
   const handleContactDataChange = (data) => {
-    setContactData(data);
-    const updatedContacts = contacts.map((contact) =>
-      contact.value === currentTab
-        ? { ...contact, label: data.nombre || "Nuevo", data }
-        : contact,
-    );
+    const updatedContacts = contacts.map((contact, index) => {
+      if (positionTap == index) {
+        return data;
+      } else {
+        return contact;
+      }
+    });
     setContacts(updatedContacts);
   };
 
   const handleDeleteContact = () => {
     if (contacts.length <= 1) {
-      return; 
+      return;
     }
 
     const updatedContacts = contacts.filter(
-      (contact) => contact.value !== currentTab,
+      (contact, index) => index !== positionTap,
     );
-    setContacts(updatedContacts);
-    if (updatedContacts.length > 0) {
-      setCurrentTab(updatedContacts[0].value);
-      setContactData(updatedContacts[0].data);
-    } else {
-      setCurrentTab("");
-      setContactData({
-        nombre: "",
-        apellidop: "",
-        apellidom: "",
-        email: "",
-        tel: "",
-        position: "",
-        princ: false,
+    // poner principal por default.
+    if (contacts.find((contact) => contact.princ)) {
+      const auxContacts = updatedContacts.map((contact, index) => {
+        if ((updatedContacts.length - 1) == index) {
+          return {
+            ...contact,
+            princ: true,
+          };
+        } else {
+          return {
+            ...contact,
+          };
+        }
       });
+
+      setContacts(auxContacts);
+    } else {
+      setContacts(updatedContacts);
     }
+    setPositionTap(updatedContacts.length - 1);
   };
 
   return (
     <div className="flex w-full">
       <Tabs
-        value={currentTab}
-        onValueChange={handleTabChange}
+        defaultValue={0}
+        value={positionTap}
+        onValueChange={(value) => setPositionTap(value)}
         className="flex w-full"
       >
         <div className="space-y-auto flex w-[180px] flex-col">
-          <div className="pt-2 w-full h-full max-h-[180px] overflow-auto">
+          <div className="h-full max-h-[180px] w-full overflow-auto pt-2">
             <TabsList className="w-full flex-col space-y-2 bg-transparent">
-              {contacts.map(({ value, label }) => (
+              {contacts.map((contact, index) => (
                 <TabsTrigger
-                  key={value}
-                  value={value}
-                  className="w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
+                  key={index}
+                  value={index}
+                  className="min-h-[34px] w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
                 >
-                  <span className="max-w-[90%] truncate">{label}</span>
+                  <span className="max-w-[90%] truncate">
+                    {!!contact?.id
+                      ? !!contact.nombre
+                        ? contact.nombre
+                        : "N/A"
+                      : !!contact.nombre
+                        ? contact.nombre
+                        : "Nuevo"}
+                  </span>
                 </TabsTrigger>
               ))}
             </TabsList>
           </div>
-
-          <div></div>
         </div>
+
         <div className="mt-2 flex space-x-2">
           <Button
             type="button"
@@ -152,13 +119,17 @@ const ContactForm = ({isDisabled}) => {
           </Button>
         </div>
         <div className="flex-grow">
-          {contacts.map(({ value }) => (
-            <TabsContent key={value} value={value} className="h-auto">
+          {contacts.map((contact, index) => (
+            <TabsContent key={index} value={index} className="h-auto">
               <ContactInfoForm
-                contactData={contactData}
+                contactData={contact}
                 setContactData={handleContactDataChange}
                 onDelete={handleDeleteContact}
+                setContacts={setContacts}
+                contacts={contacts}
+                positionTap={positionTap}
                 isDisabled={isDisabled}
+                index={index}
               />
             </TabsContent>
           ))}

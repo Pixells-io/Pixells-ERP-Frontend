@@ -4,14 +4,29 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) => {
+const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled, positionTap, contacts, setContacts }) => {
   const handleInputChange = (e) => {
     setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
 
   const handleCheckboxChange = (checked) => {
-    setContactData({ ...contactData, princ: checked });
+    const auxContacts = contacts.map((contact, index) => {
+      if(positionTap == index) {
+        return {
+          ...contact,
+          princ: true,
+        }
+      } else {
+        return {
+          ...contact,
+          princ: false,
+        }
+      }
+    })
+
+    setContacts(auxContacts);
   };
+
 
   const inputClass =
     "w-[300px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
@@ -135,9 +150,9 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete, isDisabled }) 
           onClick={onDelete}
           disabled={isDisabled}
         >
-          <Label className="font-roboto text-[14px] text-[#D7586B]">
+          <span className="font-roboto text-[14px] text-[#D7586B]">
             Eliminar
-          </Label>
+          </span>
         </Button>
       </div>
     </div>
