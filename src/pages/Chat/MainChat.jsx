@@ -100,6 +100,8 @@ function MainChat() {
     setMssg("");
   }
 
+  console.log(chat);
+
   return (
     <div
       className={
@@ -114,41 +116,22 @@ function MainChat() {
       />
 
       <div className="flex rounded-t-xl bg-gris px-2 py-4 md:px-6">
-        {chat.data.type == 0 ? (
-          <div className="flex items-center gap-4">
-            <IonIcon
-              icon={chevronBack}
-              className="flex size-8 cursor-pointer text-grisText md:hidden"
-              onClick={() => navigate("/chat")}
-            />
-            <img
-              src={chat.data?.participants.img}
-              className="h-14 w-14 rounded-full object-cover"
-            />
-            <Link to={"/chat/" + id + "/user-media-library"}>
-              <span className="font-poppins text-lg font-semibold text-grisHeading">
-                {chat.data?.participants.name}
-              </span>
-            </Link>
-          </div>
-        ) : (
-          <div className="flex items-center gap-4">
-            <IonIcon
-              icon={chevronBack}
-              className="flex size-8 cursor-pointer text-grisText md:hidden"
-              onClick={() => navigate("/chat")}
-            />
-            <img
-              src={chat.data?.img}
-              className="h-14 w-14 rounded-full object-cover"
-            />
-            <Link to={"/chat/" + id + "/user-media-library"}>
-              <span className="font-poppins text-lg font-semibold text-grisHeading">
-                {chat.data?.title}
-              </span>
-            </Link>
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          <IonIcon
+            icon={chevronBack}
+            className="flex size-8 cursor-pointer text-grisText md:hidden"
+            onClick={() => navigate("/chat")}
+          />
+          <img
+            src={chat.data?.img}
+            className="h-14 w-14 rounded-full object-cover"
+          />
+          <Link to={"/chat/" + id + "/user-media-library"}>
+            <span className="font-poppins text-lg font-semibold text-grisHeading">
+              {chat.data?.title}
+            </span>
+          </Link>
+        </div>
       </div>
 
       {/* Chat Card Messages */}
