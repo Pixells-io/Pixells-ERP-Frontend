@@ -69,9 +69,9 @@ const FormGroup = ({ data, isDisabled }) => {
                 action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data?.id} />
-                <input type="hidden" name="info_id" value={data?.general?.id} />
-                <input type="hidden" name="type" value={"generalInfo"} />
+                <input type="hidden" hidden name="supplier_id" value={data?.id} />
+                <input type="hidden" hidden name="info_id" value={data?.general?.id} />
+                <input type="hidden" hidden name="type" value={"generalInfo"} />
 
                 <GralFormSupplier
                   generalData={generalData}
@@ -114,8 +114,8 @@ const FormGroup = ({ data, isDisabled }) => {
                 action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data?.id} />
-                <input type="hidden" name="type" value={"invoceInformation"} />
+                <input type="hidden" hidden name="supplier_id" value={data?.id} />
+                <input type="hidden" hidden name="type" value={"invoceInformation"} />
 
                 <InvoiceForm
                   facturacionData={facturacionData}
@@ -150,9 +150,9 @@ const FormGroup = ({ data, isDisabled }) => {
                 action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
               >
-                <input type="hidden" name="supplier_id" value={data?.id} />
-                <input type="hidden" name="payment_id" value={data?.payment?.id} />
-                <input type="hidden" name="type" value={"paymentConditions"} />
+                <input type="hidden" hidden name="supplier_id" value={data?.id} />
+                <input type="hidden" hidden name="payment_id" value={data?.payment?.id} />
+                <input type="hidden" hidden name="type" value={"paymentConditions"} />
                 <CreditForm
                   condicionData={condicionData}
                   setcondicionData={setcondicionData}
