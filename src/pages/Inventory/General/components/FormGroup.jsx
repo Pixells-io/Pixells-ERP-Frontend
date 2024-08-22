@@ -19,6 +19,7 @@ const FormGroup = () => {
 
   const [inventoryData, setInventoryData] = useState({
     costeo: "",
+    costo:"0.00",
     minimo: "",
     maximo: ""
   });

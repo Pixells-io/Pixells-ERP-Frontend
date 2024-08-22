@@ -14,8 +14,14 @@ const TicketForm = () => {
     
   const navigate = useNavigate();
 
+  const generateRandomId = () => {
+    return Math.floor(100 + Math.random() * 900);
+  };
+
+
   const handleSubmit = () => {
-    navigate("/sales/tickets");
+    const id = generateRandomId();
+    navigate("/sales/tickets/edit/"+id);
   };
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
@@ -99,6 +105,7 @@ const TicketForm = () => {
         >
           <Button
             type="button"
+            onClick={handleSubmit}
             variant="outline"
             className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
           >

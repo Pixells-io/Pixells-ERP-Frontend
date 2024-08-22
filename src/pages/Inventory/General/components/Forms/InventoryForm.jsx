@@ -38,7 +38,7 @@ const InventoryForm = ({ data, setData }) => {
             htmlFor="costeo"
             className="text-[14px] mb-1 mr-4 w-auto font-roboto text-gris2"
           >
-            Método de Costeo
+            Método de Valoración
           </Label>
           <Select 
             name="costeo" 
@@ -49,11 +49,29 @@ const InventoryForm = ({ data, setData }) => {
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="option1">Option 1</SelectItem>
-              <SelectItem value="option2">Option 2</SelectItem>
-              <SelectItem value="option3">Option 3</SelectItem>
+              <SelectItem value="option1">Medio ponderado</SelectItem>
+              <SelectItem value="option2">Coste Estandar</SelectItem>
+              <SelectItem value="option3">PEPS</SelectItem>
+              <SelectItem value="option4">Lote/Serie</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        <div className="flex items-center">
+          <Label
+            htmlFor="costo"
+            className="text-[14px] mb-1 mr-4 w-auto font-roboto text-gris2"
+          >
+            Costo
+          </Label>
+          <Input
+            type="text"
+            name="costo"
+            value={data.costo}
+            onChange={handleChange}
+            placeholder="Ingresa"
+            className="border-gris2-transparent ml-4 w-full rounded-xl border border-none bg-grisBg font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px]"
+            readOnly
+          />
         </div>
       </div>
 

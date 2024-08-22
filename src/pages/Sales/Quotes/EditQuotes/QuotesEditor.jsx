@@ -41,7 +41,7 @@ const QuotesDetails = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/sales");
+    navigate("/sales/quotes");
   };
 
   return (
@@ -125,7 +125,6 @@ const QuotesDetails = () => {
             <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}
-          applyFunction={handleSubmit}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
@@ -133,6 +132,7 @@ const QuotesDetails = () => {
           <Button
             type="button"
             variant="outline"
+            onClick={handleSubmit}
             className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
           >
             Save
