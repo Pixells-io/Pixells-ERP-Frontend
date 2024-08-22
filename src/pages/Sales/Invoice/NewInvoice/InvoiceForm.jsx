@@ -7,15 +7,18 @@ import StatusInformation from "@/components/StatusInformation/status-information
 import { Form, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { chevronBack,chevronForward } from "ionicons/icons";
+import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectDetails from "../../Components/SelectDetails";
 
 const InvoiceForm = () => {
-    
   const navigate = useNavigate();
+  const generateRandomId = () => {
+    return Math.floor(100 + Math.random() * 900);
+  };
 
   const handleSubmit = () => {
-    navigate("/sales/invoices");
+    const id = generateRandomId();
+    navigate("/sales/invoices/edit/"+id);
   };
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
@@ -24,8 +27,6 @@ const InvoiceForm = () => {
   const handleTotalChange = (newSubtotal) => {
     setSubTotal(newSubtotal);
   };
-
-
 
   return (
     <div className="flex w-full">
@@ -76,9 +77,9 @@ const InvoiceForm = () => {
         <div className="space-y-3 overflow-auto">
           <Form onSubmit={handleSubmit}>
             <div className="flex h-full flex-col space-y-6">
-              <SelectsQuote isEditable={isEditable}/>
+              <SelectsQuote isEditable={isEditable} />
               <div className="mt-6 rounded-xl bg-white p-4">
-                <SelectDetails isEditable={isEditable}/>
+                <SelectDetails isEditable={isEditable} />
                 <QuoteTable
                   initialItems={items}
                   setItems={setItems}
@@ -88,32 +89,32 @@ const InvoiceForm = () => {
               </div>
             </div>
             <div className="pt-6">
-            <Total subtotal={subtotal} />
+              <Total subtotal={subtotal} />
             </div>
             <div className="flex justify-end">
-        <StatusInformation
-          status={"inProgress"}
-          applyFunction={handleSubmit}
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        >
-          <Button
-            type="button"
-            variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-          >
-            Save
-          </Button>
-          <Button
-            type="button"
-            onClick={() => alert("save")}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Save for Aproval
-          </Button>
-        </StatusInformation>
-        </div>
+              <StatusInformation
+                status={"inProgress"}
+                imgUser={
+                  "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                }
+              >
+                <Button
+                  type="button"
+                  onClick={handleSubmit}
+                  variant="outline"
+                  className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+                >
+                  Save
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => alert("save")}
+                  className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                >
+                  Save for Aproval
+                </Button>
+              </StatusInformation>
+            </div>
           </Form>
         </div>
       </div>
