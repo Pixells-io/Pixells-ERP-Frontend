@@ -3,12 +3,13 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Form, Link, redirect, useLoaderData } from "react-router-dom";
+import { Form, Link, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createBillingInfo, createContact, createGeneralInfo, createPaymentConditions, destroyContact, editContact, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
+import { createBillingInfo, createContact, createGeneralInfo, createPaymentConditions, destroyContact, destroySupplier, editContact, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
+  const navigation = useNavigation();
 
   const [supplierValues, setSupplierValues] = useState({
     type_supplier: data.type_supplier,
@@ -147,7 +148,25 @@ const EditSupplier = () => {
           </Form>
           <FormGroup data={data} isDisabled={false} />
         </div>
-      </div>
+        <Form
+            id="form-supplier"
+            action={"/shopping/supplier/edit/" + data.id}
+            method="post"
+          >
+            <input type="hidden" hidden name="supplier_id" value={data.id} />
+            <input type="hidden" hidden name="type" value={"destroy_supplier"} />
+
+            <Button
+              type="submit"
+              className="w-[150px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
+              disabled={navigation.state === "submitting"}
+            >
+              <span className="font-roboto text-[14px] text-[#D7586B]">
+                {navigation.state === "submitting" ? "Submitting..." : "Eliminar Proveedor"}
+              </span>
+            </Button>      
+          </Form>
+        </div>
     </div>
   );
 };
@@ -161,6 +180,8 @@ export async function Action({ request }) {
     case "supplierPrincipal":
       await editSupplier(data);
       break;
+    case "destroy_supplier":
+      await destroySupplier(data);
     case "generalInfo":
       if(!!data.get("info_id")){
         await editGeneralInfo(data);

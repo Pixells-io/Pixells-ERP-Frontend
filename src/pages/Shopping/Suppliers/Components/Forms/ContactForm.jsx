@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
@@ -10,17 +10,21 @@ const ContactForm = ({ isDisabled, data }) => {
   const [positionTap, setPositionTap] = useState(0);
 
   // Estado inicial de los contactos
-  const [contacts, setContacts] = useState(data?.contacts || []);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    setContacts(data?.contacts || []);
+  }, [data]);
 
   const addNewTab = () => {
     const newTab = {
-      nombre: "",
-      apellidop: "",
-      apellidom: "",
+      name: "",
+      middle_name: "",
+      last_name: "",
       email: "",
-      tel: "",
+      phone: "",
       position: "",
-      princ: contacts.length > 0 ? false : true,
+      principal: contacts.length > 0 ? false : true,
     };
     setContacts([...contacts, newTab]);
   };

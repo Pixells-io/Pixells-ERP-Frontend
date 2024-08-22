@@ -84,6 +84,25 @@ export async function editSupplier(data) {
   return response;
 }
 
+export async function destroySupplier(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/destroy`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function createGeneralInfo(data) {
   const info = {
     supplier_id: data.get("supplier_id"),

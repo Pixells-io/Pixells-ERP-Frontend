@@ -194,7 +194,7 @@ const ContactInfoForm = ({
         <input type="hidden" hidden name="contact_id" value={contactData?.id} />
         <input type="hidden" hidden name="type" value={"destroy_contact"} />
         {
-          (contacts.length ) > 1 && (
+          (contacts.length > 1 && !!contactData?.id ) && (
             <div className="col-span-3 flex justify-start pt-4">
           <Button
             type="submit"
