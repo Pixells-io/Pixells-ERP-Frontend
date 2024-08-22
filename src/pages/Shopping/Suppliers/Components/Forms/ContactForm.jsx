@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
 import ContactInfoForm from "./ContactInfo";
-import { Form, useNavigation } from "react-router-dom";
 
 const ContactForm = ({ isDisabled, data }) => {
   // Datos iniciales para las filas
   const [positionTap, setPositionTap] = useState(0);
-  const navigation = useNavigation();
 
   // Estado inicial de los contactos
   const [contacts, setContacts] = useState(data.contacts);
@@ -95,54 +93,17 @@ const ContactForm = ({ isDisabled, data }) => {
         <div className="flex-grow">
           {contacts.map((contact, index) => (
             <TabsContent key={index} value={index} className="h-auto">
-              <Form
-                method="post"
-                action={"/shopping/supplier/edit/" + data.id}
-                id="contact-form"
-                name="contact-name"
-              >
-                <input
-                  type="hidden"
-                  hidden
-                  name="supplier_id"
-                  value={data.id}
-                />
-                <input
-                  type="hidden"
-                  hidden
-                  name="contact_id"
-                  value={contact?.id}
-                />
-                <input
-                  type="hidden"
-                  hidden
-                  name="type"
-                  value={"contact"}
-                />
-
-                <ContactInfoForm
-                  contactData={contact}
-                  setContactData={handleContactDataChange}
-                  onDelete={handleDeleteContact}
-                  setContacts={setContacts}
-                  contacts={contacts}
-                  positionTap={positionTap}
-                  isDisabled={isDisabled}
-                  index={index}
-                />
-                {contacts.length > 0 && (
-                  <div className="mt-2 flex w-full justify-end pr-2">
-                    <Button
-                      className="rounded-3xl bg-primarioBotones"
-                      disabled={navigation.state === "submitting"}
-                    >
-                      {navigation.state === "submitting"
-                        ? "Submitting..."
-                        : "Guardar"}
-                    </Button>
-                  </div>
-                )}
-              </Form>
+              <ContactInfoForm
+                contactData={contact}
+                setContactData={handleContactDataChange}
+                onDelete={handleDeleteContact}
+                setContacts={setContacts}
+                contacts={contacts}
+                positionTap={positionTap}
+                isDisabled={isDisabled}
+                index={index}
+                supplier_id={data.id}
+              />
             </TabsContent>
           ))}
         </div>

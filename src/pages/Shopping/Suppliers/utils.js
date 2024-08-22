@@ -200,6 +200,25 @@ export async function editContact(data) {
   return response;
 }
 
+export async function destroyContact(data) {
+  const info = {
+    contact_id: data.get("contact_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/destroy-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 
 export async function createBillingInfo(data) {
   const info = {
