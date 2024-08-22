@@ -1,3 +1,5 @@
+
+/*Using to calculate Total in table */
 export const calculateTotal = (row) => {
   const valor = parseFloat(row.valor) || 0;
   const cantidad = parseFloat(row.cantidad) || 0;
@@ -11,6 +13,10 @@ export const calculateTotal = (row) => {
   }
 };
 
+
+
+
+/*ACTIONS OF TABLE*/
 export const handleAddRow = (e, setTableData, initialRow) => {
   e.preventDefault();
   setTableData((prevData) => [...prevData, { ...initialRow }]);

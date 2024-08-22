@@ -23,7 +23,12 @@ import {
   handleDeleteRow,
   handleInputChange,
 } from "./Utils";
-
+/**
+ * initialItems -> Lista de items para cargar en tabla
+ * isEditable - True -> permite realizar las acciones de la tabla
+ * setTotalChanges -> es el estado que retorna el total de los items
+ *  
+ */
 const QuoteTable = ({
   initialItems,
   setItems,
