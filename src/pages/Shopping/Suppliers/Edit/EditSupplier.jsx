@@ -197,7 +197,8 @@ export async function Action({ request }) {
       }
       break;
     case "destroy_contact": 
-      await destroyContact(data);
+    await destroyContact(data);
+      return redirect("/shopping");
       break;
     case "invoceInformation":
       if(!!data.get("billing_id")){

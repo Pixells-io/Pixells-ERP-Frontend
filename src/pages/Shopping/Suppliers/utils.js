@@ -90,7 +90,7 @@ export async function destroySupplier(data) {
   };
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}supplier/destroy`,
+    `${import.meta.env.VITE_SERVER_URL}supplier/destroy-supplier`,
     {
       method: "POST",
       body: JSON.stringify(info),
