@@ -20,6 +20,7 @@ const ContactForm = ({ isDisabled, data }) => {
   }, [data]);
 
   const addNewTab = () => {
+    if( contacts.filter(contact => !contact?.id).length != 0 ) return;
     const newTab = {
       name: "",
       middle_name: "",
@@ -87,13 +88,12 @@ const ContactForm = ({ isDisabled, data }) => {
             </TabsList>
           </div>
         </div>
-
         <div className="mt-2 flex space-x-2">
           <Button
             type="button"
             className="flex items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
             onClick={addNewTab}
-            disabled={isDisabled}
+            disabled={isDisabled ||  contacts.filter(contact => !contact?.id).length != 0}
           >
             <IonIcon icon={addCircle} className="text-xl text-primario" />
           </Button>
