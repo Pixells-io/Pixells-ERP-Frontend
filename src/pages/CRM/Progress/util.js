@@ -232,6 +232,29 @@ export async function addCommentClient(data) {
   return response;
 }
 
+export async function addSalePay(data) {
+  const information = {
+    balance_id: data.get("balance_id"),
+    ref: data.get("ref"),
+    comments: data.get("comments"),
+    ammount: data.get("ammount"),
+    date: data.get("date"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}process-services/create-pay-sale`,
+    {
+      method: "POST",
+      body: JSON.stringify(information),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function setClientServices(data) {
   const info = {
     client_id: data.get("client_id"),

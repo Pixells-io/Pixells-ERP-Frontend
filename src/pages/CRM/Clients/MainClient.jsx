@@ -30,7 +30,7 @@ import ModalDestroyDocuments from "./Forms/ModalDestroyDocuments";
 import ModalEditClient from "./Forms/ModalEditClient";
 import ModalClientAccess from "./Forms/ModalClientAccess";
 import AssignInterviewModal from "./Forms/ModalAssignInterviewClient";
-import { addCommentClient } from "../Progress/util";
+import { addCommentClient, addSalePay } from "../Progress/util";
 import FormShowInterview from "./FormShowInterview";
 import { createPusherClient } from "@/lib/pusher";
 import { getClient } from "@/lib/actions";
@@ -164,7 +164,7 @@ function MainClient() {
       <div className="flex w-full overflow-auto">
         <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gradient-to-b from-indigo-100 px-8 py-8">
           <span className="font-poppins text-2xl font-bold uppercase text-grisHeading">
-            CLIENT INFORMATION - {cliente?.info?.business_name}
+            INFORMACION - {cliente?.info?.business_name}
           </span>
           <div className="flex gap-10">
             <div className="flex">
@@ -174,11 +174,11 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {Number(cliente?.sales_record).toFixed(2)} USD
+                  $ {cliente?.sales_record} MXN
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
-                  SALES RECORD
+                  Ventas Totales
                 </span>
               </div>
             </div>
@@ -189,18 +189,18 @@ function MainClient() {
               />
               <div className="ml-4 mt-1">
                 <span className="font-poppins text-2xl font-bold text-grisHeading">
-                  $ {Number(cliente?.monthly_record).toFixed(2)} USD
+                  $ {cliente?.monthly_record} MXN
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-medium text-grisHeading">
-                  MONTHLY SALES
+                  Ventas Mensuales
                 </span>
               </div>
             </div>
           </div>
           <div className="pt-8">
             <span className="font-poppins text-xl font-semibold text-grisHeading">
-              SERVICES
+              SERVICIOS
             </span>
             <div className="mt-4">
               <ClientServicesTable services={cliente?.services_table} />
@@ -214,7 +214,7 @@ function MainClient() {
         <div className="flex max-h-[306px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex gap-6">
             <div>
-              <p className="text-[16px] font-medium text-grisText">Name</p>
+              <p className="text-[16px] font-medium text-grisText">Nombre</p>
               <span className="text-[10px] font-medium text-grisSubText">
                 {cliente?.info?.business_name}
               </span>
@@ -250,7 +250,7 @@ function MainClient() {
           </div>
 
           <div className="flex gap-6">
-            <p className="text-[16px] font-medium text-grisText">Address</p>
+            <p className="text-[16px] font-medium text-grisText">Domicilio</p>
             <button
               className="mt-[-10px] text-[30px] font-medium text-primarioBotones"
               onClick={setModalAdress}
@@ -269,7 +269,7 @@ function MainClient() {
                   </span>
                   {adress.primary === 1 && (
                     <span className="rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading">
-                      Primary
+                      Primario
                     </span>
                   )}
                   <IonIcon
@@ -286,7 +286,7 @@ function MainClient() {
         <div className="flex max-h-[226px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
-              CONTACTS
+              CONTACTOS
             </p>
             <button
               className="text-[30px] font-medium text-primarioBotones"
@@ -295,7 +295,7 @@ function MainClient() {
               +
             </button>
             <div className="text-[12px] font-medium text-grisSubText">
-              View All
+              Ver todos
             </div>
           </div>
 
@@ -330,7 +330,7 @@ function MainClient() {
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-between gap-8">
               <p className="text-[22px] font-semibold text-grisHeading">
-                INTERVIEWS
+                FORMULARIOS
               </p>
               <button
                 className="text-[30px] font-medium text-primarioBotones"
@@ -350,7 +350,7 @@ function MainClient() {
                       {interview.title}
                     </p>
                     <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                      Created &bull; {interview.created}
+                      Creado &bull; {interview.created}
                     </span>
                   </div>
                 </div>
@@ -361,7 +361,7 @@ function MainClient() {
                       className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
                       onClick={() => openModalShowInterview(interview)}
                     >
-                      Show
+                      Ver
                     </button>
                   </div>
                 </div>
@@ -372,7 +372,7 @@ function MainClient() {
         <div className="flex max-h-[385px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
-              DOCUMENTS
+              DOCUMENTOS
             </p>
             <button
               className="text-[30px] font-medium text-primarioBotones"
@@ -381,7 +381,7 @@ function MainClient() {
               +
             </button>
             <div className="text-[12px] font-medium text-grisSubText">
-              View All
+              Ver Todos
             </div>
           </div>
 
@@ -403,7 +403,7 @@ function MainClient() {
                       {document.name}
                     </p>
                     <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                      Uplaoded &bull; {document.created}
+                      Subido &bull; {document.created}
                     </span>
                   </div>
                 </div>
@@ -414,7 +414,7 @@ function MainClient() {
                       href={document.document}
                       className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
                     >
-                      Download
+                      Descargar
                     </a>
                   </div>
                   <div className="flex h-fit text-center">
@@ -433,7 +433,7 @@ function MainClient() {
         <div className="flex max-h-[385px] w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
             <p className="text-[22px] font-semibold text-grisHeading">
-              COLLECT DOCUMENTS
+              SOLICITAR DOC.
             </p>
           </div>
 
@@ -447,7 +447,7 @@ function MainClient() {
                       {document.name}
                     </p>
                     <span className="line-clamp-none text-[10px] font-medium text-grisSubText">
-                      Uplaoded &bull; {document.created}
+                      Subido &bull; {document.created}
                     </span>
                   </div>
                 </div>
@@ -458,7 +458,7 @@ function MainClient() {
                       href={document.document_url}
                       className="flex rounded-2xl border border-grisHeading px-2 py-[2px] text-[8px] font-medium text-grisHeading"
                     >
-                      Download
+                      Descargar
                     </a>
                   </div>
                 </div>
@@ -469,9 +469,7 @@ function MainClient() {
 
         <div className="flex w-72 flex-col gap-5 rounded-lg bg-blancoBox2 p-4">
           <div className="flex items-center justify-between">
-            <p className="text-[22px] font-semibold text-grisHeading">
-              GENERAL STATUS
-            </p>
+            <p className="text-[22px] font-semibold text-grisHeading">ESTADO</p>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -485,7 +483,7 @@ function MainClient() {
                 </span>
               </div>
               <div className="flex flex-col">
-                <p className="font-medium text-grisText">Last Service</p>
+                <p className="font-medium text-grisText">Ultimo Servicio</p>
                 <span className="text-[10px] font-medium text-grisSubText">
                   {cliente?.last_service_name}
                 </span>
@@ -502,9 +500,11 @@ function MainClient() {
                 </span>
               </div>
               <div className="flex flex-col">
-                <p className="font-medium text-grisText">Last Update</p>
+                <p className="font-medium text-grisText">
+                  Ultima Actualizacion
+                </p>
                 <span className="text-[10px] font-medium text-grisSubText">
-                  Documents Uploaded
+                  Documentos Generados
                 </span>
               </div>
             </div>
@@ -564,6 +564,10 @@ export async function Action({ params, request }) {
 
     case "11":
       await addCommentClient(data);
+      return redirect(`/crm/client/${params.id}`);
+
+    case "12":
+      await addSalePay(data);
       return redirect(`/crm/client/${params.id}`);
   }
 }
