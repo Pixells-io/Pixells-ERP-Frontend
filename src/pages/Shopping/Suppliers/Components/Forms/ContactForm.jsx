@@ -13,7 +13,7 @@ const ContactForm = ({ isDisabled, data }) => {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    if(contacts.length !== data?.contacts.length){
+    if(contacts.length !== data?.contacts?.length){
       setPositionTap(0);
     }
     setContacts(data?.contacts || []);

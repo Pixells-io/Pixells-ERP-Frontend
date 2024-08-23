@@ -13,7 +13,7 @@ const InvoiceFormTap = ({ isDisabled, data }) => {
   const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
-    if (invoices.length !== data?.billing.length) {
+    if (invoices.length !== data?.billing?.length) {
       setPositionTap(0);
     }
     setInvoices(data?.billing || []);
