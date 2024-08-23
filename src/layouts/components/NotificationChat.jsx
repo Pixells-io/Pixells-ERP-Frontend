@@ -9,12 +9,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-function NotificationChat({ notifications, user }) {
+function NotificationChat({ notifications }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
   const pusherClient = createPusherClient();
