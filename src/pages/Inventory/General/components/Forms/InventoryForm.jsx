@@ -49,10 +49,10 @@ const InventoryForm = ({ data, setData }) => {
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="option1">Medio Ponderado</SelectItem>
-              <SelectItem value="option2">Coste Estándar</SelectItem>
-              <SelectItem value="option3">PEPS</SelectItem>
-              <SelectItem value="option4">Lote/Serie</SelectItem>
+              <SelectItem value="Medio Ponderado">Medio Ponderado</SelectItem>
+              <SelectItem value="Coste Estandar">Coste Estándar</SelectItem>
+              <SelectItem value="PEPS">PEPS</SelectItem>
+              <SelectItem value="Lote/Serie">Lote/Serie</SelectItem>
             </SelectContent>
           </Select>
         </div>
