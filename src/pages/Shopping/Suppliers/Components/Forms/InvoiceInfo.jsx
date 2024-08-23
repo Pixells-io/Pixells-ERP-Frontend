@@ -28,7 +28,7 @@ const InvoiceInfo = ({
         id="invoice-form"
         name="invoice-name"
       >
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-x-8 gap-y-4">
           <input type="hidden" hidden name="supplier_id" value={supplier_id} />
           <input
             type="hidden"
@@ -37,85 +37,109 @@ const InvoiceInfo = ({
             value={invoiceData?.id}
           />
           <input type="hidden" hidden name="type" value={"invoceInformation"} />
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="regimen_fiscal"
-            >
-              Régimen Fisc.
-            </Label>
-            <InputRouter
-              name="regimen_fiscal"
-              value={invoiceData.regimen_fiscal}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="regimen_fiscal"
+              >
+                Régimen Fisc.
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="regimen_fiscal"
+                value={invoiceData.regimen_fiscal}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="metodo_pago"
-            >
-              Método Pago
-            </Label>
-            <InputRouter
-              name="metodo_pago"
-              value={invoiceData.metodo_pago}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="metodo_pago"
+              >
+                Método Pago
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="metodo_pago"
+                value={invoiceData.metodo_pago}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="forma_pago"
-            >
-              Forma Pago
-            </Label>
-            <InputRouter
-              name="forma_pago"
-              value={invoiceData.forma_pago}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="forma_pago"
+              >
+                Forma Pago
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="forma_pago"
+                value={invoiceData.forma_pago}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="uso_cfdi"
-            >
-              Uso CFD!
-            </Label>
-            <InputRouter
-              name="uso_cfdi"
-              value={invoiceData.uso_cfdi}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="uso_cfdi"
+              >
+                Uso CFD!
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="uso_cfdi"
+                value={invoiceData.uso_cfdi}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="email"
-            >
-              Email
-            </Label>
-            <InputRouter
-              name="email"
-              value={invoiceData.email}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="email"
+              >
+                Email
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="email"
+                value={invoiceData.email}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
         </div>
 

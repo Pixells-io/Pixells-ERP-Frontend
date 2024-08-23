@@ -49,7 +49,7 @@ const ContactInfoForm = ({
         id="contact-form"
         name="contact-name"
       >
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-x-8 gap-y-4">
           <input type="hidden" hidden name="supplier_id" value={supplier_id} />
           <input
             type="hidden"
@@ -58,118 +58,152 @@ const ContactInfoForm = ({
             value={contactData?.id}
           />
           <input type="hidden" hidden name="type" value={"contact"} />
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="name"
-            >
-              Nombre
-            </Label>
-            <InputRouter
-              name="name"
-              value={contactData.name}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="name"
+              >
+                Nombre
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="name"
+                value={contactData.name}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="middle_name"
-            >
-              A. Paterno
-            </Label>
-            <InputRouter
-              name="middle_name"
-              value={contactData.middle_name}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="middle_name"
+              >
+                A. Paterno
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="middle_name"
+                value={contactData.middle_name}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="last_name"
-            >
-              A. Materno
-            </Label>
-            <InputRouter
-              name="last_name"
-              value={contactData.last_name}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="last_name"
+              >
+                A. Materno
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="last_name"
+                value={contactData.last_name}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="email"
-            >
-              E-mail
-            </Label>
-            <InputRouter
-              name="email"
-              type="email"
-              value={contactData.email}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="email"
+              >
+                E-mail
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="email"
+                type="email"
+                value={contactData.email}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="phone"
-            >
-              Teléfono
-            </Label>
-            <InputRouter
-              name="phone"
-              type="phone"
-              value={contactData.phone}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="phone"
+              >
+                Teléfono
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="phone"
+                type="phone"
+                value={contactData.phone}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-1 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="position"
-            >
-              Posición
-            </Label>
-            <InputRouter
-              name="position"
-              value={contactData.position}
-              onChange={handleInputChange}
-              placeholder="Ingresa"
-              className={inputClass}
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="position"
+              >
+                Posición
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="position"
+                value={contactData.position}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
           </div>
-          <div className="col-span-3 flex items-center gap-2">
-            <Label
-              className="w-32 font-roboto text-[14px] text-gris2"
-              htmlFor="principal"
-            >
-              Principal
-            </Label>
-            <Checkbox
-              id="principal"
-              checked={contactData.principal}
-              onCheckedChange={handleCheckboxChange}
-              className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-              disabled={isDisabled}
-            />
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="principal"
+              >
+                Principal
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <Checkbox
+                id="principal"
+                checked={contactData.principal}
+                onCheckedChange={handleCheckboxChange}
+                className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                disabled={isDisabled}
+              />
+            </div>
           </div>
         </div>
 
@@ -193,23 +227,22 @@ const ContactInfoForm = ({
       >
         <input type="hidden" hidden name="contact_id" value={contactData?.id} />
         <input type="hidden" hidden name="type" value={"destroy_contact"} />
-        {
-          (contacts.length > 1 && !!contactData?.id ) && (
-            <div className="col-span-3 flex justify-start pt-4">
-          <Button
-            type="submit"
-            className="w-[100px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
-            // onClick={onDelete}
-            disabled={navigation.state === "submitting"}
-          >
-            <span className="font-roboto text-[14px] text-[#D7586B]">
-              {navigation.state === "submitting" ? "Submitting..." : "Eliminar"}
-            </span>
-          </Button>
-        </div>
-          )
-        }
-        
+        {contacts.length > 1 && !!contactData?.id && (
+          <div className="col-span-3 flex justify-start pt-4">
+            <Button
+              type="submit"
+              className="w-[100px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
+              // onClick={onDelete}
+              disabled={navigation.state === "submitting"}
+            >
+              <span className="font-roboto text-[14px] text-[#D7586B]">
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Eliminar"}
+              </span>
+            </Button>
+          </div>
+        )}
       </Form>
     </div>
   );
