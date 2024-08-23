@@ -6,6 +6,7 @@ import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
 import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import InvoiceFormTap from "./Forms/InvoiceFormTap";
 
 const FormGroup = ({ data, isDisabled }) => {
   const navigation = useNavigation();
@@ -110,6 +111,12 @@ const FormGroup = ({ data, isDisabled }) => {
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               INFORMACIÓN DE FACTURACIÓN
             </h2>
+            <div className="flex flex-wrap overflow-auto pl-2 pt-2">
+              <InvoiceFormTap isDisabled={isDisabled} data={data} />
+            </div>
+            {/* <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
+              INFORMACIÓN DE FACTURACIÓN
+            </h2>
             <div className="flex flex-wrap pl-2">
               <Form
                 id="form-supplier-invoceInformation"
@@ -140,7 +147,7 @@ const FormGroup = ({ data, isDisabled }) => {
                   </Button>
                 </div>
               )
-            }
+            } */}
           </TabsContent>
           <TabsContent value="payment">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">

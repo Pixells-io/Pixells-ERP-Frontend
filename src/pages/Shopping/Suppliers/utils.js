@@ -263,6 +263,50 @@ export async function createBillingInfo(data) {
   return response;
 }
 
+export async function editBillingInfo(data) {
+  const info = {
+    supplier_id: data.get("supplier_id"),
+    billing_id: data.get("billing_id"),
+    regimen_fiscal: data.get("regimen_fiscal"),
+    uso_cfdi: data.get("uso_cfdi"),
+    metodo_pago: data.get("metodo_pago"),
+    email: data.get("email"),
+    forma_pago: data.get("forma_pago"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/edit-billing-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroyBillingInfo(data) {
+  const info = {
+    billing_id: data.get("billing_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}supplier/destroy-billing-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function createPaymentConditions(data) {
   const info = {
     supplier_id: data.get("supplier_id"),

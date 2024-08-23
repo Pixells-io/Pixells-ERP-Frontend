@@ -5,7 +5,7 @@ import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
 import { Form, Link, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createBillingInfo, createContact, createGeneralInfo, createPaymentConditions, destroyContact, destroySupplier, editContact, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
+import { createBillingInfo, createContact, createGeneralInfo, createPaymentConditions, destroyBillingInfo, destroyContact, destroySupplier, editBillingInfo, editContact, editGeneralInfo, editPaymentConditions, editSupplier } from "../utils";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
@@ -200,7 +200,14 @@ export async function Action({ request }) {
       await destroyContact(data);
       break;
     case "invoceInformation":
-      await createBillingInfo(data);
+      if(!!data.get("billing_id")){
+        await editBillingInfo(data);
+      } else {
+        await createBillingInfo(data);
+      }
+      break;
+    case "destroy_invoice":
+      destroyBillingInfo(data);
       break;
     case "paymentConditions":
       if(!!data.get("payment_id")){
