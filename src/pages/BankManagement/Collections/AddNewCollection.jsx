@@ -97,7 +97,8 @@ function AddNewCollection() {
     setModalConfirmation(false);
     navigate(`/bank-management/collection/record/1`);
   };
-  const selectClasses = "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const selectClasses =
+    "w-full rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
     <div className="flex w-full">
@@ -152,36 +153,37 @@ function AddNewCollection() {
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
             Nuevo Registro de Cobro
           </p>
 
-          <div className="flex items-center justify-end gap-5">
+          <div className="flex items-end justify-start gap-5">
             <div className="flex gap-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={copy}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={print}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={create}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
             </div>
           </div>
+
           <div className="flex items-end justify-center">
             <Link to={"/bank-management/collection/"}>
               <IonIcon
@@ -195,17 +197,15 @@ function AddNewCollection() {
 
         <div className="flex justify-between rounded-xl bg-blancoBg px-8 py-3">
           <div className="flex gap-4">
-          <Input
+            <Input
               name="date"
               type="text"
               value={dateNow}
-              className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
               readOnly
             />
-           
-            <Select 
-             name="client" 
-            >
+
+            <Select name="client">
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Cliente" />
               </SelectTrigger>
@@ -219,7 +219,7 @@ function AddNewCollection() {
               name="register_accountName"
               type="text"
               placeholder="Entradas de diario"
-              className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
             />
           </div>
           <div className="flex w-1/3 items-center justify-center gap-2">
