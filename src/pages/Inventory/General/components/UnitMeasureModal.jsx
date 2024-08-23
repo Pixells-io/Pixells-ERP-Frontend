@@ -12,6 +12,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+
+/*Component Button value='units',selectedValue=new value, children=label button */
 const MeasureButton = ({ value, selectedValue, onClick, children }) => (
   <Button
     className={`w-[70px] rounded-full border border-gris2 bg-white px-4 py-2 text-[14px] text-gris2 hover:border-transparent hover:bg-[#5B89FF] hover:text-[#FBFBFB] ${
@@ -25,6 +27,7 @@ const MeasureButton = ({ value, selectedValue, onClick, children }) => (
   </Button>
 );
 
+//SECTION ABOUT UNIT MEASURE
 const MeasureSection = ({ label, options, selectedValue, onSelect }) => (
   <div className="flex items-center space-x-4 border-b-[0.5px] border-b-[#E8E8E8] p-2 pb-6">
     <Label className="w-32 flex-shrink-0 font-roboto text-[14px] text-gris2">
@@ -46,6 +49,7 @@ const MeasureSection = ({ label, options, selectedValue, onSelect }) => (
 );
 
 const UnitMeasure = ({ onSelect, initialValue }) => {
+  
   const [selectedValue, setSelectedValue] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -79,6 +83,7 @@ const UnitMeasure = ({ onSelect, initialValue }) => {
               Unidades de Medida
             </DialogTitle>
           </DialogHeader>
+          {/*WARNING ABOUT DESCRIPTION*/}
           <DialogDescription></DialogDescription>
         </div>
 

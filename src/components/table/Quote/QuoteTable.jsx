@@ -27,7 +27,7 @@ import {
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
  * setTotalChanges -> es el estado que retorna el total de los items
- *  
+ *
  */
 const QuoteTable = ({
   initialItems,
@@ -118,7 +118,7 @@ const QuoteTable = ({
                     <Input
                       type={column.type}
                       name={`data[${(currentPage - 1) * itemsPerPage + rowIndex}][${column.key}]`}
-                      className="w-[80%]h-auto border-gris2-transparent bg-inherit p-1 text-xs font-normal text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="border-gris2-transparent rounded-xl bg-inherit p-1 font-roboto text-xs text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
                       onChange={(e) =>
                         isEditable &&
@@ -134,7 +134,7 @@ const QuoteTable = ({
                   </TableCell>
                 ))}
                 <TableCell>
-                  <div className="items-center justify-between gap-x-2">
+                  <div className="flex items-center justify-between gap-x-2">
                     ${calculateTotal(row).toFixed(2)}
                     <Button
                       variant="ghost"
