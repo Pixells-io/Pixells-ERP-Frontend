@@ -41,11 +41,17 @@ function ClientServicesTable({ services }) {
   const [modalPay, setModalPay] = useState(false);
   const [balanceId, setBalanceId] = useState(0);
   const [balanceAmmount, setBalanceAmmount] = useState(0);
+  const [paysInfo, setPaysInfo] = useState([]);
 
   function setBalancePayment(id, ammount) {
     setBalanceId(id);
     setBalanceAmmount(ammount);
     setModalPay(true);
+  }
+
+  function setModalPays(pays) {
+    setPaysInfo(pays);
+    setModalRecord(true);
   }
 
   const columns = [
@@ -127,7 +133,7 @@ function ClientServicesTable({ services }) {
           <div className="flex gap-1">
             <span
               className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]"
-              onClick={() => setModalRecord(true)}
+              onClick={() => setModalPays(row.original.pays)}
             >
               ${row.original.balance}
             </span>
@@ -194,7 +200,11 @@ function ClientServicesTable({ services }) {
 
   return (
     <div className="relative w-full overflow-auto">
-      <ModalShowBalance modal={modalRecord} setModal={setModalRecord} />
+      <ModalShowBalance
+        modal={modalRecord}
+        setModal={setModalRecord}
+        pays={paysInfo}
+      />
       <ModalCreatePay
         modal={modalPay}
         setModal={setModalPay}

@@ -41,9 +41,25 @@ export async function saveNewSuppliers(data) {
   return response.json();
 }
 
-export async function getSupplier({params}) {
+export async function getSupplier({ params }) {
   const id = params.id;
 
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}supplier/get-supplier/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getSupplierById(id) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}supplier/get-supplier/${id}`,
@@ -118,7 +134,7 @@ export async function createGeneralInfo(data) {
     comment: data.get("comment"),
     start: data.get("start"),
     end: data.get("end"),
-    status: data.get("status") == "true" ? "1" : "0" ,
+    status: data.get("status") == "true" ? "1" : "0",
   };
 
   const response = await fetch(
@@ -151,7 +167,7 @@ export async function editGeneralInfo(data) {
     start: data.get("start"),
     end: data.get("end"),
     info_id: data.get("info_id"),
-    status: data.get("status") == "true" ? "1" : "0" ,
+    status: data.get("status") == "true" ? "1" : "0",
   };
 
   const response = await fetch(
@@ -237,7 +253,6 @@ export async function destroyContact(data) {
 
   return response;
 }
-
 
 export async function createBillingInfo(data) {
   const info = {
