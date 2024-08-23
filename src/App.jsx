@@ -502,7 +502,6 @@ const router = createBrowserRouter([
             loader: getContractCreate,
             action: NewContractAction,
           },
-
           //crm client :id
           {
             path: "/crm/client/:id",

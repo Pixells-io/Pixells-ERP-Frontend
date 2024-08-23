@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useSubmit } from "react-router-dom";
 
 import {
@@ -16,6 +16,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import AddCommentsClient from "../AddCommentsClient";
+import ModalShowBalance from "../Forms/ModalShowBalance";
+import { IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
+import ModalCreatePay from "../Forms/ModalCreatePay";
 
 function ClientServicesTable({ services }) {
   const params = useParams();
@@ -32,14 +36,26 @@ function ClientServicesTable({ services }) {
     );
   }
 
+  //MODAL SHOW CLIENT PAYS
+  const [modalRecord, setModalRecord] = useState(false);
+  const [modalPay, setModalPay] = useState(false);
+  const [balanceId, setBalanceId] = useState(0);
+  const [balanceAmmount, setBalanceAmmount] = useState(0);
+
+  function setBalancePayment(id, ammount) {
+    setBalanceId(id);
+    setBalanceAmmount(ammount);
+    setModalPay(true);
+  }
+
   const columns = [
     columnHelper.accessor((row) => `${row.id}`, {
       id: "id",
       header: "ID",
     }),
     columnHelper.accessor((row) => `${row.name}`, {
-      id: "name",
-      header: "Name",
+      id: "nombre",
+      header: "Nombre",
     }),
     {
       accessorKey: "status",
@@ -75,47 +91,70 @@ function ClientServicesTable({ services }) {
       },
     },
     {
-      accessorKey: "step",
-      header: "Step",
+      accessorKey: "paso",
+      header: "Paso",
       cell: ({ row }) => {
         return <p> {row.original.step} </p>;
       },
     },
     {
-      accessorKey: "price",
-      header: "Price",
+      accessorKey: "precio",
+      header: "Precio",
       cell: ({ row }) => {
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            +${Number(row.original.price).toFixed(2)}
+            ${row.original.price}
           </span>
         );
       },
     },
     {
-      accessorKey: "ammount",
-      header: "Amount",
+      accessorKey: "total",
+      header: "Total",
       cell: ({ row }) => {
         return (
           <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-            +${Number(row.original.price).toFixed(2)}
+            ${row.original.ammount}
           </span>
         );
       },
     },
     {
-      accessorKey: "bill type",
-      header: "Bill Type",
+      accessorKey: "saldo",
+      header: "Saldo",
+      cell: ({ row }) => {
+        return (
+          <div className="flex gap-1">
+            <span
+              className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]"
+              onClick={() => setModalRecord(true)}
+            >
+              ${row.original.balance}
+            </span>
+            <IonIcon
+              icon={add}
+              className="text-lg text-[#00A259]"
+              onClick={() =>
+                setBalancePayment(row.original.balance_id, row.original.balance)
+              }
+            />
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "tipo",
+      header: "Tipo",
       cell: ({ row }) => {
         return (
           <>
             {row.original.bill_type === 0 ? (
               <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-                Monthly
+                Mes
               </span>
             ) : (
               <span className="rounded-2xl font-roboto text-sm font-bold text-[#00A259]">
-                Anual
+                Año
               </span>
             )}
           </>
@@ -123,8 +162,8 @@ function ClientServicesTable({ services }) {
       },
     },
     {
-      accessorKey: "comments",
-      header: "Comments",
+      accessorKey: "com",
+      header: "Com",
       cell: ({ row }) => {
         return (
           <AddCommentsClient
@@ -135,12 +174,12 @@ function ClientServicesTable({ services }) {
       },
     },
     {
-      accessorKey: "active",
-      header: "Active",
+      accessorKey: "activo",
+      header: "Activo",
       cell: ({ row }) => {
         return (
           <span className="rounded-2xl font-roboto text-sm font-normal text-grisHeading">
-            {row.original.active} Days
+            {row.original.active} Dias
           </span>
         );
       },
@@ -155,6 +194,13 @@ function ClientServicesTable({ services }) {
 
   return (
     <div className="relative w-full overflow-auto">
+      <ModalShowBalance modal={modalRecord} setModal={setModalRecord} />
+      <ModalCreatePay
+        modal={modalPay}
+        setModal={setModalPay}
+        balanceId={balanceId}
+        balanceAmmount={balanceAmmount}
+      />
       <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {
