@@ -119,11 +119,6 @@ const MainSupplier = () => {
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             COMPRAS
           </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
         </div>
 
         <div>
@@ -145,12 +140,6 @@ const MainSupplier = () => {
               >
                 PROVEEDOR
               </TabsTrigger>
-              <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                value="OTRO"
-              >
-                OTRO
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="PROVEEDOR" className="mt-[-60px] p-2">
               <DataTable
@@ -160,13 +149,6 @@ const MainSupplier = () => {
                 searchNameFilter="Buscar por nombre"
                 isCheckAll={true}
               />
-            </TabsContent>
-            <TabsContent value="OTRO" className="w-full">
-              <div className="flex w-full justify-center">
-                <div className="w-full max-w-4xl">
-                  <p>CONTENIDO</p>
-                </div>
-              </div>
             </TabsContent>
           </Tabs>
         </div>

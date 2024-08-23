@@ -243,6 +243,7 @@ export async function Action({ request }) {
       break;
     case "destroy_supplier":
       await destroySupplier(data);
+      return redirect("/shopping");
     case "generalInfo":
       if (!!data.get("info_id")) {
         await editGeneralInfo(data);
@@ -259,7 +260,6 @@ export async function Action({ request }) {
       break;
     case "destroy_contact":
       await destroyContact(data);
-      return redirect("/shopping");
       break;
     case "invoceInformation":
       if (!!data.get("billing_id")) {
