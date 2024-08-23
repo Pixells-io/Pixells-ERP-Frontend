@@ -12,19 +12,19 @@ const FormGroup = ({ data, isDisabled }) => {
   const navigation = useNavigation();
 
   const [generalData, setGeneralData] = useState({
-    comment: data?.general?.comments,
+    comment: data?.general?.comments || "",
     status: data?.status == "1" ? true: false,
-    start: data?.general?.start,
-    end: data?.general?.end,
-    street: data?.general?.street,
-    cologne: data?.general?.cologne,
-    state: data?.general?.state,
-    shopping_person: data?.general?.shopping_person,
-    int: data?.general?.int,
-    cp: data?.general?.cp,
-    country: data?.general?.country,
-    ext: data?.general?.ext,
-    city: data?.general?.city,
+    start: data?.general?.start || "",
+    end: data?.general?.end || "",
+    street: data?.general?.street || "",
+    cologne: data?.general?.cologne || "",
+    state: data?.general?.state || "",
+    shopping_person: data?.general?.shopping_person || "",
+    int: data?.general?.int || "",
+    cp: data?.general?.cp || "",
+    country: data?.general?.country || "",
+    ext: data?.general?.ext || "",
+    city: data?.general?.city || "",
   });
 
   const [facturacionData, setFacturacionData] = useState({
@@ -36,10 +36,10 @@ const FormGroup = ({ data, isDisabled }) => {
   });
 
   const [condicionData, setcondicionData] = useState({
-    conditions: data?.payment?.conditions,
-    interest: data?.payment?.interest,
-    days_of_credit: data?.payment?.days_of_credit,
-    credit_limit: data?.payment?.credit_limit,
+    conditions: data?.payment?.conditions || "",
+    interest: data?.payment?.interest || "",
+    days_of_credit: data?.payment?.days_of_credit || "",
+    credit_limit: data?.payment?.credit_limit || "",
   });
 
   return (
@@ -71,6 +71,7 @@ const FormGroup = ({ data, isDisabled }) => {
                 id="form-supplier-general"
                 action={"/shopping/supplier/edit/" + data?.id}
                 method="post"
+                className="w-full"
               >
                 <input type="hidden" hidden name="supplier_id" value={data?.id} />
                 <input type="hidden" hidden name="info_id" value={data?.general?.id} />
