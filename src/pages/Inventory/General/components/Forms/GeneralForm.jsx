@@ -43,7 +43,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="w-[200px] col-span-1 flex items-center space-x-6">
         <Label htmlFor="desde" className="font-roboto text-[14px] text-gris2">
           Desde:
         </Label>
@@ -55,7 +55,7 @@ const GeneralForm = ({ data, setData }) => {
           placeholder="Ingresa"
         />
       </div>
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="w-[200px] col-span-1 flex items-center space-x-6">
         <Label htmlFor="hasta" className="font-roboto text-[14px] text-gris2">
           Hasta:
         </Label>
