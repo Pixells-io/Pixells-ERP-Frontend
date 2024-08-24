@@ -313,20 +313,18 @@ const GralFormSupplier = ({ generalData, setGeneralData, isDisabled }) => {
               />
             </div>
           </div>
+          {(!!generalData.start || !!generalData.end) && (
+            <div className="flex items-center pt-2">
+              <Button
+                type="button"
+                className="h-8 rounded-full border border-primarioBotones bg-inherit px-2 text-xs font-medium text-primarioBotones hover:bg-inherit"
+                onClick={() => clearDate()}
+              >
+                Restablecer fechas
+              </Button>
+            </div>
+          )}
         </div>
-
-        {/* button clear data */}
-        {(!!generalData.start || !!generalData.end) && (
-          <div className="mt-4">
-            <Button
-              type="button"
-              className="rounded-full bg-primarioBotones text-xs font-medium"
-              onClick={() => clearDate()}
-            >
-              Limpiar fechas
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );
