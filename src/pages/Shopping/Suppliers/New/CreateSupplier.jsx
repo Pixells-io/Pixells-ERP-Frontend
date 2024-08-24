@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewSuppliers } from "../utils";
 
@@ -16,7 +16,6 @@ const CreateSupplier = () => {
     currency: "",
     cfdi_use: "",
   });
-  const navigation = useNavigation();
 
   // Configuración de los campos del formulario
   const supplierFields = [
@@ -140,7 +139,7 @@ const CreateSupplier = () => {
               initialValues={supplierValues}
             />
           </Form>
-          {/* <FormGroup /> */}
+          <FormGroup data={[]} isDisabled={true} />
         </div>
       </div>
     </div>
@@ -151,7 +150,6 @@ export default CreateSupplier;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  await saveNewSuppliers(data);
-
-  return redirect(`/shopping`);
+  const response = await saveNewSuppliers(data);
+  return redirect(`/shopping/supplier/edit/${response.data}`);
 }

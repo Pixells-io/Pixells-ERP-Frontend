@@ -5,7 +5,7 @@ import { addCircle } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Button } from "@/components/ui/button";
 
-const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
+const InvoiceForm = ({ facturacionData, setFacturacionData, isDisabled }) => {
   const handleInputChange = (e) => {
     setFacturacionData({ ...facturacionData, [e.target.name]: e.target.value });
   };
@@ -23,6 +23,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             onChange={handleInputChange}
             placeholder="Ingresa"
             className="ml-2 w-full"
+            disabled={isDisabled}
           />
         </div>
         <div className="flex items-center">
@@ -35,6 +36,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             onChange={handleInputChange}
             placeholder="Ingresa"
             className="ml-2 w-full"
+            disabled={isDisabled}
           />
         </div>
         <div className="flex items-center">
@@ -47,6 +49,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             onChange={handleInputChange}
             placeholder="Ingresa"
             className="ml-2 w-full"
+            disabled={isDisabled}
           />
         </div>
         <div className="flex items-center">
@@ -59,6 +62,7 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             onChange={handleInputChange}
             placeholder="Ingresa"
             className="ml-2 w-full"
+            disabled={isDisabled}
           />
         </div>
         <div className="flex items-center">
@@ -72,15 +76,8 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             onChange={handleInputChange}
             placeholder="Ingresa"
             className="ml-2 w-full"
+            disabled={isDisabled}
           />
-        </div>
-        <div className="flex items-center justify-end col-span-3">
-          <Button
-            type="button"
-            className="flex h-12 w-12 items-center justify-center rounded-full border-none bg-transparent hover:bg-blancoBox"
-          >
-            <IonIcon icon={addCircle} className="text-xl text-primario" />
-          </Button>
         </div>
       </div>
     </div>

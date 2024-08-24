@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
-import InputField from "@/layouts/Masters/FormComponents/InputField";
+import { Input } from "@/components/ui/input";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
@@ -46,14 +46,15 @@ const SelectDetails = ({ id, client, rfc, phone, dtcreate, dtexpiry, isEditable 
   };
 
   return (
-    <div className="flex flex-wrap space-x-4 gap-4">
+    <div className="flex flex-wrap space-x-6 gap-4">
       <div className="flex flex-col w-10">
         <Label className="mb-1 font-roboto text-[14px] text-grisText">No.</Label>
-        <InputField
+        <Input
           name="documentNumber"
           value={documentNumber}
           onChange={(e) => setDocumentNumber(e.target.value)}
           readOnly
+          className="w-[68px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
         />
       </div>
       <div className="flex-1">

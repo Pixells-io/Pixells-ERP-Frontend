@@ -1,22 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Form, Link, redirect, useLoaderData } from "react-router-dom";
+import {
+  Form,
+  Link,
+  redirect,
+  useLoaderData,
+  useLocation,
+  useNavigation,
+  useParams,
+} from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { createBillingInfo, createGeneralInfo, createPaymentConditions, editSupplier } from "../utils";
+import {
+  createBillingInfo,
+  createContact,
+  createGeneralInfo,
+  createPaymentConditions,
+  destroyBillingInfo,
+  destroyContact,
+  destroySupplier,
+  editBillingInfo,
+  editContact,
+  editGeneralInfo,
+  editPaymentConditions,
+  editSupplier,
+  getSupplierById,
+} from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const EditSupplier = () => {
   const { data } = useLoaderData();
+  const navigation = useNavigation();
+  const [supplier, setSupplier] = useState(data);
+  const [supplierId, setSupplierId] = useState(0);
+
+  const { id } = useParams();
+  const location = useLocation();
+
+  //WEBSOCKET
+  const pusherClient = createPusherClient();
+
+  async function getSupplierFunction(id) {
+    const newData = await getSupplierById(id);
+    setSupplier(newData.data);
+  }
+
+  useEffect(() => {
+    setSupplierId(id);
+    let channel = pusherClient.subscribe(`private-get-supplier.${supplierId}`);
+
+    channel.bind("fill-supplier-data", ({ supplier }) => {
+      getSupplierFunction(supplier);
+    });
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-supplier.${supplierId}`);
+    };
+  }, [location, supplierId]);
 
   const [supplierValues, setSupplierValues] = useState({
-    type_supplier: data.type_supplier,
-    fiscal_name: data.fiscal_name,
-    rfc: data.rfc,
-    group_supplier: data.group_supplier,
-    currency: data.currency,
-    cfdi_use: data.cfdi_use,
+    type_supplier: supplier.type_supplier,
+    fiscal_name: supplier.fiscal_name,
+    rfc: supplier.rfc,
+    group_supplier: supplier.group_supplier,
+    currency: supplier.currency,
+    cfdi_use: supplier.cfdi_use,
   });
 
   // Configuración de los campos del formulario
@@ -111,7 +161,7 @@ const EditSupplier = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Editar Proveedor
+            Proveedor: {supplier.fiscal_name}
           </p>
           <div className="flex items-end justify-end">
             <Link to="/shopping">
@@ -133,19 +183,50 @@ const EditSupplier = () => {
         <div className="w-full space-y-4 overflow-auto">
           <Form
             id="form-supplier"
-            action={"/shopping/supplier/edit/" + data.id}
+            action={"/shopping/supplier/edit/" + supplier.id}
             method="post"
           >
-            <input type="hidden" name="supplier_id" value={data.id} />
+            <input
+              type="hidden"
+              hidden
+              name="supplier_id"
+              value={supplier.id}
+            />
+            <input
+              type="hidden"
+              hidden
+              name="type"
+              value={"supplierPrincipal"}
+            />
 
             <InputsGroup
               fields={supplierFields}
               initialValues={supplierValues}
-              id={data.id}
+              id={supplier.id}
             />
           </Form>
-          <FormGroup data={data} />
+          <FormGroup data={supplier} isDisabled={false} />
         </div>
+        <Form
+          id="form-supplier"
+          action={"/shopping/supplier/edit/" + supplier.id}
+          method="post"
+        >
+          <input type="hidden" hidden name="supplier_id" value={supplier.id} />
+          <input type="hidden" hidden name="type" value={"destroy_supplier"} />
+
+          <Button
+            type="submit"
+            className="w-[150px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
+            disabled={navigation.state === "submitting"}
+          >
+            <span className="font-roboto text-[14px] text-[#D7586B]">
+              {navigation.state === "submitting"
+                ? "Submitting..."
+                : "Eliminar Proveedor"}
+            </span>
+          </Button>
+        </Form>
       </div>
     </div>
   );
@@ -157,19 +238,47 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   switch (data.get("type")) {
-    case "createGeneralInfo":
-      await createGeneralInfo(data);
+    case "supplierPrincipal":
+      await editSupplier(data);
+      break;
+    case "destroy_supplier":
+      await destroySupplier(data);
+      return redirect("/shopping");
+    case "generalInfo":
+      if (!!data.get("info_id")) {
+        await editGeneralInfo(data);
+      } else {
+        await createGeneralInfo(data);
+      }
+      break;
+    case "contact":
+      if (!!data.get("contact_id")) {
+        await editContact(data);
+      } else {
+        await createContact(data);
+      }
+      break;
+    case "destroy_contact":
+      await destroyContact(data);
       break;
     case "invoceInformation":
-      await createBillingInfo(data);
+      if (!!data.get("billing_id")) {
+        await editBillingInfo(data);
+      } else {
+        await createBillingInfo(data);
+      }
+      break;
+    case "destroy_invoice":
+      destroyBillingInfo(data);
       break;
     case "paymentConditions":
-      await createPaymentConditions(data);
-      break;
-    default:
-      await editSupplier(data);
+      if (!!data.get("payment_id")) {
+        editPaymentConditions(data);
+      } else {
+        await createPaymentConditions(data);
+      }
       break;
   }
 
-  return redirect(`/shopping`);
+  return "0";
 }

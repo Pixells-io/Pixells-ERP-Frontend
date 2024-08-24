@@ -59,7 +59,7 @@ function MainChat() {
       getMensajes(chat);
     });
 
-    channel.bind(`client-typing-user`, (userInfo) => {});
+    //channel.bind(`client-typing-user`, (userInfo) => {});
 
     async function getMensajes(id) {
       const newData = await getChatWithId(id);
@@ -99,8 +99,6 @@ function MainChat() {
   function cleanInput() {
     setMssg("");
   }
-
-  console.log(chat);
 
   return (
     <div

@@ -9,12 +9,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-function NotificationChat({ notifications, user }) {
+function NotificationChat({ notifications }) {
   const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(initialData);
   const pusherClient = createPusherClient();
@@ -26,6 +26,14 @@ function NotificationChat({ notifications, user }) {
     //Redirect to the chat
     return navigate(`/chat/${chat}`);
   }
+
+  useEffect(() => {
+    let newTitle =
+      notificationsPusher[0]?.number == 0
+        ? "ERP"
+        : `(${notificationsPusher[0]?.number}) ERP`;
+    document.title = newTitle;
+  }, [notificationsPusher]);
 
   useEffect(() => {
     async function getNotifications() {

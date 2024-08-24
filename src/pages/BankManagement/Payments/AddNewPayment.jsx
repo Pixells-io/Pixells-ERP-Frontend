@@ -152,36 +152,37 @@ function AddNewPayment() {
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
             Nuevo Registro de Pago
           </p>
 
-          <div className="flex items-center justify-end gap-5">
+          <div className="flex items-end justify-start gap-5">
             <div className="flex gap-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={copy}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={print}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
                   icon={create}
                   size="small"
                   className="cursor-pointer text-[#696974]"
-                ></IonIcon>
+                />
               </div>
             </div>
           </div>
+
           <div className="flex items-end justify-center">
             <Link to={"/bank-management/payment/"}>
               <IonIcon

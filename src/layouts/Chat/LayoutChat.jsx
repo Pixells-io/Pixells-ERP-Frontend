@@ -15,12 +15,11 @@ function LayoutChat() {
   const [mobileState, setMobileState] = useState("");
 
   const [initialData, setInitialData] = useState(chats.data);
-  const [chatListPusher, setChatListPusher] = useState(initialData);
+  const [chatListPusher, setChatListPusher] = useState(chatOrder(initialData));
 
   async function getChatsList() {
     let newData = await getChats();
-
-    setChatListPusher(newData.data);
+    setChatListPusher(chatOrder(newData.data));
   }
 
   const pusherClient = createPusherClient();
@@ -40,6 +39,10 @@ function LayoutChat() {
       pusherClient.unsubscribe("private-get-chat-list");
     };
   }, []);
+
+  function chatOrder(data) {
+    return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">

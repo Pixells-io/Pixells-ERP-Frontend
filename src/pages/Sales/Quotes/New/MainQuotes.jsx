@@ -12,10 +12,16 @@ import SelectDetails from "../../Components/SelectDetails";
 
 const MainQuotes = () => {
   const navigate = useNavigate();
+  const generateRandomId = () => {
+    return Math.floor(100 + Math.random() * 900);
+  };
+
 
   const handleSubmit = () => {
-    navigate("/sales/quotes");
+    const id = generateRandomId();
+    navigate("/sales/quotes/edit/"+id);
   };
+
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
 
@@ -85,9 +91,10 @@ const MainQuotes = () => {
                 />
               </div>
             </div>
-            <div className=""></div>
+            <div className="pt-6">
             <Total subtotal={subtotal} />
             <div className="flex justify-end">
+            </div>
         <StatusInformation
           status={"inProgress"}
           applyFunction={handleSubmit}
@@ -97,17 +104,10 @@ const MainQuotes = () => {
         >
           <Button
             type="button"
-            variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-          >
-            Save
-          </Button>
-          <Button
-            type="button"
-            onClick={() => alert("save")}
+            onClick={handleSubmit}
             className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
           >
-            Save for Aproval
+            Save
           </Button>
         </StatusInformation>
         </div>

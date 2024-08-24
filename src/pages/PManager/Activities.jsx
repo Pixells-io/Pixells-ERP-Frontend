@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import {
   Accordion,
@@ -12,7 +12,13 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import NavigationHeader from "@/components/navigation-header";
 
-import { checkmarkCircleOutline, create, ellipse, trash } from "ionicons/icons";
+import {
+  checkmarkCircleOutline,
+  create,
+  ellipse,
+  informationCircle,
+  trash,
+} from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import DeleteTask from "@/layouts/PManager/components/TaskModals/DeleteTask";
@@ -46,6 +52,7 @@ const PRIORITY = [
 
 function Activities() {
   const { data } = useLoaderData();
+  const { id } = useParams();
 
   const [activitiesData, setActivitiesData] = useState(data);
 
@@ -387,7 +394,7 @@ function Activities() {
                           <div className="col-span-1 flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
                               <Link
-                                to={`/project-manager/${id}/projects/${task?.id}`}
+                                to={`/project-manager/${task.task_id}/projects/${task?.id}`}
                               >
                                 <IonIcon
                                   icon={informationCircle}

@@ -173,7 +173,7 @@ const WarehouseForm = () => {
     ];
 
     return (
-        <div className="w-full">
+        <div className="w-full h-full">
             <DataTable 
                 columns={columns} 
                 data={data}   

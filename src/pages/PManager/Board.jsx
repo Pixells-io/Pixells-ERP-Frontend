@@ -416,11 +416,19 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                           </div>
                         </div>
                         <div className="flex justify-center">
-                          <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                            <p className="text-[11px] font-semibold">
-                              {task?.status || "Pending"}
-                            </p>
-                          </Badge>
+                          {percent == 100 ? (
+                            <Badge className="bg-green-200 text-green-500 hover:bg-green-100">
+                              <p className="text-[11px] font-semibold">
+                                {"Completed"}
+                              </p>
+                            </Badge>
+                          ) : (
+                            <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                              <p className="text-[11px] font-semibold">
+                                {"Pending"}
+                              </p>
+                            </Badge>
+                          )}
                         </div>
                         <div className="flex justify-center pl-10">
                           <Avatar className="h-6 w-6">
