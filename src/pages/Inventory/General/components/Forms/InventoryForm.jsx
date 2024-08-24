@@ -73,9 +73,9 @@ const InventoryForm = ({ data, setData }) => {
       </div>
 
       {/* Segunda columna */}
-      <div className="space-y-4">
+      <div className="w-40 space-y-4">
         <h2 className="font-roboto text-gris2 mb-4">Nivel de inventario</h2>
-        <div className="grid grid-cols-2 items-center gap-2 ">
+        <div className="grid grid-cols-2 items-center gap-y-2">
           <Label
             htmlFor="minimo"
             className="text-[14px] font-roboto text-gris2"
@@ -88,11 +88,11 @@ const InventoryForm = ({ data, setData }) => {
             value={data.minimo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={inputClasses}
+            className={`${inputClasses} w-[300px] mt-1`}
           />
           <Label
             htmlFor="maximo"
-            className="text-[14px] font-roboto text-gris2"
+            className="text-[14px] font-roboto text-gris2 mt-1"
           >
             Máximo
           </Label>
@@ -102,7 +102,7 @@ const InventoryForm = ({ data, setData }) => {
             value={data.maximo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={inputClasses}
+            className={`${inputClasses} w-[300px] mt-1`}
           />
         </div>
       </div>
