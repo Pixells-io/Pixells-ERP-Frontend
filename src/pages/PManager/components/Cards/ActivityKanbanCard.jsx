@@ -59,7 +59,11 @@ function ActivityKanbanCard({ task, actions }) {
   if (task.type === "1") {
     showAction = false;
   } else {
-    showAction = true;
+    if (task.type === "0") {
+      showAction = false;
+    } else {
+      showAction = true;
+    }
   }
 
   return (
