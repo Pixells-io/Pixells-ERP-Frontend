@@ -215,7 +215,7 @@ function Stages() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-scroll">
+    <div className="flex h-full flex-col gap-2 overflow-auto">
       {/* modal on drop drag */}
       <ProspectForm
         modal={modal.prospect}
@@ -359,7 +359,7 @@ function Stages() {
         </DropdownMenu>
       </div>
 
-      <div className="flex h-full gap-2 overflow-scroll">
+      <div className="flex h-full w-full gap-2">
         {stagesFilter?.map((stage, i) => (
           <div
             key={stage.id}

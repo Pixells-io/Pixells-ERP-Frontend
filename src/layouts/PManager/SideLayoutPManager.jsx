@@ -118,7 +118,7 @@ function SideLayoutPManager() {
         </div>
         <NewObjectiveForm areas={areas?.data} open={open} setOpen={setOpen} />
         {/*bottom block */}
-        <div className="flex h-full flex-col gap-4 rounded-md bg-gris px-4 py-8">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-gris px-4 py-8">
           <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
             Objetivos Estratégicos
           </p>
