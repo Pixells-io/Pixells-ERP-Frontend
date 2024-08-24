@@ -14,8 +14,8 @@ const GeneralForm = ({ data, setData }) => {
   };
 
   return (
-    <div className="grid w-full grid-cols-4 grid-rows-3 gap-4 pl-4">
-      <div className="col-span-1 flex items-center space-x-6">
+    <div className="grid grid-cols-4 gap-4">
+      <div className="col-span-1 flex items-center space-x-3">
         <Label
           htmlFor="sImpuesto"
           className="font-roboto text-[14px] text-gris2"
@@ -43,8 +43,8 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div className="w-[200px] col-span-1 flex items-center space-x-6">
-        <Label htmlFor="desde" className="font-roboto text-[14px] text-gris2">
+      <div className="w-[200px] ml-[-100px] col-span-1 flex items-center space-x-6">
+        <Label htmlFor="desde" className="pt-2 font-roboto text-[14px] text-gris2">
           Desde:
         </Label>
         <InputRouter
@@ -52,11 +52,10 @@ const GeneralForm = ({ data, setData }) => {
           name="desde"
           value={data.desde}
           onChange={handleChange}
-          placeholder="Ingresa"
         />
       </div>
-      <div className="w-[200px] col-span-1 flex items-center space-x-6">
-        <Label htmlFor="hasta" className="font-roboto text-[14px] text-gris2">
+      <div className="w-[200px]  ml-[-100px] col-span-1 flex items-center space-x-6">
+        <Label htmlFor="hasta" className="pt-2 font-roboto text-[14px] text-gris2">
           Hasta:
         </Label>
         <InputRouter
@@ -64,7 +63,6 @@ const GeneralForm = ({ data, setData }) => {
           name="hasta"
           value={data.hasta}
           onChange={handleChange}
-          placeholder="Ingresa"
         />
       </div>
       <div className="col-span-1 flex items-center space-x-6">
@@ -103,7 +101,7 @@ const GeneralForm = ({ data, setData }) => {
       <div className="col-span-1 flex items-center space-x-6">
         <Label
           htmlFor="fabricante"
-          className="mr-3 font-roboto text-[14px] text-gris2 "
+          className="pt-2 mr-3 font-roboto text-[14px] text-gris2 "
         >
           Fabricante:
         </Label>
@@ -112,7 +110,6 @@ const GeneralForm = ({ data, setData }) => {
           name="fabricante"
           value={data.fabricante}
           onChange={handleChange}
-          placeholder="Ingresa"
         />
       </div>
     <div></div>
@@ -123,13 +120,12 @@ const GeneralForm = ({ data, setData }) => {
           htmlFor="comentarios"
           className="mb-1 font-roboto text-[14px] text-gris2"
         >
-          Comentarios
+          Comentarios:
         </Label>
         <Textarea
           name="comentarios"
           value={data.comentarios}
           onChange={handleChange}
-          placeholder="Ingresa tus comentarios"
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />
       </div>

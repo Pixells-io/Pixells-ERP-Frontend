@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 
 const InventoryForm = ({ data, setData }) => {
   const inputClasses =
-    "border-gris2-transparent ml-4 w-full rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,14 +29,14 @@ const InventoryForm = ({ data, setData }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4 space-x-6">
+    <div className="grid grid-cols-2 gap-6">
       {/* Primera columna */}
-      <div className="w-[420px] space-y-4">
-        <h2 className="font-roboto text-[16px] text-gris2">Método de valoración</h2>
-        <div className="flex items-center">
+      <div className="space-y-4">
+        <h2 className="font-roboto text-[16px] text-gris2 mb-4">Método de valoración</h2>
+        <div className="grid grid-cols-2 items-center gap-y-4">
           <Label
             htmlFor="costeo"
-            className="text-[14px] mb-1 mr-4 w-32 font-roboto text-gris2"
+            className="text-[14px] font-roboto text-gris2"
           >
             Método de Valoración
           </Label>
@@ -55,11 +55,9 @@ const InventoryForm = ({ data, setData }) => {
               <SelectItem value="Lote/Serie">Lote/Serie</SelectItem>
             </SelectContent>
           </Select>
-        </div>
-        <div className="flex items-center">
           <Label
             htmlFor="costo"
-            className="text-[14px] mb-1 mr-4 w-32 font-roboto text-gris2"
+            className="text-[14px] font-roboto text-gris2"
           >
             Costo
           </Label>
@@ -68,7 +66,6 @@ const InventoryForm = ({ data, setData }) => {
             name="costo"
             value={data.costo}
             onChange={handleChange}
-            placeholder="Ingresa"
             className={`${inputClasses} bg-[#E0E0E0]`}
             readOnly
           />
@@ -76,12 +73,12 @@ const InventoryForm = ({ data, setData }) => {
       </div>
 
       {/* Segunda columna */}
-      <div className="w-[420px] space-y-4">
-        <h2 className="font-roboto text-gris2">Nivel de inventario</h2>
-        <div className="flex items-center">
+      <div className="w-40 space-y-4">
+        <h2 className="font-roboto text-gris2 mb-4">Nivel de inventario</h2>
+        <div className="grid grid-cols-2 items-center gap-y-2">
           <Label
             htmlFor="minimo"
-            className="text-[14px] mb-1 mr-4 w-32 font-roboto text-gris2"
+            className="text-[14px] font-roboto text-gris2"
           >
             Mínimo
           </Label>
@@ -91,14 +88,11 @@ const InventoryForm = ({ data, setData }) => {
             value={data.minimo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={inputClasses}
+            className={`${inputClasses} w-[300px] mt-1`}
           />
-        </div>
-
-        <div className="flex items-center">
           <Label
             htmlFor="maximo"
-            className="text-[14px] mb-1 mr-4 w-32 font-roboto text-gris2"
+            className="text-[14px] font-roboto text-gris2 mt-1"
           >
             Máximo
           </Label>
@@ -108,7 +102,7 @@ const InventoryForm = ({ data, setData }) => {
             value={data.maximo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={inputClasses}
+            className={`${inputClasses} w-[300px] mt-1`}
           />
         </div>
       </div>
