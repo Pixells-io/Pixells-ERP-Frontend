@@ -17,7 +17,7 @@ import {
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
-import { saveBank } from "./utils";
+import { destroyBank, saveBank } from "./utils";
 import { BanksColumns } from "./Accounts/Table/BanksColumns";
 
 function MainBankManagement() {
@@ -39,8 +39,8 @@ function MainBankManagement() {
   );
   
   const columnsBanks = React.useMemo(
-    () => BanksColumns(handleEdit, handleDelete),
-    [handleEdit, handleDelete]
+    () => BanksColumns(handleEdit),
+    [handleEdit]
   );
 
   //datos de prueba --------------------------
@@ -218,7 +218,7 @@ function MainBankManagement() {
             <DataTable
               data={[]}
               columns={columnsAccounts}
-              searchFilter={"bank"}
+              searchFilter={"name"}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
@@ -226,7 +226,7 @@ function MainBankManagement() {
               data={data}
               columns={columnsBanks}
               names={[]}
-              searchFilter={"bank"}
+              searchFilter={"name"}
             />
           </TabsContent>
         </Tabs>
@@ -239,6 +239,14 @@ export default MainBankManagement;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  await saveBank(data);
+  switch (data.get("type")) {
+    case "save_bank":
+      await saveBank(data);
+      break;
+    case "destroy_bank":
+      await destroyBank(data);
+  }
+
   return redirect(`/bank-management`);
+  
 }

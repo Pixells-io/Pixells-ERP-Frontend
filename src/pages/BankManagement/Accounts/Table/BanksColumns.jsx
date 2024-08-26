@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
-export const BanksColumns = (editFunction, deleteFunction) => [
+export const BanksColumns = (editFunction) => [
   {
     id: "name",
     header: "NOMBRE",
@@ -15,14 +16,13 @@ export const BanksColumns = (editFunction, deleteFunction) => [
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
-           
           />
           <label>{row?.original?.name}</label>
         </div>
       );
     },
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -31,7 +31,7 @@ export const BanksColumns = (editFunction, deleteFunction) => [
     header: "País",
     accessorKey: "country",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -40,7 +40,7 @@ export const BanksColumns = (editFunction, deleteFunction) => [
     header: "Id del Banco",
     accessorKey: "bank_id",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -59,6 +59,8 @@ export const BanksColumns = (editFunction, deleteFunction) => [
     header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
+      const navigation = useNavigate(); // Hook dentro de la celda
+
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
@@ -68,11 +70,20 @@ export const BanksColumns = (editFunction, deleteFunction) => [
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
           <button type="button" onClick={() => editFunction(row?.original?.id)}>
-            <IonIcon  icon={create} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={create} className="h-5 w-5"></IonIcon>
           </button>
-          <button type="button" onClick={() => deleteFunction(row?.original?.id)}>
-            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
-          </button>
+          <Form action="/bank-management" method="post">
+            <input type="hidden" hidden name="bank_id" value={row?.original?.id} />
+            <input type="hidden" hidden name="type" value={"destroy_bank"} />
+
+            <Button
+              type="submit"
+              className="h-fit w-fit bg-inherit hover:bg-inherit px-0 py-0 text-grisText"
+              disabled={navigation.state === "submitting"}
+            >
+              <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+            </Button>
+          </Form>
         </div>
       );
     },

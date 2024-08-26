@@ -44,4 +44,23 @@ export async function saveBank(data) {
     );
   
     return response.json();
-  }
+}
+
+export async function destroyBank(data) {
+    const info = {
+      bank_id: data.get("bank_id"),
+    };
+  
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}bank-management/destroy-bank`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+  
+    return response.json();
+}
