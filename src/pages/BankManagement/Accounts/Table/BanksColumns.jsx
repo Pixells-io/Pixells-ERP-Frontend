@@ -2,9 +2,8 @@ import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import { formatNumber } from "../../Components/utils";
 
-export const AccountsColumns = (editFunction, deleteFunction) => [
+export const BanksColumns = (editFunction, deleteFunction) => [
   {
     id: "name",
     header: "NOMBRE",
@@ -28,35 +27,32 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
     filterFn: "equals",
   },
   {
-    id: "bank",
-    header: "BANCO",
-    accessorKey: "bank",
+    id: "country",
+    header: "País",
+    accessorKey: "country",
     meta: {
       filterButton: true
     },
     filterFn: "equals",
   },
   {
-    id: "type",
-    header: "TIPO",
-    accessorKey: "type",
+    id: "bank_id",
+    header: "Id del Banco",
+    accessorKey: "bank_id",
     meta: {
       filterButton: true
     },
     filterFn: "equals",
   },
   {
-    id: "accountNumber",
-    header: "NO. CUENTA",
-    accessorKey: "accountNumber",
+    id: "phone",
+    header: "Teléfono",
+    accessorKey: "phone",
   },
   {
-    id: "balance",
-    header: "SALDO",
-    accessorKey: "balance",
-    cell: ({ row }) => {
-      return <>{formatNumber(row?.original?.balance)}</>;
-    },
+    id: "mail",
+    header: "Email",
+    accessorKey: "mail",
   },
   {
     id: "actions",

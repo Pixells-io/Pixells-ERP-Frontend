@@ -264,7 +264,9 @@ import MainCost from "./pages/Accounting/Cost/MainCost";
 import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
 
 //BankManagement
-import MainBankManagement from "./pages/BankManagement/MainBankManagement";
+import MainBankManagement, {
+  Action as CreateNewBank,
+} from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
 import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
 import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
@@ -275,6 +277,7 @@ import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecor
 import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
+import { getBanks } from "./pages/BankManagement/utils";
 
 //Client Platform
 import LoginClient, {
@@ -856,10 +859,13 @@ const router = createBrowserRouter([
       {
         path: "/bank-management",
         element: <SideLayoutBankManag />,
+        action: CreateNewBank,
         children: [
           {
             index: true,
             element: <MainBankManagement />,
+            action: CreateNewBank,
+            loader: getBanks,
           },
           {
             path: "/bank-management/collection",

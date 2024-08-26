@@ -1,5 +1,5 @@
 import React from "react";
-import { getIntegerNumber, getDecimalNumber } from "../utils";
+import { getIntegerNumber, getDecimalNumber } from "./utils";
 
 function CardInformation({ title, subtitle, total, percentage, isPositive }) {
   

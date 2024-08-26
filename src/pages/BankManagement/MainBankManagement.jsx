@@ -16,8 +16,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
+import { redirect, useLoaderData } from "react-router-dom";
+import { saveBank } from "./utils";
+import { BanksColumns } from "./Accounts/Table/BanksColumns";
 
 function MainBankManagement() {
+  const { data } = useLoaderData();
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
 
@@ -29,103 +33,17 @@ function MainBankManagement() {
     alert("delete id: " + id);
   }
 
-  const columns = React.useMemo(
+  const columnsAccounts = React.useMemo(
     () => AccountsColumns(handleEdit, handleDelete),
+    [handleEdit, handleDelete]
+  );
+  
+  const columnsBanks = React.useMemo(
+    () => BanksColumns(handleEdit, handleDelete),
     [handleEdit, handleDelete]
   );
 
   //datos de prueba --------------------------
-
-  const data = [
-    {
-      id: "1",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco",
-      accountNumber: "789789788asdasdsaad",
-      balance: "54600.00",
-    },
-    {
-      id: "2",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "3",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "17897897891",
-      balance: "54600.00",
-    },
-    {
-      id: "4",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "7",
-      balance: "54600.00",
-    },
-    {
-      id: "5",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "6",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "7",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "8",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "9",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "10",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "11",
-      name: "Cheque principal 11",
-      bank: "Banamex",
-      type: "Banco nacional 11",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-  ];
 
   const data2 = [
     {
@@ -298,15 +216,15 @@ function MainBankManagement() {
           </TabsList>
           <TabsContent value="accounts" className="mt-[-60px] p-2">
             <DataTable
-              data={data}
-              columns={columns}
+              data={[]}
+              columns={columnsAccounts}
               searchFilter={"bank"}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
-              data={data2}
-              columns={columns}
+              data={data}
+              columns={columnsBanks}
               names={[]}
               searchFilter={"bank"}
             />
@@ -318,3 +236,9 @@ function MainBankManagement() {
 }
 
 export default MainBankManagement;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  await saveBank(data);
+  return redirect(`/bank-management`);
+}

@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useState } from "react";
-import { formatNumber } from "../../utils";
+import { formatNumber } from "../../Components/utils";
 
 export const AddCollectionsColumns = [
   {
