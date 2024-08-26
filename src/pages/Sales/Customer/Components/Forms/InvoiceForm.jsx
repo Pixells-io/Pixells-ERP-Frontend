@@ -14,55 +14,51 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
     <div className="flex w-full flex-col space-y-6">
       <div className="grid grid-cols-3 gap-4">
         <div className="flex items-center">
-          <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="regimenFiscal">
+          <Label className="mt-2 w-32 font-roboto text-[14px] text-gris2" htmlFor="regimenFiscal">
             Régimen Fisc.
           </Label>
           <InputRouter
             name="regimenFiscal"
             value={facturacionData.regimenFiscal}
             onChange={handleInputChange}
-            placeholder="Ingresa"
             className="ml-2 w-full"
           />
         </div>
         <div className="flex items-center">
-          <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="metodoPago">
+          <Label className="mt-2 w-32 font-roboto text-[14px] text-gris2" htmlFor="metodoPago">
             Método Pago
           </Label>
           <InputRouter
             name="metodoPago"
             value={facturacionData.metodoPago}
             onChange={handleInputChange}
-            placeholder="Ingresa"
             className="ml-2 w-full"
           />
         </div>
         <div className="flex items-center">
-          <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="formaPago">
+          <Label className="mt-2 w-32 font-roboto text-[14px] text-gris2" htmlFor="formaPago">
             Forma Pago
           </Label>
           <InputRouter
             name="formaPago"
             value={facturacionData.formaPago}
             onChange={handleInputChange}
-            placeholder="Ingresa"
             className="ml-2 w-full"
           />
         </div>
         <div className="flex items-center">
-          <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="usoCFDI">
+          <Label className="mt-2 w-32 font-roboto text-[14px] text-gris2" htmlFor="usoCFDI">
             Uso CFDI
           </Label>
           <InputRouter
             name="usoCFDI"
             value={facturacionData.usoCFDI}
             onChange={handleInputChange}
-            placeholder="Ingresa"
             className="ml-2 w-full"
           />
         </div>
         <div className="flex items-center">
-          <Label className="w-32 font-roboto text-[14px] text-gris2" htmlFor="email">
+          <Label className="mt-2 w-32 font-roboto text-[14px] text-gris2" htmlFor="email">
             E-mail
           </Label>
           <InputRouter
@@ -70,7 +66,6 @@ const InvoiceForm = ({ facturacionData, setFacturacionData }) => {
             type="email"
             value={facturacionData.email}
             onChange={handleInputChange}
-            placeholder="Ingresa"
             className="ml-2 w-full"
           />
         </div>
