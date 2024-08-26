@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -17,13 +17,36 @@ import {
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
-import { destroyBank, saveBank } from "./utils";
+import { destroyBank, getBanks, saveBank } from "./utils";
 import { BanksColumns } from "./Accounts/Table/BanksColumns";
+import { createPusherClient } from "@/lib/pusher";
 
 function MainBankManagement() {
   const { data } = useLoaderData();
+  const [banksInfo, setBanksInfo] = useState(data);
+
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
+  
+  const pusherClient = createPusherClient();
+
+  async function getBanksList() {
+    let newData = await getBanks();
+    setBanksInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-banks");
+
+    pusherClient.bind("fill-banks", ({ message }) => {
+      getBanksList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-banks");
+    };
+  }, []);
+
 
   const handleEdit = (id) => {
     alert("edit id: " + id);
@@ -223,7 +246,7 @@ function MainBankManagement() {
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
-              data={data}
+              data={banksInfo}
               columns={columnsBanks}
               names={[]}
               searchFilter={"name"}
