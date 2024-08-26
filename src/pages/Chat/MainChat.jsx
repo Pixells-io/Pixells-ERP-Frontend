@@ -101,7 +101,7 @@ function MainChat() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-blancoBg pl-0 md:flex md:overflow-auto md:pl-4">
+    <div className="ml-0 flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-blancoBg md:ml-4 md:flex md:overflow-auto">
       {/* Chat Header */}
       <MensaggeFileModal
         chat_id={id}
