@@ -179,7 +179,7 @@ const MainPolicy = () => {
         header: "Estado",
         cell: ({ row }) => (
           <span
-            className="flex justify-center rounded-full px-2 py-1 font-roboto text-xs"
+            className="flex justify-center rounded-full font-roboto text-[14px]"
             style={{
               ...getStatusStyle(row.original.estado),
             }}

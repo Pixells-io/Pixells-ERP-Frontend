@@ -94,14 +94,14 @@ const TableBook = () => {
           <TableBody className="text-sm font-roboto text-[#44444F] font-normal">
             {paginatedData.map((row, rowIndex) => (
               [0, 1].map((subIndex) => (
-                <TableRow key={`${rowIndex}-${subIndex}`} className="">
-                  <TableCell className="text-center">
+                <TableRow key={`${rowIndex}-${subIndex}`}>
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.poliza : ""}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.estado : ""}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.fecha : ""}
                   </TableCell>
                   <TableCell className="text-center">{row.tercero[subIndex]}</TableCell>
