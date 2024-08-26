@@ -18,8 +18,8 @@ import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
 import { destroyBank, getBanks, saveBank } from "./utils";
-import { BanksColumns } from "./Accounts/Table/BanksColumns";
 import { createPusherClient } from "@/lib/pusher";
+import { BanksColumns } from "./Accounts/Table/BanksColumns";
 
 function MainBankManagement() {
   const { data } = useLoaderData();
@@ -61,10 +61,6 @@ function MainBankManagement() {
     [handleEdit, handleDelete]
   );
   
-  const columnsBanks = React.useMemo(
-    () => BanksColumns(handleEdit),
-    [handleEdit]
-  );
 
   //datos de prueba --------------------------
 
@@ -247,7 +243,7 @@ function MainBankManagement() {
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
               data={banksInfo}
-              columns={columnsBanks}
+              columns={BanksColumns}
               names={[]}
               searchFilter={"name"}
             />
@@ -262,12 +258,13 @@ export default MainBankManagement;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  switch (data.get("type")) {
+  switch (data.get("type_option")) {
     case "save_bank":
       await saveBank(data);
       break;
     case "destroy_bank":
       await destroyBank(data);
+      break;
   }
 
   return redirect(`/bank-management`);

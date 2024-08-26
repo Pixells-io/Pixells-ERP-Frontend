@@ -277,7 +277,10 @@ import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecor
 import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
-import { getBanks } from "./pages/BankManagement/utils";
+import { getBank, getBanks } from "./pages/BankManagement/utils";
+import EditBank, {
+  Action as updateBank
+} from "./pages/BankManagement/Accounts/Edit/EditBank";
 
 //Client Platform
 import LoginClient, {
@@ -866,6 +869,12 @@ const router = createBrowserRouter([
             element: <MainBankManagement />,
             action: CreateNewBank,
             loader: getBanks,
+          },
+          {
+            path: "/bank-management/edit-bank/:id",
+            element: <EditBank />,
+            loader: getBank,
+            action: updateBank,
           },
           {
             path: "/bank-management/collection",

@@ -4,7 +4,7 @@ import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-export const BanksColumns = (editFunction) => [
+export const BanksColumns =  [
   {
     id: "name",
     header: "NOMBRE",
@@ -69,12 +69,12 @@ export const BanksColumns = (editFunction) => [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <button type="button" onClick={() => editFunction(row?.original?.id)}>
+          <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
             <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-          </button>
+          </Link>
           <Form action="/bank-management" method="post">
             <input type="hidden" hidden name="bank_id" value={row?.original?.id} />
-            <input type="hidden" hidden name="type" value={"destroy_bank"} />
+            <input type="hidden" hidden name="type_option" value={"destroy_bank"} />
 
             <Button
               type="submit"
