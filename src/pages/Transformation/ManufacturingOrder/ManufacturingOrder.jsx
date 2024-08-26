@@ -105,61 +105,54 @@ function ManufacturingOrder() {
         </div>
 
         <div>
-          <div className="flex justify-evenly gap-x-2 w-full items-center overflow-x-auto rounded-xl bg-blancoBg px-6 py-2">
-            <div>
-              <Select name="article" className="h-10">
-                <SelectTrigger className="w-[180px] border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Selecciona el Artículo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Input
-                type="number"
-                name={`amount`}
-                // value={row.amount}
-                placeholder="Cantidad"
-                className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-              />
-            </div>
-            <div>
-              <Input
-                className="w-[180px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-                name={`date`}
-                // value={row.amount}
-                placeholder="Fecha Prevista de Producción"
-                type="date"
-              />
-            </div>
-            <div>
-              <Select name="accountingAccount" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[180px] border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Cuenta Contable" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Select name="store" className="h-10 min-w-0 flex-1">
-                <SelectTrigger className="w-[180px] border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Almacen" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="flex w-full items-center gap-x-2 overflow-x-auto rounded-xl bg-blancoBg px-3 py-3">
+            <Select name="article" className="h-10 min-w-[180px]">
+              <SelectTrigger className="border-gris2-transparent w-full rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue placeholder="Selecciona el Artículo" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Input
+              type="number"
+              name="amount"
+              placeholder="Cantidad"
+              className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+            />
+
+            <Input
+              className="border-gris2-transparent w-[180px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              name="date"
+              placeholder="Fecha Prevista de Producción"
+              type="date"
+            />
+
+            <Select name="accountingAccount" className="h-10 min-w-[180px]">
+              <SelectTrigger className="border-gris2-transparent w-full rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue placeholder="Cuenta Contable" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select name="store" className="h-10 min-w-[180px]">
+              <SelectTrigger className="border-gris2-transparent w-full rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue placeholder="Almacen" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+
             <div className="ml-6 flex items-center gap-x-2">
               <label
                 htmlFor="checkBoxKardex"
@@ -176,17 +169,17 @@ function ManufacturingOrder() {
           defaultValue="products"
           className="h-full overflow-auto rounded-lg pt-2"
         >
-          <TabsList className="ml-4 flex gap-x-4 w-fit rounded-none bg-inherit">
+          <TabsList className="ml-4 flex w-fit gap-x-4 rounded-none bg-inherit">
             <TabsTrigger
               value="products"
-              className="rounded-3xl border-[1px] border-[#696974] px-5 py-3 text-xs font-medium text-grisText data-[state=active]:font-bold data-[state=active]:border-[#44444F] data-[state=active]:bg-[#44444F] data-[state=active]:text-white data-[state=active]:shadow-none"
-              >
+              className="rounded-3xl border-[1px] border-[#696974] px-5 py-3 text-xs font-medium text-grisText data-[state=active]:border-[#44444F] data-[state=active]:bg-[#44444F] data-[state=active]:font-bold data-[state=active]:text-white data-[state=active]:shadow-none"
+            >
               Productos
             </TabsTrigger>
             <TabsTrigger
               value="operationProcess"
-              className="rounded-3xl border-[1px] border-[#696974] px-5 py-3 text-xs font-medium text-grisText ata-[state=active]:font-bold data-[state=active]:border-[#44444F] data-[state=active]:bg-[#44444F] data-[state=active]:text-white data-[state=active]:shadow-none"
-              >
+              className="ata-[state=active]:font-bold rounded-3xl border-[1px] border-[#696974] px-5 py-3 text-xs font-medium text-grisText data-[state=active]:border-[#44444F] data-[state=active]:bg-[#44444F] data-[state=active]:text-white data-[state=active]:shadow-none"
+            >
               Proceso de Operación
             </TabsTrigger>
           </TabsList>
