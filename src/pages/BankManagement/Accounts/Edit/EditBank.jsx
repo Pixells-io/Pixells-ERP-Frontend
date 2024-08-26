@@ -38,6 +38,7 @@ function EditBank() {
                       ]}
                       defaultVal={data.country}
                       placeholder="País"
+                      required={true}
                     />
                   </div>
                   <InputRouter
@@ -45,6 +46,7 @@ function EditBank() {
                     type="text"
                     placeholder="Clave del Banco"
                     defaultVal={data.bank_key}
+                    required={true}
                   />
                 </div>
                 <div className="pl-2 text-xs text-grisSubText">
@@ -65,6 +67,7 @@ function EditBank() {
                 ]}
                 placeholder="Sociedad"
                 defaultVal={data.type}
+                required={true}
               />
               <div className="flex gap-6">
                 <InputRouter
@@ -72,12 +75,14 @@ function EditBank() {
                   type="text"
                   placeholder="ID del Banco"
                   defaultVal={data.bank_id}
+                  required={true}
                 />
                 <InputRouter
                   name="name"
                   type="text"
                   placeholder="Nombre del Banco Propio"
                   defaultVal={data.name}
+                  required={true}
                 />
               </div>
             </div>
@@ -89,34 +94,38 @@ function EditBank() {
               <div className="grid grid-cols-2 gap-6">
                 <InputRouter
                   name="phone"
-                  type="text"
+                  type="number"
                   placeholder="Teléfono"
                   defaultVal={data.phone}
+                  required={true}
                 />
                 <InputRouter
                   name="mail"
                   type="email"
                   placeholder="Correo"
                   defaultVal={data.mail}
+                  required={true}
                 />
                 <InputRouter
                   name="street"
                   type="text"
                   placeholder="Calle"
                   defaultVal={data.street}
+                  required={true}
                 />
                 <div className="flex gap-x-2">
                   <InputRouter
                     name="int"
-                    type="number"
+                    type="text"
                     placeholder="Int"
                     defaultVal={data.int}
                   />
                   <InputRouter
                     name="ext"
-                    type="number"
+                    type="text"
                     placeholder="Ext"
                     defaultVal={data.ext}
+                    required={true}
                   />
                 </div>
                 <InputRouter
@@ -124,6 +133,7 @@ function EditBank() {
                   type="text"
                   placeholder="Colonia"
                   defaultVal={data.cologne}
+                  required={true}
                 />
               </div>
             </div>

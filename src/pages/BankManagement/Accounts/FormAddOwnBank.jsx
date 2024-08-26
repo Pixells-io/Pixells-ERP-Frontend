@@ -54,12 +54,14 @@ function FormAddOwnBank({ modal, setModal }) {
                           { label: "EUA", value: "EUA" },
                         ]}
                         placeholder="País"
+                        required={true}
                       />
                     </div>
                     <InputRouter
                       name="bank_key"
                       type="text"
                       placeholder="Clave del Banco"
+                      required={true}
                     />
                   </div>
                   <div className="pl-2 text-xs text-grisSubText">
@@ -79,17 +81,20 @@ function FormAddOwnBank({ modal, setModal }) {
                     {label: "Sociedad 2", value: "soc2"},
                   ]}
                   placeholder="Sociedad"
+                  required={true}
                 />
                 <div className="flex gap-6">
                   <InputRouter
                     name="bank_id"
                     type="text"
                     placeholder="ID del Banco"
+                    required={true}
                   />
                   <InputRouter
                     name="name"
                     type="text"
                     placeholder="Nombre del Banco Propio"
+                    required={true}
                   />
                 </div>
               </div>
@@ -101,35 +106,40 @@ function FormAddOwnBank({ modal, setModal }) {
                 <div className="grid grid-cols-2 gap-6">
                   <InputRouter
                     name="phone"
-                    type="text"
+                    type="number"
                     placeholder="Teléfono"
+                    required={true}
                   />
                   <InputRouter
                     name="mail"
                     type="email"
                     placeholder="Correo"
+                    required={true}
                   />
                   <InputRouter
                     name="street"
                     type="text"
                     placeholder="Calle"
+                    required={true}
                   />
                   <div className="flex gap-x-2">
                     <InputRouter
                       name="int"
-                      type="number"
+                      type="text"
                       placeholder="Int"
                     />
                     <InputRouter
                       name="ext"
-                      type="number"
+                      type="text"
                       placeholder="Ext"
+                      required={true}
                     />
                   </div>
                   <InputRouter
                     name="cologne"
                     type="text"
                     placeholder="Colonia"
+                    required={true}
                   />
                 </div>
               </div>

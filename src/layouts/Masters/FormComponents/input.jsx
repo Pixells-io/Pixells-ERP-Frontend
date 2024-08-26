@@ -26,7 +26,7 @@ function InputRouter({
         disabled={disabled}
         value={value}
         onChange={onChange}
-        require={required}
+        required={required}
       />
     </Label>
   );
