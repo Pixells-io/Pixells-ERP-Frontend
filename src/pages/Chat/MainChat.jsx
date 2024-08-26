@@ -109,7 +109,7 @@ function MainChat() {
         setModal={setModalSendFile}
       />
 
-      <div className="flex rounded-t-xl bg-gris px-2 py-4 md:px-6">
+      <div className="flex rounded-t-xl bg-gris px-2 py-4 drop-shadow md:px-6">
         <div className="flex items-center gap-4">
           <IonIcon
             icon={chevronBack}
