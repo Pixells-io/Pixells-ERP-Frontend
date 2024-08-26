@@ -24,11 +24,11 @@ export const BanksColumns =  [
     meta: {
       filterButton: true,
     },
-    filterFn: "equals",
+    // filterFn: "equals",
   },
   {
     id: "country",
-    header: "País",
+    header: "PAÍS",
     accessorKey: "country",
     meta: {
       filterButton: true,
@@ -37,7 +37,7 @@ export const BanksColumns =  [
   },
   {
     id: "bank_id",
-    header: "Id del Banco",
+    header: "ID DEL BANCO",
     accessorKey: "bank_id",
     meta: {
       filterButton: true,
@@ -46,12 +46,12 @@ export const BanksColumns =  [
   },
   {
     id: "phone",
-    header: "Teléfono",
+    header: "TELÉFONO",
     accessorKey: "phone",
   },
   {
     id: "mail",
-    header: "Email",
+    header: "EMAIL",
     accessorKey: "mail",
   },
   {

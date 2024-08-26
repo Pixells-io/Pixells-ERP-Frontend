@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
-import React, { useEffect, useState } from "react";
-import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
+import React from "react";
+import { Form, useLoaderData, useNavigation } from "react-router-dom";
 import { editBank } from "../../utils";
 
 function EditBank() {
@@ -18,6 +18,9 @@ function EditBank() {
       >
         <input type="hidden" hidden name="id" value={data.id} />
         <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
+          <h2 className="mb-4 font-poppins text-sm font-semibold text-grisHeading">
+            Editar Banco Propio
+          </h2>
           <div className="flex w-full flex-col gap-8 font-light">
             <div className="flex flex-col gap-3">
               <div className="text-sm font-normal text-[#696974]">

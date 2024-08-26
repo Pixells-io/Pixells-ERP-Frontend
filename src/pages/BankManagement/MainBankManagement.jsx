@@ -6,7 +6,6 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import CardInformation from "./Components/CardInformation";
-import DataTable from "./Components/Table/DataTable";
 import { AccountsColumns } from "./Accounts/Table/AccountsColumns";
 import {
   DropdownMenu,
@@ -20,6 +19,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { destroyBank, getBanks, saveBank } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 import { BanksColumns } from "./Accounts/Table/BanksColumns";
+import DataTable from "@/components/table/DataTable";
 
 function MainBankManagement() {
   const { data } = useLoaderData();
@@ -238,14 +238,17 @@ function MainBankManagement() {
               data={[]}
               columns={columnsAccounts}
               searchFilter={"name"}
+              searchNameFilter="Nombre"
+              isCheckAll={true}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
               data={banksInfo}
               columns={BanksColumns}
-              names={[]}
               searchFilter={"name"}
+              searchNameFilter="Nombre"
+              isCheckAll={true}
             />
           </TabsContent>
         </Tabs>
