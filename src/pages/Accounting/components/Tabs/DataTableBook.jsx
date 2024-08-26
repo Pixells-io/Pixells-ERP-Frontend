@@ -20,8 +20,8 @@ const TableBook = () => {
       codigo: ["56273", "56274"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Marketing"],
-      debito: ["1000", "500"],
-      credito: ["0", "0"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "002",
@@ -31,8 +31,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "003",
@@ -42,8 +42,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "004",
@@ -53,8 +53,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
   ];
 
