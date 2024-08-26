@@ -7,8 +7,8 @@ function ChatList({ chat }) {
       <div
         className={
           location.pathname === `/chat/${chat?.chat_id}`
-            ? "flex gap-2 border-b-[0.5px] border-grisDisabled bg-[#F0F0F0] px-5 py-2 md:gap-0"
-            : "flex gap-2 border-b-[0.5px] border-grisDisabled px-5 py-2 hover:bg-[#F4F4F4] md:gap-0"
+            ? "flex gap-2 border-b-[0.5px] bg-[#F0F0F0] px-5 py-2 md:gap-0"
+            : "flex gap-2 border-b-[0.5px] px-5 py-2 hover:bg-[#F4F4F4] md:gap-0"
         }
       >
         <div className="w-1/6 shrink-0">
