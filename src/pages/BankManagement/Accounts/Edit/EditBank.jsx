@@ -11,13 +11,14 @@ function EditBank() {
 
   return (
     <div className="flex w-full">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
       <Form
         className="flex h-full w-full flex-col gap-3 px-6"
         action={`/bank-management/edit-bank/${data.id}`}
         method="post"
       >
-        <input type="hidden" hidden name="id" value={data.id} />
-        <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
+        <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto bg-white">
+          <input type="hidden" hidden name="id" value={data.id} />
           <h2 className="mb-4 font-poppins text-sm font-semibold text-grisHeading">
             Editar Banco Propio
           </h2>
@@ -137,6 +138,8 @@ function EditBank() {
           </div>
         </div>
       </Form>
+        
+      </div>
     </div>
   );
 }

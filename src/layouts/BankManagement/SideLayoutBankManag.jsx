@@ -26,7 +26,7 @@ function SideLayoutBankManag() {
             <NavLink
               to="/bank-management"
               className={({ isActive }) =>
-                isActive && location.pathname === "/bank-management"
+                isActive && (location.pathname === "/bank-management" || location.pathname.includes("/bank-management/edit-bank/"))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }

@@ -1,8 +1,8 @@
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import ModalDeleteBank from "../Modals/ModalDeleteBank";
 
 export const BanksColumns =  [
   {
@@ -72,18 +72,7 @@ export const BanksColumns =  [
           <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
             <IonIcon icon={create} className="h-5 w-5"></IonIcon>
           </Link>
-          <Form action="/bank-management" method="post">
-            <input type="hidden" hidden name="bank_id" value={row?.original?.id} />
-            <input type="hidden" hidden name="type_option" value={"destroy_bank"} />
-
-            <Button
-              type="submit"
-              className="h-fit w-fit bg-inherit hover:bg-inherit px-0 py-0 text-grisText"
-              disabled={navigation.state === "submitting"}
-            >
-              <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
-            </Button>
-          </Form>
+          <ModalDeleteBank bank_id={row?.original?.id}/>
         </div>
       );
     },
