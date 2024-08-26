@@ -159,7 +159,7 @@ const MainGeneral = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Artículos general
+            Artículos General
           </p>
           <Link to="/inventory/create">
             <Button

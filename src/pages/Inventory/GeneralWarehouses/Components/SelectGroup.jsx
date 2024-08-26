@@ -23,10 +23,11 @@ const Inputs = () => {
           <Input
             type="text"
             name="codArt"
-            placeholder="Código de articulo"
+            placeholder="Código de Almacén"
             className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
             value={inputsData.codArt}
             onChange={handleChange}
+            readOnly
           />
         </div>
         <div className="flex-1">

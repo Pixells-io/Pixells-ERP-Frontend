@@ -159,7 +159,7 @@ const MainGW = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Almacenes generales
+            Almacenes Generales
           </p>
           <Link to="/inventory/general-warehouses/create">
           <Button

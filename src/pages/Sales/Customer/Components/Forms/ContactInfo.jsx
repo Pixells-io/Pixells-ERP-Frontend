@@ -29,7 +29,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         name="nombre"
         value={contactData.nombre}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
@@ -44,7 +43,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         name="apellidop"
         value={contactData.apellidop}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
@@ -59,7 +57,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         name="apellidom"
         value={contactData.apellidom}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
@@ -75,7 +72,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         type="email"
         value={contactData.email}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
@@ -91,7 +87,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         type="tel"
         value={contactData.tel}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
@@ -106,7 +101,6 @@ const ContactInfoForm = ({ contactData, setContactData, onDelete }) => {
         name="position"
         value={contactData.position}
         onChange={handleInputChange}
-        placeholder="Ingresa"
         className={inputClass}
       />
     </div>
