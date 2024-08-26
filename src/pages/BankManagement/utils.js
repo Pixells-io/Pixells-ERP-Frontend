@@ -1,36 +1,47 @@
-export const formatNumber = (number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(number);
-};
+import Cookies from "js-cookie";
+import { json } from "react-router-dom";
 
-export const formatPhoneNumber = (phoneNumber) => {
-  const cleaned = ("" + phoneNumber).replace(/\D/g, "");
-  const match = cleaned.match(/^(\d{2})(\d{3})(\d{3})(\d{4})$/);
-  if (match) {
-    return `+${match[1]} (${match[2]}) ${match[3]}-${match[4]}`;
+export async function getBanks() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}bank-management/get-banks`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
   }
+}
 
-  const phone = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-  if (phone) {
-    return `(${phone[1]}) ${phone[2]}-${phone[3]}`;
+export async function saveBank(data) {
+    const info = {
+        country: data.get("country"),
+        bank_string: data.get("bank_string"),
+        type: data.get("type"),
+        bank_id: data.get("bank_id"),
+        name: data.get("name"),
+        phone: data.get("phone"),
+        mail: data.get("mail"),
+        street: data.get("street"),
+        int : data.get("int"),
+        ext : data.get("ext"),
+        cologne : data.get("cologne"),
+    };
+  
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}bank-management/save-bank`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+  
+    return response.json();
   }
-
-  return phoneNumber;
-};
-
-export const getIntegerNumber = (number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(number);
-};
-
-export const getDecimalNumber = (number) => {
-  return number.toString().split(".")[1] || "00";
-};

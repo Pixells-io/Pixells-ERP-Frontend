@@ -1,4 +1,4 @@
-import { formatNumber } from "../../utils";
+import { formatNumber } from "../../Components/utils";
 
 export const PaymentsRecordColumns = [
   {

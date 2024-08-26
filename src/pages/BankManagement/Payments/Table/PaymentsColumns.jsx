@@ -4,7 +4,7 @@ import { informationCircle } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatusInProgress from "../../Components/StatusInformation/StatusInProgress";
 import StatusDone from "../../Components/StatusInformation/StatusDone";
-import { formatNumber } from "../../utils";
+import { formatNumber } from "../../Components/utils";
 
 export const PaymentsColumns = [
   {
