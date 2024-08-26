@@ -101,11 +101,7 @@ function MainChat() {
   }
 
   return (
-    <div
-      className={
-        "flex h-full w-full flex-col justify-between overflow-auto rounded-xl pl-0 md:flex md:overflow-auto md:pl-4"
-      }
-    >
+    <div className="ml-0 flex h-full w-full flex-col justify-between overflow-auto rounded-xl bg-blancoBg md:ml-4 md:flex md:overflow-auto">
       {/* Chat Header */}
       <MensaggeFileModal
         chat_id={id}
@@ -113,7 +109,7 @@ function MainChat() {
         setModal={setModalSendFile}
       />
 
-      <div className="flex rounded-t-xl bg-gris px-2 py-4 md:px-6">
+      <div className="flex rounded-t-xl bg-gris px-2 py-4 drop-shadow md:px-6">
         <div className="flex items-center gap-4">
           <IonIcon
             icon={chevronBack}
@@ -149,7 +145,7 @@ function MainChat() {
       </div>
 
       {/* Chat Card Footer */}
-      <div className="flex flex-col rounded-b-xl bg-[#FBFBFB] px-1 py-2 md:px-5">
+      <div className="flex flex-col rounded-b-xl bg-blancoBg px-1 py-2 md:px-5">
         {modalReplay == true ? (
           <div>
             <div className="flex w-full flex-col justify-center gap-1 border-0 border-t px-8 py-2">
