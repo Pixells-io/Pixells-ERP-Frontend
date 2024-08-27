@@ -3,7 +3,7 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import React from "react";
 import { Form, useLoaderData, useNavigation } from "react-router-dom";
-import { editBank } from "../../utils";
+import { editBank } from "../utils";
 
 function EditBank() {
   const navigation = useNavigation();

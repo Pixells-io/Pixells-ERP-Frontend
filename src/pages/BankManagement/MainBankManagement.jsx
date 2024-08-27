@@ -6,7 +6,6 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import CardInformation from "./Components/CardInformation";
-import { AccountsColumns } from "./Accounts/Table/AccountsColumns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +15,16 @@ import {
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
-import { destroyBank, getBanks, saveBank } from "./utils";
+import { destroyBank, getBanks, saveBank, saveBankAccount } from "./Accounts/utils";
 import { createPusherClient } from "@/lib/pusher";
 import { BanksColumns } from "./Accounts/Table/BanksColumns";
 import DataTable from "@/components/table/DataTable";
+import { AccountsColumns } from "./Accounts/Table/AccountsColumns";
 
 function MainBankManagement() {
-  const { data } = useLoaderData();
-  const [banksInfo, setBanksInfo] = useState(data);
-
+  const { banks, bankAccounts } = useLoaderData();
+  const [banksInfo, setBanksInfo] = useState(banks.data);
+  const [bankAccountsInfo, setBankAccountInfo] = useState(bankAccounts.data);
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
   
@@ -46,77 +46,7 @@ function MainBankManagement() {
       pusherClient.unsubscribe("private-get-banks");
     };
   }, []);
-
-
-  const handleEdit = (id) => {
-    alert("edit id: " + id);
-  }
   
-  const handleDelete = (id) => {
-    alert("delete id: " + id);
-  }
-
-  const columnsAccounts = React.useMemo(
-    () => AccountsColumns(handleEdit, handleDelete),
-    [handleEdit, handleDelete]
-  );
-  
-
-  //datos de prueba --------------------------
-
-  const data2 = [
-    {
-      id: "7",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "8",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "9",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "10",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "11",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "12",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-  ];
-
-  //-------------------------------------------
-
   return (
     <div className="flex w-full">
       {/* Modals */}
@@ -124,6 +54,7 @@ function MainBankManagement() {
       <FormAddBankAccount
         modal={modalBankAccount}
         setModal={setModalAddBankAccount}
+        banks={banksInfo}
       />
 
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -235,8 +166,8 @@ function MainBankManagement() {
           </TabsList>
           <TabsContent value="accounts" className="mt-[-60px] p-2">
             <DataTable
-              data={[]}
-              columns={columnsAccounts}
+              data={bankAccountsInfo}
+              columns={AccountsColumns}
               searchFilter={"name"}
               searchNameFilter="Nombre"
               isCheckAll={true}
@@ -267,6 +198,9 @@ export async function Action({ request }) {
       break;
     case "destroy_bank":
       await destroyBank(data);
+      break;
+    case "save_bankAccount":
+      await saveBankAccount(data);
       break;
   }
 

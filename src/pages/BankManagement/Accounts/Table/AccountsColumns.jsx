@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import { formatNumber } from "../../Components/utils";
+import ModalDeleteBank from "../Modals/ModalDeleteBank";
 
-export const AccountsColumns = (editFunction, deleteFunction) => [
+export const AccountsColumns =  [
   {
     id: "name",
     header: "NOMBRE",
@@ -16,23 +16,22 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
-           
           />
           <label>{row?.original?.name}</label>
         </div>
       );
     },
     meta: {
-      filterButton: true
+      filterButton: true,
     },
-    filterFn: "equals",
+    // filterFn: "equals",
   },
   {
     id: "bank",
     header: "BANCO",
     accessorKey: "bank",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -41,22 +40,19 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
     header: "TIPO",
     accessorKey: "type",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
   {
-    id: "accountNumber",
+    id: "account_number",
     header: "NO. CUENTA",
-    accessorKey: "accountNumber",
+    accessorKey: "account_number",
   },
   {
     id: "balance",
     header: "SALDO",
     accessorKey: "balance",
-    cell: ({ row }) => {
-      return <>{formatNumber(row?.original?.balance)}</>;
-    },
   },
   {
     id: "actions",
@@ -71,12 +67,10 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <button type="button" onClick={() => editFunction(row?.original?.id)}>
-            <IonIcon  icon={create} className="h-5 w-5"></IonIcon>
-          </button>
-          <button type="button" onClick={() => deleteFunction(row?.original?.id)}>
-            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
-          </button>
+          <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
+            <IonIcon icon={create} className="h-5 w-5"></IonIcon>
+          </Link>
+          {/* <ModalDeleteBank bank_id={row?.original?.id}/> */}
         </div>
       );
     },
