@@ -43,11 +43,11 @@ function EditBankAccount() {
   ];
 
   return (
-    <div className="flex w-full">
+    <div className="flex h-full w-full min-w-fit overflow-auto">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Form
           id="bank-account-form"
-          className="flex h-full w-full flex-col gap-3 px-6"
+          className="flex h-full w-full flex-col gap-3 overflow-auto px-6"
           action={`/bank-management/edit-bank-account/${bankAccount?.data?.id}`}
           method="post"
         >
@@ -75,6 +75,7 @@ function EditBankAccount() {
                         setBankSelect(e);
                         getOwnBank(e);
                       }}
+                      required={true}
                     />
                   </div>
                   <div className="flex gap-6">
@@ -84,6 +85,7 @@ function EditBankAccount() {
                         type="text"
                         placeholder="ID Cuenta"
                         defaultVal={bankAccount.data.account_id}
+                        required={true}
                       />
                     </div>
                     <div className="basis-full">
@@ -92,6 +94,7 @@ function EditBankAccount() {
                         type="text"
                         placeholder="Nombre de la Cuenta"
                         defaultVal={bankAccount.data.name}
+                        required={true}
                       />
                     </div>
                   </div>
@@ -109,6 +112,7 @@ function EditBankAccount() {
                       type="text"
                       placeholder="Número de cuenta"
                       defaultVal={bankAccount.data.account_number}
+                      required={true}
                     />
                   </div>
                   <div className="basis-1/2 pt-5">
@@ -119,6 +123,7 @@ function EditBankAccount() {
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                       value={Number(accountingAccountSelect) || undefined}
                       onValueChange={(e) => setAccountingAccountSelect(e)}
+                      required={true}
                     />
                   </div>
                   <div className="basis-auto pt-5">
@@ -131,6 +136,7 @@ function EditBankAccount() {
                       placeholder="Moneda"
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                       defaultVal={bankAccount.data.currency}
+                      required={true}
                     />
                   </div>
                 </div>

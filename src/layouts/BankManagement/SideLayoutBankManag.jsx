@@ -26,7 +26,12 @@ function SideLayoutBankManag() {
             <NavLink
               to="/bank-management"
               className={({ isActive }) =>
-                isActive && (location.pathname === "/bank-management" || location.pathname.includes("/bank-management/edit-bank/"))
+                isActive &&
+                (location.pathname === "/bank-management" ||
+                  location.pathname.includes("/bank-management/edit-bank/") ||
+                  location.pathname.includes(
+                    "/bank-management/edit-bank-account/",
+                  ))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
@@ -56,7 +61,7 @@ function SideLayoutBankManag() {
                 </div>
               </div>
             </NavLink>
-            
+
             <NavLink
               to="/bank-management/payment"
               className={({ isActive }) =>
@@ -73,7 +78,7 @@ function SideLayoutBankManag() {
                 </div>
               </div>
             </NavLink>
-            
+
             <NavLink
               to="/bank-management/3"
               className={({ isActive }) =>
@@ -90,7 +95,6 @@ function SideLayoutBankManag() {
                 </div>
               </div>
             </NavLink>
-
           </div>
         </div>
       </div>
@@ -101,6 +105,4 @@ function SideLayoutBankManag() {
 
 export default SideLayoutBankManag;
 
-export async function Action({ request }) {
-  
-}
+export async function Action({ request }) {}

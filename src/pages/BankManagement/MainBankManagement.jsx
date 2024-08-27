@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -16,36 +16,13 @@ import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
 import { destroyBank, destroyBankAccount, getBanks, saveBank, saveBankAccount } from "./Accounts/utils";
-import { createPusherClient } from "@/lib/pusher";
-import { BanksColumns } from "./Accounts/Table/BanksColumns";
-import DataTable from "@/components/table/DataTable";
-import { AccountsColumns } from "./Accounts/Table/AccountsColumns";
+import Banks from "./Accounts/Banks/Banks";
+import BankAccounts from "./Accounts/BankAccounts/BankAccounts";
 
 function MainBankManagement() {
   const { banks, bankAccounts } = useLoaderData();
-  const [banksInfo, setBanksInfo] = useState(banks.data);
-  const [bankAccountsInfo, setBankAccountInfo] = useState(bankAccounts.data);
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
-  
-  const pusherClient = createPusherClient();
-
-  async function getBanksList() {
-    let newData = await getBanks();
-    setBanksInfo(newData.data);
-  }
-
-  useEffect(() => {
-    pusherClient.subscribe("private-get-banks");
-
-    pusherClient.bind("fill-banks", ({ message }) => {
-      getBanksList();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("private-get-banks");
-    };
-  }, []);
   
   return (
     <div className="flex w-full">
@@ -54,7 +31,7 @@ function MainBankManagement() {
       <FormAddBankAccount
         modal={modalBankAccount}
         setModal={setModalAddBankAccount}
-        banks={banksInfo}
+        banks={banks.data}
       />
 
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -165,22 +142,10 @@ function MainBankManagement() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="accounts" className="mt-[-60px] p-2">
-            <DataTable
-              data={bankAccountsInfo}
-              columns={AccountsColumns}
-              searchFilter={"name"}
-              searchNameFilter="Nombre"
-              isCheckAll={true}
-            />
+            <BankAccounts bankAccounts={bankAccounts}/>
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
-            <DataTable
-              data={banksInfo}
-              columns={BanksColumns}
-              searchFilter={"name"}
-              searchNameFilter="Nombre"
-              isCheckAll={true}
-            />
+            <Banks banks={banks} />
           </TabsContent>
         </Tabs>
       </div>

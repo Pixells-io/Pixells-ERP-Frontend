@@ -26,7 +26,7 @@ function ModalDeleteBank({ bank_id }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger disabled={navigation.state === "submitting"}>
+      <DialogTrigger disabled={navigation.state === "submitting"} className="flex items-center">
         <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">

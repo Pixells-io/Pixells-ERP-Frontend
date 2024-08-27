@@ -97,6 +97,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                         setBankSelect(e);
                         getOwnBank(e);
                       }}
+                      required={true}
                     />
                   </div>
                   <div className="flex gap-6">
@@ -105,6 +106,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                         name="account_id"
                         type="text"
                         placeholder="ID Cuenta"
+                        required={true}
                       />
                     </div>
                     <div className="basis-full">
@@ -112,6 +114,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                         name="account_name"
                         type="text"
                         placeholder="Nombre de la Cuenta"
+                        required={true}
                       />
                     </div>
                   </div>
@@ -128,6 +131,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                       name="account_number"
                       type="text"
                       placeholder="Número de cuenta"
+                      required={true}
                     />
                   </div>
                   <div className="basis-1/2 pt-5">
@@ -138,6 +142,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
                       value={Number(accountingAccountSelect) || undefined}
                       onValueChange={(e) => setAccountingAccountSelect(e)}
+                      required={true}
                     />
                   </div>
                   <div className="basis-auto pt-5">
@@ -149,6 +154,7 @@ function FormAddBankAccount({ modal, setModal, banks }) {
                       ]}
                       placeholder="Moneda"
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                      required={true}
                     />
                   </div>
                 </div>
