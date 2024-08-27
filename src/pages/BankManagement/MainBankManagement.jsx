@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -6,7 +6,6 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import CardInformation from "./Components/CardInformation";
-import DataTable from "./Components/Table/DataTable";
 import { AccountsColumns } from "./Accounts/Table/AccountsColumns";
 import {
   DropdownMenu,
@@ -16,10 +15,38 @@ import {
 } from "@/components/ui/dropdown-menu";
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
+import { redirect, useLoaderData } from "react-router-dom";
+import { destroyBank, getBanks, saveBank } from "./utils";
+import { createPusherClient } from "@/lib/pusher";
+import { BanksColumns } from "./Accounts/Table/BanksColumns";
+import DataTable from "@/components/table/DataTable";
 
 function MainBankManagement() {
+  const { data } = useLoaderData();
+  const [banksInfo, setBanksInfo] = useState(data);
+
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
+  
+  const pusherClient = createPusherClient();
+
+  async function getBanksList() {
+    let newData = await getBanks();
+    setBanksInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-banks");
+
+    pusherClient.bind("fill-banks", ({ message }) => {
+      getBanksList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-banks");
+    };
+  }, []);
+
 
   const handleEdit = (id) => {
     alert("edit id: " + id);
@@ -29,103 +56,13 @@ function MainBankManagement() {
     alert("delete id: " + id);
   }
 
-  const columns = React.useMemo(
+  const columnsAccounts = React.useMemo(
     () => AccountsColumns(handleEdit, handleDelete),
     [handleEdit, handleDelete]
   );
+  
 
   //datos de prueba --------------------------
-
-  const data = [
-    {
-      id: "1",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco",
-      accountNumber: "789789788asdasdsaad",
-      balance: "54600.00",
-    },
-    {
-      id: "2",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "3",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "17897897891",
-      balance: "54600.00",
-    },
-    {
-      id: "4",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "7",
-      balance: "54600.00",
-    },
-    {
-      id: "5",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "6",
-      name: "Cheque principal",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "7",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "8",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "9",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "10",
-      name: "Cheque principal 7",
-      bank: "Banamex",
-      type: "Banco nacional",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-    {
-      id: "11",
-      name: "Cheque principal 11",
-      bank: "Banamex",
-      type: "Banco nacional 11",
-      accountNumber: "789789789",
-      balance: "54600.00",
-    },
-  ];
 
   const data2 = [
     {
@@ -298,17 +235,20 @@ function MainBankManagement() {
           </TabsList>
           <TabsContent value="accounts" className="mt-[-60px] p-2">
             <DataTable
-              data={data}
-              columns={columns}
-              searchFilter={"bank"}
+              data={[]}
+              columns={columnsAccounts}
+              searchFilter={"name"}
+              searchNameFilter="Nombre"
+              isCheckAll={true}
             />
           </TabsContent>
           <TabsContent className="mt-[-60px] p-2" value="banks">
             <DataTable
-              data={data2}
-              columns={columns}
-              names={[]}
-              searchFilter={"bank"}
+              data={banksInfo}
+              columns={BanksColumns}
+              searchFilter={"name"}
+              searchNameFilter="Nombre"
+              isCheckAll={true}
             />
           </TabsContent>
         </Tabs>
@@ -318,3 +258,18 @@ function MainBankManagement() {
 }
 
 export default MainBankManagement;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "save_bank":
+      await saveBank(data);
+      break;
+    case "destroy_bank":
+      await destroyBank(data);
+      break;
+  }
+
+  return redirect(`/bank-management`);
+  
+}

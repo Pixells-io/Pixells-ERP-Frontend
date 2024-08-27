@@ -88,7 +88,7 @@ const InventoryForm = ({ data, setData }) => {
             value={data.minimo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={`${inputClasses} w-[300px] mt-1`}
+            className={`${inputClasses} w-[200px] mt-1`}
           />
           <Label
             htmlFor="maximo"
@@ -102,7 +102,7 @@ const InventoryForm = ({ data, setData }) => {
             value={data.maximo}
             onChange={handleChange}
             placeholder="Ingresa"
-            className={`${inputClasses} w-[300px] mt-1`}
+            className={`${inputClasses} w-[200px] mt-1`}
           />
         </div>
       </div>

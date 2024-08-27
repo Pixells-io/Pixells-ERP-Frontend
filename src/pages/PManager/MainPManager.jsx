@@ -187,7 +187,7 @@ function MainPManager() {
                   action={`/project-manager/${params.id}`}
                   method="post"
                   id="pm-edit-obj"
-                  className="flex gap-3"
+                  className="flex w-full gap-3 pr-5"
                 >
                   <input
                     name="name"
@@ -199,6 +199,13 @@ function MainPManager() {
                     name={"year"}
                     placeholder={"Year"}
                     options={yearsOption}
+                  />
+                  <SelectRouter
+                    name={"areas"}
+                    placeholder={"Areas"}
+                    options={objectiveInfo?.areas_options}
+                    isMulti={true}
+                    defaultVal={objectiveInfo?.areas}
                   />
                   <input
                     name="objective_id"

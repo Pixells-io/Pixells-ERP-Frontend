@@ -6,6 +6,7 @@ export async function saveNewObjective(data) {
       name: data.get("objetivo"),
       year: data.get("year"),
       description: data.get("area"),
+      area: data.getAll("area"),
     };
 
     const response = await fetch(

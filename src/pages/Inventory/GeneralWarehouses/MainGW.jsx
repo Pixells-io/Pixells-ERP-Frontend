@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -10,45 +10,39 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { createPusherClient } from "@/lib/pusher";
+import { getWarehouses } from "./utils";
+
 const MainGW = () => {
-  const data = [
-    {
-      codigo: "0987",
-      categoria: "Metales",
-      nombre: "Tornillos",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "12/03/2024",
-    },
-    {
-      codigo: "0988",
-      categoria: "Metales",
-      nombre: "Tuercas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario3.jpg",
-      creacion: "19/06/2024",
-    },
-    {
-      codigo: "0989",
-      categoria: "Metales",
-      nombre: "Rondanas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "12/08/2024",
-    },
-  ];
+  const { data } = useLoaderData();
+  const [warehouseInfo, setwarehouseInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getWarehousesFunction() {
+    let newData = await getWarehouses();
+   
+    setwarehouseInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-inventories");
+
+    pusherClient.bind("fill-inventories-list", ({ message }) => {
+      getWarehousesFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-inventories");
+    };
+  }, []); 
+  
 
   const columns = [
     {
-      accessorKey: "codigo",
+      accessorKey: "inventory_code",
       header: "Código",
       cell: ({ row }) => {
         return (
@@ -58,7 +52,7 @@ const MainGW = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.codigo}</label>
+            <label>{row?.original?.inventory_code}</label>
           </div>
         );
       },
@@ -87,7 +81,7 @@ const MainGW = () => {
       header: "Tipo",
     },
     {
-      accessorKey: "creadoPor",
+      accessorKey: "creator",
       header: "Creado Por",
       cell: ({ row }) => (
         <Avatar className="h-6 w-6">
@@ -97,7 +91,7 @@ const MainGW = () => {
       ),
     },
     {
-      accessorKey: "creacion",
+      accessorKey: "created",
       header: "Creación",
     },
     {
@@ -159,7 +153,7 @@ const MainGW = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Almacenes generales
+            Almacenes Generales
           </p>
           <Link to="/inventory/general-warehouses/create">
           <Button
@@ -192,7 +186,7 @@ const MainGW = () => {
               <DataTable
                 data={data}
                 columns={columns}
-                searchFilter="codigo"
+                searchFilter="inventory_code"
                 searchNameFilter="Buscar por código"
                 isCheckAll={true}
               />

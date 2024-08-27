@@ -3,8 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GeneralForm from "./Forms/GeneralForm";
 import DataTable from "./Table/AccountTable";
 
-const FormGroup = () => {
-  const sampleData = [
+const FormGroup = ({ formData, handleInputChange }) => {
+ /* const sampleData = [
     { nombre: 'Cuenta A', codigoCuenta: '001', nombreCuenta: 'Cuenta de Ejemplo A' },
     { nombre: 'Cuenta B', codigoCuenta: '002', nombreCuenta: 'Cuenta de Ejemplo B' },
     { nombre: 'Cuenta C', codigoCuenta: '003', nombreCuenta: 'Cuenta de Ejemplo C' },
@@ -17,28 +17,24 @@ const FormGroup = () => {
     { nombre: 'Cuenta J', codigoCuenta: '010', nombreCuenta: 'Cuenta de Ejemplo J' },
     { nombre: 'Cuenta K', codigoCuenta: '011', nombreCuenta: 'Cuenta de Ejemplo K' }
   ];
-
+*/
   const [generalData, setGeneralData] = useState({
-    active: false,
-    inactive: false,
-    calle: "",
-    numInt: "",
-    numExt: "",
-    col: "",
+    street: "",
+    ext: "",
+    int: "",
     cp: "",
     city: "",
+    colony: "",
     state: "",
     country: ""
   });
-
-
   return (
     <div className="w-full overflow-auto">
       <Tabs defaultValue="general" className="w-full">
         <TabsList className="flex flex-wrap gap-3 justify-start bg-transparent mb-4">
           {[
             { value: "general", label: "General" },
-            { value: "account", label: "Asociar Cuentas Contables" },
+          
           ].map(({ value, label }) => (
             <TabsTrigger
               key={value}
@@ -52,14 +48,14 @@ const FormGroup = () => {
         <div className="w-full bg-white rounded-[10px] p-4">
           <TabsContent value="general">
             <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">GENERAL</h2>
-            <GeneralForm data={generalData} setData={setGeneralData} />
+            <GeneralForm formData={formData} handleInputChange={handleInputChange} />
           </TabsContent>
-          <TabsContent value="account">
+         {/* <TabsContent value="account">
             <h2 className="justify-start font-poppins text-[16px] pl-2 mb-4">ASOCIAR CUENTAS CONTABLES</h2>
             
-            <DataTable data={sampleData}/>
+            <DataTable data={sampleData}>
             
-          </TabsContent>
+          </TabsContent>*/}
         </div>
       </Tabs>
     </div>

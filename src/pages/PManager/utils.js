@@ -270,6 +270,7 @@ export async function editStrategicObjective(data) {
     objetive_id: data.get("objective_id"),
     year: data.get("year"),
     name: data.get("name"),
+    areas: data.getAll("areas"),
   };
 
   // validaciones?

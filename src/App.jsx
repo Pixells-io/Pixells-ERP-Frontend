@@ -264,7 +264,9 @@ import MainCost from "./pages/Accounting/Cost/MainCost";
 import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
 
 //BankManagement
-import MainBankManagement from "./pages/BankManagement/MainBankManagement";
+import MainBankManagement, {
+  Action as CreateNewBank,
+} from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
 import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
 import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
@@ -275,6 +277,10 @@ import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecor
 import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
+import { getBank, getBanks } from "./pages/BankManagement/utils";
+import EditBank, {
+  Action as updateBank
+} from "./pages/BankManagement/Accounts/Edit/EditBank";
 
 //Client Platform
 import LoginClient, {
@@ -295,7 +301,7 @@ import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
-import CreateWH from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
+import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
@@ -380,6 +386,7 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
+import { getWarehouses } from "./pages/Inventory/GeneralWarehouses/utils";
 
 const router = createBrowserRouter([
   {
@@ -856,10 +863,19 @@ const router = createBrowserRouter([
       {
         path: "/bank-management",
         element: <SideLayoutBankManag />,
+        action: CreateNewBank,
         children: [
           {
             index: true,
             element: <MainBankManagement />,
+            action: CreateNewBank,
+            loader: getBanks,
+          },
+          {
+            path: "/bank-management/edit-bank/:id",
+            element: <EditBank />,
+            loader: getBank,
+            action: updateBank,
           },
           {
             path: "/bank-management/collection",
@@ -981,10 +997,13 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-warehouses",
             element: <MainGW />,
+            loader: getWarehouses
+            
           },
           {
             path: "/inventory/general-warehouses/create",
             element: <CreateWH />,
+            action: createWarehouses
           },
           {
             path: "/inventory/merchandise-movements",

@@ -109,7 +109,7 @@ function NewEgress() {
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-between rounded-xl bg-blancoBg px-12 py-4">
+        <div className="flex w-full items-center justify-between rounded-xl bg-blancoBg px-8 p-4">
           <div className="flex w-full gap-x-8">
             <div>
               <Input

@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import { formatNumber } from "../../Components/utils";
+import ModalDeleteBank from "../Modals/ModalDeleteBank";
 
-export const AccountsColumns = (editFunction, deleteFunction) => [
+export const BanksColumns =  [
   {
     id: "name",
     header: "NOMBRE",
@@ -16,53 +16,51 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
-           
           />
           <label>{row?.original?.name}</label>
         </div>
       );
     },
     meta: {
-      filterButton: true
+      filterButton: true,
     },
-    filterFn: "equals",
+    // filterFn: "equals",
   },
   {
-    id: "bank",
-    header: "BANCO",
-    accessorKey: "bank",
+    id: "country",
+    header: "PAÍS",
+    accessorKey: "country",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
   {
-    id: "type",
-    header: "TIPO",
-    accessorKey: "type",
+    id: "bank_id",
+    header: "ID DEL BANCO",
+    accessorKey: "bank_id",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
   {
-    id: "accountNumber",
-    header: "NO. CUENTA",
-    accessorKey: "accountNumber",
+    id: "phone",
+    header: "TELÉFONO",
+    accessorKey: "phone",
   },
   {
-    id: "balance",
-    header: "SALDO",
-    accessorKey: "balance",
-    cell: ({ row }) => {
-      return <>{formatNumber(row?.original?.balance)}</>;
-    },
+    id: "mail",
+    header: "EMAIL",
+    accessorKey: "mail",
   },
   {
     id: "actions",
     header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
+      const navigation = useNavigate(); // Hook dentro de la celda
+
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
@@ -71,12 +69,10 @@ export const AccountsColumns = (editFunction, deleteFunction) => [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <button type="button" onClick={() => editFunction(row?.original?.id)}>
-            <IonIcon  icon={create} className="h-5 w-5"></IonIcon>
-          </button>
-          <button type="button" onClick={() => deleteFunction(row?.original?.id)}>
-            <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
-          </button>
+          <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
+            <IonIcon icon={create} className="h-5 w-5"></IonIcon>
+          </Link>
+          <ModalDeleteBank bank_id={row?.original?.id}/>
         </div>
       );
     },

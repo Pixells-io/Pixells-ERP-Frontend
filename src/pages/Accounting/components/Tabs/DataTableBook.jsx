@@ -20,8 +20,8 @@ const TableBook = () => {
       codigo: ["56273", "56274"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Marketing"],
-      debito: ["1000", "500"],
-      credito: ["0", "0"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "002",
@@ -31,8 +31,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "003",
@@ -42,8 +42,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
     {
       poliza: "004",
@@ -53,8 +53,8 @@ const TableBook = () => {
       codigo: ["56275", "56276"],
       cuenta: ["AC", "AC"],
       centro: ["Ventas", "Administración"],
-      debito: ["1000", "800"],
-      credito: ["2000", "1000"]
+      debito: ["1000", "0"],
+      credito: ["0", "1000"]
     },
   ];
 
@@ -94,14 +94,14 @@ const TableBook = () => {
           <TableBody className="text-sm font-roboto text-[#44444F] font-normal">
             {paginatedData.map((row, rowIndex) => (
               [0, 1].map((subIndex) => (
-                <TableRow key={`${rowIndex}-${subIndex}`} className="">
-                  <TableCell className="text-center">
+                <TableRow key={`${rowIndex}-${subIndex}`}>
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.poliza : ""}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.estado : ""}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className={`text-center ${subIndex === 0 ? 'border-b border-transparent' : ''}`}>
                     {subIndex === 0 ? row.fecha : ""}
                   </TableCell>
                   <TableCell className="text-center">{row.tercero[subIndex]}</TableCell>
