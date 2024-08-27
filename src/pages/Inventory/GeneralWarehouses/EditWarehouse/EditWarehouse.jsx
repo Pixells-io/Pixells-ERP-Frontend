@@ -43,19 +43,18 @@ const EditWH = () => {
   }, [location, warehouseId]);
 
   const [formData, setFormData] = useState({
-    code: warehouse?.code || "",
+    code: warehouse?.inventory_code || "",
     name: warehouse?.name || "",
     street: warehouse?.street || "",
     ext: warehouse?.ext || "",
     int: warehouse?.int || "",
     cp: warehouse?.cp || "",
+    active: warehouse?.active === 1 ? true : false,
     city: warehouse?.city || "",
     colony: warehouse?.colony || "",
     state: warehouse?.state || "",
     country: warehouse?.country || "",
   });
-  
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -68,7 +67,6 @@ const EditWH = () => {
 
   const handleDeleteClick = () => {
     setHiddenValue("destroy_inventory");
-    console.log(warehouse)
   };
   return (
     <div className="flex w-full">
@@ -136,7 +134,7 @@ const EditWH = () => {
           ))}
           <div className="mt-6 flex justify-end space-x-6">
             <button
-              type="button"
+              type="submit"
               className="border-red text-red rounded-lg bg-transparent px-4 py-2 font-semibold shadow-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
               onClick={handleDeleteClick}
             >
@@ -159,14 +157,17 @@ export default EditWH;
 
 export async function Action({ request }) {
   const formData = await request.formData();
+
   switch (formData.get("type")) {
     case "edit":
       await editWarehouse(formData);
+      return redirect("/inventory/general-warehouses");
       break;
 
     case "destroy_inventory":
       await destroyWarehouse(formData);
       return redirect("/inventory/general-warehouses");
+      break;
   }
   return "0";
 }

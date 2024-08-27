@@ -18,16 +18,7 @@ const FormGroup = ({ formData, handleInputChange }) => {
     { nombre: 'Cuenta K', codigoCuenta: '011', nombreCuenta: 'Cuenta de Ejemplo K' }
   ];
 */
-  const [generalData, setGeneralData] = useState({
-    street: "",
-    ext: "",
-    int: "",
-    cp: "",
-    city: "",
-    colony: "",
-    state: "",
-    country: ""
-  });
+ 
   return (
     <div className="w-full overflow-auto">
       <Tabs defaultValue="general" className="w-full">

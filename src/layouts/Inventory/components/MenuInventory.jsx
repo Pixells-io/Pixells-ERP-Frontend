@@ -23,7 +23,7 @@ const MENU_ITEMS = [
     name: "Almacenes",
     subname: "Generales",
     icon: cube,
-    subRoutes: ["/inventory/general-warehouses/create"],
+    subRoutes: ["/inventory/general-warehouses/"],
   },
   { path: "/", name: "Ubicaciones", subname: "De Almacén", icon: fileTray },
   {
