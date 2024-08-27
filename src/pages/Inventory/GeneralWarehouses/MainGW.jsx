@@ -23,7 +23,7 @@ const MainGW = () => {
 
   async function getWarehousesFunction() {
     let newData = await getWarehouses();
-    console.log(newData)
+   
     setwarehouseInfo(newData.data);
   }
 
@@ -42,7 +42,7 @@ const MainGW = () => {
 
   const columns = [
     {
-      accessorKey: "codigo",
+      accessorKey: "inventory_code",
       header: "Código",
       cell: ({ row }) => {
         return (
@@ -52,7 +52,7 @@ const MainGW = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.codigo}</label>
+            <label>{row?.original?.inventory_code}</label>
           </div>
         );
       },
@@ -81,7 +81,7 @@ const MainGW = () => {
       header: "Tipo",
     },
     {
-      accessorKey: "creadoPor",
+      accessorKey: "creator",
       header: "Creado Por",
       cell: ({ row }) => (
         <Avatar className="h-6 w-6">
@@ -91,7 +91,7 @@ const MainGW = () => {
       ),
     },
     {
-      accessorKey: "creacion",
+      accessorKey: "created",
       header: "Creación",
     },
     {
@@ -186,7 +186,7 @@ const MainGW = () => {
               <DataTable
                 data={data}
                 columns={columns}
-                searchFilter="codigo"
+                searchFilter="inventory_code"
                 searchNameFilter="Buscar por código"
                 isCheckAll={true}
               />
