@@ -3,17 +3,16 @@ import { json } from "react-router-dom";
 
 export async function saveNewWarehouse(data) {
 
-   
   const info = {
-    name: data.name,
-    street: data.street,
-    ext: data.ext,
-    int: data.int,
-    cp: data.cp,
-    city: data.city,
-    colony: data.colony,
-    state: data.state,
-    country: data.country,
+    name: data.get("name"),
+    street: data.get("street"),
+    ext: data.get("ext"),
+    int: data.get("int"),
+    cp: data.get("cp"),
+    city: data.get("city"),
+    colony: data.get("colony"),
+    state: data.get("state"),
+    country: data.get("country"),
   };
 
     const response = await fetch(
@@ -40,8 +39,12 @@ export async function saveNewWarehouse(data) {
           },
         },
       );
+      
       return response.json();
+      
     } catch (error) {
       return new Response("Something went wrong...", { status: 500 });
     }
   }
+
+  console.log(getWarehouses())

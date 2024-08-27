@@ -23,14 +23,14 @@ const MainGW = () => {
 
   async function getWarehousesFunction() {
     let newData = await getWarehouses();
-   
+    console.log(newData.data)
     setwarehouseInfo(newData.data);
   }
 
   useEffect(() => {
     pusherClient.subscribe("private-get-inventories");
 
-    pusherClient.bind("fill-inventories-list", ({ message }) => {
+    pusherClient.bind("fill-inventories", ({ message }) => {
       getWarehousesFunction();
     });
 
