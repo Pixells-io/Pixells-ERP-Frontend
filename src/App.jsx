@@ -388,6 +388,7 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
+import MainWL from "./pages/Inventory/WarehouseLocations/MainWL";
 
 
 const router = createBrowserRouter([
@@ -1013,6 +1014,10 @@ const router = createBrowserRouter([
             action: editWarehouses,
             loader:getWarehouse
           },
+            {
+              path:"/inventory/warehouse-locations",
+              element:<MainWL/> ,
+            },
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
