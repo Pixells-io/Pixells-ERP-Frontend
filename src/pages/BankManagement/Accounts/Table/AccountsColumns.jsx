@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle, create, trash } from "ionicons/icons";
+import { informationCircle, create } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import ModalDeleteBank from "../Modals/ModalDeleteBank";
+import ModalDeleteBankAccount from "../Modals/ModalDeleteBankAccount";
 
 export const AccountsColumns =  [
   {
@@ -67,10 +67,10 @@ export const AccountsColumns =  [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
+          <Link to={`/bank-management/edit-bank-account/` + row?.original?.id}>
             <IonIcon icon={create} className="h-5 w-5"></IonIcon>
           </Link>
-          {/* <ModalDeleteBank bank_id={row?.original?.id}/> */}
+          <ModalDeleteBankAccount bank_account_id={row?.original?.id}/>
         </div>
       );
     },

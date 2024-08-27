@@ -15,7 +15,7 @@ import {
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
-import { destroyBank, getBanks, saveBank, saveBankAccount } from "./Accounts/utils";
+import { destroyBank, destroyBankAccount, getBanks, saveBank, saveBankAccount } from "./Accounts/utils";
 import { createPusherClient } from "@/lib/pusher";
 import { BanksColumns } from "./Accounts/Table/BanksColumns";
 import DataTable from "@/components/table/DataTable";
@@ -202,8 +202,10 @@ export async function Action({ request }) {
     case "save_bankAccount":
       await saveBankAccount(data);
       break;
+    case "destroy_bankAccount":
+      await destroyBankAccount(data);
+      break;
   }
 
   return redirect(`/bank-management`);
-  
 }
