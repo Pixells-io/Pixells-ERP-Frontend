@@ -8,7 +8,7 @@ import { editBank } from "../utils";
 function EditBank() {
   const navigation = useNavigation();
   const { data } = useLoaderData();
-
+  // prueba edit
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
