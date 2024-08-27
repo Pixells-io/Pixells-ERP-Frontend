@@ -23,14 +23,13 @@ const MainGW = () => {
 
   async function getWarehousesFunction() {
     let newData = await getWarehouses();
-    console.log(newData.data)
     setwarehouseInfo(newData.data);
   }
 
   useEffect(() => {
     pusherClient.subscribe("private-get-inventories");
 
-    pusherClient.bind("fill-inventories", ({ message }) => {
+    pusherClient.bind("fill-inventories-list", ({ message }) => {
       getWarehousesFunction();
     });
 
@@ -39,7 +38,6 @@ const MainGW = () => {
     };
   }, []); 
   
-
   const columns = [
     {
       accessorKey: "inventory_code",
@@ -64,7 +62,7 @@ const MainGW = () => {
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       meta: { filterButton: true },
     },
@@ -83,12 +81,6 @@ const MainGW = () => {
     {
       accessorKey: "creator",
       header: "Creado Por",
-      cell: ({ row }) => (
-        <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      ),
     },
     {
       accessorKey: "created",
@@ -98,7 +90,8 @@ const MainGW = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
+          <Link to={`/inventory/general-warehouses/edit/${row.original.id}`}>
         <Button
           type="button"
           className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -108,6 +101,7 @@ const MainGW = () => {
             className="h-5 w-5 text-[#696974]"
           />
         </Button>
+        </Link>
       </div>
       ),
     },
@@ -169,7 +163,7 @@ const MainGW = () => {
         </div>
         {/*content */}
 
-        <div className="w-full">
+        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="warehouse"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -184,10 +178,10 @@ const MainGW = () => {
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
-                data={data}
+                data={warehouseInfo}
                 columns={columns}
-                searchFilter="inventory_code"
-                searchNameFilter="Buscar por código"
+                searchFilter="name"
+                searchNameFilter="Buscar por nombre"
                 isCheckAll={true}
               />
             </TabsContent>
