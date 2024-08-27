@@ -124,6 +124,7 @@ function NewObjectiveForm({ open, setOpen, areas }) {
               name="area"
               placeholder="Select Area"
               options={areaArray}
+              isMulti={true}
             />
             <div className="flex self-end pb-4">
               <Button className="bg-primario px-8" type="submit">
