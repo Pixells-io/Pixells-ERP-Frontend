@@ -10,18 +10,18 @@ import { BarChartInterComp } from "@/components/charts/BarChartInterComp";
 
 const chartConfigPie = {
   Individual: {
-    label: "Individual",
+    label: "Fisica",
     color: "hsl(var(--chart-2))",
   },
   Business: {
-    label: "Business",
+    label: "Moral",
     color: "hsl(var(--chart-1))",
   },
 };
 
 const chartConfigArea = {
   desktop: {
-    label: "Sales",
+    label: "Ventas",
     color: "hsl(var(--chart-1))",
   },
 };
@@ -92,7 +92,7 @@ function CrmCharts({ data }) {
               chartData={orderNumberAndLimit(data.client_sales, 5)}
               chartConfig={{
                 number: {
-                  label: "Sales-",
+                  label: "Ventas-",
                   color: "hsl(var(--chart-1))",
                 },
               }}
