@@ -18,23 +18,23 @@ export async function getCategories() {
 }
 
 export async function saveCategory(data) {
-    const info = {
-        code: data.get("code"),
-        name: data.get("name"),
-    };
-  
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}products/save-categories`,
-      {
-        method: "POST",
-        body: JSON.stringify(info),
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
+  const info = {
+    code: data.get("code"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/save-categories`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
       },
-    );
-  
-    return response.json();
+    },
+  );
+
+  return response.json();
 }
 
 export async function destroyCategory(data) {
@@ -58,9 +58,9 @@ export async function destroyCategory(data) {
 
 export async function editCategory(data) {
   const info = {
-      category_id: data.get("category_id"),
-      code: data.get("code"),
-      name: data.get("name"),
+    category_id: data.get("category_id"),
+    code: data.get("code"),
+    name: data.get("name"),
   };
 
   const response = await fetch(
@@ -78,16 +78,19 @@ export async function editCategory(data) {
 }
 
 export async function multiloaderInventory() {
-  const [categories] = await Promise.all([
-    getCategories(),
-  ]);
+  const [categories] = await Promise.all([getCategories()]);
   return json({ categories });
 }
 
 export async function saveAttribute(data) {
+  const names = data.getAll("name[]");
+  const statuses = names.map(
+    (name, index) => data.get(`status-${index + 1}`) || "0",
+  );
+
   const info = {
-    name: data.get("name"),
-    status: data.get("status") == "true" ? "1" : "0",
+    name: names,
+    status: statuses,
   };
 
   const response = await fetch(
