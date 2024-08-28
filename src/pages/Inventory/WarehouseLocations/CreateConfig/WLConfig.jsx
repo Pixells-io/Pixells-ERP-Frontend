@@ -57,3 +57,19 @@ const WLConfig = () => {
 };
 
 export default WLConfig;
+
+
+export async function Action({ request }) {
+    const formData = await request.formData();
+    const codes = formData.getAll("code[]");
+    const names = formData.getAll("name[]");
+    const variableIds = formData.get("variable_id[]");
+  
+    console.log("Codes:", codes);
+    console.log("Names:", names);
+    console.log("Variable IDs:", variableIds);
+  
+    // Process the data as needed...
+  
+    return "0";
+  }

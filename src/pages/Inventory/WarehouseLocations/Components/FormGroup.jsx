@@ -3,18 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AreaForm from "../../WarehouseLocations/Components/Forms/AreaForm";
 const FormGroup = () => {
 
-  const [generalData, setGeneralData] = useState({
-    sImpuesto: false,
-    devo: false,
-    fabricante: "",
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: ""
-  });
-
-
 
   return (
     <div className="w-full overflow-hidden">

@@ -311,7 +311,7 @@ import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWa
 import EditWH,{Action as editWarehouses} from "./pages/Inventory/GeneralWarehouses/EditWarehouse/EditWarehouse";
 import {getWarehouses,getWarehouse } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainWL, {Action as createNewConfigure} from "./pages/Inventory/WarehouseLocations/MainWL";import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
-import WLConfig from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
+import WLConfig,{Action as createConfigureSlots} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
@@ -1040,6 +1040,7 @@ const router = createBrowserRouter([
           {
             path:"/inventory/warehouse-locations/config",
             element:<WLConfig/> ,
+            action:createConfigureSlots
         },
           {
              path:"/inventory/warehouse-locations/create",
