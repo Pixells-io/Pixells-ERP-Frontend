@@ -302,7 +302,9 @@ import UserMediaLibrary, {
 
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
-import MainGeneral from "./pages/Inventory/General/MainGeneral";
+import MainGeneral, {
+  Action as CreateNewCategory,
+} from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
@@ -1000,6 +1002,7 @@ const router = createBrowserRouter([
       {
         path: "/inventory",
         element: <SideLayoutInventory />,
+        action: CreateNewCategory,
         children: [
           {
             index: true,
