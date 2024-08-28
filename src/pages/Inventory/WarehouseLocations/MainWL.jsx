@@ -64,6 +64,7 @@ const MainWL = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ubicaciones de Almacén
           </p>
+          <Link to="/inventory/warehouse-locations/create">
             <Button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -73,6 +74,7 @@ const MainWL = () => {
                 className="h-7 w-7 text-primarioBotones"
               />
             </Button>
+          </Link>
         </div>
         {/*content */}
 
