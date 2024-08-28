@@ -10,12 +10,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link, redirect } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewCategory from "./Modals/NewCategory";
-import { saveCategory } from "./utils";
+import { destroyCategory, saveCategory } from "./utils";
+import Category from "./components/Tabs/Category";
 const MainGeneral = () => {
+  const { categories } = useLoaderData();
+
   const [modalNewCategory, setModalNewCategory] = useState(false);
   const data = [
     {
@@ -203,17 +206,6 @@ const MainGeneral = () => {
                 </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {/* <Link to="/inventory/create">
-            <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
-          </Link> */}
         </div>
         {/*content */}
         <div className="w-full">
@@ -245,12 +237,8 @@ const MainGeneral = () => {
               />
             </TabsContent>
             <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
-              <DataTable
-                data={data}
-                columns={columns}
-                searchFilter="codigo"
-                searchNameFilter="Buscar por código"
-                isCheckAll={true}
+              <Category
+              categories={categories.data}
               />
             </TabsContent>
           </Tabs>
@@ -267,6 +255,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "save_category":
       await saveCategory(data);
+      break;
+    case "destroy_category":
+      await destroyCategory(data);
       break;
   }
 
