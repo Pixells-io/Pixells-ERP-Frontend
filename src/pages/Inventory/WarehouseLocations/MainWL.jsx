@@ -6,6 +6,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
+import { saveNewConfigure } from "./utils";
 
 const MainWL = () => {
   const data = [
@@ -64,17 +66,20 @@ const MainWL = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ubicaciones de Almacén
           </p>
-          <Link to="/inventory/warehouse-locations/create">
-            <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
-          </Link>
+          <div className="flex items-start justify-start">
+            <Link to="/inventory/warehouse-locations/create">
+              <Button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              >
+                <IonIcon
+                  icon={addCircleOutline}
+                  className="h-7 w-7 text-primarioBotones"
+                />
+              </Button>
+            </Link>
+            <ConfigureSublv />
+          </div>
         </div>
         {/*content */}
 
@@ -108,3 +113,12 @@ const MainWL = () => {
 };
 
 export default MainWL;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await saveNewConfigure(formData);
+  console.log(response.data);
+  return "0";
+}
+
+

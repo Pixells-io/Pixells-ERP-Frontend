@@ -107,6 +107,6 @@ export default CreateWH;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  const response = await saveNewWarehouse(formData);
+  const response = await  saveNewWarehouse(formData);
   return redirect("/inventory/general-warehouses");
 }
