@@ -56,6 +56,27 @@ export async function destroyCategory(data) {
   return response.json();
 }
 
+export async function editCategory(data) {
+  const info = {
+      category_id: data.get("category_id"),
+      code: data.get("code"),
+      name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/edit-categories`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function multiloaderInventory() {
   const [categories] = await Promise.all([
     getCategories(),

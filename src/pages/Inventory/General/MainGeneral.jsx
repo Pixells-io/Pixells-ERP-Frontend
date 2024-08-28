@@ -14,7 +14,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewCategory from "./Modals/NewCategory";
-import { destroyCategory, saveCategory } from "./utils";
+import { destroyCategory, editCategory, saveCategory } from "./utils";
 import Category from "./components/Tabs/Category";
 const MainGeneral = () => {
   const { categories } = useLoaderData();
@@ -258,6 +258,9 @@ export async function Action({ request }) {
       break;
     case "destroy_category":
       await destroyCategory(data);
+      break;
+    case "edit_category": 
+      await editCategory(data);
       break;
   }
 
