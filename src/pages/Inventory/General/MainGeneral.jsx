@@ -208,7 +208,6 @@ const MainGeneral = () => {
           </div>
         </div>
         {/*content */}
-        <div className="w-full">
           <Tabs
             defaultValue="ARTÍCULOS"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -242,7 +241,6 @@ const MainGeneral = () => {
               />
             </TabsContent>
           </Tabs>
-        </div>
       </div>
     </div>
   );
