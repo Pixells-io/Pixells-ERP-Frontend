@@ -83,3 +83,23 @@ export async function multiloaderInventory() {
   ]);
   return json({ categories });
 }
+
+export async function saveAttribute(data) {
+  const info = {
+    name: data.get("name"),
+    status: data.get("status") == "true" ? "1" : "0",
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/create-attributes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

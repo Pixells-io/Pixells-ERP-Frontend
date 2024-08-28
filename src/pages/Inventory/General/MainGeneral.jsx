@@ -14,12 +14,14 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewCategory from "./Modals/NewCategory";
-import { destroyCategory, editCategory, saveCategory } from "./utils";
+import { destroyCategory, editCategory, saveAttribute, saveCategory } from "./utils";
 import Category from "./components/Tabs/Category";
+import NewAttribute from "./Modals/NewAttribute";
 const MainGeneral = () => {
   const { categories } = useLoaderData();
 
   const [modalNewCategory, setModalNewCategory] = useState(false);
+  const [modalNewAttribute, setModalNewAttribute] = useState(false);
   const data = [
     {
       codigo: "0987",
@@ -133,6 +135,10 @@ const MainGeneral = () => {
         modal={modalNewCategory}
         setModal={setModalNewCategory}
       />
+      <NewAttribute 
+        modal={modalNewAttribute}
+        setModal={setModalNewAttribute}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -200,6 +206,7 @@ const MainGeneral = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
+                    onClick={() => setModalNewAttribute(true)}
                   >
                     Atributos
                   </DropdownMenuItem>
@@ -259,6 +266,9 @@ export async function Action({ request }) {
       break;
     case "edit_category": 
       await editCategory(data);
+      break;
+    case "save_attribute": 
+      await saveAttribute(data);
       break;
   }
 
