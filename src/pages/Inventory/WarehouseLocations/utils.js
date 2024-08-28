@@ -23,5 +23,3 @@ export async function saveNewConfigure(data) {
   
     return response.json();
   }
-
-  
