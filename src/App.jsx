@@ -309,9 +309,8 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
 import EditWH,{Action as editWarehouses} from "./pages/Inventory/GeneralWarehouses/EditWarehouse/EditWarehouse";
-import {getWarehouses,getWarehouse, editWarehouse } from "./pages/Inventory/GeneralWarehouses/utils";
-import MainWL from "./pages/Inventory/WarehouseLocations/MainWL";
-import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
+import {getWarehouses,getWarehouse } from "./pages/Inventory/GeneralWarehouses/utils";
+import MainWL, {Action as createNewConfigure} from "./pages/Inventory/WarehouseLocations/MainWL";import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
@@ -1031,9 +1030,11 @@ const router = createBrowserRouter([
             action: editWarehouses,
             loader:getWarehouse
           },
+         
           {
               path:"/inventory/warehouse-locations",
               element:<MainWL/> ,
+              action: createNewConfigure
           },
           {
              path:"/inventory/warehouse-locations/create",
