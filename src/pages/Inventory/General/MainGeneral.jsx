@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -10,9 +10,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import NewCategory from "./Modals/NewCategory";
+import { saveCategory } from "./utils";
 const MainGeneral = () => {
+  const [modalNewCategory, setModalNewCategory] = useState(false);
   const data = [
     {
       codigo: "0987",
@@ -121,6 +125,11 @@ const MainGeneral = () => {
 
   return (
     <div className="flex w-full">
+      {/* Modals */}
+      <NewCategory
+        modal={modalNewCategory}
+        setModal={setModalNewCategory}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -161,7 +170,40 @@ const MainGeneral = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Artículos General
           </p>
-          <Link to="/inventory/create">
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                >
+                  <IonIcon
+                    icon={addCircleOutline}
+                    className="h-7 w-7 text-primarioBotones"
+                  />
+                </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="rounded-2xl">
+                  <DropdownMenuItem
+                    className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
+                  >
+                    Artículo
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
+                    onClick={() => setModalNewCategory(true)}
+                  >
+                    Categoría
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
+                  >
+                    Atributos
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          {/* <Link to="/inventory/create">
             <Button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -171,7 +213,7 @@ const MainGeneral = () => {
                 className="h-7 w-7 text-primarioBotones"
               />
             </Button>
-          </Link>
+          </Link> */}
         </div>
         {/*content */}
         <div className="w-full">
@@ -219,3 +261,15 @@ const MainGeneral = () => {
 };
 
 export default MainGeneral;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "save_category":
+      await saveCategory(data);
+      break;
+  }
+
+  return redirect(`/inventory`);
+}
+
