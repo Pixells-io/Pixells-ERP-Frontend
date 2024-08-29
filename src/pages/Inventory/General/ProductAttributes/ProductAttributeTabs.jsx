@@ -59,7 +59,7 @@ const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
             value={attribute.id}
             className="w-full flex-1 rounded-[10px] bg-blancoBg p-4"
           >
-            <FormProduct attribute_id={attribute.id} slots={attribute.slots} />
+            <FormProduct attribute_id={attribute.id} attribute_name={attribute.name} slots={attribute.slots} />
           </TabsContent>
         ))
       }
