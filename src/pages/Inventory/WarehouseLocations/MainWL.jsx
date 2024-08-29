@@ -1,39 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
-import { Link, useLoaderData,redirect } from "react-router-dom";
+import { Link,redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
-import {saveNewConfigure, getsubLocation } from "./utils";
-import { createPusherClient } from "@/lib/pusher";
+import {saveNewConfigure } from "./utils";
 
 const MainWL = () => {
 
-  const { data } = useLoaderData();
-  const [configInfo, setConfigInfo] = useState(data);
-
-  const pusherClient = createPusherClient();
-
-  async function getSubLocationFunction() {
-    let newData = await getsubLocation();
-    console.log(newData)
-    setConfigInfo(newData.data);
-  }
-
-  useEffect(() => {
-    pusherClient.subscribe("private-get-sub-ubications");
-
-    pusherClient.bind("fill-sub-ubications", ({ message }) => {
-      getSubLocationFunction();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("private-get-sub-ubications");
-    };
-  }, []);
+ 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

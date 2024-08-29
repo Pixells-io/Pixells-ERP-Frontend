@@ -1058,11 +1058,12 @@ const router = createBrowserRouter([
             path: "/inventory/warehouse-locations",
             element: <MainWL />,
             action: createNewConfigure,
-            loader:  getsubLocation
+          
           },
           {
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
+            loader:  getsubLocation
           },
           {
             path: "/inventory/merchandise-movements",

@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import FormLocation from "../Components/FormLocation";
+import { useLoaderData,redirect } from "react-router-dom";
+import { getsubLocation } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const CreateLocation = () => {
+  const { data } = useLoaderData();
+  const [configInfo, setConfigInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getSubLocationFunction() {
+    let newData = await getsubLocation();
+    setConfigInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-sub-ubications");
+
+    pusherClient.bind("fill-sub-ubications", ({ message }) => {
+      getSubLocationFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-sub-ubications");
+    };
+  }, []);
+
   
   return (
     <div className="flex w-full">
