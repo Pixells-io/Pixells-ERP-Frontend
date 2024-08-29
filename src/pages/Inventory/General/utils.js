@@ -151,6 +151,31 @@ export async function saveAttributeSlots(data) {
   return response.json();
 }
 
+export async function updateAttributeSlot(data) {
+  const name = data.get("name");
+  const code = data.get("code");
+  const slot_id = data.get("slot_id");
+
+  const info = {
+    name: name,
+    code: code,
+    slot_id: slot_id,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/edit-attributes-slots`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function destroyAttributeSlot(data) {
   const info = {
     attribute_id: data.get("attribute_id"),

@@ -30,7 +30,7 @@ const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
 
   return (
     <Tabs className="flex h-full w-full flex-col">
-      <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent">
+      <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent overflow-auto">
         <div className="flex flex-wrap justify-start gap-3">
           {attributesInfo.map((attribute, index) => (
             <TabsTrigger
@@ -59,7 +59,7 @@ const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
             value={attribute.id}
             className="w-full flex-1 rounded-[10px] bg-blancoBg p-4"
           >
-            <FormProduct attribute_id={attribute.id} slots={attribute.slots} />
+            <FormProduct attribute_id={attribute.id} attribute_name={attribute.name} slots={attribute.slots} />
           </TabsContent>
         ))
       }
