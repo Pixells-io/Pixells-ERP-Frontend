@@ -33,7 +33,14 @@ import {
   grid,
   bookmark,
   logOut,
-  albumsOutline,
+  albums,
+  card,
+  calculator,
+  cube,
+  receipt,
+  documentText,
+  flask,
+  storefront,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -41,63 +48,109 @@ import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
-import { CrmApiFunction } from "@/pages/Organization/utils";
 
-const MENU = [
-  {
-    id: "1",
-    path: "/organization",
-    name: "Organization",
-    icon: personCircle,
-  },
-  {
-    id: "2",
-    path: "/project-manager",
-    name: "Project Manager",
-    icon: flag,
-  },
-  {
-    id: "3",
-    path: "/crm",
-    name: "CRM",
-    icon: disc,
-  },
-  {
-    id: "4",
-    path: "/chat",
-    name: "Chat",
-    icon: chatbubble,
-  },
-  {
-    id: "5",
-    path: "/analytics",
-    name: "Analytics",
-    icon: barChart,
-  },
-  {
-    id: "6",
-    path: "/org-development/induction",
-    name: "Org Dev",
-    icon: people,
-  },
-  {
-    id: "7",
-    path: "/tickets",
-    name: "Ticket",
-    icon: ticket,
-  },
-  {
-    id: "8",
-    path: "/topics/0",
-    name: "Topics",
-    icon: albumsOutline,
-  },
-  /*{
-    path: "/configuration",
-    name: "Config",
-    icon: cog,
-  },*/
-];
+let MENU_ORGANIZATIONAL = [];
+let MENU_TRANSACTIONAL = [];
+
+if (import.meta.env.VITE_ORGANIZATIONAL_MODULES === "1") {
+  MENU_ORGANIZATIONAL = [
+    {
+      id: "1",
+      path: "/organization",
+      name: "Organization",
+      icon: personCircle,
+    },
+    {
+      id: "2",
+      path: "/project-manager",
+      name: "Project Manager",
+      icon: flag,
+    },
+    {
+      id: "3",
+      path: "/crm",
+      name: "CRM",
+      icon: disc,
+    },
+    {
+      id: "4",
+      path: "/chat",
+      name: "Chat",
+      icon: chatbubble,
+    },
+    {
+      id: "5",
+      path: "/analytics",
+      name: "Analytics",
+      icon: barChart,
+    },
+    {
+      id: "6",
+      path: "/org-development/induction",
+      name: "Org Dev",
+      icon: people,
+    },
+    {
+      id: "7",
+      path: "/tickets",
+      name: "Ticket",
+      icon: ticket,
+    },
+    {
+      id: "8",
+      path: "/topics/0",
+      name: "Topics",
+      icon: albums,
+    },
+  ];
+}
+
+if (import.meta.env.VITE_TRANSACTIONAL_MODULES === "1") {
+  MENU_TRANSACTIONAL = [
+    {
+      id: "9",
+      path: "/bank-management",
+      name: "Bank Management",
+      icon: card,
+    },
+    {
+      id: "10",
+      path: "/accounting",
+      name: "Accounting",
+      icon: calculator,
+    },
+    {
+      id: "11",
+      path: "/inventory",
+      name: "Inventory",
+      icon: cube,
+    },
+    {
+      id: "12",
+      path: "/sales",
+      name: "Sales",
+      icon: receipt,
+    },
+    {
+      id: "13",
+      path: "/shopping",
+      name: "Shopping",
+      icon: documentText,
+    },
+    {
+      id: "14",
+      path: "/transformation",
+      name: "Transformation",
+      icon: flask,
+    },
+    {
+      id: "15",
+      path: "/pos",
+      name: "Pos",
+      icon: storefront,
+    },
+  ];
+}
 
 function MainLayout() {
   const [user, setUser] = useState("");
@@ -105,7 +158,9 @@ function MainLayout() {
   const location = useLocation();
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData, permissions } = useLoaderData();
-  const [moduleShow, setModuleShow] = useState(MENU);
+  const [moduleShow, setModuleShow] = useState(MENU_ORGANIZATIONAL);
+  const [moduleTransactionalShow, setModuleTransactionalShow] =
+    useState(MENU_TRANSACTIONAL);
 
   const userData = userAuth.data.user;
 
@@ -130,16 +185,12 @@ function MainLayout() {
   }
 
   useEffect(() => {
+    //Irganizational Modules
     const modulos = permissions.data.map((module) =>
-      MENU.filter((item) => item.id == module.module_id),
+      MENU_ORGANIZATIONAL.filter((item) => item.id == module.module_id),
     );
     setModuleShow(modulos);
   }, []);
-
-  async function functionActivateApi() {
-    const request = await CrmApiFunction(user.user.email);
-    window.location.href = request.data;
-  }
 
   return (
     <div className="flex h-screen min-h-0 flex-col">
@@ -216,6 +267,38 @@ function MainLayout() {
                     </div>
                   </DropdownMenuItem>
                 )}
+              </div>
+            ))}
+            {moduleTransactionalShow.map((item, i) => (
+              <div key={i}>
+                <DropdownMenuItem key={i} className="focus:bg-transparent">
+                  <div className="flex flex-col">
+                    <NavLink
+                      to={item?.path}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-primario text-white"
+                          : "group flex h-16 w-20 flex-col items-center justify-center rounded-2xl bg-blancoBox text-grisText hover:bg-primario hover:text-white"
+                      }
+                    >
+                      <IonIcon
+                        icon={item?.icon}
+                        className="h-10 w-10"
+                      ></IonIcon>
+                      {location?.pathname === item?.path ? (
+                        <div className="w-11 truncate text-[10px]">
+                          <p className="text-center">{item?.name}</p>
+                        </div>
+                      ) : (
+                        <div className="hidden w-11 truncate text-[10px] group-hover:flex">
+                          <p className="group-hover:mx-auto group-hover:flex">
+                            {item?.name}
+                          </p>
+                        </div>
+                      )}
+                    </NavLink>
+                  </div>
+                </DropdownMenuItem>
               </div>
             ))}
           </DropdownMenuContent>
