@@ -30,7 +30,7 @@ const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
 
   return (
     <Tabs className="flex h-full w-full flex-col">
-      <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent">
+      <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent overflow-auto">
         <div className="flex flex-wrap justify-start gap-3">
           {attributesInfo.map((attribute, index) => (
             <TabsTrigger

@@ -109,6 +109,7 @@ const NewAttribute = ({ modal, setModal }) => {
                   onChange={(e) =>
                     handleNameChange(sublevel.id, e.target.value)
                   }
+                  required={true}
                   placeholder="Agrega"
                   className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
                 />
