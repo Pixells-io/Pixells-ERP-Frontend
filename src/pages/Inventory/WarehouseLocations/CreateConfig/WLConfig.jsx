@@ -4,8 +4,11 @@ import { saveNewConfigSlots } from "../utils";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { redirect } from "react-router-dom";
 import FormGroup from "../Components/FormGroup";
+import { useParams } from "react-router-dom";
 
 const WLConfig = () => {
+  const {id} =useParams()
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -51,7 +54,7 @@ const WLConfig = () => {
         </div>
         {/*content */}
         <div className="overflow-auto">
-          <FormGroup />
+          <FormGroup variable={id} />
         </div>
       </div>
     </div>

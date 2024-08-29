@@ -1050,7 +1050,7 @@ const router = createBrowserRouter([
             loader: getWarehouse,
           },
           {
-            path: "/inventory/warehouse-locations/config",
+            path: "/inventory/warehouse-locations/config/:id",
             element: <WLConfig />,
             action: saveSlotsConfig
           },

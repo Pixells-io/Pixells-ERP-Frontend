@@ -35,7 +35,7 @@ const ConfigureTable = ({ data }) => {
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
-          <Link to={`/inventory/general-warehouses/config/${row.original.id}`}>
+          <Link to={`/inventory/warehouse-locations/config/${row.original.id}`}>
             <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
