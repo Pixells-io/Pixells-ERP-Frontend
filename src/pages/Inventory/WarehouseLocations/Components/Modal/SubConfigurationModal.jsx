@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose
 } from "@/components/ui/dialog";
 
 const ConfigureSublv = () => {
@@ -27,8 +28,7 @@ const ConfigureSublv = () => {
       ),
     );
   };
-  
-  
+
   const handleNameChange = (id, name) => {
     setSublevels(
       sublevels.map((sublevel) =>
@@ -81,49 +81,50 @@ const ConfigureSublv = () => {
                 Estatus
               </label>
             </div>
-            {
-  sublevels.map((sublevel) => (
-    <div
-      key={sublevel.id}
-      className="mb-4 flex items-center space-x-4 border-b border-[#D7D7D7] pb-4"
-    >
-      <span className="w-20 font-roboto text-[14px] text-gris2">
-        Subnivel {sublevel.id}
-      </span>
-      <Input
-        name="name[]"
-        type="text"
-        value={sublevel.name}
-        onChange={(e) => handleNameChange(sublevel.id, e.target.value)}
-        placeholder="Agrega"
-        className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
-      />
-      <div className="flex items-center justify-between gap-x-2">
-        <Checkbox
-          name={`status-${sublevel.id}`}
-          value="1"
-          checked={sublevel.status === "1"}
-          onCheckedChange={(checked) => handleStatusChange(sublevel.id, checked)}
-          className="border-primarioBotones data-[state=checked]:bg-primarioBotones"
-        />
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-          onClick={() => handleRemoveSublevel(sublevel.id)}
-          disabled={sublevels.length === 1}
-        >
-          <IonIcon
-            icon={closeCircle}
-            size="small"
-            className="cursor-pointer text-grisDisabled"
-          />
-        </Button>
-      </div>
-    </div>
-  ))
-}
-
+            {sublevels.map((sublevel) => (
+              <div
+                key={sublevel.id}
+                className="mb-4 flex items-center space-x-4 border-b border-[#D7D7D7] pb-4"
+              >
+                <span className="w-20 font-roboto text-[14px] text-gris2">
+                  Subnivel {sublevel.id}
+                </span>
+                <Input
+                  name="name[]"
+                  type="text"
+                  value={sublevel.name}
+                  onChange={(e) =>
+                    handleNameChange(sublevel.id, e.target.value)
+                  }
+                  placeholder="Agrega"
+                  className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
+                />
+                <div className="flex items-center justify-between gap-x-2">
+                  <Checkbox
+                    name={`status-${sublevel.id}`}
+                    value="1"
+                    checked={sublevel.status === "1"}
+                    onCheckedChange={(checked) =>
+                      handleStatusChange(sublevel.id, checked)
+                    }
+                    className="border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
+                    onClick={() => handleRemoveSublevel(sublevel.id)}
+                    disabled={sublevels.length === 1}
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      size="small"
+                      className="cursor-pointer text-grisDisabled"
+                    />
+                  </Button>
+                </div>
+              </div>
+            ))}
 
             <Button
               variant="ghost"
@@ -137,12 +138,14 @@ const ConfigureSublv = () => {
               />
             </Button>
             <div className="flex justify-end pt-4">
+            <DialogClose asChild>
               <Button
                 type="submit"
                 className="bg-blue-500 text-white hover:bg-blue-600"
               >
                 Crear
               </Button>
+              </DialogClose>
             </div>
           </Form>
         </div>
