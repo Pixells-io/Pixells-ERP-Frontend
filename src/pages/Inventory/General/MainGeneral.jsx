@@ -17,6 +17,7 @@ import NewCategory from "./Modals/NewCategory";
 import { destroyCategory, editCategory, saveAttribute, saveCategory } from "./utils";
 import Category from "./components/Tabs/Category";
 import NewAttribute from "./Modals/NewAttribute";
+import ProductAttributeTabs from "./ProductAttributes/ProductAttributeTabs";
 const MainGeneral = () => {
   const { categories } = useLoaderData();
 
@@ -232,6 +233,12 @@ const MainGeneral = () => {
               >
                 CATEGORÍAS
               </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="ATTRIBUTES"
+              >
+                ATRIBUTOS
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
               <DataTable
@@ -245,6 +252,11 @@ const MainGeneral = () => {
             <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
               <Category
               categories={categories.data}
+              />
+            </TabsContent>
+            <TabsContent value="ATTRIBUTES" className="p-2">
+              <ProductAttributeTabs 
+                setModalNewAttribute={setModalNewAttribute}
               />
             </TabsContent>
           </Tabs>
