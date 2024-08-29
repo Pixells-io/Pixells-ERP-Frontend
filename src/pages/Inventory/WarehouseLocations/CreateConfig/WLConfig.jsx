@@ -63,7 +63,7 @@ export async function Action({ request }) {
     const formData = await request.formData();
     const codes = formData.getAll("code[]");
     const names = formData.getAll("name[]");
-    const variableIds = formData.get("variable_id[]");
+    const variableIds = formData.get("variable_id");
   
     console.log("Codes:", codes);
     console.log("Names:", names);
