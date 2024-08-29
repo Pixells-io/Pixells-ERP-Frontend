@@ -13,7 +13,7 @@ import { clientColumns } from "./components/Table/ClientColumns";
 import DataTable from "@/components/table/DataTable";
 import NavigationHeader from "@/components/navigation-header";
 import { createPusherClient } from "@/lib/pusher";
-import { getLeads } from "@/lib/actions";
+import { getClients, getLeads } from "@/lib/actions";
 
 // import Table from "@/components/DataTable";
 // import TableClients from "./components/Table/TableClients";
@@ -28,8 +28,8 @@ function MainCRM() {
   const { data: loaderServices } = useRouteLoaderData("side_services");
 
   const [leads, setLeads] = useState(loaderLeads);
-  const [services, setServices] = useState(loaderServices);
   const [clients, setClients] = useState(loaderClients);
+  const [services, setServices] = useState(loaderServices);
 
   //PERMISSIONS
   const [edit, setEdit] = useState(true); //2
@@ -62,15 +62,29 @@ function MainCRM() {
     setLeads(newData);
   }
 
+  async function getClientsInfo() {
+    let newData = await getClients();
+
+    setClients(newData);
+  }
+
   useEffect(() => {
+    //Socket fot table leads and clients
     pusherClient.subscribe("private-fill-table-leads");
+
+    pusherClient.subscribe("private-fill-table-clients");
 
     pusherClient.bind("make-table-leads", ({ message }) => {
       getLeadsInfo();
     });
 
+    pusherClient.bind("make-table-clients", ({ message }) => {
+      getClientsInfo();
+    });
+
     return () => {
       pusherClient.unsubscribe("private-fill-table-leads");
+      pusherClient.unsubscribe("private-fill-table-clients");
     };
   }, []);
 
