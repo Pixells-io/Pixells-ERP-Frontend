@@ -73,7 +73,7 @@ export const BanksColumns = [
           >
             <IonIcon icon={create} className="h-5 w-5"></IonIcon>
           </Link>
-          <ModalDeleteBank bank_id={row?.original?.id} />
+          <ModalDeleteBank bank_id={row?.original?.id} bank_name={row?.original?.name} />
         </div>
       );
     },
