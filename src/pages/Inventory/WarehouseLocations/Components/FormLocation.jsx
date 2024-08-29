@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import {
   Select,
   SelectContent,
@@ -10,16 +10,44 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import {useLoaderData } from "react-router-dom";
+import { getsubLocation } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const FormLocation = () => {
   const selectClasses =
     "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
+  const { data } = useLoaderData();
+  const [configInfo, setConfigInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getSubLocationFunction() {
+    let newData = await getsubLocation();
+    setConfigInfo(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-sub-ubications");
+
+    pusherClient.bind("fill-sub-ubications", ({ message }) => {
+      getSubLocationFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-sub-ubications");
+    };
+  }, []);
+
   return (
     <div className="w-full space-y-4 overflow-auto rounded-xl bg-white px-6 py-6">
       <div className="flex flex-wrap gap-4">
         <div className="flex-1">
-          <Label htmlFor="almacen" className="font-roboto text-[14px] text-gris2">
+          <Label
+            htmlFor="almacen"
+            className="font-roboto text-[14px] text-gris2"
+          >
             Selecciona Almacén
           </Label>
           <Select>
@@ -33,7 +61,10 @@ const FormLocation = () => {
           </Select>
         </div>
         <div className="flex-1">
-          <Label htmlFor="descripcion" className="font-roboto text-[14px] text-gris2">
+          <Label
+            htmlFor="descripcion"
+            className="font-roboto text-[14px] text-gris2"
+          >
             Descripción de la Ubicación
           </Label>
           <Input
@@ -45,7 +76,7 @@ const FormLocation = () => {
 
       <div className="space-y-4">
         <div className="flex items-center">
-          <Label className="pt-6 w-32 font-roboto text-[14px] text-gris2">
+          <Label className="w-32 pt-6 font-roboto text-[14px] text-gris2">
             AREA
           </Label>
           <div className="flex flex-grow gap-4">
@@ -53,17 +84,13 @@ const FormLocation = () => {
               <Label className="pb-2 font-roboto text-[14px] text-gris2">
                 Desde
               </Label>
-              <Input
-                className="ml-[-40px] border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              />
+              <Input className="border-gris2-transparent ml-[-40px] w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]" />
             </div>
             <div className="flex-1">
               <Label className="pb-2 font-roboto text-[14px] text-gris2">
                 Hasta
               </Label>
-              <Input
-                className="ml-[-40px] border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              />
+              <Input className="border-gris2-transparent ml-[-40px] w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]" />
             </div>
           </div>
         </div>
@@ -75,14 +102,10 @@ const FormLocation = () => {
             </Label>
             <div className="flex flex-grow gap-4">
               <div className="flex-1">
-                <Input
-                  className="ml-[-40px] border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-                />
+                <Input className="border-gris2-transparent ml-[-40px] w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]" />
               </div>
               <div className="flex-1">
-                <Input
-                  className="ml-[-40px] border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-                />
+                <Input className="border-gris2-transparent ml-[-40px] w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]" />
               </div>
             </div>
           </div>
@@ -92,7 +115,10 @@ const FormLocation = () => {
       <div className="flex gap-4">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center gap-4">
-            <Label htmlFor="activo" className="font-roboto text-[14px] text-gris2">
+            <Label
+              htmlFor="activo"
+              className="font-roboto text-[14px] text-gris2"
+            >
               Activo
             </Label>
             <Checkbox
@@ -101,7 +127,10 @@ const FormLocation = () => {
             />
           </div>
           <div className="flex items-center gap-2">
-            <Label htmlFor="inactivo" className="font-roboto text-[14px] text-gris2">
+            <Label
+              htmlFor="inactivo"
+              className="font-roboto text-[14px] text-gris2"
+            >
               Inactivo
             </Label>
             <Checkbox
@@ -111,7 +140,10 @@ const FormLocation = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Label htmlFor="disponible" className="font-roboto text-[14px] text-gris2">
+          <Label
+            htmlFor="disponible"
+            className="font-roboto text-[14px] text-gris2"
+          >
             Disponible para venta
           </Label>
           <Checkbox
@@ -123,7 +155,10 @@ const FormLocation = () => {
 
       <div className="flex flex-wrap gap-4">
         <div className="flex-1">
-          <Label htmlFor="cantidadMinima" className="font-roboto text-[14px] text-gris2">
+          <Label
+            htmlFor="cantidadMinima"
+            className="font-roboto text-[14px] text-gris2"
+          >
             Cantidad mínima
           </Label>
           <Input
@@ -133,7 +168,10 @@ const FormLocation = () => {
           />
         </div>
         <div className="flex-1">
-          <Label htmlFor="cantidadMaxima" className="font-roboto text-[14px] text-gris2">
+          <Label
+            htmlFor="cantidadMaxima"
+            className="font-roboto text-[14px] text-gris2"
+          >
             Cantidad máxima
           </Label>
           <Input
@@ -145,7 +183,10 @@ const FormLocation = () => {
       </div>
 
       <div>
-        <Label htmlFor="pesoMaximo" className="font-roboto text-[14px] text-gris2">
+        <Label
+          htmlFor="pesoMaximo"
+          className="font-roboto text-[14px] text-gris2"
+        >
           Peso Máximo
         </Label>
         <Input
@@ -156,7 +197,10 @@ const FormLocation = () => {
       </div>
 
       <div>
-        <Label htmlFor="codigoBarras" className="font-roboto text-[14px] text-gris2">
+        <Label
+          htmlFor="codigoBarras"
+          className="font-roboto text-[14px] text-gris2"
+        >
           Código de Barras
         </Label>
         <Input
@@ -165,7 +209,9 @@ const FormLocation = () => {
         />
       </div>
       <div className="flex justify-end p-4">
-        <Button className="bg-primarioBotones hover:bg-none rounded-full px-8 py-3">Crear</Button>
+        <Button className="rounded-full bg-primarioBotones px-8 py-3 hover:bg-none">
+          Crear
+        </Button>
       </div>
     </div>
   );
