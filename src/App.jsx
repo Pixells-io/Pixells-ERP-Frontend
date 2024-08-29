@@ -315,6 +315,7 @@ import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/Mai
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
+import ProductAttributes from "./pages/Inventory/General/ProductAttributes/ProductAttributes";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -1008,6 +1009,10 @@ const router = createBrowserRouter([
             index: true,
             element: <MainGeneral />,
             loader: multiloaderInventory,
+          },
+          {
+            path: "/inventory/product-attributes/:id",
+            element: <ProductAttributes />,
           },
           {
             path: "/inventory/create",
