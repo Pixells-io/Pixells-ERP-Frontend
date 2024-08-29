@@ -11,7 +11,7 @@ export async function saveNewConfigure(data) {
   };
 
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocation-var`,
+      `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var`,
       {
         method: "POST",
         body: JSON.stringify(info),
@@ -25,6 +25,30 @@ export async function saveNewConfigure(data) {
   }
 
 
+
+  //SAVE SLOTS 
+  export async function saveNewConfigSlots(data) {
+    
+
+  const info = {
+    name: names.getall(),
+    status:statuses.getAll(),
+    variable_id:data.get()
+  };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var-slots`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+  
+    return response.json();
+  }
 
   export async function getsubLocation() {
     try {
