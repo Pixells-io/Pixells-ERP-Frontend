@@ -4,26 +4,37 @@ import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
-import { saveNewConfigure } from "./utils";
+import { getsubLocation, saveNewConfigure } from "./utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const MainWL = () => {
-  const data = [
-    {
-      id: 1,
-      inventory_code: "12131d122",
-      categoria: "Metales",
-      name: "Tornnillos",
-      unidadMedida: "KG",
-      cuentaContable: "Sí",
-      tipo: "Material",
-      creator: "Lopez Díaz",
-      created: "28-Ago-2024",
-    },
-  ];
 
+  const { data } = useLoaderData();
+  const [configInfo, setConfigInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getSubLocationFunction() {
+    let newData = await getsubLocation();
+    console.log(newData)
+    setConfigInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-sub-ubications");
+
+    pusherClient.bind("fill-sub-ubications", ({ message }) => {
+      getSubLocationFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-sub-ubications");
+    };
+  }, []);
+console.log("INFORMACION: "+configInfo);
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -98,7 +109,7 @@ const MainWL = () => {
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
-                data={data}
+                data={configInfo}
                 columns={columnsWL}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
@@ -117,8 +128,6 @@ export default MainWL;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  console.log(response.data);
+  console.log(response);
   return "0";
 }
-
-

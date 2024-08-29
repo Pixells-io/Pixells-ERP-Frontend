@@ -11,7 +11,7 @@ export async function saveNewConfigure(data) {
   };
 
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var`,
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocation-var`,
       {
         method: "POST",
         body: JSON.stringify(info),
@@ -22,4 +22,23 @@ export async function saveNewConfigure(data) {
     );
   
     return response.json();
+  }
+
+
+
+  export async function getsubLocation() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocations`,
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        },
+      );
+      return response.json();
+      
+    } catch (error) {
+      return new Response("Something went wrong...", { status: 500 });
+    }
   }

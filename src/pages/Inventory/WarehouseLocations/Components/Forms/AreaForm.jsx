@@ -1,168 +1,148 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
-import {
-  addCircle,
-  closeCircle,
-  chevronBack,
-  chevronForward,
-} from "ionicons/icons";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { addCircle, closeCircle } from "ionicons/icons";
+import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Form } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
-const AreaForm = () => {
-  const [inputs, setInputs] = useState([
-    { code: "", name: "", variable_id: "" },
+const FormProduct = () => {
+  const [sublevels, setSublevels] = useState([
+    { id: 1, name: "", code: "", viariable_id: "" },
   ]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const inputsPerPage = 5;
+  const navigation = useNavigation();
 
-  const handleInputChange = (index, event) => {
-    const { name, value } = event.target;
-    setInputs(prevInputs => 
-      prevInputs.map((input, i) => 
-        i === index ? { ...input, [name]: value } : input
-      )
+  const handleNameChange = (id, name) => {
+    setSublevels(
+      sublevels.map((sublevel) =>
+        sublevel.id === id ? { ...sublevel, name } : sublevel,
+      ),
     );
   };
 
-  const handleAddFields = () => {
-    setInputs(prevInputs => [...prevInputs, { code: "", name: "", variable_id: "" }]);
-    if (inputs.length % inputsPerPage === 0) {
-      setCurrentPage(prevPage => prevPage + 1);
-    }
+  const handleAddSublevel = () => {
+    const newId = Math.max(...sublevels.map((s) => s.id), 0) + 1;
+    setSublevels([...sublevels, { id: newId, status: "0", name: "" }]);
   };
 
-  const handleRemoveFields = (index) => {
-    if (inputs.length > 1) {
-      setInputs(prevInputs => prevInputs.filter((_, i) => i !== index));
-      if ((inputs.length - 1) % inputsPerPage === 0 && currentPage > 1) {
-        setCurrentPage(prevPage => prevPage - 1);
-      }
+  const handleRemoveSublevel = (id) => {
+    if (sublevels.length > 1) {
+      setSublevels(sublevels.filter((sublevel) => sublevel.id !== id));
     }
   };
-
-  const indexOfLastInput = currentPage * inputsPerPage;
-  const indexOfFirstInput = indexOfLastInput - inputsPerPage;
-  const currentInputs = inputs.slice(indexOfFirstInput, indexOfLastInput);
-
-  const totalPages = Math.ceil(inputs.length / inputsPerPage);
 
   return (
-    <Form action="/inventory/warehouse-locations/config" method="POST" className="space-y-4 p-4">
-      {/* Header labels */}
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <Label className="font-roboto text-[14px] text-gris2">Codigo</Label>
-        </div>
-        <div>
-          <Label className="items-center font-roboto text-[14px] text-gris2">
-            Nombre o Descripción
-          </Label>
-        </div>
-        <div className="flex items-center justify-between">
-          <Label className="font-roboto text-[14px] text-gris2">
-            Ubicación
-          </Label>
-        </div>
-      </div>
-      
-      {/* Input fields */}
-      {inputs.map((input, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-3 items-center gap-4"
-        >
-          <div>
-            <Input
-              name={`code[${index}]`}
-              value={input.code}
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              onChange={(e) => handleInputChange(index, e)}
+    <div className="flex h-full w-full flex-col gap-y-8">
+      <div className="grid grid-cols-12">
+        <div className="col-span-6">
+          <Form id="form-product-attributes" action="/inventory" method="POST">
+            <input
+              type="hidden"
+              hidden
+              className="hidden"
+              name="type_option"
+              value={"save_attribute"}
             />
-          </div>
-          <div>
-            <Input
-              name={`name[${index}]`}
-              value={input.name}
-              className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              onChange={(e) => handleInputChange(index, e)}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex-grow">
-              <Input
-                name={`variable_id[${index}]`}
-                value={input.variable_id}
-                className="w-full rounded-xl border border-none bg-[#F6F6F6] font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-                onChange={(e) => handleInputChange(index, e)}
-              />
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-5">
+                <label className="flex font-roboto text-[14px] text-gris2">
+                  Código
+                </label>
+              </div>
+              <div className="col-span-5">
+                <label className="flex font-roboto text-[14px] text-gris2">
+                  Nombre o Descripción
+                </label>
+              </div>
+              <div className="col-span-2">
+                <label className="flex font-roboto text-[14px] text-gris2">
+                  Artículos
+                </label>
+              </div>
+              {sublevels.map((sublevel) => (
+                <div
+                  key={sublevel.id}
+                  className="col-span-12 grid grid-cols-12 gap-4"
+                >
+                  <div className="col-span-5">
+                    <Input
+                      name="code[]"
+                      type="text"
+                      value={sublevel.code}
+                      onChange={(e) =>
+                        handleNameChange(sublevel.id, e.target.value)
+                      }
+                      placeholder="Agrega"
+                      className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
+                    />
+                  </div>
+                  <div className="col-span-5">
+                    <Input
+                      name="name[]"
+                      type="text"
+                      value={sublevel.name}
+                      onChange={(e) =>
+                        handleNameChange(sublevel.id, e.target.value)
+                      }
+                      placeholder="Agrega"
+                      className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
+                    />
+                  </div>
+
+                  <div className="col-span-2 flex items-center justify-evenly gap-x-2">
+                    <Input
+                      name="variable_id"
+                      type="text"
+                      value={sublevel.viariable_id}
+                      onChange={(e) =>
+                        handleNameChange(sublevel.id, e.target.value)
+                      }
+                      placeholder="0"
+                      className="flex-grow rounded-xl border border-[#D7D7D7] text-center font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
+                      readOnly
+                   />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
+                      onClick={() => handleRemoveSublevel(sublevel.id)}
+                      disabled={sublevels.length === 1}
+                    >
+                      <IonIcon
+                        icon={closeCircle}
+                        size="small"
+                        className="cursor-pointer text-grisDisabled"
+                      />
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
-            {inputs.length > 1 && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                onClick={() => handleRemoveFields(index)}
-              >
-                <IonIcon
-                  icon={closeCircle}
-                  size="small"
-                  className="cursor-pointer text-grisDisabled"
-                />
-              </Button>
-            )}
-          </div>
-        </div>
-      ))}
 
-      {/* Add field and pagination buttons */}
-      <div className="mt-4 flex items-center justify-between">
+            <Button
+              variant="ghost"
+              className="mt-2 rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              onClick={handleAddSublevel}
+              type="button"
+            >
+              <IonIcon
+                icon={addCircle}
+                className="hover:text-primarioBotones-dark active:text-primarioBotones-darker h-5 w-5 text-primarioBotones transition-colors duration-300"
+              />
+            </Button>
+          </Form>
+        </div>
+      </div>
+      <div className="flex flex-1 items-end justify-end">
         <Button
-          type="button"
-          variant="ghost"
-          className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          onClick={handleAddFields}
+          type="submit"
+          className="h-9 rounded-full bg-blue-500 px-8 text-xs font-semibold text-white hover:bg-blue-600"
+          disabled={navigation.state === "submitting"}
         >
-          <IonIcon
-            icon={addCircle}
-            className="hover:text-primarioBotones-dark active:text-primarioBotones-darker h-5 w-5 text-primarioBotones transition-colors duration-300"
-          />
-        </Button>
-        <div className="flex items-center space-x-2">
-          <Button
-            type="button"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            variant="outline"
-            className="rounded-full border-gris2 bg-transparent hover:bg-none"
-          >
-            <IonIcon icon={chevronBack} />
-          </Button>
-          <Button
-            type="button"
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-            variant="outline"
-            className="rounded-full border-gris2 bg-transparent hover:bg-none"
-          >
-            <IonIcon icon={chevronForward} />
-          </Button>
-        </div>
-      </div>
-
-      {/* Submit button */}
-      <div className="flex justify-end">
-        <Button type="submit" className="rounded-full bg-primarioBotones px-6 py-4 text-white hover:bg-primarioBotones">
-          Crear
+          {navigation.state === "submitting" ? "Submitting..." : "Crear"}
         </Button>
       </div>
-    </Form>
+    </div>
   );
 };
 
-export default AreaForm;
+export default FormProduct;
