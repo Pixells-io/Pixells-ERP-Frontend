@@ -153,5 +153,5 @@ export default MainWL;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  return redirect("/inventory/warehouse-locations/");
+  return redirect("/inventory/warehouse-locations");
 }

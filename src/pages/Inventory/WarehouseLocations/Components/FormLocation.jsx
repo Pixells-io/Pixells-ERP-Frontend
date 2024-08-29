@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,36 +10,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { getsubLocation } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
 
 const FormLocation = () => {
   const selectClasses =
     "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-
-  const { data } = useLoaderData();
-  const [configInfo, setConfigInfo] = useState(data);
-
-  const pusherClient = createPusherClient();
-
-  async function getSubLocationFunction() {
-    let newData = await getsubLocation();
-    setConfigInfo(newData);
-  }
-
-  useEffect(() => {
-    pusherClient.subscribe("private-get-sub-ubications");
-
-    pusherClient.bind("fill-sub-ubications", ({ message }) => {
-      getSubLocationFunction();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("private-get-sub-ubications");
-    };
-  }, []);
-
+  const { subLocationData, warehousesData } = useLoaderData();
+  
+  console.log(subLocationData.data)
+  console.log(warehousesData.data)
   return (
     <div className="w-full space-y-4 overflow-auto rounded-xl bg-white px-6 py-6">
       <div className="flex flex-wrap gap-4">
@@ -52,13 +33,13 @@ const FormLocation = () => {
           </Label>
           <Select>
             <SelectTrigger name="almacen" className={selectClasses}>
-              <SelectValue placeholder="Seleccionar..." />
+              <SelectValue  />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="almacen1">Almacén 1</SelectItem>
-              <SelectItem value="almacen2">Almacén 2</SelectItem>
+              <SelectItem>Almacen 1</SelectItem>
             </SelectContent>
           </Select>
+          <input type="hidden" name="inventory_id" />
         </div>
         <div className="flex-1">
           <Label
