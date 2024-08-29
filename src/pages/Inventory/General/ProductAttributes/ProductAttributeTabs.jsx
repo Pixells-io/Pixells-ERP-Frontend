@@ -1,15 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FormProduct from "./FormProduct";
 import { Button } from "@/components/ui/button";
+import { createPusherClient } from "@/lib/pusher";
+import { getAttributes } from "../utils";
 
 const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
+  const [attributesInfo, setAttributeInfo] = useState(attributes);
+
+  const pusherClient = createPusherClient();
+
+  async function getAttributesList() {
+    let newData = await getAttributes();
+    setAttributeInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-product-attributes");
+
+    pusherClient.bind("fill-product-attributes", ({ message }) => {
+      getAttributesList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-product-attributes");
+    };
+  }, []);
+
 
   return (
     <Tabs className="flex h-full w-full flex-col">
       <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent">
         <div className="flex flex-wrap justify-start gap-3">
-          {attributes.map((attribute, index) => (
+          {attributesInfo.map((attribute, index) => (
             <TabsTrigger
               key={index}
               value={attribute.id}
@@ -30,7 +53,7 @@ const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
         </div>
       </TabsList>
       {
-        attributes.map((attribute, index) => (
+        attributesInfo.map((attribute, index) => (
           <TabsContent
             key={index}
             value={attribute.id}
