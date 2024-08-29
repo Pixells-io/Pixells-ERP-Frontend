@@ -7,28 +7,6 @@ import { getsubLocation } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
 
 const CreateLocation = () => {
-  const { data } = useLoaderData();
-  const [configInfo, setConfigInfo] = useState(data);
-
-  const pusherClient = createPusherClient();
-
-  async function getSubLocationFunction() {
-    let newData = await getsubLocation();
-    setConfigInfo(newData.data);
-  }
-
-  useEffect(() => {
-    pusherClient.subscribe("private-get-sub-ubications");
-
-    pusherClient.bind("fill-sub-ubications", ({ message }) => {
-      getSubLocationFunction();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("private-get-sub-ubications");
-    };
-  }, []);
-
   
   return (
     <div className="flex w-full">

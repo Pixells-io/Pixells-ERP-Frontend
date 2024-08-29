@@ -51,7 +51,7 @@ export async function saveNewConfigSlots(data) {
 export async function getsubLocation() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocations`,
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocation-var`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
