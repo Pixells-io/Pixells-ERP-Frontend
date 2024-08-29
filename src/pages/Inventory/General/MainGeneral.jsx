@@ -14,12 +14,12 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewCategory from "./Modals/NewCategory";
-import { destroyCategory, editCategory, saveAttribute, saveCategory } from "./utils";
+import { destroyAttributeSlot, destroyCategory, editCategory, saveAttribute, saveAttributeSlots, saveCategory } from "./utils";
 import Category from "./components/Tabs/Category";
 import NewAttribute from "./Modals/NewAttribute";
 import ProductAttributeTabs from "./ProductAttributes/ProductAttributeTabs";
 const MainGeneral = () => {
-  const { categories } = useLoaderData();
+  const { categories, attributes } = useLoaderData();
 
   const [modalNewCategory, setModalNewCategory] = useState(false);
   const [modalNewAttribute, setModalNewAttribute] = useState(false);
@@ -256,6 +256,7 @@ const MainGeneral = () => {
             </TabsContent>
             <TabsContent value="ATTRIBUTES" className="p-2">
               <ProductAttributeTabs 
+                attributes={attributes.data}
                 setModalNewAttribute={setModalNewAttribute}
               />
             </TabsContent>
@@ -281,6 +282,12 @@ export async function Action({ request }) {
       break;
     case "save_attribute": 
       await saveAttribute(data);
+      break;
+    case "save_attributeSlots":
+      await saveAttributeSlots(data);
+      break;
+    case "destroy_attributeSlot":
+      await destroyAttributeSlot(data);
       break;
   }
 

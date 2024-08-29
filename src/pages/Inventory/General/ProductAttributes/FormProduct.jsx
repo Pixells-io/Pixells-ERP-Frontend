@@ -4,35 +4,47 @@ import { addCircle, closeCircle } from "ionicons/icons";
 import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import ModalDeleteAttributeSlot from "./Modals/ModalDeleteAttributeSlot";
 
-const FormProduct = () => {
-  const [sublevels, setSublevels] = useState([
-    { id: 1, article: "", code: "", name: "" },
-  ]);
+const FormProduct = ({ attribute_id, slots }) => {
+  const [sublevels, setSublevels] = useState(slots);
   const navigation = useNavigation();
+  const [AttributeSlotId, setAttributeSlotId] = useState(0);
+  const [modalDeleteSlot, setModalDeleteSlot] = useState(false);
 
-  const handleNameChange = (id, name) => {
+  const handleNameChange = (idAux, name, value) => {
     setSublevels(
       sublevels.map((sublevel) =>
-        sublevel.id === id ? { ...sublevel, name } : sublevel,
+        sublevel.idAux === idAux ? { ...sublevel, [name]: value } : sublevel,
       ),
     );
   };
 
   const handleAddSublevel = () => {
-    const newId = Math.max(...sublevels.map((s) => s.id), 0) + 1;
-    setSublevels([...sublevels, { id: newId, status: "0", name: "" }]);
+    const newId = Math.max(...sublevels.map((s) => s.idAux), 0) + 1;
+    setSublevels([...sublevels, { idAux: newId || 1, code: "", name: "" }]);
   };
 
-  const handleRemoveSublevel = (id) => {
+  const handleRemoveSublevel = (idAux) => {
     if (sublevels.length > 1) {
-      setSublevels(sublevels.filter((sublevel) => sublevel.id !== id));
+      setSublevels(sublevels.filter((sublevel) => sublevel.idAux !== idAux));
     }
+  };
+
+  const handleOpenModalDelete = (attribuSlot) => {
+    setAttributeSlotId(attribuSlot);
+    setModalDeleteSlot(true);
   };
 
   return (
     <div className="flex h-full w-full flex-col gap-y-8">
+      {/* Modals */}
+      <ModalDeleteAttributeSlot
+        attribute_id={attribute_id}
+        slot_id={AttributeSlotId}
+        modal={modalDeleteSlot}
+        setModal={setModalDeleteSlot}
+      />
       <h2 className="text-md font-poppins font-medium text-[#44444F]">
         General
       </h2>
@@ -44,7 +56,14 @@ const FormProduct = () => {
               hidden
               className="hidden"
               name="type_option"
-              value={"save_attribute"}
+              value={"save_attributeSlots"}
+            />
+            <input
+              type="hidden"
+              hidden
+              className="hidden"
+              name="attribute_id"
+              value={attribute_id}
             />
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-5">
@@ -62,18 +81,18 @@ const FormProduct = () => {
                   Artículos
                 </label>
               </div>
-              {sublevels.map((sublevel) => (
+              {sublevels.map((sublevel, index) => (
                 <div
-                  key={sublevel.id}
+                  key={index}
                   className="col-span-12 grid grid-cols-12 gap-4"
                 >
                   <div className="col-span-5">
                     <Input
                       name="code[]"
                       type="text"
-                      value={sublevel.name}
+                      value={sublevel.code}
                       onChange={(e) =>
-                        handleNameChange(sublevel.id, e.target.value)
+                        handleNameChange(sublevel.idAux, "code", e.target.value)
                       }
                       placeholder="Agrega"
                       className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
@@ -85,7 +104,7 @@ const FormProduct = () => {
                       type="text"
                       value={sublevel.name}
                       onChange={(e) =>
-                        handleNameChange(sublevel.id, e.target.value)
+                        handleNameChange(sublevel.idAux, "name", e.target.value)
                       }
                       placeholder="Agrega"
                       className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
@@ -96,19 +115,21 @@ const FormProduct = () => {
                     <Input
                       name="article[]"
                       type="text"
-                      value={sublevel.name}
-                      onChange={(e) =>
-                        handleNameChange(sublevel.id, e.target.value)
-                      }
+                      disabled={true}
+                      readOnly
                       placeholder="0"
                       className="flex-grow rounded-xl border border-[#D7D7D7] text-center font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
                     />
                     <Button
                       variant="ghost"
                       size="sm"
+                      type="button"
                       className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                      onClick={() => handleRemoveSublevel(sublevel.id)}
-                      disabled={sublevels.length === 1}
+                      onClick={() =>
+                        !!sublevel.id
+                          ? handleOpenModalDelete(sublevel.id)
+                          : handleRemoveSublevel(sublevel.idAux)
+                      }
                     >
                       <IonIcon
                         icon={closeCircle}
@@ -137,6 +158,7 @@ const FormProduct = () => {
       </div>
       <div className="flex flex-1 items-end justify-end">
         <Button
+          form="form-product-attributes"
           type="submit"
           className="h-9 rounded-full bg-blue-500 px-8 text-xs font-semibold text-white hover:bg-blue-600"
           disabled={navigation.state === "submitting"}

@@ -3,18 +3,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FormProduct from "./FormProduct";
 import { Button } from "@/components/ui/button";
 
-const ProductAttributeTabs = ({setModalNewAttribute}) => {
+const ProductAttributeTabs = ({attributes, setModalNewAttribute}) => {
+
   return (
-    <Tabs defaultValue="general" className="flex h-full w-full flex-col">
+    <Tabs className="flex h-full w-full flex-col">
       <TabsList className="mb-4 flex flex-wrap justify-start gap-6 bg-transparent">
         <div className="flex flex-wrap justify-start gap-3">
-          {[{ value: "general", label: "General" }].map(({ value, label }) => (
+          {attributes.map((attribute, index) => (
             <TabsTrigger
-              key={value}
-              value={value}
-              className="flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-xs font-medium text-white transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:py-1.5 data-[state=active]:text-white"
+              key={index}
+              value={attribute.id}
+              className="flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center text-[#44444F] font-roboto text-xs font-medium transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:py-1.5 data-[state=active]:text-white"
             >
-              {label}
+              {attribute.name}
             </TabsTrigger>
           ))}
         </div>
@@ -28,12 +29,17 @@ const ProductAttributeTabs = ({setModalNewAttribute}) => {
           </Button>
         </div>
       </TabsList>
-      <TabsContent
-        value="general"
-        className="w-full flex-1 rounded-[10px] bg-blancoBg p-4"
-      >
-        <FormProduct />
-      </TabsContent>
+      {
+        attributes.map((attribute, index) => (
+          <TabsContent
+            key={index}
+            value={attribute.id}
+            className="w-full flex-1 rounded-[10px] bg-blancoBg p-4"
+          >
+            <FormProduct attribute_id={attribute.id} slots={attribute.slots} />
+          </TabsContent>
+        ))
+      }
     </Tabs>
   );
 };

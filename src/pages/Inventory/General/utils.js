@@ -78,8 +78,27 @@ export async function editCategory(data) {
 }
 
 export async function multiloaderInventory() {
-  const [categories] = await Promise.all([getCategories()]);
-  return json({ categories });
+  const [categories, attributes] = await Promise.all([
+    getCategories(),
+    getAttributes(),
+  ]);
+  return json({ categories, attributes });
+}
+
+export async function getAttributes() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-attributes`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
 
 export async function saveAttribute(data) {
@@ -95,6 +114,51 @@ export async function saveAttribute(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-attributes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function saveAttributeSlots(data) {
+  const names = data.getAll("name[]");
+  const codes = data.getAll("code[]");
+  const attribute_id = data.get("attribute_id");
+
+  const info = {
+    name: names,
+    code: codes,
+    attribute_id: attribute_id,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/create-attributes-slots`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function destroyAttributeSlot(data) {
+  const info = {
+    attribute_id: data.get("attribute_id"),
+    slot_id: data.get("slot_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/destroy-attributes-slots`,
     {
       method: "POST",
       body: JSON.stringify(info),
