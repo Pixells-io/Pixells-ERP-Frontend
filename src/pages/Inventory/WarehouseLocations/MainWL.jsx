@@ -1,16 +1,39 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
-import { Link,redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
 import {saveNewConfigure } from "./utils";
+import {Link, useLoaderData,redirect } from "react-router-dom";
+import { getsubLocation } from "./utils";
+import { createPusherClient } from "@/lib/pusher";
+import ConfigureTable from "./Components/Table/ConfiglvlTable";
 
 const MainWL = () => {
+  const { data } = useLoaderData();
+  const [configInfo, setConfigInfo] = useState(data);
 
+  const pusherClient = createPusherClient();
+
+  async function getSubLocationFunction() {
+    let newData = await getsubLocation();
+    setConfigInfo(newData);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-sub-ubications");
+
+    pusherClient.bind("fill-sub-ubications", ({ message }) => {
+     
+      getSubLocationFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-sub-ubications");
+    };
+  }, []);
  
   return (
     <div className="flex w-full">
@@ -66,7 +89,7 @@ const MainWL = () => {
                 />
               </Button>
             </Link>
-            <ConfigureSublv />
+           
           </div>
         </div>
         {/*content */}
@@ -83,6 +106,12 @@ const MainWL = () => {
               >
                 UBICACIONES
               </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="config"
+              >
+                CONFIGURACIONES
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
@@ -93,6 +122,9 @@ const MainWL = () => {
                 isCheckAll={true}
               />
             </TabsContent>
+            <TabsContent value="config" className="mt-[-60px] p-2">
+            <ConfigureTable data={configInfo} />
+          </TabsContent>
           </Tabs>
         </div>
       </div>

@@ -1050,7 +1050,7 @@ const router = createBrowserRouter([
             loader: getWarehouse,
           },
           {
-            path: "/inventory/warehouse-locations/config",
+            path: "/inventory/warehouse-locations/config/:id",
             element: <WLConfig />,
             action: saveSlotsConfig
           },
@@ -1058,12 +1058,13 @@ const router = createBrowserRouter([
             path: "/inventory/warehouse-locations",
             element: <MainWL />,
             action: createNewConfigure,
+            loader:  getsubLocation
           
           },
           {
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
-            loader:  getsubLocation
+            
           },
           {
             path: "/inventory/merchandise-movements",
