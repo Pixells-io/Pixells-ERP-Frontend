@@ -4,10 +4,10 @@ import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData,redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
-import {saveNewConfigure, getsubLocation,  } from "./utils";
+import {saveNewConfigure, getsubLocation } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 
 const MainWL = () => {
@@ -34,7 +34,6 @@ const MainWL = () => {
       pusherClient.unsubscribe("private-get-sub-ubications");
     };
   }, []);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -128,6 +127,5 @@ export default MainWL;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  
-  return "0";
+  return redirect("/inventory/warehouse-locations/config");
 }
