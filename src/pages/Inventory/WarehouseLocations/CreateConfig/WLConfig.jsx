@@ -1,6 +1,8 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
+import { saveNewConfigSlots } from "../utils";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import { redirect } from "react-router-dom";
 import FormGroup from "../Components/FormGroup";
 
 const WLConfig = () => {
@@ -60,16 +62,7 @@ export default WLConfig;
 
 
 export async function Action({ request }) {
-    const formData = await request.formData();
-    const codes = formData.getAll("code[]");
-    const names = formData.getAll("name[]");
-    const variableIds = formData.get("variable_id");
-  
-    console.log("Codes:", codes);
-    console.log("Names:", names);
-    console.log("Variable IDs:", variableIds);
-  
-    // Process the data as needed...
-  
-    return "0";
-  }
+  const formData = await request.formData();
+  const response = await saveNewConfigSlots(formData);
+  return redirect("/inventory/warehouse-locations");
+}

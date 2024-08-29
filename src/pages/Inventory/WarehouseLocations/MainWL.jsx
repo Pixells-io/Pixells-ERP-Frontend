@@ -1,29 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
-import { Link } from "react-router-dom";
+import { Link,redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
-import { saveNewConfigure } from "./utils";
+import {saveNewConfigure } from "./utils";
 
 const MainWL = () => {
-  const data = [
-    {
-      id: 1,
-      inventory_code: "12131d122",
-      categoria: "Metales",
-      name: "Tornnillos",
-      unidadMedida: "KG",
-      cuentaContable: "Sí",
-      tipo: "Material",
-      creator: "Lopez Díaz",
-      created: "28-Ago-2024",
-    },
-  ];
 
+ 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -98,7 +86,7 @@ const MainWL = () => {
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
-                data={data}
+                data={configInfo}
                 columns={columnsWL}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
@@ -117,8 +105,5 @@ export default MainWL;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  console.log(response.data);
-  return "0";
+  return redirect("/inventory/warehouse-locations/config");
 }
-
-

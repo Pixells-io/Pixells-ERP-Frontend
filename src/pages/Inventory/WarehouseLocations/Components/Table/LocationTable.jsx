@@ -6,7 +6,7 @@ import { informationCircle } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 export const columnsWL = [
   {
-    accessorKey: "inventory_code",
+    accessorKey: "code",
     header: "Código",
     cell: ({ row }) => {
       return (
@@ -16,7 +16,7 @@ export const columnsWL = [
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
           />
-          <label>{row?.original?.inventory_code}</label>
+          <label>{row?.original?.code}</label>
         </div>
       );
     },

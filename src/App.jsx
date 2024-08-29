@@ -314,8 +314,9 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainWL, {
   Action as createNewConfigure,
 } from "./pages/Inventory/WarehouseLocations/MainWL";
+import { getsubLocation } from "./pages/Inventory/WarehouseLocations/utils";
 import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
-import WLConfig from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
+import WLConfig,{Action as saveSlotsConfig} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
 
 import CreateWH, {
   Action as createWarehouses,
@@ -1051,15 +1052,18 @@ const router = createBrowserRouter([
           {
             path: "/inventory/warehouse-locations/config",
             element: <WLConfig />,
+            action: saveSlotsConfig
           },
           {
             path: "/inventory/warehouse-locations",
             element: <MainWL />,
             action: createNewConfigure,
+          
           },
           {
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
+            loader:  getsubLocation
           },
           {
             path: "/inventory/merchandise-movements",
