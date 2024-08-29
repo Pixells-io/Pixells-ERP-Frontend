@@ -8,9 +8,15 @@ import {
 import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
+import { useLoaderData } from "react-router-dom";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
+
+  const { data } = useLoaderData();
+
+  console.log(data);
+
   const account = {
     id: 1,
     numberAccount: "1000",

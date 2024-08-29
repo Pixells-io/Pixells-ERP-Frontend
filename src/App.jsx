@@ -254,7 +254,9 @@ import LayoutCalendar, {
 } from "./pages/Calendar/LayoutCalendar";
 
 //Accounting
-import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import SideLayoutAccounting, {
+  Action as AccountingCatalogActions,
+} from "./layouts/Accounting/SideLayoutAccounting";
 import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
 import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
 import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
@@ -277,14 +279,17 @@ import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecor
 import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
-import { getBank, multiloaderOwnAndBankAccount, multiloaderTableBankManag } from "./pages/BankManagement/Accounts/utils";
+import {
+  getBank,
+  multiloaderOwnAndBankAccount,
+  multiloaderTableBankManag,
+} from "./pages/BankManagement/Accounts/utils";
 import EditBank, {
-  Action as updateBank
+  Action as updateBank,
 } from "./pages/BankManagement/Accounts/Edit/EditBank";
 import EditBankAccount, {
   Action as updateBankAccount,
 } from "./pages/BankManagement/Accounts/Edit/EditBankAccount";
-
 
 //Client Platform
 import LoginClient, {
@@ -306,12 +311,23 @@ import MainGeneral, {
   Action as CreateNewCategory,
 } from "./pages/Inventory/General/MainGeneral";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
-import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
-import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
-import EditWH,{Action as editWarehouses} from "./pages/Inventory/GeneralWarehouses/EditWarehouse/EditWarehouse";
-import {getWarehouses,getWarehouse } from "./pages/Inventory/GeneralWarehouses/utils";
-import MainWL, {Action as createNewConfigure} from "./pages/Inventory/WarehouseLocations/MainWL";import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
-import WLConfig,{Action as createConfigureSlots} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
+import MainWL, {
+  Action as createNewConfigure,
+} from "./pages/Inventory/WarehouseLocations/MainWL";
+import CreateLocation from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
+import WLConfig from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
+
+import CreateWH, {
+  Action as createWarehouses,
+} from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
+import EditWH, {
+  Action as editWarehouses,
+} from "./pages/Inventory/GeneralWarehouses/EditWarehouse/EditWarehouse";
+import {
+  getWarehouses,
+  getWarehouse,
+  editWarehouse,
+} from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
@@ -398,8 +414,8 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
-
-
+import { getAccountingAccounts } from "./pages/Accounting/Catalog/utils";
+import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 
 const router = createBrowserRouter([
   {
@@ -926,6 +942,7 @@ const router = createBrowserRouter([
       {
         path: "/accounting",
         element: <SideLayoutAccounting />,
+        action: AccountingCatalogActions,
         children: [
           {
             element: <MainCatalog />,
@@ -933,6 +950,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <AccountingAccount />,
+                loader: getAccountingAccounts,
               },
               {
                 path: "/accounting/liabilities-account",
@@ -1022,34 +1040,32 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-warehouses",
             element: <MainGW />,
-            loader: getWarehouses
-            
+            loader: getWarehouses,
           },
           {
             path: "/inventory/general-warehouses/create",
             element: <CreateWH />,
-            action: createWarehouses
+            action: createWarehouses,
           },
           {
             path: "/inventory/general-warehouses/edit/:id",
             element: <EditWH />,
             action: editWarehouses,
-            loader:getWarehouse
-          },
-         
-          {
-              path:"/inventory/warehouse-locations",
-              element:<MainWL/> ,
-              action: createNewConfigure
+            loader: getWarehouse,
           },
           {
-            path:"/inventory/warehouse-locations/config",
-            element:<WLConfig/> ,
-            action:createConfigureSlots
-        },
+            path: "/inventory/warehouse-locations/config",
+            element: <WLConfig />,
+            action: createConfigureSlots,
+          },
           {
-             path:"/inventory/warehouse-locations/create",
-              element:<CreateLocation/>
+            path: "/inventory/warehouse-locations",
+            element: <MainWL />,
+            action: createNewConfigure,
+          },
+          {
+            path: "/inventory/warehouse-locations/create",
+            element: <CreateLocation />,
           },
           {
             path: "/inventory/merchandise-movements",
