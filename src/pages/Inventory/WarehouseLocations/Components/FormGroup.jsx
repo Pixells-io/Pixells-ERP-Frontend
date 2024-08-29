@@ -119,7 +119,7 @@ const FormGroup = ({ variable }) => {
                             <div className="col-span-2 flex items-center justify-evenly gap-x-2">
                               <Input
                                 name="variable_id"
-                                type="text"
+                                type="number"
                                 value={sublevel.variable_id}
                                 placeholder="0"
                                 className="flex-grow rounded-xl border border-none bg-[#E8E8E8] text-center font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"

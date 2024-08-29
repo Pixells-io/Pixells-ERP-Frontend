@@ -10,6 +10,21 @@ import {Link, useLoaderData,redirect } from "react-router-dom";
 import { getsubLocation } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 import ConfigureTable from "./Components/Table/ConfiglvlTable";
+import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
+
+const datos = [
+  {
+    id: 1,
+    inventory_code: "12131d122",
+    categoria: "Metales",
+    name: "Tornnillos",
+    unidadMedida: "KG",
+    cuentaContable: "Sí",
+    tipo: "Material",
+    creator: "Lopez Díaz",
+    created: "28-Ago-2024",
+  },
+];
 
 const MainWL = () => {
   const { data } = useLoaderData();
@@ -34,7 +49,7 @@ const MainWL = () => {
       pusherClient.unsubscribe("private-get-sub-ubications");
     };
   }, []);
- 
+  
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -88,8 +103,9 @@ const MainWL = () => {
                   className="h-7 w-7 text-primarioBotones"
                 />
               </Button>
+              
             </Link>
-           
+            <ConfigureSublv/>
           </div>
         </div>
         {/*content */}
@@ -115,7 +131,7 @@ const MainWL = () => {
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
-                data={configInfo}
+                data={datos}
                 columns={columnsWL}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
@@ -137,5 +153,5 @@ export default MainWL;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  return redirect("/inventory/warehouse-locations/config");
+  return redirect("/inventory/warehouse-locations/");
 }

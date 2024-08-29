@@ -1064,6 +1064,7 @@ const router = createBrowserRouter([
           {
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
+            loader:  getsubLocation
             
           },
           {
