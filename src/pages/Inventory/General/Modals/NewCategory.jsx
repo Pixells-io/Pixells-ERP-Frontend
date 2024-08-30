@@ -39,6 +39,7 @@ function NewCategory({ modal, setModal }) {
             type="hidden"
             hidden
             className="hidden"
+            readOnly
             name="type_option"
             value={"save_category"}
           />

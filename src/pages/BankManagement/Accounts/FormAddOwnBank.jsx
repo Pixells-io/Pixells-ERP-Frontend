@@ -37,7 +37,7 @@ function FormAddOwnBank({ modal, setModal }) {
           action="/bank-management"
           method="post"
         >
-          <input type="hidden" hidden name="type_option" value={"save_bank"} />
+          <input type="hidden" hidden className="hidden" name="type_option" readOnly value={"save_bank"} />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-8 font-light">
               <div className="flex flex-col gap-3">

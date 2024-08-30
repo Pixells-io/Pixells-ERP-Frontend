@@ -18,7 +18,7 @@ function EditBank() {
           method="post"
         >
           <div className="flex h-full w-full flex-col gap-3 overflow-auto rounded-lg bg-white p-4 font-roboto">
-            <input type="hidden" hidden name="id" value={data.id} />
+            <input type="hidden" hidden readOnly className="hidden" name="id" value={data.id} />
             <h2 className="mb-4 font-poppins text-sm font-semibold text-grisHeading">
               Editar Banco Propio
             </h2>

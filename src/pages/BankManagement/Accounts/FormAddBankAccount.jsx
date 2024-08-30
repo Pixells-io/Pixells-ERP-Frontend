@@ -79,6 +79,8 @@ function FormAddBankAccount({ modal, setModal, banks }) {
           <input
             type="hidden"
             hidden
+            className="hidden"
+            readOnly
             name="type_option"
             value={"save_bankAccount"}
           />

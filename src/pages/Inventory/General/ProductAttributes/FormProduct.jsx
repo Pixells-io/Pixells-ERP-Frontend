@@ -108,6 +108,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                   <input
                     type="hidden"
                     hidden
+                    readOnly
                     className="hidden"
                     name="type_option"
                     value={"update_attributeSlot"}
@@ -115,6 +116,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                   <input
                     type="hidden"
                     hidden
+                    readOnly
                     className="hidden"
                     name="slot_id"
                     value={slot.id}
@@ -227,6 +229,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
               <input
                 type="hidden"
                 hidden
+                readOnly
                 className="hidden"
                 name="type_option"
                 value={"save_attributeSlots"}
@@ -234,6 +237,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
               <input
                 type="hidden"
                 hidden
+                readOnly
                 className="hidden"
                 name="attribute_id"
                 value={attribute_id}

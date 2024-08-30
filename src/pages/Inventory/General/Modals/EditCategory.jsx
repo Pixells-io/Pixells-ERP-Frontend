@@ -52,6 +52,7 @@ function EditCategory({ modal, setModal, category }) {
           <input
             type="hidden"
             hidden
+            readOnly
             className="hidden"
             name="type_option"
             value={"edit_category"}
@@ -59,6 +60,7 @@ function EditCategory({ modal, setModal, category }) {
           <input
             type="hidden"
             hidden
+            readOnly
             className="hidden"
             name="category_id"
             value={category.id}

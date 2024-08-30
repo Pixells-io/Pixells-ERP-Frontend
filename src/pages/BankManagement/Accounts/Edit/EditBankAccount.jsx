@@ -55,6 +55,8 @@ function EditBankAccount() {
             <input
               type="hidden"
               hidden
+              className="hidden"
+              readOnly
               name="bank_account_id"
               value={bankAccount?.data?.id}
             />
