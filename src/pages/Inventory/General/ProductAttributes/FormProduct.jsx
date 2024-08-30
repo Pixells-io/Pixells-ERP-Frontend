@@ -161,7 +161,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                         className="flex-grow rounded-xl border border-[#D7D7D7] text-center font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
                       />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-4 flex gap-1">
                       <Button
                         variant="ghost"
                         size="sm"
@@ -178,8 +178,6 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                           className="cursor-pointer text-grisDisabled"
                         />
                       </Button>
-                    </div>
-                    <div className="col-span-2 flex gap-2">
                       <Button
                         variant="ghost"
                         size="sm"

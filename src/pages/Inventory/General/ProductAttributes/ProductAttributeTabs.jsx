@@ -70,7 +70,7 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
 
       <Tabs className="flex h-full w-full flex-col">
         <TabsList className="mb-4 flex w-full flex-row justify-start gap-6 bg-transparent">
-          <div className="flex h-full w-fit flex-wrap justify-start gap-3 overflow-auto">
+          <div className="flex h-full w-full  justify-start gap-3">
             {attributesInfo.map((attribute, index) => (
               <TabsTrigger
                 key={index}
@@ -102,10 +102,8 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
                 </ContextMenu>
               </TabsTrigger>
             ))}
-          </div>
-          <div className="w-fit">
             <Button
-              className="h-7 rounded-full border border-primarioBotones bg-inherit px-6 py-1 text-center text-xs font-light text-primarioBotones hover:bg-inherit"
+              className="ml-6 h-8 rounded-full border border-primarioBotones bg-inherit px-6 py-1 text-center text-xs font-light text-primarioBotones hover:bg-inherit"
               type="button"
               onClick={() => setModalNewAttribute(true)}
             >
