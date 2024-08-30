@@ -220,6 +220,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                 </Form>
               ))}
             </div>
+            {/* add slots */}
             <Form
               id="form-product-attributes"
               action="/inventory"

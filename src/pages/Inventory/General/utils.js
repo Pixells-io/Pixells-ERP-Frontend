@@ -126,6 +126,25 @@ export async function saveAttribute(data) {
   return response.json();
 }
 
+export async function destroyAttribute(data) {
+  const info = {
+    attribute_id: data.get("attribute_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/destroy-attributes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function saveAttributeSlots(data) {
   const names = data.getAll("name[]");
   const codes = data.getAll("code[]");

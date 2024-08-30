@@ -14,7 +14,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewCategory from "./Modals/NewCategory";
-import { destroyAttributeSlot, destroyCategory, editCategory, saveAttribute, saveAttributeSlots, saveCategory, updateAttributeSlot } from "./utils";
+import { destroyAttribute, destroyAttributeSlot, destroyCategory, editCategory, saveAttribute, saveAttributeSlots, saveCategory, updateAttributeSlot } from "./utils";
 import Category from "./components/Tabs/Category";
 import NewAttribute from "./Modals/NewAttribute";
 import ProductAttributeTabs from "./ProductAttributes/ProductAttributeTabs";
@@ -282,6 +282,9 @@ export async function Action({ request }) {
       break;
     case "save_attribute": 
       await saveAttribute(data);
+      break;
+    case "destroy_attribute": 
+      await destroyAttribute(data);
       break;
     case "save_attributeSlots":
       await saveAttributeSlots(data);
