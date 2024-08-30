@@ -27,8 +27,8 @@ const datos = [
 ];
 
 const MainWL = () => {
-  const { data } = useLoaderData();
-  const [configInfo, setConfigInfo] = useState(data);
+  const {locationData, subLocationData } = useLoaderData();
+  const [configInfo, setConfigInfo] = useState(subLocationData.data);
 
   const pusherClient = createPusherClient();
 

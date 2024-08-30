@@ -119,6 +119,30 @@ export async function getWarehouses() {
   }
 }
 
+//GET LOCATIONS
+export async function getLocations() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-sublocations`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiLoaderUbication() {
+  const [locationData, subLocationData] = await Promise.all([
+    getLocations(),
+    getsubLocation(),
+  ]);
+  return json({locationData, subLocationData });
+}
 
 export async function multiLoaderData() {
   const [subLocationData, warehousesData] = await Promise.all([
