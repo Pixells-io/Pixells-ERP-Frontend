@@ -8,14 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { IonIcon } from "@ionic/react";
-import { trash } from "ionicons/icons";
 
-function ModalDeleteCategory({ category_id, category_name }) {
-  const [modal, setModal] = useState(false);
+function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -25,13 +21,12 @@ function ModalDeleteCategory({ category_id, category_name }) {
   }, [navigation.state]);
 
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger
-        disabled={navigation.state === "submitting"}
-        className="flex items-center"
-      >
-        <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
-      </DialogTrigger>
+    <Dialog
+      open={modal}
+      onOpenChange={(e) => {
+        setModal(e);
+      }}
+    >
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="py-4 font-poppins font-semibold text-white">
