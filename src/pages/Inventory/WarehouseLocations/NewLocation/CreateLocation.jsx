@@ -66,6 +66,7 @@ const CreateLocation = () => {
         {/*content */}
 
         <FormLocation formData={formData} setFormData={setFormData} />
+        {/*LOAD DATA IN INPUTS */}
         <Form
           action="/inventory/warehouse-locations/create"
           method="post"

@@ -15,8 +15,11 @@ import { useLoaderData } from "react-router-dom";
 const FormLocation = ({ formData, setFormData }) => {
   const selectClasses =
     "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-  const { subLocationData, warehousesData } = useLoaderData();
+ 
+ //LOAD DATA 
+    const { subLocationData, warehousesData } = useLoaderData();
 
+  
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
