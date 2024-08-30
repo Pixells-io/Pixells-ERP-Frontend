@@ -119,7 +119,7 @@ const Category = ({ categories }) => {
             >
               <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
             </button>
-            <ModalDeleteCategory category_id={row?.original?.id} />
+            <ModalDeleteCategory category_id={row?.original?.id} category_name={row?.original?.name} />
           </div>
         );
       },

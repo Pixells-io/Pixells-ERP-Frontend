@@ -35,7 +35,7 @@ function ModalDeleteBankAccount({ bank_account_id, bankAccount_name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="py-4 font-poppins font-semibold text-white">
-            BORRAR CUENTA BANCO - {bankAccount_name}
+            Delete Cuenta Banco - {bankAccount_name}
           </DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
@@ -47,12 +47,14 @@ function ModalDeleteBankAccount({ bank_account_id, bankAccount_name }) {
           <input
             type="hidden"
             hidden
+            readOnly
             name="bank_account_id"
             value={bank_account_id}
           />
           <input
             type="hidden"
             hidden
+            readOnly
             name="type_option"
             value={"destroy_bankAccount"}
           />

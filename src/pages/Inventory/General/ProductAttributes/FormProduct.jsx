@@ -17,6 +17,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
   const [AttributeSlotId, setAttributeSlotId] = useState(0);
   const [modalDeleteSlot, setModalDeleteSlot] = useState(false);
   const [slotsInfo, setSlotsInfo] = useState(slots);
+  const [slotName, setSlotName] = useState("");
 
   useEffect(() => {
     setSlotsInfo(slots);
@@ -58,8 +59,9 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
     }
   };
 
-  const handleOpenModalDelete = (attribuSlot) => {
+  const handleOpenModalDelete = (attribuSlot, slot_name) => {
     setAttributeSlotId(attribuSlot);
+    setSlotName(slot_name);
     setModalDeleteSlot(true);
   };
 
@@ -71,6 +73,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
         slot_id={AttributeSlotId}
         modal={modalDeleteSlot}
         setModal={setModalDeleteSlot}
+        slot_name={slotName}
       />
       <h2 className="text-md font-poppins font-medium text-[#44444F]">
         {attribute_name}
@@ -162,7 +165,7 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                         size="sm"
                         type="button"
                         className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                        onClick={() => handleOpenModalDelete(slot.id)}
+                        onClick={() => handleOpenModalDelete(slot.id, slot.name)}
                         disabled={sublevels.length > 0}
                       >
                         <IonIcon
