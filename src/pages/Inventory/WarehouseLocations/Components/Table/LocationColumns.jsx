@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { informationCircle } from "ionicons/icons";
 
- export const ConfigColumns = [
+export const LocationColumns  = [
     {
-      accessorKey: "id",
+      accessorKey: "code",
       header: "Código",
       cell: ({ row }) => {
         return (
@@ -17,10 +17,15 @@ import { informationCircle } from "ionicons/icons";
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.id}</label>
+            <label>{row?.original?.code}</label>
           </div>
         );
       },
+      meta: { filterButton: true },
+    },
+    {
+      accessorKey: "categoria",
+      header: "Categoría",
       meta: { filterButton: true },
     },
     {
@@ -29,11 +34,31 @@ import { informationCircle } from "ionicons/icons";
       meta: { filterButton: true },
     },
     {
+      accessorKey: "unidadMedida",
+      header: "Unidad Medida",
+    },
+    {
+      accessorKey: "cuentaContable",
+      header: "Cuenta Contable",
+    },
+    {
+      accessorKey: "tipo",
+      header: "Tipo",
+    },
+    {
+      accessorKey: "creator",
+      header: "Creado Por",
+    },
+    {
+      accessorKey: "created",
+      header: "Creación",
+    },
+    {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
-          <Link to={`/inventory/warehouse-locations/config/${row.original.id}`}>
+          <Link>
             <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -48,5 +73,3 @@ import { informationCircle } from "ionicons/icons";
       ),
     },
   ];
-
- 
