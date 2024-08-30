@@ -11,10 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
 
 const ConfigureSublv = () => {
+  const [open, setOpen] = useState(false);
   const [sublevels, setSublevels] = useState([
     { id: 1, status: "0", name: "" },
   ]);
@@ -48,8 +49,19 @@ const ConfigureSublv = () => {
     }
   };
 
+  const resetDialog = () => {
+    setSublevels([ { id: 1, status: "0", name: "" }]);
+  };
+
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+    if (!newOpen) {
+      resetDialog();
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
           type="button"
@@ -138,13 +150,13 @@ const ConfigureSublv = () => {
               />
             </Button>
             <div className="flex justify-end pt-4">
-            <DialogClose asChild>
-              <Button
-                type="submit"
-                className="bg-blue-500 text-white hover:bg-blue-600"
-              >
-                Crear
-              </Button>
+              <DialogClose asChild>
+                <Button
+                  type="submit"
+                  className="bg-blue-500 text-white hover:bg-blue-600"
+                >
+                  Crear
+                </Button>
               </DialogClose>
             </div>
           </Form>

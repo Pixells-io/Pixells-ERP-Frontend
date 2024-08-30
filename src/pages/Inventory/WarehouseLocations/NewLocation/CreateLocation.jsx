@@ -63,6 +63,8 @@ export default CreateLocation;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  const response = await saveNewConfigure(formData);
-  return redirect("/inventory/warehouse-locations");
+  console.log(formData);
+  return "0";
 }
+
+

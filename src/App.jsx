@@ -1066,7 +1066,7 @@ const router = createBrowserRouter([
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
             loader:  multiLoaderData,
-            
+            action: createNewLocation
           },
           {
             path: "/inventory/merchandise-movements",
