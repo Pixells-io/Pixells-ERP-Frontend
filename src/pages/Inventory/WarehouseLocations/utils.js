@@ -71,14 +71,21 @@ export async function getsubLocation() {
 
 
 
-//SAVE SUBLOCATIONS 
+//SAVE LOCATIONS 
 export async function saveNewUbication(data) {
   
-      // Aquí puedes procesar los datos del formulario
-      // formData.getAll('var_id[]') te dará el array de var_id
-      // formData.getAll('from[]') te dará el array de from
-      // formData.getAll('to[]') te dará el array de to
-      // formData.get('active') te dará '1' o '0'
+  const info={
+    inventory_id:data.get("inventory_id"),
+    name:data.get("name"),
+    active:data.get("active"),
+    sales_available:data.get("sales_available"),
+    min_quantity:data.get("min_quantity"),
+    max_quantity:data.get("max_quantity"),
+    max_weight:data.get("max_weight"),
+    var_id:data.getAll("var_id[]"),
+    from:data.getAll("from[]"),
+    to:data.getAll("to[]"),
+  };
 
  /* const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation`,
