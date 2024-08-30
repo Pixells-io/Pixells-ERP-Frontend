@@ -11,6 +11,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import ModalDeleteAttribute from "./Modals/ModalDeleteAttribute";
+import EditAttribute from "./Modals/EditAttribute";
 
 const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
   const [attributesInfo, setAttributeInfo] = useState(attributes);
@@ -18,6 +19,8 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
     useState(false);
   const [attributeIdSelect, setAttributeIdSelect] = useState(0);
   const [attributeNameSelect, setAttributeNameSelet] = useState("");
+  const [openModalEditAttribute, setOpenModalEditAttribute] = useState(false);
+  const [attributeSelect, setAttributeSelect] = useState({});
 
   const pusherClient = createPusherClient();
 
@@ -44,6 +47,11 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
     setOpenModalDeleteAttribute(true);
   };
 
+  const openModalEdit = (attribute) => {
+    setOpenModalEditAttribute(true);
+    setAttributeSelect(attribute);
+  }
+
   return (
     <>
       {/* Modals */}
@@ -53,6 +61,13 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
         attribute_id={attributeIdSelect}
         attribute_name={attributeNameSelect}
       />
+      <EditAttribute 
+        modal={openModalEditAttribute}
+        setModal={setOpenModalEditAttribute}
+        attribute={attributeSelect}
+        setAttribute={setAttributeIdSelect}
+      />
+
       <Tabs className="flex h-full w-full flex-col">
         <TabsList className="mb-4 flex w-full flex-row justify-start gap-6 bg-transparent">
           <div className="flex h-full w-fit flex-wrap justify-start gap-3 overflow-auto">
@@ -67,6 +82,14 @@ const ProductAttributeTabs = ({ attributes, setModalNewAttribute }) => {
                     {attribute?.name}
                   </ContextMenuTrigger>
                   <ContextMenuContent>
+                    <ContextMenuItem
+                      onClick={() => {
+                        openModalEdit(attribute);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      Edit
+                    </ContextMenuItem>
                     <ContextMenuItem
                       onClick={() => {
                         openModalDelete(attribute.id, attribute.name);

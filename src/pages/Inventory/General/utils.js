@@ -126,6 +126,31 @@ export async function saveAttribute(data) {
   return response.json();
 }
 
+export async function editAttribute(data) {
+  const attribute_id = data.get("attribute_id");
+  const name = data.get("name");
+  const status = !!data.get("status") ? "1" : "0";
+
+  const info = {
+    attribute_id: attribute_id,
+    name: name,
+    status: status,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/edit-attributes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function destroyAttribute(data) {
   const info = {
     attribute_id: data.get("attribute_id"),
