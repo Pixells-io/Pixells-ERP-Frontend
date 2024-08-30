@@ -167,7 +167,9 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                         size="sm"
                         type="button"
                         className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                        onClick={() => handleOpenModalDelete(slot.id, slot.name)}
+                        onClick={() =>
+                          handleOpenModalDelete(slot.id, slot.name)
+                        }
                         disabled={sublevels.length > 0}
                       >
                         <IonIcon
@@ -177,8 +179,24 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                         />
                       </Button>
                     </div>
-                    <div className="col-span-2">
-                      {indexEnabled == index ? (
+                    <div className="col-span-2 flex gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        type="button"
+                        className={`rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones`}
+                        onClick={() => {
+                          setIndexEnabled(indexEnabled == null ? index : null);
+                        }}
+                        disabled={sublevels.length > 0}
+                      >
+                        <IonIcon
+                          icon={create}
+                          size="small"
+                          className={`cursor-pointer text-grisText ${indexEnabled == index && "text-primarioBotones"}`}
+                        />
+                      </Button>
+                      {indexEnabled == index && (
                         <Button
                           type="submit"
                           variant="ghost"
@@ -193,25 +211,6 @@ const FormProduct = ({ attribute_id, attribute_name, slots }) => {
                             icon={checkmarkCircleOutline}
                             size="small"
                             className="cursor-pointer"
-                          />
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          type="button"
-                          className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                          onClick={() => {
-                            setTimeout(() => {
-                              setIndexEnabled(index);
-                            }, 500);
-                          }}
-                          disabled={sublevels.length > 0}
-                        >
-                          <IonIcon
-                            icon={create}
-                            size="small"
-                            className="cursor-pointer text-grisText"
                           />
                         </Button>
                       )}
