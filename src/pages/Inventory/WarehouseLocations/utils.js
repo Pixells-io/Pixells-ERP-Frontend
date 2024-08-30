@@ -87,7 +87,7 @@ export async function saveNewUbication(data) {
     to:data.getAll("to[]"),
   };
 
- /* const response = await fetch(
+  const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation`,
     {
       method: "POST",
@@ -96,7 +96,7 @@ export async function saveNewUbication(data) {
         Authorization: "Bearer " + Cookies.get("token"),
       },
     },
-  );*/
+  );
 
   return response.json();
 }

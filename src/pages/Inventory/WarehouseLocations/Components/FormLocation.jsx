@@ -33,7 +33,7 @@ const FormLocation = ({ formData, setFormData }) => {
       setFormData((prevData) => ({
         ...prevData,
         slots: subLocation.slots.map((slot) => ({
-          id:  Math.random(),
+          id:   slot.id,
           name: slot.name,
           from: "",
           to: "",

@@ -1,15 +1,15 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
-import { columnsWL } from "./Components/Table/LocationTable";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Button } from "@/components/ui/button";
-import {saveNewConfigure } from "./utils";
-import {Link, useLoaderData,redirect } from "react-router-dom";
-import { getsubLocation } from "./utils";
+import { saveNewConfigure } from "./utils";
+import { Link, useLoaderData, redirect } from "react-router-dom";
+import { getLocations, getsubLocation } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
-import ConfigureTable from "./Components/Table/ConfiglvlTable";
+import { LocationColumns } from "./Components/Table/LocationColumns";
+import { ConfigColumns } from "./Components/Table/ConfiglvlTable";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
 
 const datos = [
@@ -27,10 +27,17 @@ const datos = [
 ];
 
 const MainWL = () => {
-  const {locationData, subLocationData } = useLoaderData();
+  const { locationData, subLocationData } = useLoaderData();
+
+  const [locationInfo, setLocationInfo] = useState(locationData.data);
   const [configInfo, setConfigInfo] = useState(subLocationData.data);
 
   const pusherClient = createPusherClient();
+
+  async function getLocationFunction() {
+    let newData = await getLocations();
+    setLocationInfo(newData);
+  }
 
   async function getSubLocationFunction() {
     let newData = await getsubLocation();
@@ -41,7 +48,7 @@ const MainWL = () => {
     pusherClient.subscribe("private-get-sub-ubications");
 
     pusherClient.bind("fill-sub-ubications", ({ message }) => {
-     
+      getLocationFunction();
       getSubLocationFunction();
     });
 
@@ -49,7 +56,7 @@ const MainWL = () => {
       pusherClient.unsubscribe("private-get-sub-ubications");
     };
   }, []);
-  
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -103,9 +110,8 @@ const MainWL = () => {
                   className="h-7 w-7 text-primarioBotones"
                 />
               </Button>
-              
             </Link>
-            <ConfigureSublv/>
+            <ConfigureSublv />
           </div>
         </div>
         {/*content */}
@@ -131,16 +137,22 @@ const MainWL = () => {
             </TabsList>
             <TabsContent value="warehouse" className="mt-[-60px] p-2">
               <DataTable
-                data={datos}
-                columns={columnsWL}
+                data={locationInfo}
+                columns={LocationColumns}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
                 isCheckAll={true}
               />
             </TabsContent>
             <TabsContent value="config" className="mt-[-60px] p-2">
-            <ConfigureTable data={configInfo} />
-          </TabsContent>
+            <DataTable
+                data={configInfo}
+                columns={ConfigColumns}
+                searchFilter="name"
+                searchNameFilter="Buscar por nombre"
+                isCheckAll={true}
+              />
+            </TabsContent>
           </Tabs>
         </div>
       </div>
