@@ -49,14 +49,10 @@ const ConfigureSublv = () => {
     }
   };
 
-  const resetDialog = () => {
-    setSublevels([{ id: 1, status: "0", name: "" }]);
-  };
-
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
     if (!newOpen) {
-      resetDialog();
+      setSublevels([{ id: 1, status: "0", name: "" }]);
     }
   };
 
