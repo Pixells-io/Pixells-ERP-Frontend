@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
-import { closeCircle, copy, create } from "ionicons/icons";
+import { closeCircle, copy, create, trash } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import ModalDeleteAccount from "../../Catalog/Modals/ModalDeleteAccount";
 
 const FormDetailAccount = ({ account, setSelectAccount }) => {
   return (
@@ -32,6 +33,9 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
               icon={create}
               className="h-5 w-5 cursor-pointer text-[#696974]"
             ></IonIcon>
+          </div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+            <ModalDeleteAccount account_id={null} account_name={"prueba"} />
           </div>
         </div>
       </div>

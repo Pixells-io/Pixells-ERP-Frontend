@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -15,6 +15,14 @@ const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
 
   const { data } = useLoaderData();
+
+  useEffect(() => {
+    transforInSubAccount();
+  }, [data]);
+
+  const transforInSubAccount = () => {
+
+  }
 
   const account = {
     id: 1,
