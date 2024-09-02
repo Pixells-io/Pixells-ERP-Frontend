@@ -264,6 +264,8 @@ import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
 import MainCost from "./pages/Accounting/Cost/MainCost";
 import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
+import { getAccountingAccounts, getAccountingAccountsById } from "./pages/Accounting/Catalog/utils";
+import AccountingAccountEmpty from "./pages/Accounting/components/AccountingAccountEmpty";
 
 //BankManagement
 import MainBankManagement, {
@@ -415,7 +417,6 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
-import { getAccountingAccounts } from "./pages/Accounting/Catalog/utils";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
 
 const router = createBrowserRouter([
@@ -940,47 +941,48 @@ const router = createBrowserRouter([
         ],
       },
       //Acounting
-      {
-        path: "/accounting",
-        element: <SideLayoutAccounting />,
-        action: AccountingCatalogActions,
-        children: [
-          {
-            element: <MainCatalog />,
-            children: [
-              {
-                index: true,
-                element: <AccountingAccount />,
-                loader: getAccountingAccounts,
-              },
-              {
-                path: "/accounting/liabilities-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/equity-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/income-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/cost-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/expense-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/financial-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/other-account",
-                element: <AccountingAccount />,
-              },
+        {
+          path: "/accounting",
+          element: <SideLayoutAccounting />,
+          action: AccountingCatalogActions,
+          children: [
+            {
+              element: <MainCatalog />,
+              loader: getAccountingAccounts,
+              children: [
+                {
+                  index: true,
+                  element: <AccountingAccountEmpty />,
+                },
+                {
+                  path: "/accounting/:level",
+                  element: <AccountingAccount />,
+                  loader: getAccountingAccountsById,
+                },
+            //   // {
+            //   //   path: "/accounting/equity-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
+            //   // {
+            //   //   path: "/accounting/income-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
+            //   // {
+            //   //   path: "/accounting/cost-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
+            //   // {
+            //   //   path: "/accounting/expense-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
+            //   // {
+            //   //   path: "/accounting/financial-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
+            //   // {
+            //   //   path: "/accounting/other-account",
+            //   //   element: <AccountingAccount />,
+            //   // },
             ],
           },
           {

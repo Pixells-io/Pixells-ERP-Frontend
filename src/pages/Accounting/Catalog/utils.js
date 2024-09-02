@@ -35,7 +35,9 @@ export async function getAccountingAccounts() {
   }
 }
 
-export async function getAccountingAccountsById(level) {
+export async function getAccountingAccountsById({ params }) {
+  const level = params.level;
+
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}accounting/get-accounting-accounts/${level}`,

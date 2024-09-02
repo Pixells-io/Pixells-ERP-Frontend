@@ -5,9 +5,12 @@ import CatalogConsole from "./Components/CatalogConsole";
 import AccountFormModal from "./Components/AccountFormModal";
 import { Button } from "@/components/ui/button";
 import ModalImportAccounts from "./Components/ModalImportAccounts";
+import { useLoaderData } from "react-router-dom";
 
 const MainCatalog = () => {
   const [modalImport, setModalImport] = useState(false);
+
+  const { data } = useLoaderData();
 
   return (
     <div className="flex w-full">
@@ -62,7 +65,7 @@ const MainCatalog = () => {
           </Button>
         </div>
         {/*CONTENT MENU OF CONSOLE */}
-        <CatalogConsole />
+        <CatalogConsole accoutingAccounts={Object.values(data)} />
       </div>
     </div>
   );
