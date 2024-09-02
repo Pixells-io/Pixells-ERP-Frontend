@@ -49,14 +49,10 @@ const ConfigureSublv = () => {
     }
   };
 
-  const resetDialog = () => {
-    setSublevels([ { id: 1, status: "0", name: "" }]);
-  };
-
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
     if (!newOpen) {
-      resetDialog();
+      setSublevels([{ id: 1, status: "0", name: "" }]);
     }
   };
 
@@ -72,33 +68,34 @@ const ConfigureSublv = () => {
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-auto sm:max-w-[550px]">
         <DialogHeader className="border-b border-[#D7D7D7] px-6 pb-4">
-          <DialogTitle className="font-poppins text-sm font-semibold text-[#44444F]">
+          <DialogTitle className="font-poppins text-[14px] font-semibold text-[#44444F]">
             Configuración de Subniveles de Ubicación
           </DialogTitle>
         </DialogHeader>
-        <div className="px-6 py-4">
+        <div className="space-y-4 px-6 py-4">
           <Form
             id="form-warehouses"
             action="/inventory/warehouse-locations"
             method="POST"
           >
-            <div className="mb-2 flex justify-between border-b border-[#D7D7D7]">
-              <label className="flex font-roboto text-[14px] text-gris2">
+            <div className="mb-4 mt-2 grid grid-cols-3 items-center gap-4 border-b border-[#D7D7D7]">
+              <label className="whitespace-nowrap text-left font-roboto text-[14px] font-semibold text-gris2">
                 Subnivel
               </label>
-              <label className="flex font-roboto text-[14px] text-gris2">
+              <label className="w-full whitespace-nowrap text-center font-roboto text-[14px] font-semibold text-gris2">
                 Nombre o Descripción
               </label>
-              <label className="flex font-roboto text-[14px] text-gris2">
+              <label className="whitespace-nowrap text-right font-roboto text-[14px] font-semibold text-gris2">
                 Estatus
               </label>
             </div>
+
             {sublevels.map((sublevel) => (
               <div
                 key={sublevel.id}
-                className="mb-4 flex items-center space-x-4 border-b border-[#D7D7D7] pb-4"
+                className="mb-4 grid grid-cols-3 items-center gap-4 border-b border-[#D7D7D7] pb-4"
               >
-                <span className="flex font-roboto text-[14px] text-gris2">
+                <span className="font-roboto text-[14px] text-gris2">
                   Subnivel {sublevel.id}
                 </span>
                 <Input
@@ -109,9 +106,9 @@ const ConfigureSublv = () => {
                     handleNameChange(sublevel.id, e.target.value)
                   }
                   placeholder="Agrega"
-                  className="flex-grow rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
+                  className="rounded-xl border border-[#D7D7D7] font-roboto text-sm text-[#696974] placeholder:text-[#8F8F8F] focus:border-[#5B89FF] focus-visible:ring-[#5B89FF]"
                 />
-                <div className="flex items-center justify-between gap-x-2">
+                <div className="flex items-center justify-end gap-x-2">
                   <Checkbox
                     name={`status-${sublevel.id}`}
                     value="1"
@@ -123,7 +120,6 @@ const ConfigureSublv = () => {
                   />
                   <Button
                     variant="ghost"
-                    size="sm"
                     className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
                     onClick={() => handleRemoveSublevel(sublevel.id)}
                     disabled={sublevels.length === 1}
