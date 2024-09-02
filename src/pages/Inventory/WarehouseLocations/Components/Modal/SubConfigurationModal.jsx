@@ -82,10 +82,10 @@ const ConfigureSublv = () => {
         action="/inventory/warehouse-locations"
         method="POST"
       >
-        <div className="mt-2 mb-2 grid grid-cols-3 gap-4 border-b border-[#D7D7D7]">
-          <label className="font-roboto font-semibold text-[12px] text-gris2 text-left">Subnivel</label>
-          <label className="font-roboto font-semibold text-[12px] text-gris2 text-center">Nombre o Descripción</label>
-          <label className="font-roboto font-semibold text-[12px] text-gris2 text-right">Estatus</label>
+        <div className="mt-2 mb-4 grid grid-cols-3 gap-4 border-b border-[#D7D7D7]">
+          <label className="font-roboto font-semibold text-[14px] text-gris2 text-left">Subnivel</label>
+          <label className="font-roboto font-semibold text-[14px] text-gris2 text-center">Nombre o Descripción</label>
+          <label className="font-roboto font-semibold text-[14px] text-gris2 text-right">Estatus</label>
         </div>
         {sublevels.map((sublevel) => (
           <div
