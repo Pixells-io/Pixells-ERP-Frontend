@@ -263,7 +263,9 @@ import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
 import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
 import MainCost from "./pages/Accounting/Cost/MainCost";
-import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
+import AccountingAccount, {
+  Action as AccountingAccountActions,
+} from "./pages/Accounting/components/AccountingAccount";
 import { getAccountingAccounts, getAccountingAccountsById } from "./pages/Accounting/Catalog/utils";
 import AccountingAccountEmpty from "./pages/Accounting/components/AccountingAccountEmpty";
 
@@ -957,6 +959,7 @@ const router = createBrowserRouter([
                 {
                   path: "/accounting/:level",
                   element: <AccountingAccount />,
+                  action: AccountingAccountActions,
                   loader: getAccountingAccountsById,
                 },
             //   // {

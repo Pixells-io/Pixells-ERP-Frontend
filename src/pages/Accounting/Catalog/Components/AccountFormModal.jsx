@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,26 +12,12 @@ import { Label } from "@/components/ui/label";
 import { IonIcon } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
+import { Form, useParams } from "react-router-dom";
 
 const AccountFormModal = () => {
-  const [newItem, setNewItem] = useState({
-    rubro: "",
-    ccontable: "",
-    nombre: "",
-    nivel: "",
-    moneda: "",
-    saldo: "",
-    tcuenta: "",
-    sat: "",
-    descripcion: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem((prev) => ({ ...prev, [name]: value }));
-  };
+  const { level } = useParams();
+  console.log(level);
 
   return (
     <Dialog>
@@ -49,7 +36,16 @@ const AccountFormModal = () => {
             </DialogTitle>
           </DialogHeader>
         </div>
-        <form className="px-4">
+        <DialogDescription className="hidden"></DialogDescription>
+        <Form action={`/accounting/${level}`} method="post" className="px-4">
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            name="type_option"
+            value={"save_accountingAccount"}
+            readOnly
+          />
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label
@@ -58,51 +54,35 @@ const AccountFormModal = () => {
               >
                 Rubro
               </Label>
-              <InputRouter
-                id="rubro"
-                name="rubro"
-                value={newItem.rubro}
-                onChange={handleInputChange}
-                type="text"
-              />
+              <InputRouter id="rubro" name="rubro" type="text" />
             </div>
             <div>
               <Label
-                htmlFor="ccontable"
+                htmlFor="accounting_account"
                 className="font-roboto text-[14px] font-light text-grisText"
               >
                 Cuenta contable
               </Label>
-              <InputRouter
-                id="ccontable"
-                name="ccontable"
-                value={newItem.ccontable}
-                onChange={handleInputChange}
-                type="text"
-              />
+              <InputRouter id="accounting_account" name="accounting_account" type="text" />
             </div>
             <div>
               <Label
-                htmlFor="nivel"
-                className="font-roboto text-[14px] font-light text-grisText"              >
+                htmlFor="level"
+                className="font-roboto text-[14px] font-light text-grisText"
+              >
                 Nivel
               </Label>
-              <InputRouter
-                id="nivel"
-                name="nivel"
-                value={newItem.nivel}
-                onChange={handleInputChange}
-                type="text"
-              />
+              <InputRouter id="level" name="level" type="text" />
             </div>
-            <div className="w-full pt-2"> 
+            <div className="w-full pt-2">
               <Label
-                htmlFor="moneda"
-                className="font-roboto text-[14px] font-light text-grisText" >
+                htmlFor="currency"
+                className="font-roboto text-[14px] font-light text-grisText"
+              >
                 Moneda
               </Label>
               <SelectField
-                name="moneda"
+                name="currency"
                 options={[
                   { label: "MXN", value: "MXN" },
                   { label: "USD", value: "USD" },
@@ -115,44 +95,33 @@ const AccountFormModal = () => {
 
           <div className="mt-4">
             <Label
-              htmlFor="nombre"
+              htmlFor="name"
               className="font-roboto text-[14px] font-light text-grisText"
             >
               Nombre
             </Label>
-            <InputRouter
-              id="nombre"
-              name="nombre"
-              value={newItem.nombre}
-              onChange={handleInputChange}
-              type="text"
-            />
+            <InputRouter id="name" name="name" type="text" />
           </div>
 
           <div className="mt-4">
             <Label
               htmlFor="saldo"
-              className="font-roboto text-[14px] font-light text-grisText">
+              className="font-roboto text-[14px] font-light text-grisText"
+            >
               Saldo
             </Label>
-            <InputRouter
-              id="saldo"
-              name="saldo"
-              value={newItem.saldo}
-              onChange={handleInputChange}
-              type="number"
-            />
+            <InputRouter id="saldo" name="saldo" type="number" />
           </div>
 
           <div className="mt-4">
             <Label
-              htmlFor="tcuenta"
+              htmlFor="type_of_account"
               className="font-roboto text-[14px] font-light text-grisText"
             >
               Tipo de Cuenta
             </Label>
             <SelectField
-              name="tcuenta"
+              name="type_of_account"
               options={[]}
               placeholder="Tipo de Cuenta"
             />
@@ -160,34 +129,22 @@ const AccountFormModal = () => {
 
           <div className="mt-4">
             <Label
-              htmlFor="sat"
+              htmlFor="sat_code"
               className="font-roboto text-[14px] font-light text-grisText"
             >
               Código Agrupador SAT (Contabilidad Electrónica)
             </Label>
-            <InputRouter
-              id="sat"
-              name="sat"
-              value={newItem.sat}
-              onChange={handleInputChange}
-              type="text"
-            />
+            <InputRouter id="sat_code" name="sat_code" type="text" />
           </div>
 
           <div className="mt-4">
             <Label
-              htmlFor="descripcion"
-             className="font-roboto text-[14px] font-light text-grisText"
+              htmlFor="description"
+              className="font-roboto text-[14px] font-light text-grisText"
             >
               Descripción
             </Label>
-            <InputRouter
-              id="descripcion"
-              name="descripcion"
-              value={newItem.descripcion}
-              onChange={handleInputChange}
-              type="text"
-            />
+            <InputRouter id="description" name="description" type="text" />
           </div>
 
           <div className="mt-6 flex justify-end">
@@ -198,7 +155,7 @@ const AccountFormModal = () => {
               Guardar
             </Button>
           </div>
-        </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

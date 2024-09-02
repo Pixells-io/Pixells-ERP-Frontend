@@ -52,3 +52,29 @@ export async function getAccountingAccountsById({ params }) {
     return new Response("Ups", { status: 500 });
   }
 }
+
+export async function saveAccountingAccount(data) {
+  const info = {
+    type: data.get("type"),
+    accounting_account: data.get("accounting_account"),
+    name: data.get("name"),
+    level: data.get("level"),
+    currency: data.get("currency"),
+    type_of_account: data.get("type_of_account"),
+    sat_code: data.get("sat_code"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}accounting/create-accounting-account`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

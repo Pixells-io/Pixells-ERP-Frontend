@@ -8,7 +8,8 @@ import {
 import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
+import { saveAccountingAccount } from "../Catalog/utils";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
@@ -139,3 +140,16 @@ const AccountingAccount = () => {
 };
 
 export default AccountingAccount;
+
+export async function Action({ request }) {
+  // const { level } = useParams();
+
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "save_accountingAccount":
+      await saveAccountingAccount(data);
+      break;
+  }
+  return "1";
+  // return redirect(`/accounting/${level}`);
+}
