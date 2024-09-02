@@ -98,7 +98,7 @@ const ConfigureSublv = () => {
                 key={sublevel.id}
                 className="mb-4 flex items-center space-x-4 border-b border-[#D7D7D7] pb-4"
               >
-                <span className="w-20 font-roboto text-[14px] text-gris2">
+                <span className="flex font-roboto text-[14px] text-gris2">
                   Subnivel {sublevel.id}
                 </span>
                 <Input

@@ -12,20 +12,6 @@ import { LocationColumns } from "./Components/Table/LocationColumns";
 import { ConfigColumns } from "./Components/Table/ConfiglvlTable";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
 
-const datos = [
-  {
-    id: 1,
-    inventory_code: "12131d122",
-    categoria: "Metales",
-    name: "Tornnillos",
-    unidadMedida: "KG",
-    cuentaContable: "Sí",
-    tipo: "Material",
-    creator: "Lopez Díaz",
-    created: "28-Ago-2024",
-  },
-];
-
 const MainWL = () => {
   const { locationData, subLocationData } = useLoaderData();
 
@@ -99,7 +85,7 @@ const MainWL = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ubicaciones de Almacén
           </p>
-          <div className="flex items-start justify-start">
+          <div className="flex items-start justify-start space-x-6">
             <Link to="/inventory/warehouse-locations/create">
               <Button
                 type="button"

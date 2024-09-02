@@ -122,8 +122,11 @@ const FormLocation = ({ formData, setFormData }) => {
 
       {/* Slots */}
       {formData.slots.length > 0 && (
-        <div className="space-y-4">
-          <Label className="font-roboto text-[14px] text-gris2">Slots</Label>
+        <div className="pt-4 space-y-4">
+          <div className="flex justify-evenly">
+          <Label className="font-roboto text-[14px] text-gris2">Desde</Label>
+          <Label className="font-roboto text-[14px] text-gris2">Hasta</Label>
+          </div>
           {formData.slots.map((slot, index) => (
             <div key={slot.id} className="flex items-center gap-4">
               <Label className="w-32 font-roboto text-[14px] text-gris2">
@@ -131,7 +134,6 @@ const FormLocation = ({ formData, setFormData }) => {
               </Label>
               <Input
                 name={`from[${slot.id}]`}
-                placeholder="Desde"
                 value={slot.from}
                 onChange={(e) => {
                   const newSlots = [...formData.slots];
@@ -142,7 +144,6 @@ const FormLocation = ({ formData, setFormData }) => {
               />
               <Input
                 name={`to[${slot.id}]`}
-                placeholder="Hasta"
                 value={slot.to}
                 onChange={(e) => {
                   const newSlots = [...formData.slots];
@@ -158,7 +159,7 @@ const FormLocation = ({ formData, setFormData }) => {
       )}
 
       {/* Checkboxes */}
-      <div className="flex gap-4">
+      <div className="mt-4 pt-4 flex gap-4">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center gap-4">
             <Label

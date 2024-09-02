@@ -75,18 +75,18 @@ export async function getsubLocation() {
 export async function saveNewUbication(data) {
   
   const info={
+    var_id:data.getAll("var_id[]"),
+    from:data.getAll("from[]"),
+    to:data.getAll("to[]"),
     inventory_id:data.get("inventory_id"),
     name:data.get("name"),
     active:data.get("active"),
     sales_available:data.get("sales_available"),
     min_quantity:data.get("min_quantity"),
     max_quantity:data.get("max_quantity"),
-    max_weight:data.get("max_weight"),
-    var_id:data.getAll("var_id[]"),
-    from:data.getAll("from[]"),
-    to:data.getAll("to[]"),
+    max_weight:data.get("max_weight")
   };
-
+  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation`,
     {
