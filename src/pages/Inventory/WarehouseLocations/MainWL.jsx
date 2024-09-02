@@ -17,11 +17,14 @@ const MainWL = () => {
 
   const [locationInfo, setLocationInfo] = useState(locationData.data);
   const [configInfo, setConfigInfo] = useState(subLocationData.data);
+  
   const pusherClient = createPusherClient();
+  const [length,setLength]=useState(configInfo.length);
 
   async function getLocationFunction() {
     let newData = await getLocations();
     setLocationInfo(newData);
+    setLength(configInfo.length)
   }
 
   async function getSubLocationFunction() {
@@ -96,7 +99,8 @@ const MainWL = () => {
                 />
               </Button>
             </Link>
-            <ConfigureSublv />
+            <ConfigureSublv configlevel={length} />
+
           </div>
         </div>
         {/*content */}

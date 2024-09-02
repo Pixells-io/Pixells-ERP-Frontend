@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import FormLocation from "../Components/FormLocation";
@@ -10,14 +10,14 @@ const CreateLocation = () => {
   const [formData, setFormData] = useState({
     inventory_id: "",
     subLocation: "",
-    var_id: "",
+    var_id: [], // Inicializado como array
     activo: false,
     inactivo: false,
     disponible: false,
     cantidadMinima: "",
     cantidadMaxima: "",
     pesoMaximo: "",
-    codigoBarras:"",
+    codigoBarras: "",
     slots: [],
   });
 
@@ -46,8 +46,8 @@ const CreateLocation = () => {
             <div>Inventory - General</div>
           </div>
         </div>
-        {/* top content */}
 
+        {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             INVENTARIO
@@ -61,57 +61,30 @@ const CreateLocation = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Localización
+            Nueva Ubicación
           </p>
         </div>
-        {/*content */}
 
         <FormLocation formData={formData} setFormData={setFormData} />
-        {/*LOAD DATA IN INPUTS */}
-        <Form action="/inventory/warehouse-locations/create" method="post">
-          <input
-            type="hidden"
-            name="inventory_id"
-            value={formData.inventory_id}
-          />
-          <input type="hidden" name="name" value={formData.subLocation} />
-          <input
-            type="hidden"
-            name="active"
-            value={formData.activo ? "1" : "0"}
-          />
-          <input
-            type="hidden"
-            name="sales_available"
-            value={formData.disponible ? "1" : "0"}
-          />
-          <input
-            type="hidden"
-            name="min_quantity"
-            value={formData.cantidadMinima}
-          />
-          <input
-            type="hidden"
-            name="max_quantity"
-            value={formData.cantidadMaxima}
-          />
-           <input
-            type="hidden"
-            name="barcode"
-            value={formData.codigoBarras}
-          />
-          <input type="hidden" name="max_weight" value={formData.pesoMaximo} />
 
-          {/* Renderiza los inputs ocultos para cada slot */}
+        <Form action="/inventory/warehouse-locations/create" method="post">
+          <input type="hidden" name="inventory_id" value={formData.inventory_id} />
+          <input type="hidden" name="name" value={formData.subLocation} />
+          <input type="hidden" name="active" value={formData.activo ? "1" : "0"} />
+          <input type="hidden" name="sales_available" value={formData.disponible ? "1" : "0"} />
+          <input type="hidden" name="min_quantity" value={formData.cantidadMinima} />
+          <input type="hidden" name="max_quantity" value={formData.cantidadMaxima} />
+          <input type="hidden" name="max_weight" value={formData.pesoMaximo} />
+          <input type="hidden" name="barcode" value={formData.codigoBarras} />
+
+          {formData.var_id.map((id, index) => (
+            <input key={index} type="hidden" name="var_id[]" value={id} />
+          ))}
+
           {formData.slots.map((slot, index) => (
             <div key={index}>
-              <input
-                type="hidden"
-                name={`var_id[]`}
-                value={slot.subLocationId}
-              />
-              <input type="hidden" name={`from[]`} value={slot.from} />
-              <input type="hidden" name={`to[]`} value={slot.to} />
+              <input type="hidden" name="from[]" value={slot.from || ''} />
+              <input type="hidden" name="to[]" value={slot.to || ''} />
             </div>
           ))}
 

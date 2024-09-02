@@ -14,10 +14,13 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-const ConfigureSublv = () => {
-  const [open, setOpen] = useState(false);
+const ConfigureSublv = ({ configlevel }) => {
+  // Inicializa el índice basado en configlevel + 1
+  const initialIndex = configlevel + 1;
+  
+  // Estado para manejar los subniveles y el índice actual
   const [sublevels, setSublevels] = useState([
-    { id: 1, status: "0", name: "" },
+    { id: initialIndex, status: "0", name: "" },
   ]);
 
   const handleStatusChange = (id, checked) => {
@@ -39,7 +42,7 @@ const ConfigureSublv = () => {
   };
 
   const handleAddSublevel = () => {
-    const newId = Math.max(...sublevels.map((s) => s.id), 0) + 1;
+    const newId = Math.max(...sublevels.map((s) => s.id)) + 1;
     setSublevels([...sublevels, { id: newId, status: "0", name: "" }]);
   };
 
@@ -49,15 +52,8 @@ const ConfigureSublv = () => {
     }
   };
 
-  const handleOpenChange = (newOpen) => {
-    setOpen(newOpen);
-    if (!newOpen) {
-      setSublevels([{ id: 1, status: "0", name: "" }]);
-    }
-  };
-
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog>
       <DialogTrigger asChild>
         <Button
           type="button"
