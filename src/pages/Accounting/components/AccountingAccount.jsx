@@ -15,6 +15,8 @@ const AccountingAccount = () => {
 
   const { data } = useLoaderData();
 
+  console.log(data);
+
   const account = {
     id: 1,
     numberAccount: "1000",

@@ -34,3 +34,19 @@ export async function getAccountingAccounts() {
     return new Response("Ups", { status: 500 });
   }
 }
+
+export async function getAccountingAccountsById(level) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}accounting/get-accounting-accounts/${level}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
