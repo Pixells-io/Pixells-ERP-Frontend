@@ -40,9 +40,9 @@ const SubAccountingAccount = ({
               (level == 1 ? "font-normal" : "font-light")
             }
           >
-            {account.numberAccount} - {account.name}
+            {account.level} - {account.name}
           </AccordionTrigger>
-          {!account?.isPermanent && (
+          {true && (
             <div className="flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <label
                 className={
@@ -55,7 +55,7 @@ const SubAccountingAccount = ({
             </div>
           )}
         </div>
-        {account.subAccounts.length != 0 ? (
+        {account?.subAccounts?.length != 0 ? (
           <AccordionContent>
             {account.subAccounts.map((subAccount, index) => (
               <SubAccountingAccount

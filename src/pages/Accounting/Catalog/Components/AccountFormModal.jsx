@@ -17,7 +17,6 @@ import { Form, useParams } from "react-router-dom";
 
 const AccountFormModal = () => {
   const { level } = useParams();
-  console.log(level);
 
   return (
     <Dialog>
