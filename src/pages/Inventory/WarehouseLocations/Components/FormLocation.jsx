@@ -11,15 +11,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useLoaderData } from "react-router-dom";
 
-
 const FormLocation = ({ formData, setFormData }) => {
   const selectClasses =
     "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
- 
- //LOAD DATA 
-    const { subLocationData, warehousesData } = useLoaderData();
 
-  
+  // LOAD DATA
+  const { subLocationData, warehousesData } = useLoaderData();
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -35,21 +33,24 @@ const FormLocation = ({ formData, setFormData }) => {
     if (subLocation) {
       setFormData((prevData) => ({
         ...prevData,
+        var_id: [subLocationId],
         slots: subLocation.slots.map((slot) => ({
-          id:   slot.id,
+          id: slot.id,
           name: slot.name,
           from: "",
           to: "",
+          subLocationId, // Guardar el subLocationId en cada slot
         })),
       }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        subLocation: "",
+        var_id: [],
         slots: [],
       }));
     }
   };
+  
 
   return (
     <div className="w-full space-y-4 overflow-auto rounded-xl bg-white px-6 py-6">
@@ -124,8 +125,8 @@ const FormLocation = ({ formData, setFormData }) => {
       {formData.slots.length > 0 && (
         <div className="pt-4 space-y-4">
           <div className="flex justify-evenly">
-          <Label className="font-roboto text-[14px] text-gris2">Desde</Label>
-          <Label className="font-roboto text-[14px] text-gris2">Hasta</Label>
+            <Label className="font-roboto text-[14px] text-gris2">Desde</Label>
+            <Label className="font-roboto text-[14px] text-gris2">Hasta</Label>
           </div>
           {formData.slots.map((slot, index) => (
             <div key={slot.id} className="flex items-center gap-4">
@@ -133,6 +134,7 @@ const FormLocation = ({ formData, setFormData }) => {
                 {slot.name}
               </Label>
               <Input
+                type="date"
                 name={`from[${slot.id}]`}
                 value={slot.from}
                 onChange={(e) => {
@@ -143,6 +145,7 @@ const FormLocation = ({ formData, setFormData }) => {
                 className="border-gris2-transparent flex-1 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               />
               <Input
+                type="date"
                 name={`to[${slot.id}]`}
                 value={slot.to}
                 onChange={(e) => {
@@ -252,7 +255,7 @@ const FormLocation = ({ formData, setFormData }) => {
           Peso Máximo
         </Label>
         <Input
-          type="text"
+          type="number"
           name="pesoMaximo"
           value={formData.pesoMaximo}
           onChange={handleInputChange}
@@ -268,8 +271,9 @@ const FormLocation = ({ formData, setFormData }) => {
           Código de Barras
         </Label>
         <Input
-          id="codigoBarras"
+          type="number"
           name="codigoBarras"
+          value={formData.codigoBarras}
           onChange={handleInputChange}
           className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
         />

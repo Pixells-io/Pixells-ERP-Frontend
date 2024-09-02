@@ -17,7 +17,6 @@ const MainWL = () => {
 
   const [locationInfo, setLocationInfo] = useState(locationData.data);
   const [configInfo, setConfigInfo] = useState(subLocationData.data);
-
   const pusherClient = createPusherClient();
 
   async function getLocationFunction() {

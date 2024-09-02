@@ -84,7 +84,8 @@ export async function saveNewUbication(data) {
     sales_available:data.get("sales_available"),
     min_quantity:data.get("min_quantity"),
     max_quantity:data.get("max_quantity"),
-    max_weight:data.get("max_weight")
+    max_weight:data.get("max_weight"),
+    barcode:data.get("barcode")
   };
   
   const response = await fetch(
