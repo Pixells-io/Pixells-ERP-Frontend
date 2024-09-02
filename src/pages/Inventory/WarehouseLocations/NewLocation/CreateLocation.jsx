@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import FormLocation from "../Components/FormLocation";
-import {Form} from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewUbication } from "../utils";
 
@@ -10,15 +10,16 @@ const CreateLocation = () => {
   const [formData, setFormData] = useState({
     inventory_id: "",
     subLocation: "",
+    var_id: "",
     activo: false,
     inactivo: false,
     disponible: false,
     cantidadMinima: "",
     cantidadMaxima: "",
     pesoMaximo: "",
+    codigoBarras:"",
     slots: [],
   });
-
 
   return (
     <div className="flex w-full">
@@ -67,22 +68,22 @@ const CreateLocation = () => {
 
         <FormLocation formData={formData} setFormData={setFormData} />
         {/*LOAD DATA IN INPUTS */}
-        <Form
-          action="/inventory/warehouse-locations/create"
-          method="post"
-        >
+        <Form action="/inventory/warehouse-locations/create" method="post">
           <input
             type="hidden"
             name="inventory_id"
             value={formData.inventory_id}
           />
           <input type="hidden" name="name" value={formData.subLocation} />
-          <input type="hidden" name="active" value={formData.activo ? "1" : "0"} />
-
+          <input
+            type="hidden"
+            name="active"
+            value={formData.activo ? "1" : "0"}
+          />
           <input
             type="hidden"
             name="sales_available"
-            value={formData.disponible}
+            value={formData.disponible ? "1" : "0"}
           />
           <input
             type="hidden"
@@ -94,12 +95,21 @@ const CreateLocation = () => {
             name="max_quantity"
             value={formData.cantidadMaxima}
           />
+           <input
+            type="hidden"
+            name="barcode"
+            value={formData.codigoBarras}
+          />
           <input type="hidden" name="max_weight" value={formData.pesoMaximo} />
 
-          {/* Render slot inputs dynamically as arrays */}
+          {/* Renderiza los inputs ocultos para cada slot */}
           {formData.slots.map((slot, index) => (
             <div key={index}>
-              <input type="hidden" name={`var_id[]`} value={slot.id} />
+              <input
+                type="hidden"
+                name={`var_id[]`}
+                value={slot.subLocationId}
+              />
               <input type="hidden" name={`from[]`} value={slot.from} />
               <input type="hidden" name={`to[]`} value={slot.to} />
             </div>
@@ -124,5 +134,5 @@ export default CreateLocation;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewUbication(formData);
-  return "0";
+  return redirect("/inventory/warehouse-locations");
 }
