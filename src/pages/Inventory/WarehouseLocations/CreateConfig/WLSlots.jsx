@@ -23,7 +23,7 @@ const WLSlots = () => {
   useEffect(() => {
     setLocalGroup(group);
   }, []);
-
+console.log(group)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -67,7 +67,7 @@ const WLSlots = () => {
         </div>
         {/*content */}
         <div className="overflow-auto">
-          <FormGroup ids={localGroup} />
+         <FormGroup variables={group} />
         </div>
       </div>
     </div>
