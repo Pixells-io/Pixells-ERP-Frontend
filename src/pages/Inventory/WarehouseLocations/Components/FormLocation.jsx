@@ -95,7 +95,7 @@ const FormLocation = ({ formData, setFormData }) => {
   };
 
   return (
-    <div className="w-full space-y-4 overflow-auto px-6 py-6">
+    <div className="w-full space-y-4 bg-white rounded-xl overflow-auto px-6 py-6">
       <div className="flex flex-wrap gap-4">
         <div className="flex-1">
           <Label

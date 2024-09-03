@@ -320,6 +320,8 @@ import MainWL, {
 } from "./pages/Inventory/WarehouseLocations/MainWL";
 import {  multiLoaderUbication } from "./pages/Inventory/WarehouseLocations/utils";
 import { multiLoaderData } from "./pages/Inventory/WarehouseLocations/utils";
+import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
+import WLSlots from "./pages/Inventory/WarehouseLocations/CreateConfig/WLSlots";
 import CreateLocation,{Action as createNewLocation} from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
 import WLConfig,{Action as saveSlotsConfig} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
 
@@ -419,7 +421,7 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
-import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
+
 
 const router = createBrowserRouter([
   {
@@ -1056,17 +1058,23 @@ const router = createBrowserRouter([
             loader: getWarehouse,
           },
           {
-            path: "/inventory/warehouse-locations/config/:id",
-            element: <WLConfig />,
-            action: saveSlotsConfig
-          },
-          {
             path: "/inventory/warehouse-locations",
             element: <MainWL />,
             action: createNewConfigure,
             loader:   multiLoaderUbication
           
           },
+          {
+            path: "/inventory/warehouse-locations/config/:id",
+            element: <WLConfig />,
+            action: saveSlotsConfig
+          },
+          {
+            path: "/inventory/warehouse-locations/config",
+            element: <WLSlots />,
+            action: saveSlotsConfig
+          },
+        
           {
             path: "/inventory/warehouse-locations/create",
             element: <CreateLocation />,
