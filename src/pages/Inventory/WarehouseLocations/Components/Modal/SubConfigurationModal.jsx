@@ -73,7 +73,7 @@ const ConfigureSublv = ({ configlevel }) => {
         <div className="space-y-4 px-6 py-4">
           <Form
             id="form-warehouses"
-            action="/inventory/warehouse-locations"
+            action="/inventory/warehouse-locations/config"
             method="POST"
           >
             <div className="mb-4 mt-2 grid grid-cols-3 items-center gap-4 border-b border-[#D7D7D7]">

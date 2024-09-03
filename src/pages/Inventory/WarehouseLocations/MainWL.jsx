@@ -4,13 +4,13 @@ import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Button } from "@/components/ui/button";
-import { saveNewConfigure } from "./utils";
 import { Link, useLoaderData, redirect } from "react-router-dom";
 import { getLocations, getsubLocation } from "./utils";
 import { createPusherClient } from "@/lib/pusher";
 import { LocationColumns } from "./Components/Table/LocationColumns";
 import { ConfigColumns } from "./Components/Table/ConfiglvlTable";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
+import { saveNewConfigSlots } from "./utils";
 
 const MainWL = () => {
   const { locationData, subLocationData } = useLoaderData();
@@ -153,7 +153,22 @@ export default MainWL;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  const response = await saveNewConfigure(formData);
-  console.log(response)
-  return "0";
+  
+  // Obtener los IDs únicos de los formularios
+  const variableIds = [...new Set(
+    [...formData.keys()].filter(key => key.startsWith('variable_id_'))
+      .map(key => formData.get(key))
+  )];
+
+  // Preparar los datos para cada variable_id
+  const sublevelData = variableIds.map(variableId => {
+    return {
+      codes: formData.getAll(`code_${variableId}[]`),
+      names: formData.getAll(`name_${variableId}[]`),
+      variable_id: variableId
+    };
+  });
+
+  await saveNewConfigSlots(sublevelData);
+  return redirect("/inventory/warehouse-locations");
 }

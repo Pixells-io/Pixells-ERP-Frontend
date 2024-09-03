@@ -24,33 +24,51 @@ export async function saveNewConfigure(data) {
       },
     },
   );
-
   return response.json();
+
 }
 
 
-//SAVE SLOTS
-export async function saveNewConfigSlots(data) {
+//ONE FORM SAVE SLOTS
+export async function saveSlots(data){
   const info = {
     code: data.getAll("code[]"),
     name: data.getAll("name[]"),
     variable_id: data.get("variable_id"),
   };
+    
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var-slots`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    
+    );
+    return response.json()
+}
 
-  const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var-slots`,
-    {
-      method: "POST",
-      body: JSON.stringify(info),
+//SAVE SLOTS
+export async function saveNewConfigSlots(sublevelData) {
+  for (const data of sublevelData) {
+    const { codes, names, variable_id } = data;
+
+    await fetch(  `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var-slots`, {
+      method: 'POST',
+      body: JSON.stringify({
+        code: codes,
+        name: names,
+        variable_id: variable_id
+      }),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    },
-  );
-
-  return response.json();
+    });
+  }
 }
-
 
 //GET SUBLEVES
 export async function getsubLocation() {
