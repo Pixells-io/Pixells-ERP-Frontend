@@ -9,6 +9,7 @@ import { useLoaderData } from "react-router-dom";
 
 const MainCatalog = () => {
   const [modalImport, setModalImport] = useState(false);
+  const [isOpenNewAccount, setIsOpenNewAccount] = useState(false);
 
   const { data } = useLoaderData();
 
@@ -56,7 +57,16 @@ const MainCatalog = () => {
           </p>
         </div>
         <div className="flex items-center gap-x-4 pl-2">
-          <AccountFormModal />
+          {isOpenNewAccount && (
+            <button type="button">
+              <IonIcon
+                icon={addCircleOutline}
+                size="large"
+                className="h-7 w-7 cursor-pointer text-blue-500"
+              />
+            </button>
+          )}
+          {/* <AccountFormModal /> */}
           <Button
             className="h-7 rounded-3xl border border-[#44444F] bg-inherit px-4 text-xs font-light text-black hover:bg-inherit"
             onClick={() => setModalImport(true)}
@@ -65,7 +75,7 @@ const MainCatalog = () => {
           </Button>
         </div>
         {/*CONTENT MENU OF CONSOLE */}
-        <CatalogConsole accoutingAccounts={Object.values(data)} />
+        <CatalogConsole accoutingAccounts={Object.values(data)} setIsOpenNewAccount={setIsOpenNewAccount} />
       </div>
     </div>
   );
