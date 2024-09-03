@@ -9,12 +9,13 @@ import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
 import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
-import { saveAccountingAccount } from "../Catalog/utils";
+import { saveAccountingAccount, UpdateAccountingAccount } from "../Catalog/utils";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const { accountName } = useOutletContext();
+  const params = useParams();
 
   const { data } = useLoaderData();
 
@@ -83,7 +84,7 @@ const AccountingAccount = () => {
         </Accordion>
       </div>
       {!!selectAccount && (
-        <FormDetailAccount setSelectAccount={setSelectAccount} />
+          <FormDetailAccount setSelectAccount={setSelectAccount} selectAccount={selectAccount} level={params.level}/>
       )}
     </div>
   );
@@ -98,6 +99,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "save_accountingAccount":
       await saveAccountingAccount(data);
+      break;
+    case "update_accountingAccount":
+      await UpdateAccountingAccount(data);
       break;
   }
   return "1";
