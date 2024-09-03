@@ -30,7 +30,7 @@ export async function saveNewConfigure(data) {
 
 
 //ONE FORM
-function saveSlots(formData){
+export async function saveSlots(formData){
   const info ={
     code :formData.getAll("code[]"),
     name: formData.getAll("name[]"),
