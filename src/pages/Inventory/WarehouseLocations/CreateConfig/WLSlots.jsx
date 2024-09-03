@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
-import { saveNewConfigSlots } from "../utils";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import { redirect } from "react-router-dom";
+import { saveNewConfigure } from "../utils";
 import FormGroup from "../Components/FormGroup";
-import { useParams } from "react-router-dom";
+import { useActionData } from "react-router-dom";
+
+// Variable global para el grupo de IDs
+let group = [];
 
 const WLSlots = () => {
-  const {id} =useParams()
+  const [localGroup, setLocalGroup] = useState([]);
+  const actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData && actionData.data) {
+      const newGroup = actionData.data.map(item => item.id);
+      group = newGroup; 
+      setLocalGroup(newGroup); 
+    }
+  }, [actionData]);
+
+  useEffect(() => {
+    setLocalGroup(group);
+  }, []);
+
+  console.log("Current group:", localGroup);
 
   return (
     <div className="flex w-full">
@@ -20,14 +37,14 @@ const WLSlots = () => {
                 icon={chevronBack}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
             <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
@@ -35,7 +52,6 @@ const WLSlots = () => {
           </div>
         </div>
         {/* top content */}
-
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             INVENTARIO
@@ -46,15 +62,14 @@ const WLSlots = () => {
             <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Configuración Ubicacion Almácen
+            Configuración Subniveles
           </p>
         </div>
         {/*content */}
         <div className="overflow-auto">
-          <FormGroup variable={id} />
+          <FormGroup ids={localGroup} />
         </div>
       </div>
     </div>
@@ -62,3 +77,10 @@ const WLSlots = () => {
 };
 
 export default WLSlots;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await saveNewConfigure(formData);
+  group = response.data.map(item => item.id); 
+  return response;
+}

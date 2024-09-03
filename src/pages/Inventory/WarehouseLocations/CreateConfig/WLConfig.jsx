@@ -3,8 +3,8 @@ import { IonIcon } from "@ionic/react";
 import { saveNewConfigSlots } from "../utils";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { redirect } from "react-router-dom";
-import FormGroup from "../Components/FormGroup";
 import { useParams } from "react-router-dom";
+import FormSlots from "../Components/FormSlots";
 
 const WLConfig = () => {
   const {id} =useParams()
@@ -54,7 +54,7 @@ const WLConfig = () => {
         </div>
         {/*content */}
         <div className="overflow-auto">
-          <FormGroup variable={id} />
+          <FormSlots variable={id} />
         </div>
       </div>
     </div>
