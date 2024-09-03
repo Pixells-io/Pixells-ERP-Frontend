@@ -1,6 +1,6 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import { saveNewConfigSlots } from "../utils";
+import { saveSlots } from "../utils";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -49,7 +49,7 @@ const WLConfig = () => {
 
         <div>
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Configuración Ubicacion Almácen
+            Configuración Subnivel: {id}
           </p>
         </div>
         {/*content */}
@@ -66,6 +66,6 @@ export default WLConfig;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  const response = await saveNewConfigSlots(formData);
+  const response = await saveSlots(formData);
   return redirect("/inventory/warehouse-locations");
 }

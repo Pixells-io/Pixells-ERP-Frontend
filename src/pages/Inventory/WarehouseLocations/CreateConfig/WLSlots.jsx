@@ -24,8 +24,6 @@ const WLSlots = () => {
     setLocalGroup(group);
   }, []);
 
-  console.log("Current group:", localGroup);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -81,6 +79,8 @@ export default WLSlots;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewConfigure(formData);
-  group = response.data.map(item => item.id); 
+  if (response && response.data) {
+    group = response.data.map(item => item.id); 
+  }
   return response;
 }

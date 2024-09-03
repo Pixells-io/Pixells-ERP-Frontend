@@ -7,9 +7,8 @@ import { Input } from "@/components/ui/input";
 
 
 
-const FormSlots =(variable)=>{
-    const { id } = variable;
-
+const FormSlots =({variable})=>{
+  const {id}=variable
     const [sublevels, setSublevels] = useState([
       { id: 1, code: "", name: "", variable_id: variable },
     ]);
@@ -37,7 +36,7 @@ const FormSlots =(variable)=>{
       }
     };
   
-    return(<div className="flex flex-wrap pl-2">
+    return(<div className="flex bg-white rounded-xl flex-wrap p-4">
               <div className="flex h-full w-full flex-col gap-y-8">
                 <div className="grid grid-cols-12">
                   <div className="col-span-6">

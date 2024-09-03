@@ -157,7 +157,8 @@ export async function Action({ request }) {
   // Obtener los IDs únicos de los formularios
   const variableIds = [...new Set(
     [...formData.keys()].filter(key => key.startsWith('variable_id_'))
-  ).map(key => formData.get(key))];
+      .map(key => formData.get(key))
+  )];
 
   // Preparar los datos para cada variable_id
   const sublevelData = variableIds.map(variableId => {

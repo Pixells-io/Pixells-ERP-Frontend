@@ -123,4 +123,3 @@ const FormGroup = ({ ids }) => {
 };
 
 export default FormGroup;
-

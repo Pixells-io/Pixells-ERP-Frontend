@@ -24,18 +24,18 @@ export async function saveNewConfigure(data) {
       },
     },
   );
-
   return response.json();
+
 }
 
 
-//ONE FORM
-export async function saveSlots(formData){
-  const info ={
-    code :formData.getAll("code[]"),
-    name: formData.getAll("name[]"),
-    variable_ids: formData.getAll("variable_id"),
-    } 
+//ONE FORM SAVE SLOTS
+export async function saveSlots(data){
+  const info = {
+    code: data.getAll("code[]"),
+    name: data.getAll("name[]"),
+    variable_id: data.get("variable_id"),
+  };
     
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}inventory/save-sublocation-var-slots`,
