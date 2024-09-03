@@ -78,3 +78,45 @@ export async function saveAccountingAccount(data) {
 
   return response.json();
 }
+
+export async function getAccountingAccountById(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}accounting/get-accounting-account/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
+
+export async function UpdateAccountingAccount(data) {
+  const info = {
+    account_id: data.get("account_id"),
+    status: !!data.get("status") ? "1" : "0",
+    accounting_account: data.get("accounting_account"),
+    name: data.get("name"),
+    level: data.get("level"),
+    currency: data.get("currency"),
+    type_of_account: data.get("type_of_account"),
+    sat_code: data.get("sat_code"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}accounting/edit-accounting-account`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

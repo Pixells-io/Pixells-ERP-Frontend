@@ -1,11 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
-import { closeCircle, copy, create, trash } from "ionicons/icons";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { closeCircle, copy, create } from "ionicons/icons";
 import ModalDeleteAccount from "../../Catalog/Modals/ModalDeleteAccount";
+import { getAccountingAccountById } from "../../Catalog/utils";
+import { Form, useNavigation } from "react-router-dom";
 
-const FormDetailAccount = ({ account, setSelectAccount }) => {
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Button } from "@/components/ui/button";
+
+const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
+  const navigation = useNavigation();
+
+  const [account, setAccount] = useState({
+    id: "",
+    type: "",
+    accounting_account: "",
+    name: "",
+    level: "",
+    currency: "",
+    balance: "",
+    type_of_account: "",
+    sat_code: "",
+  });
+
+  const [checkedInput, setCheckedInput] = useState("0");
+
+  useEffect(() => {
+    getAccount();
+  }, [selectAccount]);
+
+  const getAccount = async () => {
+    const accountResponse = await getAccountingAccountById(selectAccount.id);
+    setAccount(accountResponse.data);
+    setCheckedInput(accountResponse.data.status);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setAccount((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleStatusChange = (c) => {
+    setCheckedInput(c.target.checked);
+  };
+
   return (
     <div className="h-full w-2/5 overflow-auto border-l p-2">
       <div className="flex justify-end">
@@ -35,21 +74,42 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
             ></IonIcon>
           </div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
-            <ModalDeleteAccount account_id={null} account_name={"prueba"} />
+            <ModalDeleteAccount
+              account_id={account.id}
+              account_name={account.name}
+            />
           </div>
         </div>
       </div>
-      <form className="mt-4">
+      <Form className="mt-4" action={`/accounting/${level}`} method="post">
+        <input
+          type="hidden"
+          hidden
+          name="account_id"
+          className="hidden"
+          value={account.id}
+          readOnly
+        />
+        <input
+          type="hidden"
+          hidden
+          name="type_option"
+          className="hidden"
+          value={"update_accountingAccount"}
+          readOnly
+        />
         <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
           <div className="col-span-12 md:col-span-7 xl:col-span-7">
             <p className="font-roboto text-sm font-light text-grisText">
               Cuenta Contable
             </p>
             <InputRouter
-              id="accountingAccount"
-              name="accountingAccount"
-              // value={newItem.rubro}
-              // onChange={handleInputChange}
+              id="accounting_account"
+              name="accounting_account"
+              value={
+                !!account.accounting_account ? account.accounting_account : ""
+              }
+              onChange={handleInputChange}
               type="text"
             />
           </div>
@@ -61,8 +121,8 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
             <InputRouter
               id="name"
               name="name"
-              // value={newItem.rubro}
-              // onChange={handleInputChange}
+              value={!!account.name ? account.name : ""}
+              onChange={handleInputChange}
               type="text"
             />
           </div>
@@ -74,10 +134,9 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
             <SelectRouter
               name="level"
               options={[
-                { label: "2", value: "3" },
+                { label: "2", value: "2" },
                 { label: "3", value: "3" },
               ]}
-              placeholder="level"
             />
           </div>
 
@@ -91,7 +150,8 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
                 { label: "MXN", value: "MXN" },
                 { label: "DLLS", value: "DLLS" },
               ]}
-              placeholder="Moneda"
+              // value={"MXN"}
+              // onChange={handleInputChange}
             />
           </div>
 
@@ -102,8 +162,8 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
             <InputRouter
               id="balance"
               name="balance"
-              // value={newItem.rubro}
-              // onChange={handleInputChange}
+              value={!!account.balance ? account.balance : ""}
+              onChange={handleInputChange}
               type="text"
             />
           </div>
@@ -113,10 +173,10 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
               Tipo de cuenta
             </p>
             <InputRouter
-              id="accountType"
-              name="accountType"
-              // value={newItem.rubro}
-              // onChange={handleInputChange}
+              id="type_of_account"
+              name="type_of_account"
+              value={!!account.type_of_account ? account.type_of_account : ""}
+              onChange={handleInputChange}
               type="text"
             />
           </div>
@@ -126,23 +186,21 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
               Código Agrupador SAT (Contabilidad Electrónica)
             </p>
             <SelectRouter
-              name="codeSAT"
+              name="sat_code"
               options={[
                 { label: "123", value: "123" },
                 { label: "321", value: "321" },
               ]}
-              placeholder="codeSAT"
             />
           </div>
 
           <div className="col-span-12">
             <div className="flex items-center gap-x-2">
-              {/* <Checkbox className="border border-[#696974] data-[state=checked]:bg-primarioBotones" /> */}
               <input
                 type="checkbox"
-                // className="peer hidden"
-                // checked={permission}
-                // onChange={() => changeStatus()}
+                name="status"
+                checked={checkedInput}
+                onChange={(c) => handleStatusChange(c)}
               />
               <p className="font-roboto text-sm font-light text-grisText">
                 Cuenta Activa
@@ -150,7 +208,15 @@ const FormDetailAccount = ({ account, setSelectAccount }) => {
             </div>
           </div>
         </div>
-      </form>
+        <div className="flex w-full justify-end">
+          <Button
+            className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 };
