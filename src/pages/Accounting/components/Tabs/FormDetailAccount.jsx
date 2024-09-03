@@ -8,6 +8,8 @@ import { Form, useNavigation } from "react-router-dom";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 
 const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
   const navigation = useNavigation();
@@ -39,10 +41,6 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAccount((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleStatusChange = (c) => {
-    setCheckedInput(c.target.checked);
   };
 
   return (
@@ -79,6 +77,25 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               account_name={account.name}
             />
           </div>
+        </div>
+      </div>
+      <div className="my-4 flex gap-x-8">
+        <div className="flex items-center gap-x-2">
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={checkedInput == "1"}
+            onCheckedChange={setCheckedInput}
+          />
+          <p className="font-roboto text-sm font-light text-grisText">Título</p>
+        </div>
+        <div className="flex items-center gap-x-2">
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={true}
+          />
+          <p className="font-roboto text-sm font-light text-grisText">
+            Cuenta Activa
+          </p>
         </div>
       </div>
       <Form className="mt-4" action={`/accounting/${level}`} method="post">
@@ -128,15 +145,17 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
           </div>
 
           <div className="col-span-12 md:col-span-6 xl:col-span-6">
-            <p className="font-roboto text-sm font-light text-grisText">
+            <p className="mb-2 font-roboto text-sm font-light text-grisText">
               Nivel
             </p>
-            <SelectRouter
+            <Input
+              id="level"
               name="level"
-              options={[
-                { label: "2", value: "2" },
-                { label: "3", value: "3" },
-              ]}
+              value={!!account.level ? account.level : ""}
+              readOnly
+              className="h-9.5 border border-grisText"
+              disabled={true}
+              type="text"
             />
           </div>
 
@@ -192,20 +211,6 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
                 { label: "321", value: "321" },
               ]}
             />
-          </div>
-
-          <div className="col-span-12">
-            <div className="flex items-center gap-x-2">
-              <input
-                type="checkbox"
-                name="status"
-                checked={checkedInput}
-                onChange={(c) => handleStatusChange(c)}
-              />
-              <p className="font-roboto text-sm font-light text-grisText">
-                Cuenta Activa
-              </p>
-            </div>
           </div>
         </div>
         <div className="flex w-full justify-end">

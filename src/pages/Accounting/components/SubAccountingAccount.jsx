@@ -29,10 +29,11 @@ const SubAccountingAccount = ({
       <AccordionItem value={"item-" + account.id}>
         <div
           className={cn(
-            "group flex items-center justify-between pl-2 pr-2 hover:bg-grisBg",
+            "group flex items-center pl-2 pr-2 hover:bg-grisBg",
             account.id == selectAccount?.id &&
               "rounded-xl border border-[#44444F] bg-white",
           )}
+          onClick={() => alert("ejecuta")}
         >
           <AccordionTrigger
             className={
@@ -42,6 +43,8 @@ const SubAccountingAccount = ({
           >
             {account.level} - {account.name}
           </AccordionTrigger>
+          <div className="flex-1">
+          </div>
           {true && (
             <div className="flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <label

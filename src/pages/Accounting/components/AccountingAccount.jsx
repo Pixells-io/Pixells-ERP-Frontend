@@ -19,11 +19,14 @@ import { createPusherClient } from "@/lib/pusher";
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
-  const { accountName } = useOutletContext();
+  const [accountName, setIsOpenNewAccount] = useOutletContext();
   const params = useParams();
 
   const { data } = useLoaderData();
   const [accountsInfo, setAccountsInfo] = useState(data);
+  useEffect(() => {
+    setAccountsInfo(data);
+  }, data);
 
   const pusherClient = createPusherClient();
 
