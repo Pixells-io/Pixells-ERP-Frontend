@@ -8,12 +8,13 @@ import {
 import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
 import { saveAccountingAccount } from "../Catalog/utils";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
+  const { accountName } = useOutletContext();
 
   const { data } = useLoaderData();
 
@@ -64,7 +65,7 @@ const AccountingAccount = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger className="py-0">
               <div className="py-4 text-sm text-black">
-                Insertar nombre cuenta
+                { accountName }
               </div>
             </AccordionTrigger>
             <AccordionContent>

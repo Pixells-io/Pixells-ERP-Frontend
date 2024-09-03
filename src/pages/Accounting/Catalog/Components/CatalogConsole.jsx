@@ -1,39 +1,14 @@
-import React from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
-
-// const navLinkArray = [
-//   {
-//     name: "PASIVO",
-//     to: "/accounting/liabilities-account",
-//   },
-//   {
-//     name: "CAPITAL CONTABLE",
-//     to: "/accounting/equity-account",
-//   },
-//   {
-//     name: "INGRESOS",
-//     to: "/accounting/income-account",
-//   },
-//   {
-//     name: "COSTO DE VENTAS",
-//     to: "/accounting/cost-account",
-//   },
-//   {
-//     name: "GASTOS",
-//     to: "/accounting/expense-account",
-//   },
-//   {
-//     name: "FINANCIEROS",
-//     to: "/accounting/financial-account",
-//   },
-//   {
-//     name: "OTROS ING Y EGRE",
-//     to: "/accounting/other-account",
-//   },
-// ];
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 
 const CatalogConsole = ({accoutingAccounts}) => {
-  // const location = useLocation();
+  const [accountName, setAccountName] = useState("");
+  const params = useParams();
+  useEffect(() => {
+    const level = params.level;
+    const findNameAccount = accoutingAccounts.find((account => account.level == level));
+    !!findNameAccount && setAccountName(findNameAccount.name);
+  }, [params]);
 
   return (
     <div className="flex h-full justify-center overflow-auto rounded-xl p-0">
@@ -55,7 +30,7 @@ const CatalogConsole = ({accoutingAccounts}) => {
           ))}
         </div>
         <div className="h-full w-full">
-          <Outlet />
+          <Outlet context={{accountName}}/>
         </div>
       </div>
     </div>

@@ -29,13 +29,7 @@ function SideLayoutAccounting() {
               className={({ isActive }) =>
                 isActive &&
                 (location.pathname === "/accounting" ||
-                  location.pathname === "/accounting/liabilities-account" ||
-                  location.pathname === "/accounting/equity-account" ||
-                  location.pathname === "/accounting/income-account" ||
-                  location.pathname === "/accounting/cost-account" ||
-                  location.pathname === "/accounting/expense-account" ||
-                  location.pathname === "/accounting/financial-account" ||
-                  location.pathname === "/accounting/other-account")
+                  /^\/accounting(\/[0-9]+)?$/.test(location.pathname))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
