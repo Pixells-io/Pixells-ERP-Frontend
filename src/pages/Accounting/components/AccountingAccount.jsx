@@ -9,7 +9,12 @@ import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
 import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
-import { saveAccountingAccount, UpdateAccountingAccount } from "../Catalog/utils";
+import {
+  getAccountingAccountsById,
+  saveAccountingAccount,
+  UpdateAccountingAccount,
+} from "../Catalog/utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
@@ -18,10 +23,30 @@ const AccountingAccount = () => {
   const params = useParams();
 
   const { data } = useLoaderData();
+  const [accountsInfo, setAccountsInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getAccountingAccountsList() {
+    let newData = await getAccountingAccountsById({ params: params });
+    setAccountsInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-accounting-account");
+
+    pusherClient.bind("fill-accounting-account", ({ message }) => {
+      getAccountingAccountsList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-accounting-account");
+    };
+  }, []);
 
   useEffect(() => {
     transforInSubAccount();
-  }, [data]);
+  }, [accountsInfo]);
 
   const recursiveSubAccount = (subAccountsAux, level) => {
     if (subAccountsAux.length == 0) {
@@ -42,12 +67,12 @@ const AccountingAccount = () => {
   };
 
   const transforInSubAccount = () => {
-    const principals = data
+    const principals = accountsInfo
       .filter((ac) => ac.levels.length == 2)
       .map((ac) => ({
         ...ac,
         subAccounts: recursiveSubAccount(
-          data.filter((item) => item.level.startsWith(ac.level)),
+          accountsInfo.filter((item) => item.level.startsWith(ac.level)),
           2,
         ),
       }));
@@ -65,9 +90,7 @@ const AccountingAccount = () => {
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger className="py-0">
-              <div className="py-4 text-sm text-black">
-                { accountName }
-              </div>
+              <div className="py-4 text-sm text-black">{accountName}</div>
             </AccordionTrigger>
             <AccordionContent>
               {accounts?.map((subAccount, index) => (
@@ -84,7 +107,11 @@ const AccountingAccount = () => {
         </Accordion>
       </div>
       {!!selectAccount && (
-          <FormDetailAccount setSelectAccount={setSelectAccount} selectAccount={selectAccount} level={params.level}/>
+        <FormDetailAccount
+          setSelectAccount={setSelectAccount}
+          selectAccount={selectAccount}
+          level={params.level}
+        />
       )}
     </div>
   );
