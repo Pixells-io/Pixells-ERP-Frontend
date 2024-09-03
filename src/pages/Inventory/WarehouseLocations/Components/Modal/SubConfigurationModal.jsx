@@ -15,13 +15,15 @@ import {
 } from "@/components/ui/dialog";
 
 const ConfigureSublv = ({ configlevel }) => {
-  // Inicializa el índice basado en configlevel + 1
   const initialIndex = configlevel + 1;
   
-  // Estado para manejar los subniveles y el índice actual
   const [sublevels, setSublevels] = useState([
     { id: initialIndex, status: "0", name: "" },
   ]);
+
+  const resetSublevels = () => {
+    setSublevels([{ id: initialIndex, status: "0", name: "" }]);
+  };
 
   const handleStatusChange = (id, checked) => {
     setSublevels(
@@ -53,7 +55,7 @@ const ConfigureSublv = ({ configlevel }) => {
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => !open && resetSublevels()}>
       <DialogTrigger asChild>
         <Button
           type="button"
