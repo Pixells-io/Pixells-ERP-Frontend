@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 
-const CatalogConsole = ({accoutingAccounts, setIsOpenNewAccount}) => {
+const CatalogConsole = ({accoutingAccounts}) => {
   const [accountName, setAccountName] = useState("");
   const params = useParams();
   useEffect(() => {
@@ -30,7 +30,7 @@ const CatalogConsole = ({accoutingAccounts, setIsOpenNewAccount}) => {
           ))}
         </div>
         <div className="h-full w-full">
-          <Outlet context={[accountName, setIsOpenNewAccount]}/>
+          <Outlet context={[accountName]}/>
         </div>
       </div>
     </div>

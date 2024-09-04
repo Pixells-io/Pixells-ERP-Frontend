@@ -18,8 +18,9 @@ import { createPusherClient } from "@/lib/pusher";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
+  const [selectNewAccount, setSelectNewAccount] = useState("hola");
   const [accounts, setAccounts] = useState([]);
-  const [accountName, setIsOpenNewAccount] = useOutletContext();
+  const [accountName] = useOutletContext();
   const params = useParams();
 
   const { data } = useLoaderData();
@@ -103,6 +104,8 @@ const AccountingAccount = () => {
                   level={1}
                   setSelectAccount={setSelectAccount}
                   selectAccount={selectAccount}
+                  setSelectNewAccount={setSelectNewAccount}
+                  selectNewAccount={selectNewAccount}
                 />
               ))}
             </AccordionContent>
