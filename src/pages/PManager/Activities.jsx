@@ -142,17 +142,15 @@ function Activities() {
         action={"/project-manager/activities"}
         actionInput="edit-task"
       />
-      <div className="ml-0 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
+      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              PROJECT MANAGER
-            </h2>
-          </div>
+        <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-4">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            PROJECT MANAGER
+          </h2>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
@@ -163,17 +161,18 @@ function Activities() {
         </div>
 
         {/* top content sub */}
-        <div className="flex items-center gap-32 pl-3 pt-4">
+
+        <div className="flex items-center gap-32 pl-3 pt-0 md:pt-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               Activities
             </h2>
-            <span className="text-xs font-medium text-grisText">General</span>
+            <span className="text-xs font-normal text-grisText">General</span>
           </div>
         </div>
 
         <div className="flex h-full flex-col overflow-auto rounded-2xl bg-blancoBg p-4">
-          <div className="grid grid-cols-11 border-b border-grisDisabled pb-4 text-right">
+          <div className="hidden grid-cols-11 border-b border-grisDisabled pb-4 text-right md:grid">
             {HEADERS?.map((header, i) => (
               <div
                 key={i}
@@ -193,7 +192,7 @@ function Activities() {
             {activitiesData?.days?.map((day, i) => (
               <Accordion key={i} type="single" collapsible className="">
                 <AccordionItem value={`item-${day.id}`}>
-                  <AccordionTrigger className="group flex px-4 !no-underline">
+                  <AccordionTrigger className="group flex gap-10 px-4 !no-underline md:gap-0">
                     <div className="w-2/12 text-start">
                       <span className="font-poppins text-base font-medium text-grisHeading">
                         {day?.day}
@@ -203,8 +202,8 @@ function Activities() {
                       </span>
                     </div>
 
-                    <div className="flex w-full group-aria-expanded:hidden">
-                      <div className="w-1/12 text-start">
+                    <div className="flex w-full gap-10 group-aria-expanded:hidden md:gap-0">
+                      <div className="w-fit text-start md:w-1/12">
                         {day?.priority == 1 ? (
                           <div>
                             <IonIcon
@@ -230,20 +229,21 @@ function Activities() {
                           <div></div>
                         )}
                       </div>
+
                       {day?.priority == 4 ? (
-                        <div className="w-5/12 text-start">
+                        <div className="w-fit text-start md:w-5/12">
                           <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
                             {day?.title}
                           </span>
                         </div>
                       ) : (
-                        <div className="w-5/12 text-start">
+                        <div className="w-fit text-start md:w-5/12">
                           <span className="font-roboto text-xs font-normal text-grisHeading">
                             {day?.title}
                           </span>
                         </div>
                       )}
-                      <div className="w-1/12 text-start">
+                      <div className="w-fit text-start md:w-1/12">
                         {day?.task_count > 1 ? (
                           <span className="font-roboto text-xs font-normal text-grisSubText">
                             + {day?.task_count} more
@@ -254,14 +254,14 @@ function Activities() {
                           </span>
                         )}
                       </div>
-                      <div className="w-3/12"></div>
+                      <div className="hidden w-3/12 md:flex"></div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
                     {day?.task.map((task, i) => (
                       <div
                         key={i}
-                        className="grid h-12 grid-cols-11 items-center gap-y-6 border-t-[1px] pr-2 text-right"
+                        className="grid h-fit grid-cols-11 items-center gap-y-6 border-t-[1px] pr-2 text-right md:h-12"
                       >
                         {checkColor(task?.priority) !== "#000000" ? (
                           <div className="col-span-2 flex items-center gap-2 text-left">
@@ -314,11 +314,13 @@ function Activities() {
                         ) : (
                           <div className="col-span-1 flex flex-col items-center px-2 text-left"></div>
                         )}
+
                         <div className="col-span-1 text-center">
                           <p className="text-[12px] font-normal text-grisHeading">
                             {task?.start}
                           </p>
                         </div>
+
                         <div className="col-span-1 flex items-center justify-center">
                           <div className="flex gap-2">
                             <Avatar className="h-6 w-6">
@@ -327,6 +329,7 @@ function Activities() {
                             </Avatar>
                           </div>
                         </div>
+
                         <div className="col-span-1 flex items-center justify-end">
                           <p
                             className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
@@ -335,6 +338,7 @@ function Activities() {
                             {task?.inicial_fce}
                           </p>
                         </div>
+
                         <div className="col-span-1 flex items-center justify-end">
                           <p
                             className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
@@ -343,6 +347,7 @@ function Activities() {
                             {task?.inicial_goal}
                           </p>
                         </div>
+
                         <div className="col-span-1 flex justify-end">
                           <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
                             <p className="text-[11px] font-semibold">
@@ -350,12 +355,14 @@ function Activities() {
                             </p>
                           </Badge>
                         </div>
+
                         <div className="col-span-1 mr-4 flex justify-end">
                           <Avatar className="h-6 w-6">
                             <AvatarImage src={task?.creator?.img} />
                             <AvatarFallback></AvatarFallback>
                           </Avatar>
                         </div>
+
                         {task?.type == 0 ? (
                           <div className="col-span-1 flex justify-end">
                             <div className="flex items-center gap-2 text-[#696974]">
