@@ -77,13 +77,12 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
             ></IonIcon>
           </div>
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
             <ModalDeleteAccount
               account_id={account.id}
               account_name={account.name}
               level={level}
+              setSelectAccount={setSelectAccount}
             />
-          </div>
         </div>
       </div>
       <Form

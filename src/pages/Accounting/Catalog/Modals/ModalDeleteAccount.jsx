@@ -14,15 +14,27 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { trash } from "ionicons/icons";
 
-function ModalDeleteAccount({ account_id, account_name, level }) {
+function ModalDeleteAccount({
+  account_id,
+  account_name,
+  level,
+  setSelectAccount,
+}) {
   const [modal, setModal] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
     if (navigation.state === "idle") {
+      clearData();
       setModal(false);
     }
   }, [navigation.state]);
+
+  const clearData = () => {
+    if (modal) {
+      setSelectAccount(null);
+    }
+  };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -30,7 +42,9 @@ function ModalDeleteAccount({ account_id, account_name, level }) {
         disabled={navigation.state === "submitting"}
         className="flex items-center"
       >
-        <IonIcon icon={trash} className="h-5 w-5 text-[#696974]"></IonIcon>
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+          <IonIcon icon={trash} className="h-5 w-5 text-[#696974]"></IonIcon>
+        </div>
       </DialogTrigger>
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
