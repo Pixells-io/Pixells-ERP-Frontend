@@ -45,6 +45,10 @@ const FormDetailAccount = ({
     getAccount();
   }, [selectAccount]);
 
+  useEffect(() => {
+    setIsEditable(false);
+  }, [selectAccount]);
+
   const getAccount = async () => {
     const accountResponse = await getAccountingAccountById(selectAccount.id);
     setAccount(accountResponse.data);
