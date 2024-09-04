@@ -33,34 +33,39 @@ function Status() {
   }, []);
 
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+    <div className="flex h-full w-full overflow-auto">
+      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              PROJECT MANAGER
-            </h2>
+        <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-4">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            PROJECT MANAGER
+          </h2>
+          <div className="flex items-center gap-3 text-[#8F8F8F]">
+            <div className="text-xs">4 objectives</div>
+            <div className="text-2xl">&bull;</div>
+            <div className="text-xs">25 SCF</div>
+            <div className="text-2xl">&bull;</div>
+            <div className="text-xs">43 Activities</div>
           </div>
         </div>
 
         {/* top content sub */}
-        <div className="flex items-center gap-32 pl-3 pt-4">
+        <div className="flex items-center gap-32 pl-3 pt-0 md:pt-4">
           <div className="flex flex-col gap-2">
-            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               Status
             </h2>
-            <span className="text-sm font-medium text-grisText">
+            <span className="text-xs font-normal text-grisText">
               Activities
             </span>
           </div>
         </div>
 
         {/* outlet */}
-        <div className="flex h-full justify-center overflow-auto rounded-3xl bg-blancoBg p-4">
+        <div className="flex h-full justify-normal overflow-auto rounded-3xl bg-blancoBg p-4 md:justify-center">
           <div className="flex gap-3">
             <div className="flex w-[320px] flex-col rounded-lg bg-grisBg">
               <div className="rounded-t-lg bg-[#D7586B]">
@@ -68,7 +73,7 @@ function Status() {
                   VENCIDAS
                 </p>
               </div>
-              <div className="overflow-scroll">
+              <div className="overflow-y-scroll">
                 {statusData?.expirated?.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}
@@ -81,7 +86,7 @@ function Status() {
                   PENDIENTES
                 </p>
               </div>
-              <div className="overflow-scroll">
+              <div className="overflow-y-scroll">
                 {statusData?.pending?.map((task, i) => (
                   <ActivityKanbanCard task={task} actions={true} key={i} />
                 ))}

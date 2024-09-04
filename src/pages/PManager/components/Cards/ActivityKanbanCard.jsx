@@ -97,13 +97,15 @@ function ActivityKanbanCard({ task, actions }) {
         modal={completeActivityModal}
         setModal={setCompleteActivityModal}
         activity={task.id}
+        action="/project-manager/status"
+        actionInput="complete-activity"
       />
       <div className="flex items-center justify-between">
         <p
           className="line-clamp-1 font-poppins text-[15px] font-semibold"
-          title={task.name}
+          title={task?.name}
         >
-          {task.name}
+          {task?.name}
         </p>
         {showAction === true ? (
           <DropdownMenu>
@@ -168,12 +170,13 @@ function ActivityKanbanCard({ task, actions }) {
           </>
         )}
       </div>
+
       <div className="flex items-center gap-2 text-grisText">
-        {task.type === "1" ? (
+        {task?.type === "1" ? (
           <>
-            <IonIcon icon={listCircleOutline} className="h-5 w-5"></IonIcon>
+            <IonIcon icon={listCircleOutline} className="h-5 w-5" />
             <p className="text-[12px] font-normal">
-              Proyecto: {task.description}
+              Proyecto: {task?.description}
             </p>
           </>
         ) : (
@@ -186,20 +189,22 @@ function ActivityKanbanCard({ task, actions }) {
           </>
         )}
       </div>
+
       <div className="flex items-center gap-4 text-grisText">
         <div className="flex">
-          {task.type === "1" ? (
+          {task?.type === "1" ? (
             <>
-              <IonIcon icon={attachOutline} className="h-5 w-5"></IonIcon>
+              <IonIcon icon={attachOutline} className="h-5 w-5" />
               <p className="text-[12px]">12</p>
             </>
           ) : (
             <div></div>
           )}
         </div>
+
         <div className="flex items-center gap-2 rounded-full bg-[#F1F1F5] px-4 py-1">
-          <IonIcon icon={calendarOutline} className="h-5 w-5"></IonIcon>
-          <p className="text-[12px]"> {task.date} </p>
+          <IonIcon icon={calendarOutline} className="h-5 w-5" />
+          <p className="text-[12px]"> {task?.date} </p>
         </div>
       </div>
       <div className="flex flex-col gap-1">
@@ -219,7 +224,7 @@ function ActivityKanbanCard({ task, actions }) {
       </div>
       <div className="flex items-center gap-2">
         <Avatar className="h-6 w-6">
-          <AvatarImage src={task.assigned.img} />
+          <AvatarImage src={task?.assigned?.img} />
           <AvatarFallback></AvatarFallback>
         </Avatar>
       </div>
