@@ -314,6 +314,7 @@ import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral, {
   Action as CreateNewCategory,
 } from "./pages/Inventory/General/MainGeneral";
+import { multiloaderArticle } from "./pages/Inventory/General/utils";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainWL,{Action as saveSlotsConfigs} from "./pages/Inventory/WarehouseLocations/MainWL";
 import {  multiLoaderUbication } from "./pages/Inventory/WarehouseLocations/utils";
@@ -1040,6 +1041,7 @@ const router = createBrowserRouter([
           {
             path: "/inventory/create",
             element: <CreateArticle />,
+            loader:multiloaderArticle
           },
           {
             path: "/inventory/general-warehouses",

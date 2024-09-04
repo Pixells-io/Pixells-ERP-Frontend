@@ -10,7 +10,7 @@ import { createPusherClient } from "@/lib/pusher";
 import { LocationColumns } from "./Components/Table/LocationColumns";
 import { ConfigColumns } from "./Components/Table/ConfiglvlTable";
 import ConfigureSublv from "./Components/Modal/SubConfigurationModal";
-import { saveNewConfigSlots } from "./utils";
+import { saveSlots } from "./utils";
 
 const MainWL = () => {
   const { locationData, subLocationData } = useLoaderData();
@@ -153,22 +153,6 @@ export default MainWL;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  
-  // Obtener los IDs únicos de los formularios
-  const variableIds = [...new Set(
-    [...formData.keys()].filter(key => key.startsWith('variable_id_'))
-      .map(key => formData.get(key))
-  )];
-
-  // Preparar los datos para cada variable_id
-  const sublevelData = variableIds.map(variableId => {
-    return {
-      codes: formData.getAll(`code_${variableId}[]`),
-      names: formData.getAll(`name_${variableId}[]`),
-      variable_id: variableId
-    };
-  });
-
-  await saveNewConfigSlots(sublevelData);
-  return redirect("/inventory/warehouse-locations");
+  const response = await saveSlots(formData);
+  return 1;
 }
