@@ -34,21 +34,21 @@ const SubAccountingAccount = ({
 
     const NewNumber = {
       name: `${account.name} (${numAccount})`,
-      level: `${account.level}.${numAccount}`
+      level: `${account.level}.${numAccount}`,
+      levels: `${account.level}.${numAccount}`.split("."),
     };
-    console.log(
-      NewNumber
-    );
+
   }
 
   return (
     <Accordion
-      type="single"
-      collapsible
+      type="multiple"
+      
       className={"w-full"}
       style={{ paddingLeft }}
+      defaultValue={["item-2"]}
     >
-      <AccordionItem value={"item-" + account.id}>
+      <AccordionItem value={"item-" + account.levels.length}>
         <div
           className={cn(
             "group flex items-center justify-between pl-2 pr-2 hover:bg-grisBg",

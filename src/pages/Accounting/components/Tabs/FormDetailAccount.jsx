@@ -26,7 +26,8 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
     sat_code: "",
   });
 
-  const [checkedInput, setCheckedInput] = useState("0");
+  const [checkedInputType, setCheckedInputType] = useState("0");
+  const [checkedInputStatus, setCheckedInputStatus] = useState("0");
 
   useEffect(() => {
     getAccount();
@@ -35,7 +36,8 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
   const getAccount = async () => {
     const accountResponse = await getAccountingAccountById(selectAccount.id);
     setAccount(accountResponse.data);
-    setCheckedInput(accountResponse.data.status);
+    setCheckedInputType(accountResponse.data.type);
+    setCheckedInputStatus(accountResponse.data.status);
   };
 
   const handleInputChange = (e) => {
@@ -79,25 +81,6 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
           </div>
         </div>
       </div>
-      <div className="my-4 flex gap-x-8">
-        <div className="flex items-center gap-x-2">
-          <Checkbox
-            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={checkedInput == "1"}
-            onCheckedChange={setCheckedInput}
-          />
-          <p className="font-roboto text-sm font-light text-grisText">Título</p>
-        </div>
-        <div className="flex items-center gap-x-2">
-          <Checkbox
-            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={true}
-          />
-          <p className="font-roboto text-sm font-light text-grisText">
-            Cuenta Activa
-          </p>
-        </div>
-      </div>
       <Form className="mt-4" action={`/accounting/${level}`} method="post">
         <input
           type="hidden"
@@ -115,6 +98,36 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
           value={"update_accountingAccount"}
           readOnly
         />
+        <div className="my-4 flex gap-x-8">
+          <input
+            type="hidden"
+            hidden
+            name="type"
+            className="hidden"
+            value={checkedInputType}
+            readOnly
+          />
+          <div className="flex items-center gap-x-2">
+            <Checkbox
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+              checked={checkedInputType == "1"}
+              onCheckedChange={() => setCheckedInputType("1")}
+            />
+            <p className="font-roboto text-sm font-light text-grisText">
+              Título
+            </p>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <Checkbox
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+              checked={checkedInputType == "2"}
+              onCheckedChange={() => setCheckedInputType("2")}
+            />
+            <p className="font-roboto text-sm font-light text-grisText">
+              Cuenta Activa
+            </p>
+          </div>
+        </div>
         <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
           <div className="col-span-12 md:col-span-7 xl:col-span-7">
             <p className="font-roboto text-sm font-light text-grisText">
@@ -211,6 +224,24 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
                 { label: "321", value: "321" },
               ]}
             />
+          </div>
+          <div className="col-span-12 flex items-center gap-x-2">
+            <input
+              type="hidden"
+              hidden
+              name="status"
+              className="hidden"
+              value={checkedInputStatus}
+              readOnly
+            />
+            <Checkbox
+              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+              checked={checkedInputStatus == "1"}
+              onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+            />
+            <p className="font-roboto text-sm font-light text-grisText">
+              Activo
+            </p>
           </div>
         </div>
         <div className="flex w-full justify-end">

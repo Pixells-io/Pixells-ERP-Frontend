@@ -18,7 +18,7 @@ import { createPusherClient } from "@/lib/pusher";
 
 const AccountingAccount = () => {
   const [selectAccount, setSelectAccount] = useState(null);
-  const [selectNewAccount, setSelectNewAccount] = useState("hola");
+  const [selectNewAccount, setSelectNewAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [accountName] = useOutletContext();
   const params = useParams();
@@ -91,7 +91,7 @@ const AccountingAccount = () => {
           !!selectAccount ? "w-3/5" : "w-full",
         )}
       >
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="multiple" className="w-full" defaultValue={["item-1"]}>
           <AccordionItem value="item-1">
             <AccordionTrigger className="py-0">
               <div className="py-4 text-sm text-black">{accountName}</div>

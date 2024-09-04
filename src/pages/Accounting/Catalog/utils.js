@@ -98,13 +98,14 @@ export async function getAccountingAccountById(id) {
 export async function UpdateAccountingAccount(data) {
   const info = {
     account_id: data.get("account_id"),
-    status: !!data.get("status") ? "1" : "0",
+    type: data.get("type"),
     accounting_account: data.get("accounting_account"),
     name: data.get("name"),
     level: data.get("level"),
     currency: data.get("currency"),
     type_of_account: data.get("type_of_account"),
     sat_code: data.get("sat_code"),
+    status: data.get("status"),
   };
 
   const response = await fetch(
