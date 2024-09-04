@@ -77,6 +77,33 @@ export async function editCategory(data) {
   return response.json();
 }
 
+
+export async function getWarehouses() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-inventories`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    
+    return response.json();
+    
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderArticle() {
+  const [categories, warehouses] = await Promise.all([
+    getCategories(),
+    getWarehouses()
+  ]);
+  return json({categories, warehouses });
+}
+
 export async function multiloaderInventory() {
   const [categories, attributes] = await Promise.all([
     getCategories(),
