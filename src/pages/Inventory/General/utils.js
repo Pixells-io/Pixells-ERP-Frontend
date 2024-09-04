@@ -96,12 +96,29 @@ export async function getWarehouses() {
   }
 }
 
+export async function getSuppliers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}supplier/get`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderArticle() {
-  const [categories, warehouses] = await Promise.all([
+  const [categories, warehouses,suppliers] = await Promise.all([
     getCategories(),
-    getWarehouses()
+    getWarehouses(),
+    getSuppliers(),
   ]);
-  return json({categories, warehouses });
+  return json({categories, warehouses, suppliers, });
 }
 
 export async function multiloaderInventory() {
@@ -109,7 +126,7 @@ export async function multiloaderInventory() {
     getCategories(),
     getAttributes(),
   ]);
-  return json({ categories, attributes });
+  return json({ categories, attributes,  });
 }
 
 export async function getAttributes() {

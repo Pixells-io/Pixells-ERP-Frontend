@@ -5,7 +5,7 @@ import InventoryForm from "./Forms/InventoryForm";
 import WarehouseForm from "./Forms/WarehouseForm";
 import CheckForm from "./Forms/CheckForm";
 
-const FormGroup = ({ productType }) => {
+const FormGroup = ({ productType, suppliers}) => {
   const [generalData, setGeneralData] = useState({
     sImpuesto: false,
     devo: false,
@@ -87,7 +87,7 @@ const FormGroup = ({ productType }) => {
               COMPRAS
             </h2>
             <div className="flex w-full pl-2">
-              <CheckForm data={checkData} setData={setCheckData} />
+              <CheckForm suppliers={suppliers} data={checkData} setData={setCheckData} />
             </div>
           </TabsContent>
         </div>

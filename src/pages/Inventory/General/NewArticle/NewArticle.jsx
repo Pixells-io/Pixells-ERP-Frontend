@@ -14,6 +14,7 @@ import { useLoaderData } from "react-router-dom";
 
 const CreateArticle = () => {
   const data = useLoaderData();
+  const {categories, warehouses, suppliers} = data;
   const [inputsData, setInputsData] = useState({
     productType: "",
   });
@@ -35,14 +36,14 @@ const CreateArticle = () => {
                 icon={chevronBack}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
             <div className="h-12 w-12">
               <IonIcon
                 icon={chevronForward}
                 size="large"
                 className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              />
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
@@ -87,10 +88,9 @@ const CreateArticle = () => {
         </div>
 
         {/* Content */}
-
         <div className="w-full space-y-4 overflow-auto">
-          <Inputs data={data}/>
-          <FormGroup productType={inputsData.productType} />
+          <Inputs categories={categories} warehouses={warehouses} />
+          <FormGroup productType={inputsData.productType} suppliers={suppliers} />
         </div>
       </div>
     </div>
