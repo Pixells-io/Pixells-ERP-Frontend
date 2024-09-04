@@ -21,7 +21,10 @@ const AccountingAccount = () => {
   const { data } = useLoaderData();
 
   const [selectAccount, setSelectAccount] = useState(null);
-  const [selectNewAccount, setSelectNewAccount] = useState(null);
+  const [selectNewAccount, setSelectNewAccount] = useState({
+    level: "",
+    name: "",
+  });
   const [accounts, setAccounts] = useState([]);
   const [modalConfirmNewAccount, setModalConfirmNewAccount] = useState(false);
   const [accountsInfo, setAccountsInfo] = useState(data);
@@ -90,7 +93,7 @@ const AccountingAccount = () => {
   return (
     <div className="flex h-full rounded-xl bg-blancoBg pl-6">
       {/* Modals */}
-      <ModalConfirmNewAccount 
+      <ModalConfirmNewAccount
         modal={modalConfirmNewAccount}
         setModal={setModalConfirmNewAccount}
         newAccount={selectNewAccount}

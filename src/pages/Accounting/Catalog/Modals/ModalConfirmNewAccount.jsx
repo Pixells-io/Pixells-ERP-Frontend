@@ -11,7 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalConfirmNewAccount({ modal, setModal, newAccount, setSelectNewAccount, level }) {
+function ModalConfirmNewAccount({
+  modal,
+  setModal,
+  newAccount,
+  setSelectNewAccount,
+  level,
+}) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -22,8 +28,8 @@ function ModalConfirmNewAccount({ modal, setModal, newAccount, setSelectNewAccou
   }, [navigation.state]);
 
   const clearData = () => {
-    setSelectNewAccount(null);
-  }
+    setSelectNewAccount({ level: "", name: "" });
+  };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
