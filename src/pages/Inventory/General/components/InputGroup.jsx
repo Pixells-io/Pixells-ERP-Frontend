@@ -10,7 +10,8 @@ import {
 import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const Inputs = () => {
+const Inputs = ({data}) => {
+  const {categories,warehouses} = data;
   const [inputsData, setInputsData] = useState({
     codigoDeArticulo: "",
     nombreODescripcion: "",
@@ -109,15 +110,20 @@ const Inputs = () => {
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+              {warehouses.data.map((warehouse) => (
+                <SelectItem key={warehouse.id} value={warehouse.id}>
+                  {warehouse.name}
+                </SelectItem>
+              ))}
               </SelectContent>
             </Select>
             <Input
+              type="number"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Precio unitario"
               name="precioUnitario"
+              min="0"
+              step="0.1"
               value={inputsData.precioUnitario}
               onChange={handleInputChange}
             />
@@ -130,9 +136,11 @@ const Inputs = () => {
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+              {categories.data.map((categories) => (
+                <SelectItem key={categories.id} value={categories.id}>
+                  {categories.name}
+                </SelectItem>
+              ))}
               </SelectContent>
             </Select>
             <Input

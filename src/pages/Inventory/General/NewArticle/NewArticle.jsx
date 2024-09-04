@@ -13,8 +13,7 @@ import FormGroup from "../components/FormGroup";
 import { useLoaderData } from "react-router-dom";
 
 const CreateArticle = () => {
-  const {categories, warehouses }=useLoaderData();
-  
+  const data = useLoaderData();
   const [inputsData, setInputsData] = useState({
     productType: "",
   });
@@ -23,7 +22,8 @@ const CreateArticle = () => {
     setInputsData((prevData) => ({ ...prevData, [name]: value }));
   };
   const selectClasses =
-    "w-40 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -61,35 +61,36 @@ const CreateArticle = () => {
           </div>
         </div>
         <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
+          <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Artículo
           </p>
-          <div className="flex justify-start">
-            <span className="pt-2 pr-4 font-roboto text-[#696974] text-[14px]">
+          <div className="flex items-center">
+            <span className="pr-4 pt-2 font-roboto text-[14px] text-[#696974]">
               Tipo de producto
             </span>
-
-          <Select
-            name="productType"
-            value={inputsData.productType}
-            onValueChange={(value) => handleSelectChange("productType", value)}
-          >
-            <SelectTrigger className={selectClasses}>
-              <SelectValue placeholder="Selecciona" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="option1">Producto Simple</SelectItem>
-              <SelectItem value="option2">Producto Variable</SelectItem>
-            </SelectContent>
-          </Select>
+            <Select
+              name="productType"
+              value={inputsData.productType}
+              onValueChange={(value) =>
+                handleSelectChange("productType", value)
+              }
+            >
+              <SelectTrigger className={selectClasses}>
+                <SelectValue placeholder="Selecciona" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="option1">Producto Simple</SelectItem>
+                <SelectItem value="option2">Producto Variable</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
+
         {/* Content */}
 
         <div className="w-full space-y-4 overflow-auto">
-          
-          <Inputs />
-          <FormGroup />
+          <Inputs data={data}/>
+          <FormGroup productType={inputsData.productType} />
         </div>
       </div>
     </div>
