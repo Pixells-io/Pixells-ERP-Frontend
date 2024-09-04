@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { IonIcon } from "@ionic/react";
+import { imageOutline, closeCircle } from "ionicons/icons";
 
 const GeneralForm = ({ data, setData }) => {
+  const [image, setImage] = useState(null);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setImage(URL.createObjectURL(acceptedFiles[0]));
+    },
+  });
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleCheckboxChange = (name) => {
     setData({ ...data, [name]: !data[name] });
+  };
+
+  const handleRemoveImage = () => {
+    setImage(null);
   };
 
   return (
@@ -30,9 +48,12 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-     
+
       <div className="col-span-1 flex items-center space-x-6">
-        <Label htmlFor="activo" className="flex font-roboto text-[14px] text-gris2">
+        <Label
+          htmlFor="activo"
+          className="flex font-roboto text-[14px] text-gris2"
+        >
           Activo
         </Label>
         <Checkbox
@@ -43,8 +64,11 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div className="w-[200px] ml-[-100px] col-span-1 flex items-center space-x-6">
-        <Label htmlFor="desde" className="pt-2 font-roboto text-[14px] text-gris2">
+      <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
+        <Label
+          htmlFor="desde"
+          className="pt-2 font-roboto text-[14px] text-gris2"
+        >
           Desde:
         </Label>
         <InputRouter
@@ -54,8 +78,11 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="w-[200px]  ml-[-100px] col-span-1 flex items-center space-x-6">
-        <Label htmlFor="hasta" className="pt-2 font-roboto text-[14px] text-gris2">
+      <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
+        <Label
+          htmlFor="hasta"
+          className="pt-2 font-roboto text-[14px] text-gris2"
+        >
           Hasta:
         </Label>
         <InputRouter
@@ -80,7 +107,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-     
+
       <div className="col-span-1 flex items-center space-x-6">
         <Label
           htmlFor="inactivo"
@@ -101,7 +128,7 @@ const GeneralForm = ({ data, setData }) => {
       <div className="col-span-1 flex items-center space-x-6">
         <Label
           htmlFor="fabricante"
-          className="pt-2 mr-3 font-roboto text-[14px] text-gris2 "
+          className="mr-3 pt-2 font-roboto text-[14px] text-gris2"
         >
           Fabricante:
         </Label>
@@ -112,9 +139,9 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
         />
       </div>
-    <div></div>
-    <div></div>
-    <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
       <div className="col-span-1 flex items-center space-x-6">
         <Label
           htmlFor="comentarios"
@@ -128,6 +155,38 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />
+      </div>
+
+      <div className="relative col-span-3 mt-[-100px] flex grid items-center justify-center p-8">
+        <div {...getRootProps()} className="flex flex-col items-center">
+          {image ? (
+            <div className="rounded-xl border border-primarioBotones p-4">
+              <button
+                onClick={handleRemoveImage}
+                className="absolute right-[200px] top-2 rounded-full"
+              >
+                <IonIcon
+                  icon={closeCircle}
+                  className="h-5 w-5 text-primarioBotones"
+                />
+              </button>
+              <img
+                src={image}
+                alt="Uploaded"
+                className="max-h-48 max-w-full object-contain"
+              />
+            </div>
+          ) : (
+            <>
+              <IonIcon
+                icon={imageOutline}
+                className="h-12 w-12 text-gray-500"
+              />
+              <span className="ml-2 text-gray-500">Agregar Imagen</span>
+            </>
+          )}
+          <input {...getInputProps()} />
+        </div>
       </div>
     </div>
   );

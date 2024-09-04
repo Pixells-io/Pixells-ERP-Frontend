@@ -10,6 +10,7 @@ import {
 import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 
+
 const Inputs = ({data}) => {
   const {categories,warehouses} = data;
   const [inputsData, setInputsData] = useState({
