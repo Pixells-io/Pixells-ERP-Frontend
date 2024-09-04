@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { trash } from "ionicons/icons";
 
-function ModalDeleteAccount({ account_id, account_name }) {
+function ModalDeleteAccount({ account_id, account_name, level }) {
   const [modal, setModal] = useState(false);
   const navigation = useNavigation();
 
@@ -40,11 +40,17 @@ function ModalDeleteAccount({ account_id, account_name }) {
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <Form
-          action={`/bank-management`}
+          action={`/accounting/${level}`}
           method="post"
           className="flex flex-col gap-3"
         >
-          <input type="hidden" hidden name="account_id" value={account_id} readOnly />
+          <input
+            type="hidden"
+            hidden
+            name="account_id"
+            value={account_id}
+            readOnly
+          />
           <input
             type="hidden"
             hidden

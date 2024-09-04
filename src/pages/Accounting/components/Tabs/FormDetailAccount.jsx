@@ -28,6 +28,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
 
   const [checkedInputType, setCheckedInputType] = useState("0");
   const [checkedInputStatus, setCheckedInputStatus] = useState("0");
+  const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
     getAccount();
@@ -67,21 +68,34 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className="h-5 w-5 cursor-pointer text-[#696974]"
             ></IonIcon>
           </div>
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+          <div
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            onClick={() => setIsEditable(!isEditable)}
+          >
             <IonIcon
               icon={create}
-              className="h-5 w-5 cursor-pointer text-[#696974]"
+              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
             ></IonIcon>
           </div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
             <ModalDeleteAccount
               account_id={account.id}
               account_name={account.name}
+              level={level}
             />
           </div>
         </div>
       </div>
-      <Form className="mt-4" action={`/accounting/${level}`} method="post">
+      <Form
+        className="mt-4"
+        action={`/accounting/${level}`}
+        method="post"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
+      >
         <input
           type="hidden"
           hidden
@@ -112,6 +126,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
               checked={checkedInputType == "1"}
               onCheckedChange={() => setCheckedInputType("1")}
+              disabled={!isEditable}
             />
             <p className="font-roboto text-sm font-light text-grisText">
               Título
@@ -122,6 +137,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
               checked={checkedInputType == "2"}
               onCheckedChange={() => setCheckedInputType("2")}
+              disabled={!isEditable}
             />
             <p className="font-roboto text-sm font-light text-grisText">
               Cuenta Activa
@@ -141,6 +157,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               }
               onChange={handleInputChange}
               type="text"
+              disabled={!isEditable}
             />
           </div>
 
@@ -154,6 +171,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               value={!!account.name ? account.name : ""}
               onChange={handleInputChange}
               type="text"
+              disabled={!isEditable}
             />
           </div>
 
@@ -184,6 +202,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               ]}
               // value={"MXN"}
               // onChange={handleInputChange}
+              disabled={!isEditable}
             />
           </div>
 
@@ -197,6 +216,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               value={!!account.balance ? account.balance : ""}
               onChange={handleInputChange}
               type="text"
+              disabled={!isEditable}
             />
           </div>
 
@@ -210,6 +230,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               value={!!account.type_of_account ? account.type_of_account : ""}
               onChange={handleInputChange}
               type="text"
+              disabled={!isEditable}
             />
           </div>
 
@@ -223,6 +244,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
                 { label: "123", value: "123" },
                 { label: "321", value: "321" },
               ]}
+              disabled={!isEditable}
             />
           </div>
           <div className="col-span-12 flex items-center gap-x-2">
@@ -238,6 +260,7 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
               checked={checkedInputStatus == "1"}
               onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+              disabled={!isEditable}
             />
             <p className="font-roboto text-sm font-light text-grisText">
               Activo
@@ -245,12 +268,14 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
           </div>
         </div>
         <div className="flex w-full justify-end">
-          <Button
-            className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
-            disabled={navigation.state === "submitting"}
-          >
-            {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
-          </Button>
+          {isEditable && (
+            <Button
+              className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
+              disabled={navigation.state === "submitting"}
+            >
+              {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
+            </Button>
+          )}
         </div>
       </Form>
     </div>

@@ -116,3 +116,22 @@ export async function UpdateAccountingAccount(data) {
 
   return response;
 }
+
+export async function destroyAccountingAccount(data) {
+  const info = {
+    account_id: data.get("account_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}accounting/destroy-accounting-account`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

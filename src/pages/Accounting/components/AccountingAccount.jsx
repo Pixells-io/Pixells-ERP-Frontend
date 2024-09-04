@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
 import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
 import {
+  destroyAccountingAccount,
   getAccountingAccountsById,
   saveAccountingAccount,
   UpdateAccountingAccount,
@@ -34,7 +35,7 @@ const AccountingAccount = () => {
 
   useEffect(() => {
     setAccountsInfo(data);
-  }, data);
+  }, [data]);
 
   const pusherClient = createPusherClient();
 
@@ -151,6 +152,9 @@ export async function Action({ request }) {
       break;
     case "update_accountingAccount":
       await UpdateAccountingAccount(data);
+      break;
+    case "destroy_account":
+      await destroyAccountingAccount(data);
       break;
   }
   return "1";
