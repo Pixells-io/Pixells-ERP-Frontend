@@ -4,8 +4,9 @@ import GeneralForm from "./Forms/GeneralForm";
 import InventoryForm from "./Forms/InventoryForm";
 import WarehouseForm from "./Forms/WarehouseForm";
 import CheckForm from "./Forms/CheckForm";
+import VariableForm from "./Forms/VariablesForm";
 
-const FormGroup = ({ productType, suppliers}) => {
+const FormGroup = ({ productType, suppliers }) => {
   const [generalData, setGeneralData] = useState({
     sImpuesto: false,
     devo: false,
@@ -42,7 +43,7 @@ const FormGroup = ({ productType, suppliers}) => {
             <TabsTrigger
               key={value}
               value={value}
-              className={`flex items-center justify-center rounded-full px-4 py-1 text-center font-roboto text-[14px] transition-colors bg-blancoBox2 text-grisHeading hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
+              className={`flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
                 value === "variables" && productType !== "option2"
                   ? "pointer-events-none opacity-50"
                   : ""
@@ -62,10 +63,16 @@ const FormGroup = ({ productType, suppliers}) => {
             </div>
           </TabsContent>
           <TabsContent value="variables">
-          {productType === "option2" && (
-            <div>div</div>
-          )} 
+            {productType === "option2" && (
+              <>
+                <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
+                  VARIABLES
+                </h2>
+                <VariableForm />
+              </>
+            )}
           </TabsContent>
+
           <TabsContent value="inventory">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               INVENTARIO
@@ -87,7 +94,11 @@ const FormGroup = ({ productType, suppliers}) => {
               COMPRAS
             </h2>
             <div className="flex w-full pl-2">
-              <CheckForm suppliers={suppliers} data={checkData} setData={setCheckData} />
+              <CheckForm
+                suppliers={suppliers}
+                data={checkData}
+                setData={setCheckData}
+              />
             </div>
           </TabsContent>
         </div>
