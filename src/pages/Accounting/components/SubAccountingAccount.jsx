@@ -15,7 +15,7 @@ const SubAccountingAccount = ({
   selectAccount,
   setSelectAccount,
   setSelectNewAccount,
-  selectNewAccount,
+  setModalConfirmNewAccount,
 }) => {
   const paddingLeft = `${level * 6}px`; // Ajusta el padding en función del nivel
 
@@ -24,7 +24,6 @@ const SubAccountingAccount = ({
   };
 
   const newAccount = (account) => {
-    setSelectNewAccount({id: account.id});
     let numAccount = 1;
     if(account.subAccounts.length != 0){
       let ultimateAccount = account.subAccounts[account.subAccounts.length - 1];
@@ -38,6 +37,8 @@ const SubAccountingAccount = ({
       levels: `${account.level}.${numAccount}`.split("."),
     };
 
+    setSelectNewAccount(NewNumber);
+    setModalConfirmNewAccount(true);
   }
 
   return (
@@ -52,7 +53,7 @@ const SubAccountingAccount = ({
         <div
           className={cn(
             "group flex items-center justify-between pl-2 pr-2 hover:bg-grisBg",
-            account.id == (selectAccount?.id || selectNewAccount?.id) &&
+            account.id == (selectAccount?.id) &&
               "rounded-xl border border-[#44444F] bg-white",
           )}
         >
@@ -96,8 +97,8 @@ const SubAccountingAccount = ({
                 level={level + 1}
                 selectAccount={selectAccount}
                 setSelectAccount={setSelectAccount}
-                selectNewAccount={selectNewAccount}
                 setSelectNewAccount={setSelectNewAccount}
+                setModalConfirmNewAccount={setModalConfirmNewAccount}
               />
             ))}
           </AccordionContent>

@@ -15,16 +15,20 @@ import {
   UpdateAccountingAccount,
 } from "../Catalog/utils";
 import { createPusherClient } from "@/lib/pusher";
+import ModalConfirmNewAccount from "../Catalog/Modals/ModalConfirmNewAccount";
 
 const AccountingAccount = () => {
+  const { data } = useLoaderData();
+
   const [selectAccount, setSelectAccount] = useState(null);
   const [selectNewAccount, setSelectNewAccount] = useState(null);
   const [accounts, setAccounts] = useState([]);
+  const [modalConfirmNewAccount, setModalConfirmNewAccount] = useState(false);
+  const [accountsInfo, setAccountsInfo] = useState(data);
+
   const [accountName] = useOutletContext();
   const params = useParams();
 
-  const { data } = useLoaderData();
-  const [accountsInfo, setAccountsInfo] = useState(data);
   useEffect(() => {
     setAccountsInfo(data);
   }, data);
@@ -85,6 +89,14 @@ const AccountingAccount = () => {
 
   return (
     <div className="flex h-full rounded-xl bg-blancoBg pl-6">
+      {/* Modals */}
+      <ModalConfirmNewAccount 
+        modal={modalConfirmNewAccount}
+        setModal={setModalConfirmNewAccount}
+        newAccount={selectNewAccount}
+        setSelectNewAccount={setSelectNewAccount}
+        level={params.level}
+      />
       <div
         className={cn(
           "h-full overflow-auto",
@@ -106,6 +118,7 @@ const AccountingAccount = () => {
                   selectAccount={selectAccount}
                   setSelectNewAccount={setSelectNewAccount}
                   selectNewAccount={selectNewAccount}
+                  setModalConfirmNewAccount={setModalConfirmNewAccount}
                 />
               ))}
             </AccordionContent>

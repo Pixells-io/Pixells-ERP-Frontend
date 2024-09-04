@@ -55,14 +55,9 @@ export async function getAccountingAccountsById({ params }) {
 
 export async function saveAccountingAccount(data) {
   const info = {
-    type: data.get("type"),
     accounting_account: data.get("accounting_account"),
     name: data.get("name"),
     level: data.get("level"),
-    currency: data.get("currency"),
-    type_of_account: data.get("type_of_account"),
-    sat_code: data.get("sat_code"),
-    description: data.get("description"),
   };
 
   const response = await fetch(
