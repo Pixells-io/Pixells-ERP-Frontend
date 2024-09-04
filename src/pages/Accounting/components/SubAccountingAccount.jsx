@@ -16,6 +16,8 @@ const SubAccountingAccount = ({
   setSelectAccount,
   setSelectNewAccount,
   setModalConfirmNewAccount,
+  accountP,
+  setParentAccount,
 }) => {
   const paddingLeft = `${level * 6}px`; // Ajusta el padding en función del nivel
 
@@ -25,11 +27,12 @@ const SubAccountingAccount = ({
 
   const newAccount = (account) => {
     let numAccount = 1;
-    if(account.subAccounts.length != 0){
+    if (account.subAccounts.length != 0) {
       let ultimateAccount = account.subAccounts[account.subAccounts.length - 1];
-      let ultimateDigit = ultimateAccount.levels[ultimateAccount.levels.length - 1];
+      let ultimateDigit =
+        ultimateAccount.levels[ultimateAccount.levels.length - 1];
       numAccount = Number(ultimateDigit) + 1;
-    } 
+    }
 
     const NewNumber = {
       name: `${account.name} (${numAccount})`,
@@ -39,12 +42,11 @@ const SubAccountingAccount = ({
 
     setSelectNewAccount(NewNumber);
     setModalConfirmNewAccount(true);
-  }
+  };
 
   return (
     <Accordion
       type="multiple"
-      
       className={"w-full"}
       style={{ paddingLeft }}
       defaultValue={["item-2"]}
@@ -53,7 +55,7 @@ const SubAccountingAccount = ({
         <div
           className={cn(
             "group flex items-center justify-between pl-2 pr-2 hover:bg-grisBg",
-            account.id == (selectAccount?.id) &&
+            account.id == selectAccount?.id &&
               "rounded-xl border border-[#44444F] bg-white",
           )}
         >
@@ -80,7 +82,10 @@ const SubAccountingAccount = ({
                   className={
                     "rounded-3xl border border-[#44444F] bg-inherit px-4 py-1 text-xs font-light text-black hover:cursor-pointer hover:bg-[#44444F] hover:text-white"
                   }
-                  onClick={() => showDetail({ id: account.id })}
+                  onClick={() => {
+                    showDetail(account);
+                    setParentAccount(accountP);
+                  }}
                 >
                   Detalles
                 </label>
@@ -99,6 +104,8 @@ const SubAccountingAccount = ({
                 setSelectAccount={setSelectAccount}
                 setSelectNewAccount={setSelectNewAccount}
                 setModalConfirmNewAccount={setModalConfirmNewAccount}
+                accountP={account}
+                setParentAccount={setParentAccount}
               />
             ))}
           </AccordionContent>

@@ -29,6 +29,7 @@ const AccountingAccount = () => {
   const [accounts, setAccounts] = useState([]);
   const [modalConfirmNewAccount, setModalConfirmNewAccount] = useState(false);
   const [accountsInfo, setAccountsInfo] = useState(data);
+  const [parentAccount, setParentAccount] = useState([]);
 
   const [accountName] = useOutletContext();
   const params = useParams();
@@ -70,7 +71,7 @@ const AccountingAccount = () => {
       .map((ac) => ({
         ...ac,
         subAccounts: recursiveSubAccount(
-          subAccountsAux.filter((item) => item.level.startsWith(ac.level)),
+          subAccountsAux.filter((item) => item.level.startsWith(ac.level + ".")),
           level + 1,
         ),
       }));
@@ -123,6 +124,8 @@ const AccountingAccount = () => {
                   setSelectNewAccount={setSelectNewAccount}
                   selectNewAccount={selectNewAccount}
                   setModalConfirmNewAccount={setModalConfirmNewAccount}
+                  accountP={[]}
+                  setParentAccount={setParentAccount}
                 />
               ))}
             </AccordionContent>
@@ -134,6 +137,7 @@ const AccountingAccount = () => {
           setSelectAccount={setSelectAccount}
           selectAccount={selectAccount}
           level={params.level}
+          parentAccount={parentAccount}
         />
       )}
     </div>

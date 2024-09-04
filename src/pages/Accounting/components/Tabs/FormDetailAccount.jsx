@@ -10,8 +10,14 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
 
-const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
+const FormDetailAccount = ({
+  selectAccount,
+  setSelectAccount,
+  level,
+  parentAccount,
+}) => {
   const navigation = useNavigation();
 
   const [account, setAccount] = useState({
@@ -29,6 +35,11 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
   const [checkedInputType, setCheckedInputType] = useState("0");
   const [checkedInputStatus, setCheckedInputStatus] = useState("0");
   const [isEditable, setIsEditable] = useState(false);
+  const [modalCloneAccount, setModalCloneAccount] = useState(false);
+  const [newCloneAccount, setNewCloneAccount] = useState({
+    level: "",
+    name: "",
+  });
 
   useEffect(() => {
     getAccount();
@@ -46,8 +57,34 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
     setAccount((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const newAccount = () => {
+    let numAccount = 1;
+    if (parentAccount.subAccounts.length != 0) {
+      let ultimateAccount =
+        parentAccount.subAccounts[parentAccount.subAccounts.length - 1];
+      let ultimateDigit =
+        ultimateAccount.levels[ultimateAccount.levels.length - 1];
+      numAccount = Number(ultimateDigit) + 1;
+    }
+    const NewNumber = {
+      name: `${selectAccount.name} copia (${numAccount})`,
+      level: `${parentAccount.level}.${numAccount}`,
+      levels: `${parentAccount.level}.${numAccount}`.split("."),
+    };
+    setNewCloneAccount(NewNumber);
+    setModalCloneAccount(true);
+  };
+
   return (
     <div className="h-full w-2/5 overflow-auto border-l p-2">
+      {/* modals */}
+      <ModalConfirmNewAccount
+        modal={modalCloneAccount}
+        setModal={setModalCloneAccount}
+        newAccount={newCloneAccount}
+        setSelectNewAccount={setNewCloneAccount}
+        level={level}
+      />
       <div className="flex justify-end">
         <IonIcon
           icon={closeCircle}
@@ -62,7 +99,10 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
           </h2>
         </div>
         <div className="flex w-full justify-center gap-x-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8E8E8]">
+          <div
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            onClick={() => newAccount()}
+          >
             <IonIcon
               icon={copy}
               className="h-5 w-5 cursor-pointer text-[#696974]"
@@ -77,12 +117,12 @@ const FormDetailAccount = ({ selectAccount, setSelectAccount, level }) => {
               className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
             ></IonIcon>
           </div>
-            <ModalDeleteAccount
-              account_id={account.id}
-              account_name={account.name}
-              level={level}
-              setSelectAccount={setSelectAccount}
-            />
+          <ModalDeleteAccount
+            account_id={account.id}
+            account_name={account.name}
+            level={level}
+            setSelectAccount={setSelectAccount}
+          />
         </div>
       </div>
       <Form
