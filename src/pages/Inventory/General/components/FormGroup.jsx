@@ -6,7 +6,7 @@ import WarehouseForm from "./Forms/WarehouseForm";
 import CheckForm from "./Forms/CheckForm";
 import VariableForm from "./Forms/VariablesForm";
 
-const FormGroup = ({ productType, suppliers }) => {
+const FormGroup = ({ productType, suppliers, attrb }) => {
   const [generalData, setGeneralData] = useState({
     sImpuesto: false,
     devo: false,
@@ -68,7 +68,7 @@ const FormGroup = ({ productType, suppliers }) => {
                 <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
                   VARIABLES
                 </h2>
-                <VariableForm />
+                <VariableForm attrb={attrb} />
               </>
             )}
           </TabsContent>

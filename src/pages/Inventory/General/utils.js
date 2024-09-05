@@ -113,12 +113,13 @@ export async function getSuppliers() {
 }
 
 export async function multiloaderArticle() {
-  const [categories, warehouses,suppliers] = await Promise.all([
+  const [categories, warehouses,suppliers,attributes] = await Promise.all([
     getCategories(),
     getWarehouses(),
     getSuppliers(),
+    getAttributes(),
   ]);
-  return json({categories, warehouses, suppliers, });
+  return json({categories, warehouses, suppliers,attributes });
 }
 
 export async function multiloaderInventory() {
