@@ -22,6 +22,8 @@ function NotificationChat({ notifications }) {
 
   const navigate = useNavigate();
 
+  const notificationSound = new Audio("/sounds/noti_chat.mp3");
+
   function destroyNotificationActivation(chat) {
     //Redirect to the chat
     return navigate(`/chat/${chat}`);
@@ -38,8 +40,8 @@ function NotificationChat({ notifications }) {
   useEffect(() => {
     async function getNotifications() {
       let newData = await getNotificationsChat();
-
       setnotificationsPusher(newData.data);
+      notificationSound.play();
     }
 
     pusherClient.subscribe("private-get-chat-list");

@@ -14,7 +14,7 @@ import { useLoaderData } from "react-router-dom";
 
 const CreateArticle = () => {
   const data = useLoaderData();
-  const {categories, warehouses, suppliers} = data;
+  const {categories, warehouses, suppliers, attributes} = data;
   const [inputsData, setInputsData] = useState({
     productType: "",
   });
@@ -90,7 +90,7 @@ const CreateArticle = () => {
         {/* Content */}
         <div className="w-full space-y-4 overflow-auto">
           <Inputs categories={categories} warehouses={warehouses} />
-          <FormGroup productType={inputsData.productType} suppliers={suppliers} />
+          <FormGroup productType={inputsData.productType} suppliers={suppliers} attrb={attributes} />
         </div>
       </div>
     </div>

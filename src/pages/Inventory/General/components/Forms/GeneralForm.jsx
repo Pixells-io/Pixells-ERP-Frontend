@@ -159,12 +159,15 @@ const GeneralForm = ({ data, setData }) => {
       <div></div>
       <div></div>
       <div className="relative col-span-3 ml-[600px] mt-[-200px] flex grid cursor-pointer items-center justify-end p-8">
-        <div {...getRootProps()} className="flex items-end">
+        <div {...getRootProps()} className="relative flex items-end">
           {image ? (
-            <div className="rounded-xl border border-primarioBotones p-4">
+            <div className="relative rounded-xl border border-primarioBotones p-4">
               <button
-                onClick={handleRemoveImage}
-                className="absolute right-2 top-2 rounded-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveImage();
+                }}
+                className="absolute right-2 top-2 z-10 rounded-full p-1"
               >
                 <IonIcon
                   icon={closeCircle}
@@ -178,13 +181,13 @@ const GeneralForm = ({ data, setData }) => {
               />
             </div>
           ) : (
-            <>
+            <div className="flex flex-col items-center">
               <IonIcon
                 icon={imageOutline}
                 className="h-12 w-12 text-gray-500"
               />
               <span className="ml-2 text-gray-500">Agregar Imagen</span>
-            </>
+            </div>
           )}
           <input {...getInputProps()} />
         </div>
