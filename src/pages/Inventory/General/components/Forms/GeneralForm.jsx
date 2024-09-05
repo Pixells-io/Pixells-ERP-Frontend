@@ -181,13 +181,13 @@ const GeneralForm = ({ data, setData }) => {
               />
             </div>
           ) : (
-            <>
+            <div className="flex flex-col items-center">
               <IonIcon
                 icon={imageOutline}
                 className="h-12 w-12 text-gray-500"
               />
               <span className="ml-2 text-gray-500">Agregar Imagen</span>
-            </>
+            </div>
           )}
           <input {...getInputProps()} />
         </div>
