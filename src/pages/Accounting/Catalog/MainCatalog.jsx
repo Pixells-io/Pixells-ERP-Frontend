@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
 import CatalogConsole from "./Components/CatalogConsole";
 import AccountFormModal from "./Components/AccountFormModal";
 import { Button } from "@/components/ui/button";
+import ModalImportAccounts from "./Components/ModalImportAccounts";
+import { useLoaderData } from "react-router-dom";
 
 const MainCatalog = () => {
+  const [modalImport, setModalImport] = useState(false);
+
+  const { data } = useLoaderData();
+
   return (
     <div className="flex w-full">
+      <ModalImportAccounts modal={modalImport} setModal={setModalImport} />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -49,13 +56,16 @@ const MainCatalog = () => {
           </p>
         </div>
         <div className="flex items-center gap-x-4 pl-2">
-          <AccountFormModal />
-          <Button className="h-7 rounded-3xl border border-[#44444F] bg-inherit px-4 text-xs font-light text-black hover:bg-inherit">
+          {/* <AccountFormModal /> */}
+          <Button
+            className="h-7 rounded-3xl border border-[#44444F] bg-inherit px-4 text-xs font-light text-black hover:bg-inherit"
+            onClick={() => setModalImport(true)}
+          >
             Importar
           </Button>
         </div>
         {/*CONTENT MENU OF CONSOLE */}
-        <CatalogConsole />
+        <CatalogConsole accoutingAccounts={Object.values(data)} />
       </div>
     </div>
   );

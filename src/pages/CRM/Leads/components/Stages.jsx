@@ -363,7 +363,7 @@ function Stages() {
         {stagesFilter?.map((stage, i) => (
           <div
             key={stage.id}
-            className="flex h-full w-[200px] flex-col gap-2 overflow-auto"
+            className="flex h-full w-[200px] shrink-0 flex-col gap-2 overflow-auto"
             onDragOver={(evt) => draggingOver(evt)}
             onDrop={(evt) => onDrop(evt, stage.id)}
           >

@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
-import SelectRouter from "../../../layouts/Masters/FormComponents/select";
+import React, { useEffect, useState } from "react";
 
 import { Form, useNavigation } from "react-router-dom";
 import {
@@ -13,10 +12,58 @@ import {
 import { Button } from "@/components/ui/button";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
+import { getBank } from "./utils";
 
-function FormAddBankAccount({ modal, setModal }) {
+function FormAddBankAccount({ modal, setModal, banks }) {
+  const [bankSelect, setBankSelect] = useState("");
+  const [accountingAccountSelect, setAccountingAccountSelect] = useState("");
+  const [ownBankInfo, setOwnBankInfo] = useState({});
+  const navigation = useNavigation();
+
+  const banksNew = banks.map((bank) => {
+    return {
+      value: bank.id,
+      label: bank.name,
+    };
+  });
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      clearData();
+      setModal(false);
+    }
+  }, [navigation.state]);
+
+  const accountingAccountAux = [
+    {
+      value: 1,
+      label: "1.1.1 Ingreso act1 ",
+    },
+    {
+      value: 2,
+      label: "1.1.2 Ingreso act2 ",
+    },
+  ];
+
+  const getOwnBank = async (value) => {
+    const result = await getBank({ params: { id: value } });
+    setOwnBankInfo(result.data);
+  };
+
+  const clearData = () => {
+    setBankSelect("");
+    setAccountingAccountSelect("");
+    setOwnBankInfo({});
+  };
+
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
+    <Dialog
+      open={modal}
+      onOpenChange={(e) => {
+        setModal(e);
+        clearData();
+      }}
+    >
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b pt-2">
           <DialogTitle className="px-4 py-4 font-poppins text-sm font-semibold text-grisHeading">
@@ -26,40 +73,50 @@ function FormAddBankAccount({ modal, setModal }) {
         <Form
           id="bank-account-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          //   action="/organization"
+          action="/bank-management"
           method="post"
         >
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            readOnly
+            name="type_option"
+            value={"save_bankAccount"}
+          />
           <div className="flex w-full flex-col gap-3 rounded-lg p-4 font-roboto">
             <div className="flex w-full flex-col gap-8 font-light">
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-4">
                   <div className="flex gap-6">
                     <SelectField
-                      name="register_society"
-                      options={[]}
-                      placeholder="País"
-                      className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
-                    />
-                    <SelectField
-                      name="register_ownBank"
-                      options={[]}
+                      name="bank_id"
+                      options={banksNew}
                       placeholder="Banco Propio"
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                      value={Number(bankSelect) || undefined}
+                      onValueChange={(e) => {
+                        setBankSelect(e);
+                        getOwnBank(e);
+                      }}
+                      required={true}
                     />
                   </div>
                   <div className="flex gap-6">
                     <div className="basis-1/3">
                       <InputRouter
-                        name="register_accountId"
+                        name="account_id"
                         type="text"
                         placeholder="ID Cuenta"
+                        required={true}
                       />
                     </div>
                     <div className="basis-full">
                       <InputRouter
-                        name="register_accountName"
+                        name="account_name"
                         type="text"
                         placeholder="Nombre de la Cuenta"
+                        required={true}
                       />
                     </div>
                   </div>
@@ -73,28 +130,33 @@ function FormAddBankAccount({ modal, setModal }) {
                 <div className="flex gap-2">
                   <div className="basis-1/2">
                     <InputRouter
-                      name="register_accountName"
+                      name="account_number"
                       type="text"
-                      placeholder="Nombre de cuenta"
+                      placeholder="Número de cuenta"
+                      required={true}
                     />
                   </div>
                   <div className="basis-1/2 pt-5">
                     <SelectField
-                      name="register_accountingAccount"
-                      options={[]}
+                      name="countable_account_id"
+                      options={accountingAccountAux}
                       placeholder="Cuenta Contable"
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                      value={Number(accountingAccountSelect) || undefined}
+                      onValueChange={(e) => setAccountingAccountSelect(e)}
+                      required={true}
                     />
                   </div>
                   <div className="basis-auto pt-5">
                     <SelectField
-                      name="register_currency"
+                      name="currency"
                       options={[
-                        { label: "MXN", value: "MXN" },
-                        { label: "DLLS", value: "DLLS" },
+                        { label: "MXN", value: "1" },
+                        { label: "DLLS", value: "2" },
                       ]}
                       placeholder="Moneda"
                       className="border-gris2-transparent w-full rounded rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                      required={true}
                     />
                   </div>
                 </div>
@@ -111,11 +173,11 @@ function FormAddBankAccount({ modal, setModal }) {
                     <div className="grid grid-cols-2 gap-1">
                       <p className="text-xs text-grisText">País</p>
                       <p className="text-xs font-normal text-grisSubText">
-                        Mex
+                        {ownBankInfo?.country}
                       </p>
                       <p className="text-xs text-grisText">Clave de Banco</p>
                       <p className="text-xs font-normal text-grisSubText">
-                        002
+                        {ownBankInfo?.bank_key}
                       </p>
                     </div>
                   </div>
@@ -131,17 +193,19 @@ function FormAddBankAccount({ modal, setModal }) {
                     <div className="grid grid-cols-2 gap-1">
                       <p className="text-xs text-grisText">Calle</p>
                       <p className="text-xs font-normal text-grisSubText">
-                        San Pedro Luna
+                        {ownBankInfo?.street}
                       </p>
                       <p className="text-xs text-grisText">Int.</p>
                       <p className="text-xs font-normal text-grisSubText">
-                        234
+                        {ownBankInfo?.int}
                       </p>
                       <p className="text-xs text-grisText">Ext.</p>
-                      <p className="text-xs font-normal text-grisSubText">01</p>
+                      <p className="text-xs font-normal text-grisSubText">
+                        {ownBankInfo?.ext}
+                      </p>
                       <p className="text-xs text-grisText">Colonia</p>
                       <p className="text-xs font-normal text-grisSubText">
-                        Lomas de tlaloc
+                        {ownBankInfo?.cologne}
                       </p>
                     </div>
                   </div>
@@ -155,8 +219,9 @@ function FormAddBankAccount({ modal, setModal }) {
           <Button
             form="bank-account-form"
             className="h-8 justify-normal rounded-lg rounded-xl bg-primarioBotones px-6 text-xs font-semibold"
+            disabled={navigation.state === "submitting"}
           >
-            Save
+            {navigation.state === "submitting" ? "Submitting..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

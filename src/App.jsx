@@ -181,7 +181,6 @@ import {
   getCompletedActivity,
   multiLoaderObjetivesPm,
   getNotifications,
-  getProfileGoogle,
 } from "./lib/actions";
 
 //Not Found
@@ -254,14 +253,23 @@ import LayoutCalendar, {
 } from "./pages/Calendar/LayoutCalendar";
 
 //Accounting
-import SideLayoutAccounting from "./layouts/Accounting/SideLayoutAccounting";
+import SideLayoutAccounting, {
+  Action as AccountingCatalogActions,
+} from "./layouts/Accounting/SideLayoutAccounting";
 import MainCatalog from "./pages/Accounting/Catalog/MainCatalog";
 import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
 import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
 import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
 import MainCost from "./pages/Accounting/Cost/MainCost";
-import AccountingAccount from "./pages/Accounting/components/AccountingAccount";
+import AccountingAccount, {
+  Action as AccountingAccountActions,
+} from "./pages/Accounting/components/AccountingAccount";
+import {
+  getAccountingAccounts,
+  getAccountingAccountsById,
+} from "./pages/Accounting/Catalog/utils";
+import AccountingAccountEmpty from "./pages/Accounting/components/AccountingAccountEmpty";
 
 //BankManagement
 import MainBankManagement, {
@@ -277,10 +285,17 @@ import CollectionRecord from "./pages/BankManagement/Collections/CollectionRecor
 import MainPaymentBankManag from "./pages/BankManagement/Payments/MainPaymentBankManag";
 import AddNewPayment from "./pages/BankManagement/Payments/AddNewPayment";
 import PaymentRecord from "./pages/BankManagement/Payments/PaymentRecord";
-import { getBank, getBanks } from "./pages/BankManagement/utils";
+import {
+  getBank,
+  multiloaderOwnAndBankAccount,
+  multiloaderTableBankManag,
+} from "./pages/BankManagement/Accounts/utils";
 import EditBank, {
-  Action as updateBank
+  Action as updateBank,
 } from "./pages/BankManagement/Accounts/Edit/EditBank";
+import EditBankAccount, {
+  Action as updateBankAccount,
+} from "./pages/BankManagement/Accounts/Edit/EditBankAccount";
 
 //Client Platform
 import LoginClient, {
@@ -298,13 +313,42 @@ import UserMediaLibrary, {
 
 //Inventory
 import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
-import MainGeneral from "./pages/Inventory/General/MainGeneral";
+import MainGeneral, {
+  Action as CreateNewCategory,
+} from "./pages/Inventory/General/MainGeneral";
+import { multiloaderArticle } from "./pages/Inventory/General/utils";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import MainWL, {
+  Action as saveSlotsConfigs,
+} from "./pages/Inventory/WarehouseLocations/MainWL";
+import { multiLoaderUbication } from "./pages/Inventory/WarehouseLocations/utils";
+import { multiLoaderData } from "./pages/Inventory/WarehouseLocations/utils";
 import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
-import CreateWH, { Action as createWarehouses }from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
+import WLSlots, {
+  Action as createNewConfigure,
+} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLSlots";
+import CreateLocation, {
+  Action as createNewLocation,
+} from "./pages/Inventory/WarehouseLocations/NewLocation/CreateLocation";
+import WLConfig, {
+  Action as saveSlotsConfig,
+} from "./pages/Inventory/WarehouseLocations/CreateConfig/WLConfig";
+
+import CreateWH, {
+  Action as createWarehouses,
+} from "./pages/Inventory/GeneralWarehouses/NewWarehouse/CreateWarehouse";
+import EditWH, {
+  Action as editWarehouses,
+} from "./pages/Inventory/GeneralWarehouses/EditWarehouse/EditWarehouse";
+import {
+  getWarehouses,
+  getWarehouse,
+  editWarehouse,
+} from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import { multiloaderInventory } from "./pages/Inventory/General/utils";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -386,7 +430,8 @@ import SavedTopics, {
 } from "./layouts/MyProfile/SavedTopics";
 import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
-import { getWarehouses } from "./pages/Inventory/GeneralWarehouses/utils";
+import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
+import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 
 const router = createBrowserRouter([
   {
@@ -844,12 +889,16 @@ const router = createBrowserRouter([
           {
             path: "/my-profile/security",
             element: <MainSecurity />,
-            loader: getProfileGoogle,
           },
           {
             path: "/my-profile/notifications",
             element: <MainNotifications />,
             loader: getNotifications,
+          },
+          {
+            path: "/my-profile/integrations",
+            element: <MainIntegrations />,
+            loader: multiloaderGoogleIntegrations,
           },
           {
             path: "/my-profile/topic-saved",
@@ -869,13 +918,19 @@ const router = createBrowserRouter([
             index: true,
             element: <MainBankManagement />,
             action: CreateNewBank,
-            loader: getBanks,
+            loader: multiloaderTableBankManag,
           },
           {
             path: "/bank-management/edit-bank/:id",
             element: <EditBank />,
             loader: getBank,
             action: updateBank,
+          },
+          {
+            path: "/bank-management/edit-bank-account/:id",
+            element: <EditBankAccount />,
+            loader: multiloaderOwnAndBankAccount,
+            action: updateBankAccount,
           },
           {
             path: "/bank-management/collection",
@@ -907,42 +962,46 @@ const router = createBrowserRouter([
       {
         path: "/accounting",
         element: <SideLayoutAccounting />,
+        action: AccountingCatalogActions,
         children: [
           {
             element: <MainCatalog />,
+            loader: getAccountingAccounts,
             children: [
               {
                 index: true,
-                element: <AccountingAccount />,
+                element: <AccountingAccountEmpty />,
               },
               {
-                path: "/accounting/liabilities-account",
+                path: "/accounting/:level",
                 element: <AccountingAccount />,
+                action: AccountingAccountActions,
+                loader: getAccountingAccountsById,
               },
-              {
-                path: "/accounting/equity-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/income-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/cost-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/expense-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/financial-account",
-                element: <AccountingAccount />,
-              },
-              {
-                path: "/accounting/other-account",
-                element: <AccountingAccount />,
-              },
+              //   // {
+              //   //   path: "/accounting/equity-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
+              //   // {
+              //   //   path: "/accounting/income-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
+              //   // {
+              //   //   path: "/accounting/cost-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
+              //   // {
+              //   //   path: "/accounting/expense-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
+              //   // {
+              //   //   path: "/accounting/financial-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
+              //   // {
+              //   //   path: "/accounting/other-account",
+              //   //   element: <AccountingAccount />,
+              //   // },
             ],
           },
           {
@@ -985,25 +1044,56 @@ const router = createBrowserRouter([
       {
         path: "/inventory",
         element: <SideLayoutInventory />,
+        action: CreateNewCategory,
         children: [
           {
             index: true,
             element: <MainGeneral />,
+            loader: multiloaderInventory,
           },
           {
             path: "/inventory/create",
             element: <CreateArticle />,
+            loader: multiloaderArticle,
           },
           {
             path: "/inventory/general-warehouses",
             element: <MainGW />,
-            loader: getWarehouses
-            
+            loader: getWarehouses,
           },
           {
             path: "/inventory/general-warehouses/create",
             element: <CreateWH />,
-            action: createWarehouses
+            action: createWarehouses,
+          },
+          {
+            path: "/inventory/general-warehouses/edit/:id",
+            element: <EditWH />,
+            action: editWarehouses,
+            loader: getWarehouse,
+          },
+          {
+            path: "/inventory/warehouse-locations",
+            element: <MainWL />,
+            loader: multiLoaderUbication,
+            action: saveSlotsConfigs,
+          },
+          {
+            path: "/inventory/warehouse-locations/config/:id",
+            element: <WLConfig />,
+            action: saveSlotsConfig,
+          },
+          {
+            path: "/inventory/warehouse-locations/config",
+            element: <WLSlots />,
+            action: createNewConfigure,
+          },
+
+          {
+            path: "/inventory/warehouse-locations/create",
+            element: <CreateLocation />,
+            loader: multiLoaderData,
+            action: createNewLocation,
           },
           {
             path: "/inventory/merchandise-movements",

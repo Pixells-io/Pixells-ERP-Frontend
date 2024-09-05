@@ -38,10 +38,10 @@ export async function loginGoogleToken() {
   }
 }
 
-export async function getEmails() {
+export async function getPermission() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}google/emails`,
+      `${import.meta.env.VITE_SERVER_URL}google/get-permission`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -52,4 +52,52 @@ export async function getEmails() {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function getProfileGoogle() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}google/get-profile`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderGoogleIntegrations() {
+  const [profile, permission] = await Promise.all([
+    getProfileGoogle(),
+    getPermission(),
+  ]);
+
+  return json({ profile, permission });
+}
+
+export async function savePermissionGoogle(data) {
+  const info = {
+    one: data.get("1"),
+    two: data.get("2"),
+    three: data.get("3"),
+    four: data.get("4"),
+    five: data.get("5"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}google/store-google-permissions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }

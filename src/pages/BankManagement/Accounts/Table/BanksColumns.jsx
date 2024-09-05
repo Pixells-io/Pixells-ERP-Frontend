@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { informationCircle, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import ModalDeleteBank from "../Modals/ModalDeleteBank";
 
-export const BanksColumns =  [
+export const BanksColumns = [
   {
     id: "name",
     header: "NOMBRE",
@@ -59,8 +59,6 @@ export const BanksColumns =  [
     header: "ACTIONS",
     accessorKey: "actions",
     cell: ({ row }) => {
-      const navigation = useNavigate(); // Hook dentro de la celda
-
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
@@ -69,10 +67,13 @@ export const BanksColumns =  [
           >
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
           </Link>
-          <Link to={`/bank-management/edit-bank/` + row?.original?.id}>
+          <Link
+            to={`/bank-management/edit-bank/` + row?.original?.id}
+            className="flex items-center"
+          >
             <IonIcon icon={create} className="h-5 w-5"></IonIcon>
           </Link>
-          <ModalDeleteBank bank_id={row?.original?.id}/>
+          <ModalDeleteBank bank_id={row?.original?.id} bank_name={row?.original?.name} />
         </div>
       );
     },

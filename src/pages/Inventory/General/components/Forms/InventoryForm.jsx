@@ -83,8 +83,10 @@ const InventoryForm = ({ data, setData }) => {
             Mínimo
           </Label>
           <Input
-            type="text"
+            type="number"
             name="minimo"
+            min="0"     
+            step="0.01"
             value={data.minimo}
             onChange={handleChange}
             placeholder="Ingresa"
@@ -97,8 +99,10 @@ const InventoryForm = ({ data, setData }) => {
             Máximo
           </Label>
           <Input
-            type="text"
+            type="number"
             name="maximo"
+            min="0"
+            step="0.01"
             value={data.maximo}
             onChange={handleChange}
             placeholder="Ingresa"

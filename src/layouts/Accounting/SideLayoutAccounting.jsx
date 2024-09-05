@@ -1,9 +1,10 @@
 import React from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, redirect } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import { library, documentText, book, briefcase } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
+import { saveImportAccountingAccounts } from "@/pages/Accounting/Catalog/utils";
 
 function SideLayoutAccounting() {
   const location = useLocation();
@@ -26,16 +27,9 @@ function SideLayoutAccounting() {
             <NavLink
               to="/accounting"
               className={({ isActive }) =>
-                isActive && 
-              ( location.pathname === "/accounting" ||
-                location.pathname === "/accounting/liabilities-account" ||
-                location.pathname === "/accounting/equity-account" ||
-                location.pathname === "/accounting/income-account" ||
-                location.pathname === "/accounting/cost-account" ||
-                location.pathname === "/accounting/expense-account" ||
-                location.pathname === "/accounting/financial-account" ||
-                location.pathname === "/accounting/other-account"
-              )
+                isActive &&
+                (location.pathname === "/accounting" ||
+                  /^\/accounting(\/[0-9]+)?$/.test(location.pathname))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
               }
@@ -106,4 +100,10 @@ function SideLayoutAccounting() {
 
 export default SideLayoutAccounting;
 
-export async function Action({ request }) {}
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const validation = await saveImportAccountingAccounts(data);
+
+  return redirect(`/accounting`);
+}

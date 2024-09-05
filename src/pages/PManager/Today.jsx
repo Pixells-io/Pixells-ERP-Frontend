@@ -32,21 +32,17 @@ function Today() {
     };
   }, []);
 
-  function changeInputToday(projectId) {}
-
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+    <div className="flex h-full w-full overflow-auto">
+      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              PROJECT MANAGER
-            </h2>
-          </div>
+        <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-4">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            PROJECT MANAGER
+          </h2>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
@@ -57,7 +53,7 @@ function Today() {
         </div>
 
         {/* top content sub */}
-        <div className="flex items-center gap-32 pl-3 pt-4">
+        <div className="flex items-center gap-32 pl-3 pt-0 md:pt-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
               Day List
@@ -69,7 +65,7 @@ function Today() {
         </div>
 
         {/* outlet */}
-        <div className="h-full justify-center overflow-auto rounded-xl bg-[#FBFBFB] p-6">
+        <div className="h-full justify-center overflow-auto rounded-xl bg-[#FBFBFB] p-2 md:p-6">
           <Tabs defaultValue="today" className="h-full w-full overflow-auto">
             <TabsList className="mb-5 w-full bg-transparent">
               <div className="flex w-full">

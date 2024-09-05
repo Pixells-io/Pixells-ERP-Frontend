@@ -9,30 +9,25 @@ function NavigationHeader() {
   const location = useLocation();
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex gap-2 text-gris2">
+    <div className="hidden items-center gap-4 md:flex">
+      <div className="flex items-center gap-2 text-gris2">
         <div
-          className="h-12 w-12 hover:cursor-pointer"
+          className="items-center hover:cursor-pointer"
           onClick={() => navigate(-1)}
         >
           <IonIcon
             icon={chevronBack}
-            size="large"
-            className="rounded-3xl bg-blancoBox p-1"
+            className="flex size-6 items-center rounded-3xl bg-blancoBox p-1 hover:cursor-pointer"
           ></IonIcon>
         </div>
-        <div
-          className="h-12 w-12 hover:cursor-pointer"
-          onClick={() => navigate(+1)}
-        >
+        <div className="hover:cursor-pointer" onClick={() => navigate(+1)}>
           <IonIcon
             icon={chevronForward}
-            size="large"
-            className="rounded-3xl bg-blancoBox p-1"
+            className="flex size-6 items-center rounded-3xl bg-blancoBox p-1 hover:cursor-pointer"
           ></IonIcon>
         </div>
       </div>
-      <div className="font-roboto text-sm text-grisText">
+      <div className="items-center font-roboto text-sm text-grisText">
         {location.pathname}
       </div>
     </div>

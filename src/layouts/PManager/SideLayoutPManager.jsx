@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLoaderData, redirect, NavLink } from "react-router-dom";
+import {
+  Outlet,
+  useLoaderData,
+  redirect,
+  NavLink,
+  useParams,
+} from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
   addCircleOutline,
   checkmarkCircle,
+  flag,
   listCircle,
-  listCircleOutline,
   megaphone,
   syncCircle,
 } from "ionicons/icons";
+
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 import ObjectiveLink from "./components/ObjectiveLink";
 import NewObjectiveForm from "./components/Form/NewObjectiveForm";
 
 import { saveNewObjective } from "./utils";
-import SelectRouter from "../Masters/FormComponents/select";
 import { getObjectives } from "@/lib/actions";
 import {
   Select,
@@ -26,6 +42,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { completeActivity, completeTask } from "@/pages/PManager/utils";
+import { Button } from "@/components/ui/button";
 
 const yearsOption = [
   {
@@ -75,9 +92,11 @@ const yearsOption = [
 ];
 
 function SideLayoutPManager() {
+  const params = useParams();
   const [open, setOpen] = useState(false);
   const { objectives, areas, permissions } = useLoaderData();
   const [date, setDate] = useState("2024");
+  const [mobileState, setMobileState] = useState("");
 
   //PERMISSIONS
   const [create, setCreate] = useState(true); //3
@@ -109,9 +128,13 @@ function SideLayoutPManager() {
     changeYear(date);
   }, [date, objectives]);
 
+  useEffect(() => {
+    setMobileState(params.id ? "hidden" : "flex");
+  }, [params]);
+
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex w-[280px] shrink-0 flex-col gap-4">
+    <div className="flex h-full flex-col px-0 pb-0 font-roboto md:flex-row md:px-4 md:pb-4">
+      <div className="hidden w-[280px] shrink-0 flex-col gap-4 md:flex">
         {/* top block */}
         <div className="flex flex-col gap-4 rounded-lg bg-gris px-8 py-4">
           <TopMenuCRM />
@@ -152,15 +175,6 @@ function SideLayoutPManager() {
             ) : (
               false
             )}
-            {/* <div className="ml-5 w-full">
-              <SelectRouter
-                name={"year"}
-                placeholder={"Año"}
-                options={yearsOption}
-                onChange={(e) => changeYear(e)}
-                // value={academicInfo[i].academic_grade}
-              />
-            </div> */}
           </div>
 
           {/*menu top */}
@@ -246,7 +260,120 @@ function SideLayoutPManager() {
           </div>
         </div>
       </div>
+
       <Outlet />
+      <div className="flex h-16 w-full justify-between rounded-t-3xl bg-grisDisabled md:hidden">
+        <Drawer>
+          <div className="flex w-full justify-between">
+            <DrawerTrigger className="flex w-full items-center justify-center px-8">
+              <IonIcon icon={flag} className="size-8 text-grisText" />
+            </DrawerTrigger>
+            <div className="my-4 flex rounded-lg border border-r border-grisText"></div>
+            <div className="flex w-full items-center gap-4 px-8">
+              <NavLink
+                to="/project-manager"
+                className={({ isActive }) =>
+                  isActive && location.pathname === "/project-manager"
+                    ? "rounded-full bg-[#E8E8E8] p-1 text-primario"
+                    : "p-1 text-gris2 hover:rounded-full hover:bg-[#EAEAEA]"
+                }
+              >
+                <div className="flex items-center gap-6">
+                  <IonIcon icon={megaphone} size="large"></IonIcon>
+                </div>
+              </NavLink>
+              <NavLink
+                to="/project-manager/activities"
+                className={({ isActive }) =>
+                  isActive
+                    ? "rounded-full bg-[#E8E8E8] p-1 text-primario"
+                    : "p-1 text-gris2 hover:rounded-full hover:bg-[#EAEAEA]"
+                }
+              >
+                <div className="flex items-center gap-6">
+                  <IonIcon icon={checkmarkCircle} size="large"></IonIcon>
+                </div>
+              </NavLink>
+              <NavLink
+                to="/project-manager/status"
+                className={({ isActive }) =>
+                  isActive
+                    ? "rounded-full bg-[#E8E8E8] p-1 text-primario"
+                    : "p-1 text-gris2 hover:rounded-full hover:bg-[#EAEAEA]"
+                }
+              >
+                <div className="flex items-center gap-6">
+                  <IonIcon icon={syncCircle} size="large"></IonIcon>
+                </div>
+              </NavLink>
+              <NavLink
+                to="/project-manager/completed"
+                className={({ isActive }) =>
+                  isActive
+                    ? "rounded-full bg-[#E8E8E8] p-1 text-primario"
+                    : "p-1 text-gris2 hover:rounded-full hover:bg-[#EAEAEA]"
+                }
+              >
+                <div className="flex items-center gap-6">
+                  <IonIcon icon={listCircle} size="large"></IonIcon>
+                </div>
+              </NavLink>
+            </div>
+          </div>
+          <DrawerContent className="rounded-t-3xl bg-grisDisabled">
+            <DrawerHeader>
+              <DrawerTitle>Objetivos Estratégicos</DrawerTitle>
+              <DrawerDescription>
+                Selecciona o crea un objetivo estratégico.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="flex flex-col gap-4 px-8">
+              <div className="flex w-full items-center justify-between gap-2 px-4">
+                <div className="flex w-full max-w-[120px]">
+                  <Select
+                    name={"year"}
+                    // value={academicInfo[i].academic_grade}
+                    onValueChange={(e) => changeYear(e)}
+                  >
+                    <SelectTrigger className="rounded-full border border-[#D9D9D9] text-sm font-light text-[#44444F] focus-visible:ring-0 focus-visible:ring-offset-0">
+                      <SelectValue placeholder={"Year"} />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-[300px]">
+                      {yearsOption.map((year, index) => (
+                        <SelectItem key={"year" + index} value={year.value}>
+                          {year.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {create == true ? (
+                  <button type="button" onClick={() => setOpen(!open)}>
+                    <IonIcon
+                      icon={addCircleOutline}
+                      className="h-5 w-5 align-middle text-primarioBotones"
+                    />
+                  </button>
+                ) : (
+                  false
+                )}
+              </div>
+
+              {/*menu top */}
+              <div className="flex max-h-[260px] flex-col gap-4 overflow-scroll">
+                {objectivesData?.data?.map((objective, i) => (
+                  <ObjectiveLink key={i} objective={objective} areas={areas} />
+                ))}
+              </div>
+            </div>
+            <DrawerFooter>
+              <DrawerClose>
+                <Button variant="outline">Cerrar</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </div>
   );
 }

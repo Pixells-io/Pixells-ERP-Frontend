@@ -9,7 +9,11 @@ import {
   notificationsOutline,
   person,
 } from "ionicons/icons";
-import { getEmails, loginGoogleToken, storeChangeNewPassword } from "./utils";
+import {
+  loginGoogleToken,
+  savePermissionGoogle,
+  storeChangeNewPassword,
+} from "./utils";
 
 function SideLayoutMyProfile() {
   const location = useLocation();
@@ -120,8 +124,8 @@ export async function Action({ request }) {
       }
       break;
     case "3":
-      const response = await getEmails();
-      return 1;
+      const response = await savePermissionGoogle(data);
+      return redirect("/my-profile/integrations");
       break;
   }
 }

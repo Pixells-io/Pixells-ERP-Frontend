@@ -58,8 +58,8 @@ function DayListActivityCard({ task, index }) {
     <div
       className={
         task.progress === 1
-          ? "flex h-[130px] w-[400px] shrink-0 gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow"
-          : "flex h-[130px] w-[400px] shrink-0 gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow"
+          ? "flex h-[130px] w-full shrink gap-2 rounded-lg border-2 border-[#00A259] bg-[#f8f8f8] p-2 shadow md:w-[400px] md:shrink-0"
+          : "flex h-[130px] w-full shrink gap-2 rounded-lg bg-[#f8f8f8] p-2 shadow md:w-[400px] md:shrink-0"
       }
     >
       <DeleteTask
@@ -88,6 +88,7 @@ function DayListActivityCard({ task, index }) {
       <div className="flex h-full items-center justify-center px-2 font-poppins text-xs font-medium text-grisHeading">
         {index + 1}
       </div>
+
       <div className="flex flex-col items-center justify-between">
         <Avatar className="size-10">
           <AvatarImage src={task?.creator.img} />
@@ -107,7 +108,8 @@ function DayListActivityCard({ task, index }) {
           <p className="text-[9px] text-[#ABABAB]">Responsables</p>
         </div>
       </div>
-      <div className="flex w-full flex-col justify-between px-2">
+
+      <div className="flex w-full flex-col justify-between px-0 md:px-2">
         <div>
           {task.reg === 1 ? (
             <div className="flex justify-between">
@@ -160,73 +162,70 @@ function DayListActivityCard({ task, index }) {
           )}
           <span className="text-xs text-grisHeading">{task?.name}</span>
         </div>
-        <div className="flex items-center gap-2 pb-1">
-          <div>
-            {task.priority === 1 ? (
-              <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#F9D994]" />
-                <span className="text-sm text-grisHeading">Low</span>
-              </div>
-            ) : task.priority === 2 ? (
-              <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#F9B894]" />
-                <span className="text-sm text-grisHeading">Half</span>
-              </div>
-            ) : task.priority === 3 ? (
-              <div className="flex items-center gap-1">
-                <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
-                <span className="text-sm text-grisHeading">Important</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1">
-                {/* <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" /> */}
-                <span className="rounded-xl border border-[#D7586B] px-4 py-1 font-roboto text-xs font-normal text-grisHeading">
-                  Urgent
-                </span>
-              </div>
-            )}
-          </div>
-          <div>
-            {task?.progress === 1 ? (
-              <span className="rounded-2xl border border-[#00A259] px-2 py-1 text-sm font-normal text-[#00A259]">
-                Completado
+
+        <div className="flex flex-wrap items-center gap-2 pb-1 md:flex-nowrap">
+          {task.priority === 1 ? (
+            <div className="flex items-center gap-1">
+              <IonIcon icon={ellipse} className="text-xs text-[#F9D994]" />
+              <span className="text-sm text-grisHeading">Low</span>
+            </div>
+          ) : task.priority === 2 ? (
+            <div className="flex items-center gap-1">
+              <IonIcon icon={ellipse} className="text-xs text-[#F9B894]" />
+              <span className="text-sm text-grisHeading">Half</span>
+            </div>
+          ) : task.priority === 3 ? (
+            <div className="flex items-center gap-1">
+              <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" />
+              <span className="text-sm text-grisHeading">Important</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              {/* <IonIcon icon={ellipse} className="text-xs text-[#D7586B]" /> */}
+              <span className="rounded-xl border border-[#D7586B] px-4 py-1 font-roboto text-xs font-normal text-grisHeading">
+                Urgent
               </span>
-            ) : (
-              <span className="rounded-2xl border border-[#FAA364] px-2 py-1 text-sm font-normal text-[#FAA364]">
-                Pendiente
-              </span>
-            )}
-          </div>
-          <div>
-            {task?.reg === 1 ? (
-              task?.progress === 1 ? (
-                <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
-                  Task Done
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() =>
-                    openCompleteTaskModal(task.id, task.name, task.description)
-                  }
-                  className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
-                >
-                  Complete
-                </button>
-              )
-            ) : task?.progress === 1 ? (
+            </div>
+          )}
+
+          {task?.progress === 1 ? (
+            <span className="rounded-2xl border border-[#00A259] px-2 py-1 text-sm font-normal text-[#00A259]">
+              Completado
+            </span>
+          ) : (
+            <span className="rounded-2xl border border-[#FAA364] px-2 py-1 text-sm font-normal text-[#FAA364]">
+              Pendiente
+            </span>
+          )}
+
+          {task?.reg === 1 ? (
+            task?.progress === 1 ? (
               <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
-                Activity Done
+                Task Done
               </span>
             ) : (
-              <CompleteActivity
-                activity_id={task?.id}
-                task={task}
-                action="complete-activity"
-                actionRoute="/project-manager"
-              />
-            )}
-          </div>
+              <button
+                type="button"
+                onClick={() =>
+                  openCompleteTaskModal(task.id, task.name, task.description)
+                }
+                className="rounded-2xl border border-grisHeading px-2 text-sm font-normal text-grisHeading"
+              >
+                Complete
+              </button>
+            )
+          ) : task?.progress === 1 ? (
+            <span className="rounded-full bg-[#f0f0f0] px-2 py-1 text-[10px] text-[#BDBDBD]">
+              Activity Done
+            </span>
+          ) : (
+            <CompleteActivity
+              activity_id={task?.id}
+              task={task}
+              action="complete-activity"
+              actionRoute="/project-manager"
+            />
+          )}
         </div>
       </div>
     </div>
