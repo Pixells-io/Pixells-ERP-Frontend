@@ -133,6 +133,7 @@ const FormDetailAccount = ({
         className="mt-4"
         action={`/accounting/${level}`}
         method="post"
+        id="form-update-accounting"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -312,6 +313,7 @@ const FormDetailAccount = ({
       <div className="flex w-full justify-end p-1">
         {isEditable && (
           <Button
+            form="form-update-accounting"
             className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
             disabled={navigation.state === "submitting"}
           >

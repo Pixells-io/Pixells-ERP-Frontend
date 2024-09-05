@@ -63,20 +63,20 @@ const AccountingAccount = () => {
     transforInSubAccount();
   }, [accountsInfo]);
 
-  const recursiveSubAccount = (subAccountsAux, level) => {
+  const recursiveSubAccount = (subAccountsAux, levelAux) => {
     if (subAccountsAux.length == 0) {
       return [];
     }
 
     let accountAux = subAccountsAux
-      .filter((ac) => ac.levels.length == level + 1)
+      .filter((ac) => ac.levels.length == levelAux + 1)
       .map((ac) => ({
         ...ac,
         subAccounts: recursiveSubAccount(
           subAccountsAux.filter((item) =>
             item.level.startsWith(ac.level + "."),
           ),
-          level + 1,
+          levelAux + 1,
         ),
       }));
 
