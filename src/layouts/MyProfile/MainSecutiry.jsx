@@ -17,7 +17,6 @@ import InputRouter from "../Masters/FormComponents/input";
 import NavigationHeader from "@/components/navigation-header";
 function MainSecurity() {
   const location = useLocation();
-  const { data } = useLoaderData();
 
   return (
     <div className="flex w-full">
@@ -162,45 +161,6 @@ function MainSecurity() {
               Actualizar
             </Button>
           </Form>
-          <div className="w-2/4">
-            <span className="">Integrations</span>
-            {data.emailAddress != null ? (
-              <div className="w-full">
-                <Button
-                  type="button"
-                  className="mt-2 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
-                >
-                  <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
-                  {data.emailAddress}
-                </Button>
-              </div>
-            ) : (
-              <Form
-                className="flex h-full w-full flex-col gap-3 px-6 pt-2"
-                action="/my-profile"
-                method="post"
-              >
-                <input type="hidden" name="type_function" value={2} />
-                <Button
-                  type="submit"
-                  className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
-                >
-                  <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
-                  Login In Google
-                </Button>
-              </Form>
-            )}
-            <Form className="" action="/my-profile" method="post">
-              <input type="hidden" name="type_function" value={3} />
-              <Button
-                type="submit"
-                className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
-              >
-                <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
-                Verify
-              </Button>
-            </Form>
-          </div>
         </div>
       </div>
     </div>

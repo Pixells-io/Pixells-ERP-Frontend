@@ -1,30 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   accessibilityOutline,
-  addCircleOutline,
-  chevronBack,
-  chevronForward,
   cogOutline,
   keyOutline,
-  laptopOutline,
   logoGoogle,
   notificationsOutline,
-  searchOutline,
 } from "ionicons/icons";
 import { Form, useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { NavLink, useLoaderData, useLocation } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
-import { destroyNotification } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+
 function MainIntegrations() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { profile, permission } = useLoaderData();
 
-  console.log(permission.data);
+  const [one, setOne] = useState(false);
+  const [two, setTwo] = useState(false);
+  const [three, setThree] = useState(false);
+  const [four, setFour] = useState(false);
+  const [five, setFive] = useState(false);
+
+  function changeCheked(number) {
+    switch (number) {
+      case 1:
+        setOne(!one);
+        break;
+      case 2:
+        setTwo(!two);
+        break;
+      case 3:
+        setThree(!three);
+        break;
+      case 4:
+        setFour(!four);
+        break;
+      case 5:
+        setFive(!five);
+        break;
+    }
+  }
+
+  useEffect(() => {
+    for (let index = 0; index < permission.data.length; index++) {
+      const element = permission.data[index];
+      console.log(element.permission);
+      switch (element.permission) {
+        case "1":
+          setOne(true);
+          break;
+        case "2":
+          setTwo(true);
+          break;
+        case "3":
+          setThree(true);
+          break;
+        case "4":
+          setFour(true);
+          break;
+        case "5":
+          setFive(true);
+          break;
+      }
+    }
+  }, []);
 
   return (
     <div className="flex w-full">
@@ -143,7 +185,7 @@ function MainIntegrations() {
         </div>
 
         {/*component accion*/}
-        <div className="flex h-full w-full gap-10 overflow-auto rounded-xl bg-white p-7">
+        <div className="flex h-full gap-10 overflow-auto rounded-xl bg-white p-7">
           <Tabs defaultValue="google" className="h-full w-full overflow-auto">
             <TabsList className="mb-3 w-full bg-transparent">
               <div className="flex w-full">
@@ -183,14 +225,22 @@ function MainIntegrations() {
                         </span>
                         <div className="mt-6 flex gap-2">
                           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-                            <input
-                              type="checkbox"
-                              className="peer hidden"
-                              checked={
-                                permission.data?.one === 1 ? cheked : false
-                              }
-                              name="1"
-                            />
+                            {one === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                name="1"
+                                onClick={() => changeCheked(1)}
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(1)}
+                                name="1"
+                              />
+                            )}
                             <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
                           </label>
                           <span className="font-roboto text-sm font-normal text-grisSubText">
@@ -199,11 +249,22 @@ function MainIntegrations() {
                         </div>
                         <div className="mt-2 flex gap-2">
                           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-                            <input
-                              type="checkbox"
-                              className="peer hidden"
-                              name="2"
-                            />
+                            {two === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(2)}
+                                name="2"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(2)}
+                                name="2"
+                              />
+                            )}
                             <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
                           </label>
                           <span className="font-roboto text-sm font-normal text-grisSubText">
@@ -212,11 +273,22 @@ function MainIntegrations() {
                         </div>
                         <div className="mt-2 flex gap-2">
                           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-                            <input
-                              type="checkbox"
-                              className="peer hidden"
-                              name="3"
-                            />
+                            {three === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(3)}
+                                name="3"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(3)}
+                                name="3"
+                              />
+                            )}
                             <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
                           </label>
                           <span className="font-roboto text-sm font-normal text-grisSubText">
@@ -230,11 +302,22 @@ function MainIntegrations() {
                         </span>
                         <div className="mt-6 flex gap-2">
                           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-                            <input
-                              type="checkbox"
-                              className="peer hidden"
-                              name="4"
-                            />
+                            {four === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(4)}
+                                name="4"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(4)}
+                                name="4"
+                              />
+                            )}
                             <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
                           </label>
                           <span className="font-roboto text-sm font-normal text-grisSubText">
@@ -243,11 +326,21 @@ function MainIntegrations() {
                         </div>
                         <div className="mt-2 flex gap-2">
                           <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
-                            <input
-                              type="checkbox"
-                              className="peer hidden"
-                              name="5"
-                            />
+                            {five === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(5)}
+                                name="5"
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeCheked(5)}
+                                name="5"
+                              />
+                            )}
                             <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
                           </label>
                           <span className="font-roboto text-sm font-normal text-grisSubText">
