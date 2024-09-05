@@ -156,14 +156,15 @@ const GeneralForm = ({ data, setData }) => {
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />
       </div>
-
-      <div className="relative col-span-3 mt-[-100px] flex grid items-center justify-center p-8">
-        <div {...getRootProps()} className="flex flex-col items-center">
+      <div></div>
+      <div></div>
+      <div className="relative col-span-3 ml-[600px] mt-[-200px] flex grid cursor-pointer items-center justify-end p-8">
+        <div {...getRootProps()} className="flex items-end">
           {image ? (
             <div className="rounded-xl border border-primarioBotones p-4">
               <button
                 onClick={handleRemoveImage}
-                className="absolute right-[200px] top-2 rounded-full"
+                className="absolute right-2 top-2 rounded-full"
               >
                 <IonIcon
                   icon={closeCircle}
