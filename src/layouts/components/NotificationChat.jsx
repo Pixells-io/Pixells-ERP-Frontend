@@ -15,9 +15,12 @@ import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function NotificationChat({ notifications }) {
-  const [initialData, setInitialData] = useState(notifications);
-  const [notificationsPusher, setnotificationsPusher] = useState(initialData);
+  // const [initialData, setInitialData] = useState(notifications);
+  const [notificationsPusher, setnotificationsPusher] = useState(notifications);
+  console.log(notificationsPusher);
+
   const pusherClient = createPusherClient();
+
   if (notificationsPusher === undefined) return;
 
   const navigate = useNavigate();
@@ -35,13 +38,16 @@ function NotificationChat({ notifications }) {
         ? "ERP"
         : `(${notificationsPusher[0]?.number}) ERP`;
     document.title = newTitle;
+
+    if (notificationsPusher[0]?.number != 0) {
+      notificationSound.play();
+    }
   }, [notificationsPusher]);
 
   useEffect(() => {
     async function getNotifications() {
       let newData = await getNotificationsChat();
       setnotificationsPusher(newData.data);
-      notificationSound.play();
     }
 
     pusherClient.subscribe("private-get-chat-list");
