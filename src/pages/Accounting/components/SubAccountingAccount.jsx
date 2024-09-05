@@ -7,7 +7,10 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
+import {
+  addCircleOutline,
+  chevronForwardOutline,
+} from "ionicons/icons";
 
 const SubAccountingAccount = ({
   account,
@@ -65,7 +68,19 @@ const SubAccountingAccount = ({
               (level == 1 ? "font-normal" : "font-light")
             }
           >
-            {account.level} - {account.name}
+            {/* visualizacuando no es abierto el acordeon */}
+            {account.subAccounts.length > 0 ? (
+                <IonIcon
+                  icon={chevronForwardOutline}
+                  size="large"
+                  className={`h-5 w-5 shrink-0 cursor-pointer text-primario transition-transform duration-300  group-data-[state=open]:rotate-90`}
+                />
+            ) : (
+              <div className="h-5 w-5"></div>
+            )}
+            <p className="text-start">
+              {account.level} - {account.name}
+            </p>
           </AccordionTrigger>
           <div className="flex flex-row items-center gap-2">
             <div className="flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">

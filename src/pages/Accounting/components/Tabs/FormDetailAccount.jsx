@@ -225,7 +225,7 @@ const FormDetailAccount = ({
             <Input
               id="level"
               name="level"
-              value={!!account.level ? account.level : ""}
+              value={!!selectAccount?.levels ? selectAccount.levels.length : ""}
               readOnly
               className="h-9.5 border border-grisText"
               disabled={true}
@@ -290,37 +290,35 @@ const FormDetailAccount = ({
               disabled={!isEditable}
             />
           </div>
-          <div className="col-span-12 flex items-center gap-x-2">
-            <input
-              type="hidden"
-              hidden
-              name="status"
-              className="hidden"
-              value={checkedInputStatus}
-              readOnly
-            />
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputStatus == "1"}
-              onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Activo
-            </p>
-          </div>
-        </div>
-        <div className="flex w-full justify-end">
-          {isEditable && (
-            <Button
-              className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
-              disabled={navigation.state === "submitting"}
-            >
-              {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
-            </Button>
-          )}
         </div>
       </Form>
+      <div className="flex items-center gap-x-2 p-1">
+        <input
+          type="hidden"
+          hidden
+          name="status"
+          className="hidden"
+          value={checkedInputStatus}
+          readOnly
+        />
+        <Checkbox
+          className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+          checked={checkedInputStatus == "1"}
+          onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+          disabled={!isEditable}
+        />
+        <p className="font-roboto text-sm font-light text-grisText">Activo</p>
+      </div>
+      <div className="flex w-full justify-end p-1">
+        {isEditable && (
+          <Button
+            className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

@@ -17,6 +17,7 @@ import {
 } from "../Catalog/utils";
 import { createPusherClient } from "@/lib/pusher";
 import ModalConfirmNewAccount from "../Catalog/Modals/ModalConfirmNewAccount";
+import SearchAccountingAccount from "../Catalog/Components/SearchAccountingAccount";
 
 const AccountingAccount = () => {
   const { data } = useLoaderData();
@@ -27,6 +28,7 @@ const AccountingAccount = () => {
     name: "",
   });
   const [accounts, setAccounts] = useState([]);
+  const [accountsSearch, setAccountsSearch] = useState([]);
   const [modalConfirmNewAccount, setModalConfirmNewAccount] = useState(false);
   const [accountsInfo, setAccountsInfo] = useState(data);
   const [parentAccount, setParentAccount] = useState([]);
@@ -71,7 +73,9 @@ const AccountingAccount = () => {
       .map((ac) => ({
         ...ac,
         subAccounts: recursiveSubAccount(
-          subAccountsAux.filter((item) => item.level.startsWith(ac.level + ".")),
+          subAccountsAux.filter((item) =>
+            item.level.startsWith(ac.level + "."),
+          ),
           level + 1,
         ),
       }));
@@ -108,13 +112,17 @@ const AccountingAccount = () => {
           !!selectAccount ? "w-3/5" : "w-full",
         )}
       >
+        <SearchAccountingAccount
+          accounts={accounts}
+          setAccountsSearch={setAccountsSearch}
+        />
         <Accordion type="multiple" className="w-full" defaultValue={["item-1"]}>
           <AccordionItem value="item-1">
             <AccordionTrigger className="py-0">
               <div className="py-4 text-sm text-black">{accountName}</div>
             </AccordionTrigger>
             <AccordionContent>
-              {accounts?.map((subAccount, index) => (
+              {accountsSearch?.map((subAccount, index) => (
                 <SubAccountingAccount
                   key={"ChildrenAccount" + index}
                   account={subAccount}
@@ -131,6 +139,9 @@ const AccountingAccount = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        {accountsSearch.length == 0 && (
+          <h2 className="mt-2 text-center">Sin resultados</h2>
+        )}
       </div>
       {!!selectAccount && (
         <FormDetailAccount
