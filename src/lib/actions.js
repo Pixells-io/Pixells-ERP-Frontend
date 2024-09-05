@@ -1555,19 +1555,3 @@ export async function pmPermissions() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
-
-export async function getProfileGoogle() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}google/get-profile`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}

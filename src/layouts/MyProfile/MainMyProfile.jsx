@@ -69,7 +69,7 @@ function MainMyProfile() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              GENERAL SETTINGS
+              AJUSTES GENERALES
             </h2>
           </div>
         </div>
@@ -86,11 +86,11 @@ function MainMyProfile() {
             <IonIcon icon={accessibilityOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                My Profile
+                Mi Perfil
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Review your personal information and update your data
+                Revisa tu información personal y actualiza tus datos
               </span>
             </div>
           </NavLink>
@@ -105,11 +105,11 @@ function MainMyProfile() {
             <IonIcon icon={keyOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                Security
+                Seguridad
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Change your password if necessary. Don't share it.
+                Cambie su contraseña si es necesario. No lo compartas.
               </span>
             </div>
           </NavLink>
@@ -124,18 +124,38 @@ function MainMyProfile() {
             <IonIcon icon={notificationsOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                Notifications
+                Notificaciones
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Explore the notifications you've received and adjust preferences
+                Explora las notificaciones que has recibido y ajusta las
+                preferencias
               </span>
             </div>
           </NavLink>
-
+          <NavLink
+            to="/my-profile/integrations"
+            className={
+              location.pathname === "/my-profile/integrations"
+                ? "flex w-1/4 gap-4 rounded-2xl border border-primario bg-white p-6"
+                : "flex w-1/4 gap-4 rounded-2xl border border-blancoBox2 bg-white p-6"
+            }
+          >
+            <IonIcon icon={accessibilityOutline} className="text-3xl"></IonIcon>
+            <div>
+              <span className="font-roboto font-medium text-grisHeading">
+                Integraciones
+              </span>
+              <br />
+              <span className="font-roboto text-xs font-light text-grisSubText">
+                Integra tu cuenta a servicios de Google y Meta
+              </span>
+            </div>
+          </NavLink>
+          {/*  
           <div
             className={
-              location.pathname === "/my-profile/estatus"
+              location.pathname === "/my-profile"
                 ? "flex w-1/4 gap-4 rounded-2xl border border-primario bg-white p-6"
                 : "flex w-1/4 gap-4 rounded-2xl border border-blancoBox2 bg-white p-6"
             }
@@ -152,6 +172,7 @@ function MainMyProfile() {
               </span>
             </div>
           </div>
+          */}
         </div>
 
         {/*component accion*/}

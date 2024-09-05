@@ -29,7 +29,7 @@ function MainSecurity() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              SECURITY
+              SEGURIDAD
             </h2>
           </div>
         </div>
@@ -46,11 +46,11 @@ function MainSecurity() {
             <IonIcon icon={accessibilityOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                My Profile
+                Mi Perfil
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Review your personal information and update your data
+                Revisa tu información personal y actualiza tus datos
               </span>
             </div>
           </NavLink>
@@ -65,11 +65,11 @@ function MainSecurity() {
             <IonIcon icon={keyOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                Security
+                Seguridad
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Change your password if necessary. Don't share it.
+                Cambie su contraseña si es necesario. No lo compartas.
               </span>
             </div>
           </NavLink>
@@ -84,15 +84,35 @@ function MainSecurity() {
             <IonIcon icon={notificationsOutline} className="text-3xl"></IonIcon>
             <div>
               <span className="font-roboto font-medium text-grisHeading">
-                Notifications
+                Notificaciones
               </span>
               <br />
               <span className="font-roboto text-xs font-light text-grisSubText">
-                Explore the notifications you've received and adjust preferences
+                Explora las notificaciones que has recibido y ajusta las
+                preferencias
               </span>
             </div>
           </NavLink>
-
+          <NavLink
+            to="/my-profile/integrations"
+            className={
+              location.pathname === "/my-profile/integrations"
+                ? "flex w-1/4 gap-4 rounded-2xl border border-primario bg-white p-6"
+                : "flex w-1/4 gap-4 rounded-2xl border border-blancoBox2 bg-white p-6"
+            }
+          >
+            <IonIcon icon={accessibilityOutline} className="text-3xl"></IonIcon>
+            <div>
+              <span className="font-roboto font-medium text-grisHeading">
+                Integraciones
+              </span>
+              <br />
+              <span className="font-roboto text-xs font-light text-grisSubText">
+                Integra tu cuenta a servicios de Google y Meta
+              </span>
+            </div>
+          </NavLink>
+          {/*  
           <div
             className={
               location.pathname === "/my-profile"
@@ -112,6 +132,7 @@ function MainSecurity() {
               </span>
             </div>
           </div>
+          */}
         </div>
 
         {/*component accion*/}
@@ -123,22 +144,22 @@ function MainSecurity() {
           >
             <input type="hidden" name="type_function" value={1} />
             <span className="font-roboto text-xs font-light text-grisHeading">
-              Current Password
+              Contraseña actual
             </span>
             <InputRouter name="current_password" type="password" />
             <span className="font-roboto text-xs font-light text-grisHeading">
-              New Password
+              Nueva contraseña
             </span>
             <InputRouter name="new_password" type="password" />
             <span className="font-roboto text-xs font-light text-grisHeading">
-              Confirm New Password
+              Confirmar nueva contraseña
             </span>
             <InputRouter name="confirm_new_password" type="password" />
             <Button
               type="submit"
               className="mt-2 w-2/4 justify-normal rounded-lg bg-primarioBotones px-6 py-2 text-center font-roboto text-xs font-semibold"
             >
-              Update
+              Actualizar
             </Button>
           </Form>
           <div className="w-2/4">
