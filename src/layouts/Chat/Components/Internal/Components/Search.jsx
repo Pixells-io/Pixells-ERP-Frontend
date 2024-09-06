@@ -4,23 +4,9 @@ import { Form, useSubmit } from "react-router-dom";
 
 import Select from "react-select";
 
-function Search(users) {
+function Search(search) {
   const submit = useSubmit();
   const selectUser = [];
-
-  arrayFillUser(users, selectUser);
-
-  function arrayFillUser(data, array) {
-    let dataParse = data.users;
-
-    dataParse.forEach((element) => {
-      array.push({
-        value: "1/" + element.id,
-        label: element.name + " " + element.last_name,
-      });
-    });
-  }
-
   const formRef = useRef(null);
 
   //Submit Form
@@ -41,7 +27,7 @@ function Search(users) {
     >
       <input type="hidden" name="type_of_function" value="1" hidden readOnly />
       <Select
-        options={selectUser}
+        options={search.users}
         placeholder="BUSCAR"
         name="chat"
         className="rounded-2xl"

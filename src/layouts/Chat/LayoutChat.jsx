@@ -10,7 +10,7 @@ import ChatList from "./Components/Internal/ChatList";
 import { saveGroup, SearchAction } from "./utils";
 
 function LayoutChat() {
-  const { users, chats } = useLoaderData();
+  const { search, chats, users } = useLoaderData();
   const params = useParams();
   const [mobileState, setMobileState] = useState("");
 
@@ -79,7 +79,7 @@ function LayoutChat() {
           </TabsList>
           <TabsContent value="internal" className="m-0 flex h-[92%] flex-col">
             <div className="pt- bg-[#f6f6f6] pb-2">
-              <InternalSearch users={users?.data} />
+              <InternalSearch users={users?.data} search={search?.data} />
             </div>
             <div className="mx-2 my-4 h-auto overflow-auto rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
