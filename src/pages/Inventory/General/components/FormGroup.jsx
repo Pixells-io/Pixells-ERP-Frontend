@@ -32,15 +32,31 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
 
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
-    image: null,
+    images: [],
   });
 
   const handleVariableDataChange = (newData) => {
-    setVariableData(prevData => ({
+    setVariableData((prevData) => ({
       ...prevData,
-      ...newData
+      ...newData,
     }));
   };
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files).map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      name: file.name, // Debería capturar el nombre real del archivo
+      size: file.size, // Verifica el tamaño del archivo
+      type: file.type, // Verifica el tipo del archivo
+    }));
+    console.log(files); // Verifica los detalles de los archivos en la consola
+    setVariableData((prevState) => ({
+      ...prevState,
+      images: [...prevState.images, ...files],
+    }));
+  };
+
   return (
     <div className="w-full overflow-hidden">
       <Tabs defaultValue="general" className="w-full">
@@ -76,69 +92,52 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
           </TabsContent>
           <TabsContent value="variables" className="overflow-auto">
             {productType === "option2" && (
-            <>
-            <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-              VARIABLES
-            </h2>
-            <VariableForm
-              attrb={attrb}
-              variableData={variableData}
-              onDataChange={handleVariableDataChange}
-            />
-            <Form
-              method="post"
-              action="/inventory/create"
-              encType="multipart/form-data"
-            >
-              {variableData.selectedGroups.map((group, index) => {
-                const activeSlots = group.slots.filter(slot => slot.active === 1);
-                return (
-                  <div key={index}>
-                    <input
-                      type="hidden"
-                      name={`Attributes[${index}][id]`}
-                      value={group.id}
-                    />
-                    <input
-                      type="hidden"
-                      name={`Attributes[${index}][name]`}
-                      value={group.name}
-                    />
-                    {activeSlots.map((slot, slotIndex) => (
-                      <div key={slotIndex}>
-                        <input
-                          type="hidden"
-                          name={`Attributes[${index}][slots][${slotIndex}][id]`}
-                          value={slot.id}
-                        />
-                        <input
-                          type="hidden"
-                          name={`Attributes[${index}][slots][${slotIndex}][name]`}
-                          value={slot.name}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-
-              {variableData.image && (
-                <input
-                  type="hidden"
-                  name="image"
-                  value={variableData.image}
+              <>
+                <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
+                  VARIABLES
+                </h2>
+                <VariableForm
+                  attrb={attrb}
+                  variableData={variableData}
+                  onDataChange={handleVariableDataChange}
                 />
-              )}
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
-              >
-                Guardar
-              </button>
-              </div>
-            </Form>
-          </>
+                <Form
+  method="post"
+  action="/inventory/create"
+  encType="multipart/form-data"
+>
+  {variableData.selectedGroups.map((group, index) => {
+    // Renderiza los inputs ocultos para los atributos aquí...
+  })}
+
+  {/* Enviar imágenes */}
+  <input
+    type="file"
+    name="images[]"
+    multiple
+    onChange={(event) => handleFileChange(event)}
+    style={{ display: 'none' }}
+    ref={(ref) => {
+      if (ref) {
+        const dataTransfer = new DataTransfer();
+        variableData.images.forEach((image) => {
+          dataTransfer.items.add(image.file);
+        });
+        ref.files = dataTransfer.files;
+      }
+    }}
+  />
+
+  <div className="flex justify-end">
+    <button
+      type="submit"
+      className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
+    >
+      Guardar
+    </button>
+  </div>
+</Form>
+              </>
             )}
           </TabsContent>
           <TabsContent value="inventory">
