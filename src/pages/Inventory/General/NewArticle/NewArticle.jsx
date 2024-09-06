@@ -101,29 +101,41 @@ export default CreateArticle;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  
+
   const attributes = [];
-  for (let i = 0; formData.get(`Attributes[${i}][id]`) !== null; i++) {
+  let i = 0;
+
+  while (formData.has(`Attributes[${i}][id]`)) {
     const groupId = formData.get(`Attributes[${i}][id]`);
     const groupName = formData.get(`Attributes[${i}][name]`);
-    
+
     const slots = [];
-    for (let j = 0; formData.get(`Attributes[${i}][slots][${j}][id]`) !== null; j++) {
+    let j = 0;
+    while (formData.has(`Attributes[${i}][slots][${j}][id]`)) {
       const slotId = formData.get(`Attributes[${i}][slots][${j}][id]`);
       const slotName = formData.get(`Attributes[${i}][slots][${j}][name]`);
       slots.push({ id: slotId, name: slotName });
+      j++;
     }
-    
+
     attributes.push({ id: groupId, name: groupName, slots });
+    i++;
   }
 
   const image = formData.get("image");
+  if (attributes.length === 0 && !image) {
+    return {
+      error: true,
+      message: "No se ha enviado ningún atributo ni imagen.",
+    };
+  }
 
-  // Aquí puedes hacer algo con los datos procesados
-  console.log({ attributes, image });
+  console.log({
+    attributes: attributes.length > 0 ? attributes : "No attributes submitted",
+    image: image || "No image submitted",
+  });
 
-  return "Datos procesados";
+  return "Datos procesados correctamente";
 }
-
 
 
