@@ -35,15 +35,15 @@ const InventoryForm = ({ data, setData }) => {
         <h2 className="font-roboto text-[16px] text-gris2 mb-4">Método de valoración</h2>
         <div className="grid grid-cols-2 items-center gap-y-4">
           <Label
-            htmlFor="costeo"
+            htmlFor="metodoValoracion"
             className="text-[14px] font-roboto text-gris2"
           >
             Método de Valoración
           </Label>
           <Select 
-            name="costeo" 
-            value={data.costeo} 
-            onValueChange={(value) => handleSelectChange("costeo", value)}
+            name=" metodoValoracion" 
+            value={data.metodoValoracion} 
+            onValueChange={(value) => handleSelectChange("metodoValoracion", value)}
           >
             <SelectTrigger className={inputClasses}>
               <SelectValue placeholder="Seleccionar" />
@@ -77,17 +77,17 @@ const InventoryForm = ({ data, setData }) => {
         <h2 className="font-roboto text-gris2 mb-4">Nivel de inventario</h2>
         <div className="grid grid-cols-2 items-center gap-y-2">
           <Label
-            htmlFor="minimo"
+            htmlFor="stockMinimo"
             className="text-[14px] font-roboto text-gris2"
           >
             Mínimo
           </Label>
           <Input
             type="number"
-            name="minimo"
+            name="stockMinimo"
             min="0"     
             step="0.01"
-            value={data.minimo}
+            value={data.stockMinimo}
             onChange={handleChange}
             placeholder="Ingresa"
             className={`${inputClasses} w-[200px] mt-1`}
@@ -100,10 +100,10 @@ const InventoryForm = ({ data, setData }) => {
           </Label>
           <Input
             type="number"
-            name="maximo"
+            name="stockMaximo"
             min="0"
             step="0.01"
-            value={data.maximo}
+            value={data.stockMaximo}
             onChange={handleChange}
             placeholder="Ingresa"
             className={`${inputClasses} w-[200px] mt-1`}

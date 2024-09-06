@@ -43,8 +43,8 @@ const GeneralForm = ({ data, setData }) => {
         <Checkbox
           id="sImpuesto"
           name="sImpuesto"
-          checked={data.sImpuesto}
-          onCheckedChange={() => handleCheckboxChange("sImpuesto")}
+          checked={data.sujetoAImpuesto}
+          onCheckedChange={() => handleCheckboxChange("sujetoAImpuesto")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
@@ -59,7 +59,7 @@ const GeneralForm = ({ data, setData }) => {
         <Checkbox
           id="activo"
           name="activo"
-          checked={data.activo}
+          checked={data.activos}
           onCheckedChange={() => handleCheckboxChange("activo")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
@@ -74,7 +74,7 @@ const GeneralForm = ({ data, setData }) => {
         <InputRouter
           type="date"
           name="desde"
-          value={data.desde}
+          value={data.from}
           onChange={handleChange}
         />
       </div>
@@ -88,7 +88,7 @@ const GeneralForm = ({ data, setData }) => {
         <InputRouter
           type="date"
           name="hasta"
-          value={data.hasta}
+          value={data.to}
           onChange={handleChange}
         />
       </div>
@@ -135,7 +135,7 @@ const GeneralForm = ({ data, setData }) => {
         <InputRouter
           type="text"
           name="fabricante"
-          value={data.fabricante}
+          value={data.fabricantes}
           onChange={handleChange}
         />
       </div>
@@ -151,7 +151,7 @@ const GeneralForm = ({ data, setData }) => {
         </Label>
         <Textarea
           name="comentarios"
-          value={data.comentarios}
+          value={data.comentario}
           onChange={handleChange}
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />

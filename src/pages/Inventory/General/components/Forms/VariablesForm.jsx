@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
-import { imageOutline, closeCircle, chevronBack } from "ionicons/icons";
+import { imageOutline, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import {
   Select,
