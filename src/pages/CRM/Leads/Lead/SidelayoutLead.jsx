@@ -72,14 +72,14 @@ function SidelayoutLead() {
         {/* Bottom block */}
         <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-gris px-[14px] py-4">
           <p className="font-poppins text-lg font-semibold text-grisHeading">
-            General Information
+            Informacion General
           </p>
 
           <div className="flex justify-between rounded-lg bg-blancoBox px-7 py-4">
             <div className="flex flex-col gap-2">
               <div className="">
                 <p className="text-[15px] font-medium text-grisText">
-                  Business Name
+                  Nombre del Negocio
                 </p>
                 <span className="text-xs text-grisSubText">
                   {Capitalize(info?.business_name)}
@@ -87,7 +87,7 @@ function SidelayoutLead() {
               </div>
               <div>
                 <p className="text-[15px] font-medium text-grisText">
-                  Contact Name
+                  Nombre del Contacto
                 </p>
                 <span className="text-xs text-grisSubText">
                   {Capitalize(info?.contact_name)}{" "}
@@ -96,9 +96,7 @@ function SidelayoutLead() {
                 </span>
               </div>
               <div>
-                <p className="text-[15px] font-medium text-grisText">
-                  Cellphone
-                </p>
+                <p className="text-[15px] font-medium text-grisText">Celular</p>
                 <span className="text-xs text-grisSubText">
                   {info?.contact_phone} <br />
                   {info?.business_phone}
@@ -123,11 +121,11 @@ function SidelayoutLead() {
           <div className="flex flex-col gap-6 px-[10px]">
             <div className="flex flex-col gap-2">
               <p className="font-poppins text-lg font-semibold text-grisHeading">
-                Way of Contact
+                Metodo de Contacto
               </p>
 
               <p className="text-base font-medium text-grisText">
-                Service of Interest
+                Servicio de Interes
               </p>
 
               <div className="flex gap-2 overflow-auto">
@@ -153,7 +151,7 @@ function SidelayoutLead() {
                 </div>
                 <div>
                   <p className="text-[15px] font-medium text-grisText">
-                    Follow By
+                    Agente
                   </p>
                   <span className="text-xs text-grisSubText">
                     {user_assigned?.name} {user_assigned?.last_name}
@@ -179,33 +177,33 @@ function SidelayoutLead() {
               */}
               <div className="flex flex-col gap-2 pt-2">
                 <p className="font-poppins text-lg font-semibold text-grisHeading">
-                  Status
+                  Estado
                 </p>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-fit">
                     {main_lead?.active == "1" ? (
-                      <Badge className="w-fit bg-[#00A259]">Active</Badge>
+                      <Badge className="w-fit bg-[#00A259]">Activo</Badge>
                     ) : main_lead?.active == "2" ? (
-                      <Badge className="w-fit bg-[#FAA364]">Suspended</Badge>
+                      <Badge className="w-fit bg-[#FAA364]">Suspendido</Badge>
                     ) : main_lead?.active == "3" ? (
-                      <Badge className="w-fit bg-[#D7586B]">Canceled</Badge>
+                      <Badge className="w-fit bg-[#D7586B]">Cancelado</Badge>
                     ) : (
-                      <Badge className="w-fit bg-primario">Done</Badge>
+                      <Badge className="w-fit bg-primario">Completo</Badge>
                     )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "1")}>
-                      Active
+                      Activo
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "2")}>
-                      Suspended
+                      Suspendido
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "3")}>
-                      Canceled
+                      Cancelado
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={(e) => changeLeadStatus(e, "4")}>
-                      Done
+                      Completo
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
