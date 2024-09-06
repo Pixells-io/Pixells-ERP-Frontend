@@ -1,39 +1,57 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Form } from "react-router-dom";
 import GeneralForm from "./Forms/GeneralForm";
 import InventoryForm from "./Forms/InventoryForm";
 import WarehouseForm from "./Forms/WarehouseForm";
 import CheckForm from "./Forms/CheckForm";
 import VariableForm from "./Forms/VariablesForm";
 
-const FormGroup = ({ productType, suppliers, attrb }) => {
+const FormGroup = ({
+  productType,
+  suppliers,
+  attrb,
+  inputsData,
+  setInputsData,
+  variableData,
+  setVariableData, 
+}) => {
   const [generalData, setGeneralData] = useState({
-    sImpuesto: false,
-    devo: false,
-    fabricante: "",
+    sImpuesto: inputsData.sujetoAImpuesto,
+    devo: inputsData.disponibleParaDevolucion,
+    fabricante: inputsData.fabricante,
     comentarios: "",
-    activo: false,
+    activo: inputsData.activo,
     inactivo: false,
-    desde: "",
-    hasta: "",
+    desde: inputsData.desde,
+    hasta: inputsData.hasta,
   });
 
   const [inventoryData, setInventoryData] = useState({
-    costeo: "",
+    costeo: inputsData.metodoValoracion,
     costo: "0.00",
-    minimo: "",
-    maximo: "",
+    minimo: inputsData.stockMinimo,
+    maximo: inputsData.stockMaximo,
   });
 
   const [checkData, setCheckData] = useState({
-    proveedor: "",
+    proveedorDefault: inputsData.proveedor || "",
   });
+  // Actualizar inputsData cuando los datos generales cambian
+  const handleGeneralDataChange = (name, value) => {
+    setGeneralData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
+  };
 
-  const [variableData, setVariableData] = useState({
-    selectedGroups: [],
-    images: [],
-  });
+  // Actualizar inputsData cuando los datos cambien
+  const handleInventoryDataChange = (name, value) => {
+    setInventoryData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
+  };
+
+  const handleCheckDataChange = (name, value) => {
+    setCheckData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
+  };
 
   const handleVariableDataChange = (newData) => {
     setVariableData((prevData) => ({
@@ -46,11 +64,8 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
     const files = Array.from(event.target.files).map((file) => ({
       file,
       preview: URL.createObjectURL(file),
-      name: file.name, // Debería capturar el nombre real del archivo
-      size: file.size, // Verifica el tamaño del archivo
-      type: file.type, // Verifica el tipo del archivo
+      name: file.name, 
     }));
-    console.log(files); // Verifica los detalles de los archivos en la consola
     setVariableData((prevState) => ({
       ...prevState,
       images: [...prevState.images, ...files],
@@ -72,7 +87,7 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
               key={value}
               value={value}
               className={`flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
-                value === "variables" && productType !== "option2"
+                value === "variables" && productType !== "1"
                   ? "pointer-events-none opacity-50"
                   : ""
               }`}
@@ -87,86 +102,19 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
               GENERAL
             </h2>
             <div className="flex flex-wrap pl-2">
-              <GeneralForm data={generalData} setData={setGeneralData} />
+              <GeneralForm
+                data={generalData}
+                setData={handleGeneralDataChange} 
+              />
             </div>
           </TabsContent>
-          <TabsContent value="variables" className="overflow-auto">
-            {productType === "option2" && (
-              <>
-                <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-                  VARIABLES
-                </h2>
-                <VariableForm
-                  attrb={attrb}
-                  variableData={variableData}
-                  onDataChange={handleVariableDataChange}
-                />
-               <Form
-  method="post"
-  action="/inventory/create"
-  encType="multipart/form-data"
->
-{variableData.selectedGroups.map((group, index) => (
-  <div key={index}>
-    <input
-      type="hidden"
-      name={`Attributes[${index}][id]`}
-      value={group.id}
-    />
-    <input
-      type="hidden"
-      name={`Attributes[${index}][name]`}
-      value={group.name}
-    />
-    {group.slots
-      .filter((slot) => slot.active === 1) // Solo los slots seleccionados
-      .map((slot, slotIndex) => (
-        <div key={slotIndex}>
-          <input
-            type="hidden"
-            name={`Attributes[${index}][slots][${slotIndex}][id]`}
-            value={slot.id}
-          />
-          <input
-            type="hidden"
-            name={`Attributes[${index}][slots][${slotIndex}][name]`}
-            value={slot.name}
-          />
-        </div>
-      ))}
-  </div>
-))}
-
-
-<input
-  type="file"
-  name="images[]"
-  multiple
-  onChange={handleFileChange}
-  style={{ display: 'none' }}
-  ref={(ref) => {
-    if (ref && variableData.images.length > 0) {
-      const dataTransfer = new DataTransfer();
-      variableData.images.forEach((image) => {
-        dataTransfer.items.add(image.file);
-      });
-      ref.files = dataTransfer.files;
-    }
-  }}
-/>
-
-
-  <div className="flex justify-end">
-    <button
-      type="submit"
-      className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
-    >
-      Guardar
-    </button>
-  </div>
-</Form>
-
-              </>
+          <TabsContent value="variables">
+            {productType === "1" && (
+              <VariableForm
+                attrb={attrb}
+                variableData={variableData}
+                onDataChange={handleVariableDataChange}
+              />
             )}
           </TabsContent>
           <TabsContent value="inventory">
@@ -174,7 +122,10 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
               INVENTARIO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InventoryForm data={inventoryData} setData={setInventoryData} />
+              <InventoryForm
+                data={inventoryData}
+                setData={handleInventoryDataChange} 
+              />
             </div>
           </TabsContent>
           <TabsContent value="storage">
@@ -193,7 +144,7 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
               <CheckForm
                 suppliers={suppliers}
                 data={checkData}
-                setData={setCheckData}
+                setData={handleCheckDataChange} 
               />
             </div>
           </TabsContent>

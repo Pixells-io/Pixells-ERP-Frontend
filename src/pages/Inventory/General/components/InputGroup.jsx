@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -10,24 +10,7 @@ import {
 import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 
-
-const Inputs = ({categories, warehouses}) => {
- 
-  const [inputsData, setInputsData] = useState({
-    codigoDeArticulo: "",
-    nombreODescripcion: "",
-    centroDeCostos: "",
-    listaDePrecios: "",
-    almacen: "",
-    unidadesDeMedida: "",
-    categoria: "",
-    codigoDeBarras: "",
-    precioUnitario: "",
-    inventario: false,
-    compra: false,
-    venta: false,
-  });
-
+const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputsData((prevData) => ({ ...prevData, [name]: value }));
@@ -80,9 +63,8 @@ const Inputs = ({categories, warehouses}) => {
                 <SelectValue placeholder="Centro de costos" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+                <SelectItem value="1">Option 1</SelectItem>
+                <SelectItem value="2">Option 2</SelectItem>
               </SelectContent>
             </Select>
 
@@ -97,11 +79,11 @@ const Inputs = ({categories, warehouses}) => {
                 <SelectValue placeholder="Lista de precios" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+                <SelectItem value="1">Option 1</SelectItem>
+                <SelectItem value="2">Option 2</SelectItem>
               </SelectContent>
             </Select>
+            
             <Select
               name="almacen"
               value={inputsData.almacen}
@@ -118,16 +100,18 @@ const Inputs = ({categories, warehouses}) => {
               ))}
               </SelectContent>
             </Select>
+            
             <Input
               type="number"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Precio unitario"
-              name="precioUnitario"
+              name="precio"
               min="0"
               step="0.1"
-              value={inputsData.precioUnitario}
+              value={inputsData.precio}
               onChange={handleInputChange}
             />
+            
             <Select
               name="categoria"
               value={inputsData.categoria}
@@ -144,6 +128,7 @@ const Inputs = ({categories, warehouses}) => {
               ))}
               </SelectContent>
             </Select>
+            
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de barras"
