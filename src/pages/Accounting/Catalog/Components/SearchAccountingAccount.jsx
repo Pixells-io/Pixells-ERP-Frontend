@@ -62,7 +62,7 @@ const SearchAccountingAccount = ({ accounts, setAccountsSearch }) => {
 
   return (
     <div className="flex w-full justify-end pr-8 pt-3">
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center rounded-3xl px-2 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.15)]">
         <IonIcon
           icon={searchOutline}
           size="large"
@@ -71,8 +71,8 @@ const SearchAccountingAccount = ({ accounts, setAccountsSearch }) => {
         <Input
           type="text"
           value={search}
-          className="text-md font-normal text-grisText"
-          placeholder={"Nombre Cuenta contable"}
+          className="border-0 bg-inherit text-sm font-extralight font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          placeholder={"Search for something"}
           onChange={(v) => searchAccount(v.target.value)}
         />
       </div>
