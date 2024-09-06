@@ -1,34 +1,29 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import React, { useRef } from "react";
-import { Form, useSubmit } from "react-router-dom";
+import React, { useState } from "react";
+import { useSubmit } from "react-router-dom";
 
 import Select from "react-select";
 
 function Search(search) {
   const submit = useSubmit();
-  const selectUser = [];
-  const formRef = useRef(null);
+
+  const [inputSearch, setInputSearch] = useState(null);
 
   //Submit Form
-  function onInputEnter() {
-    //Set timeout
-    setTimeout(() => {
-      submit(formRef.current);
-    }, 400);
+  function onInputEnter(e) {
+    const formData = new FormData();
+    formData.append("chat", e.value);
+    formData.append("type_of_function", "1");
+    // Set timeout
+    // setTimeout(() => {
+    submit(formData, { action: "/chat", method: "post" });
+    // }, 400);
   }
 
   return (
-    <Form
-      id="form-search-chat"
-      className="w-full"
-      action="/chat"
-      ref={formRef}
-      method="post"
-    >
-      <input type="hidden" name="type_of_function" value="1" hidden readOnly />
+    <div className="w-full">
       <div className="flex items-center rounded-3xl px-3 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.15)]">
         <IonIcon
           icon={searchOutline}
@@ -36,6 +31,7 @@ function Search(search) {
         ></IonIcon>
         <Select
           options={search.users}
+          value={inputSearch}
           placeholder="BUSCAR"
           name="chat"
           className="w-[10px] flex-1 rounded-2xl"
@@ -50,13 +46,11 @@ function Search(search) {
             );
           }}
           filterOption={(option, value) => {
-            return (
-              option.data.label
-                .toLowerCase()
-                .includes(value.toLowerCase())
-            );
+            return option.data.label
+              .toLowerCase()
+              .includes(value.toLowerCase());
           }}
-          onChange={() => onInputEnter()}
+          onChange={(e) => onInputEnter(e)}
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
@@ -71,14 +65,7 @@ function Search(search) {
           }}
         />
       </div>
-
-      {/* <SelectRouter
-        options={selectUser}
-        name="chat"
-        className="rounded-2xl"
-        onChange={() => onInputEnter()}
-      /> */}
-    </Form>
+    </div>
   );
 }
 
