@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLoaderData, useParams } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
@@ -105,12 +105,13 @@ export async function Action({ request }) {
   switch (functionInput) {
     case "1":
       const chatId = await SearchAction(data);
-      console.log(chatId);
-      break;
+      if (chatId.data == undefined) return 1;
+      return redirect(`/chat/${chatId?.data}`);
     case "2":
-      await saveGroup(data);
-      break;
+      const groupId = await saveGroup(data);
+      console.log(groupId);
+      if (groupId.data == undefined) return 1;
+      return redirect(`/chat/${groupId?.data}`);
   }
-
   return 1;
 }
