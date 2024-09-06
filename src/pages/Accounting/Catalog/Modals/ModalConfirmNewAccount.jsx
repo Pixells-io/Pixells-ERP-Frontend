@@ -42,12 +42,12 @@ function ModalConfirmNewAccount({
               <div className="flex items-center justify-center">
                 <IonIcon icon={calculatorOutline} className="h-8 w-8" />
               </div>
-              <div>
-                <h2 className="font-poppins text-xs font-medium text-grisHeading">
+              <div className="flex flex-col gap-y-1">
+                <h2 className="font-poppins text-[13px] font-medium text-grisHeading">
                   Crear Nueva Cuenta Contable
                 </h2>
-                <h3 className="font-poppins text-xs font-light text-grisHeading">
-                  {newAccount?.name}
+                <h3 className="font-poppins text-[13px] font-light text-grisHeading">
+                  "{newAccount?.name}"
                 </h3>
               </div>
             </div>
@@ -91,9 +91,9 @@ function ModalConfirmNewAccount({
             readOnly
             value={newAccount?.level}
           />
-          <span className="my-4 font-roboto text-[11px] font-light text-grisSubText">
-            You are trying to create the account {newAccount?.level}{" "}
-            {newAccount?.name}, are you sure?
+          <span className="my-4 font-roboto text-xs font-light text-grisSubText">
+            You are trying to create the account "{newAccount?.level}
+            {newAccount?.name}", are you sure?
           </span>
 
           <DialogFooter>
