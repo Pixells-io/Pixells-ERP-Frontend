@@ -98,3 +98,32 @@ const CreateArticle = () => {
 };
 
 export default CreateArticle;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  
+  const attributes = [];
+  for (let i = 0; formData.get(`Attributes[${i}][id]`) !== null; i++) {
+    const groupId = formData.get(`Attributes[${i}][id]`);
+    const groupName = formData.get(`Attributes[${i}][name]`);
+    
+    const slots = [];
+    for (let j = 0; formData.get(`Attributes[${i}][slots][${j}][id]`) !== null; j++) {
+      const slotId = formData.get(`Attributes[${i}][slots][${j}][id]`);
+      const slotName = formData.get(`Attributes[${i}][slots][${j}][name]`);
+      slots.push({ id: slotId, name: slotName });
+    }
+    
+    attributes.push({ id: groupId, name: groupName, slots });
+  }
+
+  const image = formData.get("image");
+
+  // Aquí puedes hacer algo con los datos procesados
+  console.log({ attributes, image });
+
+  return "Datos procesados";
+}
+
+
+

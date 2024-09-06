@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
 
-const VariableForm = ({ attrb }) => {
+const VariableForm = ({ attrb, onDataChange }) => {
   const allSlots = attrb.data;
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
@@ -44,8 +44,13 @@ const VariableForm = ({ attrb }) => {
     ) {
       const newGroup = allSlots.find((slot) => slot.id === selectedSlot);
       const groupWithActiveStatus = {
-        ...newGroup,
-        slots: newGroup.slots.map((slot) => ({ ...slot, active: 0 })),
+        id: newGroup.id,
+        name: newGroup.name,
+        slots: newGroup.slots.map((slot) => ({
+          id: slot.id,
+          name: slot.name,
+          active: 0,
+        })),
       };
       setSelectedGroups([...selectedGroups, groupWithActiveStatus]);
       setSelectedSlot("");
@@ -61,13 +66,33 @@ const VariableForm = ({ attrb }) => {
               slots: group.slots.map((slot) =>
                 slot.id === slotId
                   ? { ...slot, active: slot.active === 1 ? 0 : 1 }
-                  : slot,
+                  : slot
               ),
             }
-          : group,
-      ),
+          : group
+      )
     );
   };
+
+  useEffect(() => {
+    const formattedGroups = selectedGroups.map((group) => ({
+      id: group.id,
+      name: group.name,
+      slots: group.slots
+        .filter((slot) => slot.active === 1)
+        .map((slot) => ({
+          id: slot.id,
+          name: slot.name,
+        })),
+    }));
+  
+    // Pasa los datos a través de la prop onDataChange para que se actualicen en el FormGroup
+    onDataChange({
+      selectedGroups: formattedGroups,
+      image: image,
+    });
+  }, [selectedGroups, image, onDataChange]);
+  
 
   return (
     <div className="grid grid-cols-2 gap-4">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Form } from "react-router-dom";
 import GeneralForm from "./Forms/GeneralForm";
 import InventoryForm from "./Forms/InventoryForm";
 import WarehouseForm from "./Forms/WarehouseForm";
@@ -29,6 +30,14 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
     proveedor: "",
   });
 
+  const [variableData, setVariableData] = useState({
+    selectedGroups: [],
+    image: null,
+  });
+
+  const handleVariableDataChange = (data) => {
+    setVariableData(data);
+  };
   return (
     <div className="w-full overflow-hidden">
       <Tabs defaultValue="general" className="w-full">
@@ -62,17 +71,68 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
               <GeneralForm data={generalData} setData={setGeneralData} />
             </div>
           </TabsContent>
-          <TabsContent value="variables">
+          <TabsContent value="variables" className="overflow-auto">
             {productType === "option2" && (
               <>
                 <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
                   VARIABLES
                 </h2>
-                <VariableForm attrb={attrb} />
+                <VariableForm
+                  attrb={attrb}
+                  onDataChange={handleVariableDataChange}
+                />
+                <Form
+                  method="post"
+                  action="/inventory/create"
+                  encType="multipart/form-data"
+                >
+                  {variableData.selectedGroups.map((group, index) => (
+                    <div key={index}>
+                      <input
+                        type="hidden"
+                        name={`Attributes[${index}][id]`}
+                        value={group.id}
+                      />
+                      <input
+                        type="hidden"
+                        name={`Attributes[${index}][name]`}
+                        value={group.name}
+                      />
+                      {group.slots.map((slot, slotIndex) => (
+                        <div key={slotIndex}>
+                          <input
+                            type="hidden"
+                            name={`Attributes[${index}][slots][${slotIndex}][id]`}
+                            value={slot.id}
+                          />
+                          <input
+                            type="hidden"
+                            name={`Attributes[${index}][slots][${slotIndex}][name]`}
+                            value={slot.name}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+
+                  {variableData.image && (
+                    <input
+                      type="hidden"
+                      name="image"
+                      value={variableData.image}
+                    />
+                  )}
+
+                  <button
+                    type="submit"
+                    className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
+                  >
+                    Guardar
+                  </button>
+                </Form>
               </>
             )}
           </TabsContent>
-
           <TabsContent value="inventory">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               INVENTARIO
