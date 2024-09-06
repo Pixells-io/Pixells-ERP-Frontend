@@ -101,32 +101,60 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
                   variableData={variableData}
                   onDataChange={handleVariableDataChange}
                 />
-                <Form
+               <Form
   method="post"
   action="/inventory/create"
   encType="multipart/form-data"
 >
-  {variableData.selectedGroups.map((group, index) => {
-    // Renderiza los inputs ocultos para los atributos aquí...
-  })}
+{variableData.selectedGroups.map((group, index) => (
+  <div key={index}>
+    <input
+      type="hidden"
+      name={`Attributes[${index}][id]`}
+      value={group.id}
+    />
+    <input
+      type="hidden"
+      name={`Attributes[${index}][name]`}
+      value={group.name}
+    />
+    {group.slots
+      .filter((slot) => slot.active === 1) // Solo los slots seleccionados
+      .map((slot, slotIndex) => (
+        <div key={slotIndex}>
+          <input
+            type="hidden"
+            name={`Attributes[${index}][slots][${slotIndex}][id]`}
+            value={slot.id}
+          />
+          <input
+            type="hidden"
+            name={`Attributes[${index}][slots][${slotIndex}][name]`}
+            value={slot.name}
+          />
+        </div>
+      ))}
+  </div>
+))}
 
-  {/* Enviar imágenes */}
-  <input
-    type="file"
-    name="images[]"
-    multiple
-    onChange={(event) => handleFileChange(event)}
-    style={{ display: 'none' }}
-    ref={(ref) => {
-      if (ref) {
-        const dataTransfer = new DataTransfer();
-        variableData.images.forEach((image) => {
-          dataTransfer.items.add(image.file);
-        });
-        ref.files = dataTransfer.files;
-      }
-    }}
-  />
+
+<input
+  type="file"
+  name="images[]"
+  multiple
+  onChange={handleFileChange}
+  style={{ display: 'none' }}
+  ref={(ref) => {
+    if (ref && variableData.images.length > 0) {
+      const dataTransfer = new DataTransfer();
+      variableData.images.forEach((image) => {
+        dataTransfer.items.add(image.file);
+      });
+      ref.files = dataTransfer.files;
+    }
+  }}
+/>
+
 
   <div className="flex justify-end">
     <button
@@ -137,6 +165,7 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
     </button>
   </div>
 </Form>
+
               </>
             )}
           </TabsContent>

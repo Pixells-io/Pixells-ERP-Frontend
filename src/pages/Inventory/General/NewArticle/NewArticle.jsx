@@ -122,6 +122,7 @@ export async function Action({ request }) {
   }
 
   const images = formData.getAll("images[]");
+  console.log("Attributes received:", attributes);
   console.log("Images received:", images);
 
   if (attributes.length === 0 && images.length === 0) {
@@ -130,11 +131,6 @@ export async function Action({ request }) {
       message: "No se ha enviado ningún atributo ni imagen.",
     };
   }
-
-  console.log({
-    attributes: attributes.length > 0 ? attributes : "No attributes submitted",
-    images: images.length > 0 ? images : "No images submitted",
-  });
 
   return "Datos procesados correctamente";
 }

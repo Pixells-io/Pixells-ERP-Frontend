@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle, chevronBack } from "ionicons/icons";
@@ -26,26 +26,23 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
   const selectClasses =
     "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-const { getRootProps, getInputProps } = useDropzone({
-  accept: { "image/*": [] },
-  onDrop: (acceptedFiles) => {
-    const newImages = acceptedFiles.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    }));
-    setImages((prevImages) => {
-      const updatedImages = [...prevImages, ...newImages];
-      onDataChange({ images: updatedImages }); // Pasar la lista de imágenes actualizada
-      return updatedImages;
-    });
-  },
-});
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [] },
+    onDrop: (acceptedFiles) => {
+      const newImages = acceptedFiles.map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      }));
+      setImages((prevImages) => [...prevImages, ...newImages]);
+    },
+  });
 
-    
-    
+  useEffect(() => {
+    onDataChange({ images });
+  }, [images]);
 
   const handleRemoveImage = (index) => {
     const newImages = images.filter((_, i) => i !== index);
@@ -58,24 +55,31 @@ const { getRootProps, getInputProps } = useDropzone({
   };
 
   const handlerAddGroup = () => {
-    if (
-      selectedSlot &&
-      !variableData.selectedGroups.some((group) => group.id === selectedSlot)
-    ) {
+    if (selectedSlot) {
       const newGroup = allSlots.find((slot) => slot.id === selectedSlot);
-      const groupWithActiveStatus = {
-        id: newGroup.id,
-        name: newGroup.name,
-        slots: newGroup.slots.map((slot) => ({
-          id: slot.id,
-          name: slot.name,
-          active: 0,
-        })),
-      };
-      onDataChange({
-        selectedGroups: [...variableData.selectedGroups, groupWithActiveStatus],
-      });
-      setSelectedSlot("");
+      if (
+        newGroup &&
+        !variableData.selectedGroups.some((group) => group.id === selectedSlot)
+      ) {
+        const groupWithActiveStatus = {
+          id: newGroup.id,
+          name: newGroup.name,
+          slots: newGroup.slots.map((slot) => ({
+            id: slot.id,
+            name: slot.name,
+            active: 0,
+          })),
+        };
+
+        // Este setState se dispara tras el clic, fuera del ciclo de renderizado
+        onDataChange({
+          selectedGroups: [
+            ...variableData.selectedGroups,
+            groupWithActiveStatus,
+          ],
+        });
+        setSelectedSlot("");
+      }
     }
   };
 
@@ -198,12 +202,11 @@ const { getRootProps, getInputProps } = useDropzone({
         ) : (
           <div
             {...getRootProps()}
-            className="flex flex-col items-center justify-center h-[300px] pb-8 border-2 border-dashed p-4"
+            className="flex h-[300px] flex-col items-center justify-center border-2 border-dashed p-4 pb-8"
           >
             <IonIcon icon={imageOutline} className="h-12 w-12 text-gray-500" />
             <span className="ml-2 text-gray-500">
-              Galería de Imagenes
-              (Arrastra o selecciona imágenes)
+              Galería de Imagenes (Arrastra o selecciona imágenes)
             </span>
             <input {...getInputProps()} />
           </div>
