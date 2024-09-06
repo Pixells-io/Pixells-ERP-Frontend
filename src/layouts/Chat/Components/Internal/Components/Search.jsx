@@ -1,16 +1,13 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import React, { useRef, useState } from "react";
-import { Form, useSubmit } from "react-router-dom";
+import React, { useState } from "react";
+import { useSubmit } from "react-router-dom";
 
 import Select from "react-select";
 
 function Search(search) {
   const submit = useSubmit();
-  const selectUser = [];
-  const formRef = useRef(null);
 
   const [inputSearch, setInputSearch] = useState(null);
 
@@ -68,13 +65,6 @@ function Search(search) {
           }}
         />
       </div>
-
-      {/* <SelectRouter
-        options={selectUser}
-        name="chat"
-        className="rounded-2xl"
-        onChange={() => onInputEnter()}
-      /> */}
     </div>
   );
 }
