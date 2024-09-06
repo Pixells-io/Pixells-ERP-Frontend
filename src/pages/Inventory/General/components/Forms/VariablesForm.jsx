@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -11,12 +11,9 @@ import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
 
-const VariableForm = ({ attrb, onDataChange }) => {
+const VariableForm = ({ attrb, variableData, onDataChange }) => {
   const allSlots = attrb.data;
-  const [selectedGroups, setSelectedGroups] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
-  const [image, setImage] = useState(null);
-
   const selectClasses =
     "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
@@ -25,12 +22,12 @@ const VariableForm = ({ attrb, onDataChange }) => {
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
-      setImage(URL.createObjectURL(acceptedFiles[0]));
+      onDataChange({ image: URL.createObjectURL(acceptedFiles[0]) });
     },
   });
 
   const handleRemoveImage = () => {
-    setImage(null);
+    onDataChange({ image: null });
   };
 
   const handleSelectChange = (value) => {
@@ -40,7 +37,7 @@ const VariableForm = ({ attrb, onDataChange }) => {
   const handlerAddGroup = () => {
     if (
       selectedSlot &&
-      !selectedGroups.some((group) => group.id === selectedSlot)
+      !variableData.selectedGroups.some((group) => group.id === selectedSlot)
     ) {
       const newGroup = allSlots.find((slot) => slot.id === selectedSlot);
       const groupWithActiveStatus = {
@@ -52,47 +49,27 @@ const VariableForm = ({ attrb, onDataChange }) => {
           active: 0,
         })),
       };
-      setSelectedGroups([...selectedGroups, groupWithActiveStatus]);
+      onDataChange({
+        selectedGroups: [...variableData.selectedGroups, groupWithActiveStatus],
+      });
       setSelectedSlot("");
     }
   };
 
   const handleSlotButtonClick = (groupId, slotId) => {
-    setSelectedGroups((prevGroups) =>
-      prevGroups.map((group) =>
-        group.id === groupId
-          ? {
-              ...group,
-              slots: group.slots.map((slot) =>
-                slot.id === slotId
-                  ? { ...slot, active: slot.active === 1 ? 0 : 1 }
-                  : slot
-              ),
-            }
-          : group
-      )
-    );
-  };
-
-  useEffect(() => {
-    const formattedGroups = selectedGroups.map((group) => ({
-      id: group.id,
-      name: group.name,
-      slots: group.slots
-        .filter((slot) => slot.active === 1)
-        .map((slot) => ({
-          id: slot.id,
-          name: slot.name,
-        })),
-    }));
-  
-    // Pasa los datos a través de la prop onDataChange para que se actualicen en el FormGroup
-    onDataChange({
-      selectedGroups: formattedGroups,
-      image: image,
+    const updatedGroups = variableData.selectedGroups.map((group) => {
+      if (group.id === groupId) {
+        const updatedSlots = group.slots.map((slot) =>
+          slot.id === slotId
+            ? { ...slot, active: slot.active === 1 ? 0 : 1 }
+            : slot,
+        );
+        return { ...group, slots: updatedSlots };
+      }
+      return group;
     });
-  }, [selectedGroups, image, onDataChange]);
-  
+    onDataChange({ selectedGroups: updatedGroups });
+  };
 
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -119,9 +96,9 @@ const VariableForm = ({ attrb, onDataChange }) => {
           </Button>
         </div>
         <div className="h-[200px] w-auto overflow-auto">
-          {selectedGroups.map((group) => (
+          {variableData.selectedGroups.map((group) => (
             <div key={group.id} className="border-b border-[#D7D7D7] pb-4 pt-4">
-              <div className="flex items-center space-x-4 p-2 pt-6 pb-6">
+              <div className="flex items-center space-x-4 p-2 pb-6 pt-6">
                 <div className="w-32 font-roboto text-[14px] text-gris2">
                   {group.name}
                 </div>
@@ -132,7 +109,7 @@ const VariableForm = ({ attrb, onDataChange }) => {
                         key={slot.id}
                         className={`flex items-center justify-center rounded-full border border-gris2 bg-white text-[14px] text-gris2 hover:border-transparent hover:bg-[#5B89FF] hover:text-[#FBFBFB] ${
                           slot.active === 1
-                            ? "border-[#5B89FF] border bg-transparent text-primarioBotones"
+                            ? "border border-[#5B89FF] bg-transparent text-primarioBotones"
                             : ""
                         }`}
                         onClick={() => handleSlotButtonClick(group.id, slot.id)}
@@ -150,7 +127,7 @@ const VariableForm = ({ attrb, onDataChange }) => {
       {/* Segunda columna */}
       <div className="relative col-span-1 flex grid items-center justify-center p-8">
         <div {...getRootProps()} className="flex flex-col items-center">
-          {image ? (
+          {variableData.image ? (
             <div className="rounded-xl border border-primarioBotones p-4">
               <button
                 onClick={handleRemoveImage}
@@ -162,7 +139,7 @@ const VariableForm = ({ attrb, onDataChange }) => {
                 />
               </button>
               <img
-                src={image}
+                src={variableData.image}
                 alt="Uploaded"
                 className="max-h-48 max-w-full object-contain"
               />

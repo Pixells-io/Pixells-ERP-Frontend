@@ -35,8 +35,11 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
     image: null,
   });
 
-  const handleVariableDataChange = (data) => {
-    setVariableData(data);
+  const handleVariableDataChange = (newData) => {
+    setVariableData(prevData => ({
+      ...prevData,
+      ...newData
+    }));
   };
   return (
     <div className="w-full overflow-hidden">
@@ -73,64 +76,69 @@ const FormGroup = ({ productType, suppliers, attrb }) => {
           </TabsContent>
           <TabsContent value="variables" className="overflow-auto">
             {productType === "option2" && (
-              <>
-                <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-                  VARIABLES
-                </h2>
-                <VariableForm
-                  attrb={attrb}
-                  onDataChange={handleVariableDataChange}
-                />
-                <Form
-                  method="post"
-                  action="/inventory/create"
-                  encType="multipart/form-data"
-                >
-                  {variableData.selectedGroups.map((group, index) => (
-                    <div key={index}>
-                      <input
-                        type="hidden"
-                        name={`Attributes[${index}][id]`}
-                        value={group.id}
-                      />
-                      <input
-                        type="hidden"
-                        name={`Attributes[${index}][name]`}
-                        value={group.name}
-                      />
-                      {group.slots.map((slot, slotIndex) => (
-                        <div key={slotIndex}>
-                          <input
-                            type="hidden"
-                            name={`Attributes[${index}][slots][${slotIndex}][id]`}
-                            value={slot.id}
-                          />
-                          <input
-                            type="hidden"
-                            name={`Attributes[${index}][slots][${slotIndex}][name]`}
-                            value={slot.name}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-
-                  {variableData.image && (
+            <>
+            <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
+              VARIABLES
+            </h2>
+            <VariableForm
+              attrb={attrb}
+              variableData={variableData}
+              onDataChange={handleVariableDataChange}
+            />
+            <Form
+              method="post"
+              action="/inventory/create"
+              encType="multipart/form-data"
+            >
+              {variableData.selectedGroups.map((group, index) => {
+                const activeSlots = group.slots.filter(slot => slot.active === 1);
+                return (
+                  <div key={index}>
                     <input
                       type="hidden"
-                      name="image"
-                      value={variableData.image}
+                      name={`Attributes[${index}][id]`}
+                      value={group.id}
                     />
-                  )}
+                    <input
+                      type="hidden"
+                      name={`Attributes[${index}][name]`}
+                      value={group.name}
+                    />
+                    {activeSlots.map((slot, slotIndex) => (
+                      <div key={slotIndex}>
+                        <input
+                          type="hidden"
+                          name={`Attributes[${index}][slots][${slotIndex}][id]`}
+                          value={slot.id}
+                        />
+                        <input
+                          type="hidden"
+                          name={`Attributes[${index}][slots][${slotIndex}][name]`}
+                          value={slot.name}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
 
-                  <button
-                    type="submit"
-                    className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
-                  >
-                    Guardar
-                  </button>
-                </Form>
-              </>
+              {variableData.image && (
+                <input
+                  type="hidden"
+                  name="image"
+                  value={variableData.image}
+                />
+              )}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="mt-4 rounded-full bg-[#5B89FF] px-5 py-4 text-white hover:bg-[#4A70CC]"
+              >
+                Guardar
+              </button>
+              </div>
+            </Form>
+          </>
             )}
           </TabsContent>
           <TabsContent value="inventory">
