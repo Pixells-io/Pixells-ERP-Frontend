@@ -10,6 +10,7 @@ import {
   person,
 } from "ionicons/icons";
 import {
+  destroyGoogleKeys,
   loginGoogleToken,
   savePermissionGoogle,
   storeChangeNewPassword,
@@ -124,7 +125,11 @@ export async function Action({ request }) {
       }
       break;
     case "3":
-      const response = await savePermissionGoogle(data);
+      await savePermissionGoogle(data);
+      return redirect("/my-profile/integrations");
+      break;
+    case "4":
+      await destroyGoogleKeys(data);
       return redirect("/my-profile/integrations");
       break;
   }

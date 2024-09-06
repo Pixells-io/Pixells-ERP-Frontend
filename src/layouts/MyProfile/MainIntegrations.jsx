@@ -12,6 +12,7 @@ import { NavLink, useLoaderData, useLocation } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import ModalDestroyGoogleKeys from "./ModalDestroyGoogleKeys";
 
 function MainIntegrations() {
   const location = useLocation();
@@ -23,6 +24,8 @@ function MainIntegrations() {
   const [three, setThree] = useState(false);
   const [four, setFour] = useState(false);
   const [five, setFive] = useState(false);
+
+  const [modalDestroy, setModalDestroy] = useState(false);
 
   function changeCheked(number) {
     switch (number) {
@@ -70,6 +73,7 @@ function MainIntegrations() {
 
   return (
     <div className="flex w-full">
+      <ModalDestroyGoogleKeys modal={modalDestroy} setModal={setModalDestroy} />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
@@ -352,6 +356,7 @@ function MainIntegrations() {
                         <Button
                           type="button"
                           className="mt-2 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                          onClick={() => setModalDestroy(true)}
                         >
                           <IonIcon
                             icon={logoGoogle}
