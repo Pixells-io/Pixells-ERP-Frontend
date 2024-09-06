@@ -52,8 +52,8 @@ const FormDetailAccount = ({
   const getAccount = async () => {
     const accountResponse = await getAccountingAccountById(selectAccount.id);
     setAccount(accountResponse.data);
-    setCheckedInputType(accountResponse.data.type);
-    setCheckedInputStatus(accountResponse.data.status);
+    setCheckedInputType(accountResponse.data.type || "0");
+    setCheckedInputStatus(accountResponse.data.status || "0");
   };
 
   const handleInputChange = (e) => {
@@ -254,13 +254,16 @@ const FormDetailAccount = ({
             <p className="font-roboto text-sm font-light text-grisText">
               Saldo
             </p>
-            <InputRouter
+            <Input
               id="balance"
               name="balance"
               value={!!account.balance ? account.balance : ""}
               onChange={handleInputChange}
-              type="text"
+              type="number"
+              min="0"
+              step="0.01"
               disabled={!isEditable}
+              className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones"
             />
           </div>
 

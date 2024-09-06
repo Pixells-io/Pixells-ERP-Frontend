@@ -17,7 +17,7 @@ function MessageLink({ string }) {
             key={i}
             to={word.includes("http") ? word : "https://" + word}
             target="_blank"
-            className="text-primario"
+            className="w-full text-primario"
           >
             {word}&nbsp;
           </Link>

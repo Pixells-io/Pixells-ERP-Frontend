@@ -14,18 +14,17 @@ function LayoutChat() {
   const params = useParams();
   const [mobileState, setMobileState] = useState("");
 
-  const [initialData, setInitialData] = useState(chats.data);
-  const [chatListPusher, setChatListPusher] = useState(chatOrder(initialData));
+  const [chatListPusher, setChatListPusher] = useState(chatOrder(chats?.data));
 
   async function getChatsList() {
     let newData = await getChats();
-    setChatListPusher(chatOrder(newData.data));
+    setChatListPusher(chatOrder(newData?.data));
   }
 
   const pusherClient = createPusherClient();
 
   useEffect(() => {
-    setMobileState(params.id ? "hidden" : "flex");
+    setMobileState(params?.id ? "hidden" : "flex");
   }, [params]);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function LayoutChat() {
   }, []);
 
   function chatOrder(data) {
-    return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return data?.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   return (

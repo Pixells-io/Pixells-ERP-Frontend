@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { getNotificationsChat } from "@/lib/actions";
 
@@ -15,7 +15,6 @@ import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function NotificationChat({ notifications }) {
-  // const [initialData, setInitialData] = useState(notifications);
   const [notificationsPusher, setnotificationsPusher] = useState(notifications);
   console.log(notificationsPusher);
 
