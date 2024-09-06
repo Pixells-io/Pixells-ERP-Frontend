@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { IonIcon } from "@ionic/react";
+import { imageOutline, closeCircle, chevronBack } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -6,28 +10,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { useDropzone } from "react-dropzone";
-import { IonIcon } from "@ionic/react";
-import { imageOutline, closeCircle } from "ionicons/icons";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const VariableForm = ({ attrb, variableData, onDataChange }) => {
   const allSlots = attrb.data;
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [images, setImages] = useState([]);
+
   const selectClasses =
     "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/*": [],
-    },
-    onDrop: (acceptedFiles) => {
-      onDataChange({ image: URL.createObjectURL(acceptedFiles[0]) });
-    },
-  });
+const { getRootProps, getInputProps } = useDropzone({
+  accept: { "image/*": [] },
+  onDrop: (acceptedFiles) => {
+    const newImages = acceptedFiles.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      name: file.name,
+      size: file.size,
+      type: file.type,
+    }));
+    setImages((prevImages) => {
+      const updatedImages = [...prevImages, ...newImages];
+      onDataChange({ images: updatedImages }); // Pasar la lista de imágenes actualizada
+      return updatedImages;
+    });
+  },
+});
 
-  const handleRemoveImage = () => {
-    onDataChange({ image: null });
+    
+    
+
+  const handleRemoveImage = (index) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
+    onDataChange({ images: newImages });
   };
 
   const handleSelectChange = (value) => {
@@ -124,37 +147,67 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
         </div>
       </div>
 
-      {/* Segunda columna */}
-      <div className="relative col-span-1 flex grid items-center justify-center p-8">
-        <div {...getRootProps()} className="flex flex-col items-center">
-          {variableData.image ? (
-            <div className="rounded-xl border border-primarioBotones p-4">
-              <button
-                onClick={handleRemoveImage}
-                className="absolute right-[200px] top-2 rounded-full"
-              >
-                <IonIcon
-                  icon={closeCircle}
-                  className="size-8 text-primarioBotones"
-                />
-              </button>
-              <img
-                src={variableData.image}
-                alt="Uploaded"
-                className="max-h-48 max-w-full object-contain"
-              />
-            </div>
-          ) : (
-            <>
+      {/* Segunda columna con carrusel */}
+      <div className="relative col-span-1 p-8">
+        {images.length > 0 ? (
+          <Carousel className="w-full">
+            <CarouselContent className="ml-0 h-[318px] w-full">
+              {images.map((image, index) => (
+                <CarouselItem
+                  key={"carousel-item-" + index}
+                  className="relative h-full pl-0"
+                >
+                  <Button
+                    type="button"
+                    className="absolute right-2 top-2 h-6 w-6 cursor-pointer rounded-full bg-[#44444F]/[0.8] p-1"
+                    onClick={() => handleRemoveImage(index)}
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      className="h-6 w-6 text-white"
+                    ></IonIcon>
+                  </Button>
+                  <img
+                    loading="lazy"
+                    src={image.preview}
+                    alt="Imagen"
+                    className="inset-0 h-full w-full object-cover"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
+              colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
+            />
+            <CarouselNext
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
+              colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
+            />
+            <Button
+              type="button"
+              className="absolute bottom-1 left-4 z-10 h-8 w-8 cursor-pointer rounded-full bg-[#BDBDBD]/[0.4] p-2"
+              onClick={() => {}}
+            >
               <IonIcon
-                icon={imageOutline}
-                className="h-12 w-12 text-gray-500"
-              />
-              <span className="ml-2 text-gray-500">Agregar Imagen</span>
-            </>
-          )}
-          <input {...getInputProps()} />
-        </div>
+                icon={chevronBack}
+                className="h-6 w-6 text-white"
+              ></IonIcon>
+            </Button>
+          </Carousel>
+        ) : (
+          <div
+            {...getRootProps()}
+            className="flex flex-col items-center justify-center h-[300px] pb-8 border-2 border-dashed p-4"
+          >
+            <IonIcon icon={imageOutline} className="h-12 w-12 text-gray-500" />
+            <span className="ml-2 text-gray-500">
+              Galería de Imagenes
+              (Arrastra o selecciona imágenes)
+            </span>
+            <input {...getInputProps()} />
+          </div>
+        )}
       </div>
     </div>
   );

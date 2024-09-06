@@ -101,7 +101,6 @@ export default CreateArticle;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-
   const attributes = [];
   let i = 0;
 
@@ -122,8 +121,10 @@ export async function Action({ request }) {
     i++;
   }
 
-  const image = formData.get("image");
-  if (attributes.length === 0 && !image) {
+  const images = formData.getAll("images[]");
+  console.log("Images received:", images);
+
+  if (attributes.length === 0 && images.length === 0) {
     return {
       error: true,
       message: "No se ha enviado ningún atributo ni imagen.",
@@ -132,10 +133,8 @@ export async function Action({ request }) {
 
   console.log({
     attributes: attributes.length > 0 ? attributes : "No attributes submitted",
-    image: image || "No image submitted",
+    images: images.length > 0 ? images : "No images submitted",
   });
 
   return "Datos procesados correctamente";
 }
-
-
