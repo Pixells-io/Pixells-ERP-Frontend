@@ -99,7 +99,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-2">
       {/* Primera columna */}
       <div className="space-y-4">
         <div className="flex items-center space-x-4">
@@ -122,7 +122,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
             Agregar
           </Button>
         </div>
-        <div className="h-[200px] w-auto overflow-auto">
+        <div className="h-[318px] w-[550px] pl-6 overflow-auto">
           {variableData.selectedGroups.map((group) => (
             <div key={group.id} className="border-b border-[#D7D7D7] pb-4 pt-4">
               <div className="flex items-center space-x-4 p-2 pb-6 pt-6">
