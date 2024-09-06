@@ -10,6 +10,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { IonIcon } from "@ionic/react";
+import { calculatorOutline, closeCircle } from "ionicons/icons";
 
 function ModalConfirmNewAccount({
   modal,
@@ -36,7 +38,19 @@ function ModalConfirmNewAccount({
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
           <DialogTitle>
-            Crear Nueva Cuenta Contable - {newAccount?.name}
+            <div className="flex w-full flex-row gap-x-2">
+              <div className="flex items-center justify-center">
+                <IonIcon icon={calculatorOutline} className="h-8 w-8" />
+              </div>
+              <div>
+                <h2 className="font-poppins text-xs font-medium text-grisHeading">
+                  Crear Nueva Cuenta Contable
+                </h2>
+                <h3 className="font-poppins text-xs font-light text-grisHeading">
+                  {newAccount?.name}
+                </h3>
+              </div>
+            </div>
           </DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
@@ -77,7 +91,7 @@ function ModalConfirmNewAccount({
             readOnly
             value={newAccount?.level}
           />
-          <span className="font-roboto text-[#A6A6A6]">
+          <span className="my-4 font-roboto text-[11px] font-light text-grisSubText">
             You are trying to create the account {newAccount?.level}{" "}
             {newAccount?.name}, are you sure?
           </span>
@@ -86,14 +100,14 @@ function ModalConfirmNewAccount({
             <div className="flex w-full justify-between gap-2">
               <Button
                 type="button"
-                className="bg-[#343434] font-roboto text-xs font-semibold hover:bg-primarioBotones"
+                className="w-fit px-0 h-fit rounded-xl bg-inherit font-roboto text-xs font-light text-[#44444F] hover:bg-inherit"
                 onClick={() => setModal(false)}
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
-                className="bg-primarioBotones font-roboto text-xs font-semibold hover:bg-primarioBotones"
+                className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
                 disabled={navigation.state === "submitting"}
               >
                 {navigation.state === "submitting"
