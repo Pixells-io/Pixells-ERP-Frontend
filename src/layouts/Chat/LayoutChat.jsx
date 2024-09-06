@@ -100,9 +100,12 @@ export default LayoutChat;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  switch (data.get("type_of_function")) {
+  const functionInput = data.get("type_of_function");
+
+  switch (functionInput) {
     case "1":
-      await SearchAction(data);
+      const chatId = await SearchAction(data);
+      console.log(chatId);
       break;
     case "2":
       await saveGroup(data);
