@@ -62,7 +62,7 @@ const SearchAccountingAccount = ({ accounts, setAccountsSearch }) => {
 
   return (
     <div className="flex w-full justify-end pr-8 pt-3">
-      <div className="flex items-center rounded-3xl px-2 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.15)]">
+      <div className="flex items-center rounded-3xl px-3 shadow-[0px_0px_8px_1px_rgba(0,0,0,0.15)]">
         <IonIcon
           icon={searchOutline}
           size="large"
