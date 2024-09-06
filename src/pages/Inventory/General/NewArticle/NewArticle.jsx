@@ -14,7 +14,7 @@ import { useLoaderData } from "react-router-dom";
 
 const CreateArticle = () => {
   const data = useLoaderData();
-  const {categories, warehouses, suppliers, attributes} = data;
+  const { categories, warehouses, suppliers, attributes } = data;
   const [inputsData, setInputsData] = useState({
     productType: "",
   });
@@ -90,7 +90,11 @@ const CreateArticle = () => {
         {/* Content */}
         <div className="w-full space-y-4 overflow-auto">
           <Inputs categories={categories} warehouses={warehouses} />
-          <FormGroup productType={inputsData.productType} suppliers={suppliers} attrb={attributes} />
+          <FormGroup
+            productType={inputsData.productType}
+            suppliers={suppliers}
+            attrb={attributes}
+          />
         </div>
       </div>
     </div>
@@ -122,15 +126,8 @@ export async function Action({ request }) {
   }
 
   const images = formData.getAll("images[]");
-  console.log("Attributes received:", attributes);
-  console.log("Images received:", images);
-
-  if (attributes.length === 0 && images.length === 0) {
-    return {
-      error: true,
-      message: "No se ha enviado ningún atributo ni imagen.",
-    };
-  }
+  console.log("Attributes: ", attributes);
+  console.log("Images: ", images);
 
   return "Datos procesados correctamente";
 }
