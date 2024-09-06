@@ -188,16 +188,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
               className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
               colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
             />
-            <Button
-              type="button"
-              className="absolute bottom-1 left-4 z-10 h-8 w-8 cursor-pointer rounded-full bg-[#BDBDBD]/[0.4] p-2"
-              onClick={() => {}}
-            >
-              <IonIcon
-                icon={chevronBack}
-                className="h-6 w-6 text-white"
-              ></IonIcon>
-            </Button>
+        
           </Carousel>
         ) : (
           <div
