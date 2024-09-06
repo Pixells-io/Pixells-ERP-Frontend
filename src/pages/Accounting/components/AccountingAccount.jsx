@@ -8,7 +8,7 @@ import {
 import SubAccountingAccount from "./SubAccountingAccount";
 import { cn } from "@/lib/utils";
 import FormDetailAccount from "./Tabs/FormDetailAccount";
-import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
+import { useLoaderData, useLocation, useOutletContext, useParams } from "react-router-dom";
 import {
   destroyAccountingAccount,
   getAccountingAccountsById,
@@ -35,6 +35,7 @@ const AccountingAccount = () => {
 
   const [accountName] = useOutletContext();
   const params = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     setAccountsInfo(data);
@@ -48,16 +49,16 @@ const AccountingAccount = () => {
   }
 
   useEffect(() => {
-    pusherClient.subscribe("private-get-accounting-account");
+    let channel = pusherClient.subscribe("private-get-accounting-account");
 
-    pusherClient.bind("fill-accounting-account", ({ message }) => {
+    channel.bind("fill-accounting-account", ({ message }) => {
       getAccountingAccountsList();
     });
 
     return () => {
       pusherClient.unsubscribe("private-get-accounting-account");
     };
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     transforInSubAccount();
