@@ -24,7 +24,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
   const [images, setImages] = useState([]);
 
   const selectClasses =
-    "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "border-gris2-transparent ml-4 w-2 rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: { "image/*": [] },
