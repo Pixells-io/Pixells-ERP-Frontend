@@ -66,7 +66,7 @@ function Search(search) {
             border: "0px",
             background: "white",
             borderRadius: "20px",
-            padding: "0px 4px 0px 4px",
+            padding: "0px 10px 0px 10px",
             boxShadow: "0px 0px 8px 1px rgba(0,0,0,0.2)",
           }),
         }}
