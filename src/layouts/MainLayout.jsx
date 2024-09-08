@@ -41,6 +41,7 @@ import {
   documentText,
   flask,
   storefront,
+  happy,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -48,6 +49,7 @@ import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
+import CrispinModal from "./CrispinAssistant/CrispinModal";
 
 let MENU_ORGANIZATIONAL = [];
 let MENU_TRANSACTIONAL = [];
@@ -159,6 +161,7 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData, permissions } = useLoaderData();
   const [moduleShow, setModuleShow] = useState(MENU_ORGANIZATIONAL);
+  const [crispinModal, setCrispinModal] = useState(false);
   const [moduleTransactionalShow, setModuleTransactionalShow] =
     useState(MENU_TRANSACTIONAL);
 
@@ -194,6 +197,7 @@ function MainLayout() {
 
   return (
     <div className="flex h-screen min-h-0 flex-col">
+      <CrispinModal modal={crispinModal} setModal={setCrispinModal} />
       <div className="flex h-[56px] items-center justify-between p-3">
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -309,6 +313,13 @@ function MainLayout() {
           <div className="flex gap-6">
             <div></div>
             <div className="flex gap-3">
+              <IonIcon
+                icon={happy}
+                size="large"
+                className="text-primario"
+                title="Preguntale a Crispin"
+                onClick={() => setCrispinModal(true)}
+              ></IonIcon>
               <Link to={"/calendar"}>
                 <IonIcon
                   icon={calendar}
@@ -417,7 +428,6 @@ function MainLayout() {
           </DropdownMenu>
         </div>
       </div>
-
       <div className="h-full min-h-0 flex-grow">
         <Outlet />
       </div>
