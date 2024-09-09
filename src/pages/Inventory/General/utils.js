@@ -9,7 +9,7 @@ export async function saveNewProduct(data) {
 
   // Convertir los valores booleanos correctamente
   const convertToBoolean = (value) =>
-    value === "true" ? true : value === "false" ? false : value;
+    value === "true" ? 1 : value === "false" ? false : 0;
 
   // Recoger la información del producto en el objeto FormData
   formData.append("type", parseInt(data.get("type")));
@@ -37,21 +37,22 @@ export async function saveNewProduct(data) {
   formData.append("default_supplier", parseInt(data.get("default_supplier")));
 
   // Añadir la imagen principal al FormData
-  if (data.get("principal_image")) {
-    formData.append("primary_img", data.get("principal_image"));
+  const principalImage = data.get("principal_image");
+  if (principalImage) {
+    formData.append("primary_img", principalImage);
   }
 
   // Si es un producto variable, añadir imágenes secundarias y variables
   if (parseInt(data.get("type")) === 1) {
-    const variableGroups = data.get("variable_groups")
-      ? JSON.parse(data.get("variable_groups"))
+    const variableGroups = data.get("variables")
+      ? JSON.parse(data.get("variables"))
       : [];
-
-    formData.append("variable_groups", JSON.stringify(variableGroups));
+      
+    formData.append("variables", JSON.stringify(variableGroups));
 
     // Agregar cada imagen secundaria al formData como array
-    const second_images = data.getAll("images[]");  // Recoger todas las imágenes del array
-    second_images.forEach((image, index) => {
+    const secondImages = data.getAll("second_images[]"); // Recoger todas las imágenes del array
+    secondImages.forEach((image, index) => {
       formData.append(`images[${index}]`, image);
     });
   }
@@ -70,6 +71,7 @@ export async function saveNewProduct(data) {
 
   return response.json();
 }
+
 
 
 export async function getCategories() {
