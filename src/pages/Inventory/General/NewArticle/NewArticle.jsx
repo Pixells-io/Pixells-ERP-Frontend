@@ -96,7 +96,15 @@ const CreateArticle = () => {
     { name: "active", value: inputsData.activos || false },
     { name: "from_active", value: inputsData.from || "" },
     { name: "to_active", value: inputsData.to || "" },
-    { name: "principal_image", value: inputsData.imagenPrincipal || "" },
+    {
+      name: "principal_image",
+      value: inputsData.imagenPrincipal ? JSON.stringify({
+        name: inputsData.imagenPrincipal.name,
+        type: inputsData.imagenPrincipal.type,
+        size: inputsData.imagenPrincipal.size,
+        lastModified: inputsData.imagenPrincipal.lastModified,
+      }) : "",
+    },
     { name: "valuation_method", value: inputsData.metodoValoracion || "" },
     { name: "min_stock", value: inputsData.stockMinimo || "" },
     { name: "max_stock", value: inputsData.stockMaximo || "" },
@@ -107,6 +115,8 @@ const CreateArticle = () => {
     },
     { name: "images", value: JSON.stringify(variableData.images) },
   ];
+
+  
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -190,21 +200,15 @@ const CreateArticle = () => {
                 value={input.value}
               />
             ))}
-            {inputsData.imagenPrincipal && (
-              <input
-                type="file"
-                name="principal_image"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={(e) => setInputsData({ ...inputsData, imagenPrincipal: e.target.files[0].path })}
-              />
-            )}
-            <button
-              type="submit"
-              className="rounded bg-blue-500 px-4 py-2 text-white"
-            >
-              Enviar
-            </button>
+
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="rounded bg-blue-500 px-4 py-2 text-white"
+              >
+                Enviar
+              </button>
+            </div>
           </Form>
         </div>
       </div>
@@ -217,6 +221,5 @@ export default CreateArticle;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewProduct(formData);
-  console.log(response)
   return "Datos procesados correctamente";
 }
