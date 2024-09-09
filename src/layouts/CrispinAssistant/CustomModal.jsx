@@ -3,19 +3,61 @@ import React, { useState } from "react";
 import QuestionForm from "./components/QuestionForm";
 import MenssageCard from "./components/MessageCard";
 import { IonIcon } from "@ionic/react";
-import { close, happyOutline, menu } from "ionicons/icons";
+import {
+  arrowUp,
+  close,
+  cube,
+  cubeOutline,
+  happyOutline,
+  menu,
+} from "ionicons/icons";
 
 function CustomModal({ isOpen, onClose }) {
   const [chat, setChat] = useState([]);
+  const [modalMode, setModalMode] = useState("w-96 h-[600px] p-6");
+
   console.log(chat);
   if (!isOpen) return null;
 
+  console.log(modalMode);
+
   return (
-    <div className="fixed right-6 top-16 z-50 flex h-[600px] w-96 max-w-full flex-col overflow-auto rounded-3xl bg-white p-6 shadow-lg">
+    <div
+      className={
+        modalMode +
+        " " +
+        "fixed right-6 top-16 z-50 flex max-w-full flex-col overflow-auto rounded-3xl bg-white shadow-lg transition-all"
+      }
+    >
       {/* HEADER SECTION */}
-      <div className="border-b py-2 font-poppins font-semibold text-grisHeading">
+
+      <div
+        className={
+          modalMode == "h-16 w-96 px-6 py-1"
+            ? "pt-4 font-poppins font-semibold text-grisHeading"
+            : "border-b py-2 font-poppins font-semibold text-grisHeading"
+        }
+      >
         <div className="flex w-full items-center justify-between">
-          <IonIcon icon={menu} className="text-2xl text-grisHeading" />
+          {modalMode == "w-96 h-[600px] p-6" ? (
+            <IonIcon
+              icon={cube}
+              className="text-2xl text-grisHeading"
+              onClick={() => setModalMode("w-[600px] h-[600px] p-6")}
+            />
+          ) : modalMode == "w-[600px] h-[600px] p-6" ? (
+            <IonIcon
+              icon={arrowUp}
+              className="text-2xl text-grisHeading"
+              onClick={() => setModalMode("h-16 w-96 px-6 py-1")}
+            />
+          ) : (
+            <IonIcon
+              icon={cubeOutline}
+              className="text-2xl text-grisHeading"
+              onClick={() => setModalMode("w-96 h-[600px] p-6")}
+            />
+          )}
           <div className="flex items-center gap-3">
             <IonIcon icon={happyOutline} className="text-2xl text-primario" />
             <span className="text-md font-poppins font-medium">CRISPÍN</span>
@@ -31,20 +73,24 @@ function CustomModal({ isOpen, onClose }) {
         </div>
       </div>
       {/* QUESTION SECTION */}
-      <div className="flex h-full flex-col-reverse overflow-y-scroll">
-        {chat.map((response, i) => (
-          <MenssageCard
-            key={i}
-            message={response.message}
-            type={response.type}
-            index={i}
-          />
-        ))}
-      </div>
+      {modalMode == "h-16 w-96 px-6 py-1" ? null : (
+        <div className="flex h-full flex-col-reverse overflow-y-scroll">
+          {chat.reverse().map((response, i) => (
+            <MenssageCard
+              key={i}
+              message={response.message}
+              type={response.type}
+              index={i}
+            />
+          ))}
+        </div>
+      )}
       {/* INPUT SEND SECTION */}
-      <div className="pt-4">
-        <QuestionForm setChat={setChat} />
-      </div>
+      {modalMode == "h-16 w-96 px-6 py-1" ? null : (
+        <div className="pt-4">
+          <QuestionForm setChat={setChat} />
+        </div>
+      )}
     </div>
   );
 }
