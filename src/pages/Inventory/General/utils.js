@@ -51,10 +51,11 @@ export async function saveNewProduct(data) {
     formData.append("variables", JSON.stringify(variableGroups));
 
     // Agregar cada imagen secundaria al formData como array
-    const secondImages = data.getAll("second_images[]"); // Recoger todas las imágenes del array
-    secondImages.forEach((image, index) => {
-      formData.append(`images[${index}]`, image);
-    });
+    const secondImages = data.get("second_images") ? data.get("second_images")
+    : [];
+    
+  formData.append("second_images", secondImages);
+
   }
 
   // Realizar la solicitud de creación del producto
