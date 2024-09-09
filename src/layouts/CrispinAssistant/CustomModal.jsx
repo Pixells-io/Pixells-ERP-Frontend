@@ -31,7 +31,7 @@ function CustomModal({ isOpen, onClose }) {
         </div>
       </div>
       {/* QUESTION SECTION */}
-      <div className="flex h-full flex-col overflow-y-scroll">
+      <div className="flex h-full flex-col-reverse overflow-y-scroll">
         {chat.map((response, i) => (
           <MenssageCard
             key={i}
@@ -43,7 +43,7 @@ function CustomModal({ isOpen, onClose }) {
       </div>
       {/* INPUT SEND SECTION */}
       <div className="pt-4">
-        <QuestionForm chat={chat} setChat={setChat} />
+        <QuestionForm setChat={setChat} />
       </div>
     </div>
   );

@@ -1,21 +1,7 @@
-import React, { useState } from "react";
-import Cookies from "js-cookie";
-
-import VisibilitySensor from "react-visibility-sensor";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import {
-  checkmarkDoneOutline,
-  ellipsisVerticalOutline,
-  happyOutline,
-} from "ionicons/icons";
+import { happyOutline } from "ionicons/icons";
 
 function MenssageCard({ message, type }) {
   return (

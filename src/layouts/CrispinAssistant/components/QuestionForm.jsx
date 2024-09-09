@@ -5,18 +5,8 @@ import { send } from "ionicons/icons";
 
 import { SendQuestion } from "../utils";
 
-function QuestionForm({ chat, setChat }) {
+function QuestionForm({ setChat }) {
   const [mssg, setMssg] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await SendQuestion(mssg);
-      console.log(response);
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
 
   async function onInputEnter(e) {
     if (e.code == "Enter") {
