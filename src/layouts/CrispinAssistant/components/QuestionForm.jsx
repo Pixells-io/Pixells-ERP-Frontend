@@ -1,20 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Form, useNavigation } from "react-router-dom";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import React, { useRef, useState } from "react";
 
 import { IonIcon } from "@ionic/react";
-import { add, addCircle, closeCircle, create, send } from "ionicons/icons";
+import { send } from "ionicons/icons";
 
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { SendQuestion } from "../utils";
 
 function QuestionForm() {
