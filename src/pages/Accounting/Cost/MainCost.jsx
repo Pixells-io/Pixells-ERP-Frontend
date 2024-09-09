@@ -153,7 +153,6 @@ const MainCost = () => {
         </div>
 
         {/* Data Table */}
-        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="CENTRO DE COSTOS"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -175,7 +174,6 @@ const MainCost = () => {
               />
             </TabsContent>
           </Tabs>
-        </div>
       </div>
     </div>
   );
