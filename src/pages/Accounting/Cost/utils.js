@@ -36,3 +36,22 @@ export async function saveCostCenter(data) {
 
   return response.json();
 }
+
+export async function destroyCostCenter(data) {
+  const info = {
+    cost_center_id: data.get("cost_center_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}accounting/destroy-cost-center`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

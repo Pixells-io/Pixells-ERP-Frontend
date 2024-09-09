@@ -1,23 +1,44 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
+  create,
   gridOutline,
   list,
   settings,
 } from "ionicons/icons";
 import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
-import AddConfig from "../components/ModalConfig";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { redirect, useLoaderData } from "react-router-dom";
-import { saveCostCenter } from "./utils";
+import { Link, redirect, useLoaderData } from "react-router-dom";
+import { destroyCostCenter, getCostCenter, saveCostCenter } from "./utils";
+import ModalDeleteCostCenter from "./Modals/ModalDeleteCostCenter";
+import { createPusherClient } from "@/lib/pusher";
 
 const MainCost = () => {
   const { data } = useLoaderData();
-  const [misDatos, setMisDatos] = useState(data);
+  const [costCenterList, setCostCenterList] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getCostCenterList() {
+    let newData = await getCostCenter();
+    setCostCenterList(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-cost-center");
+
+    pusherClient.bind("fill-cost-center", ({ message }) => {
+      getCostCenterList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-cost-center");
+    };
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -58,8 +79,18 @@ const MainCost = () => {
         accessorKey: "acciones",
         header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
-          <div className="text-center">
-            <AddConfig />
+          <div className="flex items-center justify-center gap-1 text-[#696974]">
+            <Link
+              to={`/bank-management/edit-bank/` + row?.original?.id}
+              className="flex items-center"
+            >
+              <IonIcon icon={create} className="h-5 w-5"></IonIcon>
+            </Link>
+            <ModalDeleteCostCenter
+              costCenter_id={row?.original?.id}
+              costCenter_name={row?.original?.name}
+            />
+            {/* <ModalDeleteBank bank_id={row?.original?.id} bank_name={row?.original?.name} /> */}
           </div>
         ),
       },
@@ -138,7 +169,7 @@ const MainCost = () => {
             </TabsList>
             <TabsContent value="CENTRO DE COSTOS" className="mt-[-60px] p-2">
               <DataTable
-                data={misDatos}
+                data={costCenterList}
                 columns={columns}
                 searchFilter={"code"}
                 searchNameFilter={"Ingrese el código"}
@@ -154,13 +185,15 @@ const MainCost = () => {
 export default MainCost;
 
 export async function Action({ request }) {
-
   const data = await request.formData();
   switch (data.get("type_option")) {
     case "save_costCenter":
       await saveCostCenter(data);
       break;
+    case "destroy_costCenter":
+      await destroyCostCenter(data);
+      break;
   }
-  
+
   return redirect(`/accounting/cost`);
 }
