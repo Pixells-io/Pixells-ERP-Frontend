@@ -74,7 +74,7 @@ function CustomModal({ isOpen, onClose }) {
       </div>
       {/* QUESTION SECTION */}
       {modalMode == "h-16 w-96 px-6 py-1" ? null : (
-        <div className="flex h-full flex-col-reverse overflow-y-scroll">
+        <div className="flex h-full flex-col-reverse overflow-y-scroll pr-3 pt-4">
           {chat.reverse().map((response, i) => (
             <MenssageCard
               key={i}
