@@ -3,12 +3,40 @@ import { json } from "react-router-dom";
 
 
 //SAVE PRODUCTS
-export async function saveNewProduct(data) {
+export async function saveNewProduct(formData) {
+  const type = parseInt(formData.get("type"));
+
   const info = {
-    code: data.get("code"),
-    name: data.get("name"),
+    type,
+    code: formData.get("code"),
+    name: formData.get("name"),
+    costCenterId: parseInt(formData.get("cost_center_id")),
+    preferred_warehouse_id: parseInt(formData.get("preferred_warehouse_id")),
+    price: formData.get("price"),
+    category_id: parseInt(formData.get("category_id")),
+    barcode: formData.get("barcode"),
+    measure: formData.get("measure"),
+    rawMaterial: formData.get("raw_material"),
+    buys: formData.get("buys"),
+    sale: formData.get("sale"),
+    subject_to_tax: formData.get("subject_to_tax"),
+    available_for_return: formData.get("available_for_return"),
+    manufacturing_available: formData.get("manufacturing_available"),
+    manufacturer: formData.get("manufacturer"),
+    active: formData.get("active") === "true",
+    from_active: formData.get("from_active"),
+    to_active: formData.get("to_active"),
+    principal_image: formData.get("principal_image"),
+    valuation_method: formData.get("valuation_method"),
+    min_stock: formData.get("min_stock"),
+    max_stock: formData.get("max_stock"),
+    default_supplier: parseInt(formData.get("default_supplier")),
   };
 
+  if (type === 1) {
+    info.variables = formData.get("variable_groups") ? JSON.parse(formData.get("variable_groups")) : [];
+    info.second_images = formData.get("images") ? JSON.parse(formData.get("images")) : [];
+  }
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {

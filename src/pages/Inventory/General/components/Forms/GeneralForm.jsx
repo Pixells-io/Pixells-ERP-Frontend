@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
@@ -8,42 +8,87 @@ import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
 
 const GeneralForm = ({ data, setData }) => {
-  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    sujetoAImpuesto: data.sujetoAImpuesto || false,
+    disponibleParaDevolucion: data.disponibleParaDevolucion || false,
+    fabricantes: data.fabricantes || "",
+    comentario: data.comentario || "",
+    activos: data.activos || false,
+    inactivo: !data.activos,
+    from: data.from || "",
+    to: data.to || "",
+    imagenPrincipal: data.imagenPrincipal || null,
+  });
+  
+  const [imagePreview, setImagePreview] = useState("");
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
-      setImage(URL.createObjectURL(acceptedFiles[0]));
+      const file = acceptedFiles[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          imagenPrincipal: file,
+        }));
+        setImagePreview(imageUrl);
+      }
     },
   });
 
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    setData(formData);
+  }, [formData, setData]);
+
   const handleCheckboxChange = (name) => {
-    setData({ ...data, [name]: !data[name] });
+    if (name === "activos") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        activos: !prevFormData.activos,
+        inactivo: prevFormData.activos,
+      }));
+    } else if (name === "inactivo") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        activos: !prevFormData.inactivo,
+        inactivo: prevFormData.inactivo,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: !prevFormData[name],
+      }));
+    }
   };
 
   const handleRemoveImage = () => {
-    setImage(null);
-  };
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      imagenPrincipal: null,
+    }));
+    setImagePreview("");
 
+  };
   return (
     <div className="grid grid-cols-4 gap-4">
       <div className="col-span-1 flex items-center space-x-3">
         <Label
-          htmlFor="sImpuesto"
+          htmlFor="sujetoAImpuesto"
           className="font-roboto text-[14px] text-gris2"
         >
           Sujeto a impuestos
         </Label>
         <Checkbox
-          id="sImpuesto"
-          name="sImpuesto"
-          checked={data.sujetoAImpuesto}
+          id="sujetoAImpuesto"
+          name="sujetoAImpuesto"
+          checked={formData.sujetoAImpuesto}
           onCheckedChange={() => handleCheckboxChange("sujetoAImpuesto")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
@@ -51,59 +96,59 @@ const GeneralForm = ({ data, setData }) => {
 
       <div className="col-span-1 flex items-center space-x-6">
         <Label
-          htmlFor="activo"
+          htmlFor="activos"
           className="flex font-roboto text-[14px] text-gris2"
         >
           Activo
         </Label>
         <Checkbox
-          id="activo"
-          name="activo"
-          checked={data.activos}
-          onCheckedChange={() => handleCheckboxChange("activo")}
+          id="activos"
+          name="activos"
+          checked={formData.activos}
+          onCheckedChange={() => handleCheckboxChange("activos")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
       <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
         <Label
-          htmlFor="desde"
+          htmlFor="from"
           className="pt-2 font-roboto text-[14px] text-gris2"
         >
           Desde:
         </Label>
         <InputRouter
           type="date"
-          name="desde"
-          value={data.from}
+          name="from"
+          value={formData.from}
           onChange={handleChange}
         />
       </div>
       <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
         <Label
-          htmlFor="hasta"
+          htmlFor="to"
           className="pt-2 font-roboto text-[14px] text-gris2"
         >
           Hasta:
         </Label>
         <InputRouter
           type="date"
-          name="hasta"
-          value={data.to}
+          name="to"
+          value={formData.to}
           onChange={handleChange}
         />
       </div>
       <div className="col-span-1 flex items-center space-x-6">
         <Label
-          htmlFor="sImpuesto"
+          htmlFor="disponibleParaDevolucion"
           className="font-roboto text-[14px] text-gris2"
         >
           Disponible para devolución
         </Label>
         <Checkbox
-          id="debo"
-          name="debo"
-          checked={data.debo}
-          onCheckedChange={() => handleCheckboxChange("devo")}
+          id="disponibleParaDevolucion"
+          name="disponibleParaDevolucion"
+          checked={formData.disponibleParaDevolucion}
+          onCheckedChange={() => handleCheckboxChange("disponibleParaDevolucion")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
@@ -118,7 +163,7 @@ const GeneralForm = ({ data, setData }) => {
         <Checkbox
           id="inactivo"
           name="inactivo"
-          checked={data.inactivo}
+          checked={formData.inactivo}
           onCheckedChange={() => handleCheckboxChange("inactivo")}
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
@@ -127,15 +172,15 @@ const GeneralForm = ({ data, setData }) => {
       <div></div>
       <div className="col-span-1 flex items-center space-x-6">
         <Label
-          htmlFor="fabricante"
+          htmlFor="fabricantes"
           className="mr-3 pt-2 font-roboto text-[14px] text-gris2"
         >
           Fabricante:
         </Label>
         <InputRouter
           type="text"
-          name="fabricante"
-          value={data.fabricantes}
+          name="fabricantes"
+          value={formData.fabricantes}
           onChange={handleChange}
         />
       </div>
@@ -144,23 +189,26 @@ const GeneralForm = ({ data, setData }) => {
       <div></div>
       <div className="col-span-1 flex items-center space-x-6">
         <Label
-          htmlFor="comentarios"
+          htmlFor="comentario"
           className="mb-1 font-roboto text-[14px] text-gris2"
         >
           Comentarios:
         </Label>
         <Textarea
-          name="comentarios"
-          value={data.comentario}
+          name="comentario"
+          value={formData.comentario}
           onChange={handleChange}
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />
       </div>
       <div></div>
       <div></div>
-      <div className="relative col-span-3 ml-[600px] mt-[-200px] flex grid cursor-pointer items-center justify-end p-8">
-        <div {...getRootProps()} className="relative flex items-end">
-          {image ? (
+      <div className="col-span-4 flex flex-col items-start space-y-2">
+        <Label htmlFor="imagenPrincipal" className="font-roboto text-[14px] text-gris2">
+          Imagen Principal
+        </Label>
+        <div {...getRootProps()} className="relative flex items-end cursor-pointer">
+          {imagePreview ? (
             <div className="relative rounded-xl border border-primarioBotones p-4">
               <button
                 onClick={(e) => {
@@ -175,21 +223,18 @@ const GeneralForm = ({ data, setData }) => {
                 />
               </button>
               <img
-                src={image}
-                alt="Uploaded"
+                src={imagePreview}
+                alt="Imagen cargada"
                 className="max-h-48 max-w-full object-contain"
               />
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <IonIcon
-                icon={imageOutline}
-                className="h-12 w-12 text-gray-500"
-              />
+              <IonIcon icon={imageOutline} className="h-12 w-12 text-gray-500" />
               <span className="ml-2 text-gray-500">Agregar Imagen</span>
             </div>
           )}
-          <input {...getInputProps()} />
+          <input {...getInputProps()} name="imagenPrincipal" type="file" />
         </div>
       </div>
     </div>

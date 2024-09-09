@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GeneralForm from "./Forms/GeneralForm";
 import InventoryForm from "./Forms/InventoryForm";
@@ -13,65 +13,8 @@ const FormGroup = ({
   inputsData,
   setInputsData,
   variableData,
-  setVariableData, 
+  setVariableData,
 }) => {
-  const [generalData, setGeneralData] = useState({
-    sImpuesto: inputsData.sujetoAImpuesto,
-    devo: inputsData.disponibleParaDevolucion,
-    fabricante: inputsData.fabricante,
-    comentarios: "",
-    activo: inputsData.activo,
-    inactivo: false,
-    desde: inputsData.desde,
-    hasta: inputsData.hasta,
-  });
-
-  const [inventoryData, setInventoryData] = useState({
-    costeo: inputsData.metodoValoracion,
-    costo: "0.00",
-    minimo: inputsData.stockMinimo,
-    maximo: inputsData.stockMaximo,
-  });
-
-  const [checkData, setCheckData] = useState({
-    proveedorDefault: inputsData.proveedor || "",
-  });
-  // Actualizar inputsData cuando los datos generales cambian
-  const handleGeneralDataChange = (name, value) => {
-    setGeneralData((prevData) => ({ ...prevData, [name]: value }));
-    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
-  };
-
-  // Actualizar inputsData cuando los datos cambien
-  const handleInventoryDataChange = (name, value) => {
-    setInventoryData((prevData) => ({ ...prevData, [name]: value }));
-    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
-  };
-
-  const handleCheckDataChange = (name, value) => {
-    setCheckData((prevData) => ({ ...prevData, [name]: value }));
-    setInputsData((prevInputsData) => ({ ...prevInputsData, [name]: value }));
-  };
-
-  const handleVariableDataChange = (newData) => {
-    setVariableData((prevData) => ({
-      ...prevData,
-      ...newData,
-    }));
-  };
-
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files).map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-      name: file.name, 
-    }));
-    setVariableData((prevState) => ({
-      ...prevState,
-      images: [...prevState.images, ...files],
-    }));
-  };
-
   return (
     <div className="w-full overflow-hidden">
       <Tabs defaultValue="general" className="w-full">
@@ -102,10 +45,7 @@ const FormGroup = ({
               GENERAL
             </h2>
             <div className="flex flex-wrap pl-2">
-              <GeneralForm
-                data={generalData}
-                setData={handleGeneralDataChange} 
-              />
+              <GeneralForm data={inputsData} setData={setInputsData} />
             </div>
           </TabsContent>
           <TabsContent value="variables">
@@ -113,7 +53,7 @@ const FormGroup = ({
               <VariableForm
                 attrb={attrb}
                 variableData={variableData}
-                onDataChange={handleVariableDataChange}
+                setVariableData={setVariableData} 
               />
             )}
           </TabsContent>
@@ -122,10 +62,7 @@ const FormGroup = ({
               INVENTARIO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InventoryForm
-                data={inventoryData}
-                setData={handleInventoryDataChange} 
-              />
+              <InventoryForm data={inputsData} setData={setInputsData} />
             </div>
           </TabsContent>
           <TabsContent value="storage">
@@ -133,7 +70,7 @@ const FormGroup = ({
               ALMACÉN
             </h2>
             <div className="flex pl-2">
-              <WarehouseForm />
+              <WarehouseForm  />
             </div>
           </TabsContent>
           <TabsContent value="shopping">
@@ -141,11 +78,7 @@ const FormGroup = ({
               COMPRAS
             </h2>
             <div className="flex w-full pl-2">
-              <CheckForm
-                suppliers={suppliers}
-                data={checkData}
-                setData={handleCheckDataChange} 
-              />
+              <CheckForm suppliers={suppliers} data={inputsData} setData={setInputsData} />
             </div>
           </TabsContent>
         </div>

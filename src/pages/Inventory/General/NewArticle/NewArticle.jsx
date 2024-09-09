@@ -10,40 +10,42 @@ import {
 } from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigate } from "react-router-dom";
 import { saveNewProduct } from "../utils";
 
 const CreateArticle = () => {
   const data = useLoaderData();
   const { categories, warehouses, suppliers, attributes } = data;
-
-  const [inputsData, setInputsData] = useState({
-    productType: 0,
+  const [initialValues, setInitialValues] = useState({
+    productType: "0",
     codigoDeArticulo: "",
     nombreODescripcion: "",
-    centroDeCostos: "",  
-    listaDePrecios: "",  
-    precio: "",          
-    almacen: "",         
+    centroDeCostos: "",
+    listaDePrecios: "",
+    precio: "",
+    almacen: "",
     unidadesDeMedida: "",
-    categoria: "",       
+    categoria: "",
     codigoDeBarras: "",
     inventario: false,
     compra: false,
     venta: false,
+  });
+
+  const [inputsData, setInputsData] = useState({
     sujetoAImpuesto: false,
     disponibleParaDevolucion: false,
     manufacturaDisponible: false,
     fabricantes: "",
-    comentario:"",
+    comentario: "",
     activos: false,
     from: "",
     to: "",
-    imagenPrincipal: "",
+    imagenPrincipal: null,
     metodoValoracion: "",
-    costo:"",
-    stockMinimo: "",     
-    stockMaximo: "",     
+    costo: "",
+    stockMinimo: "",
+    stockMaximo: "",
     proveedor: "",
   });
 
@@ -53,17 +55,61 @@ const CreateArticle = () => {
   });
 
   const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => ({ ...prevData, [name]: value }));
+    setInitialValues((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const getActiveSlots = (groups) => {
+    return groups.map((group) => ({
+      ...group,
+      slots: group.slots.filter(
+        (slot) => slot.active === 1 || slot.active === 0,
+      ),
+    }));
+  };
 
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
+  const hiddenInputs = [
+    { name: "type", value: initialValues.productType || "" },
+    { name: "code", value: initialValues.codigoDeArticulo || "" },
+    { name: "name", value: initialValues.nombreODescripcion || "" },
+    { name: "cost_center_id", value: initialValues.centroDeCostos || "" },
+    { name: "preferred_warehouse_id", value: initialValues.almacen || "" },
+    { name: "price", value: initialValues.precio || "" },
+    { name: "category_id", value: initialValues.categoria || "" },
+    { name: "barcode", value: initialValues.codigoDeBarras || "" },
+    { name: "measure", value: initialValues.unidadesDeMedida || "" },
+    { name: "raw_material", value: initialValues.inventario || false },
+    { name: "buys", value: initialValues.compra || false },
+    { name: "sale", value: initialValues.venta || false },
+    { name: "subject_to_tax", value: inputsData.sujetoAImpuesto || false },
+    {
+      name: "available_for_return",
+      value: inputsData.disponibleParaDevolucion || false,
+    },
+    {
+      name: "manufacturing_available",
+      value: inputsData.disponibleParaDevolucion || false,
+    },
+    { name: "manufacturer", value: inputsData.fabricantes || "" },
+    { name: "active", value: inputsData.activos || false },
+    { name: "from_active", value: inputsData.from || "" },
+    { name: "to_active", value: inputsData.to || "" },
+    { name: "principal_image", value: inputsData.imagenPrincipal || "" },
+    { name: "valuation_method", value: inputsData.metodoValoracion || "" },
+    { name: "min_stock", value: inputsData.stockMinimo || "" },
+    { name: "max_stock", value: inputsData.stockMaximo || "" },
+    { name: "default_supplier", value: inputsData.proveedor || "" },
+    {
+      name: "variable_groups",
+      value: JSON.stringify(getActiveSlots(variableData.selectedGroups)),
+    },
+    { name: "images", value: JSON.stringify(variableData.images) },
+  ];
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* Navegación */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
             <div className="h-12 w-12">
@@ -86,7 +132,6 @@ const CreateArticle = () => {
           </div>
         </div>
 
-        {/* Formulario de nuevo artículo */}
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Artículo
@@ -97,7 +142,7 @@ const CreateArticle = () => {
             </span>
             <Select
               name="productType"
-              value={inputsData.productType}
+              value={initialValues.productType || "0"}
               onValueChange={(value) =>
                 handleSelectChange("productType", value)
               }
@@ -113,17 +158,16 @@ const CreateArticle = () => {
           </div>
         </div>
 
-        {/* Contenido */}
         <div className="relative w-full space-y-4 overflow-auto">
           <Inputs
             categories={categories}
             warehouses={warehouses}
-            inputsData={inputsData}
-            setInputsData={setInputsData}
+            inputsData={initialValues}
+            setInputsData={setInitialValues}
           />
 
           <FormGroup
-            productType={inputsData.productType}
+            productType={initialValues.productType}
             suppliers={suppliers}
             attrb={attributes}
             inputsData={inputsData}
@@ -132,150 +176,29 @@ const CreateArticle = () => {
             setVariableData={setVariableData}
           />
 
-          {/* Formulario de envío */}
           <Form
             method="post"
             action="/inventory/create"
             encType="multipart/form-data"
           >
             {/* Inputs ocultos */}
-            <input
-              type="hidden"
-              name="type"
-              value={inputsData.productType}
-            />
-            <input
-              type="hidden"
-              name="code"
-              value={inputsData.codigoDeArticulo}
-            />
-            <input
-              type="hidden"
-              name="name"
-              value={inputsData.nombreODescripcion}
-            />
-            <input
-              type="hidden"
-              name="cost_center_id"
-              value={inputsData.centroDeCostos}
-            />
-            <input
-              type="hidden"
-              name="preferred_warehouse_id"
-              value={inputsData.almacen}
-            />
-            <input
-              type="hidden"
-              name="price"
-              value={inputsData.precio}
-            />
-            <input
-              type="hidden"
-              name="category_id"
-              value={inputsData.categoria}
-            />
-            <input
-              type="hidden"
-              name="barcode"
-              value={inputsData.codigoDeBarras}
-            />
-            <input
-              type="hidden"
-              name="measure"
-              value={inputsData.unidadesDeMedida}
-            />
-            <input
-              type="hidden"
-              name="raw_material"
-              value={inputsData.inventario}
-            />
-            <input
-              type="hidden"
-              name="buys"
-              value={inputsData.compra}
-            />
-            <input
-              type="hidden"
-              name="sale"
-              value={inputsData.venta}
-            />
-            <input
-              type="hidden"
-              name="subject_to_tax"
-              value={inputsData.sujetoAImpuesto}
-            />
-            <input
-              type="hidden"
-              name="available_for_return"
-              value={inputsData.disponibleParaDevolucion}
-            />
-            <input
-              type="hidden"
-              name="manufacturing_available"
-              value={inputsData.manufacturaDisponible}
-            />
-            <input
-              type="hidden"
-              name="manufacturer"
-              value={inputsData.fabricante}
-            />
-            <input
-              type="hidden"
-              name="active"
-              value={inputsData.activo}
-            />
-            <input
-              type="hidden"
-              name="from_active"
-              value={inputsData.desde}
-            />
-            <input
-              type="hidden"
-              name="to_active"
-              value={inputsData.hasta}
-            />
-            <input
-              type="hidden"
-              name="principal_image"
-              value={inputsData.imagenPrincipal}
-            />
-            <input
-              type="hidden"
-              name="valuation_method"
-              value={inputsData.metodoValoracion}
-            />
-            <input
-              type="hidden"
-              name="min_stock"
-              value={inputsData.stockMinimo}
-            />
-            <input
-              type="hidden"
-              name="max_stock"
-              value={inputsData.stockMaximo}
-            />
-            <input
-              type="hidden"
-              name="default_supplier"
-              value={inputsData.proveedorDefault}
-            />
-
-            {/* Si el producto es de tipo variable, enviar datos adicionales */}
-            {inputsData.productType === "1" && (
-              <>
-                <input
-                  type="hidden"
-                  name="variable_groups"
-                  value={JSON.stringify(variableData.selectedGroups)}
-                />
-                <input
-                  type="hidden"
-                  name="images"
-                  value={JSON.stringify(variableData.images)}
-                />
-              </>
+            {hiddenInputs.map((input) => (
+              <input
+                key={input.name}
+                type="hidden"
+                name={input.name}
+                value={input.value}
+              />
+            ))}
+            {inputsData.imagenPrincipal && (
+              <input
+                type="file"
+                name="principal_image"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={(e) => setInputsData({ ...inputsData, imagenPrincipal: e.target.files[0].path })}
+              />
             )}
-
             <button
               type="submit"
               className="rounded bg-blue-500 px-4 py-2 text-white"
@@ -291,10 +214,9 @@ const CreateArticle = () => {
 
 export default CreateArticle;
 
-
-
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveNewProduct(formData);
+  console.log(response)
   return "Datos procesados correctamente";
 }

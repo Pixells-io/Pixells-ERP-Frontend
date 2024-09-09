@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -8,16 +8,20 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
-const CheckForm = ({ suppliers, data, setData }) => {
+const CheckForm = ({ suppliers, data, setData, isEdit = false }) => {
   const selectClasses =
     "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-none bg-grisBg font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-  const handleSelectChange = (name, value) => {
+
+
+  const handleSelectChange = (value) => {
     setData((prevData) => ({
       ...prevData,
-      [name]: value,
+      proveedor: value,
     }));
   };
+
+ 
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -30,17 +34,15 @@ const CheckForm = ({ suppliers, data, setData }) => {
             Proveedor predeterminado
           </Label>
           <Select
-            name="proveedorDefault"
-            value={data.proveedorDefault || ""}
-            onValueChange={(value) =>
-              handleSelectChange("proveedorDefault", value)
-            }
+            name="proveedor"
+            value={data.proveedor || ""}
+            onValueChange={handleSelectChange}
           >
             <SelectTrigger className={selectClasses}>
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
             <SelectContent>
-              {suppliers.data.map((proveedor) => (
+              {suppliers?.data?.map((proveedor) => (
                 <SelectItem key={proveedor.id} value={proveedor.id.toString()}>
                   {proveedor.name}
                 </SelectItem>
