@@ -3,7 +3,6 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  create,
   gridOutline,
   list,
   settings,
@@ -12,10 +11,16 @@ import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { Link, redirect, useLoaderData } from "react-router-dom";
-import { destroyCostCenter, getCostCenter, saveCostCenter } from "./utils";
+import { redirect, useLoaderData } from "react-router-dom";
+import {
+  destroyCostCenter,
+  getCostCenter,
+  saveCostCenter,
+  updateCostCenter,
+} from "./utils";
 import ModalDeleteCostCenter from "./Modals/ModalDeleteCostCenter";
 import { createPusherClient } from "@/lib/pusher";
+import ModalEditCost from "./Modals/ModalEditCost";
 
 const MainCost = () => {
   const { data } = useLoaderData();
@@ -80,17 +85,11 @@ const MainCost = () => {
         header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
           <div className="flex items-center justify-center gap-1 text-[#696974]">
-            <Link
-              to={`/bank-management/edit-bank/` + row?.original?.id}
-              className="flex items-center"
-            >
-              <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-            </Link>
+            <ModalEditCost costCenter={row?.original} />
             <ModalDeleteCostCenter
               costCenter_id={row?.original?.id}
               costCenter_name={row?.original?.name}
             />
-            {/* <ModalDeleteBank bank_id={row?.original?.id} bank_name={row?.original?.name} /> */}
           </div>
         ),
       },
@@ -154,7 +153,6 @@ const MainCost = () => {
         </div>
 
         {/* Data Table */}
-        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="CENTRO DE COSTOS"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -176,7 +174,6 @@ const MainCost = () => {
               />
             </TabsContent>
           </Tabs>
-        </div>
       </div>
     </div>
   );
@@ -189,6 +186,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "save_costCenter":
       await saveCostCenter(data);
+      break;
+    case "update_costCenter":
+      await updateCostCenter(data);
       break;
     case "destroy_costCenter":
       await destroyCostCenter(data);

@@ -3,47 +3,65 @@ import { json } from "react-router-dom";
 
 
 //SAVE PRODUCTS
-export async function saveNewProduct(formData) {
-  const type = parseInt(formData.get("type"));
+export async function saveNewProduct(data) {
+  // Crear el objeto FormData para enviar los datos
+  const formData = new FormData();
 
-  const convertToBoolean = (value) => value === "true" ? true : value === "false" ? false : value;
+  // Convertir los valores booleanos correctamente
+  const convertToBoolean = (value) =>
+    value === "true" ? true : value === "false" ? false : value;
 
-  const info = {
-    type,
-    code: formData.get("code"),
-    name: formData.get("name"),
-    cost_center_id: parseInt(formData.get("cost_center_id")),
-    preferred_warehouse_id: parseInt(formData.get("preferred_warehouse_id")),
-    price: formData.get("price"),
-    category_id: parseInt(formData.get("category_id")),
-    barcode: formData.get("barcode"),
-    measure: formData.get("measure"),
-    rawMaterial: convertToBoolean(formData.get("raw_material")),
-    buys: convertToBoolean(formData.get("buys")),
-    sale: convertToBoolean(formData.get("sale")),
-    subject_to_tax: convertToBoolean(formData.get("subject_to_tax")),
-    available_for_return: convertToBoolean(formData.get("available_for_return")),
-    manufacturing_available: convertToBoolean(formData.get("manufacturing_available")),
-    manufacturer: formData.get("manufacturer"),
-    active: convertToBoolean(formData.get("active")),
-    from_active: formData.get("from_active"),
-    to_active: formData.get("to_active"),
-    principal_image: formData.get("principal_image") ? JSON.parse(formData.get("principal_image")) : "",    valuation_method: formData.get("valuation_method"),
-    min_stock: formData.get("min_stock"),
-    max_stock: formData.get("max_stock"),
-    default_supplier: parseInt(formData.get("default_supplier")),
-  };
+  // Recoger la información del producto en el objeto FormData
+  formData.append("type", parseInt(data.get("type")));
+  formData.append("code", data.get("code"));
+  formData.append("name", data.get("name"));
+  formData.append("cost_center_id", parseInt(data.get("cost_center_id")));
+  formData.append("preferred_warehouse_id", parseInt(data.get("preferred_warehouse_id")));
+  formData.append("price", data.get("price"));
+  formData.append("category_id", parseInt(data.get("category_id")));
+  formData.append("barcode", data.get("barcode"));
+  formData.append("measure", data.get("measure"));
+  formData.append("raw_material", convertToBoolean(data.get("raw_material")));
+  formData.append("buys", convertToBoolean(data.get("buys")));
+  formData.append("sale", convertToBoolean(data.get("sale")));
+  formData.append("subject_to_tax", convertToBoolean(data.get("subject_to_tax")));
+  formData.append("available_for_return", convertToBoolean(data.get("available_for_return")));
+  formData.append("manufacturing_available", convertToBoolean(data.get("manufacturing_available")));
+  formData.append("manufacturer", data.get("manufacturer"));
+  formData.append("active", convertToBoolean(data.get("active")));
+  formData.append("from_active", data.get("from_active"));
+  formData.append("to_active", data.get("to_active"));
+  formData.append("valuation_method", data.get("valuation_method"));
+  formData.append("min_stock", data.get("min_stock"));
+  formData.append("max_stock", data.get("max_stock"));
+  formData.append("default_supplier", parseInt(data.get("default_supplier")));
 
-  if (type === 1) {
-    info.variables = formData.get("variable_groups") ? JSON.parse(formData.get("variable_groups")) : [];
-    info.second_images = formData.get("images") ? JSON.parse(formData.get("images")) : [];
+  // Añadir la imagen principal al FormData
+  if (data.get("principal_image")) {
+    formData.append("primary_img", data.get("principal_image"));
   }
 
+  // Si es un producto variable, añadir imágenes secundarias y variables
+  if (parseInt(data.get("type")) === 1) {
+    const variableGroups = data.get("variable_groups")
+      ? JSON.parse(data.get("variable_groups"))
+      : [];
+
+    formData.append("variable_groups", JSON.stringify(variableGroups));
+
+    // Agregar cada imagen secundaria al formData como array
+    const second_images = data.getAll("images[]");  // Recoger todas las imágenes del array
+    second_images.forEach((image, index) => {
+      formData.append(`images[${index}]`, image);
+    });
+  }
+
+  // Realizar la solicitud de creación del producto
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {
       method: "POST",
-      body: JSON.stringify(info),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
