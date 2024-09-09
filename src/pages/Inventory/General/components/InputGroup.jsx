@@ -41,7 +41,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de Articulo"
               name="codigoDeArticulo"
-              value={inputsData.codigoDeArticulo}
+              value={inputsData.codigoDeArticulo || ""}
               onChange={handleInputChange}
             />
             <Input
@@ -49,12 +49,12 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Nombre o descripcion"
               name="nombreODescripcion"
-              value={inputsData.nombreODescripcion}
+              value={inputsData.nombreODescripcion || ""}
               onChange={handleInputChange}
             />
             <Select
               name="centroDeCostos"
-              value={inputsData.centroDeCostos}
+              value={inputsData.centroDeCostos || ""}
               onValueChange={(value) =>
                 handleSelectChange("centroDeCostos", value)
               }
@@ -70,7 +70,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
 
             <Select
               name="listaDePrecios"
-              value={inputsData.listaDePrecios}
+              value={inputsData.listaDePrecios || ""}
               onValueChange={(value) =>
                 handleSelectChange("listaDePrecios", value)
               }
@@ -86,18 +86,18 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             
             <Select
               name="almacen"
-              value={inputsData.almacen}
+              value={inputsData.almacen || ""}
               onValueChange={(value) => handleSelectChange("almacen", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
-              {warehouses.data.map((warehouse) => (
-                <SelectItem key={warehouse.id} value={warehouse.id}>
-                  {warehouse.name}
-                </SelectItem>
-              ))}
+                {warehouses.data.map((warehouse) => (
+                  <SelectItem key={warehouse.id} value={warehouse.id}>
+                    {warehouse.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             
@@ -108,24 +108,24 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               name="precio"
               min="0"
               step="0.1"
-              value={inputsData.precio}
+              value={inputsData.precio || ""}
               onChange={handleInputChange}
             />
             
             <Select
               name="categoria"
-              value={inputsData.categoria}
+              value={inputsData.categoria || ""}
               onValueChange={(value) => handleSelectChange("categoria", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent>
-              {categories.data.map((categories) => (
-                <SelectItem key={categories.id} value={categories.id}>
-                  {categories.name}
-                </SelectItem>
-              ))}
+                {categories.data.map((category) => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             
@@ -133,14 +133,14 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de barras"
               name="codigoDeBarras"
-              value={inputsData.codigoDeBarras}
+              value={inputsData.codigoDeBarras || ""}
               onChange={handleInputChange}
             />
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Unidades de Medida"
-              name="unidadDeMedida"
-              value={inputsData.unidadesDeMedida}
+              name="unidadesDeMedida"
+              value={inputsData.unidadesDeMedida || ""}
               readOnly
             />
           </div>
@@ -152,7 +152,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               <Checkbox
                 id="inventario"
                 name="inventario"
-                checked={inputsData.inventario}
+                checked={inputsData.inventario || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("inventario", checked)
                 }
@@ -169,7 +169,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               <Checkbox
                 id="compra"
                 name="compra"
-                checked={inputsData.compra}
+                checked={inputsData.compra || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("compra", checked)
                 }
@@ -186,7 +186,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               <Checkbox
                 id="venta"
                 name="venta"
-                checked={inputsData.venta}
+                checked={inputsData.venta || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("venta", checked)
                 }
@@ -202,7 +202,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             <div className="pl-0 ml-0 pt-4">
               <UnitMeasure
                 onSelect={handleUnitMeasureSelect}
-                initialValue={inputsData.unidadesDeMedida}
+                initialValue={inputsData.unidadesDeMedida || ""}
               />
             </div>
           </div>

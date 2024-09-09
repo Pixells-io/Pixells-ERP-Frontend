@@ -18,10 +18,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const VariableForm = ({ attrb, variableData, onDataChange }) => {
+const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) => {
   const allSlots = attrb.data;
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [images, setImages] = useState([]);
 
   const selectClasses =
     "border-gris2-transparent ml-4 w-2 rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
@@ -36,30 +34,33 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
         size: file.size,
         type: file.type,
       }));
-      setImages((prevImages) => [...prevImages, ...newImages]);
+      setVariableData((prevData) => ({
+        ...prevData,
+        images: [...prevData.images, ...newImages],
+      }));
     },
   });
 
-  useEffect(() => {
-    onDataChange({ images });
-  }, [images]);
-
   const handleRemoveImage = (index) => {
-    const newImages = images.filter((_, i) => i !== index);
-    setImages(newImages);
-    onDataChange({ images: newImages });
+    setVariableData((prevData) => ({
+      ...prevData,
+      images: prevData.images.filter((_, i) => i !== index),
+    }));
   };
 
   const handleSelectChange = (value) => {
-    setSelectedSlot(value);
+    setVariableData((prevData) => ({
+      ...prevData,
+      selectedSlot: value,
+    }));
   };
 
   const handlerAddGroup = () => {
-    if (selectedSlot) {
-      const newGroup = allSlots.find((slot) => slot.id === selectedSlot);
+    if (variableData.selectedSlot) {
+      const newGroup = allSlots.find((slot) => slot.id === variableData.selectedSlot);
       if (
         newGroup &&
-        !variableData.selectedGroups.some((group) => group.id === selectedSlot)
+        !variableData.selectedGroups.some((group) => group.id === variableData.selectedSlot)
       ) {
         const groupWithActiveStatus = {
           id: newGroup.id,
@@ -71,20 +72,22 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
           })),
         };
 
-        // Este setState se dispara tras el clic, fuera del ciclo de renderizado
-        onDataChange({
+        setVariableData((prevData) => ({
+          ...prevData,
           selectedGroups: [
-            ...variableData.selectedGroups,
+            ...prevData.selectedGroups,
             groupWithActiveStatus,
           ],
-        });
-        setSelectedSlot("");
+          selectedSlot: "",
+        }));
       }
     }
   };
 
   const handleSlotButtonClick = (groupId, slotId) => {
-    const updatedGroups = variableData.selectedGroups.map((group) => {
+    setVariableData((prevData) => ({
+      ...prevData,
+      selectedGroups: prevData.selectedGroups.map((group) => {
       if (group.id === groupId) {
         const updatedSlots = group.slots.map((slot) =>
           slot.id === slotId
@@ -94,8 +97,8 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
         return { ...group, slots: updatedSlots };
       }
       return group;
-    });
-    onDataChange({ selectedGroups: updatedGroups });
+      }),
+    }));
   };
 
   return (
@@ -103,7 +106,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
       {/* Primera columna */}
       <div className="space-y-4">
         <div className="flex items-center space-x-4">
-          <Select value={selectedSlot} onValueChange={handleSelectChange}>
+          <Select value={variableData.selectedSlot} onValueChange={handleSelectChange}>
             <SelectTrigger className={selectClasses}>
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
@@ -151,12 +154,12 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
         </div>
       </div>
 
-      {/* Segunda columna con carrusel */}
+      {/* Segunda columna con carrusel para imágenes */}
       <div className="relative col-span-1 p-8">
-        {images.length > 0 ? (
+        {variableData.images.length > 0 ? (
           <Carousel className="w-full">
             <CarouselContent className="ml-0 h-[318px] w-full">
-              {images.map((image, index) => (
+              {variableData.images.map((image, index) => (
                 <CarouselItem
                   key={"carousel-item-" + index}
                   className="relative h-full pl-0"
@@ -173,7 +176,7 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
                   </Button>
                   <img
                     loading="lazy"
-                    src={image.preview}
+                    src={image.preview || image.url}  // Maneja vista previa o URL en caso de edición
                     alt="Imagen"
                     className="inset-0 h-full w-full object-cover"
                   />
@@ -188,7 +191,6 @@ const VariableForm = ({ attrb, variableData, onDataChange }) => {
               className="absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full border-0 bg-[#44444F]/[0.8] p-2 text-inherit hover:bg-white/[0.8]"
               colorIcon="group-hover:text-[#44444F]/[0.8] text-white/[0.8]"
             />
-        
           </Carousel>
         ) : (
           <div
