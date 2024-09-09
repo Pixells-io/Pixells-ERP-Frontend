@@ -6,28 +6,29 @@ import { json } from "react-router-dom";
 export async function saveNewProduct(formData) {
   const type = parseInt(formData.get("type"));
 
+  const convertToBoolean = (value) => value === "true" ? true : value === "false" ? false : value;
+
   const info = {
     type,
     code: formData.get("code"),
     name: formData.get("name"),
-    costCenterId: parseInt(formData.get("cost_center_id")),
+    cost_center_id: parseInt(formData.get("cost_center_id")),
     preferred_warehouse_id: parseInt(formData.get("preferred_warehouse_id")),
     price: formData.get("price"),
     category_id: parseInt(formData.get("category_id")),
     barcode: formData.get("barcode"),
     measure: formData.get("measure"),
-    rawMaterial: formData.get("raw_material"),
-    buys: formData.get("buys"),
-    sale: formData.get("sale"),
-    subject_to_tax: formData.get("subject_to_tax"),
-    available_for_return: formData.get("available_for_return"),
-    manufacturing_available: formData.get("manufacturing_available"),
+    rawMaterial: convertToBoolean(formData.get("raw_material")),
+    buys: convertToBoolean(formData.get("buys")),
+    sale: convertToBoolean(formData.get("sale")),
+    subject_to_tax: convertToBoolean(formData.get("subject_to_tax")),
+    available_for_return: convertToBoolean(formData.get("available_for_return")),
+    manufacturing_available: convertToBoolean(formData.get("manufacturing_available")),
     manufacturer: formData.get("manufacturer"),
-    active: formData.get("active") === "true",
+    active: convertToBoolean(formData.get("active")),
     from_active: formData.get("from_active"),
     to_active: formData.get("to_active"),
-    principal_image: formData.get("principal_image"),
-    valuation_method: formData.get("valuation_method"),
+    principal_image: formData.get("principal_image") ? JSON.parse(formData.get("principal_image")) : "",    valuation_method: formData.get("valuation_method"),
     min_stock: formData.get("min_stock"),
     max_stock: formData.get("max_stock"),
     default_supplier: parseInt(formData.get("default_supplier")),
@@ -37,6 +38,7 @@ export async function saveNewProduct(formData) {
     info.variables = formData.get("variable_groups") ? JSON.parse(formData.get("variable_groups")) : [];
     info.second_images = formData.get("images") ? JSON.parse(formData.get("images")) : [];
   }
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {
@@ -45,11 +47,12 @@ export async function saveNewProduct(formData) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    },
+    }
   );
 
   return response.json();
 }
+
 
 export async function getCategories() {
   try {

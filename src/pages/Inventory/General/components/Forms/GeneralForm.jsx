@@ -27,17 +27,19 @@ const GeneralForm = ({ data, setData }) => {
       "image/*": [],
     },
     onDrop: (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          imagenPrincipal: file,
-        }));
-        setImagePreview(imageUrl);
-      }
+      handleImageUpload(acceptedFiles[0]);
     },
   });
+
+  const handleImageUpload = (file) => {
+    if (file) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        imagenPrincipal: file,
+      }));
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -203,10 +205,7 @@ const GeneralForm = ({ data, setData }) => {
       </div>
       <div></div>
       <div></div>
-      <div className="col-span-4 flex flex-col items-start space-y-2">
-        <Label htmlFor="imagenPrincipal" className="font-roboto text-[14px] text-gris2">
-          Imagen Principal
-        </Label>
+      <div className="col-span-1 flex flex-col justify-start items-start pr-8 space-y-2">
         <div {...getRootProps()} className="relative flex items-end cursor-pointer">
           {imagePreview ? (
             <div className="relative rounded-xl border border-primarioBotones p-4">
