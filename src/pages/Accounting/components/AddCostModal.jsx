@@ -59,7 +59,7 @@ const AddCostForm = () => {
             >
               Código
             </Label>
-            <InputRouter id="code" name="code" type="text" />
+            <InputRouter id="code" name="code" type="text" required={true} />
           </div>
           <br />
           <div className="flex flex-col space-y-1">
@@ -69,7 +69,7 @@ const AddCostForm = () => {
             >
               Nombre
             </Label>
-            <InputRouter id="name" name="name" type="text" />
+            <InputRouter id="name" name="name" type="text" required={true} />
           </div>
           <br />
           <div className="flex flex-col space-y-1">
@@ -84,6 +84,7 @@ const AddCostForm = () => {
               id="description"
               name="description"
               className="rounded-lg border-none bg-grisBg focus-visible:ring-primarioBotones"
+              required={true}
             />
           </div>
 
