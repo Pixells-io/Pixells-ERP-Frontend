@@ -16,7 +16,6 @@ import {
   ellipsisVerticalOutline,
   happyOutline,
 } from "ionicons/icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 function MenssageCard({ message, type }) {
   return (
@@ -26,7 +25,7 @@ function MenssageCard({ message, type }) {
           {/* CRISPIN */}
           <div
             className={
-              "mb-1 flex w-fit max-w-[65%] gap-4 rounded-b-xl rounded-t-xl bg-transparent px-2 py-1"
+              "mb-1 flex w-fit max-w-[80%] gap-2 rounded-b-xl rounded-t-xl bg-transparent px-2 py-1"
             }
           >
             <IonIcon icon={happyOutline} className="text-3xl text-primario" />
@@ -40,7 +39,7 @@ function MenssageCard({ message, type }) {
           {/* USER */}
           <div
             className={
-              "float-end mb-1 flex w-fit max-w-[65%] gap-4 rounded-s-xl rounded-t-xl bg-[#F1F1F1] px-2 py-1"
+              "float-end mb-1 flex w-fit max-w-[80%] gap-2 rounded-s-xl rounded-t-xl bg-[#F1F1F1] px-2 py-1"
             }
           >
             <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">

@@ -74,7 +74,7 @@ function NotificationChat({ notifications }) {
           <IonIcon
             icon={chatbubble}
             size="large"
-            className="text-primario"
+            className="flex text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="flex flex-col">

@@ -42,6 +42,7 @@ import {
   flask,
   storefront,
   happy,
+  happyOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -50,6 +51,7 @@ import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
 import CrispinModal from "./CrispinAssistant/CrispinModal";
+import CustomModal from "./CrispinAssistant/CustomModal";
 
 let MENU_ORGANIZATIONAL = [];
 let MENU_TRANSACTIONAL = [];
@@ -161,7 +163,6 @@ function MainLayout() {
   const token = Cookies.get("token");
   const { chat, userAuth, notificationsData, permissions } = useLoaderData();
   const [moduleShow, setModuleShow] = useState(MENU_ORGANIZATIONAL);
-  const [crispinModal, setCrispinModal] = useState(false);
   const [moduleTransactionalShow, setModuleTransactionalShow] =
     useState(MENU_TRANSACTIONAL);
 
@@ -187,6 +188,16 @@ function MainLayout() {
     return navigate("/login");
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     //Irganizational Modules
     const modulos = permissions.data.map((module) =>
@@ -197,8 +208,8 @@ function MainLayout() {
 
   return (
     <div className="flex h-screen min-h-0 flex-col">
-      <CrispinModal modal={crispinModal} setModal={setCrispinModal} />
-      <div className="flex h-[56px] items-center justify-between p-3">
+      <CustomModal isOpen={isModalOpen} onClose={closeModal} />
+      <div className="flex h-[56px] items-center justify-between px-5 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <IonIcon
@@ -310,32 +321,29 @@ function MainLayout() {
 
         {/* notification center */}
         <div className="flex items-center justify-evenly gap-16">
-          <div className="flex gap-6">
-            <div></div>
-            <div className="flex gap-3">
+          <div className="flex items-center gap-3">
+            <IonIcon
+              icon={happyOutline}
+              size="large"
+              className="text-primario"
+              title="Preguntale a Crispin"
+              onClick={openModal}
+            />
+            <Link to={"/calendar"}>
               <IonIcon
-                icon={happy}
+                icon={calendar}
                 size="large"
-                className="text-primario"
-                title="Preguntale a Crispin"
-                onClick={() => setCrispinModal(true)}
-              ></IonIcon>
-              <Link to={"/calendar"}>
-                <IonIcon
-                  icon={calendar}
-                  size="large"
-                  className="text-primario"
-                ></IonIcon>
-              </Link>
-              <NotificationChat
-                notifications={chat?.data}
-                user={userAuth?.data}
+                className="flex text-primario"
               />
-              <NotificationBell
-                notificationsData={notificationsData?.data}
-                user={userAuth?.data}
-              />
-            </div>
+            </Link>
+            <NotificationChat
+              notifications={chat?.data}
+              user={userAuth?.data}
+            />
+            <NotificationBell
+              notificationsData={notificationsData?.data}
+              user={userAuth?.data}
+            />
           </div>
 
           {/* Avatar Dropdown */}
