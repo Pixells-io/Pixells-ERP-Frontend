@@ -60,7 +60,35 @@ function SelectSearch({
           ...base,
           marginTop: "-1px",
           boxShadow: "0px 4px 8px -2px rgba(0,0,0,0.2)",
-          borderRadius: "0px",
+          borderRadius: "0px 0px 20px 20px",
+        }),
+        input: (baseStyles) => ({
+          ...baseStyles,
+          color: "#696974", 
+          fontSize: "12px", 
+          fontFamily: "roboto",
+          fontWeight: 400,
+        }),
+        placeholder: (baseStyles) => ({
+          ...baseStyles,
+          color: "#696974", 
+          fontSize: "12px", 
+          fontFamily: "roboto",
+          fontWeight: 400,
+        }),
+        menuList: (baseStyles) => ({
+          ...baseStyles,
+          color: "#696974", 
+          fontSize: "12px", 
+          fontFamily: "roboto",
+          fontWeight: 400,
+        }),
+        multiValueLabel: (baseStyles) => ({
+          ...baseStyles,
+          color: "#696974", 
+          fontSize: "12px", 
+          fontFamily: "roboto",
+          fontWeight: 400,
         }),
       }}
     />
