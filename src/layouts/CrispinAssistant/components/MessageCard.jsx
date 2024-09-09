@@ -14,7 +14,10 @@ function MenssageCard({ message, type }) {
               "mb-1 flex w-fit max-w-[80%] gap-2 rounded-b-xl rounded-t-xl bg-transparent px-2 py-1"
             }
           >
-            <IonIcon icon={happyOutline} className="text-3xl text-primario" />
+            <IonIcon
+              icon={happyOutline}
+              className="shrink-0 text-3xl text-primario"
+            />
             <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
               {message}
             </span>
