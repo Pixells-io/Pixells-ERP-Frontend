@@ -12,42 +12,27 @@ import DataTable from "@/components/table/DataTable";
 import AddConfig from "../components/ModalConfig";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { redirect, useLoaderData } from "react-router-dom";
+import { saveCostCenter } from "./utils";
 
 const MainCost = () => {
-  const [misDatos, setMisDatos] = useState([
-    {
-      codigo: "AC-3",
-      nombre: 1,
-      creacion: "22-04-2023",
-      descripcion: "En progreso",
-    },
-    {
-      codigo: "AC-5",
-      nombre: 2,
-      creacion: "18-04-2023",
-      descripcion: "Borrador",
-    },
-    {
-      codigo: "AC-4",
-      nombre: 3,
-      creacion: "03-03-2023",
-      descripcion: "En progreso",
-    },
-  ]);
+  const { data } = useLoaderData();
+  const [misDatos, setMisDatos] = useState(data);
+
   const columns = useMemo(
     () => [
       {
-        id: "codigo",
-        accessorKey: "codigo",
-        header: "Codigo",
+        id: "code",
+        accessorKey: "code",
+        header: "Código",
         meta: {
           filterButton: true,
         },
         filterFn: "includesString",
       },
       {
-        id: "nombre",
-        accessorKey: "nombre",
+        id: "name",
+        accessorKey: "name",
         header: "Nombre",
         meta: {
           filterButton: true,
@@ -55,8 +40,8 @@ const MainCost = () => {
         filterFn: "includesString",
       },
       {
-        id: "creacion",
-        accessorKey: "creacion",
+        id: "created",
+        accessorKey: "created",
         header: "Creación",
         meta: {
           filterButton: true,
@@ -64,8 +49,8 @@ const MainCost = () => {
         filterFn: "includesString",
       },
       {
-        id: "descripcion",
-        accessorKey: "descripcion",
+        id: "description",
+        accessorKey: "description",
         header: "Descripción",
       },
       {
@@ -81,17 +66,6 @@ const MainCost = () => {
     ],
     [],
   );
-
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    // Actualiza tableData cuando misDatos cambie
-    setTableData(misDatos.map((item) => ({ ...item, checked: false })));
-  }, [misDatos]);
-
-  const handleAddItem = (newItem) => {
-    setMisDatos((prev) => [...prev, newItem]);
-  };
 
   return (
     <div className="flex w-full">
@@ -142,7 +116,7 @@ const MainCost = () => {
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <AddItemDialog onAddItem={handleAddItem} />
+          <AddItemDialog />
           <div className="mr-24 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
             <IonIcon icon={settings} size="small" className="text-grisText" />
           </div>
@@ -164,9 +138,9 @@ const MainCost = () => {
             </TabsList>
             <TabsContent value="CENTRO DE COSTOS" className="mt-[-60px] p-2">
               <DataTable
-                data={tableData}
+                data={misDatos}
                 columns={columns}
-                searchFilter={"codigo"}
+                searchFilter={"code"}
                 searchNameFilter={"Ingrese el código"}
               />
             </TabsContent>
@@ -178,3 +152,15 @@ const MainCost = () => {
 };
 
 export default MainCost;
+
+export async function Action({ request }) {
+
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "save_costCenter":
+      await saveCostCenter(data);
+      break;
+  }
+  
+  return redirect(`/accounting/cost`);
+}

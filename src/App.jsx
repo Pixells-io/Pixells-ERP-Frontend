@@ -261,7 +261,9 @@ import MainPolicy from "./pages/Accounting/Policy/MainPolicy";
 import CreateAccount from "./pages/Accounting/Policy/New/newAccounting";
 import AccountDetail from "./pages/Accounting/Policy/Details/AccountDetails";
 import MainBook from "./pages/Accounting/Book/MainBook";
-import MainCost from "./pages/Accounting/Cost/MainCost";
+import MainCost, {
+  Action as ActionCostCenter,
+} from "./pages/Accounting/Cost/MainCost";
 import AccountingAccount, {
   Action as AccountingAccountActions,
 } from "./pages/Accounting/components/AccountingAccount";
@@ -270,6 +272,7 @@ import {
   getAccountingAccountsById,
 } from "./pages/Accounting/Catalog/utils";
 import AccountingAccountEmpty from "./pages/Accounting/components/AccountingAccountEmpty";
+import { getCostCenter } from "./pages/Accounting/Cost/utils";
 
 //BankManagement
 import MainBankManagement, {
@@ -1025,6 +1028,8 @@ const router = createBrowserRouter([
           {
             path: "/accounting/cost",
             element: <MainCost />,
+            loader: getCostCenter,
+            action: ActionCostCenter,
           },
         ],
       },
