@@ -26,7 +26,13 @@ function CrispinModal({ modal, setModal }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal} hasCloseButton={false}>
-      <DialogContent className="h-4/5 overflow-auto p-0" hasCloseButton={false}>
+      <DialogContent
+        className="flex h-[600px] w-[300px] flex-col justify-between overflow-auto p-0"
+        hasCloseButton={false}
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+      >
         <DialogHeader className="pt-2">
           <DialogTitle className="px-8 py-4 font-poppins font-semibold text-grisHeading">
             <div className="flex justify-between">
@@ -43,19 +49,20 @@ function CrispinModal({ modal, setModal }) {
                   Asistente Virtual
                 </span>
               </div>
-              <DialogClose>
+              {/* <DialogClose>
                 <IonIcon
                   icon={close}
                   className="rounded-full bg-grisDisabled p-1 text-xl text-white"
                 />
-              </DialogClose>
+              </DialogClose> */}
             </div>
           </DialogTitle>
         </DialogHeader>
         {/* QUESTION SECTION */}
-        <div className="scrollbar-hidden overflow-y-scroll px-4">
+        <div className="scrollbar-hidden flex h-full flex-col justify-end overflow-y-scroll px-4">
           {MessagesArray.map((response, i) => (
             <MenssageCard
+              key={i}
               message={response.message}
               type={response.type}
               index={i}
