@@ -61,11 +61,12 @@ const CreateArticle = () => {
   const getActiveSlots = (groups) => {
     return groups.map((group) => ({
       ...group,
-      slots: group.slots.filter(
-        (slot) => slot.active === 1 || slot.active === 0,
-      ),
+      slots: group.slots
+        .filter((slot) => slot.active === 1) // Only keep active slots
+        .map((slot) => ({ id: slot.id })), // Only keep slot id
     }));
   };
+  
 
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
@@ -89,7 +90,7 @@ const CreateArticle = () => {
       value: inputsData.disponibleParaDevolucion || false,
     },
     {
-      name: "manufacturing_available",
+      name: "manufacturing_avalaible",
       value: inputsData.disponibleParaDevolucion || false,
     },
     { name: "manufacturer", value: inputsData.fabricantes || "" },
@@ -110,10 +111,10 @@ const CreateArticle = () => {
     { name: "max_stock", value: inputsData.stockMaximo || "" },
     { name: "default_supplier", value: inputsData.proveedor || "" },
     {
-      name: "variable_groups",
+      name: "variables",
       value: JSON.stringify(getActiveSlots(variableData.selectedGroups)),
     },
-    { name: "images", value: JSON.stringify(variableData.images) },
+    { name: "second_images", value: JSON.stringify(variableData.images) },
   ];
 
   
