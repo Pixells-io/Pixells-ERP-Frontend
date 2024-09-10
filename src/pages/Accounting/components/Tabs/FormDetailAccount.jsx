@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
 import { closeCircle, copyOutline, createOutline } from "ionicons/icons";
 import ModalDeleteAccount from "../../Catalog/Modals/ModalDeleteAccount";
@@ -8,7 +7,6 @@ import { Form, useNavigation } from "react-router-dom";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
 import { Switch } from "@/components/ui/switch";
@@ -81,7 +79,7 @@ const FormDetailAccount = ({
   };
 
   return (
-    <div className="h-full w-2/5 overflow-auto border-l p-2">
+    <div className="h-full w-[320px] overflow-auto border-l p-2">
       {/* modals */}
       <ModalConfirmNewAccount
         modal={modalCloneAccount}
@@ -194,12 +192,12 @@ const FormDetailAccount = ({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
-          <div className="col-span-12 md:col-span-7 xl:col-span-7">
-            <p className="font-roboto text-sm font-light text-grisText">
+        <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8 mt-8">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Cuenta Contable
             </p>
-            <InputRouter
+            <Input
               id="accounting_account"
               name="accounting_account"
               value={
@@ -208,25 +206,27 @@ const FormDetailAccount = ({
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
+              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Nombre
             </p>
-            <InputRouter
+            <Input
               id="name"
               name="name"
               value={!!account.name ? account.name : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
+              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
           <div className="col-span-12 md:col-span-6 xl:col-span-6">
-            <p className="mb-2 font-roboto text-sm font-light text-grisText">
+            <p className="mb-2 font-roboto text-xs font-normal text-grisText">
               Nivel
             </p>
             <Input
@@ -234,14 +234,14 @@ const FormDetailAccount = ({
               name="level"
               value={!!selectAccount?.levels ? selectAccount.levels.length : ""}
               readOnly
-              className="h-9.5 border border-grisText"
               disabled={true}
               type="text"
+              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
           <div className="col-span-12 md:col-span-6 xl:col-span-6">
-            <p className="font-roboto text-sm font-light text-grisText">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Moneda
             </p>
             <SelectRouter
@@ -256,8 +256,8 @@ const FormDetailAccount = ({
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Saldo
             </p>
             <Input
@@ -269,26 +269,27 @@ const FormDetailAccount = ({
               min="0"
               step="0.01"
               disabled={!isEditable}
-              className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Tipo de cuenta
             </p>
-            <InputRouter
+            <Input
               id="type_of_account"
               name="type_of_account"
               value={!!account.type_of_account ? account.type_of_account : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
+              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Código Agrupador SAT (Contabilidad Electrónica)
             </p>
             <SelectRouter
@@ -302,8 +303,8 @@ const FormDetailAccount = ({
           </div>
         </div>
       </Form>
-      <div>
-        <h2 className="py-3 text-xs font-normal text-grisSubText">ESTATUS</h2>
+      <div className="px-1">
+        <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
         <div className="flex w-full items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 pl-4">
           <input
             type="hidden"
@@ -324,7 +325,7 @@ const FormDetailAccount = ({
           </p>
         </div>
       </div>
-      <div className="flex w-full justify-end p-1">
+      <div className="flex w-full justify-end p-1 mt-8">
         {isEditable && (
           <Button
             form="form-update-accounting"

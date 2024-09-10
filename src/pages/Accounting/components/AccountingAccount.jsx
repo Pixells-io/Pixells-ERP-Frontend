@@ -110,7 +110,7 @@ const AccountingAccount = () => {
       <div
         className={cn(
           "h-full overflow-auto",
-          !!selectAccount ? "w-3/5" : "w-full",
+          !!selectAccount ? "flex-1" : "w-full",
         )}
       >
         <SearchAccountingAccount
