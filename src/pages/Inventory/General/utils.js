@@ -84,6 +84,23 @@ export async function saveNewProduct(data) {
   return response.json();
 }
 
+//GET PRODUCT
+export async function getProductById(id){
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-product/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getCategories() {
   try {
     const response = await fetch(

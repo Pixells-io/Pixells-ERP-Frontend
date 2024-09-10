@@ -1,14 +1,48 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useLoaderData } from "react-router-dom";
-import { saveNewProduct } from "../utils";
+import { Form, useLoaderData, useParams, useLocation } from "react-router-dom";
+import { createPusherClient } from "@/lib/pusher";
+import { saveNewProduct,getProductById } from "../utils";
 
 const EditArticle = () => {
+  const { id } = useParams();
+  const location = useLocation();
   const data = useLoaderData();
+  const [product, setProduct] = useState(data);
+  const [productId, setProductId] = useState(id);
+  //WEBSOCKET
+  const pusherClient = createPusherClient();
+
+  async function getProductFunction(id) {
+    const newData = await getProductById(id);
+    setProduct(newData.data);
+  }
+
+  useEffect(() => {
+    setProductId(id);
+    let channel = pusherClient.subscribe(`private-get-products.${productId}`);
+
+    channel.bind("fill-products-data", ({product}) => {
+      getProductFunction(product);
+    });
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-products.${productId}`);
+    };
+  }, [location, productId]);
+
+
+
   const { categories, warehouses, suppliers, attributes } = data;
   const [initialValues, setInitialValues] = useState({
     productType: "0",
@@ -45,7 +79,7 @@ const EditArticle = () => {
 
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
-    images: [], 
+    images: [],
   });
 
   const handleSelectChange = (name, value) => {
@@ -55,61 +89,57 @@ const EditArticle = () => {
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      const formData = new FormData();
-      const convertToBoolean = (value) =>
-        value === "true" ? 1 : value === "false" ? false : 0;
-      
-      const info = {
-        type: parseInt(initialValues.productType) || 0,
-        code: initialValues.codigoDeArticulo || "",
-        name: initialValues.nombreODescripcion || "",
-        cost_center_id:parseInt(initialValues.centroDeCostos) || "",
-        preferred_warehouse_id: parseInt( initialValues.almacen) || "",
-        price: initialValues.precio || "",
-        category_id: parseInt(initialValues.categoria) || "",
-        barcode: initialValues.codigoDeBarras || "",
-        measure: initialValues.unidadesDeMedida || "",
-        raw_material: convertToBoolean(inputsData.inventario) || 0,
-        buys: convertToBoolean(inputsData.compra) || 0,
-        sale: convertToBoolean(inputsData.venta) || 0,
-        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
-        available_for_return: convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
-        manufacturing_available: convertToBoolean(inputsData.manufacturaDisponible) || 0,
-        manufacturer: inputsData.fabricantes || "",
-        active: convertToBoolean(inputsData.activos) || 0,
-        from_active: inputsData.from || "",
-        to_active: inputsData.to || "",
-        valuation_method: inputsData.metodoValoracion || "",
-        min_stock: inputsData.stockMinimo || "",
-        max_stock: inputsData.stockMaximo || "",
-        default_supplier: parseInt(inputsData.proveedor) || "",
-      };
-    
-      
-      if (initialValues.productType === "1") {
-        info.variables = variableData.selectedGroups;
-        variableData.images.forEach((image) => {
-          formData.append("second_images[]", image.file);
-        });;
-      }
-    
-      formData.append("info", JSON.stringify(info));
-    
-      if (inputsData.imagenPrincipal) {
-        formData.append("primary_img", inputsData.imagenPrincipal);
-      }
-  
-    
-     
-        const response = await saveNewProduct(formData);
-        console.log("Product saved successfully:", response);
-    
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    const convertToBoolean = (value) =>
+      value === "true" ? 1 : value === "false" ? false : 0;
+
+    const info = {
+      type: parseInt(initialValues.productType) || 0,
+      code: initialValues.codigoDeArticulo || "",
+      name: initialValues.nombreODescripcion || "",
+      cost_center_id: parseInt(initialValues.centroDeCostos) || "",
+      preferred_warehouse_id: parseInt(initialValues.almacen) || "",
+      price: initialValues.precio || "",
+      category_id: parseInt(initialValues.categoria) || "",
+      barcode: initialValues.codigoDeBarras || "",
+      measure: initialValues.unidadesDeMedida || "",
+      raw_material: convertToBoolean(inputsData.inventario) || 0,
+      buys: convertToBoolean(inputsData.compra) || 0,
+      sale: convertToBoolean(inputsData.venta) || 0,
+      subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
+      available_for_return:
+        convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
+      manufacturing_available:
+        convertToBoolean(inputsData.manufacturaDisponible) || 0,
+      manufacturer: inputsData.fabricantes || "",
+      active: convertToBoolean(inputsData.activos) || 0,
+      from_active: inputsData.from || "",
+      to_active: inputsData.to || "",
+      valuation_method: inputsData.metodoValoracion || "",
+      min_stock: inputsData.stockMinimo || "",
+      max_stock: inputsData.stockMaximo || "",
+      default_supplier: parseInt(inputsData.proveedor) || "",
     };
-    
-    
+
+    if (initialValues.productType === "1") {
+      info.variables = variableData.selectedGroups;
+      variableData.images.forEach((image) => {
+        formData.append("second_images", image.file);
+      });
+    }
+
+    formData.append("info", JSON.stringify(info));
+
+    if (inputsData.imagenPrincipal) {
+      formData.append("primary_img", inputsData.imagenPrincipal);
+    }
+
+    const response = await saveNewProduct(formData);
+    console.log("Product saved successfully:", response);
+  };
 
   return (
     <div className="flex w-full">
