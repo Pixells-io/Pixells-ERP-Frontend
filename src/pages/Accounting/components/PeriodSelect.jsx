@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 
 import { IonIcon } from "@ionic/react";
-import { cloudDownload } from "ionicons/icons";
+import { cloudDownload, cloudDownloadOutline } from "ionicons/icons";
 
 const PeriodSelect = () => {
   return (
@@ -51,8 +51,23 @@ const PeriodSelect = () => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
-        <IonIcon icon={cloudDownload} size="small" className="text-grisText" />
+      <div className="flex-1 flex justify-end gap-x-2">
+        <div
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+        >
+          <IonIcon
+            icon={cloudDownload}
+            className="h-5 w-5 cursor-pointer text-[#44444F]"
+          ></IonIcon>
+        </div>
+        <div
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+        >
+          <IonIcon
+            icon={cloudDownloadOutline}
+            className="h-5 w-5 cursor-pointer text-[#44444F]"
+          ></IonIcon>
+        </div>
       </div>
     </div>
   );

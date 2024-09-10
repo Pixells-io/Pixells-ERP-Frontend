@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
+import InputForm from "@/components/InputForm/InputForm";
 
 const DataSection = ({ debitTotal, creditTotal }) => {
   const [total, setTotal] = useState(0);
@@ -10,19 +10,19 @@ const DataSection = ({ debitTotal, creditTotal }) => {
   }, [debitTotal, creditTotal]);
 
   return (
-    <section className="overflow-80 border-black-200 mb-2 mt-2 flex items-center justify-end rounded-xl bg-white p-7">
+    <section className="overflow-80 border-black-200 mb-2 mt-2 flex items-center justify-end rounded-xl">
       <div className="flex flex-col">
         <div className="mt-2 flex space-x-3">
           <p className="mr-4 mt-2 text-xs font-medium text-grisText">TOTAL: </p>
-          <Input
+          <InputForm
             name="debitTotal"
-            className="ml-4 h-8 w-20 rounded-lg border border-[#8F8F8F] text-xs font-normal text-grisSubText"
+            className="ml-4 w-20"
             value={"$ " + debitTotal}
             readOnly
           />
-          <Input
+          <InputForm
             name="creditTotal"
-            className="h-8 w-20 rounded-lg border border-[#8F8F8F] text-xs font-normal text-grisSubText"
+            className="w-20"
             value={"$ " + creditTotal}
             readOnly
           />
@@ -35,9 +35,9 @@ const DataSection = ({ debitTotal, creditTotal }) => {
           >
             DIFERENCIA:{" "}
           </p>
-          <Input
+          <InputForm
             name="diferencia"
-            className={`h-8 w-20 rounded-lg ${
+            className={`w-20 ${
               total < 0
                 ? "bg-white-200 border border-[#8F8F8F] border-rose-500 text-rose-500"
                 : "bg-white-200 text-grisSubText"

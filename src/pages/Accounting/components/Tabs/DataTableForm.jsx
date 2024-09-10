@@ -178,7 +178,7 @@ const TableForm = ({ setDebitTotal, setCreditTotal }) => {
   };
 
   return (
-    <div className="mb-2 rounded-xl bg-white p-7">
+    <div className="mb-2 rounded-xl">
       <h1 className="text-md font-poppins font-medium text-grisHeading">
         Movimientos
       </h1>

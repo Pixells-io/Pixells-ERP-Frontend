@@ -1,6 +1,6 @@
 import React,{useMemo} from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, print, copy, closeCircle } from "ionicons/icons";
+import { chevronBack, chevronForward, print, copy, closeCircle, copyOutline, printOutline } from "ionicons/icons";
 import InfoTable from "../../components/Tabs/InfoTable";
 import { useNavigate } from "react-router-dom"; 
 import DataTableDetails from "../../components/Tabs/DataTableDetails";
@@ -204,18 +204,21 @@ const columnsMovements = useMemo(
        {/*Content of the page */}
         <div className="mb-2 rounded-xl bg-white p-7 overflow-auto relative">
           <div className="absolute top-4 right-16 flex space-x-3">
-            <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-400">
+            <div
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            >
               <IonIcon
-                icon={copy}
-                size="small"
-                className="text-grisText"
-              />
-            </div>
-            <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-400">
+                icon={copyOutline}
+                className="h-5 w-5 cursor-pointer text-[#44444F]"
+              ></IonIcon>
+           </div>
+           <div
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            >              
               <IonIcon
-                icon={print}
+                icon={printOutline}
                 size="small"
-                className="text-grisText"
+                className="h-5 w-5 cursor-pointer text-[#44444F]"
               />
             </div>
           </div>

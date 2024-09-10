@@ -43,7 +43,7 @@ function ModalDeleteAccount({
         className="flex items-center"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#E8E8E8]">
-          <IonIcon icon={trashOutline} className="h-5 w-5 text-[#696974]"></IonIcon>
+          <IonIcon icon={trashOutline} className="h-5 w-5 text-[#44444F]"></IonIcon>
         </div>
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4 border-0 bg-[#242424]">

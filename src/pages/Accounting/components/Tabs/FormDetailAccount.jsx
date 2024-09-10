@@ -108,7 +108,7 @@ const FormDetailAccount = ({
           >
             <IonIcon
               icon={copyOutline}
-              className="h-5 w-5 cursor-pointer text-[#696974]"
+              className="h-5 w-5 cursor-pointer text-[#44444F]"
             ></IonIcon>
           </div>
           <div
@@ -117,7 +117,7 @@ const FormDetailAccount = ({
           >
             <IonIcon
               icon={createOutline}
-              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
+              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#44444F]"} `}
             ></IonIcon>
           </div>
           <ModalDeleteAccount
