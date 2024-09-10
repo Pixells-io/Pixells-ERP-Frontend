@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
-
 //SAVE PRODUCTS
 export async function saveNewProduct(data) {
   // Crear el objeto FormData para enviar los datos
@@ -16,7 +15,10 @@ export async function saveNewProduct(data) {
   formData.append("code", data.get("code"));
   formData.append("name", data.get("name"));
   formData.append("cost_center_id", parseInt(data.get("cost_center_id")));
-  formData.append("preferred_warehouse_id", parseInt(data.get("preferred_warehouse_id")));
+  formData.append(
+    "preferred_warehouse_id",
+    parseInt(data.get("preferred_warehouse_id")),
+  );
   formData.append("price", data.get("price"));
   formData.append("category_id", parseInt(data.get("category_id")));
   formData.append("barcode", data.get("barcode"));
@@ -24,9 +26,18 @@ export async function saveNewProduct(data) {
   formData.append("raw_material", convertToBoolean(data.get("raw_material")));
   formData.append("buys", convertToBoolean(data.get("buys")));
   formData.append("sale", convertToBoolean(data.get("sale")));
-  formData.append("subject_to_tax", convertToBoolean(data.get("subject_to_tax")));
-  formData.append("available_for_return", convertToBoolean(data.get("available_for_return")));
-  formData.append("manufacturing_available", convertToBoolean(data.get("manufacturing_available")));
+  formData.append(
+    "subject_to_tax",
+    convertToBoolean(data.get("subject_to_tax")),
+  );
+  formData.append(
+    "available_for_return",
+    convertToBoolean(data.get("available_for_return")),
+  );
+  formData.append(
+    "manufacturing_available",
+    convertToBoolean(data.get("manufacturing_available")),
+  );
   formData.append("manufacturer", data.get("manufacturer"));
   formData.append("active", convertToBoolean(data.get("active")));
   formData.append("from_active", data.get("from_active"));
@@ -47,17 +58,16 @@ export async function saveNewProduct(data) {
     const variableGroups = data.get("variables")
       ? JSON.parse(data.get("variables"))
       : [];
-      
+
     formData.append("variables", JSON.stringify(variableGroups));
 
     // Agregar cada imagen secundaria al formData como array
-    const secondImages = data.get("second_images") ? data.get("second_images")
-    : [];
-    
-  formData.append("second_images", secondImages);
+    const secondImages = data.get("second_images")
+      ? JSON.parse(data.get("second_images"))
+      : [];
 
+    formData.append("second_images", JSON.stringify(secondImages));
   }
-
   // Realizar la solicitud de creación del producto
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
@@ -67,13 +77,11 @@ export async function saveNewProduct(data) {
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
-    }
+    },
   );
 
   return response.json();
 }
-
-
 
 export async function getCategories() {
   try {
@@ -151,7 +159,6 @@ export async function editCategory(data) {
   return response.json();
 }
 
-
 export async function getWarehouses() {
   try {
     const response = await fetch(
@@ -162,9 +169,8 @@ export async function getWarehouses() {
         },
       },
     );
-    
+
     return response.json();
-    
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
@@ -187,13 +193,13 @@ export async function getSuppliers() {
 }
 
 export async function multiloaderArticle() {
-  const [categories, warehouses,suppliers,attributes] = await Promise.all([
+  const [categories, warehouses, suppliers, attributes] = await Promise.all([
     getCategories(),
     getWarehouses(),
     getSuppliers(),
     getAttributes(),
   ]);
-  return json({categories, warehouses, suppliers,attributes });
+  return json({ categories, warehouses, suppliers, attributes });
 }
 
 export async function multiloaderInventory() {
@@ -201,7 +207,7 @@ export async function multiloaderInventory() {
     getCategories(),
     getAttributes(),
   ]);
-  return json({ categories, attributes,  });
+  return json({ categories, attributes });
 }
 
 export async function getAttributes() {

@@ -66,7 +66,6 @@ const CreateArticle = () => {
         .map((slot) => ({ id: slot.id })), // Only keep slot id
     }));
   };
-  
 
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
@@ -99,12 +98,14 @@ const CreateArticle = () => {
     { name: "to_active", value: inputsData.to || "" },
     {
       name: "principal_image",
-      value: inputsData.imagenPrincipal ? JSON.stringify({
-        name: inputsData.imagenPrincipal.name,
-        type: inputsData.imagenPrincipal.type,
-        size: inputsData.imagenPrincipal.size,
-        lastModified: inputsData.imagenPrincipal.lastModified,
-      }) : "",
+      value: inputsData.imagenPrincipal
+        ? JSON.stringify({
+            name: inputsData.imagenPrincipal.name,
+            type: inputsData.imagenPrincipal.type,
+            size: inputsData.imagenPrincipal.size,
+            lastModified: inputsData.imagenPrincipal.lastModified,
+          })
+        : "",
     },
     { name: "valuation_method", value: inputsData.metodoValoracion || "" },
     { name: "min_stock", value: inputsData.stockMinimo || "" },
@@ -114,9 +115,17 @@ const CreateArticle = () => {
       name: "variables",
       value: JSON.stringify(getActiveSlots(variableData.selectedGroups)),
     },
-    { name: "second_images", value: variableData.images},
+    {
+      name: "second_images",
+      value: JSON.stringify(variableData.images.map(image => ({
+        name: image.name,
+        type: image.type,
+        size: image.size,
+        lastModified: image.lastModified
+      }))),
+    },
   ];
-  
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
