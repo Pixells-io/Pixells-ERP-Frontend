@@ -79,7 +79,7 @@ const FormDetailAccount = ({
   };
 
   return (
-    <div className="h-full w-[320px] overflow-auto border-l p-2">
+    <div className="h-full w-[350px] overflow-auto border-l p-2">
       {/* modals */}
       <ModalConfirmNewAccount
         modal={modalCloneAccount}
@@ -103,7 +103,7 @@ const FormDetailAccount = ({
         </div>
         <div className="flex w-full justify-center gap-x-4">
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => newAccount()}
           >
             <IonIcon
@@ -112,7 +112,7 @@ const FormDetailAccount = ({
             ></IonIcon>
           </div>
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => setIsEditable(!isEditable)}
           >
             <IonIcon
@@ -221,7 +221,7 @@ const FormDetailAccount = ({
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
+              className="text-[#44444f] text-sm h-[34px] rounded-[10px]"
             />
           </div>
 
@@ -315,12 +315,12 @@ const FormDetailAccount = ({
             readOnly
           />
           <Switch
-            className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-            checked={checkedInputStatus == "1"}
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputStatus == "1"}
             onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
             disabled={!isEditable}
           />
-          <p className="font-roboto text-sm font-normal text-grisText">
+          <p className="font-roboto text-xs font-normal text-grisText">
             Activa
           </p>
         </div>
