@@ -114,9 +114,8 @@ const CreateArticle = () => {
       name: "variables",
       value: JSON.stringify(getActiveSlots(variableData.selectedGroups)),
     },
-    { name: "second_images", value: JSON.stringify(variableData.images) },
+    { name: "second_images", value: variableData.images},
   ];
-
   
   return (
     <div className="flex w-full">
