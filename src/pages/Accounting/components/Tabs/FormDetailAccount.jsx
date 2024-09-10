@@ -7,9 +7,9 @@ import { Form, useNavigation } from "react-router-dom";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
 import { Switch } from "@/components/ui/switch";
+import InputForm from "@/components/InputForm/InputForm";
 
 const FormDetailAccount = ({
   selectAccount,
@@ -197,7 +197,7 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Cuenta Contable
             </p>
-            <Input
+            <InputForm
               id="accounting_account"
               name="accounting_account"
               value={
@@ -206,7 +206,6 @@ const FormDetailAccount = ({
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -214,14 +213,13 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Nombre
             </p>
-            <Input
+            <InputForm
               id="name"
               name="name"
               value={!!account.name ? account.name : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[34px] rounded-[10px]"
             />
           </div>
 
@@ -229,14 +227,13 @@ const FormDetailAccount = ({
             <p className="mb-2 font-roboto text-xs font-normal text-grisText">
               Nivel
             </p>
-            <Input
+            <InputForm
               id="level"
               name="level"
               value={!!selectAccount?.levels ? selectAccount.levels.length : ""}
               readOnly
               disabled={true}
               type="text"
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -260,7 +257,7 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Saldo
             </p>
-            <Input
+            <InputForm
               id="balance"
               name="balance"
               value={!!account.balance ? account.balance : ""}
@@ -269,7 +266,6 @@ const FormDetailAccount = ({
               min="0"
               step="0.01"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -277,14 +273,13 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Tipo de cuenta
             </p>
-            <Input
+            <InputForm
               id="type_of_account"
               name="type_of_account"
               value={!!account.type_of_account ? account.type_of_account : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
