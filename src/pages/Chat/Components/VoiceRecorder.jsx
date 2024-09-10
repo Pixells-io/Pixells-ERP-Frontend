@@ -1,6 +1,8 @@
 import { IonIcon } from "@ionic/react";
 import { play, stop } from "ionicons/icons";
 import React, { useState, useRef, useEffect } from "react";
+import CustomAudioPlayer from "./Audio/CustomAudioPlayer";
+import VoiceRecorderWithAudioPlayer from "./Audio/VoiceRecorderWithAudioPlayer";
 
 const VoiceRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
