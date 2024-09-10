@@ -10,9 +10,15 @@ import {
 } from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useLoaderData, useParams, useLocation } from "react-router-dom";
+import {
+  Form,
+  useLoaderData,
+  useParams,
+  useLocation,
+  useSubmit,
+} from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { saveNewProduct,getProductById } from "../utils";
+import { saveNewProduct, getProductById } from "../utils";
 
 const EditArticle = () => {
   const { id } = useParams();
@@ -20,6 +26,7 @@ const EditArticle = () => {
   const data = useLoaderData();
   const [product, setProduct] = useState(data);
   const [productId, setProductId] = useState(id);
+  const submit = useSubmit();
   //WEBSOCKET
   const pusherClient = createPusherClient();
 
@@ -32,7 +39,7 @@ const EditArticle = () => {
     setProductId(id);
     let channel = pusherClient.subscribe(`private-get-products.${productId}`);
 
-    channel.bind("fill-products-data", ({product}) => {
+    channel.bind("fill-products-data", ({ product }) => {
       getProductFunction(product);
     });
 
@@ -40,8 +47,6 @@ const EditArticle = () => {
       pusherClient.unsubscribe(`private-get-products.${productId}`);
     };
   }, [location, productId]);
-
-
 
   const { categories, warehouses, suppliers, attributes } = data;
   const [initialValues, setInitialValues] = useState({
@@ -88,6 +93,14 @@ const EditArticle = () => {
 
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+
+  const handlerDelete = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("form", "destroy_inventory");
+    submit(formData, { action: "/inventory/edit" + id, method: "post" });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -136,9 +149,8 @@ const EditArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-
-    const response = await saveNewProduct(formData);
-    console.log("Product saved successfully:", response);
+    formData.append("form", "edit");
+    submit(formData, { action: "/inventory/edit" + id, method: "post" });
   };
 
   return (
@@ -210,16 +222,23 @@ const EditArticle = () => {
             setVariableData={setVariableData}
           />
 
-          <Form onSubmit={handleSubmit}>
-            <div className="flex justify-end">
+          <div className="flex justify-end">
+            <div className="flex justify-between space-x-6">
               <button
-                type="submit"
+                className="rounded bg-red-500 px-4 py-2 text-white"
+                onClick={handlerDelete}
+              >
+                Eliminar
+              </button>
+              <button
+                type="button"
                 className="rounded bg-blue-500 px-4 py-2 text-white"
+                onClick={handleSubmit}
               >
                 Enviar
               </button>
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>
@@ -227,3 +246,19 @@ const EditArticle = () => {
 };
 
 export default EditArticle;
+export async function Action({ request }) {
+  const formData = await request.formData();
+
+  switch (formData.get("form")) {
+    case "edit":
+      await editProduct(formData);
+      return redirect("/inventory/general-warehouses");
+      break;
+
+    case "destroy_inventory":
+      await destroyWarehouse(formData);
+      return redirect("/inventory/general-warehouses");
+      break;
+  }
+  return "0";
+}
