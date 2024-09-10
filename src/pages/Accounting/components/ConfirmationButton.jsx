@@ -1,25 +1,10 @@
 import React, { useState } from "react";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
 const ConfirmationButtons = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async () => {
-    const form = document.getElementById("fileinfo");
-    const formElements = Array.from(form.elements);
-
-    const formDataArray = formElements
-      .map((element) => {
-        if (element.name) {
-          return {
-            name: element.name,
-            value: element.value,
-          };
-        }
-        return null;
-      })
-      .filter((item) => item !== null);
     setIsOpen(false);
   };
 
@@ -56,20 +41,16 @@ const ConfirmationButtons = () => {
         </div>
       )}
       <div className="mt-4 flex justify-end space-x-6">
-        <Button className="h-9 w-28 border-2 border-primarioBotones bg-white text-xs font-semibold text-primarioBotones hover:bg-white">
+        <Button className="h-9 w-28 border-2 border-[##E0E0E0] rounded-xl	 bg-white text-xs font-semibold text-[#8F8F8F] hover:bg-white">
           Guardar Borrador
         </Button>
 
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              className="h-9 w-28 border bg-primarioBotones text-xs font-semibold text-white hover:bg-primario"
-              onClick={() => setIsOpen(true)}
-            >
-              Aplicar
-            </Button>
-          </PopoverTrigger>
-        </Popover>
+        <Button
+          className="h-9 w-28 rounded-xl border bg-[#E0E0E0] text-xs font-semibold text-[#44444f] hover:bg-[#E0E0E0]"
+          onClick={() => setIsOpen(true)}
+        >
+          Aplicar
+        </Button>
       </div>
     </div>
   );

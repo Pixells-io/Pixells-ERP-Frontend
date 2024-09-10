@@ -7,9 +7,9 @@ import { Form, useNavigation } from "react-router-dom";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
 import { Switch } from "@/components/ui/switch";
+import InputForm from "@/components/InputForm/InputForm";
 
 const FormDetailAccount = ({
   selectAccount,
@@ -79,7 +79,7 @@ const FormDetailAccount = ({
   };
 
   return (
-    <div className="h-full w-[320px] overflow-auto border-l p-2">
+    <div className="h-full w-[350px] overflow-auto border-l p-2">
       {/* modals */}
       <ModalConfirmNewAccount
         modal={modalCloneAccount}
@@ -103,21 +103,21 @@ const FormDetailAccount = ({
         </div>
         <div className="flex w-full justify-center gap-x-4">
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => newAccount()}
           >
             <IonIcon
               icon={copyOutline}
-              className="h-5 w-5 cursor-pointer text-[#696974]"
+              className="h-5 w-5 cursor-pointer text-[#44444F]"
             ></IonIcon>
           </div>
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => setIsEditable(!isEditable)}
           >
             <IonIcon
               icon={createOutline}
-              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
+              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#44444F]"} `}
             ></IonIcon>
           </div>
           <ModalDeleteAccount
@@ -197,7 +197,7 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Cuenta Contable
             </p>
-            <Input
+            <InputForm
               id="accounting_account"
               name="accounting_account"
               value={
@@ -206,7 +206,6 @@ const FormDetailAccount = ({
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -214,14 +213,13 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Nombre
             </p>
-            <Input
+            <InputForm
               id="name"
               name="name"
               value={!!account.name ? account.name : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -229,14 +227,13 @@ const FormDetailAccount = ({
             <p className="mb-2 font-roboto text-xs font-normal text-grisText">
               Nivel
             </p>
-            <Input
+            <InputForm
               id="level"
               name="level"
               value={!!selectAccount?.levels ? selectAccount.levels.length : ""}
               readOnly
               disabled={true}
               type="text"
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -260,7 +257,7 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Saldo
             </p>
-            <Input
+            <InputForm
               id="balance"
               name="balance"
               value={!!account.balance ? account.balance : ""}
@@ -269,7 +266,6 @@ const FormDetailAccount = ({
               min="0"
               step="0.01"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -277,14 +273,13 @@ const FormDetailAccount = ({
             <p className="font-roboto text-xs font-normal text-grisText">
               Tipo de cuenta
             </p>
-            <Input
+            <InputForm
               id="type_of_account"
               name="type_of_account"
               value={!!account.type_of_account ? account.type_of_account : ""}
               onChange={handleInputChange}
               type="text"
               disabled={!isEditable}
-              className="text-[#44444f] text-sm h-[32px] rounded-[10px]"
             />
           </div>
 
@@ -315,12 +310,12 @@ const FormDetailAccount = ({
             readOnly
           />
           <Switch
-            className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-            checked={checkedInputStatus == "1"}
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputStatus == "1"}
             onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
             disabled={!isEditable}
           />
-          <p className="font-roboto text-sm font-normal text-grisText">
+          <p className="font-roboto text-xs font-normal text-grisText">
             Activa
           </p>
         </div>

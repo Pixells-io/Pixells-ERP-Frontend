@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   informationCircle,
-  addCircleOutline,
   chevronBack,
   chevronForward,
+  add,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 const MainPolicy = () => {
   const [tableData, setTableData] = useState([]);
   const misDatos = [
@@ -266,13 +267,21 @@ const MainPolicy = () => {
             Pólizas de Ajuste Contable
           </p>
         </div>
-        <Link to="/accounting/policy/create">
-          <IonIcon
-            icon={addCircleOutline}
-            size="large"
-            className="h-7 w-7 cursor-pointer text-blue-500"
-          />
-        </Link>
+        <div className="flex justify-end">
+          <div>
+            <Link to="/accounting/policy/create">
+              <Button
+                type={"button"}
+                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+                <IonIcon icon={add} className="h-4 w-4" />
+                <span className="text-xs font-medium">
+                  Nuevo
+                </span>
+              </Button>
+            </Link>
+          </div>
+        </div>
         {/*content */}
         <div className="overflow-auto rounded-xl">
           <div className="flex items-start">
@@ -282,7 +291,7 @@ const MainPolicy = () => {
             >
               <TabsList className="mb-3 w-full bg-transparent">
                 <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F]"
                   value="ASIENTOS"
                 >
                   ASIENTOS

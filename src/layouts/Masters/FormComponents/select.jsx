@@ -34,6 +34,56 @@ function SelectRouter({
         getOptionValue={getOptionValue}
         getOptionLabel={getOptionLabel}
         filterOption={filterOption}
+        components={{
+          IndicatorSeparator: () => null,
+        }}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            borderRadius: "10px",
+            padding: "0px",
+            margin: "0px",
+            height: "32px",
+            minHeight: "32px",
+            border: "1px solid #e2e8f0",
+            fontWeight: 400,
+          }),
+          input: (baseStyles) => ({
+            ...baseStyles,
+            color: "#44444f", 
+            fontSize: "14px", 
+            fontFamily: "roboto",
+            fontWeight: 400,
+          }),
+          placeholder: (baseStyles) => ({
+            ...baseStyles,
+            color: "#44444f", 
+            fontSize: "14px", 
+            fontFamily: "roboto",
+            fontWeight: 400,
+          }),
+          menuList: (baseStyles) => ({
+            ...baseStyles,
+            color: "#44444f", 
+            fontSize: "14px", 
+            fontFamily: "roboto",
+            fontWeight: 400,
+          }),
+          multiValueLabel: (baseStyles) => ({
+            ...baseStyles,
+            color: "#44444f", 
+            fontSize: "14px", 
+            fontFamily: "roboto",
+            fontWeight: 400,
+          }),
+          singleValue: (baseStyles) => ({
+            ...baseStyles,
+            color: "#44444f", 
+            fontSize: "14px", 
+            fontFamily: "roboto",
+            fontWeight: 400,
+          }),
+        }}
       />
     </Label>
   );
