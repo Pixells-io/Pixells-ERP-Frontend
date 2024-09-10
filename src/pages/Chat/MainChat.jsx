@@ -22,8 +22,17 @@ import { createPusherClient } from "@/lib/pusher";
 import MenssageCard from "./Components/Mensagge";
 
 import { IonIcon } from "@ionic/react";
-import { send, mic, addCircle, closeCircle, chevronBack } from "ionicons/icons";
+import {
+  send,
+  mic,
+  addCircle,
+  closeCircle,
+  chevronBack,
+  play,
+  trashOutline,
+} from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
+import VoiceRecorder from "./Components/VoiceRecorder";
 
 function MainChat() {
   const location = useLocation();
@@ -43,10 +52,14 @@ function MainChat() {
   const [reply, setReply] = useState("");
   const [modalReplay, setModalReplay] = useState(false);
 
+  const [audioMode, setAudioMode] = useState(false);
+
   const inputFocusRef = useRef(null);
 
   useEffect(() => {
-    inputFocusRef.current.focus();
+    if (inputFocusRef.current !== null) {
+      inputFocusRef.current.focus();
+    }
   }, []);
 
   const pusherClient = createPusherClient();
@@ -196,25 +209,26 @@ function MainChat() {
                     <IonIcon
                       icon={send}
                       className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
-                    ></IonIcon>
+                    />
                   </button>
                 ) : (
                   <div className="flex">
                     <IonIcon
                       icon={mic}
                       className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
-                    ></IonIcon>
+                    />
                     <IonIcon
                       icon={addCircle}
                       className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
                       onClick={() => setModalSendFile(true)}
-                    ></IonIcon>
+                    />
                   </div>
                 )}
               </div>
             </Form>
           </div>
-        ) : (
+        ) : // Audio Mode
+        audioMode == false ? (
           <Form
             id="form-send-chat-mensagge"
             className="flex w-full"
@@ -244,21 +258,52 @@ function MainChat() {
                   <IonIcon
                     icon={send}
                     className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
-                  ></IonIcon>
+                  />
                 </button>
               ) : (
                 <div className="flex">
-                  {/* <IonIcon
+                  <IonIcon
                     icon={mic}
-                    className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
-                  ></IonIcon> */}
+                    className="shrink-0 px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                    onClick={() => setAudioMode(true)}
+                  />
                   <IonIcon
                     icon={addCircle}
-                    className="px-2 text-2xl text-[#BDBDBD] hover:text-primario"
+                    className="shrink-0 px-2 text-2xl text-[#BDBDBD] hover:text-primario"
                     onClick={() => setModalSendFile(true)}
-                  ></IonIcon>
+                  />
                 </div>
               )}
+            </div>
+          </Form>
+        ) : (
+          <Form
+            id="form-send-chat-mensagge"
+            className="flex w-full"
+            action={`/chat/${id}`}
+            method="post"
+            onKeyDown={onInputEnter}
+          >
+            <input type="hidden" value={id} name="chat_id" />
+            <input type="hidden" value={1} name="type_of_function" />
+            <div className="w-11/12 px-5">
+              <div className="flex h-10 w-full items-center rounded-3xl bg-primarioBotones px-1 py-2 font-roboto font-light text-grisText drop-shadow-[0px_0px_6px_rgba(0,0,0,0.20)] focus:ring-0 focus-visible:ring-primarioBotones">
+                <IonIcon
+                  icon={trashOutline}
+                  className="flex size-6 shrink-0 rounded-full bg-white p-1 text-2xl text-grisHeading hover:text-[#D7586B]"
+                  onClick={() => setAudioMode(false)}
+                />
+                <VoiceRecorder />
+              </div>
+            </div>
+            <div className="flex items-center md:w-1/12">
+              <button
+                type="submit"
+                onClick={() => cleanInput()}
+                className="flex rounded-3xl border border-grisHeading px-3 py-1 align-middle text-xs text-grisHeading"
+              >
+                Enviar
+              </button>
             </div>
           </Form>
         )}

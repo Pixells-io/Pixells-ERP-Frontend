@@ -16,10 +16,7 @@ function CustomModal({ isOpen, onClose }) {
   const [chat, setChat] = useState([]);
   const [modalMode, setModalMode] = useState("w-96 h-[600px] p-6");
 
-  console.log(chat);
   if (!isOpen) return null;
-
-  console.log(modalMode);
 
   return (
     <div

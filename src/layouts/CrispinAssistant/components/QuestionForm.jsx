@@ -13,7 +13,6 @@ function QuestionForm({ setChat }) {
       setChat((prev) => [...prev, { type: "1", message: mssg }]);
       const res = await SendQuestion(mssg);
       setChat((prev) => [...prev, { type: "0", message: res.responses }]);
-      console.log(res);
       setMssg("");
     }
   }
