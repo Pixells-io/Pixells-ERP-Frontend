@@ -3,77 +3,13 @@ import { json } from "react-router-dom";
 
 //SAVE PRODUCTS
 export async function saveNewProduct(data) {
-  // Crear el objeto FormData para enviar los datos
-  const formData = new FormData();
-
-  // Convertir los valores booleanos correctamente
-  const convertToBoolean = (value) =>
-    value === "true" ? 1 : value === "false" ? false : 0;
-
-  // Recoger la información del producto en el objeto FormData
-  formData.append("type", parseInt(data.get("type")));
-  formData.append("code", data.get("code"));
-  formData.append("name", data.get("name"));
-  formData.append("cost_center_id", parseInt(data.get("cost_center_id")));
-  formData.append(
-    "preferred_warehouse_id",
-    parseInt(data.get("preferred_warehouse_id")),
-  );
-  formData.append("price", data.get("price"));
-  formData.append("category_id", parseInt(data.get("category_id")));
-  formData.append("barcode", data.get("barcode"));
-  formData.append("measure", data.get("measure"));
-  formData.append("raw_material", convertToBoolean(data.get("raw_material")));
-  formData.append("buys", convertToBoolean(data.get("buys")));
-  formData.append("sale", convertToBoolean(data.get("sale")));
-  formData.append(
-    "subject_to_tax",
-    convertToBoolean(data.get("subject_to_tax")),
-  );
-  formData.append(
-    "available_for_return",
-    convertToBoolean(data.get("available_for_return")),
-  );
-  formData.append(
-    "manufacturing_available",
-    convertToBoolean(data.get("manufacturing_available")),
-  );
-  formData.append("manufacturer", data.get("manufacturer"));
-  formData.append("active", convertToBoolean(data.get("active")));
-  formData.append("from_active", data.get("from_active"));
-  formData.append("to_active", data.get("to_active"));
-  formData.append("valuation_method", data.get("valuation_method"));
-  formData.append("min_stock", data.get("min_stock"));
-  formData.append("max_stock", data.get("max_stock"));
-  formData.append("default_supplier", parseInt(data.get("default_supplier")));
-
-  // Añadir la imagen principal al FormData
-  const principalImage = data.get("principal_image");
-  if (principalImage) {
-    formData.append("primary_img", principalImage);
-  }
-
-  // Si es un producto variable, añadir imágenes secundarias y variables
-  if (parseInt(data.get("type")) === 1) {
-    const variableGroups = data.get("variables")
-      ? JSON.parse(data.get("variables"))
-      : [];
-
-    formData.append("variables", JSON.stringify(variableGroups));
-
-    // Agregar cada imagen secundaria al formData como array
-    const secondImages = data.get("second_images")
-      ? JSON.parse(data.get("second_images"))
-      : [];
-
-    formData.append("second_images", JSON.stringify(secondImages));
-  }
+ 
   // Realizar la solicitud de creación del producto
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {
       method: "POST",
-      body: formData,
+      body: data,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
