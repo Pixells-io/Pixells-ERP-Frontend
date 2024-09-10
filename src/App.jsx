@@ -320,7 +320,9 @@ import MainGeneral, {
   Action as CreateNewCategory,
 } from "./pages/Inventory/General/MainGeneral";
 import { multiloaderArticle } from "./pages/Inventory/General/utils";
-import CreateArticle,{Action as saveNewArticle} from "./pages/Inventory/General/NewArticle/NewArticle";
+import CreateArticle, {
+  Action as saveNewArticle,
+} from "./pages/Inventory/General/NewArticle/NewArticle";
 import MainWL, {
   Action as saveSlotsConfigs,
 } from "./pages/Inventory/WarehouseLocations/MainWL";

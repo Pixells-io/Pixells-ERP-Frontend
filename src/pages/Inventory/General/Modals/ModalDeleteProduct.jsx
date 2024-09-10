@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
+function ModalDeleteProduct({ modal, setModal, product_id, product_name }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="py-4 font-poppins font-semibold text-white">
-            Eliminar Categoría - {category_name}
+            Emilinar Producto - {product_name}
           </DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
@@ -44,8 +44,8 @@ function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
             className="hidden"
             hidden
             readOnly
-            name="category_id"
-            value={category_id}
+            name="product_id"
+            value={product_id}
           />
           <input
             type="hidden"
@@ -53,10 +53,10 @@ function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
             className="hidden"
             name="type_option"
             readOnly
-            value={"destroy_category"}
+            value={"destroy_product"}
           />
           <span className="font-roboto text-[#A6A6A6]">
-            You are trying to delete a category {category_name}, are you sure?
+            Estas intentando borrar este producto {product_name}, estas seguro?
           </span>
           <DialogFooter className="pb-6 pt-6">
             <div className="flex w-full justify-between gap-2">
@@ -82,4 +82,4 @@ function ModalDeleteCategory({ modal, setModal, category_id, category_name }) {
   );
 }
 
-export default ModalDeleteCategory;
+export default ModalDeleteProduct;
