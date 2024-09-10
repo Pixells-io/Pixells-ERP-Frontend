@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
-import { closeCircle, copy, create } from "ionicons/icons";
+import { closeCircle, copyOutline, createOutline } from "ionicons/icons";
 import ModalDeleteAccount from "../../Catalog/Modals/ModalDeleteAccount";
 import { getAccountingAccountById } from "../../Catalog/utils";
 import { Form, useNavigation } from "react-router-dom";
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
+import { Switch } from "@/components/ui/switch";
 
 const FormDetailAccount = ({
   selectAccount,
@@ -98,26 +99,26 @@ const FormDetailAccount = ({
       </div>
       <div className="flex items-center">
         <div className="w-full">
-          <h2 className="text-sm font-normal text-grisText">
+          <h2 className="font-poppins text-sm font-medium text-grisHeading">
             Detalles de la Cuenta
           </h2>
         </div>
         <div className="flex w-full justify-center gap-x-4">
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => newAccount()}
           >
             <IonIcon
-              icon={copy}
+              icon={copyOutline}
               className="h-5 w-5 cursor-pointer text-[#696974]"
             ></IonIcon>
           </div>
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => setIsEditable(!isEditable)}
           >
             <IonIcon
-              icon={create}
+              icon={createOutline}
               className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
             ></IonIcon>
           </div>
@@ -165,27 +166,32 @@ const FormDetailAccount = ({
             value={checkedInputType}
             readOnly
           />
-          <div className="flex items-center gap-x-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputType == "1"}
-              onCheckedChange={() => setCheckedInputType("1")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Título
-            </p>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputType == "2"}
-              onCheckedChange={() => setCheckedInputType("2")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Cuenta Activa
-            </p>
+          <div className="w-full">
+            <h2 className="py-3 text-xs font-normal text-grisSubText">
+              TIPO DE CUENTA
+            </h2>
+            <div className="flex w-full items-center gap-x-3 border-t border-[#D7D7D7] py-3 pl-4">
+              <Switch
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputType == "1"}
+                onCheckedChange={() => setCheckedInputType("1")}
+                disabled={!isEditable}
+              />
+              <p className="font-roboto text-sm font-normal text-grisText">
+                Título
+              </p>
+            </div>
+            <div className="flex w-full items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 pl-4">
+              <Switch
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputType == "2"}
+                onCheckedChange={() => setCheckedInputType("2")}
+                disabled={!isEditable}
+              />
+              <p className="font-roboto text-sm font-normal text-grisText">
+                Cuenta Activa
+              </p>
+            </div>
           </div>
         </div>
         <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
@@ -296,22 +302,27 @@ const FormDetailAccount = ({
           </div>
         </div>
       </Form>
-      <div className="flex items-center gap-x-2 p-1">
-        <input
-          type="hidden"
-          hidden
-          name="status"
-          className="hidden"
-          value={checkedInputStatus}
-          readOnly
-        />
-        <Checkbox
-          className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-          checked={checkedInputStatus == "1"}
-          onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
-          disabled={!isEditable}
-        />
-        <p className="font-roboto text-sm font-light text-grisText">Activo</p>
+      <div>
+        <h2 className="py-3 text-xs font-normal text-grisSubText">ESTATUS</h2>
+        <div className="flex w-full items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 pl-4">
+          <input
+            type="hidden"
+            hidden
+            name="status"
+            className="hidden"
+            value={checkedInputStatus}
+            readOnly
+          />
+          <Switch
+            className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+            checked={checkedInputStatus == "1"}
+            onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+            disabled={!isEditable}
+          />
+          <p className="font-roboto text-sm font-normal text-grisText">
+            Activa
+          </p>
+        </div>
       </div>
       <div className="flex w-full justify-end p-1">
         {isEditable && (
