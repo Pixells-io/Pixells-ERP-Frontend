@@ -155,7 +155,7 @@ const MainGeneral = () => {
     setProductId(id);
     setProductDestroyModal(true);
   }
-
+console.log(productState)
   return (
     <div className="flex w-full">
       {/* Modals */}
