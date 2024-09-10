@@ -164,8 +164,8 @@ const CreateArticle = () => {
 
         <div className="relative w-full space-y-4 overflow-auto">
           <Inputs
-            categories={categories}
-            warehouses={warehouses}
+            categories={categories.data}
+            warehouses={warehouses.data}
             inputsData={initialValues}
             setInputsData={setInitialValues}
           />

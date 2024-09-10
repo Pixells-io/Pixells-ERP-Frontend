@@ -127,15 +127,17 @@ const MainGeneral = () => {
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center gap-1">
-          <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
+          <Link to={`/inventory/edit/${row.original.id}`}>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
+          </Link>
           <Button
             type="button"
             className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -155,7 +157,7 @@ const MainGeneral = () => {
     setProductId(id);
     setProductDestroyModal(true);
   }
-console.log(productState)
+  console.log(productState);
   return (
     <div className="flex w-full">
       {/* Modals */}
@@ -274,7 +276,7 @@ console.log(productState)
             <DataTable
               data={productState}
               columns={columns}
-              searchFilter="codigo"
+              searchFilter="code"
               searchNameFilter="Buscar por código"
               isCheckAll={true}
             />

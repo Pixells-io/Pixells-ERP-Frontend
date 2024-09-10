@@ -93,7 +93,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
-                {warehouses.data.map((warehouse) => (
+                {Array.isArray(warehouses) &&  warehouses(warehouse).map((warehouse) => (
                   <SelectItem key={warehouse.id} value={warehouse.id}>
                     {warehouse.name}
                   </SelectItem>
@@ -121,7 +121,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent>
-                {categories.data.map((category) => (
+                {Array.isArray(categories).map((category) => (
                   <SelectItem key={category.id} value={category.id}>
                     {category.name}
                   </SelectItem>

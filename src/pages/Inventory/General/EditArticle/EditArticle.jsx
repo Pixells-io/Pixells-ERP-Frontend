@@ -1,54 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import {
-  Form,
-  useLoaderData,
-  useParams,
-  useLocation,
-  useSubmit,
-} from "react-router-dom";
+import { useLoaderData, useParams, useLocation, useSubmit } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { saveNewProduct, getProductById } from "../utils";
+import { getProductById } from "../utils";
 
 const EditArticle = () => {
-  const { id } = useParams();
+  const { id } = useParams(); 
   const location = useLocation();
   const data = useLoaderData();
-  const [product, setProduct] = useState(data);
+  const { products, categories, warehouses, suppliers, attributes} = data;
+
   const [productId, setProductId] = useState(id);
+  const [product, setProduct] = useState(products.data);
   const submit = useSubmit();
-  //WEBSOCKET
-  const pusherClient = createPusherClient();
 
-  async function getProductFunction(id) {
-    const newData = await getProductById(id);
-    setProduct(newData.data);
-  }
+ //WEBSOCKET
+ const pusherClient = createPusherClient();
 
-  useEffect(() => {
-    setProductId(id);
-    let channel = pusherClient.subscribe(`private-get-products.${productId}`);
+ async function getProductFunction(id) {
+   const newData = await getProductById(id);
+   setProduct(newData.data);
+ }
 
-    channel.bind("fill-products-data", ({ product }) => {
-      getProductFunction(product);
-    });
+ useEffect(() => {
+   setProductId(id);
+   let channel = pusherClient.subscribe(`private-get-products.${productId}`);
 
-    return () => {
-      pusherClient.unsubscribe(`private-get-products.${productId}`);
-    };
-  }, [location, productId]);
+   channel.bind("fill-products", ({warehouse}) => {
+    getProductFunction(warehouse);
+   });
 
-  const { categories, warehouses, suppliers, attributes } = data;
+   return () => {
+     pusherClient.unsubscribe(`private-get-products.${productId}`);
+   };
+ }, [location, productId]);;
+
+
   const [initialValues, setInitialValues] = useState({
     productType: "0",
     codigoDeArticulo: "",
@@ -99,7 +90,7 @@ const EditArticle = () => {
     const formData = new FormData();
     formData.append("id", id);
     formData.append("form", "destroy_inventory");
-    submit(formData, { action: "/inventory/edit" + id, method: "post" });
+    submit(formData, { action: `/inventory/edit/${id}`, method: "post" });
   };
 
   const handleSubmit = async (event) => {
@@ -150,7 +141,7 @@ const EditArticle = () => {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
     formData.append("form", "edit");
-    submit(formData, { action: "/inventory/edit" + id, method: "post" });
+    submit(formData, { action: `/inventory/edit/${id}`, method: "post" });
   };
 
   return (
@@ -206,8 +197,8 @@ const EditArticle = () => {
 
         <div className="relative w-full space-y-4 overflow-auto">
           <Inputs
-            categories={categories}
-            warehouses={warehouses}
+            categories={categories.data}
+            warehouses={[warehouses.data]}
             inputsData={initialValues}
             setInputsData={setInitialValues}
           />
@@ -246,6 +237,7 @@ const EditArticle = () => {
 };
 
 export default EditArticle;
+
 export async function Action({ request }) {
   const formData = await request.formData();
 

@@ -319,7 +319,7 @@ import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral, {
   Action as CreateNewCategory,
 } from "./pages/Inventory/General/MainGeneral";
-import { multiloaderArticle } from "./pages/Inventory/General/utils";
+import { getProduct, multiloaderArticle, multiloaderArticle2} from "./pages/Inventory/General/utils";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import EditArticle,{Action as editProduct} from "./pages/Inventory/General/EditArticle/EditArticle";
 import MainWL, {
@@ -1065,8 +1065,9 @@ const router = createBrowserRouter([
           {
             path: "/inventory/edit/:id",
             element: <EditArticle />,
-            loader: multiloaderArticle,
+            loader: multiloaderArticle2,
             action: editProduct
+            
           },
           {
             path: "/inventory/general-warehouses",
