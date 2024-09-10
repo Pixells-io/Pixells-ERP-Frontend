@@ -33,6 +33,7 @@ import {
 } from "ionicons/icons";
 import MensaggeFileModal from "./Components/MensaggeFileModal";
 import VoiceRecorder from "./Components/VoiceRecorder";
+import VoiceRecorderWithAudioPlayer from "./Components/Audio/VoiceRecorderWithAudioPlayer";
 
 function MainChat() {
   const location = useLocation();
@@ -294,6 +295,7 @@ function MainChat() {
                   onClick={() => setAudioMode(false)}
                 />
                 <VoiceRecorder />
+                {/* <VoiceRecorderWithAudioPlayer /> */}
               </div>
             </div>
             <div className="flex items-center md:w-1/12">
