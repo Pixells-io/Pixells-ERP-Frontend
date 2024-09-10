@@ -82,7 +82,7 @@ const TableBook = () => {
 
   return (
     <>
-      <div className="overflow-auto rounded-xl bg-white p-7 mt-2 mb-2">
+      <div className="overflow-auto rounded-xl  mt-2 mb-2">
         <Table>
           <TableHeader>
             <TableRow className="text-xs items-center bg-gris border-b-primario border-b-2 text-grisText">

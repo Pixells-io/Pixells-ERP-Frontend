@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { briefcase, trash } from "ionicons/icons";
+import { briefcase, trash, trashOutline } from "ionicons/icons";
 
 function ModalDeleteCostCenter({
   costCenter_id,
@@ -34,7 +34,7 @@ function ModalDeleteCostCenter({
         className="flex items-center"
       >
         <div className="flex h-9 w-9 items-center justify-center ">
-          <IonIcon icon={trash} className="h-5 w-5 text-[#696974]"></IonIcon>
+          <IonIcon icon={trashOutline} className="h-5 w-5 text-[#44444f]"></IonIcon>
         </div>
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4 border-0 bg-[#242424]">

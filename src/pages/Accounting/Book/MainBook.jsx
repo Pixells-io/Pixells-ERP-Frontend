@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, gridOutline, list } from "ionicons/icons";
+import { chevronBack, chevronForward, cloudDownloadOutline, gridOutline, list } from "ionicons/icons";
 
 import TableBook from "../components/Tabs/DataTableBook";
 import PeriodSelect from "../components/PeriodSelect";
@@ -35,7 +35,7 @@ const MainBook = () => {
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
             CONTABILIDAD
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -51,15 +51,25 @@ const MainBook = () => {
               Libro Diario
             </p>
           </div>
-          <div className="text-[#8F8F8F] flex gap-x-2 mr-12">
-            <IonIcon icon={gridOutline} className="h-5 w-5"></IonIcon>
-            <IonIcon icon={list} className="h-5 w-5"></IonIcon>
-          </div>
+          <div className="flex-1 flex justify-end gap-x-2">
+        <div
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+        >
+          <IonIcon
+            icon={cloudDownloadOutline}
+            className="h-5 w-5 cursor-pointer text-[#44444F]"
+          ></IonIcon>
+        </div>
+      </div>
         </div>
 
         {/*content */}
-        <PeriodSelect />
-        <TableBook />
+        <div className="bg-white p-7 overflow-auto">
+          <PeriodSelect />
+          <div className="overflow-auto mt-6">
+            <TableBook />
+          </div>
+        </div>
       </div>
     </div>
   );

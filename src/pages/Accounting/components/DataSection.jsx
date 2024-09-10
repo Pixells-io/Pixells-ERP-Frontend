@@ -10,7 +10,7 @@ const DataSection = ({ debitTotal, creditTotal }) => {
   }, [debitTotal, creditTotal]);
 
   return (
-    <section className="overflow-80 border-black-200 mb-2 mt-2 flex items-center justify-end rounded-xl">
+    <section className="overflow-80 border-black-200 mb-6 mt-2 flex items-center justify-end rounded-xl">
       <div className="flex flex-col">
         <div className="mt-2 flex space-x-3">
           <p className="mr-4 mt-2 text-xs font-medium text-grisText">TOTAL: </p>

@@ -40,7 +40,7 @@ const ConfirmationButtons = () => {
           </div>
         </div>
       )}
-      <div className="mt-4 flex justify-end space-x-6">
+      <div className="flex justify-end space-x-6">
         <Button className="h-9 w-28 border-2 border-[##E0E0E0] rounded-xl	 bg-white text-xs font-semibold text-[#8F8F8F] hover:bg-white">
           Guardar Borrador
         </Button>

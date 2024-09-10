@@ -5,9 +5,10 @@ import {
   chevronBack,
   chevronForward,
   add,
+  informationCircleOutline,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -179,14 +180,14 @@ const MainPolicy = () => {
         accessorKey: "estado",
         header: "Estado",
         cell: ({ row }) => (
-          <span
-            className="flex justify-center rounded-full font-roboto text-[14px]"
-            style={{
-              ...getStatusStyle(row.original.estado),
-            }}
-          >
-            {row.original.estado}
-          </span>
+            <span
+              className="flex justify-center rounded-full font-roboto text-[14px] w-[94px] py-1"
+              style={{
+                ...getStatusStyle(row.original.estado),
+              }}
+            >
+              {row.original.estado}
+            </span>
         ),
       },
       {
@@ -207,14 +208,19 @@ const MainPolicy = () => {
       {
         id: "acciones",
         accessorKey: "acciones",
-        header: "Acciones",
+        header: () => (
+          <div className="">
+            <p className="text-center">
+              Acciones
+            </p>
+          </div>
+        ),        
         cell: ({ row }) => (
           <div className="flex justify-center">
             <Link to="/accounting/policy/details">
               <IonIcon
-                icon={informationCircle}
-                size="small"
-                className="text-gray-500"
+                icon={informationCircleOutline}
+                className="text-[#44444f] w-5 h-5"
               />
             </Link>
           </div>
@@ -252,7 +258,7 @@ const MainPolicy = () => {
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
             CONTABILIDAD
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -262,12 +268,10 @@ const MainPolicy = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Pólizas de Ajuste Contable
           </p>
-        </div>
-        <div className="flex justify-end">
           <div>
             <Link to="/accounting/policy/create">
               <Button
@@ -283,32 +287,28 @@ const MainPolicy = () => {
           </div>
         </div>
         {/*content */}
-        <div className="overflow-auto rounded-xl">
-          <div className="flex items-start">
-            <Tabs
-              defaultValue="ASIENTOS"
-              className="top-4 flex h-full rounded-lg pl-4 pt-2"
+          <Tabs
+            defaultValue="ASIENTOS"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
-              <TabsList className="mb-3 w-full bg-transparent">
-                <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F]"
-                  value="ASIENTOS"
-                >
-                  ASIENTOS
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
-          <div className="mt-[-60px]">
-            <DataTable
-              data={misDatos}
-              columns={columns}
-              searchFilter={"tipo"}
-              searchNameFilter={"Ingrese el tipo"}
-              isCheckAll={true}
-            />
-          </div>
-        </div>
+          <TabsList className="mx-4 flex rounded-none justify-start border-b bg-inherit py-6">
+            <TabsTrigger
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:bg-inherit"
+                value="ASIENTOS"
+              >
+                ASIENTOS
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="ASIENTOS" className="mt-[-70px] pt-2 w-full">
+              <DataTable
+                data={misDatos}
+                columns={columns}
+                searchFilter={"tipo"}
+                searchNameFilter={"Ingrese el tipo"}
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
       </div>
     </div>
   );

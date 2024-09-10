@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { IonIcon } from "@ionic/react";
-import { create, informationCircle } from "ionicons/icons";
+import { create, informationCircle, informationCircleOutline } from "ionicons/icons";
 import { Textarea } from "@/components/ui/textarea";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Form, useNavigation } from "react-router-dom";
@@ -41,9 +41,9 @@ const ModalEditCost = ({ costCenter }) => {
     >
       <DialogTrigger asChild>
         <IonIcon
-          icon={informationCircle}
+          icon={informationCircleOutline}
           size="large"
-          className="h-5 w-5 cursor-pointer"
+          className="h-5 w-5 cursor-pointer text-[#44444f]"
         />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
