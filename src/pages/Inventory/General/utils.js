@@ -63,17 +63,18 @@ export async function saveNewProduct(data) {
 
     // Agregar cada imagen secundaria al formData como array
     const secondImages = data.get("second_images")
-      ? JSON.parse(data.get("second_images"))
+      ? data.get("second_images")
       : [];
 
-    formData.append("second_images", JSON.stringify(secondImages));
+    formData.append("second_images", secondImages);
   }
+
   // Realizar la solicitud de creación del producto
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {
       method: "POST",
-      body: formData,
+      body: data,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -203,11 +204,12 @@ export async function multiloaderArticle() {
 }
 
 export async function multiloaderInventory() {
-  const [categories, attributes] = await Promise.all([
+  const [categories, attributes, products] = await Promise.all([
     getCategories(),
     getAttributes(),
+    getProducts(),
   ]);
-  return json({ categories, attributes });
+  return json({ categories, attributes, products });
 }
 
 export async function getAttributes() {
@@ -353,6 +355,41 @@ export async function destroyAttributeSlot(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/destroy-attributes-slots`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function getProducts() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-products`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function destroyProduct(data) {
+  const info = {
+    product_id: data.get("product_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/destroy-product`,
     {
       method: "POST",
       body: JSON.stringify(info),

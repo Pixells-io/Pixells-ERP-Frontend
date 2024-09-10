@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useLoaderData, useNavigate } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import { saveNewProduct } from "../utils";
 
 const CreateArticle = () => {
@@ -51,80 +45,71 @@ const CreateArticle = () => {
 
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
-    images: [],
+    images: [], // Array de imágenes secundarias
   });
 
   const handleSelectChange = (name, value) => {
     setInitialValues((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const getActiveSlots = (groups) => {
-    return groups.map((group) => ({
-      ...group,
-      slots: group.slots
-        .filter((slot) => slot.active === 1) // Only keep active slots
-        .map((slot) => ({ id: slot.id })), // Only keep slot id
-    }));
-  };
-
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-  const hiddenInputs = [
-    { name: "type", value: initialValues.productType || "" },
-    { name: "code", value: initialValues.codigoDeArticulo || "" },
-    { name: "name", value: initialValues.nombreODescripcion || "" },
-    { name: "cost_center_id", value: initialValues.centroDeCostos || "" },
-    { name: "preferred_warehouse_id", value: initialValues.almacen || "" },
-    { name: "price", value: initialValues.precio || "" },
-    { name: "category_id", value: initialValues.categoria || "" },
-    { name: "barcode", value: initialValues.codigoDeBarras || "" },
-    { name: "measure", value: initialValues.unidadesDeMedida || "" },
-    { name: "raw_material", value: initialValues.inventario || false },
-    { name: "buys", value: initialValues.compra || false },
-    { name: "sale", value: initialValues.venta || false },
-    { name: "subject_to_tax", value: inputsData.sujetoAImpuesto || false },
-    {
-      name: "available_for_return",
-      value: inputsData.disponibleParaDevolucion || false,
-    },
-    {
-      name: "manufacturing_avalaible",
-      value: inputsData.disponibleParaDevolucion || false,
-    },
-    { name: "manufacturer", value: inputsData.fabricantes || "" },
-    { name: "active", value: inputsData.activos || false },
-    { name: "from_active", value: inputsData.from || "" },
-    { name: "to_active", value: inputsData.to || "" },
-    {
-      name: "principal_image",
-      value: inputsData.imagenPrincipal
-        ? JSON.stringify({
-            name: inputsData.imagenPrincipal.name,
-            type: inputsData.imagenPrincipal.type,
-            size: inputsData.imagenPrincipal.size,
-            lastModified: inputsData.imagenPrincipal.lastModified,
-          })
-        : "",
-    },
-    { name: "valuation_method", value: inputsData.metodoValoracion || "" },
-    { name: "min_stock", value: inputsData.stockMinimo || "" },
-    { name: "max_stock", value: inputsData.stockMaximo || "" },
-    { name: "default_supplier", value: inputsData.proveedor || "" },
-    {
-      name: "variables",
-      value: JSON.stringify(getActiveSlots(variableData.selectedGroups)),
-    },
-    {
-      name: "second_images",
-      value: JSON.stringify(variableData.images.map(image => ({
-        name: image.name,
-        type: image.type,
-        size: image.size,
-        lastModified: image.lastModified
-      }))),
-    },
-  ];
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      const formData = new FormData();
+      const convertToBoolean = (value) =>
+        value === "true" ? 1 : value === "false" ? false : 0;
+      
+      const info = {
+        type: parseInt(initialValues.productType) || 0,
+        code: initialValues.codigoDeArticulo || "",
+        name: initialValues.nombreODescripcion || "",
+        cost_center_id:parseInt(initialValues.centroDeCostos) || "",
+        preferred_warehouse_id: parseInt( initialValues.almacen) || "",
+        price: initialValues.precio || "",
+        category_id: parseInt(initialValues.categoria) || "",
+        barcode: initialValues.codigoDeBarras || "",
+        measure: initialValues.unidadesDeMedida || "",
+        raw_material: convertToBoolean(inputsData.inventario) || 0,
+        buys: convertToBoolean(inputsData.compra) || 0,
+        sale: convertToBoolean(inputsData.venta) || 0,
+        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
+        available_for_return: convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
+        manufacturing_available: convertToBoolean(inputsData.manufacturaDisponible) || 0,
+        manufacturer: inputsData.fabricantes || "",
+        active: convertToBoolean(inputsData.activos) || 0,
+        from_active: inputsData.from || "",
+        to_active: inputsData.to || "",
+        valuation_method: inputsData.metodoValoracion || "",
+        min_stock: inputsData.stockMinimo || "",
+        max_stock: inputsData.stockMaximo || "",
+        default_supplier: parseInt(inputsData.proveedor) || "",
+      };
+    
+      
+      if (initialValues.productType === "1") {
+        info.variables = variableData.selectedGroups;
+        variableData.images.forEach((image) => {
+          formData.append("second_images[]", image.file);
+        });;
+      }
+    
+      formData.append("info", JSON.stringify(info));
+    
+      if (inputsData.imagenPrincipal) {
+        formData.append("primary_img", inputsData.imagenPrincipal);
+      }
+  
+    
+     
+        const response = await saveNewProduct(formData);
+        console.log("Product saved successfully:", response);
+    
+    };
+    
+    
 
   return (
     <div className="flex w-full">
@@ -195,21 +180,8 @@ const CreateArticle = () => {
             setVariableData={setVariableData}
           />
 
-          <Form
-            method="post"
-            action="/inventory/create"
-            encType="multipart/form-data"
-          >
-            {/* Inputs ocultos */}
-            {hiddenInputs.map((input) => (
-              <input
-                key={input.name}
-                type="hidden"
-                name={input.name}
-                value={input.value}
-              />
-            ))}
-
+          <Form onSubmit={handleSubmit}>
+            {/* Otros campos del formulario */}
             <div className="flex justify-end">
               <button
                 type="submit"
@@ -227,8 +199,4 @@ const CreateArticle = () => {
 
 export default CreateArticle;
 
-export async function Action({ request }) {
-  const formData = await request.formData();
-  const response = await saveNewProduct(formData);
-  return "Datos procesados correctamente";
-}
+

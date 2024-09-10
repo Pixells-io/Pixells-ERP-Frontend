@@ -24,22 +24,23 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
   const selectClasses =
     "border-gris2-transparent ml-4 w-2 rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: { "image/*": [] },
-    onDrop: (acceptedFiles) => {
-      const newImages = acceptedFiles.map((file) => ({
-        file,
-        preview: URL.createObjectURL(file),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-      }));
-      setVariableData((prevData) => ({
-        ...prevData,
-        images: [...prevData.images, ...newImages],
-      }));
-    },
-  });
+    const { getRootProps, getInputProps } = useDropzone({
+      accept: { "image/*": [] },
+      onDrop: (acceptedFiles) => {
+        const newImages = acceptedFiles.map((file) => ({
+          file,
+          preview: URL.createObjectURL(file), // Crea una URL para la vista previa
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        }));
+        setVariableData((prevData) => ({
+          ...prevData,
+          images: [...prevData.images, ...newImages],
+        }));
+      },
+    });
+    
 
   const handleRemoveImage = (index) => {
     setVariableData((prevData) => ({
@@ -176,7 +177,7 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
                   </Button>
                   <img
                     loading="lazy"
-                    src={image.preview || image.url}  // Maneja vista previa o URL en caso de edición
+                    src={image.preview}  // Maneja vista previa o URL en caso de edición
                     alt="Imagen"
                     className="inset-0 h-full w-full object-cover"
                   />
