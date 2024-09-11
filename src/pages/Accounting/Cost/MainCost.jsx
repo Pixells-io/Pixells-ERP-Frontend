@@ -142,23 +142,19 @@ const MainCost = () => {
               Centro de Costos
             </p>
           </div>
-          <div className="mr-12 flex gap-x-2 text-[#8F8F8F]">
-            <IonIcon icon={gridOutline} className="h-5 w-5"></IonIcon>
-            <IonIcon icon={list} className="h-5 w-5"></IonIcon>
+          <div className="flex items-center justify-end gap-x-2">
+          
+            <Button
+              type={"button"}
+              className="flex h-[30px] items-center justify-center rounded-xl bg-[#E8E8E8] px-3 hover:bg-[#E8E8E8] gap-x-2"
+            >
+              <IonIcon icon={settingsOutline} className="h-4 w-4 text-[#44444F]" />
+              <span className="text-xs font-medium text-[#44444F]">
+                Configurar
+              </span>
+            </Button>
+            <AddItemDialog />
           </div>
-        </div>
-        <div className="flex items-center justify-end gap-x-2">
-        
-          <Button
-            type={"button"}
-            className="flex h-[30px] items-center justify-center rounded-xl bg-[#E8E8E8] px-3 hover:bg-[#E8E8E8] gap-x-2"
-          >
-            <IonIcon icon={settingsOutline} className="h-4 w-4 text-[#44444F]" />
-            <span className="text-xs font-medium text-[#44444F]">
-              Configurar
-            </span>
-          </Button>
-          <AddItemDialog />
         </div>
 
         {/* Data Table */}
@@ -168,7 +164,7 @@ const MainCost = () => {
           >
           <TabsList className="mx-4 flex rounded-none justify-start border-b bg-inherit py-6">
             <TabsTrigger
-                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:bg-inherit"
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:bg-inherit data-[state=active]:shadow-none"
                 value="CENTRO DE COSTOS"
               >
                 CENTRO DE COSTOS
