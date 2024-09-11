@@ -20,7 +20,7 @@ const GeneralForm = ({ data, setData }) => {
     imagenPrincipal: data.imagenPrincipal || null,
   });
   
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState(formData?.imagenPrincipal ||"");
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -54,13 +54,13 @@ const GeneralForm = ({ data, setData }) => {
       setFormData((prevFormData) => ({
         ...prevFormData,
         activos: !prevFormData.activos,
-        inactivo: prevFormData.activos,
+        inactivo: prevFormData.activos, 
       }));
     } else if (name === "inactivo") {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        activos: !prevFormData.inactivo,
-        inactivo: prevFormData.inactivo,
+        activos: prevFormData.inactivo, 
+        inactivo: !prevFormData.inactivo,
       }));
     } else {
       setFormData((prevFormData) => ({
@@ -69,6 +69,7 @@ const GeneralForm = ({ data, setData }) => {
       }));
     }
   };
+  
 
   const handleRemoveImage = () => {
     setFormData((prevFormData) => ({

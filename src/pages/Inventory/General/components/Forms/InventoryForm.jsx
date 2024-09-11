@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -10,27 +10,35 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const InventoryForm = ({ data, setData }) => {
-  
-  // Manejar cambios en los campos de entrada
+  const [formData, setFormData] = useState({
+    metodoValoracion: data.metodoValoracion || "",
+    costo: data.costo || "",
+    stockMinimo: data.stockMinimo || "",
+    stockMaximo: data.stockMaximo || "",
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prevData) => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  // Manejar cambios en los campos de selección
   const handleSelectChange = (name, value) => {
-    setData((prevData) => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    setData(formData);
+  }, [formData, setData]);
 
   const inputClasses =
     "border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-
+console.log(formData)
   return (
     <div className="grid grid-cols-2 gap-6">
       {/* Primera columna */}
@@ -45,7 +53,7 @@ const InventoryForm = ({ data, setData }) => {
           </Label>
           <Select
             name="metodoValoracion"
-            value={data.metodoValoracion || ""}
+            value={formData.metodoValoracion}
             onValueChange={(value) => handleSelectChange("metodoValoracion", value)}
           >
             <SelectTrigger className={inputClasses}>
@@ -68,9 +76,10 @@ const InventoryForm = ({ data, setData }) => {
             id="costo"
             name="costo"
             type="number"
-            value={data.costo || ""}
+            value={formData.costo}
             onChange={handleChange}
-            className={inputClasses}
+            className={"w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent"}
+            readOnly
           />
         </div>
       </div>
@@ -87,7 +96,7 @@ const InventoryForm = ({ data, setData }) => {
             id="stockMinimo"
             name="stockMinimo"
             type="number"
-            value={data.stockMinimo || ""}
+            value={formData.stockMinimo}
             onChange={handleChange}
             className={inputClasses}
           />
@@ -101,7 +110,7 @@ const InventoryForm = ({ data, setData }) => {
             id="stockMaximo"
             name="stockMaximo"
             type="number"
-            value={data.stockMaximo || ""}
+            value={formData.stockMaximo}
             onChange={handleChange}
             className={inputClasses}
           />

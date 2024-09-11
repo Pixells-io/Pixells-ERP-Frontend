@@ -42,11 +42,18 @@ const CreateArticle = () => {
     stockMaximo: "",
     proveedor: "",
   });
+  const [inventory,setInventory] = useState({
+    metodoValoracion: "",
+    costo: "",
+    stockMinimo:"",
+    stockMaximo: "",
+  });
 
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
     images: [], // Array de imágenes secundarias
   });
+  const [buyData,setBuyData] =useState({proveedor:"",})
 
   const handleSelectChange = (name, value) => {
     setInitialValues((prevData) => ({ ...prevData, [name]: value }));
@@ -60,7 +67,7 @@ const CreateArticle = () => {
   
       const formData = new FormData();
       const convertToBoolean = (value) =>
-        value === "true" ? 1 : value === "false" ? false : 0;
+        value === true ? 1 : value === false ? 0 : 0;
       
       const info = {
         type: parseInt(initialValues.productType) || 0,
@@ -72,9 +79,9 @@ const CreateArticle = () => {
         category_id: parseInt(initialValues.categoria) || "",
         barcode: initialValues.codigoDeBarras || "",
         measure: initialValues.unidadesDeMedida || "",
-        raw_material: convertToBoolean(inputsData.inventario) || 0,
-        buys: convertToBoolean(inputsData.compra) || 0,
-        sale: convertToBoolean(inputsData.venta) || 0,
+        raw_material: convertToBoolean(initialValues.inventario) || 0,
+        buys: convertToBoolean(initialValues.compra) || 0,
+        sale: convertToBoolean(initialValues.venta) || 0,
         subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
         available_for_return: convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
         manufacturing_available: convertToBoolean(inputsData.manufacturaDisponible) || 0,
@@ -82,13 +89,12 @@ const CreateArticle = () => {
         active: convertToBoolean(inputsData.activos) || 0,
         from_active: inputsData.from || "",
         to_active: inputsData.to || "",
-        valuation_method: inputsData.metodoValoracion || "",
-        min_stock: inputsData.stockMinimo || "",
-        max_stock: inputsData.stockMaximo || "",
-        default_supplier: parseInt(inputsData.proveedor) || "",
+        valuation_method: inventory.metodoValoracion || "",
+        min_stock: inventory.stockMinimo || "",
+        max_stock: inventory.stockMaximo || "",
+        default_supplier: parseInt(buyData.proveedor) || "",
       };
     
-      
       if (initialValues.productType === "1") {
         info.variables = variableData.selectedGroups;
         variableData.images.forEach((image) => {
@@ -102,9 +108,7 @@ const CreateArticle = () => {
         formData.append("primary_img", inputsData.imagenPrincipal);
       }
   
-    
-     
-        const response = await saveNewProduct(formData);
+   const response = await saveNewProduct(formData);
         console.log("Product saved successfully:", response);
     
     };
@@ -164,8 +168,8 @@ const CreateArticle = () => {
 
         <div className="relative w-full space-y-4 overflow-auto">
           <Inputs
-            categories={categories.data}
-            warehouses={warehouses.data}
+            categories={categories}
+            warehouses={warehouses}
             inputsData={initialValues}
             setInputsData={setInitialValues}
           />
@@ -178,6 +182,10 @@ const CreateArticle = () => {
             setInputsData={setInputsData}
             variableData={variableData}
             setVariableData={setVariableData}
+            inventory={inventory}
+            setInventory={setInventory}
+            buyData={buyData}
+            setBuyData={setBuyData}
           />
 
           <Form onSubmit={handleSubmit}>
