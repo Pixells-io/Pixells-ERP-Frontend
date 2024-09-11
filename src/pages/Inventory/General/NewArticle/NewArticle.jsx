@@ -4,7 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { saveNewProduct } from "../utils";
 
 const CreateArticle = () => {
@@ -70,7 +70,7 @@ const CreateArticle = () => {
         value === true ? 1 : value === false ? 0 : 0;
       
       const info = {
-        type: parseInt(initialValues.productType) || 0,
+        type: parseInt(initialValues.productType) || 1,
         code: initialValues.codigoDeArticulo || "",
         name: initialValues.nombreODescripcion || "",
         cost_center_id:parseInt(initialValues.centroDeCostos) || "",
@@ -95,7 +95,7 @@ const CreateArticle = () => {
         default_supplier: parseInt(buyData.proveedor) || "",
       };
     
-      if (initialValues.productType === "1") {
+      if (initialValues.productType === "2") {
         info.variables = variableData.selectedGroups;
         variableData.images.forEach((image) => {
           formData.append("second_images[]", image.file);
@@ -103,13 +103,13 @@ const CreateArticle = () => {
       }
     
       formData.append("info", JSON.stringify(info));
-    
+    console.log(info)
       if (inputsData.imagenPrincipal) {
         formData.append("primary_img", inputsData.imagenPrincipal);
       }
   
    const response = await saveNewProduct(formData);
-        console.log("Product saved successfully:", response);
+      return redirect("/inventory");
     
     };
     
@@ -150,7 +150,7 @@ const CreateArticle = () => {
             </span>
             <Select
               name="productType"
-              value={initialValues.productType || "0"}
+              value={initialValues.productType || "1"}
               onValueChange={(value) =>
                 handleSelectChange("productType", value)
               }
@@ -159,8 +159,8 @@ const CreateArticle = () => {
                 <SelectValue placeholder="Selecciona" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="0">Producto Simple</SelectItem>
-                <SelectItem value="1">Producto Variable</SelectItem>
+                <SelectItem value="1">Producto Simple</SelectItem>
+                <SelectItem value="2">Producto Variable</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -34,7 +34,7 @@ const FormGroup = ({
               key={value}
               value={value}
               className={`flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
-                value === "variables" && productType !== "1"
+                value === "variables" && productType !== "2"
                   ? "pointer-events-none opacity-50"
                   : ""
               }`}
@@ -53,7 +53,7 @@ const FormGroup = ({
             </div>
           </TabsContent>
           <TabsContent value="variables">
-            {productType === "1" && (
+            {productType === "2" && (
               <VariableForm
                 attrb={attrb}
                 variableData={variableData}

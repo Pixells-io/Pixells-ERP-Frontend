@@ -39,7 +39,7 @@ const EditArticle = () => {
    };
  }, [location, productId]);;
 
-
+ const [errors, setErrors] = useState({});
   const [initialValues, setInitialValues] = useState({
     productType: "0",
     codigoDeArticulo: product?.code || "",
@@ -78,10 +78,17 @@ const EditArticle = () => {
     stockMinimo:product?.min_stock|| "",
     stockMaximo:product?.max_stock|| "",
   })
+
   const [variableData, setVariableData] = useState({
-    selectedGroups: [],
-    images: [],
+    selectedGroups: product?.slots || [],
+    images: product?.images?.map(img => ({
+      id: img.id,
+      image: img.image,
+      preview: img.image
+    })) || [],
+    images_destroy: []
   });
+
 
   const [buyData,setBuyData] =useState({proveedor:product?.default_supplier|| "",})
 
@@ -151,6 +158,7 @@ const EditArticle = () => {
     submit(formData, { action: `/inventory/edit/${id}`, method: "post" });
   };
   console.log(product)
+  console.log(variableData.images_destroy)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -251,7 +259,6 @@ export async function Action({ request }) {
       return redirect("/inventory/general-warehouses");
       break;
 
-    case "destroy_inventory":
       await destroyWarehouse(formData);
       return redirect("/inventory/general-warehouses");
       break;
