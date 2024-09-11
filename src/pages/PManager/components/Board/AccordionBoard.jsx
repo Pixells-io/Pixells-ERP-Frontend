@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -42,6 +42,7 @@ function AccordionBoard({
   users,
 }) {
   function checkColor(value) {
+    const navigate = useNavigate();
     const color = PRIORITY.filter((prio) => prio.value == value);
     return color[0]?.color;
   }
@@ -55,15 +56,16 @@ function AccordionBoard({
           ? [
               {
                 content: (
-                  <IonIcon
-                    icon={informationCircle}
-                    className="h-5 w-5 text-grisHeading"
-                  />
+                  <Link to={`/project-manager/${id}/projects/${task?.id}`}>
+                    <IonIcon
+                      icon={informationCircle}
+                      className="h-5 w-5 text-grisHeading"
+                    />
+                  </Link>
                 ),
                 // onClick: () =>
                 // 	openCompleteTaskModal(task?.id, task?.name, task?.description),
-                onClick: () =>
-                  redirect(`/project-manager/${id}/projects/${task?.id}`),
+                onClick: () => {},
               },
               {
                 content: (
