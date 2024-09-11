@@ -103,15 +103,20 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
         if (group.id === groupId) {
           const updatedSlots = group.slots.map((slot) =>
             slot.id === slotId
-              ? { ...slot, active: slot.active === 1 ? 0 : 1 }
-              : slot,
+              ? { ...slot, active: slot.active === 1 ? 0 : 1 } // Toggle active between 0 and 1
+              : slot
           );
-          return { ...slot, active: slot.active === 1 ? 0 : 1 }
+          return { 
+            id: group.id, 
+            name: group.name, 
+            slots: updatedSlots
+          };
         }
-        return group;
+        return group; 
       }),
     }));
   };
+  
 
   return (
     <div className="grid grid-cols-2 gap-2">

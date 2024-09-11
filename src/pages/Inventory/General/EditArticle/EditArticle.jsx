@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import {
@@ -23,6 +23,8 @@ const EditArticle = () => {
   const { id } = useParams();
   const location = useLocation();
   const data = useLoaderData();
+
+  //DATA
   const { products, categories, warehouses, suppliers, attributes } = data;
 
   const [productId, setProductId] = useState(id);
@@ -41,8 +43,8 @@ const EditArticle = () => {
     setProductId(id);
     let channel = pusherClient.subscribe(`private-get-products.${productId}`);
 
-    channel.bind("fill-products", ({ warehouse }) => {
-      getProductFunction(warehouse);
+    channel.bind("fill-products", ({ message }) => {
+      getProductFunction(message);
     });
 
     return () => {
@@ -50,6 +52,7 @@ const EditArticle = () => {
     };
   }, [location, productId]);
 
+  //INITIAL VALUES
   const [errors, setErrors] = useState({});
   const [initialValues, setInitialValues] = useState({
     productType: product?.images.length > 0 ? "2" : "1",
@@ -106,112 +109,117 @@ const EditArticle = () => {
     proveedor: product?.default_supplier || "",
   });
 
+  //HANDLER TO SIMPLE PRODUCT OR VARIABLE
   const handleSelectChange = (name, value) => {
     setInitialValues((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const selectClasses =
     "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-    const [errorTimer, setErrorTimer] = useState(null);
+  const [errorTimer, setErrorTimer] = useState(null);
 
-    const clearErrors = useCallback(() => {
-      setErrors({});
-      setErrorTimer(null);
-    }, []);
-    useEffect(() => {
-      if (Object.keys(errors).length > 0 && !errorTimer) {
-        const timer = setTimeout(clearErrors, 5000); 
-        setErrorTimer(timer);
+  //CLEAR ERRORS
+  const clearErrors = useCallback(() => {
+    setErrors({});
+    setErrorTimer(null);
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0 && !errorTimer) {
+      const timer = setTimeout(clearErrors, 5000);
+      setErrorTimer(timer);
+    }
+    return () => {
+      if (errorTimer) {
+        clearTimeout(errorTimer);
       }
-      return () => {
-        if (errorTimer) {
-          clearTimeout(errorTimer);
-        }
-      };
-    }, [errors, errorTimer, clearErrors]);
-    const validateForm = () => {
-      let newErrors = {};
-  
-      // Validar campos requeridos
-      if (!initialValues.codigoDeArticulo.trim())
-        newErrors.codigoDeArticulo = "El código de artículo es requerido";
-      if (!initialValues.nombreODescripcion.trim())
-        newErrors.nombreODescripcion = "El nombre o descripción es requerido";
-      if (!initialValues.precio.trim())
-        newErrors.precio = "El precio es requerido";
-      if (!initialValues.almacen) newErrors.almacen = "El almacén es requerido";
-      if (!initialValues.categoria)
-        newErrors.categoria = "La categoría es requerida";
-  
-      // Validar que el precio sea un número válido
-      if (isNaN(parseFloat(initialValues.precio)))
-        newErrors.precio = "El precio debe ser un número válido";
-  
-      // Validar que el código de barras solo contenga números (si está presente)
-      if (
-        initialValues.codigoDeBarras &&
-        !/^\d+$/.test(initialValues.codigoDeBarras)
-      ) {
-        newErrors.codigoDeBarras =
-          "El código de barras solo debe contener números";
+    };
+  }, [errors, errorTimer, clearErrors]);
+
+  //VALIDATIONS
+  const validateForm = () => {
+    let newErrors = {};
+
+    // Validar campos requeridos
+    if (!initialValues.codigoDeArticulo.trim())
+      newErrors.codigoDeArticulo = "El código de artículo es requerido";
+    if (!initialValues.nombreODescripcion.trim())
+      newErrors.nombreODescripcion = "El nombre o descripción es requerido";
+    if (!initialValues.precio.trim())
+      newErrors.precio = "El precio es requerido";
+    if (!initialValues.almacen) newErrors.almacen = "El almacén es requerido";
+    if (!initialValues.categoria)
+      newErrors.categoria = "La categoría es requerida";
+
+    // Validar que el precio sea un número válido
+    if (isNaN(parseFloat(initialValues.precio)))
+      newErrors.precio = "El precio debe ser un número válido";
+
+    // Validar que el código de barras solo contenga números (si está presente)
+    if (
+      initialValues.codigoDeBarras &&
+      !/^\d+$/.test(initialValues.codigoDeBarras)
+    ) {
+      newErrors.codigoDeBarras =
+        "El código de barras solo debe contener números";
+    }
+
+    // Validar fechas (si están presentes)
+    if (inputsData.from && inputsData.to) {
+      const fromDate = new Date(inputsData.from);
+      const toDate = new Date(inputsData.to);
+      if (fromDate > toDate) {
+        newErrors.dateRange =
+          "La fecha 'desde' no puede ser posterior a la fecha 'hasta'";
       }
-  
-      // Validar fechas (si están presentes)
-      if (inputsData.from && inputsData.to) {
-        const fromDate = new Date(inputsData.from);
-        const toDate = new Date(inputsData.to);
-        if (fromDate > toDate) {
-          newErrors.dateRange =
-            "La fecha 'desde' no puede ser posterior a la fecha 'hasta'";
-        }
+    }
+
+    // Validar imagen principal
+    if (!inputsData.imagenPrincipal) {
+      newErrors.image = "La imagen principal es requerida";
+    }
+
+    // Validar método de valoración
+    if (!inventory.metodoValoracion) {
+      newErrors.valoracion = "El método de valoración es requerido";
+    }
+
+    // Validar stock mínimo y máximo
+    if (!inventory.stockMinimo.trim() || !inventory.stockMaximo.trim()) {
+      newErrors.stockMin = "Los valores de Stock son requeridos";
+    } else {
+      const minStock = parseInt(inventory.stockMinimo);
+      const maxStock = parseInt(inventory.stockMaximo);
+      if (isNaN(minStock) || isNaN(maxStock)) {
+        newErrors.stockMin = "Los valores de Stock deben ser números válidos";
+      } else if (minStock >= maxStock) {
+        newErrors.stock = "El Stock Mínimo debe ser menor que el Stock Máximo";
       }
-  
-      // Validar imagen principal
-      if (!inputsData.imagenPrincipal) {
-        newErrors.image = "La imagen principal es requerida";
-      }
-  
-      // Validar método de valoración
-      if (!inventory.metodoValoracion) {
-        newErrors.valoracion = "El método de valoración es requerido";
-      }
-  
-      // Validar stock mínimo y máximo
-      if (!inventory.stockMinimo.trim() || !inventory.stockMaximo.trim()) {
-        newErrors.stockMin = "Los valores de Stock son requeridos";
-      } else {
-        const minStock = parseInt(inventory.stockMinimo);
-        const maxStock = parseInt(inventory.stockMaximo);
-        if (isNaN(minStock) || isNaN(maxStock)) {
-          newErrors.stockMin = "Los valores de Stock deben ser números válidos";
-        } else if (minStock >= maxStock) {
-          newErrors.stock = "El Stock Mínimo debe ser menor que el Stock Máximo";
-        }
-      }
-  
-      // Validar unidades de medida
-      if (!initialValues.unidadesDeMedida.trim()) {
-        newErrors.unidadesDeMedida = "La unidad de medida es requerida";
-      }
-  
-      // Validar centro de costos
-      if (!initialValues.centroDeCostos.trim()) {
-        newErrors.centroDeCostos = "El centro de costos es requerido";
-      }
-  
-      setErrors(newErrors);
+    }
+
+    // Validar unidades de medida
+    if (!initialValues.unidadesDeMedida.trim()) {
+      newErrors.unidadesDeMedida = "La unidad de medida es requerida";
+    }
+
+    // Validar centro de costos
+    if (!initialValues.centroDeCostos.trim()) {
+      newErrors.centroDeCostos = "El centro de costos es requerido";
+    }
+
+    setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       if (errorTimer) {
         clearTimeout(errorTimer);
       }
-      const timer = setTimeout(clearErrors, 5000); 
+      const timer = setTimeout(clearErrors, 5000);
       setErrorTimer(timer);
     }
 
     return Object.keys(newErrors).length === 0;
-    };
-  
+  };
 
+  //FORM TO PRODUCT
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) {
@@ -222,6 +230,7 @@ const EditArticle = () => {
       value === true ? 1 : value === false ? 0 : 0;
 
     const info = {
+      product_id:id,
       type: parseInt(initialValues.productType) || 1,
       code: initialValues.codigoDeArticulo || "",
       name: initialValues.nombreODescripcion || "",
@@ -258,14 +267,13 @@ const EditArticle = () => {
     }
 
     formData.append("info", JSON.stringify(info));
-    console.log(info)
+    console.log(info);
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
     submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
   };
-  console.log(product);
-  console.log(variableData.images_destroy);
+  console.log(product)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -317,14 +325,13 @@ const EditArticle = () => {
           </div>
         </div>
         {Object.keys(errors).length > 0 && (
-            <div className="mt-4 text-red-500">
-              {Object.values(errors).map((error, index) => (
-                <p key={index}>{error}</p>
-              ))}
-            </div>
-          )}
+          <div className="mt-4 text-red-500">
+            {Object.values(errors).map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
         <div className="relative w-full space-y-4 overflow-auto">
-        
           <Inputs
             categories={categories}
             warehouses={warehouses}
@@ -345,7 +352,7 @@ const EditArticle = () => {
             buyData={buyData}
             setBuyData={setBuyData}
           />
-        
+
           <div className="flex justify-end">
             <button
               type="button"
@@ -365,6 +372,7 @@ export default EditArticle;
 
 export async function Action({ request }) {
   const formData = await request.formData();
- const response = await editProduct(formData)
+  const response = await editProduct(formData);
+  
   return "0";
 }
