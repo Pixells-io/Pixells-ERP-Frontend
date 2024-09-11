@@ -42,6 +42,20 @@ export async function getProductById(id) {
   }
 }
 
+export async function editProduct(data) {
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/edit-inventory`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
+}
 
 export async function getCategories() {
   try {

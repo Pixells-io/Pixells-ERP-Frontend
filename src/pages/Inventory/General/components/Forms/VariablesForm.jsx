@@ -24,29 +24,40 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
   const selectClasses =
     "border-gris2-transparent ml-4 w-2 rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
-    const { getRootProps, getInputProps } = useDropzone({
-      accept: { "image/*": [] },
-      onDrop: (acceptedFiles) => {
-        const newImages = acceptedFiles.map((file) => ({
-          file,
-          preview: URL.createObjectURL(file), // Crea una URL para la vista previa
-          name: file.name,
-          size: file.size,
-          type: file.type,
-        }));
-        setVariableData((prevData) => ({
-          ...prevData,
-          images: [...prevData.images, ...newImages],
-        }));
-      },
-    });
-    
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [] },
+    onDrop: (acceptedFiles) => {
+      const newImages = acceptedFiles.map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      }));
+      setVariableData((prevData) => ({
+        ...prevData,
+        images: [...prevData.images, ...newImages],
+      }));
+    },
+  });
 
   const handleRemoveImage = (index) => {
-    setVariableData((prevData) => ({
-      ...prevData,
-      images: prevData.images.filter((_, i) => i !== index),
-    }));
+    setVariableData((prevData) => {
+      const removedImage = prevData.images[index];
+      const updatedImages = prevData.images.filter((_, i) => i !== index);
+      let updatedImagesDestroy = prevData.images_destroy || [];
+      
+      // Si la imagen eliminada tiene un ID, agrégalo a images_destroy
+      if (removedImage.id) {
+        updatedImagesDestroy = [...updatedImagesDestroy, removedImage.id];
+      }
+
+      return {
+        ...prevData,
+        images: updatedImages,
+        images_destroy: updatedImagesDestroy,
+      };
+    });
   };
 
   const handleSelectChange = (value) => {
@@ -89,18 +100,23 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
     setVariableData((prevData) => ({
       ...prevData,
       selectedGroups: prevData.selectedGroups.map((group) => {
-      if (group.id === groupId) {
-        const updatedSlots = group.slots.map((slot) =>
-          slot.id === slotId
-            ? { ...slot, active: slot.active === 1 ? 0 : 1 }
-            : slot,
-        );
-        return { ...group, slots: updatedSlots };
-      }
-      return group;
+        if (group.id === groupId) {
+          const updatedSlots = group.slots.map((slot) =>
+            slot.id === slotId
+              ? { ...slot, active: slot.active === 1 ? 0 : 1 } // Toggle active between 0 and 1
+              : slot
+          );
+          return { 
+            id: group.id, 
+            name: group.name, 
+            slots: updatedSlots
+          };
+        }
+        return group; 
       }),
     }));
   };
+  
 
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -177,7 +193,7 @@ const VariableForm = ({ attrb, variableData, setVariableData, isEdit = false }) 
                   </Button>
                   <img
                     loading="lazy"
-                    src={image.preview}  // Maneja vista previa o URL en caso de edición
+                    src={image.preview || image.image}
                     alt="Imagen"
                     className="inset-0 h-full w-full object-cover"
                   />
