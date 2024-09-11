@@ -15,7 +15,7 @@ const Total = ({ subtotal, taxRate = 0.16, observationPlaceholder = "Observacion
         <textarea
           placeholder={observationPlaceholder}
           className="h-full w-[300px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-          name="template"
+          name="comments"
         ></textarea>
       </div>
       <div className="w-33">

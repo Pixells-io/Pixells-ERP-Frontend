@@ -1,6 +1,6 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import InputForm from "@/components/InputForm/InputForm";
 
 const InputsGroup = ({ 
   documentNumber, 
@@ -23,11 +23,10 @@ const InputsGroup = ({
   return (
     <div className="rounded-xl bg-white p-4">
       <div className="flex justify-between w-full space-x-4">
-        <Input 
-          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+        <InputForm
           placeholder="Número de Documento"
           type="text"
-          name="ndocument"
+          name="document_number"
           value={documentNumber}
           onChange={(e) => isEditable && setDocumentNumber(e.target.value)} 
           disabled={!isEditable} 
@@ -37,13 +36,13 @@ const InputsGroup = ({
           onValueChange={handleWarehouseChange} 
           disabled={!isEditable} 
         >
-          <SelectTrigger name="warehouse" className="w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+          <SelectTrigger name="inventory_id" className="h-[32px] w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="almacen1">Almacén Central</SelectItem>
-            <SelectItem value="almacen2">Almacén Norte</SelectItem>
-            <SelectItem value="almacen3">Almacén Sur</SelectItem>
+            <SelectItem value="1">Almacén Central</SelectItem>
+            <SelectItem value="2">Almacén Norte</SelectItem>
+            <SelectItem value="3">Almacén Sur</SelectItem>
           </SelectContent>
         </Select>
         <Select 

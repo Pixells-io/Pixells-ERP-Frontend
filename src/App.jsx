@@ -382,9 +382,13 @@ import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
-import CreateRequest from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
+import CreateRequest, {
+  Action as createPurchase,
+} from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
 import MainQuotesOrder from "./pages/Shopping/Orders/MainQuotes";
-import CreateQuoteOrder from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
+import CreateQuoteOrder, {
+  Action as createQuotesOrder,
+} from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
 import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
 import MainInvoices from "./pages/Shopping/Orders/MainInvoice";
 import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
@@ -1269,6 +1273,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/purchase/create",
             element: <CreateRequest />,
+            action: createPurchase
           },
           {
             path: "/shopping/purchase/edit/:id",
@@ -1281,6 +1286,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders/create",
             element: <CreateQuoteOrder />,
+            action: createQuotesOrder
           },
           {
             path: "/shopping/quotes-orders/edit/:id",

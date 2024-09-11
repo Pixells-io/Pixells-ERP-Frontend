@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { Form, useSubmit } from "react-router-dom";
 import InputsGroup from "./ElementGroup";
 import OrderTable from "./OrderFom";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
@@ -29,10 +29,11 @@ const DocumentContent = ({
   setSelectedCondicionPago,
   isEditable,
 }) => {
-  const navigate = useNavigate();
+  const submit = useSubmit();
 
-  const handleSubmit = () => {
-    navigate(saveUrl);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit(e.currentTarget, { action: saveUrl, method: "post" });
   };
 
   const handleTotalChange = useCallback(
@@ -81,7 +82,6 @@ const DocumentContent = ({
       <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}
-          applyFunction={handleSubmit}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
@@ -94,8 +94,7 @@ const DocumentContent = ({
             Save
           </Button>
           <Button
-            type="button"
-            onClick={() => alert("save")}
+            type="submit"
             className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
           >
             Save for Aproval

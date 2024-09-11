@@ -1,8 +1,7 @@
 import React from "react";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
-import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import InputForm from "@/components/InputForm/InputForm";
 
 const OrderTable = ({
   selectedProveedor,
@@ -15,10 +14,13 @@ const OrderTable = ({
   setSelectedCondicionPago,
   isEditable,
 }) => {
+  const navigate = useNavigate();
+
   const proveedorOptions = [
-    { value: "proveedor1", label: "Proveedor 1" },
-    { value: "proveedor2", label: "Proveedor 2" },
-    { value: "proveedor3", label: "Proveedor 3" },
+    { value: "newProvider", label: "Nuevo proveedor"},
+    { value: "1", label: "Proveedor 1" },
+    { value: "2", label: "Proveedor 2" },
+    { value: "3", label: "Proveedor 3" },
   ];
 
   const fechaDocOptions = [
@@ -34,42 +36,40 @@ const OrderTable = ({
   ];
 
   const condicionPagoOptions = [
-    { value: "condicion1", label: "Condición 1" },
-    { value: "condicion2", label: "Condición 2" },
-    { value: "condicion3", label: "Condición 3" },
+    { value: "1", label: "Condición 1" },
+    { value: "2", label: "Condición 2" },
+    { value: "3", label: "Condición 3" },
   ];
 
  
   const disabledClass = "opacity-50 cursor-not-allowed";
   const enabledClass = "opacity-100 cursor-pointer";
 
+  const handleRedirectNewProvider = (v) => {
+    if(v == "newProvider"){
+      navigate("/shopping/supplier/create");
+
+    } else {
+      setSelectedProveedor(v);
+    }
+  };
+
   return (
     <div className="flex pt-4 justify-between space-x-3">
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
-          name="proveedor"
+          name="supplier_id"
           placeholder="Seleccionar Proveedor"
           options={proveedorOptions}
           value={selectedProveedor}
-          onValueChange={isEditable ? setSelectedProveedor : () => {}}
+          onValueChange={isEditable ? handleRedirectNewProvider : () => {}}
           className={!isEditable ? disabledClass : ""}
         />
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-primarioBotones active:bg-opacity-20"
-        disabled={!isEditable}
-      >
-        <IonIcon
-          icon={addCircleOutline}
-          size="small"
-          className="hover:text-primarioBotones-dark active:text-primarioBotones-darker text-primarioBotones transition-colors duration-300"
-        />
-      </Button>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
-        <SelectField
-          name="fechaDoc"
+        <InputForm
+          type={"date"}
+          name="document_created"
           placeholder="Seleccionar Fecha de Doc"
           options={fechaDocOptions}
           value={selectedFechaDoc}
@@ -78,8 +78,9 @@ const OrderTable = ({
         />
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
-        <SelectField
-          name="fechaEntrega"
+        <InputForm
+          type={"date"}
+          name="delivery_date"
           placeholder="Seleccionar Fecha de Entrega"
           options={fechaEntregaOptions}
           value={selectedFechaEntrega}
@@ -89,7 +90,7 @@ const OrderTable = ({
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
-          name="condicionPago"
+          name="payment_condition"
           placeholder="Seleccionar Condición de Pago"
           options={condicionPagoOptions}
           value={selectedCondicionPago}

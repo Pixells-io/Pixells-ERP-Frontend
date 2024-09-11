@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
 import CardCarousel from './Components/CardCarousel';
+import { saveNewQuoteOrder } from '../../utils';
+import { redirect } from 'react-router-dom';
 const CreateQuoteOrder = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
+  const [selectedProveedor, setSelectedProveedor] = useState('');
   const [subtotal, setSubtotal] = useState(0);
 
   const getTitle = "Nueva Cotización";
-  const saveUrl ="/shopping/quotes-orders"
+  const saveUrl ="/shopping/quotes-orders/create"
  
 
   return (
@@ -20,6 +23,8 @@ const CreateQuoteOrder = () => {
         <CardCarousel/>
         </div>
         <DocumentContent
+          selectedProveedor={selectedProveedor}
+          setSelectedProveedor={setSelectedProveedor}
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
           selectedWarehouse={selectedWarehouse}
@@ -37,3 +42,11 @@ const CreateQuoteOrder = () => {
 };
 
 export default CreateQuoteOrder;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await saveNewQuoteOrder(formData);
+ 
+  return redirect("/shopping/quotes-orders");
+}
+

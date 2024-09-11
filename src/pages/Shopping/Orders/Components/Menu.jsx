@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IonIcon } from "@ionic/react";
-import { ellipsisVertical } from "ionicons/icons";
+import { ellipsisVerticalOutline } from "ionicons/icons";
 
 const MenuItem = ({ menuItems }) => {
   return (
@@ -20,7 +20,7 @@ const MenuItem = ({ menuItems }) => {
           className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20 focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           <IonIcon
-            icon={ellipsisVertical}
+            icon={ellipsisVerticalOutline}
             size="large"
             className="hover:text-primarioBotones-dark active:text-grisDisabled text-gris2 transition-colors duration-300"
           />
