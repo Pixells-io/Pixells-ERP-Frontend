@@ -147,29 +147,27 @@ function MainPManager() {
   ];
 
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+    <div className="flex h-full w-full overflow-scroll">
+      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-[22px] font-bold text-[#44444F]">
-              GESTOR DE PROYECTOS
-            </h2>
-          </div>
+        <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-4">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            GESTOR DE PROYECTOS
+          </h2>
           <div className="flex items-center gap-3 text-[#8F8F8F]">
             <div className="text-xs">{data?.length} objetivos</div>
-            {/* <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 FCE</div>
             <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 actividades</div> */}
+            <div className="text-xs">25 SCF</div>
+            <div className="text-2xl">&bull;</div>
+            <div className="text-xs">43 Activities</div>
           </div>
         </div>
 
         {/* top content sub */}
-        <div className="flex items-center gap-32 pl-3 pt-4">
+        <div className="flex items-center gap-32 pl-3 pt-0 md:pt-4">
           <div className="flex w-full flex-col gap-2">
             <div className="flex w-full items-center justify-between">
               <ObjectiveDestroy
@@ -269,7 +267,8 @@ function MainPManager() {
           <div className="">
             {createP == true ? <GoalForm objectiveId={params?.id} /> : false}
           </div>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 overflow-x-scroll">
             <NavLink
               to={`/project-manager/${params?.id}`}
               className={({ isActive }) =>
