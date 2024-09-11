@@ -98,7 +98,7 @@ function Boards() {
   return (
     <Tabs
       defaultValue={tabDefault}
-      className="w-full overflow-scroll rounded-xl bg-blancoBg"
+      className="h-full w-full overflow-scroll rounded-xl bg-blancoBg"
     >
       <GoalDestroy
         modal={open}
