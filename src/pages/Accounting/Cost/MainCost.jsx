@@ -166,15 +166,15 @@ const MainCost = () => {
             defaultValue="CENTRO DE COSTOS"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
           >
-            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-              <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+          <TabsList className="mx-4 flex rounded-none justify-start border-b bg-inherit py-6">
+            <TabsTrigger
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:bg-inherit"
                 value="CENTRO DE COSTOS"
               >
                 CENTRO DE COSTOS
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="CENTRO DE COSTOS" className="mt-[-60px] p-2">
+            <TabsContent value="CENTRO DE COSTOS" className="mt-[-70px] p-2">
               <DataTable
                 data={costCenterList}
                 columns={columns}
