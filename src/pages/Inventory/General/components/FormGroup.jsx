@@ -14,6 +14,10 @@ const FormGroup = ({
   setInputsData,
   variableData,
   setVariableData,
+  inventory,
+  setInventory,
+  buyData,
+  setBuyData
 }) => {
   return (
     <div className="w-full overflow-hidden">
@@ -62,7 +66,7 @@ const FormGroup = ({
               INVENTARIO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InventoryForm data={inputsData} setData={setInputsData} />
+              <InventoryForm data={inventory} setData={setInventory} />
             </div>
           </TabsContent>
           <TabsContent value="storage">
@@ -78,7 +82,7 @@ const FormGroup = ({
               COMPRAS
             </h2>
             <div className="flex w-full pl-2">
-              <CheckForm suppliers={suppliers} data={inputsData} setData={setInputsData} />
+              <CheckForm suppliers={suppliers} data={buyData} setData={setBuyData} />
             </div>
           </TabsContent>
         </div>

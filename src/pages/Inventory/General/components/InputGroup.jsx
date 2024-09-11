@@ -11,6 +11,7 @@ import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputsData((prevData) => ({ ...prevData, [name]: value }));
@@ -36,22 +37,27 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
       <div className="flex flex-wrap gap-4">
         <div className="flex-grow">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Código de Artículo */}
             <Input
               type="text"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              placeholder="Código de Articulo"
+              placeholder="Código de Artículo"
               name="codigoDeArticulo"
               value={inputsData.codigoDeArticulo || ""}
               onChange={handleInputChange}
             />
+
+            {/* Nombre o Descripción */}
             <Input
               type="text"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              placeholder="Nombre o descripcion"
+              placeholder="Nombre o descripción"
               name="nombreODescripcion"
               value={inputsData.nombreODescripcion || ""}
               onChange={handleInputChange}
             />
+
+            {/* Centro de Costos */}
             <Select
               name="centroDeCostos"
               value={inputsData.centroDeCostos || ""}
@@ -68,6 +74,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               </SelectContent>
             </Select>
 
+            {/* Lista de Precios */}
             <Select
               name="listaDePrecios"
               value={inputsData.listaDePrecios || ""}
@@ -83,7 +90,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectItem value="2">Option 2</SelectItem>
               </SelectContent>
             </Select>
-            
+
+            {/* Almacén */}
             <Select
               name="almacen"
               value={inputsData.almacen || ""}
@@ -93,14 +101,16 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(warehouses) &&  warehouses(warehouse).map((warehouse) => (
-                  <SelectItem key={warehouse.id} value={warehouse.id}>
-                    {warehouse.name}
-                  </SelectItem>
-                ))}
+                {Array.isArray(warehouses.data) &&
+                  warehouses.data.map((warehouse) => (
+                    <SelectItem key={warehouse.id} value={warehouse.id}>
+                      {warehouse.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
-            
+
+            {/* Precio unitario */}
             <Input
               type="number"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
@@ -111,7 +121,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               value={inputsData.precio || ""}
               onChange={handleInputChange}
             />
-            
+
+            {/* Categoría */}
             <Select
               name="categoria"
               value={inputsData.categoria || ""}
@@ -121,14 +132,16 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(categories).map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.name}
-                  </SelectItem>
-                ))}
+                {Array.isArray(categories.data) &&
+                  categories.data.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
-            
+
+            {/* Código de Barras */}
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de barras"
@@ -136,6 +149,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               value={inputsData.codigoDeBarras || ""}
               onChange={handleInputChange}
             />
+
+            {/* Unidades de Medida */}
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Unidades de Medida"
@@ -148,6 +163,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
 
         <div className="ml-6 flex-shrink-0">
           <div className="flex flex-col space-y-4">
+            {/* Checkbox Inventario */}
             <div className="flex items-center">
               <Checkbox
                 id="inventario"
@@ -165,6 +181,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 Inventario
               </label>
             </div>
+
+            {/* Checkbox Compra */}
             <div className="flex items-center">
               <Checkbox
                 id="compra"
@@ -182,6 +200,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 Compra
               </label>
             </div>
+
+            {/* Checkbox Venta */}
             <div className="flex items-center">
               <Checkbox
                 id="venta"
@@ -199,6 +219,8 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 Venta
               </label>
             </div>
+
+            {/* Unidades de Medida Modal */}
             <div className="pl-0 ml-0 pt-4">
               <UnitMeasure
                 onSelect={handleUnitMeasureSelect}

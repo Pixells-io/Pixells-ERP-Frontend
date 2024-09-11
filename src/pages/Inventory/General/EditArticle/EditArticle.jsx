@@ -42,41 +42,48 @@ const EditArticle = () => {
 
   const [initialValues, setInitialValues] = useState({
     productType: "0",
-    codigoDeArticulo: "",
-    nombreODescripcion: "",
-    centroDeCostos: "",
+    codigoDeArticulo: product?.code || "",
+    nombreODescripcion: product?.name || "",
+    centroDeCostos:product?.cost_center?.value.toString()|| "",
     listaDePrecios: "",
-    precio: "",
-    almacen: "",
-    unidadesDeMedida: "",
-    categoria: "",
-    codigoDeBarras: "",
-    inventario: false,
-    compra: false,
-    venta: false,
+    precio:product?.price|| "",
+    almacen: product?.preferred_warrehouse?.id?.toString()||"",
+    unidadesDeMedida:product?.measure||"",
+    categoria: product?.category_id?.id||"",
+    codigoDeBarras:product?.barcode|| "",
+    inventario: product?.raw_materials?.toString() === "1" ? true:false||false,
+    compra: product?.buys?.toString() === "1" ? true:false||false,
+    venta: product?.sale?.toString() === "1" ? true:false||false,
   });
 
   const [inputsData, setInputsData] = useState({
-    sujetoAImpuesto: false,
-    disponibleParaDevolucion: false,
-    manufacturaDisponible: false,
-    fabricantes: "",
+    sujetoAImpuesto: product?.subject_to_tax?.toString() === "1"?true:false    ||false,
+    disponibleParaDevolucion:product?.available_for_return?.toString() ==="1"? true:false   || false,
+    manufacturaDisponible:product?.manufacturing_avalaible?.toString() === "1"? true:false    || false,
+    fabricantes:product?.
+    manufacturer     || "",
     comentario: "",
-    activos: false,
-    from: "",
-    to: "",
-    imagenPrincipal: null,
-    metodoValoracion: "",
-    costo: "",
-    stockMinimo: "",
-    stockMaximo: "",
-    proveedor: "",
+    activos:product?.active?.toString() === "1"?true:false|| false,
+    from: product?.from_active    ||"",
+    to: product?.to_active
+    ||"",
+    imagenPrincipal:product?.
+    principal_image || null,
+    
   });
-
+  const [inventory,setInventory] = useState({
+    metodoValoracion:product?.valuation_method
+    || "",
+    costo: "",
+    stockMinimo:product?.min_stock|| "",
+    stockMaximo:product?.max_stock|| "",
+  })
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
     images: [],
   });
+
+  const [buyData,setBuyData] =useState({proveedor:product?.default_supplier|| "",})
 
   const handleSelectChange = (name, value) => {
     setInitialValues((prevData) => ({ ...prevData, [name]: value }));
@@ -98,7 +105,7 @@ const EditArticle = () => {
 
     const formData = new FormData();
     const convertToBoolean = (value) =>
-      value === "true" ? 1 : value === "false" ? false : 0;
+      value === true ? 1 : value === false ? 0 : 0;
 
     const info = {
       type: parseInt(initialValues.productType) || 0,
@@ -110,9 +117,9 @@ const EditArticle = () => {
       category_id: parseInt(initialValues.categoria) || "",
       barcode: initialValues.codigoDeBarras || "",
       measure: initialValues.unidadesDeMedida || "",
-      raw_material: convertToBoolean(inputsData.inventario) || 0,
-      buys: convertToBoolean(inputsData.compra) || 0,
-      sale: convertToBoolean(inputsData.venta) || 0,
+      raw_material: convertToBoolean(initialValues.inventario) || 0,
+      buys: convertToBoolean(initialValues.compra) || 0,
+      sale: convertToBoolean(initialValues.venta) || 0,
       subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
       available_for_return:
         convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
@@ -122,10 +129,10 @@ const EditArticle = () => {
       active: convertToBoolean(inputsData.activos) || 0,
       from_active: inputsData.from || "",
       to_active: inputsData.to || "",
-      valuation_method: inputsData.metodoValoracion || "",
-      min_stock: inputsData.stockMinimo || "",
-      max_stock: inputsData.stockMaximo || "",
-      default_supplier: parseInt(inputsData.proveedor) || "",
+      valuation_method: inventory.metodoValoracion || "",
+      min_stock: inventory.stockMinimo || "",
+      max_stock: inventory.stockMaximo || "",
+      default_supplier: parseInt(buyData.proveedor) || "",
     };
 
     if (initialValues.productType === "1") {
@@ -143,7 +150,7 @@ const EditArticle = () => {
     formData.append("form", "edit");
     submit(formData, { action: `/inventory/edit/${id}`, method: "post" });
   };
-
+  console.log(product)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -197,8 +204,8 @@ const EditArticle = () => {
 
         <div className="relative w-full space-y-4 overflow-auto">
           <Inputs
-            categories={categories.data}
-            warehouses={[warehouses.data]}
+            categories={categories}
+            warehouses={warehouses}
             inputsData={initialValues}
             setInputsData={setInitialValues}
           />
@@ -211,16 +218,14 @@ const EditArticle = () => {
             setInputsData={setInputsData}
             variableData={variableData}
             setVariableData={setVariableData}
+            inventory={inventory}
+            setInventory={setInventory}
+            buyData={buyData}
+            setBuyData={setBuyData}
           />
 
           <div className="flex justify-end">
-            <div className="flex justify-between space-x-6">
-              <button
-                className="rounded bg-red-500 px-4 py-2 text-white"
-                onClick={handlerDelete}
-              >
-                Eliminar
-              </button>
+            
               <button
                 type="button"
                 className="rounded bg-blue-500 px-4 py-2 text-white"
@@ -228,7 +233,6 @@ const EditArticle = () => {
               >
                 Enviar
               </button>
-            </div>
           </div>
         </div>
       </div>
