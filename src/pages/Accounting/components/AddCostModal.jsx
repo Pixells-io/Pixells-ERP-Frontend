@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
+import { add, addCircleOutline } from "ionicons/icons";
 import { Textarea } from "@/components/ui/textarea";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { Form, useNavigation } from "react-router-dom";
@@ -28,11 +28,15 @@ const AddCostForm = () => {
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger asChild>
-        <IonIcon
-          icon={addCircleOutline}
-          size="large"
-          className="h-7 w-7 cursor-pointer text-blue-500"
-        />
+        <Button
+          type={"button"}
+          className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+        >
+          <IonIcon icon={add} className="h-4 w-4" />
+          <span className="text-xs font-medium">
+            Nuevo
+          </span>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <div className="-mx-6 border-b pb-4 pl-2">

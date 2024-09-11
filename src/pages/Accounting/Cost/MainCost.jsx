@@ -6,6 +6,7 @@ import {
   gridOutline,
   list,
   settings,
+  settingsOutline,
 } from "ionicons/icons";
 import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
@@ -21,6 +22,7 @@ import {
 import ModalDeleteCostCenter from "./Modals/ModalDeleteCostCenter";
 import { createPusherClient } from "@/lib/pusher";
 import ModalEditCost from "./Modals/ModalEditCost";
+import { Button } from "@/components/ui/button";
 
 const MainCost = () => {
   const { data } = useLoaderData();
@@ -145,11 +147,18 @@ const MainCost = () => {
             <IonIcon icon={list} className="h-5 w-5"></IonIcon>
           </div>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-end gap-x-2">
+        
+          <Button
+            type={"button"}
+            className="flex h-[30px] items-center justify-center rounded-xl bg-[#E8E8E8] px-3 hover:bg-[#E8E8E8] gap-x-2"
+          >
+            <IonIcon icon={settingsOutline} className="h-4 w-4 text-[#44444F]" />
+            <span className="text-xs font-medium text-[#44444F]">
+              Configurar
+            </span>
+          </Button>
           <AddItemDialog />
-          <div className="mr-24 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
-            <IonIcon icon={settings} size="small" className="text-grisText" />
-          </div>
         </div>
 
         {/* Data Table */}
