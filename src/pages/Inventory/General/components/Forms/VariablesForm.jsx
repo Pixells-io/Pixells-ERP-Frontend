@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
@@ -7,13 +9,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const VariableForm = ({ attrb, variableData, setVariableData }) => {
+  const [formData, setFormData] = useState(variableData);
+  const [selectedSlot, setSelectedSlot] = useState("");
   const [initialLoadDone, setInitialLoadDone] = useState(false);
+  const [originalGroupIds, setOriginalGroupIds] = useState([]);
 
   useEffect(() => {
-    if (variableData.Groups?.length > 0 && !initialLoadDone) {
+    if (formData.Groups.length > 0 && !initialLoadDone) {
       const initialSelectedGroups = attrb.data
         .map(slot => {
-          const matchingGroup = variableData.Groups.find(group => group.attribute_name === slot.name);
+          const matchingGroup = formData.Groups.find(group => group.attribute_name === slot.name);
           if (!matchingGroup) return null;
           return {
             id: slot.id,
@@ -21,36 +26,39 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
             slots: slot.slots.map(slotItem => ({
               id: slotItem.id,
               name: slotItem.name,
-              active: variableData.Groups.some(group => group.product_attribute_id === slotItem.id.toString()) ? 1 : 0
+              active: formData.Groups.some(group => group.product_attribute_id === slotItem.id.toString()) ? 1 : 0
             }))
           };
         })
         .filter(Boolean);
 
-      setVariableData(prevData => ({
+      setFormData(prevData => ({
         ...prevData,
         selectedGroups: initialSelectedGroups,
-        variables_destroy: [],
-        variables_add: []
       }));
+      setOriginalGroupIds(initialSelectedGroups.map(group => group.id));
       setInitialLoadDone(true);
     }
-  }, [variableData.Groups, attrb.data, initialLoadDone]);
+  }, [formData.Groups, attrb.data, initialLoadDone]);
 
-  const updateVariableData = (updater) => {
-    setVariableData(prevData => ({
+  useEffect(() => {
+    setVariableData(formData);
+  }, [formData, setVariableData]);
+
+  const updateFormData = (updater) => {
+    setFormData(prevData => ({
       ...prevData,
       ...updater(prevData)
     }));
   };
 
-  const handleSelectChange = (value) => updateVariableData(() => ({ selectedSlot: value }));
+  const handleSelectChange = (value) => setSelectedSlot(value);
 
   const handlerAddGroup = () => {
-    if (!variableData.selectedSlot) return;
+    if (!selectedSlot) return;
 
-    const newGroup = attrb.data.find(slot => slot.id === variableData.selectedSlot);
-    if (!newGroup || variableData.selectedGroups.some(group => group.id === variableData.selectedSlot)) return;
+    const newGroup = attrb.data.find(slot => slot.id === selectedSlot);
+    if (!newGroup || formData.selectedGroups.some(group => group.id === selectedSlot)) return;
 
     const groupWithActiveStatus = {
       id: newGroup.id,
@@ -58,22 +66,37 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
       slots: newGroup.slots.map(slot => ({ ...slot, active: 0 }))
     };
 
-    updateVariableData(prevData => ({
+    updateFormData(prevData => ({
       selectedGroups: [...prevData.selectedGroups, groupWithActiveStatus],
-      selectedSlot: "",
-      variables_add: initialLoadDone ? [...prevData.variables_add, groupWithActiveStatus.id] : prevData.variables_add
+      variables_add: [...prevData.variables_add, groupWithActiveStatus.id]
     }));
+    setSelectedSlot("");
   };
 
   const handleDeleteGroup = (groupId) => {
-    updateVariableData(prevData => ({
-      selectedGroups: prevData.selectedGroups.filter(group => group.id !== groupId),
-      variables_destroy: [...prevData.variables_destroy, groupId]
-    }));
+    updateFormData(prevData => {
+      const updatedSelectedGroups = prevData.selectedGroups.filter(group => group.id !== groupId);
+      let updatedVariablesAdd = prevData.variables_add;
+      let updatedVariablesDestroy = prevData.variables_destroy;
+
+      if (originalGroupIds.includes(groupId)) {
+        // Si es un grupo original, lo añadimos a variables_destroy
+        updatedVariablesDestroy = [...updatedVariablesDestroy, groupId];
+      } else {
+        // Si no es un grupo original, lo removemos de variables_add
+        updatedVariablesAdd = updatedVariablesAdd.filter(id => id !== groupId);
+      }
+
+      return {
+        selectedGroups: updatedSelectedGroups,
+        variables_add: updatedVariablesAdd,
+        variables_destroy: updatedVariablesDestroy
+      };
+    });
   };
 
   const handleSlotButtonClick = (groupId, slotId) => {
-    updateVariableData(prevData => ({
+    updateFormData(prevData => ({
       selectedGroups: prevData.selectedGroups.map(group =>
         group.id === groupId
           ? {
@@ -97,16 +120,16 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
         size: file.size,
         type: file.type,
       }));
-      updateVariableData(prevData => ({ images: [...prevData.images, ...newImages] }));
+      updateFormData(prevData => ({ images: [...prevData.images, ...newImages] }));
     },
   });
 
   const handleRemoveImage = (index) => {
-    updateVariableData(prevData => {
+    updateFormData(prevData => {
       const removedImage = prevData.images[index];
       const updatedImages = prevData.images.filter((_, i) => i !== index);
       const updatedImagesDestroy = removedImage.id
-        ? [...(prevData.images_destroy || []), removedImage.id]
+        ? [...prevData.images_destroy, removedImage.id]
         : prevData.images_destroy;
 
       return {
@@ -120,7 +143,7 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
     <div className="grid grid-cols-2 gap-2">
       <div className="space-y-4">
         <div className="flex items-center space-x-4">
-          <Select value={variableData.selectedSlot} onValueChange={handleSelectChange}>
+          <Select value={selectedSlot} onValueChange={handleSelectChange}>
             <SelectTrigger className="border-gris2-transparent ml-4 w-2 rounded-xl border font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
@@ -140,7 +163,7 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
           </Button>
         </div>
         <div className="h-[318px] w-[550px] pl-6 overflow-y-auto">
-          {variableData.selectedGroups.map((group) => (
+          {formData.selectedGroups.map((group) => (
             <div key={group.id} className="border-b border-[#D7D7D7] pb-4 pt-4">
               <div className="flex items-center justify-between p-2 pb-6 pt-6">
                 <div className="w-24 font-roboto text-[14px] text-gris2 flex-shrink-0">
@@ -178,12 +201,11 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
         </div>
       </div>
 
-
       <div className="relative col-span-1 p-8">
-        {variableData.images.length > 0 ? (
+        {formData.images.length > 0 ? (
           <Carousel className="w-full">
             <CarouselContent className="ml-0 h-[318px] w-full">
-              {variableData.images.map((image, index) => (
+              {formData.images.map((image, index) => (
                 <CarouselItem
                   key={`carousel-item-${index}`}
                   className="relative h-full pl-0"

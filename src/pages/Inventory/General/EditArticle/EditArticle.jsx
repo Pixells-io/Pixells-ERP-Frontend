@@ -182,7 +182,7 @@ const EditArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
-    if (variableData.variables_add.length === 0){
+    if (initialValues.productType=="2" && variableData.variables_add.length === 0){
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
     if (variableData.images.length === 0){
@@ -269,10 +269,10 @@ const EditArticle = () => {
 
     if (initialValues.productType === "2") {
       info.images_destroy = variableData.images_destroy;
-      info.variables_add =variableData.variables_add;
-      info.variables_destroy=variables_destroy;
+      info.variables_add =variableData.selectedGroups;
+      info.variables_destroy=variableData.variables_destroy;
       variableData.images.forEach((image) => {
-        formData.append("second_images", image.file);
+        formData.append("second_images[]", image.image);
       });
     }
 
@@ -283,8 +283,7 @@ const EditArticle = () => {
     }
     submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
   };
-  console.log("VARIABLES ADD: "+ variableData.variables_add)
-  console.log("VARIABLES DESTROY: "+ variableData.variables_destroy)
+  console.log(variableData.images)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

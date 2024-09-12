@@ -60,9 +60,11 @@ const CreateArticle = () => {
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
     images: [], // Array de imágenes secundarias
+    variables_add:[],
+    variables_destroy:[],
     images_destroy: [],
-    activeGroups: []
   });
+
   const [buyData, setBuyData] = useState({ proveedor: "" });
 
   const handleSelectChange = (name, value) => {
