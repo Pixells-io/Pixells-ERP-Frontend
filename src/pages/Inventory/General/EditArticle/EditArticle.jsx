@@ -41,27 +41,27 @@ const EditArticle = () => {
 
   useEffect(() => {
     setProductId(id);
-    let channel = pusherClient.subscribe(`private-get-products.${productId}`);
+    let channel = pusherClient.subscribe(`private-get-products`);
 
     channel.bind("fill-products", ({ message }) => {
       getProductFunction(message);
     });
 
     return () => {
-      pusherClient.unsubscribe(`private-get-products.${productId}`);
+      pusherClient.unsubscribe(`private-get-products`);
     };
   }, [location, productId]);
 
   //INITIAL VALUES
   const [errors, setErrors] = useState({});
   const [initialValues, setInitialValues] = useState({
-    productType: product?.images.length > 0 ? "2" : "1",
+    productType: product?.slots?.length || product?.images?.length > 0 ? "2" : "1",
     codigoDeArticulo: product?.code || "",
     nombreODescripcion: product?.name || "",
     centroDeCostos: product?.cost_center?.value.toString() || "",
     listaDePrecios: "",
     precio: product?.price || "",
-    almacen: product?.preferred_warrehouse?.id?.toString() || "",
+    almacen: product?.preferred_warrehouse?.id || "",
     unidadesDeMedida: product?.measure || "",
     categoria: product?.category_id?.id || "",
     codigoDeBarras: product?.barcode || "",
@@ -95,13 +95,16 @@ const EditArticle = () => {
   });
 
   const [variableData, setVariableData] = useState({
-    selectedGroups: product?.slots || [],
+    selectedGroups:[],
+    Groups: product?.slots || [],
     images:
       product?.images?.map((img) => ({
         id: img.id,
         image: img.image,
         preview: img.image,
       })) || [],
+    variables_add:[],
+    variables_destroy:[],
     images_destroy: [],
   });
 
@@ -178,7 +181,12 @@ const EditArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
-
+    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
+      newErrors.valoracion = "Se necesita agregar variables al producto";
+    }
+    if (variableData.images.length === 0){
+      newErrors.valoracion = "Se necesita agregar imagenes al producto";
+    }
     // Validar método de valoración
     if (!inventory.metodoValoracion) {
       newErrors.valoracion = "El método de valoración es requerido";
@@ -260,9 +268,10 @@ const EditArticle = () => {
 
     if (initialValues.productType === "2") {
       info.images_destroy = variableData.images_destroy;
-      info.variables = variableData.selectedGroups;
+      info.variables_add =variableData.selectedGroups;
+      info.variables_destroy=variableData.variables_destroy;
       variableData.images.forEach((image) => {
-        formData.append("second_images", image.file);
+        formData.append("second_images[]", image.image);
       });
     }
 
@@ -273,7 +282,7 @@ const EditArticle = () => {
     }
     submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
   };
-  console.log(product)
+  console.log(variableData.images)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

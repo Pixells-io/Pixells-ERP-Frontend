@@ -60,9 +60,11 @@ const CreateArticle = () => {
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
     images: [], // Array de imágenes secundarias
+    variables_add:[],
+    variables_destroy:[],
     images_destroy: [],
-    activeGroups: []
   });
+
   const [buyData, setBuyData] = useState({ proveedor: "" });
 
   const handleSelectChange = (name, value) => {
@@ -129,6 +131,11 @@ const CreateArticle = () => {
     // Validar imagen principal
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
+    }
+    
+    //Validamos variables
+    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
+      newErrors.valoracion = "Se necesita agregar variables al producto";
     }
 
     // Validar método de valoración
