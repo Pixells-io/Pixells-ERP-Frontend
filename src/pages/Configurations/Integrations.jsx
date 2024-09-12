@@ -6,9 +6,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import NavigationHeader from "@/components/navigation-header";
-import GoogleCalendarCard from "./Components/GoogleCalendarCard";
-import { saveCalendarApiInfo } from "./utils";
+import { saveEmbeddingDocument } from "./utils";
 import { redirect } from "react-router-dom";
+import OpenAiCard from "./Components/OpenAI";
 
 // import Table from "@/components/DataTable";
 // import TableClients from "./components/Table/TableClients";
@@ -38,7 +38,7 @@ function IntegrationPanel() {
               value="calendar"
               className="rounded-none border-b-2 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
             >
-              Google Calendars
+              OPEN AI
             </TabsTrigger>
             <TabsTrigger
               value="whatsapp"
@@ -48,7 +48,7 @@ function IntegrationPanel() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="calendar" className="w-full p-2">
-            <GoogleCalendarCard />
+            <OpenAiCard />
           </TabsContent>
           <TabsContent className="p-2" value="whatsapp"></TabsContent>
         </Tabs>
@@ -62,7 +62,7 @@ export default IntegrationPanel;
 export async function Action({ request }) {
   const data = await request.formData();
 
-  const response = await saveCalendarApiInfo(data);
+  const response = await saveEmbeddingDocument(data);
 
   return redirect("/configuration/integrations");
 }

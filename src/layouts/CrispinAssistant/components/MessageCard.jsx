@@ -18,9 +18,9 @@ function MenssageCard({ message, type }) {
               icon={happyOutline}
               className="shrink-0 text-3xl text-primario"
             />
-            <span className="w-fit text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
+            <div className="w-fit whitespace-pre-wrap text-wrap break-words font-roboto text-sm font-normal text-[#44444F]">
               {message}
-            </span>
+            </div>
           </div>
         </div>
       ) : (

@@ -43,20 +43,13 @@ export async function saveBusinessInformation(data) {
   return response;
 }
 
-export async function saveCalendarApiInfo(data) {
-  const info = {
-    id: data.get("id"),
-    impersonate: data.get("impersonate"),
-  };
-
+export async function saveEmbeddingDocument(data) {
   const formData = new FormData();
 
-  formData.append("keys", data.get("keys"));
-
-  formData.append("info", JSON.stringify(info));
+  formData.append("document", data.get("document"));
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}configuration/post-google-calendar`,
+    `${import.meta.env.VITE_SERVER_URL}assistant/embedding-document`,
     {
       method: "POST",
       body: formData,

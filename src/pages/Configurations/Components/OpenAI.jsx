@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
 import DropzoneFile from "@/components/dropzone-files";
 
-function GoogleCalendarCard() {
+function OpenAiCard() {
   return (
     <div className="w-full overflow-x-hidden overflow-y-scroll">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-transparent px-8 py-4">
         <span className="text-sm font-normal text-grisText">
-          Google Calendar Api Keys
+          Documento con informacion para la contestacion de preguntas
+          personalizadas
         </span>
         <Form
           className="flex h-auto flex-col gap-0"
@@ -24,19 +25,7 @@ function GoogleCalendarCard() {
           <div className="flex">
             <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
               <div className="text-center">
-                <DropzoneFile name={"keys"} label={"Keys"} />
-                <br />
-                <InputRouter
-                  name={"id"}
-                  placeholder={"Google Calendar Id"}
-                  type={"text"}
-                />
-                <br />
-                <InputRouter
-                  name={"impersonate"}
-                  placeholder={"Google Calendar Impersonate"}
-                  type={"text"}
-                />
+                <DropzoneFile name={"document"} label={"Documento"} />
                 <br />
                 <Button
                   type="submit"
@@ -53,4 +42,4 @@ function GoogleCalendarCard() {
   );
 }
 
-export default GoogleCalendarCard;
+export default OpenAiCard;
