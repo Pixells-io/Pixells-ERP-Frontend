@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Form, useSubmit } from "react-router-dom";
 import InputsGroup from "./ElementGroup";
 import OrderTable from "./OrderFom";
@@ -14,11 +14,8 @@ const DocumentContent = ({
   setSelectedWarehouse,
   selectedCostCenter,
   setSelectedCostCenter,
-  subtotal,
-  setSubtotal,
   saveUrl,
   items,
-  setItems,
   selectedProveedor,
   setSelectedProveedor,
   selectedFechaDoc,
@@ -31,18 +28,12 @@ const DocumentContent = ({
   allProducts,
 }) => {
   const submit = useSubmit();
+  const [tableData, setTableData] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     submit(e.currentTarget, { action: saveUrl, method: "post" });
   };
-
-  const handleTotalChange = useCallback(
-    (newTotal) => {
-      setSubtotal(newTotal);
-    },
-    [setSubtotal],
-  );
 
   return (
     <Form
@@ -72,15 +63,15 @@ const DocumentContent = ({
         />
         <div className="mt-6">
           <QuoteTable
-            setTotalChanges={handleTotalChange}
             initialItems={items}
-            setItems={setItems}
             isEditable={isEditable}
             allProducts={allProducts}
+            setTableData={setTableData}
+            tableData={tableData}
           />
         </div>
       </div>
-      <Total subtotal={subtotal} />
+      <Total tableData={tableData} />
       <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}

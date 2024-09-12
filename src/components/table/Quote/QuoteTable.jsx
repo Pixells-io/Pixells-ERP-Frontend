@@ -33,10 +33,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
  */
 const QuoteTable = ({
   initialItems,
-  setItems,
   isEditable,
-  setTotalChanges,
   allProducts,
+  setTableData,
+  tableData
 }) => {
   const initialRow = {
     item: "",
@@ -52,7 +52,6 @@ const QuoteTable = ({
     variations: "",
   };
   const location = useLocation();
-  const [tableData, setTableData] = useState([]);
   const productsArray = [];
 
   arrayFillProducts(allProducts, productsArray);
@@ -64,16 +63,6 @@ const QuoteTable = ({
       setTableData([initialRow]);
     }
   }, [location.pathname, initialItems]);
-
-  useEffect(() => {
-    const newTotal = tableData.reduce(
-      (sum, row) => sum + calculateTotal(row),
-      0,
-    );
-    if (setTotalChanges) {
-      setTotalChanges(newTotal);
-    }
-  }, [tableData, setTotalChanges]);
 
   function arrayFillProducts(data, array) {
     let dataParse = data;

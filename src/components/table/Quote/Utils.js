@@ -17,7 +17,20 @@ export const calculateSubTotal = (row) => {
   const value = parseFloat(row.value) || 0;
   const quantity = parseFloat(row.quantity) || 0;
  
-    return value * quantity;
+  return value * quantity;
+};
+
+export const calculateTaxes = (row) => {
+  const value = parseFloat(row.value) || 0;
+  const quantity = parseFloat(row.quantity) || 0;
+  const discount = parseFloat(row.discount) || 0;
+  const taxes = parseFloat(row.taxes) || 0;
+
+  if (discount < 0 || discount >= 100) {
+    return value * quantity * (taxes / 100);
+  } else {
+    return value * quantity * (1 - (discount / 100)) * ((taxes / 100));
+  }
 };
 
 

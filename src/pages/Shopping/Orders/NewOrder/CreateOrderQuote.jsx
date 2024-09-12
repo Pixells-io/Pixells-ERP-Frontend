@@ -9,7 +9,6 @@ const CreateQuoteOrder = () => {
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [selectedProveedor, setSelectedProveedor] = useState('');
-  const [subtotal, setSubtotal] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
 
   const getTitle = "Nueva Cotización";
@@ -41,8 +40,6 @@ const CreateQuoteOrder = () => {
           setSelectedWarehouse={setSelectedWarehouse}
           selectedCostCenter={selectedCostCenter}
           setSelectedCostCenter={setSelectedCostCenter}
-          setSubtotal={setSubtotal}
-          subtotal={subtotal}
           saveUrl={saveUrl}
           isEditable={true}
           allProducts={allProducts}
