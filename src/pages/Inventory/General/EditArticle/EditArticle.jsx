@@ -18,7 +18,6 @@ import {
 } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { editProduct, getProductById } from "../utils";
-import { Variable } from "lucide-react";
 
 const EditArticle = () => {
   const { id } = useParams();
@@ -56,7 +55,7 @@ const EditArticle = () => {
   //INITIAL VALUES
   const [errors, setErrors] = useState({});
   const [initialValues, setInitialValues] = useState({
-    productType: product?.slots?.length> 0 ? "2" : "1",
+    productType: product?.slots?.length || product?.images?.length > 0 ? "2" : "1",
     codigoDeArticulo: product?.code || "",
     nombreODescripcion: product?.name || "",
     centroDeCostos: product?.cost_center?.value.toString() || "",
@@ -182,7 +181,7 @@ const EditArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
-    if (initialValues.productType=="2" && variableData.variables_add.length === 0){
+    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
     if (variableData.images.length === 0){

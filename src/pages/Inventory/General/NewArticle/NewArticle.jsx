@@ -132,6 +132,11 @@ const CreateArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
+    
+    //Validamos variables
+    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
+      newErrors.valoracion = "Se necesita agregar variables al producto";
+    }
 
     // Validar método de valoración
     if (!inventory.metodoValoracion) {
