@@ -491,36 +491,38 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       </div>
                     ),
                   )}
-                  {tasks?.map(
-                    (
-                      {
-                        task,
-                        task_count,
-                        task_query,
-                        creator,
-                        assigned,
-                        percent,
-                      },
-                      i,
-                    ) => (
-                      <AccordionBoard
-                        task={task}
-                        task_count={task_count}
-                        task_query={task_query}
-                        percent={percent}
-                        setModal={setModal}
-                        setTasksModal={setTasksModal}
-                        openCompleteTaskModal={openCompleteTaskModal}
-                        openDestroyTaskModal={openDestroyTaskModal}
-                        setProjectInfo={setProjectInfo}
-                        setModalProject={setModalProject}
-                        edit={edit}
-                        destroy={destroy}
-                        id={id}
-                        users={users}
-                      />
-                    ),
-                  )}
+                  <div className="flex flex-col md:hidden">
+                    {tasks?.map(
+                      (
+                        {
+                          task,
+                          task_count,
+                          task_query,
+                          creator,
+                          assigned,
+                          percent,
+                        },
+                        i,
+                      ) => (
+                        <AccordionBoard
+                          task={task}
+                          task_count={task_count}
+                          task_query={task_query}
+                          percent={percent}
+                          setModal={setModal}
+                          setTasksModal={setTasksModal}
+                          openCompleteTaskModal={openCompleteTaskModal}
+                          openDestroyTaskModal={openDestroyTaskModal}
+                          setProjectInfo={setProjectInfo}
+                          setModalProject={setModalProject}
+                          edit={edit}
+                          destroy={destroy}
+                          id={id}
+                          users={users}
+                        />
+                      ),
+                    )}
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

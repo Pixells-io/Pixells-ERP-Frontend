@@ -21,8 +21,8 @@ function AccordionProjectTable({ activity, id, projectId, users }) {
       actionButtons={[
         {
           content: (
-            <ActivityDestroy name={activity?.name} activityId={activity?.id} />
-            // <IonIcon icon={trash} className="h-5 w-5 text-grisHeading" />
+            // <ActivityDestroy name={activity?.name} activityId={activity?.id} />
+            <IonIcon icon={trash} className="h-5 w-5 text-grisHeading" />
           ),
           onClick: () => {},
           // onClick: () => alert("Pressed the COMPLETE button"),

@@ -63,9 +63,13 @@ function AccordionBoard({
                     />
                   </Link>
                 ),
-                // onClick: () =>
-                // 	openCompleteTaskModal(task?.id, task?.name, task?.description),
-                onClick: () => {},
+                onClick: () =>
+                  openCompleteTaskModal(
+                    task?.id,
+                    task?.name,
+                    task?.description,
+                  ),
+                // onClick: () => {},
               },
               {
                 content: (
@@ -87,31 +91,35 @@ function AccordionBoard({
                     className="h-5 w-5 text-grisHeading"
                   />
                 ),
-                // onClick: () =>
-                // 	openCompleteTaskModal(task?.id, task?.name, task?.description),
-                onClick: () => alert("Pressed the COMPLETE button"),
+                onClick: () =>
+                  openCompleteTaskModal(
+                    task?.id,
+                    task?.name,
+                    task?.description,
+                  ),
+                // onClick: () => alert("Pressed the COMPLETE button"),
               },
               {
                 content: (
                   <IonIcon icon={create} className="h-5 w-5 text-grisHeading" />
                 ),
-                // onClick: () =>
-                // 	openEditModalTask(
-                // 		task?.id,
-                // 		task?.name,
-                // 		task?.description,
-                // 		task?.priority,
-                // 		task?.start,
-                // 	),
+                onClick: () =>
+                  openEditModalTask(
+                    task?.id,
+                    task?.name,
+                    task?.description,
+                    task?.priority,
+                    task?.start,
+                  ),
 
-                onClick: () => alert("Pressed the EDIT button"),
+                // onClick: () => alert("Pressed the EDIT button"),
               },
               {
                 content: (
                   <IonIcon icon={trash} className="h-5 w-5 text-grisHeading" />
                 ),
-                // onClick: () => openDestroyTaskModal(task?.id),
-                onClick: () => alert("Pressed the DELETE button"),
+                onClick: () => openDestroyTaskModal(task?.id),
+                // onClick: () => alert("Pressed the DELETE button"),
               },
             ]
       }
