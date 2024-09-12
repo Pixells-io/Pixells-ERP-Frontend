@@ -18,12 +18,12 @@ import {
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
+  calculateSubTotal,
   calculateTotal,
   handleAddRow,
   handleDeleteRow,
   handleInputChange,
 } from "./Utils";
-import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 /**
  * initialItems -> Lista de items para cargar en tabla
@@ -40,21 +40,22 @@ const QuoteTable = ({
 }) => {
   const initialRow = {
     item: "",
-    codigo: "",
-    valor: "",
+    code: "",
+    value: "",
     descuento: "",
-    impuesto: "",
-    cantidad: "",
-    unidad: "",
-    fechaEntrega: "",
-    product: "",
-    type: "",
-    product_master_id: "",
-    variation_id: "",
+    taxes: "",
+    quantity: "",
+    unitHidden: "",
+    delivery_date: "",
+    product_idAux: "",
+    master_product: "",
+    variations: "",
   };
   const location = useLocation();
-
   const [tableData, setTableData] = useState([]);
+  const productsArray = [];
+
+  arrayFillProducts(allProducts, productsArray);
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {
@@ -63,9 +64,6 @@ const QuoteTable = ({
       setTableData([initialRow]);
     }
   }, [location.pathname, initialItems]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
 
   useEffect(() => {
     const newTotal = tableData.reduce(
@@ -76,9 +74,6 @@ const QuoteTable = ({
       setTotalChanges(newTotal);
     }
   }, [tableData, setTotalChanges]);
-
-  const productsArray = [];
-  arrayFillProducts(allProducts, productsArray)
 
   function arrayFillProducts(data, array) {
     let dataParse = data;
@@ -94,16 +89,19 @@ const QuoteTable = ({
 
   const columns = useMemo(
     () => [
-      { key: "codigo", header: "Código", type: "text" },
-      { key: "valor", header: "Valor", type: "number" },
-      { key: "descuento", header: "Descuento (%)", type: "number" },
-      { key: "impuesto", header: "Impuesto (%)", type: "number" },
-      { key: "cantidad", header: "Cantidad", type: "number" },
-      { key: "unidad", header: "Unidad", type: "text" },
-      { key: "fechaEntrega", header: "Fecha de Entrega", type: "date" },
+      { key: "code", header: "Código", type: "text", disabled: false },
+      { key: "value", header: "value", type: "number", disabled: false },
+      { key: "discount", header: "Descuento (%)", type: "number", disabled: false },
+      { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
+      { key: "quantity", header: "Cantidad", type: "number", disabled: false },
+      { key: "unitHidden", header: "Unidad", type: "text", disabled: true },
+      { key: "delivery_date", header: "Fecha de Entrega", type: "date", disabled: false },
     ],
     [],
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
@@ -129,6 +127,7 @@ const QuoteTable = ({
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
+              <TableHead>SubTotal</TableHead>
               <TableHead>Total</TableHead>
             </TableRow>
           </TableHeader>
@@ -137,14 +136,48 @@ const QuoteTable = ({
               <TableRow key={rowIndex}>
                  <TableCell>
                   <div className="w-[200px]">
+                  <input
+                    type="hidden"
+                    hidden
+                    className="hidden"
+                    readOnly
+                    name={`totalRow[]`}
+                    value={""}
+                  />
+                  <input
+                    type="hidden"
+                    hidden
+                    className="hidden"
+                    readOnly
+                    name={`master_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={row["master_product"]}
+                  />
+                  <input
+                    type="hidden"
+                    hidden
+                    className="hidden"
+                    readOnly
+                    name={`variations[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={row["variations"]}
+                  />
+
+                  <input
+                    type="text"
+                    hidden
+                    className="hidden"
+                    readOnly
+                    name={`unit[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={row["unitHidden"]}
+                  />
                   <Select 
-                    name={`data[${(currentPage - 1) * itemsPerPage + rowIndex}][product]`} 
-                    value={Number(row['product'])}
+                    name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={Number(row['product_idAux'])}
+                    required={true}
                     onValueChange={(e) =>
                       isEditable &&
                       handleInputChange(
                         (currentPage - 1) * itemsPerPage + rowIndex,
-                        "product",
+                        "product_idAux",
                         e,
                         setTableData,
                         productsArray
@@ -152,13 +185,26 @@ const QuoteTable = ({
                     }
                   >
                     <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                      <SelectValue placeholder={"Producto"} />
+                      <SelectValue placeholder={"Producto"} value={Number(row['product_idAux'])} />
                     </SelectTrigger>
                     <SelectContent>
-                      {productsArray.map((productArray, index) => (
-                        <SelectItem key={"product-" + index} value={productArray.value}>
-                           {productArray.label}
-                         </SelectItem>
+                      {
+                        productsArray
+                        .map((product, index) => (<>
+                        {
+                            !tableData.find(td => td.product_idAux == product.value) ? (
+                              <SelectItem key={"product-" + index} value={product.value}>
+                                
+                                 {product.label}
+                              </SelectItem>
+                            ) : (
+                              <SelectItem key={"product-" + index} value={product.value} disabled={true}>
+                                
+                                 {product.label}
+                              </SelectItem>
+                            )
+                        }
+                        </>
                       ))}
                     </SelectContent>
                   </Select>
@@ -169,9 +215,10 @@ const QuoteTable = ({
                   <TableCell key={column.key}>
                     <Input
                       type={column.type}
-                      name={`data[${(currentPage - 1) * itemsPerPage + rowIndex}][${column.key}]`}
+                      name={`${column.key}[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className="border-gris2-transparent rounded-xl bg-inherit p-1 font-roboto text-xs text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
+                      disabled={column.disabled}
                       onChange={(e) =>
                         isEditable &&
                         handleInputChange(
@@ -182,11 +229,33 @@ const QuoteTable = ({
                         )
                       }
                       readOnly={!isEditable}
+                      required={true}
                     />
                   </TableCell>
                 ))}
                 <TableCell>
                   <div className="flex items-center justify-between gap-x-2">
+                    <input
+                      type="hidden"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`sub_total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={calculateSubTotal(row).toFixed(2)}
+                    />  
+                    ${calculateSubTotal(row).toFixed(2)}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-between gap-x-2">
+                    <input
+                      type="hidden"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={calculateTotal(row).toFixed(2)}
+                    />  
                     ${calculateTotal(row).toFixed(2)}
                     <Button
                       variant="ghost"

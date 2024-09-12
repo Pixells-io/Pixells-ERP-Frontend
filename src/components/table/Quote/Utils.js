@@ -1,16 +1,23 @@
 
 /*Using to calculate Total in table */
 export const calculateTotal = (row) => {
-  const valor = parseFloat(row.valor) || 0;
-  const cantidad = parseFloat(row.cantidad) || 0;
-  const descuento = parseFloat(row.descuento) || 0;
-  const impuesto = parseFloat(row.impuesto) || 0;
+  const value = parseFloat(row.value) || 0;
+  const quantity = parseFloat(row.quantity) || 0;
+  const discount = parseFloat(row.discount) || 0;
+  const taxes = parseFloat(row.taxes) || 0;
 
-  if (descuento < 0 || descuento >= 100) {
-    return valor * cantidad * (1 + impuesto / 100);
+  if (discount < 0 || discount >= 100) {
+    return value * quantity * (1 + taxes / 100);
   } else {
-    return valor * cantidad * (1 - descuento / 100) * (1 + impuesto / 100);
+    return value * quantity * (1 - (discount / 100)) * (1 + (taxes / 100));
   }
+};
+
+export const calculateSubTotal = (row) => {
+  const value = parseFloat(row.value) || 0;
+  const quantity = parseFloat(row.quantity) || 0;
+ 
+    return value * quantity;
 };
 
 
@@ -23,12 +30,23 @@ export const handleAddRow = (e, setTableData, initialRow) => {
 };
 
 export const handleInputChange = (rowIndex, key, value, setTableData, products = []) => {
-  if(key == "product") {
+  if(key == "product_idAux") {
     let findProduct = products.find(p => p.value == value);
-    console.log(findProduct);
     setTableData((prevData) =>
       prevData.map((item, index) =>
-        index === rowIndex ? { ...item, product: value, type: findProduct.type, product_master_id: findProduct.product_master_id, variation_id: findProduct.variation_id } : item
+        index === rowIndex ? { 
+          ...item, 
+          code: findProduct.code,
+          value: findProduct.value,
+          product_idAux: value, 
+          quantity: 1,
+          master_product: findProduct.product_master_id, 
+          variations: findProduct.variation_id,
+          taxes: 16,
+          discount: 0,
+          unitHidden: findProduct.unit,
+
+        } : item
       )
     );
   } else {

@@ -24,7 +24,7 @@ const InfoPayment = ({
               hidden
               className="hidden"
               readOnly
-              name="titleTotalAmount"
+              name="subtotal"
               value={totalAmount}
             />
             <input

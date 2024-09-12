@@ -47,7 +47,7 @@ const DocumentContent = ({
   return (
     <Form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-4 overflow-auto pr-12 pt-0"
+      className="flex flex-col space-y-4 overflow-auto pr-12 bg-white  p-4"
     >
       <InputsGroup
         documentNumber={documentNumber}
@@ -58,7 +58,7 @@ const DocumentContent = ({
         setSelectedCostCenter={setSelectedCostCenter}
         isEditable={isEditable}
       />
-      <div className="rounded-xl bg-white p-4">
+      <div className="rounded-xl">
         <OrderTable
           selectedProveedor={selectedProveedor}
           setSelectedProveedor={setSelectedProveedor}

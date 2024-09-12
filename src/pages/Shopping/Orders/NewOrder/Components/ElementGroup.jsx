@@ -21,7 +21,7 @@ const InputsGroup = ({
   };
 
   return (
-    <div className="rounded-xl bg-white p-4">
+    <div className="rounded-xl p-4 border border-blancoBox">
       <div className="flex justify-between w-full space-x-4">
         <InputForm
           placeholder="Número de Documento"
@@ -35,8 +35,9 @@ const InputsGroup = ({
           value={selectedWarehouse} 
           onValueChange={handleWarehouseChange} 
           disabled={!isEditable} 
+          name="inventory_id"
         >
-          <SelectTrigger name="inventory_id" className="h-[32px] w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+          <SelectTrigger className="h-[32px] w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
