@@ -33,6 +33,7 @@ import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask"
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
 import EditTask from "./components/Modal/EditTask";
+import AccordionBoard from "./components/Board/AccordionBoard";
 
 const HEADERS = [
   { name: "FCE" },
@@ -311,7 +312,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                     ) => (
                       <div
                         key={i}
-                        className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
+                        className="hidden h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right md:grid"
                       >
                         <div></div>
                         {checkColor(task?.priority) !== "#000000" ? (
@@ -454,20 +455,6 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                   task={task}
                                   csfId={""}
                                 />
-                                // <IonIcon
-                                //   icon={informationCircle}
-                                //   className="h-5 w-5"
-                                //   onClick={() =>
-                                //     openEditModalTask(
-                                //       task?.id,
-                                //       task?.name,
-                                //       task?.description,
-                                //       task?.priority,
-                                //       task?.start,
-                                //       task?.end,
-                                //     )
-                                //   }
-                                // ></IonIcon>
                               )}
                               {destroy && (
                                 <IonIcon
@@ -504,6 +491,36 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       </div>
                     ),
                   )}
+                  {tasks?.map(
+                    (
+                      {
+                        task,
+                        task_count,
+                        task_query,
+                        creator,
+                        assigned,
+                        percent,
+                      },
+                      i,
+                    ) => (
+                      <AccordionBoard
+                        task={task}
+                        task_count={task_count}
+                        task_query={task_query}
+                        percent={percent}
+                        setModal={setModal}
+                        setTasksModal={setTasksModal}
+                        openCompleteTaskModal={openCompleteTaskModal}
+                        openDestroyTaskModal={openDestroyTaskModal}
+                        setProjectInfo={setProjectInfo}
+                        setModalProject={setModalProject}
+                        edit={edit}
+                        destroy={destroy}
+                        id={id}
+                        users={users}
+                      />
+                    ),
+                  )}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -515,3 +532,18 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 }
 
 export default Board;
+
+// <IonIcon
+//   icon={informationCircle}
+//   className="h-5 w-5"
+//   onClick={() =>
+//     openEditModalTask(
+//       task?.id,
+//       task?.name,
+//       task?.description,
+//       task?.priority,
+//       task?.start,
+//       task?.end,
+//     )
+//   }
+// ></IonIcon>

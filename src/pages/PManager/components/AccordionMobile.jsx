@@ -1,10 +1,13 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+
 import { IonIcon } from "@ionic/react";
 import { checkmarkCircleOutline, create, trash } from "ionicons/icons";
-import React from "react";
-import { Link } from "react-router-dom";
+
 import SwipeToRevealActions from "react-swipe-to-reveal-actions/dist/esm/SwipeToRevealActions";
 
 const PRIORITY = [
@@ -14,17 +17,17 @@ const PRIORITY = [
   { value: 4, color: "#000000" },
 ];
 
-function checkColor(value) {
-  const color = PRIORITY.filter((prio) => prio.value == value);
-  return color[0]?.color;
-}
-
 function AccordionMobile({
   task,
   openCompleteTaskModal,
   openEditModalTask,
   openDestroyTaskModal,
 }) {
+  function checkColor(value) {
+    const color = PRIORITY.filter((prio) => prio.value == value);
+    return color[0]?.color;
+  }
+
   return (
     <SwipeToRevealActions
       hideDotsButton="false"

@@ -112,7 +112,7 @@ function ProjectTable() {
         setModal={setPhaseModal}
       />
 
-      <div className="grid h-12 grid-cols-12 items-center text-center">
+      <div className="hidden h-12 grid-cols-12 items-center text-center md:grid">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
