@@ -15,7 +15,7 @@ function ActivityForm({ phase_id }) {
 
   return (
     <div className="flex h-12 w-full items-center px-4">
-      <div className="flex pl-32">
+      <div className="flex pl-0 md:pl-32">
         <Form
           onKeyDown={onInputEnter}
           method="post"
