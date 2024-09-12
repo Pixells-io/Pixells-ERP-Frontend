@@ -45,7 +45,7 @@ export async function getProductById(id) {
 export async function editProduct(data) {
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}inventory/edit-inventory`,
+    `${import.meta.env.VITE_SERVER_URL}products/edit-product`,
     {
       method: "POST",
       body: data,
