@@ -28,6 +28,7 @@ const DocumentContent = ({
   selectedCondicionPago,
   setSelectedCondicionPago,
   isEditable,
+  allProducts,
 }) => {
   const submit = useSubmit();
 
@@ -75,6 +76,7 @@ const DocumentContent = ({
             initialItems={items}
             setItems={setItems}
             isEditable={isEditable}
+            allProducts={allProducts}
           />
         </div>
       </div>

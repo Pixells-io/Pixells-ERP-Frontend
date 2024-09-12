@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Components/Header';
 import DocumentContent from './Components/DocumentContent';
 import CardCarousel from './Components/CardCarousel';
-import { saveNewQuoteOrder } from '../../utils';
+import { getProducts, saveNewQuoteOrder } from '../../utils';
 import { redirect } from 'react-router-dom';
 const CreateQuoteOrder = () => {
   const [documentNumber, setDocumentNumber] = useState('');
@@ -10,9 +10,19 @@ const CreateQuoteOrder = () => {
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
   const [selectedProveedor, setSelectedProveedor] = useState('');
   const [subtotal, setSubtotal] = useState(0);
+  const [allProducts, setAllProducts] = useState([]);
 
   const getTitle = "Nueva Cotización";
   const saveUrl ="/shopping/quotes-orders/create"
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const getAllProducts = async() => {
+    const response = await getProducts();
+    setAllProducts(response.data);
+  };
  
 
   return (
@@ -35,6 +45,7 @@ const CreateQuoteOrder = () => {
           subtotal={subtotal}
           saveUrl={saveUrl}
           isEditable={true}
+          allProducts={allProducts}
         />
       </div>
     </div>

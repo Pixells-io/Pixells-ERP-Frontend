@@ -22,12 +22,22 @@ export const handleAddRow = (e, setTableData, initialRow) => {
   setTableData((prevData) => [...prevData, { ...initialRow }]);
 };
 
-export const handleInputChange = (rowIndex, key, value, setTableData) => {
-  setTableData((prevData) =>
-    prevData.map((item, index) =>
-      index === rowIndex ? { ...item, [key]: value } : item
-    )
-  );
+export const handleInputChange = (rowIndex, key, value, setTableData, products = []) => {
+  if(key == "product") {
+    let findProduct = products.find(p => p.value == value);
+    console.log(findProduct);
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex ? { ...item, product: value, type: findProduct.type, product_master_id: findProduct.product_master_id, variation_id: findProduct.variation_id } : item
+      )
+    );
+  } else {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex ? { ...item, [key]: value } : item
+      )
+    );
+  }
 };
 
 export const handleDeleteRow = (rowIndex, setTableData, tableData) => {

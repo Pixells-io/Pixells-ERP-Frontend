@@ -23,6 +23,8 @@ import {
   handleDeleteRow,
   handleInputChange,
 } from "./Utils";
+import SelectField from "@/layouts/Masters/FormComponents/SelectField";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 /**
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
@@ -34,6 +36,7 @@ const QuoteTable = ({
   setItems,
   isEditable,
   setTotalChanges,
+  allProducts,
 }) => {
   const initialRow = {
     item: "",
@@ -44,6 +47,10 @@ const QuoteTable = ({
     cantidad: "",
     unidad: "",
     fechaEntrega: "",
+    product: "",
+    type: "",
+    product_master_id: "",
+    variation_id: "",
   };
   const location = useLocation();
 
@@ -70,9 +77,23 @@ const QuoteTable = ({
     }
   }, [tableData, setTotalChanges]);
 
+  const productsArray = [];
+  arrayFillProducts(allProducts, productsArray)
+
+  function arrayFillProducts(data, array) {
+    let dataParse = data;
+
+    dataParse.forEach((element, index) => {
+      array.push({
+        ...element,
+        label: element.name,
+        value: (index + 1),
+      });
+    });
+  }
+
   const columns = useMemo(
     () => [
-      { key: "item", header: "Item", type: "text" },
       { key: "codigo", header: "Código", type: "text" },
       { key: "valor", header: "Valor", type: "number" },
       { key: "descuento", header: "Descuento (%)", type: "number" },
@@ -104,6 +125,7 @@ const QuoteTable = ({
         <Table>
           <TableHeader>
             <TableRow className="justify-center border-b-2 border-b-primario">
+              <TableHead>Item</TableHead>
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
@@ -113,6 +135,36 @@ const QuoteTable = ({
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
+                 <TableCell>
+                  <div className="w-[200px]">
+                  <Select 
+                    name={`data[${(currentPage - 1) * itemsPerPage + rowIndex}][product]`} 
+                    value={Number(row['product'])}
+                    onValueChange={(e) =>
+                      isEditable &&
+                      handleInputChange(
+                        (currentPage - 1) * itemsPerPage + rowIndex,
+                        "product",
+                        e,
+                        setTableData,
+                        productsArray
+                      )
+                    }
+                  >
+                    <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                      <SelectValue placeholder={"Producto"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {productsArray.map((productArray, index) => (
+                        <SelectItem key={"product-" + index} value={productArray.value}>
+                           {productArray.label}
+                         </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  </div>
+                  </TableCell>
                 {columns.map((column) => (
                   <TableCell key={column.key}>
                     <Input
