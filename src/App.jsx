@@ -385,7 +385,9 @@ import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
 import CreateRequest, {
   Action as createPurchase,
 } from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
-import MainQuotesOrder from "./pages/Shopping/Orders/MainQuotes";
+import MainQuotesOrder, {
+  Action as QuotesOrderAction,
+} from "./pages/Shopping/Orders/MainQuotes";
 import CreateQuoteOrder, {
   Action as createQuotesOrder,
 } from "./pages/Shopping/Orders/NewOrder/CreateOrderQuote";
@@ -399,6 +401,7 @@ import EditQuotes from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
+import { getQuotesOrder } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1282,6 +1285,8 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders",
             element: <MainQuotesOrder />,
+            loader: getQuotesOrder,
+            action: QuotesOrderAction,
           },
           {
             path: "/shopping/quotes-orders/create",
