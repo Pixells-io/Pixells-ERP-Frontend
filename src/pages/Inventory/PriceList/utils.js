@@ -2,6 +2,8 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
+
+
 export async function getBaseList(){
     try {
         const response = await fetch(
@@ -42,4 +44,19 @@ export async function multiloaderList() {
     ]);
     return json({base_list, products});
 
+}
+
+export async function savePriceList(data) {
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/create-price-list`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
 }

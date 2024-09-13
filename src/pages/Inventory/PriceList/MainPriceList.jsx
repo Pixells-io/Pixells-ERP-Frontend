@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect}from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -6,30 +6,40 @@ import {
   informationCircle,
   addCircleOutline,
 } from "ionicons/icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link,useLoaderData} from "react-router-dom";
+import { createPusherClient } from "@/lib/pusher";
 import { Button } from "@/components/ui/button";
-const MainPriceList = () => {
-  const data = [
-    {
-      nombre: "Precios de mayoreo",
-      listabase: "Clientes nacionales",
-      indiceref: "0.8",
-      status: "activa",
-      creacion: "21/07/2024",
-    },
-    {
-        nombre: "Clientes extranjeros",
-        listabase: "Clientes nacionales",
-        indiceref: "1.5",
-        status: "activa",
-        creacion: "31/09/2024",
-      },
-  ];
+import { getBaseList } from "./utils";
 
+const MainPriceList = () => {
+
+
+  const { data } = useLoaderData();
+  const [baseListInfo, setBaseListInfo] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getPriceListFunction() {
+    let newData = await getBaseList();
+    setBaseListInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("inventory/get-price-lists");
+
+    pusherClient.bind(" fill-price-lists", ({ message }) => {
+      getPriceListFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("inventory/get-price-lists");
+    };
+  }, []); 
+
+  
   const columns = [
     {
       accessorKey: "nombre",
@@ -154,7 +164,7 @@ const MainPriceList = () => {
               </TabsList>
               <TabsContent value="LISTS" className="mt-[-60px] p-2">
                 <DataTable
-                  data={data}
+                  data={baseListInfo}
                   columns={columns}
                   searchFilter="nombre"
                   searchNameFilter="Buscar por nombre"
