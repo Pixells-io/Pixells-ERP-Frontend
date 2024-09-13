@@ -83,7 +83,7 @@ const QuoteTable = ({
       { key: "discount", header: "Descuento (%)", type: "number", disabled: false },
       { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
       { key: "quantity", header: "Cantidad", type: "number", disabled: false },
-      { key: "unitHidden", header: "Unidad", type: "text", disabled: true },
+      { key: "unit", header: "Unidad", type: "text", disabled: true },
       { key: "delivery_date", header: "Fecha de Entrega", type: "date", disabled: false },
     ],
     [],
@@ -155,8 +155,8 @@ const QuoteTable = ({
                     hidden
                     className="hidden"
                     readOnly
-                    name={`unit[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={row["unitHidden"]}
+                    name={`unitHiiden[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={row["unit"]}
                   />
                   <Select 
                     name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}

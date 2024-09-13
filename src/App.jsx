@@ -403,11 +403,13 @@ import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
 import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
 import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
-import EditQuotes from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
+import EditQuotes, {
+  Action as QuoteOrderEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getQuotesOrder } from "./pages/Shopping/utils";
+import { getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1303,6 +1305,8 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders/edit/:id",
             element: <EditQuotes />,
+            loader: getQuoteOrder,
+            action: QuoteOrderEditAction,
           },
           {
             path: "/shopping/document/:type/:id",

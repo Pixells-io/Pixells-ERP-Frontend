@@ -1,13 +1,15 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { copy, create, print } from "ionicons/icons";
+import {
+  copyOutline,
+  createOutline,
+  printOutline,
+} from "ionicons/icons";
 import { NavLink } from "react-router-dom";
 
 const ActionsGroup = ({ url, setEditable }) => {
-
-  const location = useLocation(); 
+  const location = useLocation();
 
   const currentPath = location.pathname;
 
@@ -16,51 +18,37 @@ const ActionsGroup = ({ url, setEditable }) => {
   const handlerConvert = (value) => {
     setEditable(value);
   };
-  
-  const isShoppingDocumentRoute = location.pathname.startsWith("/shopping/document");
+
+  const isShoppingDocumentRoute =
+    location.pathname.startsWith("/shopping/document");
 
   return (
-    <div className="flex pr-2 items-end">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20 focus-visible:ring-0 focus-visible:ring-offset-0"
-      >
+    <div className="flex items-end pr-2 gap-x-2">
+      <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]">
         <IonIcon
-          icon={copy}
-          size="small"
-          className="cursor-pointer text-[#696974]"
-        />
-      </Button>
+          icon={copyOutline}
+          className="h-5 w-5 cursor-pointer text-[#44444F]"
+        ></IonIcon>
+      </div>
       {!isShoppingDocumentRoute && (
         <NavLink to={url}>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20 focus-visible:ring-0 focus-visible:ring-offset-0"
-          >
+          <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]">
             <IonIcon
-              icon={print}
-              size="small"
-              className="cursor-pointer text-[#696974]"
-            />
-          </Button>
+              icon={printOutline}
+              className="h-5 w-5 cursor-pointer text-[#44444F]"
+            ></IonIcon>
+          </div>
         </NavLink>
       )}
       {!isEditRoute && (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20 focus-visible:ring-0 focus-visible:ring-offset-0"
-        onClick={() => handlerConvert(true)}
-      >
-        <IonIcon
-          icon={create}
-          size="small"
-          className="cursor-pointer text-[#696974]"
-        />
-      </Button>
-        )}
+        <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
+        onClick={() => handlerConvert(true)}>
+          <IonIcon
+            icon={createOutline}
+            className="h-5 w-5 cursor-pointer text-[#44444F]"
+          ></IonIcon>
+        </div>
+      )}
     </div>
   );
 };

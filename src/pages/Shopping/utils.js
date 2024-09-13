@@ -13,7 +13,7 @@ export async function saveNewQuoteOrder(data) {
       discount: data.get(`discount[${i}]`),
       taxes: data.get(`taxes[${i}]`),
       quantity: data.get(`quantity[${i}]`),
-      unit: data.get(`unit[${i}]`),
+      unit: data.get(`unitHiiden[${i}]`),
       delivery_date: data.get(`delivery_date[${i}]`),
       total: data.get(`total[${i}]`),
     });
@@ -79,6 +79,24 @@ export async function getQuotesOrder() {
   }
 }
 
+export async function getQuoteOrder({ params }) {
+  try {
+    const id = params.id;
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}shopping/get-quote/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function destroyQuoteOrder(data) {
 
   const info = {
@@ -87,6 +105,26 @@ export async function destroyQuoteOrder(data) {
  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/destroy-quotes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function acceptQuoteOrder(data) {
+
+  const info = {
+    quote_id: data.get("quote_id"),
+  };
+ 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}shopping/accept-quotes`,
     {
       method: "POST",
       body: JSON.stringify(info),

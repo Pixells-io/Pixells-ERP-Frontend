@@ -57,7 +57,7 @@ export const handleInputChange = (rowIndex, key, value, setTableData, products =
           variations: findProduct.variation_id,
           taxes: 16,
           discount: 0,
-          unitHidden: findProduct.unit,
+          unit: findProduct.unit,
 
         } : item
       )
