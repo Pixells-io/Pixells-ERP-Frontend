@@ -9,6 +9,18 @@ import ObservationsSection from "../Components/Section";
 import StatusInformation from "@/components/StatusInformation/status-information";
 
 const CreatePriceList = () => {
+  const [initialInputs,setInitialInputs]=useState({
+    name:"" ,
+    based_list:0 ,
+    index_list:"" ,
+    type: false,
+    rounding:false,
+    from_date :"",
+    to_date :"",
+    principal_list:"",
+
+  });
+
   const [data, setData] = useState([
     {
       nuevoArticulo: "1231",
@@ -21,6 +33,7 @@ const CreatePriceList = () => {
       precioRefactorizacion: 111.93,
     },
   ]);
+
   const [roundingSettings, setRoundingSettings] = useState({
     roundValues: false,
     roundingMethod: "truncate",
@@ -106,7 +119,10 @@ const CreatePriceList = () => {
           <Inputs
             onRoundingChange={handleRoundingChange}
             onIndRefChange={handleIndRefChange}
+            data={initialInputs}
+            setData={setInitialInputs}
           />
+          
           <DataTable
             initialData={data}
             onDataChange={handleDataChange}
@@ -116,12 +132,12 @@ const CreatePriceList = () => {
           />
           <ObservationsSection />
           <div className="justify-end">
-            <StatusInformation
-              status={"inProgress"}
-              imgUser={
-                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              }
-            >
+          <StatusInformation
+            status={"inProgress"}
+            imgUser={
+              "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            }
+          >
               <Button
                 type="button"
                 variant="outline"

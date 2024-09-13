@@ -107,34 +107,23 @@ const DataTable = ({
 
   return (
     <div className="flex flex-col rounded-lg bg-white p-4">
-      <Table className="w-full overflow-x-auto">
+      <Table>
         <TableHeader>
           <TableRow className="border-b-primarioBotones text-xs font-normal text-grisText">
-            <TableHead className="hidden md:table-cell">Nuevo artículo</TableHead>
-            <TableHead className="hidden md:table-cell">Descripción</TableHead>
-            <TableHead className="hidden md:table-cell">Lista de precio base</TableHead>
-            <TableHead className="hidden md:table-cell">Precio base</TableHead>
-            <TableHead className="hidden md:table-cell">Precio unitario</TableHead>
-            <TableHead className="hidden md:table-cell">Índice de refactorización</TableHead>
-            <TableHead className="hidden md:table-cell">Índice editable</TableHead>
-            <TableHead className="hidden md:table-cell">Precio de refactorización</TableHead>
-            <TableHead className="md:hidden">Detalles</TableHead>
+            <TableHead>Nuevo artículo</TableHead>
+            <TableHead>Descripción</TableHead>
+            <TableHead>Lista de precio base</TableHead>
+            <TableHead>Precio base</TableHead>
+            <TableHead>Precio unitario</TableHead>
+            <TableHead>Índice de refactorización</TableHead>
+            <TableHead>Índice editable</TableHead>
+            <TableHead>Precio de refactorización</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {paginatedData.map((row, rowIndex) => (
-            <TableRow key={rowIndex} className="text-xs">
-              <TableCell className="md:hidden">
-                <div className="flex flex-col">
-                  <span className="font-bold">Artículo:</span> {row.nuevoArticulo}
-                </div>
-              </TableCell>
-              <TableCell className="md:hidden">
-                <div className="flex flex-col">
-                  <span className="font-bold">Descripción:</span> {row.descripcion}
-                </div>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">
+            <TableRow key={rowIndex}>
+              <TableCell>
                 <Input
                   name={`nuevoArticulo-${rowIndex}`}
                   value={row.nuevoArticulo}
@@ -142,10 +131,10 @@ const DataTable = ({
                     handleInputChange(rowIndex, "nuevoArticulo", e.target.value)
                   }
                   placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Input
                   name={`descripcion-${rowIndex}`}
                   value={row.descripcion}
@@ -153,17 +142,17 @@ const DataTable = ({
                     handleInputChange(rowIndex, "descripcion", e.target.value)
                   }
                   placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Select
                   value={row.listaPrecioBase}
                   onValueChange={(value) =>
                     handleInputChange(rowIndex, "listaPrecioBase", value)
                   }
                 >
-                  <SelectTrigger className="border-gris2-transparent h-auto w-full rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectTrigger className="border-gris2-transparent h-auto  rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                     <SelectValue placeholder="Lista de precio base" />
                   </SelectTrigger>
                   <SelectContent>
@@ -173,15 +162,15 @@ const DataTable = ({
                   </SelectContent>
                 </Select>
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Input
                   name={`precioBase-${rowIndex}`}
                   value={formatNumber(row.precioBase, 2, false)}
                   readOnly
-                  className="border-gris2-transparent h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Input
                   type="text"
                   name={`precioUnitario-${rowIndex}`}
@@ -194,18 +183,18 @@ const DataTable = ({
                     )
                   }
                   placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Input
                   name={`indiceRefactorizacion-${rowIndex}`}
                   value={row.indiceRefactorizacion}
                   readOnly
-                  className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <Input
                   type="number"
                   name={`indiceEditable-${rowIndex}`}
@@ -218,10 +207,10 @@ const DataTable = ({
                     )
                   }
                   placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
               </TableCell>
-              <TableCell className="hidden md:table-cell">
+              <TableCell>
                 <div className="flex items-center justify-between gap-x-2">
                   <Input
                     name={`precioRefactorizacion-${rowIndex}`}
@@ -232,7 +221,7 @@ const DataTable = ({
                       roundingMethod,
                     )}
                     readOnly
-                    className="border-gris2-transparent flex h-auto w-full bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                    className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                   />
 
                   <Button
