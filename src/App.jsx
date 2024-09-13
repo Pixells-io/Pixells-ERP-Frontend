@@ -356,7 +356,7 @@ import {
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
-import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
 import { multiloaderList } from "./pages/Inventory/PriceList/utils";
 //Sales
@@ -1151,7 +1151,8 @@ const router = createBrowserRouter([
           {
             path: "/inventory/prices-lists/create",
             element: <CreatePriceList />,
-            loader: multiloaderList
+            loader: multiloaderList,
+            action: newPriceList
           },
           {
             path: "/inventory/stock-items",
