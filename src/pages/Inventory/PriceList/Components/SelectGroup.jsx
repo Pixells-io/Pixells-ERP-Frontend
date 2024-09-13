@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import InputField from "@/layouts/Masters/FormComponents/InputField";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -8,159 +6,176 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import InputForm from "@/components/InputForm/InputForm";
 
 const Inputs = ({ onRoundingChange, onIndRefChange }) => {
   const [inputsData, setInputsData] = useState({
-    namList: "",
-    prList: "option1",
-    indRef: "2.1",
-    rounded: false,
-    roundList: "",
-    active: false,
-    inactive: false,
+    nombre: "",
+    listaPrecios: "",
+    indiceRefac: "",
+    modalidad: "",
+    fechaInicio: "",
+    fechaFin: "",
+    metodoRedondeo: "",
+    redondeoActivado: false,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputsData((prevData) => {
-      const newData = { ...prevData, [name]: value };
-      if (name === 'indRef') {
+    setInputsData((prev) => {
+      const newData = { ...prev, [name]: value };
+      if (name === "indiceRefac") {
         onIndRefChange(value);
       }
       return newData;
     });
   };
 
-  const handleCheckboxChange = (name, checked) => {
-    setInputsData((prevData) => {
-      const newData = { ...prevData, [name]: checked };
-      if (name === 'rounded') {
-        onRoundingChange(checked, newData.roundList);
-      }
-      return newData;
-    });
-  };
-
   const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => {
-      const newData = { ...prevData, [name]: value };
-      if (name === 'roundList') {
-        onRoundingChange(newData.rounded, value);
+    setInputsData((prev) => {
+      const newData = { ...prev, [name]: value };
+      if (name === "metodoRedondeo") {
+        onRoundingChange(prev.redondeoActivado, value);
       }
       return newData;
     });
   };
 
-  const selectClasses =
-    "w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+  const handleSwitchChange = (checked) => {
+    setInputsData((prev) => {
+      const newData = { ...prev, redondeoActivado: checked };
+      onRoundingChange(checked, prev.metodoRedondeo);
+      return newData;
+    });
+  };
+
+  const inputClass = "w-full border p-2";
+  const selectClass = "w-full h-[32px] rounded-md border border-gris2-transparent font-roboto text-[14px] text-[#44444f] placeholder:text-[#44444f] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="flex w-full flex-row items-center space-x-4 rounded-xl bg-white p-4">
-      <div className="flex-1">
-        <Input
-          type="text"
-          name="namList"
-          placeholder="Nombre"
-          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-          value={inputsData.namList}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex-1">
-        <Select
-          name="prList"
-          value={inputsData.prList}
-          onValueChange={(value) => handleSelectChange("prList", value)}
-        >
-          <SelectTrigger className={selectClasses}>
-            <SelectValue placeholder="Lista de Precios Base" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="option1">Lista de Agustin</SelectItem>
-            <SelectItem value="option2">Lista de Antonio</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="flex-1">
-        <Input
-          type="number"
-          name="indRef"
-          placeholder="Indice Refact."
-          className="w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-          value={inputsData.indRef}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex">
-        <Checkbox
-          id="rounded"
-          name="rounded"
-          checked={inputsData.rounded}
-          onCheckedChange={(checked) =>
-            handleCheckboxChange("rounded", checked)
-          }
-          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-        />
-        <label
-          htmlFor="rounded"
-          className="ml-2 font-roboto text-sm text-gris2"
-        >
-          Redondeo
-        </label>
-      </div>
-      {inputsData.rounded && (
-        <div className="flex">
+    <div className="space-y-4 border p-4 rounded-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <Label htmlFor="nombre" className="text-sm text-gray-600">
+            Nombre
+          </Label>
+          <InputForm
+            id="nombre"
+            name="nombre"
+            value={inputsData.nombre}
+            onChange={handleChange}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <Label htmlFor="listaPrecios" className="text-sm text-gray-600">
+            Lista de Precios Base
+          </Label>
           <Select
-            name="roundList"
-            value={inputsData.roundList}
-            onValueChange={(value) => handleSelectChange("roundList", value)}
+            name="listaPrecios"
+            value={inputsData.listaPrecios}
+            onValueChange={(value) => handleSelectChange("listaPrecios", value)}
+            className={selectClass}
           >
-            <SelectTrigger className={selectClasses}>
-              <SelectValue placeholder="Método de redondeo" />
+            <SelectTrigger className={selectClass}>
+              <SelectValue placeholder="Seleccionar lista" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="truncate">Truncar</SelectItem>
-              <SelectItem value="round">Redondear</SelectItem>
+              <SelectItem value="lista1">Lista 1</SelectItem>
+              <SelectItem value="lista2">Lista 2</SelectItem>
             </SelectContent>
           </Select>
         </div>
-      )}
-
-      <div className="flex pl-4 flex-1 flex-col">
-        <div className="mb-2 flex items-center">
-          <Checkbox
-            id="active"
-            name="active"
-            checked={inputsData.active}
-            onCheckedChange={(checked) =>
-              handleCheckboxChange("active", checked)
-            }
-            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+        <div>
+          <Label htmlFor="indiceRefac" className="text-sm text-gray-600">
+            Índice de Refac.
+          </Label>
+          <InputForm
+            id="indiceRefac"
+            name="indiceRefac"
+            value={inputsData.indiceRefac}
+            onChange={handleChange}
+            className={"w-40 border p-2 "}
           />
-          <label
-            htmlFor="active"
-            className="ml-2 font-roboto text-sm text-gris2"
-          >
-            Activo
-          </label>
         </div>
-        <div className="flex items-center">
-          <Checkbox
-            id="inactive"
-            name="inactive"
-            checked={inputsData.inactive}
-            onCheckedChange={(checked) =>
-              handleCheckboxChange("inactive", checked)
-            }
-            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-          />
-          <label
-            htmlFor="inactive"
-            className="ml-2 font-roboto text-sm text-gris2"
-          >
-            Inactivo
-          </label>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <Label htmlFor="modalidad" className="text-sm text-gray-600">
+              Modalidad
+            </Label>
+            <Select
+              name="modalidad"
+              value={inputsData.modalidad}
+              onValueChange={(value) => handleSelectChange("modalidad", value)}
+              className={selectClass}
+            >
+              <SelectTrigger className={selectClass}>
+                <SelectValue placeholder="Selecciona" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="modalidad1">Modalidad 1</SelectItem>
+                <SelectItem value="modalidad2">Modalidad 2</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex-1 pt-6">
+           
+            <InputForm
+              type="date"
+              name="fechaInicio"
+              value={inputsData.fechaInicio}
+              onChange={handleChange}
+              className={"w-full border-none p-2 bg-[#F6F6F6]"}
+            />
+          </div>
+          <div className="flex-1 pt-6">
+           
+            <InputForm
+              type="date"
+              name="fechaFin"
+              value={inputsData.fechaFin}
+              onChange={handleChange}
+              className={"w-full border-none p-2 bg-[#F6F6F6]"}
+            />
+          </div>
+        </div>
+        <div className="flex items-end gap-4">
+          <div className="flex-1">
+            <Label htmlFor="metodoRedondeo" className="text-sm text-gray-600">
+              Método Redondeo
+            </Label>
+            <Select
+              name="metodoRedondeo"
+              value={inputsData.metodoRedondeo}
+              onValueChange={(value) => handleSelectChange("metodoRedondeo", value)}
+              className={selectClass}
+              disabled={!inputsData.redondeoActivado}
+            >
+              <SelectTrigger className={selectClass}>
+                <SelectValue placeholder="Seleccionar método" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="truncar">Truncar</SelectItem>
+                <SelectItem value="redondear">Redondear</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="redondeo"
+              checked={inputsData.redondeoActivado}
+              onCheckedChange={handleSwitchChange}
+              
+            />
+            <Label htmlFor="redondeo" className="text-sm text-gray-600">
+              Redondeo
+            </Label>
+          </div>
         </div>
       </div>
     </div>
