@@ -100,22 +100,32 @@ export async function getQuoteOrder({ params }) {
 export async function updateQuoteOrder(data) {
 
   let totalRow = data.getAll("totalRow[]");
-  let arrayArticles = [];
+  let arrayArticlesNew = [];
   for (let i = 0; i < totalRow.length; i++) {
-    arrayArticles.push({
-      master_product: data.get(`master_product[${i}]`),
-      variations: data.get(`variations[${i}]`),
-      sub_total: data.get(`sub_total[${i}]`),
-      discount: data.get(`discount[${i}]`),
-      taxes: data.get(`taxes[${i}]`),
-      quantity: data.get(`quantity[${i}]`),
-      unit: data.get(`unitHiiden[${i}]`),
-      delivery_date: data.get(`delivery_date[${i}]`),
-      total: data.get(`total[${i}]`),
-    });
+    if(data.get(`id_product[${i}]`) != null){
+      arrayArticlesNew.push({
+        master_product: data.get(`master_product[${i}]`),
+        variations: data.get(`variations[${i}]`),
+        sub_total: data.get(`sub_total[${i}]`),
+        discount: data.get(`discount[${i}]`),
+        taxes: data.get(`taxes[${i}]`),
+        quantity: data.get(`quantity[${i}]`),
+        unit: data.get(`unitHiiden[${i}]`),
+        delivery_date: data.get(`delivery_date[${i}]`),
+        total: data.get(`total[${i}]`),
+      });
+    }
+  }
+
+  let arrayArticlesDelete = [];
+  let productsDelete = data.getAll("productDelete[]");
+ 
+  for (let i = 0; i < productsDelete.length; i++) {
+    arrayArticlesDelete.push({slot_id: productsDelete[i]});
   }
 
   const info = {
+    quote_id: data.get("quote_id"),
     document_number: data.get("document_number"),
     inventory_id: data.get("inventory_id"),
     supplier_id: data.get("supplier_id"),
@@ -126,23 +136,23 @@ export async function updateQuoteOrder(data) {
     subtotal: data.get("subtotal"),
     taxes: data.get("taxes"),
     total: data.get("total"),
-    products: arrayArticles,
+    products: arrayArticlesNew,
+    destroy_products: arrayArticlesDelete,
   }
 
-  console.log(info);
 
-  // const response = await fetch(
-  //   `${import.meta.env.VITE_SERVER_URL}shopping/create-quotes`,
-  //   {
-  //     method: "POST",
-  //     body: JSON.stringify(info),
-  //     headers: {
-  //       Authorization: "Bearer " + Cookies.get("token"),
-  //     },
-  //   },
-  // );
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}shopping/edit-quotes`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
 
-  // return response.json();
+  return response.json();
 }
 
 export async function destroyQuoteOrder(data) {

@@ -43,7 +43,7 @@ export const handleAddRow = (e, setTableData, initialRow) => {
 };
 
 export const handleInputChange = (rowIndex, key, value, setTableData, products = []) => {
-  if(key == "product_idAux") {
+  if(key == "product_idAux" && !!value) {
     let findProduct = products.find(p => p.value == value);
     setTableData((prevData) =>
       prevData.map((item, index) =>
@@ -71,9 +71,12 @@ export const handleInputChange = (rowIndex, key, value, setTableData, products =
   }
 };
 
-export const handleDeleteRow = (rowIndex, setTableData, tableData) => {
+export const handleDeleteRow = (rowIndex, setTableData, tableData, setProductDelete, productDelete) => {
   setTableData((prevData) => {
     if (prevData.length > 1) {
+      if(!!tableData[rowIndex]?.id){
+        setProductDelete([...productDelete, tableData[rowIndex].id]);
+      }
       return prevData.filter((_, index) => index !== rowIndex);
     }
     return prevData;

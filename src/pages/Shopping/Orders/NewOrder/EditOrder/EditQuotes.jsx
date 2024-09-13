@@ -111,7 +111,7 @@ const EditQuotes = () => {
               hidden
               className="hidden"
               readOnly
-              name="id"
+              name="quote_id"
               value={quote.id}
             />
           <input

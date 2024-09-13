@@ -53,6 +53,7 @@ const QuoteTable = ({
   };
   const location = useLocation();
   const productsArray = [];
+  const [productDelete, setProductDelete] = useState([]);
 
   arrayFillProducts(allProducts, productsArray);
 
@@ -137,6 +138,14 @@ const QuoteTable = ({
                     readOnly
                     name={`totalRow[]`}
                     value={""}
+                  />
+                  <input
+                    type="hidden"
+                    className="hidden"
+                    hidden
+                    readOnly
+                    name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={!!row["id"] ? row["id"] : null}
                   />
                   <input
                     type="hidden"
@@ -254,12 +263,15 @@ const QuoteTable = ({
                     <Button
                       variant="ghost"
                       size="icon"
+                      type={"button"}
                       onClick={() =>
                         isEditable &&
                         handleDeleteRow(
                           (currentPage - 1) * itemsPerPage + rowIndex,
                           setTableData,
                           tableData,
+                          setProductDelete,
+                          productDelete,
                         )
                       }
                       disabled={tableData.length === 1 || !isEditable}
@@ -278,10 +290,24 @@ const QuoteTable = ({
           </TableBody>
         </Table>
       </div>
+      {/* Productos que se van a eliminar */}
+      {
+        productDelete.map(pd => (
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            readOnly
+            name={`productDelete[]`}
+            value={pd}
+          />
+        ))
+      }
       <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"
           size="icon"
+          type="button"
           onClick={(e) =>
             isEditable && handleAddRow(e, setTableData, initialRow)
           }
