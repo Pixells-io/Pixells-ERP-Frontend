@@ -61,19 +61,7 @@ const MainPriceList = () => {
     {
       accessorKey: "status",
       header: "Estatus",
-    },
-    {
-        id: "createBy",
-        header: <div className="text-center">Creado Por</div>,
-        cell: ({ row }) => (
-          <div className="flex items-center justify-center h-full">
-            <Avatar className="h-8 w-8 flex items-center justify-center">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </div>
-        ),
-      },      
+    },  
     {
       accessorKey: "creacion",
       header: "Creación",

@@ -80,11 +80,11 @@ const CreatePriceList = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nueva Lista de Precios
           </p>
-          <div className="flex items-end justify-end">
+          <div className="flex items-end justify-end pb-0">
             <Link to="/inventory/prices-lists">
               <Button
                 type="button"
@@ -102,7 +102,7 @@ const CreatePriceList = () => {
           </div>
         </div>
         {/*content */}
-        <div className="space-y-3 overflow-auto">
+        <div className="h-full bg-white p-7 space-y-4">
           <Inputs
             onRoundingChange={handleRoundingChange}
             onIndRefChange={handleIndRefChange}
