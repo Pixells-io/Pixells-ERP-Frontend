@@ -4,7 +4,7 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link, useLoaderData,useSubmit } from "react-router-dom";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { savePriceList } from "../utils";
 const CreatePriceList = () => {
@@ -23,10 +23,10 @@ const CreatePriceList = () => {
   });
 
   const [indRef, setIndRef] = useState("");
- 
+
   const [data, setData] = useState([
     {
-      tipo:initialInputs.type,
+      tipo: initialInputs.type,
       nuevoArticulo: "",
       descripcion: "",
       listaPrecioBase: "0",
@@ -38,7 +38,7 @@ const CreatePriceList = () => {
     },
   ]);
   const [comments, setComments] = useState("");
-
+  console.log(initialInputs);
   const handleIndRefChange = (value) => {
     setIndRef(value);
     setInitialInputs((prev) => ({ ...prev, index_list: value }));
@@ -63,35 +63,37 @@ const CreatePriceList = () => {
 
   const handleSubmit = async (event) => {
     const formData = new FormData();
-    const convertToBoolean = (value) => (value === true ? 1 : value === false ? 0 : 0);
+    const convertToBoolean = (value) =>
+      value === true ? 1 : value === false ? 0 : 0;
 
     // Create the info object
     const info = {
-      name: initialInputs.name,
+      name: initialInputs.name || "Default Name",
       based_list: parseInt(initialInputs.based_list) || 0,
       index_list: parseInt(initialInputs.index_list) || 0,
-      rounding: convertToBoolean(initialInputs.rounding),
-      comments:comments,
+      rounding: initialInputs.rounding,
+      comments: comments,
       aditional_comments: "",
       type: parseInt(initialInputs.type) || 1,
       from_date: initialInputs.from_date,
       to_date: initialInputs.to_date,
-      principal_list: convertToBoolean(initialInputs.principal_list),
-      productos: data.map(row => ({
+      principal_list: initialInputs.principal_list,
+      productos: data.map((row) => ({
         type: parseInt(row.tipo) || 0,
         product_master_id: parseInt(row.nuevoArticulo) || 0,
-        product_variable_id: parseInt(row.descripcion) || 0,
         based_price: parseFloat(row.precioBase) || 0,
         refactorization_index: parseFloat(row.indiceRefactorizacion) || 0,
         price: parseFloat(row.precioRefactorizacion) || 0,
       })),
     };
-
+ 
     // Append to FormData
     formData.append("info", JSON.stringify(info));
 
-
-    submit(formData, { action: `/inventory/prices-lists/create`, method: "POST" });
+    submit(formData, {
+      action: `/inventory/prices-lists/create`,
+      method: "POST",
+    });
   };
 
   return (
@@ -160,14 +162,14 @@ const CreatePriceList = () => {
             data={initialInputs}
             setData={handleInputChange}
           />
-            <DataTable
+          <DataTable
             type={initialInputs.type}
-              initialData={data}
-              onDataChange={handleDataChange}
-              products={products.data}
-              indRef={indRef}
-              roundingF={initialInputs.rounding}
-            />
+            initialData={data}
+            onDataChange={handleDataChange}
+            products={products.data}
+            indRef={indRef}
+            roundingF={initialInputs.rounding}
+          />
           <div className="justify-end">
             <StatusInformation
               status={"inProgress"}
@@ -201,10 +203,10 @@ const CreatePriceList = () => {
 
 export default CreatePriceList;
 
-
 export async function Action({ request }) {
+
   const formData = await request.formData();
   const response = await savePriceList(formData);
-  
+
   return "0";
 }
