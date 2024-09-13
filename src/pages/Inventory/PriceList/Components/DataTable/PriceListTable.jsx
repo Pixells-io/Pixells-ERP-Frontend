@@ -24,24 +24,41 @@ import {
   closeCircle,
 } from "ionicons/icons";
 
-// Función para formatear números
+
 const formatNumber = (value, decimalPlaces, rounding) => {
   if (isNaN(value) || value === null) {
-    return ""; // O cualquier otro valor por defecto que prefieras
+    return "";
   }
-  return rounding ? Math.round(value) : Number(value).toFixed(decimalPlaces);
+
+  if (rounding) {
+    // Redondear al número entero más cercano
+    return Math.round(value);
+  } else {
+    // Si no se usa rounding, redondear al siguiente número entero si la parte decimal es >= 0.6
+    const factor = Math.pow(10, decimalPlaces);
+    const roundedValue = Math.floor(value * factor) / factor;
+    const decimalPart = value - roundedValue;
+
+    if (decimalPart >= 0.6) {
+      return Math.ceil(value);
+    } else {
+      return roundedValue;
+    }
+  }
 };
 
-// Componente DataTable
+
 const DataTable = ({
   initialData,
   onDataChange,
+  products,
   indRef,
   roundingF,
 }) => {
   const [tableData, setTableData] = useState(
     initialData.map(item => ({
       ...item,
+      nuevoArticulo: item.nuevoArticulo || "",
       precioUnitario: parseFloat(item.precioUnitario) || 0,
       indiceEditable: parseFloat(item.indiceEditable) || 0,
       precioRefactorizacion: parseFloat(item.precioRefactorizacion) || 0,
@@ -50,10 +67,9 @@ const DataTable = ({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Manejador de cambios en los inputs
   const handleInputChange = useCallback(
     (rowIndex, columnKey, value) => {
-      const numericValue = parseFloat(value); // Convierte el valor a número
+      const numericValue = parseFloat(value);
       
       setTableData((prevData) => {
         const newData = [...prevData];
@@ -77,7 +93,6 @@ const DataTable = ({
     [roundingF]
   );
 
-  // Añadir nueva fila
   const handleAddRow = useCallback(() => {
     setTableData((prevData) => [
       ...prevData,
@@ -94,19 +109,19 @@ const DataTable = ({
     ]);
   }, [indRef]);
 
-  // Eliminar una fila
   const handleDeleteRow = useCallback((rowIndex) => {
-    setTableData((prevData) =>
-      prevData.filter((_, index) => index !== rowIndex),
-    );
+    setTableData((prevData) => {
+      if (prevData.length > 1) {
+        return prevData.filter((_, index) => index !== rowIndex);
+      }
+      return prevData;
+    });
   }, []);
 
-  // Actualizar datos cuando cambian
   useEffect(() => {
     onDataChange(tableData);
   }, [tableData, onDataChange]);
 
-  // Paginación
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -116,6 +131,30 @@ const DataTable = ({
   const handleNextPage = () =>
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+
+  const handleSelectChange = (rowIndex, productId) => {
+    const selectedProduct = products.find(product => product.id === parseInt(productId));
+    
+    if (selectedProduct) {
+      setTableData(prevData => {
+        const newData = [...prevData];
+        newData[rowIndex] = {
+          ...newData[rowIndex],
+          descripcion: selectedProduct.name,
+          precioUnitario: parseFloat(selectedProduct.price) || 0,
+          nuevoArticulo: productId,
+        };
+
+        const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
+        const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
+        newData[rowIndex].precioRefactorizacion = formatNumber(rawPrecioRefactorizacion, 2, roundingF);
+        
+        return newData;
+      });
+    }
+  };
+
+  const commonInputClass = "border-gris2-transparent h-auto w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones";
 
   return (
     <div className="flex flex-col rounded-lg bg-white p-4">
@@ -137,130 +176,111 @@ const DataTable = ({
             <TableRow key={rowIndex}>
               <TableCell>
                 <Input
-                type="number"
+                  type="number"
                   name={`nuevoArticulo-${rowIndex}`}
                   value={row.nuevoArticulo}
                   onChange={(e) =>
                     handleInputChange(rowIndex, "nuevoArticulo", e.target.value)
                   }
                   placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className={commonInputClass}
                   readOnly
-               />
-              </TableCell>
-              <TableCell>
-              <Select
-                name={`descripcion-${rowIndex}`}
-                  value={row.descripcion}
-                  onValueChange={(value) =>
-                    handleInputChange(rowIndex, "descripcion", value)
-                  }
-                >
-                  <SelectTrigger className="border-gris2-transparent h-auto  rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder="Lista de precio base" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="55.0">55.0</SelectItem>
-                    <SelectItem value="53.30">53.30</SelectItem>
-                    <SelectItem value="24.50">24.50</SelectItem>
-                  </SelectContent>
-                </Select>
+                />
               </TableCell>
               <TableCell>
                 <Select
-                  value={row.listaPrecioBase}
-                  onValueChange={(value) =>
-                    handleInputChange(rowIndex, "listaPrecioBase", value)
-                  }
+                  value={row.nuevoArticulo.toString()} 
+                  onValueChange={(value) => handleSelectChange(rowIndex, value)}
                 >
-                  <SelectTrigger className="border-gris2-transparent h-auto  rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder="Lista de precio base" />
+                  <SelectTrigger className={`${commonInputClass} border rounded-lg text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones`}>
+                    <SelectValue placeholder="Selecciona" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="55.0">55.0</SelectItem>
-                    <SelectItem value="53.30">53.30</SelectItem>
-                    <SelectItem value="24.50">24.50</SelectItem>
+                    {products.map((product) => (
+                      <SelectItem key={product.id} value={product.id.toString()}>
+                        {product.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </TableCell>
               <TableCell>
                 <Input
-                  name={`precioBase-${rowIndex}`}
-                  value={formatNumber(row.precioBase, 2, false)}
-                  readOnly
-                  className="border-gris2-transparent h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-                />
-              </TableCell>
-              <TableCell>
-                <Input
-                  type="text"
-                  name={`precioUnitario-${rowIndex}`}
-                  value={formatNumber(row.precioUnitario, 2, false)}
+                  type="number"
+                  name={`listaPrecioBase-${rowIndex}`}
+                  value={row.listaPrecioBase}
                   onChange={(e) =>
-                    handleInputChange(
-                      rowIndex,
-                      "precioUnitario",
-                      e.target.value,
-                    )
+                    handleInputChange(rowIndex, "listaPrecioBase", e.target.value)
                   }
-                  placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className={commonInputClass}
                 />
               </TableCell>
               <TableCell>
                 <Input
+                  type="number"
+                  name={`precioBase-${rowIndex}`}
+                  value={row.precioBase}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "precioBase", e.target.value)
+                  }
+                  className={commonInputClass}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`precioUnitario-${rowIndex}`}
+                  value={row.precioUnitario}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "precioUnitario", e.target.value)
+                  }
+                  className={commonInputClass}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
                   name={`indiceRefactorizacion-${rowIndex}`}
-                  value={formatNumber(row.indiceRefactorizacion, 2, false)}
-                  readOnly
-                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  value={row.indiceRefactorizacion}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "indiceRefactorizacion", e.target.value)
+                  }
+                  className={commonInputClass}
                 />
               </TableCell>
               <TableCell>
                 <Input
                   type="number"
                   name={`indiceEditable-${rowIndex}`}
-                  value={formatNumber(row.indiceEditable, 2, false)}
+                  value={row.indiceEditable}
                   onChange={(e) =>
-                    handleInputChange(
-                      rowIndex,
-                      "indiceEditable",
-                      e.target.value,
-                    )
+                    handleInputChange(rowIndex, "indiceEditable", e.target.value)
                   }
-                  placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
+                  className={commonInputClass}
                 />
               </TableCell>
               <TableCell>
-                <div className="flex items-center justify-between gap-x-2">
-                  <Input
-                    name={`precioRefactorizacion-${rowIndex}`}
-                    value={formatNumber(row.precioRefactorizacion, 2, roundingF)}
-                    readOnly
-                    className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-                  />
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleDeleteRow(rowIndex)}
-                    disabled={tableData.length === 1}
-                    className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
-                  >
-                    <IonIcon
-                      icon={closeCircle}
-                      size="small"
-                      className="cursor-pointer text-grisText hover:text-red-500"
-                    />
-                  </Button>
-                </div>
+                <Input
+                  type="number"
+                  name={`precioRefactorizacion-${rowIndex}`}
+                  value={formatNumber(row.precioRefactorizacion, 2, roundingF)}
+                  className={commonInputClass}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => handleDeleteRow(rowIndex)}
+                  className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
+                >
+                  <IonIcon icon={closeCircle} className="h-6 w-6 cursor-pointer text-grisDisabled"/>
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
 
-      {/* Botones de Paginación */}
       <div className="mt-4 flex items-center justify-between">
         <IonIcon
           icon={addCircle}
@@ -283,8 +303,6 @@ const DataTable = ({
           />
         </div>
       </div>
-      
-
     </div>
   );
 };

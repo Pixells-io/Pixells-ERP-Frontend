@@ -1150,12 +1150,13 @@ const router = createBrowserRouter([
           },
           {
             path: "/inventory/prices-lists/create",
-            element: <CreatePriceList />
+            element: <CreatePriceList />,
+            loader: multiloaderList
           },
           {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
-            loader: multiloaderList
+            
           },
           {
             path: "/inventory/stock-items/:id",

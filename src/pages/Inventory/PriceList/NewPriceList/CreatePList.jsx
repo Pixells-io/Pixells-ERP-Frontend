@@ -4,11 +4,12 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link } from "react-router-dom";
+import { Link,useLoaderData} from "react-router-dom";
 import ObservationsSection from "../Components/Section";
 import StatusInformation from "@/components/StatusInformation/status-information";
-
 const CreatePriceList = () => {
+  const selectsdata = useLoaderData();
+  const {based_list,products}=selectsdata;
   const [initialInputs, setInitialInputs] = useState({
     name: "",
     based_list: "",
@@ -24,7 +25,7 @@ const CreatePriceList = () => {
 
   const [data, setData] = useState([
     {
-      nuevoArticulo: "1231",
+      nuevoArticulo: "",
       descripcion: "ACEITE VEGETAL",
       listaPrecioBase: "53.30",
       precioBase: 53.3,
@@ -34,7 +35,8 @@ const CreatePriceList = () => {
       precioRefactorizacion: 111.93,
     },
   ]);
-let rounded=initialInputs.rounding;
+  const [comments, setComments] = useState("");
+
   const handleIndRefChange = (value) => {
     setIndRef(value);
     setInitialInputs(prev => ({ ...prev, index_list: value }));
@@ -116,24 +118,26 @@ let rounded=initialInputs.rounding;
           </div>
         </div>
         {/*content */}
-        <div className="h-full bg-white p-7 space-y-4">
+       <div className="h-full bg-white p-7 space-y-4">
         <Inputs
             onIndRefChange={handleIndRefChange}
             data={initialInputs}
             setData={handleInputChange}
           />
-          
-          <DataTable
-            initialData={data}
-            onDataChange={handleDataChange}
-            indRef={indRef}
-            roundingF={rounded}
-           
-          />
-          <ObservationsSection />
+      
+      
+    <DataTable
+      initialData={data}
+      onDataChange={handleDataChange}
+      products={products.data}
+      indRef={indRef}
+      roundingF={initialInputs.rounding}
+    />
           <div className="justify-end">
           <StatusInformation
             status={"inProgress"}
+            comments={comments}
+            setComments={setComments} 
             imgUser={
               "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             }
@@ -141,14 +145,14 @@ let rounded=initialInputs.rounding;
               <Button
                 type="button"
                 variant="outline"
-                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
               >
                 Cancelar
               </Button>
               <Button
                 type="button"
                 onClick={() => alert("save")}
-                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                className={`rounded-lg bg-[#E0E0E0] text-[#44444F] px-10 text-xs hover:bg-[#E0E0E0]`}
               >
                 Crear
               </Button>

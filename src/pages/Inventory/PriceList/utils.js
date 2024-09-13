@@ -12,6 +12,7 @@ export async function getBaseList(){
             },
           },
         );
+        
         return response.json();
       } catch (error) {
         return new Response("Something went wrong...", { status: 500 });

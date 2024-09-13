@@ -12,6 +12,7 @@ function StatusInformation({
   comments,
   date,
   children,
+  setComments
 }) {
   //status 1 = Draft
   //status 2 = In progress
@@ -20,11 +21,15 @@ function StatusInformation({
   //comments = aparece el comentario cuando es status 3
   //approvedBy = nombre persona aprobo, aparece status 3.
   //date = aparece la fecha aprobado, aparece status 3.
+  //setComment = manejo del valor de comentarios.
 
+  
   const [additionalComments, setAdditionalComments] = useState("");
 
   const handleChange = (event) => {
     setAdditionalComments(event.target.value);
+    setComments(event.target.value);
+    
   };
 
   return (
