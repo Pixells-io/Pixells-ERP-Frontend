@@ -9,17 +9,18 @@ import ObservationsSection from "../Components/Section";
 import StatusInformation from "@/components/StatusInformation/status-information";
 
 const CreatePriceList = () => {
-  const [initialInputs,setInitialInputs]=useState({
-    name:"" ,
-    based_list:0 ,
-    index_list:"" ,
-    type: false,
-    rounding:false,
-    from_date :"",
-    to_date :"",
-    principal_list:"",
-
+  const [initialInputs, setInitialInputs] = useState({
+    name: "",
+    based_list: "",
+    index_list: "",
+    type: "1",
+    rounding: false,
+    from_date: "",
+    to_date: "",
+    principal_list: false,
   });
+
+  const [indRef, setIndRef] = useState("");
 
   const [data, setData] = useState([
     {
@@ -33,28 +34,28 @@ const CreatePriceList = () => {
       precioRefactorizacion: 111.93,
     },
   ]);
-
-  const [roundingSettings, setRoundingSettings] = useState({
-    roundValues: false,
-    roundingMethod: "truncate",
-  });
-  const [indRef, setIndRef] = useState(2.1);
+let rounded=initialInputs.rounding;
+  const handleIndRefChange = (value) => {
+    setIndRef(value);
+    setInitialInputs(prev => ({ ...prev, index_list: value }));
+  };
 
   const handleDataChange = (newData) => {
     setData(newData);
   };
 
-  const handleRoundingChange = (isRounded, method) => {
-    setRoundingSettings({
-      roundValues: isRounded,
-      roundingMethod: method,
+  const handleInputChange = (name, value) => {
+    setInitialInputs(prev => {
+      const newState = { ...prev, [name]: value };
+      
+      if (name === "type" && value === "2") {
+        newState.from_date = "";
+        newState.to_date = "";
+      }
+      
+      return newState;
     });
   };
-
-  const handleIndRefChange = (newIndRef) => {
-    setIndRef(parseFloat(newIndRef));
-  };
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -116,19 +117,18 @@ const CreatePriceList = () => {
         </div>
         {/*content */}
         <div className="h-full bg-white p-7 space-y-4">
-          <Inputs
-            onRoundingChange={handleRoundingChange}
+        <Inputs
             onIndRefChange={handleIndRefChange}
             data={initialInputs}
-            setData={setInitialInputs}
+            setData={handleInputChange}
           />
           
           <DataTable
             initialData={data}
             onDataChange={handleDataChange}
-            roundValues={roundingSettings.roundValues}
-            roundingMethod={roundingSettings.roundingMethod}
             indRef={indRef}
+            roundingF={rounded}
+           
           />
           <ObservationsSection />
           <div className="justify-end">

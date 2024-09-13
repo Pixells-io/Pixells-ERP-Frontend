@@ -24,51 +24,60 @@ import {
   closeCircle,
 } from "ionicons/icons";
 
-const formatNumber = (value, decimalPlaces, roundValues, roundingMethod) => {
-  if (roundValues === true) {
-    return roundingMethod === "round" ? Math.round(value) : Math.trunc(value);
+// Función para formatear números
+const formatNumber = (value, decimalPlaces, rounding) => {
+  if (isNaN(value) || value === null) {
+    return ""; // O cualquier otro valor por defecto que prefieras
   }
-  return value.toFixed(decimalPlaces);
+  return rounding ? Math.round(value) : Number(value).toFixed(decimalPlaces);
 };
 
+// Componente DataTable
 const DataTable = ({
   initialData,
   onDataChange,
   indRef,
-  roundValues,
-  roundingMethod,
+  roundingF,
 }) => {
-  const [tableData, setTableData] = useState(initialData);
+  const [tableData, setTableData] = useState(
+    initialData.map(item => ({
+      ...item,
+      precioUnitario: parseFloat(item.precioUnitario) || 0,
+      indiceEditable: parseFloat(item.indiceEditable) || 0,
+      precioRefactorizacion: parseFloat(item.precioRefactorizacion) || 0,
+    }))
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  // Manejador de cambios en los inputs
   const handleInputChange = useCallback(
     (rowIndex, columnKey, value) => {
+      const numericValue = parseFloat(value); // Convierte el valor a número
+      
       setTableData((prevData) => {
         const newData = [...prevData];
-        newData[rowIndex] = { ...newData[rowIndex], [columnKey]: value };
-
+        newData[rowIndex] = { ...newData[rowIndex], [columnKey]: numericValue };
+    
         if (columnKey === "listaPrecioBase") {
-          newData[rowIndex].precioBase = newData[rowIndex].precioUnitario =
-            parseFloat(value);
+          newData[rowIndex].precioBase = newData[rowIndex].precioUnitario = numericValue;
         }
-
+    
         if (
-          ["precioUnitario", "indiceEditable", "listaPrecioBase"].includes(
-            columnKey,
-          )
+          ["precioUnitario", "indiceEditable", "listaPrecioBase"].includes(columnKey)
         ) {
           const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
           const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
-          newData[rowIndex].precioRefactorizacion = rawPrecioRefactorizacion;
+          newData[rowIndex].precioRefactorizacion = formatNumber(rawPrecioRefactorizacion, 2, roundingF);
         }
-
+    
         return newData;
       });
     },
-    [roundValues, roundingMethod],
+    [roundingF]
   );
 
+  // Añadir nueva fila
   const handleAddRow = useCallback(() => {
     setTableData((prevData) => [
       ...prevData,
@@ -85,16 +94,19 @@ const DataTable = ({
     ]);
   }, [indRef]);
 
+  // Eliminar una fila
   const handleDeleteRow = useCallback((rowIndex) => {
     setTableData((prevData) =>
       prevData.filter((_, index) => index !== rowIndex),
     );
   }, []);
 
+  // Actualizar datos cuando cambian
   useEffect(() => {
     onDataChange(tableData);
   }, [tableData, onDataChange]);
 
+  // Paginación
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -125,6 +137,7 @@ const DataTable = ({
             <TableRow key={rowIndex}>
               <TableCell>
                 <Input
+                type="number"
                   name={`nuevoArticulo-${rowIndex}`}
                   value={row.nuevoArticulo}
                   onChange={(e) =>
@@ -132,18 +145,26 @@ const DataTable = ({
                   }
                   placeholder={"Ingresa"}
                   className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-                />
+                  readOnly
+               />
               </TableCell>
               <TableCell>
-                <Input
-                  name={`descripcion-${rowIndex}`}
+              <Select
+                name={`descripcion-${rowIndex}`}
                   value={row.descripcion}
-                  onChange={(e) =>
-                    handleInputChange(rowIndex, "descripcion", e.target.value)
+                  onValueChange={(value) =>
+                    handleInputChange(rowIndex, "descripcion", value)
                   }
-                  placeholder={"Ingresa"}
-                  className="border-gris2-transparent flex h-auto w-[100px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-                />
+                >
+                  <SelectTrigger className="border-gris2-transparent h-auto  rounded-lg border font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                    <SelectValue placeholder="Lista de precio base" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="55.0">55.0</SelectItem>
+                    <SelectItem value="53.30">53.30</SelectItem>
+                    <SelectItem value="24.50">24.50</SelectItem>
+                  </SelectContent>
+                </Select>
               </TableCell>
               <TableCell>
                 <Select
@@ -174,12 +195,12 @@ const DataTable = ({
                 <Input
                   type="text"
                   name={`precioUnitario-${rowIndex}`}
-                  value={row.precioUnitario}
+                  value={formatNumber(row.precioUnitario, 2, false)}
                   onChange={(e) =>
                     handleInputChange(
                       rowIndex,
                       "precioUnitario",
-                      parseFloat(e.target.value),
+                      e.target.value,
                     )
                   }
                   placeholder={"Ingresa"}
@@ -189,7 +210,7 @@ const DataTable = ({
               <TableCell>
                 <Input
                   name={`indiceRefactorizacion-${rowIndex}`}
-                  value={row.indiceRefactorizacion}
+                  value={formatNumber(row.indiceRefactorizacion, 2, false)}
                   readOnly
                   className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                 />
@@ -203,7 +224,7 @@ const DataTable = ({
                     handleInputChange(
                       rowIndex,
                       "indiceEditable",
-                      parseFloat(e.target.value),
+                      e.target.value,
                     )
                   }
                   placeholder={"Ingresa"}
@@ -214,12 +235,7 @@ const DataTable = ({
                 <div className="flex items-center justify-between gap-x-2">
                   <Input
                     name={`precioRefactorizacion-${rowIndex}`}
-                    value={formatNumber(
-                      row.precioRefactorizacion,
-                      2,
-                      roundValues,
-                      roundingMethod,
-                    )}
+                    value={formatNumber(row.precioRefactorizacion, 2, roundingF)}
                     readOnly
                     className="border-gris2-transparent flex h-auto w-auto bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
                   />
@@ -234,7 +250,7 @@ const DataTable = ({
                     <IonIcon
                       icon={closeCircle}
                       size="small"
-                      className="cursor-pointer text-grisDisabled"
+                      className="cursor-pointer text-grisText hover:text-red-500"
                     />
                   </Button>
                 </div>
@@ -243,48 +259,32 @@ const DataTable = ({
           ))}
         </TableBody>
       </Table>
+
+      {/* Botones de Paginación */}
       <div className="mt-4 flex items-center justify-between">
-        <Button
-          variant="ghost"
-          size="icon"
+        <IonIcon
+          icon={addCircle}
+          size="small"
+          className="cursor-pointer text-primario"
           onClick={handleAddRow}
-          className="rounded-full bg-transparent p-1"
-        >
-          <IonIcon
-            icon={addCircle}
-            size="small"
-            className="text-primarioBotones"
-          />
-        </Button>
+        />
         <div className="flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
+          <IonIcon
+            icon={chevronBack}
             onClick={handlePrevPage}
             disabled={currentPage === 1}
-            className="mr-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronBack}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
+            className="mr-2 text-primario border-primarioBotones"
+          />
+          <IonIcon
+            icon={chevronForward}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="ml-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronForward}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
+            className="ml-2 text-primario border-primarioBotones"
+          />
         </div>
       </div>
+      
+
     </div>
   );
 };
