@@ -22,20 +22,20 @@ const TABS = [
   { id: 6, name: "trash", icon: trashOutline },
 ];
 
-function EmailConsole() {
+function EmailConsole({ data }) {
   return (
-    <div className="flex justify-center bg-blancoBg h-full rounded-xl overflow-auto p-4">
+    <div className="flex h-full justify-center overflow-auto rounded-xl bg-blancoBg p-4">
       <Tabs defaultValue="inbox" className="w-full">
-        <div className="grid grid-cols-12 w-full h-full">
-          <TabsList className="col-span-2 flex flex-col gap-2 justify-normal bg-transparent h-full">
-            <div className="flex flex-col gap-2 pr-2 h-full items-center">
+        <div className="grid h-full w-full grid-cols-12">
+          <TabsList className="col-span-2 flex h-full flex-col justify-normal gap-2 bg-transparent">
+            <div className="flex h-full flex-col items-center gap-2 pr-2">
               {TABS?.map((tab, i) => (
                 <TabsTrigger
                   key={i}
                   value={tab.name}
-                  className="text-sm text-grisText py-1 data-[state=active]:bg-blancoBox data-[state=active]:sm-none data-[state=active]:font-semibold  font-normal data-[state=active]:text-primarioBotones"
+                  className="data-[state=active]:sm-none py-1 text-sm font-normal text-grisText data-[state=active]:bg-blancoBox data-[state=active]:font-semibold data-[state=active]:text-primarioBotones"
                 >
-                  <div className="flex pl-3 gap-2 items-center w-24">
+                  <div className="flex w-24 items-center gap-2 pl-3">
                     <IonIcon icon={tab.icon} className="h-8 w-8"></IonIcon>
                     <p className="w-full text-left">
                       {tab.name.charAt(0).toUpperCase() + tab.name.slice(1)}
@@ -47,9 +47,9 @@ function EmailConsole() {
           </TabsList>
           <TabsContent
             value="inbox"
-            className="col-span-10 overflow-scroll h-full"
+            className="col-span-10 h-full overflow-scroll"
           >
-            <EmailContent/>
+            <EmailContent data={data} />
           </TabsContent>
           <TabsContent value="sent" className="col-span-10">
             Sent here.

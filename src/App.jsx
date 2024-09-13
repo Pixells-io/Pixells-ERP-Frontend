@@ -319,9 +319,15 @@ import SideLayoutInventory from "./layouts/Inventory/SideLayoutInventory";
 import MainGeneral, {
   Action as CreateNewCategory,
 } from "./pages/Inventory/General/MainGeneral";
-import { getProduct, multiloaderArticle, multiloaderArticle2} from "./pages/Inventory/General/utils";
+import {
+  getProduct,
+  multiloaderArticle,
+  multiloaderArticle2,
+} from "./pages/Inventory/General/utils";
 import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
-import EditArticle,{Action as editProduct} from "./pages/Inventory/General/EditArticle/EditArticle";
+import EditArticle, {
+  Action as editProduct,
+} from "./pages/Inventory/General/EditArticle/EditArticle";
 import MainWL, {
   Action as saveSlotsConfigs,
 } from "./pages/Inventory/WarehouseLocations/MainWL";
@@ -443,6 +449,7 @@ import { getSuppliers } from "./pages/Shopping/Suppliers/utils";
 import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
+import { getMails } from "./pages/CRM/Email/utils";
 
 const router = createBrowserRouter([
   {
@@ -533,6 +540,7 @@ const router = createBrowserRouter([
           {
             path: "/crm/email",
             element: <MainEmail />,
+            loader: getMails,
           },
           //crm agreements
           {
@@ -1073,8 +1081,7 @@ const router = createBrowserRouter([
             path: "/inventory/edit/:id",
             element: <EditArticle />,
             loader: multiloaderArticle2,
-            action: editProduct
-            
+            action: editProduct,
           },
           {
             path: "/inventory/general-warehouses",
@@ -1276,7 +1283,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/purchase/create",
             element: <CreateRequest />,
-            action: createPurchase
+            action: createPurchase,
           },
           {
             path: "/shopping/purchase/edit/:id",
@@ -1291,7 +1298,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders/create",
             element: <CreateQuoteOrder />,
-            action: createQuotesOrder
+            action: createQuotesOrder,
           },
           {
             path: "/shopping/quotes-orders/edit/:id",
