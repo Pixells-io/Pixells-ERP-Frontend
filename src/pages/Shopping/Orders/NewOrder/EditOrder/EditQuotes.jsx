@@ -1,35 +1,59 @@
-import React, { useState } from "react";
-import { redirect, useLoaderData, useParams } from "react-router-dom";
-import DocumentContent from "../Components/DocumentContent";
+import React, { useEffect, useState } from "react";
+import { Form, redirect, useLoaderData, useParams } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ModalConfirmQuote from "../../Modals/ModalConfirmQuote";
-import { acceptQuoteOrder } from "@/pages/Shopping/utils";
+import { acceptQuoteOrder, cancelQuoteOrder, getProducts, updateQuoteOrder } from "@/pages/Shopping/utils";
+import InputsGroup from "../Components/ElementGroup";
+import OrderTable from "../Components/OrderFom";
+import QuoteTable from "@/components/table/Quote/QuoteTable";
+import Total from "@/components/TotalSection/TotalSection";
+import StatusInformation from "@/components/StatusInformation/status-information";
+import { Button } from "@/components/ui/button";
+import ModalCancelQuote from "../../Modals/ModalCancelQuote";
 
 const EditQuotes = () => {
   const { data } = useLoaderData();
+  const [quote, setQuote] = useState(data);
+
 
   const { id } = useParams();
-  const [documentNumber, setDocumentNumber] = useState(id);
-  const [selectedWarehouse, setSelectedWarehouse] = useState("almacen2");
-  const [selectedCostCenter, setSelectedCostCenter] = useState("cc2");
-  const [subtotal, setSubtotal] = useState(0);
-  const [selectedProveedor, setSelectedProveedor] = useState("proveedor3");
-  const [selectedFechaDoc, setSelectedFechaDoc] = useState("fecha1");
-  const [selectedFechaEntrega, setSelectedFechaEntrega] = useState("entrega1");
+  const [documentNumber, setDocumentNumber] = useState(quote.document_number);
+  const [selectedWarehouse, setSelectedWarehouse] = useState(quote.inventory_id.value);
+  const [selectedCostCenter, setSelectedCostCenter] = useState("");
+  const [selectedProveedor, setSelectedProveedor] = useState(quote.supplier_id.value);
+  const [selectedFechaDoc, setSelectedFechaDoc] = useState(quote.document_created);
+  const [selectedFechaEntrega, setSelectedFechaEntrega] = useState(quote.delivery_date);
   const [selectedCondicionPago, setSelectedCondicionPago] =
-    useState("condicion1");
+    useState(quote.payment_condition);
   const [editable, setEditable] = useState(false);
   const [items, setItems] = useState(data.slots_array);
   const [allProducts, setAllProducts] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [modalCancel, setModalCancel] = useState(false);
 
-  const saveUrl = "/shopping/quotes-orders";
   const url = `/shopping/document/cotizacion/${id}`;
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const getAllProducts = async () => {
+    const response = await getProducts();
+    setAllProducts(response.data);
+  };
 
   return (
     <div className="flex w-full">
+      {/* Modals */}
+      <ModalCancelQuote 
+        id={quote.id}
+        name={quote.document_number}
+        modal={modalCancel}
+        setModal={setModalCancel}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -63,47 +87,110 @@ const EditQuotes = () => {
             <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-        <div className="flex justify-between ">
+        <div className="flex justify-between">
           <span className="font-poppins text-xl font-bold text-[#44444F]">
             Consultando cotización: {data.document_number}
           </span>
           <div className="flex flex-row justify-end">
             <div className="flex items-end justify-center pr-5">
-              <ModalConfirmQuote
-                id={data.id}
-                name={data.document_number} 
-              />
+              <ModalConfirmQuote id={data.id} name={data.document_number} />
             </div>
-            <ActionsGroup url={url} setEditable={setEditable} />
+            <ActionsGroup url={url} setEditable={setEditable} editable={editable}/>
             <div className="flex justify-end">
               <CardCarousel />
             </div>
           </div>
         </div>
-        <DocumentContent
-          documentNumber={documentNumber}
-          setDocumentNumber={setDocumentNumber}
-          selectedWarehouse={selectedWarehouse}
-          setSelectedWarehouse={setSelectedWarehouse}
-          selectedCostCenter={selectedCostCenter}
-          setSelectedCostCenter={setSelectedCostCenter}
-          subtotal={subtotal}
-          setSubtotal={setSubtotal}
-          selectedProveedor={selectedProveedor}
-          setSelectedProveedor={setSelectedProveedor}
-          selectedFechaDoc={selectedFechaDoc}
-          setSelectedFechaDoc={setSelectedFechaDoc}
-          selectedFechaEntrega={selectedFechaEntrega}
-          setSelectedFechaEntrega={setSelectedFechaEntrega}
-          selectedCondicionPago={selectedCondicionPago}
-          setSelectedCondicionPago={setSelectedCondicionPago}
-          saveUrl={saveUrl}
-          isEditable={editable}
-          items={items}
-          setItems={setItems}
-          allProducts={allProducts}
-          setAllProducts={setAllProducts}
-        />
+        <Form
+          className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
+          action={`/shopping/quotes-orders/edit/${id}`}
+          method="post"
+        >
+          <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="id"
+              value={quote.id}
+            />
+          <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="type_option"
+              value={"update_quote"}
+            />
+          <div className="rounded-xl border border-blancoBox p-4">
+            <InputsGroup
+              documentNumber={documentNumber}
+              setDocumentNumber={setDocumentNumber}
+              selectedWarehouse={selectedWarehouse}
+              setSelectedWarehouse={setSelectedWarehouse}
+              selectedCostCenter={selectedCostCenter}
+              setSelectedCostCenter={setSelectedCostCenter}
+              isEditable={editable}
+            />
+            <OrderTable
+              selectedProveedor={selectedProveedor}
+              setSelectedProveedor={setSelectedProveedor}
+              selectedFechaDoc={selectedFechaDoc}
+              setSelectedFechaDoc={setSelectedFechaDoc}
+              selectedFechaEntrega={selectedFechaEntrega}
+              setSelectedFechaEntrega={setSelectedFechaEntrega}
+              selectedCondicionPago={selectedCondicionPago}
+              setSelectedCondicionPago={setSelectedCondicionPago}
+              isEditable={editable}
+            />
+          </div>
+
+          <div className="overflow-auto">
+            <div className="mt-6 overflow-auto">
+              <QuoteTable
+                initialItems={items}
+                isEditable={editable}
+                allProducts={allProducts}
+                setTableData={setTableData}
+                tableData={tableData}
+              />
+            </div>
+            <Total tableData={tableData} comment={data.comments} />
+          </div>
+          <div className="flex justify-end">
+            <StatusInformation
+              status={"inProgress"}
+              imgUser={
+                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              }
+            >
+              <Button
+                type="button"
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-[#D7586B] text-xs text-[#D7586B] hover:text-[#D7586B]"
+                onClick={() => setModalCancel(true)}
+              >
+                Eliminar
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] text-[#8F8F8F] hover:text-[#8F8F8F] hover:bg-inherit"
+                onClick={() => setEditable(false)}
+                disabled={!editable}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                className={`rounded-lg  px-10 text-xs  ${ editable ? "text-white bg-primarioBotones hover:bg-primarioBotones" : "text-[#44444F] bg-[#E0E0E0] hover:bg-[#E0E0E0]"}`}
+                disabled={!editable}
+              >
+                Guardar
+              </Button>
+            </StatusInformation>
+          </div>
+        </Form>
       </div>
     </div>
   );
@@ -116,6 +203,12 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "accept_quote":
       await acceptQuoteOrder(data);
+      break;
+    case "update_quote":
+      await updateQuoteOrder(data);
+      break;
+    case "cancel_quote":
+      await cancelQuoteOrder(data);
       break;
   }
 

@@ -8,7 +8,7 @@ import {
 } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
 
-const ActionsGroup = ({ url, setEditable }) => {
+const ActionsGroup = ({ url, setEditable, editable = false }) => {
   const location = useLocation();
 
   const currentPath = location.pathname;
@@ -45,7 +45,7 @@ const ActionsGroup = ({ url, setEditable }) => {
         onClick={() => handlerConvert(true)}>
           <IonIcon
             icon={createOutline}
-            className="h-5 w-5 cursor-pointer text-[#44444F]"
+            className={`h-5 w-5 cursor-pointer ${editable ? "text-primarioBotones" : "text-[#44444F]"}`}
           ></IonIcon>
         </div>
       )}

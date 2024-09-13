@@ -5,7 +5,7 @@ import { calculateSubTotal, calculateTaxes, calculateTotal } from "../table/Quot
  * Component for total, comments and taxes
  * 
  */
-const Total = ({ tableData }) => {
+const Total = ({ tableData, comment }) => {
 
   return (
     <div className="flex flex-row justify-between rounded-xl px-4 py-6">
@@ -14,6 +14,7 @@ const Total = ({ tableData }) => {
           placeholder={"Observaciones"}
           className="h-full w-[300px] resize-none rounded-lg border border-[#E5E5E5] px-3 py-2 text-xs"
           name="comments"
+          defaultValue={comment}
         ></textarea>
       </div>
       <div className="w-33">

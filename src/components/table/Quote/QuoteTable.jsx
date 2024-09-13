@@ -58,7 +58,12 @@ const QuoteTable = ({
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {
-      setTableData(initialItems.length > 0 ? initialItems : [initialRow]);
+      setTableData(initialItems.length > 0 ? initialItems.map(item => {
+        return {
+          ...item,
+          product_idAux: item.product.value
+        }
+      }) : [initialRow]);
     } else {
       setTableData([initialRow]);
     }
