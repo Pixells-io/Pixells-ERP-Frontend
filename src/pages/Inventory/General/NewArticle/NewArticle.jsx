@@ -59,6 +59,7 @@ const CreateArticle = () => {
 
   const [variableData, setVariableData] = useState({
     selectedGroups: [],
+    Groups: [],
     images: [], // Array de imágenes secundarias
     variables_add:[],
     variables_destroy:[],
