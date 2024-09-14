@@ -21,6 +21,22 @@ export async function getBaseList(){
       }
 }
 
+export async function getBaseListById(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-price-list/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getProductCatalog(){
     try {
         const response = await fetch(
@@ -44,6 +60,14 @@ export async function multiloaderList() {
     ]);
     return json({base_list, products});
 
+}
+
+export async function multiloaderListBase({ params }) {
+  const [list, products] = await Promise.all([
+    getBaseListById({params}),
+    getProductCatalog(),
+  ]);
+  return json({list,products });
 }
 
 export async function savePriceList(data) {
