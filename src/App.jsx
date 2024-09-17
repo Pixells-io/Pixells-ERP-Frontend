@@ -363,8 +363,12 @@ import { multiloaderInventory } from "./pages/Inventory/General/utils";
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
-import CreateCustomer from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
-import EditCustomer from "./pages/Sales/Customer/EditCustomer/CustomerEditor";
+import CreateCustomer, {
+  Action as createNewCustomer,
+} from "./pages/Sales/Customer/NewCustomer/CreateCustomer";
+import EditCustomer, {
+  Action as editCustomer,
+} from "./pages/Sales/Customer/EditCustomer/CustomerEditor";
 import MainInvoice from "./pages/Sales/Invoice/MainInvoices";
 import InvoiceForm from "./pages/Sales/Invoice/NewInvoice/InvoiceForm";
 import InvoicesDetails from "./pages/Sales/Invoice/EditInvoice/InvoiceEditor";
@@ -377,6 +381,7 @@ import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
 import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
+import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1168,14 +1173,18 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainCustomer />,
+            loader: getCustomers,
           },
           {
             path: "/sales/customer/new",
             element: <CreateCustomer />,
+            action: createNewCustomer,
           },
           {
             path: "/sales/customer/edit/:id",
             element: <EditCustomer />,
+            loader: getCustomer,
+            action: editCustomer,
           },
           {
             path: "/sales/invoices",

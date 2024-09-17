@@ -6,7 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
 import { IonIcon } from "@ionic/react";
-import { checkmarkCircleOutline, create, trash } from "ionicons/icons";
+import {
+  checkmarkCircleOutline,
+  create,
+  informationCircle,
+  trash,
+} from "ionicons/icons";
 
 import SwipeToRevealActions from "react-swipe-to-reveal-actions/dist/esm/SwipeToRevealActions";
 

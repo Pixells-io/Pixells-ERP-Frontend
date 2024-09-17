@@ -36,6 +36,7 @@ function AccordionBoard({
   openDestroyTaskModal,
   setProjectInfo,
   setModalProject,
+  openEditModalTask,
   edit,
   destroy,
   id,

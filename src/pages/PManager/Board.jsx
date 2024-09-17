@@ -505,6 +505,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                         i,
                       ) => (
                         <AccordionBoard
+                          key={i}
                           task={task}
                           task_count={task_count}
                           task_query={task_query}
@@ -519,6 +520,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                           destroy={destroy}
                           id={id}
                           users={users}
+                          openEditModalTask={openEditModalTask}
                         />
                       ),
                     )}

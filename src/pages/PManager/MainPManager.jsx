@@ -148,7 +148,7 @@ function MainPManager() {
 
   return (
     <div className="flex h-full w-full overflow-scroll">
-      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-4 py-4 md:ml-4 md:px-8">
+      <div className="ml-0 flex w-full flex-col space-y-2 overflow-hidden rounded-lg bg-gris px-2 py-4 md:ml-4 md:px-8">
         {/* navigation inside */}
         <NavigationHeader />
 

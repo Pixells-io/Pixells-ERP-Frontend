@@ -106,7 +106,7 @@ function ProjectTable() {
   }
 
   return (
-    <div className="flex h-full flex-col px-4 pb-10">
+    <div className="flex h-full flex-col px-0 pb-10 md:px-4">
       <PhaseDestroy
         phase={phaseSelected}
         modal={phaseModal}
