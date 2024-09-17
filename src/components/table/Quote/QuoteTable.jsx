@@ -53,12 +53,18 @@ const QuoteTable = ({
   };
   const location = useLocation();
   const productsArray = [];
+  const [productDelete, setProductDelete] = useState([]);
 
   arrayFillProducts(allProducts, productsArray);
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {
-      setTableData(initialItems.length > 0 ? initialItems : [initialRow]);
+      setTableData(initialItems.length > 0 ? initialItems.map(item => {
+        return {
+          ...item,
+          product_idAux: item.product.value
+        }
+      }) : [initialRow]);
     } else {
       setTableData([initialRow]);
     }
@@ -83,7 +89,7 @@ const QuoteTable = ({
       { key: "discount", header: "Descuento (%)", type: "number", disabled: false },
       { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
       { key: "quantity", header: "Cantidad", type: "number", disabled: false },
-      { key: "unitHidden", header: "Unidad", type: "text", disabled: true },
+      { key: "unit", header: "Unidad", type: "text", disabled: true },
       { key: "delivery_date", header: "Fecha de Entrega", type: "date", disabled: false },
     ],
     [],
@@ -135,6 +141,14 @@ const QuoteTable = ({
                   />
                   <input
                     type="hidden"
+                    className="hidden"
+                    hidden
+                    readOnly
+                    name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={!!row["id"] ? row["id"] : null}
+                  />
+                  <input
+                    type="hidden"
                     hidden
                     className="hidden"
                     readOnly
@@ -155,8 +169,8 @@ const QuoteTable = ({
                     hidden
                     className="hidden"
                     readOnly
-                    name={`unit[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={row["unitHidden"]}
+                    name={`unitHiiden[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                    value={row["unit"]}
                   />
                   <Select 
                     name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
@@ -249,12 +263,15 @@ const QuoteTable = ({
                     <Button
                       variant="ghost"
                       size="icon"
+                      type={"button"}
                       onClick={() =>
                         isEditable &&
                         handleDeleteRow(
                           (currentPage - 1) * itemsPerPage + rowIndex,
                           setTableData,
                           tableData,
+                          setProductDelete,
+                          productDelete,
                         )
                       }
                       disabled={tableData.length === 1 || !isEditable}
@@ -273,10 +290,24 @@ const QuoteTable = ({
           </TableBody>
         </Table>
       </div>
+      {/* Productos que se van a eliminar */}
+      {
+        productDelete.map(pd => (
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            readOnly
+            name={`productDelete[]`}
+            value={pd}
+          />
+        ))
+      }
       <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"
           size="icon"
+          type="button"
           onClick={(e) =>
             isEditable && handleAddRow(e, setTableData, initialRow)
           }

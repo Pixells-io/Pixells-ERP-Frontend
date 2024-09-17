@@ -38,30 +38,33 @@ const DocumentContent = ({
   return (
     <Form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-4 overflow-auto pr-12 bg-white  p-4"
+      className="flex flex-col space-y-4 overflow-auto pr-12 bg-white rounded-xl  p-4"
     >
-      <InputsGroup
-        documentNumber={documentNumber}
-        setDocumentNumber={setDocumentNumber}
-        selectedWarehouse={selectedWarehouse}
-        setSelectedWarehouse={setSelectedWarehouse}
-        selectedCostCenter={selectedCostCenter}
-        setSelectedCostCenter={setSelectedCostCenter}
-        isEditable={isEditable}
-      />
-      <div className="rounded-xl">
-        <OrderTable
-          selectedProveedor={selectedProveedor}
-          setSelectedProveedor={setSelectedProveedor}
-          selectedFechaDoc={selectedFechaDoc}
-          setSelectedFechaDoc={setSelectedFechaDoc}
-          selectedFechaEntrega={selectedFechaEntrega}
-          setSelectedFechaEntrega={setSelectedFechaEntrega}
-          selectedCondicionPago={selectedCondicionPago}
-          setSelectedCondicionPago={setSelectedCondicionPago}
+      <div className="rounded-xl p-4 border border-blancoBox">
+        <InputsGroup
+          documentNumber={documentNumber}
+          setDocumentNumber={setDocumentNumber}
+          selectedWarehouse={selectedWarehouse}
+          setSelectedWarehouse={setSelectedWarehouse}
+          selectedCostCenter={selectedCostCenter}
+          setSelectedCostCenter={setSelectedCostCenter}
           isEditable={isEditable}
         />
-        <div className="mt-6">
+          <OrderTable
+            selectedProveedor={selectedProveedor}
+            setSelectedProveedor={setSelectedProveedor}
+            selectedFechaDoc={selectedFechaDoc}
+            setSelectedFechaDoc={setSelectedFechaDoc}
+            selectedFechaEntrega={selectedFechaEntrega}
+            setSelectedFechaEntrega={setSelectedFechaEntrega}
+            selectedCondicionPago={selectedCondicionPago}
+            setSelectedCondicionPago={setSelectedCondicionPago}
+            isEditable={isEditable}
+          />
+      </div>
+
+      <div className=" overflow-auto">
+        <div className="mt-6  overflow-auto">
           <QuoteTable
             initialItems={items}
             isEditable={isEditable}
@@ -70,8 +73,8 @@ const DocumentContent = ({
             tableData={tableData}
           />
         </div>
+        <Total tableData={tableData} />
       </div>
-      <Total tableData={tableData} />
       <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}

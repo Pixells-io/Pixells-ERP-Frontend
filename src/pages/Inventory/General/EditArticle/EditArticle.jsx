@@ -282,7 +282,6 @@ const EditArticle = () => {
     }
     submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
   };
-  console.log(variableData.images)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

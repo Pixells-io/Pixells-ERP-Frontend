@@ -4,13 +4,36 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
+import { Link, useParams, useLoaderData,useLocation } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { savePriceList } from "../utils";
-const CreatePriceList = () => {
-  const selectsdata = useLoaderData();
-  const submit = useSubmit();
-  const { based_list, products } = selectsdata;
+import { getBaseListById } from "../utils";
+
+const ViewPL = () => {
+  const { id } = useParams();
+  const location = useLocation();
+  const client = useLoaderData();
+ const {list, products}=client;
+
+  //WEBSOCKET
+  const pusherClient = createPusherClient();
+
+  async function getPriceListFunction(id) {
+    let newData = await getBaseListById(id);
+    setBaseListInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("inventory/get-price-lists");
+
+    pusherClient.bind(" fill-price-lists", ({ message }) => {
+      getPriceListFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("inventory/get-price-lists");
+    };
+  }, [location, productId]);
+  
   const [initialInputs, setInitialInputs] = useState({
     name: "",
     based_list: "",
@@ -38,8 +61,6 @@ const CreatePriceList = () => {
     },
   ]);
   const [comments, setComments] = useState("");
-
-  
   const handleIndRefChange = (value) => {
     setIndRef(value);
     setInitialInputs((prev) => ({ ...prev, index_list: value }));
@@ -59,41 +80,6 @@ const CreatePriceList = () => {
       }
 
       return newState;
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    const formData = new FormData();
-    const convertToBoolean = (value) =>
-      value === true ? 1 : value === false ? 0 : 0;
-
-    // Create the info object
-    const info = {
-      name: initialInputs.name || "Default Name",
-      based_list: parseInt(initialInputs.based_list) || 0,
-      index_list: parseInt(initialInputs.index_list) || 0,
-      rounding: initialInputs.rounding,
-      comments: comments,
-      aditional_comments: "",
-      type: parseInt(initialInputs.type) || 1,
-      from_date: initialInputs.from_date,
-      to_date: initialInputs.to_date,
-      principal_list: initialInputs.principal_list,
-      productos: data.map((row) => ({
-        type: parseInt(row.tipo) || 0,
-        product_master_id: parseInt(row.nuevoArticulo) || 0,
-        based_price: parseFloat(row.precioBase) || 0,
-        refactorization_index: parseFloat(row.indiceRefactorizacion) || 0,
-        price: parseFloat(row.precioRefactorizacion) || 0,
-      })),
-    };
- 
-    // Append to FormData
-    formData.append("info", JSON.stringify(info));
-
-    submit(formData, {
-      action: `/inventory/prices-lists/create`,
-      method: "POST",
     });
   };
 
@@ -137,7 +123,7 @@ const CreatePriceList = () => {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Lista de Precios
+            Consultando Lista de Precio:
           </p>
           <div className="flex items-end justify-end pb-0">
             <Link to="/inventory/prices-lists">
@@ -202,12 +188,4 @@ const CreatePriceList = () => {
   );
 };
 
-export default CreatePriceList;
-
-export async function Action({ request }) {
-
-  const formData = await request.formData();
-  const response = await savePriceList(formData);
-
-  return "0";
-}
+export default ViewPL;

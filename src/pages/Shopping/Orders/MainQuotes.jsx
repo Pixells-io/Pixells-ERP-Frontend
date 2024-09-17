@@ -26,14 +26,9 @@ const MainQuotesOrder = () => {
 
   const getMenuItems = (id, name) => [
     {
-      label: "Edit",
+      label: "Detalles Orden",
       isLink: true,
       to: `/shopping/quotes-orders/edit/${id}`,
-    },
-    {
-      label: "Cancel",
-      isLink: false,
-      onClick: () => {},
     },
     {
       label: "Eliminar",

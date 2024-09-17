@@ -30,7 +30,7 @@ const MenuItem = ({ menuItems }) => {
         {menuItems.map((item, index) => (
           <DropdownMenuItem key={index} asChild={item.isLink}>
             {item.isLink ? (
-              <Link to={item.to} className="flex items-center w-full">
+              <Link to={item.to} className="flex items-center w-full cursor-pointer">
                 <span>{item.label}</span>
               </Link>
             ) : (

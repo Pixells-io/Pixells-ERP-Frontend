@@ -353,13 +353,13 @@ import EditWH, {
 import {
   getWarehouses,
   getWarehouse,
-  editWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
-import CreatePriceList from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import ViewPL from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
-
+import { getBaseList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
@@ -408,11 +408,13 @@ import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
 import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
 import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
-import EditQuotes from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
+import EditQuotes, {
+  Action as QuoteOrderEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getQuotesOrder } from "./pages/Shopping/utils";
+import { getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -455,6 +457,7 @@ import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
+
 
 const router = createBrowserRouter([
   {
@@ -1150,14 +1153,23 @@ const router = createBrowserRouter([
           {
             path: "/inventory/prices-lists",
             element: <MainPriceList />,
+            loader: getBaseList,
           },
           {
             path: "/inventory/prices-lists/create",
             element: <CreatePriceList />,
+            loader: multiloaderList,
+            action: newPriceList
+          },
+          {
+            path: "/inventory/prices-lists/details/:id",
+            element: <ViewPL />,
+            loader: multiloaderListBase,
           },
           {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
+            
           },
           {
             path: "/inventory/stock-items/:id",
@@ -1312,6 +1324,8 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders/edit/:id",
             element: <EditQuotes />,
+            loader: getQuoteOrder,
+            action: QuoteOrderEditAction,
           },
           {
             path: "/shopping/document/:type/:id",
