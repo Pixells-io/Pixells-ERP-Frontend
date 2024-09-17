@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { Form, useSubmit } from "react-router-dom";
 import InputsGroup from "./ElementGroup";
 import OrderTable from "./OrderFom";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
@@ -14,11 +14,8 @@ const DocumentContent = ({
   setSelectedWarehouse,
   selectedCostCenter,
   setSelectedCostCenter,
-  subtotal,
-  setSubtotal,
   saveUrl,
   items,
-  setItems,
   selectedProveedor,
   setSelectedProveedor,
   selectedFechaDoc,
@@ -28,60 +25,59 @@ const DocumentContent = ({
   selectedCondicionPago,
   setSelectedCondicionPago,
   isEditable,
+  allProducts,
 }) => {
-  const navigate = useNavigate();
+  const submit = useSubmit();
+  const [tableData, setTableData] = useState([]);
 
-  const handleSubmit = () => {
-    navigate(saveUrl);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit(e.currentTarget, { action: saveUrl, method: "post" });
   };
-
-  const handleTotalChange = useCallback(
-    (newTotal) => {
-      setSubtotal(newTotal);
-    },
-    [setSubtotal],
-  );
 
   return (
     <Form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-4 overflow-auto pr-12 pt-0"
+      className="flex flex-col space-y-4 overflow-auto pr-12 bg-white rounded-xl  p-4"
     >
-      <InputsGroup
-        documentNumber={documentNumber}
-        setDocumentNumber={setDocumentNumber}
-        selectedWarehouse={selectedWarehouse}
-        setSelectedWarehouse={setSelectedWarehouse}
-        selectedCostCenter={selectedCostCenter}
-        setSelectedCostCenter={setSelectedCostCenter}
-        isEditable={isEditable}
-      />
-      <div className="rounded-xl bg-white p-4">
-        <OrderTable
-          selectedProveedor={selectedProveedor}
-          setSelectedProveedor={setSelectedProveedor}
-          selectedFechaDoc={selectedFechaDoc}
-          setSelectedFechaDoc={setSelectedFechaDoc}
-          selectedFechaEntrega={selectedFechaEntrega}
-          setSelectedFechaEntrega={setSelectedFechaEntrega}
-          selectedCondicionPago={selectedCondicionPago}
-          setSelectedCondicionPago={setSelectedCondicionPago}
+      <div className="rounded-xl p-4 border border-blancoBox">
+        <InputsGroup
+          documentNumber={documentNumber}
+          setDocumentNumber={setDocumentNumber}
+          selectedWarehouse={selectedWarehouse}
+          setSelectedWarehouse={setSelectedWarehouse}
+          selectedCostCenter={selectedCostCenter}
+          setSelectedCostCenter={setSelectedCostCenter}
           isEditable={isEditable}
         />
-        <div className="mt-6">
-          <QuoteTable
-            setTotalChanges={handleTotalChange}
-            initialItems={items}
-            setItems={setItems}
+          <OrderTable
+            selectedProveedor={selectedProveedor}
+            setSelectedProveedor={setSelectedProveedor}
+            selectedFechaDoc={selectedFechaDoc}
+            setSelectedFechaDoc={setSelectedFechaDoc}
+            selectedFechaEntrega={selectedFechaEntrega}
+            setSelectedFechaEntrega={setSelectedFechaEntrega}
+            selectedCondicionPago={selectedCondicionPago}
+            setSelectedCondicionPago={setSelectedCondicionPago}
             isEditable={isEditable}
           />
-        </div>
       </div>
-      <Total subtotal={subtotal} />
+
+      <div className=" overflow-auto">
+        <div className="mt-6  overflow-auto">
+          <QuoteTable
+            initialItems={items}
+            isEditable={isEditable}
+            allProducts={allProducts}
+            setTableData={setTableData}
+            tableData={tableData}
+          />
+        </div>
+        <Total tableData={tableData} />
+      </div>
       <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}
-          applyFunction={handleSubmit}
           imgUser={
             "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           }
@@ -94,8 +90,7 @@ const DocumentContent = ({
             Save
           </Button>
           <Button
-            type="button"
-            onClick={() => alert("save")}
+            type="submit"
             className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
           >
             Save for Aproval

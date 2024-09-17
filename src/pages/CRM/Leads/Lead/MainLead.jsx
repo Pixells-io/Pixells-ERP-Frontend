@@ -42,7 +42,7 @@ function MainLead() {
         <div className="flex items-center gap-16">
           <div>
             <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-              LEADS INFORMATION
+              LEADS INFORMACION
             </h2>
           </div>
           {/* <div className="flex items-center gap-3 text-[#8F8F8F]">
@@ -57,7 +57,7 @@ function MainLead() {
         <div className="flex items-center gap-64 pl-3 pt-4">
           <div>
             <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-              Follow Up
+              Seguimiento
             </h2>
           </div>
         </div>
@@ -87,7 +87,7 @@ function MainLead() {
               <div className="w-[70px] border-t border-grisDisabled"></div>
             </>
           )}
-          {/*
+
           {step >= 2 ? (
             <>
               <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
@@ -149,7 +149,7 @@ function MainLead() {
               </div>
               <div className="w-[70px] border-t border-grisDisabled"></div>
             </>
-          )} */}
+          )}
 
           {step >= 5 ? (
             <>
@@ -195,7 +195,7 @@ function MainLead() {
 
         <div className="flex items-center gap-64 pl-3 pt-4">
           <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-            Updates
+            Actualizaciones
           </h2>
         </div>
 
@@ -211,7 +211,7 @@ function MainLead() {
                   className="text-primario"
                 ></IonIcon>
 
-                <p className="text-[15px] font-medium text-gris2">New Lead</p>
+                <p className="text-[15px] font-medium text-gris2">Registro</p>
               </div>
               <div className="flex items-center gap-2 p-1 text-grisSubText">
                 <div className="flex items-center gap-1">
@@ -229,7 +229,7 @@ function MainLead() {
                   {services?.map((service, i) => (
                     <div className="mt-2 flex gap-4">
                       <p className="text-xs font-medium text-grisSubText">
-                        Service:
+                        Servicio:
                       </p>
                       <p className="text-xs font-medium text-grisSubText">
                         {service.name}
@@ -255,9 +255,7 @@ function MainLead() {
                     className="text-primario"
                   ></IonIcon>
 
-                  <p className="text-[15px] font-medium text-gris2">
-                    Closing Up
-                  </p>
+                  <p className="text-[15px] font-medium text-gris2">Cierre</p>
                 </div>
                 <div className="flex items-center gap-2 p-1 text-grisSubText">
                   <div className="flex items-center gap-1">
@@ -271,15 +269,15 @@ function MainLead() {
                 <div className="mt-2 flex gap-6">
                   <div className="flex flex-col gap-1">
                     <p className="text-xs font-medium text-grisSubText">
-                      Recurrent Pay
+                      Recurrencia
                     </p>
                     <p className="text-xs font-medium text-grisSubText">
-                      Total Ammount
+                      Monto
                     </p>
                   </div>
                   <div className="flex flex-col gap-1">
                     <span className="text-xs text-grisHeading">
-                      Recurrent Pay
+                      Pago Recurrente
                     </span>
                     <span className="text-xs text-grisHeading">
                       ${closing?.month_billing}
@@ -292,10 +290,10 @@ function MainLead() {
                   <div className="mt-3 flex gap-6" key={i}>
                     <div className="flex flex-col gap-1">
                       <p className="text-xs font-medium text-grisSubText">
-                        Service {i + 1}
+                        Servicio {i + 1}
                       </p>
                       <p className="text-xs font-medium text-grisSubText">
-                        Price
+                        Precio
                       </p>
                     </div>
                     <div className="flex flex-col gap-1">
@@ -322,7 +320,7 @@ function MainLead() {
                     className="text-primario"
                   ></IonIcon>
 
-                  <p className="text-[15px] font-medium text-gris2">Pay</p>
+                  <p className="text-[15px] font-medium text-gris2">Pago</p>
                 </div>
                 <div className="flex items-center gap-2 p-1 text-grisSubText">
                   <div className="flex items-center gap-1">
@@ -335,12 +333,14 @@ function MainLead() {
               <div className="flex justify-between px-3">
                 <div className="mt-2 flex gap-6">
                   <div className="flex flex-col gap-1">
-                    <p className="text-xs font-medium text-grisSubText">Date</p>
+                    <p className="text-xs font-medium text-grisSubText">
+                      Fecha
+                    </p>
                     <p className="text-xs font-medium text-grisSubText">
                       Total
                     </p>
                     <p className="text-xs font-medium text-grisSubText">
-                      Comments
+                      Comment
                     </p>
                   </div>
                   <div className="flex flex-col gap-1">
@@ -370,7 +370,7 @@ function MainLead() {
                   ></IonIcon>
 
                   <p className="text-[15px] font-medium text-gris2">
-                    On Boarding
+                    Integracion
                   </p>
                 </div>
                 <div className="flex items-center gap-2 p-1 text-grisSubText">

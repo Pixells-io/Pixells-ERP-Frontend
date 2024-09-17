@@ -1,59 +1,56 @@
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import React, { useRef } from "react";
+import SelectSearch from "@/components/SelectSearch/SelectSearch";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import React, { useRef, useState } from "react";
 import { Form, useSubmit } from "react-router-dom";
 
-import Select from "react-select";
-
-function Search(users) {
+function Search(search) {
   const submit = useSubmit();
   const selectUser = [];
-
-  arrayFillUser(users, selectUser);
-
-  function arrayFillUser(data, array) {
-    let dataParse = data.users;
-
-    dataParse.forEach((element) => {
-      array.push({
-        value: "1/" + element.id,
-        label: element.name + " " + element.last_name,
-      });
-    });
-  }
-
   const formRef = useRef(null);
 
+  const [inputSearch, setInputSearch] = useState(null);
+
   //Submit Form
-  function onInputEnter() {
-    //Set timeout
-    setTimeout(() => {
-      submit(formRef.current);
-    }, 400);
+  function onInputEnter(e) {
+    const formData = new FormData();
+    formData.append("chat", e.value);
+    formData.append("type_of_function", "1");
+    // Set timeout
+    // setTimeout(() => {
+    submit(formData, { action: "/chat", method: "post" });
+    // }, 400);
   }
 
   return (
-    <Form
-      id="form-search-chat"
-      className="w-full"
-      action="/chat"
-      ref={formRef}
-      method="post"
-    >
-      <input type="hidden" name="type_of_function" value="1" hidden readOnly />
-      <Select
-        options={selectUser}
+    <div className="w-full">
+      <SelectSearch
+        options={search.users}
+        value={inputSearch}
         placeholder="BUSCAR"
         name="chat"
-        className="rounded-2xl"
-        onChange={() => onInputEnter()}
+        getOptionLabel={(option) => {
+          return (
+            <div className="flex items-center gap-x-2">
+              <Avatar className="h-6 w-6">
+                <AvatarImage src={option?.image} />
+              </Avatar>
+              <h2>{option.label}</h2>
+            </div>
+          );
+        }}
+        filterOption={(option, value) => {
+          return option.data.label.toLowerCase().includes(value.toLowerCase());
+        }}
+        onChange={(e) => onInputEnter(e)}
       />
+
       {/* <SelectRouter
         options={selectUser}
         name="chat"
         className="rounded-2xl"
         onChange={() => onInputEnter()}
       /> */}
-    </Form>
+    </div>
   );
 }
 

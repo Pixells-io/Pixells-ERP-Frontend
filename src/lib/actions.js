@@ -278,14 +278,31 @@ export async function getChats() {
   }
 }
 
+export async function getChatsSearchInfo() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}chat/get-chats-search`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderChat() {
-  const [chats, users, user] = await Promise.all([
+  const [chats, users, user, search] = await Promise.all([
     getChats(),
     getUsers(),
     getUserByToken(),
+    getChatsSearchInfo(),
   ]);
 
-  return json({ chats, users, user });
+  return json({ chats, users, user, search });
 }
 
 /*CRM ACTIONS*/

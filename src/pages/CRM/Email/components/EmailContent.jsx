@@ -1,30 +1,13 @@
 import React from "react";
 import EmailContentRow from "./EmailContentRow";
 
-function EmailContent() {
+function EmailContent({ data }) {
+  console.log(data, "30");
   return (
     <div className="flex flex-col">
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
-      <EmailContentRow />
+      {data.map((mail, i) => (
+        <EmailContentRow mail={mail} />
+      ))}
     </div>
   );
 }

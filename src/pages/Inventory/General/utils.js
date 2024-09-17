@@ -1,6 +1,62 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
+//SAVE PRODUCTS
+export async function saveNewProduct(data) {
+ 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/create-product`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+
+
+//GET PRODUCT
+export async function getProductById(id) {
+  const info = { product_id: parseInt(id) };
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-product`,
+      {
+        method: "POST", 
+        body: JSON.stringify(info), 
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + Cookies.get("token"), 
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function editProduct(data) {
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/edit-product`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response.json();
+}
+
 export async function getCategories() {
   try {
     const response = await fetch(
@@ -77,7 +133,6 @@ export async function editCategory(data) {
   return response.json();
 }
 
-
 export async function getWarehouses() {
   try {
     const response = await fetch(
@@ -88,9 +143,8 @@ export async function getWarehouses() {
         },
       },
     );
-    
+
     return response.json();
-    
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
@@ -113,20 +167,59 @@ export async function getSuppliers() {
 }
 
 export async function multiloaderArticle() {
-  const [categories, warehouses,suppliers] = await Promise.all([
+  const [categories, warehouses, suppliers, attributes] = await Promise.all([
+   
     getCategories(),
     getWarehouses(),
     getSuppliers(),
-  ]);
-  return json({categories, warehouses, suppliers, });
-}
-
-export async function multiloaderInventory() {
-  const [categories, attributes] = await Promise.all([
-    getCategories(),
     getAttributes(),
   ]);
-  return json({ categories, attributes,  });
+  return json({ categories, warehouses, suppliers, attributes});
+}
+
+export async function getProduct({ params }) {
+  const id=params.id;
+
+  const info ={ product_id:parseInt(id)};
+
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-product`,
+      {
+        method: "POST", 
+        body: JSON.stringify(info), 
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + Cookies.get("token"), 
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderArticle2({ params }) {
+  const [products, categories, warehouses, suppliers, attributes] = await Promise.all([
+    getProduct({params}),
+    getCategories(),
+    getWarehouses(),
+    getSuppliers(),
+    getAttributes(),
+  ]);
+  return json({products, categories, warehouses, suppliers, attributes });
+}
+
+
+export async function multiloaderInventory() {
+  const [categories, attributes, products] = await Promise.all([
+    getCategories(),
+    getAttributes(),
+    getProducts(),
+  ]);
+  return json({ categories, attributes, products });
 }
 
 export async function getAttributes() {
@@ -272,6 +365,41 @@ export async function destroyAttributeSlot(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/destroy-attributes-slots`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function getProducts() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-products`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function destroyProduct(data) {
+  const info = {
+    product_id: data.get("product_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}products/destroy-product`,
     {
       method: "POST",
       body: JSON.stringify(info),

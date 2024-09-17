@@ -1,12 +1,79 @@
-import React,{useState} from "react";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+import React, { useState } from "react";
+import { Form, Link, redirect } from "react-router-dom";
+
+import { Button } from "@/components/ui/button";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
+import { IonIcon } from "@ionic/react";
+import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+
+import { saveNewCustomer } from "../utils";
 
 const CreateCustomer = () => {
+  const [customerValues, setCustomerValues] = useState({
+    client_code: "",
+    client_type: "",
+    rfc: "",
+    client_group: "",
+    currency: "",
+    name: "",
+    cfdi: "",
+  });
+
+  const customerFields = [
+    {
+      name: "client_code",
+      type: "input",
+      placeholder: "Código de Cliente",
+    },
+    {
+      name: "client_type",
+      type: "select",
+      placeholder: "Tipo de Cliente",
+      options: [
+        { value: 0, label: "Local" },
+        { value: 1, label: "Internacional" },
+      ],
+    },
+    {
+      name: "fiscal_name",
+      type: "input",
+      placeholder: "Nombre o razon social",
+    },
+    {
+      name: "rfc",
+      type: "input",
+      placeholder: "RFC",
+    },
+    {
+      name: "client_group",
+      type: "select",
+      placeholder: "Grupo de Proveedor",
+      options: [
+        { value: 0, label: "Grupo 1" },
+        { value: 1, label: "Grupo 2" },
+      ],
+    },
+    {
+      name: "currency",
+      type: "select",
+      placeholder: "Moneda",
+      options: [
+        { value: "usd", label: "USD" },
+        { value: "eur", label: "EUR" },
+      ],
+    },
+    {
+      name: "cfdi",
+      type: "select",
+      placeholder: "Uso de CFDI",
+      options: [
+        { value: 0, label: "CFDI 1" },
+        { value: 1, label: "CFDI 2" },
+      ],
+    },
+  ];
 
   const initialValues = {
     clientNumber: "",
@@ -15,10 +82,10 @@ const CreateCustomer = () => {
     rfc: "",
     clientGroup: "",
     currency: "",
-    CFDI: ""
+    CFDI: "",
   };
 
-  const contactForm={
+  const contactForm = {
     comentarios: "",
     activo: false,
     inactivo: false,
@@ -33,22 +100,23 @@ const CreateCustomer = () => {
     pais: "",
     numeroExterior: "",
     ciudad: "",
-  }
+  };
 
- const  facturacion={
+  const facturacion = {
     regimenFiscal: "",
     metodoPago: "",
     formaPago: "",
     usoCFDI: "",
     email: "",
-  }
+  };
 
-  const condiciones=
-    {condiciones: "",
+  const condiciones = {
+    condiciones: "",
     interesesPorRetraso: "",
     diasDeCredito: "",
-    limiteDeCredito: "",}
-  
+    limiteDeCredito: "",
+  };
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -101,24 +169,36 @@ const CreateCustomer = () => {
                 size="icon"
                 className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
-                 <IonIcon
-                icon={closeCircle}
-                size="small"
-                className="cursor-pointer text-grisDisabled"
-              />
+                <IonIcon
+                  icon={closeCircle}
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
+                />
               </Button>
             </Link>
           </div>
         </div>
         {/*content */}
         <div className="w-full space-y-4 overflow-auto">
-          <InputsGroup  initialValues={initialValues}/>
-          <FormGroup contactForm={contactForm} facturacion={facturacion} condiciones={condiciones}/>
+          <Form id="form-customer" action="/sales/customer/new" method="post">
+            <InputsGroup
+              fields={customerFields}
+              initialValues={customerValues}
+            />
+          </Form>
+          <FormGroup data={[]} isDisabled={true} />
         </div>
-        
       </div>
     </div>
   );
 };
 
 export default CreateCustomer;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  const response = await saveNewCustomer(data);
+  // console.log(response);
+  return redirect(`/sales/customer/edit/${response.data}`);
+  // return "1";
+}

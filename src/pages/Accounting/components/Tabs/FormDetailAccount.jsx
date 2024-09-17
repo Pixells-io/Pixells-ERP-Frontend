@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { IonIcon } from "@ionic/react";
-import { closeCircle, copy, create } from "ionicons/icons";
+import { closeCircle, copyOutline, createOutline } from "ionicons/icons";
 import ModalDeleteAccount from "../../Catalog/Modals/ModalDeleteAccount";
 import { getAccountingAccountById } from "../../Catalog/utils";
 import { Form, useNavigation } from "react-router-dom";
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import ModalConfirmNewAccount from "../../Catalog/Modals/ModalConfirmNewAccount";
+import { Switch } from "@/components/ui/switch";
+import InputForm from "@/components/InputForm/InputForm";
 
 const FormDetailAccount = ({
   selectAccount,
@@ -52,8 +51,8 @@ const FormDetailAccount = ({
   const getAccount = async () => {
     const accountResponse = await getAccountingAccountById(selectAccount.id);
     setAccount(accountResponse.data);
-    setCheckedInputType(accountResponse.data.type);
-    setCheckedInputStatus(accountResponse.data.status);
+    setCheckedInputType(accountResponse.data.type || "0");
+    setCheckedInputStatus(accountResponse.data.status || "0");
   };
 
   const handleInputChange = (e) => {
@@ -80,7 +79,7 @@ const FormDetailAccount = ({
   };
 
   return (
-    <div className="h-full w-2/5 overflow-auto border-l p-2">
+    <div className="h-full w-[350px] overflow-auto border-l p-2">
       {/* modals */}
       <ModalConfirmNewAccount
         modal={modalCloneAccount}
@@ -98,27 +97,27 @@ const FormDetailAccount = ({
       </div>
       <div className="flex items-center">
         <div className="w-full">
-          <h2 className="text-sm font-normal text-grisText">
+          <h2 className="font-poppins text-sm font-medium text-grisHeading">
             Detalles de la Cuenta
           </h2>
         </div>
         <div className="flex w-full justify-center gap-x-4">
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => newAccount()}
           >
             <IonIcon
-              icon={copy}
-              className="h-5 w-5 cursor-pointer text-[#696974]"
+              icon={copyOutline}
+              className="h-5 w-5 cursor-pointer text-[#44444F]"
             ></IonIcon>
           </div>
           <div
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#E8E8E8]"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-xl bg-[#E8E8E8]"
             onClick={() => setIsEditable(!isEditable)}
           >
             <IonIcon
-              icon={create}
-              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#696974]"} `}
+              icon={createOutline}
+              className={`h-5 w-5 cursor-pointer ${isEditable ? "text-primario" : "text-[#44444F]"} `}
             ></IonIcon>
           </div>
           <ModalDeleteAccount
@@ -133,6 +132,7 @@ const FormDetailAccount = ({
         className="mt-4"
         action={`/accounting/${level}`}
         method="post"
+        id="form-update-accounting"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -164,35 +164,40 @@ const FormDetailAccount = ({
             value={checkedInputType}
             readOnly
           />
-          <div className="flex items-center gap-x-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputType == "1"}
-              onCheckedChange={() => setCheckedInputType("1")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Título
-            </p>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputType == "2"}
-              onCheckedChange={() => setCheckedInputType("2")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Cuenta Activa
-            </p>
+          <div className="w-full">
+            <h2 className="py-3 text-xs font-normal text-grisSubText">
+              TIPO DE CUENTA
+            </h2>
+            <div className="flex w-full items-center gap-x-3 border-t border-[#D7D7D7] py-3 pl-4">
+              <Switch
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputType == "1"}
+                onCheckedChange={() => setCheckedInputType("1")}
+                disabled={!isEditable}
+              />
+              <p className="font-roboto text-sm font-normal text-grisText">
+                Título
+              </p>
+            </div>
+            <div className="flex w-full items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 pl-4">
+              <Switch
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputType == "2"}
+                onCheckedChange={() => setCheckedInputType("2")}
+                disabled={!isEditable}
+              />
+              <p className="font-roboto text-sm font-normal text-grisText">
+                Cuenta Activa
+              </p>
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8">
-          <div className="col-span-12 md:col-span-7 xl:col-span-7">
-            <p className="font-roboto text-sm font-light text-grisText">
+        <div className="grid grid-cols-12 gap-x-3 gap-y-6 p-1 pb-8 mt-8">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Cuenta Contable
             </p>
-            <InputRouter
+            <InputForm
               id="accounting_account"
               name="accounting_account"
               value={
@@ -204,11 +209,11 @@ const FormDetailAccount = ({
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Nombre
             </p>
-            <InputRouter
+            <InputForm
               id="name"
               name="name"
               value={!!account.name ? account.name : ""}
@@ -219,22 +224,21 @@ const FormDetailAccount = ({
           </div>
 
           <div className="col-span-12 md:col-span-6 xl:col-span-6">
-            <p className="mb-2 font-roboto text-sm font-light text-grisText">
+            <p className="mb-2 font-roboto text-xs font-normal text-grisText">
               Nivel
             </p>
-            <Input
+            <InputForm
               id="level"
               name="level"
-              value={!!account.level ? account.level : ""}
+              value={!!selectAccount?.levels ? selectAccount.levels.length : ""}
               readOnly
-              className="h-9.5 border border-grisText"
               disabled={true}
               type="text"
             />
           </div>
 
           <div className="col-span-12 md:col-span-6 xl:col-span-6">
-            <p className="font-roboto text-sm font-light text-grisText">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Moneda
             </p>
             <SelectRouter
@@ -249,25 +253,27 @@ const FormDetailAccount = ({
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Saldo
             </p>
-            <InputRouter
+            <InputForm
               id="balance"
               name="balance"
               value={!!account.balance ? account.balance : ""}
               onChange={handleInputChange}
-              type="text"
+              type="number"
+              min="0"
+              step="0.01"
               disabled={!isEditable}
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Tipo de cuenta
             </p>
-            <InputRouter
+            <InputForm
               id="type_of_account"
               name="type_of_account"
               value={!!account.type_of_account ? account.type_of_account : ""}
@@ -277,8 +283,8 @@ const FormDetailAccount = ({
             />
           </div>
 
-          <div className="col-span-12">
-            <p className="font-roboto text-sm font-light text-grisText">
+          <div className="col-span-12 flex flex-col gap-y-2">
+            <p className="font-roboto text-xs font-normal text-grisText">
               Código Agrupador SAT (Contabilidad Electrónica)
             </p>
             <SelectRouter
@@ -290,37 +296,41 @@ const FormDetailAccount = ({
               disabled={!isEditable}
             />
           </div>
-          <div className="col-span-12 flex items-center gap-x-2">
-            <input
-              type="hidden"
-              hidden
-              name="status"
-              className="hidden"
-              value={checkedInputStatus}
-              readOnly
-            />
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={checkedInputStatus == "1"}
-              onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
-              disabled={!isEditable}
-            />
-            <p className="font-roboto text-sm font-light text-grisText">
-              Activo
-            </p>
-          </div>
-        </div>
-        <div className="flex w-full justify-end">
-          {isEditable && (
-            <Button
-              className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
-              disabled={navigation.state === "submitting"}
-            >
-              {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
-            </Button>
-          )}
         </div>
       </Form>
+      <div className="px-1">
+        <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
+        <div className="flex w-full items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 pl-4">
+          <input
+            type="hidden"
+            hidden
+            name="status"
+            className="hidden"
+            value={checkedInputStatus}
+            readOnly
+          />
+          <Switch
+                className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                checked={checkedInputStatus == "1"}
+            onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+            disabled={!isEditable}
+          />
+          <p className="font-roboto text-xs font-normal text-grisText">
+            Activa
+          </p>
+        </div>
+      </div>
+      <div className="flex w-full justify-end p-1 mt-8">
+        {isEditable && (
+          <Button
+            form="form-update-accounting"
+            className="rounded-lg bg-primarioBotones text-xs hover:bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Aceptar"}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

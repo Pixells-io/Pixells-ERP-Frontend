@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
   informationCircle,
   addCircleOutline,
+  trash,
 } from "ionicons/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -23,8 +24,10 @@ import {
   destroyAttribute,
   destroyAttributeSlot,
   destroyCategory,
+  destroyProduct,
   editAttribute,
   editCategory,
+  getProducts,
   saveAttribute,
   saveAttributeSlots,
   saveCategory,
@@ -34,48 +37,43 @@ import Category from "./components/Tabs/Category";
 import NewAttribute from "./Modals/NewAttribute";
 import ProductAttributeTabs from "./ProductAttributes/ProductAttributeTabs";
 import { Link } from "react-router-dom";
+import { createPusherClient } from "@/lib/pusher";
+import ModalDeleteProduct from "./Modals/ModalDeleteProduct";
 
 const MainGeneral = () => {
-  const { categories, attributes } = useLoaderData();
+  const { categories, attributes, products } = useLoaderData();
 
   const [modalNewCategory, setModalNewCategory] = useState(false);
   const [modalNewAttribute, setModalNewAttribute] = useState(false);
-  const data = [
-    {
-      codigo: "0987",
-      categoria: "Metales",
-      nombre: "Tornillos",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "21/07/2024",
-    },
-    {
-      codigo: "0988",
-      categoria: "Metales",
-      nombre: "Tuercas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario3.jpg",
-      creacion: "19/07/2024",
-    },
-    {
-      codigo: "0989",
-      categoria: "Metales",
-      nombre: "Rondanas",
-      unidadMedida: "Pieza",
-      cuentaContable: "Activos",
-      tipo: "Inventario",
-      creadoPor: "usuario1.jpg",
-      creacion: "12/04/2024",
-    },
-  ];
+
+  const [productState, setProductState] = useState(products.data);
+
+  const [productId, setProductId] = useState(null);
+  const [productName, setProductName] = useState(null);
+  const [productDestroyModal, setProductDestroyModal] = useState(false);
+
+  const pusherClient = createPusherClient();
+
+  async function getProductsFuncion() {
+    let newData = await getProducts();
+    setProductState(newData?.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-products");
+
+    pusherClient.bind("fill-products", ({ message }) => {
+      getProductsFuncion();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-products");
+    };
+  }, []);
 
   const columns = [
     {
-      accessorKey: "codigo",
+      accessorKey: "code",
       header: "Código",
       cell: ({ row }) => {
         return (
@@ -85,72 +83,91 @@ const MainGeneral = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.codigo}</label>
+            <label>{row?.original?.code}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "categoria",
+      accessorKey: "category",
       header: "Categoría",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "unidadMedida",
+      accessorKey: "measure",
       header: "Unidad Medida",
     },
     {
-      accessorKey: "cuentaContable",
-      header: "Cuenta Contable",
-    },
-    {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
+      cell: ({ row }) => {
+        return (
+          <>
+            {row.original?.type == 0 ? (
+              <span>Simple</span>
+            ) : (
+              <span>Variable</span>
+            )}
+          </>
+        );
+      },
     },
     {
-      accessorKey: "creadoPor",
-      header: "Creado Por",
-      cell: ({ row }) => (
-        <Avatar className="h-6 w-6">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      ),
-    },
-    {
-      accessorKey: "creacion",
+      accessorKey: "created",
       header: "Creación",
     },
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
+          <Link to={`/inventory/edit/${row.original.id}`}>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
+          </Link>
           <Button
             type="button"
             className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            onClick={() =>
+              openDestroyProductModal(row.original?.name, row.original?.id)
+            }
           >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
+            <IonIcon icon={trash} className="h-5 w-5 text-[#696974]" />
           </Button>
         </div>
       ),
     },
   ];
 
+  function openDestroyProductModal(name, id) {
+    setProductName(name);
+    setProductId(id);
+    setProductDestroyModal(true);
+  }
   return (
     <div className="flex w-full">
       {/* Modals */}
       <NewCategory modal={modalNewCategory} setModal={setModalNewCategory} />
       <NewAttribute modal={modalNewAttribute} setModal={setModalNewAttribute} />
+      <ModalDeleteProduct
+        modal={productDestroyModal}
+        setModal={setProductDestroyModal}
+        product_name={productName}
+        product_id={productId}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -256,9 +273,9 @@ const MainGeneral = () => {
           </TabsList>
           <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
             <DataTable
-              data={data}
+              data={productState}
               columns={columns}
-              searchFilter="codigo"
+              searchFilter="code"
               searchNameFilter="Buscar por código"
               isCheckAll={true}
             />
@@ -309,6 +326,9 @@ export async function Action({ request }) {
       break;
     case "update_attributeSlot":
       await updateAttributeSlot(data);
+      break;
+    case "destroy_product":
+      await destroyProduct(data);
       break;
   }
 

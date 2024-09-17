@@ -41,6 +41,8 @@ import {
   documentText,
   flask,
   storefront,
+  happy,
+  happyOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -48,6 +50,8 @@ import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
+import CrispinModal from "./CrispinAssistant/CrispinModal";
+import CustomModal from "./CrispinAssistant/CustomModal";
 
 let MENU_ORGANIZATIONAL = [];
 let MENU_TRANSACTIONAL = [];
@@ -184,6 +188,16 @@ function MainLayout() {
     return navigate("/login");
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     //Irganizational Modules
     const modulos = permissions.data.map((module) =>
@@ -194,7 +208,8 @@ function MainLayout() {
 
   return (
     <div className="flex h-screen min-h-0 flex-col">
-      <div className="flex h-[56px] items-center justify-between p-3">
+      <CustomModal isOpen={isModalOpen} onClose={closeModal} />
+      <div className="flex h-[56px] items-center justify-between px-5 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <IonIcon
@@ -306,25 +321,31 @@ function MainLayout() {
 
         {/* notification center */}
         <div className="flex items-center justify-evenly gap-16">
-          <div className="flex gap-6">
-            <div></div>
-            <div className="flex gap-3">
-              <Link to={"/calendar"}>
-                <IonIcon
-                  icon={calendar}
-                  size="large"
-                  className="text-primario"
-                ></IonIcon>
-              </Link>
-              <NotificationChat
-                notifications={chat?.data}
-                user={userAuth?.data}
+          <div className="flex items-center gap-3">
+            {import.meta.env.VITE_ORGANIZATIONAL_MODULES === "1" ? (
+              <IonIcon
+                icon={happyOutline}
+                size="large"
+                className="text-primario"
+                title="Preguntale a Crispin"
+                onClick={openModal}
               />
-              <NotificationBell
-                notificationsData={notificationsData?.data}
-                user={userAuth?.data}
+            ) : null}
+            <Link to={"/calendar"}>
+              <IonIcon
+                icon={calendar}
+                size="large"
+                className="flex text-primario"
               />
-            </div>
+            </Link>
+            <NotificationChat
+              notifications={chat?.data}
+              user={userAuth?.data}
+            />
+            <NotificationBell
+              notificationsData={notificationsData?.data}
+              user={userAuth?.data}
+            />
           </div>
 
           {/* Avatar Dropdown */}
@@ -417,7 +438,6 @@ function MainLayout() {
           </DropdownMenu>
         </div>
       </div>
-
       <div className="h-full min-h-0 flex-grow">
         <Outlet />
       </div>

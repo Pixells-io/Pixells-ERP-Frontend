@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -6,48 +6,61 @@ import {
   gridOutline,
   list,
   settings,
+  settingsOutline,
 } from "ionicons/icons";
 import AddItemDialog from "../components/AddCostModal";
 import DataTable from "@/components/table/DataTable";
-import AddConfig from "../components/ModalConfig";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { redirect, useLoaderData } from "react-router-dom";
+import {
+  destroyCostCenter,
+  getCostCenter,
+  saveCostCenter,
+  updateCostCenter,
+} from "./utils";
+import ModalDeleteCostCenter from "./Modals/ModalDeleteCostCenter";
+import { createPusherClient } from "@/lib/pusher";
+import ModalEditCost from "./Modals/ModalEditCost";
+import { Button } from "@/components/ui/button";
 
 const MainCost = () => {
-  const [misDatos, setMisDatos] = useState([
-    {
-      codigo: "AC-3",
-      nombre: 1,
-      creacion: "22-04-2023",
-      descripcion: "En progreso",
-    },
-    {
-      codigo: "AC-5",
-      nombre: 2,
-      creacion: "18-04-2023",
-      descripcion: "Borrador",
-    },
-    {
-      codigo: "AC-4",
-      nombre: 3,
-      creacion: "03-03-2023",
-      descripcion: "En progreso",
-    },
-  ]);
+  const { data } = useLoaderData();
+  const [costCenterList, setCostCenterList] = useState(data);
+
+  const pusherClient = createPusherClient();
+
+  async function getCostCenterList() {
+    let newData = await getCostCenter();
+    setCostCenterList(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-cost-center");
+
+    pusherClient.bind("fill-cost-center", ({ message }) => {
+      getCostCenterList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-cost-center");
+    };
+  }, []);
+
   const columns = useMemo(
     () => [
       {
-        id: "codigo",
-        accessorKey: "codigo",
-        header: "Codigo",
+        id: "code",
+        accessorKey: "code",
+        header: "Código",
         meta: {
           filterButton: true,
         },
         filterFn: "includesString",
       },
       {
-        id: "nombre",
-        accessorKey: "nombre",
+        id: "name",
+        accessorKey: "name",
         header: "Nombre",
         meta: {
           filterButton: true,
@@ -55,8 +68,8 @@ const MainCost = () => {
         filterFn: "includesString",
       },
       {
-        id: "creacion",
-        accessorKey: "creacion",
+        id: "created",
+        accessorKey: "created",
         header: "Creación",
         meta: {
           filterButton: true,
@@ -64,8 +77,8 @@ const MainCost = () => {
         filterFn: "includesString",
       },
       {
-        id: "descripcion",
-        accessorKey: "descripcion",
+        id: "description",
+        accessorKey: "description",
         header: "Descripción",
       },
       {
@@ -73,25 +86,18 @@ const MainCost = () => {
         accessorKey: "acciones",
         header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
-          <div className="text-center">
-            <AddConfig />
+          <div className="flex items-center justify-center gap-1 text-[#696974]">
+            <ModalEditCost costCenter={row?.original} />
+            <ModalDeleteCostCenter
+              costCenter_id={row?.original?.id}
+              costCenter_name={row?.original?.name}
+            />
           </div>
         ),
       },
     ],
     [],
   );
-
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    // Actualiza tableData cuando misDatos cambie
-    setTableData(misDatos.map((item) => ({ ...item, checked: false })));
-  }, [misDatos]);
-
-  const handleAddItem = (newItem) => {
-    setMisDatos((prev) => [...prev, newItem]);
-  };
 
   return (
     <div className="flex w-full">
@@ -120,7 +126,7 @@ const MainCost = () => {
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
             CONTABILIDAD
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -136,45 +142,63 @@ const MainCost = () => {
               Centro de Costos
             </p>
           </div>
-          <div className="mr-12 flex gap-x-2 text-[#8F8F8F]">
-            <IonIcon icon={gridOutline} className="h-5 w-5"></IonIcon>
-            <IonIcon icon={list} className="h-5 w-5"></IonIcon>
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <AddItemDialog onAddItem={handleAddItem} />
-          <div className="mr-24 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-200 text-center hover:bg-gray-400">
-            <IonIcon icon={settings} size="small" className="text-grisText" />
+          <div className="flex items-center justify-end gap-x-2">
+          
+            <Button
+              type={"button"}
+              className="flex h-[30px] items-center justify-center rounded-xl bg-[#E8E8E8] px-3 hover:bg-[#E8E8E8] gap-x-2"
+            >
+              <IonIcon icon={settingsOutline} className="h-4 w-4 text-[#44444F]" />
+              <span className="text-xs font-medium text-[#44444F]">
+                Configurar
+              </span>
+            </Button>
+            <AddItemDialog />
           </div>
         </div>
 
         {/* Data Table */}
-        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="CENTRO DE COSTOS"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
           >
-            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-              <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+          <TabsList className="mx-4 flex rounded-none justify-start border-b bg-inherit py-6">
+            <TabsTrigger
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:bg-inherit data-[state=active]:shadow-none"
                 value="CENTRO DE COSTOS"
               >
                 CENTRO DE COSTOS
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="CENTRO DE COSTOS" className="mt-[-60px] p-2">
+            <TabsContent value="CENTRO DE COSTOS" className="mt-[-70px] p-2">
               <DataTable
-                data={tableData}
+                data={costCenterList}
                 columns={columns}
-                searchFilter={"codigo"}
+                searchFilter={"code"}
                 searchNameFilter={"Ingrese el código"}
               />
             </TabsContent>
           </Tabs>
-        </div>
       </div>
     </div>
   );
 };
 
 export default MainCost;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "save_costCenter":
+      await saveCostCenter(data);
+      break;
+    case "update_costCenter":
+      await updateCostCenter(data);
+      break;
+    case "destroy_costCenter":
+      await destroyCostCenter(data);
+      break;
+  }
+
+  return redirect(`/accounting/cost`);
+}

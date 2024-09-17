@@ -40,6 +40,7 @@ import { getProjectById } from "@/lib/actions";
 import ActivityDestroy from "./ActivityDestroy";
 import PhaseDestroy from "./PhaseDestroy";
 import AssignedMenu from "./AssignedMenu";
+import AccordionProjectTable from "./Board/AccordionProjectTable";
 
 const HEADERS = [
   { name: "FASE" },
@@ -105,14 +106,14 @@ function ProjectTable() {
   }
 
   return (
-    <div className="flex h-full flex-col px-4 pb-10">
+    <div className="flex h-full flex-col px-0 pb-10 md:px-4">
       <PhaseDestroy
         phase={phaseSelected}
         modal={phaseModal}
         setModal={setPhaseModal}
       />
 
-      <div className="grid h-12 grid-cols-12 items-center text-center">
+      <div className="hidden h-12 grid-cols-12 items-center text-center md:grid">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -233,7 +234,7 @@ function ProjectTable() {
                   {phase?.activities.map((activity, i) => (
                     <div
                       key={i}
-                      className="grid h-12 grid-cols-12 items-center gap-y-6 border-t-[1px] text-center"
+                      className="hidden h-12 grid-cols-12 items-center gap-y-6 border-t-[1px] text-center md:grid"
                     >
                       <div className="col-span-1 flex justify-center gap-2">
                         {activity.user_id == 1 ? (
@@ -335,7 +336,7 @@ function ProjectTable() {
                       </div>
 
                       <div className="col-span-1 flex items-center justify-center">
-                        <Avatar className="flex h-6 w-6" key={i}>
+                        <Avatar className="flex h-6 w-6">
                           <AvatarImage src={activity?.creator?.img} />
                           <AvatarFallback>??</AvatarFallback>
                         </Avatar>
@@ -349,6 +350,18 @@ function ProjectTable() {
                       </div>
                     </div>
                   ))}
+
+                  <div className="flex h-full flex-col md:hidden">
+                    {phase?.activities.map((activity, i) => (
+                      <AccordionProjectTable
+                        key={i}
+                        activity={activity}
+                        id={id}
+                        projectId={projectId}
+                        users={users}
+                      />
+                    ))}
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

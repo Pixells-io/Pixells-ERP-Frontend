@@ -1,53 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  addCircleOutline,
+  add,
+} from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import MenuItem from "./Components/Menu";
+import { createPusherClient } from "@/lib/pusher";
+import { destroyQuoteOrder, getQuotesOrder } from "../utils";
+import ModalDeleteQuote from "./Modals/ModalDeleteQuote";
 
 const MainQuotesOrder = () => {
-  const data = [
+  const { data } = useLoaderData();
+  const [quotesInfo, setQuotesInfo] = useState(data);
+  const [modalDeleteQuote, setModalDeleteQuote] = useState(false);
+  const [selectQuote, setSelectQuote] = useState({ id: 0, name: "" });
+
+  const pusherClient = createPusherClient();
+
+  const getMenuItems = (id, name) => [
     {
-      ndocumento: "DOC001",
-      codproveedor: "PROV001",
-      nproveedor: "COCA COLA COMPANY",
-      importe: 35232.3,
-      impuesto: 160.0,
-      fechac: "2024-07-15",
-      fechad: "2024-07-04",
-      tipo: "Factura",
-      estatus: "En progreso",
-    },
-    {
-      ndocumento: "DOC002",
-      codproveedor: "PROV002",
-      nproveedor: "COCA COLA COMPANY",
-      importe: 32433,
-      impuesto: 240.08,
-      fechac: "2024-07-16",
-      fechad: "2024-07-15",
-      tipo: "Nota de crédito",
-      estatus: "Finalizado",
-    },
-  ];
-  const getMenuItems = (id) => [
-    {
-      label: "Edit",
+      label: "Detalles Orden",
       isLink: true,
       to: `/shopping/quotes-orders/edit/${id}`,
     },
     {
-      label: "Cancel",
+      label: "Eliminar",
       isLink: false,
-      onClick: () => {},
+      onClick: () => {
+        setModalDeleteQuote(true);
+        setSelectQuote({ id: id, name: name });
+      },
     },
   ];
   const columns = [
     {
-      accessorKey: "ndocumento",
+      accessorKey: "document_number",
       header: "No. Doc",
       cell: ({ row }) => {
         return (
@@ -57,52 +51,72 @@ const MainQuotesOrder = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.ndocumento}</label>
+            <label>{row?.original?.document_number}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "codproveedor",
+      accessorKey: "supplier_code",
       header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nproveedor",
+      accessorKey: "supplier_name",
       header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "importe",
+      accessorKey: "total",
       header: "Importe",
     },
     {
-      accessorKey: "impuesto",
+      accessorKey: "tax",
       header: "Impuesto",
     },
     {
-      accessorKey: "fechac",
+      accessorKey: "delivery_date",
       header: "fecha cont.",
     },
     {
-      accessorKey: "fechad",
+      accessorKey: "document_created",
       header: "Fecha doc.",
     },
     {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
     },
     {
-      accessorKey: "estatus",
+      accessorKey: "status",
       header: "Estatus",
+      cell: ({ row }) => {
+        return (
+          <div>
+            {row?.original?.status == 1 ? (
+              <label className="rounded-xl bg-[#FAA364] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#FAA364]">
+                Pendiente
+              </label>
+            ) : row?.original?.status == 2 ? (
+              <label className="rounded-xl bg-[#00A259] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#00A259]">
+                Aceptado</label>
+            ) : (
+              row?.original?.status == 3 && 
+              <label className="rounded-xl bg-[#DC1C3B] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#DC1C3B]">
+                Cancelado</label>
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "acciones",
       header: "Acciones",
       cell: ({ row }) => {
-        const index = row.original.ndocumento; // Obtén el índice de la fila
-        const menuItems = getMenuItems(index);
+        const menuItems = getMenuItems(
+          row?.original?.id,
+          row?.original?.document_number,
+        );
 
         return (
           <div className="flex items-center justify-center">
@@ -113,8 +127,32 @@ const MainQuotesOrder = () => {
     },
   ];
 
+  async function getQuotesList() {
+    let newData = await getQuotesOrder();
+    setQuotesInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-shopping-quotes");
+
+    pusherClient.bind("fill-shopping-quotes", ({ message }) => {
+      getQuotesList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-shopping-quotes");
+    };
+  }, []);
+
   return (
     <div className="flex w-full">
+      {/* modals */}
+      <ModalDeleteQuote
+        id={selectQuote.id}
+        name={selectQuote.name}
+        modal={modalDeleteQuote}
+        setModal={setModalDeleteQuote}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -151,65 +189,55 @@ const MainQuotesOrder = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Cotizaciones
           </p>
           <div className="flex items-start justify-start">
             <Link to="/shopping/quotes-orders/create">
-            <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
+              <Button
+                type={"button"}
+                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+                <IonIcon icon={add} className="h-4 w-4" />
+                <span className="text-xs font-medium">Nuevo</span>
+              </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-          <div className="w-full">
-            <Tabs
-              defaultValue="quotes"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        <Tabs
+          defaultValue="quotes"
+          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        >
+          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+            <TabsTrigger
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="quotes"
             >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="quotes"
-                >
-                  COTIZACIONES
-                </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="OTRO"
-                >
-                  OTRO
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="quotes" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="ndocumento"
-                  searchNameFilter="Buscar por No. Documento"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-              <TabsContent value="OTRO" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <p>CONTENIDO</p>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
+              COTIZACIONES
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="quotes" className="mt-[-70px] w-full pt-2">
+            <DataTable
+              data={quotesInfo}
+              columns={columns}
+              searchFilter="document_number"
+              searchNameFilter="Buscar por No. Documento"
+              isCheckAll={true}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
+    </div>
   );
 };
 
 export default MainQuotesOrder;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await destroyQuoteOrder(formData);
+
+  return redirect("/shopping/quotes-orders");
+}

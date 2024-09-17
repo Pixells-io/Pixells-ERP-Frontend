@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { getNotificationsChat } from "@/lib/actions";
 
@@ -15,12 +15,16 @@ import { chatbubble } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function NotificationChat({ notifications }) {
-  const [initialData, setInitialData] = useState(notifications);
-  const [notificationsPusher, setnotificationsPusher] = useState(initialData);
+  const [notificationsPusher, setnotificationsPusher] = useState(notifications);
+  // console.log(notificationsPusher);
+
   const pusherClient = createPusherClient();
+
   if (notificationsPusher === undefined) return;
 
   const navigate = useNavigate();
+
+  const notificationSound = new Audio("/sounds/noti_chat.mp3");
 
   function destroyNotificationActivation(chat) {
     //Redirect to the chat
@@ -33,12 +37,15 @@ function NotificationChat({ notifications }) {
         ? "ERP"
         : `(${notificationsPusher[0]?.number}) ERP`;
     document.title = newTitle;
+
+    if (notificationsPusher[0]?.number != 0) {
+      notificationSound.play();
+    }
   }, [notificationsPusher]);
 
   useEffect(() => {
     async function getNotifications() {
       let newData = await getNotificationsChat();
-
       setnotificationsPusher(newData.data);
     }
 
@@ -67,7 +74,7 @@ function NotificationChat({ notifications }) {
           <IonIcon
             icon={chatbubble}
             size="large"
-            className="text-primario"
+            className="flex text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="flex flex-col">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -6,85 +6,37 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
+  DialogDescription,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
+import { add, addCircleOutline } from "ionicons/icons";
 import { Textarea } from "@/components/ui/textarea";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { Form, useNavigation } from "react-router-dom";
 
-const AddCostForm = ({ onAddItem }) => {
-  const getCurrentDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
+const AddCostForm = () => {
+  const [modal, setModal] = useState(false);
+  const navigation = useNavigation();
 
-    if (month < 10) {
-      month = `0${month}`;
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
     }
-    if (day < 10) {
-      day = `0${day}`;
-    }
-
-    return `${day}-${month}-${year}`;
-  };
-
-  const [newItem, setNewItem] = useState({
-    codigo: "",
-    nombre: "",
-    descripcion: "",
-    creacion: getCurrentDate(),
-  });
-  const [errors, setErrors] = useState({
-    codigo: false,
-    nombre: false,
-    descripcion: false,
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: value.trim() === "" }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validar campos antes de guardar
-    if (
-      newItem.codigo.trim() === "" ||
-      newItem.nombre.trim() === "" ||
-      newItem.descripcion.trim() === ""
-    ) {
-      // Marcar campos faltantes como errores
-      setErrors({
-        codigo: newItem.codigo.trim() === "",
-        nombre: newItem.nombre.trim() === "",
-        descripcion: newItem.descripcion.trim() === "",
-      });
-      return;
-    }
-
-    onAddItem(newItem);
-    setNewItem({
-      codigo: "",
-      nombre: "",
-      descripcion: "",
-      creacion: getCurrentDate(),
-    });
-    setErrors({ codigo: false, nombre: false, descripcion: false });
-  };
+  }, [navigation.state]);
 
   return (
-    <Dialog>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger asChild>
-        <IonIcon
-          icon={addCircleOutline}
-          size="large"
-          className="h-7 w-7 cursor-pointer text-blue-500"
-        />
+        <Button
+          type={"button"}
+          className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+        >
+          <IonIcon icon={add} className="h-4 w-4" />
+          <span className="text-xs font-medium">
+            Nuevo
+          </span>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <div className="-mx-6 border-b pb-4 pl-2">
@@ -94,54 +46,49 @@ const AddCostForm = ({ onAddItem }) => {
             </DialogTitle>
           </DialogHeader>
         </div>
-        <DialogHeader></DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <DialogDescription className="hidden"></DialogDescription>
+        <Form action={`/accounting/cost`} method="post">
+          <input
+            type="hidden"
+            hidden
+            name="type_option"
+            className="hidden"
+            value={"save_costCenter"}
+            readOnly
+          />
           <div className="flex flex-col space-y-1">
             <Label
-              htmlFor="codigo"
+              htmlFor="code"
               className="font-roboto text-sm font-light text-grisText"
             >
               Código
             </Label>
-            <InputRouter
-              id="codigo"
-              name="codigo"
-              value={newItem.codigo}
-              onChange={handleInputChange}
-              type="text"
-            />
+            <InputRouter id="code" name="code" type="text" required={true} />
           </div>
           <br />
           <div className="flex flex-col space-y-1">
             <Label
-              htmlFor="nombre"
+              htmlFor="name"
               className="font-roboto text-sm font-light text-grisText"
             >
               Nombre
             </Label>
-            <InputRouter
-              id="nombre"
-              name="nombre"
-              value={newItem.nombre}
-              onChange={handleInputChange}
-              type="text"
-            />
+            <InputRouter id="name" name="name" type="text" required={true} />
           </div>
           <br />
           <div className="flex flex-col space-y-1">
             <Label
-              htmlFor="descripcion"
+              htmlFor="description"
               className="font-roboto text-sm font-light text-grisText"
             >
               Descripción
             </Label>
             <Textarea
               rows={4}
-              id="descripcion"
-              name="descripcion"
-              value={newItem.descripcion}
-              onChange={handleInputChange}
+              id="description"
+              name="description"
               className="rounded-lg border-none bg-grisBg focus-visible:ring-primarioBotones"
+              required={true}
             />
           </div>
 
@@ -149,11 +96,12 @@ const AddCostForm = ({ onAddItem }) => {
             <Button
               type="submit"
               className="rounded-2xl bg-primarioBotones px-8"
+              disabled={navigation.state === "submitting"}
             >
-              Save
+              {navigation.state === "submitting" ? "Submitting..." : "Save"}
             </Button>
           </div>
-        </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

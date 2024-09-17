@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import InputForm from "@/components/InputForm/InputForm";
 
 const FormInputs = () => {
   const [selectedDate, setSelectedDate] = useState("");
@@ -16,23 +17,25 @@ const FormInputs = () => {
   };
 
   return (
-    <div className="mb-2 rounded-xl bg-white p-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-        <Input
+    <div className="mb-2 rounded-xl">
+      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 border p-4 rounded-xl">
+        <InputForm
+          name="folio"
+          placeholder="folio"
+        />
+        <InputForm
           type="date"
           value={selectedDate}
           onChange={handleDateChange}
           name="fecha"
           placeholder="Fecha"
-          className="rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
         />
-        <Input
+        <InputForm
           name="numeracion"
           placeholder="Numeracion"
-          className="rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
         />
-        <Select name="tipoasiento" className="h-10 min-w-0 flex-1">
-          <SelectTrigger className="h-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+        <Select name="tipoasiento" className=" min-w-0 flex-1">
+          <SelectTrigger className="h-[32px] rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#44444f] placeholder:text-[#44444f] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Tipo de asiento contable" />
           </SelectTrigger>
           <SelectContent>
@@ -42,7 +45,7 @@ const FormInputs = () => {
           </SelectContent>
         </Select>
         <Select name="codigo" className="h-10 min-w-0 flex-1">
-          <SelectTrigger className="h-full rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+          <SelectTrigger className="h-[32px] rounded rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#44444f] placeholder:text-[#44444f] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
             <SelectValue placeholder="Codigo" />
           </SelectTrigger>
           <SelectContent>

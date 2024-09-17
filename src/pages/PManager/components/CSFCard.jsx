@@ -10,7 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 function CSFCard({ card }) {
   return (
-    <div className="flex h-[168px] w-[378px] shrink-0 flex-col rounded-2xl border border-grisDisabled px-4 py-1">
+    <div className="flex h-[168px] w-fit shrink flex-col rounded-2xl border border-grisDisabled px-4 py-1 md:w-[378px] md:shrink-0">
       <div className="flex items-center justify-between">
         <p className="flex items-center gap-2 text-[12px] text-grisSubText">
           FCE <span className="text-2xl">&bull;</span>

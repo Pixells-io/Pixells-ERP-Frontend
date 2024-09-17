@@ -28,13 +28,13 @@ function NotificationBell({ notificationsData, user }) {
   }
 
   return (
-    <div>
-      <DropdownMenu className="overflow-auto">
+    <div className="flex">
+      <DropdownMenu className="flex overflow-auto">
         <DropdownMenuTrigger>
           <IonIcon
             icon={notifications}
             size="large"
-            className="text-primario"
+            className="flex text-primario"
           ></IonIcon>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="max-h-96 overflow-auto">

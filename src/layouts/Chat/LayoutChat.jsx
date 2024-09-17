@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLoaderData, useParams } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getChats } from "@/lib/actions";
@@ -10,22 +10,21 @@ import ChatList from "./Components/Internal/ChatList";
 import { saveGroup, SearchAction } from "./utils";
 
 function LayoutChat() {
-  const { users, chats } = useLoaderData();
+  const { search, chats, users } = useLoaderData();
   const params = useParams();
   const [mobileState, setMobileState] = useState("");
 
-  const [initialData, setInitialData] = useState(chats.data);
-  const [chatListPusher, setChatListPusher] = useState(chatOrder(initialData));
+  const [chatListPusher, setChatListPusher] = useState(chatOrder(chats?.data));
 
   async function getChatsList() {
     let newData = await getChats();
-    setChatListPusher(chatOrder(newData.data));
+    setChatListPusher(chatOrder(newData?.data));
   }
 
   const pusherClient = createPusherClient();
 
   useEffect(() => {
-    setMobileState(params.id ? "hidden" : "flex");
+    setMobileState(params?.id ? "hidden" : "flex");
   }, [params]);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function LayoutChat() {
   }, []);
 
   function chatOrder(data) {
-    return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return data?.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   return (
@@ -80,7 +79,7 @@ function LayoutChat() {
           </TabsList>
           <TabsContent value="internal" className="m-0 flex h-[92%] flex-col">
             <div className="pt- bg-[#f6f6f6] pb-2">
-              <InternalSearch users={users?.data} />
+              <InternalSearch users={users?.data} search={search?.data} />
             </div>
             <div className="mx-2 my-4 h-auto overflow-auto rounded-b-md bg-[#fbfbfb]">
               {chatListPusher?.map((chat, i) => (
@@ -101,14 +100,18 @@ export default LayoutChat;
 
 export async function Action({ request }) {
   const data = await request.formData();
-  switch (data.get("type_of_function")) {
-    case "1":
-      await SearchAction(data);
-      break;
-    case "2":
-      await saveGroup(data);
-      break;
-  }
+  const functionInput = data.get("type_of_function");
 
+  switch (functionInput) {
+    case "1":
+      const chatId = await SearchAction(data);
+      if (chatId.data == undefined) return 1;
+      return redirect(`/chat/${chatId?.data}`);
+    case "2":
+      const groupId = await saveGroup(data);
+      console.log(groupId);
+      if (groupId.data == undefined) return 1;
+      return redirect(`/chat/${groupId?.data}`);
+  }
   return 1;
 }

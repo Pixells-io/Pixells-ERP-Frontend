@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function MessageLink({ string }) {
+  console.log(string);
   const wordsArray = string.split(" ");
   const isUrl = (word) => {
     const urlPattern =
@@ -17,7 +18,7 @@ function MessageLink({ string }) {
             key={i}
             to={word.includes("http") ? word : "https://" + word}
             target="_blank"
-            className="text-primario"
+            className="w-full text-primario"
           >
             {word}&nbsp;
           </Link>

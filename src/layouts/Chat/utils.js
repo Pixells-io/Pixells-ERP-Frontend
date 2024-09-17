@@ -16,7 +16,7 @@ export async function SearchAction(data) {
     },
   );
 
-  return response;
+  return response.json();
 }
 
 export async function saveGroup(data) {
@@ -41,5 +41,5 @@ export async function saveGroup(data) {
     },
   );
 
-  return response;
+  return response.json();
 }

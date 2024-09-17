@@ -66,7 +66,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
   });
 
   return (
-    <div className="rounded-xl bg-[#FBFBFB] px-4">
+    <div className="rounded-xl px-4">
       <div className="flex items-center justify-end gap-4 py-4">
         <div className="flex items-center gap-4">
           {!!isCheckAll && (
@@ -81,7 +81,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                   table.toggleAllRowsSelected(!!value)
                 }
               />
-              <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f]">
+              <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f] font-medium">
                 All
               </label>
             </div>
@@ -108,8 +108,8 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
               <DropdownMenu key={index + "drop"}>
                 <DropdownMenuTrigger asChild>
                   <Button
-                    variant="outline"
-                    className="h-6 w-16 rounded-3xl border-[1px] border-[#44444F] text-[10px]"
+                    type={"button"}
+                    className="h-6 rounded-3xl border-[1px] bg-inherit border-[#D7D7D7] text-[10px] text-[#8F8F8F] font-roboto font-normal hover:bg-inherit"
                   >
                     {column.columnDef.header}
                   </Button>
@@ -151,16 +151,16 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
             ))}
         </div>
 
-        <div className="flex h-10 w-44 items-center rounded-3xl border-[1px] border-[#44444F] px-2 py-2 text-[10px]">
+        <div className="flex h-9 w-44 items-center rounded-3xl border-[1px] border-[#D7D7D7] px-2 py-2 text-[10px]">
           <Label htmlFor="search">
             <IonIcon
               icon={searchOutline}
-              className="h-6 w-6 stroke-1 text-[#696974]"
+              className="h-6 w-6 stroke-1 text-[#8F8F8F]"
             ></IonIcon>
           </Label>
           <Input
             id="search"
-            className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
+            className="h-full w-full border-0 text-sm font-normal text-[#8F8F8F] bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
             placeholder={searchNameFilter}
             value={table.getColumn(searchFilter)?.getFilterValue() ?? ""}
             onChange={(event) =>
@@ -179,7 +179,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-sm font-semibold text-[#696974]"
+                      className="text-xs font-medium font-poppins text-[#44444F]"
                     >
                       {header.isPlaceholder
                         ? null

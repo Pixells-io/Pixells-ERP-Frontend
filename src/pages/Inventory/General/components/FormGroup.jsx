@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GeneralForm from "./Forms/GeneralForm";
 import InventoryForm from "./Forms/InventoryForm";
@@ -6,29 +6,19 @@ import WarehouseForm from "./Forms/WarehouseForm";
 import CheckForm from "./Forms/CheckForm";
 import VariableForm from "./Forms/VariablesForm";
 
-const FormGroup = ({ productType, suppliers }) => {
-  const [generalData, setGeneralData] = useState({
-    sImpuesto: false,
-    devo: false,
-    fabricante: "",
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: "",
-  });
-
-  const [inventoryData, setInventoryData] = useState({
-    costeo: "",
-    costo: "0.00",
-    minimo: "",
-    maximo: "",
-  });
-
-  const [checkData, setCheckData] = useState({
-    proveedor: "",
-  });
-
+const FormGroup = ({
+  productType,
+  suppliers,
+  attrb,
+  inputsData,
+  setInputsData,
+  variableData,
+  setVariableData,
+  inventory,
+  setInventory,
+  buyData,
+  setBuyData
+}) => {
   return (
     <div className="w-full overflow-hidden">
       <Tabs defaultValue="general" className="w-full">
@@ -44,7 +34,7 @@ const FormGroup = ({ productType, suppliers }) => {
               key={value}
               value={value}
               className={`flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
-                value === "variables" && productType !== "option2"
+                value === "variables" && productType !== "2"
                   ? "pointer-events-none opacity-50"
                   : ""
               }`}
@@ -59,26 +49,24 @@ const FormGroup = ({ productType, suppliers }) => {
               GENERAL
             </h2>
             <div className="flex flex-wrap pl-2">
-              <GeneralForm data={generalData} setData={setGeneralData} />
+              <GeneralForm data={inputsData} setData={setInputsData} />
             </div>
           </TabsContent>
           <TabsContent value="variables">
-            {productType === "option2" && (
-              <>
-                <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-                  VARIABLES
-                </h2>
-                <VariableForm />
-              </>
+            {productType === "2" && (
+              <VariableForm
+                attrb={attrb}
+                variableData={variableData}
+                setVariableData={setVariableData} 
+              />
             )}
           </TabsContent>
-
           <TabsContent value="inventory">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               INVENTARIO
             </h2>
             <div className="flex flex-wrap pl-2">
-              <InventoryForm data={inventoryData} setData={setInventoryData} />
+              <InventoryForm data={inventory} setData={setInventory} />
             </div>
           </TabsContent>
           <TabsContent value="storage">
@@ -86,7 +74,7 @@ const FormGroup = ({ productType, suppliers }) => {
               ALMACÉN
             </h2>
             <div className="flex pl-2">
-              <WarehouseForm />
+              <WarehouseForm  />
             </div>
           </TabsContent>
           <TabsContent value="shopping">
@@ -94,11 +82,7 @@ const FormGroup = ({ productType, suppliers }) => {
               COMPRAS
             </h2>
             <div className="flex w-full pl-2">
-              <CheckForm
-                suppliers={suppliers}
-                data={checkData}
-                setData={setCheckData}
-              />
+              <CheckForm suppliers={suppliers} data={buyData} setData={setBuyData} />
             </div>
           </TabsContent>
         </div>

@@ -4,42 +4,97 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link } from "react-router-dom";
-import ObservationsSection from "../Components/Section";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
-
+import { savePriceList } from "../utils";
 const CreatePriceList = () => {
+  const selectsdata = useLoaderData();
+  const submit = useSubmit();
+  const { based_list, products } = selectsdata;
+  const [initialInputs, setInitialInputs] = useState({
+    name: "",
+    based_list: "",
+    index_list: "",
+    type: "1",
+    rounding: false,
+    from_date: "",
+    to_date: "",
+    principal_list: false,
+  });
+
+  const [indRef, setIndRef] = useState("");
+
   const [data, setData] = useState([
     {
-      nuevoArticulo: "1231",
-      descripcion: "ACEITE VEGETAL",
-      listaPrecioBase: "53.30",
-      precioBase: 53.3,
-      precioUnitario: 53.3,
-      indiceRefactorizacion: 2.1,
-      indiceEditable: 2.1,
-      precioRefactorizacion: 111.93,
+      tipo: initialInputs.type,
+      nuevoArticulo: "",
+      descripcion: "",
+      listaPrecioBase: "0",
+      precioBase: 0,
+      precioUnitario: 0,
+      indiceRefactorizacion: 0,
+      indiceEditable: 0.0,
+      precioRefactorizacion: 0,
     },
   ]);
-  const [roundingSettings, setRoundingSettings] = useState({
-    roundValues: false,
-    roundingMethod: "truncate",
-  });
-  const [indRef, setIndRef] = useState(2.1);
+  const [comments, setComments] = useState("");
+
+  
+  const handleIndRefChange = (value) => {
+    setIndRef(value);
+    setInitialInputs((prev) => ({ ...prev, index_list: value }));
+  };
 
   const handleDataChange = (newData) => {
     setData(newData);
   };
 
-  const handleRoundingChange = (isRounded, method) => {
-    setRoundingSettings({
-      roundValues: isRounded,
-      roundingMethod: method,
+  const handleInputChange = (name, value) => {
+    setInitialInputs((prev) => {
+      const newState = { ...prev, [name]: value };
+
+      if (name === "type" && value === "2") {
+        newState.from_date = "";
+        newState.to_date = "";
+      }
+
+      return newState;
     });
   };
 
-  const handleIndRefChange = (newIndRef) => {
-    setIndRef(parseFloat(newIndRef));
+  const handleSubmit = async (event) => {
+    const formData = new FormData();
+    const convertToBoolean = (value) =>
+      value === true ? 1 : value === false ? 0 : 0;
+
+    const info = {
+      name: initialInputs.name || "Default Name",
+      based_list: parseInt(initialInputs.based_list) || 0,
+      index_list: parseInt(initialInputs.index_list) || 0,
+      rounding: convertToBoolean(initialInputs.rounding),
+      comments: comments,
+      aditional_comments: "",
+      type: parseInt(initialInputs.type) || 1,
+      from_date: initialInputs.from_date,
+      to_date: initialInputs.to_date,
+      principal_list: convertToBoolean(initialInputs.principal_list),
+      productos: data.map((row) => ({
+        type: parseInt(row.tipo) || 0,
+        product_master_id: parseInt(row.nuevoArticulo) || 0,
+        based_price: parseFloat(row.precioBase) || 0,
+        refactorization_index: parseFloat(row.indiceRefactorizacion) || 0,
+        price: parseFloat(row.precioRefactorizacion) || 0,
+      })),
+    };
+ 
+    console.log(JSON.stringify(info))
+    // Append to FormData
+    formData.append("info", JSON.stringify(info));
+
+    submit(formData, {
+      action: `/inventory/prices-lists/create`,
+      method: "POST",
+    });
   };
 
   return (
@@ -80,11 +135,11 @@ const CreatePriceList = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nueva Lista de Precios
           </p>
-          <div className="flex items-end justify-end">
+          <div className="flex items-end justify-end pb-0">
             <Link to="/inventory/prices-lists">
               <Button
                 type="button"
@@ -102,22 +157,27 @@ const CreatePriceList = () => {
           </div>
         </div>
         {/*content */}
-        <div className="space-y-3 overflow-auto">
+        <div className="space-y-4 bg-white p-7">
           <Inputs
-            onRoundingChange={handleRoundingChange}
             onIndRefChange={handleIndRefChange}
+            data={initialInputs}
+            setData={handleInputChange}
           />
+          <div className="h-80 overflow-auto">
           <DataTable
+            type={initialInputs.type}
             initialData={data}
             onDataChange={handleDataChange}
-            roundValues={roundingSettings.roundValues}
-            roundingMethod={roundingSettings.roundingMethod}
-            indRef={indRef}
+            products={products.data}
+            indRef={initialInputs.index_list}
+            roundingF={initialInputs.rounding}
           />
-          <ObservationsSection />
+          </div>
           <div className="justify-end">
             <StatusInformation
               status={"inProgress"}
+              comments={comments}
+              setComments={setComments}
               imgUser={
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
@@ -125,14 +185,14 @@ const CreatePriceList = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
               >
                 Cancelar
               </Button>
               <Button
                 type="button"
-                onClick={() => alert("save")}
-                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                onClick={handleSubmit}
+                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
               >
                 Crear
               </Button>
@@ -145,3 +205,11 @@ const CreatePriceList = () => {
 };
 
 export default CreatePriceList;
+
+export async function Action({ request }) {
+
+  const formData = await request.formData();
+  const response = await savePriceList(formData);
+  return "0";
+
+}

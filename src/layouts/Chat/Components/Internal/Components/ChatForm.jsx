@@ -17,6 +17,8 @@ import { addCircleOutline } from "ionicons/icons";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import DropzoneImage from "@/layouts/Masters/FormComponents/dropzone-image";
+import SelectSearch from "@/components/SelectSearch/SelectSearch";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 function FormNewChat({ users }) {
   const [open, setOpen] = useState(false);
@@ -33,6 +35,7 @@ function FormNewChat({ users }) {
       array.push({
         label: element.name + " " + element.last_name,
         value: element.id,
+        user_image: element.user_image,
       });
     });
   }
@@ -75,11 +78,24 @@ function FormNewChat({ users }) {
             <DropzoneImage name={"group_image"} />
           </div>
           <InputRouter name={"name"} placeholder={"Nombre"} type={"text"} />
-          <SelectRouter
+          <SelectSearch
             name="users"
             options={selectUsers}
             placeholder="Seleccionar Usuarios"
             isMulti={true}
+            getOptionLabel={(option) => {
+              return (
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="h-6 w-6">
+                    <AvatarImage src={option?.user_image} />
+                  </Avatar>
+                  <h2>{option.label}</h2>
+                </div>
+              );
+            }}
+            filterOption={(option, value) => {
+              return option.data.label.toLowerCase().includes(value.toLowerCase());
+            }}
           />
           <DialogFooter className="py-4">
             <Button

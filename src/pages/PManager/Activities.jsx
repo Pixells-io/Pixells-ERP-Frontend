@@ -29,6 +29,8 @@ import { getMonthActivity } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
 
 import { completeTask, destroyTask, editTask } from "./utils";
+import SwipeToRevealActions from "react-swipe-to-reveal-actions/dist/esm/SwipeToRevealActions";
+import AccordionMobile from "./components/AccordionMobile";
 
 const HEADERS = [
   { name: "ACTIVITY" },
@@ -122,6 +124,7 @@ function Activities() {
         action={"/project-manager/activities"}
         actionInput="delete-task"
       />
+
       <CompleteTask
         modal={completeTaskModal}
         setModal={setCompleteTaskModal}
@@ -131,6 +134,7 @@ function Activities() {
         action={"/project-manager/activities"}
         actionInput="complete-task"
       />
+
       <EditShowTask
         modal={editTaskModal}
         setModal={setEditTaskModal}
@@ -188,236 +192,246 @@ function Activities() {
               </div>
             ))}
           </div>
-          <div>
-            {activitiesData?.days?.map((day, i) => (
-              <Accordion key={i} type="single" collapsible className="">
-                <AccordionItem value={`item-${day.id}`}>
-                  <AccordionTrigger className="group flex gap-10 px-4 !no-underline md:gap-0">
-                    <div className="w-2/12 text-start">
-                      <span className="font-poppins text-base font-medium text-grisHeading">
-                        {day?.day}
-                      </span>
-                      <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
-                        {activitiesData?.month}
-                      </span>
-                    </div>
+          {activitiesData?.days?.map((day, i) => (
+            <Accordion key={i} type="single" collapsible className="">
+              <AccordionItem value={`item-${day.id}`}>
+                <AccordionTrigger className="group flex gap-10 px-4 !no-underline md:gap-0">
+                  <div className="w-2/12 text-start">
+                    <span className="font-poppins text-base font-medium text-grisHeading">
+                      {day?.day}
+                    </span>
+                    <span className="ml-2 font-poppins text-xs font-normal uppercase text-grisSubText">
+                      {activitiesData?.month}
+                    </span>
+                  </div>
 
-                    <div className="flex w-full gap-10 group-aria-expanded:hidden md:gap-0">
-                      <div className="w-fit text-start md:w-1/12">
-                        {day?.priority == 1 ? (
-                          <div>
-                            <IonIcon
-                              icon={ellipse}
-                              className="mr-2 text-xs text-[#F9D994]"
-                            />
-                          </div>
-                        ) : day?.priority == 2 ? (
-                          <div>
-                            <IonIcon
-                              icon={ellipse}
-                              className="mr-2 text-xs text-[#F9B894]"
-                            />
-                          </div>
-                        ) : day?.priority == 3 ? (
-                          <div>
-                            <IonIcon
-                              icon={ellipse}
-                              className="mr-2 text-xs text-[#D7586B]"
-                            />
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
-
-                      {day?.priority == 4 ? (
-                        <div className="w-fit text-start md:w-5/12">
-                          <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
-                            {day?.title}
-                          </span>
+                  <div className="flex w-fit gap-5 group-aria-expanded:hidden md:w-full md:gap-0">
+                    <div className="w-fit text-start md:w-1/12">
+                      {day?.priority == 1 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#F9D994]"
+                          />
+                        </div>
+                      ) : day?.priority == 2 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#F9B894]"
+                          />
+                        </div>
+                      ) : day?.priority == 3 ? (
+                        <div>
+                          <IonIcon
+                            icon={ellipse}
+                            className="mr-2 text-xs text-[#D7586B]"
+                          />
                         </div>
                       ) : (
-                        <div className="w-fit text-start md:w-5/12">
-                          <span className="font-roboto text-xs font-normal text-grisHeading">
-                            {day?.title}
-                          </span>
+                        <div></div>
+                      )}
+                    </div>
+
+                    {day?.priority == 4 ? (
+                      <div className="w-fit text-start md:w-5/12">
+                        <span className="rounded-xl border border-[#D7586B] px-4 py-2 font-roboto text-xs font-normal text-grisHeading">
+                          {day?.title}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="w-fit text-start md:w-5/12">
+                        <span className="font-roboto text-xs font-normal text-grisHeading">
+                          {day?.title}
+                        </span>
+                      </div>
+                    )}
+                    <div className="w-fit text-start md:w-1/12">
+                      {day?.task_count > 1 ? (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          + {day?.task_count} more
+                        </span>
+                      ) : (
+                        <span className="font-roboto text-xs font-normal text-grisSubText">
+                          Show More
+                        </span>
+                      )}
+                    </div>
+                    <div className="hidden w-3/12 md:flex"></div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="flex flex-col bg-blancoBg">
+                  {day?.task.map((task, i) => (
+                    <div
+                      key={i}
+                      className="hidden h-20 w-full grid-cols-6 items-center gap-y-0 border-t-[1px] bg-blancoBg pr-0 text-right md:grid md:h-12 md:grid-cols-11 md:gap-y-6 md:pr-2"
+                    >
+                      {checkColor(task?.priority) !== "#000000" ? (
+                        <div className="col-span-2 flex items-center gap-2 text-left">
+                          <p
+                            className="flex text-4xl"
+                            style={{
+                              color: checkColor(task?.priority),
+                            }}
+                          >
+                            &bull;
+                          </p>
+                          <div className="flex items-center gap-6">
+                            <p
+                              className="line-clamp-1 text-[12px] font-normal text-grisHeading"
+                              title={task?.name}
+                            >
+                              {task?.name}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="col-span-2 ml-4 flex items-center gap-2 py-1 text-left">
+                          <div className="flex items-center gap-6">
+                            <p
+                              className="line-clamp-1 rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]"
+                              title={task?.name}
+                            >
+                              {task?.name}
+                            </p>
+                          </div>
                         </div>
                       )}
-                      <div className="w-fit text-start md:w-1/12">
-                        {day?.task_count > 1 ? (
-                          <span className="font-roboto text-xs font-normal text-grisSubText">
-                            + {day?.task_count} more
-                          </span>
-                        ) : (
-                          <span className="font-roboto text-xs font-normal text-grisSubText">
-                            Show More
-                          </span>
-                        )}
+
+                      <div className="text-rigth col-span-2 md:col-span-1">
+                        <p className="pr-4 text-[12px] font-normal text-grisHeading">
+                          {task?.type == 0 ? "Task" : "Project"}
+                        </p>
                       </div>
-                      <div className="hidden w-3/12 md:flex"></div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    {day?.task.map((task, i) => (
-                      <div
-                        key={i}
-                        className="grid h-fit grid-cols-11 items-center gap-y-6 border-t-[1px] pr-2 text-right md:h-12"
-                      >
-                        {checkColor(task?.priority) !== "#000000" ? (
-                          <div className="col-span-2 flex items-center gap-2 text-left">
-                            <p
-                              className="flex text-4xl"
-                              style={{
-                                color: checkColor(task?.priority),
-                              }}
-                            >
-                              &bull;
-                            </p>
-                            <div className="flex items-center gap-6">
-                              <p
-                                className="line-clamp-1 text-[12px] font-normal text-grisHeading"
-                                title={task?.name}
-                              >
-                                {task?.name}
-                              </p>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="col-span-2 ml-4 flex items-center gap-2 py-1 text-left">
-                            <div className="flex items-center gap-6">
-                              <p
-                                className="line-clamp-1 rounded-lg px-[4px] text-[12px] font-normal text-grisHeading outline outline-1 outline-offset-[4px] outline-[#D7586B]"
-                                title={task?.name}
-                              >
-                                {task?.name}
-                              </p>
-                            </div>
-                          </div>
-                        )}
 
-                        <div className="text-rigth col-span-1">
-                          <p className="pr-4 text-[12px] font-normal text-grisHeading">
-                            {task?.type == 0 ? "Task" : "Project"}
+                      {task?.type == 1 ? (
+                        <div className="col-span-1 flex flex-col items-center px-2 text-left">
+                          <p className="w-full text-right text-[8px] font-normal text-grisHeading">
+                            {task?.progress}%
                           </p>
+                          <Progress
+                            value={task?.progress}
+                            className="h-[4px] bg-grisDisabled fill-primario"
+                          />
                         </div>
+                      ) : (
+                        <div className="col-span-1 flex flex-col items-center px-2 text-left"></div>
+                      )}
 
-                        {task?.type == 1 ? (
-                          <div className="col-span-1 flex flex-col items-center px-2 text-left">
-                            <p className="w-full text-right text-[8px] font-normal text-grisHeading">
-                              {task?.progress}%
-                            </p>
-                            <Progress
-                              value={task?.progress}
-                              className="h-[4px] bg-grisDisabled fill-primario"
-                            />
-                          </div>
-                        ) : (
-                          <div className="col-span-1 flex flex-col items-center px-2 text-left"></div>
-                        )}
+                      <div className="col-span-1 text-center">
+                        <p className="text-[12px] font-normal text-grisHeading">
+                          {task?.start}
+                        </p>
+                      </div>
 
-                        <div className="col-span-1 text-center">
-                          <p className="text-[12px] font-normal text-grisHeading">
-                            {task?.start}
-                          </p>
-                        </div>
-
-                        <div className="col-span-1 flex items-center justify-center">
-                          <div className="flex gap-2">
-                            <Avatar className="h-6 w-6">
-                              <AvatarImage src={task?.assigned?.img} />
-                              <AvatarFallback></AvatarFallback>
-                            </Avatar>
-                          </div>
-                        </div>
-
-                        <div className="col-span-1 flex items-center justify-end">
-                          <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
-                            title={task?.fce}
-                          >
-                            {task?.inicial_fce}
-                          </p>
-                        </div>
-
-                        <div className="col-span-1 flex items-center justify-end">
-                          <p
-                            className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
-                            title={task?.goal}
-                          >
-                            {task?.inicial_goal}
-                          </p>
-                        </div>
-
-                        <div className="col-span-1 flex justify-end">
-                          <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
-                            <p className="text-[11px] font-semibold">
-                              {task?.status || "Pending"}
-                            </p>
-                          </Badge>
-                        </div>
-
-                        <div className="col-span-1 mr-4 flex justify-end">
+                      <div className="col-span-1 flex items-center justify-center">
+                        <div className="flex gap-2">
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src={task?.creator?.img} />
+                            <AvatarImage src={task?.assigned?.img} />
                             <AvatarFallback></AvatarFallback>
                           </Avatar>
                         </div>
-
-                        {task?.type == 0 ? (
-                          <div className="col-span-1 flex justify-end">
-                            <div className="flex items-center gap-2 text-[#696974]">
-                              <IonIcon
-                                icon={checkmarkCircleOutline}
-                                className="h-5 w-5"
-                                onClick={() =>
-                                  openCompleteTaskModal(
-                                    task?.id,
-                                    task?.name,
-                                    task?.description,
-                                  )
-                                }
-                              ></IonIcon>
-                              <IonIcon
-                                icon={create}
-                                className="h-5 w-5"
-                                onClick={() =>
-                                  openEditModalTask(
-                                    task?.id,
-                                    task?.name,
-                                    task?.description,
-                                    task?.priority,
-                                    task?.start,
-                                  )
-                                }
-                              ></IonIcon>
-                              <IonIcon
-                                icon={trash}
-                                onClick={() => openDestroyTaskModal(task?.id)}
-                                className="h-5 w-5"
-                              ></IonIcon>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="col-span-1 flex justify-end">
-                            <div className="flex items-center gap-2 text-[#696974]">
-                              <Link
-                                to={`/project-manager/${task.task_id}/projects/${task?.id}`}
-                              >
-                                <IonIcon
-                                  icon={informationCircle}
-                                  className="h-5 w-5"
-                                ></IonIcon>
-                              </Link>
-                            </div>
-                          </div>
-                        )}
                       </div>
+
+                      <div className="col-span-1 hidden items-center justify-end md:flex">
+                        <p
+                          className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
+                          title={task?.fce}
+                        >
+                          {task?.inicial_fce}
+                        </p>
+                      </div>
+
+                      <div className="col-span-1 hidden items-center justify-end md:flex">
+                        <p
+                          className="flex size-7 items-center justify-center rounded-full border border-primarioBotones text-[11px] font-light uppercase text-primarioBotones"
+                          title={task?.goal}
+                        >
+                          {task?.inicial_goal}
+                        </p>
+                      </div>
+
+                      <div className="col-span-1 flex justify-end">
+                        <Badge className="bg-orange-200 text-[#FAA364] hover:bg-orange-100">
+                          <p className="text-[11px] font-semibold">
+                            {task?.status || "Pending"}
+                          </p>
+                        </Badge>
+                      </div>
+
+                      <div className="col-span-1 mr-4 flex justify-end">
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage src={task?.creator?.img} />
+                          <AvatarFallback></AvatarFallback>
+                        </Avatar>
+                      </div>
+
+                      {task?.type == 0 ? (
+                        <div className="col-span-1 hidden justify-end md:flex">
+                          <div className="flex items-center gap-2 text-[#696974]">
+                            <IonIcon
+                              icon={checkmarkCircleOutline}
+                              className="h-5 w-5"
+                              onClick={() =>
+                                openCompleteTaskModal(
+                                  task?.id,
+                                  task?.name,
+                                  task?.description,
+                                )
+                              }
+                            />
+                            <IonIcon
+                              icon={create}
+                              className="h-5 w-5"
+                              onClick={() =>
+                                openEditModalTask(
+                                  task?.id,
+                                  task?.name,
+                                  task?.description,
+                                  task?.priority,
+                                  task?.start,
+                                )
+                              }
+                            />
+                            <IonIcon
+                              icon={trash}
+                              onClick={() => openDestroyTaskModal(task?.id)}
+                              className="h-5 w-5"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="col-span-1 flex justify-end">
+                          <div className="flex items-center gap-2 text-[#696974]">
+                            <Link
+                              to={`/project-manager/${task.task_id}/projects/${task?.id}`}
+                            >
+                              <IonIcon
+                                icon={informationCircle}
+                                className="h-5 w-5"
+                              ></IonIcon>
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
+                  <div className="flex bg-blancoBg md:hidden">
+                    {day?.task.map((task, i) => (
+                      <AccordionMobile
+                        key={i}
+                        task={task}
+                        openCompleteTaskModal={openCompleteTaskModal}
+                        openEditModalTask={openEditModalTask}
+                        openDestroyTaskModal={openDestroyTaskModal}
+                      />
                     ))}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            ))}
-          </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          ))}
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ const CreateOrder = () => {
   const [documentNumber, setDocumentNumber] = useState('');
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [selectedCostCenter, setSelectedCostCenter] = useState('');
+  const [selectedProveedor, setSelectedProveedor] = useState('');
   const [subtotal, setSubtotal] = useState(0);
   const saveUrl ="/shopping/purchase"
 
@@ -24,6 +25,8 @@ const CreateOrder = () => {
         
         
         <DocumentContent
+          selectedProveedor={selectedProveedor}
+          setSelectedProveedor={setSelectedProveedor}
           documentNumber={documentNumber}
           setDocumentNumber={setDocumentNumber}
           selectedWarehouse={selectedWarehouse}

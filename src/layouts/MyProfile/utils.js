@@ -101,3 +101,18 @@ export async function savePermissionGoogle(data) {
 
   return response;
 }
+
+export async function destroyGoogleKeys() {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}google/destroy-apis-google`,
+    {
+      method: "POST",
+      body: [],
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -10,23 +10,7 @@ import {
 import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 
-
-const Inputs = ({categories, warehouses}) => {
- 
-  const [inputsData, setInputsData] = useState({
-    codigoDeArticulo: "",
-    nombreODescripcion: "",
-    centroDeCostos: "",
-    listaDePrecios: "",
-    almacen: "",
-    unidadesDeMedida: "",
-    categoria: "",
-    codigoDeBarras: "",
-    precioUnitario: "",
-    inventario: false,
-    compra: false,
-    venta: false,
-  });
+const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,25 +37,30 @@ const Inputs = ({categories, warehouses}) => {
       <div className="flex flex-wrap gap-4">
         <div className="flex-grow">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Código de Artículo */}
             <Input
               type="text"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              placeholder="Código de Articulo"
+              placeholder="Código de Artículo"
               name="codigoDeArticulo"
-              value={inputsData.codigoDeArticulo}
+              value={inputsData.codigoDeArticulo || ""}
               onChange={handleInputChange}
             />
+
+            {/* Nombre o Descripción */}
             <Input
               type="text"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
-              placeholder="Nombre o descripcion"
+              placeholder="Nombre o descripción"
               name="nombreODescripcion"
-              value={inputsData.nombreODescripcion}
+              value={inputsData.nombreODescripcion || ""}
               onChange={handleInputChange}
             />
+
+            {/* Centro de Costos */}
             <Select
               name="centroDeCostos"
-              value={inputsData.centroDeCostos}
+              value={inputsData.centroDeCostos || ""}
               onValueChange={(value) =>
                 handleSelectChange("centroDeCostos", value)
               }
@@ -80,15 +69,15 @@ const Inputs = ({categories, warehouses}) => {
                 <SelectValue placeholder="Centro de costos" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+                <SelectItem value="1">Option 1</SelectItem>
+                <SelectItem value="2">Option 2</SelectItem>
               </SelectContent>
             </Select>
 
+            {/* Lista de Precios */}
             <Select
               name="listaDePrecios"
-              value={inputsData.listaDePrecios}
+              value={inputsData.listaDePrecios || ""}
               onValueChange={(value) =>
                 handleSelectChange("listaDePrecios", value)
               }
@@ -97,65 +86,76 @@ const Inputs = ({categories, warehouses}) => {
                 <SelectValue placeholder="Lista de precios" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="option1">Option 1</SelectItem>
-                <SelectItem value="option2">Option 2</SelectItem>
-                <SelectItem value="option3">Option 3</SelectItem>
+                <SelectItem value="1">Option 1</SelectItem>
+                <SelectItem value="2">Option 2</SelectItem>
               </SelectContent>
             </Select>
+
+            {/* Almacén */}
             <Select
               name="almacen"
-              value={inputsData.almacen}
+              value={inputsData.almacen || ""}
               onValueChange={(value) => handleSelectChange("almacen", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
-              {warehouses.data.map((warehouse) => (
-                <SelectItem key={warehouse.id} value={warehouse.id}>
-                  {warehouse.name}
-                </SelectItem>
-              ))}
+                {Array.isArray(warehouses.data) &&
+                  warehouses.data.map((warehouse) => (
+                    <SelectItem key={warehouse.id} value={warehouse.id}>
+                      {warehouse.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
+
+            {/* Precio unitario */}
             <Input
               type="number"
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Precio unitario"
-              name="precioUnitario"
+              name="precio"
               min="0"
               step="0.1"
-              value={inputsData.precioUnitario}
+              value={inputsData.precio || ""}
               onChange={handleInputChange}
             />
+
+            {/* Categoría */}
             <Select
               name="categoria"
-              value={inputsData.categoria}
+              value={inputsData.categoria || ""}
               onValueChange={(value) => handleSelectChange("categoria", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent>
-              {categories.data.map((categories) => (
-                <SelectItem key={categories.id} value={categories.id}>
-                  {categories.name}
-                </SelectItem>
-              ))}
+                {Array.isArray(categories.data) &&
+                  categories.data.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
+
+            {/* Código de Barras */}
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Código de barras"
               name="codigoDeBarras"
-              value={inputsData.codigoDeBarras}
+              value={inputsData.codigoDeBarras || ""}
               onChange={handleInputChange}
             />
+
+            {/* Unidades de Medida */}
             <Input
               className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-[#5B89FF]"
               placeholder="Unidades de Medida"
-              name="unidadDeMedida"
-              value={inputsData.unidadesDeMedida}
+              name="unidadesDeMedida"
+              value={inputsData.unidadesDeMedida || ""}
               readOnly
             />
           </div>
@@ -163,11 +163,12 @@ const Inputs = ({categories, warehouses}) => {
 
         <div className="ml-6 flex-shrink-0">
           <div className="flex flex-col space-y-4">
+            {/* Checkbox Inventario */}
             <div className="flex items-center">
               <Checkbox
                 id="inventario"
                 name="inventario"
-                checked={inputsData.inventario}
+                checked={inputsData.inventario || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("inventario", checked)
                 }
@@ -180,11 +181,13 @@ const Inputs = ({categories, warehouses}) => {
                 Inventario
               </label>
             </div>
+
+            {/* Checkbox Compra */}
             <div className="flex items-center">
               <Checkbox
                 id="compra"
                 name="compra"
-                checked={inputsData.compra}
+                checked={inputsData.compra || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("compra", checked)
                 }
@@ -197,11 +200,13 @@ const Inputs = ({categories, warehouses}) => {
                 Compra
               </label>
             </div>
+
+            {/* Checkbox Venta */}
             <div className="flex items-center">
               <Checkbox
                 id="venta"
                 name="venta"
-                checked={inputsData.venta}
+                checked={inputsData.venta || false}
                 onCheckedChange={(checked) =>
                   handleCheckboxChange("venta", checked)
                 }
@@ -214,10 +219,12 @@ const Inputs = ({categories, warehouses}) => {
                 Venta
               </label>
             </div>
+
+            {/* Unidades de Medida Modal */}
             <div className="pl-0 ml-0 pt-4">
               <UnitMeasure
                 onSelect={handleUnitMeasureSelect}
-                initialValue={inputsData.unidadesDeMedida}
+                initialValue={inputsData.unidadesDeMedida || ""}
               />
             </div>
           </div>

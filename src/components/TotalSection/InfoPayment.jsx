@@ -19,6 +19,30 @@ const InfoPayment = ({
       <div className="w-full">
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-2 items-center gap-3">
+            <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="subtotal"
+              value={totalAmount}
+            />
+            <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="taxes"
+              value={balance}
+            />
+            <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="total"
+              value={total}
+            />
             <p className={`text-end text-[10px] font-roboto font-normal text-grisText ${itemClass}`}>
               {titleTotalAmount}
             </p>

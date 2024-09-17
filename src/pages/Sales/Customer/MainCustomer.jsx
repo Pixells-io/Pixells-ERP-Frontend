@@ -10,38 +10,39 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 const MainCustomer = () => {
-  const data = [
-    {
-      id: 1,
-      nombre: "Haleon SA de CV",
-      tipo: "Inmigracion",
-      nacionalidad: "Americana",
-      contacto: "01-432-143-12",
-      email: "haleonadmin@mail.com",
-    },
-    {
-      id: 2,
-      nombre: "SONEPAR RL",
-      tipo: "Inmigracion",
-      nacionalidad: "Americana",
-      contacto: "01-733-342-12",
-      email: "halenonrho@mail.com",
-    },
-    {
-      id: 3,
-      nombre: "Merpol",
-      tipo: "Inmigracion",
-      nacionalidad: "Nacional",
-      contacto: "01-650-983-12",
-      email: "supporthaleon@mail.com",
-    },
-  ];
+  const { data } = useLoaderData();
+  // const data = [
+  //   {
+  //     id: 1,
+  //     nombre: "Haleon SA de CV",
+  //     tipo: "Inmigracion",
+  //     nacionalidad: "Americana",
+  //     contacto: "01-432-143-12",
+  //     email: "haleonadmin@mail.com",
+  //   },
+  //   {
+  //     id: 2,
+  //     nombre: "SONEPAR RL",
+  //     tipo: "Inmigracion",
+  //     nacionalidad: "Americana",
+  //     contacto: "01-733-342-12",
+  //     email: "halenonrho@mail.com",
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: "Merpol",
+  //     tipo: "Inmigracion",
+  //     nacionalidad: "Nacional",
+  //     contacto: "01-650-983-12",
+  //     email: "supporthaleon@mail.com",
+  //   },
+  // ];
 
   const columns = [
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       cell: ({ row }) => {
         return (
@@ -51,24 +52,24 @@ const MainCustomer = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.name}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nacionalidad",
+      accessorKey: "nationality",
       header: "Nacionalidad",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "contacto",
+      accessorKey: "contact",
       header: "Contacto",
     },
     {
@@ -81,15 +82,15 @@ const MainCustomer = () => {
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
           <Link to={`/sales/customer/edit/${row.original.id}`}>
-          <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
           </Link>
         </div>
       ),
@@ -174,7 +175,7 @@ const MainCustomer = () => {
               <DataTable
                 data={data}
                 columns={columns}
-                searchFilter="nombre"
+                searchFilter="name"
                 searchNameFilter="Buscar por nombre"
                 isCheckAll={true}
               />

@@ -37,6 +37,7 @@ const CreditForm = ({ condicionData, setcondicionData, isDisabled }) => {
               value={condicionData[field]}
               onChange={(value) => handleSelectChange(field, value)}
               className={selectClass}
+              disabled={isDisabled}
               type={type}
             />
           </div>

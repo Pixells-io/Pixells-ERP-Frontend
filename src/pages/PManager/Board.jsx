@@ -33,6 +33,7 @@ import EditShowTask from "@/layouts/PManager/components/TaskModals/EditShowTask"
 import CSFDestroy from "./components/CSFDestroy";
 import ProjectDestroy from "./components/ProjectDestroy";
 import EditTask from "./components/Modal/EditTask";
+import AccordionBoard from "./components/Board/AccordionBoard";
 
 const HEADERS = [
   { name: "FCE" },
@@ -166,7 +167,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
         action={`/project-manager/${id}`}
         actionInput="edit-task"
       />
-      <div className="grid grid-cols-10 text-right">
+      <div className="hidden grid-cols-10 text-right md:grid">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -211,14 +212,12 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                 readOnly
               />
             </Form>
-          ) : (
-            false
-          )}
+          ) : null}
         </div>
       </div>
-      <div className="h-full overflow-auto">
+      <div className="h-full w-full overflow-auto">
         {csfs?.map(({ fce, tasks }, i) => (
-          <div className="group flex" key={i}>
+          <div className="group flex w-full" key={i}>
             <DropdownMenu>
               <DropdownMenuTrigger className="flex">
                 <IonIcon
@@ -253,9 +252,9 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 
             <Accordion key={i} type="single" collapsible className="w-full">
               <AccordionItem value={`item-${fce?.id}`}>
-                <AccordionTrigger className="group justify-between gap-2 border-b bg-blancoBg px-4 hover:no-underline">
+                <AccordionTrigger className="group justify-between gap-2 overflow-auto border-b bg-blancoBg px-4 hover:no-underline">
                   {!inputActive ? (
-                    <p className="text-sm font-medium text-primario">
+                    <p className="overflow-hidden text-ellipsis text-nowrap text-sm font-medium text-primario">
                       {fce?.name.toUpperCase()}
                     </p>
                   ) : (
@@ -289,7 +288,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       />
                     </Form>
                   )}
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primario text-sm font-medium text-white">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primario text-sm font-medium text-white">
                     {tasks?.length}
                   </span>
                 </AccordionTrigger>
@@ -313,7 +312,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                     ) => (
                       <div
                         key={i}
-                        className="grid h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right"
+                        className="hidden h-12 grid-cols-10 items-center gap-y-6 border-t-[1px] pr-2 text-right md:grid"
                       >
                         <div></div>
                         {checkColor(task?.priority) !== "#000000" ? (
@@ -456,20 +455,6 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                                   task={task}
                                   csfId={""}
                                 />
-                                // <IonIcon
-                                //   icon={informationCircle}
-                                //   className="h-5 w-5"
-                                //   onClick={() =>
-                                //     openEditModalTask(
-                                //       task?.id,
-                                //       task?.name,
-                                //       task?.description,
-                                //       task?.priority,
-                                //       task?.start,
-                                //       task?.end,
-                                //     )
-                                //   }
-                                // ></IonIcon>
                               )}
                               {destroy && (
                                 <IonIcon
@@ -506,6 +491,40 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       </div>
                     ),
                   )}
+                  <div className="flex flex-col md:hidden">
+                    {tasks?.map(
+                      (
+                        {
+                          task,
+                          task_count,
+                          task_query,
+                          creator,
+                          assigned,
+                          percent,
+                        },
+                        i,
+                      ) => (
+                        <AccordionBoard
+                          key={i}
+                          task={task}
+                          task_count={task_count}
+                          task_query={task_query}
+                          percent={percent}
+                          setModal={setModal}
+                          setTasksModal={setTasksModal}
+                          openCompleteTaskModal={openCompleteTaskModal}
+                          openDestroyTaskModal={openDestroyTaskModal}
+                          setProjectInfo={setProjectInfo}
+                          setModalProject={setModalProject}
+                          edit={edit}
+                          destroy={destroy}
+                          id={id}
+                          users={users}
+                          openEditModalTask={openEditModalTask}
+                        />
+                      ),
+                    )}
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -517,3 +536,18 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
 }
 
 export default Board;
+
+// <IonIcon
+//   icon={informationCircle}
+//   className="h-5 w-5"
+//   onClick={() =>
+//     openEditModalTask(
+//       task?.id,
+//       task?.name,
+//       task?.description,
+//       task?.priority,
+//       task?.start,
+//       task?.end,
+//     )
+//   }
+// ></IonIcon>

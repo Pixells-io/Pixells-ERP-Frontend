@@ -6,6 +6,7 @@ import TableForm from "../../components/Tabs/DataTableForm";
 import DataSection from "../../components/DataSection";
 import ConfirmationButtons from "../../components/ConfirmationButton";
 import { Button } from "@/components/ui/button";
+import StatusInformation from "@/components/StatusInformation/status-information";
 
 const CreateAccount = () => {
   const [debitTotal, setDebitTotal] = useState(0);
@@ -43,22 +44,25 @@ const CreateAccount = () => {
           </h2>
         </div>
 
-        <div className="flex gap-x-12">
+        <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Asiento contable
           </p>
           <Button
             type="button"
-            className=" font-medium	font-poppins text-xs text-[#44444F] bg-inherit rounded-md border-2 border-[#696974] border-dotted hover:bg-inherit h-9 px-8"
+            className="h-9 rounded-md border-2 border-dotted border-[#696974] bg-inherit px-8 font-poppins text-xs font-medium text-[#44444F] hover:bg-inherit"
           >
             Asociar XML
-          </Button>{" "}
+          </Button>
         </div>
 
         {/* form new account */}
-        <form id="fileinfo" className="flex h-full flex-col overflow-auto">
+        <form
+          id="fileinfo"
+          className="flex h-full flex-col overflow-auto bg-white p-7"
+        >
           <FormInputs />
-          <div className="overflow-container flex-1">
+          <div className="overflow-auto flex-1">
             <TableForm
               className="block overflow-auto"
               setDebitTotal={setDebitTotal}
@@ -66,8 +70,15 @@ const CreateAccount = () => {
             />
           </div>
           <DataSection debitTotal={debitTotal} creditTotal={creditTotal} />
+          <StatusInformation
+            status={"inProgress"}
+            imgUser={
+              "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            }
+          >
+            <ConfirmationButtons />
+          </StatusInformation>
         </form>
-        <ConfirmationButtons />
       </div>
     </div>
   );
