@@ -67,18 +67,17 @@ const CreatePriceList = () => {
     const convertToBoolean = (value) =>
       value === true ? 1 : value === false ? 0 : 0;
 
-    // Create the info object
     const info = {
       name: initialInputs.name || "Default Name",
       based_list: parseInt(initialInputs.based_list) || 0,
       index_list: parseInt(initialInputs.index_list) || 0,
-      rounding: initialInputs.rounding,
+      rounding: convertToBoolean(initialInputs.rounding),
       comments: comments,
       aditional_comments: "",
       type: parseInt(initialInputs.type) || 1,
       from_date: initialInputs.from_date,
       to_date: initialInputs.to_date,
-      principal_list: initialInputs.principal_list,
+      principal_list: convertToBoolean(initialInputs.principal_list),
       productos: data.map((row) => ({
         type: parseInt(row.tipo) || 0,
         product_master_id: parseInt(row.nuevoArticulo) || 0,
@@ -88,6 +87,7 @@ const CreatePriceList = () => {
       })),
     };
  
+    console.log(JSON.stringify(info))
     // Append to FormData
     formData.append("info", JSON.stringify(info));
 
@@ -163,14 +163,16 @@ const CreatePriceList = () => {
             data={initialInputs}
             setData={handleInputChange}
           />
+          <div className="h-80 overflow-auto">
           <DataTable
             type={initialInputs.type}
             initialData={data}
             onDataChange={handleDataChange}
             products={products.data}
-            indRef={indRef}
+            indRef={initialInputs.index_list}
             roundingF={initialInputs.rounding}
           />
+          </div>
           <div className="justify-end">
             <StatusInformation
               status={"inProgress"}
@@ -208,6 +210,6 @@ export async function Action({ request }) {
 
   const formData = await request.formData();
   const response = await savePriceList(formData);
-
   return "0";
+
 }

@@ -15,11 +15,13 @@ import {
   useParams,
   useLocation,
   useSubmit,
+ useNavigate,
 } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { editProduct, getProductById } from "../utils";
 
 const EditArticle = () => {
+  const navigate=useNavigate();
   const { id } = useParams();
   const location = useLocation();
   const data = useLoaderData();
@@ -184,7 +186,7 @@ const EditArticle = () => {
     if (initialValues.productType === "2" && variableData.variables_add.length === 0){
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
-    if (variableData.images.length === 0){
+    if (initialValues.productType === "2" && variableData.images.length === 0){
       newErrors.valoracion = "Se necesita agregar imagenes al producto";
     }
     // Validar método de valoración
@@ -276,11 +278,20 @@ const EditArticle = () => {
     }
 
     formData.append("info", JSON.stringify(info));
-    console.log(info);
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
     submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
+    try {
+      const response = await saveNewProduct(formData);
+      if (response.code === 201) {
+        navigate("/inventory"); // Redirige a "/inventory" usando navigate
+      } else {
+        console.error("Error al crear el producto", response);
+      }
+    } catch (error) {
+      console.error("Error al crear el producto", error);
+    }
   };
   return (
     <div className="flex w-full">
@@ -381,6 +392,5 @@ export default EditArticle;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await editProduct(formData);
-  
-  return "0";
+ return 0;
 }

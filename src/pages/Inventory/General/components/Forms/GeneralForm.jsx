@@ -11,6 +11,7 @@ const GeneralForm = ({ data, setData }) => {
   const [formData, setFormData] = useState({
     sujetoAImpuesto: data.sujetoAImpuesto || false,
     disponibleParaDevolucion: data.disponibleParaDevolucion || false,
+    manufacturaDisponible:data.manufacturaDisponible||false,
     fabricantes: data.fabricantes || "",
     comentario: data.comentario || "",
     activos: data.activos || false,
@@ -171,6 +172,24 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
+      <div></div>
+      <div></div>
+      <div className="col-span-1 flex items-center space-x-10">
+        <Label
+          htmlFor="disponibleParaDevolucion"
+          className="font-roboto text-[14px] text-gris2"
+        >
+          Manufactura Disponible:
+        </Label>
+        <Checkbox
+          id="manufacturaDisponible"
+          name="manufacturaDisponible"
+          checked={formData.manufacturaDisponible}
+          onCheckedChange={() => handleCheckboxChange("manufacturaDisponible")}
+          className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+        />
+      </div>
+      <div></div>
       <div></div>
       <div></div>
       <div className="col-span-1 flex items-center space-x-6">
