@@ -102,7 +102,7 @@ export async function updateQuoteOrder(data) {
   let totalRow = data.getAll("totalRow[]");
   let arrayArticlesNew = [];
   for (let i = 0; i < totalRow.length; i++) {
-    if(data.get(`id_product[${i}]`) != null){
+    if(data.get(`id_product[${i}]`) == ""){
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, redirect, useLoaderData, useParams } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation, useParams } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
 import { IonIcon } from "@ionic/react";
@@ -17,6 +17,7 @@ import ModalCancelQuote from "../../Modals/ModalCancelQuote";
 const EditQuotes = () => {
   const { data } = useLoaderData();
   const [quote, setQuote] = useState(data);
+  const navigation = useNavigation();
 
 
   const { id } = useParams();
@@ -184,9 +185,11 @@ const EditQuotes = () => {
               <Button
                 type="submit"
                 className={`rounded-lg  px-10 text-xs  ${ editable ? "text-white bg-primarioBotones hover:bg-primarioBotones" : "text-[#44444F] bg-[#E0E0E0] hover:bg-[#E0E0E0]"}`}
-                disabled={!editable}
+                disabled={!editable || navigation.state === "submitting"}
               >
-                Guardar
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Aceptar"}
               </Button>
             </StatusInformation>
           </div>
