@@ -54,7 +54,7 @@ export async function editProduct(data) {
       },
     },
   );
-  return response;
+  return response.json();
 }
 
 export async function getCategories() {

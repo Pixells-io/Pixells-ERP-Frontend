@@ -15,13 +15,12 @@ import {
   useParams,
   useLocation,
   useSubmit,
- useNavigate,
+  redirect
 } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { editProduct, getProductById } from "../utils";
 
 const EditArticle = () => {
-  const navigate=useNavigate();
   const { id } = useParams();
   const location = useLocation();
   const data = useLoaderData();
@@ -281,17 +280,8 @@ const EditArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
-    try {
-      const response = await saveNewProduct(formData);
-      if (response.code === 201) {
-        navigate("/inventory"); // Redirige a "/inventory" usando navigate
-      } else {
-        console.error("Error al crear el producto", response);
-      }
-    } catch (error) {
-      console.error("Error al crear el producto", error);
-    }
+    const response = await submit(formData, { method: "POST", action: `/inventory/edit/${id}` });
+    
   };
   return (
     <div className="flex w-full">
@@ -389,8 +379,11 @@ const EditArticle = () => {
 
 export default EditArticle;
 
+
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await editProduct(formData);
- return 0;
+ 
+      return redirect("/inventory"); // Redirige después de una acción exitosa
 }
+
