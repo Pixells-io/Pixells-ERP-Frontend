@@ -24,7 +24,13 @@ import {
   handleDeleteRow,
   handleInputChange,
 } from "./Utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 /**
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
@@ -36,16 +42,17 @@ const QuoteTable = ({
   isEditable,
   allProducts,
   setTableData,
-  tableData
+  tableData,
 }) => {
   const initialRow = {
     item: "",
     code: "",
     value: "",
-    descuento: "",
+    discount: "",
     taxes: "",
     quantity: "",
     unitHidden: "",
+    unit: "",
     delivery_date: "",
     product_idAux: "",
     master_product: "",
@@ -59,12 +66,16 @@ const QuoteTable = ({
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {
-      setTableData(initialItems.length > 0 ? initialItems.map(item => {
-        return {
-          ...item,
-          product_idAux: item.product.value
-        }
-      }) : [initialRow]);
+      setTableData(
+        initialItems.length > 0
+          ? initialItems.map((item) => {
+              return {
+                ...item,
+                product_idAux: item.product.value,
+              };
+            })
+          : [initialRow],
+      );
     } else {
       setTableData([initialRow]);
     }
@@ -77,7 +88,7 @@ const QuoteTable = ({
       array.push({
         ...element,
         label: element.name,
-        value: (index + 1),
+        value: index + 1,
       });
     });
   }
@@ -86,11 +97,21 @@ const QuoteTable = ({
     () => [
       { key: "code", header: "Código", type: "text", disabled: false },
       { key: "value", header: "value", type: "number", disabled: false },
-      { key: "discount", header: "Descuento (%)", type: "number", disabled: false },
+      {
+        key: "discount",
+        header: "Descuento (%)",
+        type: "number",
+        disabled: false,
+      },
       { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
       { key: "quantity", header: "Cantidad", type: "number", disabled: false },
       { key: "unit", header: "Unidad", type: "text", disabled: true },
-      { key: "delivery_date", header: "Fecha de Entrega", type: "date", disabled: false },
+      {
+        key: "delivery_date",
+        header: "Fecha de Entrega",
+        type: "date",
+        disabled: false,
+      },
     ],
     [],
   );
@@ -129,91 +150,100 @@ const QuoteTable = ({
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
-                 <TableCell>
+                <TableCell>
                   <div className="w-[200px]">
-                  <input
-                    type="hidden"
-                    hidden
-                    className="hidden"
-                    readOnly
-                    name={`totalRow[]`}
-                    value={""}
-                  />
-                  <input
-                    type="hidden"
-                    className="hidden"
-                    hidden
-                    readOnly
-                    name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={!!row["id"] ? row["id"] : null}
-                  />
-                  <input
-                    type="hidden"
-                    hidden
-                    className="hidden"
-                    readOnly
-                    name={`master_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={row["master_product"]}
-                  />
-                  <input
-                    type="hidden"
-                    hidden
-                    className="hidden"
-                    readOnly
-                    name={`variations[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={row["variations"]}
-                  />
+                    <input
+                      type="hidden"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`totalRow[]`}
+                      value={""}
+                    />
+                    <input
+                      type="hidden"
+                      className="hidden"
+                      hidden
+                      readOnly
+                      name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={!!row["id"] ? row["id"] : ""}
+                    />
+                    <input
+                      type="hidden"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`master_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={row["master_product"]}
+                    />
+                    <input
+                      type="hidden"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`variations[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={row["variations"]}
+                    />
 
-                  <input
-                    type="text"
-                    hidden
-                    className="hidden"
-                    readOnly
-                    name={`unitHiiden[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={row["unit"]}
-                  />
-                  <Select 
-                    name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                    value={Number(row['product_idAux'])}
-                    required={true}
-                    onValueChange={(e) =>
-                      isEditable &&
-                      handleInputChange(
-                        (currentPage - 1) * itemsPerPage + rowIndex,
-                        "product_idAux",
-                        e,
-                        setTableData,
-                        productsArray
-                      )
-                    }
-                  >
-                    <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                      <SelectValue placeholder={"Producto"} value={Number(row['product_idAux'])} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {
-                        productsArray
-                        .map((product, index) => (<>
-                        {
-                            !tableData.find(td => td.product_idAux == product.value) ? (
-                              <SelectItem key={"product-" + index} value={product.value}>
-                                
-                                 {product.label}
-                              </SelectItem>
-                            ) : (
-                              <SelectItem key={"product-" + index} value={product.value} disabled={true}>
-                                
-                                 {product.label}
-                              </SelectItem>
-                            )
+                    <input
+                      type="text"
+                      hidden
+                      className="hidden"
+                      readOnly
+                      name={`unitHidden[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={row["unit"]}
+                    />
+                    {!!row["id"] ? (
+                      <label>{row["product"].label}</label>
+                    ) : (
+                      <Select
+                        name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                        value={row["product_idAux"]}
+                        required={true}
+                        onValueChange={(e) =>
+                          isEditable &&
+                          handleInputChange(
+                            (currentPage - 1) * itemsPerPage + rowIndex,
+                            "product_idAux",
+                            e,
+                            setTableData,
+                            productsArray,
+                          )
                         }
-                        </>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
+                      >
+                        <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                          <SelectValue
+                            placeholder={"Producto"}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {productsArray.map((product, index) => (
+                            <div key={index}>
+                              {!tableData.find(
+                                (td) => (td.product_idAux == product.value) && td.id == undefined,
+                              ) ? (
+                                <SelectItem
+                                  key={"product-" + index}
+                                  value={String(product.value)}
+                                >
+                                  {product.label}
+                                </SelectItem>
+                              ) : (
+                                <SelectItem
+                                  key={"product-" + index}
+                                  value={String(product.value)}
+                                  disabled={true}
+                                >
+                                  {product.label}
+                                </SelectItem>
+                              )}
+                            </div>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
                   </div>
-                  </TableCell>
+                </TableCell>
                 {columns.map((column) => (
                   <TableCell key={column.key}>
                     <Input
@@ -245,7 +275,7 @@ const QuoteTable = ({
                       readOnly
                       name={`sub_total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={calculateSubTotal(row).toFixed(2)}
-                    />  
+                    />
                     ${calculateSubTotal(row).toFixed(2)}
                   </div>
                 </TableCell>
@@ -258,7 +288,7 @@ const QuoteTable = ({
                       readOnly
                       name={`total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={calculateTotal(row).toFixed(2)}
-                    />  
+                    />
                     ${calculateTotal(row).toFixed(2)}
                     <Button
                       variant="ghost"
@@ -291,18 +321,16 @@ const QuoteTable = ({
         </Table>
       </div>
       {/* Productos que se van a eliminar */}
-      {
-        productDelete.map(pd => (
-          <input
-            type="hidden"
-            hidden
-            className="hidden"
-            readOnly
-            name={`productDelete[]`}
-            value={pd}
-          />
-        ))
-      }
+      {productDelete.map((pd) => (
+        <input
+          type="hidden"
+          hidden
+          className="hidden"
+          readOnly
+          name={`productDelete[]`}
+          value={pd}
+        />
+      ))}
       <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"

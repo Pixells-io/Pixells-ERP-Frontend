@@ -13,7 +13,7 @@ export async function saveNewQuoteOrder(data) {
       discount: data.get(`discount[${i}]`),
       taxes: data.get(`taxes[${i}]`),
       quantity: data.get(`quantity[${i}]`),
-      unit: data.get(`unitHiiden[${i}]`),
+      unit: data.get(`unitHidden[${i}]`),
       delivery_date: data.get(`delivery_date[${i}]`),
       total: data.get(`total[${i}]`),
     });
@@ -110,7 +110,7 @@ export async function updateQuoteOrder(data) {
         discount: data.get(`discount[${i}]`),
         taxes: data.get(`taxes[${i}]`),
         quantity: data.get(`quantity[${i}]`),
-        unit: data.get(`unitHiiden[${i}]`),
+        unit: data.get(`unitHidden[${i}]`),
         delivery_date: data.get(`delivery_date[${i}]`),
         total: data.get(`total[${i}]`),
       });

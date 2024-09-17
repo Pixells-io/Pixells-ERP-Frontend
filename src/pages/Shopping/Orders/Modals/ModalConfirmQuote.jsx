@@ -26,13 +26,8 @@ function ModalConfirmQuote({ id, name }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger>
-        <Button
-          type="button"
-          className="rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
-        >
-          Aceptar Cotización
-        </Button>
+      <DialogTrigger className="py-2 px-2 rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+        Aceptar Cotización
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
