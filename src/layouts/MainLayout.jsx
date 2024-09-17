@@ -322,13 +322,15 @@ function MainLayout() {
         {/* notification center */}
         <div className="flex items-center justify-evenly gap-16">
           <div className="flex items-center gap-3">
-            <IonIcon
-              icon={happyOutline}
-              size="large"
-              className="text-primario"
-              title="Preguntale a Crispin"
-              onClick={openModal}
-            />
+            {import.meta.env.VITE_ORGANIZATIONAL_MODULES === "1" ? (
+              <IonIcon
+                icon={happyOutline}
+                size="large"
+                className="text-primario"
+                title="Preguntale a Crispin"
+                onClick={openModal}
+              />
+            ) : null}
             <Link to={"/calendar"}>
               <IonIcon
                 icon={calendar}
