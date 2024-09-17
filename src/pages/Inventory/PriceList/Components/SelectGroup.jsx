@@ -9,7 +9,8 @@ import {
 import { Label } from "@/components/ui/label";
 import InputForm from "@/components/InputForm/InputForm";
 
-const Inputs = ({ onIndRefChange, data, setData }) => {
+const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData(name, value);
@@ -18,8 +19,9 @@ const Inputs = ({ onIndRefChange, data, setData }) => {
     }
   };
   
-  const handleSelectChange = (name, value) => {
-    setData(name, value);
+  const handleSelectChange = (value) => {
+    setData("based_list", value);
+    setData("principal_list", false); // Establece principal_list a false al seleccionar un item
   };
 
   const handleSwitchChange = () => {
@@ -52,14 +54,17 @@ const Inputs = ({ onIndRefChange, data, setData }) => {
           <Select
             name="based_list"
             value={data.based_list}
-            onValueChange={(value) => handleSelectChange("based_list", value)}
+            onValueChange={handleSelectChange}
           >
             <SelectTrigger className={selectClass}>
               <SelectValue placeholder="Seleccionar lista" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">Lista 1</SelectItem>
-              <SelectItem value="2">Lista 2</SelectItem>
+              {Array.isArray(baseList) && baseList.map((item) => (
+                <SelectItem key={item.id} value={item.id}>
+                  {item.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -72,7 +77,8 @@ const Inputs = ({ onIndRefChange, data, setData }) => {
             name="index_list"
             value={data.index_list}
             onChange={handleChange}
-            className={inputClass}
+            className={`${inputClass} w-20`}
+            step={"0.1"}
           />
         </div>
       </div>

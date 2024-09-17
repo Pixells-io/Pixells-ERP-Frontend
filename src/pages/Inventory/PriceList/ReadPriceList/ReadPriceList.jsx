@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
@@ -7,13 +7,14 @@ import DataTable from "../Components/DataTable/PriceListTable";
 import { Link, useParams, useLoaderData,useLocation } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { getBaseListById } from "../utils";
-
+import { createPusherClient } from "@/lib/pusher";
 const ViewPL = () => {
   const { id } = useParams();
   const location = useLocation();
   const client = useLoaderData();
  const {list, products}=client;
 
+ const [listId, setListId] = useState(id);
   //WEBSOCKET
   const pusherClient = createPusherClient();
 
@@ -25,14 +26,14 @@ const ViewPL = () => {
   useEffect(() => {
     pusherClient.subscribe("inventory/get-price-lists");
 
-    pusherClient.bind(" fill-price-lists", ({ message }) => {
+    pusherClient.bind("fill-price-lists", ({ message }) => {
       getPriceListFunction();
     });
 
     return () => {
       pusherClient.unsubscribe("inventory/get-price-lists");
     };
-  }, [location, productId]);
+  }, [location, listId]);
   
   const [initialInputs, setInitialInputs] = useState({
     name: "",
@@ -166,20 +167,7 @@ const ViewPL = () => {
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
             >
-              <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="button"
-                onClick={handleSubmit}
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
-              >
-                Crear
-              </Button>
+         
             </StatusInformation>
           </div>
         </div>
