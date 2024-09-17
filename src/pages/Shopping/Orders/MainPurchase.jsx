@@ -66,7 +66,7 @@ const MainPurchase = () => {
       header: "fecha cont.",
     },
     {
-      accessorKey: "delivery_date",
+      accessorKey: "document_created",
       header: "Fecha doc.",
     },
     {
@@ -164,7 +164,7 @@ const MainPurchase = () => {
             <DataTable
               data={purchasesInfo}
               columns={columns}
-              searchFilter="ndocumento"
+              searchFilter="document_number"
               searchNameFilter="Buscar por No. Documento"
               isCheckAll={true}
             />
