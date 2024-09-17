@@ -15,6 +15,7 @@ import {
   useParams,
   useLocation,
   useSubmit,
+  redirect
 } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { editProduct, getProductById } from "../utils";
@@ -184,7 +185,7 @@ const EditArticle = () => {
     if (initialValues.productType === "2" && variableData.variables_add.length === 0){
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
-    if (variableData.images.length === 0){
+    if (initialValues.productType === "2" && variableData.images.length === 0){
       newErrors.valoracion = "Se necesita agregar imagenes al producto";
     }
     // Validar método de valoración
@@ -276,11 +277,11 @@ const EditArticle = () => {
     }
 
     formData.append("info", JSON.stringify(info));
-    console.log(info);
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    submit(formData, { action: `/inventory/edit/${id}`, method: "POST" });
+    const response = await submit(formData, { method: "POST", action: `/inventory/edit/${id}` });
+    
   };
   return (
     <div className="flex w-full">
@@ -378,9 +379,11 @@ const EditArticle = () => {
 
 export default EditArticle;
 
+
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await editProduct(formData);
-  
-  return "0";
+ 
+      return redirect("/inventory"); // Redirige después de una acción exitosa
 }
+

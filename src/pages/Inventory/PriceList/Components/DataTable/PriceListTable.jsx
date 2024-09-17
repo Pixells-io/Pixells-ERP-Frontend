@@ -64,7 +64,7 @@ const DataTable = ({
     }))
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   const handleInputChange = useCallback(
     (rowIndex, columnKey, value) => {
@@ -89,7 +89,9 @@ const DataTable = ({
             roundingF
           );
         }
-
+        if (columnKey === "indiceRefactorizacion") {
+          newData[rowIndex].indiceEditable = numericValue;
+        }
         return newData;
       });
     },
@@ -112,7 +114,7 @@ const DataTable = ({
         precioRefactorizacion: 0,
       },
     ]);
-  }, [indRef]);
+  }, [indRef,type]);
 
   const handleDeleteRow = useCallback((rowIndex) => {
     setTableData((prevData) => {
@@ -169,8 +171,8 @@ const DataTable = ({
     "border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones";
 
   return (
-    <div className="flex flex-col rounded-lg bg-white p-4">
-      <Table className="w-full">
+     <div className="flex flex-col rounded-lg bg-white p-4">
+      <Table >
         <TableHeader>
           <TableRow className="border-b-primarioBotones text-xs font-normal text-grisText">
             <TableHead className="text-center">Nuevo artículo</TableHead>
@@ -184,8 +186,7 @@ const DataTable = ({
           </TableRow>
         </TableHeader>
       </Table>
-      <div className="h-40 overflow-auto">
-        <Table className="w-full">
+        <Table>
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
@@ -307,7 +308,6 @@ const DataTable = ({
             ))}
           </TableBody>
         </Table>
-      </div>
       <div className="mt-4 flex items-center justify-between">
         <IonIcon
           icon={addCircle}

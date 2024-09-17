@@ -38,7 +38,7 @@ const InventoryForm = ({ data, setData }) => {
 
   const inputClasses =
     "border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-console.log(formData)
+
   return (
     <div className="grid grid-cols-2 gap-6">
       {/* Primera columna */}

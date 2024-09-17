@@ -227,7 +227,6 @@ const CreateArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    console.log(info)
     try {
       const response = await saveNewProduct(formData);
       if (response.code === 201) {
