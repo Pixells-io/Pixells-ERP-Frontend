@@ -6,11 +6,13 @@ import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
 import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { savePriceList } from "../utils";
+import { getBaseListById, savePriceList } from "../utils";
+
 const CreatePriceList = () => {
   const selectsdata = useLoaderData();
   const submit = useSubmit();
-  const { based_list, products } = selectsdata;
+  const { base_list, products } = selectsdata;
+ 
   const [initialInputs, setInitialInputs] = useState({
     name: "",
     based_list: "",
@@ -19,11 +21,14 @@ const CreatePriceList = () => {
     rounding: false,
     from_date: "",
     to_date: "",
-    principal_list: false,
+    principal_list: true,
   });
 
+
+  //Value for new products
   const [indRef, setIndRef] = useState("");
 
+  //arrays for products
   const [data, setData] = useState([
     {
       tipo: initialInputs.type,
@@ -37,18 +42,23 @@ const CreatePriceList = () => {
       precioRefactorizacion: 0,
     },
   ]);
+
   const [comments, setComments] = useState("");
 
   
+  
+
   const handleIndRefChange = (value) => {
-    setIndRef(value);
-    setInitialInputs((prev) => ({ ...prev, index_list: value }));
-  };
+  setIndRef(value);
+  setInitialInputs((prev) => ({ ...prev, index_list: value }));
+};
+
 
   const handleDataChange = (newData) => {
     setData(newData);
   };
 
+ 
   const handleInputChange = (name, value) => {
     setInitialInputs((prev) => {
       const newState = { ...prev, [name]: value };
@@ -61,6 +71,7 @@ const CreatePriceList = () => {
       return newState;
     });
   };
+
 
   const handleSubmit = async (event) => {
     const formData = new FormData();
@@ -78,7 +89,7 @@ const CreatePriceList = () => {
       from_date: initialInputs.from_date,
       to_date: initialInputs.to_date,
       principal_list: convertToBoolean(initialInputs.principal_list),
-      productos: data.map((row) => ({
+      products: data.map((row) => ({
         type: parseInt(row.tipo) || 0,
         product_master_id: parseInt(row.nuevoArticulo) || 0,
         based_price: parseFloat(row.precioBase) || 0,
@@ -87,7 +98,7 @@ const CreatePriceList = () => {
       })),
     };
  
-    console.log(JSON.stringify(info))
+    console.log(info)
     // Append to FormData
     formData.append("info", JSON.stringify(info));
 
@@ -159,6 +170,7 @@ const CreatePriceList = () => {
         {/*content */}
         <div className="space-y-4 bg-white p-7">
           <Inputs
+            baseList={base_list.data}
             onIndRefChange={handleIndRefChange}
             data={initialInputs}
             setData={handleInputChange}
@@ -210,6 +222,7 @@ export async function Action({ request }) {
 
   const formData = await request.formData();
   const response = await savePriceList(formData);
+ 
   return "0";
 
 }

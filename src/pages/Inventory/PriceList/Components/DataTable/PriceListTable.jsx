@@ -24,7 +24,7 @@ import {
   closeCircle,
 } from "ionicons/icons";
 
-
+/*FUNCTION TO ROUND */
 const formatNumber = (value, decimalPlaces, rounding) => {
   if (isNaN(value) || value === null) {
     return "";
@@ -53,19 +53,31 @@ const DataTable = ({
   indRef,
   roundingF,
 }) => {
-  const [tableData, setTableData] = useState(
-    
+
+  /*INITIAL VALUES TO TABLE */
+  const [tableData, setTableData] = useState(() => 
     initialData.map((item) => ({
       ...item,
       nuevoArticulo: item.nuevoArticulo || "",
       precioUnitario: parseFloat(item.precioUnitario) || 0,
-      indiceEditable: parseFloat(item.indiceEditable) || 0,
+      indiceRefactorizacion: indRef || 0,
+      indiceEditable: indRef || 0,
       precioRefactorizacion: parseFloat(item.precioRefactorizacion) || 0,
     }))
   );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  useEffect(() => {
+    setTableData(prevData => 
+      prevData.map(row => ({
+        ...row,
+        indiceRefactorizacion: indRef || 0,
+        indiceEditable: indRef || 0,
+      }))
+    );
+  }, [indRef]);
 
+/*CHANGES TO VALUES  */
   const handleInputChange = useCallback(
     (rowIndex, columnKey, value) => {
       const numericValue = parseFloat(value);
@@ -98,6 +110,7 @@ const DataTable = ({
     [roundingF]
   );
 
+  /*ACTIONS TABLE*/
   const handleAddRow = useCallback(() => {
     
     setTableData((prevData) => [
@@ -135,10 +148,13 @@ const DataTable = ({
     currentPage * itemsPerPage
   );
 
+/*PAGINATION */
   const handleNextPage = () =>
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
+
+  /*PRODUCT SELECT*/
   const handleSelectChange = (rowIndex, productId) => {
     const selectedProduct = products.find(
       (product) => product.id === parseInt(productId)
@@ -150,7 +166,7 @@ const DataTable = ({
         newData[rowIndex] = {
           ...newData[rowIndex],
           descripcion: selectedProduct.name,
-          precioUnitario: parseFloat(selectedProduct.price) || 0,
+          precioBase: parseFloat(selectedProduct.price) || 0,
           nuevoArticulo: productId,
         };
 
@@ -166,7 +182,7 @@ const DataTable = ({
       });
     }
   };
-
+/*STYLE INPUTS */
   const commonInputClass =
     "border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones";
 
@@ -245,6 +261,7 @@ const DataTable = ({
                       handleInputChange(rowIndex, "precioBase", e.target.value)
                     }
                     className={commonInputClass}
+                    readOnly
                   />
                 </TableCell>
                 <TableCell>
@@ -255,6 +272,7 @@ const DataTable = ({
                     onChange={(e) =>
                       handleInputChange(rowIndex, "precioUnitario", e.target.value)
                     }
+                    min={"0.01"}
                     className={commonInputClass}
                   />
                 </TableCell>
@@ -267,6 +285,7 @@ const DataTable = ({
                       handleInputChange(rowIndex, "indiceRefactorizacion", e.target.value)
                     }
                     className={commonInputClass}
+                    readOnly
                   />
                 </TableCell>
                 <TableCell>
@@ -297,7 +316,8 @@ const DataTable = ({
                   <Button
                     onClick={() => handleDeleteRow(rowIndex)}
                     className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
-                  >
+                 
+                 >
                     <IonIcon
                       icon={closeCircle}
                       className="h-6 w-6 cursor-pointer text-grisDisabled"
