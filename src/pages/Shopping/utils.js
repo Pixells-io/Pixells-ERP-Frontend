@@ -219,3 +219,60 @@ export async function saveNewPurchase(data) {
  
   console.log("entra");
 }
+
+
+/* ordenes de compra */
+export async function getPurchases() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}shopping/get-orders`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getPurchase({ params }) {
+  try {
+    const id = params.id;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}shopping/get-order/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function acceptPurchase(data) {
+
+  const info = {
+    order_id: data.get("order_id"),
+    payment_type: data.get("payment_type"),
+    limit_credit_date: data.get("limit_credit_date"),
+  };
+ 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}shopping/accept-orders`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

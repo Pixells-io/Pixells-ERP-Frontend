@@ -405,7 +405,9 @@ import CreateQuoteOrder, {
 import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
 import MainInvoices from "./pages/Shopping/Orders/MainInvoice";
 import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
-import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
+import EditOrders, {
+  Action as PurchaseEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
 import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
 import EditQuotes, {
@@ -414,7 +416,7 @@ import EditQuotes, {
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
+import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1300,6 +1302,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/purchase/",
             element: <MainPurchase />,
+            loader: getPurchases,
           },
           {
             path: "/shopping/purchase/create",
@@ -1309,6 +1312,8 @@ const router = createBrowserRouter([
           {
             path: "/shopping/purchase/edit/:id",
             element: <EditOrders />,
+            loader: getPurchase,
+            action: PurchaseEditAction,
           },
           {
             path: "/shopping/quotes-orders",
