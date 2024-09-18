@@ -52,9 +52,8 @@ const DataTable = ({
   products,
   indRef,
   roundingF,
+  slots
 }) => {
-
-  /*INITIAL VALUES TO TABLE */
   const [tableData, setTableData] = useState(() => 
     initialData.map((item) => ({
       ...item,
@@ -67,17 +66,18 @@ const DataTable = ({
   );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
   useEffect(() => {
     setTableData(prevData => 
       prevData.map(row => ({
         ...row,
+        precioBase:0,
         indiceRefactorizacion: indRef || 0,
         indiceEditable: indRef || 0,
       }))
     );
   }, [indRef]);
 
-/*CHANGES TO VALUES  */
   const handleInputChange = useCallback(
     (rowIndex, columnKey, value) => {
       const numericValue = parseFloat(value);
@@ -86,12 +86,8 @@ const DataTable = ({
         const newData = [...prevData];
         newData[rowIndex] = { ...newData[rowIndex], [columnKey]: numericValue };
 
-        if (columnKey === "listaPrecioBase") {
-          newData[rowIndex].precioBase = newData[rowIndex].precioUnitario = numericValue;
-        }
-
         if (
-          ["precioUnitario", "indiceEditable", "listaPrecioBase"].includes(columnKey)
+          ["precioUnitario", "indiceEditable"].includes(columnKey)
         ) {
           const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
           const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
@@ -110,13 +106,11 @@ const DataTable = ({
     [roundingF]
   );
 
-  /*ACTIONS TABLE*/
   const handleAddRow = useCallback(() => {
-    
     setTableData((prevData) => [
       ...prevData,
       {
-        tipo:type,
+        tipo: type,
         nuevoArticulo: "",
         descripcion: "",
         listaPrecioBase: "",
@@ -127,7 +121,7 @@ const DataTable = ({
         precioRefactorizacion: 0,
       },
     ]);
-  }, [indRef,type]);
+  }, [indRef, type]);
 
   const handleDeleteRow = useCallback((rowIndex) => {
     setTableData((prevData) => {
@@ -148,47 +142,55 @@ const DataTable = ({
     currentPage * itemsPerPage
   );
 
-/*PAGINATION */
-  const handleNextPage = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
+  const handleSelectChange = (rowIndex, field, value) => {
+    setTableData((prevData) => {
+      const newData = [...prevData];
+      
+      if (field === 'description') {
+        const selectedProduct = products.find(product => product.id.toString() === value);
+        if (selectedProduct) {
+          newData[rowIndex] = {
+            ...newData[rowIndex],
+            nuevoArticulo: selectedProduct.id,
+            descripcion: selectedProduct.name
+          };
+        }
+      } else if (field === 'listaPrecioBase') {
+        const selectedSlot = slots.find(slot => slot.price.toString() === value);
+        if (selectedSlot) {
+          newData[rowIndex] = {
+            ...newData[rowIndex],
+            listaPrecioBase: value,
+            precioBase: selectedSlot.price,
+            precioUnitario: selectedSlot.price,
+          };
 
-  /*PRODUCT SELECT*/
-  const handleSelectChange = (rowIndex, productId) => {
-    const selectedProduct = products.find(
-      (product) => product.id === parseInt(productId)
-    );
+          const { precioUnitario = selectedSlot.price, indiceEditable = 0 } = newData[rowIndex];
+          const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
+          newData[rowIndex].precioRefactorizacion = formatNumber(
+            rawPrecioRefactorizacion,
+            2,
+            roundingF
+          );
+        }
+      }
 
-    if (selectedProduct) {
-      setTableData((prevData) => {
-        const newData = [...prevData];
-        newData[rowIndex] = {
-          ...newData[rowIndex],
-          descripcion: selectedProduct.name,
-          precioBase: parseFloat(selectedProduct.price) || 0,
-          nuevoArticulo: productId,
-        };
-
-        const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
-        const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
-        newData[rowIndex].precioRefactorizacion = formatNumber(
-          rawPrecioRefactorizacion,
-          2,
-          roundingF
-        );
-
-        return newData;
-      });
-    }
+      return newData;
+    });
   };
-/*STYLE INPUTS */
+
+
   const commonInputClass =
     "border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones";
+  const selectClass =
+    "border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones";
 
   return (
-     <div className="flex flex-col rounded-lg bg-white p-4">
-      <Table >
+    <div className="flex flex-col rounded-lg bg-white p-4">
+      <Table>
         <TableHeader>
           <TableRow className="border-b-primarioBotones text-xs font-normal text-grisText">
             <TableHead className="text-center">Nuevo artículo</TableHead>
@@ -202,132 +204,134 @@ const DataTable = ({
           </TableRow>
         </TableHeader>
       </Table>
-        <Table>
-          <TableBody>
-            {paginatedData.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`nuevoArticulo-${rowIndex}`}
-                    value={row.nuevoArticulo}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "nuevoArticulo", e.target.value)
-                    }
-                    placeholder={"Ingresa"}
-                    className={commonInputClass}
-                    readOnly
+      <Table>
+      <TableBody>
+          {paginatedData.map((row, rowIndex) => (
+            <TableRow key={rowIndex}>
+              <TableCell>
+                <Input
+                  type="text"
+                  name={`nuevoArticulo-${rowIndex}`}
+                  value={row.nuevoArticulo}
+                  className={commonInputClass}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell>
+                <Select
+                  value={row.nuevoArticulo.toString()}
+                  onValueChange={(value) => handleSelectChange(rowIndex, 'description', value)}
+                >
+                  <SelectTrigger className={selectClass}>
+                    <SelectValue placeholder="Selecciona descripción" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {products.map((product) => (
+                      <SelectItem
+                        key={product.id}
+                        value={product.id.toString()}
+                      >
+                        {product.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </TableCell>
+              <TableCell>
+                <Select
+                  value={row.listaPrecioBase.toString()}
+                  onValueChange={(value) => handleSelectChange(rowIndex, 'listaPrecioBase', value)}
+                >
+                  <SelectTrigger className={selectClass}>
+                    <SelectValue placeholder={row.listaPrecioBase ? `$ ${row.listaPrecioBase}` : "Selecciona precio base"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {slots.map((slot) => (
+                      <SelectItem
+                        key={slot.id}
+                        value={slot.price.toString()}
+                      >
+                        {` $ ${slot.price}`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`precioBase-${rowIndex}`}
+                  value={row.precioBase}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "precioBase", e.target.value)
+                  }
+                  className={commonInputClass}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`precioUnitario-${rowIndex}`}
+                  value={row.precioUnitario}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "precioUnitario", e.target.value)
+                  }
+                  min={"0.01"}
+                  className={commonInputClass}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`indiceRefactorizacion-${rowIndex}`}
+                  value={row.indiceRefactorizacion}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "indiceRefactorizacion", e.target.value)
+                  }
+                  className={commonInputClass}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`indiceEditable-${rowIndex}`}
+                  value={row.indiceEditable}
+                  onChange={(e) =>
+                    handleInputChange(rowIndex, "indiceEditable", e.target.value)
+                  }
+                  className={commonInputClass}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  type="number"
+                  name={`precioRefactorizacion-${rowIndex}`}
+                  value={formatNumber(
+                    row.precioRefactorizacion,
+                    2,
+                    roundingF
+                  )}
+                  className={commonInputClass}
+                  readOnly
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => handleDeleteRow(rowIndex)}
+                  className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
+                >
+                  <IonIcon
+                    icon={closeCircle}
+                    className="h-6 w-6 cursor-pointer text-grisDisabled"
                   />
-                </TableCell>
-                <TableCell>
-                  <Select
-                    value={row.nuevoArticulo.toString()}
-                    onValueChange={(value) => handleSelectChange(rowIndex, value)}
-                  >
-                    <SelectTrigger
-                      className={`${commonInputClass} rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones`}
-                    >
-                      <SelectValue placeholder="Selecciona" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {products.map((product) => (
-                        <SelectItem
-                          key={product.id}
-                          value={product.id.toString()}
-                        >
-                          {product.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`listaPrecioBase-${rowIndex}`}
-                    value={row.listaPrecioBase}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "listaPrecioBase", e.target.value)
-                    }
-                    className={commonInputClass}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`precioBase-${rowIndex}`}
-                    value={row.precioBase}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "precioBase", e.target.value)
-                    }
-                    className={commonInputClass}
-                    readOnly
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`precioUnitario-${rowIndex}`}
-                    value={row.precioUnitario}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "precioUnitario", e.target.value)
-                    }
-                    min={"0.01"}
-                    className={commonInputClass}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`indiceRefactorizacion-${rowIndex}`}
-                    value={row.indiceRefactorizacion}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "indiceRefactorizacion", e.target.value)
-                    }
-                    className={commonInputClass}
-                    readOnly
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`indiceEditable-${rowIndex}`}
-                    value={row.indiceEditable}
-                    onChange={(e) =>
-                      handleInputChange(rowIndex, "indiceEditable", e.target.value)
-                    }
-                    className={commonInputClass}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    type="number"
-                    name={`precioRefactorizacion-${rowIndex}`}
-                    value={formatNumber(
-                      row.precioRefactorizacion,
-                      2,
-                      roundingF
-                    )}
-                    className={commonInputClass}
-                    readOnly
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button
-                    onClick={() => handleDeleteRow(rowIndex)}
-                    className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
-                 
-                 >
-                    <IonIcon
-                      icon={closeCircle}
-                      className="h-6 w-6 cursor-pointer text-grisDisabled"
-                    />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       <div className="mt-4 flex items-center justify-between">
         <IonIcon
           icon={addCircle}

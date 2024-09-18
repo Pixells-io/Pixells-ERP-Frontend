@@ -6,28 +6,28 @@ import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
 import { Link, useParams, useLoaderData,useLocation } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { getBaseListById } from "../utils";
+import { getBaseListById, getProductCatalog } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
 const ViewPL = () => {
   const { id } = useParams();
+  console.log(id);
   const location = useLocation();
   const client = useLoaderData();
- const {list, products}=client;
-
+  const {list, products}=client;
  const [listId, setListId] = useState(id);
   //WEBSOCKET
   const pusherClient = createPusherClient();
 
   async function getPriceListFunction(id) {
     let newData = await getBaseListById(id);
-    setBaseListInfo(newData.data);
+    setBaseListInfo(newData);
   }
 
   useEffect(() => {
     pusherClient.subscribe("inventory/get-price-lists");
 
     pusherClient.bind("fill-price-lists", ({ message }) => {
-      getPriceListFunction();
+      getPriceListFunction(message);
     });
 
     return () => {

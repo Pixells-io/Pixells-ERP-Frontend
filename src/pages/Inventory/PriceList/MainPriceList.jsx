@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { Button } from "@/components/ui/button";
-import { getBaseList } from "./utils";
+import { getBaseList, getList } from "./utils";
 
 const MainPriceList = () => {
   const { data } = useLoaderData();
@@ -21,14 +21,14 @@ const MainPriceList = () => {
   const pusherClient = createPusherClient();
 
   async function getPriceListFunction() {
-    let newData = await getBaseList();
+    let newData = await getList();
     setBaseListInfo(newData.data);
   }
 
   useEffect(() => {
     pusherClient.subscribe("inventory/get-price-lists");
 
-    pusherClient.bind(" fill-price-lists", ({ message }) => {
+    pusherClient.bind("fill-price-lists", ({ message }) => {
       getPriceListFunction();
     });
 

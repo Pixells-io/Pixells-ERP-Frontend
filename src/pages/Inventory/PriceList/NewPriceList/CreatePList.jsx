@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,8 @@ import DataTable from "../Components/DataTable/PriceListTable";
 import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { getBaseListById, savePriceList } from "../utils";
+
+
 
 const CreatePriceList = () => {
   const selectsdata = useLoaderData();
@@ -42,15 +44,62 @@ const CreatePriceList = () => {
       precioRefactorizacion: 0,
     },
   ]);
+  const [slotsData, setSlotsData] = useState([]);
 
   const [comments, setComments] = useState("");
 
   
   
-
+  useEffect(() => {
+    const handleBaseListData = async () => {
+      if (initialInputs.based_list > 0) {
+        try {
+          // Enviar el valor envuelto en un objeto con la propiedad `id`
+          const baseListData = await getBaseListById({ id: initialInputs.based_list });
+          setIndRef(baseListData.data.index_list);
+          setInitialInputs(prev => ({
+            ...prev,
+            index_list: baseListData.data.index_list
+          }));
+          console.log(baseListData.data.product_slots)
+          /**
+           * product_master_id: nuevo articulo 
+           * descripcion: select 
+           * precio unitario: price
+           * indice de refactorizacion y indice editable: refactorization_index
+           * type: type
+           */
+        } catch (error) {
+          console.error("Error al obtener la lista base:", error);
+        }
+      }
+    };
+    const extractProductSlots = async () => {
+      if (initialInputs.based_list > 0) {
+        try {
+          const baseListData = await getBaseListById({ id: initialInputs.based_list });
+          const slots = baseListData.data.product_slots.map(slot => ({
+            id: slot.product_master_id,
+            price: slot.price
+          }));
+          setSlotsData(slots); // Guardar los slots en el estado
+        } catch (error) {
+          console.error("Error al obtener los slots de productos:", error);
+        }
+      }
+    };
+    
+  
+    extractProductSlots();
+    handleBaseListData();
+  }, [initialInputs.based_list]);
+  
+  
   const handleIndRefChange = (value) => {
   setIndRef(value);
   setInitialInputs((prev) => ({ ...prev, index_list: value }));
+
+ 
 };
 
 
@@ -177,13 +226,15 @@ const CreatePriceList = () => {
           />
           <div className="h-80 overflow-auto">
           <DataTable
-            type={initialInputs.type}
-            initialData={data}
-            onDataChange={handleDataChange}
-            products={products.data}
-            indRef={initialInputs.index_list}
-            roundingF={initialInputs.rounding}
-          />
+  type={initialInputs.type}
+  initialData={data}
+  onDataChange={handleDataChange}
+  products={products.data}
+  indRef={initialInputs.index_list}
+  roundingF={initialInputs.rounding}
+  slots={slotsData} // Pasar los datos de slots al DataTable
+/>
+
           </div>
           <div className="justify-end">
             <StatusInformation
