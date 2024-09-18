@@ -106,7 +106,6 @@ export async function destroyPriceList(data) {
   const INFO = {
     price_list_id: parseInt(data.get("price_list_id")),
   };
-console.log(INFO)
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/destroy-price-list`,
     {

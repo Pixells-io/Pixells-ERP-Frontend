@@ -156,7 +156,6 @@ const ViewPL = () => {
 export default ViewPL;
 export async function Action({ request }) {
   const formData = await request.formData();
-  console.log(formData.get("price_list_id"))
   const response = await destroyPriceList(formData);
 
   return redirect("/inventory/prices-lists");

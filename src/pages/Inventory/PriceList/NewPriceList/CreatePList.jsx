@@ -119,7 +119,6 @@ const CreatePriceList = () => {
       })),
     };
 
-    console.log(info);
     // Append to FormData
     formData.append("info", JSON.stringify(info));
 
