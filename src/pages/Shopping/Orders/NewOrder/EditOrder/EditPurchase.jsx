@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ModalConfirmPurchase from "../../Modals/ModalConfirmPurchase";
-import { acceptPurchase, cancelPurchase } from "@/pages/Shopping/utils";
+import { acceptPurchase, cancelPurchase, getProducts, updatePurchase } from "@/pages/Shopping/utils";
 import ModalCancelPurchase from "../../Modals/ModalCancelPurchase";
 
 const EditOrders = () => {
@@ -36,6 +36,15 @@ const EditOrders = () => {
   const [modalCancel, setModalCancel] = useState(false);
 
   const url = `/shopping/document/orden/${id}`;
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const getAllProducts = async () => {
+    const response = await getProducts();
+    setAllProducts(response.data);
+  };
 
   return (
     <div className="flex w-full">
@@ -98,8 +107,25 @@ const EditOrders = () => {
         </div>
         <Form
           method="post"
+          action={`/shopping/purchase/edit/${id}`}
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
         >
+          <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="order_id"
+              value={purchase.id}
+            />
+          <input
+              type="hidden"
+              hidden
+              className="hidden"
+              readOnly
+              name="type_option"
+              value={"update_purchase"}
+            />
           <div className="rounded-xl border border-blancoBox p-4">
             <InputsGroup
               documentNumber={documentNumber}
@@ -183,6 +209,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "accept_purchase":
       await acceptPurchase(data);
+      break;
+    case "update_purchase":
+      await updatePurchase(data);
       break;
     case "cancel_purchase":
       await cancelPurchase(data);

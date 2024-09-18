@@ -83,6 +83,24 @@ const MainPurchase = () => {
     {
       accessorKey: "status",
       header: "Estatus",
+      cell: ({ row }) => {
+        return (
+          <div>
+            {row?.original?.status == 1 ? (
+              <label className="rounded-xl bg-[#FAA364] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#FAA364]">
+                Pendiente
+              </label>
+            ) : row?.original?.status == 2 ? (
+              <label className="rounded-xl bg-[#00A259] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#00A259]">
+                Aceptado</label>
+            ) : (
+              row?.original?.status == 3 && 
+              <label className="rounded-xl bg-[#DC1C3B] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#DC1C3B]">
+                Cancelado</label>
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "acciones",
