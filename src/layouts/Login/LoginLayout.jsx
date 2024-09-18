@@ -21,11 +21,11 @@ function Login() {
     }
   }, [actionData]);
 
-  useEffect(() => {
-    Cookies.remove("token");
+  // useEffect(() => {
+  //   Cookies.remove("token");
 
-    if (token !== undefined) return navigate("/");
-  }, []);
+  //   if (token !== undefined) return navigate("/");
+  // }, []);
 
   const passwordInputRef = useRef(null);
 

@@ -168,15 +168,15 @@ function MainLayout() {
 
   const userData = userAuth.data?.user;
 
-  useEffect(() => {
-    async function fetchData() {
-      const user = await getUserByToken();
-      if (user.code == 400) return navigate("/login");
-      setUser(user?.data);
-    }
-    fetchData();
-    if (token == undefined || user.status == 500) return navigate("/login");
-  }, [token]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const user = await getUserByToken();
+  //     if (user.code == 400) return navigate("/login");
+  //     setUser(user?.data);
+  //   }
+  //   fetchData();
+  //   if (token == undefined || user.status == 500) return navigate("/login");
+  // }, [token]);
 
   async function logOutFunction() {
     //First send the request
