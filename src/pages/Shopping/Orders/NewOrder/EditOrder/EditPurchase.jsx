@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Components/Header";
-import { Form, redirect, useLoaderData, useParams } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation, useParams } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
 import InputsGroup from "../Components/ElementGroup";
@@ -12,11 +12,13 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ModalConfirmPurchase from "../../Modals/ModalConfirmPurchase";
-import { acceptPurchase } from "@/pages/Shopping/utils";
+import { acceptPurchase, cancelPurchase } from "@/pages/Shopping/utils";
+import ModalCancelPurchase from "../../Modals/ModalCancelPurchase";
 
 const EditOrders = () => {
   const { data } = useLoaderData();
   const [purchase, setPurchase] = useState(data);
+  const navigation = useNavigation();
 
   const { id } = useParams();
   const [documentNumber, setDocumentNumber] = useState(purchase.document_number);
@@ -26,16 +28,24 @@ const EditOrders = () => {
   const [selectedFechaDoc, setSelectedFechaDoc] = useState(purchase.document_created);
   const [selectedFechaEntrega, setSelectedFechaEntrega] = useState(purchase.delivery_date);
   const [selectedCondicionPago, setSelectedCondicionPago] =
-    useState("condicion1");
+    useState(purchase.payment_condition);
   const [editable, setEditable] = useState(false);
   const [items, setItems] = useState(data.slots_array);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [modalCancel, setModalCancel] = useState(false);
 
   const url = `/shopping/document/orden/${id}`;
 
   return (
     <div className="flex w-full">
+      {/* modals */}
+      <ModalCancelPurchase
+        id={purchase.id}
+        name={purchase.document_number}
+        modal={modalCancel}
+        setModal={setModalCancel}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -135,15 +145,28 @@ const EditOrders = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+                className="w-[120px] rounded-lg border-2 border-[#D7586B] text-xs text-[#D7586B] hover:text-[#D7586B]"
+                onClick={() => setModalCancel(true)}
               >
-                Save
+                Eliminar
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] text-[#8F8F8F] hover:text-[#8F8F8F] hover:bg-inherit"
+                onClick={() => setEditable(false)}
+                disabled={!editable}
+              >
+                Cancelar
               </Button>
               <Button
                 type="submit"
-                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                className={`rounded-lg  px-10 text-xs  ${ editable ? "text-white bg-primarioBotones hover:bg-primarioBotones" : "text-[#44444F] bg-[#E0E0E0] hover:bg-[#E0E0E0]"}`}
+                disabled={!editable || navigation.state === "submitting"}
               >
-                Save for Aproval
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Aceptar"}
               </Button>
             </StatusInformation>
           </div>
@@ -160,6 +183,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "accept_purchase":
       await acceptPurchase(data);
+      break;
+    case "cancel_purchase":
+      await cancelPurchase(data);
       break;
   }
 
