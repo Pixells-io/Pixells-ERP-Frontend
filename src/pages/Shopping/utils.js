@@ -517,3 +517,23 @@ export async function destroyRequestOrder(data) {
 
   return response.json();
 }
+
+export async function cancelRequestOrder(data) {
+
+  const info = {
+    buy_id: data.get("buy_id"),
+  };
+ 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}shopping/cancel-buys`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

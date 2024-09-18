@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, addCircleOutline, add } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -8,13 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import MenuItem from "./Components/Menu";
 import ModalDeletePurchase from "./Modals/ModalDeletePurchase";
-import { destroyPurchase } from "../utils";
+import { destroyPurchase, getPurchases } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const MainPurchase = () => {
   const { data } = useLoaderData();
   const [purchasesInfo, setPurchaseInfo] = useState(data);
   const [modalDeletePurchase, setModalDeletePurchase] = useState(false);
   const [selectPurchase, setSelectPurchase] = useState({ id: 0, name: "" });
+
+  const pusherClient = createPusherClient();
 
   const getMenuItems = (id, name) => [
     {
@@ -120,6 +123,23 @@ const MainPurchase = () => {
       },
     },
   ];
+
+  async function getPurchaseList() {
+    let newData = await getPurchases();
+    setPurchaseInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-shopping-orders");
+
+    pusherClient.bind("fill-shopping-orders", ({ message }) => {
+      getPurchaseList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-shopping-orders");
+    };
+  }, []);
 
   return (
     <div className="flex w-full">

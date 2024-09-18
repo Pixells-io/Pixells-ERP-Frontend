@@ -415,7 +415,9 @@ import EditOrders, {
   Action as PurchaseEditAction,
 } from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
-import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
+import EditRequests, {
+  Action as RequestOrderEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
 import EditQuotes, {
   Action as QuoteOrderEditAction,
 } from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
@@ -1309,6 +1311,7 @@ const router = createBrowserRouter([
             path: "/shopping/request-orders/edit/:id",
             element: <EditRequests />,
             loader: getRequestOrder,
+            action: RequestOrderEditAction,
           },
           {
             path: "/shopping/purchase/",

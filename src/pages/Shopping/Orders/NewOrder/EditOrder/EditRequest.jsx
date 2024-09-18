@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
-import { getProducts } from "@/pages/Shopping/utils";
+import { cancelRequestOrder, getProducts } from "@/pages/Shopping/utils";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
 import InputsGroup from "../Components/ElementGroup";
 import OrderTable from "../Components/OrderFom";
@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ModalCancelRequestOrder from "../../Modals/ModalCancelRequestOrder";
 
 const EditRequests = () => {
   const { data } = useLoaderData();
@@ -51,7 +52,7 @@ const EditRequests = () => {
     requestOrder.payment_condition,
   );
   const [editable, setEditable] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(data.slots_array);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [modalCancel, setModalCancel] = useState(false);
@@ -71,6 +72,13 @@ const EditRequests = () => {
 
   return (
     <div className="flex w-full">
+      {/* Modals */}
+      <ModalCancelRequestOrder
+        id={requestOrder.id}
+        name={requestOrder.document_number}
+        modal={modalCancel}
+        setModal={setModalCancel}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex flex-row justify-end">
@@ -210,7 +218,7 @@ export async function Action({ request }) {
   const data = await request.formData();
   switch (data.get("type_option")) {
     case "cancel_requestOrder":
-      await cancelQuoteOrder(data);
+      await cancelRequestOrder(data);
       break;
   }
 
