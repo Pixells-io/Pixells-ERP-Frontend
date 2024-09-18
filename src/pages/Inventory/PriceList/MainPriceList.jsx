@@ -17,7 +17,6 @@ import { getBaseList, getList } from "./utils";
 const MainPriceList = () => {
   const { data } = useLoaderData();
   const [baseListInfo, setBaseListInfo] = useState(data);
-  console.log(baseListInfo);
   const pusherClient = createPusherClient();
 
   async function getPriceListFunction() {

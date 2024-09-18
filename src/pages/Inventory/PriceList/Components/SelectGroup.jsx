@@ -9,7 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import InputForm from "@/components/InputForm/InputForm";
 
-const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
+const Inputs = ({ baseList, onIndRefChange, data, setData, isEditable }) => {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,11 +19,19 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
     }
   };
   
-  const handleSelectChange = (value) => {
-    setData("based_list", value);
-    setData("principal_list", false); // Establece principal_list a false al seleccionar un item
+  const handleSelectChange = (name, value) => {
+    setData(name, value);
+    if (name === "based_list") {
+      setData("principal_list", false);
+    }
+    if (name === "type") {
+      // Clear dates when changing to "Permanent"
+      if (value === "2") {
+        setData("from_date", "");
+        setData("to_date", "");
+      }
+    }
   };
-
   const handleSwitchChange = () => {
     setData("rounding", !data.rounding);
   };
@@ -45,6 +53,7 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
             value={data.name}
             onChange={handleChange}
             className={inputClass}
+            readOnly={!isEditable} // Make input readOnly based on isEditable
           />
         </div>
         <div>
@@ -54,7 +63,8 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
           <Select
             name="based_list"
             value={data.based_list}
-            onValueChange={handleSelectChange}
+            onValueChange={(value) => handleSelectChange("based_list", value)}
+            disabled={!isEditable} // Disable select if not editable
           >
             <SelectTrigger className={selectClass}>
               <SelectValue placeholder="Seleccionar lista" />
@@ -78,7 +88,9 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
             value={data.index_list}
             onChange={handleChange}
             className={`${inputClass} w-20`}
+            min={"0"}
             step={"0.1"}
+            readOnly // Keep readOnly as is
           />
         </div>
       </div>
@@ -93,6 +105,7 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
               name="type"
               value={data.type}
               onValueChange={(value) => handleSelectChange("type", value)}
+              disabled={!isEditable}
             >
               <SelectTrigger className={selectClass}>
                 <SelectValue placeholder="Selecciona" />
@@ -109,8 +122,8 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
               name="from_date"
               value={data.from_date}
               onChange={handleChange}
-              disabled={data.type === "2"}
-              className={`${inputClass} ${data.type === "2" ? 'bg-gray-200' : 'bg-[#F6F6F6]'} border-none`}
+              disabled={data.type === "2" || !isEditable}
+              className={`${inputClass} ${data.type === "2" || !isEditable ? 'bg-gray-200' : 'bg-[#F6F6F6]'} border-none`}
             />
           </div>
           <div className="flex-1 pt-6">
@@ -119,35 +132,33 @@ const Inputs = ({ baseList, onIndRefChange, data, setData }) => {
               name="to_date"
               value={data.to_date}
               onChange={handleChange}
-              disabled={data.type === "2"}
-              className={`${inputClass} ${data.type === "2" ? 'bg-gray-200' : 'bg-[#F6F6F6]'} border-none`}
+              disabled={data.type === "2" || !isEditable}
+              className={`${inputClass} ${data.type === "2" || !isEditable ? 'bg-gray-200' : 'bg-[#F6F6F6]'} border-none`}
             />
           </div>
         </div>
-        <div className="flex items-end gap-4">
-          <div className="flex items-center space-x-2">
-            <button
-              type="button"
-              role="switch"
-              aria-checked={data.rounding}
-              data-state={data.rounding ? "checked" : "unchecked"}
-              className={`peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 ${
-                data.rounding ? 'bg-[#5B89FF]' : 'bg-input'
-              }`}
-              onClick={handleSwitchChange}
-            >
-              <span
+        {isEditable && (
+          <div className="flex items-end gap-4">
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={data.rounding}
                 data-state={data.rounding ? "checked" : "unchecked"}
-                className={`pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform ${
-                  data.rounding ? 'translate-x-5' : 'translate-x-0'
-                }`}
-              />
-            </button>
-            <Label htmlFor="rounding" className={labelClass}>
-              Redondeo
-            </Label>
+                className={`peer inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 ${data.rounding ? 'bg-[#5B89FF]' : 'bg-input'}`}
+                onClick={handleSwitchChange}
+              >
+                <span
+                  data-state={data.rounding ? "checked" : "unchecked"}
+                  className={`pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform ${data.rounding ? 'translate-x-5' : 'translate-x-0'}`}
+                />
+              </button>
+              <Label htmlFor="rounding" className={labelClass}>
+                Redondeo
+              </Label>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

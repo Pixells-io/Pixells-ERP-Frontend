@@ -24,24 +24,17 @@ import {
   closeCircle,
 } from "ionicons/icons";
 
-/*FUNCTION TO ROUND */
 const formatNumber = (value, decimalPlaces, rounding) => {
   if (isNaN(value) || value === null) {
     return "";
   }
-
   if (rounding) {
     return Math.round(value);
   } else {
     const factor = Math.pow(10, decimalPlaces);
     const roundedValue = Math.floor(value * factor) / factor;
     const decimalPart = value - roundedValue;
-
-    if (decimalPart >= 0.6) {
-      return Math.ceil(value);
-    } else {
-      return roundedValue;
-    }
+    return decimalPart >= 0.6 ? Math.ceil(value) : roundedValue;
   }
 };
 
@@ -52,62 +45,77 @@ const DataTable = ({
   products,
   indRef,
   roundingF,
-  slots
+  priceBaseOptions,
+  isEditable
 }) => {
-  const [tableData, setTableData] = useState(() => 
-    initialData.map((item) => ({
-      ...item,
-      nuevoArticulo: item.nuevoArticulo || "",
-      precioUnitario: parseFloat(item.precioUnitario) || 0,
-      indiceRefactorizacion: indRef || 0,
-      indiceEditable: indRef || 0,
-      precioRefactorizacion: parseFloat(item.precioRefactorizacion) || 0,
-    }))
-  );
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    if (Array.isArray(initialData) && initialData.length > 0) {
+      setTableData(initialData.map(item => ({
+        tipo: item.tipo || type,
+        nuevoArticulo: item.nuevoArticulo || "",
+        descripcion: item.descripcion || "",
+        listaPrecioBase: item.listaPrecioBase || "",
+        precioBase: item.precioBase || 0,
+        precioUnitario: item.precioUnitario || 0,
+        indiceRefactorizacion: item.indiceRefactorizacion || (indRef || 0),
+        indiceEditable: item.indiceEditable || (indRef || 0),
+        precioRefactorizacion: item.precioRefactorizacion || 0,
+      })));
+    } else {
+      setTableData([{
+        tipo: type,
+        nuevoArticulo: "",
+        descripcion: "",
+        listaPrecioBase: "",
+        precioBase: 0,
+        precioUnitario: 0,
+        indiceRefactorizacion: indRef || 0,
+        indiceEditable: indRef || 0,
+        precioRefactorizacion: 0,
+      }]);
+    }
+  }, [initialData, indRef, type]);
+
+  useEffect(() => {
+    if (indRef) {
+      setTableData(prevData =>
+        prevData.map(row => ({
+          ...row,
+          indiceRefactorizacion: indRef,
+          indiceEditable: indRef,
+        }))
+      );
+    }
+  }, [indRef]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  useEffect(() => {
-    setTableData(prevData => 
-      prevData.map(row => ({
-        ...row,
-        precioBase:0,
-        indiceRefactorizacion: indRef || 0,
-        indiceEditable: indRef || 0,
-      }))
-    );
-  }, [indRef]);
-
-  const handleInputChange = useCallback(
-    (rowIndex, columnKey, value) => {
-      const numericValue = parseFloat(value);
-
-      setTableData((prevData) => {
-        const newData = [...prevData];
-        newData[rowIndex] = { ...newData[rowIndex], [columnKey]: numericValue };
-
-        if (
-          ["precioUnitario", "indiceEditable"].includes(columnKey)
-        ) {
-          const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
-          const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
-          newData[rowIndex].precioRefactorizacion = formatNumber(
-            rawPrecioRefactorizacion,
-            2,
-            roundingF
-          );
-        }
-        if (columnKey === "indiceRefactorizacion") {
-          newData[rowIndex].indiceEditable = numericValue;
-        }
-        return newData;
-      });
-    },
-    [roundingF]
-  );
+  const handleInputChange = useCallback((rowIndex, columnKey, value) => {
+    const numericValue = parseFloat(value);
+    setTableData(prevData => {
+      const newData = [...prevData];
+      newData[rowIndex] = { ...newData[rowIndex], [columnKey]: numericValue };
+      if (["precioUnitario", "indiceEditable"].includes(columnKey)) {
+        const { precioUnitario = 0, indiceEditable = 0 } = newData[rowIndex];
+        const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
+        newData[rowIndex].precioRefactorizacion = formatNumber(
+          rawPrecioRefactorizacion,
+          2,
+          roundingF
+        );
+      }
+      if (columnKey === "indiceRefactorizacion") {
+        newData[rowIndex].indiceEditable = numericValue;
+      }
+      return newData;
+    });
+  }, [roundingF]);
 
   const handleAddRow = useCallback(() => {
-    setTableData((prevData) => [
+    setTableData(prevData => [
       ...prevData,
       {
         tipo: type,
@@ -124,7 +132,7 @@ const DataTable = ({
   }, [indRef, type]);
 
   const handleDeleteRow = useCallback((rowIndex) => {
-    setTableData((prevData) => {
+    setTableData(prevData => {
       if (prevData.length > 1) {
         return prevData.filter((_, index) => index !== rowIndex);
       }
@@ -133,7 +141,9 @@ const DataTable = ({
   }, []);
 
   useEffect(() => {
-    onDataChange(tableData);
+    if (tableData.length > 0) {
+      onDataChange(tableData);
+    }
   }, [tableData, onDataChange]);
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
@@ -142,13 +152,12 @@ const DataTable = ({
     currentPage * itemsPerPage
   );
 
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
 
   const handleSelectChange = (rowIndex, field, value) => {
-    setTableData((prevData) => {
+    setTableData(prevData => {
       const newData = [...prevData];
-      
       if (field === 'description') {
         const selectedProduct = products.find(product => product.id.toString() === value);
         if (selectedProduct) {
@@ -159,17 +168,15 @@ const DataTable = ({
           };
         }
       } else if (field === 'listaPrecioBase') {
-        const selectedSlot = slots.find(slot => slot.price.toString() === value);
-        if (selectedSlot) {
+        const selectedOption = priceBaseOptions.find(option => option.id.toString() === value);
+        if (selectedOption) {
           newData[rowIndex] = {
             ...newData[rowIndex],
-            listaPrecioBase: value,
-            precioBase: selectedSlot.price,
-            precioUnitario: selectedSlot.price,
+            listaPrecioBase: selectedOption.id,
+            precioBase: selectedOption.price,
+            precioUnitario: selectedOption.price,
           };
-
-          const { precioUnitario = selectedSlot.price, indiceEditable = 0 } = newData[rowIndex];
-          const rawPrecioRefactorizacion = precioUnitario * indiceEditable;
+          const rawPrecioRefactorizacion = selectedOption.price * newData[rowIndex].indiceEditable;
           newData[rowIndex].precioRefactorizacion = formatNumber(
             rawPrecioRefactorizacion,
             2,
@@ -177,11 +184,9 @@ const DataTable = ({
           );
         }
       }
-
       return newData;
     });
   };
-
 
   const commonInputClass =
     "border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones";
@@ -205,7 +210,7 @@ const DataTable = ({
         </TableHeader>
       </Table>
       <Table>
-      <TableBody>
+        <TableBody>
           {paginatedData.map((row, rowIndex) => (
             <TableRow key={rowIndex}>
               <TableCell>
@@ -226,7 +231,7 @@ const DataTable = ({
                     <SelectValue placeholder="Selecciona descripción" />
                   </SelectTrigger>
                   <SelectContent>
-                    {products.map((product) => (
+                    {Array.isArray(products) && products.map((product) => (
                       <SelectItem
                         key={product.id}
                         value={product.id.toString()}
@@ -246,12 +251,12 @@ const DataTable = ({
                     <SelectValue placeholder={row.listaPrecioBase ? `$ ${row.listaPrecioBase}` : "Selecciona precio base"} />
                   </SelectTrigger>
                   <SelectContent>
-                    {slots.map((slot) => (
+                    {Array.isArray(priceBaseOptions) && priceBaseOptions.map((option) => (
                       <SelectItem
-                        key={slot.id}
-                        value={slot.price.toString()}
+                        key={option.id}
+                        value={option.id.toString()}
                       >
-                        {` $ ${slot.price}`}
+                        {` $ ${option.price}`}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -317,28 +322,32 @@ const DataTable = ({
                   readOnly
                 />
               </TableCell>
-              <TableCell>
-                <Button
-                  onClick={() => handleDeleteRow(rowIndex)}
-                  className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
-                >
-                  <IonIcon
-                    icon={closeCircle}
-                    className="h-6 w-6 cursor-pointer text-grisDisabled"
-                  />
-                </Button>
-              </TableCell>
+              {isEditable && ( // Conditional rendering for delete button
+                <TableCell>
+                  <Button
+                    onClick={() => handleDeleteRow(rowIndex)}
+                    className="ml-auto h-10 w-10 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones"
+                  >
+                    <IonIcon
+                      icon={closeCircle}
+                      className="h-6 w-6 cursor-pointer text-grisDisabled"
+                    />
+                  </Button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className="mt-4 flex items-center justify-between">
-        <IonIcon
-          icon={addCircle}
-          size="small"
-          className="cursor-pointer text-primario"
-          onClick={handleAddRow}
-        />
+        {isEditable && ( // Conditional rendering for add button
+          <IonIcon
+            icon={addCircle}
+            size="small"
+            className="cursor-pointer text-primario"
+            onClick={handleAddRow}
+          />
+        )}
         <div className="flex items-center">
           <IonIcon
             icon={chevronBack}
@@ -359,4 +368,3 @@ const DataTable = ({
 };
 
 export default DataTable;
-

@@ -4,17 +4,15 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
+import { Link, useLoaderData, useSubmit,redirect } from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { getBaseListById, savePriceList } from "../utils";
-
-
 
 const CreatePriceList = () => {
   const selectsdata = useLoaderData();
   const submit = useSubmit();
   const { base_list, products } = selectsdata;
- 
+
   const [initialInputs, setInitialInputs] = useState({
     name: "",
     based_list: "",
@@ -26,88 +24,63 @@ const CreatePriceList = () => {
     principal_list: true,
   });
 
-
   //Value for new products
   const [indRef, setIndRef] = useState("");
-
-  //arrays for products
-  const [data, setData] = useState([
-    {
-      tipo: initialInputs.type,
-      nuevoArticulo: "",
-      descripcion: "",
-      listaPrecioBase: "0",
-      precioBase: 0,
-      precioUnitario: 0,
-      indiceRefactorizacion: 0,
-      indiceEditable: 0.0,
-      precioRefactorizacion: 0,
-    },
-  ]);
-  const [slotsData, setSlotsData] = useState([]);
-
   const [comments, setComments] = useState("");
 
-  
-  
+  const [data, setData] = useState([]);
+  const [slotsData, setSlotsData] = useState([]);
+  const [priceBaseOptions, setPriceBaseOptions] = useState([]);
   useEffect(() => {
     const handleBaseListData = async () => {
       if (initialInputs.based_list > 0) {
         try {
-          // Enviar el valor envuelto en un objeto con la propiedad `id`
-          const baseListData = await getBaseListById({ id: initialInputs.based_list });
+          const baseListData = await getBaseListById({
+            id: initialInputs.based_list,
+          });
           setIndRef(baseListData.data.index_list);
-          setInitialInputs(prev => ({
+          setInitialInputs((prev) => ({
             ...prev,
-            index_list: baseListData.data.index_list
+            index_list: baseListData.data.index_list,
           }));
-          console.log(baseListData.data.product_slots)
-          /**
-           * product_master_id: nuevo articulo 
-           * descripcion: select 
-           * precio unitario: price
-           * indice de refactorizacion y indice editable: refactorization_index
-           * type: type
-           */
+          // Procesa los datos de slots
+          const processedSlots = baseListData.data.product_slots.map(slot => ({
+            tipo: slot.type,
+            nuevoArticulo: slot.product_master_id,
+            descripcion: slot.product_master_id,
+            listaPrecioBase: slot.price,
+            precioBase: parseFloat(slot.price),
+            precioUnitario: parseFloat(slot.price),
+            indiceRefactorizacion: parseFloat(baseListData.data.index_list),
+            indiceEditable: parseFloat(baseListData.data.index_list),
+            precioRefactorizacion: parseFloat(slot.price) * parseFloat(baseListData.data.index_list),
+          }));
+  
+          setSlotsData(processedSlots); // Establece los datos de slots
+          const options = baseListData.data.product_slots.map((slot) => ({
+            id: slot.id,
+            price: slot.price,
+          }));
+          setPriceBaseOptions(options);
         } catch (error) {
           console.error("Error al obtener la lista base:", error);
         }
       }
     };
-    const extractProductSlots = async () => {
-      if (initialInputs.based_list > 0) {
-        try {
-          const baseListData = await getBaseListById({ id: initialInputs.based_list });
-          const slots = baseListData.data.product_slots.map(slot => ({
-            id: slot.product_master_id,
-            price: slot.price
-          }));
-          setSlotsData(slots); // Guardar los slots en el estado
-        } catch (error) {
-          console.error("Error al obtener los slots de productos:", error);
-        }
-      }
-    };
-    
   
-    extractProductSlots();
     handleBaseListData();
   }, [initialInputs.based_list]);
   
-  
+
   const handleIndRefChange = (value) => {
-  setIndRef(value);
-  setInitialInputs((prev) => ({ ...prev, index_list: value }));
-
- 
-};
-
+    setIndRef(value);
+    setInitialInputs((prev) => ({ ...prev, index_list: value }));
+  };
 
   const handleDataChange = (newData) => {
     setData(newData);
   };
 
- 
   const handleInputChange = (name, value) => {
     setInitialInputs((prev) => {
       const newState = { ...prev, [name]: value };
@@ -120,7 +93,6 @@ const CreatePriceList = () => {
       return newState;
     });
   };
-
 
   const handleSubmit = async (event) => {
     const formData = new FormData();
@@ -146,8 +118,7 @@ const CreatePriceList = () => {
         price: parseFloat(row.precioRefactorizacion) || 0,
       })),
     };
- 
-    console.log(info)
+
     // Append to FormData
     formData.append("info", JSON.stringify(info));
 
@@ -156,7 +127,6 @@ const CreatePriceList = () => {
       method: "POST",
     });
   };
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -219,22 +189,23 @@ const CreatePriceList = () => {
         {/*content */}
         <div className="space-y-4 bg-white p-7">
           <Inputs
-            baseList={base_list.data}
+            baseList={base_list.data}//Data base_list
             onIndRefChange={handleIndRefChange}
-            data={initialInputs}
+            data={initialInputs}//products
             setData={handleInputChange}
+            isEditable={true}
           />
           <div className="h-80 overflow-auto">
-          <DataTable
-  type={initialInputs.type}
-  initialData={data}
-  onDataChange={handleDataChange}
-  products={products.data}
-  indRef={initialInputs.index_list}
-  roundingF={initialInputs.rounding}
-  slots={slotsData} // Pasar los datos de slots al DataTable
-/>
-
+            <DataTable
+              type={initialInputs.type}
+              initialData={slotsData}
+              onDataChange={handleDataChange}
+              products={products.data}
+              indRef={initialInputs.index_list}
+              roundingF={initialInputs.rounding}
+              priceBaseOptions={priceBaseOptions}
+              isEditable={true}
+            />
           </div>
           <div className="justify-end">
             <StatusInformation
@@ -270,10 +241,8 @@ const CreatePriceList = () => {
 export default CreatePriceList;
 
 export async function Action({ request }) {
-
   const formData = await request.formData();
   const response = await savePriceList(formData);
- 
-  return "0";
 
+  return redirect("/inventory/prices-lists");
 }
