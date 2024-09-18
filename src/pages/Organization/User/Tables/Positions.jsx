@@ -25,25 +25,25 @@ function PositionsTable({ positions, edit }) {
   const [initialData, setInitialData] = useState(positions);
   const [data, setDataPusher] = useState(initialData);
 
-  const pusherClient = createPusherClient();
+  // const pusherClient = createPusherClient();
 
-  useEffect(() => {
-    pusherClient.subscribe(`private-get-puestos`);
+  // useEffect(() => {
+  //   pusherClient.subscribe(`private-get-puestos`);
 
-    pusherClient.bind("fill-puestos", ({ message }) => {
-      getPuestosFunction();
-    });
+  //   pusherClient.bind("fill-puestos", ({ message }) => {
+  //     getPuestosFunction();
+  //   });
 
-    async function getPuestosFunction() {
-      let newData = await getPosition();
+  //   async function getPuestosFunction() {
+  //     let newData = await getPosition();
 
-      setDataPusher(newData.data);
-    }
+  //     setDataPusher(newData.data);
+  //   }
 
-    return () => {
-      pusherClient.unsubscribe(`private-get-puestos`);
-    };
-  });
+  //   return () => {
+  //     pusherClient.unsubscribe(`private-get-puestos`);
+  //   };
+  // });
 
   const columnHelper = createColumnHelper();
   const [modal, setModal] = useState(false);

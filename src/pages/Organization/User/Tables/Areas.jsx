@@ -19,25 +19,25 @@ function AreasTable({ areas, edit, destroy }) {
   const [initialData, setInitialData] = useState(areas);
   const [data, setDataPusher] = useState(initialData);
 
-  const pusherClient = createPusherClient();
+  // const pusherClient = createPusherClient();
 
-  useEffect(() => {
-    pusherClient.subscribe(`private-get-areas`);
+  // useEffect(() => {
+  //   pusherClient.subscribe(`private-get-areas`);
 
-    pusherClient.bind("fill-areas", ({ message }) => {
-      getAreasFunction();
-    });
+  //   pusherClient.bind("fill-areas", ({ message }) => {
+  //     getAreasFunction();
+  //   });
 
-    async function getAreasFunction() {
-      let newData = await getAreas();
+  //   async function getAreasFunction() {
+  //     let newData = await getAreas();
 
-      setDataPusher(newData.data);
-    }
+  //     setDataPusher(newData.data);
+  //   }
 
-    return () => {
-      pusherClient.unsubscribe(`private-get-areas`);
-    };
-  });
+  //   return () => {
+  //     pusherClient.unsubscribe(`private-get-areas`);
+  //   };
+  // });
 
   const [modal, setModal] = useState(false);
   const [modalDestroy, setModalDestroy] = useState(false);
