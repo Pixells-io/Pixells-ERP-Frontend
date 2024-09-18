@@ -433,6 +433,23 @@ export async function getRequestOrders() {
   }
 }
 
+export async function getRequestOrder({ params }) {
+  try {
+    const id = params.id;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}shopping/get-buy/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function saveNewRequestOrder(data) {
 
   let totalRow = data.getAll("totalRow[]");
@@ -462,6 +479,8 @@ export async function saveNewRequestOrder(data) {
     subtotal: data.get("subtotal"),
     taxes: data.get("taxes"),
     total: data.get("total"),
+    payment_type: data.get("payment_type"),
+    limit_credit_date: data.get("limit_credit_date"),
     products: arrayArticles,
   }
 

@@ -422,7 +422,7 @@ import EditQuotes, {
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder, getRequestOrders } from "./pages/Shopping/utils";
+import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder, getRequestOrder, getRequestOrders } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1308,6 +1308,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/request-orders/edit/:id",
             element: <EditRequests />,
+            loader: getRequestOrder,
           },
           {
             path: "/shopping/purchase/",
