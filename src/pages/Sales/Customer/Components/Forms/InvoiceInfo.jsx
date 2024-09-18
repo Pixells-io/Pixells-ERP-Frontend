@@ -1,43 +1,21 @@
 import React from "react";
-import { Form, useNavigation } from "react-router-dom";
-
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { Form, useNavigation } from "react-router-dom";
 
-const ContactInfoForm = ({
-  contactData,
-  setContactData,
+const InvoiceInfo = ({
+  invoiceData,
+  setInvoiceData,
   onDelete,
   isDisabled,
-  positionTap,
-  contacts,
-  setContacts,
+  invoices,
   supplier_id,
 }) => {
   const handleInputChange = (e) => {
-    setContactData({ ...contactData, [e.target.name]: e.target.value });
+    setInvoiceData({ ...invoiceData, [e.target.name]: e.target.value });
   };
   const navigation = useNavigation();
-
-  const handleCheckboxChange = (checked) => {
-    const auxContacts = contacts.map((contact, index) => {
-      if (positionTap == index) {
-        return {
-          ...contact,
-          princ: true,
-        };
-      } else {
-        return {
-          ...contact,
-          princ: false,
-        };
-      }
-    });
-
-    setContacts(auxContacts);
-  };
 
   const inputClass =
     "w-[300px] rounded-xl border border-gris2-transparent font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones border-none bg-grisBg";
@@ -46,32 +24,37 @@ const ContactInfoForm = ({
     <div className="w-full">
       <Form
         method="post"
-        action={"/shopping/supplier/edit/" + supplier_id}
-        id="contact-form"
-        name="contact-name"
+        action={"/sales/customer/edit/" + supplier_id}
+        id="invoice-form"
+        name="invoice-name"
       >
         <div className="grid grid-cols-3 gap-x-8 gap-y-4">
-          <input type="hidden" hidden name="supplier_id" value={supplier_id} />
           <input
             type="hidden"
             hidden
-            name="contact_id"
-            value={contactData?.id}
+            name="client_transactional_id "
+            value={supplier_id}
           />
-          <input type="hidden" hidden name="type" value={"contact"} />
+          <input
+            type="hidden"
+            hidden
+            name="billing_id"
+            value={invoiceData?.id}
+          />
+          <input type="hidden" hidden name="type" value={"invoceInformation"} />
           <div className="grid grid-cols-12 items-center">
             <div className="col-span-3">
               <Label
                 className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="name"
+                htmlFor="regimen_fiscal"
               >
-                Nombre
+                Régimen Fisc.
               </Label>
             </div>
             <div className="col-span-9">
               <InputRouter
-                name="name"
-                value={contactData.name}
+                name="regimen_fiscal"
+                value={invoiceData.regimen_fiscal}
                 onChange={handleInputChange}
                 placeholder=""
                 className={inputClass}
@@ -84,15 +67,15 @@ const ContactInfoForm = ({
             <div className="col-span-3">
               <Label
                 className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="middle_name"
+                htmlFor="metodo_pago"
               >
-                A. Paterno
+                Método Pago
               </Label>
             </div>
             <div className="col-span-9">
               <InputRouter
-                name="middle_name"
-                value={contactData.middle_name}
+                name="metodo_pago"
+                value={invoiceData.metodo_pago}
                 onChange={handleInputChange}
                 placeholder=""
                 className={inputClass}
@@ -105,15 +88,36 @@ const ContactInfoForm = ({
             <div className="col-span-3">
               <Label
                 className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="last_name"
+                htmlFor="forma_pago"
               >
-                A. Materno
+                Forma Pago
               </Label>
             </div>
             <div className="col-span-9">
               <InputRouter
-                name="last_name"
-                value={contactData.last_name}
+                name="forma_pago"
+                value={invoiceData.forma_pago}
+                onChange={handleInputChange}
+                placeholder=""
+                className={inputClass}
+                disabled={isDisabled}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-12 items-center">
+            <div className="col-span-3">
+              <Label
+                className="w-32 font-roboto text-xs font-light text-gris2"
+                htmlFor="uso_cfdi"
+              >
+                Uso CFD!
+              </Label>
+            </div>
+            <div className="col-span-9">
+              <InputRouter
+                name="uso_cfdi"
+                value={invoiceData.uso_cfdi}
                 onChange={handleInputChange}
                 placeholder=""
                 className={inputClass}
@@ -128,87 +132,23 @@ const ContactInfoForm = ({
                 className="w-32 font-roboto text-xs font-light text-gris2"
                 htmlFor="email"
               >
-                E-mail
+                Email
               </Label>
             </div>
             <div className="col-span-9">
               <InputRouter
                 name="email"
-                type="email"
-                value={contactData.email}
+                value={invoiceData.email}
                 onChange={handleInputChange}
                 placeholder=""
                 className={inputClass}
-                disabled={isDisabled}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-12 items-center">
-            <div className="col-span-3">
-              <Label
-                className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="phone"
-              >
-                Teléfono
-              </Label>
-            </div>
-            <div className="col-span-9">
-              <InputRouter
-                name="phone"
-                type="phone"
-                value={contactData.phone}
-                onChange={handleInputChange}
-                placeholder=""
-                className={inputClass}
-                disabled={isDisabled}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-12 items-center">
-            <div className="col-span-3">
-              <Label
-                className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="position"
-              >
-                Posición
-              </Label>
-            </div>
-            <div className="col-span-9">
-              <InputRouter
-                name="position"
-                value={contactData.position}
-                onChange={handleInputChange}
-                placeholder=""
-                className={inputClass}
-                disabled={isDisabled}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-12 items-center">
-            <div className="col-span-3">
-              <Label
-                className="w-32 font-roboto text-xs font-light text-gris2"
-                htmlFor="principal"
-              >
-                Principal
-              </Label>
-            </div>
-            <div className="col-span-9">
-              <Checkbox
-                id="principal"
-                checked={contactData.principal}
-                onCheckedChange={handleCheckboxChange}
-                className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
                 disabled={isDisabled}
               />
             </div>
           </div>
         </div>
 
-        {contacts.length > 0 && (
+        {invoices.length > 0 && (
           <div className="mt-2 flex w-full justify-end pr-2">
             <Button
               className="rounded-3xl bg-primarioBotones"
@@ -222,13 +162,18 @@ const ContactInfoForm = ({
 
       <Form
         method="post"
-        action={"/shopping/supplier/edit/" + supplier_id}
-        id="delete-contact-form"
-        name="delete-contact-form"
+        action={"/sales/customer/edit/" + supplier_id}
+        id="delete-invoice-form"
+        name="delete-invoice-form"
       >
-        <input type="hidden" hidden name="contact_id" value={contactData?.id} />
-        <input type="hidden" hidden name="type" value={"destroy_contact"} />
-        {contacts.length > 1 && !!contactData?.id && (
+        <input
+          type="hidden"
+          hidden
+          name="client_transactional_id "
+          value={invoiceData?.id}
+        />
+        <input type="hidden" hidden name="type" value={"destroy_invoice"} />
+        {invoices.length > 1 && !!invoiceData?.id && (
           <div className="col-span-3 flex justify-start pt-4">
             <Button
               type="submit"
@@ -249,4 +194,4 @@ const ContactInfoForm = ({
   );
 };
 
-export default ContactInfoForm;
+export default InvoiceInfo;

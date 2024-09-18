@@ -13,8 +13,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 import {
+  createContact,
   createGeneralInfo,
+  destroyContact,
   destroyCustomer,
+  editContact,
   editCustomer,
   editGeneralInfo,
 } from "../utils";
@@ -247,9 +250,11 @@ export async function Action({ request }) {
     case "customer_edit":
       await editCustomer(data);
       break;
+
     case "destroy_customer":
       await destroyCustomer(data);
       return redirect("/sales");
+
     case "generalInfo":
       if (!!data.get("info_id")) {
         await editGeneralInfo(data);
@@ -257,20 +262,22 @@ export async function Action({ request }) {
         await createGeneralInfo(data);
       }
       break;
+
+    case "contact":
+      if (!!data.get("contact_id")) {
+        await editContact(data);
+      } else {
+        await createContact(data);
+      }
+      break;
+    case "destroy_contact":
+      await destroyContact(data);
+      break;
   }
   return "0";
 }
 
-//     case "contact":
-//       if (!!data.get("contact_id")) {
-//         await editContact(data);
-//       } else {
-//         await createContact(data);
-//       }
-//       break;
-//     case "destroy_contact":
-//       await destroyContact(data);
-//       break;
+//
 //     case "invoceInformation":
 //       if (!!data.get("billing_id")) {
 //         await editBillingInfo(data);

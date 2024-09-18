@@ -6,7 +6,7 @@ import InvoiceForm from "./Forms/InvoiceForm";
 import CreditForm from "./Forms/PaymentForm";
 import { Form, useNavigation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import InvoiceFormTap from "@/pages/Shopping/Suppliers/Components/Forms/InvoiceFormTap";
+import InvoiceFormTap from "./Forms/InvoiceFormTap";
 
 const FormGroup = ({ data, isDisabled }) => {
   const navigation = useNavigation();
