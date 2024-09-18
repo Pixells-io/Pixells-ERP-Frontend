@@ -1,53 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import { chevronBack, chevronForward, addCircleOutline, add } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import MenuItem from "./Components/Menu";
 
 const MainPurchase = () => {
-  const data = [
-    {
-      ndocumento: "DOC001",
-      codproveedor: "PROV001",
-      nproveedor: "Proveedor A",
-      importe: 1000.0,
-      impuesto: 160.0,
-      fechac: "2024-07-15",
-      fechad: "2024-07-10",
-      tipo: "Factura",
-      estatus: "En progreso",
-    },
-    {
-      ndocumento: "DOC002",
-      codproveedor: "PROV002",
-      nproveedor: "Proveedor B",
-      importe: 1500.5,
-      impuesto: 240.08,
-      fechac: "2024-07-16",
-      fechad: "2024-07-12",
-      tipo: "Nota de crédito",
-      estatus: "Finalizada",
-    },
-    {
-      ndocumento: "DOC003",
-      codproveedor: "PROV003",
-      nproveedor: "Proveedor C",
-      importe: 750.25,
-      impuesto: 120.04,
-      fechac: "2024-07-17",
-      fechad: "2024-07-14",
-      tipo: "Factura",
-      estatus: "En progreso",
-    },
-  ];
+  const { data } = useLoaderData();
+  const [purchasesInfo, setPurchaseInfo] = useState(data);
 
   const getMenuItems = (id) => [
     {
-      label: "Edit",
+      label: "Detalles Compra",
       isLink: true,
       to: `/shopping/purchase/edit/${id}`,
     },
@@ -60,7 +27,7 @@ const MainPurchase = () => {
 
   const columns = [
     {
-      accessorKey: "ndocumento",
+      accessorKey: "document_number",
       header: "No. Doc",
       cell: ({ row }) => {
         return (
@@ -70,44 +37,44 @@ const MainPurchase = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.ndocumento}</label>
+            <label>{row?.original?.document_number}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "codproveedor",
+      accessorKey: "supplier_code",
       header: "Cod. de Prov",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nproveedor",
+      accessorKey: "supplier_name",
       header: "Nombre Prov",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "importe",
+      accessorKey: "total",
       header: "Importe",
     },
     {
-      accessorKey: "impuesto",
+      accessorKey: "tax",
       header: "Impuesto",
     },
     {
-      accessorKey: "fechac",
+      accessorKey: "delivery_date",
       header: "fecha cont.",
     },
     {
-      accessorKey: "fechad",
+      accessorKey: "document_created",
       header: "Fecha doc.",
     },
     {
-      accessorKey: "tipo",
+      accessorKey: "type",
       header: "Tipo",
     },
     {
-      accessorKey: "estatus",
+      accessorKey: "status",
       header: "Estatus",
     },
     {
@@ -115,7 +82,7 @@ const MainPurchase = () => {
       header: "Acciones",
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
-        const menuItems = getMenuItems(index);
+        const menuItems = getMenuItems(row?.original?.id);
 
         return (
           <div className="flex items-center justify-center">
@@ -164,64 +131,47 @@ const MainPurchase = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Ordenes de compra
           </p>
           <div className="flex items-start justify-start">
             <Link to="/shopping/purchase/create">
-            <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
+              <Button
+                type={"button"}
+                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+                <IonIcon icon={add} className="h-4 w-4" />
+                <span className="text-xs font-medium">Nuevo</span>
+              </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-          <div className="w-full">
-            <Tabs
-              defaultValue="orders"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        <Tabs
+          defaultValue="orders"
+          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        >
+          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+            <TabsTrigger
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="orders"
             >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="orders"
-                >
-                  ORDENES
-                </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="OTRO"
-                >
-                  OTRO
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="orders" className="mt-[-60px] p-2">
-                <DataTable
-                  data={data}
-                  columns={columns}
-                  searchFilter="ndocumento"
-                  searchNameFilter="Buscar por No. Documento"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-              <TabsContent value="OTRO" className="w-full">
-                <div className="flex w-full justify-center">
-                  <div className="w-full max-w-4xl">
-                    <p>CONTENIDO</p>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
+              ORDENES
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="orders" className="mt-[-70px] w-full pt-2">
+            <DataTable
+              data={purchasesInfo}
+              columns={columns}
+              searchFilter="document_number"
+              searchNameFilter="Buscar por No. Documento"
+              isCheckAll={true}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
+    </div>
   );
 };
 
