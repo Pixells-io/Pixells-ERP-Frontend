@@ -298,6 +298,7 @@ function Board({ goal, users, csfs, create, edit, destroy }) {
                       <TaskForm users={users} csfId={fce.id} />
                     </div>
                   </div>
+
                   {tasks?.map(
                     (
                       {

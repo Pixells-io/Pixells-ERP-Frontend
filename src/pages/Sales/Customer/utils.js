@@ -168,3 +168,140 @@ export async function editGeneralInfo(data) {
 
   return response;
 }
+
+export async function createContact(data) {
+  const info = {
+    client_transactional_id: Number(data.get("client_id")),
+    name: data.get("name"),
+    middle_name: data.get("middle_name"),
+    last_name: data.get("last_name"),
+    email: data.get("email"),
+    phone: data.get("phone"),
+    position: data.get("position"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/create-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editContact(data) {
+  const info = {
+    name: data.get("name"),
+    middle_name: data.get("middle_name"),
+    last_name: data.get("last_name"),
+    email: data.get("email"),
+    phone: data.get("phone"),
+    position: data.get("position"),
+    contact_id: data.get("contact_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/edit-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroyContact(data) {
+  const info = {
+    contact_id: data.get("contact_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/destroy-contact`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function createBillingInfo(data) {
+  const info = {
+    client_transactional_id: Number(data.get("client_transactional_id")),
+    regimen_fiscal: data.get("regimen_fiscal"),
+    uso_cfdi: data.get("uso_cfdi"),
+    metodo_pago: data.get("metodo_pago"),
+    email: data.get("email"),
+    forma_pago: data.get("forma_pago"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/create-billing-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editBillingInfo(data) {
+  const info = {
+    client_transactional_id: Number(data.get("client_transactional_id")),
+    billing_id: data.get("billing_id"),
+    regimen_fiscal: data.get("regimen_fiscal"),
+    uso_cfdi: data.get("uso_cfdi"),
+    metodo_pago: data.get("metodo_pago"),
+    email: data.get("email"),
+    forma_pago: data.get("forma_pago"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/edit-billing-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroyBillingInfo(data) {
+  const info = {
+    billing_id: data.get("billing_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}info/destroy-billing-info`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

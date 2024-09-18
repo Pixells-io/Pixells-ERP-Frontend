@@ -3,58 +3,56 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
-import ContactInfoForm from "./ContactInfo";
+import InvoiceInfo from "./InvoiceInfo";
 
-const ContactForm = ({ isDisabled, data }) => {
+const InvoiceFormTap = ({ isDisabled, data }) => {
   // Datos iniciales para las filas
   const [positionTap, setPositionTap] = useState(0);
 
   // Estado inicial de los contactos
-  const [contacts, setContacts] = useState([]);
+  const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
-    if (contacts.length !== data?.contacts?.length) {
+    if (invoices.length !== data?.billing?.length) {
       setPositionTap(0);
     }
-    setContacts(data?.contacts || []);
+    setInvoices(data?.billing || []);
   }, [data]);
 
   const addNewTab = () => {
-    if (contacts.filter((contact) => !contact?.id).length != 0) return;
+    if (invoices.filter((invoice) => !invoice?.id).length != 0) return;
     const newTab = {
-      name: "",
-      middle_name: "",
-      last_name: "",
+      regimen_fiscal: "",
+      uso_cfdi: "",
+      metodo_pago: "",
       email: "",
-      phone: "",
-      position: "",
-      principal: contacts.length > 0 ? false : true,
+      forma_pago: "",
     };
-    setContacts([...contacts, newTab]);
+    setInvoices([...invoices, newTab]);
   };
 
-  const handleContactDataChange = (value) => {
-    const updatedContacts = contacts.map((contact, index) => {
+  const handleInvoiceDataChange = (value) => {
+    const updatedInvoices = invoices.map((invoice, index) => {
       if (positionTap == index) {
         return value;
       } else {
-        return contact;
+        return invoice;
       }
     });
-    setContacts(updatedContacts);
+    setInvoices(updatedInvoices);
   };
 
-  const handleDeleteContact = () => {
-    if (contacts.length <= 1) {
+  const handleDeleteInvoice = () => {
+    if (invoices.length <= 1) {
       return;
     }
 
-    const updatedContacts = contacts.filter(
-      (contact, index) => index !== positionTap,
+    const updatedInvoices = invoices.filter(
+      (invoice, index) => index !== positionTap,
     );
 
-    setContacts(updatedContacts);
-    setPositionTap(updatedContacts.length - 1);
+    setInvoices(updatedInvoices);
+    setPositionTap(updatedInvoices.length - 1);
   };
 
   return (
@@ -68,19 +66,19 @@ const ContactForm = ({ isDisabled, data }) => {
         <div className="space-y-auto flex w-[180px] flex-col">
           <div className="h-full max-h-[180px] w-full overflow-auto pt-2">
             <TabsList className="w-full flex-col space-y-2 bg-transparent">
-              {contacts.map((contact, index) => (
+              {invoices.map((invoice, index) => (
                 <TabsTrigger
                   key={index}
                   value={index}
                   className="min-h-[34px] w-full items-center justify-center rounded-full border border-grisHeading bg-transparent text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-blancoBox data-[state=active]:bg-grisHeading data-[state=active]:text-[#FFFFFF]"
                 >
                   <span className="max-w-[90%] truncate">
-                    {!!contact?.id
-                      ? !!contact.name
-                        ? contact.name
+                    {!!invoice?.id
+                      ? !!invoice.regimen_fiscal
+                        ? invoice.regimen_fiscal
                         : "N/A"
-                      : !!contact.name
-                        ? contact.name
+                      : !!invoice.regimen_fiscal
+                        ? invoice.regimen_fiscal
                         : "Nuevo"}
                   </span>
                 </TabsTrigger>
@@ -95,25 +93,23 @@ const ContactForm = ({ isDisabled, data }) => {
             onClick={addNewTab}
             disabled={
               isDisabled ||
-              contacts.filter((contact) => !contact?.id).length != 0
+              invoices.filter((invoice) => !invoice?.id).length != 0
             }
           >
             <IonIcon icon={addCircle} className="text-xl text-primario" />
           </Button>
         </div>
         <div className="flex-grow">
-          {contacts.map((contact, index) => (
+          {invoices.map((invoice, index) => (
             <TabsContent key={index} value={index} className="h-auto">
-              <ContactInfoForm
-                contactData={contact}
-                setContactData={handleContactDataChange}
-                onDelete={handleDeleteContact}
-                setContacts={setContacts}
-                contacts={contacts}
-                positionTap={positionTap}
+              <InvoiceInfo
+                invoiceData={invoice}
+                setInvoiceData={handleInvoiceDataChange}
+                onDelete={handleDeleteInvoice}
+                invoices={invoices}
                 isDisabled={isDisabled}
                 index={index}
-                client_id={data.id}
+                supplier_id={data.id}
               />
             </TabsContent>
           ))}
@@ -123,4 +119,4 @@ const ContactForm = ({ isDisabled, data }) => {
   );
 };
 
-export default ContactForm;
+export default InvoiceFormTap;
