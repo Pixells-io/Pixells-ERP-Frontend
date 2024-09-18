@@ -60,31 +60,31 @@ function MainOrganization() {
   const [destroy, setDestroy] = useState(true); //4
 
   //CHANGE PERMISSIONS
-  useEffect(() => {
-    const editQuery = permission.data.filter(
-      (item) => item.permision_capability == "2",
-    );
+  // useEffect(() => {
+  //   const editQuery = permission.data.filter(
+  //     (item) => item.permision_capability == "2",
+  //   );
 
-    if (editQuery.length == 0) {
-      setEdit(false);
-    }
+  //   if (editQuery.length == 0) {
+  //     setEdit(false);
+  //   }
 
-    const createQuery = permission.data.filter(
-      (item) => item.permision_capability == "3",
-    );
+  //   const createQuery = permission.data.filter(
+  //     (item) => item.permision_capability == "3",
+  //   );
 
-    if (createQuery.length == 0) {
-      setCreate(false);
-    }
+  //   if (createQuery.length == 0) {
+  //     setCreate(false);
+  //   }
 
-    const destroyQuery = permission.data.filter(
-      (item) => item.permision_capability == "4",
-    );
+  //   const destroyQuery = permission.data.filter(
+  //     (item) => item.permision_capability == "4",
+  //   );
 
-    if (destroyQuery.length == 0) {
-      setDestroy(false);
-    }
-  });
+  //   if (destroyQuery.length == 0) {
+  //     setDestroy(false);
+  //   }
+  // });
 
   return (
     <div className="flex w-full">

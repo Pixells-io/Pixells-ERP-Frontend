@@ -18,7 +18,7 @@ function NotificationChat({ notifications }) {
   const [notificationsPusher, setnotificationsPusher] = useState(notifications);
   // console.log(notificationsPusher);
 
-  const pusherClient = createPusherClient();
+  // const pusherClient = createPusherClient();
 
   if (notificationsPusher === undefined) return;
 
@@ -43,22 +43,22 @@ function NotificationChat({ notifications }) {
     }
   }, [notificationsPusher]);
 
-  useEffect(() => {
-    async function getNotifications() {
-      let newData = await getNotificationsChat();
-      setnotificationsPusher(newData.data);
-    }
+  // useEffect(() => {
+  //   async function getNotifications() {
+  //     let newData = await getNotificationsChat();
+  //     setnotificationsPusher(newData.data);
+  //   }
 
-    pusherClient.subscribe("private-get-chat-list");
+  //   pusherClient.subscribe("private-get-chat-list");
 
-    pusherClient.bind("fill-chat-list", ({ list }) => {
-      getNotifications();
-    });
+  //   pusherClient.bind("fill-chat-list", ({ list }) => {
+  //     getNotifications();
+  //   });
 
-    return () => {
-      pusherClient.unsubscribe("private-get-chat-list");
-    };
-  }, []);
+  //   return () => {
+  //     pusherClient.unsubscribe("private-get-chat-list");
+  //   };
+  // }, []);
 
   return (
     <div className="flex">
