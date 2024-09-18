@@ -56,7 +56,7 @@ const EditRequests = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [modalCancel, setModalCancel] = useState(false);
-  const [paymentType, setPaymentType] = useState(undefined);
+  const [paymentType, setPaymentType] = useState(requestOrder.payment_type);
 
   const getTitle = `Consultando pedido: ${id}`;
   const url = `/shopping/document/pedido/${id}`;
@@ -153,6 +153,7 @@ const EditRequests = () => {
                     type="date"
                     name="limit_credit_date"
                     required={true}
+                    defaultValue={requestOrder.limit_credit_date}
                   />
                 )}
               </div>
