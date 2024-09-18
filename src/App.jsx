@@ -390,8 +390,12 @@ import CreateSupplier, {
   Action as createNewSupplier,
 } from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
-import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
-import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
+import MainRequestOrder, {
+  Action as RequestOrderAction,
+} from "./pages/Shopping/Orders/MainRequest";
+import CreateOrder, {
+  Action as CreateRequestOrder,
+} from "./pages/Shopping/Orders/NewOrder/CreateOrder";
 import MainPurchase, {
   Action as PurchaseAction,
 } from "./pages/Shopping/Orders/MainPurchase";
@@ -418,7 +422,7 @@ import EditQuotes, {
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
+import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder, getRequestOrders } from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -1293,10 +1297,13 @@ const router = createBrowserRouter([
           {
             path: "/shopping/request-orders",
             element: <MainRequestOrder />,
+            loader: getRequestOrders,
+            action: RequestOrderAction,
           },
           {
             path: "/shopping/request-orders/create",
             element: <CreateOrder />,
+            action: CreateRequestOrder,
           },
           {
             path: "/shopping/request-orders/edit/:id",
