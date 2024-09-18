@@ -392,7 +392,9 @@ import CreateSupplier, {
 import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
 import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
 import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
-import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import MainPurchase, {
+  Action as PurchaseAction,
+} from "./pages/Shopping/Orders/MainPurchase";
 import CreateRequest, {
   Action as createPurchase,
 } from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
@@ -1304,6 +1306,7 @@ const router = createBrowserRouter([
             path: "/shopping/purchase/",
             element: <MainPurchase />,
             loader: getPurchases,
+            action: PurchaseAction
           },
           {
             path: "/shopping/purchase/create",

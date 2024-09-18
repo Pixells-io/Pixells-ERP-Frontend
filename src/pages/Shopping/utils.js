@@ -337,3 +337,23 @@ export async function cancelPurchase(data) {
 
   return response.json();
 }
+
+export async function destroyPurchase(data) {
+
+  const info = {
+    order_id: data.get("order_id"),
+  };
+ 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}shopping/destroy-orders`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

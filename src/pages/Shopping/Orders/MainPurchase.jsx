@@ -5,23 +5,30 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import MenuItem from "./Components/Menu";
+import ModalDeletePurchase from "./Modals/ModalDeletePurchase";
+import { destroyPurchase } from "../utils";
 
 const MainPurchase = () => {
   const { data } = useLoaderData();
   const [purchasesInfo, setPurchaseInfo] = useState(data);
+  const [modalDeletePurchase, setModalDeletePurchase] = useState(false);
+  const [selectPurchase, setSelectPurchase] = useState({ id: 0, name: "" });
 
-  const getMenuItems = (id) => [
+  const getMenuItems = (id, name) => [
     {
       label: "Detalles Compra",
       isLink: true,
       to: `/shopping/purchase/edit/${id}`,
     },
     {
-      label: "Cancel",
+      label: "Eliminar",
       isLink: false,
-      onClick: () => {},
+      onClick: () => {
+        setModalDeletePurchase(true);
+        setSelectPurchase({id: id, name: name});
+      },
     },
   ];
 
@@ -82,7 +89,10 @@ const MainPurchase = () => {
       header: "Acciones",
       cell: ({ row }) => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
-        const menuItems = getMenuItems(row?.original?.id);
+        const menuItems = getMenuItems(
+          row?.original?.id,
+          row?.original?.document_number
+        );
 
         return (
           <div className="flex items-center justify-center">
@@ -95,6 +105,13 @@ const MainPurchase = () => {
 
   return (
     <div className="flex w-full">
+      {/* modals */}
+      <ModalDeletePurchase
+        id={selectPurchase.id}
+        name={selectPurchase.name}
+        modal={modalDeletePurchase}
+        setModal={setModalDeletePurchase}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -176,3 +193,10 @@ const MainPurchase = () => {
 };
 
 export default MainPurchase;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await destroyPurchase(formData);
+
+  return redirect("/shopping/purchase");
+}
