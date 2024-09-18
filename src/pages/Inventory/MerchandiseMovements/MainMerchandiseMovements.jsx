@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  addCircleOutline,
+  add,
+} from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import {
   DropdownMenu,
@@ -119,8 +124,8 @@ function MainMerchandiseMovements() {
   //-------------------------------------------
 
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+    <div className="ml-4 flex w-full rounded-md bg-blancoForms">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -139,7 +144,9 @@ function MainMerchandiseMovements() {
               ></IonIcon>
             </div>
           </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
+          <div className="font-roboto text-sm text-grisText">
+            Movimientos de Mercancia{" "}
+          </div>
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
@@ -148,79 +155,42 @@ function MainMerchandiseMovements() {
               INVENTARIO
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
-          </div>
-        </div>
-
-        <div>
-          <p className="font-poppins text-xl font-bold text-grisHeading">
-            Movimientos de Mercancía
-          </p>
-          <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-              <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem className="hover:cursor-pointer focus:bg-hoverModal">
-                  <Link
-                    to="/inventory/merchandise-movements/entry/new"
-                    className="w-full"
-                  >
-                    Entrada
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
-                  <Link
-                    to="/inventory/merchandise-movements/egress/new"
-                    className="w-full"
-                  >
-                    Salida
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </div>
 
         <Tabs
           defaultValue="entry"
-          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          className="h-full overflow-auto rounded-lg pt-2"
         >
-          <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
-            <TabsTrigger
-              value="entry"
-              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-            >
-              ENTRADAS
-            </TabsTrigger>
-            <TabsTrigger
-              value="egress"
-              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-            >
-              SALIDAS
-            </TabsTrigger>
-            <TabsTrigger
-              value="pendings"
-              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-            >
-              PENDIENTES
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="entry" className="mt-[-60px] p-2">
+          <div className="flex">
+            <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
+              Movimientos de Mercancía
+            </p>
+            <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
+              <TabsTrigger
+                value="entry"
+                className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+              >
+                Entradas
+              </TabsTrigger>
+              <TabsTrigger
+                value="egress"
+                className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+              >
+                Salidas
+              </TabsTrigger>
+              <TabsTrigger
+                value="transfer"
+                className="text-grisSubTextdata-[state=active]:bg-white leading- rounded-md border-b-2 px-4 font-roboto text-sm font-normal data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+              >
+                Transpasos
+              </TabsTrigger>
+            </TabsList>
+            <Button className="text gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario">
+              <IonIcon icon={add} className="text-lg"></IonIcon>
+              Nuevo
+            </Button>
+          </div>
+          <TabsContent value="entry" className="rounded-md bg-blancoBg p-2">
             <DataTable
               data={data}
               columns={MovEntryColumns}
@@ -229,7 +199,7 @@ function MainMerchandiseMovements() {
               isCheckAll={true}
             />
           </TabsContent>
-          <TabsContent value="egress" className="mt-[-60px] p-2">
+          <TabsContent value="egress" className="p-2">
             <DataTable
               data={dataEgress}
               columns={MovEgressColumns}
@@ -238,7 +208,7 @@ function MainMerchandiseMovements() {
               isCheckAll={true}
             />
           </TabsContent>
-          <TabsContent value="pendings" className="mt-[-60px] p-2">
+          <TabsContent value="transfer" className="p-2">
             <DataTable
               data={dataPendings}
               columns={MovEntryColumns}
