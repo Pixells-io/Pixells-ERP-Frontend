@@ -7,19 +7,13 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  addCircleOutline,
   add,
 } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
 import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
+import { MovTransferColumns } from "./Transfer/Table/MovTransferColumns";
 
 function MainMerchandiseMovements() {
   //datos de prueba --------------------------
@@ -124,8 +118,8 @@ function MainMerchandiseMovements() {
   //-------------------------------------------
 
   return (
-    <div className="ml-4 flex w-full rounded-md bg-blancoForms">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg px-8 py-4">
+    <div className="ml-2 flex w-full">
+      <div className="ml-2 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -161,61 +155,136 @@ function MainMerchandiseMovements() {
           defaultValue="entry"
           className="h-full overflow-auto rounded-lg pt-2"
         >
-          <div className="flex">
+          <div className="flex justify-between">
             <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
               Movimientos de Mercancía
             </p>
-            <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
-              <TabsTrigger
-                value="entry"
-                className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-              >
-                Entradas
-              </TabsTrigger>
-              <TabsTrigger
-                value="egress"
-                className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-              >
-                Salidas
-              </TabsTrigger>
-              <TabsTrigger
-                value="transfer"
-                className="text-grisSubTextdata-[state=active]:bg-white leading- rounded-md border-b-2 px-4 font-roboto text-sm font-normal data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-              >
-                Transpasos
-              </TabsTrigger>
-            </TabsList>
-            <Button className="text gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario">
-              <IonIcon icon={add} className="text-lg"></IonIcon>
-              Nuevo
-            </Button>
+            <div className="flex justify-end gap-6">
+              <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
+                <TabsTrigger
+                  value="entry"
+                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Entradas
+                </TabsTrigger>
+                <TabsTrigger
+                  value="egress"
+                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Salidas
+                </TabsTrigger>
+                <TabsTrigger
+                  value="transfer"
+                  className="text-grisSubTextdata-[state=active]:bg-white leading- rounded-md border-b-2 px-4 font-roboto text-sm font-normal data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Transpasos
+                </TabsTrigger>
+              </TabsList>
+
+              <Button className="text gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario">
+                <IonIcon icon={add} className="text-lg"></IonIcon>
+                Nuevo
+              </Button>
+            </div>
           </div>
           <TabsContent value="entry" className="rounded-md bg-blancoBg p-2">
-            <DataTable
-              data={data}
-              columns={MovEntryColumns}
-              searchNameFilter={"Nombre"}
-              searchFilter={"name"}
-              isCheckAll={true}
-            />
+            <Tabs
+              defaultValue="entries"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+            >
+              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="entries"
+                >
+                  ENTRADAS
+                </TabsTrigger>
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="scheduled"
+                >
+                  PROGRAMADAS
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="entries" className="mt-[-70px] w-full pt-2">
+                <DataTable
+                  data={data}
+                  columns={MovEntryColumns}
+                  searchNameFilter={"Nombre"}
+                  searchFilter={"name"}
+                  isCheckAll={true}
+                />
+              </TabsContent>
+              <TabsContent value="scheduled" className="mt-4 w-full pt-2">
+                <span>OTRA TABLA</span>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
-          <TabsContent value="egress" className="p-2">
-            <DataTable
-              data={dataEgress}
-              columns={MovEgressColumns}
-              searchNameFilter={"Nombre"}
-              searchFilter={"name"}
-              isCheckAll={true}
-            />
+          <TabsContent value="egress" className="rounded-md bg-blancoBg p-2">
+            <Tabs
+              defaultValue="egress"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+            >
+              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="egress"
+                >
+                  SALIDAS
+                </TabsTrigger>
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="scheduled"
+                >
+                  PROGRAMADAS
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="egress" className="mt-[-70px] w-full pt-2">
+                <DataTable
+                  data={dataEgress}
+                  columns={MovEgressColumns}
+                  searchNameFilter={"Nombre"}
+                  searchFilter={"name"}
+                  isCheckAll={true}
+                />
+              </TabsContent>
+              <TabsContent value="scheduled" className="mt-4 w-full pt-2">
+                <span>OTRA TABLA</span>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
-          <TabsContent value="transfer" className="p-2">
-            <DataTable
-              data={dataPendings}
-              columns={MovEntryColumns}
-              searchNameFilter={"Nombre"}
-              searchFilter={"name"}
-              isCheckAll={true}
-            />
+          <TabsContent value="transfer" className="rounded-md bg-blancoBg p-2">
+            <Tabs
+              defaultValue="request"
+              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+            >
+              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="request"
+                >
+                  SOLICITUDES
+                </TabsTrigger>
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="transfers"
+                >
+                  TRASPASOS
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="request" className="mt-[-70px] w-full pt-2">
+                <DataTable
+                  data={dataEgress}
+                  columns={ MovTransferColumns}
+                  searchNameFilter={"Nombre"}
+                  searchFilter={"name"}
+                  isCheckAll={true}
+                />
+              </TabsContent>
+              <TabsContent value="transfers" className="mt-4 w-full pt-2">
+                <span>OTRA TABLA</span>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
         </Tabs>
       </div>

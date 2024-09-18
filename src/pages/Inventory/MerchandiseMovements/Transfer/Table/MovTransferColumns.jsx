@@ -5,7 +5,7 @@ import { informationCircleOutline} from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-export const MovEntryColumns = [
+export const MovTransferColumns = [
   {
     id: "code",
     accessorKey: "code",
@@ -27,36 +27,32 @@ export const MovEntryColumns = [
   {
     id: "category",
     accessorKey: "category",
-    header: "CATEGORÍA",
+    header: "DESCRIPCIÓN",
     meta: { filterButton: true },
   },
   {
     id: "name",
     accessorKey: "name",
-    header: "NOMBRE",
+    header: "CANT. DE ARTICULOS",
     meta: { filterButton: true },
   },
   {
     id: "unitMeasurement",
     accessorKey: "unitMeasurement",
-    header: "UNIDAD MEDIDA",
+    header: "DE ALMACÉN",
   },
   {
     id: "accountingAccount",
     accessorKey: "accountingAccount",
-    header: "CUENTA CONTABLE",
+    header: "ALMACÉN DESTINO",
   },
-  {
-    id: "type",
-    accessorKey: "type",
-    header: "TIPO",
-  },
+ 
   {
     id: "createdBy",
     accessorKey: "createdBy",
-    header: "CREADO POR",
+    header: "SOLICITANTES",
     cell: ({ row }) => (
-      <div className="flex justify-center">
+      <div className="flex items-center">
         <Avatar className="h-6 w-6">
           <AvatarImage src={row?.original?.createdBy} alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
@@ -67,7 +63,7 @@ export const MovEntryColumns = [
   {
     id: "createdAt",
     accessorKey: "createdAt",
-    header: "CREACIÓN",
+    header: "FECHA ESPERADA",
   },
   {
     id: "acciones",
@@ -82,10 +78,7 @@ export const MovEntryColumns = [
     cell: ({ row }) => (
       <div className="flex justify-center">
         <Link to="/accounting/policy/details">
-          <IonIcon
-            icon={informationCircleOutline}
-            className="text-[#44444f] w-5 h-5"
-          />
+          <span className="text-[#5B89FF] font-roboto text-xs">Ver</span>
         </Link>
       </div>
     ),
