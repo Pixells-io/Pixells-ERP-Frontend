@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline, add } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  addCircleOutline,
+  add,
+} from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -10,6 +15,7 @@ import MenuItem from "./Components/Menu";
 import ModalDeletePurchase from "./Modals/ModalDeletePurchase";
 import { destroyPurchase, getPurchases } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const MainPurchase = () => {
   const { data } = useLoaderData();
@@ -30,7 +36,7 @@ const MainPurchase = () => {
       isLink: false,
       onClick: () => {
         setModalDeletePurchase(true);
-        setSelectPurchase({id: id, name: name});
+        setSelectPurchase({ id: id, name: name });
       },
     },
   ];
@@ -84,6 +90,19 @@ const MainPurchase = () => {
       header: "Tipo",
     },
     {
+      accessorKey: "created",
+      header: "Creado",
+      cell: ({ row }) => {
+        return (
+          <div className="flex justify-center">
+            <Avatar className="size-7">
+              <AvatarImage src={row?.original?.creator?.img} />
+            </Avatar>
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "status",
       header: "Estatus",
       cell: ({ row }) => {
@@ -95,11 +114,14 @@ const MainPurchase = () => {
               </label>
             ) : row?.original?.status == 2 ? (
               <label className="rounded-xl bg-[#00A259] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#00A259]">
-                Aceptado</label>
+                Aceptado
+              </label>
             ) : (
-              row?.original?.status == 3 && 
-              <label className="rounded-xl bg-[#DC1C3B] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#DC1C3B]">
-                Cancelado</label>
+              row?.original?.status == 3 && (
+                <label className="rounded-xl bg-[#DC1C3B] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#DC1C3B]">
+                  Cancelado
+                </label>
+              )
             )}
           </div>
         );
@@ -112,7 +134,7 @@ const MainPurchase = () => {
         const index = row.original.ndocumento; // Obtén el índice de la fila
         const menuItems = getMenuItems(
           row?.original?.id,
-          row?.original?.document_number
+          row?.original?.document_number,
         );
 
         return (

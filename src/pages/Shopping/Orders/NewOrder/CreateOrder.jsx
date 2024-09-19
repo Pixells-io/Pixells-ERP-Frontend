@@ -20,9 +20,9 @@ import InputForm from "@/components/InputForm/InputForm";
 
 const CreateOrder = () => {
   const [documentNumber, setDocumentNumber] = useState("");
-  const [selectedWarehouse, setSelectedWarehouse] = useState("");
-  const [selectedCostCenter, setSelectedCostCenter] = useState("");
-  const [selectedProveedor, setSelectedProveedor] = useState("");
+  const [selectedWarehouse, setSelectedWarehouse] = useState(undefined);
+  const [selectedCostCenter, setSelectedCostCenter] = useState(undefined);
+  const [selectedProveedor, setSelectedProveedor] = useState(undefined);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const navigation = useNavigation();
