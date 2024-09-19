@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import EntrySlotModal from "../Modal/SlotsModal";
 
 const initialRow = {
   idAux: 1,
@@ -173,6 +174,22 @@ const TableForm = ({ tableData, setTableData }) => {
         cell: ({ row, rowIndex }) => <div>{row.total}</div>,
       },
       {
+        accessorKey: "slots",
+        header: "Lotes",
+        cell: ({ row, rowIndex }) => ( <div>
+          <button onClick={() => setIsModalOpen(true)}  className={"rounded-md bg-[#E0E0E0] px-4 py-2"}>Gestionar</button>
+          <EntrySlotModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            productData={productData}
+            lotData={lotData}
+            assignmentData={assignmentData}
+           
+          />
+        </div>
+        ),
+      },
+      {
         accessorKey: "ubication_id",
         header: "Ubicación",
         cell: ({ row, rowIndex }) => (
@@ -221,12 +238,36 @@ const TableForm = ({ tableData, setTableData }) => {
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const productData = {
+    name: "Aceite Vegetal"
+  };
+
+  const lotData = {
+    articleNumber: "239846",
+    description: "Aceite Vegetal",
+    expectedQuantity: 10,
+    received: 10,
+    unitPrice: "$55.00",
+    location: "Almacén MP"
+  };
+
+  const assignmentData = [
+    {
+      internalLot: "239846",
+      quantity: 5,
+      attribute1: "L-001",
+      attribute2: "Z-675/hu",
+      unitPrice: "$55.00",
+      location: "Almacén MP"
+    }
+  ];
   return (
-    <div className="mb-2 rounded-xl">
+    <div className="mb-2 rounded-xl overflow-auto">
       <div className="">
         <Table>
-          <TableHeader>
+          <TableHeader >
             <TableRow className="border-b-2 border-b-primario text-xs font-normal text-grisText">
               {columns.map((column) => (
                 <TableHead key={column.accessorKey}>{column.header}</TableHead>

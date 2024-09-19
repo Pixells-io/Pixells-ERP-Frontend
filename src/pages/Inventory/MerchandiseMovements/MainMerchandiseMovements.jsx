@@ -10,10 +10,10 @@ import {
   add,
 } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
-import { Button } from "@/components/ui/button";
 import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
 import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
 import { MovTransferColumns } from "./Transfer/Table/MovTransferColumns";
+import MenuMovements from "./Components/MenuDrop";
 
 function MainMerchandiseMovements() {
   //datos de prueba --------------------------
@@ -181,10 +181,7 @@ function MainMerchandiseMovements() {
                 </TabsTrigger>
               </TabsList>
 
-              <Button className="text gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario">
-                <IonIcon icon={add} className="text-lg"></IonIcon>
-                Nuevo
-              </Button>
+           <MenuMovements/>
             </div>
           </div>
           <TabsContent value="entry" className="rounded-md bg-blancoBg p-2">

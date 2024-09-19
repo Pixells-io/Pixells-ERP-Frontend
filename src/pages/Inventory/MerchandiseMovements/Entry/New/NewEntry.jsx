@@ -27,6 +27,8 @@ import AlertMessage from "./Modal/AlertMessage";
 import AlertConfirmation from "./Modal/AlertConfirmation";
 import AlertDoNotComply from "./Modal/AlertDoNotComply";
 import ModalQrCode from "./Modal/ModalQrCode";
+import InputForm from "@/components/InputForm/InputForm";
+import { Label } from "@/components/ui/label";
 
 function NewEntry() {
   const [commodity, setCommodity] = useState([]);
@@ -38,18 +40,6 @@ function NewEntry() {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
-        <AlertMessage
-          setModal={setModalQuantityOverCome}
-          modal={modalQuantityOverCome}
-        />
-        <AlertConfirmation
-          setModal={setModalAlertConfirmation}
-          modal={modalAlertConfirmation}
-        />
-        <AlertDoNotComply
-          setModal={setModalDoNotComply}
-          modal={modalDoNotComply}
-        />
         <ModalQrCode setModal={setModalQr} modal={modalQr} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -92,41 +82,44 @@ function NewEntry() {
             Nueva Entrada de Mercancía
           </p>
 
-          <div className="flex items-center justify-end gap-5">
+          <div className="flex justify-end gap-5">
             <Button
-              type="button"
-              className="rounded-3xl bg-[#F0F0F0] h-[28px] px-2 text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
+              type={"button"}
+              className="gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario"
             >
               Convertir a Pedido
             </Button>
-          </div>
-          <div></div>
-          <div className="flex items-end justify-center">
-            <Link to={"/inventory/merchandise-movements"}>
-              <IonIcon
-                icon={closeCircle}
-                size="small"
-                className="cursor-pointer text-grisDisabled"
-              ></IonIcon>
-            </Link>
+
+            <div className="flex items-end justify-center">
+              <Link to={"/inventory/merchandise-movements"}>
+                <IonIcon
+                  icon={closeCircle}
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
+                ></IonIcon>
+              </Link>
+            </div>
           </div>
         </div>
-
-        <div className="flex w-full items-center justify-between rounded-xl bg-blancoBg px-8 p-4">
-          <div className="flex w-full gap-x-8">
+        <div className="rounded-xl overflow-auto bg-blancoBg p-6">
+        <div className="flex flex-wrap w-full gap-4 p-4 rounded-xl border">
             <div>
-              <Input
-                className="w-[243px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-                name={`documentNumber`}
-                // value={row.amount}
-                placeholder="Numero de Documento"
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Código de Articulo
+              </Label>
+              <InputForm
+                className="border-gris2-transparent w-[243px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="documentNumber"
                 type="number"
               />
             </div>
-            <div>
-              <Select name="priceList" className="h-10">
-                <SelectTrigger className="w-[243px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                  <SelectValue placeholder="Lista de Precios" />
+            <div > 
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Lista de Precios
+              </Label>
+              <Select name="priceList">
+                <SelectTrigger className="border-gris2-transparent h-[32px] w-[243px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="light">Light</SelectItem>
@@ -135,38 +128,37 @@ function NewEntry() {
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Input
-                className="w-[94px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F]  focus:border-transparent focus-visible:ring-primarioBotones"
-                name={`order`}
-                // value={row.amount}
-                placeholder="Pedido"
+            <div className="flex-1" >
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Número de pedido
+              </Label>
+              <InputForm
+                className="border-gris2-transparent w-[600px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="order"
                 type="text"
               />
             </div>
-          </div>
-          <div className="flex w-full justify-center px-8">
-            <button type="button" onClick={() => setModalQr(true)}>
-              <IonIcon
-                icon={qrCodeOutline}
-                size="large"
-                className="text-[#5B89FF]"
-              ></IonIcon>
-            </button>
-          </div>
+            <div className="flex-1">
+              <div className="flex justify-center ml-[160px]">
+                <button
+                  type="button"
+                  className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
+                  onClick={() => setModalQr(true)}
+                >
+                  <IonIcon
+                    icon={qrCodeOutline}
+                    size={"large"}
+                    className="text-[#44444F]"
+                  ></IonIcon>
+                </button>
+              </div>
+            </div>
+          
         </div>
 
-        <div className="rounded-xl bg-blancoBg p-6">
+       
           <TableForm tableData={commodity} setTableData={setCommodity} />
-        </div>
-
-        <div className="rounded-xl bg-blancoBg px-8 py-6">
-          <textarea
-            placeholder="Observaciones (esto será visible en la OC)"
-            className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-            name="template"
-          ></textarea>
-        </div>
+      
 
         <StatusInformation
           status="inProgress"
@@ -177,7 +169,7 @@ function NewEntry() {
           <Button
             type="button"
             variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+            className="w-[120px] absolute rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
             onClick={() => alert("cancelar")}
           >
             Cancelar
@@ -190,7 +182,20 @@ function NewEntry() {
             Crear
           </Button>
         </StatusInformation>
+        </div>
       </div>
+      <AlertMessage
+        setModal={setModalQuantityOverCome}
+        modal={modalQuantityOverCome}
+      />
+      <AlertConfirmation
+        setModal={setModalAlertConfirmation}
+        modal={modalAlertConfirmation}
+      />
+      <AlertDoNotComply
+        setModal={setModalDoNotComply}
+        modal={modalDoNotComply}
+      />
     </div>
   );
 }
