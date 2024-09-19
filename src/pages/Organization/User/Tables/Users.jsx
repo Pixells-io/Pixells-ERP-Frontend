@@ -23,25 +23,25 @@ function UsersTable({ users, edit }) {
   const [initialData, setInitialData] = useState(users);
   const [data, setDataPusher] = useState(initialData);
 
-  // const pusherClient = createPusherClient();
+  const pusherClient = createPusherClient();
 
-  // useEffect(() => {
-  //   pusherClient.subscribe(`private-get-users`);
+  useEffect(() => {
+    pusherClient.subscribe(`private-get-users`);
 
-  //   pusherClient.bind("fill-users", ({ message }) => {
-  //     getUsuarios();
-  //   });
+    pusherClient.bind("fill-users", ({ message }) => {
+      getUsuarios();
+    });
 
-  //   async function getUsuarios() {
-  //     let newData = await getUsers();
+    async function getUsuarios() {
+      let newData = await getUsers();
 
-  //     setDataPusher(newData.data);
-  //   }
+      setDataPusher(newData.data);
+    }
 
-  //   return () => {
-  //     pusherClient.unsubscribe(`private-get-users`);
-  //   };
-  // });
+    return () => {
+      pusherClient.unsubscribe(`private-get-users`);
+    };
+  });
 
   async function changeInputValue(id) {
     await changeUserStatus(id);
