@@ -14,6 +14,7 @@ import {
 
 function CustomModal({ isOpen, onClose }) {
   const [chat, setChat] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [modalMode, setModalMode] = useState("w-96 h-[600px] p-6");
 
   if (!isOpen) return null;
@@ -72,7 +73,7 @@ function CustomModal({ isOpen, onClose }) {
       {/* QUESTION SECTION */}
       {modalMode == "h-16 w-96 px-6 py-1" ? null : (
         <div className="flex h-full flex-col-reverse overflow-y-scroll pr-3 pt-4">
-          {chat.reverse().map((response, i) => (
+          {chat.map((response, i) => (
             <MenssageCard
               key={i}
               message={response.message}
@@ -83,9 +84,15 @@ function CustomModal({ isOpen, onClose }) {
         </div>
       )}
       {/* INPUT SEND SECTION */}
+      {isLoading && (
+        <div className="flex items-center justify-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-dashed border-blue-500"></div>
+        </div>
+      )}
+      {/* INPUT SEND SECTION */}
       {modalMode == "h-16 w-96 px-6 py-1" ? null : (
         <div className="pt-4">
-          <QuestionForm setChat={setChat} />
+          <QuestionForm setChat={setChat} setIsLoading={setIsLoading} />
         </div>
       )}
     </div>
