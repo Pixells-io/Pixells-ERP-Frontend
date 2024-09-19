@@ -18,7 +18,7 @@ function InputForm({
       <Input
         id={id}
         type={type}
-        className={cn("text-[#44444f] text-sm h-[32px] rounded-[10px] ", className)}
+        className={cn("text-[#44444f] text-sm h-[32px] rounded-[10px] border border-[#D7D7D7] ", className)}
         name={name}
         placeholder={placeholder}
         defaultValue={defaultValue}

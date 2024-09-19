@@ -15,6 +15,7 @@ import MenuItem from "./Components/Menu";
 import ModalDeleteRequestOrder from "./Modals/ModalDeleteRequestOrder";
 import { destroyRequestOrder, getRequestOrders } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const MainRequestOrder = () => {
   const { data } = useLoaderData();
@@ -87,6 +88,19 @@ const MainRequestOrder = () => {
     {
       accessorKey: "type",
       header: "Tipo",
+    },
+    {
+      accessorKey: "created",
+      header: "Creado",
+      cell: ({ row }) => {
+        return (
+          <div className="flex justify-center">
+            <Avatar className="size-7">
+              <AvatarImage src={row?.original?.creator?.img} />
+            </Avatar>
+          </div>
+        );
+      },
     },
     {
       accessorKey: "status",

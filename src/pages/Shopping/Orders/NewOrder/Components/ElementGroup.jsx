@@ -29,14 +29,16 @@ const InputsGroup = ({
         value={documentNumber}
         onChange={(e) => isEditable && setDocumentNumber(e.target.value)} 
         disabled={!isEditable} 
+        required={true}
       />
       <Select 
         value={selectedWarehouse} 
         onValueChange={handleWarehouseChange} 
         disabled={!isEditable} 
         name="inventory_id"
+        required={true}
       >
-        <SelectTrigger className="h-[32px] w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+        <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
           <SelectValue placeholder="Seleccionar Almacén" />
         </SelectTrigger>
         <SelectContent>
@@ -49,8 +51,9 @@ const InputsGroup = ({
         value={selectedCostCenter} 
         onValueChange={handleCostCenterChange} 
         disabled={!isEditable}
+        required={true}
       >
-        <SelectTrigger name="ccenter" className="w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+        <SelectTrigger name="ccenter" className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
           <SelectValue placeholder="Seleccionar Centro de Costos" />
         </SelectTrigger>
         <SelectContent>

@@ -355,6 +355,7 @@ import {
   getWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 import ViewPL,{Action as deletePriceList}from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
@@ -1151,6 +1152,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/entry/record/:id",
             element: <MerchandiseMovRecord />,
+          },
+          {
+            path: "/inventory/merchandise-movements/entry/traceability/:id",
+            element: <TraceabilityDetails />,
           },
           {
             path: "/inventory/merchandise-movements/egress/new",

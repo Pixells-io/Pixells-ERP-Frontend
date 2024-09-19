@@ -64,6 +64,7 @@ const OrderTable = ({
           value={selectedProveedor}
           onValueChange={isEditable ? handleRedirectNewProvider : () => {}}
           className={!isEditable ? disabledClass : ""}
+          required={true}
         />
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
@@ -75,6 +76,7 @@ const OrderTable = ({
           value={selectedFechaDoc}
           onValueChange={isEditable ? setSelectedFechaDoc : () => {}}
           className={!isEditable ? disabledClass : ""}
+          required={true}
         />
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
@@ -86,6 +88,7 @@ const OrderTable = ({
           value={selectedFechaEntrega}
           onValueChange={isEditable ? setSelectedFechaEntrega : () => {}}
           className={!isEditable ? disabledClass : ""}
+          required={true}
         />
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
@@ -96,6 +99,7 @@ const OrderTable = ({
           value={selectedCondicionPago}
           onValueChange={isEditable ? setSelectedCondicionPago : () => {}}
           className={!isEditable ? disabledClass : ""}
+          required={true}
         />
       </div>
     </div>

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
-import { cancelRequestOrder, getProducts } from "@/pages/Shopping/utils";
+import { cancelRequestOrder, getProducts, updateRequestOrder } from "@/pages/Shopping/utils";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
 import InputsGroup from "../Components/ElementGroup";
 import OrderTable from "../Components/OrderFom";
@@ -89,7 +89,7 @@ const EditRequests = () => {
         </div>
         <Form
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
-          action={`/shopping/quotes-orders/edit/${id}`}
+          action={`/shopping/request-orders/edit/${id}`}
           method="post"
         >
           <input
@@ -97,7 +97,7 @@ const EditRequests = () => {
             hidden
             className="hidden"
             readOnly
-            name="order_id"
+            name="buy_id"
             value={requestOrder.id}
           />
           <input
@@ -136,8 +136,9 @@ const EditRequests = () => {
                   value={paymentType}
                   required={true}
                   onValueChange={(e) => setPaymentType(e)}
+                  disabled={!editable}
                 >
-                  <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                     <SelectValue placeholder={"Payment type"} />
                   </SelectTrigger>
                   <SelectContent>
@@ -154,6 +155,7 @@ const EditRequests = () => {
                     name="limit_credit_date"
                     required={true}
                     defaultValue={requestOrder.limit_credit_date}
+                    disabled={!editable}
                   />
                 )}
               </div>
@@ -220,6 +222,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "cancel_requestOrder":
       await cancelRequestOrder(data);
+      break;
+    case "update_requestOrder":
+      await updateRequestOrder(data);
       break;
   }
 
