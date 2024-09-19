@@ -99,7 +99,7 @@ const EditOrders = () => {
                 name={data.document_number}
               />
             </div>
-            <ActionsGroup url={url} setEditable={setEditable} />
+            <ActionsGroup url={url} setEditable={setEditable} editable={editable} />
             <div className="flex justify-end">
               <CardCarousel />
             </div>

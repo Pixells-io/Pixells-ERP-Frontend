@@ -9,13 +9,14 @@ export async function saveNewQuoteOrder(data) {
     arrayArticles.push({
       master_product: data.get(`master_product[${i}]`),
       variations: data.get(`variations[${i}]`),
-      sub_total: data.get(`sub_total[${i}]`),
+      // sub_total: data.get(`sub_total[${i}]`),
       discount: data.get(`discount[${i}]`),
       taxes: data.get(`taxes[${i}]`),
       quantity: data.get(`quantity[${i}]`),
       unit: data.get(`unitHidden[${i}]`),
       delivery_date: data.get(`delivery_date[${i}]`),
       total: data.get(`total[${i}]`),
+      value: data.get(`value[${i}]`),
     });
   }
 
@@ -106,13 +107,14 @@ export async function updateQuoteOrder(data) {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
-        sub_total: data.get(`sub_total[${i}]`),
+        // sub_total: data.get(`sub_total[${i}]`),
         discount: data.get(`discount[${i}]`),
         taxes: data.get(`taxes[${i}]`),
         quantity: data.get(`quantity[${i}]`),
         unit: data.get(`unitHidden[${i}]`),
         delivery_date: data.get(`delivery_date[${i}]`),
         total: data.get(`total[${i}]`),
+        value: data.get(`value[${i}]`),
       });
     }
   }
@@ -225,13 +227,14 @@ export async function saveNewPurchase(data) {
     arrayArticles.push({
       master_product: data.get(`master_product[${i}]`),
       variations: data.get(`variations[${i}]`),
-      sub_total: data.get(`sub_total[${i}]`),
+      // sub_total: data.get(`sub_total[${i}]`),
       discount: data.get(`discount[${i}]`),
       taxes: data.get(`taxes[${i}]`),
       quantity: data.get(`quantity[${i}]`),
       unit: data.get(`unitHidden[${i}]`),
       delivery_date: data.get(`delivery_date[${i}]`),
       total: data.get(`total[${i}]`),
+      value: data.get(`value[${i}]`),
     });
   }
 
@@ -305,13 +308,14 @@ export async function updatePurchase(data) {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
-        sub_total: data.get(`sub_total[${i}]`),
+        // sub_total: data.get(`sub_total[${i}]`),
         discount: data.get(`discount[${i}]`),
         taxes: data.get(`taxes[${i}]`),
         quantity: data.get(`quantity[${i}]`),
         unit: data.get(`unitHidden[${i}]`),
         delivery_date: data.get(`delivery_date[${i}]`),
         total: data.get(`total[${i}]`),
+        value: data.get(`value[${i}]`),
       });
     }
   }
@@ -458,13 +462,14 @@ export async function saveNewRequestOrder(data) {
     arrayArticles.push({
       master_product: data.get(`master_product[${i}]`),
       variations: data.get(`variations[${i}]`),
-      sub_total: data.get(`sub_total[${i}]`),
+      // sub_total: data.get(`sub_total[${i}]`),
       discount: data.get(`discount[${i}]`),
       taxes: data.get(`taxes[${i}]`),
       quantity: data.get(`quantity[${i}]`),
       unit: data.get(`unitHidden[${i}]`),
       delivery_date: data.get(`delivery_date[${i}]`),
       total: data.get(`total[${i}]`),
+      value: data.get(`value[${i}]`),
     });
   }
 
@@ -507,13 +512,14 @@ export async function updateRequestOrder(data) {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
-        sub_total: data.get(`sub_total[${i}]`),
+        // sub_total: data.get(`sub_total[${i}]`),
         discount: data.get(`discount[${i}]`),
         taxes: data.get(`taxes[${i}]`),
         quantity: data.get(`quantity[${i}]`),
         unit: data.get(`unitHidden[${i}]`),
         delivery_date: data.get(`delivery_date[${i}]`),
         total: data.get(`total[${i}]`),
+        value: data.get(`value[${i}]`),
       });
     }
   }

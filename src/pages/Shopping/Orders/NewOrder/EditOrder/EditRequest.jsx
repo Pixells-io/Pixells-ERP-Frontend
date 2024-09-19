@@ -82,7 +82,7 @@ const EditRequests = () => {
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex flex-row justify-end">
-          <ActionsGroup url={url} setEditable={setEditable} />
+          <ActionsGroup url={url} setEditable={setEditable} editable={editable}/>
           <div className="flex justify-end">
             <CardCarousel />
           </div>
