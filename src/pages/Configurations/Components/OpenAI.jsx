@@ -25,6 +25,7 @@ function OpenAiCard() {
           <div className="flex">
             <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
               <div className="text-center">
+                <input type="hidden" name="action" value="create" />
                 <DropzoneFile name={"document"} label={"Documento"} />
                 <br />
                 <Button
@@ -32,6 +33,27 @@ function OpenAiCard() {
                   className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
                 >
                   Save
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Form>
+        <Form
+          className="flex h-auto flex-col gap-0"
+          action="/configuration/integrations"
+          method="post"
+          encType="multipart/form-data"
+        >
+          <div className="flex">
+            <div className="inline-grid w-1/3 grid-cols-1 gap-4 px-4">
+              <div className="text-center">
+                <input type="hidden" name="action" value="destroy" />
+                <br />
+                <Button
+                  type="submit"
+                  className="justify-normal rounded-lg bg-primarioBotones px-8 font-roboto text-sm font-semibold text-white hover:bg-primario"
+                >
+                  Destroy
                 </Button>
               </div>
             </div>

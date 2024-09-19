@@ -61,3 +61,17 @@ export async function saveEmbeddingDocument(data) {
 
   return response;
 }
+
+export async function destroyEmbeddingDocument() {
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}assistant/embedding-destroy`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
