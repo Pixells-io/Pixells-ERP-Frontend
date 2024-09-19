@@ -39,7 +39,7 @@ function NewEntry() {
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <ModalQrCode setModal={setModalQr} modal={modalQr} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
@@ -101,8 +101,9 @@ function NewEntry() {
             </div>
           </div>
         </div>
-        <div className="rounded-xl overflow-auto bg-blancoBg p-6">
-        <div className="flex flex-wrap w-full gap-4 p-4 rounded-xl border">
+        {/*CONTENT */}
+        <div className="rounded-xl bg-blancoBg p-6">
+          <div className="flex w-full flex-wrap gap-4 rounded-xl border p-4">
             <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
                 Código de Articulo
@@ -113,7 +114,7 @@ function NewEntry() {
                 type="number"
               />
             </div>
-            <div > 
+            <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
                 Lista de Precios
               </Label>
@@ -128,7 +129,7 @@ function NewEntry() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex-1" >
+            <div className="flex-1">
               <Label className="font-roboto text-[14px] text-[#696974]">
                 Número de pedido
               </Label>
@@ -139,7 +140,7 @@ function NewEntry() {
               />
             </div>
             <div className="flex-1">
-              <div className="flex justify-center ml-[160px]">
+              <div className="ml-[160px] flex justify-center">
                 <button
                   type="button"
                   className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
@@ -153,35 +154,32 @@ function NewEntry() {
                 </button>
               </div>
             </div>
-          
-        </div>
+          </div>
 
-       
-          <TableForm tableData={commodity} setTableData={setCommodity} />
-      
+          <div className="pt-4">
+            <TableForm tableData={commodity} setTableData={setCommodity} />
+          </div>
 
-        <StatusInformation
-          status="inProgress"
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        >
-          <Button
-            type="button"
-            variant="outline"
-            className="w-[120px] absolute rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-            onClick={() => alert("cancelar")}
+          <StatusInformation
+            status="inProgress"
+            imgUser={
+              "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            }
           >
-            Cancelar
-          </Button>
-          <Button
-            type="button"
-            onClick={() => setModalDoNotComply(true)}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Crear
-          </Button>
-        </StatusInformation>
+            <Button
+                type="button"
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+              >
+                Crear
+              </Button>
+          </StatusInformation>
         </div>
       </div>
       <AlertMessage

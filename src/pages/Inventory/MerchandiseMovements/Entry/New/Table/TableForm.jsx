@@ -177,7 +177,7 @@ const TableForm = ({ tableData, setTableData }) => {
         accessorKey: "slots",
         header: "Lotes",
         cell: ({ row, rowIndex }) => ( <div>
-          <button onClick={() => setIsModalOpen(true)}  className={"rounded-md bg-[#E0E0E0] px-4 py-2"}>Gestionar</button>
+          <button onClick={() => setIsModalOpen(true)}  className={"rounded-lg hover:bg-[#ACEED0] bg-[#E0E0E0] px-4 py-2"}>Gestionar</button>
           <EntrySlotModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -264,7 +264,7 @@ const TableForm = ({ tableData, setTableData }) => {
     }
   ];
   return (
-    <div className="mb-2 rounded-xl overflow-auto">
+    <div className="mb-2 rounded-xl h-[500px] overflow-auto">
       <div className="">
         <Table>
           <TableHeader >
