@@ -14,7 +14,7 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
 import ModalQrCode from "./Modal/ModalQrCode";
 
-function TransferEntry() {
+function ExitComplete() {
   const [commodity, setCommodity] = useState([]);
   const [modalQr, setModalQr] = useState(false);
 
@@ -51,7 +51,7 @@ function TransferEntry() {
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p className="font-poppins text-xl font-bold text-grisHeading">Entrada Traspaso Programada:</p>
+          <p className="font-poppins text-xl font-bold text-grisHeading">Salida Traspaso Programada:</p>
           <div className="flex justify-end">
             <Link to="/inventory/merchandise-movements">
               <IonIcon icon={closeCircle} size="small" className="cursor-pointer text-grisDisabled" />
@@ -139,7 +139,7 @@ function TransferEntry() {
                 type="button"
                 className="w-full md:w-auto rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]"
               >
-                Completar Entrada
+                Listo
               </Button>
             </div>
           </StatusInformation>
@@ -149,4 +149,4 @@ function TransferEntry() {
   );
 }
 
-export default TransferEntry;
+export default ExitComplete;

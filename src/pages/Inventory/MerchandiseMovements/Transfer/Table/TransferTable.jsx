@@ -193,7 +193,7 @@ const TableTransfer = ({ tableData, setTableData, isEditable }) => {
               disabled={!isEditable} // Desactivar si no es editable
             >
               <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                <SelectValue placeholder="Ubicación" />
+                <SelectValue placeholder="Almacén" />
               </SelectTrigger>
               <SelectContent>
                 {ubications.map((ubication, index) => (
@@ -261,7 +261,7 @@ const TableTransfer = ({ tableData, setTableData, isEditable }) => {
   };
 
   return (
-    <div className="mb-2 rounded-xl h-[500px] overflow-auto">
+    <div className="mb-2 rounded-xl h-[400px] overflow-auto">
       <div className="">
         <Table>
           <TableHeader>

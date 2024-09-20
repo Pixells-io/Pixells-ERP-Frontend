@@ -357,6 +357,7 @@ import {
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
+import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
@@ -1174,6 +1175,10 @@ const router = createBrowserRouter([
             element: <NewTransfer />,
           },
           {
+            path: "/inventory/merchandise-movements/transfer/direct/new",
+            element: <NewDirectTransfer />,
+          },
+          {
             path: "/inventory/merchandise-movements/transfer/record/:id",
             element: <TransferDetails />,
           },
@@ -1182,7 +1187,7 @@ const router = createBrowserRouter([
             element: <TraceabilityTransfer />,
           },
           {
-            path: "/inventory/merchandise-movements/transfer/Entry/:id",
+            path: "/inventory/merchandise-movements/transfer/entry/:id",
             element: <TransferEntry />,
           },
           {

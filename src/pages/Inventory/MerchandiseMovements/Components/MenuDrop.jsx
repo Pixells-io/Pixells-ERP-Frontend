@@ -36,7 +36,15 @@ const MenuMovements = () => {
             to="/inventory/merchandise-movements/transfer/new"
             className="flex w-full items-center"
           >
-            <span>Traspasos</span>
+            <span>Nueva Solicitud de Traspaso</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
+          <Link
+            to="/inventory/merchandise-movements/transfer/direct/new"
+            className="flex w-full items-center"
+          >
+            <span>Traspaso</span>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
