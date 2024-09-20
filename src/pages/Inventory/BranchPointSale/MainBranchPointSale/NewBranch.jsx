@@ -2,6 +2,7 @@ import React from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import PrincipalTab from "./Tabs/PrincipalTab";
 
 const NewBranch = () => {
   const tabOptions = [
@@ -155,13 +156,8 @@ const NewBranch = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-            <TabsContent value="general">
-              <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
-                GENERAL
-              </h2>
-              <div className="flex flex-wrap pl-2">
-                {/* <GeneralForm data={inputsData} setData={setInputsData} /> */}
-              </div>
+            <TabsContent value="principal" className="w-full">
+              <PrincipalTab />
             </TabsContent>
           </Tabs>
         </div>
