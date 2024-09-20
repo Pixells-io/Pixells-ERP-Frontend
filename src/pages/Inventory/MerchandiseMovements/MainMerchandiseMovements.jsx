@@ -15,7 +15,106 @@ import { createPusherClient } from "@/lib/pusher";
 import { getCatalogById, getCatalogs } from "./utils";
 
 function MainMerchandiseMovements() {
+  //datos de prueba --------------------------
+  const data = [
+    {
+      id: 1,
+      code: "0987",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+    {
+      id: 2,
+      code: "0988",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+    {
+      id: 3,
+      code: "0989",
+      category: "Metales",
+      name: "Clavos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+    {
+      id: 4,
+      code: "0990",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+  ];
+ 
+  const dataEgress = [
+    {
+      id: 1,
+      code: "0990",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+    {
+      id: 2,
+      code: "0991",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+    {
+      id: 3,
+      code: "0992",
+      category: "Metales",
+      name: "Clavos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+  ];
 
+  const dataPendings = [
+    {
+      id: 10,
+      code: "0999",
+      category: "Metales",
+      name: "Tornillos",
+      unitMeasurement: "Pieza",
+      accountingAccount: "Activos",
+      type: "Inventario",
+      createdBy: "https://github.com/shadcn.png",
+      createdAt: "21/07/2024",
+    },
+  ];
+
+  //-------------------------------------------
+  /*
   const { data } = useLoaderData();
   const [catalogInfo, setCatalogInfo] = useState(data);
   const pusherClient = createPusherClient();
@@ -26,8 +125,7 @@ function MainMerchandiseMovements() {
     setCatalogInfo(newData.data);
   }
 
- 
-
+ */
   /*useEffect(() => {
     pusherClient.subscribe("inventory/get-price-lists");
 
