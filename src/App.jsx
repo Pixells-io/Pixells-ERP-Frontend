@@ -355,6 +355,7 @@ import {
   getWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import { getCatalogs, multiLoaderMovements } from "./pages/Inventory/MerchandiseMovements/utils";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
 import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
@@ -488,6 +489,7 @@ import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
 import { getCatalogsTransformation } from "./pages/Transformation/utils";
+
 
 const router = createBrowserRouter([
   {
@@ -1163,10 +1165,12 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
+           
           },
           {
             path: "/inventory/merchandise-movements/entry/new",
             element: <NewEntry />,
+            loader:multiLoaderMovements,
           },
           {
             path: "/inventory/merchandise-movements/entry/record/:id",

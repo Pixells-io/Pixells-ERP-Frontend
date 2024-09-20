@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { Button } from "@/components/ui/button";
-import { getBaseList, getList } from "./utils";
+import { getList } from "./utils";
 
 const MainPriceList = () => {
   const { data } = useLoaderData();

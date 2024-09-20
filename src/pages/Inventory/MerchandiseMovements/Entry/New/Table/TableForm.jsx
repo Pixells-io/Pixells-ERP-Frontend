@@ -47,7 +47,7 @@ const ubications = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, isEditable }) => {
+const TableForm = ({products, tableData, setTableData, isEditable }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
@@ -70,6 +70,23 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
       ),
     );
   }, []);
+  const handleSelectChange = (rowIndex, field, value) => {
+    setTableData(prevData => {
+      const newData = [...prevData];
+      if (field === 'description') {
+        const selectedProduct = products.find(product => product.id.toString() === value);
+        if (selectedProduct) {
+          newData[rowIndex] = {
+            ...newData[rowIndex],
+            articleNumber: selectedProduct.id,
+            description: selectedProduct.name,
+            unitPrice:selectedProduct.price
+          };
+        }
+      }
+      return newData;
+    });
+  };
 
   const handleDataInRow = useCallback((data, rowIndex) => {
     setTableData((prevData) =>
@@ -112,7 +129,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
             onChange={(e) =>
               handleInputChange(rowIndex, "articleNumber", e.target.value)
             }
-            disabled={!isEditable}
+            readOnly
           />
         ),
       },
@@ -120,17 +137,25 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
         accessorKey: "description",
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
-          <Input
-            className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-            name={`description-${rowIndex}`}
-            value={row.description}
-            placeholder="Ingrese"
-            type="text"
-            onChange={(e) =>
-              handleInputChange(rowIndex, "description", e.target.value)
-            }
-            disabled={!isEditable}
-          />
+          <Select
+          value={row.articleNumber.toString()}
+          onValueChange={(value) => handleSelectChange(rowIndex, 'description', value)}
+        >
+          <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+          >
+            <SelectValue placeholder="Selecciona" />
+          </SelectTrigger>
+          <SelectContent>
+            {Array.isArray(products) && products.map((product) => (
+              <SelectItem
+                key={product.id}
+                value={product.id.toString()}
+              >
+                {product.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         ),
       },
       {
@@ -180,6 +205,22 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
         accessorKey: "total",
         header: "Total",
         cell: ({ row, rowIndex }) => <div>{row.total}</div>,
+      },
+      {
+        accessorKey: "slots",
+        header: "Lotes",
+        cell: ({ row, rowIndex }) => ( <div>
+          <button onClick={() => setIsModalOpen(true)}  className={"rounded-lg hover:bg-[#ACEED0] bg-[#E0E0E0] px-4 py-2"}>Gestionar</button>
+          <EntrySlotModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            productData={[]}
+            lotData={[]}
+            assignmentData={[]}
+           
+          />
+        </div>
+        ),
       },
       {
         accessorKey: "ubication_id",
@@ -234,29 +275,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const productData = {
-    name: "Aceite Vegetal"
-  };
 
-  const lotData = {
-    articleNumber: "239846",
-    description: "Aceite Vegetal",
-    expectedQuantity: 10,
-    received: 10,
-    unitPrice: "$55.00",
-    location: "Almacén MP"
-  };
-
-  const assignmentData = [
-    {
-      internalLot: "239846",
-      quantity: 5,
-      attribute1: "L-001",
-      attribute2: "Z-675/hu",
-      unitPrice: "$55.00",
-      location: "Almacén MP"
-    }
-  ];
   return (
     <div className="mb-2 rounded-xl h-[500px] overflow-auto">
       <div className="">
