@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
-import { redirect, useLoaderData } from "react-router-dom";
-import { saveBranchPointSale } from "../utils";
 
-const NewBranch = () => {
+const EditBranch = () => {
   const { whareHouses, costCenter, priceList } = useLoaderData();
 
   const tabOptions = [
@@ -24,56 +23,56 @@ const NewBranch = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "users",
       label: "Usuarios",
       subLabel: "Gestiona los usuarios que usarán el sistema",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "cashBoxes",
       label: "Cajas",
       subLabel: "Configura las cajas que tendrás disponibles",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "payment",
       label: "Pago",
       subLabel: "Habilita los métodos de pago deseados",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "accounting",
       label: "Contabilidad",
       subLabel: "Configura parametros para contabilidad",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "invoicesAndReceipts",
       label: "Facturas y Recibos",
       subLabel: "Configura parametros para los tickets",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "devices",
       label: "Dispositivos",
       subLabel: "Confirma los dispositivos que estarán activos",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "stock",
       label: "Stock",
       subLabel: "Consulta el inventario en tiempo real",
-      disabled: true,
+      disabled: false,
       update: null,
     },
   ];
@@ -186,12 +185,4 @@ const NewBranch = () => {
   );
 };
 
-export default NewBranch;
-
-export async function Action({ request }) {
-  const data = await request.formData();
-
-  await saveBranchPointSale(data);
-
-  return redirect(`/inventory/branch-points-sale`);
-}
+export default EditBranch;
