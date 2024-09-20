@@ -51,7 +51,7 @@ const newBranch = () => {
         >
           <div className="flex justify-between">
             <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
-              Movimientos de Mercancía
+              Sucursales Generales
             </p>
             <div className="flex justify-end gap-6">
               <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">

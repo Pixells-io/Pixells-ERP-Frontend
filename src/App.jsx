@@ -372,7 +372,10 @@ import ViewPL, {
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
 import { getBaseList, getList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
 import MainBranchPointSale from "./pages/Inventory/BranchPointSale/MainBranchPointSale/MainBranchPointSale";
-import NewBranch from "./pages/Inventory/BranchPointSale/MainBranchPointSale/NewBranch";
+import NewBranch, {
+  Action as SaveBranchPointSale,
+} from "./pages/Inventory/BranchPointSale/MainBranchPointSale/NewBranch";
+import { multiLoaderBranchPointsSale, multiLoaderListBranch } from "./pages/Inventory/BranchPointSale/utils";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -1236,10 +1239,13 @@ const router = createBrowserRouter([
           {
             path: "/inventory/branch-points-sale",
             element: <MainBranchPointSale />,
+            loader: multiLoaderBranchPointsSale,
           },
           {
             path: "/inventory/branch-points-sale/create",
             element: <NewBranch />,
+            loader: multiLoaderListBranch,
+            action: SaveBranchPointSale,
           }
         ],
       },

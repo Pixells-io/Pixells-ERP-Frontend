@@ -5,9 +5,11 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const BranchesTab = () => {
+  const { stores } = useLoaderData();
+
   const columns = [
     {
       accessorKey: "code",
@@ -95,7 +97,7 @@ const BranchesTab = () => {
 
   return (
     <DataTable
-      data={[]}
+      data={stores.data}
       columns={columns}
       searchFilter="code"
       searchNameFilter="Buscar por código"
