@@ -365,6 +365,9 @@ import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceLis
 import ViewPL,{Action as deletePriceList}from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
 import { getBaseList, getList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
+import MainBranchPointSale from "./pages/Inventory/BranchPointSale/MainBranchPointSale/MainBranchPointSale";
+import NewBranch from "./pages/Inventory/BranchPointSale/MainBranchPointSale/NewBranch";
+
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
@@ -1211,6 +1214,14 @@ const router = createBrowserRouter([
             path: "/inventory/stock-items/:id",
             element: <StockWarehouse />,
           },
+          {
+            path: "/inventory/branch-points-sale",
+            element: <MainBranchPointSale />,
+          },
+          {
+            path: "/inventory/branch-points-sale/create",
+            element: <NewBranch />,
+          }
         ],
       },
       //Sales

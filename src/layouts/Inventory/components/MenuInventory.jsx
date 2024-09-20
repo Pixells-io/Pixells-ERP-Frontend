@@ -8,6 +8,7 @@ import {
   arrowForwardCircle,
   clipboard,
   statsChart,
+  storefront,
 } from "ionicons/icons";
 
 const MENU_ITEMS = [
@@ -57,6 +58,13 @@ const MENU_ITEMS = [
     subname: "De Articulos",
     icon: statsChart,
     subRoutes: ["/inventory/stock-items/"],
+  },
+  {
+    path: "/inventory/branch-points-sale",
+    name: "Sucursales",
+    subname: "Punto de Venta",
+    icon: storefront,
+    subRoutes: ["/inventory/branch-points-sale"],
   },
 ];
 
