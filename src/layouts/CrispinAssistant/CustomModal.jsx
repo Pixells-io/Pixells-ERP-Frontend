@@ -29,7 +29,6 @@ function CustomModal({ isOpen, onClose }) {
       }
     >
       {/* HEADER SECTION */}
-
       <div
         className={
           modalMode == "h-16 w-96 px-6 py-1"

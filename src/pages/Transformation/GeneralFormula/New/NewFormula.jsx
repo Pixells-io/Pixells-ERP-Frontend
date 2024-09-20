@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -23,8 +23,10 @@ import TableFormWaste from "../../Components/TableFormWaste";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import TableFormSubProducts from "../../Components/TableFormSubProducts";
 import { Button } from "@/components/ui/button";
+import NavigationHeader from "@/components/navigation-header";
 
 function NewFormula() {
+  const { data } = useLoaderData();
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
   const [wastes, setWastes] = useState([]);
@@ -34,29 +36,13 @@ function NewFormula() {
 
   const navigate = useNavigate();
 
+  console.log(data);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
@@ -89,10 +75,10 @@ function NewFormula() {
           </div>
         </div>
 
-        <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
+        <div className="flex w-full items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
           <div>
             <Select name="article" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectTrigger className="border-gris2-transparent w-[240px] rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Selecciona el Artículo" />
               </SelectTrigger>
               <SelectContent>
@@ -103,8 +89,11 @@ function NewFormula() {
             </Select>
           </div>
           <div>
-            <Select name="accountingAccount" className="h-10 min-w-0 space-x-3 flex-1">
-              <SelectTrigger className="w-[240px] rounded-xl border  border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+            <Select
+              name="accountingAccount"
+              className="h-10 min-w-0 flex-1 space-x-3"
+            >
+              <SelectTrigger className="border-gris2-transparent w-[240px] rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Cuenta Contable" />
               </SelectTrigger>
               <SelectContent>
