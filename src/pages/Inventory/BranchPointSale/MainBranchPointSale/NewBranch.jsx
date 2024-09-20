@@ -3,6 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PrincipalTab from "./Tabs/PrincipalTab";
+import GeneralTab from "./Tabs/GeneralTab";
 
 const NewBranch = () => {
   const tabOptions = [
@@ -158,6 +159,9 @@ const NewBranch = () => {
             </TabsList>
             <TabsContent value="principal" className="w-full">
               <PrincipalTab />
+            </TabsContent>
+            <TabsContent value="general" className="w-full">
+              <GeneralTab />
             </TabsContent>
           </Tabs>
         </div>

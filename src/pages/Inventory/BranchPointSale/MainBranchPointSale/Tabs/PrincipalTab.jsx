@@ -6,7 +6,7 @@ import { Form } from "react-router-dom";
 const PrincipalTab = () => {
   return (
     <Form className="flex h-full w-full flex-col px-6 py-4">
-      <di v>
+      <div>
         <h2 className="font-poppns text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
@@ -50,7 +50,7 @@ const PrincipalTab = () => {
             />
           </div>
         </div>
-      </di>
+      </div>
       <div className="flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
