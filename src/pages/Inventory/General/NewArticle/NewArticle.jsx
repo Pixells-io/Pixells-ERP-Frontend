@@ -12,6 +12,7 @@ import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
 import { Form, useNavigate, useLoaderData } from "react-router-dom";
 import { saveNewProduct } from "../utils";
+import { Button } from "@/components/ui/button";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
@@ -61,8 +62,8 @@ const CreateArticle = () => {
     selectedGroups: [],
     Groups: [],
     images: [], // Array de imágenes secundarias
-    variables_add:[],
-    variables_destroy:[],
+    variables_add: [],
+    variables_destroy: [],
     images_destroy: [],
   });
 
@@ -133,9 +134,12 @@ const CreateArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
-    
+
     //Validamos variables
-    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
+    if (
+      initialValues.productType === "2" &&
+      variableData.variables_add.length === 0
+    ) {
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
 
@@ -264,71 +268,92 @@ const CreateArticle = () => {
           </div>
         </div>
 
+        <div className="flex items-center gap-4">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
+            INVENTARIO
+          </h2>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
+          </div>
+        </div>
+
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
             Nuevo Artículo
           </p>
-          <div className="flex items-center">
-            <span className="pr-4 pt-2 font-roboto text-[14px] text-[#696974]">
-              Tipo de producto
-            </span>
-            <Select
-              name="productType"
-              value={initialValues.productType || "1"}
-              onValueChange={(value) =>
-                handleSelectChange("productType", value)
-              }
-            >
-              <SelectTrigger className={selectClasses}>
-                <SelectValue placeholder="Selecciona" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">Producto Simple</SelectItem>
-                <SelectItem value="2">Producto Variable</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
-        {Object.keys(errors).length > 0 && (
-          <div className="mt-4 text-red-500">
-            {Object.values(errors).map((error, index) => (
-              <p key={index}>{error}</p>
-            ))}
-          </div>
-        )}
-        <div className="relative w-full space-y-4 overflow-auto">
-          <Inputs
-            categories={categories}
-            warehouses={warehouses}
-            inputsData={initialValues}
-            setInputsData={setInitialValues}
-          />
 
-          <FormGroup
-            productType={initialValues.productType}
-            suppliers={suppliers}
-            attrb={attributes}
-            inputsData={inputsData}
-            setInputsData={setInputsData}
-            variableData={variableData}
-            setVariableData={setVariableData}
-            inventory={inventory}
-            setInventory={setInventory}
-            buyData={buyData}
-            setBuyData={setBuyData}
-          />
+        <div className="rounded-xl bg-white">
+          <div className="flex items-center border-b border-[#E8E8E8] px-6 py-3 gap-x-10">
+            <span className="font-poppins text-lg font-medium text-[#44444F]">
+              INFORMACIÓN DEL ARTÍCULO
+            </span>
+            <div className="flex items-center gap-x-4">
+              <span className="font-roboto text-xs font-normal text-[#44444F]">
+                Tipo de producto
+              </span>
 
-          <Form onSubmit={handleSubmit}>
-            {/* Otros campos del formulario */}
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                className="rounded bg-blue-500 px-4 py-2 text-white"
-              >
-                Enviar
-              </button>
+              <div className="flex gap-x-1 rounded-md bg-[#F2F2F2] p-1">
+                <Button
+                  type="button"
+                  className={`h-[22px] text-xs font-normal duration-300 ease-out hover:bg-white ${initialValues.productType == "1" ? "bg-white text-[#44444F]" : "bg-inherit text-[#8F8F8F]"}`}
+                  onClick={() => handleSelectChange("productType", "1")}
+                >
+                  Simple
+                </Button>
+                <Button
+                  type="button"
+                  className={`h-[22px] text-xs font-normal duration-300 ease-out hover:bg-white ${initialValues.productType == "2" ? "bg-white text-[#44444F]" : "bg-inherit text-[#8F8F8F]"}`}
+                  onClick={() => handleSelectChange("productType", "2")}
+                >
+                  Variable
+                </Button>
+              </div>
             </div>
-          </Form>
+          </div>
+          {Object.keys(errors).length > 0 && (
+            <div className="mt-4 text-red-500">
+              {Object.values(errors).map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+          <div className="relative w-full space-y-4 overflow-auto">
+            <Inputs
+              categories={categories}
+              warehouses={warehouses}
+              inputsData={initialValues}
+              setInputsData={setInitialValues}
+            />
+
+            <FormGroup
+              productType={initialValues.productType}
+              suppliers={suppliers}
+              attrb={attributes}
+              inputsData={inputsData}
+              setInputsData={setInputsData}
+              variableData={variableData}
+              setVariableData={setVariableData}
+              inventory={inventory}
+              setInventory={setInventory}
+              buyData={buyData}
+              setBuyData={setBuyData}
+            />
+
+            <Form onSubmit={handleSubmit}>
+              {/* Otros campos del formulario */}
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="rounded bg-blue-500 px-4 py-2 text-white"
+                >
+                  Enviar
+                </button>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     </div>

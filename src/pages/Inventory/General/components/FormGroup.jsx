@@ -20,7 +20,7 @@ const FormGroup = ({
   setBuyData
 }) => {
   return (
-    <div className="w-full overflow-hidden rounded-[10px] bg-white p-4">
+    <div className="w-full overflow-hidden rounded-[10px] p-4">
       <Tabs defaultValue="general" className="w-full flex ">
         <TabsList className="mb-4 flex flex-col justify-start gap-y-5 bg-transparent w-full max-w-[310px] h-full">
           {[
