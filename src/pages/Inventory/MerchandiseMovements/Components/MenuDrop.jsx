@@ -33,7 +33,7 @@ const MenuMovements = () => {
         </DropdownMenuItem>
         <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
           <Link
-            to=""
+            to="/inventory/merchandise-movements/transfer/new"
             className="flex w-full items-center"
           >
             <span>Traspasos</span>

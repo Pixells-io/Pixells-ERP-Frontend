@@ -77,7 +77,7 @@ export const MovTransferColumns = [
     ),        
     cell: ({ row }) => (
       <div className="flex justify-center">
-        <Link to="/accounting/policy/details">
+        <Link to="/inventory/merchandise-movements/transfer/record/1">
           <span className="text-[#5B89FF] font-roboto text-xs">Ver</span>
         </Link>
       </div>

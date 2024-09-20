@@ -356,6 +356,10 @@ import {
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
+import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
+import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
+import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
+import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
 import ViewPL,{Action as deletePriceList}from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
@@ -1164,6 +1168,22 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/egress/record/:id",
             element: <MerchandiseMovRecordEgress />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/new",
+            element: <NewTransfer />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/record/:id",
+            element: <TransferDetails />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/traceability/:id",
+            element: <TraceabilityTransfer />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/Entry/:id",
+            element: <TransferEntry />,
           },
           {
             path: "/inventory/prices-lists",
