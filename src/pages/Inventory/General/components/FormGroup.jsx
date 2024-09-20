@@ -20,30 +20,36 @@ const FormGroup = ({
   setBuyData
 }) => {
   return (
-    <div className="w-full overflow-hidden">
-      <Tabs defaultValue="general" className="w-full">
-        <TabsList className="mb-4 flex flex-wrap justify-start gap-3 bg-transparent">
+    <div className="w-full overflow-hidden rounded-[10px] bg-white p-4">
+      <Tabs defaultValue="general" className="w-full flex ">
+        <TabsList className="mb-4 flex flex-col justify-start gap-y-5 bg-transparent w-full max-w-[310px] h-full">
           {[
-            { value: "general", label: "General" },
-            { value: "variables", label: "Variables" },
-            { value: "inventory", label: "Inventario" },
-            { value: "storage", label: "Inv. Por Almacén" },
-            { value: "shopping", label: "Compras" },
-          ].map(({ value, label }) => (
+            { value: "principal", label: "Principal", subLabel: "Información inicial del artículo" },
+            { value: "general", label: "General", subLabel: "Ajusta los parámetros básicos" },
+            { value: "variables", label: "Variables", subLabel: "Gestiona las variables de tus artículos" },
+            { value: "inventory", label: "Inventario", subLabel: "Configura el método de valoración" },
+            { value: "storage", label: "Inv. Por Almacén", subLabel: "Consulta el inventario del artículo" },
+            { value: "shopping", label: "Compras", subLabel: "Configura parametros para compras" },
+          ].map(({ value, label, subLabel }) => (
             <TabsTrigger
               key={value}
               value={value}
-              className={`flex items-center justify-center rounded-full bg-blancoBox2 px-4 py-1 text-center font-roboto text-[14px] text-grisHeading transition-colors hover:bg-gray-300 data-[state=active]:bg-primario data-[state=active]:text-white ${
+              className={`w-full py-2.5 rounded-[14px] flex px-6 items-center justify-center bg-[#F1F1F1] transition-colors hover:bg-gray-300 data-[state=active]:border data-[state=active]:border-[#44444F] data-[state=active]:bg-[#F1F1F1] ${
                 value === "variables" && productType !== "2"
                   ? "pointer-events-none opacity-50"
                   : ""
               }`}
             >
-              {label}
+              <div className="flex flex-col justify-start w-full">
+                  <p className="text-start font-roboto font-medium text-sm text-[#44444F] leading-tight">{label}</p>
+                  <p className="text-start font-roboto font-normal text-[11px] text-[#8F8F8F] leading-tight">{subLabel}</p>
+              </div>
+              <div>
+
+              </div>
             </TabsTrigger>
           ))}
         </TabsList>
-        <div className="w-full rounded-[10px] bg-white p-4">
           <TabsContent value="general">
             <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
               GENERAL
@@ -85,7 +91,6 @@ const FormGroup = ({
               <CheckForm suppliers={suppliers} data={buyData} setData={setBuyData} />
             </div>
           </TabsContent>
-        </div>
       </Tabs>
     </div>
   );
