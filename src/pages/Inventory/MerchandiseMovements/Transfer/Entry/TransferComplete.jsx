@@ -12,17 +12,12 @@ import { Button } from "@/components/ui/button";
 import TableTransfer from "../Table/TransferTable";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
-import ModalQrCode from "./Modal/ModalQrCode";
 
-function TransferEntry() {
+function EntryComplete() {
   const [commodity, setCommodity] = useState([]);
-  const [modalQr, setModalQr] = useState(false);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-4 py-4 md:px-8">
-        <ModalQrCode setModal={setModalQr} modal={modalQr} />
-        
         {/* Navigation */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -61,7 +56,7 @@ function TransferEntry() {
 
         {/* Main content */}
         <div className="rounded-xl bg-blancoBg p-4 md:p-6">
-          <div className="flex flex-wrap gap-4 rounded-xl border  p-8">
+          <div className="flex flex-wrap gap-4 rounded-xl border p-8">
             <div className="w-full md:w-auto">
               <Label className="font-roboto text-[14px] text-[#696974]">Folio</Label>
               <InputForm
@@ -102,15 +97,6 @@ function TransferEntry() {
                 type="text"
               />
             </div>
-            <div className="w-full ml-[16px] md:w-auto flex justify-center md:justify-end items-end">
-              <button
-                type="button"
-                className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
-                onClick={() => setModalQr(true)}
-              >
-                <IonIcon icon={qrCodeOutline} size="large" className="text-[#44444F]" />
-              </button>
-            </div>
           </div>
           <div className="w-full pt-4">
             <Label className="font-roboto text-[14px] text-[#696974]">Escanear Código de Producto</Label>
@@ -139,7 +125,7 @@ function TransferEntry() {
                 type="button"
                 className="w-full md:w-auto rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]"
               >
-                Completar Entrada
+                Listo
               </Button>
             </div>
           </StatusInformation>
@@ -149,4 +135,4 @@ function TransferEntry() {
   );
 }
 
-export default TransferEntry;
+export default EntryComplete;

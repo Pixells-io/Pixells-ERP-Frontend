@@ -357,12 +357,17 @@ import {
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
+import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
-import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
-import ViewPL,{Action as deletePriceList}from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
+import CreatePriceList, {
+  Action as newPriceList,
+} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import ViewPL, {
+  Action as deletePriceList,
+} from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
 import { getBaseList, getList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
 import MainBranchPointSale from "./pages/Inventory/BranchPointSale/MainBranchPointSale/MainBranchPointSale";
@@ -432,7 +437,14 @@ import EditQuotes, {
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getPurchase, getPurchases, getQuoteOrder, getQuotesOrder, getRequestOrder, getRequestOrders } from "./pages/Shopping/utils";
+import {
+  getPurchase,
+  getPurchases,
+  getQuoteOrder,
+  getQuotesOrder,
+  getRequestOrder,
+  getRequestOrders,
+} from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -475,7 +487,7 @@ import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
-
+import { getCatalogsTransformation } from "./pages/Transformation/utils";
 
 const router = createBrowserRouter([
   {
@@ -1177,6 +1189,10 @@ const router = createBrowserRouter([
             element: <NewTransfer />,
           },
           {
+            path: "/inventory/merchandise-movements/transfer/direct/new",
+            element: <NewDirectTransfer />,
+          },
+          {
             path: "/inventory/merchandise-movements/transfer/record/:id",
             element: <TransferDetails />,
           },
@@ -1185,7 +1201,7 @@ const router = createBrowserRouter([
             element: <TraceabilityTransfer />,
           },
           {
-            path: "/inventory/merchandise-movements/transfer/Entry/:id",
+            path: "/inventory/merchandise-movements/transfer/entry/:id",
             element: <TransferEntry />,
           },
           {
@@ -1197,18 +1213,17 @@ const router = createBrowserRouter([
             path: "/inventory/prices-lists/create",
             element: <CreatePriceList />,
             loader: multiloaderList,
-            action: newPriceList
+            action: newPriceList,
           },
           {
             path: "/inventory/prices-lists/details/:id",
             element: <ViewPL />,
             loader: multiloaderListBase,
-            action:deletePriceList
+            action: deletePriceList,
           },
           {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
-            
           },
           {
             path: "/inventory/stock-items/:id",
@@ -1353,7 +1368,7 @@ const router = createBrowserRouter([
             path: "/shopping/purchase/",
             element: <MainPurchase />,
             loader: getPurchases,
-            action: PurchaseAction
+            action: PurchaseAction,
           },
           {
             path: "/shopping/purchase/create",
@@ -1405,6 +1420,7 @@ const router = createBrowserRouter([
           {
             path: "/transformation/create",
             element: <NewFormula />,
+            loader: getCatalogsTransformation,
           },
           {
             path: "/transformation/record/:id",
