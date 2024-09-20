@@ -21,26 +21,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import TableForm from "./Table/TableForm";
-import AlertMessage from "./Modal/AlertMessage";
-import AlertConfirmation from "./Modal/AlertConfirmation";
-import AlertDoNotComply from "./Modal/AlertDoNotComply";
-import ModalQrCode from "./Modal/ModalQrCode";
+import TableForm from "../Table/TableForm";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
 
-function NewEntry() {
+const TransferDetails =()=> {
   const [commodity, setCommodity] = useState([]);
-  const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
-  const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
-  const [modalDoNotComply, setModalDoNotComply] = useState(false);
-  const [modalQr, setModalQr] = useState(false);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        <ModalQrCode setModal={setModalQr} modal={modalQr} />
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -79,15 +68,18 @@ function NewEntry() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nueva Entrada de Mercancía
+           Solicitud De Traspaso:
           </p>
+
+          <div className="flex justify-end gap-5">
+           
 
           <div className="flex justify-end gap-5">
             <Button
               type={"button"}
               className="gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario"
             >
-              Convertir a Pedido
+              Aceptar Traspaso
             </Button>
 
             <div className="flex items-end justify-center">
@@ -100,26 +92,27 @@ function NewEntry() {
               </Link>
             </div>
           </div>
+          </div>
         </div>
         {/*CONTENT */}
         <div className="rounded-xl bg-blancoBg p-6">
-          <div className="flex w-full flex-wrap gap-4 rounded-xl border p-4">
+          <div className="flex w-full flex-wrap gap-4 rounded-xl border p-8">
             <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Código de Articulo
+                Folio
               </Label>
               <InputForm
-                className="border-gris2-transparent w-[243px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                className="border-gris2-transparent w-25 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
                 name="documentNumber"
                 type="number"
               />
             </div>
             <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Lista de Precios
+                De Almacén
               </Label>
               <Select name="priceList">
-                <SelectTrigger className="border-gris2-transparent h-[32px] w-[243px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectTrigger className="border-gris2-transparent h-[32px] w-[500px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -129,35 +122,35 @@ function NewEntry() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex-1">
+            <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Número de pedido
+                Almacén Destino
+              </Label>
+              <Select name="priceList">
+                <SelectTrigger className="border-gris2-transparent bg-[#D7D7D7] h-[32px] w-[500px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Fecha Esperada
               </Label>
               <InputForm
-                className="border-gris2-transparent w-[600px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-                name="order"
-                type="text"
+                className="border-gris2-transparent w-25 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="documentNumber"
+                type="number"
               />
-            </div>
-            <div className="flex-1">
-              <div className="ml-[160px] flex justify-center">
-                <button
-                  type="button"
-                  className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
-                  onClick={() => setModalQr(true)}
-                >
-                  <IonIcon
-                    icon={qrCodeOutline}
-                    size={"large"}
-                    className="text-[#44444F]"
-                  ></IonIcon>
-                </button>
-              </div>
             </div>
           </div>
 
           <div className="pt-4">
-            <TableForm tableData={commodity} setTableData={setCommodity} isEditable={true} />
+            <TableForm tableData={commodity} setTableData={setCommodity}  isEditable={false}/>
           </div>
 
           <StatusInformation
@@ -182,20 +175,8 @@ function NewEntry() {
           </StatusInformation>
         </div>
       </div>
-      <AlertMessage
-        setModal={setModalQuantityOverCome}
-        modal={modalQuantityOverCome}
-      />
-      <AlertConfirmation
-        setModal={setModalAlertConfirmation}
-        modal={modalAlertConfirmation}
-      />
-      <AlertDoNotComply
-        setModal={setModalDoNotComply}
-        modal={modalDoNotComply}
-      />
     </div>
   );
 }
 
-export default NewEntry;
+export default TransferDetails;

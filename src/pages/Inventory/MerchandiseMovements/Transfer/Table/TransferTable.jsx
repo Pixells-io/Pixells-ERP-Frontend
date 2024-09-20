@@ -23,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import EntrySlotModal from "../Modal/SlotsModal";
 
 const initialRow = {
   idAux: 1,
@@ -47,7 +46,7 @@ const ubications = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, isEditable }) => {
+const TableTransfer = ({ tableData, setTableData, isEditable }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
@@ -85,7 +84,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
   }, []);
 
   const deleteRowId = (id) => {
-    if (tableData.length == 1) return;
+    if (tableData.length === 1) return;
     const auxRowDelete = tableData.filter((row) => row.idAux !== id);
     setTableData(auxRowDelete);
   };
@@ -109,10 +108,10 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
             value={row?.articleNumber}
             placeholder="Ingrese"
             type="number"
+            disabled={!isEditable} // Desactivar si no es editable
             onChange={(e) =>
               handleInputChange(rowIndex, "articleNumber", e.target.value)
             }
-            disabled={!isEditable}
           />
         ),
       },
@@ -126,10 +125,10 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
             value={row.description}
             placeholder="Ingrese"
             type="text"
+            disabled={!isEditable} // Desactivar si no es editable
             onChange={(e) =>
               handleInputChange(rowIndex, "description", e.target.value)
             }
-            disabled={!isEditable}
           />
         ),
       },
@@ -145,17 +144,17 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
           <Input
             type="number"
             className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
-              row?.expectedQuantity == row?.receivedQuantity
+              row?.expectedQuantity === row?.receivedQuantity
                 ? "text-[#00A259]"
                 : "text-[#D7586B]"
             }`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
             placeholder="Ingrese"
+            disabled={!isEditable} // Desactivar si no es editable
             onChange={(e) =>
               handleInputChange(rowIndex, "receivedQuantity", e.target.value)
             }
-            disabled={!isEditable}
           />
         ),
       },
@@ -169,10 +168,10 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
             name={`cost-subProduct-${rowIndex}`}
             value={row?.unitPrice}
             placeholder="Ingrese"
+            disabled={!isEditable} // Desactivar si no es editable
             onChange={(e) =>
               handleInputChange(rowIndex, "unitPrice", e.target.value)
             }
-            disabled={!isEditable}
           />
         ),
       },
@@ -182,8 +181,8 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
         cell: ({ row, rowIndex }) => <div>{row.total}</div>,
       },
       {
-        accessorKey: "ubication_id",
-        header: "Ubicación",
+        accessorKey: "warehouse_id",
+        header: "Almacén",
         cell: ({ row, rowIndex }) => (
           <div className="flex items-center justify-between gap-x-2">
             <Select
@@ -191,7 +190,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
               className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
-              disabled={!isEditable}
+              disabled={!isEditable} // Desactivar si no es editable
             >
               <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
                 <SelectValue placeholder="Ubicación" />
@@ -204,13 +203,40 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
                 ))}
               </SelectContent>
             </Select>
-            {isEditable && (
+            
+          </div>
+        ),
+      },
+      {
+        accessorKey: "ubication_id",
+        header: "Ubicación",
+        cell: ({ row, rowIndex }) => (
+          <div className="flex items-center justify-between gap-x-2">
+            <Select
+              name={`selectComponent-ubication-${rowIndex}`}
+              className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row?.ubication_id}
+              disabled={!isEditable} // Desactivar si no es editable
+            >
+              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+                <SelectValue placeholder="Ubicación" />
+              </SelectTrigger>
+              <SelectContent>
+                {ubications.map((ubication, index) => (
+                  <SelectItem key={`ubication-${index}`} value={ubication.id}>
+                    {ubication.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {isEditable && ( // Solo mostrar el botón de borrar si es editable
               <button type="button" onClick={() => deleteRowId(row.idAux)}>
                 <IonIcon
                   icon={closeCircle}
                   size="small"
                   className="cursor-pointer text-grisDisabled"
-                ></IonIcon>
+                />
               </button>
             )}
           </div>
@@ -219,6 +245,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
     ],
     [handleInputChange, deleteRowId, isEditable],
   );
+
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -232,36 +259,12 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const productData = {
-    name: "Aceite Vegetal"
-  };
-
-  const lotData = {
-    articleNumber: "239846",
-    description: "Aceite Vegetal",
-    expectedQuantity: 10,
-    received: 10,
-    unitPrice: "$55.00",
-    location: "Almacén MP"
-  };
-
-  const assignmentData = [
-    {
-      internalLot: "239846",
-      quantity: 5,
-      attribute1: "L-001",
-      attribute2: "Z-675/hu",
-      unitPrice: "$55.00",
-      location: "Almacén MP"
-    }
-  ];
   return (
     <div className="mb-2 rounded-xl h-[500px] overflow-auto">
       <div className="">
         <Table>
-          <TableHeader >
+          <TableHeader>
             <TableRow className="border-b-2 border-b-primario text-xs font-normal text-grisText">
               {columns.map((column) => (
                 <TableHead key={column.accessorKey}>{column.header}</TableHead>
@@ -289,13 +292,13 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
       </div>
       {isEditable && (
       <div className="mt-4 flex items-center justify-between">
+      
         <IonIcon
           icon={addCircle}
           size="small"
           className="cursor-pointer text-primario"
           onClick={handleAddRow}
         />
-        
        <div className="flex items-center">
           <Button
             variant="ghost"
@@ -324,10 +327,9 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
             />
           </Button>
         </div>
-      </div>
-    )}
+      </div>)}
     </div>
   );
 };
 
-export default TableForm;
+export default TableTransfer;

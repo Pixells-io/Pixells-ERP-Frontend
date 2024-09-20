@@ -5,9 +5,6 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  copy,
-  print,
-  create,
   closeCircle,
   qrCodeOutline,
 } from "ionicons/icons";
@@ -21,22 +18,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import TableForm from "./Table/TableForm";
-import AlertMessage from "./Modal/AlertMessage";
-import AlertConfirmation from "./Modal/AlertConfirmation";
-import AlertDoNotComply from "./Modal/AlertDoNotComply";
-import ModalQrCode from "./Modal/ModalQrCode";
+import TableTransfer from "../Table/TransferTable";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
+import ModalQrCode from "./Modal/ModalQrCode";
 
-function NewEntry() {
+function TransferEntry() {
   const [commodity, setCommodity] = useState([]);
-  const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
-  const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
-  const [modalDoNotComply, setModalDoNotComply] = useState(false);
   const [modalQr, setModalQr] = useState(false);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -79,17 +68,10 @@ function NewEntry() {
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nueva Entrada de Mercancía
+            Entrada Traspaso Programada:
           </p>
 
           <div className="flex justify-end gap-5">
-            <Button
-              type={"button"}
-              className="gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario"
-            >
-              Convertir a Pedido
-            </Button>
-
             <div className="flex items-end justify-center">
               <Link to={"/inventory/merchandise-movements"}>
                 <IonIcon
@@ -106,35 +88,50 @@ function NewEntry() {
           <div className="flex w-full flex-wrap gap-4 rounded-xl border p-4">
             <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Código de Articulo
+               Folio
               </Label>
               <InputForm
-                className="border-gris2-transparent w-[243px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                className="border-gris2-transparent w-25 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
                 name="documentNumber"
                 type="number"
               />
             </div>
             <div>
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Lista de Precios
+                Tipo
               </Label>
-              <Select name="priceList">
-                <SelectTrigger className="border-gris2-transparent h-[32px] w-[243px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
+              <InputForm
+                className="border-gris2-transparent w-40 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="documentNumber"
+                type="number"
+              />
             </div>
             <div className="flex-1">
               <Label className="font-roboto text-[14px] text-[#696974]">
-                Número de pedido
+                Número de Orden
               </Label>
               <InputForm
-                className="border-gris2-transparent w-[600px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                className="border-gris2-transparent w-60 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="order"
+                type="text"
+              />
+            </div>
+            <div className="flex-1">
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Almacén
+              </Label>
+              <InputForm
+                className="border-gris2-transparent w-18 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+                name="order"
+                type="text"
+              />
+            </div>
+            <div className="flex-1">
+              <Label className="font-roboto text-[14px] text-[#696974]">
+                Ubicación
+              </Label>
+              <InputForm
+                className="border-gris2-transparent w-18 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
                 name="order"
                 type="text"
               />
@@ -157,7 +154,7 @@ function NewEntry() {
           </div>
 
           <div className="pt-4">
-            <TableForm tableData={commodity} setTableData={setCommodity} isEditable={true} />
+            <TableTransfer tableData={commodity} setTableData={setCommodity} isEditable={true} />
           </div>
 
           <StatusInformation
@@ -182,20 +179,9 @@ function NewEntry() {
           </StatusInformation>
         </div>
       </div>
-      <AlertMessage
-        setModal={setModalQuantityOverCome}
-        modal={modalQuantityOverCome}
-      />
-      <AlertConfirmation
-        setModal={setModalAlertConfirmation}
-        modal={modalAlertConfirmation}
-      />
-      <AlertDoNotComply
-        setModal={setModalDoNotComply}
-        modal={modalDoNotComply}
-      />
+    
     </div>
   );
 }
 
-export default NewEntry;
+export default TransferEntry;
