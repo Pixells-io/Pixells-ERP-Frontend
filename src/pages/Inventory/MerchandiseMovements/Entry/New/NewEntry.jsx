@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  copy,
-  print,
-  create,
   closeCircle,
   qrCodeOutline,
 } from "ionicons/icons";
@@ -21,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import TableForm from "./Table/TableForm";
 import AlertMessage from "./Modal/AlertMessage";
 import AlertConfirmation from "./Modal/AlertConfirmation";
@@ -29,13 +24,37 @@ import AlertDoNotComply from "./Modal/AlertDoNotComply";
 import ModalQrCode from "./Modal/ModalQrCode";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
-
+import { getCatalogById } from "../../utils";
 function NewEntry() {
+  const data = useLoaderData();
+  const { catalogs, products } = data;
+  const [selectedCatalog, setSelectedCatalog] = useState(null);
+
   const [commodity, setCommodity] = useState([]);
   const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
   const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
   const [modalDoNotComply, setModalDoNotComply] = useState(false);
   const [modalQr, setModalQr] = useState(false);
+
+  const handleSelectChange = (value) => {
+    const selected = catalogs.data.find(item => item.id.toString() === value);
+    setSelectedCatalog(selected);
+  }
+  useEffect(() => {
+    async function fetchCatalog() {
+      try {
+        if (selectedCatalog) {
+          const catalogData = await getCatalogById(selectedCatalog);
+          console.log(catalogData.data);
+          // You can use catalogData here or update state as needed
+        }
+      } catch (error) {
+        console.error("Error fetching catalog:", error);
+      }
+    }
+  
+    fetchCatalog();
+  }, [selectedCatalog]);
 
   return (
     <div className="flex w-full">
@@ -133,11 +152,23 @@ function NewEntry() {
               <Label className="font-roboto text-[14px] text-[#696974]">
                 Número de pedido
               </Label>
-              <InputForm
-                className="border-gris2-transparent w-[600px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-                name="order"
-                type="text"
-              />
+              <Select
+                name="requestNumber"
+                value={selectedCatalog ? selectedCatalog.id.toString() : ""}
+                onValueChange={handleSelectChange}
+              >
+                <SelectTrigger className="border-gris2-transparent h-[32px] w-[243px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.isArray(catalogs.data) &&
+                    catalogs.data.map((item) => (
+                      <SelectItem key={item.id} value={item.id.toString()}>
+                        {item.number}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex-1">
               <div className="ml-[160px] flex justify-center">
@@ -157,7 +188,12 @@ function NewEntry() {
           </div>
 
           <div className="pt-4">
-            <TableForm tableData={commodity} setTableData={setCommodity} isEditable={true} />
+            <TableForm
+              products={products.data}
+              tableData={commodity}
+              setTableData={setCommodity}
+              isEditable={true}
+            />
           </div>
 
           <StatusInformation
@@ -167,18 +203,18 @@ function NewEntry() {
             }
           >
             <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="button"
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
-              >
-                Crear
-              </Button>
+              type="button"
+              variant="outline"
+              className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+            >
+              Crear
+            </Button>
           </StatusInformation>
         </div>
       </div>
