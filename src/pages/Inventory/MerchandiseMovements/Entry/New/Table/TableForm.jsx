@@ -29,25 +29,15 @@ const initialRow = {
   idAux: 1,
   articleNumber: "",
   description: "",
-  expectedQuantity: 10,
+  expectedQuantity: 0,
   receivedQuantity: "",
   unitPrice: 0,
-  total: 120,
+  total: 0,
   ubication: null,
 };
 
-const ubications = [
-  {
-    id: 1,
-    name: "Almacen PM",
-  },
-  {
-    id: 2,
-    name: "Almace MP",
-  },
-];
 
-const TableForm = ({products, tableData, setTableData, isEditable }) => {
+const TableForm = ({products,locations, tableData, setTableData, isEditable }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
@@ -234,15 +224,18 @@ const TableForm = ({products, tableData, setTableData, isEditable }) => {
               value={row?.ubication_id}
               disabled={!isEditable}
             >
-              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Ubicación" />
               </SelectTrigger>
               <SelectContent>
-                {ubications.map((ubication, index) => (
-                  <SelectItem key={`ubication-${index}`} value={ubication.id}>
-                    {ubication.name}
-                  </SelectItem>
-                ))}
+              {Array.isArray(locations) && locations.map((location) => (
+              <SelectItem
+                key={location.id}
+                value={location.id.toString()}
+              >
+                {location.name}
+              </SelectItem>
+            ))}
               </SelectContent>
             </Select>
             {isEditable && (

@@ -27,7 +27,9 @@ import { Label } from "@/components/ui/label";
 import { getCatalogById } from "../../utils";
 function NewEntry() {
   const data = useLoaderData();
-  const { catalogs, products } = data;
+
+  //CATALOGS
+  const { catalogs, products, locations } = data;
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
   const [commodity, setCommodity] = useState([]);
@@ -37,25 +39,39 @@ function NewEntry() {
   const [modalQr, setModalQr] = useState(false);
 
   const handleSelectChange = (value) => {
-    const selected = catalogs.data.find(item => item.id.toString() === value);
+    const selected = catalogs.data.find((item) => item.id.toString() === value);
     setSelectedCatalog(selected);
-  }
+  };
   useEffect(() => {
     async function fetchCatalog() {
       try {
         if (selectedCatalog) {
           const catalogData = await getCatalogById(selectedCatalog);
-          console.log(catalogData.data);
-          // You can use catalogData here or update state as needed
+          console.log(catalogData)
+          if (Array.isArray(catalogData.slots)) {
+            const formattedData = catalogData.slots.map((item,index) => ({
+              idAux:index,
+              articleNumber:  "",
+              description: item?.master_product || "",
+              expectedQuantity: item?.quantity || 0,
+              receivedQuantity: "",
+              unitPrice: 0,
+              total: 0,
+              ubication: null,
+            }));
+            setCommodity(formattedData);
+          } else {
+            return;
+          }
         }
       } catch (error) {
         console.error("Error fetching catalog:", error);
       }
     }
-  
+
     fetchCatalog();
   }, [selectedCatalog]);
-
+  console.log(commodity);
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -190,6 +206,7 @@ function NewEntry() {
           <div className="pt-4">
             <TableForm
               products={products.data}
+              locations={locations.data}
               tableData={commodity}
               setTableData={setCommodity}
               isEditable={true}
