@@ -4,6 +4,7 @@ import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
+import GeneralTab from "./Tabs/GeneralTab";
 
 const EditBranch = () => {
   const { whareHouses, costCenter, priceList } = useLoaderData();
@@ -177,6 +178,9 @@ const EditBranch = () => {
                 costCenter={costCenter.data}
                 priceList={priceList.data}
               />
+            </TabsContent>
+            <TabsContent value="general" className="w-full">
+              <GeneralTab />
             </TabsContent>
           </Tabs>
         </div>
