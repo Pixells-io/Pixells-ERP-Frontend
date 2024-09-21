@@ -82,6 +82,35 @@ export async function getStores() {
   }
 }
 
+export async function multiLoaderListBranchDetails({ params }) {
+  const id = params.id;
+
+  const [whareHouses, costCenter, priceList, storeDetail] = await Promise.all([
+    getWarehouses(),
+    getCostCenter(),
+    getPriceList(),
+    getStoreById(id),
+  ]);
+  return json({ whareHouses, costCenter, priceList, storeDetail });
+}
+
+export async function getStoreById(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}stores/get-stores/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function saveBranchPointSale(data) {
   const info = {
     store_code: data.get("store_code"),

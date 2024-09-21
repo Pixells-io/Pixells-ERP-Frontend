@@ -12,7 +12,7 @@ const BranchesTab = () => {
 
   const columns = [
     {
-      accessorKey: "code",
+      accessorKey: "store_code",
       header: "CÓDIGO",
       cell: ({ row }) => {
         return (
@@ -22,15 +22,10 @@ const BranchesTab = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.code}</label>
+            <label>{row?.original?.store_code}</label>
           </div>
         );
       },
-      meta: { filterButton: true },
-    },
-    {
-      accessorKey: "category",
-      header: "CATEGORÍA",
       meta: { filterButton: true },
     },
     {
@@ -39,27 +34,26 @@ const BranchesTab = () => {
       meta: { filterButton: true },
     },
     {
-      accessorKey: "measure",
-      header: "UNIDAD MEDIDA",
+      accessorKey: "city",
+      header: "CIUDAD",
+      meta: { filterButton: true },
     },
     {
-      accessorKey: "type",
-      header: "TIPO",
-      cell: ({ row }) => {
-        return (
-          <>
-            {row.original?.type == 0 ? (
-              <span>Simple</span>
-            ) : (
-              <span>Variable</span>
-            )}
-          </>
-        );
-      },
+      accessorKey: "users",
+      header: "Usuarios",
     },
     {
-      accessorKey: "createdBy",
-      header: "CREADO POR",
+      accessorKey: "cashboxes",
+      header: "CAJAS",
+    },
+    {
+      accessorKey: "status",
+      header: "ESTATUS",
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center gap-1">
+         
+        </div>
+      ),
     },
     {
       accessorKey: "created",
@@ -70,7 +64,7 @@ const BranchesTab = () => {
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-1">
-          <Link to={`/inventory/edit/${row.original.id}`}>
+          <Link to={`/inventory/branch-points-sale/edit/${row.original.id}`}>
             <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -99,7 +93,7 @@ const BranchesTab = () => {
     <DataTable
       data={stores.data}
       columns={columns}
-      searchFilter="code"
+      searchFilter="store_code"
       searchNameFilter="Buscar por código"
       isCheckAll={true}
     />

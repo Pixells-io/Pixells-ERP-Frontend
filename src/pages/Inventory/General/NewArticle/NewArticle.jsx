@@ -285,7 +285,7 @@ const CreateArticle = () => {
           </p>
         </div>
 
-        <div className="rounded-xl bg-white">
+        <div className="rounded-xl bg-white overflow-auto">
           <div className="flex items-center border-b border-[#E8E8E8] px-6 py-3 gap-x-10">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DEL ARTÍCULO
