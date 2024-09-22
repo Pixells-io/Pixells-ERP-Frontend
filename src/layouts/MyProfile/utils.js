@@ -116,3 +116,20 @@ export async function destroyGoogleKeys() {
 
   return response;
 }
+
+//AZURE
+export async function loginAzureToken() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}azure/login`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

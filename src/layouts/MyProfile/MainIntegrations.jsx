@@ -4,6 +4,7 @@ import {
   cogOutline,
   keyOutline,
   logoGoogle,
+  logoMicrosoft,
   notificationsOutline,
 } from "ionicons/icons";
 import { Form, useNavigate } from "react-router-dom";
@@ -387,13 +388,29 @@ function MainIntegrations() {
                     className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
                   >
                     <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
-                    Login In Google
+                    Ingresa con Google
                   </Button>
                 </Form>
               )}
             </TabsContent>
             <TabsContent value="meta"></TabsContent>
-            <TabsContent value="outlook"></TabsContent>
+            <TabsContent value="outlook">
+              <Form
+                className="flex h-full w-full flex-col gap-3 px-6 pt-2"
+                action="/my-profile"
+                method="post"
+              >
+                {/* NOT AUTENTICATED */}
+                <input type="hidden" name="type_function" value={5} />
+                <Button
+                  type="submit"
+                  className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                >
+                  <IonIcon icon={logoMicrosoft} className="text-lg"></IonIcon>
+                  Ingresa con Outlook
+                </Button>
+              </Form>
+            </TabsContent>
           </Tabs>
         </div>
       </div>
