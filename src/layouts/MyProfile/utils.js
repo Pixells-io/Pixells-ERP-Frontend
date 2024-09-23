@@ -70,13 +70,30 @@ export async function getProfileGoogle() {
   }
 }
 
+export async function getProfileAzure() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}azure/get-user`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderGoogleIntegrations() {
-  const [profile, permission] = await Promise.all([
+  const [profile, permission, azureUser] = await Promise.all([
     getProfileGoogle(),
     getPermission(),
+    getProfileAzure(),
   ]);
 
-  return json({ profile, permission });
+  return json({ profile, permission, azureUser });
 }
 
 export async function savePermissionGoogle(data) {

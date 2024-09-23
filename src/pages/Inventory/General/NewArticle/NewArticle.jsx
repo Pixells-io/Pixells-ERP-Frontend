@@ -13,6 +13,7 @@ import FormGroup from "../components/FormGroup";
 import { Form, useNavigate, useLoaderData } from "react-router-dom";
 import { saveNewProduct } from "../utils";
 import { Button } from "@/components/ui/button";
+import NavigationHeader from "@/components/navigation-header";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
@@ -246,27 +247,7 @@ const CreateArticle = () => {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Inventory - General</div>
-          </div>
-        </div>
+        <NavigationHeader />
 
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-base font-bold text-[#44444F]">
@@ -285,8 +266,8 @@ const CreateArticle = () => {
           </p>
         </div>
 
-        <div className="rounded-xl bg-white overflow-auto">
-          <div className="flex items-center border-b border-[#E8E8E8] px-6 py-3 gap-x-10">
+        <div className="h-full overflow-auto rounded-xl bg-white">
+          <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DEL ARTÍCULO
             </span>
@@ -321,12 +302,12 @@ const CreateArticle = () => {
             </div>
           )}
           <div className="relative w-full space-y-4 overflow-auto">
-            <Inputs
+            {/* <Inputs
               categories={categories}
               warehouses={warehouses}
               inputsData={initialValues}
               setInputsData={setInitialValues}
-            />
+            /> */}
 
             <FormGroup
               productType={initialValues.productType}
@@ -340,6 +321,10 @@ const CreateArticle = () => {
               setInventory={setInventory}
               buyData={buyData}
               setBuyData={setBuyData}
+              categories={categories}
+              warehouses={warehouses}
+              principalInputs={initialValues}
+              setPrincipalInputs={setInitialValues}
             />
 
             <Form onSubmit={handleSubmit}>

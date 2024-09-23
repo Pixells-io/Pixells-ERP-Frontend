@@ -62,6 +62,7 @@ const components = [
 ];
 
 const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
+
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -73,6 +74,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
       setTableData(updateTableDataIdAux);
     }
   }, []);
+  
   // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
