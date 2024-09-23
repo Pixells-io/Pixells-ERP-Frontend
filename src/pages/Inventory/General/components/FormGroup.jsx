@@ -25,7 +25,7 @@ const FormGroup = ({
   setPrincipalInputs,
 }) => {
   return (
-    <div className="w-full overflow-hidden rounded-[10px] p-4">
+    <div className="flex w-full overflow-hidden rounded-[10px] p-4">
       <Tabs defaultValue="principal" className="flex w-full">
         <TabsList className="mb-4 flex h-full w-full max-w-[310px] flex-col justify-start gap-y-5 bg-transparent">
           {[
@@ -81,11 +81,12 @@ const FormGroup = ({
             </TabsTrigger>
           ))}
         </TabsList>
-        <TabsContent value="principal">
+
+        <TabsContent value="principal" className="w-full">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             Principal
           </h2>
-          <div className="flex flex-wrap pl-2">
+          <div className="flex w-full pl-2">
             <Inputs
               categories={categories}
               warehouses={warehouses}
@@ -94,14 +95,16 @@ const FormGroup = ({
             />
           </div>
         </TabsContent>
-        <TabsContent value="general">
+
+        <TabsContent value="general" className="w-full">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             GENERAL
           </h2>
-          <div className="flex flex-wrap pl-2">
+          <div className="flex w-full pl-2">
             <GeneralForm data={inputsData} setData={setInputsData} />
           </div>
         </TabsContent>
+
         <TabsContent value="variables">
           {productType === "2" && (
             <VariableForm
@@ -111,6 +114,7 @@ const FormGroup = ({
             />
           )}
         </TabsContent>
+
         <TabsContent value="inventory">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             INVENTARIO
@@ -119,6 +123,7 @@ const FormGroup = ({
             <InventoryForm data={inventory} setData={setInventory} />
           </div>
         </TabsContent>
+
         <TabsContent value="storage">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             ALMACÉN
@@ -127,6 +132,7 @@ const FormGroup = ({
             <WarehouseForm />
           </div>
         </TabsContent>
+
         <TabsContent value="shopping">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             COMPRAS

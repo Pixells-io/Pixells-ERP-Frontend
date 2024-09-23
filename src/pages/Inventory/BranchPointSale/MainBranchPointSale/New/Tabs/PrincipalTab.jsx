@@ -77,6 +77,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
               </SelectContent>
             </Select>
           </div>
+
           <div className="col-span-12">
             <p className="mb-1 text-[10px] font-normal text-grisText">
               Lista de Precios

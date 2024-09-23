@@ -301,7 +301,7 @@ const CreateArticle = () => {
               ))}
             </div>
           )}
-          <div className="relative w-full space-y-4 overflow-auto">
+          <div className="relative flex w-full flex-col space-y-4 overflow-auto">
             {/* <Inputs
               categories={categories}
               warehouses={warehouses}
@@ -329,7 +329,7 @@ const CreateArticle = () => {
 
             <Form onSubmit={handleSubmit}>
               {/* Otros campos del formulario */}
-              <div className="flex justify-end">
+              <div className="flex justify-end pr-8">
                 <button
                   type="submit"
                   className="rounded bg-blue-500 px-4 py-2 text-white"

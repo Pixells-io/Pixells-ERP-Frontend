@@ -11,7 +11,7 @@ const GeneralForm = ({ data, setData }) => {
   const [formData, setFormData] = useState({
     sujetoAImpuesto: data.sujetoAImpuesto || false,
     disponibleParaDevolucion: data.disponibleParaDevolucion || false,
-    manufacturaDisponible:data.manufacturaDisponible||false,
+    manufacturaDisponible: data.manufacturaDisponible || false,
     fabricantes: data.fabricantes || "",
     comentario: data.comentario || "",
     activos: data.activos || false,
@@ -20,8 +20,10 @@ const GeneralForm = ({ data, setData }) => {
     to: data.to || "",
     imagenPrincipal: data.imagenPrincipal || null,
   });
-  
-  const [imagePreview, setImagePreview] = useState(formData?.imagenPrincipal ||"");
+
+  const [imagePreview, setImagePreview] = useState(
+    formData?.imagenPrincipal || "",
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -55,12 +57,12 @@ const GeneralForm = ({ data, setData }) => {
       setFormData((prevFormData) => ({
         ...prevFormData,
         activos: !prevFormData.activos,
-        inactivo: prevFormData.activos, 
+        inactivo: prevFormData.activos,
       }));
     } else if (name === "inactivo") {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        activos: prevFormData.inactivo, 
+        activos: prevFormData.inactivo,
         inactivo: !prevFormData.inactivo,
       }));
     } else {
@@ -70,7 +72,6 @@ const GeneralForm = ({ data, setData }) => {
       }));
     }
   };
-  
 
   const handleRemoveImage = () => {
     setFormData((prevFormData) => ({
@@ -78,11 +79,10 @@ const GeneralForm = ({ data, setData }) => {
       imagenPrincipal: null,
     }));
     setImagePreview("");
-
   };
   return (
-    <div className="grid grid-cols-4 gap-4">
-      <div className="col-span-1 flex items-center space-x-3">
+    <div className="flex w-full flex-col gap-4">
+      <div className="flex items-center space-x-3">
         <Label
           htmlFor="sujetoAImpuesto"
           className="font-roboto text-[14px] text-gris2"
@@ -98,7 +98,7 @@ const GeneralForm = ({ data, setData }) => {
         />
       </div>
 
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="flex items-center space-x-6">
         <Label
           htmlFor="activos"
           className="flex font-roboto text-[14px] text-gris2"
@@ -113,7 +113,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
+      <div className="flex w-[200px] items-center space-x-6">
         <Label
           htmlFor="from"
           className="pt-2 font-roboto text-[14px] text-gris2"
@@ -127,11 +127,8 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="col-span-1 ml-[-100px] flex w-[200px] items-center space-x-6">
-        <Label
-          htmlFor="to"
-          className="pt-2 font-roboto text-[14px] text-gris2"
-        >
+      <div className="flex w-[200px] items-center space-x-6">
+        <Label htmlFor="to" className="pt-2 font-roboto text-[14px] text-gris2">
           Hasta:
         </Label>
         <InputRouter
@@ -141,7 +138,7 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="flex items-center space-x-6">
         <Label
           htmlFor="disponibleParaDevolucion"
           className="font-roboto text-[14px] text-gris2"
@@ -152,12 +149,14 @@ const GeneralForm = ({ data, setData }) => {
           id="disponibleParaDevolucion"
           name="disponibleParaDevolucion"
           checked={formData.disponibleParaDevolucion}
-          onCheckedChange={() => handleCheckboxChange("disponibleParaDevolucion")}
+          onCheckedChange={() =>
+            handleCheckboxChange("disponibleParaDevolucion")
+          }
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
 
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="flex items-center space-x-6">
         <Label
           htmlFor="inactivo"
           className="font-roboto text-[14px] text-gris2"
@@ -174,7 +173,7 @@ const GeneralForm = ({ data, setData }) => {
       </div>
       <div></div>
       <div></div>
-      <div className="col-span-1 flex items-center space-x-10">
+      <div className="flex items-center space-x-10">
         <Label
           htmlFor="disponibleParaDevolucion"
           className="font-roboto text-[14px] text-gris2"
@@ -192,7 +191,7 @@ const GeneralForm = ({ data, setData }) => {
       <div></div>
       <div></div>
       <div></div>
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="flex items-center space-x-6">
         <Label
           htmlFor="fabricantes"
           className="mr-3 pt-2 font-roboto text-[14px] text-gris2"
@@ -209,7 +208,7 @@ const GeneralForm = ({ data, setData }) => {
       <div></div>
       <div></div>
       <div></div>
-      <div className="col-span-1 flex items-center space-x-6">
+      <div className="flex items-center space-x-6">
         <Label
           htmlFor="comentario"
           className="mb-1 font-roboto text-[14px] text-gris2"
@@ -225,8 +224,11 @@ const GeneralForm = ({ data, setData }) => {
       </div>
       <div></div>
       <div></div>
-      <div className="col-span-1 flex flex-col justify-start items-start pr-8 space-y-2">
-        <div {...getRootProps()} className="relative flex items-end cursor-pointer">
+      <div className="flex flex-col items-start justify-start space-y-2 pr-8">
+        <div
+          {...getRootProps()}
+          className="relative flex cursor-pointer items-end"
+        >
           {imagePreview ? (
             <div className="relative rounded-xl border border-primarioBotones p-4">
               <button
@@ -249,7 +251,10 @@ const GeneralForm = ({ data, setData }) => {
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <IonIcon icon={imageOutline} className="h-12 w-12 text-gray-500" />
+              <IonIcon
+                icon={imageOutline}
+                className="h-12 w-12 text-gray-500"
+              />
               <span className="ml-2 text-gray-500">Agregar Imagen</span>
             </div>
           )}
