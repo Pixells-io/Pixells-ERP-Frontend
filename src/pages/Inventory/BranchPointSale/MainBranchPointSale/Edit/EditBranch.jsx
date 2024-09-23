@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
-import { updatePrincipalBranchTab } from "../../utils";
+import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
 
 const EditBranch = () => {
   const { whareHouses, costCenter, priceList, storeDetail } = useLoaderData();
@@ -200,6 +200,9 @@ export async function Action({ request }) {
   switch (data.get("type_option")) {
     case "update_principalBranchTab":
       await updatePrincipalBranchTab(data);
+      break;
+    case "create_generalBranchTab":
+      await createGeneralBranchTab(data);
       break;
   }
   return "1";

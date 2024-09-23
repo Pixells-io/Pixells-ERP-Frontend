@@ -157,3 +157,30 @@ export async function updatePrincipalBranchTab(data) {
 
   return response.json();
 }
+
+export async function createGeneralBranchTab(data) {
+  const info = {
+    store_id: data.get("store_id"),
+    street: data.get("street"),
+    ext: data.get("ext"),
+    int: data.get("int"),
+    cologne: data.get("cologne"),
+    city: data.get("city"),
+    state: data.get("state"),
+    cp: data.get("cp"),
+    country: data.get("country"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/create-store-information`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}

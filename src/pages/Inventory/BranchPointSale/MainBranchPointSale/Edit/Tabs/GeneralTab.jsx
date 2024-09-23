@@ -4,15 +4,38 @@ import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import React from "react";
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 
 const GeneralTab = () => {
+  const { id } = useParams();
+
   return (
-    <Form className="flex h-full w-full flex-col overflow-auto px-6 py-4">
+    <Form
+      className="flex h-full w-full flex-col overflow-auto px-6 py-4"
+      action={`/inventory/branch-points-sale/edit/${id}`}
+      method="post"
+    >
       <div>
         <h2 className="font-poppns text-sm font-medium text-[#44444F]">
           General
         </h2>
+        <input
+          type="text"
+          className="hidden"
+          hidden
+          readOnly
+          name="store_id"
+          // value={store.id}
+          value={id}
+        />
+        <input
+          type="text"
+          className="hidden"
+          hidden
+          readOnly
+          name="type_option"
+          value="create_generalBranchTab"
+        />
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-12">
             <InputForm name="street" type="text" placeholder={"Calle"} />
@@ -24,19 +47,19 @@ const GeneralTab = () => {
             <InputForm name="int" type="text" placeholder={"Número Int. "} />
           </div>
           <div className="col-span-12">
-            <InputForm name="int" type="colony" placeholder={"Colonia"} />
+            <InputForm name="cologne" type="text" placeholder={"Colonia"} />
           </div>
           <div className="col-span-6">
-            <InputForm name="city" type="colony" placeholder={"Ciudad"} />
+            <InputForm name="city" type="text" placeholder={"Ciudad"} />
           </div>
           <div className="col-span-6">
-            <InputForm name="state" type="colony" placeholder={"Estado"} />
+            <InputForm name="state" type="text" placeholder={"Estado"} />
           </div>
           <div className="col-span-6">
-            <InputForm name="cp" type="colony" placeholder={"CP"} />
+            <InputForm name="cp" type="text" placeholder={"CP"} />
           </div>
           <div className="col-span-6">
-            <InputForm name="country" type="colony" placeholder={"País"} />
+            <InputForm name="country" type="text" placeholder={"País"} />
           </div>
           <div className="col-span-12">
             <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
