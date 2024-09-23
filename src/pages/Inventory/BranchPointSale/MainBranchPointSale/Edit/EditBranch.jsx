@@ -5,9 +5,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
+import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import UserTab from "./Tabs/UserTab";
+import CashBoxTab from "./Tabs/CashBoxTab";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList } = useLoaderData();
+  const { whareHouses, costCenter, priceList, storeDetail, users } = useLoaderData();
 
   const tabOptions = [
     {
@@ -177,10 +180,17 @@ const EditBranch = () => {
                 whareHouses={whareHouses.data}
                 costCenter={costCenter.data}
                 priceList={priceList.data}
+                storeDetail={storeDetail.data}
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab />
+            </TabsContent>
+            <TabsContent value="users" className="w-full">
+              <UserTab users={users.data} />
+            </TabsContent>
+            <TabsContent value="cashBoxes" className="w-full">
+              <CashBoxTab />
             </TabsContent>
           </Tabs>
         </div>
@@ -190,3 +200,19 @@ const EditBranch = () => {
 };
 
 export default EditBranch;
+
+export async function Action({ request }) {
+  // const { level } = useParams();
+
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "update_principalBranchTab":
+      await updatePrincipalBranchTab(data);
+      break;
+    case "create_generalBranchTab":
+      await createGeneralBranchTab(data);
+      break;
+  }
+  return "1";
+  // return redirect(`/accounting/${level}`);
+}
