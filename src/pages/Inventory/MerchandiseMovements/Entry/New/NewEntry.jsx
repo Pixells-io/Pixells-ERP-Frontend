@@ -32,7 +32,17 @@ function NewEntry() {
   const { catalogs, products, locations } = data;
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
-  const [commodity, setCommodity] = useState([]);
+  const [commodity, setCommodity] = useState([{
+    idAux: 1,
+    articleNumber: "",
+    description: "",
+    expectedQuantity: 0,
+    receivedQuantity: "",
+    unitPrice: 0,
+    total: 0,
+    batches:[],
+    ubication: null,
+  }]);
   const [modalQuantityOverCome, setModalQuantityOverCome] = useState(false);
   const [modalAlertConfirmation, setModalAlertConfirmation] = useState(false);
   const [modalDoNotComply, setModalDoNotComply] = useState(false);
@@ -47,31 +57,36 @@ function NewEntry() {
       try {
         if (selectedCatalog) {
           const catalogData = await getCatalogById(selectedCatalog);
-          console.log(catalogData)
-          if (Array.isArray(catalogData.slots)) {
-            const formattedData = catalogData.slots.map((item,index) => ({
-              idAux:index,
-              articleNumber:  "",
-              description: item?.master_product || "",
-              expectedQuantity: item?.quantity || 0,
-              receivedQuantity: "",
-              unitPrice: 0,
-              total: 0,
-              ubication: null,
-            }));
-            setCommodity(formattedData);
-          } else {
-            return;
+  
+          if (Array.isArray(catalogData.data.slots)) {
+            const formattedData = catalogData.data.slots.map((item, index) => {
+              let product = products.data.find(p => p.id === parseInt(item.master_product));
+              let unitPrice = product ? parseFloat(product.price) : 0;
+              return {
+                idAux: index,
+                articleNumber: item.master_product || "",
+                description: item.master_product.toString() || "",
+                expectedQuantity: item.quantity || 0,
+                receivedQuantity: "",
+                unitPrice: unitPrice,
+                total: 0,
+                batches:item.batches||[],
+                ubication: null,
+              };
+            });
+  
+            setCommodity(formattedData); 
           }
         }
       } catch (error) {
         console.error("Error fetching catalog:", error);
       }
     }
-
+  
     fetchCatalog();
   }, [selectedCatalog]);
-  console.log(commodity);
+  
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

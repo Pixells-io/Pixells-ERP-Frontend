@@ -25,21 +25,12 @@ import {
 } from "@/components/ui/select";
 import EntrySlotModal from "../Modal/SlotsModal";
 
-const initialRow = {
-  idAux: 1,
-  articleNumber: "",
-  description: "",
-  expectedQuantity: 0,
-  receivedQuantity: "",
-  unitPrice: 0,
-  total: 0,
-  ubication: null,
-};
+
 
 
 const TableForm = ({products,locations, tableData, setTableData, isEditable }) => {
   useEffect(() => {
-    setTableData([initialRow]);
+    setTableData(tableData);
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,21 +38,40 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
 
   const handleAddRow = (e) => {
     e.preventDefault();
-    setTableData((prevData) => [
-      ...prevData,
-      { ...initialRow, idAux: getUltimateRowId() + 1 },
-    ]);
+    const newRow = {
+      idAux: getUltimateRowId() + 1,
+      articleNumber: "",
+      description: "",
+      expectedQuantity: 0,
+      receivedQuantity: "",
+      unitPrice: 0,
+      total: 0,
+      batches:[],
+      ubication: null,
+    };
+    setTableData((prevData) => [...prevData, newRow]);
   };
+  
 
   const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex ? { ...item, [accessorKey]: value } : item,
-      ),
-    );
+    setTableData((prevData) => {
+      const newData = prevData.map((item, index) =>
+        index === rowIndex ? { ...item, [accessorKey]: value } : item
+      );
+      
+      // Update total if receivedQuantity changes
+      if (accessorKey === "receivedQuantity") {
+        const unitPrice = newData[rowIndex].unitPrice || 0;
+        newData[rowIndex].total = unitPrice * value; // Update total
+      }
+      
+      return newData;
+    });
   }, []);
+
+  
   const handleSelectChange = (rowIndex, field, value) => {
-    setTableData(prevData => {
+    setTableData((prevData) => {
       const newData = [...prevData];
       if (field === 'description') {
         const selectedProduct = products.find(product => product.id.toString() === value);
@@ -70,13 +80,15 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
             ...newData[rowIndex],
             articleNumber: selectedProduct.id,
             description: selectedProduct.name,
-            unitPrice:selectedProduct.price
+            unitPrice: selectedProduct.price,
+            total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
           };
         }
       }
       return newData;
     });
   };
+  
 
   const handleDataInRow = useCallback((data, rowIndex) => {
     setTableData((prevData) =>
