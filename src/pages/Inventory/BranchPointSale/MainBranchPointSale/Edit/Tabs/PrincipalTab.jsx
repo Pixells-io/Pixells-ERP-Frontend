@@ -7,16 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
-import { Form, useNavigation } from "react-router-dom";
+import React, { useState } from "react";
+import { Form, redirect, useNavigation, useParams } from "react-router-dom";
 
-const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
+const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
   const navigation = useNavigation();
+  const { id } = useParams();
+
+  const [store, setStore] = useState(storeDetail);
+
+  const changeValue = (value, data) => {
+
+  };
 
   return (
     <Form
       className="flex h-full w-full flex-col px-6 py-4"
-      action={`/inventory/branch-points-sale/create`}
+      action={`/inventory/branch-points-sale/edit/${id}`}
       method="post"
     >
       <div>
@@ -25,12 +32,31 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
         </h2>
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-4">
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="store_id"
+              // value={store.id}
+              value={id}
+            />
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="type_option"
+              value="update_principalBranchTab"
+            />
             <InputForm
               className="border-[#D7586B]"
               name="store_code"
               type="text"
               placeholder={"Código de Sucursal"}
               required={true}
+              // value={store.store_code}
+              // onChange={(e) => updateValue("store_code", e)}
             />
           </div>
           <div className="col-span-8">
@@ -40,7 +66,9 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
               type="text"
               placeholder={"Nombre o Descripción"}
               required={true}
-            />
+              // value={store.name}
+              // onChange={(e) => updateValue("name", e)}
+              />
           </div>
           <div className="col-span-12">
             <p className="mb-1 text-[10px] font-normal text-grisText">

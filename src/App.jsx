@@ -376,6 +376,9 @@ import NewBranch, {
   Action as SaveBranchPointSale,
 } from "./pages/Inventory/BranchPointSale/MainBranchPointSale/New/NewBranch";
 import { multiLoaderBranchPointsSale, multiLoaderListBranch, multiLoaderListBranchDetails } from "./pages/Inventory/BranchPointSale/utils";
+import EditBranch, {
+  Action as MultiActionBranchDetails,
+} from "./pages/Inventory/BranchPointSale/MainBranchPointSale/Edit/EditBranch";
 
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
@@ -492,7 +495,6 @@ import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
 import { getCatalogsTransformation } from "./pages/Transformation/utils";
-import EditBranch from "./pages/Inventory/BranchPointSale/MainBranchPointSale/Edit/EditBranch";
 
 
 const router = createBrowserRouter([
@@ -1252,6 +1254,7 @@ const router = createBrowserRouter([
             path: "/inventory/branch-points-sale/edit/:id",
             element: <EditBranch />,
             loader: multiLoaderListBranchDetails,
+            action: MultiActionBranchDetails,
           }
         ],
       },

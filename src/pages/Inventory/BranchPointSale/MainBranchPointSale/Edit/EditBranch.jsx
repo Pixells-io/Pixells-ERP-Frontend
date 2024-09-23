@@ -5,9 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
+import { updatePrincipalBranchTab } from "../../utils";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList } = useLoaderData();
+  const { whareHouses, costCenter, priceList, storeDetail } = useLoaderData();
 
   const tabOptions = [
     {
@@ -177,6 +178,7 @@ const EditBranch = () => {
                 whareHouses={whareHouses.data}
                 costCenter={costCenter.data}
                 priceList={priceList.data}
+                storeDetail={storeDetail.data}
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
@@ -190,3 +192,16 @@ const EditBranch = () => {
 };
 
 export default EditBranch;
+
+export async function Action({ request }) {
+  // const { level } = useParams();
+
+  const data = await request.formData();
+  switch (data.get("type_option")) {
+    case "update_principalBranchTab":
+      await updatePrincipalBranchTab(data);
+      break;
+  }
+  return "1";
+  // return redirect(`/accounting/${level}`);
+}
