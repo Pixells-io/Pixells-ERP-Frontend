@@ -16,8 +16,8 @@ const GeneralTab = () => {
       method="post"
     >
       <div>
-        <h2 className="font-poppns text-sm font-medium text-[#44444F]">
-          General
+        <h2 className="font-poppins text-sm font-medium text-[#44444F]">
+          GENERAL
         </h2>
         <input
           type="text"
@@ -86,7 +86,7 @@ const GeneralTab = () => {
                 </label>
               </div>
               <div>
-                <Button className="flex h-[24px] gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2">
+                <Button type="button" className="flex h-[24px] gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2">
                   <IonIcon className="h-5 w-5" icon={add}></IonIcon>
                   Periodo
                 </Button>

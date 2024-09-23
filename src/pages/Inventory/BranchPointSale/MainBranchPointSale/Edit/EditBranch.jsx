@@ -6,6 +6,7 @@ import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
 import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import UserTab from "./Tabs/UserTab";
 
 const EditBranch = () => {
   const { whareHouses, costCenter, priceList, storeDetail } = useLoaderData();
@@ -183,6 +184,9 @@ const EditBranch = () => {
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab />
+            </TabsContent>
+            <TabsContent value="users" className="w-full">
+              <UserTab />
             </TabsContent>
           </Tabs>
         </div>

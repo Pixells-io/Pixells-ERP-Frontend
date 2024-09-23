@@ -20,7 +20,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
       method="post"
     >
       <div>
-        <h2 className="font-poppns text-sm font-medium text-[#44444F]">
+        <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
