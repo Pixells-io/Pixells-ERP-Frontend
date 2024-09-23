@@ -23,29 +23,72 @@ import {
   chevronBack,
   chevronForward,
 } from "ionicons/icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ITEMS_PER_PAGE = 5;
 
-const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => {
-  const [assignmentData, setAssignmentData] = useState([
-    { internalLot: "", quantity: "", attribute1: "", attribute2: "", unitPrice: "", location: "" }
-  ]);
+const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssignmentData, onUpdateBatches, location }) => {
+  const [assignmentData, setAssignmentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [nextAuxId, setNextAuxId] = useState(1);
+
+  useEffect(() => {
+    if (initialAssignmentData && initialAssignmentData.length > 0) {
+      const dataWithAuxIds = initialAssignmentData.map((item, index) => ({
+        ...item,
+        auxId: index + 1
+      }));
+      setAssignmentData(dataWithAuxIds);
+      setNextAuxId(dataWithAuxIds.length + 1);
+    } else {
+      setAssignmentData([{ id: null, quantity: "", batch: "", ubication_id: "", auxId: 1 }]);
+      setNextAuxId(2);
+    }
+  }, [initialAssignmentData]);
 
   const addNewRow = () => {
-    setAssignmentData([...assignmentData, { internalLot: "", quantity: "", attribute1: "", attribute2: "", unitPrice: "", location: "" }]);
+    setAssignmentData([...assignmentData, { 
+      id: null, 
+      quantity: "", 
+      batch: "",
+      ubication_id: "",
+      auxId: nextAuxId
+    }]);
+    setNextAuxId(nextAuxId + 1);
   };
 
-  const handleInputChange = (index, field, value) => {
-    const newData = [...assignmentData];
-    newData[index][field] = value;
+  const handleInputChange = (auxId, field, value) => {
+    const newData = assignmentData.map(row => 
+      row.auxId === auxId ? { ...row, [field]: value } : row
+    );
     setAssignmentData(newData);
   };
 
-  const deleteRow = (index) => {
+  const handleDataInRow = (value, rowIndex) => {
+    const newData = [...assignmentData];
+    newData[rowIndex].ubication_id = value;
+    setAssignmentData(newData);
+  };
+
+  const deleteRowId = (auxId) => {
     if (assignmentData.length > 1) {
-      setAssignmentData(assignmentData.filter((_, i) => i !== index));
+      setAssignmentData(assignmentData.filter(row => row.auxId !== auxId));
     }
+  };
+
+  const handleSave = () => {
+    const updatedBatches = assignmentData.map(batch => ({
+      id: batch.id,
+      quantity: batch.quantity,
+    }));
+    onUpdateBatches(updatedBatches);
+    onClose();
   };
 
   const totalPages = Math.ceil(assignmentData.length / ITEMS_PER_PAGE);
@@ -70,7 +113,7 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
 
   const slotHeaders = [
     { key: 'checkbox', label: '', width: '40px' },
-    { key: 'internalLot', label: 'Lote Interno' },
+    { key: 'batch', label: 'Lote Interno' },
     { key: 'quantity', label: 'Cantidad' },
     { key: 'attribute1', label: 'Atributo 1' },
     { key: 'attribute2', label: 'Atributo 2' },
@@ -88,11 +131,11 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 p-4">
-          <h2 className="text-base font-semibold">{productData.name || "Aceite Vegetal"}</h2>
+          <h2 className="text-base font-semibold">{lotData.name}</h2>
           
           <Table>
             <TableHeader>
-            <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
+              <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
                 {tableHeaders.map((header) => (
                   <TableHead key={header.key} className={header.width ? `w-[${header.width}]` : ''}>
                     {header.label}
@@ -105,10 +148,10 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
                 <TableCell><Checkbox /></TableCell>
                 <TableCell>{lotData.articleNumber || "239846"}</TableCell>
                 <TableCell>{lotData.description || "Aceite Vegetal"}</TableCell>
-                <TableCell>{lotData.expectedQuantity || "10"}</TableCell>
-                <TableCell>{lotData.received || "10"}</TableCell>
-                <TableCell>{lotData.unitPrice || "$55.00"}</TableCell>
-                <TableCell>{lotData.location || "Almacén MP"}</TableCell>
+                <TableCell>{lotData.expectedQuantity || "0"}</TableCell>
+                <TableCell>{lotData.received || "0"}</TableCell>
+                <TableCell>${lotData.unitPrice || "$55.00"}</TableCell>
+                <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Almacén MP"}</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableBody>
@@ -116,34 +159,56 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
 
           <h3 className="text-base font-semibold">Asignar Lotes</h3>
          
-            <Table>
-              <TableHeader>
-                <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
-                  {slotHeaders.map((header) => (
-                    <TableHead key={header.key} className={header.width ? `w-[${header.width}]` : ''}>
-                      {header.label}
-                    </TableHead>
+          <Table>
+            <TableHeader>
+              <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
+                {slotHeaders.map((header) => (
+                  <TableHead key={header.key} className={header.width ? `w-[${header.width}]` : ''}>
+                    {header.label}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+          
+            <TableBody>
+              {paginatedData.map((row, rowIndex) => (
+                <TableRow key={row.auxId} className="border-b border-gray-100">
+                  <TableCell><Checkbox /></TableCell>
+                  {slotHeaders.slice(1, -2).map((header) => (
+                    <TableCell key={header.key}>
+                      <InputForm
+                        value={row[header.key] || ""}
+                        onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
+                      />
+                    </TableCell>
                   ))}
-                </TableRow>
-              </TableHeader>
-            
-              <TableBody>
-                {paginatedData.map((row, index) => (
-                  <TableRow key={index} className="border-b border-gray-100">
-                    <TableCell><Checkbox /></TableCell>
-                    {slotHeaders.slice(1, -1).map((header) => (
-                      <TableCell key={header.key}>
-                        <InputForm
-                          value={row[header.key] || ""}
-                          onChange={(e) => handleInputChange(index + (currentPage - 1) * ITEMS_PER_PAGE, header.key, e.target.value)}
-                        />
-                      </TableCell>
-                    ))}
-                    <TableCell>
+                  <TableCell>
+                    <div className="flex items-center justify-between gap-x-2">
+                      <Select
+                        name={`selectComponent-ubication-${rowIndex}`}
+                        className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                        onValueChange={(value) => handleDataInRow(value, rowIndex)}
+                        value={row?.ubication_id}
+                      >
+                        <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                          <SelectValue placeholder="Ubicación" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.isArray(location) &&
+                            location.map((location) => (
+                              <SelectItem
+                                key={location.id}
+                                value={location.id.toString()}
+                              >
+                                {location.name}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
                       <Button
                         type="button"
                         className="h-7 w-7 bg-transparent p-0 hover:bg-transparent"
-                        onClick={() => deleteRow(index + (currentPage - 1) * ITEMS_PER_PAGE)}
+                        onClick={() => deleteRowId(row.auxId)}
                       >
                         <IonIcon
                           icon={closeCircle}
@@ -151,12 +216,12 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
                           className="cursor-pointer text-grisDisabled"
                         />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-         
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
           <div className="flex items-center justify-between">
             <Button
@@ -194,7 +259,7 @@ const EntrySlotModal = ({ isOpen, onClose, productData = {}, lotData = {} }) => 
                 />
               </Button>
             </div>
-            <Button className="bg-blue-500 text-white hover:bg-blue-600">
+           <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleSave}>
               Save
             </Button>
           </div>

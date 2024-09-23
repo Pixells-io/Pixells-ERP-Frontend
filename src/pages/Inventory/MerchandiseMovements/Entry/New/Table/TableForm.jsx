@@ -25,60 +25,87 @@ import {
 } from "@/components/ui/select";
 import EntrySlotModal from "../Modal/SlotsModal";
 
-
-
-
-const TableForm = ({products,locations, tableData, setTableData, isEditable }) => {
+const TableForm = ({
+  products,
+  locations,
+  tableData,
+  setTableData,
+  isEditable,
+}) => {
   useEffect(() => {
     setTableData(tableData);
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedRow, setSelectedRow] = useState(null);
   const itemsPerPage = 10;
 
+  const handleOpenModal = (row) => {
+    setSelectedRow(row);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedRow(null);
+  };
+
+  const handleUpdateBatches = (updatedBatches) => {
+    setTableData((prevData) =>
+      prevData.map((item) =>
+        item.idAux === selectedRow.idAux
+          ? { ...item, batches: updatedBatches }
+          : item,
+      ),
+    );
+  };
   const handleAddRow = (e) => {
     e.preventDefault();
     const newRow = {
       idAux: getUltimateRowId() + 1,
+      type:"",
       articleNumber: "",
+      variation:"",
       description: "",
       expectedQuantity: 0,
       receivedQuantity: "",
       unitPrice: 0,
       total: 0,
-      batches:[],
-      ubication: null,
+      batches: [],
+      ubication_id: null,
     };
     setTableData((prevData) => [...prevData, newRow]);
   };
-  
 
   const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
     setTableData((prevData) => {
       const newData = prevData.map((item, index) =>
-        index === rowIndex ? { ...item, [accessorKey]: value } : item
+        index === rowIndex ? { ...item, [accessorKey]: value } : item,
       );
-      
+
       // Update total if receivedQuantity changes
       if (accessorKey === "receivedQuantity") {
         const unitPrice = newData[rowIndex].unitPrice || 0;
         newData[rowIndex].total = unitPrice * value; // Update total
       }
-      
+
       return newData;
     });
   }, []);
 
-  
   const handleSelectChange = (rowIndex, field, value) => {
     setTableData((prevData) => {
       const newData = [...prevData];
-      if (field === 'description') {
-        const selectedProduct = products.find(product => product.id.toString() === value);
+      if (field === "description") {
+        const selectedProduct = products.find(
+          (product) => product.product_master_id.toString() === value,
+        );
         if (selectedProduct) {
           newData[rowIndex] = {
             ...newData[rowIndex],
-            articleNumber: selectedProduct.id,
+            type:selectedProduct.type,
+            articleNumber: selectedProduct.product_master_id,
+            variation:selectedProduct.varation,
             description: selectedProduct.name,
             unitPrice: selectedProduct.price,
             total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
@@ -88,7 +115,6 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
       return newData;
     });
   };
-  
 
   const handleDataInRow = useCallback((data, rowIndex) => {
     setTableData((prevData) =>
@@ -140,24 +166,24 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
           <Select
-          value={row.articleNumber.toString()}
-          onValueChange={(value) => handleSelectChange(rowIndex, 'description', value)}
-        >
-          <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+            value={row.articleNumber.toString()}
+            onValueChange={(value) =>
+              handleSelectChange(rowIndex, "description", value)
+            }
           >
-            <SelectValue placeholder="Selecciona" />
-          </SelectTrigger>
-          <SelectContent>
-            {Array.isArray(products) && products.map((product) => (
-              <SelectItem
-                key={product.id}
-                value={product.id.toString()}
-              >
-                {product.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+              <SelectValue placeholder="Selecciona" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.isArray(products) &&
+                products.map((product) => (
+                  <SelectItem key={product.product_master_id} value={product.product_master_id.toString()}>
+
+                    {product.name}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
         ),
       },
       {
@@ -211,17 +237,26 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
       {
         accessorKey: "slots",
         header: "Lotes",
-        cell: ({ row, rowIndex }) => ( <div>
-          <button onClick={() => setIsModalOpen(true)}  className={"rounded-lg hover:bg-[#ACEED0] bg-[#E0E0E0] px-4 py-2"}>Gestionar</button>
-          <EntrySlotModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            productData={[]}
-            lotData={[]}
-            assignmentData={[]}
-           
-          />
-        </div>
+        cell: ({ row }) => (
+          <div>
+            <button
+              onClick={() => handleOpenModal(row)}
+              className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
+            >
+              Gestionar
+            </button>
+            {isModalOpen && selectedRow && (
+              <EntrySlotModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                productData={selectedRow}
+                lotData={selectedRow}
+                assignmentData={selectedRow.batches}
+                onUpdateBatches={handleUpdateBatches}
+                location={locations}
+              />
+            )}
+          </div>
         ),
       },
       {
@@ -231,23 +266,24 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
           <div className="flex items-center justify-between gap-x-2">
             <Select
               name={`selectComponent-ubication-${rowIndex}`}
-              className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+              className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
               disabled={!isEditable}
             >
-              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Ubicación" />
               </SelectTrigger>
               <SelectContent>
-              {Array.isArray(locations) && locations.map((location) => (
-              <SelectItem
-                key={location.id}
-                value={location.id.toString()}
-              >
-                {location.name}
-              </SelectItem>
-            ))}
+                {Array.isArray(locations) &&
+                  locations.map((location) => (
+                    <SelectItem
+                      key={location.id}
+                      value={location.id.toString()}
+                    >
+                      {location.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             {isEditable && (
@@ -263,7 +299,7 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
         ),
       },
     ],
-    [handleInputChange, deleteRowId, isEditable],
+    [handleInputChange, deleteRowId, isEditable, handleOpenModal],
   );
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
@@ -280,12 +316,11 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   return (
-    <div className="mb-2 rounded-xl h-[500px] overflow-auto">
+    <div className="mb-2 h-[500px] overflow-auto rounded-xl">
       <div className="">
         <Table>
-          <TableHeader >
+          <TableHeader>
             <TableRow className="border-b-2 border-b-primario text-xs font-normal text-grisText">
               {columns.map((column) => (
                 <TableHead key={column.accessorKey}>{column.header}</TableHead>
@@ -293,63 +328,66 @@ const TableForm = ({products,locations, tableData, setTableData, isEditable }) =
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedData.map((row, rowIndex) => (
-              <TableRow
-                key={rowIndex}
-                className="text-sm font-normal text-[#44444F]"
-              >
-                {columns.map((column) => (
-                  <TableCell key={column.accessorKey}>
-                    {column.cell({
-                      row,
-                      rowIndex: (currentPage - 1) * itemsPerPage + rowIndex,
-                    })}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
+  {paginatedData.map((row, rowIndex) => (
+    <TableRow
+      key={row.idAux} // Asegúrate de que idAux sea único
+      className="text-sm font-normal text-[#44444F]"
+    >
+      {columns.map((column) => (
+      <TableCell key={column.accessorKey}>
+
+          {column.cell({
+            row,
+            rowIndex: rowIndex, // Usa rowIndex definido aquí
+          })}
+        </TableCell>
+      ))}
+    </TableRow>
+  ))}
+</TableBody>
+
+
         </Table>
       </div>
       {isEditable && (
-      <div className="mt-4 flex items-center justify-between">
-        <IonIcon
-          icon={addCircle}
-          size="small"
-          className="cursor-pointer text-primario"
-          onClick={handleAddRow}
-        />
-        
-       <div className="flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className="mr-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronBack}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="ml-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronForward}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
+        <div className="mt-4 flex items-center justify-between">
+          <IonIcon
+            icon={addCircle}
+            size="small"
+            className="cursor-pointer text-primario"
+            onClick={handleAddRow}
+          />
+
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="mr-2 rounded-full bg-transparent p-1"
+            >
+              <IonIcon
+                icon={chevronBack}
+                size="small"
+                className="text-primarioBotones"
+              />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="ml-2 rounded-full bg-transparent p-1"
+            >
+              <IonIcon
+                icon={chevronForward}
+                size="small"
+                className="text-primarioBotones"
+              />
+            </Button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
     </div>
   );
 };
