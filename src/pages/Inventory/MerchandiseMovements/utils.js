@@ -20,7 +20,6 @@ export async function getCatalogs() {
 }
 
 export async function getCatalogById(data) {
-   
   const INFO = data;
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/get-catalog-info`,
@@ -35,20 +34,20 @@ export async function getCatalogById(data) {
   return response.json();
 }
 
-export async function getProductCatalog(){
-    try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}inventory/get-price-list-products-catalog`,
-          {
-            headers: {
-              Authorization: "Bearer " + Cookies.get("token"),
-            },
-          },
-        );
-        return response.json();
-      } catch (error) {
-        return new Response("Something went wrong...", { status: 500 });
-      }
+export async function getProductCatalog() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-price-list-products-catalog`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
 //GET LOCATIONS
 export async function getLocations() {
@@ -66,12 +65,61 @@ export async function getLocations() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+export async function getWarehouses() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-inventories`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+export async function getCategories() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/get-categories`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getProducts() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}products/shopping-catalog`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 
 export async function multiLoaderMovements() {
-    const [catalogs, products,locations] = await Promise.all([
-        getCatalogs(),
-        getProductCatalog(),
-        getLocations()
-      ]);
-      return json({catalogs, products,locations});
+  const [warehouses,categories, catalogs, products, locations] = await Promise.all([
+    getWarehouses(),
+    getCategories(),
+    getCatalogs(),
+    getProducts(),
+    getLocations(),
+  ]);
+  return json({ warehouses,categories, catalogs, products, locations });
 }
