@@ -9,7 +9,7 @@ import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
 import UserTab from "./Tabs/UserTab";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList, storeDetail } = useLoaderData();
+  const { whareHouses, costCenter, priceList, storeDetail, users } = useLoaderData();
 
   const tabOptions = [
     {
@@ -186,7 +186,7 @@ const EditBranch = () => {
               <GeneralTab />
             </TabsContent>
             <TabsContent value="users" className="w-full">
-              <UserTab />
+              <UserTab users={users.data} />
             </TabsContent>
           </Tabs>
         </div>

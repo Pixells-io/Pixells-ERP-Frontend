@@ -85,13 +85,14 @@ export async function getStores() {
 export async function multiLoaderListBranchDetails({ params }) {
   const id = params.id;
 
-  const [whareHouses, costCenter, priceList, storeDetail] = await Promise.all([
+  const [whareHouses, costCenter, priceList, storeDetail, users] = await Promise.all([
     getWarehouses(),
     getCostCenter(),
     getPriceList(),
     getStoreById(id),
+    getUsers(),
   ]);
-  return json({ whareHouses, costCenter, priceList, storeDetail });
+  return json({ whareHouses, costCenter, priceList, storeDetail, users });
 }
 
 export async function getStoreById(id) {
@@ -183,4 +184,20 @@ export async function createGeneralBranchTab(data) {
   );
 
   return response.json();
+}
+
+export async function getUsers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-users`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
