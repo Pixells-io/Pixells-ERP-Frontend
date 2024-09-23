@@ -26,7 +26,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
       action={`/inventory/branch-points-sale/edit/${id}`}
       method="post"
     >
-      <div>
+      <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>

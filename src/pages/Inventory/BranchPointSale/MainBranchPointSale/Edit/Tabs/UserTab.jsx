@@ -30,7 +30,7 @@ const UserTab = ({ users }) => {
       action={`/inventory/branch-points-sale/edit/${id}`}
       method="post"
     >
-      <div>
+      <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           USUARIOS
         </h2>
