@@ -171,8 +171,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div></div>
-      <div></div>
+
       <div className="flex items-center space-x-10">
         <Label
           htmlFor="disponibleParaDevolucion"
@@ -188,9 +187,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
         />
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
+
       <div className="flex items-center space-x-6">
         <Label
           htmlFor="fabricantes"
@@ -205,9 +202,7 @@ const GeneralForm = ({ data, setData }) => {
           onChange={handleChange}
         />
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
+
       <div className="flex items-center space-x-6">
         <Label
           htmlFor="comentario"
@@ -222,8 +217,7 @@ const GeneralForm = ({ data, setData }) => {
           className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
         />
       </div>
-      <div></div>
-      <div></div>
+
       <div className="flex flex-col items-start justify-start space-y-2 pr-8">
         <div
           {...getRootProps()}
