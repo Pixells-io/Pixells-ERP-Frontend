@@ -120,7 +120,7 @@ const FormGroup = ({
           )}
         </TabsContent>
 
-        <TabsContent value="inventory">
+        <TabsContent value="inventory" className="w-full">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             INVENTARIO
           </h2>
@@ -129,16 +129,16 @@ const FormGroup = ({
           </div>
         </TabsContent>
 
-        <TabsContent value="storage">
+        <TabsContent value="storage" className="w-full">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             ALMACÉN
           </h2>
-          <div className="flex pl-2">
+          <div className="flex h-full w-full">
             <WarehouseForm />
           </div>
         </TabsContent>
 
-        <TabsContent value="shopping">
+        <TabsContent value="shopping" className="w-full">
           <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
             COMPRAS
           </h2>
