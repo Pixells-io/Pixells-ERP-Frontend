@@ -28,36 +28,29 @@ const CheckForm = ({ suppliers, data, setData, isEdit = false }) => {
   }, [formData, setData]);
 
   const selectClasses =
-    "border-gris2-transparent ml-4 w-[50px] rounded-xl border border-none bg-grisBg font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones";
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <div className="space-y-4">
-        <div className="flex items-center">
-          <Label
-            htmlFor="proveedorDefault"
-            className="w-50 mb-1 mr-4 font-roboto text-[14px] text-gris2"
-          >
-            Proveedor predeterminado
-          </Label>
-          <Select
-            name="proveedor"
-            value={formData.proveedor}
-            onValueChange={handleSelectChange}
-          >
-            <SelectTrigger className={selectClasses}>
-              <SelectValue placeholder="Seleccionar" />
-            </SelectTrigger>
-            <SelectContent>
-              {suppliers?.data?.map((proveedor) => (
-                <SelectItem key={proveedor.id} value={proveedor.id.toString()}>
-                  {proveedor.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+    <div className="flex w-full flex-col">
+      <p className="mb-1 text-[10px] font-normal text-grisText">
+        Proveedor predeterminado
+      </p>
+      <Select
+        name="proveedor"
+        value={formData.proveedor}
+        onValueChange={handleSelectChange}
+      >
+        <SelectTrigger className={selectClasses}>
+          <SelectValue placeholder="Seleccionar" />
+        </SelectTrigger>
+        <SelectContent>
+          {suppliers?.data?.map((proveedor) => (
+            <SelectItem key={proveedor.id} value={proveedor.id.toString()}>
+              {proveedor.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
