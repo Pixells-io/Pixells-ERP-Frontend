@@ -470,7 +470,7 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics, { Action as ActionTopic } from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
-import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
+import NewEntry,{Action as SaveMovement} from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
 import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
@@ -1177,6 +1177,7 @@ const router = createBrowserRouter([
             path: "/inventory/merchandise-movements/entry/new",
             element: <NewEntry />,
             loader:multiLoaderMovements,
+            action:SaveMovement
           },
           {
             path: "/inventory/merchandise-movements/entry/record/:id",

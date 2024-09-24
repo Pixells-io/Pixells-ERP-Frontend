@@ -63,14 +63,14 @@ const TableForm = ({
     e.preventDefault();
     const newRow = {
       idAux: getUltimateRowId() + 1,
-      type:"",
+      type: 1,
       articleNumber: "",
-      variation:"",
+      variation: 0,
       description: "",
-      expectedQuantity: 0,
+      eQuantity: "",
       receivedQuantity: "",
-      unitPrice: 0,
-      total: 0,
+      unitPrice: "",
+      total: "",
       batches: [],
       ubication_id: null,
     };
@@ -83,12 +83,14 @@ const TableForm = ({
         index === rowIndex ? { ...item, [accessorKey]: value } : item,
       );
 
-      // Update total if receivedQuantity changes
+      if (accessorKey === "unitPrice") {
+        const unitPrice = newData[rowIndex].unitPrice || 0;
+        newData[rowIndex].total = unitPrice * value; // Update total
+      }
       if (accessorKey === "receivedQuantity") {
         const unitPrice = newData[rowIndex].unitPrice || 0;
         newData[rowIndex].total = unitPrice * value; // Update total
       }
-
       return newData;
     });
   }, []);
@@ -98,14 +100,14 @@ const TableForm = ({
       const newData = [...prevData];
       if (field === "description") {
         const selectedProduct = products.find(
-          (product) => product.product_master_id.toString() === value,
+          (product) => product.id.toString() === value,
         );
         if (selectedProduct) {
           newData[rowIndex] = {
             ...newData[rowIndex],
-            type:selectedProduct.type,
-            articleNumber: selectedProduct.product_master_id,
-            variation:selectedProduct.varation,
+            type: selectedProduct.type,
+            articleNumber: selectedProduct.id,
+            variation: selectedProduct.varation,
             description: selectedProduct.name,
             unitPrice: selectedProduct.price,
             total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
@@ -177,8 +179,7 @@ const TableForm = ({
             <SelectContent>
               {Array.isArray(products) &&
                 products.map((product) => (
-                  <SelectItem key={product.product_master_id} value={product.product_master_id.toString()}>
-
+                  <SelectItem key={product.id} value={product.id.toString()}>
                     {product.name}
                   </SelectItem>
                 ))}
@@ -189,7 +190,7 @@ const TableForm = ({
       {
         accessorKey: "expectedQuantity",
         header: "Cantidad esperada",
-        cell: ({ row, rowIndex }) => <div>{row?.expectedQuantity}</div>,
+        cell: ({ row, rowIndex }) => <div>{row?.eQuantity}</div>,
       },
       {
         accessorKey: "receivedQuantity",
@@ -198,12 +199,14 @@ const TableForm = ({
           <Input
             type="number"
             className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
-              row?.expectedQuantity == row?.receivedQuantity
+              row?.eQuantity == row?.receivedQuantity
                 ? "text-[#00A259]"
                 : "text-[#D7586B]"
             }`}
             name={`received-quantity-${rowIndex}`}
             value={row?.receivedQuantity}
+            min={"0"}
+            step={"0.01"}
             placeholder="Ingrese"
             onChange={(e) =>
               handleInputChange(rowIndex, "receivedQuantity", e.target.value)
@@ -220,6 +223,8 @@ const TableForm = ({
             type="number"
             className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
             name={`cost-subProduct-${rowIndex}`}
+            min={"0"}
+            step={"0.01"}
             value={row?.unitPrice}
             placeholder="Ingrese"
             onChange={(e) =>
@@ -328,25 +333,22 @@ const TableForm = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-  {paginatedData.map((row, rowIndex) => (
-    <TableRow
-      key={row.idAux} // Asegúrate de que idAux sea único
-      className="text-sm font-normal text-[#44444F]"
-    >
-      {columns.map((column) => (
-      <TableCell key={column.accessorKey}>
-
-          {column.cell({
-            row,
-            rowIndex: rowIndex, // Usa rowIndex definido aquí
-          })}
-        </TableCell>
-      ))}
-    </TableRow>
-  ))}
-</TableBody>
-
-
+            {paginatedData.map((row, rowIndex) => (
+              <TableRow
+                key={row.idAux}  //idAux sea único
+                className="text-sm font-normal text-[#44444F]"
+              >
+                {columns.map((column) => (
+                  <TableCell key={column.accessorKey}>
+                    {column.cell({
+                      row,
+                      rowIndex: rowIndex, 
+                    })}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </div>
       {isEditable && (
