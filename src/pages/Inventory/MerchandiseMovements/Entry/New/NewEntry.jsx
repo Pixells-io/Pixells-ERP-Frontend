@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData,useSubmit, redirect } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -21,14 +21,15 @@ import TableForm from "./Table/TableForm";
 import ModalQrCode from "./Modal/ModalQrCode";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
-import { getCatalogById } from "../../utils";
+import { getCatalogById, saveStockMovement } from "../../utils";
 
 function NewEntry() {
   const data = useLoaderData();
+  const submit = useSubmit();
   const { warehouses, categories, catalogs, products, locations } = data;
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
-  const [formData, setFormData] = useState({
+  const [initialData, setInitialData] = useState({
     category: "",
     requestNumber: "",
     movement_type: 1,
@@ -45,10 +46,10 @@ function NewEntry() {
       articleNumber: "",
       variation:"",
       description: "",
-      expectedQuantity: 0,
+      eQuantity: "",
       receivedQuantity: "",
-      unitPrice: 0,
-      total: 0,
+      unitPrice: "",
+      total: "",
       batches: [],
       ubication: null,
     },
@@ -56,17 +57,16 @@ function NewEntry() {
   const [modalQr, setModalQr] = useState(false);
 
   const [comments, setComments] = useState("");
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevData) => ({
+    setInitialData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleSelectChange = (name, value) => {
-    setFormData((prevData) => ({
+    setInitialData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -79,11 +79,15 @@ function NewEntry() {
     }
   };
 
+  //Fetch to Order
   useEffect(() => {
     async function fetchCatalog() {
+
       try {
+
         if (selectedCatalog) {
           const catalogData = await getCatalogById(selectedCatalog);
+
           if (Array.isArray(catalogData.data.slots)) {
             const formattedData = catalogData.data.slots.map((item, index) => {
               let product = products.data.find(
@@ -96,7 +100,7 @@ function NewEntry() {
                 articleNumber: item.master_product || "",
                 variation: item.variations||"",
                 description: item.master_product.toString() || "",
-                expectedQuantity: item.quantity || 0,
+                eQuantity: item.quantity || 0,
                 receivedQuantity:  "",
                 unitPrice: unitPrice,
                 total: 0,
@@ -116,22 +120,36 @@ function NewEntry() {
   }, [selectedCatalog]);
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavio
     const formData = new FormData();
     const info = {
-      category: formData.category,
-      rel_id: formData.requestNumber,
-      movement_type: formData.movement_type,
-      inventory_in: formData.fromWarehouse,
-      inventory_out: formData.toWarehouse,
+      category: parseInt(initialData.category),
+      rel_id: parseInt(initialData.requestNumber),
+      movement_type: initialData.movement_type,
+      inventory_in: parseInt(initialData.fromWarehouse),
+      inventory_out: parseInt(initialData.toWarehouse),
       comment: comments,
-      urgency: formData.urgency,
-      receive_date: formData.receive_date,
-      products: commodity,
+      urgency: parseInt(initialData.urgency),
+      receive_date: initialData.receive_date,
+      products: commodity.map(item => ({
+        type: parseInt(item.type),
+        product_master_id: parseInt(item.articleNumber),
+        variation: parseInt(item.variation),
+        inventory_in: parseInt(item.ubication_id),
+        rel_id: selectedCatalog.id,
+        expected_quantity: parseInt(item.eQuantity),
+        batches: item.batches,
+      })),
     };
-    console.log(JSON.stringify(info));
+  
+   formData.append("info", JSON.stringify(info));
+  
+    submit(formData, {
+      action: `/inventory/merchandise-movements/entry/new`,
+      method: "POST",
+    });
   };
-  console.log(commodity)
+
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -206,7 +224,7 @@ function NewEntry() {
               </Label>
               <Select
                 name="category"
-                value={formData.category}
+                value={initialData.category}
                 onValueChange={(value) => handleSelectChange("category", value)}
               >
                 <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
@@ -229,7 +247,7 @@ function NewEntry() {
               </Label>
               <Select
                 name="requestNumber"
-                value={formData.requestNumber}
+                value={initialData.requestNumber}
                 onValueChange={(value) =>
                   handleSelectChange("requestNumber", value)
                 }
@@ -254,7 +272,7 @@ function NewEntry() {
               </Label>
               <Select
                 name="fromWarehouse"
-                value={formData.fromWarehouse}
+                value={initialData.fromWarehouse}
                 onValueChange={(value) =>
                   handleSelectChange("fromWarehouse", value)
                 }
@@ -279,7 +297,7 @@ function NewEntry() {
               </Label>
               <Select
                 name="toWarehouse"
-                value={formData.toWarehouse}
+                value={initialData.toWarehouse}
                 onValueChange={(value) =>
                   handleSelectChange("toWarehouse", value)
                 }
@@ -303,7 +321,7 @@ function NewEntry() {
               </Label>
               <Select
                 name="urgency"
-                value={formData.urgency}
+                value={initialData.urgency}
                 onValueChange={(value) => handleSelectChange("urgency", value)}
               >
                 <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
@@ -325,7 +343,7 @@ function NewEntry() {
                 type="date"
                 className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
                 name="receive_date"
-                value={formData.receive_date}
+                value={initialData.receive_date}
                 onChange={handleInputChange}
               />
             </div>
@@ -383,3 +401,11 @@ function NewEntry() {
 }
 
 export default NewEntry;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await saveStockMovement(formData);
+  return "0";
+  //return redirect("/inventory");
+}
+

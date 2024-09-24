@@ -53,9 +53,11 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
   }, [initialAssignmentData]);
 
   const addNewRow = () => {
+    const lastQuantity = assignmentData.length > 0 ? assignmentData[assignmentData.length - 1].quantity : "";
+  
     setAssignmentData([...assignmentData, { 
       id: null, 
-      quantity: "", 
+      quantity: lastQuantity, 
       batch: "",
       ubication_id: "",
       auxId: nextAuxId
@@ -82,14 +84,17 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
     }
   };
 
+
+  
   const handleSave = () => {
     const updatedBatches = assignmentData.map(batch => ({
       id: batch.id,
-      quantity: batch.quantity,
+      quantity: batch.quantity !== "" ? parseInt(batch.quantity) : 0, // Ensure quantity is a number
     }));
     onUpdateBatches(updatedBatches);
     onClose();
   };
+  
 
   const totalPages = Math.ceil(assignmentData.length / ITEMS_PER_PAGE);
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);

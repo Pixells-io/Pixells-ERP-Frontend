@@ -1,6 +1,25 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
+
+//SAVE ENTRY
+
+export async function saveStockMovement(data) {
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/save-stock-movement`,
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
+}
+
+
 //GET CATALOGS
 export async function getCatalogs() {
   try {
@@ -65,6 +84,8 @@ export async function getLocations() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+//GET WAREHOUSES
 export async function getWarehouses() {
   try {
     const response = await fetch(
@@ -81,6 +102,8 @@ export async function getWarehouses() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+//GET CATEGORIES
 export async function getCategories() {
   try {
     const response = await fetch(
@@ -97,28 +120,13 @@ export async function getCategories() {
   }
 }
 
-export async function getProducts() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}products/shopping-catalog`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
 
 export async function multiLoaderMovements() {
   const [warehouses,categories, catalogs, products, locations] = await Promise.all([
     getWarehouses(),
     getCategories(),
     getCatalogs(),
-    getProducts(),
+    getProductCatalog(),
     getLocations(),
   ]);
   return json({ warehouses,categories, catalogs, products, locations });
