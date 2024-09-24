@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Form, useNavigate, useLoaderData } from "react-router-dom";
+
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+
+import NavigationHeader from "@/components/navigation-header";
+
 import {
   Select,
   SelectContent,
@@ -8,12 +13,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
-import { Form, useNavigate, useLoaderData } from "react-router-dom";
+
 import { saveNewProduct } from "../utils";
-import { Button } from "@/components/ui/button";
-import NavigationHeader from "@/components/navigation-header";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
@@ -73,9 +77,6 @@ const CreateArticle = () => {
   const handleSelectChange = (name, value) => {
     setInitialValues((prevData) => ({ ...prevData, [name]: value }));
   };
-
-  const selectClasses =
-    "w-50 px-4 rounded-xl border border-[#44444F] bg-[#F2F2F2] text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   const [errors, setErrors] = useState({});
   const [errorTimer, setErrorTimer] = useState(null);
