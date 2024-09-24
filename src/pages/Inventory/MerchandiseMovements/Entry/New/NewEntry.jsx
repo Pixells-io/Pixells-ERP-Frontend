@@ -87,11 +87,11 @@ function NewEntry() {
 
         if (selectedCatalog) {
           const catalogData = await getCatalogById(selectedCatalog);
-
+          console.log(catalogData)
           if (Array.isArray(catalogData.data.slots)) {
             const formattedData = catalogData.data.slots.map((item, index) => {
               let product = products.data.find(
-                (p) => p.product_master_id === parseInt(item.master_product),
+                (p) => p.id === parseInt(item.master_product),
               );
               let unitPrice = product ? parseFloat(product.price) : 0;
               return {
@@ -99,6 +99,7 @@ function NewEntry() {
                 idAux: index,
                 articleNumber: item.master_product || "",
                 variation: item.variations||"",
+                variation_id: item.id||"",
                 description: item.master_product.toString() || "",
                 eQuantity: item.quantity || 0,
                 receivedQuantity:  "",
@@ -131,13 +132,14 @@ function NewEntry() {
       urgency: parseInt(initialData.urgency),
       receive_date: initialData.receive_date,
       products: commodity.map(item => ({
-        type: parseInt(item.type),
-        product_master_id: parseInt(item.articleNumber),
-        variation: parseInt(item.variation),
-        inventory_in: parseInt(item.ubication_id),
-        rel_id: selectedCatalog.id,
-        expected_quantity: parseInt(item.eQuantity),
-        batches: item.batches,
+        type: parseInt(item.type)||0,
+        product_master_id: parseInt(item.articleNumber)||0,
+        variation: parseInt(item.variation_id)||0,
+        variation_id:null,
+        inventory_in: parseInt(item.ubication_id)||0,
+        rel_id: selectedCatalog.id||0,
+        expected_quantity: parseInt(item.eQuantity)||0,
+        batches: item.batches||[],
       })),
     };
   
@@ -148,8 +150,7 @@ function NewEntry() {
       method: "POST",
     });
   };
-
-
+  console.log(products.data)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

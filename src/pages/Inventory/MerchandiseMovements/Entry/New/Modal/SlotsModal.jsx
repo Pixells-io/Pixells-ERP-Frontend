@@ -33,7 +33,7 @@ import {
 
 const ITEMS_PER_PAGE = 5;
 
-const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssignmentData, onUpdateBatches, location }) => {
+const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: initialAssignmentData, onUpdateBatches, location }) => {
   const [assignmentData, setAssignmentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [nextAuxId, setNextAuxId] = useState(1);
@@ -54,11 +54,12 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
 
   const addNewRow = () => {
     const lastQuantity = assignmentData.length > 0 ? assignmentData[assignmentData.length - 1].quantity : "";
-  
+    const lastBatch = assignmentData.length > 0 ? assignmentData[assignmentData.length - 1].batch : "";
+
     setAssignmentData([...assignmentData, { 
       id: null, 
       quantity: lastQuantity, 
-      batch: "",
+      batch: lastBatch,
       ubication_id: "",
       auxId: nextAuxId
     }]);
@@ -84,17 +85,15 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
     }
   };
 
-
-  
   const handleSave = () => {
     const updatedBatches = assignmentData.map(batch => ({
       id: batch.id,
       quantity: batch.quantity !== "" ? parseInt(batch.quantity) : 0, // Ensure quantity is a number
+      batch: parseInt(batch.batch)
     }));
     onUpdateBatches(updatedBatches);
     onClose();
   };
-  
 
   const totalPages = Math.ceil(assignmentData.length / ITEMS_PER_PAGE);
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
@@ -126,7 +125,6 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
     { key: 'location', label: 'Ubicación' },
     { key: 'actions', label: '', width: '40px' }
   ];
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="p-0 sm:max-w-[800px]">
@@ -151,12 +149,12 @@ const EntrySlotModal = ({ isOpen, onClose, lotData, assignmentData: initialAssig
             <TableBody>
               <TableRow>
                 <TableCell><Checkbox /></TableCell>
-                <TableCell>{lotData.articleNumber || "239846"}</TableCell>
-                <TableCell>{lotData.description || "Aceite Vegetal"}</TableCell>
+                <TableCell>{lotData.articleNumber || "0"}</TableCell>
+                <TableCell>{lotData.description || "Ningún Producto"}</TableCell>
                 <TableCell>{lotData.expectedQuantity || "0"}</TableCell>
                 <TableCell>{lotData.received || "0"}</TableCell>
-                <TableCell>${lotData.unitPrice || "$55.00"}</TableCell>
-                <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Almacén MP"}</TableCell>
+                <TableCell>${lotData.unitPrice || "$0"}</TableCell>
+                <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableBody>

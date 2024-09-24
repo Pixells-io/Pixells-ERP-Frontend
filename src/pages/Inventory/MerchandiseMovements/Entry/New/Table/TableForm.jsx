@@ -66,6 +66,7 @@ const TableForm = ({
       type: 1,
       articleNumber: "",
       variation: 0,
+      variation_id:0,
       description: "",
       eQuantity: "",
       receivedQuantity: "",
@@ -105,9 +106,9 @@ const TableForm = ({
         if (selectedProduct) {
           newData[rowIndex] = {
             ...newData[rowIndex],
-            type: selectedProduct.type,
+            type: 1,
             articleNumber: selectedProduct.id,
-            variation: selectedProduct.varation,
+            variation: 0,
             description: selectedProduct.name,
             unitPrice: selectedProduct.price,
             total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
@@ -254,6 +255,7 @@ const TableForm = ({
               <EntrySlotModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
+                products={products}
                 productData={selectedRow}
                 lotData={selectedRow}
                 assignmentData={selectedRow.batches}
