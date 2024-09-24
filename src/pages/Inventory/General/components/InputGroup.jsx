@@ -43,7 +43,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               type="text"
               placeholder="Código de Artículo"
               name="codigoDeArticulo"
-              value={inputsData.codigoDeArticulo || ""}
+              value={inputsData?.codigoDeArticulo || ""}
               onChange={handleInputChange}
             />
 
@@ -52,7 +52,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               type="text"
               placeholder="Nombre o descripción"
               name="nombreODescripcion"
-              value={inputsData.nombreODescripcion || ""}
+              value={inputsData?.nombreODescripcion || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -64,15 +64,15 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             </p>
             <Select
               name="categoria"
-              value={inputsData.categoria || ""}
+              value={inputsData?.categoria || ""}
               onValueChange={(value) => handleSelectChange("categoria", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(categories.data) &&
-                  categories.data.map((category) => (
+                {Array.isArray(categories?.data) &&
+                  categories?.data.map((category) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name}
                     </SelectItem>
@@ -94,7 +94,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                   <Checkbox
                     id="inventario"
                     name="inventario"
-                    checked={inputsData.inventario || false}
+                    checked={inputsData?.inventario || false}
                     onCheckedChange={(checked) =>
                       handleCheckboxChange("inventario", checked)
                     }
@@ -115,7 +115,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                   <Checkbox
                     id="compra"
                     name="compra"
-                    checked={inputsData.compra || false}
+                    checked={inputsData?.compra || false}
                     onCheckedChange={(checked) =>
                       handleCheckboxChange("compra", checked)
                     }
@@ -136,7 +136,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                   <Checkbox
                     id="venta"
                     name="venta"
-                    checked={inputsData.venta || false}
+                    checked={inputsData?.venta || false}
                     onCheckedChange={(checked) =>
                       handleCheckboxChange("venta", checked)
                     }
@@ -160,7 +160,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             name="precio"
             min="0"
             step="0.1"
-            value={inputsData.precio || ""}
+            value={inputsData?.precio || ""}
             onChange={handleInputChange}
           />
 
@@ -169,14 +169,14 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             <InputForm
               placeholder="Unidades de Medida"
               name="unidadesDeMedida"
-              value={inputsData.unidadesDeMedida || ""}
+              value={inputsData?.unidadesDeMedida || ""}
               readOnly
             />
             {/* Unidades de Medida Modal */}
             <div className="ml-0 pl-0 pt-4">
               <UnitMeasure
                 onSelect={handleUnitMeasureSelect}
-                initialValue={inputsData.unidadesDeMedida || ""}
+                initialValue={inputsData?.unidadesDeMedida || ""}
               />
             </div>
           </div>
@@ -188,7 +188,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             </p>
             <Select
               name="centroDeCostos"
-              value={inputsData.centroDeCostos || ""}
+              value={inputsData?.centroDeCostos || ""}
               onValueChange={(value) =>
                 handleSelectChange("centroDeCostos", value)
               }
@@ -210,7 +210,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             </p>
             <Select
               name="listaDePrecios"
-              value={inputsData.listaDePrecios || ""}
+              value={inputsData?.listaDePrecios || ""}
               onValueChange={(value) =>
                 handleSelectChange("listaDePrecios", value)
               }
@@ -232,17 +232,17 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             </p>
             <Select
               name="almacen"
-              value={inputsData.almacen || ""}
+              value={inputsData?.almacen || ""}
               onValueChange={(value) => handleSelectChange("almacen", value)}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(warehouses.data) &&
-                  warehouses.data.map((warehouse) => (
-                    <SelectItem key={warehouse.id} value={warehouse.id}>
-                      {warehouse.name}
+                {Array.isArray(warehouses?.data) &&
+                  warehouses?.data.map((warehouse) => (
+                    <SelectItem key={warehouse?.id} value={warehouse?.id}>
+                      {warehouse?.name}
                     </SelectItem>
                   ))}
               </SelectContent>
@@ -253,7 +253,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
           <InputForm
             placeholder="Código de barras"
             name="codigoDeBarras"
-            value={inputsData.codigoDeBarras || ""}
+            value={inputsData?.codigoDeBarras || ""}
             onChange={handleInputChange}
           />
         </div>

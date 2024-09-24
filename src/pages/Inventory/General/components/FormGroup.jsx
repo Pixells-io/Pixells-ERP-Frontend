@@ -25,7 +25,7 @@ const FormGroup = ({
   setPrincipalInputs,
 }) => {
   return (
-    <div className="flex w-full overflow-hidden rounded-[10px] p-4">
+    <div className="flex h-full w-full overflow-hidden rounded-[10px] p-4">
       <Tabs defaultValue="principal" className="flex w-full">
         <TabsList className="mb-4 flex h-full w-full max-w-[310px] flex-col justify-start gap-y-5 bg-transparent">
           {[
@@ -105,13 +105,18 @@ const FormGroup = ({
           </div>
         </TabsContent>
 
-        <TabsContent value="variables">
+        <TabsContent value="variables" className="w-full">
           {productType === "2" && (
-            <VariableForm
-              attrb={attrb}
-              variableData={variableData}
-              setVariableData={setVariableData}
-            />
+            <>
+              <h2 className="mb-4 justify-start pl-2 font-poppins text-[16px]">
+                Variables
+              </h2>
+              <VariableForm
+                attrb={attrb}
+                variableData={variableData}
+                setVariableData={setVariableData}
+              />
+            </>
           )}
         </TabsContent>
 

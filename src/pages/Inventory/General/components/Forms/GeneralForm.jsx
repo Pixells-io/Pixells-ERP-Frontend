@@ -91,40 +91,90 @@ const GeneralForm = ({ data, setData }) => {
           </p>
         </div>
         <div className="flex w-full items-center gap-2 border-b border-grisDisabled">
-          <Switch />
+          <Switch
+            name="sujetoAImpuesto"
+            checked={formData.sujetoAImpuesto}
+            onCheckedChange={() => handleCheckboxChange("sujetoAImpuesto")}
+            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+          />
           <p className="py-2 text-[12px] text-grisText">Sujeto a impuesto</p>
         </div>
 
         <div className="flex w-full items-center gap-2 border-b border-grisDisabled">
-          <Switch />
+          <Switch
+            name="disponibleParaDevolucion"
+            checked={formData.disponibleParaDevolucion}
+            onCheckedChange={() =>
+              handleCheckboxChange("disponibleParaDevolucion")
+            }
+            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+          />
           <p className="py-2 text-[12px] text-grisText">
             Disponible para devolución
           </p>
         </div>
 
         <div className="flex w-full items-center gap-2 border-b border-grisDisabled">
-          <Switch />
+          <Switch
+            name="manufacturaDisponible"
+            checked={formData.manufacturaDisponible}
+            onCheckedChange={() =>
+              handleCheckboxChange("manufacturaDisponible")
+            }
+            className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+          />
           <p className="py-2 text-[12px] text-grisText">
             Disponible para fabricar
           </p>
         </div>
 
-        <InputForm type="text" placeholder="Fabricante" />
+        <InputForm
+          type="text"
+          placeholder="Fabricante"
+          name="fabricantes"
+          value={formData.fabricantes}
+          onChange={handleChange}
+        />
 
-        <InputForm type="text" placeholder="Comentarios" />
+        <div>
+          <p className="mb-1 text-[10px] font-normal text-grisText">
+            Comentarios
+          </p>
+          <Textarea
+            type="text"
+            name="comentario"
+            value={formData.comentario}
+            onChange={handleChange}
+            className="h-[32px] rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f]"
+          />
+        </div>
+
         <div className="flex w-full border-b border-grisDisabled">
           <p className="px-4 py-2 text-[10px] text-grisSubText">ESTATUS</p>
         </div>
-        <div className="flex w-full items-center gap-2 border-b border-grisDisabled">
-          <Switch />
-          <p className="py-2 text-[12px] text-grisText">Activo</p>
-          <p className="text-xs font-light text-grisSubText">
-            (Sin periodo de tiempo)
-          </p>
+        <div className="flex w-full items-center justify-between gap-2 border-b border-grisDisabled">
+          <div className="flex items-center gap-2">
+            <Switch />
+            <p className="py-2 text-[12px] text-grisText">Activo</p>
+            <p className="text-xs font-light text-grisSubText">
+              (Sin periodo de tiempo)
+            </p>
+          </div>
+
+          <div className="p-2">
+            <button
+              type="button"
+              className="flex items-center self-end rounded-lg bg-blancoBox px-3 py-1 text-[11px] text-grisHeading"
+            >
+              + Periodo
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* old */}
       <div className="flex w-full flex-col gap-4">
-        <div className="flex items-center space-x-3">
+        {/* <div className="flex items-center space-x-3">
           <Label
             htmlFor="sujetoAImpuesto"
             className="font-roboto text-[14px] text-gris2"
@@ -138,9 +188,9 @@ const GeneralForm = ({ data, setData }) => {
             onCheckedChange={() => handleCheckboxChange("sujetoAImpuesto")}
             className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           />
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
           <Label
             htmlFor="activos"
             className="flex font-roboto text-[14px] text-gris2"
@@ -154,7 +204,8 @@ const GeneralForm = ({ data, setData }) => {
             onCheckedChange={() => handleCheckboxChange("activos")}
             className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           />
-        </div>
+        </div> */}
+
         <div className="flex w-[200px] items-center space-x-6">
           <Label
             htmlFor="from"
@@ -183,7 +234,8 @@ const GeneralForm = ({ data, setData }) => {
             onChange={handleChange}
           />
         </div>
-        <div className="flex items-center space-x-6">
+
+        {/* <div className="flex items-center space-x-6">
           <Label
             htmlFor="disponibleParaDevolucion"
             className="font-roboto text-[14px] text-gris2"
@@ -199,9 +251,9 @@ const GeneralForm = ({ data, setData }) => {
             }
             className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           />
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
           <Label
             htmlFor="inactivo"
             className="font-roboto text-[14px] text-gris2"
@@ -215,9 +267,9 @@ const GeneralForm = ({ data, setData }) => {
             onCheckedChange={() => handleCheckboxChange("inactivo")}
             className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           />
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-10">
+        {/* <div className="flex items-center space-x-10">
           <Label
             htmlFor="disponibleParaDevolucion"
             className="font-roboto text-[14px] text-gris2"
@@ -233,9 +285,9 @@ const GeneralForm = ({ data, setData }) => {
             }
             className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
           />
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
           <Label
             htmlFor="fabricantes"
             className="mr-3 pt-2 font-roboto text-[14px] text-gris2"
@@ -248,9 +300,9 @@ const GeneralForm = ({ data, setData }) => {
             value={formData.fabricantes}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
           <Label
             htmlFor="comentario"
             className="mb-1 font-roboto text-[14px] text-gris2"
@@ -263,8 +315,9 @@ const GeneralForm = ({ data, setData }) => {
             onChange={handleChange}
             className="border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones"
           />
-        </div>
+        </div> */}
 
+        {/* imagen */}
         <div className="flex flex-col items-start justify-start space-y-2 pr-8">
           <div
             {...getRootProps()}
