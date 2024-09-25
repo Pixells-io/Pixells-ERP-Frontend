@@ -126,41 +126,44 @@ const EditOrders = () => {
               name="type_option"
               value={"update_purchase"}
             />
-          <div className="rounded-xl border border-blancoBox p-4">
-            <InputsGroup
-              documentNumber={documentNumber}
-              setDocumentNumber={setDocumentNumber}
-              selectedWarehouse={selectedWarehouse}
-              setSelectedWarehouse={setSelectedWarehouse}
-              selectedCostCenter={selectedCostCenter}
-              setSelectedCostCenter={setSelectedCostCenter}
-              isEditable={editable}
-            />
-            <OrderTable
-              selectedProveedor={selectedProveedor}
-              setSelectedProveedor={setSelectedProveedor}
-              selectedFechaDoc={selectedFechaDoc}
-              setSelectedFechaDoc={setSelectedFechaDoc}
-              selectedFechaEntrega={selectedFechaEntrega}
-              setSelectedFechaEntrega={setSelectedFechaEntrega}
-              selectedCondicionPago={selectedCondicionPago}
-              setSelectedCondicionPago={setSelectedCondicionPago}
-              isEditable={editable}
-            />
-          </div>
+            <div className="overflow-auto">
+              <div className="rounded-xl border border-blancoBox p-4">
+                <InputsGroup
+                  documentNumber={documentNumber}
+                  setDocumentNumber={setDocumentNumber}
+                  selectedWarehouse={selectedWarehouse}
+                  setSelectedWarehouse={setSelectedWarehouse}
+                  selectedCostCenter={selectedCostCenter}
+                  setSelectedCostCenter={setSelectedCostCenter}
+                  isEditable={editable}
+                />
+                <OrderTable
+                  selectedProveedor={selectedProveedor}
+                  setSelectedProveedor={setSelectedProveedor}
+                  selectedFechaDoc={selectedFechaDoc}
+                  setSelectedFechaDoc={setSelectedFechaDoc}
+                  selectedFechaEntrega={selectedFechaEntrega}
+                  setSelectedFechaEntrega={setSelectedFechaEntrega}
+                  selectedCondicionPago={selectedCondicionPago}
+                  setSelectedCondicionPago={setSelectedCondicionPago}
+                  isEditable={editable}
+                />
+              </div>
 
-          <div className="overflow-auto">
-            <div className="mt-6 overflow-auto">
-              <QuoteTable
-                initialItems={items}
-                isEditable={editable}
-                allProducts={allProducts}
-                setTableData={setTableData}
-                tableData={tableData}
-              />
+              <div>
+                <div className="mt-6">
+                  <QuoteTable
+                    initialItems={items}
+                    isEditable={editable}
+                    allProducts={allProducts}
+                    setTableData={setTableData}
+                    tableData={tableData}
+                  />
+                </div>
+                <Total tableData={tableData} comment={data.comments} />
+              </div>
             </div>
-            <Total tableData={tableData} comment={data.comments} />
-          </div>
+
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}

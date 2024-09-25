@@ -41,34 +41,37 @@ const CreateRequest = () => {
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
           action={`/shopping/purchase/create`}
         >
-          <div className="rounded-xl border border-blancoBox p-4">
-            <InputsGroup
-              documentNumber={documentNumber}
-              setDocumentNumber={setDocumentNumber}
-              selectedWarehouse={selectedWarehouse}
-              setSelectedWarehouse={setSelectedWarehouse}
-              selectedCostCenter={selectedCostCenter}
-              setSelectedCostCenter={setSelectedCostCenter}
-              isEditable={true}
-            />
-            <OrderTable
-              selectedProveedor={selectedProveedor}
-              setSelectedProveedor={setSelectedProveedor}
-              isEditable={true}
-            />
-          </div>
-
           <div className="overflow-auto">
-            <div className="mt-6 overflow-auto">
-              <QuoteTable
+            <div className="rounded-xl border border-blancoBox p-4">
+              <InputsGroup
+                documentNumber={documentNumber}
+                setDocumentNumber={setDocumentNumber}
+                selectedWarehouse={selectedWarehouse}
+                setSelectedWarehouse={setSelectedWarehouse}
+                selectedCostCenter={selectedCostCenter}
+                setSelectedCostCenter={setSelectedCostCenter}
                 isEditable={true}
-                allProducts={allProducts}
-                setTableData={setTableData}
-                tableData={tableData}
+              />
+              <OrderTable
+                selectedProveedor={selectedProveedor}
+                setSelectedProveedor={setSelectedProveedor}
+                isEditable={true}
               />
             </div>
-            <Total tableData={tableData} />
+
+            <div>
+              <div className="mt-6">
+                <QuoteTable
+                  isEditable={true}
+                  allProducts={allProducts}
+                  setTableData={setTableData}
+                  tableData={tableData}
+                />
+              </div>
+              <Total tableData={tableData} />
+            </div>
           </div>
+
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}
