@@ -112,8 +112,6 @@ function NewEntry() {
     fetchCatalog();
   }, [selectedCatalog]);
 
-
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -181,7 +179,7 @@ function NewEntry() {
 
         {/* CONTENT */}
 
-        <div className="flex h-full w-full flex-col space-y-8 rounded-xl bg-blancoBg md:h-90 p-6">
+        <div className="md:h-90 flex h-full w-full flex-col space-y-8 rounded-xl bg-blancoBg p-6">
           <div className="h-full w-full overflow-auto">
             <div className="flex flex-wrap gap-4 border p-4">
               <div className="flex-1">
@@ -272,7 +270,7 @@ function NewEntry() {
                     handleSelectChange("toWarehouse", value)
                   }
                 >
-                  <SelectTrigger className="border-gris2-transparent bg-[#E0E0E0] h-[32px] w-full rounded-xl">
+                  <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl bg-[#E0E0E0]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -287,28 +285,28 @@ function NewEntry() {
               </div>
               {initialData.category !== "1" && (
                 <>
-              <div className="flex-1">
-                <Label className="font-roboto text-[14px] text-[#696974]">
-                  Urgencia
-                </Label>
-                <Select
-                  name="urgency"
-                  value={initialData.urgency}
-                  onValueChange={(value) =>
-                    handleSelectChange("urgency", value)
-                  }
-                >
-                  <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
-                    <SelectValue placeholder="Seleccionar urgencia" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">Baja</SelectItem>
-                    <SelectItem value="2">Media</SelectItem>
-                    <SelectItem value="3">Alta</SelectItem>
-                    <SelectItem value="4">Urgente</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                  <div className="flex-1">
+                    <Label className="font-roboto text-[14px] text-[#696974]">
+                      Urgencia
+                    </Label>
+                    <Select
+                      name="urgency"
+                      value={initialData.urgency}
+                      onValueChange={(value) =>
+                        handleSelectChange("urgency", value)
+                      }
+                    >
+                      <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
+                        <SelectValue placeholder="Seleccionar urgencia" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Baja</SelectItem>
+                        <SelectItem value="2">Media</SelectItem>
+                        <SelectItem value="3">Alta</SelectItem>
+                        <SelectItem value="4">Urgente</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <div className="flex-1">
                     <Label className="font-roboto text-[14px] text-[#696974]">
                       Fecha Esperada
@@ -323,25 +321,26 @@ function NewEntry() {
                   </div>
                 </>
               )}
-               {initialData.category !== "2" && (
+              {initialData.category !== "2" && (
                 <>
-              <div className="flex flex-1 items-end justify-center">
-                <button
-                  type="button"
-                  className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
-                  onClick={() => setModalQr(true)}
-                >
-                  <IonIcon
-                    icon={qrCodeOutline}
-                    size={"large"}
-                    className="text-[#44444F]"
-                  />
-                </button>
-              </div>
-              </>)}
+                  <div className="flex flex-1 items-end justify-center">
+                    <button
+                      type="button"
+                      className="h-16 w-16 rounded-md bg-[#E0E0E0] pt-2"
+                      onClick={() => setModalQr(true)}
+                    >
+                      <IonIcon
+                        icon={qrCodeOutline}
+                        size={"large"}
+                        className="text-[#44444F]"
+                      />
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
 
-            <div className="pt-4 h-[100px]">
+            <div className="h-[100px] pt-4">
               <TableForm
                 products={products.data}
                 locations={locations.data}
@@ -360,74 +359,78 @@ function NewEntry() {
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
             >
-               <Form
-              action="/inventory/merchandise-movements/entry/new"
-              method="POST"
-            >
-              <input
-                type="hidden"
-                name="category"
-                value={initialData.category}
-              />
-              <input
-                type="hidden"
-                name="rel_id"
-                value={initialData.requestNumber}
-              />
-              <input
-                type="hidden"
-                name="movement_type"
-                value={initialData.movement_type}
-              />
-              <input
-                type="hidden"
-                name="inventory_in"
-                value={initialData.fromWarehouse}
-              />
-              <input
-                type="hidden"
-                name="inventory_out"
-                value={initialData.toWarehouse}
-              />
-              <input type="hidden" name="comment" value={comments} />
-              <input type="hidden" name="urgency" value={initialData.urgency} />
-              <input
-                type="hidden"
-                name="receive_date"
-                value={initialData.receive_date}
-              />
-              <input
-                type="hidden"
-                name="products"
-                value={JSON.stringify(
-                  commodity.map((item) => ({
-                    type: parseInt(item.type) || 0,
-                    product_master_id: parseInt(item.articleNumber) || 0,
-                    variation: parseInt(item.variation_id) || 0,
-                    variation_id: null,
-                    inventory_in: parseInt(item.ubication_id) || null,
-                    rel_id: selectedCatalog?.id || 0,
-                    expected_quantity: parseInt(item.eQuantity) || 0,
-                    batches: item.batches || [],
-                  }),
-                ))}
-              />
-<div className="lg:flex justify-between gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+              <Form
+                action="/inventory/merchandise-movements/entry/new"
+                method="POST"
               >
-                Cancelar
-              </Button>
-              <Button
-                type="submit"
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0] `}
-              >
-                Crear
-              </Button>
-              </div>
-            </Form>
+                <input
+                  type="hidden"
+                  name="category"
+                  value={initialData.category}
+                />
+                <input
+                  type="hidden"
+                  name="rel_id"
+                  value={initialData.requestNumber}
+                />
+                <input
+                  type="hidden"
+                  name="movement_type"
+                  value={initialData.movement_type}
+                />
+                <input
+                  type="hidden"
+                  name="inventory_in"
+                  value={initialData.fromWarehouse}
+                />
+                <input
+                  type="hidden"
+                  name="inventory_out"
+                  value={initialData.toWarehouse}
+                />
+                <input type="hidden" name="comment" value={comments} />
+                <input
+                  type="hidden"
+                  name="urgency"
+                  value={initialData.urgency}
+                />
+                <input
+                  type="hidden"
+                  name="receive_date"
+                  value={initialData.receive_date}
+                />
+                <input
+                  type="hidden"
+                  name="products"
+                  value={JSON.stringify(
+                    commodity.map((item) => ({
+                      type: parseInt(item.type) || 0,
+                      product_master_id: parseInt(item.articleNumber) || 0,
+                      variation: parseInt(item.variation_id) || 0,
+                      variation_id: null,
+                      inventory_in: parseInt(item.ubication_id) || null,
+                      rel_id: selectedCatalog?.id || 0,
+                      expected_quantity: parseInt(item.eQuantity) || 0,
+                      batches: item.batches || [],
+                    })),
+                  )}
+                />
+                <div className="justify-between gap-3 lg:flex">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    type="submit"
+                    className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+                  >
+                    Crear
+                  </Button>
+                </div>
+              </Form>
             </StatusInformation>
           </div>
         </div>
