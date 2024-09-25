@@ -15,7 +15,7 @@ import {
   useParams,
   useLocation,
   useSubmit,
-  redirect
+  redirect,
 } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { editProduct, getProductById } from "../utils";
@@ -56,7 +56,8 @@ const EditArticle = () => {
   //INITIAL VALUES
   const [errors, setErrors] = useState({});
   const [initialValues, setInitialValues] = useState({
-    productType: product?.slots?.length || product?.images?.length > 0 ? "2" : "1",
+    productType:
+      product?.slots?.length || product?.images?.length > 0 ? "2" : "1",
     codigoDeArticulo: product?.code || "",
     nombreODescripcion: product?.name || "",
     centroDeCostos: product?.cost_center?.value.toString() || "",
@@ -96,7 +97,7 @@ const EditArticle = () => {
   });
 
   const [variableData, setVariableData] = useState({
-    selectedGroups:[],
+    selectedGroups: [],
     Groups: product?.slots || [],
     images:
       product?.images?.map((img) => ({
@@ -104,8 +105,8 @@ const EditArticle = () => {
         image: img.image,
         preview: img.image,
       })) || [],
-    variables_add:[],
-    variables_destroy:[],
+    variables_add: [],
+    variables_destroy: [],
     images_destroy: [],
   });
 
@@ -182,10 +183,13 @@ const EditArticle = () => {
     if (!inputsData.imagenPrincipal) {
       newErrors.image = "La imagen principal es requerida";
     }
-    if (initialValues.productType === "2" && variableData.variables_add.length === 0){
+    if (
+      initialValues.productType === "2" &&
+      variableData.variables_add.length === 0
+    ) {
       newErrors.valoracion = "Se necesita agregar variables al producto";
     }
-    if (initialValues.productType === "2" && variableData.images.length === 0){
+    if (initialValues.productType === "2" && variableData.images.length === 0) {
       newErrors.valoracion = "Se necesita agregar imagenes al producto";
     }
     // Validar método de valoración
@@ -239,7 +243,7 @@ const EditArticle = () => {
       value === true ? 1 : value === false ? 0 : 0;
 
     const info = {
-      product_id:id,
+      product_id: id,
       type: parseInt(initialValues.productType) || 1,
       code: initialValues.codigoDeArticulo || "",
       name: initialValues.nombreODescripcion || "",
@@ -269,8 +273,8 @@ const EditArticle = () => {
 
     if (initialValues.productType === "2") {
       info.images_destroy = variableData.images_destroy;
-      info.variables_add =variableData.selectedGroups;
-      info.variables_destroy=variableData.variables_destroy;
+      info.variables_add = variableData.selectedGroups;
+      info.variables_destroy = variableData.variables_destroy;
       variableData.images.forEach((image) => {
         formData.append("second_images[]", image.image);
       });
@@ -280,8 +284,10 @@ const EditArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    const response = await submit(formData, { method: "POST", action: `/inventory/edit/${id}` });
-    
+    const response = await submit(formData, {
+      method: "POST",
+      action: `/inventory/edit/${id}`,
+    });
   };
   return (
     <div className="flex w-full">
@@ -341,12 +347,12 @@ const EditArticle = () => {
           </div>
         )}
         <div className="relative w-full space-y-4 overflow-auto">
-          <Inputs
+          {/* <Inputs
             categories={categories}
             warehouses={warehouses}
             inputsData={initialValues}
             setInputsData={setInitialValues}
-          />
+          /> */}
 
           <FormGroup
             productType={initialValues.productType}
@@ -360,6 +366,10 @@ const EditArticle = () => {
             setInventory={setInventory}
             buyData={buyData}
             setBuyData={setBuyData}
+            categories={categories}
+            warehouses={warehouses}
+            principalInputs={initialValues}
+            setPrincipalInputs={setInitialValues}
           />
 
           <div className="flex justify-end">
@@ -379,11 +389,9 @@ const EditArticle = () => {
 
 export default EditArticle;
 
-
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await editProduct(formData);
- 
-      return redirect("/inventory"); // Redirige después de una acción exitosa
-}
 
+  return redirect("/inventory"); // Redirige después de una acción exitosa
+}

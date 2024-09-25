@@ -350,7 +350,7 @@ function FormCreateUser() {
                 <div className="flex gap-3">
                   <InputRouter
                     name={"name"}
-                    placeholder={"Niombre"}
+                    placeholder={"Nombre"}
                     type={"text"}
                     required={"true"}
                   />

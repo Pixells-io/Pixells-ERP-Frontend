@@ -3,25 +3,24 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
 
-
-export async function getBaseList(){
-    try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}inventory/get-price-lists`,
-          {
-            headers: {
-              Authorization: "Bearer " + Cookies.get("token"),
-            },
+export async function getList(){
+  try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}inventory/get-price-lists`,
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
           },
-        );
-        
-        return response.json();
-      } catch (error) {
-        return new Response("Something went wrong...", { status: 500 });
-      }
+        },
+      );
+      
+      return response.json();
+    } catch (error) {
+      return new Response("Something went wrong...", { status: 500 });
+    }
 }
-
-export async function getBaseListById(id) {
+export async function getBaseList({ params }) {
+  const id = params.id;
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}inventory/get-price-list/${id}`,
@@ -36,6 +35,22 @@ export async function getBaseListById(id) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+export async function getBaseListById({id}) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-price-list/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 
 export async function getProductCatalog(){
     try {
@@ -55,7 +70,7 @@ export async function getProductCatalog(){
 
 export async function multiloaderList() {
     const [base_list, products] = await Promise.all([
-      getBaseList(),
+      getList(),
       getProductCatalog(),
     ]);
     return json({base_list, products});
@@ -63,11 +78,12 @@ export async function multiloaderList() {
 }
 
 export async function multiloaderListBase({ params }) {
-  const [list, products] = await Promise.all([
-    getBaseListById({params}),
+  const [list,products,base_list] = await Promise.all([
+    getBaseList({params}),
     getProductCatalog(),
+    getList()
   ]);
-  return json({list,products });
+  return json({list,products,base_list});
 }
 
 export async function savePriceList(data) {
@@ -77,6 +93,24 @@ export async function savePriceList(data) {
     {
       method: "POST",
       body: data,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
+}
+
+
+export async function destroyPriceList(data) {
+  const INFO = {
+    price_list_id: parseInt(data.get("price_list_id")),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/destroy-price-list`,
+    {
+      method: "POST",
+      body: JSON.stringify(INFO),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

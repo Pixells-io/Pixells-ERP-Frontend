@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import InputForm from "@/components/InputForm/InputForm";
 
 const InventoryForm = ({ data, setData }) => {
   const [formData, setFormData] = useState({
@@ -37,24 +38,26 @@ const InventoryForm = ({ data, setData }) => {
   }, [formData, setData]);
 
   const inputClasses =
-    "border-gris2-transparent rounded-xl border border-none bg-grisBg font-roboto text-gris2 placeholder:text-grisHeading focus-visible:ring-primarioBotones focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
+    "h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones";
 
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="flex h-full w-full flex-col gap-6">
       {/* Primera columna */}
       <div className="space-y-4">
-        <h2 className="font-roboto text-[16px] text-gris2 mb-4">Método de valoración</h2>
-        <div className="grid grid-cols-2 items-center gap-y-4">
-          <Label
-            htmlFor="metodoValoracion"
-            className="text-[14px] font-roboto text-gris2"
-          >
-            Método de Valoración
-          </Label>
+        <h2 className="mb-4 font-roboto text-[16px] text-gris2">
+          Método de valoración
+        </h2>
+
+        <div className="flex flex-col">
+          <p className="mb-1 text-[10px] font-normal text-grisText">
+            Agregar Método
+          </p>
           <Select
             name="metodoValoracion"
             value={formData.metodoValoracion}
-            onValueChange={(value) => handleSelectChange("metodoValoracion", value)}
+            onValueChange={(value) =>
+              handleSelectChange("metodoValoracion", value)
+            }
           >
             <SelectTrigger className={inputClasses}>
               <SelectValue placeholder="Seleccionar" />
@@ -68,51 +71,42 @@ const InventoryForm = ({ data, setData }) => {
           </Select>
         </div>
 
-        <div className="grid grid-cols-2 items-center gap-y-4">
-          <Label htmlFor="costo" className="text-[14px] font-roboto text-gris2">
-            Costo
-          </Label>
-          <Input
-            id="costo"
-            name="costo"
-            type="number"
-            value={formData.costo}
-            onChange={handleChange}
-            className={"w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent"}
-            readOnly
-          />
-        </div>
+        <InputForm
+          name="costo"
+          type="number"
+          placeholder="Costo"
+          value={formData.costo}
+          onChange={handleChange}
+          className={
+            "w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+          }
+          readOnly
+        />
       </div>
 
       {/* Segunda columna */}
       <div className="space-y-4">
-        <h2 className="font-roboto text-[16px] text-gris2 mb-4">Stock</h2>
+        <h2 className="mb-4 font-roboto text-[16px] text-grisSubText">
+          NIVEL DE INVENTARIO
+        </h2>
 
-        <div className="grid grid-cols-2 items-center gap-y-4">
-          <Label htmlFor="stockMinimo" className="text-[14px] font-roboto text-gris2">
-            Stock Mínimo
-          </Label>
-          <Input
+        <div className="flex w-full gap-4">
+          <InputForm
             id="stockMinimo"
             name="stockMinimo"
             type="number"
             value={formData.stockMinimo}
             onChange={handleChange}
-            className={inputClasses}
+            placeholder="Mínimo"
           />
-        </div>
 
-        <div className="grid grid-cols-2 items-center gap-y-4">
-          <Label htmlFor="stockMaximo" className="text-[14px] font-roboto text-gris2">
-            Stock Máximo
-          </Label>
-          <Input
+          <InputForm
             id="stockMaximo"
             name="stockMaximo"
             type="number"
             value={formData.stockMaximo}
             onChange={handleChange}
-            className={inputClasses}
+            placeholder="Máximo"
           />
         </div>
       </div>

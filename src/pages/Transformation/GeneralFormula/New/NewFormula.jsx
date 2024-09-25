@@ -1,30 +1,25 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-  copy,
-  print,
-  create,
-  closeCircle,
-} from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { closeCircle } from "ionicons/icons";
+
+import NavigationHeader from "@/components/navigation-header";
+
 import { Checkbox } from "@/components/ui/checkbox";
-import TableForm from "../../Components/TableForm";
-import TableFormWaste from "../../Components/TableFormWaste";
-import StatusInformation from "@/components/StatusInformation/status-information";
-import TableFormSubProducts from "../../Components/TableFormSubProducts";
 import { Button } from "@/components/ui/button";
 
+import TableForm from "../../Components/TableForm";
+import TableFormWaste from "../../Components/TableFormWaste";
+import TableFormSubProducts from "../../Components/TableFormSubProducts";
+
+import StatusInformation from "@/components/StatusInformation/status-information";
+
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+
 function NewFormula() {
+  const { data } = useLoaderData();
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
   const [wastes, setWastes] = useState([]);
@@ -34,29 +29,13 @@ function NewFormula() {
 
   const navigate = useNavigate();
 
+  console.log(data);
+
   return (
-    <div className="flex w-full">
+    <div className="flex h-full w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
@@ -89,123 +68,208 @@ function NewFormula() {
           </div>
         </div>
 
-        <div className="flex w-fit items-center gap-x-6 rounded-xl bg-blancoBg px-6 py-2">
-          <div>
-            <Select name="article" className="h-10 min-w-0 flex-1">
-              <SelectTrigger className="w-[240px] rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                <SelectValue placeholder="Selecciona el Artículo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Select name="accountingAccount" className="h-10 min-w-0 space-x-3 flex-1">
-              <SelectTrigger className="w-[240px] rounded-xl border  border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                <SelectValue placeholder="Cuenta Contable" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="ml-6 flex flex-col items-end gap-y-2">
-            <div className="flex gap-2">
-              <label
-                htmlFor="checkBoxProduct"
-                className="text-[14px] font-light text-grisText"
-              >
-                Producto
-              </label>
-              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-            </div>
-            <div className="flex gap-2">
-              <label
-                htmlFor="checBoxKit"
-                className="text-[14px] font-light text-grisText"
-              >
-                Kit
-              </label>
-              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-            </div>
-            <div className="flex gap-2">
-              <label
-                htmlFor="checkBoxMultiProcess"
-                className="text-[14px] font-light text-grisText"
-              >
-                MultiProceso
-              </label>
-              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-            </div>
-          </div>
-        </div>
+        <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
+          <div className="flex h-full flex-col overflow-scroll pt-4">
+            {/* config section */}
+            <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
+              <div className="flex w-1/3">
+                <SelectRouter />
+              </div>
 
-        <div className="rounded-xl bg-blancoBg p-4">
-          <div className="max-h-[400px] overflow-auto">
-            <TableForm
-              tableData={products}
-              setTableData={setProducts}
-              setTotalProducts={setTotalProducts}
-            />
-          </div>
+              <div className="flex w-28">
+                <InputRouter
+                  type="number"
+                  name="formula_tam"
+                  placeholder="Tamaño Formula"
+                />
+              </div>
+              <div className="flex w-28">
+                <InputRouter type="text" name="unidad" placeholder="Unidad" />
+              </div>
+              <div className="flex w-20">
+                <InputRouter type="number" name="merma" placeholder="Merma" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="checkBoxMultiProcess"
+                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                >
+                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                  <p className="text-[12px]">Porcentaje</p>
+                </label>
+                <label
+                  htmlFor="checkBoxMultiProcess"
+                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                >
+                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                  <p className="text-[12px]">Unidad</p>
+                </label>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="checkBoxMultiProcess"
+                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                >
+                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                  <p className="text-[12px]">Global</p>
+                </label>
+                <label
+                  htmlFor="checkBoxMultiProcess"
+                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                >
+                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                  <p className="text-[12px]">Individual</p>
+                </label>
+              </div>
+            </div>
 
-          <div className="mt-4 flex justify-end">
-            <div className="flex items-center gap-x-4">
-              <h2 className="text-sm font-medium text-grisText">Total</h2>
-              <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                <p className="text-end text-sm font-medium text-grisText">
-                  {totalProducts}
-                </p>
+            {/* materiales fab section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                Materiales de Fabricación
+              </h2>
+              <div className="max-h-[400px] overflow-auto">
+                <TableForm
+                  tableData={products}
+                  setTableData={setProducts}
+                  setTotalProducts={setTotalProducts}
+                />
+              </div>
+
+              <div className="mt-4 flex justify-end">
+                <div className="flex items-center gap-x-4">
+                  <h2 className="text-sm font-medium text-grisText">Total</h2>
+                  <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                    <p className="text-end text-sm font-medium text-grisText">
+                      {totalProducts}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* recursos ene fab section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                Recursos Energéticos
+              </h2>
+              <div className="max-h-[400px] overflow-auto">
+                <TableForm
+                  tableData={products}
+                  setTableData={setProducts}
+                  setTotalProducts={setTotalProducts}
+                />
+              </div>
+
+              <div className="mt-4 flex justify-end">
+                <div className="flex items-center gap-x-4">
+                  <h2 className="text-sm font-medium text-grisText">Total</h2>
+                  <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                    <p className="text-end text-sm font-medium text-grisText">
+                      {totalProducts}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* materiales empaque section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                Materiales de Empaque
+              </h2>
+              <div className="max-h-[400px] overflow-auto">
+                <TableForm
+                  tableData={products}
+                  setTableData={setProducts}
+                  setTotalProducts={setTotalProducts}
+                />
+              </div>
+
+              <div className="mt-4 flex justify-end">
+                <div className="flex items-center gap-x-4">
+                  <h2 className="text-sm font-medium text-grisText">Total</h2>
+                  <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                    <p className="text-end text-sm font-medium text-grisText">
+                      {totalProducts}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* materiales embalaje section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                Materiales de Embalaje
+              </h2>
+              <div className="max-h-[400px] overflow-auto">
+                <TableForm
+                  tableData={products}
+                  setTableData={setProducts}
+                  setTotalProducts={setTotalProducts}
+                />
+              </div>
+
+              <div className="mt-4 flex justify-end">
+                <div className="flex items-center gap-x-4">
+                  <h2 className="text-sm font-medium text-grisText">Total</h2>
+                  <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                    <p className="text-end text-sm font-medium text-grisText">
+                      {totalProducts}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* subproductos section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                SubProductos
+              </h2>
+              <div className="overflow-container flex-1">
+                <TableFormSubProducts
+                  tableData={subProducts}
+                  setTableData={setSubProducts}
+                  setTotalProducts={setSubTotalProducts}
+                />
+              </div>
+            </div>
+
+            {/* desechos section */}
+            <div className="rounded-xl p-4">
+              <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                Desechos
+              </h2>
+              <div className="overflow-container flex-1">
+                <TableFormWaste
+                  tableData={wastes}
+                  setTableData={setWastes}
+                  setTotalProducts={setTotalWastes}
+                />
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="h-full rounded-xl bg-blancoBg p-4">
-          <h2 className="text-md font-poppins font-medium text-[#44444F]">
-            SubProductos
-          </h2>
-          <div className="overflow-container flex-1">
-            <TableFormSubProducts
-              tableData={subProducts}
-              setTableData={setSubProducts}
-              setTotalProducts={setSubTotalProducts}
-            />
+          {/* end section */}
+          <div className="flex w-full justify-center">
+            <StatusInformation
+              status={"inProgress"}
+              imgUser={
+                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              }
+            >
+              <Button
+                type="button"
+                onClick={() => navigate("/transformation/record/1")}
+                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+              >
+                Save
+              </Button>
+            </StatusInformation>
           </div>
         </div>
-
-        <div className="h-full rounded-xl bg-blancoBg p-4">
-          <h2 className="text-md font-poppins font-medium text-[#44444F]">
-            Desechos
-          </h2>
-          <div className="overflow-container flex-1">
-            <TableFormWaste
-              tableData={wastes}
-              setTableData={setWastes}
-              setTotalProducts={setTotalWastes}
-            />
-          </div>
-        </div>
-
-        <StatusInformation
-          status={"inProgress"}
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        >
-          <Button
-            type="button"
-            onClick={() => navigate("/transformation/record/1")}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Save
-          </Button>
-        </StatusInformation>
       </div>
     </div>
   );

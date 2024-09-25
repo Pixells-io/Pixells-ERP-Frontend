@@ -3,7 +3,10 @@ import {
   accessibilityOutline,
   cogOutline,
   keyOutline,
+  logoFacebook,
   logoGoogle,
+  logoMicrosoft,
+  logoWhatsapp,
   notificationsOutline,
 } from "ionicons/icons";
 import { Form, useNavigate } from "react-router-dom";
@@ -17,15 +20,21 @@ import ModalDestroyGoogleKeys from "./ModalDestroyGoogleKeys";
 function MainIntegrations() {
   const location = useLocation();
 
-  const { profile, permission } = useLoaderData();
-
+  const { profile, permission, azureUser, permissionAzure } = useLoaderData();
   const [one, setOne] = useState(false);
   const [two, setTwo] = useState(false);
   const [three, setThree] = useState(false);
   const [four, setFour] = useState(false);
   const [five, setFive] = useState(false);
 
+  const [oneA, setOneA] = useState(false);
+  const [twoA, setTwoA] = useState(false);
+  const [threeA, setThreeA] = useState(false);
+  const [fourA, setFourA] = useState(false);
+  const [fiveA, setFiveA] = useState(false);
+
   const [modalDestroy, setModalDestroy] = useState(false);
+  const [modalDestroyA, setModalDestroyA] = useState(false);
 
   function changeCheked(number) {
     switch (number) {
@@ -47,10 +56,29 @@ function MainIntegrations() {
     }
   }
 
+  function changeChekedA(number) {
+    switch (number) {
+      case 1:
+        setOneA(!oneA);
+        break;
+      case 2:
+        setTwoA(!twoA);
+        break;
+      case 3:
+        setThreeA(!threeA);
+        break;
+      case 4:
+        setFourA(!fourA);
+        break;
+      case 5:
+        setFiveA(!fiveA);
+        break;
+    }
+  }
+
   useEffect(() => {
     for (let index = 0; index < permission.data.length; index++) {
       const element = permission.data[index];
-      console.log(element.permission);
       switch (element.permission) {
         case "1":
           setOne(true);
@@ -66,6 +94,27 @@ function MainIntegrations() {
           break;
         case "5":
           setFive(true);
+          break;
+      }
+    }
+
+    for (let index = 0; index < permissionAzure.data.length; index++) {
+      const element = permissionAzure.data[index];
+      switch (element.permission) {
+        case "1":
+          setOneA(true);
+          break;
+        case "2":
+          setTwoA(true);
+          break;
+        case "3":
+          setThreeA(true);
+          break;
+        case "4":
+          setFourA(true);
+          break;
+        case "5":
+          setFiveA(true);
           break;
       }
     }
@@ -387,13 +436,205 @@ function MainIntegrations() {
                     className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
                   >
                     <IonIcon icon={logoGoogle} className="text-lg"></IonIcon>
-                    Login In Google
+                    Ingresa con Google
                   </Button>
                 </Form>
               )}
             </TabsContent>
-            <TabsContent value="meta"></TabsContent>
-            <TabsContent value="outlook"></TabsContent>
+            <TabsContent value="meta">
+              <Form
+                className="flex h-full w-full flex-col gap-3 px-6 pt-2"
+                action="/my-profile"
+                method="post"
+              >
+                {/* NOT AUTENTICATED */}
+                <input type="hidden" name="type_function" value={7} />
+                <Button
+                  type="submit"
+                  className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                >
+                  <IonIcon icon={logoWhatsapp} className="text-lg"></IonIcon>
+                  Configura Whatsapp
+                </Button>
+              </Form>
+            </TabsContent>
+            <TabsContent value="outlook">
+              {azureUser.data != null ? (
+                <Form action="/my-profile" method="post">
+                  <input type="hidden" name="type_function" value={6} />
+                  <input type="text" />
+                  <div className="w-full">
+                    {/* IF AUTENTICATED */}
+                    <div className="flex gap-16">
+                      <div>
+                        <span className="font-roboto font-medium text-grisHeading">
+                          Calendar
+                        </span>
+                        <div className="mt-6 flex gap-2">
+                          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+                            {oneA === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                name="1"
+                                onClick={() => changeChekedA(1)}
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(1)}
+                                name="1"
+                              />
+                            )}
+                            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+                          </label>
+                          <span className="font-roboto text-sm font-normal text-grisSubText">
+                            Agendar reuniones
+                          </span>
+                        </div>
+                        <div className="mt-2 flex gap-2">
+                          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+                            {twoA === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(2)}
+                                name="2"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(2)}
+                                name="2"
+                              />
+                            )}
+                            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+                          </label>
+                          <span className="font-roboto text-sm font-normal text-grisSubText">
+                            Agendar Tareas
+                          </span>
+                        </div>
+                        <div className="mt-2 flex gap-2">
+                          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+                            {threeA === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(3)}
+                                name="3"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(3)}
+                                name="3"
+                              />
+                            )}
+                            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+                          </label>
+                          <span className="font-roboto text-sm font-normal text-grisSubText">
+                            Agendar Actividades
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <span className="font-roboto font-medium text-grisHeading">
+                          Outlook
+                        </span>
+                        <div className="mt-6 flex gap-2">
+                          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+                            {fourA === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(4)}
+                                name="4"
+                                checked
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(4)}
+                                name="4"
+                              />
+                            )}
+                            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+                          </label>
+                          <span className="font-roboto text-sm font-normal text-grisSubText">
+                            Enviar correos automaticos
+                          </span>
+                        </div>
+                        <div className="mt-2 flex gap-2">
+                          <label className="before:content[''] after:content['' relative flex h-6 w-6 cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-primario bg-white duration-300 before:absolute before:right-0 before:h-5 before:w-5 before:rounded-full before:blur-sm after:absolute after:bottom-1 after:left-1 after:z-10 after:h-3 after:w-3 after:rounded-full after:blur-sm">
+                            {fiveA === true ? (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(5)}
+                                name="5"
+                              />
+                            ) : (
+                              <input
+                                type="checkbox"
+                                className="peer hidden"
+                                onClick={() => changeChekedA(5)}
+                                name="5"
+                              />
+                            )}
+                            <div className="left-2 top-2 z-20 h-4 w-4 scale-0 rounded-md bg-gradient-to-tr from-emerald-800 from-primario via-emerald-700 via-primario to-emerald-500 to-primario opacity-0 transition-all duration-300 peer-checked:scale-100 peer-checked:bg-gradient-to-tr peer-checked:opacity-100 peer-checked:transition-all peer-checked:duration-300"></div>
+                          </label>
+                          <span className="font-roboto text-sm font-normal text-grisSubText">
+                            Gestion del correo en el modulo de Email
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <Button
+                          type="button"
+                          className="mt-2 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                          onClick={() => setModalDestroyA(true)}
+                        >
+                          <IonIcon
+                            icon={logoMicrosoft}
+                            className="text-lg"
+                          ></IonIcon>
+                          {azureUser.data}
+                        </Button>
+                      </div>
+                    </div>
+                    <Button
+                      type="submit"
+                      className="mt-8 justify-normal gap-4 rounded-lg border bg-primarioBotones px-6 py-2 text-center font-roboto text-xs font-semibold text-white hover:bg-blue-600 hover:text-white"
+                    >
+                      Actualizar
+                    </Button>
+                  </div>
+                </Form>
+              ) : (
+                <Form
+                  className="flex h-full w-full flex-col gap-3 px-6 pt-2"
+                  action="/my-profile"
+                  method="post"
+                >
+                  {/* NOT AUTENTICATED */}
+                  <input type="hidden" name="type_function" value={5} />
+                  <Button
+                    type="submit"
+                    className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                  >
+                    <IonIcon icon={logoMicrosoft} className="text-lg"></IonIcon>
+                    Ingresa con Outlook
+                  </Button>
+                </Form>
+              )}
+            </TabsContent>
           </Tabs>
         </div>
       </div>

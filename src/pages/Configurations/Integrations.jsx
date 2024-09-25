@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import NavigationHeader from "@/components/navigation-header";
-import { saveEmbeddingDocument } from "./utils";
+import { destroyEmbeddingDocument, saveEmbeddingDocument } from "./utils";
 import { redirect } from "react-router-dom";
 import OpenAiCard from "./Components/OpenAI";
 
@@ -61,8 +61,19 @@ export default IntegrationPanel;
 
 export async function Action({ request }) {
   const data = await request.formData();
+  const action = data.get("action");
 
-  const response = await saveEmbeddingDocument(data);
+  switch (action) {
+    case "create":
+      await saveEmbeddingDocument(data);
+      break;
+    case "destroy":
+      await destroyEmbeddingDocument();
+      break;
+
+    default:
+      break;
+  }
 
   return redirect("/configuration/integrations");
 }

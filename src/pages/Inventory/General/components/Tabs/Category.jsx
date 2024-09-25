@@ -5,7 +5,7 @@ import { createPusherClient } from "@/lib/pusher";
 import { getCategories } from "../../utils";
 import { IonIcon } from "@ionic/react";
 import ModalDeleteCategory from "../../Modals/ModalDeleteCategory";
-import { informationCircle, trash } from "ionicons/icons";
+import { informationCircle, informationCircleOutline, trash, trashOutline } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import EditCategory from "../../Modals/EditCategory";
 
@@ -128,7 +128,7 @@ const Category = ({ categories }) => {
                   )
                 }
               >
-                <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={informationCircleOutline} className="h-5 w-5"></IonIcon>
               </button>
               <button
                 type="button"
@@ -137,7 +137,7 @@ const Category = ({ categories }) => {
                   openModalDelete(row?.original?.id, row?.original?.name)
                 }
               >
-                <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={trashOutline} className="h-5 w-5"></IonIcon>
               </button>
             </div>
           );

@@ -4,66 +4,48 @@ import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import Inputs from "../Components/SelectGroup";
 import DataTable from "../Components/DataTable/PriceListTable";
-import { Link, useParams, useLoaderData,useLocation } from "react-router-dom";
+import { Link, useParams, useLoaderData, redirect} from "react-router-dom";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { getBaseListById } from "../utils";
+import DeletePriceListDialog from "../Components/ModalDelete";
+import { destroyPriceList } from "../utils";
 
 const ViewPL = () => {
   const { id } = useParams();
-  const location = useLocation();
   const client = useLoaderData();
- const {list, products}=client;
+  const { list, products, base_list } = client;
 
-  //WEBSOCKET
-  const pusherClient = createPusherClient();
+  const [modalDelete, setModalDelete] = useState(false);
+  const initialInputs = {
+    name: list?.data?.name || "",
+    based_list: list?.data?.based_list?.value || "",
+    index_list: list?.data?.index_list || "",
+    type: list?.data?.type.toString() || "1",
+    rounding: list?.data?.rounding === 0 ? false : true || false,
+    from_date: list?.data?.from_date || "",
+    to_date: list?.data?.to_date || "",
+    principal_list: list?.data?.principal_list === 1 ? true : false || true,
+  };
 
-  async function getPriceListFunction(id) {
-    let newData = await getBaseListById(id);
-    setBaseListInfo(newData.data);
-  }
+  const processedSlots = list?.data?.product_slots.map(slot => ({
+    tipo: slot.type,
+    nuevoArticulo: slot.product_master_id,
+    descripcion: slot.name,
+    listaPrecioBase: slot.based_price,
+    precioBase: parseFloat(slot.price),
+    precioUnitario: parseFloat(slot.price),
+    indiceRefactorizacion: parseFloat(slot.refactorization_index),
+    indiceEditable: parseFloat(slot.refactorization_index),
+    precioRefactorizacion: parseFloat(slot.price) * parseFloat(slot.refactorization_index),
+  })) || [];
 
-  useEffect(() => {
-    pusherClient.subscribe("inventory/get-price-lists");
-
-    pusherClient.bind(" fill-price-lists", ({ message }) => {
-      getPriceListFunction();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("inventory/get-price-lists");
-    };
-  }, [location, productId]);
-  
-  const [initialInputs, setInitialInputs] = useState({
-    name: "",
-    based_list: "",
-    index_list: "",
-    type: "1",
-    rounding: false,
-    from_date: "",
-    to_date: "",
-    principal_list: false,
-  });
-
+  const [initialData] = useState(processedSlots);
   const [indRef, setIndRef] = useState("");
+  const [comments, setComments] = useState(list?.data?.comments || "");
+  const [data, setData] = useState(initialData);
 
-  const [data, setData] = useState([
-    {
-      tipo: initialInputs.type,
-      nuevoArticulo: "",
-      descripcion: "",
-      listaPrecioBase: "0",
-      precioBase: 0,
-      precioUnitario: 0,
-      indiceRefactorizacion: 0,
-      indiceEditable: 0.0,
-      precioRefactorizacion: 0,
-    },
-  ]);
-  const [comments, setComments] = useState("");
   const handleIndRefChange = (value) => {
     setIndRef(value);
-    setInitialInputs((prev) => ({ ...prev, index_list: value }));
+    setInitialInputs(prev => ({ ...prev, index_list: value }));
   };
 
   const handleDataChange = (newData) => {
@@ -71,7 +53,7 @@ const ViewPL = () => {
   };
 
   const handleInputChange = (name, value) => {
-    setInitialInputs((prev) => {
+    setInitialInputs(prev => {
       const newState = { ...prev, [name]: value };
 
       if (name === "type" && value === "2") {
@@ -86,34 +68,21 @@ const ViewPL = () => {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
             <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              <IonIcon icon={chevronBack} size="large" className="rounded-3xl bg-blancoBox p-1" />
             </div>
             <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
+              <IonIcon icon={chevronForward} size="large" className="rounded-3xl bg-blancoBox p-1" />
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
             <div>Inventory - General</div>
           </div>
         </div>
-        {/* top content */}
-
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            INVENTARIO
-          </h2>
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">INVENTARIO</h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
             <div className="text-sm">&bull; 25 SFC </div>
@@ -122,9 +91,7 @@ const ViewPL = () => {
         </div>
 
         <div className="flex justify-between">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Lista de Precio:
-          </p>
+          <p className="font-poppins text-xl font-bold text-[#44444F]">Consultando Lista de Precio:</p>
           <div className="flex items-end justify-end pb-0">
             <Link to="/inventory/prices-lists">
               <Button
@@ -133,21 +100,18 @@ const ViewPL = () => {
                 size="icon"
                 className="h-12 w-12 rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
               >
-                <IonIcon
-                  icon={closeCircle}
-                  size="small"
-                  className="cursor-pointer text-grisDisabled"
-                />
+                <IonIcon icon={closeCircle} size="small" className="cursor-pointer text-grisDisabled" />
               </Button>
             </Link>
           </div>
         </div>
-        {/*content */}
         <div className="space-y-4 bg-white p-7">
           <Inputs
+            baseList={base_list.data}
             onIndRefChange={handleIndRefChange}
             data={initialInputs}
             setData={handleInputChange}
+            isEditable={false}
           />
           <DataTable
             type={initialInputs.type}
@@ -156,9 +120,10 @@ const ViewPL = () => {
             products={products.data}
             indRef={indRef}
             roundingF={initialInputs.rounding}
+            isEditable={false}
           />
           <div className="justify-end">
-            <StatusInformation
+          <StatusInformation
               status={"inProgress"}
               comments={comments}
               setComments={setComments}
@@ -169,23 +134,29 @@ const ViewPL = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+                className="w-[120px] rounded-lg border-2 border-[#D7586B] text-xs text-[#D7586B] hover:text-[#D7586B]"
+                onClick={() => setModalDelete(true)}
               >
-                Cancelar
+                Eliminar
               </Button>
-              <Button
-                type="button"
-                onClick={handleSubmit}
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
-              >
-                Crear
-              </Button>
-            </StatusInformation>
+              </StatusInformation>
           </div>
         </div>
       </div>
+      <DeletePriceListDialog
+        id={id}
+        name={initialInputs.name}
+        modal={modalDelete}
+        setModal={setModalDelete}
+      />
     </div>
   );
 };
 
 export default ViewPL;
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const response = await destroyPriceList(formData);
+
+  return redirect("/inventory/prices-lists");
+}

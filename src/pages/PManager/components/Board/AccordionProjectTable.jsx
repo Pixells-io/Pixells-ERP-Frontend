@@ -90,13 +90,14 @@ function AccordionProjectTable({ activity, id, projectId, users }) {
           />
         </div>
 
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <Avatar className="flex h-6 w-6">
             <AvatarImage src={activity?.creator?.img} />
             <AvatarFallback>??</AvatarFallback>
           </Avatar>
-        </div>
-        <div className="">
+        </div> */}
+
+        {/* <div className="">
           <p className="text-[12px] font-normal text-grisHeading">
             {activity?.duration + 1} Days
           </p>
@@ -111,7 +112,7 @@ function AccordionProjectTable({ activity, id, projectId, users }) {
               </span>
             )}
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

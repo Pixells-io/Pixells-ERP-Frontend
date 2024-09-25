@@ -113,7 +113,7 @@ const ContactForm = ({ isDisabled, data }) => {
                 positionTap={positionTap}
                 isDisabled={isDisabled}
                 index={index}
-                supplier_id={data.id}
+                client_id={data.id}
               />
             </TabsContent>
           ))}

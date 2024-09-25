@@ -54,7 +54,7 @@ const QuoteTable = ({
     unitHidden: "",
     unit: "",
     delivery_date: "",
-    product_idAux: "",
+    product_idAux: undefined,
     master_product: "",
     variations: "",
   };
@@ -211,7 +211,7 @@ const QuoteTable = ({
                           )
                         }
                       >
-                        <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                        <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                           <SelectValue
                             placeholder={"Producto"}
                           />
@@ -249,7 +249,7 @@ const QuoteTable = ({
                     <Input
                       type={column.type}
                       name={`${column.key}[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      className="border-gris2-transparent rounded-xl bg-inherit p-1 font-roboto text-xs text-grisHeading focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="text-[#44444f] text-sm h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
                       disabled={column.disabled}
                       onChange={(e) =>

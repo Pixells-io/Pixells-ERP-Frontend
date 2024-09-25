@@ -1,9 +1,10 @@
 import React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Form, useNavigation } from "react-router-dom";
+
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import { Form, useNavigation } from "react-router-dom";
 
 const ContactInfoForm = ({
   contactData,

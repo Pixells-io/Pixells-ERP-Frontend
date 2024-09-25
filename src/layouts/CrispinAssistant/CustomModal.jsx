@@ -14,6 +14,8 @@ import {
 
 function CustomModal({ isOpen, onClose }) {
   const [chat, setChat] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [modalMode, setModalMode] = useState("w-96 h-[600px] p-6");
 
   if (!isOpen) return null;
@@ -27,7 +29,6 @@ function CustomModal({ isOpen, onClose }) {
       }
     >
       {/* HEADER SECTION */}
-
       <div
         className={
           modalMode == "h-16 w-96 px-6 py-1"
@@ -72,7 +73,7 @@ function CustomModal({ isOpen, onClose }) {
       {/* QUESTION SECTION */}
       {modalMode == "h-16 w-96 px-6 py-1" ? null : (
         <div className="flex h-full flex-col-reverse overflow-y-scroll pr-3 pt-4">
-          {chat.reverse().map((response, i) => (
+          {chat.map((response, i) => (
             <MenssageCard
               key={i}
               message={response.message}
@@ -82,10 +83,29 @@ function CustomModal({ isOpen, onClose }) {
           ))}
         </div>
       )}
+      {/* ERROR SECTION */}
+      {isError && (
+        <div className="flex items-center justify-center pt-2">
+          <div className="rounded-lg border border-red-500 p-2 text-center text-sm text-red-500">
+            Mis disculpas, parece que algo salió mal. <br />
+            ¿Te gustaría intentar de nuevo?
+          </div>
+        </div>
+      )}
+      {/* LOADER SECTION */}
+      {isLoading && (
+        <div className="flex items-center justify-center pt-2">
+          <div className="size-8 animate-spin rounded-full border-4 border-dashed border-blue-500"></div>
+        </div>
+      )}
       {/* INPUT SEND SECTION */}
       {modalMode == "h-16 w-96 px-6 py-1" ? null : (
         <div className="pt-4">
-          <QuestionForm setChat={setChat} />
+          <QuestionForm
+            setChat={setChat}
+            setIsLoading={setIsLoading}
+            setIsError={setIsError}
+          />
         </div>
       )}
     </div>

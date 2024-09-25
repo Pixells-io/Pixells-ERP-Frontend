@@ -5,15 +5,25 @@ import { send } from "ionicons/icons";
 
 import { SendQuestion } from "../utils";
 
-function QuestionForm({ setChat }) {
+function QuestionForm({ setChat, setIsLoading, setIsError }) {
   const [mssg, setMssg] = useState("");
 
   async function onInputEnter(e) {
-    if (e.code == "Enter") {
-      setChat((prev) => [...prev, { type: "1", message: mssg }]);
-      const res = await SendQuestion(mssg);
-      setChat((prev) => [...prev, { type: "0", message: res.responses }]);
+    try {
+      if (e.code == "Enter") {
+        setIsError(false);
+        setChat((prev) => [{ type: "1", message: mssg }, ...prev]);
+        setIsLoading(true);
+        setMssg("");
+        const res = await SendQuestion(mssg);
+        console.log(res);
+        setChat((prev) => [{ type: "0", message: res.responses }, ...prev]);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
       setMssg("");
+      setIsError(true);
     }
   }
 

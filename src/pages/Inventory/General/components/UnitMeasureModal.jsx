@@ -6,14 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogContent,
-  DialogDescription
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 const MeasureButton = ({ value, selectedValue, onClick, children }) => (
   <Button
-    className={`flex-shrink-0 w-[70px] rounded-full border px-4 py-2 text-sm transition-colors ${
+    className={`w-[70px] flex-shrink-0 rounded-full border text-xs transition-colors ${
       value === selectedValue
         ? "border-[#5B89FF] bg-[#5B89FF] text-white"
         : "border-gray-300 bg-white text-gray-600 hover:border-transparent hover:bg-[#5B89FF] hover:text-white"
@@ -30,7 +30,7 @@ const MeasureSection = ({ label, options, selectedValue, onSelect }) => (
       {label}
     </Label>
     <div className="flex-grow overflow-x-auto">
-      <div className="flex space-x-2 pt-3 whitespace-nowrap">
+      <div className="flex space-x-2 whitespace-nowrap pt-3">
         {options.map((option) => (
           <MeasureButton
             key={option}
@@ -60,7 +60,10 @@ const UnitMeasure = ({ onSelect, initialValue }) => {
     { label: "Unidad", options: ["Unidad", "Docenas", "24 Pack"] },
     { label: "Peso", options: ["kg", "g", "oz", "lb", "t"] },
     { label: "Tiempo trabajo", options: ["Horas", "Días"] },
-    { label: "Longitud", options: ["mm", "cm", "in", "ft", "yd", "m", "km", "mi"] },
+    {
+      label: "Longitud",
+      options: ["mm", "cm", "in", "ft", "yd", "m", "km", "mi"],
+    },
   ];
 
   return (
@@ -70,14 +73,11 @@ const UnitMeasure = ({ onSelect, initialValue }) => {
         className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-[#5B89FF] hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-[#5B89FF] focus:ring-opacity-50 active:bg-[#5B89FF] active:bg-opacity-20"
         onClick={() => setIsOpen(true)}
       >
-        <IonIcon
-          icon={informationCircle}
-          className="h-5 w-5 text-[#5B89FF]"
-        />
+        <IonIcon icon={informationCircle} className="h-5 w-5 text-[#5B89FF]" />
       </Button>
-      <DialogContent className="sm:max-w-[425px] pl-1 pb-0 pr-1">
-        <DialogHeader className="px-6 border-b pb-4">
-          <DialogTitle className="font-poppins text-sm font-semibold text-gray-700">
+      <DialogContent className="pb-0 pl-1 pr-1 pt-0">
+        <DialogHeader className="border-b bg-blancoForms px-6 py-4">
+          <DialogTitle className="font-poppins text-base font-semibold text-grisHeading">
             Unidades de Medida
           </DialogTitle>
         </DialogHeader>

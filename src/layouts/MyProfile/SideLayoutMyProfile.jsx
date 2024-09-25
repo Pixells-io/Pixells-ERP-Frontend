@@ -11,7 +11,10 @@ import {
 } from "ionicons/icons";
 import {
   destroyGoogleKeys,
+  loginAzureToken,
   loginGoogleToken,
+  loginMetaToken,
+  savePermissionAzure,
   savePermissionGoogle,
   storeChangeNewPassword,
 } from "./utils";
@@ -131,6 +134,27 @@ export async function Action({ request }) {
     case "4":
       await destroyGoogleKeys(data);
       return redirect("/my-profile/integrations");
+      break;
+    case "5":
+      //AZURE LOGIN URL
+      const responseAzure = await loginAzureToken();
+      if (responseAzure.code != 400) {
+        return redirect(responseAzure.data.url);
+      } else {
+        return "Token already Exist";
+      }
+      break;
+    case "6":
+      await savePermissionAzure(data);
+      return redirect("/my-profile/integrations");
+      break;
+    case "7":
+      const responseUrlMeta = await loginMetaToken();
+      if (responseUrlMeta.code != 400) {
+        return redirect(responseUrlMeta.data.url);
+      } else {
+        return "Token already Exist";
+      }
       break;
   }
 }

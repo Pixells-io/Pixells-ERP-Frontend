@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -9,40 +9,36 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link,useLoaderData} from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { Button } from "@/components/ui/button";
-import { getBaseList } from "./utils";
+import { getList } from "./utils";
 
 const MainPriceList = () => {
-
-
   const { data } = useLoaderData();
   const [baseListInfo, setBaseListInfo] = useState(data);
-
   const pusherClient = createPusherClient();
 
   async function getPriceListFunction() {
-    let newData = await getBaseList();
+    let newData = await getList();
     setBaseListInfo(newData.data);
   }
 
   useEffect(() => {
     pusherClient.subscribe("inventory/get-price-lists");
 
-    pusherClient.bind(" fill-price-lists", ({ message }) => {
+    pusherClient.bind("fill-price-lists", ({ message }) => {
       getPriceListFunction();
     });
 
     return () => {
       pusherClient.unsubscribe("inventory/get-price-lists");
     };
-  }, []); 
+  }, []);
 
-  
   const columns = [
     {
-      accessorKey: "nombre",
+      accessorKey: "name",
       header: "Nombre",
       cell: ({ row }) => {
         return (
@@ -52,28 +48,28 @@ const MainPriceList = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.name}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "listabase",
+      accessorKey: "based_list",
       header: "Lista base",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "indiceref",
+      accessorKey: "refact_index",
       header: "Indice Ref.",
       meta: { filterButton: true },
     },
     {
       accessorKey: "status",
       header: "Estatus",
-    },  
+    },
     {
-      accessorKey: "creacion",
+      accessorKey: "created",
       header: "Creación",
     },
     {
@@ -81,16 +77,19 @@ const MainPriceList = () => {
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center">
-          <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
-        </div>)
+           <Link to={`/inventory/prices-lists/details/${row.original.id}`}>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircle}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
+          </Link>
+        </div>
+      ),
     },
   ];
 
@@ -137,7 +136,7 @@ const MainPriceList = () => {
             Listas de Precios
           </p>
           <Link to="/inventory/prices-lists/create">
-          <Button
+            <Button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
@@ -149,32 +148,32 @@ const MainPriceList = () => {
           </Link>
         </div>
         {/*content */}
-          <div className="w-full">
-            <Tabs
-              defaultValue="LISTS"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="LISTS"
-                >
-                  LISTAS
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="LISTS" className="mt-[-60px] p-2">
-                <DataTable
-                  data={baseListInfo}
-                  columns={columns}
-                  searchFilter="nombre"
-                  searchNameFilter="Buscar por nombre"
-                  isCheckAll={true}
-                />
-              </TabsContent>
-            </Tabs>
-          </div>
+        <div className="w-full">
+          <Tabs
+            defaultValue="LISTS"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              <TabsTrigger
+                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                value="LISTS"
+              >
+                LISTAS
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="LISTS" className="mt-[-60px] p-2">
+              <DataTable
+                data={baseListInfo}
+                columns={columns}
+                searchFilter="name"
+                searchNameFilter="Buscar por nombre"
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
+    </div>
   );
 };
 

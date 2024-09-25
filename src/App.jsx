@@ -355,11 +355,31 @@ import {
   getWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import { getCatalogs, multiLoaderMovements } from "./pages/Inventory/MerchandiseMovements/utils";
+import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
+import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
+import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
+import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
+import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
+import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
-import CreatePriceList,{Action as newPriceList} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
-import ViewPL from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
+import CreatePriceList, {
+  Action as newPriceList,
+} from "./pages/Inventory/PriceList/NewPriceList/CreatePList";
+import ViewPL, {
+  Action as deletePriceList,
+} from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
-import { getBaseList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
+import { getBaseList, getList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
+import MainBranchPointSale from "./pages/Inventory/BranchPointSale/MainBranchPointSale/MainBranchPointSale";
+import NewBranch, {
+  Action as SaveBranchPointSale,
+} from "./pages/Inventory/BranchPointSale/MainBranchPointSale/New/NewBranch";
+import { multiLoaderBranchPointsSale, multiLoaderListBranch, multiLoaderListBranchDetails } from "./pages/Inventory/BranchPointSale/utils";
+import EditBranch, {
+  Action as MultiActionBranchDetails,
+} from "./pages/Inventory/BranchPointSale/MainBranchPointSale/Edit/EditBranch";
+
 //Sales
 import SideLayoutSale from "./layouts/Sales/SideLayoutSales";
 import MainCustomer from "./pages/Sales/Customer/MainCustomer";
@@ -390,9 +410,15 @@ import CreateSupplier, {
   Action as createNewSupplier,
 } from "./pages/Shopping/Suppliers/New/CreateSupplier";
 import CustomerProfile from "./pages/Shopping/Suppliers/New/CustomerProfile";
-import MainRequestOrder from "./pages/Shopping/Orders/MainRequest";
-import CreateOrder from "./pages/Shopping/Orders/NewOrder/CreateOrder";
-import MainPurchase from "./pages/Shopping/Orders/MainPurchase";
+import MainRequestOrder, {
+  Action as RequestOrderAction,
+} from "./pages/Shopping/Orders/MainRequest";
+import CreateOrder, {
+  Action as CreateRequestOrder,
+} from "./pages/Shopping/Orders/NewOrder/CreateOrder";
+import MainPurchase, {
+  Action as PurchaseAction,
+} from "./pages/Shopping/Orders/MainPurchase";
 import CreateRequest, {
   Action as createPurchase,
 } from "./pages/Shopping/Orders/NewOrder/CreateOrderRequest";
@@ -405,16 +431,27 @@ import CreateQuoteOrder, {
 import DocumentPDF from "./pages/Shopping/Orders/NewOrder/DocFormat/DocumentView";
 import MainInvoices from "./pages/Shopping/Orders/MainInvoice";
 import CreateInvoices from "./pages/Shopping/Orders/NewOrder/CreateInvoice";
-import EditOrders from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
+import EditOrders, {
+  Action as PurchaseEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditPurchase";
 import EditInvoices from "./pages/Shopping/Orders/NewOrder/EditOrder/EditInvoice";
-import EditRequests from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
+import EditRequests, {
+  Action as RequestOrderEditAction,
+} from "./pages/Shopping/Orders/NewOrder/EditOrder/EditRequest";
 import EditQuotes, {
   Action as QuoteOrderEditAction,
 } from "./pages/Shopping/Orders/NewOrder/EditOrder/EditQuotes";
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
-import { getQuoteOrder, getQuotesOrder } from "./pages/Shopping/utils";
+import {
+  getPurchase,
+  getPurchases,
+  getQuoteOrder,
+  getQuotesOrder,
+  getRequestOrder,
+  getRequestOrders,
+} from "./pages/Shopping/utils";
 
 //Transformation
 import MainGeneralFormula from "./pages/Transformation/GeneralFormula/MainGeneralFormula";
@@ -433,7 +470,7 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics, { Action as ActionTopic } from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
-import NewEntry from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
+import NewEntry,{Action as SaveMovement} from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
 import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
@@ -457,6 +494,7 @@ import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
+import { getCatalogsTransformation } from "./pages/Transformation/utils";
 
 
 const router = createBrowserRouter([
@@ -1133,14 +1171,21 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
+           
           },
           {
             path: "/inventory/merchandise-movements/entry/new",
             element: <NewEntry />,
+            loader:multiLoaderMovements,
+            action:SaveMovement
           },
           {
             path: "/inventory/merchandise-movements/entry/record/:id",
             element: <MerchandiseMovRecord />,
+          },
+          {
+            path: "/inventory/merchandise-movements/entry/traceability/:id",
+            element: <TraceabilityDetails />,
           },
           {
             path: "/inventory/merchandise-movements/egress/new",
@@ -1151,30 +1196,67 @@ const router = createBrowserRouter([
             element: <MerchandiseMovRecordEgress />,
           },
           {
+            path: "/inventory/merchandise-movements/transfer/new",
+            element: <NewTransfer />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/direct/new",
+            element: <NewDirectTransfer />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/record/:id",
+            element: <TransferDetails />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/traceability/:id",
+            element: <TraceabilityTransfer />,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/entry/:id",
+            element: <TransferEntry />,
+          },
+          {
             path: "/inventory/prices-lists",
             element: <MainPriceList />,
-            loader: getBaseList,
+            loader: getList,
           },
           {
             path: "/inventory/prices-lists/create",
             element: <CreatePriceList />,
             loader: multiloaderList,
-            action: newPriceList
+            action: newPriceList,
           },
           {
             path: "/inventory/prices-lists/details/:id",
             element: <ViewPL />,
             loader: multiloaderListBase,
+            action: deletePriceList,
           },
           {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
-            
           },
           {
             path: "/inventory/stock-items/:id",
             element: <StockWarehouse />,
           },
+          {
+            path: "/inventory/branch-points-sale",
+            element: <MainBranchPointSale />,
+            loader: multiLoaderBranchPointsSale,
+          },
+          {
+            path: "/inventory/branch-points-sale/create",
+            element: <NewBranch />,
+            loader: multiLoaderListBranch,
+            action: SaveBranchPointSale,
+          },
+          {
+            path: "/inventory/branch-points-sale/edit/:id",
+            element: <EditBranch />,
+            loader: multiLoaderListBranchDetails,
+            action: MultiActionBranchDetails,
+          }
         ],
       },
       //Sales
@@ -1288,18 +1370,25 @@ const router = createBrowserRouter([
           {
             path: "/shopping/request-orders",
             element: <MainRequestOrder />,
+            loader: getRequestOrders,
+            action: RequestOrderAction,
           },
           {
             path: "/shopping/request-orders/create",
             element: <CreateOrder />,
+            action: CreateRequestOrder,
           },
           {
             path: "/shopping/request-orders/edit/:id",
             element: <EditRequests />,
+            loader: getRequestOrder,
+            action: RequestOrderEditAction,
           },
           {
             path: "/shopping/purchase/",
             element: <MainPurchase />,
+            loader: getPurchases,
+            action: PurchaseAction,
           },
           {
             path: "/shopping/purchase/create",
@@ -1309,6 +1398,8 @@ const router = createBrowserRouter([
           {
             path: "/shopping/purchase/edit/:id",
             element: <EditOrders />,
+            loader: getPurchase,
+            action: PurchaseEditAction,
           },
           {
             path: "/shopping/quotes-orders",
@@ -1349,6 +1440,7 @@ const router = createBrowserRouter([
           {
             path: "/transformation/create",
             element: <NewFormula />,
+            loader: getCatalogsTransformation,
           },
           {
             path: "/transformation/record/:id",

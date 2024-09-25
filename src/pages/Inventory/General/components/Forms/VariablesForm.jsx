@@ -1,12 +1,22 @@
-
-
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const VariableForm = ({ attrb, variableData, setVariableData }) => {
   const [formData, setFormData] = useState(variableData);
@@ -17,26 +27,33 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
   useEffect(() => {
     if (formData.Groups.length > 0 && !initialLoadDone) {
       const initialSelectedGroups = attrb.data
-        .map(slot => {
-          const matchingGroup = formData.Groups.find(group => group.attribute_name === slot.name);
+        .map((slot) => {
+          const matchingGroup = formData.Groups.find(
+            (group) => group.attribute_name === slot.name,
+          );
           if (!matchingGroup) return null;
           return {
             id: slot.id,
             name: slot.name,
-            slots: slot.slots.map(slotItem => ({
+            slots: slot.slots.map((slotItem) => ({
               id: slotItem.id,
               name: slotItem.name,
-              active: formData.Groups.some(group => group.product_attribute_id === slotItem.id.toString()) ? 1 : 0
-            }))
+              active: formData.Groups.some(
+                (group) =>
+                  group.product_attribute_id === slotItem.id.toString(),
+              )
+                ? 1
+                : 0,
+            })),
           };
         })
         .filter(Boolean);
 
-      setFormData(prevData => ({
+      setFormData((prevData) => ({
         ...prevData,
         selectedGroups: initialSelectedGroups,
       }));
-      setOriginalGroupIds(initialSelectedGroups.map(group => group.id));
+      setOriginalGroupIds(initialSelectedGroups.map((group) => group.id));
       setInitialLoadDone(true);
     }
   }, [formData.Groups, attrb.data, initialLoadDone]);
@@ -46,9 +63,9 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
   }, [formData, setVariableData]);
 
   const updateFormData = (updater) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      ...updater(prevData)
+      ...updater(prevData),
     }));
   };
 
@@ -57,25 +74,31 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
   const handlerAddGroup = () => {
     if (!selectedSlot) return;
 
-    const newGroup = attrb.data.find(slot => slot.id === selectedSlot);
-    if (!newGroup || formData.selectedGroups.some(group => group.id === selectedSlot)) return;
+    const newGroup = attrb.data.find((slot) => slot.id === selectedSlot);
+    if (
+      !newGroup ||
+      formData.selectedGroups.some((group) => group.id === selectedSlot)
+    )
+      return;
 
     const groupWithActiveStatus = {
       id: newGroup.id,
       name: newGroup.name,
-      slots: newGroup.slots.map(slot => ({ ...slot, active: 0 }))
+      slots: newGroup.slots.map((slot) => ({ ...slot, active: 0 })),
     };
 
-    updateFormData(prevData => ({
+    updateFormData((prevData) => ({
       selectedGroups: [...prevData.selectedGroups, groupWithActiveStatus],
-      variables_add: [...prevData.variables_add, groupWithActiveStatus.id]
+      variables_add: [...prevData.variables_add, groupWithActiveStatus.id],
     }));
     setSelectedSlot("");
   };
 
   const handleDeleteGroup = (groupId) => {
-    updateFormData(prevData => {
-      const updatedSelectedGroups = prevData.selectedGroups.filter(group => group.id !== groupId);
+    updateFormData((prevData) => {
+      const updatedSelectedGroups = prevData.selectedGroups.filter(
+        (group) => group.id !== groupId,
+      );
       let updatedVariablesAdd = prevData.variables_add;
       let updatedVariablesDestroy = prevData.variables_destroy;
 
@@ -84,48 +107,54 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
         updatedVariablesDestroy = [...updatedVariablesDestroy, groupId];
       } else {
         // Si no es un grupo original, lo removemos de variables_add
-        updatedVariablesAdd = updatedVariablesAdd.filter(id => id !== groupId);
+        updatedVariablesAdd = updatedVariablesAdd.filter(
+          (id) => id !== groupId,
+        );
       }
 
       return {
         selectedGroups: updatedSelectedGroups,
         variables_add: updatedVariablesAdd,
-        variables_destroy: updatedVariablesDestroy
+        variables_destroy: updatedVariablesDestroy,
       };
     });
   };
 
   const handleSlotButtonClick = (groupId, slotId) => {
-    updateFormData(prevData => ({
-      selectedGroups: prevData.selectedGroups.map(group =>
+    updateFormData((prevData) => ({
+      selectedGroups: prevData.selectedGroups.map((group) =>
         group.id === groupId
           ? {
               ...group,
-              slots: group.slots.map(slot =>
-                slot.id === slotId ? { ...slot, active: slot.active === 1 ? 0 : 1 } : slot
-              )
+              slots: group.slots.map((slot) =>
+                slot.id === slotId
+                  ? { ...slot, active: slot.active === 1 ? 0 : 1 }
+                  : slot,
+              ),
             }
-          : group
-      )
+          : group,
+      ),
     }));
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: { "image/*": [] },
     onDrop: (acceptedFiles) => {
-      const newImages = acceptedFiles.map(file => ({
+      const newImages = acceptedFiles.map((file) => ({
         file,
         preview: URL.createObjectURL(file),
         name: file.name,
         size: file.size,
         type: file.type,
       }));
-      updateFormData(prevData => ({ images: [...prevData.images, ...newImages] }));
+      updateFormData((prevData) => ({
+        images: [...prevData.images, ...newImages],
+      }));
     },
   });
 
   const handleRemoveImage = (index) => {
-    updateFormData(prevData => {
+    updateFormData((prevData) => {
       const removedImage = prevData.images[index];
       const updatedImages = prevData.images.filter((_, i) => i !== index);
       const updatedImagesDestroy = removedImage.id
@@ -140,11 +169,14 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <div className="space-y-4">
-        <div className="flex items-center space-x-4">
+    <div className="flex h-full w-full flex-col gap-2">
+      <div className="flex w-full items-center gap-4 px-4">
+        <div className="flex w-full flex-col">
+          <p className="mb-1 text-[10px] font-normal text-grisText">
+            Agrega Atributos
+          </p>
           <Select value={selectedSlot} onValueChange={handleSelectChange}>
-            <SelectTrigger className="border-gris2-transparent ml-4 w-2 rounded-xl border font-roboto placeholder:text-grisHeading focus-visible:ring-primarioBotones sm:w-96 lg:w-[500px] focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+            <SelectTrigger className="h-[32px] w-full rounded-[10px] border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
             <SelectContent>
@@ -155,53 +187,55 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
               ))}
             </SelectContent>
           </Select>
-          <Button
-            className="rounded-full bg-[#5B89FF] px-5 py-4 hover:bg-[#5B89FF]"
+        </div>
+        <div className="flex pt-5">
+          <button
+            type="button"
+            className="shrink-0 rounded-lg bg-[#5B89FF] px-2 py-1 text-[11px] text-white hover:bg-[#5B89FF]"
             onClick={handlerAddGroup}
           >
-            Agregar
-          </Button>
-        </div>
-        <div className="h-[318px] w-[550px] pl-6 overflow-y-auto">
-          {formData.selectedGroups.map((group) => (
-            <div key={group.id} className="border-b border-[#D7D7D7] pb-4 pt-4">
-              <div className="flex items-center justify-between p-2 pb-6 pt-6">
-                <div className="w-24 font-roboto text-[14px] text-gris2 flex-shrink-0">
-                  {group.name}
-                </div>
-                <div className="flex-grow overflow-x-auto mx-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                  <div className="flex gap-2 min-w-max">
-                    {group.slots?.map((slot) => (
-                      <Button
-                        key={slot.id}
-                        className={`flex-shrink-0 items-center justify-center rounded-full border border-gris2 bg-white text-[14px] text-gris2 hover:border-transparent hover:bg-[#5B89FF] hover:text-[#FBFBFB] ${
-                          slot.active === 1
-                            ? "border border-[#5B89FF] bg-transparent text-primarioBotones"
-                            : ""
-                        }`}
-                        onClick={() => handleSlotButtonClick(group.id, slot.id)}
-                      >
-                        {slot.name}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                <Button
-                  className="rounded-full p-2 bg-transparent hover:bg-transparent flex-shrink-0"
-                  onClick={() => handleDeleteGroup(group.id)}
-                >
-                  <IonIcon
-                    icon={closeCircle}
-                    className="h-6 w-6 text-gris2"
-                  />
-                </Button>
-              </div>
-            </div>
-          ))}
+            + Agregar
+          </button>
         </div>
       </div>
 
-      <div className="relative col-span-1 p-8">
+      <div className="overflow-y-auto pl-6">
+        {formData.selectedGroups.map((group) => (
+          <div key={group.id} className="border-b border-[#D7D7D7] py-1">
+            <div className="flex items-center justify-between p-2">
+              <div className="w-24 flex-shrink-0 font-roboto text-[14px] text-gris2">
+                {group.name}
+              </div>
+              <div className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 mx-2 flex-grow overflow-x-auto">
+                <div className="flex min-w-max gap-2">
+                  {group.slots?.map((slot) => (
+                    <button
+                      type="button"
+                      key={slot.id}
+                      className={`min-w-16 flex-shrink-0 items-center justify-center rounded-3xl px-4 py-[6px] text-[12px] font-light text-gris2 hover:border-transparent hover:bg-[#5B89FF] hover:text-[#FBFBFB] ${
+                        slot.active === 1
+                          ? "bg-primarioBotones text-white"
+                          : "bg-[#f1f1f1]"
+                      }`}
+                      onClick={() => handleSlotButtonClick(group.id, slot.id)}
+                    >
+                      {slot.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <Button
+                className="flex-shrink-0 rounded-full bg-transparent p-2 hover:bg-transparent"
+                onClick={() => handleDeleteGroup(group.id)}
+              >
+                <IonIcon icon={closeCircle} className="h-6 w-6 text-gris2" />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative p-8">
         {formData.images.length > 0 ? (
           <Carousel className="w-full">
             <CarouselContent className="ml-0 h-[318px] w-full">
@@ -241,7 +275,7 @@ const VariableForm = ({ attrb, variableData, setVariableData }) => {
         ) : (
           <div
             {...getRootProps()}
-            className="flex h-[300px] flex-col items-center justify-center border-2 border-dashed p-4 pb-8"
+            className="flex h-[300px] flex-col items-center justify-center rounded-3xl border-2 border-dashed p-4 pb-8"
           >
             <IonIcon icon={imageOutline} className="h-12 w-12 text-gray-500" />
             <span className="ml-2 text-gray-500">

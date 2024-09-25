@@ -3,11 +3,10 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  informationCircle,
-  addCircleOutline,
-  trash,
+  trashOutline,
+  informationCircleOutline,
+  add,
 } from "ionicons/icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -39,6 +38,7 @@ import ProductAttributeTabs from "./ProductAttributes/ProductAttributeTabs";
 import { Link } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import ModalDeleteProduct from "./Modals/ModalDeleteProduct";
+import NavigationHeader from "@/components/navigation-header";
 
 const MainGeneral = () => {
   const { categories, attributes, products } = useLoaderData();
@@ -126,14 +126,14 @@ const MainGeneral = () => {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-center gap-1">
           <Link to={`/inventory/edit/${row.original.id}`}>
             <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
-                icon={informationCircle}
+                icon={informationCircleOutline}
                 className="h-5 w-5 text-[#696974]"
               />
             </Button>
@@ -145,7 +145,7 @@ const MainGeneral = () => {
               openDestroyProductModal(row.original?.name, row.original?.id)
             }
           >
-            <IonIcon icon={trash} className="h-5 w-5 text-[#696974]" />
+            <IonIcon icon={trashOutline} className="h-5 w-5 text-[#696974]" />
           </Button>
         </div>
       ),
@@ -170,29 +170,9 @@ const MainGeneral = () => {
       />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Inventory - General</div>
-          </div>
-        </div>
-        {/* top content */}
+        <NavigationHeader />
 
+        {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             INVENTARIO
@@ -204,7 +184,7 @@ const MainGeneral = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Artículos General
           </p>
@@ -212,13 +192,11 @@ const MainGeneral = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  type="button"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                  type={"button"}
+                  className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
                 >
-                  <IonIcon
-                    icon={addCircleOutline}
-                    className="h-7 w-7 text-primarioBotones"
-                  />
+                  <IonIcon icon={add} className="h-4 w-4" />
+                  <span className="text-xs font-medium">Nuevo</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="rounded-2xl">
@@ -251,27 +229,27 @@ const MainGeneral = () => {
           defaultValue="ARTÍCULOS"
           className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
-          <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
             <TabsTrigger
-              className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
               value="ARTÍCULOS"
             >
               ARTÍCULOS
             </TabsTrigger>
             <TabsTrigger
-              className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
               value="CATEGORIAS"
             >
               CATEGORÍAS
             </TabsTrigger>
             <TabsTrigger
-              className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
               value="ATTRIBUTES"
             >
               ATRIBUTOS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="ARTÍCULOS" className="mt-[-60px] p-2">
+          <TabsContent value="ARTÍCULOS" className="mt-[-70px] w-full pt-2">
             <DataTable
               data={productState}
               columns={columns}
@@ -280,7 +258,7 @@ const MainGeneral = () => {
               isCheckAll={true}
             />
           </TabsContent>
-          <TabsContent value="CATEGORIAS" className="mt-[-60px] p-2">
+          <TabsContent value="CATEGORIAS" className="mt-[-70px] w-full pt-2">
             <Category categories={categories.data} />
           </TabsContent>
           <TabsContent value="ATTRIBUTES" className="p-2">

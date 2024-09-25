@@ -12,21 +12,29 @@ function InputForm({
   value,
   onChange,
   required,
-  className
+  className,
 }) {
   return (
+    <div className="w-full">
+      <p className="mb-1 text-[10px] font-normal text-grisText">
+        {placeholder}
+      </p>
       <Input
         id={id}
         type={type}
-        className={cn("text-[#44444f] text-sm h-[32px] rounded-[10px] ", className)}
+        className={cn(
+          "h-[32px] rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f]",
+          className,
+        )}
         name={name}
-        placeholder={placeholder}
+        // placeholder={placeholder}
         defaultValue={defaultValue}
         disabled={disabled}
         value={value}
         onChange={onChange}
         required={required}
       />
+    </div>
   );
 }
 

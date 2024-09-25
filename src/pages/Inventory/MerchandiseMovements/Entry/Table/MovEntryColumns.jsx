@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircleOutline} from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -71,24 +71,23 @@ export const MovEntryColumns = [
   },
   {
     id: "acciones",
-    header: "Acciones",
+    accessorKey: "acciones",
+    header: () => (
+      <div className="">
+        <p className="text-center">
+          ACCIONES
+        </p>
+      </div>
+    ),        
     cell: ({ row }) => (
-      <Link
-        to={
-          "/inventory/merchandise-movements/entry/record/" + row?.original?.id
-        }
-        className="flex w-full items-center justify-center"
-      >
-         <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
-      </Link>
+      <div className="flex justify-center">
+        <Link to="/accounting/policy/details">
+          <IonIcon
+            icon={informationCircleOutline}
+            className="text-[#44444f] w-5 h-5"
+          />
+        </Link>
+      </div>
     ),
   },
 ];
