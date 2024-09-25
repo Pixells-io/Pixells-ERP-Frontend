@@ -2,29 +2,53 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import { Form } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
-const GeneralTab = () => {
-  const { id } = useParams();
-  const [dateStartPeriod, setDateStartPeriod] = useState("");
-  const [dateFinishPeriod, setDateFinishPeriod] = useState("");
+const GeneralTab = ({ informationDetails, store_id }) => {
+  const [information, setInformation] = useState({
+    id: informationDetails?.id,
+    street: informationDetails?.street,
+    ext: informationDetails?.ext,
+    int: informationDetails?.int,
+    cologne: informationDetails?.cologne,
+    city: informationDetails?.city,
+    state: informationDetails?.state,
+    cp: informationDetails?.cp,
+    country: informationDetails?.country,
+    status: informationDetails?.status,
+    dateStartPeriod: informationDetails?.dateStartPeriod,
+    dateFinishPeriod: informationDetails?.dateFinishPeriod,
+  });
 
   const clearPeriod = () => {
-    setDateStartPeriod("");
-    setDateFinishPeriod("");
+    setInformation((prevFormData) => ({
+      ...prevFormData,
+      dateStartPeriod: "",
+      dateFinishPeriod: "",
+    }));
   };
 
   const addDate = (dateI, dateF) => {
-    setDateStartPeriod(dateI);
-    setDateFinishPeriod(dateF);
+    setInformation((prevFormData) => ({
+      ...prevFormData,
+      dateStartPeriod: dateI,
+      dateFinishPeriod: dateF,
+    }));
+  };
+
+  const handleInputChange = (value, name) => {
+    setInformation((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
-      action={`/inventory/branch-points-sale/edit/${id}`}
+      action={`/inventory/branch-points-sale/edit/${store_id}`}
       method="post"
     >
       <div className="overflow-auto">
@@ -37,8 +61,7 @@ const GeneralTab = () => {
           hidden
           readOnly
           name="store_id"
-          // value={store.id}
-          value={id}
+          value={store_id}
         />
         <input
           type="text"
@@ -46,32 +69,88 @@ const GeneralTab = () => {
           hidden
           readOnly
           name="type_option"
-          value="create_generalBranchTab"
+          value="generalBranchTab"
+        />
+        <input
+          type="text"
+          className="hidden"
+          hidden
+          readOnly
+          name="info_id"
+          value={information?.id}
         />
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-12">
-            <InputForm name="street" type="text" placeholder={"Calle"} />
+            <InputForm
+              name="street"
+              type="text"
+              placeholder={"Calle"}
+              value={information?.street}
+              onChange={(e) => handleInputChange(e.target.value, "street")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="ext" type="text" placeholder={"Número Ext. "} />
+            <InputForm
+              name="ext"
+              type="text"
+              placeholder={"Número Ext. "}
+              value={information?.ext}
+              onChange={(e) => handleInputChange(e.target.value, "ext")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="int" type="text" placeholder={"Número Int. "} />
+            <InputForm
+              name="int"
+              type="text"
+              placeholder={"Número Int. "}
+              value={information?.int}
+              onChange={(e) => handleInputChange(e.target.value, "int")}
+            />
           </div>
           <div className="col-span-12">
-            <InputForm name="cologne" type="text" placeholder={"Colonia"} />
+            <InputForm
+              name="cologne"
+              type="text"
+              placeholder={"Colonia"}
+              value={information?.cologne}
+              onChange={(e) => handleInputChange(e.target.value, "cologne")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="city" type="text" placeholder={"Ciudad"} />
+            <InputForm
+              name="city"
+              type="text"
+              placeholder={"Ciudad"}
+              value={information?.city}
+              onChange={(e) => handleInputChange(e.target.value, "city")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="state" type="text" placeholder={"Estado"} />
+            <InputForm
+              name="state"
+              type="text"
+              placeholder={"Estado"}
+              value={information?.state}
+              onChange={(e) => handleInputChange(e.target.value, "state")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="cp" type="text" placeholder={"CP"} />
+            <InputForm
+              name="cp"
+              type="text"
+              placeholder={"CP"}
+              value={information?.cp}
+              onChange={(e) => handleInputChange(e.target.value, "cp")}
+            />
           </div>
           <div className="col-span-6">
-            <InputForm name="country" type="text" placeholder={"País"} />
+            <InputForm
+              name="country"
+              type="text"
+              placeholder={"País"}
+              value={information?.country}
+              onChange={(e) => handleInputChange(e.target.value, "country")}
+            />
           </div>
           <div className="col-span-12">
             <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
@@ -94,7 +173,8 @@ const GeneralTab = () => {
                   Activo
                 </label>
 
-                {!!dateStartPeriod && !!dateFinishPeriod ? (
+                {!!information?.dateStartPeriod &&
+                !!information?.dateFinishPeriod ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
@@ -102,10 +182,10 @@ const GeneralTab = () => {
                         hidden
                         name="dateStart"
                         className="hidden"
-                        value={format(dateStartPeriod, "PP")}
+                        value={format(information?.dateStartPeriod, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(dateStartPeriod, "PP")}
+                        {format(information?.dateStartPeriod, "PP")}
                       </label>
                     </div>
                     <div className="rounded-[8px] bg-gris px-2 py-1">
@@ -114,10 +194,10 @@ const GeneralTab = () => {
                         hidden
                         name="dateFinish"
                         className="hidden"
-                        value={format(dateFinishPeriod, "PP")}
+                        value={format(information?.dateFinishPeriod, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(dateFinishPeriod, "PP")}
+                        {format(information?.dateFinishPeriod, "PP")}
                       </label>
                     </div>
                   </div>
@@ -128,7 +208,8 @@ const GeneralTab = () => {
                 )}
               </div>
               <div className="flex items-center">
-                {!!dateStartPeriod && !!dateFinishPeriod ? (
+                {!!information?.dateStartPeriod &&
+                !!information?.dateFinishPeriod ? (
                   <Button
                     type="button"
                     className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -145,7 +226,7 @@ const GeneralTab = () => {
         </div>
       </div>
 
-      <div className="mt-20 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

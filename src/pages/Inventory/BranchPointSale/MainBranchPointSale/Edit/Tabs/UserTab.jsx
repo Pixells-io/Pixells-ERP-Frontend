@@ -218,7 +218,7 @@ const UserTab = ({ users }) => {
         ))}
       </div>
 
-      <div className="mt-20 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

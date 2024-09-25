@@ -19,7 +19,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
       action={`/inventory/branch-points-sale/create`}
       method="post"
     >
-      <div>
+      <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
@@ -100,7 +100,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

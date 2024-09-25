@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
-import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import { createGeneralBranchTab, updateGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
@@ -185,7 +185,10 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
-              <GeneralTab />
+              <GeneralTab 
+                informationDetails={storeDetail?.data?.information}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="users" className="w-full">
               <UserTab users={users.data} />
@@ -213,8 +216,12 @@ export async function Action({ request }) {
     case "update_principalBranchTab":
       await updatePrincipalBranchTab(data);
       break;
-    case "create_generalBranchTab":
-      await createGeneralBranchTab(data);
+    case "generalBranchTab":
+      if(!!data.get("info_id")){
+        await updateGeneralBranchTab(data);
+      } else {
+        await createGeneralBranchTab(data);
+      }
       break;
   }
   return "1";

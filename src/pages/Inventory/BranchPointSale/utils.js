@@ -186,6 +186,33 @@ export async function createGeneralBranchTab(data) {
   return response.json();
 }
 
+export async function updateGeneralBranchTab(data) {
+  const info = {
+    info_id: data.get("info_id"),
+    street: data.get("street"),
+    ext: data.get("ext"),
+    int: data.get("int"),
+    cologne: data.get("cologne"),
+    city: data.get("city"),
+    state: data.get("state"),
+    cp: data.get("cp"),
+    country: data.get("country"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/edit-store-information`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 export async function getUsers() {
   try {
     const response = await fetch(
