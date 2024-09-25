@@ -2,11 +2,14 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
 const GeneralTab = ({ informationDetails, store_id }) => {
+
+  const navigation = useNavigation();
+
   const [information, setInformation] = useState({
     id: informationDetails?.id,
     street: informationDetails?.street,
@@ -18,23 +21,23 @@ const GeneralTab = ({ informationDetails, store_id }) => {
     cp: informationDetails?.cp,
     country: informationDetails?.country,
     status: informationDetails?.status,
-    dateStartPeriod: informationDetails?.dateStartPeriod,
-    dateFinishPeriod: informationDetails?.dateFinishPeriod,
+    start: informationDetails?.start,
+    end: informationDetails?.end,
   });
 
   const clearPeriod = () => {
     setInformation((prevFormData) => ({
       ...prevFormData,
-      dateStartPeriod: "",
-      dateFinishPeriod: "",
+      start: "",
+      end: "",
     }));
   };
 
   const addDate = (dateI, dateF) => {
     setInformation((prevFormData) => ({
       ...prevFormData,
-      dateStartPeriod: dateI,
-      dateFinishPeriod: dateF,
+      start: dateI,
+      end: dateF,
     }));
   };
 
@@ -156,48 +159,42 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
             <div className="mt-1 flex w-full justify-between border-b border-t border-[#D7D7D7] py-3 pl-4">
               <div className="flex items-center gap-x-3">
-                <input
-                  type="hidden"
-                  hidden
-                  name="status"
-                  className="hidden"
-                  // value={checkedInputStatus}
-                  readOnly
-                />
                 <Switch
                   className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                  // checked={checkedInputStatus == "1"}
-                  // onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+                  name="status"
+                  checked={information?.status == "1"}
+                  onCheckedChange={(e) =>
+                    handleInputChange(e ? "1" : "0", "status")
+                  }
                 />
                 <label className="font-roboto text-xs font-normal text-grisText">
                   Activo
                 </label>
 
-                {!!information?.dateStartPeriod &&
-                !!information?.dateFinishPeriod ? (
+                {!!information?.start && !!information?.end ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
                         type="hidden"
                         hidden
-                        name="dateStart"
+                        name="start"
                         className="hidden"
-                        value={format(information?.dateStartPeriod, "PP")}
+                        value={format(information?.start, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(information?.dateStartPeriod, "PP")}
+                        {format(information?.start, "PP")}
                       </label>
                     </div>
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
                         type="hidden"
                         hidden
-                        name="dateFinish"
+                        name="end"
                         className="hidden"
-                        value={format(information?.dateFinishPeriod, "PP")}
+                        value={format(information?.end, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(information?.dateFinishPeriod, "PP")}
+                        {format(information?.end, "PP")}
                       </label>
                     </div>
                   </div>
@@ -208,8 +205,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                 )}
               </div>
               <div className="flex items-center">
-                {!!information?.dateStartPeriod &&
-                !!information?.dateFinishPeriod ? (
+                {!!information?.start && !!information?.end ? (
                   <Button
                     type="button"
                     className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -231,8 +227,11 @@ const GeneralTab = ({ informationDetails, store_id }) => {
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024
           </label>
-          <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-            Guardar
+          <Button
+            className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </div>
       </div>

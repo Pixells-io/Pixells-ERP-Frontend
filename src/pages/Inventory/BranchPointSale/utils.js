@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function multiLoaderListBranch() {
   const [whareHouses, costCenter, priceList] = await Promise.all([
@@ -160,6 +161,11 @@ export async function updatePrincipalBranchTab(data) {
 }
 
 export async function createGeneralBranchTab(data) {
+  
+  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
+  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+
+
   const info = {
     store_id: data.get("store_id"),
     street: data.get("street"),
@@ -170,6 +176,9 @@ export async function createGeneralBranchTab(data) {
     state: data.get("state"),
     cp: data.get("cp"),
     country: data.get("country"),
+    status: !!data.get("status") ? "1" : "0",
+    start: startDate,
+    end: endDate,
   };
 
   const response = await fetch(
@@ -187,6 +196,10 @@ export async function createGeneralBranchTab(data) {
 }
 
 export async function updateGeneralBranchTab(data) {
+
+  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
+  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+
   const info = {
     info_id: data.get("info_id"),
     street: data.get("street"),
@@ -197,6 +210,9 @@ export async function updateGeneralBranchTab(data) {
     state: data.get("state"),
     cp: data.get("cp"),
     country: data.get("country"),
+    status: !!data.get("status") ? "1" : "0",
+    start: startDate,
+    end: endDate,
   };
 
   const response = await fetch(
