@@ -165,13 +165,6 @@ const CashBoxTab = () => {
                             {format(cashBox.dateFinishPeriod, "PP")}
                           </label>
                         </div>
-                        <Button
-                          type="button"
-                          className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
-                          onClick={() => clearPeriod(index)}
-                        >
-                          Restablecer
-                        </Button>
                       </div>
                     ) : (
                       <label className="font-roboto text-xs font-light text-grisSubText">
@@ -180,7 +173,17 @@ const CashBoxTab = () => {
                     )}
                   </div>
                   <div>
-                    <ModalPeriod setFunctionParent={addDate} index={index} />
+                    {!!cashBox.dateStartPeriod && !!cashBox.dateFinishPeriod ? (
+                      <Button
+                        type="button"
+                        className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                        onClick={() => clearPeriod(index)}
+                      >
+                        Restablecer
+                      </Button>
+                    ) : (
+                      <ModalPeriod setFunctionParent={addDate} index={index} />
+                    )}{" "}
                   </div>
                 </div>
                 <div className="flex w-full justify-end">

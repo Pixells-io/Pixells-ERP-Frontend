@@ -120,13 +120,6 @@ const GeneralTab = () => {
                         {format(dateFinishPeriod, "PP")}
                       </label>
                     </div>
-                    <Button
-                      type="button"
-                      className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
-                      onClick={() => clearPeriod()}
-                    >
-                      Restablecer
-                    </Button>
                   </div>
                 ) : (
                   <label className="font-roboto text-xs font-light text-grisSubText">
@@ -135,7 +128,17 @@ const GeneralTab = () => {
                 )}
               </div>
               <div className="flex items-center">
-                <ModalPeriod setFunctionParent={addDate} />
+                {!!dateStartPeriod && !!dateFinishPeriod ? (
+                  <Button
+                    type="button"
+                    className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                    onClick={() => clearPeriod()}
+                  >
+                    Restablecer
+                  </Button>
+                ) : (
+                  <ModalPeriod setFunctionParent={addDate} />
+                )}
               </div>
             </div>
           </div>

@@ -147,7 +147,8 @@ const PaymentTab = ({ users }) => {
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
                     </label>
-                    {!!paymentS.dateStartPeriod && !!paymentS.dateFinishPeriod ? (
+                    {!!paymentS.dateStartPeriod &&
+                    !!paymentS.dateFinishPeriod ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
                           <input
@@ -173,13 +174,6 @@ const PaymentTab = ({ users }) => {
                             {format(paymentS.dateFinishPeriod, "PP")}
                           </label>
                         </div>
-                        <Button
-                          type="button"
-                          className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
-                          onClick={() => clearPeriod(index)}
-                        >
-                          Restablecer
-                        </Button>
                       </div>
                     ) : (
                       <label className="font-roboto text-xs font-light text-grisSubText">
@@ -188,7 +182,18 @@ const PaymentTab = ({ users }) => {
                     )}
                   </div>
                   <div>
-                    <ModalPeriod setFunctionParent={addDate} index={index} />
+                    {!!paymentS.dateStartPeriod &&
+                    !!paymentS.dateFinishPeriod ? (
+                      <Button
+                        type="button"
+                        className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                        onClick={() => clearPeriod(index)}
+                      >
+                        Restablecer
+                      </Button>
+                    ) : (
+                      <ModalPeriod setFunctionParent={addDate} index={index} />
+                    )}{" "}
                   </div>
                 </div>
                 <div className="flex w-full justify-end">
