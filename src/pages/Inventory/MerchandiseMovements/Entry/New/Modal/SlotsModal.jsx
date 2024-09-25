@@ -119,9 +119,6 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
     { key: 'checkbox', label: '', width: '40px' },
     { key: 'batch', label: 'Lote Interno' },
     { key: 'quantity', label: 'Cantidad' },
-    { key: 'attribute1', label: 'Atributo 1' },
-    { key: 'attribute2', label: 'Atributo 2' },
-    { key: 'unitPrice', label: 'Precio Unitario' },
     { key: 'location', label: 'Ubicación' },
     { key: 'actions', label: '', width: '40px' }
   ];
@@ -238,30 +235,7 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
                 className="cursor-pointer text-primario"
               />
             </Button>
-            <div className="flex space-x-2">
-              <Button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                className="mr-2 h-7 w-7 rounded-full bg-transparent p-1"
-                disabled={currentPage === 1}
-              >
-                <IonIcon
-                  icon={chevronBack}
-                  size="small"
-                  className="text-primarioBotones"
-                />
-              </Button>
-              <Button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                className="mr-2 h-7 w-7 rounded-full bg-transparent p-1"
-                disabled={currentPage === totalPages}
-              >
-                <IonIcon
-                  icon={chevronForward}
-                  size="small"
-                  className="text-primarioBotones"
-                />
-              </Button>
-            </div>
+          
            <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleSave}>
               Save
             </Button>

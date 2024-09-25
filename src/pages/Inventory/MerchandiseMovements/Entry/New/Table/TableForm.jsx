@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import EntrySlotModal from "../Modal/SlotsModal";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const TableForm = ({
   products,
@@ -37,6 +38,8 @@ const TableForm = ({
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [isBatchManagementChecked, setIsBatchManagementChecked] = useState(false); // Estado para el checkbox
+
   const [selectedRow, setSelectedRow] = useState(null);
   const itemsPerPage = 10;
 
@@ -44,7 +47,9 @@ const TableForm = ({
     setSelectedRow(row);
     setIsModalOpen(true);
   };
-
+  const handleCheckboxChange = () => {
+    setIsBatchManagementChecked((prev) => !prev);
+  };
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedRow(null);
@@ -194,6 +199,16 @@ const TableForm = ({
         cell: ({ row, rowIndex }) => <div>{row?.eQuantity}</div>,
       },
       {
+        accessorKey: "batchManagement",
+        header: "Gestionar por lotes",
+        cell: ({ row }) => (
+          <Checkbox
+            checked={isBatchManagementChecked}
+            onCheckedChange={handleCheckboxChange}
+          />
+        ),
+      },
+      {
         accessorKey: "receivedQuantity",
         header: "Recibido",
         cell: ({ row, rowIndex }) => (
@@ -217,30 +232,6 @@ const TableForm = ({
         ),
       },
       {
-        accessorKey: "unitPrice",
-        header: "Precio Unitario",
-        cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-            name={`cost-subProduct-${rowIndex}`}
-            min={"0"}
-            step={"0.01"}
-            value={row?.unitPrice}
-            placeholder="Ingrese"
-            onChange={(e) =>
-              handleInputChange(rowIndex, "unitPrice", e.target.value)
-            }
-            disabled={!isEditable}
-          />
-        ),
-      },
-      {
-        accessorKey: "total",
-        header: "Total",
-        cell: ({ row, rowIndex }) => <div>{row.total}</div>,
-      },
-      {
         accessorKey: "slots",
         header: "Lotes",
         cell: ({ row }) => (
@@ -251,7 +242,7 @@ const TableForm = ({
             >
               Gestionar
             </button>
-            {isModalOpen && selectedRow && (
+            {isModalOpen && selectedRow && isBatchManagementChecked && (
               <EntrySlotModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
@@ -324,7 +315,7 @@ const TableForm = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="mb-2 h-[500px] overflow-auto rounded-xl">
+    <div className="flex mb-2 flex-col h-[400px] rounded-xl">
       <div className="">
         <Table>
           <TableHeader>
