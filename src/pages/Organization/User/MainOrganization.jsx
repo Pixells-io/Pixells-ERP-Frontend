@@ -250,6 +250,5 @@ export async function action({ request }) {
       return redirect("/organization");
       break;
   }
-
   return redirect("/organization");
 }
