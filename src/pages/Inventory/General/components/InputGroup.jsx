@@ -153,17 +153,6 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             </div>
           </div>
 
-          {/* Precio unitario */}
-          <InputForm
-            type="number"
-            placeholder="Precio unitario"
-            name="precio"
-            min="0"
-            step="0.1"
-            value={inputsData?.precio || ""}
-            onChange={handleInputChange}
-          />
-
           <div className="flex">
             {/* Unidades de Medida */}
             <InputForm
@@ -180,6 +169,17 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               />
             </div>
           </div>
+
+          {/* Precio unitario */}
+          <InputForm
+            type="number"
+            placeholder="Precio unitario"
+            name="precio"
+            min="0"
+            step="0.1"
+            value={inputsData?.precio || ""}
+            onChange={handleInputChange}
+          />
 
           {/* Centro de Costos */}
           <div className="flex flex-col">
