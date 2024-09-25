@@ -1,24 +1,30 @@
 import InputForm from "@/components/InputForm/InputForm";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
+import ModalAddUser from "../Modals/ModalAddUser";
+import ModalPaymentMethods from "../Modals/ModalPaymentMethods";
 
-const CashBoxTab = () => {
+const PaymentTab = ({ users }) => {
   const { id } = useParams();
-  const [cashBoxesSelect, setCashBoxesSelect] = useState([]);
+  const [paymentSelect, setPaymentSelect] = useState([]);
 
-  const deleteCashBox = (index) => {
-    const newCashBoxes = cashBoxesSelect.filter((item, i) => index !== i);
-    setCashBoxesSelect([...newCashBoxes]);
+  const deleteUser = (index) => {
+    const newUsers = paymentSelect.filter((item, i) => index !== i);
+    setPaymentSelect([...newUsers]);
   };
 
-  const addCashBox = () => {
-    setCashBoxesSelect([...cashBoxesSelect, {}]);
-  };
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
@@ -27,7 +33,7 @@ const CashBoxTab = () => {
     >
       <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
-          CAJAS
+          PAGO
         </h2>
         <input
           type="text"
@@ -48,45 +54,50 @@ const CashBoxTab = () => {
         />
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
-          <Button
-            onClick={() => addCashBox()}
-            className="flex h-[24px] items-center gap-x-1 rounded-[10px] bg-primarioBotones px-2 text-[11px] font-medium text-white hover:bg-blancoBox2"
-          >
-            <IonIcon className="h-5 w-5" icon={add}></IonIcon>
-            Agregar
-          </Button>
+          <ModalPaymentMethods setPaymentSelect={setPaymentSelect} />
         </div>
 
-        {cashBoxesSelect.map((cashBox, index) => (
+        {paymentSelect.map((paymentS, index) => (
           <div className="mt-4" key={index}>
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
-              CAJA {index + 1}
+              MÉTODO {index + 1}
             </p>
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
               <div className="col-span-3">
                 <InputForm
-                  name="name"
+                  name="type"
                   type="text"
-                  placeholder={"Nombre"}
+                  placeholder={"Posición"}
                   disabled={true}
+                  value={paymentS.label}
                 />
               </div>
+
               <div className="col-span-3">
-                <InputForm
-                  name="position"
-                  type="text"
-                  placeholder={"No. de Serie"}
-                  disabled={true}
-                />
+                <p className="mb-1 text-[10px] font-normal text-grisText">
+                  Cuenta Contable
+                </p>
+                <Select name="inventory_id" required={true}>
+                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[].map((cashBox) => (
+                      <SelectItem key={cashBox.id} value={String(cashBox.id)}>
+                        {cashBox.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="col-span-3">
-                <InputForm
-                  name="algoMas"
-                  type="text"
-                  placeholder={"Algo más"}
-                />
+              <div className="col-span-1 mb-1 flex items-end justify-start">
+                <Button
+                  type="button"
+                  className="h-[24px] flex items-center justify-center rounded-xl bg-blancoBox2 px-1.5 font-medium text-[#44444F] hover:bg-blancoBox2"
+                >
+                  <IonIcon className="w-5 h-5" icon={add}></IonIcon>
+                </Button>
               </div>
-              <div className="col-span-3"></div>
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
@@ -124,7 +135,7 @@ const CashBoxTab = () => {
                   <Button
                     type="button"
                     className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-[#44444F] bg-inherit px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
-                    onClick={() => deleteCashBox(index)}
+                    onClick={() => deleteUser(index)}
                   >
                     <IonIcon className="h-5 w-5" icon={trashOutline}></IonIcon>
                     Eliminar
@@ -150,4 +161,4 @@ const CashBoxTab = () => {
   );
 };
 
-export default CashBoxTab;
+export default PaymentTab;

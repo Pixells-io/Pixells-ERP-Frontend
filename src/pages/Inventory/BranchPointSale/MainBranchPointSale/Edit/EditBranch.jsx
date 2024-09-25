@@ -8,6 +8,7 @@ import GeneralTab from "./Tabs/GeneralTab";
 import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab";
+import PaymentTab from "./Tabs/PaymentTab";
 
 const EditBranch = () => {
   const { whareHouses, costCenter, priceList, storeDetail, users } = useLoaderData();
@@ -119,7 +120,7 @@ const EditBranch = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Artículo
+          Nueva Sucursal
           </p>
         </div>
 
@@ -191,6 +192,9 @@ const EditBranch = () => {
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
               <CashBoxTab />
+            </TabsContent>
+            <TabsContent value="payment" className="w-full">
+              <PaymentTab />
             </TabsContent>
           </Tabs>
         </div>

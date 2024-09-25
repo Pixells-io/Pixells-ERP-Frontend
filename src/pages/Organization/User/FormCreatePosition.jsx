@@ -467,9 +467,12 @@ function FormCreatePosition() {
           >
             {/* General Information */}
             <div className="rounded-2xl bg-blancoBg p-5">
-              <span className="text-roboto text-sm font-medium text-grisText">
-                Información general
-              </span>
+              <p className="text-roboto flex items-center gap-2 text-sm font-medium text-grisText">
+                Información general{" "}
+                <span className="text-[10px] text-grisSubText">
+                  (5 Campos Requeridos *)
+                </span>
+              </p>
               <div className="w-full pr-1 pt-4">
                 <div className="flex w-full items-center gap-3">
                   <div className="w-1/4">

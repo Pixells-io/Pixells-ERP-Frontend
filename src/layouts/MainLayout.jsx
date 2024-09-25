@@ -50,7 +50,6 @@ import Cookies from "js-cookie";
 import { getUserByToken, logOutRequest } from "@/lib/actions";
 import NotificationChat from "./components/NotificationChat";
 import NotificationBell from "./components/NotificationBell";
-import CrispinModal from "./CrispinAssistant/CrispinModal";
 import CustomModal from "./CrispinAssistant/CustomModal";
 
 let MENU_ORGANIZATIONAL = [];

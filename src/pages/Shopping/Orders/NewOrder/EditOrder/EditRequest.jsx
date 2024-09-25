@@ -108,72 +108,75 @@ const EditRequests = () => {
             name="type_option"
             value={"update_requestOrder"}
           />
-          <div className="rounded-xl border border-blancoBox p-4">
-            <InputsGroup
-              documentNumber={documentNumber}
-              setDocumentNumber={setDocumentNumber}
-              selectedWarehouse={selectedWarehouse}
-              setSelectedWarehouse={setSelectedWarehouse}
-              selectedCostCenter={selectedCostCenter}
-              setSelectedCostCenter={setSelectedCostCenter}
-              isEditable={editable}
-            />
-            <OrderTable
-              selectedProveedor={selectedProveedor}
-              setSelectedProveedor={setSelectedProveedor}
-              selectedFechaDoc={selectedFechaDoc}
-              setSelectedFechaDoc={setSelectedFechaDoc}
-              selectedFechaEntrega={selectedFechaEntrega}
-              setSelectedFechaEntrega={setSelectedFechaEntrega}
-              selectedCondicionPago={selectedCondicionPago}
-              setSelectedCondicionPago={setSelectedCondicionPago}
-              isEditable={editable}
-            />
-            <div className="mt-4 flex gap-x-6">
-              <div className="w-fit">
-                <Select
-                  name={`payment_type`}
-                  value={paymentType}
-                  required={true}
-                  onValueChange={(e) => setPaymentType(e)}
-                  disabled={!editable}
-                >
-                  <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder={"Payment type"} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={String(1)}>Crédito</SelectItem>
-                    <SelectItem value={String(2)}>Un solo pago</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="w-fit">
-                {paymentType == "1" && (
-                  <InputForm
-                    placeholder="Número de Documento"
-                    type="date"
-                    name="limit_credit_date"
+          <div className="overflow-auto">
+            <div className="rounded-xl border border-blancoBox p-4">
+              <InputsGroup
+                documentNumber={documentNumber}
+                setDocumentNumber={setDocumentNumber}
+                selectedWarehouse={selectedWarehouse}
+                setSelectedWarehouse={setSelectedWarehouse}
+                selectedCostCenter={selectedCostCenter}
+                setSelectedCostCenter={setSelectedCostCenter}
+                isEditable={editable}
+              />
+              <OrderTable
+                selectedProveedor={selectedProveedor}
+                setSelectedProveedor={setSelectedProveedor}
+                selectedFechaDoc={selectedFechaDoc}
+                setSelectedFechaDoc={setSelectedFechaDoc}
+                selectedFechaEntrega={selectedFechaEntrega}
+                setSelectedFechaEntrega={setSelectedFechaEntrega}
+                selectedCondicionPago={selectedCondicionPago}
+                setSelectedCondicionPago={setSelectedCondicionPago}
+                isEditable={editable}
+              />
+              <div className="mt-4 flex gap-x-6">
+                <div className="w-fit">
+                  <Select
+                    name={`payment_type`}
+                    value={paymentType}
                     required={true}
-                    defaultValue={requestOrder.limit_credit_date}
+                    onValueChange={(e) => setPaymentType(e)}
                     disabled={!editable}
-                  />
-                )}
+                  >
+                    <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                      <SelectValue placeholder={"Payment type"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={String(1)}>Crédito</SelectItem>
+                      <SelectItem value={String(2)}>Un solo pago</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="w-fit">
+                  {paymentType == "1" && (
+                    <InputForm
+                      placeholder="Número de Documento"
+                      type="date"
+                      name="limit_credit_date"
+                      required={true}
+                      defaultValue={requestOrder.limit_credit_date}
+                      disabled={!editable}
+                    />
+                  )}
+                </div>
               </div>
+            </div>
+
+            <div>
+              <div className="mt-6">
+                <QuoteTable
+                  initialItems={items}
+                  isEditable={editable}
+                  allProducts={allProducts}
+                  setTableData={setTableData}
+                  tableData={tableData}
+                />
+              </div>
+              <Total tableData={tableData} comment={data.comments} />
             </div>
           </div>
 
-          <div className="overflow-auto">
-            <div className="mt-6 overflow-auto">
-              <QuoteTable
-                initialItems={items}
-                isEditable={editable}
-                allProducts={allProducts}
-                setTableData={setTableData}
-                tableData={tableData}
-              />
-            </div>
-            <Total tableData={tableData} comment={data.comments} />
-          </div>
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}

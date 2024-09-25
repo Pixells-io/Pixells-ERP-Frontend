@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import QuestionForm from "./components/QuestionForm";
 import MenssageCard from "./components/MessageCard";
 import { IonIcon } from "@ionic/react";
+import { bouncy } from "ldrs";
 import {
   arrowUp,
   close,
@@ -19,6 +20,8 @@ function CustomModal({ isOpen, onClose }) {
   const [modalMode, setModalMode] = useState("w-96 h-[600px] p-6");
 
   if (!isOpen) return null;
+
+  bouncy.register();
 
   return (
     <div
@@ -94,8 +97,8 @@ function CustomModal({ isOpen, onClose }) {
       )}
       {/* LOADER SECTION */}
       {isLoading && (
-        <div className="flex items-center justify-center pt-2">
-          <div className="size-8 animate-spin rounded-full border-4 border-dashed border-blue-500"></div>
+        <div className="flex items-center justify-center pt-8">
+          <l-bouncy size="45" speed="1.75" color="#5B89FF"></l-bouncy>
         </div>
       )}
       {/* INPUT SEND SECTION */}
