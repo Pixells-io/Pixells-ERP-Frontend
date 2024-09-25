@@ -326,9 +326,12 @@ function FormCreateUser() {
 
             {/* Personal Info */}
             <div className="rounded-2xl bg-blancoBg p-5">
-              <span className="text-roboto text-sm font-medium text-grisText">
-                Informacion Personal
-              </span>
+              <p className="text-roboto flex items-center gap-2 text-sm font-medium text-grisText">
+                Informacion Personal{" "}
+                <span className="text-[10px] text-grisSubText">
+                  (7 Campos Requeridos *)
+                </span>
+              </p>
               <div className="flex flex-col pt-4">
                 <div className="flex gap-3">
                   <InputRouter
@@ -783,9 +786,12 @@ function FormCreateUser() {
 
             {/*Working Information*/}
             <div className="mt-10 rounded-xl bg-blancoBg p-4">
-              <span className="text-roboto text-sm font-medium text-grisText">
-                Posición actual a mantener
-              </span>
+              <p className="text-roboto flex items-center gap-2 text-sm font-medium text-grisText">
+                Posición actual a mantener{" "}
+                <span className="text-[10px] text-grisSubText">
+                  (4 Campos Requeridos *)
+                </span>
+              </p>
 
               <div className="flex w-full items-center gap-3 pt-4">
                 <div className="w-1/3">
@@ -976,9 +982,12 @@ function FormCreateUser() {
 
             {/*Password*/}
             <div className="mt-10 rounded-2xl bg-blancoBg p-5">
-              <span className="text-roboto text-sm font-medium text-grisText">
-                Contraseña
-              </span>
+              <p className="text-roboto flex items-center gap-2 text-sm font-medium text-grisText">
+                Contraseña{" "}
+                <span className="text-[10px] text-grisSubText">
+                  (Campos Requeridos *)
+                </span>
+              </p>
               <div className="flex pt-4">
                 <div className="flex w-full gap-3">
                   <div className="w-1/4">

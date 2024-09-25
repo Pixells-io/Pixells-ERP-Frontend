@@ -15,7 +15,7 @@ function InputRouter({
   return (
     <Label className="flex w-full flex-col gap-2">
       <p className="pl-1 text-[11px] font-light text-grisHeading">
-        {type !== "password" && placeholder}
+        {type !== "password" && placeholder} {required && '*'}
       </p>
       <Input
         type={type}
