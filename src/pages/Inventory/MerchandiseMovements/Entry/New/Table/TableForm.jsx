@@ -44,7 +44,15 @@ const TableForm = ({
   const itemsPerPage = 10;
 
   const handleOpenModal = (row) => {
-    setSelectedRow(row);
+      const selectedProduct = products.find(
+    (product) => product.id.toString() === row.articleNumber.toString()
+  );
+  
+  // Si encuentras el producto, agrega su nombre a `selectedRow`
+  setSelectedRow({
+    ...row,
+    description: selectedProduct ? selectedProduct.name : "Producto no encontrado",
+  });
     setIsModalOpen(true);
   };
   const handleCheckboxChange = () => {
@@ -246,7 +254,7 @@ const TableForm = ({
               <EntrySlotModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                products={products}
+                description={selectedRow.description}
                 productData={selectedRow}
                 lotData={selectedRow}
                 assignmentData={selectedRow.batches}

@@ -33,7 +33,8 @@ import {
 
 const ITEMS_PER_PAGE = 5;
 
-const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: initialAssignmentData, onUpdateBatches, location }) => {
+const EntrySlotModal = ({ isOpen, onClose,description, lotData,
+   assignmentData: initialAssignmentData, onUpdateBatches, location }) => {
   const [assignmentData, setAssignmentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [nextAuxId, setNextAuxId] = useState(1);
@@ -107,7 +108,6 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
   const tableHeaders = [
     { key: 'checkbox', label: '', width: '40px' },
     { key: 'articleNumber', label: 'Numero Artículo' },
-    { key: 'description', label: 'Descripción' },
     { key: 'expectedQuantity', label: 'Cantidad Esperada' },
     { key: 'received', label: 'Recibido' },
     { key: 'unitPrice', label: 'Precio Unitario' },
@@ -122,6 +122,7 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
     { key: 'location', label: 'Ubicación' },
     { key: 'actions', label: '', width: '40px' }
   ];
+  console.log(lotData)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="p-0 sm:max-w-[800px]">
@@ -131,7 +132,7 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 p-4">
-          <h2 className="text-base font-semibold">{lotData.name}</h2>
+          <h2 className="text-base font-semibold">{description} | Cantidad: {lotData.eQuantity }</h2>
           
           <Table>
             <TableHeader>
@@ -147,8 +148,7 @@ const EntrySlotModal = ({ isOpen, onClose,product, lotData, assignmentData: init
               <TableRow>
                 <TableCell><Checkbox /></TableCell>
                 <TableCell>{lotData.articleNumber || "0"}</TableCell>
-                <TableCell>{lotData.description || "Ningún Producto"}</TableCell>
-                <TableCell>{lotData.expectedQuantity || "0"}</TableCell>
+                <TableCell>{lotData.eQuantity || "0"}</TableCell>
                 <TableCell>{lotData.received || "0"}</TableCell>
                 <TableCell>${lotData.unitPrice || "$0"}</TableCell>
                 <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>

@@ -33,7 +33,7 @@ function NewEntry() {
     requestNumber: "",
     movement_type: 1,
     urgency: "",
-    receive_date: null,
+    receive_date: "",
     fromWarehouse: "",
     toWarehouse: "",
   });
@@ -394,7 +394,7 @@ function NewEntry() {
               <input
                 type="hidden"
                 name="receive_date"
-                value={initialData.receive_date === "" ? null:initialData.receive_date}
+                value={initialData.receive_date}
               />
               <input
                 type="hidden"
