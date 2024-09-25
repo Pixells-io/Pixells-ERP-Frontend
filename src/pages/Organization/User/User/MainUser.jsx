@@ -937,7 +937,7 @@ function MainUser() {
                     </div>
                     <div className="w-1/3">
                       <InputRouter
-                        name={"experience_years"}
+                        name={"years_experience"}
                         placeholder={"Years of Experience"}
                         type={"number"}
                         disabled={disabled}
