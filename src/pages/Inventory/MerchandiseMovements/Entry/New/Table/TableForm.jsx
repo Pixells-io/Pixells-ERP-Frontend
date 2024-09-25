@@ -38,26 +38,34 @@ const TableForm = ({
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [isBatchManagementChecked, setIsBatchManagementChecked] = useState(false); // Estado para el checkbox
-
   const [selectedRow, setSelectedRow] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 10;
 
   const handleOpenModal = (row) => {
+    if (row.isBatchManagementChecked) {
       const selectedProduct = products.find(
-    (product) => product.id.toString() === row.articleNumber.toString()
-  );
-  
-  // Si encuentras el producto, agrega su nombre a `selectedRow`
-  setSelectedRow({
-    ...row,
-    description: selectedProduct ? selectedProduct.name : "Producto no encontrado",
-  });
-    setIsModalOpen(true);
+        (product) => product.id.toString() === row.articleNumber.toString()
+      );
+      
+      setSelectedRow({
+        ...row,
+        description: selectedProduct ? selectedProduct.name : "Producto no encontrado",
+      });
+      setIsModalOpen(true);
+    }
   };
-  const handleCheckboxChange = () => {
-    setIsBatchManagementChecked((prev) => !prev);
+
+  const handleCheckboxChange = (rowIndex) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? { ...item, isBatchManagementChecked: !item.isBatchManagementChecked }
+          : item
+      )
+    );
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedRow(null);
@@ -68,10 +76,11 @@ const TableForm = ({
       prevData.map((item) =>
         item.idAux === selectedRow.idAux
           ? { ...item, batches: updatedBatches }
-          : item,
-      ),
+          : item
+      )
     );
   };
+
   const handleAddRow = (e) => {
     e.preventDefault();
     const newRow = {
@@ -79,7 +88,7 @@ const TableForm = ({
       type: 1,
       articleNumber: "",
       variation: 0,
-      variation_id:0,
+      variation_id: 0,
       description: "",
       eQuantity: "",
       receivedQuantity: "",
@@ -87,6 +96,7 @@ const TableForm = ({
       total: "",
       batches: [],
       ubication_id: null,
+      isBatchManagementChecked: false,
     };
     setTableData((prevData) => [...prevData, newRow]);
   };
@@ -94,16 +104,13 @@ const TableForm = ({
   const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
     setTableData((prevData) => {
       const newData = prevData.map((item, index) =>
-        index === rowIndex ? { ...item, [accessorKey]: value } : item,
+        index === rowIndex ? { ...item, [accessorKey]: value } : item
       );
 
-      if (accessorKey === "unitPrice") {
-        const unitPrice = newData[rowIndex].unitPrice || 0;
-        newData[rowIndex].total = unitPrice * value; // Update total
-      }
-      if (accessorKey === "receivedQuantity") {
-        const unitPrice = newData[rowIndex].unitPrice || 0;
-        newData[rowIndex].total = unitPrice * value; // Update total
+      if (accessorKey === "unitPrice" || accessorKey === "receivedQuantity") {
+        const unitPrice = parseFloat(newData[rowIndex].unitPrice) || 0;
+        const receivedQuantity = parseFloat(newData[rowIndex].receivedQuantity) || 0;
+        newData[rowIndex].total = (unitPrice * receivedQuantity).toFixed(2);
       }
       return newData;
     });
@@ -114,7 +121,7 @@ const TableForm = ({
       const newData = [...prevData];
       if (field === "description") {
         const selectedProduct = products.find(
-          (product) => product.id.toString() === value,
+          (product) => product.id.toString() === value
         );
         if (selectedProduct) {
           newData[rowIndex] = {
@@ -124,7 +131,7 @@ const TableForm = ({
             variation: 0,
             description: selectedProduct.name,
             unitPrice: selectedProduct.price,
-            total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
+            total: (selectedProduct.price * newData[rowIndex].receivedQuantity).toFixed(2),
           };
         }
       }
@@ -140,13 +147,13 @@ const TableForm = ({
               ...item,
               ubication_id: data,
             }
-          : item,
-      ),
+          : item
+      )
     );
   }, []);
 
   const deleteRowId = (id) => {
-    if (tableData.length == 1) return;
+    if (tableData.length === 1) return;
     const auxRowDelete = tableData.filter((row) => row.idAux !== id);
     setTableData(auxRowDelete);
   };
@@ -204,15 +211,15 @@ const TableForm = ({
       {
         accessorKey: "expectedQuantity",
         header: "Cantidad esperada",
-        cell: ({ row, rowIndex }) => <div>{row?.eQuantity}</div>,
+        cell: ({ row }) => <div>{row?.eQuantity}</div>,
       },
       {
         accessorKey: "batchManagement",
         header: "Gestionar por lotes",
-        cell: ({ row }) => (
+        cell: ({ row, rowIndex }) => (
           <Checkbox
-            checked={isBatchManagementChecked}
-            onCheckedChange={handleCheckboxChange}
+            checked={row.isBatchManagementChecked}
+            onCheckedChange={() => handleCheckboxChange(rowIndex)}
           />
         ),
       },
@@ -247,10 +254,11 @@ const TableForm = ({
             <button
               onClick={() => handleOpenModal(row)}
               className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
+              disabled={!row.isBatchManagementChecked}
             >
               Gestionar
             </button>
-            {isModalOpen && selectedRow && isBatchManagementChecked && (
+            {isModalOpen && selectedRow && selectedRow.isBatchManagementChecked && (
               <EntrySlotModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
@@ -305,12 +313,13 @@ const TableForm = ({
         ),
       },
     ],
-    [handleInputChange, deleteRowId, isEditable, handleOpenModal],
+    [handleInputChange, deleteRowId, isEditable, handleOpenModal, handleCheckboxChange, handleDataInRow]
   );
+
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const handleNextPage = () => {
@@ -320,7 +329,6 @@ const TableForm = ({
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="flex mb-2 flex-col h-[400px] rounded-xl">
@@ -336,14 +344,14 @@ const TableForm = ({
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
               <TableRow
-                key={row.idAux}  //idAux sea único
+                key={row.idAux}
                 className="text-sm font-normal text-[#44444F]"
               >
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey}>
                     {column.cell({
                       row,
-                      rowIndex: rowIndex, 
+                      rowIndex: (currentPage - 1) * itemsPerPage + rowIndex,
                     })}
                   </TableCell>
                 ))}

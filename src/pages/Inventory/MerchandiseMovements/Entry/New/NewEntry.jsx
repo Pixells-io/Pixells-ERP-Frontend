@@ -29,9 +29,9 @@ function NewEntry() {
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
   const [initialData, setInitialData] = useState({
-    category: "",
+    category: "1",
     requestNumber: "",
-    movement_type: 1,
+    movement_type: "1",
     urgency: "",
     receive_date: "",
     fromWarehouse: "",
@@ -272,7 +272,7 @@ function NewEntry() {
                     handleSelectChange("toWarehouse", value)
                   }
                 >
-                  <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
+                  <SelectTrigger className="border-gris2-transparent bg-[#E0E0E0] h-[32px] w-full rounded-xl">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -351,7 +351,7 @@ function NewEntry() {
               />
             </div>
           </div>
-          <div className={"w-full lg:mt-80"}>
+          <div className={"w-full lg:mt-40"}>
             <StatusInformation
               status="inProgress"
               comments={comments}
@@ -405,14 +405,14 @@ function NewEntry() {
                     product_master_id: parseInt(item.articleNumber) || 0,
                     variation: parseInt(item.variation_id) || 0,
                     variation_id: null,
-                    inventory_in: parseInt(item.ubication_id) || 0,
+                    inventory_in: parseInt(item.ubication_id) || null,
                     rel_id: selectedCatalog?.id || 0,
                     expected_quantity: parseInt(item.eQuantity) || 0,
                     batches: item.batches || [],
                   }),
                 ))}
               />
-
+<div className="lg:flex justify-between gap-3">
               <Button
                 type="button"
                 variant="outline"
@@ -422,10 +422,11 @@ function NewEntry() {
               </Button>
               <Button
                 type="submit"
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0] `}
               >
                 Crear
               </Button>
+              </div>
             </Form>
             </StatusInformation>
           </div>

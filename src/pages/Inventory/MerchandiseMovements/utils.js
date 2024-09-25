@@ -16,6 +16,7 @@ export async function saveStockMovement(formData) {
     receive_date: formData.get('receive_date'),
     products: JSON.parse(formData.get('products')),
   };
+  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/save-stock-movement`,
     {
