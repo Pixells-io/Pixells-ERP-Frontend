@@ -11,6 +11,7 @@ import { saveNewPosition } from "../utils";
 import InputRouter from "../../../layouts/Masters/FormComponents/input";
 import SelectRouter from "../../../layouts/Masters/FormComponents/select";
 import CheckboxRouter from "../../../layouts/Masters/FormComponents/checkbox";
+import NavigationHeader from "@/components/navigation-header";
 
 const selectBasic = [
   {
@@ -435,25 +436,7 @@ function FormCreatePosition() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-scroll rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">organization</div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
@@ -494,6 +477,7 @@ function FormCreatePosition() {
                       name={"area_id"}
                       placeholder={"Seleccionar área"}
                       options={selectArea}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -501,6 +485,7 @@ function FormCreatePosition() {
                       name={"position_type"}
                       placeholder={"Tipo de Posición"}
                       options={positionNames}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -508,6 +493,7 @@ function FormCreatePosition() {
                       name={"position_name"}
                       type={"text"}
                       placeholder={"Nombre del puesto"}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -515,6 +501,7 @@ function FormCreatePosition() {
                       name={"permision_access"}
                       placeholder={"Acceso de permiso"}
                       options={selectBasic}
+                      required={true}
                     />
                   </div>
                 </div>
@@ -526,6 +513,7 @@ function FormCreatePosition() {
                         name={"boss_id"}
                         placeholder={"Posición de jefe"}
                         options={selectPosition}
+                        required={true}
                       />
                     </div>
                     <div className="flex w-1/4 flex-col gap-3">

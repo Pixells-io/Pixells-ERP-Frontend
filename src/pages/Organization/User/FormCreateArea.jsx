@@ -80,11 +80,13 @@ function FormCreateArea({ modal, setModal }) {
                 name="nombre"
                 type="text"
                 placeholder="Nombre de área"
+                required={true}
               />
               <InputRouter
                 name="descripcion"
                 type="text"
                 placeholder="Descripción de área"
+                required={true}
               />
               <input
                 name="procesos_del_area"
