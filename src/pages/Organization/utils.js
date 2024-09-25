@@ -141,7 +141,7 @@ export async function editPosition(data) {
     total: data.getAll("total"),
     shared: data.getAll("shared"),
     authority_cordinate_id: data.getAll("authority_cordinate_id"),
-    responsability: data.getAll("responsability_input"),
+    responsability: data.getAll("responsability"),
     experience_years: data.get("experience_years"),
     experience_sector: data.get("experience_sector"),
     experience_description: data.get("experience_description"),
@@ -356,7 +356,7 @@ export async function editUser(data) {
 
     // Academic Info
     latest_academic_id: data.getAll("latest_id"),
-    academics: data.get("academics"), //NO
+    academics: data.getAll("academics"), //NO
     academic_grade: data.getAll("academic_grade"),
     specify_academic: data.getAll("specify_academic"),
 
