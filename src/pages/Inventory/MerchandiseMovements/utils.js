@@ -1,16 +1,26 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
-
 //SAVE ENTRY
 
-export async function saveStockMovement(data) {
+export async function saveStockMovement(formData) {
+  const info = {
+    category: parseInt(formData.get("category")),
+    rel_id: parseInt(formData.get("rel_id")),
+    movement_type: formData.get("movement_type"),
+    inventory_in: parseInt(formData.get("inventory_in")),
+    inventory_out: parseInt(formData.get("inventory_out")),
+    comment: formData.get("comment"),
+    urgency: parseInt(formData.get("urgency")),
+    receive_date: formData.get("receive_date"),
+    products: JSON.parse(formData.get("products")),
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}inventory/save-stock-movement`,
     {
       method: "POST",
-      body: data,
+      body: JSON.stringify(info),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -18,7 +28,6 @@ export async function saveStockMovement(data) {
   );
   return response;
 }
-
 
 //GET CATALOGS
 export async function getCatalogs() {
@@ -120,14 +129,14 @@ export async function getCategories() {
   }
 }
 
-
 export async function multiLoaderMovements() {
-  const [warehouses,categories, catalogs, products, locations] = await Promise.all([
-    getWarehouses(),
-    getCategories(),
-    getCatalogs(),
-    getProductCatalog(),
-    getLocations(),
-  ]);
-  return json({ warehouses,categories, catalogs, products, locations });
+  const [warehouses, categories, catalogs, products, locations] =
+    await Promise.all([
+      getWarehouses(),
+      getCategories(),
+      getCatalogs(),
+      getProductCatalog(),
+      getLocations(),
+    ]);
+  return json({ warehouses, categories, catalogs, products, locations });
 }
