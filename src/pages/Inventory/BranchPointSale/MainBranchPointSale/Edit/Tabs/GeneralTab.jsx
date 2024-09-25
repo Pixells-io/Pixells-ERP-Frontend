@@ -16,6 +16,11 @@ const GeneralTab = () => {
     setDateFinishPeriod("");
   };
 
+  const addDate = (dateI, dateF) => {
+    setDateStartPeriod(dateI);
+    setDateFinishPeriod(dateF);
+  };
+
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
@@ -88,10 +93,8 @@ const GeneralTab = () => {
                 <label className="font-roboto text-xs font-normal text-grisText">
                   Activo
                 </label>
-                <label className="font-roboto text-xs font-light text-grisSubText">
-                  (Sin periodo de tiempo)
-                </label>
-                {!!dateStartPeriod && !!dateFinishPeriod && (
+
+                {!!dateStartPeriod && !!dateFinishPeriod ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
@@ -125,13 +128,14 @@ const GeneralTab = () => {
                       Restablecer
                     </Button>
                   </div>
+                ) : (
+                  <label className="font-roboto text-xs font-light text-grisSubText">
+                    (Sin periodo de tiempo)
+                  </label>
                 )}
               </div>
               <div className="flex items-center">
-                <ModalPeriod
-                  setDateStartPeriod={setDateStartPeriod}
-                  setDateFinishPeriod={setDateFinishPeriod}
-                />
+                <ModalPeriod setFunctionParent={addDate} />
               </div>
             </div>
           </div>

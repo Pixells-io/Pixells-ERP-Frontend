@@ -6,6 +6,8 @@ import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
+import ModalPeriod from "../Modals/ModalPeriod";
+import { format } from "date-fns";
 
 const CashBoxTab = () => {
   const { id } = useParams();
@@ -19,6 +21,37 @@ const CashBoxTab = () => {
   const addCashBox = () => {
     setCashBoxesSelect([...cashBoxesSelect, {}]);
   };
+
+  const addDate = (dateI, dateF, i) => {
+    const cashBoxAux = cashBoxesSelect.map((u, index) => {
+      if (index == i) {
+        return {
+          ...u,
+          dateStartPeriod: dateI,
+          dateFinishPeriod: dateF,
+        };
+      } else {
+        return u;
+      }
+    });
+    setCashBoxesSelect(cashBoxAux);
+  };
+
+  const clearPeriod = (i) => {
+    const auxCashBoxes = cashBoxesSelect.map((u, index) => {
+      if (index == i) {
+        return {
+          ...u,
+          dateStartPeriod: "",
+          dateFinishPeriod: "",
+        };
+      } else {
+        return u;
+      }
+    });
+    setCashBoxesSelect(auxCashBoxes);
+  };
+
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
@@ -106,18 +139,48 @@ const CashBoxTab = () => {
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
                     </label>
-                    <label className="font-roboto text-xs font-light text-grisSubText">
-                      (Sin periodo de tiempo)
-                    </label>
+                    {!!cashBox.dateStartPeriod && !!cashBox.dateFinishPeriod ? (
+                      <div className="flex items-center gap-x-2">
+                        <div className="rounded-[8px] bg-gris px-2 py-1">
+                          <input
+                            type="hidden"
+                            hidden
+                            name="dateStart"
+                            className="hidden"
+                            value={format(cashBox.dateStartPeriod, "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(cashBox.dateStartPeriod, "PP")}
+                          </label>
+                        </div>
+                        <div className="rounded-[8px] bg-gris px-2 py-1">
+                          <input
+                            type="hidden"
+                            hidden
+                            name="dateFinish"
+                            className="hidden"
+                            value={format(cashBox.dateFinishPeriod, "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(cashBox.dateFinishPeriod, "PP")}
+                          </label>
+                        </div>
+                        <Button
+                          type="button"
+                          className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                          onClick={() => clearPeriod(index)}
+                        >
+                          Restablecer
+                        </Button>
+                      </div>
+                    ) : (
+                      <label className="font-roboto text-xs font-light text-grisSubText">
+                        (Sin periodo de tiempo)
+                      </label>
+                    )}
                   </div>
                   <div>
-                    <Button
-                      type="button"
-                      className="flex h-[24px] min-w-[73px] rounded-xl gap-x-0.5 bg-blancoBox2 px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
-                    >
-                      <IonIcon className="h-5 w-5" icon={add}></IonIcon>
-                      Periodo
-                    </Button>
+                    <ModalPeriod setFunctionParent={addDate} index={index} />
                   </div>
                 </div>
                 <div className="flex w-full justify-end">

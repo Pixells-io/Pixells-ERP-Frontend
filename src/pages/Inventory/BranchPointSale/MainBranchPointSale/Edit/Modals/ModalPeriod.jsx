@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 
-function ModalPeriod({ setDateStartPeriod, setDateFinishPeriod }) {
+function ModalPeriod({ setFunctionParent, index }) {
   const [modal, setModal] = useState(false);
 
   const [openStart, setOpenStart] = useState(false);
@@ -42,8 +42,7 @@ function ModalPeriod({ setDateStartPeriod, setDateFinishPeriod }) {
 
   const accept = () => {
     if (!dateStart || !dateFinish) return;
-    setDateStartPeriod(dateStart);
-    setDateFinishPeriod(dateFinish);
+    setFunctionParent(dateStart, dateFinish, index);
     clearData();
   };
 
