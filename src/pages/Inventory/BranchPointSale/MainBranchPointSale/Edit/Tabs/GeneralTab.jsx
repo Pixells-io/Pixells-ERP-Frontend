@@ -1,13 +1,20 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
+import ModalPeriod from "../Modals/ModalPeriod";
+import { format } from "date-fns";
 
 const GeneralTab = () => {
   const { id } = useParams();
+  const [dateStartPeriod, setDateStartPeriod] = useState("");
+  const [dateFinishPeriod, setDateFinishPeriod] = useState("");
+
+  const clearPeriod = () => {
+    setDateStartPeriod("");
+    setDateFinishPeriod("");
+  };
 
   return (
     <Form
@@ -84,12 +91,47 @@ const GeneralTab = () => {
                 <label className="font-roboto text-xs font-light text-grisSubText">
                   (Sin periodo de tiempo)
                 </label>
+                {!!dateStartPeriod && !!dateFinishPeriod && (
+                  <div className="flex items-center gap-x-2">
+                    <div className="rounded-[8px] bg-gris px-2 py-1">
+                      <input
+                        type="hidden"
+                        hidden
+                        name="dateStart"
+                        className="hidden"
+                        value={format(dateStartPeriod, "PP")}
+                      />
+                      <label className="text-xs font-light text-[#44444F]">
+                        {format(dateStartPeriod, "PP")}
+                      </label>
+                    </div>
+                    <div className="rounded-[8px] bg-gris px-2 py-1">
+                      <input
+                        type="hidden"
+                        hidden
+                        name="dateFinish"
+                        className="hidden"
+                        value={format(dateFinishPeriod, "PP")}
+                      />
+                      <label className="text-xs font-light text-[#44444F]">
+                        {format(dateFinishPeriod, "PP")}
+                      </label>
+                    </div>
+                    <Button
+                      type="button"
+                      className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                      onClick={() => clearPeriod()}
+                    >
+                      Restablecer
+                    </Button>
+                  </div>
+                )}
               </div>
-              <div>
-                <Button type="button" className="flex h-[24px] gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2">
-                  <IonIcon className="h-5 w-5" icon={add}></IonIcon>
-                  Periodo
-                </Button>
+              <div className="flex items-center">
+                <ModalPeriod
+                  setDateStartPeriod={setDateStartPeriod}
+                  setDateFinishPeriod={setDateFinishPeriod}
+                />
               </div>
             </div>
           </div>
