@@ -60,7 +60,11 @@ const TableForm = ({
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
-          ? { ...item, isBatchManagementChecked: !item.isBatchManagementChecked }
+          ? {
+              ...item,
+              isBatchManagementChecked: !item.isBatchManagementChecked,
+              hideReceivedAndLocation: !item.isBatchManagementChecked // Agregar control de visibilidad
+            }
           : item
       )
     );
@@ -97,6 +101,7 @@ const TableForm = ({
       batches: [],
       ubication_id: null,
       isBatchManagementChecked: false,
+      hideReceivedAndLocation: false, // Control de visibilidad por defecto
     };
     setTableData((prevData) => [...prevData, newRow]);
   };
@@ -227,30 +232,32 @@ const TableForm = ({
         accessorKey: "receivedQuantity",
         header: "Recibido",
         cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
-              row?.eQuantity == row?.receivedQuantity
-                ? "text-[#00A259]"
-                : "text-[#D7586B]"
-            }`}
-            name={`received-quantity-${rowIndex}`}
-            value={row?.receivedQuantity}
-            min={"0"}
-            step={"0.01"}
-            placeholder="Ingrese"
-            onChange={(e) =>
-              handleInputChange(rowIndex, "receivedQuantity", e.target.value)
-            }
-            disabled={!isEditable}
-          />
+          !row.hideReceivedAndLocation && (
+            <Input
+              type="number"
+              className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
+                row?.eQuantity == row?.receivedQuantity
+                  ? "text-[#00A259]"
+                  : "text-[#D7586B]"
+              }`}
+              name={`received-quantity-${rowIndex}`}
+              value={row?.receivedQuantity}
+              min={"0"}
+              step={"0.01"}
+              placeholder="Ingrese"
+              onChange={(e) =>
+                handleInputChange(rowIndex, "receivedQuantity", e.target.value)
+              }
+              disabled={!isEditable}
+            />
+          )
         ),
       },
-      {
+       {
         accessorKey: "slots",
         header: "Lotes",
         cell: ({ row }) => (
-          <div>
+          row.hideReceivedAndLocation && (    <div>
             <button
               onClick={() => handleOpenModal(row)}
               className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
@@ -270,48 +277,51 @@ const TableForm = ({
                 location={locations}
               />
             )}
-          </div>
+          </div>)
         ),
       },
       {
         accessorKey: "ubication_id",
         header: "Ubicación",
         cell: ({ row, rowIndex }) => (
-          <div className="flex items-center justify-between gap-x-2">
-            <Select
-              name={`selectComponent-ubication-${rowIndex}`}
-              className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
-              onValueChange={(value) => handleDataInRow(value, rowIndex)}
-              value={row?.ubication_id}
-              disabled={!isEditable}
-            >
-              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Ubicación" />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.isArray(locations) &&
-                  locations.map((location) => (
-                    <SelectItem
-                      key={location.id}
-                      value={location.id.toString()}
-                    >
-                      {location.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-            {isEditable && (
-              <button type="button" onClick={() => deleteRowId(row.idAux)}>
-                <IonIcon
-                  icon={closeCircle}
-                  size="small"
-                  className="cursor-pointer text-grisDisabled"
-                ></IonIcon>
-              </button>
-            )}
-          </div>
+          !row.hideReceivedAndLocation && (
+            <div className="flex items-center justify-between gap-x-2">
+              <Select
+                name={`selectComponent-ubication-${rowIndex}`}
+                className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                onValueChange={(value) => handleDataInRow(value, rowIndex)}
+                value={row?.ubication_id}
+                disabled={!isEditable}
+              >
+                <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectValue placeholder="Ubicación" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.isArray(locations) &&
+                    locations.map((location) => (
+                      <SelectItem
+                        key={location.id}
+                        value={location.id.toString()}
+                      >
+                        {location.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              {isEditable && (
+                <button type="button" onClick={() => deleteRowId(row.idAux)}>
+                  <IonIcon
+                    icon={closeCircle}
+                    size="small"
+                    className="cursor-pointer text-grisDisabled"
+                  ></IonIcon>
+                </button>
+              )}
+            </div>
+          )
         ),
       },
+     
     ],
     [handleInputChange, deleteRowId, isEditable, handleOpenModal, handleCheckboxChange, handleDataInRow]
   );
