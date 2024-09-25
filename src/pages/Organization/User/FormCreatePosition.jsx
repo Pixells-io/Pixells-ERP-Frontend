@@ -494,6 +494,7 @@ function FormCreatePosition() {
                       name={"area_id"}
                       placeholder={"Seleccionar área"}
                       options={selectArea}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -501,6 +502,7 @@ function FormCreatePosition() {
                       name={"position_type"}
                       placeholder={"Tipo de Posición"}
                       options={positionNames}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -508,6 +510,7 @@ function FormCreatePosition() {
                       name={"position_name"}
                       type={"text"}
                       placeholder={"Nombre del puesto"}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -515,6 +518,7 @@ function FormCreatePosition() {
                       name={"permision_access"}
                       placeholder={"Acceso de permiso"}
                       options={selectBasic}
+                      required={true}
                     />
                   </div>
                 </div>
@@ -526,6 +530,7 @@ function FormCreatePosition() {
                         name={"boss_id"}
                         placeholder={"Posición de jefe"}
                         options={selectPosition}
+                        required={true}
                       />
                     </div>
                     <div className="flex w-1/4 flex-col gap-3">

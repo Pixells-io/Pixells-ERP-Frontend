@@ -352,17 +352,19 @@ function FormCreateUser() {
                     name={"name"}
                     placeholder={"Nombre"}
                     type={"text"}
-                    required={"true"}
+                    required={true}
                   />
                   <InputRouter
                     name={"last_name"}
                     placeholder={"Apellido Paterno"}
                     type={"text"}
+                    required={true}
                   />
                   <InputRouter
                     name={"second_last_name"}
                     placeholder={"Apellido Materno"}
                     type={"text"}
+                    required={true}
                   />
                 </div>
                 <div className="mt-3 flex gap-3">
@@ -370,6 +372,7 @@ function FormCreateUser() {
                     name={"date_of_birth"}
                     placeholder={"Fecha de nacimiento"}
                     type={"date"}
+                    required={true}
                   />
                   <InputRouter
                     name={"city_of_birth"}
@@ -387,6 +390,7 @@ function FormCreateUser() {
                     name={"genre"}
                     placeholder={"Género"}
                     options={genreSelect}
+                    required={true}
                   />
                   <Label className="flex w-full flex-col gap-2">
                     <p className="pl-1 text-[11px] font-light text-grisHeading">
@@ -431,11 +435,13 @@ function FormCreateUser() {
                     name={"phone"}
                     placeholder={"Teléfono"}
                     type={"number"}
+                    required={true}
                   />
                   <InputRouter
                     name={"personal_email"}
                     placeholder={"Email personal"}
                     type={"email"}
+                    required={true}
                   />
                 </div>
 
@@ -824,6 +830,7 @@ function FormCreateUser() {
                     name={"area"}
                     placeholder={"Area"}
                     options={selectArea}
+                    required={true}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
@@ -831,6 +838,7 @@ function FormCreateUser() {
                     name={"boss"}
                     placeholder={"Jefe"}
                     options={selectUsers}
+                    required={true}
                   />
                 </div>
                 <div className="mt-4 w-1/3">
@@ -838,6 +846,7 @@ function FormCreateUser() {
                     name={"position"}
                     placeholder={"Posición"}
                     options={selectPosition}
+                    required={true}
                   />
                 </div>
               </div>
@@ -867,6 +876,7 @@ function FormCreateUser() {
                     name={"institutional_email"}
                     placeholder={"Correo Institucional"}
                     type={"email"}
+                    required={true}
                   />
                 </div>
                 <div className="w-1/3">
@@ -993,6 +1003,7 @@ function FormCreateUser() {
                       name={"password"}
                       placeholder={"********"}
                       type={"password"}
+                      required={true}
                     />
                   </div>
                   <div className="w-1/4">
@@ -1000,6 +1011,7 @@ function FormCreateUser() {
                       name={"confirm_password"}
                       placeholder={"********"}
                       type={"password"}
+                      required={true}
                     />
                   </div>
                   <div className="w-2/4 text-end">

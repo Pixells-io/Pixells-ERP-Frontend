@@ -14,7 +14,8 @@ function SelectRouter({
   onChange,
   getOptionValue,
   getOptionLabel,
-  filterOption
+  filterOption,
+  required,
 }) {
   return (
     <Label className="flex w-full flex-col gap-2">
@@ -22,6 +23,7 @@ function SelectRouter({
         {placeholder}
       </p>
       <Select
+        required={required}
         options={options}
         name={name}
         // placeholder={placeholder}
@@ -50,36 +52,36 @@ function SelectRouter({
           }),
           input: (baseStyles) => ({
             ...baseStyles,
-            color: "#44444f", 
-            fontSize: "14px", 
+            color: "#44444f",
+            fontSize: "14px",
             fontFamily: "roboto",
             fontWeight: 400,
           }),
           placeholder: (baseStyles) => ({
             ...baseStyles,
-            color: "#44444f", 
-            fontSize: "14px", 
+            color: "#44444f",
+            fontSize: "14px",
             fontFamily: "roboto",
             fontWeight: 400,
           }),
           menuList: (baseStyles) => ({
             ...baseStyles,
-            color: "#44444f", 
-            fontSize: "14px", 
+            color: "#44444f",
+            fontSize: "14px",
             fontFamily: "roboto",
             fontWeight: 400,
           }),
           multiValueLabel: (baseStyles) => ({
             ...baseStyles,
-            color: "#44444f", 
-            fontSize: "14px", 
+            color: "#44444f",
+            fontSize: "14px",
             fontFamily: "roboto",
             fontWeight: 400,
           }),
           singleValue: (baseStyles) => ({
             ...baseStyles,
-            color: "#44444f", 
-            fontSize: "14px", 
+            color: "#44444f",
+            fontSize: "14px",
             fontFamily: "roboto",
             fontWeight: 400,
           }),
