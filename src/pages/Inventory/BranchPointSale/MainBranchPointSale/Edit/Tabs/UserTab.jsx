@@ -129,7 +129,7 @@ const UserTab = ({ users }) => {
                   <div>
                     <Button
                       type="button"
-                      className="flex h-[24px] gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
+                      className="flex h-[24px] min-w-[73px] rounded-xl gap-x-0.5 bg-blancoBox2 px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
                     >
                       <IonIcon className="h-5 w-5" icon={add}></IonIcon>
                       Periodo
@@ -139,7 +139,7 @@ const UserTab = ({ users }) => {
                 <div className="flex w-full justify-end">
                   <Button
                     type="button"
-                    className="flex h-[24px] gap-x-1 rounded-xl border border-[#44444F] bg-inherit px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
+                    className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-[#44444F] bg-inherit px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
                     onClick={() => deleteUser(index)}
                   >
                     <IonIcon className="h-5 w-5" icon={trashOutline}></IonIcon>
