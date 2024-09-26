@@ -299,7 +299,7 @@ export async function updateCashBoxesBranchTab(data) {
   const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
 
   const info = {
-    post_id: data.get("post_id"),
+    pos_id: data.get("pos_id"),
     name: data.get("name"),
     code: data.get("code"),
     user_id: data.get("user_id"),
@@ -310,6 +310,26 @@ export async function updateCashBoxesBranchTab(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}stores/edit-store-pos`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function destroyCashBoxesBranchTab(data) {
+ 
+  const info = {
+    pos_id: data.get("pos_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/destroy-store-pos`,
     {
       method: "POST",
       body: JSON.stringify(info),
