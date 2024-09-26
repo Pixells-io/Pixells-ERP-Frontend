@@ -407,7 +407,7 @@ function NewEntry() {
                       product_master_id: parseInt(item.articleNumber) || 0,
                       variation: parseInt(item.variation_id),
                       inventory_in: parseInt(item.ubication_id) || null,
-                      rel_id: item.id,
+                      rel_id: item.rel_id,
                       expected_quantity: parseInt(item.eQuantity) || 0,
                       batches: item.batches || [],
                     })),
