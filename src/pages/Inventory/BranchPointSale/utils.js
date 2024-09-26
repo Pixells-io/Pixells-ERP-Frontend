@@ -244,3 +244,7 @@ export async function getUsers() {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function createUsersBranchTab(data) {
+  console.log(data.get("users"));  
+}

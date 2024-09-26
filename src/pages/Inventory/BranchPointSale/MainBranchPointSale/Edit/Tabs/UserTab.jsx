@@ -12,13 +12,14 @@ import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
 const UserTab = ({ users }) => {
   const { id } = useParams();
+  const navigation = useNavigation();
   const [usersSelect, setUsersSelect] = useState([]);
 
   const deleteUser = (index) => {
@@ -56,6 +57,20 @@ const UserTab = ({ users }) => {
     setUsersSelect(auxUser);
   };
 
+  const handleInputChange = (value, name, i) => {
+    const aux = usersSelect.map((prevFormData, index) => {
+      if (index == i) {
+        return { ...prevFormData, [name]: value };
+      } else {
+        return {
+          ...prevFormData,
+        };
+      }
+    });
+
+    setUsersSelect([...aux]);
+  };
+
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
@@ -81,12 +96,25 @@ const UserTab = ({ users }) => {
           hidden
           readOnly
           name="type_option"
-          value="create_generalBranchTab"
+          value="userBranchTab"
         />
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
-          <ModalAddUser users={users} setUsersSelect={setUsersSelect} />
+          <ModalAddUser
+            users={users}
+            setUsersSelect={setUsersSelect}
+            usersSelect={usersSelect}
+          />
         </div>
+
+        <input
+          type="text"
+          className="hidden"
+          hidden
+          name="users"
+          value={JSON.stringify(usersSelect)}
+          onChange={() => {}}
+        />
 
         {usersSelect.map((userSelect, index) => (
           <div className="mt-4" key={index}>
@@ -96,10 +124,10 @@ const UserTab = ({ users }) => {
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
               <div className="col-span-3 flex items-center gap-x-2">
                 <Avatar className="size-8">
-                  <AvatarImage src={userSelect.user_image} />
+                  <AvatarImage src={userSelect?.user_image} />
                 </Avatar>
                 <label className="text-xs font-normal text-grisText">
-                  {userSelect.name} {userSelect.last_name}
+                  {userSelect?.name} {userSelect?.last_name}
                 </label>
               </div>
               <div className="col-span-3">
@@ -108,7 +136,7 @@ const UserTab = ({ users }) => {
                   type="text"
                   placeholder={"Posición"}
                   disabled={true}
-                  value={userSelect.position}
+                  value={userSelect?.position}
                 />
               </div>
               <div className="col-span-3">
@@ -116,13 +144,22 @@ const UserTab = ({ users }) => {
                   name="password"
                   type="password"
                   placeholder={"Contraseña Inicial"}
+                  value={userSelect?.password}
+                  onChange={(e) =>
+                    handleInputChange(e.target.value, "password", index)
+                  }
                 />
               </div>
               <div className="col-span-3">
                 <p className="mb-1 text-[10px] font-normal text-grisText">
                   Caja Principal
                 </p>
-                <Select name="inventory_id" required={true}>
+                <Select
+                  name="inventory_id"
+                  required={false}
+                  value={String(userSelect?.inventory_id)}
+                  onValueChange={(e) => handleInputChange(e, "inventory_id", index)}
+                >
                   <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
@@ -138,14 +175,6 @@ const UserTab = ({ users }) => {
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
-                    <input
-                      type="hidden"
-                      hidden
-                      name="status"
-                      className="hidden"
-                      // value={checkedInputStatus}
-                      readOnly
-                    />
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       // checked={checkedInputStatus == "1"}
@@ -189,7 +218,8 @@ const UserTab = ({ users }) => {
                     )}
                   </div>
                   <div>
-                    {!!userSelect.dateStartPeriod && !!userSelect.dateFinishPeriod ? (
+                    {!!userSelect.dateStartPeriod &&
+                    !!userSelect.dateFinishPeriod ? (
                       <Button
                         type="button"
                         className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -223,8 +253,10 @@ const UserTab = ({ users }) => {
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024
           </label>
-          <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-            Guardar
+          <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </div>
       </div>

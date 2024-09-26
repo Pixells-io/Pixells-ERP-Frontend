@@ -15,20 +15,35 @@ import { add } from "ionicons/icons";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-function ModalAddUser({ users, setUsersSelect }) {
-
+function ModalAddUser({ users, setUsersSelect, usersSelect }) {
   const [modal, setModal] = useState(false);
   const [userList, setUserList] = useState([]);
 
   const addUsers = () => {
-    setUsersSelect([...userList]);
+    const userAux = userList.map((user) => {
+      return {
+        id: user.id,
+        user_image: user.user_image,
+        name: user.name,
+        last_name: user.last_name,
+        second_last_name: user.second_last_name,
+        position: user.position,
+        password: "",
+        cashBox_id: null,
+        status: "0",
+        start: "",
+        end: "",
+      }
+    });
+
+    setUsersSelect([...usersSelect, ...userAux]);
     clearData();
   };
 
   const clearData = () => {
     setModal(false);
     setUserList([]);
-  }
+  };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>

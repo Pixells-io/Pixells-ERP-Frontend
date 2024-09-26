@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
-import { createGeneralBranchTab, updateGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import { createGeneralBranchTab, createUsersBranchTab, updateGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
@@ -222,6 +222,9 @@ export async function Action({ request }) {
       } else {
         await createGeneralBranchTab(data);
       }
+      break;
+    case "userBranchTab":
+      await createUsersBranchTab(data);
       break;
   }
   return "1";
