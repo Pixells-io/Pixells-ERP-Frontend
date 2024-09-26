@@ -94,8 +94,8 @@ function NewEntry() {
               idAux: index,
               articleNumber: item.master_product || "",
               variation: item.variations || "",
-              variation_id: item.id || "",
               description: item.master_product.toString() || "",
+              rel_id: item.id,
               eQuantity: item.quantity || 0,
               receivedQuantity: "",
               unitPrice: unitPrice,
@@ -111,7 +111,6 @@ function NewEntry() {
 
     fetchCatalog();
   }, [selectedCatalog]);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -406,10 +405,9 @@ function NewEntry() {
                     commodity.map((item) => ({
                       type: parseInt(item.type) || 0,
                       product_master_id: parseInt(item.articleNumber) || 0,
-                      variation: parseInt(item.variation_id) || 0,
-                      variation_id: null,
+                      variation: parseInt(item.variation_id),
                       inventory_in: parseInt(item.ubication_id) || null,
-                      rel_id: selectedCatalog?.id || 0,
+                      rel_id: item.rel_id,
                       expected_quantity: parseInt(item.eQuantity) || 0,
                       batches: item.batches || [],
                     })),

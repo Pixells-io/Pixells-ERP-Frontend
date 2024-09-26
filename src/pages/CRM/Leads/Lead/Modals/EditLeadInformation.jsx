@@ -41,6 +41,16 @@ function EditLeadInformation({
     return { label: serv.name, value: serv.id };
   });
 
+  const placeholders = [
+    "Nombre del Negocio",
+    "Telefono del Negocio",
+    "Nombre del Contacto",
+    "Apellido Paterno Contacto",
+    "Apellido Materno Contacto",
+    "Telefono del Contacto",
+    "Email del Contacto",
+  ];
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
@@ -74,13 +84,13 @@ function EditLeadInformation({
               <InputRouter
                 name="bussines_name"
                 type="text"
-                placeholder={info.business_name}
+                placeholder={placeholders[0]}
                 defaultVal={info.business_name}
               />
               <InputRouter
                 name="bussines_phone"
                 type="text"
-                placeholder={info.business_phone}
+                placeholder={placeholders[1]}
                 defaultVal={info.business_phone}
               />
             </div>
@@ -93,31 +103,31 @@ function EditLeadInformation({
               <InputRouter
                 name="contact_name"
                 type="text"
-                placeholder={info.contact_name}
+                placeholder={placeholders[2]}
                 defaultVal={info.contact_name}
               />
               <InputRouter
                 name="contact_middle_name"
                 type="text"
-                placeholder={info.contact_middle_name}
+                placeholder={placeholders[3]}
                 defaultVal={info.contact_middle_name}
               />
               <InputRouter
                 name="contact_last_name"
                 type="text"
-                placeholder={info.contact_last_name}
+                placeholder={placeholders[4]}
                 defaultVal={info.contact_last_name}
               />
               <InputRouter
                 name="contact_phone"
                 type="text"
-                placeholder={info.contact_phone}
+                placeholder={placeholders[5]}
                 defaultVal={info.contact_phone}
               />
               <InputRouter
                 name="contact_email"
                 type="email"
-                placeholder={info.contact_email}
+                placeholder={placeholders[6]}
                 defaultVal={info.contact_email}
               />
             </div>
