@@ -3,9 +3,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ShoppingTable from "./Tables/PurchasedTable";
 import PaymentTable from "./Tables/PaymentTable";
 import ReturnTable from "./Tables/ReturnTable";
+import BalanceTable from "./Tables/BalancesTable";
+
 const Summary = () => {
   return (
-    <div className="h-full overflow-auto rounded-xl bg-white">
+    <div className="w-full h-full rounded-xl bg-white">
       <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
         <span className="font-poppins text-lg font-medium text-[#44444F]">
           RESUMEN DE ACTIVIDADES
@@ -18,7 +20,7 @@ const Summary = () => {
               { value: "shopping", title: "Compras Realizadas" },
               { value: "payment", title: "Pagos Realizados" },
               { value: "return", title: "Devoluciones" },
-              { value: "estadisticas", title: "Estadísticas" },
+              { value: "balance", title: "Estadísticas" },
             ].map((tab) => (
               <TabsTrigger
                 key={tab.value}
@@ -36,17 +38,19 @@ const Summary = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent value="shopping" className="flex pt-6 w-full h-full">
+          <TabsContent value="shopping">
             <ShoppingTable/>
           </TabsContent>
           <TabsContent value="payment">
             <PaymentTable/>
           </TabsContent>
-          <TabsContent value="return">
+          <TabsContent value="return" >
             <ReturnTable/>
           </TabsContent>
-          <TabsContent value="estadisticas">
-            Contenido de Estadísticas
+          <TabsContent value="balance" className="flex p-6 justify-center">
+            <div>
+            <BalanceTable/>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

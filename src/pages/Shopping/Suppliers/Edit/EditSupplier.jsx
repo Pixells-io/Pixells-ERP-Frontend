@@ -150,15 +150,15 @@ const EditSupplier = () => {
             </p>
             <div className="flex justify-end gap-6">
               <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
-                <TabsTrigger
+              <TabsTrigger
                   value="information"
-                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Información
                 </TabsTrigger>
                 <TabsTrigger
                   value="summary"
-                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Resumen
                 </TabsTrigger>
@@ -239,7 +239,7 @@ const EditSupplier = () => {
           </TabsContent>
           <TabsContent
             value="summary"
-            className="rounded-md p-2"
+            className="flex w-full h-full rounded-md p-2"
           >
             <Summary/>
           </TabsContent>
