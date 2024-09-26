@@ -295,6 +295,7 @@ const CreateArticle = () => {
               </div>
             </div>
           </div>
+
           {Object.keys(errors).length > 0 && (
             <div className="mt-4 text-red-500">
               {Object.values(errors).map((error, index) => (
@@ -347,3 +348,19 @@ const CreateArticle = () => {
 };
 
 export default CreateArticle;
+
+export async function Action({ params, request }) {
+  const formData = await request.formData();
+  const action = formData.get("action");
+
+  // switch (action) {
+  //   case "phase":
+  //     await saveNewPhase(formData);
+  //     return redirect(
+  //       `/project-manager/${params.id}/projects/${params.projectId}`,
+  //     );
+
+  //   default:
+  //   return '1'
+  // }
+}

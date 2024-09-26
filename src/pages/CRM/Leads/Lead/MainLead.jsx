@@ -227,7 +227,7 @@ function MainLead() {
               <div className="mt-2 flex gap-6">
                 <div className="gap-1">
                   {services?.map((service, i) => (
-                    <div className="mt-2 flex gap-4">
+                    <div className="mt-2 flex gap-4" key={i}>
                       <p className="text-xs font-medium text-grisSubText">
                         Servicio:
                       </p>
@@ -241,7 +241,7 @@ function MainLead() {
             </div>
           </div>
           {follow_ups?.map((follow, i) => (
-            <CardFollowUp info={follow} />
+            <CardFollowUp info={follow} key={i} />
           ))}
           {/* Here is the cards */}
           {closing != "N/A" ? (
