@@ -304,13 +304,6 @@ const CreateArticle = () => {
             </div>
           )}
           <div className="relative flex w-full flex-col space-y-4 overflow-auto">
-            {/* <Inputs
-              categories={categories}
-              warehouses={warehouses}
-              inputsData={initialValues}
-              setInputsData={setInitialValues}
-            /> */}
-
             <FormGroup
               productType={initialValues.productType}
               suppliers={suppliers}
@@ -349,18 +342,18 @@ const CreateArticle = () => {
 
 export default CreateArticle;
 
-export async function Action({ params, request }) {
+export async function Action({ request }) {
   const formData = await request.formData();
   const action = formData.get("action");
 
-  // switch (action) {
-  //   case "phase":
-  //     await saveNewPhase(formData);
-  //     return redirect(
-  //       `/project-manager/${params.id}/projects/${params.projectId}`,
-  //     );
+  switch (action) {
+    case "phase":
+      const res = await saveNewProduct(formData);
+      return redirect(`/inventory/edit/${res.data.id}`);
+      break;
 
-  //   default:
-  //   return '1'
-  // }
+    default:
+      return "1";
+  }
+  return "1";
 }

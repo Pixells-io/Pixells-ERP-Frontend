@@ -237,12 +237,13 @@ export async function Action({ params, request }) {
   switch (action) {
     case "edit-lead":
       const response1 = await editLeadForm(data);
+      console.log(response1);
       return redirect(`/crm/leads/${response1.data}`);
       break;
 
     case "edit-status":
       const response2 = await editStatusLead(data);
-      return redirect(`/crm/leads/${response1.data}`);
+      return redirect(`/crm/leads/${response2.data}`);
       break;
   }
 }
