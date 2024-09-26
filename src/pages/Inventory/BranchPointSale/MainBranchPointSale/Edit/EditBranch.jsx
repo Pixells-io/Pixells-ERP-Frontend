@@ -15,6 +15,7 @@ import {
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
+import AccountingTab from "./Tabs/AccountingTab";
 
 const EditBranch = () => {
   const { whareHouses, costCenter, priceList, storeDetail, users, positions } =
@@ -208,6 +209,9 @@ const EditBranch = () => {
             </TabsContent>
             <TabsContent value="payment" className="w-full">
               <PaymentTab />
+            </TabsContent>
+            <TabsContent value="accounting" className="w-full">
+              <AccountingTab store_id={storeDetail?.data?.id} />
             </TabsContent>
           </Tabs>
         </div>
