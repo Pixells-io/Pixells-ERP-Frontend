@@ -17,7 +17,7 @@ import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
-const UserTab = ({ users }) => {
+const UserTab = ({ users, cashBoxes }) => {
   const { id } = useParams();
   const navigation = useNavigation();
   const [usersSelect, setUsersSelect] = useState([]);
@@ -164,7 +164,7 @@ const UserTab = ({ users }) => {
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[].map((cashBox) => (
+                    {cashBoxes.map((cashBox) => (
                       <SelectItem key={cashBox.id} value={String(cashBox.id)}>
                         {cashBox.name}
                       </SelectItem>

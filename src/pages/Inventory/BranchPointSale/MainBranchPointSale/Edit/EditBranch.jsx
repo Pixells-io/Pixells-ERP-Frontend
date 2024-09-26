@@ -9,12 +9,13 @@ import {
   createCashBoxesBranchTab,
   createGeneralBranchTab,
   createUsersBranchTab,
+  destroyCashBoxesBranchTab,
   updateCashBoxesBranchTab,
   updateGeneralBranchTab,
   updatePrincipalBranchTab,
 } from "../../utils";
 import UserTab from "./Tabs/UserTab";
-import CashBoxTab from "./Tabs/CashBoxTab";
+import CashBoxTab from "./Tabs/CashBoxTab/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
 import AccountingTab from "./Tabs/AccountingTab";
 
@@ -200,7 +201,7 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="users" className="w-full">
-              <UserTab users={users.data} />
+              <UserTab users={users.data} cashBoxes={storeDetail?.data?.pos} />
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
               <CashBoxTab
@@ -247,6 +248,9 @@ export async function Action({ request }) {
       break;
     case "updateCashBoxBranchTab":
       await updateCashBoxesBranchTab(data);
+      break;
+    case "destroyCashBoxBranchTab":
+      await destroyCashBoxesBranchTab(data);
       break;
   }
   return "1";
