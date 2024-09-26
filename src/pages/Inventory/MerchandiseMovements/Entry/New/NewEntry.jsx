@@ -96,6 +96,7 @@ function NewEntry() {
               variation: item.variations || "",
               variation_id: item.id || "",
               description: item.master_product.toString() || "",
+              rel_id: selectedCatalog?.id || null,
               eQuantity: item.quantity || 0,
               receivedQuantity: "",
               unitPrice: unitPrice,
@@ -111,7 +112,6 @@ function NewEntry() {
 
     fetchCatalog();
   }, [selectedCatalog]);
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
