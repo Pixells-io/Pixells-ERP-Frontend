@@ -96,7 +96,7 @@ function NewEntry() {
               variation: item.variations || "",
               variation_id: item.id || "",
               description: item.master_product.toString() || "",
-              rel_id: selectedCatalog?.id || null,
+              rel_id: item.id,
               eQuantity: item.quantity || 0,
               receivedQuantity: "",
               unitPrice: unitPrice,
