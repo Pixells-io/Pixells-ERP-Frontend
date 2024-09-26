@@ -267,10 +267,57 @@ export async function createUsersBranchTab(data) {
 }
 
 export async function createCashBoxesBranchTab(data) {
-  const cashBoxesAux = JSON.parse(data.get("cashBoxes"));
-  
+  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
+  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+
   const info = {
     store_id: data.get("store_id"),
-    
-  }
+    name: data.get("name"),
+    code: data.get("code"),
+    user_id: data.get("user_id"),
+    active: !!data.get("active") ? "1" : "0",
+    start: startDate,
+    end: endDate,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/create-store-pos`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+export async function updateCashBoxesBranchTab(data) {
+  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
+  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+
+  const info = {
+    post_id: data.get("post_id"),
+    name: data.get("name"),
+    code: data.get("code"),
+    user_id: data.get("user_id"),
+    active: !!data.get("active") ? "1" : "0",
+    start: startDate,
+    end: endDate,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/edit-store-pos`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
 }
