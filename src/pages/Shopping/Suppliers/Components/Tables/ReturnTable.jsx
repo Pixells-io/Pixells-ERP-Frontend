@@ -45,7 +45,7 @@ const statusStyles = {
   'Pagado': "bg-[#CBF4C9] font-bold text-[#0E6245]",
 };
 
-const ReturnTable = () => (
+const ReturnTable = () =>{return (<>
   <Table>
     <TableHeader>
       <TableRow className="border-b border-[#44444F]">
@@ -93,6 +93,7 @@ const ReturnTable = () => (
       ))}
     </TableBody>
   </Table>
-);
+  </>
+);}
 
 export default ReturnTable;

@@ -62,7 +62,6 @@ const components = [
 ];
 
 const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
-
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -74,7 +73,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
       setTableData(updateTableDataIdAux);
     }
   }, []);
-  
+
   // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -199,7 +198,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
             onValueChange={(value) => handleDataInRow(value, rowIndex)}
             value={row?.component}
           >
-            <SelectTrigger className="rounded-xl border border-gris2-transparent text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
               <SelectValue placeholder="Selecciona el componente" />
             </SelectTrigger>
             <SelectContent>
@@ -217,7 +216,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Cantidad",
         cell: ({ row, rowIndex }) => (
           <Input
-            className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
             name={`amount-${rowIndex}`}
             value={row.amount}
             placeholder="ingrese"
@@ -232,12 +231,12 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         header: "Unidad",
         cell: ({ row, rowIndex }) => (
           <Input
-          className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-          name={`unit-${rowIndex}`}
-          value={row.unit}
-          type="text"
-          readOnly
-        />
+            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+            name={`unit-${rowIndex}`}
+            value={row.unit}
+            type="text"
+            readOnly
+          />
         ),
       },
       {
@@ -246,7 +245,7 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
-            className="w-[100px] rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
+            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
             name={`cost-${rowIndex}`}
             value={row.cost}
             placeholder="ingrese"
@@ -259,11 +258,11 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
         accessorKey: "amountTax",
         header: "Impuesto",
         cell: ({ row, rowIndex }) => (
-          <div className="flex w-[150px] items-center p-1 gap-x-2">
+          <div className="flex w-[150px] items-center gap-x-2 p-1">
             (IVA
             {
               <Input
-              className="w-[36px] border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent p-0"
+                className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
                 name={`tax-${rowIndex}`}
                 value={row.amountTax}
                 placeholder="tax"
@@ -272,7 +271,6 @@ const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
                 onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
               />
             }
-
             %) {!!row.tax && " - $" + row.tax}
           </div>
         ),
