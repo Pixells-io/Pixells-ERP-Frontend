@@ -267,5 +267,10 @@ export async function createUsersBranchTab(data) {
 }
 
 export async function createCashBoxesBranchTab(data) {
-  console.log(data.get("cashBoxes"));  
+  const cashBoxesAux = JSON.parse(data.get("cashBoxes"));
+  
+  const info = {
+    store_id: data.get("store_id"),
+    
+  }
 }

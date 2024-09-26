@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
-import { Form, useNavigation, useParams } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 import {
@@ -18,7 +18,6 @@ import {
 
 const CashBoxTab = ({ positions, store_id }) => {
   const navigation = useNavigation();
-  const { id } = useParams();
   const [cashBoxesSelect, setCashBoxesSelect] = useState([]);
 
   const deleteCashBox = (index) => {
@@ -30,10 +29,10 @@ const CashBoxTab = ({ positions, store_id }) => {
     setCashBoxesSelect([
       ...cashBoxesSelect,
       {
-        position_id: "",
-        serie: "",
-        aditional: "",
-        status: "0",
+        name: "",
+        code: "",
+        description: "",
+        active: "0",
         start: "",
         end: "",
       },
@@ -87,7 +86,7 @@ const CashBoxTab = ({ positions, store_id }) => {
   return (
     <Form
       className="flex h-full w-full flex-col overflow-auto px-6 py-4"
-      action={`/inventory/branch-points-sale/edit/${id}`}
+      action={`/inventory/branch-points-sale/edit/${store_id}`}
       method="post"
     >
       <div className="overflow-auto">
@@ -141,14 +140,14 @@ const CashBoxTab = ({ positions, store_id }) => {
                   Nombre
                 </p>
                 <Select
-                  name="position_id"
+                  name="name"
                   required={false}
-                  value={String(cashBox?.position_id)}
+                  value={String(cashBox?.name)}
                   onValueChange={(e) =>
-                    handleInputChange(e, "position_id", index)
+                    handleInputChange(e, "name", index)
                   }
                 >
-                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones [&>span]:line-clamp-2">
                     <SelectValue placeholder="Seleccionar" />
                   </SelectTrigger>
                   <SelectContent>
@@ -162,25 +161,25 @@ const CashBoxTab = ({ positions, store_id }) => {
               </div>
               <div className="col-span-3">
                 <InputForm
-                  name="serie"
+                  name="code"
                   type="text"
                   placeholder={"No. de Serie"}
                   disabled={false}
-                  value={cashBox?.serie}
+                  value={cashBox?.code}
                   onChange={(e) =>
-                    handleInputChange(e.target.value, "serie", index)
+                    handleInputChange(e.target.value, "code", index)
                   }
                 />
               </div>
               <div className="col-span-3">
                 <InputForm
-                  name="aditional"
+                  name="description"
                   type="text"
                   placeholder={"Información adicional"}
                   disabled={false}
-                  value={cashBox?.aditional}
+                  value={cashBox?.description}
                   onChange={(e) =>
-                    handleInputChange(e.target.value, "aditional", index)
+                    handleInputChange(e.target.value, "description", index)
                   }
                 />
               </div>
@@ -190,10 +189,10 @@ const CashBoxTab = ({ positions, store_id }) => {
                   <div className="flex items-center gap-x-3">
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                      name="status"
-                      checked={cashBox?.status == "1"}
+                      name="active"
+                      checked={cashBox?.active == "1"}
                       onCheckedChange={(e) =>
-                        handleInputChange(e ? "1" : "0", "status", index)
+                        handleInputChange(e ? "1" : "0", "active", index)
                       }
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
@@ -243,7 +242,7 @@ const CashBoxTab = ({ positions, store_id }) => {
                       </Button>
                     ) : (
                       <ModalPeriod setFunctionParent={addDate} index={index} />
-                    )}{" "}
+                    )}
                   </div>
                 </div>
                 <div className="flex w-full justify-end">
