@@ -1,6 +1,8 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ShoppingTable from "./Tables/PurchasedTable";
+import PaymentTable from "./Tables/PaymentTable";
+import ReturnTable from "./Tables/ReturnTable";
 const Summary = () => {
   return (
     <div className="h-full overflow-auto rounded-xl bg-white">
@@ -10,12 +12,12 @@ const Summary = () => {
         </span>
       </div>
       <div className="flex h-full w-full overflow-hidden rounded-[10px] p-6">
-        <Tabs defaultValue="compras" className="flex w-full space-y-6 flex-col">
+        <Tabs defaultValue="shopping" className="flex w-full flex-col">
           <TabsList className="mb-4 grid w-full grid-cols-4 gap-6 bg-transparent">
             {[
-              { value: "compras", title: "Compras Realizadas" },
-              { value: "pagos", title: "Pagos Realizados" },
-              { value: "devoluciones", title: "Devoluciones" },
+              { value: "shopping", title: "Compras Realizadas" },
+              { value: "payment", title: "Pagos Realizados" },
+              { value: "return", title: "Devoluciones" },
               { value: "estadisticas", title: "Estadísticas" },
             ].map((tab) => (
               <TabsTrigger
@@ -34,12 +36,14 @@ const Summary = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent value="compras">
+          <TabsContent value="shopping" className="flex pt-6 w-full h-full">
             <ShoppingTable/>
           </TabsContent>
-          <TabsContent value="pagos">Contenido de Pagos Realizados</TabsContent>
-          <TabsContent value="devoluciones">
-            Contenido de Devoluciones
+          <TabsContent value="payment">
+            <PaymentTable/>
+          </TabsContent>
+          <TabsContent value="return">
+            <ReturnTable/>
           </TabsContent>
           <TabsContent value="estadisticas">
             Contenido de Estadísticas

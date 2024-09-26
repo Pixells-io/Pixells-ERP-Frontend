@@ -149,7 +149,7 @@ const EditSupplier = () => {
               Proveedor: {supplier.fiscal_name}
             </p>
             <div className="flex justify-end gap-6">
-              <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
                 <TabsTrigger
                   value="information"
                   className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
@@ -239,7 +239,7 @@ const EditSupplier = () => {
           </TabsContent>
           <TabsContent
             value="summary"
-            className="rounded-md bg-blancoBg p-2"
+            className="rounded-md p-2"
           >
             <Summary/>
           </TabsContent>
