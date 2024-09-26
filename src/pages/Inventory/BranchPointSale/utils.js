@@ -86,14 +86,15 @@ export async function getStores() {
 export async function multiLoaderListBranchDetails({ params }) {
   const id = params.id;
 
-  const [whareHouses, costCenter, priceList, storeDetail, users] = await Promise.all([
+  const [whareHouses, costCenter, priceList, storeDetail, users, positions] = await Promise.all([
     getWarehouses(),
     getCostCenter(),
     getPriceList(),
     getStoreById(id),
     getUsers(),
+    getPosition(),
   ]);
-  return json({ whareHouses, costCenter, priceList, storeDetail, users });
+  return json({ whareHouses, costCenter, priceList, storeDetail, users, positions });
 }
 
 export async function getStoreById(id) {
@@ -245,6 +246,26 @@ export async function getUsers() {
   }
 }
 
+export async function getPosition() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-puestos`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function createUsersBranchTab(data) {
   console.log(data.get("users"));  
+}
+
+export async function createCashBoxesBranchTab(data) {
+  console.log(data.get("cashBoxes"));  
 }

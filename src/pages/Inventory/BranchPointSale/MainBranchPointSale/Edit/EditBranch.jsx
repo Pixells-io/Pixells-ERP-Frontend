@@ -5,13 +5,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
-import { createGeneralBranchTab, createUsersBranchTab, updateGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import {
+  createCashBoxesBranchTab,
+  createGeneralBranchTab,
+  createUsersBranchTab,
+  updateGeneralBranchTab,
+  updatePrincipalBranchTab,
+} from "../../utils";
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList, storeDetail, users } = useLoaderData();
+  const { whareHouses, costCenter, priceList, storeDetail, users, positions } =
+    useLoaderData();
 
   const tabOptions = [
     {
@@ -120,7 +127,7 @@ const EditBranch = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-          Nueva Sucursal
+            Nueva Sucursal
           </p>
         </div>
 
@@ -185,7 +192,7 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
-              <GeneralTab 
+              <GeneralTab
                 informationDetails={storeDetail?.data?.information}
                 store_id={storeDetail?.data?.id}
               />
@@ -194,7 +201,10 @@ const EditBranch = () => {
               <UserTab users={users.data} />
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
-              <CashBoxTab />
+              <CashBoxTab
+                positions={positions.data}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="payment" className="w-full">
               <PaymentTab />
@@ -217,7 +227,7 @@ export async function Action({ request }) {
       await updatePrincipalBranchTab(data);
       break;
     case "generalBranchTab":
-      if(!!data.get("info_id")){
+      if (!!data.get("info_id")) {
         await updateGeneralBranchTab(data);
       } else {
         await createGeneralBranchTab(data);
@@ -225,6 +235,9 @@ export async function Action({ request }) {
       break;
     case "userBranchTab":
       await createUsersBranchTab(data);
+      break;
+    case "cashBoxBranchTab":
+      await createCashBoxesBranchTab(data);
       break;
   }
   return "1";

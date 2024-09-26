@@ -5,11 +5,19 @@ import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const CashBoxTab = () => {
+const CashBoxTab = ({ positions, store_id }) => {
+  const navigation = useNavigation();
   const { id } = useParams();
   const [cashBoxesSelect, setCashBoxesSelect] = useState([]);
 
@@ -19,7 +27,17 @@ const CashBoxTab = () => {
   };
 
   const addCashBox = () => {
-    setCashBoxesSelect([...cashBoxesSelect, {}]);
+    setCashBoxesSelect([
+      ...cashBoxesSelect,
+      {
+        position_id: "",
+        serie: "",
+        aditional: "",
+        status: "0",
+        start: "",
+        end: "",
+      },
+    ]);
   };
 
   const addDate = (dateI, dateF, i) => {
@@ -27,8 +45,8 @@ const CashBoxTab = () => {
       if (index == i) {
         return {
           ...u,
-          dateStartPeriod: dateI,
-          dateFinishPeriod: dateF,
+          start: dateI,
+          end: dateF,
         };
       } else {
         return u;
@@ -42,14 +60,28 @@ const CashBoxTab = () => {
       if (index == i) {
         return {
           ...u,
-          dateStartPeriod: "",
-          dateFinishPeriod: "",
+          start: "",
+          end: "",
         };
       } else {
         return u;
       }
     });
     setCashBoxesSelect(auxCashBoxes);
+  };
+
+  const handleInputChange = (value, name, i) => {
+    const aux = cashBoxesSelect.map((prevFormData, index) => {
+      if (index == i) {
+        return { ...prevFormData, [name]: value };
+      } else {
+        return {
+          ...prevFormData,
+        };
+      }
+    });
+
+    setCashBoxesSelect([...aux]);
   };
 
   return (
@@ -68,8 +100,7 @@ const CashBoxTab = () => {
           hidden
           readOnly
           name="store_id"
-          // value={store.id}
-          value={id}
+          value={store_id}
         />
         <input
           type="text"
@@ -77,7 +108,7 @@ const CashBoxTab = () => {
           hidden
           readOnly
           name="type_option"
-          value="create_generalBranchTab"
+          value="cashBoxBranchTab"
         />
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
@@ -90,6 +121,15 @@ const CashBoxTab = () => {
           </Button>
         </div>
 
+        <input
+          type="text"
+          className="hidden"
+          hidden
+          name="cashBoxes"
+          value={JSON.stringify(cashBoxesSelect)}
+          onChange={() => {}}
+        />
+
         {cashBoxesSelect.map((cashBox, index) => (
           <div className="mt-4" key={index}>
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
@@ -97,60 +137,80 @@ const CashBoxTab = () => {
             </p>
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
               <div className="col-span-3">
-                <InputForm
-                  name="name"
-                  type="text"
-                  placeholder={"Nombre"}
-                  disabled={true}
-                />
+                <p className="mb-1 text-[10px] font-normal text-grisText">
+                  Nombre
+                </p>
+                <Select
+                  name="position_id"
+                  required={false}
+                  value={String(cashBox?.position_id)}
+                  onValueChange={(e) =>
+                    handleInputChange(e, "position_id", index)
+                  }
+                >
+                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                    <SelectValue placeholder="Seleccionar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {positions.map((position) => (
+                      <SelectItem key={position.id} value={String(position.id)}>
+                        {position.position_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="col-span-3">
                 <InputForm
-                  name="position"
+                  name="serie"
                   type="text"
                   placeholder={"No. de Serie"}
-                  disabled={true}
+                  disabled={false}
+                  value={cashBox?.serie}
+                  onChange={(e) =>
+                    handleInputChange(e.target.value, "serie", index)
+                  }
                 />
               </div>
               <div className="col-span-3">
                 <InputForm
-                  name="algoMas"
+                  name="aditional"
                   type="text"
-                  placeholder={"Algo más"}
+                  placeholder={"Información adicional"}
+                  disabled={false}
+                  value={cashBox?.aditional}
+                  onChange={(e) =>
+                    handleInputChange(e.target.value, "aditional", index)
+                  }
                 />
               </div>
               <div className="col-span-3"></div>
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
-                    <input
-                      type="hidden"
-                      hidden
-                      name="status"
-                      className="hidden"
-                      // value={checkedInputStatus}
-                      readOnly
-                    />
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                      // checked={checkedInputStatus == "1"}
-                      // onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+                      name="status"
+                      checked={cashBox?.status == "1"}
+                      onCheckedChange={(e) =>
+                        handleInputChange(e ? "1" : "0", "status", index)
+                      }
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
                     </label>
-                    {!!cashBox.dateStartPeriod && !!cashBox.dateFinishPeriod ? (
+                    {!!cashBox.start && !!cashBox.end ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
                           <input
                             type="hidden"
                             hidden
-                            name="dateStart"
+                            name="start"
                             className="hidden"
-                            value={format(cashBox.dateStartPeriod, "PP")}
+                            value={format(cashBox?.start, "PP")}
                           />
                           <label className="text-xs font-light text-[#44444F]">
-                            {format(cashBox.dateStartPeriod, "PP")}
+                            {format(cashBox?.start, "PP")}
                           </label>
                         </div>
                         <div className="rounded-[8px] bg-gris px-2 py-1">
@@ -159,10 +219,10 @@ const CashBoxTab = () => {
                             hidden
                             name="dateFinish"
                             className="hidden"
-                            value={format(cashBox.dateFinishPeriod, "PP")}
+                            value={format(cashBox?.end, "PP")}
                           />
                           <label className="text-xs font-light text-[#44444F]">
-                            {format(cashBox.dateFinishPeriod, "PP")}
+                            {format(cashBox?.end, "PP")}
                           </label>
                         </div>
                       </div>
@@ -173,7 +233,7 @@ const CashBoxTab = () => {
                     )}
                   </div>
                   <div>
-                    {!!cashBox.dateStartPeriod && !!cashBox.dateFinishPeriod ? (
+                    {!!cashBox?.start && !!cashBox?.end ? (
                       <Button
                         type="button"
                         className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -207,8 +267,11 @@ const CashBoxTab = () => {
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024
           </label>
-          <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-            Guardar
+          <Button
+            className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </div>
       </div>
