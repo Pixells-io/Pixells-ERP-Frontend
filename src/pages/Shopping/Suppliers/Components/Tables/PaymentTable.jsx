@@ -1,25 +1,22 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Link } from "react-router-dom"
 
 const data = [
-  { folio: 'Naranja', sku: '28', productos: '26', monto: 'Caja', estado: 'Pendiente', user: "jacobo", fecha: '04-06-2024', id: 'html' },
-  { folio: 'Lima', sku: '28', productos: '28', monto: 'Caja', estado: 'Parcial', user: "jacobo", fecha: '04-06-2024', id: 'html' },
-  { folio: 'Lima', sku: '28', productos: '28', monto: 'Caja', estado: 'Completado', user: "jacobo", fecha: '04-06-2024', id: "html" },
-];
+  { folio: '0021', document: 'P-1231', monto: '$124,000', montoPago: '$124,000',saldo: '$124,000', estado: 'Pagado', fecha: '04-06-2024', id: 'html' },
+  { folio: '0032', document: 'P-1232', monto: '$174,000',  montoPago: '$164,000',saldo: '$124,000', estado: 'Pagado', fecha: '04-06-2024', id: 'html' },
+  { folio: '003', document: 'P-1233', monto: '$124,000',  montoPago: '$197,000',saldo: '$124,000', estado: 'Pagado', fecha: '04-06-2024',  id: 'html'}
+]
 
 const statusStyles = {
-  'Pendiente': 'bg-[#5B89FF40] text-[#5B89FF]',
-  'Parcial': 'bg-[#FAA36440] text-[#FAA364]',
-  'Completado': 'bg-[#00A25940] text-[#00A259]',
+  'Pagado': 'bg-[#CBF4C9] font-bold text-[#0E6245]',
 };
 
-const ShoppingTable = () => (
+const PaymentTable = () => (
   <Table>
     <TableHeader>
       <TableRow className="border-b border-[#44444F]">
-        {['Folio', 'Sku', 'Cantidad Productos', 'Monto', 'Estado del Pedido', 'Quien recibió', 'Fecha de Recibo', ''].map(header => (
+        {['Folio', 'Doc. Relacional', 'Monto Doc.', 'Monto del Pago', 'Saldo Pendiente', 'Estatus', 'Fecha de pago', ''].map(header => (
           <TableHead key={header} className="font-poppins text-[#44444F] text-center text-sm">{header}</TableHead>
         ))}
       </TableRow>
@@ -32,13 +29,6 @@ const ShoppingTable = () => (
               {key === 'estado' ? (
                 <div className="flex justify-center">
                   <span className={`flex text-center w-24 justify-center p-1 rounded-2xl ${statusStyles[value]}`}>{value}</span>
-                </div>
-              ) : key === 'user' ? (
-                <div className="flex justify-center">
-                  <Avatar>
-                    <AvatarImage src={"https://github.com/shadcn.png"} />
-                    <AvatarFallback>{value.charAt(0).toUpperCase()}</AvatarFallback>
-                  </Avatar>
                 </div>
               ) : key === 'id' ? (
                 <Link to={`/document/${value}`}>
@@ -53,4 +43,4 @@ const ShoppingTable = () => (
   </Table>
 );
 
-export default ShoppingTable;
+export default PaymentTable;
