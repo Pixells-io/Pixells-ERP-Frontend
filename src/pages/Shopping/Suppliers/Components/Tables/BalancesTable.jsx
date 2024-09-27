@@ -172,7 +172,6 @@ const BalanceTable = () => {
                       {item.status === 1 ? "Por cobrar" : "Por pagar"}
                     </span>
                   </TableCell>
-                  <TableCell>{item.cantidad}</TableCell>
                   <TableCell>${item.monto}</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
