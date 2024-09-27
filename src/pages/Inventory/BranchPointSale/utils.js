@@ -263,7 +263,29 @@ export async function getPosition() {
 }
 
 export async function createUsersBranchTab(data) {
-  console.log(data.get("users"));  
+ 
+  const usersIds = JSON.parse(data.get("users")).map(user => {
+    return {id: user.id}
+  });
+  
+  const info = {
+    store_id: data.get("store_id"),
+    users: usersIds,
+    
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/create-store-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
 }
 
 export async function createCashBoxesBranchTab(data) {

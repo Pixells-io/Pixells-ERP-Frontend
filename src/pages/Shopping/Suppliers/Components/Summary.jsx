@@ -4,16 +4,16 @@ import ShoppingTable from "./Tables/PurchasedTable";
 import PaymentTable from "./Tables/PaymentTable";
 import ReturnTable from "./Tables/ReturnTable";
 import BalanceTable from "./Tables/BalancesTable";
-
+import { Button } from "@/components/ui/button";
 const Summary = () => {
   return (
-    <div className="w-full h-full rounded-xl bg-white">
+    <div className="h-full w-full flex flex flex-col rounded-xl bg-white">
       <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
         <span className="font-poppins text-lg font-medium text-[#44444F]">
           RESUMEN DE ACTIVIDADES
         </span>
       </div>
-      <div className="flex h-full w-full overflow-hidden rounded-[10px] p-6">
+      <div className="flex flex-col w-full h-full overflow-hidden rounded-[10px] p-6">
         <Tabs defaultValue="shopping" className="flex w-full flex-col">
           <TabsList className="mb-4 grid w-full grid-cols-4 gap-6 bg-transparent">
             {[
@@ -38,22 +38,37 @@ const Summary = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent value="shopping">
-            <ShoppingTable/>
+          <TabsContent value="shopping" className="pt-4">
+            <ShoppingTable />
           </TabsContent>
-          <TabsContent value="payment">
-            <PaymentTable/>
+          <TabsContent value="payment" className="pt-4">
+            <PaymentTable />
           </TabsContent>
-          <TabsContent value="return" >
-            <ReturnTable/>
+          <TabsContent value="return" className="pt-4">
+            <ReturnTable />
           </TabsContent>
-          <TabsContent value="balance" className="flex p-6 justify-center">
-            <div>
-            <BalanceTable/>
-            </div>
+          <TabsContent
+            value="balance"
+            className="flex items-start justify-center pt-2"
+          >
+            <BalanceTable />
           </TabsContent>
         </Tabs>
+        <div className="flex justify-between w-full lg:mt-60">
+        <div className="flex justify-start">
+            <span className={"text-[#8F8F8F] text-sm mt-8 font-roboto"}>Fecha de actualizacion: 07 de septiembre 2024</span>
+        </div>
+        <div className="flex justify-end">
+          <Button
+            type="button"
+            className={`rounded-lg bg-[#E0E0E0] mt-4  px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+          >
+            Listo
+          </Button>
+        </div>
       </div>
+      </div>
+     
     </div>
   );
 };

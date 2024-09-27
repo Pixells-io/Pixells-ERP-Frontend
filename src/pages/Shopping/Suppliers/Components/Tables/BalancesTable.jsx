@@ -19,15 +19,15 @@ const ventasData = [
 ];
 
 const SaldoData = [
-  { concepto: "Compras", cantidad: 2, monto: "57,000.00" },
-  { concepto: "Ventas", cantidad: 5, monto: "80,000.00" },
+  { concepto: "Compras",status:2, cantidad: 2, monto: "57,000.00" },
+  { concepto: "Ventas",status:1, cantidad: 5, monto: "80,000.00" },
 ];
 const BalanceTable = () => {
   return (
-    <>
+    <div className="w-full  max-w-2xl">
       <Tabs
         defaultValue="shopping"
-        className="flex w-full h-full flex-col overflow-auto rounded-lg bg-blancoBg pt-2"
+        className=" w-full"
       >
         <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
           <TabsTrigger
@@ -54,9 +54,9 @@ const BalanceTable = () => {
           <Table>
             <TableHeader>
               <TableRow className="border-b border-[#44444F]">
-                <TableHead>Concepto</TableHead>
-                <TableHead>Monto</TableHead>
-                <TableHead>Estatus</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Concepto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Monto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Estatus</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -100,10 +100,11 @@ const BalanceTable = () => {
           <Table>
             <TableHeader>
               <TableRow className="border-b border-[#44444F]">
-                <TableHead>Concepto</TableHead>
-                <TableHead>Cantidad</TableHead>
-                <TableHead>Monto</TableHead>
-                <TableHead>Estatus</TableHead>
+                
+                <TableHead className="font-poppins text-sm text-[#44444F]">Concepto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Cantidad</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Monto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Estatus</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -148,18 +149,29 @@ const BalanceTable = () => {
         </TabsContent>
         <TabsContent value="balance" className="h-full w-full pt-2">
           <Table>
-            <TableHeader>
+            <TableHeader >
               <TableRow className="border-b border-[#44444F]">
-                <TableHead>Concepto</TableHead>
-                <TableHead>Estatus</TableHead>
-                <TableHead>Monto</TableHead>
-                <TableHead>Estatus</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Concepto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Estatus</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Monto</TableHead>
+                <TableHead className="font-poppins text-sm text-[#44444F]">Estatus</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {SaldoData.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell>{item.concepto}</TableCell>
+                  <TableCell>
+                    <span
+                      className={`flex w-24 justify-center rounded-2xl ${
+                        item.status === 1
+                          ? "bg-[#CBF4C9] text-[#0E6245]"
+                          : "bg-[#F4CEC9] text-[#A63737] "
+                      } p-1 font-bold`}
+                    >
+                      {item.status === 1 ? "Por cobrar" : "Por pagar"}
+                    </span>
+                  </TableCell>
                   <TableCell>{item.cantidad}</TableCell>
                   <TableCell>${item.monto}</TableCell>
                   <TableCell></TableCell>
@@ -197,7 +209,7 @@ const BalanceTable = () => {
           </Table>
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 };
 

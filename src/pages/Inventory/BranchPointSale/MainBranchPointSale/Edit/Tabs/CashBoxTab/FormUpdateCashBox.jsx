@@ -36,6 +36,7 @@ const FormUpdateCashBox = ({ cashBoxes, positions, store_id }) => {
       }
     });
     setCashBoxesSelect(cashBoxAux);
+    setSelectEditCashBox(i);
   };
 
   const clearPeriod = (i) => {
@@ -51,6 +52,7 @@ const FormUpdateCashBox = ({ cashBoxes, positions, store_id }) => {
       }
     });
     setCashBoxesSelect(auxCashBoxes);
+    setSelectEditCashBox(i);
   };
 
   const handleInputChange = (value, name, i) => {
