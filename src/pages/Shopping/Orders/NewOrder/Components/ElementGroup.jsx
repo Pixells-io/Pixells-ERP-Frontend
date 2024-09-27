@@ -19,7 +19,7 @@ const InputsGroup = ({
   infoSelects,
 }) => {
   const handleWarehouseChange = (value) => {
-    if (isEditable) selectedWarehouse(value);
+    if (isEditable) setSelectedWarehouse(value);
   };
 
   const handleCostCenterChange = (value) => {
