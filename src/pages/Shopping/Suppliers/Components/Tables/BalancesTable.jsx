@@ -34,7 +34,7 @@ const BalanceTable = () => {
   const balanceEstado = comprasTotal < ventasTotal ? "A FAVOR" : "A PAGAR";
 
   return (
-    <div className="w-full lg:h-60 lg:max-w-3xl">
+    <div className="w-full lg:max-w-3xl ">
       <Tabs defaultValue="shopping" className="w-full">
         <TabsList className="mx-3 flex justify-start rounded-none bg-inherit py-6">
           <TabsTrigger
@@ -146,8 +146,8 @@ const BalanceTable = () => {
           </Table>
         </TabsContent>
 
-        <TabsContent value="balance" className="h-full w-full pb-6 pt-2">
-          <Table className={"mx-3 w-full h-full p-2 overflow-hidden"}>
+        <TabsContent value="balance" className="h-full w-full pt-2">
+          <Table className={"mx-3 overflow-hidden"}>
             <TableHeader>
               <TableRow className="border-b border-[#44444F]">
                 <TableHead className="font-poppins text-sm text-[#44444F]">
@@ -171,12 +171,12 @@ const BalanceTable = () => {
                   <span
                     className={`flex w-24 justify-center rounded-2xl ${
                       comprasTotal < ventasTotal
-                      ? "bg-[#CBF4C9] text-[#0E6245]"
+                      ? "bg-[#F4CEC9] text-[#A63737]"
                       : ventasTotal === comprasTotal ? ""
-                      : "bg-[#F4CEC9] text-[#A63737]"
+                      : "bg-[#CBF4C9] text-[#0E6245]"
                     } p-1 font-bold`}
                   >
-                      {ventasTotal > comprasTotal ? "Por cobrar" : ventasTotal === comprasTotal ? "":"Por pagar"}
+                      {ventasTotal < comprasTotal ? "Por cobrar" : ventasTotal === comprasTotal ? "":"Por pagar"}
                   </span>
                 </TableCell>
                 <TableCell>${comprasTotal.toLocaleString()}</TableCell>
