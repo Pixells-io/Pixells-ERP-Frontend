@@ -288,6 +288,56 @@ export async function createUsersBranchTab(data) {
   return response.json();
 }
 
+export async function updateUserBranchTab(data) {
+  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
+  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+
+  const info = {
+    store_user_id: data.get("store_user_id"),
+    position_id: data.get("position"),
+    pos_password: data.get("pos_password"),
+    principal_pos_id: data.get("principal_pos_id"),
+    active: !!data.get("active") ? "1" : "0",
+    start: startDate,
+    end: endDate,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/edit-store-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+
+}
+
+export async function deleteUserBranchTab(data) {
+
+  const info = {
+    store_user_id: data.get("store_user_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/destroy-store-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+
+}
+
 export async function createCashBoxesBranchTab(data) {
   const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
   const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
