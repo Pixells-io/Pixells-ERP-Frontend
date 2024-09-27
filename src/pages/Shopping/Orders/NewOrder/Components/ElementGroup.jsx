@@ -41,7 +41,7 @@ const InputsGroup = ({
         <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
         <Select
           value={selectedWarehouse}
-          onValueChange={(value) => handleWarehouseChange("Inventario", value)}
+          onValueChange={(value) => handleWarehouseChange("inventario", value)}
           disabled={!isEditable}
           name="inventory_id"
           required={true}
