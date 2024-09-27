@@ -18,8 +18,8 @@ const InputsGroup = ({
   isEditable,
   infoSelects,
 }) => {
-  const handleWarehouseChange = (value) => {
-    if (isEditable) setSelectedWarehouse(value);
+  const handleWarehouseChange = (name, value) => {
+    setSelectedWarehouse((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleCostCenterChange = (value) => {
@@ -42,7 +42,7 @@ const InputsGroup = ({
         <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
         <Select
           value={selectedWarehouse}
-          onValueChange={handleWarehouseChange}
+          onValueChange={(value) => handleWarehouseChange("inventario", value)}
           disabled={!isEditable}
           name="inventory_id"
           required={true}
