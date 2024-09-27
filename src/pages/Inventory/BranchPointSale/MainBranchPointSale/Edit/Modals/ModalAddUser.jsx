@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -14,36 +14,22 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Form } from "react-router-dom";
 
-function ModalAddUser({ users, setUsersSelect, usersSelect }) {
+function ModalAddUser({ users, store_id }) {
   const [modal, setModal] = useState(false);
   const [userList, setUserList] = useState([]);
 
-  const addUsers = () => {
-    const userAux = userList.map((user) => {
-      return {
-        id: user.id,
-        user_image: user.user_image,
-        name: user.name,
-        last_name: user.last_name,
-        second_last_name: user.second_last_name,
-        position: user.position,
-        password: "",
-        cashBox_id: null,
-        status: "0",
-        start: "",
-        end: "",
-      }
-    });
-
-    setUsersSelect([...usersSelect, ...userAux]);
-    clearData();
-  };
-
   const clearData = () => {
-    setModal(false);
     setUserList([]);
+    setModal(false);
   };
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      clearData();
+    }
+  }, [navigation.state]);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -82,24 +68,50 @@ function ModalAddUser({ users, setUsersSelect, usersSelect }) {
             );
           }}
         />
-        <DialogFooter>
-          <div className="flex w-full justify-end gap-2">
-            <Button
-              type="button"
-              className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
-              onClick={() => clearData()}
-            >
-              Cancelar
-            </Button>
-            <Button
-              type="button"
-              className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
-              onClick={() => addUsers()}
-            >
-              Aceptar
-            </Button>
-          </div>
-        </DialogFooter>
+
+        <Form
+          action={`/inventory/branch-points-sale/edit/${store_id}`}
+          method="post"
+        >
+          <input
+            type="text"
+            className="hidden"
+            hidden
+            readOnly
+            name="store_id"
+            value={store_id}
+          />
+          <input
+            type="text"
+            className="hidden"
+            hidden
+            readOnly
+            name="type_option"
+            value="createUsersBranchTab"
+          />
+          <input
+            type="text"
+            className="hidden"
+            hidden
+            readOnly
+            name="users"
+            value={JSON.stringify(userList)}
+          />
+          <DialogFooter>
+            <div className="flex w-full justify-end gap-2">
+              <Button
+                type="button"
+                className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
+                onClick={() => clearData()}
+              >
+                Cancelar
+              </Button>
+              <Button className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones">
+                Aceptar
+              </Button>
+            </div>
+          </DialogFooter>
+        </Form>
       </DialogContent>
     </Dialog>
   );

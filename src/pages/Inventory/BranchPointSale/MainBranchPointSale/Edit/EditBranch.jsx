@@ -201,7 +201,12 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="users" className="w-full">
-              <UserTab users={users.data} cashBoxes={storeDetail?.data?.pos} />
+              <UserTab
+                users={users.data}
+                usersRegister={storeDetail?.data?.users}
+                cashBoxes={storeDetail?.data?.pos}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
               <CashBoxTab
@@ -240,7 +245,7 @@ export async function Action({ request }) {
         await createGeneralBranchTab(data);
       }
       break;
-    case "userBranchTab":
+    case "createUsersBranchTab":
       await createUsersBranchTab(data);
       break;
     case "createCashBoxBranchTab":
