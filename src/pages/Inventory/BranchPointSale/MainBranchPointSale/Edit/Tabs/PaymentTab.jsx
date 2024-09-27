@@ -1,5 +1,4 @@
 import InputForm from "@/components/InputForm/InputForm";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,8 +12,9 @@ import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
-import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPaymentMethods from "../Modals/ModalPaymentMethods";
+import ModalPeriod from "../Modals/ModalPeriod";
+import { format } from "date-fns";
 
 const PaymentTab = ({ users }) => {
   const { id } = useParams();
@@ -23,6 +23,36 @@ const PaymentTab = ({ users }) => {
   const deleteUser = (index) => {
     const newUsers = paymentSelect.filter((item, i) => index !== i);
     setPaymentSelect([...newUsers]);
+  };
+
+  const addDate = (dateI, dateF, i) => {
+    const paymentAux = paymentSelect.map((u, index) => {
+      if (index == i) {
+        return {
+          ...u,
+          dateStartPeriod: dateI,
+          dateFinishPeriod: dateF,
+        };
+      } else {
+        return u;
+      }
+    });
+    setPaymentSelect(paymentAux);
+  };
+
+  const clearPeriod = (i) => {
+    const auxPayments = paymentSelect.map((u, index) => {
+      if (index == i) {
+        return {
+          ...u,
+          dateStartPeriod: "",
+          dateFinishPeriod: "",
+        };
+      } else {
+        return u;
+      }
+    });
+    setPaymentSelect(auxPayments);
   };
 
   return (
@@ -93,9 +123,9 @@ const PaymentTab = ({ users }) => {
               <div className="col-span-1 mb-1 flex items-end justify-start">
                 <Button
                   type="button"
-                  className="h-[24px] flex items-center justify-center rounded-xl bg-blancoBox2 px-1.5 font-medium text-[#44444F] hover:bg-blancoBox2"
+                  className="flex h-[24px] items-center justify-center rounded-xl bg-blancoBox2 px-1.5 font-medium text-[#44444F] hover:bg-blancoBox2"
                 >
-                  <IonIcon className="w-5 h-5" icon={add}></IonIcon>
+                  <IonIcon className="h-5 w-5" icon={add}></IonIcon>
                 </Button>
               </div>
               <div className="col-span-12 flex flex-col gap-y-2">
@@ -117,18 +147,53 @@ const PaymentTab = ({ users }) => {
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
                     </label>
-                    <label className="font-roboto text-xs font-light text-grisSubText">
-                      (Sin periodo de tiempo)
-                    </label>
+                    {!!paymentS.dateStartPeriod &&
+                    !!paymentS.dateFinishPeriod ? (
+                      <div className="flex items-center gap-x-2">
+                        <div className="rounded-[8px] bg-gris px-2 py-1">
+                          <input
+                            type="hidden"
+                            hidden
+                            name="dateStart"
+                            className="hidden"
+                            value={format(paymentS.dateStartPeriod, "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(paymentS.dateStartPeriod, "PP")}
+                          </label>
+                        </div>
+                        <div className="rounded-[8px] bg-gris px-2 py-1">
+                          <input
+                            type="hidden"
+                            hidden
+                            name="dateFinish"
+                            className="hidden"
+                            value={format(paymentS.dateFinishPeriod, "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(paymentS.dateFinishPeriod, "PP")}
+                          </label>
+                        </div>
+                      </div>
+                    ) : (
+                      <label className="font-roboto text-xs font-light text-grisSubText">
+                        (Sin periodo de tiempo)
+                      </label>
+                    )}
                   </div>
                   <div>
-                    <Button
-                      type="button"
-                      className="flex h-[24px] min-w-[73px] rounded-xl gap-x-0.5 bg-blancoBox2 px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
-                    >
-                      <IonIcon className="h-5 w-5" icon={add}></IonIcon>
-                      Periodo
-                    </Button>
+                    {!!paymentS.dateStartPeriod &&
+                    !!paymentS.dateFinishPeriod ? (
+                      <Button
+                        type="button"
+                        className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                        onClick={() => clearPeriod(index)}
+                      >
+                        Restablecer
+                      </Button>
+                    ) : (
+                      <ModalPeriod setFunctionParent={addDate} index={index} />
+                    )}{" "}
                   </div>
                 </div>
                 <div className="flex w-full justify-end">
@@ -147,7 +212,7 @@ const PaymentTab = ({ users }) => {
         ))}
       </div>
 
-      <div className="mt-20 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

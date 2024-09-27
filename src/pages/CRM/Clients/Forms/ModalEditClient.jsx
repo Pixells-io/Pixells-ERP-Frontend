@@ -12,6 +12,16 @@ import {
 
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
+const PLACEHOLDERS = [
+  "Nombre del Negocio",
+  "Numero del Negocio",
+  "Nombre del Contacto",
+  "Apellido Paterno Contacto",
+  "Apellido Materno Contacto",
+  "Telefono del Contacto",
+  "Email del Contacto",
+];
+
 function ModalEditClient({ modal, setModal, info, client, link }) {
   const navigation = useNavigation();
 
@@ -55,11 +65,13 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
                 name="business_name"
                 type="text"
                 defaultVal={info?.business_name}
+                placeholder={PLACEHOLDERS[0]}
               />
               <InputRouter
                 name="business_phone"
                 type="text"
                 defaultVal={info?.business_phone}
+                placeholder={PLACEHOLDERS[1]}
               />
             </div>
           </div>
@@ -72,26 +84,31 @@ function ModalEditClient({ modal, setModal, info, client, link }) {
                 name="contact_name"
                 type="text"
                 defaultVal={info?.contact_name}
+                placeholder={PLACEHOLDERS[2]}
               />
               <InputRouter
                 name="contact_middle_name"
                 type="text"
                 defaultVal={info?.contact_middle_name}
+                placeholder={PLACEHOLDERS[3]}
               />
               <InputRouter
                 name="contact_last_name"
                 type="text"
                 defaultVal={info?.contact_last_name}
+                placeholder={PLACEHOLDERS[4]}
               />
               <InputRouter
                 name="contact_phone"
                 type="text"
                 defaultVal={info?.contact_phone}
+                placeholder={PLACEHOLDERS[5]}
               />
               <InputRouter
                 name="contact_email"
                 type="email"
                 defaultVal={info?.contact_email}
+                placeholder={PLACEHOLDERS[6]}
               />
             </div>
           </div>

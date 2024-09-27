@@ -12,18 +12,29 @@ import { Form, redirect, useNavigation, useParams } from "react-router-dom";
 
 const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
   const navigation = useNavigation();
-  const { id } = useParams();
 
-  const [store, setStore] = useState(storeDetail);
+  const [store, setStore] = useState(
+    {
+      id: storeDetail?.id,
+      store_code: storeDetail?.store_code,
+      name: storeDetail?.name,
+      inventory_id: storeDetail?.inventory?.value,
+      cost_center_id: storeDetail?.cost_center?.value,
+      price_list_id: storeDetail?.price_list?.value,
+    }
+  );
 
-  const changeValue = (value, data) => {
-
+  const handleInputChange = (value, name) => {
+    setStore((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
     <Form
       className="flex h-full w-full flex-col px-6 py-4"
-      action={`/inventory/branch-points-sale/edit/${id}`}
+      action={`/inventory/branch-points-sale/edit/${store?.id}`}
       method="post"
     >
       <div className="overflow-auto">
@@ -38,8 +49,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
               hidden
               readOnly
               name="store_id"
-              // value={store.id}
-              value={id}
+              value={store.id}
             />
             <input
               type="text"
@@ -55,8 +65,8 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
               type="text"
               placeholder={"Código de Sucursal"}
               required={true}
-              // value={store.store_code}
-              // onChange={(e) => updateValue("store_code", e)}
+              value={store.store_code}
+              onChange={(e) => handleInputChange(e.target.value, "store_code")}
             />
           </div>
           <div className="col-span-8">
@@ -66,15 +76,20 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
               type="text"
               placeholder={"Nombre o Descripción"}
               required={true}
-              // value={store.name}
-              // onChange={(e) => updateValue("name", e)}
-              />
+              value={store.name}
+              onChange={(e) => handleInputChange(e.target.value, "name")}
+            />
           </div>
           <div className="col-span-12">
             <p className="mb-1 text-[10px] font-normal text-grisText">
               Almacén
             </p>
-            <Select name="inventory_id" required={true}>
+            <Select
+              name="inventory_id"
+              required={true}
+              value={String(store?.inventory_id)}
+              onValueChange={(e) => handleInputChange(e, "inventory_id")}
+            >
               <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7586B] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
@@ -92,7 +107,11 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
               Centro de Costos
             </p>
 
-            <Select name="cost_center_id">
+            <Select
+              name="cost_center_id"
+              value={String(store?.cost_center_id)}
+              onValueChange={(e) => handleInputChange(e, "cost_center_id")}
+            >
               <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
@@ -110,7 +129,11 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
               Lista de Precios
             </p>
 
-            <Select name="price_list_id">
+            <Select
+              name="price_list_id"
+              value={String(store?.price_list_id)}
+              onValueChange={(e) => handleInputChange(e, "price_list_id")}
+            >
               <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
@@ -127,7 +150,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

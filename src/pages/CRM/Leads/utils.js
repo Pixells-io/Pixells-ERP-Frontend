@@ -294,7 +294,7 @@ export async function editLeadForm(data) {
     },
   );
 
-  return response;
+  return response.json();
 }
 
 export async function addCommentLead(data) {
@@ -334,5 +334,5 @@ export async function editStatusLead(data) {
     },
   );
 
-  return response;
+  return response.json();
 }

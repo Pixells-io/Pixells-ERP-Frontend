@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import EntrySlotModal from "../Modal/SlotsModal";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const TableForm = ({
   products,
@@ -38,11 +39,35 @@ const TableForm = ({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 10;
 
   const handleOpenModal = (row) => {
-    setSelectedRow(row);
-    setIsModalOpen(true);
+    if (row.isBatchManagementChecked) {
+      const selectedProduct = products.find(
+        (product) => product.id.toString() === row.articleNumber.toString()
+      );
+      
+      setSelectedRow({
+        ...row,
+        description: selectedProduct ? selectedProduct.name : "Producto no encontrado",
+      });
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCheckboxChange = (rowIndex) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              isBatchManagementChecked: !item.isBatchManagementChecked,
+              hideReceivedAndLocation: !item.isBatchManagementChecked // Agregar control de visibilidad
+            }
+          : item
+      )
+    );
   };
 
   const handleCloseModal = () => {
@@ -55,10 +80,11 @@ const TableForm = ({
       prevData.map((item) =>
         item.idAux === selectedRow.idAux
           ? { ...item, batches: updatedBatches }
-          : item,
-      ),
+          : item
+      )
     );
   };
+
   const handleAddRow = (e) => {
     e.preventDefault();
     const newRow = {
@@ -66,7 +92,7 @@ const TableForm = ({
       type: 1,
       articleNumber: "",
       variation: 0,
-      variation_id:0,
+      variation_id: 0,
       description: "",
       eQuantity: "",
       receivedQuantity: "",
@@ -74,6 +100,8 @@ const TableForm = ({
       total: "",
       batches: [],
       ubication_id: null,
+      isBatchManagementChecked: false,
+      hideReceivedAndLocation: false, // Control de visibilidad por defecto
     };
     setTableData((prevData) => [...prevData, newRow]);
   };
@@ -81,16 +109,13 @@ const TableForm = ({
   const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
     setTableData((prevData) => {
       const newData = prevData.map((item, index) =>
-        index === rowIndex ? { ...item, [accessorKey]: value } : item,
+        index === rowIndex ? { ...item, [accessorKey]: value } : item
       );
 
-      if (accessorKey === "unitPrice") {
-        const unitPrice = newData[rowIndex].unitPrice || 0;
-        newData[rowIndex].total = unitPrice * value; // Update total
-      }
-      if (accessorKey === "receivedQuantity") {
-        const unitPrice = newData[rowIndex].unitPrice || 0;
-        newData[rowIndex].total = unitPrice * value; // Update total
+      if (accessorKey === "unitPrice" || accessorKey === "receivedQuantity") {
+        const unitPrice = parseFloat(newData[rowIndex].unitPrice) || 0;
+        const receivedQuantity = parseFloat(newData[rowIndex].receivedQuantity) || 0;
+        newData[rowIndex].total = (unitPrice * receivedQuantity).toFixed(2);
       }
       return newData;
     });
@@ -101,7 +126,7 @@ const TableForm = ({
       const newData = [...prevData];
       if (field === "description") {
         const selectedProduct = products.find(
-          (product) => product.id.toString() === value,
+          (product) => product.id.toString() === value
         );
         if (selectedProduct) {
           newData[rowIndex] = {
@@ -111,7 +136,7 @@ const TableForm = ({
             variation: 0,
             description: selectedProduct.name,
             unitPrice: selectedProduct.price,
-            total: selectedProduct.price * newData[rowIndex].receivedQuantity, // Calculate total if needed
+            total: (selectedProduct.price * newData[rowIndex].receivedQuantity).toFixed(2),
           };
         }
       }
@@ -127,13 +152,13 @@ const TableForm = ({
               ...item,
               ubication_id: data,
             }
-          : item,
-      ),
+          : item
+      )
     );
   }, []);
 
   const deleteRowId = (id) => {
-    if (tableData.length == 1) return;
+    if (tableData.length === 1) return;
     const auxRowDelete = tableData.filter((row) => row.idAux !== id);
     setTableData(auxRowDelete);
   };
@@ -191,71 +216,60 @@ const TableForm = ({
       {
         accessorKey: "expectedQuantity",
         header: "Cantidad esperada",
-        cell: ({ row, rowIndex }) => <div>{row?.eQuantity}</div>,
+        cell: ({ row }) => <div>{row?.eQuantity}</div>,
+      },
+      {
+        accessorKey: "batchManagement",
+        header: "Gestionar por lotes",
+        cell: ({ row, rowIndex }) => (
+          <Checkbox
+            checked={row.isBatchManagementChecked}
+            onCheckedChange={() => handleCheckboxChange(rowIndex)}
+          />
+        ),
       },
       {
         accessorKey: "receivedQuantity",
         header: "Recibido",
         cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
-              row?.eQuantity == row?.receivedQuantity
-                ? "text-[#00A259]"
-                : "text-[#D7586B]"
-            }`}
-            name={`received-quantity-${rowIndex}`}
-            value={row?.receivedQuantity}
-            min={"0"}
-            step={"0.01"}
-            placeholder="Ingrese"
-            onChange={(e) =>
-              handleInputChange(rowIndex, "receivedQuantity", e.target.value)
-            }
-            disabled={!isEditable}
-          />
+          !row.hideReceivedAndLocation && (
+            <Input
+              type="number"
+              className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
+                row?.eQuantity == row?.receivedQuantity
+                  ? "text-[#00A259]"
+                  : "text-[#D7586B]"
+              }`}
+              name={`received-quantity-${rowIndex}`}
+              value={row?.receivedQuantity}
+              min={"0"}
+              step={"0.01"}
+              placeholder="Ingrese"
+              onChange={(e) =>
+                handleInputChange(rowIndex, "receivedQuantity", e.target.value)
+              }
+              disabled={!isEditable}
+            />
+          )
         ),
       },
-      {
-        accessorKey: "unitPrice",
-        header: "Precio Unitario",
-        cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones"
-            name={`cost-subProduct-${rowIndex}`}
-            min={"0"}
-            step={"0.01"}
-            value={row?.unitPrice}
-            placeholder="Ingrese"
-            onChange={(e) =>
-              handleInputChange(rowIndex, "unitPrice", e.target.value)
-            }
-            disabled={!isEditable}
-          />
-        ),
-      },
-      {
-        accessorKey: "total",
-        header: "Total",
-        cell: ({ row, rowIndex }) => <div>{row.total}</div>,
-      },
-      {
+       {
         accessorKey: "slots",
         header: "Lotes",
         cell: ({ row }) => (
-          <div>
+          row.hideReceivedAndLocation && (    <div>
             <button
               onClick={() => handleOpenModal(row)}
               className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
+              disabled={!row.isBatchManagementChecked}
             >
               Gestionar
             </button>
-            {isModalOpen && selectedRow && (
+            {isModalOpen && selectedRow && selectedRow.isBatchManagementChecked && (
               <EntrySlotModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                products={products}
+                description={selectedRow.description}
                 productData={selectedRow}
                 lotData={selectedRow}
                 assignmentData={selectedRow.batches}
@@ -263,55 +277,59 @@ const TableForm = ({
                 location={locations}
               />
             )}
-          </div>
+          </div>)
         ),
       },
       {
         accessorKey: "ubication_id",
         header: "Ubicación",
         cell: ({ row, rowIndex }) => (
-          <div className="flex items-center justify-between gap-x-2">
-            <Select
-              name={`selectComponent-ubication-${rowIndex}`}
-              className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
-              onValueChange={(value) => handleDataInRow(value, rowIndex)}
-              value={row?.ubication_id}
-              disabled={!isEditable}
-            >
-              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Ubicación" />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.isArray(locations) &&
-                  locations.map((location) => (
-                    <SelectItem
-                      key={location.id}
-                      value={location.id.toString()}
-                    >
-                      {location.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-            {isEditable && (
-              <button type="button" onClick={() => deleteRowId(row.idAux)}>
-                <IonIcon
-                  icon={closeCircle}
-                  size="small"
-                  className="cursor-pointer text-grisDisabled"
-                ></IonIcon>
-              </button>
-            )}
-          </div>
+          !row.hideReceivedAndLocation && (
+            <div className="flex items-center justify-between gap-x-2">
+              <Select
+                name={`selectComponent-ubication-${rowIndex}`}
+                className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+                onValueChange={(value) => handleDataInRow(value, rowIndex)}
+                value={row?.ubication_id}
+                disabled={!isEditable}
+              >
+                <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                  <SelectValue placeholder="Ubicación" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.isArray(locations) &&
+                    locations.map((location) => (
+                      <SelectItem
+                        key={location.id}
+                        value={location.id.toString()}
+                      >
+                        {location.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              {isEditable && (
+                <button type="button" onClick={() => deleteRowId(row.idAux)}>
+                  <IonIcon
+                    icon={closeCircle}
+                    size="small"
+                    className="cursor-pointer text-grisDisabled"
+                  ></IonIcon>
+                </button>
+              )}
+            </div>
+          )
         ),
       },
+     
     ],
-    [handleInputChange, deleteRowId, isEditable, handleOpenModal],
+    [handleInputChange, deleteRowId, isEditable, handleOpenModal, handleCheckboxChange, handleDataInRow]
   );
+
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const handleNextPage = () => {
@@ -321,10 +339,9 @@ const TableForm = ({
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="mb-2 h-[500px] overflow-auto rounded-xl">
+    <div className="flex mb-2 flex-col h-[400px] rounded-xl">
       <div className="">
         <Table>
           <TableHeader>
@@ -337,14 +354,14 @@ const TableForm = ({
           <TableBody>
             {paginatedData.map((row, rowIndex) => (
               <TableRow
-                key={row.idAux}  //idAux sea único
+                key={row.idAux}
                 className="text-sm font-normal text-[#44444F]"
               >
                 {columns.map((column) => (
                   <TableCell key={column.accessorKey}>
                     {column.cell({
                       row,
-                      rowIndex: rowIndex, 
+                      rowIndex: (currentPage - 1) * itemsPerPage + rowIndex,
                     })}
                   </TableCell>
                 ))}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
 import FormGroup from "../Components/FormGroup";
@@ -29,7 +30,8 @@ import {
   getSupplierById,
 } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
-
+import NavigationHeader from "@/components/navigation-header";
+import Summary from "../Components/Summary";
 const EditSupplier = () => {
   const { data } = useLoaderData();
   const navigation = useNavigation();
@@ -123,33 +125,12 @@ const EditSupplier = () => {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-
-          <div className="font-roboto text-sm text-grisText">
-            <div>Shopping - General</div>
-          </div>
-        </div>
+        <NavigationHeader/>
 
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
             COMPRAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -159,74 +140,111 @@ const EditSupplier = () => {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Proveedor: {supplier.fiscal_name}
-          </p>
-          <div className="flex items-end justify-end">
-            <Link to="/shopping">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-              >
-                <IonIcon
-                  icon={closeCircle}
-                  size="small"
-                  className="cursor-pointer text-grisDisabled"
-                />
-              </Button>
-            </Link>
-          </div>
-        </div>
-        {/*content */}
-        <div className="w-full space-y-4 overflow-auto">
-          <Form
-            id="form-supplier"
-            action={"/shopping/supplier/edit/" + supplier.id}
-            method="post"
-          >
-            <input
-              type="hidden"
-              hidden
-              name="supplier_id"
-              value={supplier.id}
-            />
-            <input
-              type="hidden"
-              hidden
-              name="type"
-              value={"supplierPrincipal"}
-            />
-
-            <InputsGroup
-              fields={supplierFields}
-              initialValues={supplierValues}
-              id={supplier.id}
-            />
-          </Form>
-          <FormGroup data={supplier} isDisabled={false} />
-        </div>
-        <Form
-          id="form-supplier"
-          action={"/shopping/supplier/edit/" + supplier.id}
-          method="post"
+        <Tabs
+          defaultValue="information"
+          className="h-full overflow-auto rounded-lg pt-2"
         >
-          <input type="hidden" hidden name="supplier_id" value={supplier.id} />
-          <input type="hidden" hidden name="type" value={"destroy_supplier"} />
+          <div className="flex justify-between">
+            <p className="text-xl mt-1 font-poppins font-bold text-grisHeading">
+              Proveedor: {supplier.fiscal_name}
+            </p>
+            <div className="flex justify-end gap-6">
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+              <TabsTrigger
+                  value="information"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Información
+                </TabsTrigger>
+                <TabsTrigger
+                  value="summary"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Resumen
+                </TabsTrigger>
+              </TabsList>
+              <Link to="/shopping">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+                >
+                  <IonIcon
+                    icon={closeCircle}
+                    size="small"
+                    className="cursor-pointer text-grisDisabled"
+                  />
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <TabsContent value="information" className="rounded-md  p-2">
+            <div className="w-full space-y-4 overflow-auto">
+              <Form
+                id="form-supplier"
+                action={"/shopping/supplier/edit/" + supplier.id}
+                method="post"
+              >
+                <input
+                  type="hidden"
+                  hidden
+                  name="supplier_id"
+                  value={supplier.id}
+                />
+                <input
+                  type="hidden"
+                  hidden
+                  name="type"
+                  value={"supplierPrincipal"}
+                />
 
-          <Button
-            type="submit"
-            className="w-[150px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
-            disabled={navigation.state === "submitting"}
+                <InputsGroup
+                  fields={supplierFields}
+                  initialValues={supplierValues}
+                  id={supplier.id}
+                />
+              </Form>
+              <FormGroup data={supplier} isDisabled={false} />
+            </div>
+            <Form
+              id="form-supplier"
+              action={"/shopping/supplier/edit/" + supplier.id}
+              method="post"
+            >
+              <input
+                type="hidden"
+                hidden
+                name="supplier_id"
+                value={supplier.id}
+              />
+              <input
+                type="hidden"
+                hidden
+                name="type"
+                value={"destroy_supplier"}
+              />
+
+              <Button
+                type="submit"
+                className="w-[150px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
+                disabled={navigation.state === "submitting"}
+              >
+                <span className="font-roboto text-[14px] text-[#D7586B]">
+                  {navigation.state === "submitting"
+                    ? "Submitting..."
+                    : "Eliminar Proveedor"}
+                </span>
+              </Button>
+            </Form>
+          </TabsContent>
+          <TabsContent
+            value="summary"
+            className=" rounded-md p-2"
           >
-            <span className="font-roboto text-[14px] text-[#D7586B]">
-              {navigation.state === "submitting"
-                ? "Submitting..."
-                : "Eliminar Proveedor"}
-            </span>
-          </Button>
-        </Form>
+            <Summary/>
+            
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

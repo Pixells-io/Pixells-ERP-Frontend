@@ -5,13 +5,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
-import { createGeneralBranchTab, updatePrincipalBranchTab } from "../../utils";
+import {
+  createCashBoxesBranchTab,
+  createGeneralBranchTab,
+  createUsersBranchTab,
+  destroyCashBoxesBranchTab,
+  updateCashBoxesBranchTab,
+  updateGeneralBranchTab,
+  updatePrincipalBranchTab,
+} from "../../utils";
 import UserTab from "./Tabs/UserTab";
-import CashBoxTab from "./Tabs/CashBoxTab";
+import CashBoxTab from "./Tabs/CashBoxTab/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
+import AccountingTab from "./Tabs/AccountingTab";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList, storeDetail, users } = useLoaderData();
+  const { whareHouses, costCenter, priceList, storeDetail, users, positions } =
+    useLoaderData();
 
   const tabOptions = [
     {
@@ -120,7 +130,7 @@ const EditBranch = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-          Nueva Sucursal
+            Nueva Sucursal
           </p>
         </div>
 
@@ -185,16 +195,31 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
-              <GeneralTab />
+              <GeneralTab
+                informationDetails={storeDetail?.data?.information}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="users" className="w-full">
-              <UserTab users={users.data} />
+              <UserTab
+                users={users.data}
+                usersRegister={storeDetail?.data?.users}
+                cashBoxes={storeDetail?.data?.pos}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
-              <CashBoxTab />
+              <CashBoxTab
+                cashBoxes={storeDetail?.data?.pos}
+                positions={positions.data}
+                store_id={storeDetail?.data?.id}
+              />
             </TabsContent>
             <TabsContent value="payment" className="w-full">
               <PaymentTab />
+            </TabsContent>
+            <TabsContent value="accounting" className="w-full">
+              <AccountingTab store_id={storeDetail?.data?.id} />
             </TabsContent>
           </Tabs>
         </div>
@@ -213,8 +238,24 @@ export async function Action({ request }) {
     case "update_principalBranchTab":
       await updatePrincipalBranchTab(data);
       break;
-    case "create_generalBranchTab":
-      await createGeneralBranchTab(data);
+    case "generalBranchTab":
+      if (!!data.get("info_id")) {
+        await updateGeneralBranchTab(data);
+      } else {
+        await createGeneralBranchTab(data);
+      }
+      break;
+    case "createUsersBranchTab":
+      await createUsersBranchTab(data);
+      break;
+    case "createCashBoxBranchTab":
+      await createCashBoxesBranchTab(data);
+      break;
+    case "updateCashBoxBranchTab":
+      await updateCashBoxesBranchTab(data);
+      break;
+    case "destroyCashBoxBranchTab":
+      await destroyCashBoxesBranchTab(data);
       break;
   }
   return "1";
