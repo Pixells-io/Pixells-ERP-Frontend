@@ -51,7 +51,7 @@ const statusStyles = {
 
 const ShoppingTable = () => {
   return (
-    <>
+    <div className="lg:h-60">
       <Table>
         <TableHeader>
           <TableRow className="border-b border-[#44444F]">
@@ -109,7 +109,7 @@ const ShoppingTable = () => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 };
 

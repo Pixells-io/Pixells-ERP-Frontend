@@ -24,7 +24,7 @@ const SaldoData = [
 ];
 const BalanceTable = () => {
   return (
-    <div className="w-full  max-w-2xl">
+    <div className="w-full lg:h-60 max-w-2xl">
       <Tabs
         defaultValue="shopping"
         className=" w-full"
