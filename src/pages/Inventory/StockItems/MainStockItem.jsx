@@ -5,6 +5,7 @@ import { StockItemColumns } from "./Table/StockItemColumns";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { WarehouseColumns } from "./Table/WarehouseColumns";
 
 function MainStockItem() {
   //datos de prueba --------------------------
@@ -115,7 +116,7 @@ function MainStockItem() {
           >
              <DataTable
           data={data}
-          columns={StockItemColumns}
+          columns={WarehouseColumns}
           searchNameFilter={"Nombre"}
           searchFilter={"name"}
           isCheckAll={false}
