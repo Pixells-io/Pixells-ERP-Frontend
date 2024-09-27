@@ -13,15 +13,9 @@ const OrderTable = ({
   selectedCondicionPago,
   setSelectedCondicionPago,
   isEditable,
+  suppliers,
 }) => {
   const navigate = useNavigate();
-
-  const proveedorOptions = [
-    { value: "newProvider", label: "Nuevo proveedor"},
-    { value: "1", label: "Proveedor 1" },
-    { value: "2", label: "Proveedor 2" },
-    { value: "3", label: "Proveedor 3" },
-  ];
 
   const fechaDocOptions = [
     { value: "fecha1", label: "Fecha 1" },
@@ -41,26 +35,24 @@ const OrderTable = ({
     { value: "3", label: "Condición 3" },
   ];
 
- 
   const disabledClass = "opacity-50 cursor-not-allowed";
   const enabledClass = "opacity-100 cursor-pointer";
 
   const handleRedirectNewProvider = (v) => {
-    if(v == "newProvider"){
+    if (v == "newProvider") {
       navigate("/shopping/supplier/create");
-
     } else {
       setSelectedProveedor(v);
     }
   };
 
   return (
-    <div className="flex pt-4 justify-between space-x-3">
+    <div className="flex justify-between space-x-3 pt-4">
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <SelectField
           name="supplier_id"
           placeholder="Seleccionar Proveedor"
-          options={proveedorOptions}
+          options={suppliers}
           value={selectedProveedor}
           onValueChange={isEditable ? handleRedirectNewProvider : () => {}}
           className={!isEditable ? disabledClass : ""}
@@ -107,4 +99,3 @@ const OrderTable = ({
 };
 
 export default OrderTable;
-

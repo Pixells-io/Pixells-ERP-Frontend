@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Components/Header";
 import CardCarousel from "./Components/CardCarousel";
 import { getProducts, saveNewQuoteOrder } from "../../utils";
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import InputsGroup from "./Components/ElementGroup";
 import OrderTable from "./Components/OrderFom";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
@@ -20,14 +20,11 @@ const CreateQuoteOrder = () => {
 
   const getTitle = "Nueva Cotización";
 
-  useEffect(() => {
-    getAllProducts();
-  }, []);
+  const { data } = useLoaderData();
 
-  const getAllProducts = async () => {
-    const response = await getProducts();
-    setAllProducts(response.data);
-  };
+  useEffect(() => {
+    setAllProducts(data.products);
+  }, []);
 
   return (
     <div className="flex w-full">
@@ -51,11 +48,13 @@ const CreateQuoteOrder = () => {
                 selectedCostCenter={selectedCostCenter}
                 setSelectedCostCenter={setSelectedCostCenter}
                 isEditable={true}
+                infoSelects={data}
               />
               <OrderTable
                 selectedProveedor={selectedProveedor}
                 setSelectedProveedor={setSelectedProveedor}
                 isEditable={true}
+                suppliers={data.suppliers}
               />
             </div>
 

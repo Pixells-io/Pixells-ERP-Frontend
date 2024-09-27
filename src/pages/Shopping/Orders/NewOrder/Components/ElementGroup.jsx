@@ -16,9 +16,10 @@ const InputsGroup = ({
   selectedCostCenter,
   setSelectedCostCenter,
   isEditable,
+  infoSelects,
 }) => {
-  const handleWarehouseChange = (value) => {
-    if (isEditable) setSelectedWarehouse(value);
+  const handleWarehouseChange = (name, value) => {
+    setSelectedWarehouse((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleCostCenterChange = (value) => {
@@ -36,11 +37,12 @@ const InputsGroup = ({
         disabled={!isEditable}
         required={true}
       />
+
       <div className="w-full">
         <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
         <Select
           value={selectedWarehouse}
-          onValueChange={handleWarehouseChange}
+          onValueChange={(value) => handleWarehouseChange("inventario", value)}
           disabled={!isEditable}
           name="inventory_id"
           required={true}
@@ -49,9 +51,11 @@ const InputsGroup = ({
             <SelectValue placeholder="Seleccionar Almacén" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="1">Almacén Central</SelectItem>
-            <SelectItem value="2">Almacén Norte</SelectItem>
-            <SelectItem value="3">Almacén Sur</SelectItem>
+            {infoSelects.inventories.map((inventory, i) => (
+              <SelectItem value={inventory.value} key={i}>
+                {inventory.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -73,9 +77,11 @@ const InputsGroup = ({
             <SelectValue placeholder="Seleccionar Centro de Costos" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="cc1">Centro de Costos 001</SelectItem>
-            <SelectItem value="cc2">Centro de Costos 002</SelectItem>
-            <SelectItem value="cc3">Centro de Costos 003</SelectItem>
+            {infoSelects.cost_center.map((cost_center, i) => (
+              <SelectItem value={cost_center.value} key={i}>
+                {cost_center.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
