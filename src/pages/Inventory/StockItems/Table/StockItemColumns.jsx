@@ -1,8 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircleOutline  } from "ionicons/icons";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export const StockItemColumns = [
   {
@@ -72,14 +73,19 @@ export const StockItemColumns = [
     id: "acciones",
     header: "Acciones",
     cell: ({ row }) => (
-      <Link
-        to={
-          "/inventory/stock-items/" + row?.original?.id
-        }
-        className="flex w-full items-center justify-center"
-      >
-        <IonIcon icon={informationCircle} className="text-gris2 h-6 w-6" />
-      </Link>
+      <div className="flex items-center">
+         <Link to={`/inventory/stock-items/product/edit/${row.original.id}`}>
+            <Button
+              type="button"
+              className="flex h-5 w-5 justify-center items-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
+          </Link>
+      </div>
     ),
   },
 ];

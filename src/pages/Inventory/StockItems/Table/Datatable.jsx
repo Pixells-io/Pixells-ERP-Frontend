@@ -27,7 +27,7 @@ const DataTable = ({ columns, data }) => {
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} >
+            <TableRow key={headerGroup.id} className={"border-b border-[#44444F]"}>
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id} >

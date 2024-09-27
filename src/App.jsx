@@ -1250,7 +1250,7 @@ const router = createBrowserRouter([
             element: <MainStockItem />,
           },
           {
-            path: "/inventory/stock-items/:id",
+            path: "/inventory/stock-items/product/edit/:id",
             element: <StockWarehouse />,
           },
           {

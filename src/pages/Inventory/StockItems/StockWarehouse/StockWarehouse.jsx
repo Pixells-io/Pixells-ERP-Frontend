@@ -1,7 +1,6 @@
 import React from "react";
-
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import NavigationHeader from "@/components/navigation-header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "../Table/Datatable";
 import { StockWarehouseColumns } from "../Table/StockWarehouseColumns";
 
@@ -11,7 +10,7 @@ const data = [
     warehouseName: "Guadalajara",
     inStock: 54,
     committed: 10,
-    order: "",
+    order: 0,
     available: 44,
     ctotal: 5436,
   },
@@ -19,10 +18,11 @@ const data = [
     warehouseCode: "02",
     warehouseName: "Monterrey",
     inStock: 2,
-    committed: "",
+    committed: 0,
     order: 15,
     available: 17,
     ctotal: "",
+    variable:2
   },
 ];
 
@@ -31,97 +31,58 @@ function StockWarehouse() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
-              INVENTARIO
-            </h2>
-          </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
+            INVENTARIO
+          </h2>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-
-        <div>
-          <p className="font-poppins text-xl font-bold text-grisHeading">
-            Aceite de Girasol
-          </p>
-        </div>
-
-        <div className="rounded-xl bg-blancoBg p-4">
-          <p className="text-md font-poppins font-medium text-grisHeading">
-            General
-          </p>
-          <div className="grid max-w-[300px] grid-cols-3 content-center gap-y-4 p-4">
-            <div>
-              <label className="text-xs font-light text-grisText">COSTO</label>
+        <Tabs
+          defaultValue="stock"
+          className="h-full overflow-auto rounded-lg pt-2"
+        >
+          <div className="flex justify-between">
+            <div className="flex justify-between">
+              <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
+                Stock General
+              </p>
             </div>
-            <div className="col-span-2">
-              <label className="text-md font-poppins font-medium">
-                $300.00
-              </label>
-            </div>
-            <div>
-              <label className="text-xs font-light text-grisText">PRECIO</label>
-            </div>
-            <div className="col-span-2">
-              <label className="text-md font-poppins font-medium">
-                $450.00
-              </label>
-            </div>
-            <div>
-              <label className="text-xs font-light text-grisText">
-                DISPONIBLE
-              </label>
-            </div>
-            <div className="col-span-2">
-              <label className="text-md font-poppins font-medium">
-                120 UNIDADES
-              </label>
-            </div>
-            <div>
-              <label className="text-xs font-light text-grisText">
-                PENDIENTE
-              </label>
-            </div>
-            <div className="col-span-2">
-              <label className="text-md font-poppins font-medium">
-                60 UNIDADES
-              </label>
+            <div className="flex justify-end gap-6">
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+                <TabsTrigger
+                  value="stock"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Stock
+                </TabsTrigger>
+                <TabsTrigger
+                  value="summary"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                >
+                  Resumen
+                </TabsTrigger>
+              </TabsList>
             </div>
           </div>
-        </div>
-
-        <div className="overflow-auto rounded-xl bg-blancoBg p-6">
-          <p className="text-md font-poppins font-medium text-grisHeading">
-            STOCK POR ALMACEN
-          </p>
-          <DataTable data={data} columns={StockWarehouseColumns} />
-        </div>
+          <TabsContent value="stock" className="rounded-md p-2">
+            <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
+              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+                <span className="font-poppins text-lg font-medium text-[#44444F]">
+                  ALMACENES POR ARTÍCULO
+                </span>
+               
+              </div>
+              <DataTable data={data} columns={StockWarehouseColumns} />
+            </div>
+          </TabsContent>
+          <TabsContent value="summary" className="rounded-md p-2"></TabsContent>
+        </Tabs>
       </div>
     </div>
   );
