@@ -18,8 +18,8 @@ const InputsGroup = ({
   isEditable,
   infoSelects,
 }) => {
-  const handleWarehouseChange = (value) => {
-    if (isEditable) setSelectedWarehouse(value);
+  const handleWarehouseChange = (name, value) => {
+    setSelectedWarehouse((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleCostCenterChange = (value) => {
@@ -41,7 +41,7 @@ const InputsGroup = ({
         <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
         <Select
           value={selectedWarehouse}
-          onValueChange={handleWarehouseChange}
+          onValueChange={(value) => handleWarehouseChange("Inventario", value)}
           disabled={!isEditable}
           name="inventory_id"
           required={true}
@@ -58,30 +58,6 @@ const InputsGroup = ({
           </SelectContent>
         </Select>
       </div>
-
-      {/* Categoría
-            <div className="flex flex-col">
-            <p className="mb-1 text-[10px] font-normal text-grisText">
-              Categoría
-            </p>
-            <Select
-              name="categoria"
-              value={inputsData?.categoria || ""}
-              onValueChange={(value) => handleSelectChange("categoria", value)}
-            >
-              <SelectTrigger className={selectClasses}>
-                <SelectValue placeholder="Seleccionar" />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.isArray(categories?.data) &&
-                  categories?.data.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-          </div> */}
 
       <div className="w-full">
         <p className="mb-1 text-[10px] font-normal text-grisText">
