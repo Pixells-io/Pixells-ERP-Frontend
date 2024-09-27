@@ -7,6 +7,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import InputForm from "@/components/InputForm/InputForm";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const InputsGroup = ({
   documentNumber,
@@ -39,8 +40,17 @@ const InputsGroup = ({
       />
 
       <div className="w-full">
-        <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
-        <Select
+        <SelectRouter
+          name="inventory_id"
+          options={infoSelects.inventories}
+          placeholder="Almacén"
+          onChange={handleWarehouseChange}
+          value={selectedWarehouse}
+          disabled={!isEditable}
+          required={true}
+        />
+        {/* <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p> */}
+        {/* <Select
           value={String(selectedWarehouse)}
           onValueChange={handleWarehouseChange}
           disabled={!isEditable}
@@ -57,11 +67,20 @@ const InputsGroup = ({
               </SelectItem>
             ))}
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
 
       <div className="w-full">
-        <p className="mb-1 text-[10px] font-normal text-grisText">
+        <SelectRouter
+          name="ccenter"
+          options={infoSelects.cost_center}
+          placeholder="Centro de Costos"
+          onChange={handleCostCenterChange}
+          value={selectedCostCenter}
+          disabled={!isEditable}
+          required={true}
+        />
+        {/* <p className="mb-1 text-[10px] font-normal text-grisText">
           Centro de Costos
         </p>
         <Select
@@ -83,7 +102,7 @@ const InputsGroup = ({
               </SelectItem>
             ))}
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
     </div>
   );
