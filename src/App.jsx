@@ -355,7 +355,10 @@ import {
   getWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
-import { getCatalogs, multiLoaderMovements } from "./pages/Inventory/MerchandiseMovements/utils";
+import {
+  getCatalogs,
+  multiLoaderMovements,
+} from "./pages/Inventory/MerchandiseMovements/utils";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
 import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
@@ -370,12 +373,21 @@ import ViewPL, {
   Action as deletePriceList,
 } from "./pages/Inventory/PriceList/ReadPriceList/ReadPriceList";
 import { multiloaderInventory } from "./pages/Inventory/General/utils";
-import { getBaseList, getList, multiloaderList, multiloaderListBase } from "./pages/Inventory/PriceList/utils";
+import {
+  getBaseList,
+  getList,
+  multiloaderList,
+  multiloaderListBase,
+} from "./pages/Inventory/PriceList/utils";
 import MainBranchPointSale from "./pages/Inventory/BranchPointSale/MainBranchPointSale/MainBranchPointSale";
 import NewBranch, {
   Action as SaveBranchPointSale,
 } from "./pages/Inventory/BranchPointSale/MainBranchPointSale/New/NewBranch";
-import { multiLoaderBranchPointsSale, multiLoaderListBranch, multiLoaderListBranchDetails } from "./pages/Inventory/BranchPointSale/utils";
+import {
+  multiLoaderBranchPointsSale,
+  multiLoaderListBranch,
+  multiLoaderListBranchDetails,
+} from "./pages/Inventory/BranchPointSale/utils";
 import EditBranch, {
   Action as MultiActionBranchDetails,
 } from "./pages/Inventory/BranchPointSale/MainBranchPointSale/Edit/EditBranch";
@@ -445,6 +457,7 @@ import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
 import {
+  getProducts,
   getPurchase,
   getPurchases,
   getQuoteOrder,
@@ -470,7 +483,9 @@ import SideLayoutTopics, {
 } from "./layouts/Topics/SideLayoutTopics";
 import MainTopics, { Action as ActionTopic } from "./pages/Topics/MainTopics";
 import { Toaster } from "./components/ui/toaster";
-import NewEntry,{Action as SaveMovement} from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
+import NewEntry, {
+  Action as SaveMovement,
+} from "./pages/Inventory/MerchandiseMovements/Entry/New/NewEntry";
 import MerchandiseMovRecord from "./pages/Inventory/MerchandiseMovements/Entry/Records/MerchandiseMovRecord";
 import NewEgress from "./pages/Inventory/MerchandiseMovements/Egress/New/NewEgress";
 import MerchandiseMovRecordEgress from "./pages/Inventory/MerchandiseMovements/Egress/Records/MerchandiseMovRecordEgress";
@@ -495,7 +510,6 @@ import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
 import { getCatalogsTransformation } from "./pages/Transformation/utils";
-
 
 const router = createBrowserRouter([
   {
@@ -1171,13 +1185,12 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
-           
           },
           {
             path: "/inventory/merchandise-movements/entry/new",
             element: <NewEntry />,
-            loader:multiLoaderMovements,
-            action:SaveMovement
+            loader: multiLoaderMovements,
+            action: SaveMovement,
           },
           {
             path: "/inventory/merchandise-movements/entry/record/:id",
@@ -1256,7 +1269,7 @@ const router = createBrowserRouter([
             element: <EditBranch />,
             loader: multiLoaderListBranchDetails,
             action: MultiActionBranchDetails,
-          }
+          },
         ],
       },
       //Sales
@@ -1411,6 +1424,7 @@ const router = createBrowserRouter([
             path: "/shopping/quotes-orders/create",
             element: <CreateQuoteOrder />,
             action: createQuotesOrder,
+            loader: getProducts,
           },
           {
             path: "/shopping/quotes-orders/edit/:id",
