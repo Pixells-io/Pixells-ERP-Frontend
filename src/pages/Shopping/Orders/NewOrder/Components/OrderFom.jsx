@@ -97,7 +97,7 @@ const OrderTable = ({
         <SelectRouter
           name="payment_condition"
           options={condicionPagoOptions}
-          placeholder="Proveedor"
+          placeholder="Condición de Pago"
           onChange={isEditable ? setSelectedCondicionPago : () => {}}
           value={selectedCondicionPago}
           disabled={!isEditable}
