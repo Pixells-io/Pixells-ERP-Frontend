@@ -41,7 +41,7 @@ const InputsGroup = ({
       <div className="w-full">
         <p className="mb-1 text-[10px] font-normal text-grisText">Almacén</p>
         <Select
-          value={selectedWarehouse}
+          value={String(selectedWarehouse)}
           onValueChange={handleWarehouseChange}
           disabled={!isEditable}
           name="inventory_id"
@@ -52,7 +52,7 @@ const InputsGroup = ({
           </SelectTrigger>
           <SelectContent>
             {infoSelects.inventories.map((inventory, i) => (
-              <SelectItem value={inventory.value} key={i}>
+              <SelectItem value={String(inventory.value)} key={i}>
                 {inventory.label}
               </SelectItem>
             ))}
@@ -65,7 +65,7 @@ const InputsGroup = ({
           Centro de Costos
         </p>
         <Select
-          value={selectedCostCenter}
+          value={String(selectedCostCenter)}
           onValueChange={handleCostCenterChange}
           disabled={!isEditable}
           required={true}
@@ -78,7 +78,7 @@ const InputsGroup = ({
           </SelectTrigger>
           <SelectContent>
             {infoSelects.cost_center.map((cost_center, i) => (
-              <SelectItem value={cost_center.value} key={i}>
+              <SelectItem value={String(cost_center.value)} key={i}>
                 {cost_center.label}
               </SelectItem>
             ))}
