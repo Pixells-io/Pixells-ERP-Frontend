@@ -9,10 +9,12 @@ import {
   createCashBoxesBranchTab,
   createGeneralBranchTab,
   createUsersBranchTab,
+  deleteUserBranchTab,
   destroyCashBoxesBranchTab,
   updateCashBoxesBranchTab,
   updateGeneralBranchTab,
   updatePrincipalBranchTab,
+  updateUserBranchTab,
 } from "../../utils";
 import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab/CashBoxTab";
@@ -247,6 +249,12 @@ export async function Action({ request }) {
       break;
     case "createUsersBranchTab":
       await createUsersBranchTab(data);
+      break;
+    case "updateUserBranchTab":
+      await updateUserBranchTab(data);
+      break;
+    case "destroyUserBranchTab":
+      await deleteUserBranchTab(data);
       break;
     case "createCashBoxBranchTab":
       await createCashBoxesBranchTab(data);

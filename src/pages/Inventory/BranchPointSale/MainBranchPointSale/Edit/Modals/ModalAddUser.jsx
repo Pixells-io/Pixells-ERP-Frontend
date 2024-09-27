@@ -14,9 +14,11 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 function ModalAddUser({ users, store_id }) {
+  const navigation = useNavigation();
+
   const [modal, setModal] = useState(false);
   const [userList, setUserList] = useState([]);
 
@@ -106,8 +108,13 @@ function ModalAddUser({ users, store_id }) {
               >
                 Cancelar
               </Button>
-              <Button className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones">
-                Aceptar
+              <Button
+                className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Aceptar"}
               </Button>
             </div>
           </DialogFooter>
