@@ -239,9 +239,10 @@ const EditSupplier = () => {
           </TabsContent>
           <TabsContent
             value="summary"
-            className="flex w-full h-full rounded-md p-2"
+            className=" rounded-md p-2"
           >
             <Summary/>
+            
           </TabsContent>
         </Tabs>
       </div>
