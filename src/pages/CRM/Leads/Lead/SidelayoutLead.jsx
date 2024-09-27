@@ -237,7 +237,6 @@ export async function Action({ params, request }) {
   switch (action) {
     case "edit-lead":
       const response1 = await editLeadForm(data);
-      console.log(response1);
       return redirect(`/crm/leads/${response1.data}`);
       break;
 
