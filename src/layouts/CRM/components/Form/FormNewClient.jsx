@@ -182,6 +182,7 @@ function FormNewClient({ navigation }) {
                     name={input.name}
                     type={input.type}
                     placeholder={input.placeholder}
+                    required={true}
                   />
                 ))}
               </div>
@@ -198,6 +199,7 @@ function FormNewClient({ navigation }) {
                     name={input.name}
                     type={input.type}
                     placeholder={input.placeholder}
+                    required={true}
                   />
                 ))}
               </div>
@@ -215,6 +217,7 @@ function FormNewClient({ navigation }) {
                   name={input.name}
                   type={input.type}
                   placeholder={input.placeholder}
+                  required={true}
                 />
               ))}
             </div>

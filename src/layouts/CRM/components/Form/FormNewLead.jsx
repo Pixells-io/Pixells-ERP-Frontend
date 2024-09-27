@@ -161,6 +161,7 @@ function FormNewLead({ services, navigation }) {
               options={typeArray}
               placeholder="Type of Oportunity"
               onChange={(e) => setType(e.value)}
+              required={true}
             />
           </div>
 
@@ -184,6 +185,7 @@ function FormNewLead({ services, navigation }) {
                     name={input.name}
                     type={input.type}
                     placeholder={input.placeholder}
+                    required={true}
                   />
                 ))}
               </div>
@@ -200,6 +202,7 @@ function FormNewLead({ services, navigation }) {
                     name={input.name}
                     type={input.type}
                     placeholder={input.placeholder}
+                    required={true}
                   />
                 ))}
               </div>
@@ -217,6 +220,7 @@ function FormNewLead({ services, navigation }) {
                   name={input.name}
                   type={input.type}
                   placeholder={input.placeholder}
+                  required={true}
                 />
               ))}
             </div>
