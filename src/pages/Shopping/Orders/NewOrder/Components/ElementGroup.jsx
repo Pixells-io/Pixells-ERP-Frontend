@@ -59,6 +59,30 @@ const InputsGroup = ({
         </Select>
       </div>
 
+      {/* Categoría
+            <div className="flex flex-col">
+            <p className="mb-1 text-[10px] font-normal text-grisText">
+              Categoría
+            </p>
+            <Select
+              name="categoria"
+              value={inputsData?.categoria || ""}
+              onValueChange={(value) => handleSelectChange("categoria", value)}
+            >
+              <SelectTrigger className={selectClasses}>
+                <SelectValue placeholder="Seleccionar" />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.isArray(categories?.data) &&
+                  categories?.data.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div> */}
+
       <div className="w-full">
         <p className="mb-1 text-[10px] font-normal text-grisText">
           Centro de Costos
