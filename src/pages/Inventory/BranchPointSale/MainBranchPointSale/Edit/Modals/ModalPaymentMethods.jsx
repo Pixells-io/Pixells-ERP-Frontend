@@ -14,18 +14,26 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 
-function ModalPaymentMethods({ setPaymentSelect }) {
+function ModalPaymentMethods({ setPaymentNew }) {
   const [modal, setModal] = useState(false);
-  const [paymentList, setPaymentList] = useState([]);
+  const [paymentList, setPaymentList] = useState({});
 
   const addPayments = () => {
-    setPaymentSelect([...paymentList]);
+    const data = {
+      type: paymentList?.value,
+      label: paymentList?.label,
+      accounting_account_id: "",
+      active: "0",
+      start: "",
+      end: "",
+    };
+    setPaymentNew({ ...data });
     clearData();
   };
 
   const clearData = () => {
     setModal(false);
-    setPaymentList([]);
+    setPaymentList({});
   };
 
   const methods = [
@@ -70,7 +78,7 @@ function ModalPaymentMethods({ setPaymentSelect }) {
           name="payments"
           options={methods}
           placeholder="Buscar"
-          isMulti={true}
+          isMulti={false}
           onChange={(e) => setPaymentList(e)}
         />
         <DialogFooter>

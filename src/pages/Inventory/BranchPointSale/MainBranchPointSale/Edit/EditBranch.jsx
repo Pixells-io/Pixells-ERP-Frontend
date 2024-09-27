@@ -8,6 +8,7 @@ import GeneralTab from "./Tabs/GeneralTab";
 import {
   createCashBoxesBranchTab,
   createGeneralBranchTab,
+  createPaymentBranchTab,
   createUsersBranchTab,
   deleteUserBranchTab,
   destroyCashBoxesBranchTab,
@@ -218,7 +219,7 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="payment" className="w-full">
-              <PaymentTab />
+              <PaymentTab store_id={storeDetail?.data?.id} payments />
             </TabsContent>
             <TabsContent value="accounting" className="w-full">
               <AccountingTab store_id={storeDetail?.data?.id} />
@@ -264,6 +265,9 @@ export async function Action({ request }) {
       break;
     case "destroyCashBoxBranchTab":
       await destroyCashBoxesBranchTab(data);
+      break;
+    case "createPaymentBranchTab":
+      await createPaymentBranchTab(data);
       break;
   }
   return "1";
