@@ -34,23 +34,23 @@ const BalanceTable = () => {
   const balanceEstado = comprasTotal < ventasTotal ? "A FAVOR" : "A PAGAR";
 
   return (
-    <div className="w-full lg:max-w-3xl ">
+    <div className="w-full lg:max-w-3xl">
       <Tabs defaultValue="shopping" className="w-full">
-        <TabsList className="mx-3 flex justify-start rounded-none bg-inherit py-6">
+        <TabsList className="mx-3 flex gap-6 justify-start rounded-none p-0 border-b bg-inherit py-6">
           <TabsTrigger
-            className="border-b-none rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            className="mb-[-17px] rounded-none border-slate-300 border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
             value="shopping"
           >
             COMPRAS
           </TabsTrigger>
           <TabsTrigger
-            className="border-b-none rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            className="mb-[-17px] rounded-none border-slate-300 border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
             value="sale"
           >
             VENTAS
           </TabsTrigger>
           <TabsTrigger
-            className="border-b-none rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            className="mb-[-17px] rounded-none border-slate-300 border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
             value="balance"
           >
             SALDO
@@ -171,12 +171,17 @@ const BalanceTable = () => {
                   <span
                     className={`flex w-24 justify-center rounded-2xl ${
                       comprasTotal < ventasTotal
-                      ? "bg-[#F4CEC9] text-[#A63737]"
-                      : ventasTotal === comprasTotal ? ""
-                      : "bg-[#CBF4C9] text-[#0E6245]"
+                        ? "bg-[#F4CEC9] text-[#A63737]"
+                        : ventasTotal === comprasTotal
+                          ? ""
+                          : "bg-[#CBF4C9] text-[#0E6245]"
                     } p-1 font-bold`}
                   >
-                      {ventasTotal < comprasTotal ? "Por cobrar" : ventasTotal === comprasTotal ? "":"Por pagar"}
+                    {ventasTotal < comprasTotal
+                      ? "Por cobrar"
+                      : ventasTotal === comprasTotal
+                        ? ""
+                        : "Por pagar"}
                   </span>
                 </TableCell>
                 <TableCell>${comprasTotal.toLocaleString()}</TableCell>
@@ -189,12 +194,17 @@ const BalanceTable = () => {
                     className={`flex w-24 justify-center rounded-2xl ${
                       ventasTotal > comprasTotal
                         ? "bg-[#CBF4C9] text-[#0E6245]"
-                        : ventasTotal === comprasTotal ? ""
-                        : "bg-[#F4CEC9] text-[#A63737]"
+                        : ventasTotal === comprasTotal
+                          ? ""
+                          : "bg-[#F4CEC9] text-[#A63737]"
                     } p-1 font-bold`}
                   >
-                      {ventasTotal > comprasTotal ? "Por cobrar" : ventasTotal === comprasTotal ? "":"Por pagar"}
-                      </span>
+                    {ventasTotal > comprasTotal
+                      ? "Por cobrar"
+                      : ventasTotal === comprasTotal
+                        ? ""
+                        : "Por pagar"}
+                  </span>
                 </TableCell>
                 <TableCell>${ventasTotal.toLocaleString()}</TableCell>
                 <TableCell></TableCell>
