@@ -14,6 +14,7 @@ function FromMultiSelect({ services }) {
       isMulti
       name="services"
       placeholder="Service Interest"
+      required
     />
   );
 }

@@ -151,6 +151,7 @@ function FormNewSale({ clients, membership, services }) {
                   name="client_id"
                   placeholder="Select Client"
                   options={options}
+                  required={true}
                 />
               </div>
               <div className="flex flex-col gap-2 pt-4">
@@ -161,6 +162,7 @@ function FormNewSale({ clients, membership, services }) {
                     placeholder={`Type of sale`}
                     options={typeService}
                     onChange={(e) => setType(e.value)}
+                    required={true}
                   />
                 </div>
               </div>
@@ -185,12 +187,14 @@ function FormNewSale({ clients, membership, services }) {
                           onChange={(e) =>
                             updateSelectServSelect(i, e, "service")
                           }
+                          required={true}
                         />
                         <SelectRouter
                           name="recurrency"
                           placeholder="Recurrency"
                           options={monthlyArray}
                           onChange={(e) => updateSelectServSelect2(i, e)}
+                          required={true}
                         />
                         <InputRouter
                           placeholder="Ammount"
@@ -198,6 +202,7 @@ function FormNewSale({ clients, membership, services }) {
                           type="number"
                           value={selectServ[i]?.ammount}
                           onChange={(e) => updateSelectServInput(i, e)}
+                          required={true}
                         />
                       </div>
                       <button

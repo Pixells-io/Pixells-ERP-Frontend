@@ -2,6 +2,7 @@ import React from "react";
 import SelectField from "@/layouts/Masters/FormComponents/SelectField";
 import { useNavigate } from "react-router-dom";
 import InputForm from "@/components/InputForm/InputForm";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const OrderTable = ({
   selectedProveedor,
@@ -49,7 +50,16 @@ const OrderTable = ({
   return (
     <div className="flex justify-between space-x-3 pt-4">
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
-        <SelectField
+      <SelectRouter
+          name="supplier_id"
+          options={suppliers}
+          placeholder="Proveedor"
+          onChange={isEditable ? handleRedirectNewProvider : () => {}}
+          value={selectedProveedor}
+          disabled={!isEditable}
+          required={true}
+        />
+        {/* <SelectField
           name="supplier_id"
           placeholder="Seleccionar Proveedor"
           options={suppliers}
@@ -57,7 +67,7 @@ const OrderTable = ({
           onValueChange={isEditable ? handleRedirectNewProvider : () => {}}
           className={!isEditable ? disabledClass : ""}
           required={true}
-        />
+        /> */}
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <InputForm
@@ -84,7 +94,16 @@ const OrderTable = ({
         />
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
-        <SelectField
+        <SelectRouter
+          name="payment_condition"
+          options={condicionPagoOptions}
+          placeholder="Condición de Pago"
+          onChange={isEditable ? setSelectedCondicionPago : () => {}}
+          value={selectedCondicionPago}
+          disabled={!isEditable}
+          required={true}
+        />
+        {/* <SelectField
           name="payment_condition"
           placeholder="Seleccionar Condición de Pago"
           options={condicionPagoOptions}
@@ -92,7 +111,7 @@ const OrderTable = ({
           onValueChange={isEditable ? setSelectedCondicionPago : () => {}}
           className={!isEditable ? disabledClass : ""}
           required={true}
-        />
+        /> */}
       </div>
     </div>
   );
