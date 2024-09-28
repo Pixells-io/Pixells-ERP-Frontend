@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -18,7 +18,10 @@ import ModalDeleteQuote from "./Modals/ModalDeleteQuote";
 
 const MainQuotesOrder = () => {
   const { data } = useLoaderData();
-  const [quotesInfo, setQuotesInfo] = useState(data);
+  const orderByDate = (data) => { 
+    return [...data].sort((a, b) => new Date(b.delivery_date) - new Date(a.delivery_date))
+  }
+  const [quotesInfo, setQuotesInfo] = useState(orderByDate(data));
   const [modalDeleteQuote, setModalDeleteQuote] = useState(false);
   const [selectQuote, setSelectQuote] = useState({ id: 0, name: "" });
 
@@ -129,7 +132,7 @@ const MainQuotesOrder = () => {
 
   async function getQuotesList() {
     let newData = await getQuotesOrder();
-    setQuotesInfo(newData.data);
+    setQuotesInfo(orderByDate(newData.data));
   }
 
   useEffect(() => {
