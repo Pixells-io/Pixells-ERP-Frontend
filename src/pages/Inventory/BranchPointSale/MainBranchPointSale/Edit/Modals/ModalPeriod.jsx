@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 
-function ModalPeriod({ setFunctionParent, index }) {
+function ModalPeriod({ setFunctionParent, index, disabled }) {
   const [modal, setModal] = useState(false);
 
   const [openStart, setOpenStart] = useState(false);
@@ -56,7 +56,7 @@ function ModalPeriod({ setFunctionParent, index }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger className="flex h-[24px] items-center gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2">
+      <DialogTrigger disabled={disabled} className="flex h-[24px] items-center gap-x-1 rounded-xl bg-blancoBox2 px-2 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2">
         <IonIcon className="h-5 w-5" icon={add}></IonIcon>
         Periodo
       </DialogTrigger>

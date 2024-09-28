@@ -1,27 +1,21 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
-import { add, trashOutline } from "ionicons/icons";
+import { add, closeCircle, trashOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
 import ModalPaymentMethods from "../Modals/ModalPaymentMethods";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const PaymentTab = ({ store_id }) => {
+const PaymentTab = ({ store_id, bankAccounts }) => {
   const [paymentSelect, setPaymentSelect] = useState([]);
   const [paymentNew, setPaymentNew] = useState({
     type: "",
     label: "",
-    accounting_account_id: "",
+    bank_accounts: [{ id: "", commission: "" }],
     active: "0",
     start: "",
     end: "",
@@ -57,35 +51,54 @@ const PaymentTab = ({ store_id }) => {
     setPaymentSelect(auxPayments);
   };
 
-  const addDateNewUser = (dateI, dateF) => {
-    setPaymentNew({ ...paymentNew, start: dateI, end: dateF });
-  };
-
-  const clearPeriodNewUser = (i) => {
-    setPaymentNew({ ...paymentNew, start: "", end: "" });
-  };
-
   const handleInputNewChange = (value, name) => {
     setPaymentNew({ ...paymentNew, [name]: value });
+  };
+
+  const handleInputChangeBankAccounts = (value, name, i) => {
+    const aux = paymentNew.bank_accounts.map((prevFormData, index) => {
+      if (index == i) {
+        return { ...prevFormData, [name]: value };
+      } else {
+        return {
+          ...prevFormData,
+        };
+      }
+    });
+    setPaymentNew({ ...paymentNew, bank_accounts: aux });
   };
 
   const clearData = () => {
     setPaymentNew({
       type: "",
       label: "",
-      accounting_account_id: "",
+      bank_accounts: [{ id: "", commission: "" }],
       active: "0",
       start: "",
       end: "",
     });
   };
 
+  const addBank = () => {
+    const auxPayments = {
+      ...paymentNew,
+      bank_accounts: [...paymentNew.bank_accounts, { id: "", commission: "" }],
+    };
+
+    setPaymentNew(auxPayments);
+  };
+
+  const deleteBankAccount = (i) => {
+    const auxPayments = {
+      ...paymentNew,
+      bank_accounts: paymentNew.bank_accounts.filter((bankAccount, index) => index != i),
+    };
+
+    setPaymentNew(auxPayments);
+  };
+
   return (
-    <div
-      className="flex h-full w-full flex-col overflow-auto px-6 py-4"
-      // action={`/inventory/branch-points-sale/edit/${id}`}
-      // method="post"
-    >
+    <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
       <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PAGO
@@ -130,6 +143,7 @@ const PaymentTab = ({ store_id }) => {
                   hidden
                   name="type"
                   value={paymentNew?.type}
+                  onChange={() => {}}
                 />
                 <InputForm
                   name="label"
@@ -137,37 +151,100 @@ const PaymentTab = ({ store_id }) => {
                   placeholder={"Tipo"}
                   disabled={true}
                   value={paymentNew?.label}
-                  onChange={(e) => handleInputNewChange(e.target.label, "type")}
+                  onChange={(e) => handleInputNewChange(e.target.value, "type")}
                 />
               </div>
 
               <div className="col-span-3">
-                <p className="mb-1 text-[10px] font-normal text-grisText">
-                  Cuenta Contable
-                </p>
-                <Select name="accounting_account_id" required={false}>
-                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[].map((accounting_account) => (
-                      <SelectItem
-                        key={accounting_account.id}
-                        value={String(accounting_account.id)}
-                      >
-                        {accounting_account.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <SelectRouter
+                  value={bankAccounts.find(
+                    (bankAccount) =>
+                      bankAccount.id == paymentNew?.bank_accounts[0].id,
+                  )}
+                  options={bankAccounts}
+                  placeholder="Nombre Cuenta Bancaria"
+                  required={true}
+                  onChange={(e) => handleInputChangeBankAccounts(e.id, "id", 0)}
+                  getOptionValue={(e) => e.id}
+                  getOptionLabel={(e) => e.name}
+                />
+              </div>
+              <div className="col-span-2">
+                <InputForm
+                  name="commission"
+                  type="number"
+                  placeholder={"comisión %"}
+                  disabled={false}
+                  required={true}
+                  value={paymentNew?.bank_accounts[0].commission}
+                  onChange={(e) =>
+                    handleInputChangeBankAccounts(
+                      e.target.value,
+                      "commission",
+                      0,
+                    )
+                  }
+                />
               </div>
               <div className="col-span-1 mb-1 flex items-end justify-start">
                 <Button
                   type="button"
                   className="flex h-[24px] items-center justify-center rounded-xl bg-blancoBox2 px-1.5 font-medium text-[#44444F] hover:bg-blancoBox2"
+                  onClick={() => addBank()}
                 >
                   <IonIcon className="h-5 w-5" icon={add}></IonIcon>
                 </Button>
+              </div>
+              <div className="col-span-12">
+                {paymentNew?.bank_accounts
+                  .slice(1)
+                  ?.map((bank_account, index) => (
+                    <div className="my-2 grid grid-cols-12 gap-x-8" key={index}>
+                      <div className="col-span-3"></div>
+                      <div className="col-span-3">
+                        <SelectRouter
+                          value={bankAccounts.find(
+                            (bank) => bank.id == bank_account.id,
+                          ) || null}
+                          options={bankAccounts}
+                          placeholder="Nombre Cuenta Bancaria"
+                          required={true}
+                          onChange={(e) =>
+                            handleInputChangeBankAccounts(e.id, "id", index + 1)
+                          }
+                          getOptionValue={(e) => e.id}
+                          getOptionLabel={(e) => e.name}
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <InputForm
+                          name="commission"
+                          type="number"
+                          min={0}
+                          max={100}
+                          placeholder={"comisión %"}
+                          disabled={false}
+                          required={true}
+                          value={bank_account?.commission}
+                          onChange={(e) =>
+                            handleInputChangeBankAccounts(
+                              e.target.value,
+                              "commission",
+                              index + 1,
+                            )
+                          }
+                        />
+                      </div>
+                      <div className="col-span-1 mb-1 flex items-end justify-start">
+                        <IonIcon
+                          onClick={() => deleteBankAccount(index + 1)}
+                          icon={closeCircle}
+                          size="small"
+                          className="cursor-pointer text-grisDisabled"
+                        ></IonIcon>
+                      </div>
+                    </div>
+                  ))}
               </div>
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
@@ -175,10 +252,8 @@ const PaymentTab = ({ store_id }) => {
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       name="active"
-                      checked={paymentNew?.active == "1"}
-                      onCheckedChange={(e) =>
-                        handleInputNewChange(e ? "1" : "0", "active")
-                      }
+                      checked={true}
+                      disabled={true}
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
@@ -217,20 +292,11 @@ const PaymentTab = ({ store_id }) => {
                     )}
                   </div>
                   <div>
-                    {!!paymentNew.start && !!paymentNew.end ? (
-                      <Button
-                        type="button"
-                        className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
-                        onClick={() => clearPeriodNewUser()}
-                      >
-                        Restablecer
-                      </Button>
-                    ) : (
-                      <ModalPeriod
-                        setFunctionParent={addDateNewUser}
-                        index={0}
-                      />
-                    )}
+                    <ModalPeriod
+                      setFunctionParent={() => {}}
+                      index={0}
+                      disabled={true}
+                    />
                   </div>
                 </div>
                 <div className="flex w-full justify-end">

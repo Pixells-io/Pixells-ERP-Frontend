@@ -23,8 +23,15 @@ import PaymentTab from "./Tabs/PaymentTab";
 import AccountingTab from "./Tabs/AccountingTab";
 
 const EditBranch = () => {
-  const { whareHouses, costCenter, priceList, storeDetail, users, positions } =
-    useLoaderData();
+  const {
+    whareHouses,
+    costCenter,
+    priceList,
+    storeDetail,
+    users,
+    positions,
+    bankAccounts,
+  } = useLoaderData();
 
   const tabOptions = [
     {
@@ -219,7 +226,7 @@ const EditBranch = () => {
               />
             </TabsContent>
             <TabsContent value="payment" className="w-full">
-              <PaymentTab store_id={storeDetail?.data?.id} payments />
+              <PaymentTab store_id={storeDetail?.data?.id} bankAccounts={bankAccounts?.data} />
             </TabsContent>
             <TabsContent value="accounting" className="w-full">
               <AccountingTab store_id={storeDetail?.data?.id} />

@@ -22,8 +22,8 @@ function ModalPaymentMethods({ setPaymentNew }) {
     const data = {
       type: paymentList?.value,
       label: paymentList?.label,
-      accounting_account_id: "",
-      active: "0",
+      bank_accounts: [{id:"", commission: ""}],
+      active: "1",
       start: "",
       end: "",
     };
@@ -38,28 +38,16 @@ function ModalPaymentMethods({ setPaymentNew }) {
 
   const methods = [
     {
-      value: "cash",
+      value: "1",
       label: "Efectivo",
     },
     {
-      value: "card",
+      value: "2",
       label: "Tarjeta de Crédito",
     },
     {
-      value: "credit",
-      label: "Crédito",
-    },
-    {
-      value: "transfer",
+      value: "3",
       label: "Transferencia/Depósito",
-    },
-    {
-      value: "multiPayment",
-      label: "Multipago",
-    },
-    {
-      value: "giftCard",
-      label: "Gift Card",
     },
   ];
 
@@ -71,7 +59,7 @@ function ModalPaymentMethods({ setPaymentNew }) {
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
         <DialogHeader>
-          <DialogTitle>Agregar Usuarios</DialogTitle>
+          <DialogTitle>Agregar Método Pago</DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <SelectSearch
