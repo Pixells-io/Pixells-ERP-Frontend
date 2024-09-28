@@ -91,7 +91,9 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
   const deleteBankAccount = (i) => {
     const auxPayments = {
       ...paymentNew,
-      bank_accounts: paymentNew.bank_accounts.filter((bankAccount, index) => index != i),
+      bank_accounts: paymentNew.bank_accounts.filter(
+        (bankAccount, index) => index != i,
+      ),
     };
 
     setPaymentNew(auxPayments);
@@ -156,6 +158,13 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
               </div>
 
               <div className="col-span-3">
+                <input
+                  type="text"
+                  className="hidden"
+                  hidden
+                  name="bankAccounts"
+                  value={JSON.stringify(paymentNew?.bank_accounts)}
+                />
                 <SelectRouter
                   value={bankAccounts.find(
                     (bankAccount) =>
@@ -203,9 +212,11 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
                       <div className="col-span-3"></div>
                       <div className="col-span-3">
                         <SelectRouter
-                          value={bankAccounts.find(
-                            (bank) => bank.id == bank_account.id,
-                          ) || null}
+                          value={
+                            bankAccounts.find(
+                              (bank) => bank.id == bank_account.id,
+                            ) || null
+                          }
                           options={bankAccounts}
                           placeholder="Nombre Cuenta Bancaria"
                           required={true}

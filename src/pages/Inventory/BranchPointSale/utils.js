@@ -416,30 +416,15 @@ export async function destroyCashBoxesBranchTab(data) {
 }
 
 export async function createPaymentBranchTab(data) {
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
-
+ 
   const info = {
     store_id: data.get("store_id"),
     type: data.get("type"),
-    accounting_account_id: data.get("accounting_account_id"),
-    active: !!data.get("active") ? "1" : "0",
-    start: startDate,
-    end: endDate,
+    bankAccounts: JSON.parse( data.get("bankAccounts")),
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}stores/create-store-payment`,
-    {
-      method: "POST",
-      body: JSON.stringify(info),
-      headers: {
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    },
-  );
+  console.log(info);
 
-  return response.json();
 }
 
 export async function getBankAccounts() {
