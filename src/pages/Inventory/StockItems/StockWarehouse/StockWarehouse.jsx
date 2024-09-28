@@ -70,7 +70,7 @@ function StockWarehouse() {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="stock" className="rounded-md p-2">
+          <TabsContent value="stock" className="flex w-full rounded-md p-2">
             <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
               <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
                 <span className="font-poppins text-lg font-medium text-[#44444F]">
@@ -78,7 +78,9 @@ function StockWarehouse() {
                 </span>
                
               </div>
-              <DataTable data={data} columns={StockWarehouseColumns} />
+             <div className="flex">
+             <DataTable data={data} columns={StockWarehouseColumns} />
+             </div>
             </div>
           </TabsContent>
           <TabsContent value="summary" className="rounded-md p-2">

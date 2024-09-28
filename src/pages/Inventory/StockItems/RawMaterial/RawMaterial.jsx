@@ -79,7 +79,8 @@ function MaterialWarehouse() {
                 </span>
                
               </div>
-              <DataTable data={data} columns={MaterialColumns} />
+              <DataTable data={data} columns={MaterialColumns}  searchNameFilter={"warehouseCode"}
+          searchFilter={"warehouseCode"}/>
             </div>
           </TabsContent>
           <TabsContent value="summary" className="rounded-md p-2">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const MaterialColumns = [
   {
+     id: "category",
     accessorKey: "warehouseCode",
     header: () => (
       <div className="flex h-full items-center whitespace-nowrap font-poppins text-sm text-[#44444F]">
@@ -16,6 +17,7 @@ export const MaterialColumns = [
     ),
   },
   {
+    id: "warehouseName",
     accessorKey: "warehouseName",
     header: () => (
       <div className="flex h-full items-center whitespace-nowrap font-poppins text-sm text-[#44444F]">
@@ -27,6 +29,7 @@ export const MaterialColumns = [
         {getValue()}
       </div>
     ),
+    meta: { filterButton: true },
   },
   {
     accessorKey: "inStock",
@@ -94,6 +97,7 @@ export const MaterialColumns = [
     ),
   },
   {
+    id:"variable",
     accessorKey: "variable",
     header: () => (
       <div className="flex h-full items-center whitespace-nowrap font-poppins text-sm text-[#44444F]">
@@ -107,5 +111,7 @@ export const MaterialColumns = [
        </Link>
    </div>
     ),
+    meta: { filterButton: true },
   },
+  
 ];

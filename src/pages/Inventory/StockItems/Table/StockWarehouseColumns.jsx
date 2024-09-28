@@ -15,8 +15,10 @@ export const StockWarehouseColumns = [
         {getValue()}
       </div>
     ),
+    
   },
   {
+    id: "warehouseName",
     accessorKey: "warehouseName",
     header: () => (
       <div className="flex h-full items-center whitespace-nowrap font-poppins text-sm text-[#44444F]">
@@ -28,7 +30,10 @@ export const StockWarehouseColumns = [
         {getValue()}
       </div>
     ),
+    meta: { filterButton: true },
+    
   },
+  
   {
     accessorKey: "inStock",
     cell: ({ getValue }) => (
@@ -95,6 +100,7 @@ export const StockWarehouseColumns = [
     ),
   },
   {
+     id: "variable",
     accessorKey: "variable",
     header: () => (
       <div className="flex h-full items-center whitespace-nowrap font-poppins text-sm text-[#44444F]">
@@ -108,5 +114,6 @@ export const StockWarehouseColumns = [
        </Link>
    </div>
     ),
+    meta: { filterButton: true },
   },
 ];
