@@ -15,7 +15,7 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
   const [paymentNew, setPaymentNew] = useState({
     type: "",
     label: "",
-    bank_accounts: [{ id: "", commission: "" }],
+    bank_accounts: [{ id: "", commission: 0 }],
     active: "0",
     start: "",
     end: "",
@@ -72,17 +72,19 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
     setPaymentNew({
       type: "",
       label: "",
-      bank_accounts: [{ id: "", commission: "" }],
+      bank_accounts: [{ id: "", commission: 0 }],
       active: "0",
       start: "",
       end: "",
     });
   };
 
-  const addBank = () => {
+  const addBank = (type) => {
+    if(type == "1") return;
+    
     const auxPayments = {
       ...paymentNew,
-      bank_accounts: [...paymentNew.bank_accounts, { id: "", commission: "" }],
+      bank_accounts: [...paymentNew.bank_accounts, { id: "", commission: 0 }],
     };
 
     setPaymentNew(auxPayments);
@@ -172,7 +174,7 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
                       bankAccount.id == paymentNew?.bank_accounts[0].id,
                   )}
                   options={bankAccounts}
-                  placeholder="Nombre Cuenta Bancaria"
+                  placeholder="Nombre Cuenta"
                   required={true}
                   onChange={(e) => handleInputChangeBankAccounts(e.id, "id", 0)}
                   getOptionValue={(e) => e.id}
@@ -184,7 +186,7 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
                   name="commission"
                   type="number"
                   placeholder={"comisión %"}
-                  disabled={false}
+                  disabled={paymentNew?.type == "1"}
                   required={true}
                   value={paymentNew?.bank_accounts[0].commission}
                   onChange={(e) =>
@@ -198,9 +200,10 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
               </div>
               <div className="col-span-1 mb-1 flex items-end justify-start">
                 <Button
+                  disabled={paymentNew?.type == "1"}
                   type="button"
                   className="flex h-[24px] items-center justify-center rounded-xl bg-blancoBox2 px-1.5 font-medium text-[#44444F] hover:bg-blancoBox2"
-                  onClick={() => addBank()}
+                  onClick={() => addBank(paymentNew?.type)}
                 >
                   <IonIcon className="h-5 w-5" icon={add}></IonIcon>
                 </Button>
@@ -219,7 +222,7 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
                             ) || null
                           }
                           options={bankAccounts}
-                          placeholder="Nombre Cuenta Bancaria"
+                          placeholder="Nombre Cuenta"
                           required={true}
                           onChange={(e) =>
                             handleInputChangeBankAccounts(e.id, "id", index + 1)
