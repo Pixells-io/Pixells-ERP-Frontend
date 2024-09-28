@@ -164,6 +164,7 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
                   hidden
                   name="bankAccounts"
                   value={JSON.stringify(paymentNew?.bank_accounts)}
+                  onChange={() => {}}
                 />
                 <SelectRouter
                   value={bankAccounts.find(
