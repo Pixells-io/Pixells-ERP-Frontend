@@ -86,7 +86,15 @@ export async function getStores() {
 export async function multiLoaderListBranchDetails({ params }) {
   const id = params.id;
 
-  const [whareHouses, costCenter, priceList, storeDetail, users, positions, bankAccounts] = await Promise.all([
+  const [
+    whareHouses,
+    costCenter,
+    priceList,
+    storeDetail,
+    users,
+    positions,
+    bankAccounts,
+  ] = await Promise.all([
     getWarehouses(),
     getCostCenter(),
     getPriceList(),
@@ -95,7 +103,15 @@ export async function multiLoaderListBranchDetails({ params }) {
     getPosition(),
     getBankAccounts(),
   ]);
-  return json({ whareHouses, costCenter, priceList, storeDetail, users, positions, bankAccounts });
+  return json({
+    whareHouses,
+    costCenter,
+    priceList,
+    storeDetail,
+    users,
+    positions,
+    bankAccounts,
+  });
 }
 
 export async function getStoreById(id) {
@@ -163,10 +179,12 @@ export async function updatePrincipalBranchTab(data) {
 }
 
 export async function createGeneralBranchTab(data) {
-  
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
-
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
 
   const info = {
     store_id: data.get("store_id"),
@@ -198,9 +216,12 @@ export async function createGeneralBranchTab(data) {
 }
 
 export async function updateGeneralBranchTab(data) {
-
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
 
   const info = {
     info_id: data.get("info_id"),
@@ -264,15 +285,13 @@ export async function getPosition() {
 }
 
 export async function createUsersBranchTab(data) {
- 
-  const usersIds = JSON.parse(data.get("users")).map(user => {
-    return {id: user.id}
+  const usersIds = JSON.parse(data.get("users")).map((user) => {
+    return { id: user.id };
   });
-  
+
   const info = {
     store_id: data.get("store_id"),
     users: usersIds,
-    
   };
 
   const response = await fetch(
@@ -290,8 +309,12 @@ export async function createUsersBranchTab(data) {
 }
 
 export async function updateUserBranchTab(data) {
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
 
   const info = {
     store_user_id: data.get("store_user_id"),
@@ -315,11 +338,9 @@ export async function updateUserBranchTab(data) {
   );
 
   return response.json();
-
 }
 
 export async function deleteUserBranchTab(data) {
-
   const info = {
     store_user_id: data.get("store_user_id"),
   };
@@ -336,12 +357,15 @@ export async function deleteUserBranchTab(data) {
   );
 
   return response.json();
-
 }
 
 export async function createCashBoxesBranchTab(data) {
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
 
   const info = {
     store_id: data.get("store_id"),
@@ -368,8 +392,12 @@ export async function createCashBoxesBranchTab(data) {
 }
 
 export async function updateCashBoxesBranchTab(data) {
-  const startDate = !!data.get("start") ? format(data.get("start"), "yyyy-MM-dd") : "";
-  const endDate = !!data.get("end") ? format(data.get("end"), "yyyy-MM-dd") : "";
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
 
   const info = {
     pos_id: data.get("pos_id"),
@@ -396,7 +424,6 @@ export async function updateCashBoxesBranchTab(data) {
 }
 
 export async function destroyCashBoxesBranchTab(data) {
- 
   const info = {
     pos_id: data.get("pos_id"),
   };
@@ -416,15 +443,24 @@ export async function destroyCashBoxesBranchTab(data) {
 }
 
 export async function createPaymentBranchTab(data) {
- 
   const info = {
     store_id: data.get("store_id"),
     type: data.get("type"),
-    bankAccounts: JSON.parse( data.get("bankAccounts")),
+    bankAccounts: JSON.parse(data.get("bankAccounts")),
   };
 
-  console.log(info);
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}stores/create-store-payment`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
 
+  return response.json();
 }
 
 export async function getBankAccounts() {
