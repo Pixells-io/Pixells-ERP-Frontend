@@ -52,7 +52,6 @@ const QuoteTable = ({
     taxes: "",
     quantity: "",
     unitHidden: "",
-    unit: "",
     delivery_date: "",
     product_idAux: undefined,
     master_product: "",
@@ -62,7 +61,7 @@ const QuoteTable = ({
   const productsArray = [];
   const [productDelete, setProductDelete] = useState([]);
 
-  arrayFillProducts(allProducts, productsArray);
+  arrayFillProducts(allProducts?.products ?? [], productsArray);
 
   useEffect(() => {
     if (location.pathname.includes("edit")) {
@@ -82,9 +81,7 @@ const QuoteTable = ({
   }, [location.pathname, initialItems]);
 
   function arrayFillProducts(data, array) {
-    let dataParse = data;
-
-    dataParse.forEach((element, index) => {
+    data.forEach((element, index) => {
       array.push({
         ...element,
         label: element.name,
@@ -96,7 +93,12 @@ const QuoteTable = ({
   const columns = useMemo(
     () => [
       { key: "code", header: "Código", type: "text", disabled: false },
-      { key: "value", header: "value", type: "number", disabled: false },
+      {
+        key: "value",
+        header: "Precio x Unidad",
+        type: "number",
+        disabled: false,
+      },
       {
         key: "discount",
         header: "Descuento (%)",
@@ -105,7 +107,6 @@ const QuoteTable = ({
       },
       { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
       { key: "quantity", header: "Cantidad", type: "number", disabled: false },
-      { key: "unit", header: "Unidad", type: "text", disabled: true },
       {
         key: "delivery_date",
         header: "Fecha de Entrega",
@@ -211,16 +212,16 @@ const QuoteTable = ({
                           )
                         }
                       >
-                        <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                          <SelectValue
-                            placeholder={"Producto"}
-                          />
+                        <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                          <SelectValue placeholder={"Producto"} />
                         </SelectTrigger>
                         <SelectContent>
                           {productsArray.map((product, index) => (
                             <div key={index}>
                               {!tableData.find(
-                                (td) => (td.product_idAux == product.value) && td.id == undefined,
+                                (td) =>
+                                  td.product_idAux == product.value &&
+                                  td.id == undefined,
                               ) ? (
                                 <SelectItem
                                   key={"product-" + index}
@@ -249,7 +250,7 @@ const QuoteTable = ({
                     <Input
                       type={column.type}
                       name={`${column.key}[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      className="text-[#44444f] text-sm h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                       value={row[column.key]}
                       disabled={column.disabled}
                       onChange={(e) =>

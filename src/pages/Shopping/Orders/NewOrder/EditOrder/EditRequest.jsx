@@ -9,7 +9,11 @@ import {
 } from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
-import { cancelRequestOrder, getProducts, updateRequestOrder } from "@/pages/Shopping/utils";
+import {
+  cancelRequestOrder,
+  getProducts,
+  updateRequestOrder,
+} from "@/pages/Shopping/utils";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
 import InputsGroup from "../Components/ElementGroup";
 import OrderTable from "../Components/OrderFom";
@@ -27,8 +31,8 @@ import {
 import ModalCancelRequestOrder from "../../Modals/ModalCancelRequestOrder";
 
 const EditRequests = () => {
-  const { data } = useLoaderData();
-  const [requestOrder, setRequestOrder] = useState(data);
+  const { requestData, info } = useLoaderData();
+  const [requestOrder, setRequestOrder] = useState(requestData.data);
   const navigation = useNavigation();
 
   const { id } = useParams();
@@ -36,11 +40,13 @@ const EditRequests = () => {
     requestOrder.document_number,
   );
   const [selectedWarehouse, setSelectedWarehouse] = useState(
-    requestOrder.inventory_id.value,
+    requestOrder.inventory_id,
   );
-  const [selectedCostCenter, setSelectedCostCenter] = useState("");
+  const [selectedCostCenter, setSelectedCostCenter] = useState(
+    requestOrder.cost_center,
+  );
   const [selectedProveedor, setSelectedProveedor] = useState(
-    requestOrder.supplier_id.value,
+    requestOrder.supplier_id,
   );
   const [selectedFechaDoc, setSelectedFechaDoc] = useState(
     requestOrder.document_created,
@@ -52,7 +58,7 @@ const EditRequests = () => {
     requestOrder.payment_condition,
   );
   const [editable, setEditable] = useState(false);
-  const [items, setItems] = useState(data.slots_array);
+  const [items, setItems] = useState(requestOrder.slots_array);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [modalCancel, setModalCancel] = useState(false);
@@ -82,9 +88,15 @@ const EditRequests = () => {
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex flex-row justify-end">
-          <ActionsGroup url={url} setEditable={setEditable} editable={editable}/>
+          <ActionsGroup
+            url={url}
+            setEditable={setEditable}
+            editable={editable}
+          />
           <div className="flex justify-end">
+            {/* 
             <CardCarousel />
+            */}
           </div>
         </div>
         <Form
@@ -118,6 +130,7 @@ const EditRequests = () => {
                 selectedCostCenter={selectedCostCenter}
                 setSelectedCostCenter={setSelectedCostCenter}
                 isEditable={editable}
+                infoSelects={info?.data}
               />
               <OrderTable
                 selectedProveedor={selectedProveedor}
@@ -129,6 +142,7 @@ const EditRequests = () => {
                 selectedCondicionPago={selectedCondicionPago}
                 setSelectedCondicionPago={setSelectedCondicionPago}
                 isEditable={editable}
+                suppliers={info?.data?.suppliers}
               />
               <div className="mt-4 flex gap-x-6">
                 <div className="w-fit">
@@ -139,7 +153,7 @@ const EditRequests = () => {
                     onValueChange={(e) => setPaymentType(e)}
                     disabled={!editable}
                   >
-                    <SelectTrigger className="w-full rounded-xl border border-[#D7D7D7] text-[#44444f] text-sm h-[32px] rounded-[10px] bg-inherit font-roboto font-light placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                    <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                       <SelectValue placeholder={"Payment type"} />
                     </SelectTrigger>
                     <SelectContent>
@@ -173,7 +187,7 @@ const EditRequests = () => {
                   tableData={tableData}
                 />
               </div>
-              <Total tableData={tableData} comment={data.comments} />
+              <Total tableData={tableData} comment={requestOrder.comments} />
             </div>
           </div>
 

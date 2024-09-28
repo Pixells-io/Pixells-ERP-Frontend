@@ -40,7 +40,13 @@ import {
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 
-function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }) {
+function DataTable({
+  data,
+  columns,
+  searchFilter,
+  searchNameFilter,
+  isCheckAll,
+}) {
   //data: datos que mostrara en la tabla
   //columns: las columnas headers tabla
   //searchFilter: el campo columna por la cual filtrara el input
@@ -81,7 +87,10 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                   table.toggleAllRowsSelected(!!value)
                 }
               />
-              <label htmlFor="checkBoxAll" className="text-xs text-[#8f8f8f] font-medium">
+              <label
+                htmlFor="checkBoxAll"
+                className="text-xs font-medium text-[#8f8f8f]"
+              >
                 All
               </label>
             </div>
@@ -109,7 +118,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                 <DropdownMenuTrigger asChild>
                   <Button
                     type={"button"}
-                    className="h-6 rounded-3xl border-[1px] bg-inherit border-[#D7D7D7] text-[10px] text-[#8F8F8F] font-roboto font-normal hover:bg-inherit"
+                    className="h-6 rounded-3xl border-[1px] border-[#D7D7D7] bg-inherit font-roboto text-[10px] font-normal text-[#8F8F8F] hover:bg-inherit"
                   >
                     {column.columnDef.header}
                   </Button>
@@ -144,7 +153,6 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                           </DropdownMenuRadioItem>
                         ))
                       : null}
-                    
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -160,7 +168,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
           </Label>
           <Input
             id="search"
-            className="h-full w-full border-0 text-sm font-normal text-[#8F8F8F] bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
+            className="h-full w-full border-0 bg-transparent text-sm font-normal text-[#8F8F8F] !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
             placeholder={searchNameFilter}
             value={table.getColumn(searchFilter)?.getFilterValue() ?? ""}
             onChange={(event) =>
@@ -179,7 +187,7 @@ function DataTable({ data, columns, searchFilter, searchNameFilter, isCheckAll }
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-xs font-medium font-poppins text-[#44444F]"
+                      className="font-poppins text-xs font-medium text-[#44444F]"
                     >
                       {header.isPlaceholder
                         ? null

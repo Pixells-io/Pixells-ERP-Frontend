@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Components/Header";
 import CardCarousel from "./Components/CardCarousel";
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { getProducts, saveNewRequestOrder } from "../../utils";
 import InputsGroup from "./Components/ElementGroup";
 import OrderTable from "./Components/OrderFom";
@@ -19,32 +19,27 @@ import {
 import InputForm from "@/components/InputForm/InputForm";
 
 const CreateOrder = () => {
+  const { data } = useLoaderData();
+
   const [documentNumber, setDocumentNumber] = useState("");
   const [selectedWarehouse, setSelectedWarehouse] = useState(undefined);
   const [selectedCostCenter, setSelectedCostCenter] = useState(undefined);
   const [selectedProveedor, setSelectedProveedor] = useState(undefined);
-  const [allProducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState(data);
   const [tableData, setTableData] = useState([]);
   const navigation = useNavigation();
   const [paymentType, setPaymentType] = useState(undefined);
 
   const getTitle = "Nuevo pedido";
 
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
-  const getAllProducts = async () => {
-    const response = await getProducts();
-    setAllProducts(response.data);
-  };
-
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex justify-end">
+          {/* 
           <CardCarousel />
+          */}
         </div>
         <Form
           method="post"
@@ -61,11 +56,13 @@ const CreateOrder = () => {
                 selectedCostCenter={selectedCostCenter}
                 setSelectedCostCenter={setSelectedCostCenter}
                 isEditable={true}
+                infoSelects={data}
               />
               <OrderTable
                 selectedProveedor={selectedProveedor}
                 setSelectedProveedor={setSelectedProveedor}
                 isEditable={true}
+                suppliers={data.suppliers}
               />
               <div className="mt-4 flex gap-x-6">
                 <div className="w-fit">

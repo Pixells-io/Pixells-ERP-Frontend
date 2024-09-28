@@ -1,10 +1,8 @@
-import React from 'react';
-import { IonIcon } from '@ionic/react';
-import { chevronBack, chevronForward } from 'ionicons/icons';
-
+import React from "react";
+import { IonIcon } from "@ionic/react";
+import { chevronBack, chevronForward } from "ionicons/icons";
 
 const Header = ({ title }) => {
- 
   return (
     <>
       <div className="flex items-center gap-4">

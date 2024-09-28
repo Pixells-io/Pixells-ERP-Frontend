@@ -10,28 +10,26 @@ import Total from "@/components/TotalSection/TotalSection";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Button } from "@/components/ui/button";
 const CreateQuoteOrder = () => {
+  const { data } = useLoaderData();
+
   const [documentNumber, setDocumentNumber] = useState("");
   const [selectedWarehouse, setSelectedWarehouse] = useState(undefined);
   const [selectedCostCenter, setSelectedCostCenter] = useState(undefined);
   const [selectedProveedor, setSelectedProveedor] = useState(undefined);
-  const [allProducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState(data?.products);
   const [tableData, setTableData] = useState([]);
   const navigation = useNavigation();
 
   const getTitle = "Nueva Cotización";
-
-  const { data } = useLoaderData();
-
-  useEffect(() => {
-    setAllProducts(data.products);
-  }, []);
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex justify-end">
+          {/* 
           <CardCarousel />
+          */}
         </div>
         <Form
           method="post"

@@ -21,7 +21,10 @@ const MainRequestOrder = () => {
   const { data } = useLoaderData();
   const [requestOrdersInfo, setRequestOrdersInfo] = useState(data);
   const [modalDeleteRequestOrder, setModalDeleteRequestOrder] = useState(false);
-  const [selectRequestOrder, setSelectRequestOrder] = useState({ id: 0, name: "" });
+  const [selectRequestOrder, setSelectRequestOrder] = useState({
+    id: 0,
+    name: "",
+  });
 
   const pusherClient = createPusherClient();
 
@@ -224,7 +227,7 @@ const MainRequestOrder = () => {
           </div>
         </div>
         {/*content */}
-        <div className="w-full">
+        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="request"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -261,4 +264,3 @@ export async function Action({ request }) {
 
   return redirect("/shopping/request-orders");
 }
-

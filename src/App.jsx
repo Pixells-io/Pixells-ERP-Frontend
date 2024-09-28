@@ -465,6 +465,9 @@ import {
   getQuotesOrder,
   getRequestOrder,
   getRequestOrders,
+  multiloadesGetPurchase,
+  multiloadesGetQuote,
+  multiloadesGetRequestOrder,
 } from "./pages/Shopping/utils";
 
 //Transformation
@@ -1395,11 +1398,12 @@ const router = createBrowserRouter([
             path: "/shopping/request-orders/create",
             element: <CreateOrder />,
             action: CreateRequestOrder,
+            loader: getProducts,
           },
           {
             path: "/shopping/request-orders/edit/:id",
             element: <EditRequests />,
-            loader: getRequestOrder,
+            loader: multiloadesGetRequestOrder,
             action: RequestOrderEditAction,
           },
           {
@@ -1412,11 +1416,12 @@ const router = createBrowserRouter([
             path: "/shopping/purchase/create",
             element: <CreateRequest />,
             action: createPurchase,
+            loader: getProducts,
           },
           {
             path: "/shopping/purchase/edit/:id",
             element: <EditOrders />,
-            loader: getPurchase,
+            loader: multiloadesGetPurchase,
             action: PurchaseEditAction,
           },
           {
@@ -1434,7 +1439,7 @@ const router = createBrowserRouter([
           {
             path: "/shopping/quotes-orders/edit/:id",
             element: <EditQuotes />,
-            loader: getQuoteOrder,
+            loader: multiloadesGetQuote,
             action: QuoteOrderEditAction,
           },
           {

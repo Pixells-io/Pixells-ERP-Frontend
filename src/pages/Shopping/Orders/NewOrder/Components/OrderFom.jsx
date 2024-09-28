@@ -50,7 +50,7 @@ const OrderTable = ({
   return (
     <div className="flex justify-between space-x-3 pt-4">
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
-      <SelectRouter
+        <SelectRouter
           name="supplier_id"
           options={suppliers}
           placeholder="Proveedor"
@@ -59,15 +59,6 @@ const OrderTable = ({
           disabled={!isEditable}
           required={true}
         />
-        {/* <SelectField
-          name="supplier_id"
-          placeholder="Seleccionar Proveedor"
-          options={suppliers}
-          value={selectedProveedor}
-          onValueChange={isEditable ? handleRedirectNewProvider : () => {}}
-          className={!isEditable ? disabledClass : ""}
-          required={true}
-        /> */}
       </div>
       <div className={`w-full ${!isEditable ? disabledClass : enabledClass}`}>
         <InputForm
