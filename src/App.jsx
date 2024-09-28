@@ -365,6 +365,7 @@ import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/D
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
+import MaterialWarehouse from "./pages/Inventory/StockItems/RawMaterial/RawMaterial";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList, {
   Action as newPriceList,
@@ -1250,8 +1251,12 @@ const router = createBrowserRouter([
             element: <MainStockItem />,
           },
           {
-            path: "/inventory/stock-items/:id",
+            path: "/inventory/stock-items/product/edit/:id",
             element: <StockWarehouse />,
+          },
+          {
+            path: "/inventory/stock-items/warehouse/edit/:id",
+            element: <MaterialWarehouse />,
           },
           {
             path: "/inventory/branch-points-sale",

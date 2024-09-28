@@ -1,9 +1,11 @@
 import React from "react";
-
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import NavigationHeader from "@/components/navigation-header";
 import DataTable from "@/components/table/DataTable";
 import { StockItemColumns } from "./Table/StockItemColumns";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { WarehouseColumns } from "./Table/WarehouseColumns";
 
 function MainStockItem() {
   //datos de prueba --------------------------
@@ -61,54 +63,69 @@ function MainStockItem() {
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
-        </div>
+        <NavigationHeader/>
         {/* top content */}
         <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
-              INVENTARIO
-            </h2>
-          </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
+            INVENTARIO
+          </h2>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-
-        <div>
-          <p className="font-poppins text-xl font-bold text-grisHeading">
-            Stock de Artículos
-          </p>
-        </div>
-
-        <DataTable
+        <div className="flex justify-between">
+            <p className="text-xl mt-1 font-poppins font-bold text-grisHeading">
+              Stock General
+            </p>
+          
+          </div>
+        <Tabs
+          defaultValue="products"
+          className="h-full overflow-auto bg-white rounded-lg pt-2"
+        >
+          
+          <TabsList className="mx-3 ml-6 flex gap-6 justify-start rounded-lg bg-blancoBox p-0 border-b bg-inherit py-6">
+          <TabsTrigger
+            className="mb-[-12px] rounded-none border-slate-300 border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            value="products"
+          >
+            ARTÍCULOS
+          </TabsTrigger>
+          <TabsTrigger
+            className="mb-[-12px] rounded-none border-slate-300 border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            value="warehouse"
+          >
+            ALMACENES
+          </TabsTrigger>
+        </TabsList>
+          <TabsContent value="products" className="mt-[-70px] w-full pt-4">
+         
+          <DataTable
           data={data}
           columns={StockItemColumns}
           searchNameFilter={"Nombre"}
           searchFilter={"name"}
           isCheckAll={false}
         />
+          </TabsContent>
+          <TabsContent
+            value="warehouse"
+            className="mt-[-70px] w-full pt-4"
+          >
+             <DataTable
+          data={data}
+          columns={WarehouseColumns}
+          searchNameFilter={"Nombre"}
+          searchFilter={"name"}
+          isCheckAll={false}
+        />
+            
+          </TabsContent>
+        </Tabs>
+
+       
       </div>
     </div>
   );

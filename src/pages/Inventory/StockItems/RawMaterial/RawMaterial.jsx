@@ -3,6 +3,7 @@ import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "../Table/Datatable";
 import { StockWarehouseColumns } from "../Table/StockWarehouseColumns";
+import { MaterialColumns } from "../Table/MaterialRawColumns";
 
 const data = [
   {
@@ -26,7 +27,7 @@ const data = [
   },
 ];
 
-function StockWarehouse() {
+function MaterialWarehouse() {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -70,29 +71,20 @@ function StockWarehouse() {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="stock" className="flex w-full rounded-md p-2">
+          <TabsContent value="stock" className="rounded-md p-2">
             <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
               <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
                 <span className="font-poppins text-lg font-medium text-[#44444F]">
-                  ALMACENES POR ARTÍCULO
+                ARTÍCULOS EN ALMACÉN
                 </span>
                
               </div>
-             <div className="flex">
-             <DataTable data={data} columns={StockWarehouseColumns} />
-             </div>
+              <DataTable data={data} columns={MaterialColumns}  searchNameFilter={"warehouseCode"}
+          searchFilter={"warehouseCode"}/>
             </div>
           </TabsContent>
           <TabsContent value="summary" className="rounded-md p-2">
-          <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
-              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
-                <span className="font-poppins text-lg font-medium text-[#44444F]">
-                  ARTICULOS EN ALMACÉN
-                </span>
-               
-              </div>
-              <DataTable data={data} columns={StockWarehouseColumns} />
-            </div>
+       
           </TabsContent>
         </Tabs>
       </div>
@@ -100,4 +92,4 @@ function StockWarehouse() {
   );
 }
 
-export default StockWarehouse;
+export default MaterialWarehouse;

@@ -5,7 +5,7 @@ import { informationCircleOutline  } from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-export const StockItemColumns = [
+export const WarehouseColumns = [
   {
     id: "code",
     accessorKey: "code",
@@ -74,7 +74,7 @@ export const StockItemColumns = [
     header: "Acciones",
     cell: ({ row }) => (
       <div className="flex items-center">
-         <Link to={`/inventory/stock-items/product/edit/${row.original.id}`}>
+         <Link to={`/inventory/stock-items/warehouse/edit/${row.original.id}`}>
             <Button
               type="button"
               className="flex h-5 w-5 justify-center items-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"

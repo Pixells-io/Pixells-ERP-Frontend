@@ -181,7 +181,7 @@ function MainMerchandiseMovements() {
               Movimientos de Mercancía
             </p>
             <div className="flex justify-end gap-6">
-              <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
+              <TabsList className="ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
                 <TabsTrigger
                   value="entry"
                   className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
