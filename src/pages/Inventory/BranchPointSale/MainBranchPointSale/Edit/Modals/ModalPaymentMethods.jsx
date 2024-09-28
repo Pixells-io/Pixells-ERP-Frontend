@@ -22,7 +22,7 @@ function ModalPaymentMethods({ setPaymentNew }) {
     const data = {
       type: paymentList?.value,
       label: paymentList?.label,
-      bank_accounts: [{id:"", commission: ""}],
+      bank_accounts: [{id:"", commission: 0}],
       active: "1",
       start: "",
       end: "",
