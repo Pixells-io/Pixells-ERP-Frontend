@@ -1,95 +1,95 @@
 import InputForm from "@/components/InputForm/InputForm";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
-import { checkmark } from "ionicons/icons";
+import { checkmark, add } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
-import { format } from "date-fns";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
+import { format } from "date-fns";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const UserTab = ({ users }) => {
+const ProcessTab = () => {
   const navigation = useNavigation();
-  const [usersSelect, setUsersSelect] = useState(users);
-  const [selectEditUser, setSelectEditUser] = useState(null);
+  const [processes, setProcesses] = useState([]);
+  const [selectEditProcess, setSelectEditProcess] = useState(null);
 
-  const addDate = (dateI, dateF, i) => {
-    const auxUser = usersSelect.map((u, index) => {
-      if (index === i) {
-        return { ...u, start: dateI, end: dateF };
-      }
-      return u;
-    });
-    setUsersSelect(auxUser);
-    setSelectEditUser(i);
+  const addProcess = () => {
+    const newProcess = { title: "", name: "", descripcion: "", active: "0", start: "", end: "" };
+    setProcesses([...processes, newProcess]);
+    setSelectEditProcess(processes.length);
   };
 
   const clearPeriod = (i) => {
-    const auxUser = usersSelect.map((u, index) => {
+    const updatedProcesses = processes.map((p, index) => {
       if (index === i) {
-        return { ...u, start: "", end: "" };
+        return { ...p, start: "", end: "" };
       }
-      return u;
+      return p;
     });
-    setUsersSelect(auxUser);
-    setSelectEditUser(i);
+    setProcesses(updatedProcesses);
+    setSelectEditProcess(i);
   };
 
   const handleInputChange = (value, name, i) => {
-    const aux = usersSelect.map((prevFormData, index) => {
+    const updatedProcesses = processes.map((prevProcess, index) => {
       if (index === i) {
-        return { ...prevFormData, [name]: value };
+        return { ...prevProcess, [name]: value };
       }
-      return prevFormData;
+      return prevProcess;
     });
-
-    setUsersSelect([...aux]);
-    setSelectEditUser(i);
+    setProcesses(updatedProcesses);
+    setSelectEditProcess(i);
   };
 
   useEffect(() => {
     if (navigation.state === "idle") {
-      setSelectEditUser(null);
+      setSelectEditProcess(null);
     }
   }, [navigation.state]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-auto py-4">
       <div className="overflow-auto px-6">
-        <h2 className="font-poppins text-sm font-medium text-[#44444F]">USUARIOS</h2>
+        <h2 className="font-poppins text-sm font-medium text-[#44444F]">PROCESOS</h2>
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
-          <ModalAddUser users={users} />
+          <Button onClick={addProcess} className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-primarioBotones text-[#FFFFFF] px-1.5 text-[11px] font-medium hover:bg-primarioBotones">
+            <IonIcon className="h-5 w-5 text-[#FFFFFF]" icon={add}/>
+            Agregar
+          </Button>
         </div>
 
-        {usersSelect.map((userSelect, index) => (
-          <Form
-            className="mt-4"
-            key={index}
-            method="post"
-          >
-            <input type="text" hidden readOnly name="store_user_id" value={userSelect?.id} />
-            <input type="text" hidden readOnly name="type_option" value="updateUserBranchTab" />
-            <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">USUARIO {index + 1}</p>
+        {processes.map((process, index) => (
+          <Form className="mt-4" key={index} method="post">
+            <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">PROCESO {index + 1}</p>
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
-            
               <div className="col-span-3">
-                <InputForm name="position" type="text" placeholder={"Posición"} disabled={true} value={userSelect?.position} />
+                <InputForm 
+                  name="title" 
+                  type="text" 
+                  placeholder="Titulo" 
+                  value={process.title} 
+                  onChange={(e) => handleInputChange(e.target.value, "title", index)} 
+                />
               </div>
-              <div className="col-span-3 flex items-center gap-x-2">
-                <Avatar className="size-8">
-                  <AvatarImage src={userSelect?.user_image} />
-                </Avatar>
-                <label className="text-xs font-normal text-grisText">{userSelect?.user?.label}</label>
-                <span className="text-center text-sm text-[#696974] whitespace-nowrap">{userSelect?.name+" "+userSelect?.last_name}</span>
+              <div className="col-span-3">
+                <SelectRouter placeholder={"Categoría/Acción"} />
               </div>
-             
+              
+              <div className="col-span-3">
+                <InputForm 
+                  name="descripcion" 
+                  type="text" 
+                  placeholder="Descripcion" 
+                  value={process.descripcion} 
+                  onChange={(e) => handleInputChange(e.target.value, "descripcion", index)} 
+                />
+              </div>
+
               <div className="col-span-2 flex items-end justify-end">
-                {index === selectEditUser && (
+                {index === selectEditProcess && (
                   <Button
                     className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"
                     disabled={navigation.state === "submitting"}
@@ -99,25 +99,24 @@ const UserTab = ({ users }) => {
                   </Button>
                 )}
               </div>
+
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       name="active"
-                      checked={userSelect?.active === "1"}
+                      checked={process.active === "1"}
                       onCheckedChange={(e) => handleInputChange(e ? "1" : "0", "active", index)}
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">Activo</label>
-                    {!!userSelect.start && !!userSelect.end ? (
+                    {!!process.start && !!process.end ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input type="hidden" name="start" value={format(userSelect.start, "PP")} />
-                          <label className="text-xs font-light text-[#44444F]">{format(userSelect.start, "PP")}</label>
+                          <label className="text-xs font-light text-[#44444F]">{format(process.start, "PP")}</label>
                         </div>
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input type="hidden" name="end" value={format(userSelect.end, "PP")} />
-                          <label className="text-xs font-light text-[#44444F]">{format(userSelect.end, "PP")}</label>
+                          <label className="text-xs font-light text-[#44444F]">{format(process.end, "PP")}</label>
                         </div>
                       </div>
                     ) : (
@@ -125,7 +124,7 @@ const UserTab = ({ users }) => {
                     )}
                   </div>
                   <div>
-                    {!!userSelect.start && !!userSelect.end ? (
+                    {!!process.start && !!process.end ? (
                       <Button
                         type="button"
                         className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -134,15 +133,15 @@ const UserTab = ({ users }) => {
                         Restablecer
                       </Button>
                     ) : (
-                      <ModalPeriod setFunctionParent={addDate} index={index} />
+                      <ModalPeriod setFunctionParent={(dateI, dateF) => {
+                        const updatedProcesses = processes.map((p, idx) => idx === index ? { ...p, start: dateI, end: dateF } : p);
+                        setProcesses(updatedProcesses);
+                      }} index={index} />
                     )}
                   </div>
                 </div>
                 <div className="flex w-full justify-end">
-                  <ModalDeleteUser
-                    store_user_id={userSelect?.id}
-                    user_name={userSelect?.user?.label}
-                  />
+                  <ModalDeleteUser store_user_id={process.id} user_name={process.name} />
                 </div>
               </div>
             </div>
@@ -159,4 +158,4 @@ const UserTab = ({ users }) => {
   );
 };
 
-export default UserTab;
+export default ProcessTab;
