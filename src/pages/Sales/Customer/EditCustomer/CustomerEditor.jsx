@@ -16,6 +16,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import GeneralTabs from "./Tabs/GeneralTabs";
+import PaymentTabs from "./Tabs/PaymentTabs";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
@@ -118,7 +119,7 @@ const EditCustomer = () => {
       update: null,
     },
     {
-      value: "Payment",
+      value: "payment",
       label: "Condiciones de pago",
       subLabel: "Define como será la relación comercial",
       disabled: false,
@@ -285,6 +286,12 @@ const EditCustomer = () => {
                     className="w-full overflow-auto"
                   >
                     <GeneralTabs data={customer} />
+                  </TabsContent>
+                  <TabsContent
+                    value="payment"
+                    className="w-full overflow-auto"
+                  >
+                    <PaymentTabs data={customer} />
                   </TabsContent>
                 </Tabs>
               </div>

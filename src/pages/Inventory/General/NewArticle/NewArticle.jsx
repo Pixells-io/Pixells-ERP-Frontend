@@ -271,7 +271,7 @@ const CreateArticle = () => {
 
         {/* <div className="h-full overflow-auto rounded-xl bg-white"> */}
         <div className="flex h-full flex-1 flex-col overflow-auto rounded-xl bg-white">
-          <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+          <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DEL ARTÍCULO
             </span>
@@ -317,8 +317,8 @@ const CreateArticle = () => {
             setPrincipalInputs={setInitialValues}
           />
 
-          <div className="flex w-full items-end px-6 py-2">
-            <div className="flex w-full justify-between">
+          <div className="flex w-full items-end px-6 py-4">
+            <div className="flex w-full items-center justify-between">
               <label className="pl-[370px] text-xs font-light text-[#8F8F8F]">
                 Actualizado 07 septiembre 2024
               </label>
