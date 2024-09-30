@@ -14,6 +14,8 @@ import {
   editGeneralInfo,
 } from "../utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import GeneralTabs from "./Tabs/GeneralTabs";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
@@ -82,38 +84,6 @@ const EditCustomer = () => {
       ],
     },
   ];
-
-  const contactForm = {
-    comentarios: "Faltan algunos datos",
-    activo: true,
-    inactivo: false,
-    desde: "2024-03-22",
-    hasta: "2024-02-06",
-    calle: "Periferico Sur",
-    colonia: "Buena vista",
-    estado: "Ciudad de México",
-    encargadoCompras: "juan",
-    numeroInterno: "2",
-    codigoPostal: "08912",
-    pais: "México",
-    numeroExterior: "3",
-    ciudad: "Distrito Federal",
-  };
-
-  const facturacion = {
-    regimenFiscal: "Sin obligaciones fiscales",
-    metodoPago: "Efectivo",
-    formaPago: "Efectivo",
-    usoCFDI: "ewefewf",
-    email: "ejemplo@mail.com",
-  };
-
-  const condiciones = {
-    condiciones: "option1",
-    interesesPorRetraso: "option2",
-    diasDeCredito: "option2",
-    limiteDeCredito: "option1",
-  };
 
   const tabOptions = [
     {
@@ -309,6 +279,13 @@ const EditCustomer = () => {
                       />
                     </Form>
                   </TabsContent>
+
+                  <TabsContent
+                    value="general"
+                    className="w-full overflow-auto"
+                  >
+                    <GeneralTabs data={customer} />
+                  </TabsContent>
                 </Tabs>
               </div>
             </div>
@@ -318,33 +295,8 @@ const EditCustomer = () => {
           </TabsContent>
         </Tabs>
         {/* <div className="w-full space-y-4 overflow-auto">
-          <Form
-            id="form-customer"
-            action={"/sales/customer/edit/" + customer.id}
-            method="post"
-          >
-            <input
-              type="hidden"
-              hidden
-              name="customer_id"
-              value={customer.id}
-            />
-            <input type="hidden" hidden name="type" value={"customer_edit"} />
-            <input
-              type="hidden"
-              hidden
-              name="client_transactional_id"
-              value={customer.id}
-            />
-
-            <InputsGroup
-              fields={customerFields}
-              initialValues={customerValues}
-              id={customer.id}
-            />
-          </Form>
           <FormGroup data={customer} isDisabled={false} />
-        </div>
+        </div> */}
         <Form
           id="form-customer"
           action={"/sales/customer/edit/" + customer.id}
@@ -364,7 +316,7 @@ const EditCustomer = () => {
                 : "Eliminar Cliente"}
             </span>
           </Button>
-        </Form> */}
+        </Form>
       </div>
     </div>
   );
