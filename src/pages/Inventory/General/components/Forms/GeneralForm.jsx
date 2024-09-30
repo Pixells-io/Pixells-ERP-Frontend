@@ -8,6 +8,9 @@ import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
 import { Switch } from "@/components/ui/switch";
 import InputForm from "@/components/InputForm/InputForm";
+import { format } from "date-fns";
+import ModalPeriod from "../../Modals/ModalPeriod";
+import { Button } from "@/components/ui/button";
 
 const GeneralForm = ({ data, setData }) => {
   const [formData, setFormData] = useState({
@@ -22,6 +25,22 @@ const GeneralForm = ({ data, setData }) => {
     to: data.to || "",
     imagenPrincipal: data.imagenPrincipal || null,
   });
+
+  const clearPeriod = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      from: "",
+      to: "",
+    }));
+  };
+
+  const addDate = (dateI, dateF) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      from: dateI,
+      to: dateF,
+    }));
+  };
 
   const [imagePreview, setImagePreview] = useState(
     formData?.imagenPrincipal || "",
@@ -47,6 +66,7 @@ const GeneralForm = ({ data, setData }) => {
   };
 
   const handleChange = (e) => {
+    console.log(e);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -82,6 +102,7 @@ const GeneralForm = ({ data, setData }) => {
     }));
     setImagePreview("");
   };
+
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex h-full w-full flex-col gap-3">
@@ -152,6 +173,7 @@ const GeneralForm = ({ data, setData }) => {
         <div className="flex w-full border-b border-grisDisabled">
           <p className="px-4 py-2 text-[10px] text-grisSubText">ESTATUS</p>
         </div>
+
         <div className="flex w-full items-center justify-between gap-2 border-b border-grisDisabled">
           <div className="flex items-center gap-2">
             <Switch />
@@ -168,6 +190,65 @@ const GeneralForm = ({ data, setData }) => {
             >
               + Periodo
             </button>
+          </div>
+        </div>
+
+        <div className="flex w-full justify-between py-2">
+          <div className="flex items-center gap-x-3">
+            <Switch
+              className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+              name="activos"
+              checked={formData?.activos == "1"}
+              onCheckedChange={(e) => handleChange(e ? "1" : "0", "active")}
+            />
+            <label className="font-roboto text-xs font-normal text-grisText">
+              Activo
+            </label>
+            {!!formData.from && !!formData.to ? (
+              <div className="flex items-center gap-x-2">
+                <div className="rounded-[8px] bg-gris px-2 py-1">
+                  <input
+                    type="hidden"
+                    hidden
+                    name="from"
+                    className="hidden"
+                    value={format(formData.from, "PP")}
+                  />
+                  <label className="text-xs font-light text-[#44444F]">
+                    {format(formData.from, "PP")}
+                  </label>
+                </div>
+                <div className="rounded-[8px] bg-gris px-2 py-1">
+                  <input
+                    type="hidden"
+                    hidden
+                    name="to"
+                    className="hidden"
+                    value={format(formData.to, "PP")}
+                  />
+                  <label className="text-xs font-light text-[#44444F]">
+                    {format(formData.to, "PP")}
+                  </label>
+                </div>
+              </div>
+            ) : (
+              <label className="font-roboto text-xs font-light text-grisSubText">
+                (Sin periodo de tiempo)
+              </label>
+            )}
+          </div>
+          <div>
+            {!!formData.from && !!formData.to ? (
+              <Button
+                type="button"
+                className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
+                onClick={clearPeriod}
+              >
+                Restablecer
+              </Button>
+            ) : (
+              <ModalPeriod setFunctionParent={addDate} />
+            )}
           </div>
         </div>
       </div>
@@ -206,7 +287,7 @@ const GeneralForm = ({ data, setData }) => {
           />
         </div> */}
 
-        <div className="flex w-[200px] items-center space-x-6">
+        {/* <div className="flex w-[200px] items-center space-x-6">
           <Label
             htmlFor="from"
             className="pt-2 font-roboto text-[14px] text-gris2"
@@ -220,6 +301,7 @@ const GeneralForm = ({ data, setData }) => {
             onChange={handleChange}
           />
         </div>
+
         <div className="flex w-[200px] items-center space-x-6">
           <Label
             htmlFor="to"
@@ -233,7 +315,7 @@ const GeneralForm = ({ data, setData }) => {
             value={formData.to}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         {/* <div className="flex items-center space-x-6">
           <Label
