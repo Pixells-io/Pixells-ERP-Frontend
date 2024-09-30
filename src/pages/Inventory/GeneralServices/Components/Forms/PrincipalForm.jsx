@@ -19,24 +19,47 @@ import {
 } from "@/components/ui/popover";
 
 const PrincipalForm = ({
-  categories,
-  warehouses,
-  inputsData,
-  setInputsData,
+  whareHouses,
+  costCenter,
+  priceList
 }) => {
+
+  const [inputsData, setInputsData] = useState({
+    codigoDeArticulo: '',
+    nombreODescripcion: '',
+    categoria: '',
+    compra: false,
+    venta: false,
+    unidadesDeMedida: '',
+    precio: '',
+    centroDeCostos: '',
+    listaDePrecios: '',
+    almacen: '',
+    codigoDeBarras: '',
+    color: '#FF00FF', // Default color
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInputsData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleCheckboxChange = (name, checked) => {
-    setInputsData((prevData) => ({ ...prevData, [name]: checked }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: checked,
+    }));
   };
-
   const handleColorChange = (e) => {
     const newColor = e.target.value;
     setInputsData((prevData) => ({ ...prevData, color: newColor }));
@@ -92,12 +115,7 @@ const PrincipalForm = ({
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(categories?.data) &&
-                  categories?.data.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
+                
               </SelectContent>
             </Select>
           </div>
@@ -240,12 +258,7 @@ const PrincipalForm = ({
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(warehouses?.data) &&
-                  warehouses?.data.map((warehouse) => (
-                    <SelectItem key={warehouse?.id} value={warehouse?.id}>
-                      {warehouse?.name}
-                    </SelectItem>
-                  ))}
+                
               </SelectContent>
             </Select>
           </div>
