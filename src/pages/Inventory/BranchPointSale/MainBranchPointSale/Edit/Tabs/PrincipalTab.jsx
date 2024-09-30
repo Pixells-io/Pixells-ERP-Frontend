@@ -1,12 +1,6 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 
@@ -94,72 +88,48 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
             />
           </div>
           <div className="col-span-12">
-            <p className="mb-1 text-[10px] font-normal text-grisText">
-              Almacén
-            </p>
-            <Select
-              name="inventory_id"
+            <SelectRouter
+              value={
+                whareHouses.find(
+                  (whareHouse) => whareHouse.id == store?.inventory_id,
+                ) || null
+              }
+              name={"inventory_id"}
+              options={whareHouses}
+              placeholder="Almacén"
               required={true}
-              value={String(store?.inventory_id)}
-              onValueChange={(e) => handleInputChange(e, "inventory_id")}
-            >
-              <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7586B] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Seleccionar" />
-              </SelectTrigger>
-              <SelectContent>
-                {whareHouses.map((whareHouse) => (
-                  <SelectItem key={whareHouse.id} value={String(whareHouse.id)}>
-                    {whareHouse.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              onChange={(e) => handleInputChange(e.id, "inventory_id")}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+            />
           </div>
           <div className="col-span-12">
-            <p className="mb-1 text-[10px] font-normal text-grisText">
-              Centro de Costos
-            </p>
-
-            <Select
-              name="cost_center_id"
-              value={String(store?.cost_center_id)}
-              onValueChange={(e) => handleInputChange(e, "cost_center_id")}
-            >
-              <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Seleccionar" />
-              </SelectTrigger>
-              <SelectContent>
-                {costCenter.map((cc) => (
-                  <SelectItem key={cc.id} value={String(cc.id)}>
-                    {cc.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <SelectRouter
+              value={
+                costCenter.find((cc) => cc.id == store?.cost_center_id) || null
+              }
+              name={"cost_center_id"}
+              options={costCenter}
+              placeholder="Centro de Costos"
+              required={true}
+              onChange={(e) => handleInputChange(e.id, "cost_center_id")}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+            />
           </div>
           <div className="col-span-12">
-            <p className="mb-1 text-[10px] font-normal text-grisText">
-              Lista de Precios
-            </p>
-
-            <Select
-              name="price_list_id"
-              value={String(store?.price_list_id)}
-              onValueChange={(e) => handleInputChange(e, "price_list_id")}
-            >
-              <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Seleccionar" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectContent>
-                  {priceList.map((pl) => (
-                    <SelectItem key={pl.id} value={String(pl.id)}>
-                      {pl.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </SelectContent>
-            </Select>
+            <SelectRouter
+              value={
+                priceList.find((pl) => pl.id == store?.price_list_id) || null
+              }
+              name={"price_list_id"}
+              options={priceList}
+              placeholder="Lista de Precios"
+              required={true}
+              onChange={(e) => handleInputChange(e.id, "price_list_id")}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+            />
           </div>
         </div>
       </div>
