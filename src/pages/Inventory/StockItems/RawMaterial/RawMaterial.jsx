@@ -1,33 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "../Table/Datatable";
 import { StockWarehouseColumns } from "../Table/StockWarehouseColumns";
 import { MaterialColumns } from "../Table/MaterialRawColumns";
-
-const data = [
-  {
-    warehouseCode: "01",
-    warehouseName: "Guadalajara",
-    inStock: 54,
-    committed: 10,
-    order: 0,
-    available: 44,
-    ctotal: 5436,
-  },
-  {
-    warehouseCode: "02",
-    warehouseName: "Monterrey",
-    inStock: 2,
-    committed: 0,
-    order: 15,
-    available: 17,
-    ctotal: "",
-    variable:2
-  },
-];
+import { useLoaderData } from "react-router-dom";
+import TableRowProduct from "../Components/TableRowProduct";
 
 function MaterialWarehouse() {
+  const { data } = useLoaderData();
+  const [products, setProducts] = useState(data.products);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -38,11 +21,7 @@ function MaterialWarehouse() {
           <h2 className="font-poppins text-base font-bold text-[#44444F]">
             INVENTARIO
           </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]"></div>
         </div>
         <Tabs
           defaultValue="stock"
@@ -51,7 +30,7 @@ function MaterialWarehouse() {
           <div className="flex justify-between">
             <div className="flex justify-between">
               <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
-                Stock General
+                Almacen {data.inventory}
               </p>
             </div>
             <div className="flex justify-end gap-6">
@@ -71,21 +50,71 @@ function MaterialWarehouse() {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="stock" className="rounded-md p-2">
-            <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
-              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
-                <span className="font-poppins text-lg font-medium text-[#44444F]">
-                ARTÍCULOS EN ALMACÉN
-                </span>
-               
+          <TabsContent value="stock" className="rounded-md bg-white px-6 py-4">
+            <div className="flex h-full w-full flex-col space-y-4 rounded-xl">
+              <div>
+                {/* HEADER */}
+                <div className="flex w-full border-b border-[#44444F] py-4">
+                  <div className="w-1/12">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      CÓDIGO
+                    </span>
+                  </div>
+                  <div className="w-3/12">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      NOMBRE
+                    </span>
+                  </div>
+                  <div className="w-2/12">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      UBICACION
+                    </span>
+                  </div>
+                  <div className="w-1/12 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      STOCK
+                    </span>
+                  </div>
+                  <div className="w-1/12 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      COMP.
+                    </span>
+                  </div>
+                  <div className="w-1/12 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      PEDIDO
+                    </span>
+                  </div>
+                  <div className="w-1/12 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      DISP.
+                    </span>
+                  </div>
+                  <div className="w-1/12">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      COSTO
+                    </span>
+                  </div>
+                  <div className="w-1/12">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      VARIABLES
+                    </span>
+                  </div>
+                </div>
+                {/* BODY */}
+                {products.map((product, i) => (
+                  <TableRowProduct product={product} key={i} />
+                ))}
               </div>
-              <DataTable data={data} columns={MaterialColumns}  searchNameFilter={"warehouseCode"}
-          searchFilter={"warehouseCode"}/>
+              <DataTable
+                data={products}
+                columns={MaterialColumns}
+                searchNameFilter={"Buscar..."}
+                searchFilter={"warehouseCode"}
+              />
             </div>
           </TabsContent>
-          <TabsContent value="summary" className="rounded-md p-2">
-       
-          </TabsContent>
+          <TabsContent value="summary" className="rounded-md p-2"></TabsContent>
         </Tabs>
       </div>
     </div>

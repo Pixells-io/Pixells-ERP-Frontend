@@ -514,6 +514,10 @@ import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
 import { getCatalogsTransformation } from "./pages/Transformation/utils";
+import {
+  getInventoryStock,
+  multiloaderStock,
+} from "./pages/Inventory/StockItems/utils";
 
 const router = createBrowserRouter([
   {
@@ -1252,14 +1256,16 @@ const router = createBrowserRouter([
           {
             path: "/inventory/stock-items",
             element: <MainStockItem />,
+            loader: multiloaderStock,
           },
           {
-            path: "/inventory/stock-items/product/edit/:id",
+            path: "/inventory/stock-items/product/show/:id",
             element: <StockWarehouse />,
           },
           {
-            path: "/inventory/stock-items/warehouse/edit/:id",
+            path: "/inventory/stock-items/warehouse/show/:id",
             element: <MaterialWarehouse />,
+            loader: getInventoryStock,
           },
           {
             path: "/inventory/branch-points-sale",
