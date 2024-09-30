@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
 import GeneralTab from "../Components/Forms/GeneralForm";
+import UserTab from "../Components/Forms/UserForm";
 const CreateService = () => {
   const tabOptions = [
     {
@@ -26,12 +28,17 @@ const CreateService = () => {
       value: "users",
       label: "Usuarios",
       subLabel: "Gestiona los usuarios que usarán el sistema",
-      disabled: true,
+      disabled: false,
       update: null,
     },
  
   ];
-
+  const {
+    whareHouses,
+    costCenter,
+    priceList,
+    users,
+  } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -112,6 +119,11 @@ const CreateService = () => {
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab
+              />
+            </TabsContent>
+            <TabsContent value="users" className="w-full">
+              <UserTab
+               users={users.data}
               />
             </TabsContent>
           </Tabs>
