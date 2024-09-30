@@ -23,6 +23,8 @@ import CashBoxTab from "./Tabs/CashBoxTab/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
 import AccountingTab from "./Tabs/AccountingTab";
 import { createPusherClient } from "@/lib/pusher";
+import InvoicesAndReceipts from "./Tabs/InvoicesAndReceiptsTab";
+import DevicesTab from "./Tabs/DevicesTab";
 
 const EditBranch = () => {
   const { id } = useParams();
@@ -256,6 +258,12 @@ const EditBranch = () => {
             </TabsContent>
             <TabsContent value="accounting" className="w-full">
               <AccountingTab store_id={storeDetailList?.id} />
+            </TabsContent>
+            <TabsContent value="invoicesAndReceipts" className="w-full">
+              <InvoicesAndReceipts store_id={storeDetailList?.id} />
+            </TabsContent>
+            <TabsContent value="devices" className="w-full">
+              <DevicesTab store_id={storeDetailList?.id} />
             </TabsContent>
           </Tabs>
         </div>

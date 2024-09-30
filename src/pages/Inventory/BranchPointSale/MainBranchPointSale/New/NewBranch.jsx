@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { redirect, useLoaderData } from "react-router-dom";
 import { saveBranchPointSale } from "../../utils";
@@ -8,7 +6,7 @@ import PrincipalTab from "./Tabs/PrincipalTab";
 import NavigationHeader from "@/components/navigation-header";
 
 const NewBranch = () => {
-  const { whareHouses, costCenter, priceList, storeDetail } = useLoaderData();
+  const { whareHouses, costCenter, priceList } = useLoaderData();
 
   const tabOptions = [
     {
