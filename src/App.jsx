@@ -328,6 +328,7 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import EditArticle, {
   Action as editProduct,
 } from "./pages/Inventory/General/EditArticle/EditArticle";
+import MainGeneralServices from "./pages/Inventory/GeneralServices/MainGeneralServices";
 import MainWL, {
   Action as saveSlotsConfigs,
 } from "./pages/Inventory/WarehouseLocations/MainWL";
@@ -1150,6 +1151,10 @@ const router = createBrowserRouter([
             element: <EditArticle />,
             loader: multiloaderArticle2,
             action: editProduct,
+          },
+          {
+              path: "/inventory/general-services",
+              element: <MainGeneralServices />,
           },
           {
             path: "/inventory/general-warehouses",

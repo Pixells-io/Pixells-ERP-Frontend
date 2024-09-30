@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   bagCheck,
+  folderOpen,
   cube,
   fileTray,
   arrowForwardCircle,
@@ -18,6 +19,13 @@ const MENU_ITEMS = [
     subname: "General",
     icon: bagCheck,
     subRoutes: ["/inventory/create"],
+  },
+  {
+    path: "/inventory/general-services",
+    name: "Servicios",
+    subname: "General",
+    icon: folderOpen,
+    subRoutes: ["/inventory/general-services/"],
   },
   {
     path: "/inventory/general-warehouses",
