@@ -1,5 +1,4 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,34 +6,79 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import UnitMeasure from "./UnitMeasureModal";
+import UnitMeasureButton from "../UnitMeasure";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
+import { Button } from "@/components/ui/button";
+import { IonIcon } from "@ionic/react";
+import { closeCircle } from "ionicons/icons";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
-const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
+const PrincipalForm = ({
+  whareHouses,
+  costCenter,
+  priceList
+}) => {
+
+  const [inputsData, setInputsData] = useState({
+    codigoDeArticulo: '',
+    nombreODescripcion: '',
+    categoria: '',
+    compra: false,
+    venta: false,
+    unidadesDeMedida: '',
+    precio: '',
+    centroDeCostos: '',
+    listaDePrecios: '',
+    almacen: '',
+    codigoDeBarras: '',
+    color: '#FF00FF', // Default color
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInputsData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => ({ ...prevData, [name]: value }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleCheckboxChange = (name, checked) => {
-    setInputsData((prevData) => ({ ...prevData, [name]: checked }));
+    setInputsData((prevData) => ({
+      ...prevData,
+      [name]: checked,
+    }));
+  };
+  const handleColorChange = (e) => {
+    const newColor = e.target.value;
+    setInputsData((prevData) => ({ ...prevData, color: newColor }));
   };
 
   const handleUnitMeasureSelect = (value) => {
     setInputsData((prevData) => ({ ...prevData, unidadesDeMedida: value }));
   };
+  const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
 
+  const handleClosePopover = () => {
+    setIsColorPopoverOpen(false);
+  };
   const selectClasses =
     "h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones";
   // "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="w-full rounded-xl bg-white py-2">
+    <div className="w-full rounded-xl bg-white p-4">
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex w-full flex-col gap-6">
           <div className="flex w-full gap-6">
@@ -71,12 +115,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(categories?.data) &&
-                  categories?.data.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
+                
               </SelectContent>
             </Select>
           </div>
@@ -84,31 +123,10 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
           <div className="flex w-full flex-col gap-3">
             <div className="border-b border-grisDisabled">
               <p className="px-4 py-2 text-[10px] text-grisSubText">
-                TIPO DE ARTÍCULO
+                TIPO DE SERVICIO
               </p>
             </div>
             <div className="flex flex-col space-y-4">
-              {/* Checkbox Inventario */}
-              <div className="flex border-b border-grisDisabled">
-                <div className="flex items-center px-4 py-2">
-                  <Checkbox
-                    id="inventario"
-                    name="inventario"
-                    checked={inputsData?.inventario || false}
-                    onCheckedChange={(checked) =>
-                      handleCheckboxChange("inventario", checked)
-                    }
-                    className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
-                  />
-                  <label
-                    htmlFor="inventario"
-                    className="ml-2 font-roboto text-[14px] text-gris2"
-                  >
-                    Inventario
-                  </label>
-                </div>
-              </div>
-
               {/* Checkbox Compra */}
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
@@ -159,11 +177,12 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               placeholder="Unidades de Medida"
               name="unidadesDeMedida"
               value={inputsData?.unidadesDeMedida || ""}
+              onChange={handleInputChange} // Added onChange handler for consistency
               readOnly
             />
             {/* Unidades de Medida Modal */}
             <div className="ml-0 pl-0 pt-4">
-              <UnitMeasure
+              <UnitMeasureButton
                 onSelect={handleUnitMeasureSelect}
                 initialValue={inputsData?.unidadesDeMedida || ""}
               />
@@ -239,12 +258,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
               <SelectContent>
-                {Array.isArray(warehouses?.data) &&
-                  warehouses?.data.map((warehouse) => (
-                    <SelectItem key={warehouse?.id} value={warehouse?.id}>
-                      {warehouse?.name}
-                    </SelectItem>
-                  ))}
+                
               </SelectContent>
             </Select>
           </div>
@@ -256,10 +270,65 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             value={inputsData?.codigoDeBarras || ""}
             onChange={handleInputChange}
           />
+          {/* Color */}
+          <div className="flex flex-col space-y-4">
+            <div className="border-b border-grisDisabled">
+              <p className="px-4 py-2 text-[10px] text-grisSubText">
+                COLOR
+              </p>
+            </div>
+            <div className="flex justify-between items-center border-b border-grisDisabled ">
+              <div
+                className="mr-2 ml-4 mb-4 flex size-[20px] items-center rounded-[6px]"
+                style={{ backgroundColor: inputsData?.color || "#FF00FF" }}
+              ></div>
+              <div className="flex items-end justify-end">
+                <Popover
+                  open={isColorPopoverOpen}
+                  onOpenChange={setIsColorPopoverOpen}
+                >
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={
+                        "flex mb-4 justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
+                      }
+                    >
+                      Selecciona
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-64">
+                    <div className="flex flex-col space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="text-sm font-medium">
+                          Escoge un color
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={handleClosePopover}
+                          className="absolute right-2 top-2"
+                        >
+                          <IonIcon icon={closeCircle} className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <input
+                        type="color"
+                        name="color"
+                        value={inputsData?.color || "#FF00FF"}
+                        onChange={handleColorChange}
+                        className="h-8 w-full"
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Inputs;
+export default PrincipalForm;

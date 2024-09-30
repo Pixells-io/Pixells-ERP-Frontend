@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { redirect, useLoaderData } from "react-router-dom";
-import { saveBranchPointSale } from "../../utils";
-import PrincipalTab from "./Tabs/PrincipalTab";
 import NavigationHeader from "@/components/navigation-header";
-
-const NewBranch = () => {
-  const { whareHouses, costCenter, priceList } = useLoaderData();
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLoaderData } from "react-router-dom";
+import PrincipalForm from "../Components/Forms/PrincipalForm";
+import GeneralTab from "../Components/Forms/GeneralForm";
+import UserTab from "../Components/Forms/UserForm";
+const CreateService = () => {
   const tabOptions = [
     {
       value: "principal",
       label: "Principal",
-      subLabel: "Información inicial de la sucursal",
+      subLabel: "Información inicial del servicio",
       disabled: false,
       update: {
         day: "Hoy",
@@ -23,60 +21,24 @@ const NewBranch = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "users",
       label: "Usuarios",
       subLabel: "Gestiona los usuarios que usarán el sistema",
-      disabled: true,
+      disabled: false,
       update: null,
     },
-    {
-      value: "cashBoxes",
-      label: "Cajas",
-      subLabel: "Configura las cajas que tendrás disponibles",
-      disabled: true,
-      update: null,
-    },
-    {
-      value: "payment",
-      label: "Pago",
-      subLabel: "Habilita los métodos de pago deseados",
-      disabled: true,
-      update: null,
-    },
-    {
-      value: "accounting",
-      label: "Contabilidad",
-      subLabel: "Configura parametros para contabilidad",
-      disabled: true,
-      update: null,
-    },
-    {
-      value: "invoicesAndReceipts",
-      label: "Facturas y Recibos",
-      subLabel: "Configura parametros para los tickets",
-      disabled: true,
-      update: null,
-    },
-    {
-      value: "devices",
-      label: "Dispositivos",
-      subLabel: "Confirma los dispositivos que estarán activos",
-      disabled: true,
-      update: null,
-    },
-    {
-      value: "stock",
-      label: "Stock",
-      subLabel: "Consulta el inventario en tiempo real",
-      disabled: true,
-      update: null,
-    },
+ 
   ];
-
+  const {
+    whareHouses,
+    costCenter,
+    priceList,
+    users,
+  } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -152,10 +114,16 @@ const NewBranch = () => {
               )}
             </TabsList>
             <TabsContent value="principal" className="w-full">
-              <PrincipalTab
-                whareHouses={whareHouses.data}
-                costCenter={costCenter.data}
-                priceList={priceList.data}
+              <PrincipalForm
+              />
+            </TabsContent>
+            <TabsContent value="general" className="w-full">
+              <GeneralTab
+              />
+            </TabsContent>
+            <TabsContent value="users" className="w-full">
+              <UserTab
+               users={users.data}
               />
             </TabsContent>
           </Tabs>
@@ -165,12 +133,4 @@ const NewBranch = () => {
   );
 };
 
-export default NewBranch;
-
-export async function Action({ request }) {
-  const data = await request.formData();
-
-  const response = await saveBranchPointSale(data);
-
-  return redirect(`/inventory/branch-points-sale/edit/${response.data}`);
-}
+export default CreateService;

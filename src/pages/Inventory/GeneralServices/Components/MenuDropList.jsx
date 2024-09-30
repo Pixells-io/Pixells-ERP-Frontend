@@ -17,7 +17,7 @@ const ServiceMenu = () => {
       <DropdownMenuContent className="rounded-2xl">
         <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
           <Link
-            to="/inventory/general-services"
+            to="/inventory/general-services/service/new"
             className="flex w-full items-center"
           >
             <span>Servicios</span>
