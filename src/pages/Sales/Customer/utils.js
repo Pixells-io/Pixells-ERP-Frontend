@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function getCustomers() {
   try {
@@ -106,6 +107,14 @@ export async function destroyCustomer(data) {
 }
 
 export async function createGeneralInfo(data) {
+
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
+
   const info = {
     client_transactional_id: Number(data.get("client_transactional_id")),
     street: data.get("street"),
@@ -116,13 +125,13 @@ export async function createGeneralInfo(data) {
     cologne: data.get("cologne"),
     state: data.get("state"),
     country: data.get("country"),
-    shopping_person: 0,
+    shopping_person: data.get("shopping_person"),
     comment: data.get("comment"),
-    start: data.get("start"),
-    end: data.get("end"),
-    active: data.get("status") == "true" ? true : false,
+    start: startDate,
+    end: endDate,
+    active: !!data.get("status") ? "1" : "0",
   };
-
+  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}client/create-address-info`,
     {
