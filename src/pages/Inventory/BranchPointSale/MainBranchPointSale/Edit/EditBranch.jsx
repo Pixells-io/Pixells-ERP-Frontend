@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import PrincipalTab from "./Tabs/PrincipalTab";
 import GeneralTab from "./Tabs/GeneralTab";
 import {
@@ -12,6 +12,7 @@ import {
   createUsersBranchTab,
   deleteUserBranchTab,
   destroyCashBoxesBranchTab,
+  getStoreById,
   updateCashBoxesBranchTab,
   updateGeneralBranchTab,
   updatePrincipalBranchTab,
@@ -21,8 +22,10 @@ import UserTab from "./Tabs/UserTab";
 import CashBoxTab from "./Tabs/CashBoxTab/CashBoxTab";
 import PaymentTab from "./Tabs/PaymentTab";
 import AccountingTab from "./Tabs/AccountingTab";
+import { createPusherClient } from "@/lib/pusher";
 
 const EditBranch = () => {
+  const { id } = useParams();
   const {
     whareHouses,
     costCenter,
@@ -32,6 +35,29 @@ const EditBranch = () => {
     positions,
     bankAccounts,
   } = useLoaderData();
+
+  const [storeDetailList, setStoreDetailList] = useState(storeDetail.data);
+  const [urlId, setUrlId] = useState(id);
+
+  const pusherClient = createPusherClient();
+
+  async function getStoreDetailList(id) {
+    let newData = await getStoreById(id);
+    setStoreDetailList(newData.data);
+  };
+
+  useEffect(() => {
+    let channel = pusherClient.subscribe(`private-get-store.${urlId}`);
+
+    channel.bind("fill-store", ({ message }) => {
+      getStoreDetailList(message);
+    });
+
+   
+    return () => {
+      pusherClient.unsubscribe(`private-get-store.${urlId}`);
+    };
+  }, [urlId]);
 
   const tabOptions = [
     {
@@ -201,35 +227,35 @@ const EditBranch = () => {
                 whareHouses={whareHouses.data}
                 costCenter={costCenter.data}
                 priceList={priceList.data}
-                storeDetail={storeDetail.data}
+                storeDetail={storeDetailList}
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab
-                informationDetails={storeDetail?.data?.information}
-                store_id={storeDetail?.data?.id}
+                informationDetails={storeDetailList?.information}
+                store_id={storeDetailList?.id}
               />
             </TabsContent>
             <TabsContent value="users" className="w-full">
               <UserTab
                 users={users.data}
-                usersRegister={storeDetail?.data?.users}
-                cashBoxes={storeDetail?.data?.pos}
-                store_id={storeDetail?.data?.id}
+                usersRegister={storeDetailList?.users}
+                cashBoxes={storeDetailList?.pos}
+                store_id={storeDetailList?.id}
               />
             </TabsContent>
             <TabsContent value="cashBoxes" className="w-full">
               <CashBoxTab
-                cashBoxes={storeDetail?.data?.pos}
+                cashBoxes={storeDetailList?.pos}
                 positions={positions.data}
-                store_id={storeDetail?.data?.id}
+                store_id={storeDetailList?.id}
               />
             </TabsContent>
             <TabsContent value="payment" className="w-full">
-              <PaymentTab store_id={storeDetail?.data?.id} bankAccounts={bankAccounts?.data} />
+              <PaymentTab store_id={storeDetailList?.id} bankAccounts={bankAccounts?.data} />
             </TabsContent>
             <TabsContent value="accounting" className="w-full">
-              <AccountingTab store_id={storeDetail?.data?.id} />
+              <AccountingTab store_id={storeDetailList?.id} />
             </TabsContent>
           </Tabs>
         </div>

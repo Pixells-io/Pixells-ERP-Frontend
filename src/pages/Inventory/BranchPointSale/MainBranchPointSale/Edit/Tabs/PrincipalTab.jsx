@@ -7,22 +7,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useState } from "react";
-import { Form, redirect, useNavigation, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
 const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
   const navigation = useNavigation();
 
-  const [store, setStore] = useState(
-    {
+  const [store, setStore] = useState({
+    id: storeDetail?.id,
+    store_code: storeDetail?.store_code,
+    name: storeDetail?.name,
+    inventory_id: storeDetail?.inventory?.value,
+    cost_center_id: storeDetail?.cost_center?.value,
+    price_list_id: storeDetail?.price_list?.value,
+  });
+
+  useEffect(() => {
+    chagenValueStore();
+  }, [storeDetail]);
+
+  const chagenValueStore = () => {
+    setStore({
       id: storeDetail?.id,
       store_code: storeDetail?.store_code,
       name: storeDetail?.name,
       inventory_id: storeDetail?.inventory?.value,
       cost_center_id: storeDetail?.cost_center?.value,
       price_list_id: storeDetail?.price_list?.value,
-    }
-  );
+    });
+  };
 
   const handleInputChange = (value, name) => {
     setStore((prevFormData) => ({

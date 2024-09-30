@@ -3,14 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { add, closeCircle, trashOutline } from "ionicons/icons";
-import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 import ModalPaymentMethods from "../Modals/ModalPaymentMethods";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const PaymentTab = ({ store_id, bankAccounts }) => {
+
+  const navigation = useNavigation();
+
   const [paymentSelect, setPaymentSelect] = useState([]);
   const [paymentNew, setPaymentNew] = useState({
     type: "",
@@ -100,6 +103,12 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
 
     setPaymentNew(auxPayments);
   };
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      clearData();
+    }
+  }, [navigation.state]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
@@ -463,8 +472,9 @@ const PaymentTab = ({ store_id, bankAccounts }) => {
             <Button
               form="create-form-payment"
               className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+              disabled={navigation.state === "submitting"}
             >
-              Guardar
+              {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
             </Button>
           )}
         </div>

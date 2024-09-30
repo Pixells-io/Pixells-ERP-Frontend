@@ -1,13 +1,12 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
 const GeneralTab = ({ informationDetails, store_id }) => {
-
   const navigation = useNavigation();
 
   const [information, setInformation] = useState({
@@ -24,6 +23,27 @@ const GeneralTab = ({ informationDetails, store_id }) => {
     start: informationDetails?.start,
     end: informationDetails?.end,
   });
+
+  useEffect(() => {
+    changeValueInformation();
+  }, [informationDetails]);
+
+  const changeValueInformation = () => {
+    setInformation({
+      id: informationDetails?.id,
+      street: informationDetails?.street,
+      ext: informationDetails?.ext,
+      int: informationDetails?.int,
+      cologne: informationDetails?.cologne,
+      city: informationDetails?.city,
+      state: informationDetails?.state,
+      cp: informationDetails?.cp,
+      country: informationDetails?.country,
+      status: informationDetails?.status,
+      start: informationDetails?.start,
+      end: informationDetails?.end,
+    });
+  };
 
   const clearPeriod = () => {
     setInformation((prevFormData) => ({

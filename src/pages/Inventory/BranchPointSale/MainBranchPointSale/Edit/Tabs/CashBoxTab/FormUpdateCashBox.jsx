@@ -76,6 +76,14 @@ const FormUpdateCashBox = ({ cashBoxes, positions, store_id }) => {
     }
   }, [navigation.state]);
 
+  useEffect(() => {
+    changeValueCashBoxes();
+  }, [cashBoxes]);
+
+  const changeValueCashBoxes = () => {
+    setCashBoxesSelect(cashBoxes);
+  };
+
   return (
     <div>
       {/* Show list cashBox */}

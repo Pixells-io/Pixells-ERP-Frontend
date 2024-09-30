@@ -76,6 +76,14 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
     }
   }, [navigation.state]);
 
+  useEffect(() => {
+    changeValueUserList();
+  }, [usersRegister]);
+
+  const changeValueUserList = () => {
+    setUsersSelect(usersRegister);
+  };
+
   return (
     <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
       <div className="overflow-auto">
