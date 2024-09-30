@@ -34,7 +34,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
   // "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="w-full rounded-xl bg-white p-4">
+    <div className="w-full rounded-xl bg-white py-2">
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex w-full flex-col gap-6">
           <div className="flex w-full gap-6">

@@ -95,7 +95,7 @@ const NewBranch = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-          Nueva Sucursal
+            Nueva Sucursal
           </p>
         </div>
 
