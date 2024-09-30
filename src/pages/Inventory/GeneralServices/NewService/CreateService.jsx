@@ -5,6 +5,7 @@ import { useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
 import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
+import ProcessTab from "../Components/Forms/ProcessForm";
 const CreateService = () => {
   const tabOptions = [
     {
@@ -31,7 +32,13 @@ const CreateService = () => {
       disabled: false,
       update: null,
     },
- 
+    {
+        value: "process",
+        label: "Proceso",
+        subLabel: "Gestiona los usuarios que usarán el sistema",
+        disabled: false,
+        update: null,
+      },
   ];
   const {
     whareHouses,
@@ -123,6 +130,11 @@ const CreateService = () => {
             </TabsContent>
             <TabsContent value="users" className="w-full">
               <UserTab
+               users={users.data}
+              />
+            </TabsContent>
+            <TabsContent value="process" className="w-full">
+              <ProcessTab
                users={users.data}
               />
             </TabsContent>

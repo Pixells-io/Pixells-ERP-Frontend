@@ -50,7 +50,6 @@ function ModalDeleteUser({ store_id, store_user_id, user_name }) {
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <Form
-          action={`/inventory/branch-points-sale/edit/${store_id}`}
           method="post"
           className="flex flex-col gap-4"
         >
