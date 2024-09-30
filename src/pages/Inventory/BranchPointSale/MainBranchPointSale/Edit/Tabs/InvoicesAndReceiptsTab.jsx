@@ -4,7 +4,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import React, { useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 
-const AccountingTab = ({ store_id }) => {
+const InvoicesAndReceipts = ({ store_id }) => {
   const navigation = useNavigation();
   const [accountingSelect, setAccountingSelect] = useState({});
 
@@ -16,7 +16,7 @@ const AccountingTab = ({ store_id }) => {
     >
       <div className="overflow-auto">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
-          CONTABILIDAD
+          FACTURAS Y RECIBOS
         </h2>
         <input
           type="text"
@@ -48,17 +48,17 @@ const AccountingTab = ({ store_id }) => {
           <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
             CONFIGURACIÓN
           </p>
-          <div className="mt-1 grid w-full grid-cols-12 gap-x-6 gap-y-2 border-t border-[#D7D7D7] py-6">
-            <div className="col-span-4 flex items-center gap-x-4">
+          <div className="mt-1 grid w-full grid-cols-12 gap-x-6 gap-y-2 border-y border-[#D7D7D7] py-3">
+            <div className="col-span-4 flex gap-x-4 items-center">
               <div className="flex items-center justify-center">
                 <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
               </div>
               <div className="flex flex-col">
                 <h2 className="text-xs font-normal text-grisText">
-                  Cuenta temporal predeterminada
+                  Encabezado y pie de página
                 </h2>
                 <h3 className="text-[10px] font-light text-grisSubText">
-                  Clientes sin identificar
+                  Agrega textos a tu ticket
                 </h3>
               </div>
             </div>
@@ -69,60 +69,75 @@ const AccountingTab = ({ store_id }) => {
                 //     (data) => data.id == data?.user_id,
                 //   ) || null
                 // }
-                name={"account"}
+                name={"header"}
+                options={[]}
+                placeholder={"Encabezado"}
+                required={false}
+                // onChange={(e) => handleInputChange(e.id, "header")}
+                getOptionValue={(e) => e.id}
+                getOptionLabel={(e) => e.position_name}
+              />
+            </div>
+            <div className="col-span-4">
+              <SelectRouter
+                // value={
+                //   [].find(
+                //     (data) => data.id == data?.user_id,
+                //   ) || null
+                // }
+                name={"footer"}
+                placeholder={"Pie de página"}
                 options={[]}
                 required={false}
-                // onChange={(e) => handleInputChange(e.id, "account")}
+                // onChange={(e) => handleInputChange(e.id, "footer")}
                 getOptionValue={(e) => e.id}
                 getOptionLabel={(e) => e.position_name}
               />
             </div>
           </div>
-          <div className="grid w-full grid-cols-12 gap-x-6 gap-y-2 border-y border-[#D7D7D7] py-4">
+          <div className="grid w-full grid-cols-12 gap-x-6 gap-y-2 border-b border-[#D7D7D7] py-5">
             <div className="col-span-4 flex items-center gap-x-4">
               <div className="flex items-center justify-center">
                 <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
               </div>
               <div className="flex flex-col">
                 <h2 className="text-xs font-normal text-grisText">
-                  Diarios predeterminados
+                  Agrega código QR al ticket
                 </h2>
                 <h3 className="text-[10px] font-light text-grisSubText">
-                  Para pedidos y facturas
+                  Permite trazabilidad del ticket
                 </h3>
               </div>
             </div>
-            <div className="col-span-4">
-              <SelectRouter
-                // value={
-                //   [].find(
-                //     (data) => data.id == data?.user_id,
-                //   ) || null
-                // }
-                name={"orders"}
-                options={[]}
-                required={true}
-                placeholder={"Pedidos"}
-                // onChange={(e) => handleInputChange(e.id, "account")}
-                getOptionValue={(e) => e.id}
-                getOptionLabel={(e) => e.position_name}
-              />
+          </div>
+          <div className="grid w-full grid-cols-12 gap-x-6 gap-y-2 border-b border-[#D7D7D7] py-5">
+            <div className="col-span-4 flex items-center gap-x-4">
+              <div className="flex items-center justify-center">
+                <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+              </div>
+              <div className="flex flex-col">
+                <h2 className="text-xs font-normal text-grisText">
+                  Impresión automática de ticket
+                </h2>
+                <h3 className="text-[10px] font-light text-grisSubText">
+                  Imprime de forma instantánea en todas las cajas
+                </h3>
+              </div>
             </div>
-            <div className="col-span-4">
-              <SelectRouter
-                // value={
-                //   [].find(
-                //     (data) => data.id == data?.user_id,
-                //   ) || null
-                // }
-                name={"invoices"}
-                options={[]}
-                required={true}
-                placeholder={"Facturas"}
-                // onChange={(e) => handleInputChange(e.id, "account")}
-                getOptionValue={(e) => e.id}
-                getOptionLabel={(e) => e.position_name}
-              />
+          </div>
+          <div className="grid w-full grid-cols-12 gap-x-6 gap-y-2 border-b border-[#D7D7D7] py-5">
+            <div className="col-span-4 flex items-center gap-x-4">
+              <div className="flex items-center justify-center">
+                <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+              </div>
+              <div className="flex flex-col">
+                <h2 className="text-xs font-normal text-grisText">
+                  Código para auto-facturación
+                </h2>
+                <h3 className="text-[10px] font-light text-grisSubText">
+                  Permite que tus clientes facturen directamente en el portal
+                </h3>
+              </div>
             </div>
           </div>
         </div>
@@ -145,4 +160,4 @@ const AccountingTab = ({ store_id }) => {
   );
 };
 
-export default AccountingTab;
+export default InvoicesAndReceipts;

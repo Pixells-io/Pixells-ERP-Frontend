@@ -1,13 +1,6 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
@@ -17,6 +10,7 @@ import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   const navigation = useNavigation();
@@ -85,8 +79,8 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
-      <div className="overflow-auto">
+    <div className="flex h-full w-full flex-col overflow-auto py-4">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           USUARIOS
         </h2>
@@ -151,28 +145,27 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
                 />
               </div>
               <div className="col-span-2">
-                <p className="mb-1 text-[10px] font-normal text-grisText">
-                  Caja Principal
-                </p>
-                <Select
-                  name="principal_pos_id"
-                  required={false}
-                  value={String(userSelect?.principal_pos_id?.value)}
-                  onValueChange={(e) =>
-                    handleInputChange(e, "principal_pos_id", index)
+                <SelectRouter
+                  value={
+                    cashBoxes.find(
+                      (cashBox) =>
+                        cashBox.id == userSelect?.principal_pos_id?.value,
+                    ) || null
                   }
-                >
-                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cashBoxes.map((cashBox) => (
-                      <SelectItem key={cashBox.id} value={String(cashBox.id)}>
-                        {cashBox.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  name={"principal_pos_id"}
+                  options={cashBoxes}
+                  placeholder="Caja Principal"
+                  required={true}
+                  onChange={(e) =>
+                    handleInputChange(
+                      { value: e.id },
+                      "principal_pos_id",
+                      index,
+                    )
+                  }
+                  getOptionValue={(e) => e.id}
+                  getOptionLabel={(e) => e.name}
+                />
               </div>
               <div className="col-span-2 flex items-end justify-end">
                 {index == selectEditUser && (
@@ -261,7 +254,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
         ))}
       </div>
 
-      <div className="mt-10 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

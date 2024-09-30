@@ -84,8 +84,8 @@ const BranchesTab = () => {
     <DataTable
       data={stores.data}
       columns={columns}
-      searchFilter="store_code"
-      searchNameFilter="Buscar por código"
+      searchFilter="name"
+      searchNameFilter="Buscar por Nombre"
       isCheckAll={true}
     />
   );

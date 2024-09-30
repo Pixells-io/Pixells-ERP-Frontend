@@ -1,21 +1,14 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
-
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
-import { checkmark, trashOutline } from "ionicons/icons";
+import { checkmark } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../../Modals/ModalPeriod";
 import { format } from "date-fns";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import ModalDeleteCashBox from "../../Modals/ModalDeleteCashBox";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const FormUpdateCashBox = ({ cashBoxes, positions, store_id }) => {
   const navigation = useNavigation();
@@ -139,26 +132,19 @@ const FormUpdateCashBox = ({ cashBoxes, positions, store_id }) => {
               />
             </div>
             <div className="col-span-3">
-              <p className="mb-1 text-[10px] font-normal text-grisText">
-                Encargado de la Caja
-              </p>
-              <Select
-                name="user_id"
-                required={false}
-                value={String(cashBox?.user_id)}
-                onValueChange={(e) => handleInputChange(e, "user_id", index)}
-              >
-                <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones [&>span]:line-clamp-2">
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {positions.map((position) => (
-                    <SelectItem key={position.id} value={String(position.id)}>
-                      {position.position_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <SelectRouter
+                  value={
+                    positions.find((position) => position.id == cashBox?.user_id) ||
+                    null
+                  }
+                  name={"user_id"}
+                  options={positions}
+                  placeholder="Encargado de la Caja"
+                  required={true}
+                  onChange={(e) => handleInputChange(e.id, "user_id", index)}
+                  getOptionValue={(e) => e.id}
+                  getOptionLabel={(e) => e.position_name}
+                />
             </div>
             <div className="col-span-3 flex items-end justify-end">
               {index == selectEditCashBox && (

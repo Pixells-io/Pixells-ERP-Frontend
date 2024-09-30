@@ -8,14 +8,8 @@ import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../../Modals/ModalPeriod";
 import { format } from "date-fns";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import FormUpdateCashBox from "./FormUpdateCashBox";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
   const navigation = useNavigation();
@@ -23,7 +17,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
     name: "",
     code: "",
     user_id: "",
-    active: "0",
+    active: "1",
     start: "",
     end: "",
   });
@@ -47,7 +41,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
       name: "",
       code: "",
       user_id: "",
-      active: "0",
+      active: "1",
       start: "",
       end: "",
     });
@@ -126,26 +120,19 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
                 />
               </div>
               <div className="col-span-3">
-                <p className="mb-1 text-[10px] font-normal text-grisText">
-                  Nombre
-                </p>
-                <Select
-                  name="user_id"
-                  required={false}
-                  value={String(cashBoxNew?.user_id)}
-                  onValueChange={(e) => handleInputNewChange(e, "user_id")}
-                >
-                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones [&>span]:line-clamp-2">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {positions.map((position) => (
-                      <SelectItem key={position.id} value={String(position.id)}>
-                        {position.position_name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <SelectRouter
+                  value={
+                    positions.find((position) => position.id == cashBoxNew?.user_id) ||
+                    null
+                  }
+                  name={"user_id"}
+                  options={positions}
+                  placeholder="Encargado de la Caja"
+                  required={true}
+                  onChange={(e) => handleInputNewChange(e.id, "user_id")}
+                  getOptionValue={(e) => e.id}
+                  getOptionLabel={(e) => e.position_name}
+                />
               </div>
 
               <div className="col-span-3"></div>
@@ -159,6 +146,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
                       onCheckedChange={(e) =>
                         handleInputNewChange(e ? "1" : "0", "active")
                       }
+                      disabled={true}
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
@@ -209,6 +197,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
                       <ModalPeriod
                         setFunctionParent={addDateNewCashBox}
                         index={0}
+                        disabled={true}
                       />
                     )}
                   </div>
