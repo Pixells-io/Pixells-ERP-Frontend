@@ -22,6 +22,7 @@ export async function saveNewCustomer(data) {
     client_code: Number(data.get("client_code")),
     client_type: Number(data.get("client_type")),
     rfc: data.get("rfc"),
+    cfdi: data.get("cfdi"),
     client_group: Number(data.get("client_group")),
     currency: data.get("currency"),
     name: data.get("fiscal_name"),

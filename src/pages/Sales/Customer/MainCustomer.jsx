@@ -4,13 +4,20 @@ import {
   chevronBack,
   chevronForward,
   informationCircle,
-  addCircleOutline,
+  add,
+  informationCircleOutline,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 const MainCustomer = () => {
   const { data } = useLoaderData();
   // const data = [
@@ -42,8 +49,8 @@ const MainCustomer = () => {
 
   const columns = [
     {
-      accessorKey: "name",
-      header: "Nombre",
+      accessorKey: "code",
+      header: "CÓDIGO",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -52,33 +59,62 @@ const MainCustomer = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.name}</label>
+            <label>{row?.original?.code}</label>
           </div>
         );
       },
+    },
+    {
+      accessorKey: "name",
+      header: "NOMBRE",
       meta: { filterButton: true },
     },
     {
       accessorKey: "type",
-      header: "Tipo",
+      header: "TIPO",
       meta: { filterButton: true },
     },
     {
       accessorKey: "nationality",
-      header: "Nacionalidad",
+      header: "NACIONALIDAD",
       meta: { filterButton: true },
     },
     {
       accessorKey: "contact",
-      header: "Contacto",
+      header: "CONTACTO",
+    },
+    {
+      accessorKey: "status",
+      header: "ESTATUS",
+      cell: ({ row }) => {
+        return (
+          <div>
+            {row?.original?.status == "1" ? (
+              <div className="w-[77px] rounded-3xl bg-[#CBF4C9] py-1">
+                <p className="text-center text-xs font-medium text-[#0E6245]">
+                  Activo
+                </p>
+              </div>
+            ) : (
+              row?.original?.status == "0" && (
+                <div className="w-[77px] rounded-3xl bg-[#F4CEC9] py-1">
+                  <p className="text-center text-xs font-medium text-[#A63737]">
+                    Inactivo
+                  </p>
+                </div>
+              )
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "email",
-      header: "Email",
+      header: "E-mail",
     },
     {
       id: "acciones",
-      header: <div className="text-center">Acciones</div>,
+      header: <div className="text-center">ACCIONES</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
           <Link to={`/sales/customer/edit/${row.original.id}`}>
@@ -87,7 +123,7 @@ const MainCustomer = () => {
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
             >
               <IonIcon
-                icon={informationCircle}
+                icon={informationCircleOutline}
                 className="h-5 w-5 text-[#696974]"
               />
             </Button>
@@ -125,7 +161,7 @@ const MainCustomer = () => {
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="text-md font-poppins font-bold text-[#44444F]">
             VENTAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -135,21 +171,33 @@ const MainCustomer = () => {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
+        <div className="flex justify-between">
+          <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
             CLIENTES GENERAL
           </p>
-          <Link to="/sales/customer/new" className="inline-block">
-            <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
-          </Link>
+          <div className="flex justify-end gap-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type={"button"}
+                  className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+                >
+                  <IonIcon icon={add} className="h-4 w-4" />
+                  <span className="text-xs font-medium">Nuevo</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="rounded-xl">
+                <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
+                  <Link to="/sales/customer/new" className="inline-block">
+                    Nuevo Cliente
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="w-full hover:cursor-pointer focus:bg-hoverModal">
+                  Proveedor Existente
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
         {/*content */}
         <div className="w-full">
@@ -157,21 +205,21 @@ const MainCustomer = () => {
             defaultValue="customer"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
           >
-            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+            <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
               <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                 value="customer"
               >
                 CLIENTES GENERAL
               </TabsTrigger>
               <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                 value="OTRO"
               >
                 OTRO
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="customer" className="mt-[-60px] p-2">
+            <TabsContent value="customer" className="mt-[-70px] w-full pt-2">
               <DataTable
                 data={data}
                 columns={columns}
@@ -180,12 +228,8 @@ const MainCustomer = () => {
                 isCheckAll={true}
               />
             </TabsContent>
-            <TabsContent value="OTRO" className="w-full">
-              <div className="flex w-full justify-center">
-                <div className="w-full max-w-4xl">
-                  <p>CONTENIDO</p>
-                </div>
-              </div>
+            <TabsContent value="OTRO" className="w-full pt-2">
+              <p>CONTENIDO</p>
             </TabsContent>
           </Tabs>
         </div>
