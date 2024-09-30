@@ -168,7 +168,7 @@ const EditBranch = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Sucursal
+            Sucursal: {storeDetailList?.name}
           </p>
         </div>
 

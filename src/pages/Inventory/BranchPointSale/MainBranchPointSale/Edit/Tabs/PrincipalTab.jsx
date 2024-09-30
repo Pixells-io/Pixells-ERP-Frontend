@@ -40,11 +40,11 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
 
   return (
     <Form
-      className="flex h-full w-full flex-col px-6 py-4"
+      className="flex h-full w-full flex-col py-4"
       action={`/inventory/branch-points-sale/edit/${store?.id}`}
       method="post"
     >
-      <div className="overflow-auto">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
@@ -133,7 +133,7 @@ const PrincipalTab = ({ whareHouses, costCenter, priceList, storeDetail }) => {
           </div>
         </div>
       </div>
-      <div className="mt-10 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

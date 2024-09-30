@@ -79,8 +79,8 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
-      <div className="overflow-auto">
+    <div className="flex h-full w-full flex-col overflow-auto py-4">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           USUARIOS
         </h2>
@@ -254,7 +254,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
         ))}
       </div>
 
-      <div className="mt-10 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

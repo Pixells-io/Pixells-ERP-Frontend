@@ -17,7 +17,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
     name: "",
     code: "",
     user_id: "",
-    active: "0",
+    active: "1",
     start: "",
     end: "",
   });
@@ -41,7 +41,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
       name: "",
       code: "",
       user_id: "",
-      active: "0",
+      active: "1",
       start: "",
       end: "",
     });
@@ -146,6 +146,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
                       onCheckedChange={(e) =>
                         handleInputNewChange(e ? "1" : "0", "active")
                       }
+                      disabled={true}
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
@@ -196,6 +197,7 @@ const CashBoxTab = ({ cashBoxes, positions, store_id }) => {
                       <ModalPeriod
                         setFunctionParent={addDateNewCashBox}
                         index={0}
+                        disabled={true}
                       />
                     )}
                   </div>
