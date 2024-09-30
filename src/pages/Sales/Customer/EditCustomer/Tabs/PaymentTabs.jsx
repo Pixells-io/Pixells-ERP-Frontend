@@ -1,0 +1,112 @@
+import React, { useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import InputForm from "@/components/InputForm/InputForm";
+
+const PaymentTabs = ({ data }) => {
+  const navigation = useNavigation();
+
+  const [generalData, setGeneralData] = useState({
+    street: data?.address?.street || "",
+    int: data?.address?.int || "",
+    ext: data?.address?.ext || "",
+    cologne: data?.address?.cologne || "",
+    city: data?.address?.city || "",
+    state: data?.address?.state || "",
+    cp: data?.address?.cp || "",
+    country: data?.address?.country || "",
+    status: data?.status == "1" ? true : false,
+    start: data?.from_date || "",
+    end: data?.to_date || "",
+    shopping_person: data?.address?.shopping_person || "",
+    comment: data?.comments || "",
+  });
+
+  const handleInputChange = (value, name) => {
+    setGeneralData({ ...generalData, [name]: value });
+  };
+
+  return (
+    <Form
+      className="flex w-full flex-col py-4"
+      id="form-supplier-general"
+      action={"/sales/customer/edit/" + data?.id}
+      method="post"
+    >
+      <div className="overflow-auto px-6">
+        <h2 className="font-poppins text-sm font-medium text-[#44444F]">
+          CONDICIONES DE PAGO
+        </h2>
+        <input type="hidden" hidden name="supplier_id" value={data?.id} />
+        <input
+          type="hidden"
+          hidden
+          name="payment_id"
+          value={data?.payment?.id}
+        />
+        <input type="hidden" hidden name="type" value={"paymentConditions"} />
+        <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
+          <div className="col-span-12">
+            <InputForm
+              name="conditions"
+              type="text"
+              placeholder={"Condiciones"}
+              required={true}
+              value={generalData?.conditions}
+              onChange={(e) => handleInputChange(e.target.value, "conditions")}
+            />
+          </div>
+          <div className="col-span-12">
+            <InputForm
+              name="interest"
+              type="number"
+              placeholder={"% intereses por retraso"}
+              required={true}
+              value={generalData?.interest}
+              onChange={(e) => handleInputChange(e.target.value, "interest")}
+            />
+          </div>
+          <div className="col-span-12">
+            <InputForm
+              name="days_of_credit"
+              type="number"
+              placeholder={"Días de crédito"}
+              required={true}
+              value={generalData?.days_of_credit}
+              onChange={(e) =>
+                handleInputChange(e.target.value, "days_of_credit")
+              }
+            />
+          </div>
+          <div className="col-span-12">
+            <InputForm
+              name="credit_limit"
+              type="number"
+              placeholder={"Límite de crédito"}
+              required={true}
+              value={generalData?.credit_limit}
+              onChange={(e) =>
+                handleInputChange(e.target.value, "credit_limit")
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
+        <div className="flex w-full justify-between">
+          <label className="text-xs font-light text-[#8F8F8F]">
+            Actualizado 07 septiembre 2024
+          </label>
+          <Button
+            className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+          </Button>
+        </div>
+      </div>
+    </Form>
+  );
+};
+
+export default PaymentTabs;
