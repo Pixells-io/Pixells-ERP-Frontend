@@ -181,7 +181,7 @@ export async function editGeneralInfo(data) {
 
 export async function createContact(data) {
   const info = {
-    client_transactional_id: Number(data.get("client_id")),
+    client_transactional_id: Number(data.get("client_transactional_id")),
     name: data.get("name"),
     middle_name: data.get("middle_name"),
     last_name: data.get("last_name"),

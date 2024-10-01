@@ -19,6 +19,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import GeneralTabs from "./Tabs/GeneralTabs";
 import PaymentTabs from "./Tabs/PaymentTabs";
+import ContactTabs from "./Tabs/ContactTabs";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
@@ -288,6 +289,12 @@ const EditCustomer = () => {
                     className="w-full overflow-auto"
                   >
                     <GeneralTabs data={customer} />
+                  </TabsContent>
+                  <TabsContent
+                    value="contacts"
+                    className="w-full overflow-auto"
+                  >
+                    <ContactTabs data={customer} />
                   </TabsContent>
                   <TabsContent
                     value="payment"
