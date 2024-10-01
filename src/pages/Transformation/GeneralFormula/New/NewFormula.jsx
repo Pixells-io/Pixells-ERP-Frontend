@@ -114,7 +114,7 @@ function NewFormula() {
   }));
 
   // console.log("productCraft ", productCraft);
-  // console.log("productNeed ", productNeed);
+  console.log("productNeed ", productNeed);
 
   function fillFormulaProduct(e) {
     console.log(e);
