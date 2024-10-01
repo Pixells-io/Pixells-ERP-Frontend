@@ -29,6 +29,76 @@ function NewFormula() {
   const [totalSubProducts, setSubTotalProducts] = useState(0);
   const [totalWastes, setTotalWastes] = useState(0);
 
+  const [newFormula, setNewFormula] = useState({
+    product_id: 123,
+    quantity: 100,
+    unit: "kg",
+    comments: "Esto es un comentario",
+    vars: [
+      {
+        product_variable_id: 1,
+        quantity: 10,
+        unit: "kg",
+      },
+    ],
+    slots: [
+      {
+        type: "primary",
+        product_master_id: 123,
+        product_variable_id: 2,
+        quantity: 50,
+        unit: "kg",
+      },
+    ],
+    energetics: [
+      {
+        type: "electricity",
+        product_master_id: 456,
+        product_variable_id: 3,
+        quantity: 200,
+        unit: "kWh",
+      },
+    ],
+    packaging: [
+      {
+        type: "box",
+        product_master_id: 789,
+        product_variable_id: 4,
+        quantity: 30,
+        quantity_per_unity: 5,
+        unit: "pieces",
+      },
+    ],
+    packaging_package: [
+      {
+        type: "pallet",
+        product_master_id: 987,
+        product_variable_id: 5,
+        quantity: 10,
+        quantity_per_unity: 2,
+        unit: "pallets",
+      },
+    ],
+    sub_products: [
+      {
+        type: "byproduct",
+        product_master_id: 654,
+        product_variable_id: 6,
+        quantity: 20,
+        unit: "kg",
+      },
+    ],
+    wastes: [
+      {
+        type: "scrap",
+        product_master_id: 321,
+        product_variable_id: 7,
+        quantity: 5,
+        unit: "kg",
+      },
+    ],
+  });
+
   // const [productCraft, setProductCraft] = useState({});
 
   const productCraft = data.product_craft.map((product) => ({
@@ -86,14 +156,14 @@ function NewFormula() {
             {/* config section */}
             <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
               <div className="flex w-1/3">
-                <SelectRouter />
+                <SelectRouter options={productCraft} on />
               </div>
 
               <div className="flex w-28">
                 <InputRouter
                   type="number"
                   name="formula_tam"
-                  placeholder="Tamaño Formula"
+                  placeholder="Cantidad"
                 />
               </div>
               <div className="flex w-28">
