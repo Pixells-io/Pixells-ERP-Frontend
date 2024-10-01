@@ -138,11 +138,22 @@ const UserTab = ({ users }) => {
                     )}
                   </div>
                 </div>
+                <div className="flex justify-between">
+                <div className="flex justify-start">
+                <Switch
+                      className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
+                      name="active"
+                      checked={userSelect?.responsable === "1"}
+                      onCheckedChange={(e) => handleInputChange(e ? "1" : "0", "responsable", index)}
+                    />
+                    <label className="font-roboto text-xs font-normal whitespace-nowrap ml-3 text-grisText">Responsable del Servicio</label>
+                </div>
                 <div className="flex w-full justify-end">
                   <ModalDeleteUser
                     store_user_id={userSelect?.id}
                     user_name={userSelect?.user?.label}
                   />
+                </div>
                 </div>
               </div>
             </div>
