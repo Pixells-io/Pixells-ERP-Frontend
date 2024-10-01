@@ -1,15 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Inputs from "../components/InputGroup";
-import FormGroup from "../components/FormGroup";
 import {
   useLoaderData,
   useParams,
@@ -18,10 +7,13 @@ import {
   redirect,
   useNavigation,
 } from "react-router-dom";
-import { createPusherClient } from "@/lib/pusher";
-import { editProduct, getProductById } from "../utils";
+
 import NavigationHeader from "@/components/navigation-header";
 import { Button } from "@/components/ui/button";
+import FormGroup from "../components/FormGroup";
+
+import { editProduct, getProductById } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const EditArticle = () => {
   const { id } = useParams();
@@ -288,7 +280,7 @@ const EditArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    const response = await submit(formData, {
+    const response = submit(formData, {
       method: "POST",
       action: `/inventory/edit/${id}`,
     });
@@ -370,6 +362,7 @@ const EditArticle = () => {
               <Button
                 className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                 disabled={navigation.state === "submitting"}
+                onClick={handleSubmit}
               >
                 {navigation.state === "submitting"
                   ? "Submitting..."

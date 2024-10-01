@@ -58,7 +58,7 @@ const ProcessTab = () => {
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden py-4">
-      <div className="max-h-screen overflow-auto px-6">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PROCESOS
         </h2>
@@ -195,7 +195,7 @@ const ProcessTab = () => {
             Actualizado 07 septiembre 2024
           </label>
         </div>
-        <button className="h-[31px] px-4  rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+        <button className="h-[31px] rounded-xl bg-[#E0E0E0] px-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
           Guardar
         </button>
       </div>

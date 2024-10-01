@@ -79,7 +79,7 @@ const CreateService = () => {
           </div>
           <Tabs
             defaultValue="principal"
-            className="flex w-full flex-1 overflow-hidden"
+            className="flex h-full w-full flex-1 overflow-hidden"
           >
             <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 overflow-auto border-r bg-transparent p-6">
               {tabOptions.map(
