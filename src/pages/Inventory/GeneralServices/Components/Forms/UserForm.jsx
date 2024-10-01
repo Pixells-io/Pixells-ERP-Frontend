@@ -125,7 +125,7 @@ const UserTab = ({ users }) => {
                 </span>
               </div>
 
-              <div className="col-span-2 flex items-end justify-end">
+              <div className="col-span-6 flex items-end justify-end">
                 {selectEditUser === user.id && (
                   <Button
                     className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"
