@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
-import { Form, Link, redirect, useLoaderData } from "react-router-dom";
+import { Form, Link, NavLink, redirect, useLoaderData } from "react-router-dom";
 import {
   createBillingInfo,
   createContact,
@@ -172,7 +172,25 @@ const EditCustomer = () => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col rounded-xl bg-white  overflow-auto">
+        <div className="flex justify-between">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            Cliente: {customer?.name}
+          </p>
+          <div className="flex items-center gap-x-1 rounded-md bg-[#E8E8E8] px-1 py-0.5">
+            <NavLink to={`/sales/customer/edit/${customer.id}`}>
+              <p className="rounded-md bg-white px-1 py-0.5 font-roboto text-xs font-normal text-[#44444F]">
+                Información
+              </p>
+            </NavLink>
+            <NavLink to={`/sales/customer/resumen/${customer.id}`}>
+              <p className="rounded-md px-1 py-0.5 font-roboto text-xs font-normal text-[#8F8F8F]">
+                Resumen
+              </p>
+            </NavLink>
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col overflow-auto rounded-xl bg-white">
           <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DEL CLIENTE
@@ -260,7 +278,7 @@ const EditCustomer = () => {
                 id="form-customer"
                 action={"/sales/customer/edit/" + customer.id}
                 method="post"
-                className="overflow-auto h-full"
+                className="h-full overflow-auto"
               >
                 <input
                   type="hidden"
