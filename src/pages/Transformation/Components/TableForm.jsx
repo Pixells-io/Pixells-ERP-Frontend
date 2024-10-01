@@ -61,7 +61,12 @@ const components = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, setTotalProducts }) => {
+const TableForm = ({
+  tableData,
+  setTableData,
+  setTotalProducts,
+  productNeed: components,
+}) => {
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
