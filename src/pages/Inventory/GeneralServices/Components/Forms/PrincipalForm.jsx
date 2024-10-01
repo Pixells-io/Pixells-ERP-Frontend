@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import UnitMeasureButton from "../UnitMeasure";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/popover";
 
 const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
+  const navigation = useNavigation();
   const [inputsData, setInputsData] = useState({
     codigoDeArticulo: "",
     nombreODescripcion: "",
