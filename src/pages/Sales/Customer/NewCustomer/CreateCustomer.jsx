@@ -199,109 +199,90 @@ const CreateCustomer = () => {
           </div>
         </div>
 
-        {/*content */}
-        <Tabs
-          defaultValue="information"
-          className="w-full flex-1 overflow-auto"
-        >
-          <div className="flex justify-between">
-            <p className="font-poppins text-xl font-bold text-grisHeading">
-              Nuevo Cliente
-            </p>
-            <div className="flex justify-end gap-6">
-              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
-                <TabsTrigger
-                  value="information"
-                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-                >
-                  Información
-                </TabsTrigger>
-                <TabsTrigger
-                  value="resume"
-                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-                >
-                  Resumen
-                </TabsTrigger>
-              </TabsList>
-              <Link to="/inventory/branch-points-sale/create"></Link>
-            </div>
+        <div className="flex justify-between">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
+            Nuevo Cliente
+          </p>
+          {/* <div className="flex items-center gap-x-1 rounded-md bg-[#E8E8E8] px-1 py-0.5">
+            <NavLink to={`/sales/customer/edit/${customer.id}`}>
+              <p className="rounded-md bg-white px-1 py-0.5 font-roboto text-xs font-normal text-[#44444F]">
+                Información
+              </p>
+            </NavLink>
+            <NavLink to={`/sales/customer/resumen/${customer.id}`}>
+              <p className="rounded-md px-1 py-0.5 font-roboto text-xs font-normal text-[#8F8F8F]">
+                Resumen
+              </p>
+            </NavLink>
+          </div> */}
+        </div>
+
+        <div className="flex flex-1 flex-col overflow-auto rounded-xl bg-white">
+          <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+            <span className="font-poppins text-lg font-medium text-[#44444F]">
+              INFORMACIÓN DEL CLIENTE
+            </span>
           </div>
-          <TabsContent value="information" className="rounded-md">
-            <div className="flex flex-1 flex-col rounded-xl bg-white">
-              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
-                <span className="font-poppins text-lg font-medium text-[#44444F]">
-                  INFORMACIÓN DEL CLIENTE
-                </span>
-              </div>
-              <div>
-                <Tabs
-                  defaultValue="principal"
-                  className="flex w-full flex-1 overflow-auto"
-                >
-                  <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 bg-transparent p-6">
-                    {tabOptions.map(
-                      ({ value, label, subLabel, disabled, update }) => (
-                        <TabsTrigger
-                          key={value}
-                          value={value}
-                          disabled={disabled}
-                          className={`flex w-full items-center justify-center rounded-[14px] bg-[#F1F1F1] px-6 py-2.5 transition-colors hover:bg-gray-300 data-[state=active]:border data-[state=active]:border-[#44444F] data-[state=active]:bg-[#F1F1F1] ${
-                            value === "variables"
-                              ? "pointer-events-none opacity-50"
-                              : ""
-                          }`}
-                        >
-                          <div className="flex w-full flex-col justify-start">
-                            <p className="text-start font-roboto text-sm font-medium leading-tight text-[#44444F]">
-                              {label}
-                            </p>
-                            <p className="text-start font-roboto text-[11px] font-normal leading-tight text-[#8F8F8F]">
-                              {subLabel}
-                            </p>
-                          </div>
-                          <div className="flex flex-col items-center justify-center">
-                            {!!update ? (
-                              <>
-                                <label className="text-xs font-light text-[#8F8F8F]">
-                                  {update?.day}
-                                </label>
-                                <label className="text-xs font-light text-[#8F8F8F]">
-                                  {update?.date}
-                                </label>
-                              </>
-                            ) : (
-                              <label className="text-xs font-light text-[#8F8F8F]">
-                                New
-                              </label>
-                            )}
-                          </div>
-                        </TabsTrigger>
-                      ),
-                    )}
-                  </TabsList>
-                  <TabsContent
-                    value="principal"
-                    className="w-full overflow-auto"
+          <Tabs
+            defaultValue="principal"
+            className="flex w-full flex-1 overflow-auto"
+          >
+            <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 bg-transparent p-6">
+              {tabOptions.map(
+                ({ value, label, subLabel, disabled, update }) => (
+                  <TabsTrigger
+                    key={value}
+                    value={value}
+                    disabled={disabled}
+                    className={`flex w-full items-center justify-center rounded-[14px] bg-[#F1F1F1] px-6 py-2.5 transition-colors hover:bg-gray-300 data-[state=active]:border data-[state=active]:border-[#44444F] data-[state=active]:bg-[#F1F1F1] ${
+                      value === "variables"
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }`}
                   >
-                    <Form
-                      id="form-customer"
-                      action="/sales/customer/new"
-                      method="post"
-                    >
-                      <InputsGroup
-                        fields={customerFields}
-                        initialValues={customerValues}
-                      />
-                    </Form>
-                  </TabsContent>
-                </Tabs>
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="resume" className="rounded-md bg-blancoBg p-2">
-            <h2>resumen</h2>
-          </TabsContent>
-        </Tabs>
+                    <div className="flex w-full flex-col justify-start">
+                      <p className="text-start font-roboto text-sm font-medium leading-tight text-[#44444F]">
+                        {label}
+                      </p>
+                      <p className="text-start font-roboto text-[11px] font-normal leading-tight text-[#8F8F8F]">
+                        {subLabel}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                      {!!update ? (
+                        <>
+                          <label className="text-xs font-light text-[#8F8F8F]">
+                            {update?.day}
+                          </label>
+                          <label className="text-xs font-light text-[#8F8F8F]">
+                            {update?.date}
+                          </label>
+                        </>
+                      ) : (
+                        <label className="text-xs font-light text-[#8F8F8F]">
+                          New
+                        </label>
+                      )}
+                    </div>
+                  </TabsTrigger>
+                ),
+              )}
+            </TabsList>
+            <TabsContent value="principal" className="w-full overflow-auto">
+              <Form
+                id="form-customer"
+                action="/sales/customer/new"
+                method="post"
+                className="h-full overflow-auto"
+              >
+                <InputsGroup
+                  fields={customerFields}
+                  initialValues={customerValues}
+                />
+              </Form>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
