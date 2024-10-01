@@ -315,3 +315,50 @@ export async function destroyBillingInfo(data) {
 
   return response;
 }
+
+export async function createPaymentConditions(data) {
+  const info = {
+    client_transactional_id: Number(data.get("client_transactional_id")),
+    conditions: data.get("conditions"),
+    interest: data.get("interest"),
+    days_of_credit: data.get("days_of_credit"),
+    credit_limit: data.get("credit_limit"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/create-payment-conditions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editPaymentConditions(data) {
+  const info = {
+    payment_id: Number(data.get("payment_id")),
+    conditions: data.get("conditions"),
+    interest: data.get("interest"),
+    days_of_credit: data.get("days_of_credit"),
+    credit_limit: data.get("credit_limit"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/edit-payment-conditions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
