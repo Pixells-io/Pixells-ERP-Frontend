@@ -74,8 +74,8 @@ const UserTab = ({ users }) => {
   }, [navigation.state]);
 
   return (
-    <div className="flex w-full flex-col overflow-auto py-4 md:max-h-[620px]">
-      <div className="overflow-auto px-6">
+    <div className="flex h-full w-full flex-col py-4">
+      <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           USUARIOS
         </h2>

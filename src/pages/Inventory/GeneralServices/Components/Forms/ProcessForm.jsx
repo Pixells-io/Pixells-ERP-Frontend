@@ -57,8 +57,8 @@ const ProcessTab = () => {
   }, [navigation.state]);
 
   return (
-    <div className="flex h-full w-full flex-col overflow-auto py-4 md:max-h-[620px]">
-      <div className="overflow-auto px-6">
+    <div className="flex h-full w-full flex-col py-4">
+      <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PROCESOS
         </h2>
@@ -66,9 +66,9 @@ const ProcessTab = () => {
         <div className="mt-2 flex w-fit items-center gap-x-2">
           <Button
             onClick={addProcess}
-            className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-primarioBotones px-1.5 text-[11px] font-medium text-[#FFFFFF] hover:bg-primarioBotones"
+            className="flex h-[24px] items-center gap-x-1 rounded-[10px] bg-primarioBotones px-2 text-[11px] font-medium text-white hover:bg-blancoBox2"
           >
-            <IonIcon className="h-5 w-5 text-[#FFFFFF]" icon={add} />
+            <IonIcon className="h-5 w-5" icon={add}></IonIcon>
             Agregar
           </Button>
         </div>
@@ -106,7 +106,7 @@ const ProcessTab = () => {
                 />
               </div>
 
-              <div className="col-span-2 flex items-end justify-end">
+              <div className="col-span-3 flex items-end justify-end">
                 {index === selectEditProcess && (
                   <Button
                     className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"

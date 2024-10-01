@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
+import { useDropzone } from "react-dropzone";
+import { IonIcon } from "@ionic/react";
+import { imageOutline, closeCircle } from "ionicons/icons";
 
 const GeneralTab = ({ informationDetails, store_id }) => {
   const navigation = useNavigation();
@@ -45,6 +48,29 @@ const GeneralTab = ({ informationDetails, store_id }) => {
     });
   };
 
+  const [imagePreview, setImagePreview] = useState(null); // Cambié a null para más claridad
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      handleImageUpload(acceptedFiles[0]);
+    },
+  });
+
+  const handleImageUpload = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+  };
+
   const clearPeriod = () => {
     setInformation((prevFormData) => ({
       ...prevFormData,
@@ -70,11 +96,11 @@ const GeneralTab = ({ informationDetails, store_id }) => {
 
   return (
     <Form
-      className="flex w-full flex-col overflow-auto py-4 md:max-h-[540px]"
+      className="flex h-full w-full flex-col py-4"
       action={`/inventory/branch-points-sale/edit/${store_id}`}
       method="post"
     >
-      <div className="overflow-auto px-6">
+      <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           GENERAL
         </h2>
@@ -241,13 +267,47 @@ const GeneralTab = ({ informationDetails, store_id }) => {
 
           <div className="col-span-12">
             <h2 className="text-xs font-normal text-grisSubText">IMAGEN</h2>
-            <InputForm
-              name="comentarios"
-              type="file"
-              placeholder={""}
-              value={information?.file}
-              onChange={(e) => handleInputChange(e.target.value, "file")}
-            />
+            <div className="flex w-full flex-col justify-center space-y-2">
+              <div
+                {...getRootProps()}
+                className="relative flex cursor-pointer justify-center"
+              >
+                {imagePreview ? (
+                  <div className="relative rounded-xl border border-primarioBotones p-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveImage();
+                      }}
+                      className="absolute right-2 top-2 z-10 rounded-full p-1"
+                    >
+                      <IonIcon
+                        icon={closeCircle}
+                        className="h-5 w-5 text-primarioBotones"
+                      />
+                    </button>
+                    <img
+                      src={imagePreview} // Mostrar la vista previa de la imagen
+                      alt="Imagen cargada"
+                      className="max-h-48 max-w-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center rounded-xl border-2 border-dashed p-20">
+                    <IonIcon
+                      icon={imageOutline}
+                      className="h-12 w-12 text-gray-500"
+                    />
+                    <span className="ml-2 text-gray-500">Agregar Imagen</span>
+                  </div>
+                )}
+                <input
+                  {...getInputProps()}
+                  name="imagenPrincipal"
+                  type="file"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
