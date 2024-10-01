@@ -18,25 +18,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const PrincipalForm = ({
-  whareHouses,
-  costCenter,
-  priceList
-}) => {
-
+const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
   const [inputsData, setInputsData] = useState({
-    codigoDeArticulo: '',
-    nombreODescripcion: '',
-    categoria: '',
+    codigoDeArticulo: "",
+    nombreODescripcion: "",
+    categoria: "",
     compra: false,
     venta: false,
-    unidadesDeMedida: '',
-    precio: '',
-    centroDeCostos: '',
-    listaDePrecios: '',
-    almacen: '',
-    codigoDeBarras: '',
-    color: '#FF00FF', // Default color
+    unidadesDeMedida: "",
+    precio: "",
+    centroDeCostos: "",
+    listaDePrecios: "",
+    almacen: "",
+    codigoDeBarras: "",
+    color: "#FF00FF", // Default color
   });
 
   const handleInputChange = (e) => {
@@ -78,11 +73,13 @@ const PrincipalForm = ({
   // "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="w-full md:max-h-[320px] rounded-xl bg-white p-4">
+    <div className="w-full rounded-xl bg-white p-4 md:max-h-[320px]">
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex w-full flex-col gap-6">
-          <div className="flex flex-col w-full gap-6">
-          <h2 className="font-poppins ml-2 text-sm font-medium text-[#44444F]">PRINCIPAL</h2>
+          <div className="flex w-full flex-col gap-6">
+            <h2 className="ml-2 font-poppins text-sm font-medium text-[#44444F]">
+              PRINCIPAL
+            </h2>
             {/* Código de Artículo */}
             <InputForm
               type="text"
@@ -115,9 +112,7 @@ const PrincipalForm = ({
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
-              <SelectContent>
-                
-              </SelectContent>
+              <SelectContent></SelectContent>
             </Select>
           </div>
 
@@ -258,9 +253,7 @@ const PrincipalForm = ({
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Seleccionar" />
               </SelectTrigger>
-              <SelectContent>
-                
-              </SelectContent>
+              <SelectContent></SelectContent>
             </Select>
           </div>
 
@@ -274,13 +267,11 @@ const PrincipalForm = ({
           {/* Color */}
           <div className="flex flex-col space-y-4">
             <div className="border-b border-grisDisabled">
-              <p className="px-4 py-2 text-[10px] text-grisSubText">
-                COLOR
-              </p>
+              <p className="px-4 py-2 text-[10px] text-grisSubText">COLOR</p>
             </div>
-            <div className="flex justify-between items-center border-b border-grisDisabled ">
+            <div className="flex items-center justify-between border-b border-grisDisabled">
               <div
-                className="mr-2 ml-4 mb-4 flex size-[20px] items-center rounded-[6px]"
+                className="mb-4 ml-4 mr-2 flex size-[20px] items-center rounded-[6px]"
                 style={{ backgroundColor: inputsData?.color || "#FF00FF" }}
               ></div>
               <div className="flex items-end justify-end">
@@ -292,7 +283,7 @@ const PrincipalForm = ({
                     <Button
                       variant="outline"
                       className={
-                        "flex mb-4 justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
+                        "mb-4 flex justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
                       }
                     >
                       Selecciona
@@ -327,6 +318,16 @@ const PrincipalForm = ({
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
+        <div className="flex w-full justify-between">
+          <label className="text-xs font-light text-[#8F8F8F]">
+            Actualizado 07 septiembre 2024
+          </label>
+        </div>
+        <button className="h-[31px] px-4  rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+          Guardar
+        </button>
       </div>
     </div>
   );

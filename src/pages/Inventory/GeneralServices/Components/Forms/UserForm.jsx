@@ -18,44 +18,52 @@ const UserTab = ({ users }) => {
   const [selectEditUser, setSelectEditUser] = useState(null);
 
   const handleAddUsers = (newUsers) => {
-    setSelectedUsers(prevUsers => [
+    setSelectedUsers((prevUsers) => [
       ...prevUsers,
-      ...newUsers.map(user => ({
+      ...newUsers.map((user) => ({
         ...user,
         active: "1",
         responsable: "0",
         start: "",
-        end: ""
-      }))
+        end: "",
+      })),
     ]);
   };
 
   const handleResponsibleChange = (userId) => {
-    setSelectedUsers(prevUsers => prevUsers.map(user => ({
-      ...user,
-      responsable: user.id === userId ? "1" : "0"
-    })));
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((user) => ({
+        ...user,
+        responsable: user.id === userId ? "1" : "0",
+      })),
+    );
     setResponsibleUser(userId);
   };
 
   const handleInputChange = (value, name, userId) => {
-    setSelectedUsers(prevUsers => prevUsers.map(user => 
-      user.id === userId ? { ...user, [name]: value } : user
-    ));
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === userId ? { ...user, [name]: value } : user,
+      ),
+    );
     setSelectEditUser(userId);
   };
 
   const addDate = (dateI, dateF, userId) => {
-    setSelectedUsers(prevUsers => prevUsers.map(user => 
-      user.id === userId ? { ...user, start: dateI, end: dateF } : user
-    ));
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === userId ? { ...user, start: dateI, end: dateF } : user,
+      ),
+    );
     setSelectEditUser(userId);
   };
 
   const clearPeriod = (userId) => {
-    setSelectedUsers(prevUsers => prevUsers.map(user => 
-      user.id === userId ? { ...user, start: "", end: "" } : user
-    ));
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === userId ? { ...user, start: "", end: "" } : user,
+      ),
+    );
     setSelectEditUser(userId);
   };
 
@@ -66,35 +74,57 @@ const UserTab = ({ users }) => {
   }, [navigation.state]);
 
   return (
-    <div className="flex w-full md:max-h-[620px] flex-col overflow-auto py-4">
+    <div className="flex w-full flex-col overflow-auto py-4 md:max-h-[620px]">
       <div className="overflow-auto px-6">
-        <h2 className="font-poppins text-sm font-medium text-[#44444F]">USUARIOS</h2>
+        <h2 className="font-poppins text-sm font-medium text-[#44444F]">
+          USUARIOS
+        </h2>
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
           <ModalAddUser users={users} onAddUsers={handleAddUsers} />
         </div>
 
         {selectedUsers.map((user, index) => (
-          <Form
-            className="mt-4"
-            key={user.id}
-            method="post"
-          >
-            <input type="text" hidden readOnly name="store_user_id" value={user.id} />
-            <input type="text" hidden readOnly name="type_option" value="updateUserBranchTab" />
-            <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">USUARIO {index + 1}</p>
+          <Form className="mt-4" key={user.id} method="post">
+            <input
+              type="text"
+              hidden
+              readOnly
+              name="store_user_id"
+              value={user.id}
+            />
+            <input
+              type="text"
+              hidden
+              readOnly
+              name="type_option"
+              value="updateUserBranchTab"
+            />
+            <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
+              USUARIO {index + 1}
+            </p>
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
               <div className="col-span-3">
-                <InputForm name="position" type="text" placeholder={"Posición"} disabled={true} value={user.position} />
+                <InputForm
+                  name="position"
+                  type="text"
+                  placeholder={"Posición"}
+                  disabled={true}
+                  value={user.position}
+                />
               </div>
               <div className="col-span-3 flex items-center gap-x-2">
                 <Avatar className="size-8">
                   <AvatarImage src={user.user_image} />
                 </Avatar>
-                <label className="text-xs font-normal text-grisText">{user.user?.label}</label>
-                <span className="text-center text-sm text-[#696974] whitespace-nowrap">{user.name + " " + user.last_name}</span>
+                <label className="text-xs font-normal text-grisText">
+                  {user.user?.label}
+                </label>
+                <span className="whitespace-nowrap text-center text-sm text-[#696974]">
+                  {user.name + " " + user.last_name}
+                </span>
               </div>
-             
+
               <div className="col-span-2 flex items-end justify-end">
                 {selectEditUser === user.id && (
                   <Button
@@ -102,7 +132,9 @@ const UserTab = ({ users }) => {
                     disabled={navigation.state === "submitting"}
                   >
                     <IonIcon className="h-5 w-5" icon={checkmark}></IonIcon>
-                    {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Guardar"}
                   </Button>
                 )}
               </div>
@@ -113,22 +145,40 @@ const UserTab = ({ users }) => {
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       name="active"
                       checked={user.active === "1"}
-                      onCheckedChange={(e) => handleInputChange(e ? "1" : "0", "active", user.id)}
+                      onCheckedChange={(e) =>
+                        handleInputChange(e ? "1" : "0", "active", user.id)
+                      }
                     />
-                    <label className="font-roboto text-xs font-normal text-grisText">Activo</label>
+                    <label className="font-roboto text-xs font-normal text-grisText">
+                      Activo
+                    </label>
                     {!!user.start && !!user.end ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input type="hidden" name="start" value={format(new Date(user.start), "PP")} />
-                          <label className="text-xs font-light text-[#44444F]">{format(new Date(user.start), "PP")}</label>
+                          <input
+                            type="hidden"
+                            name="start"
+                            value={format(new Date(user.start), "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(new Date(user.start), "PP")}
+                          </label>
                         </div>
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input type="hidden" name="end" value={format(new Date(user.end), "PP")} />
-                          <label className="text-xs font-light text-[#44444F]">{format(new Date(user.end), "PP")}</label>
+                          <input
+                            type="hidden"
+                            name="end"
+                            value={format(new Date(user.end), "PP")}
+                          />
+                          <label className="text-xs font-light text-[#44444F]">
+                            {format(new Date(user.end), "PP")}
+                          </label>
                         </div>
                       </div>
                     ) : (
-                      <label className="font-roboto text-xs font-light text-grisSubText">(Sin periodo de tiempo)</label>
+                      <label className="font-roboto text-xs font-light text-grisSubText">
+                        (Sin periodo de tiempo)
+                      </label>
                     )}
                   </div>
                   <div>
@@ -141,7 +191,10 @@ const UserTab = ({ users }) => {
                         Restablecer
                       </Button>
                     ) : (
-                      <ModalPeriod setFunctionParent={addDate} index={user.id} />
+                      <ModalPeriod
+                        setFunctionParent={addDate}
+                        index={user.id}
+                      />
                     )}
                   </div>
                 </div>
@@ -153,7 +206,9 @@ const UserTab = ({ users }) => {
                       checked={user.responsable === "1"}
                       onCheckedChange={() => handleResponsibleChange(user.id)}
                     />
-                    <label className="font-roboto text-xs font-normal whitespace-nowrap ml-3 text-grisText">Responsable del Servicio</label>
+                    <label className="ml-3 whitespace-nowrap font-roboto text-xs font-normal text-grisText">
+                      Responsable del Servicio
+                    </label>
                   </div>
                   <div className="flex w-full justify-end">
                     <ModalDeleteUser
@@ -170,8 +225,13 @@ const UserTab = ({ users }) => {
 
       <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
-          <label className="text-xs font-light text-[#8F8F8F]">Actualizado 07 septiembre 2024</label>
+          <label className="text-xs font-light text-[#8F8F8F]">
+            Actualizado 07 septiembre 2024
+          </label>
         </div>
+        <button className="h-[31px] rounded-xl px-4  bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+          Guardar
+        </button>
       </div>
     </div>
   );
