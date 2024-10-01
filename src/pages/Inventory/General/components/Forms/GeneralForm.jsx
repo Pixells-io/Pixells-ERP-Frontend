@@ -103,6 +103,20 @@ const GeneralForm = ({ data, setData }) => {
     setImagePreview("");
   };
 
+  const handleStatusCheck = () => {
+    if (formData.activos == "1") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        activos: "0",
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        activos: "1",
+      }));
+    }
+  };
+
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex h-full w-full flex-col gap-3">
@@ -174,7 +188,7 @@ const GeneralForm = ({ data, setData }) => {
           <p className="px-4 py-2 text-[10px] text-grisSubText">ESTATUS</p>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-2 border-b border-grisDisabled">
+        {/* <div className="flex w-full items-center justify-between gap-2 border-b border-grisDisabled">
           <div className="flex items-center gap-2">
             <Switch />
             <p className="py-2 text-[12px] text-grisText">Activo</p>
@@ -191,7 +205,7 @@ const GeneralForm = ({ data, setData }) => {
               + Periodo
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex w-full justify-between py-2">
           <div className="flex items-center gap-x-3">
@@ -199,7 +213,7 @@ const GeneralForm = ({ data, setData }) => {
               className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
               name="activos"
               checked={formData?.activos == "1"}
-              onCheckedChange={(e) => handleChange(e ? "1" : "0", "active")}
+              onCheckedChange={handleStatusCheck}
             />
             <label className="font-roboto text-xs font-normal text-grisText">
               Activo
@@ -399,11 +413,14 @@ const GeneralForm = ({ data, setData }) => {
           />
         </div> */}
 
+        <div className="flex w-full border-b border-grisDisabled">
+          <p className="px-4 py-2 text-[10px] text-grisSubText">ARCHIVO</p>
+        </div>
         {/* imagen */}
-        <div className="flex flex-col items-start justify-start space-y-2 pr-8">
+        <div className="flex w-full flex-col justify-center space-y-2">
           <div
             {...getRootProps()}
-            className="relative flex cursor-pointer items-end"
+            className="relative flex cursor-pointer justify-center"
           >
             {imagePreview ? (
               <div className="relative rounded-xl border border-primarioBotones p-4">
@@ -426,7 +443,7 @@ const GeneralForm = ({ data, setData }) => {
                 />
               </div>
             ) : (
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center rounded-xl border-2 border-dashed p-20">
                 <IonIcon
                   icon={imageOutline}
                   className="h-12 w-12 text-gray-500"
