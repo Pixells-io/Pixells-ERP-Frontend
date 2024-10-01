@@ -57,8 +57,8 @@ const ProcessTab = () => {
   }, [navigation.state]);
 
   return (
-    <div className="flex h-full w-full flex-col py-4">
-      <div className="max-h-screen overflow-auto px-6">
+    <div className="flex h-full w-full flex-col overflow-hidden py-4">
+      <div className="h-full overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PROCESOS
         </h2>
