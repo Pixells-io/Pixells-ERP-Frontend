@@ -5,6 +5,8 @@ import {
   chevronForward,
   informationCircle,
   addCircleOutline,
+  informationCircleOutline,
+  add,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
@@ -14,28 +16,20 @@ import { Link } from "react-router-dom";
 const MainSalesTicket = () => {
   const data = [
     {
-      id:1,
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
+      id: 1,
+      folio: "1",
+      date: "12/Oct/2024",
+      customer: "Mexicana",
+      description: "Descripcion",
+      total: "10",
+      comments: "hola",
     },
-    {
-      id:2,
-      nombre: "Coca Cola",
-      tipo: "Nacional",
-      nacionalidad: "Mexicana",
-      contacto: "01-800-999",
-      email: "cor21s@mail.com",
-    },
-   
   ];
 
   const columns = [
     {
-      accessorKey: "nombre",
-      header: "Nombre",
+      accessorKey: "folio",
+      header: "FOLIO",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -44,45 +38,53 @@ const MainSalesTicket = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.folio}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "tipo",
-      header: "Tipo",
+      accessorKey: "date",
+      header: "FECHA",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nacionalidad",
-      header: "Nacionalidad",
+      accessorKey: "customer",
+      header: "CLIENTE",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "contacto",
-      header: "Contacto",
+      accessorKey: "description",
+      header: "DESCRIPCIÓN",
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: "total",
+      header: "TOTAL",
+    },
+    {
+      accessorKey: "comments",
+      header: "COMENTARIOS",
+    },
+    {
+      accessorKey: "total",
+      header: "TOTAL",
     },
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
-          <Link to={`/sales/tickets/edit/${row.original.id}`} >
-          <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
+          <Link to={`/sales/tickets/edit/${row.original.id}`}>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
           </Link>
         </div>
       ),
@@ -127,61 +129,57 @@ const MainSalesTicket = () => {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
+        <div className="flex justify-between">
+          <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
             Ticket/Remisíon de ventas
           </p>
-          <Link to="/sales/tickets/new" >
-          <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
-          </Link>
-        </div>
-        {/*content */}
-          <div className="w-full">
-          <Tabs
-              defaultValue="tickets"
-               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
-                <TabsTrigger
-                  className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="tickets"
-                >
-                  TICKETS/REMISIONES
-                </TabsTrigger>
-                <TabsTrigger 
-                className="rounded-none border-b-2 px-4 text-sm font-roboto text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                  value="OTRO"
-                >
-                  OTRO
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="tickets"  className="mt-[-60px] p-2">
-                    <DataTable
-                      data={data}
-                      columns={columns}
-                      searchFilter="nombre"
-                      searchNameFilter="Buscar por nombre"
-                      isCheckAll={true}
-                    />
-              </TabsContent>
-              <TabsContent value="OTRO" className="w-full">
-                
-                    <p>CONTENIDO</p>
-              </TabsContent>
-            </Tabs>
+          <div className="flex justify-end gap-6">
+            <Link to="/sales/tickets/new">
+              <Button
+                type={"button"}
+                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+                <IonIcon icon={add} className="h-4 w-4" />
+                <span className="text-xs font-medium">Nuevo</span>
+              </Button>
+            </Link>
           </div>
         </div>
+        {/*content */}
+        <Tabs
+          defaultValue="tickets"
+          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        >
+          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+            <TabsTrigger
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="tickets"
+            >
+              TICKETS/REMISIONES
+            </TabsTrigger>
+            <TabsTrigger
+              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="OTRO"
+            >
+              OTRO
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
+            <DataTable
+              data={data}
+              columns={columns}
+              searchFilter="nombre"
+              searchNameFilter="Buscar por nombre"
+              isCheckAll={true}
+            />
+          </TabsContent>
+          <TabsContent value="OTRO" className="w-full">
+            <p>CONTENIDO</p>
+          </TabsContent>
+        </Tabs>
       </div>
+    </div>
   );
 };
-
 
 export default MainSalesTicket;
