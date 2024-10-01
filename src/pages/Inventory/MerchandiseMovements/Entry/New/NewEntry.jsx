@@ -157,12 +157,6 @@ function NewEntry() {
           </p>
 
           <div className="flex justify-end gap-5">
-            <Button
-              type={"button"}
-              className="gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario"
-            >
-              Convertir a Pedido
-            </Button>
             <Link
               to={"/inventory/merchandise-movements"}
               className="flex items-end justify-center"

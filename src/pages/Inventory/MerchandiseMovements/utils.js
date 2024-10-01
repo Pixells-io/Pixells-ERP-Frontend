@@ -1,8 +1,25 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
-//SAVE ENTRY
+//MOVEMENTS
+export async function getStocksMovements() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-stocks-movements`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
 
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+//SAVE ENTRY
 export async function saveStockMovement(formData) {
   const info = {
     category: parseInt(formData.get("category")),

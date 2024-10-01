@@ -360,6 +360,7 @@ import {
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import {
   getCatalogs,
+  getStocksMovements,
   multiLoaderMovements,
 } from "./pages/Inventory/MerchandiseMovements/utils";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
@@ -1156,14 +1157,14 @@ const router = createBrowserRouter([
             action: editProduct,
           },
           {
-              path: "/inventory/general-services",
-              element: <MainGeneralServices />,
+            path: "/inventory/general-services",
+            element: <MainGeneralServices />,
           },
           {
             path: "/inventory/general-services/service/new",
             element: <CreateService />,
-            loader:multiLoaderServiceGeneral
-        },
+            loader: multiLoaderServiceGeneral,
+          },
           {
             path: "/inventory/general-warehouses",
             element: <MainGW />,
@@ -1206,6 +1207,7 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
+            loader: getStocksMovements,
           },
           {
             path: "/inventory/merchandise-movements/entry/new",
