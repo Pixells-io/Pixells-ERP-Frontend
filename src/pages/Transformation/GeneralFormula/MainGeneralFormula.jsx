@@ -128,17 +128,17 @@ function MainGeneralFormula() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
+            <h2 className="font-poppins text-base font-bold text-grisHeading">
               TRANSFORMACIÓN
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
+          {/* <div className="flex items-center gap-3 font-roboto text-grisSubText">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">43 activities</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-center justify-between">

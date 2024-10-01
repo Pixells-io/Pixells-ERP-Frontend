@@ -21,6 +21,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function NewFormula() {
   const { data } = useLoaderData();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
   const [wastes, setWastes] = useState([]);
@@ -28,9 +29,20 @@ function NewFormula() {
   const [totalSubProducts, setSubTotalProducts] = useState(0);
   const [totalWastes, setTotalWastes] = useState(0);
 
-  const navigate = useNavigate();
+  // const [productCraft, setProductCraft] = useState({});
 
-  console.log(data);
+  const productCraft = data.product_craft.map((product) => ({
+    label: product.name,
+    value: product.id,
+  }));
+
+  const productNeed = data.product_need.map((product) => ({
+    label: product.name,
+    value: product.id,
+  }));
+
+  console.log("productCraft ", productCraft);
+  console.log("productNeed ", productNeed);
 
   return (
     <div className="flex h-full w-full">
@@ -40,17 +52,17 @@ function NewFormula() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
+            <h2 className="font-poppins font-bold text-grisHeading">
               TRANSFORMACIÓN
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
+          {/* <div className="flex items-center gap-3 font-roboto text-grisSubText">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">43 activities</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex justify-between">
