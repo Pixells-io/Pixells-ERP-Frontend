@@ -292,6 +292,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -321,6 +322,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -350,6 +352,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -379,6 +382,7 @@ function NewFormula() {
                       tableData={subProducts}
                       setTableData={setSubProducts}
                       setTotalProducts={setSubTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
                 </div>
@@ -395,6 +399,7 @@ function NewFormula() {
                       tableData={wastes}
                       setTableData={setWastes}
                       setTotalProducts={setTotalWastes}
+                      productNeed={productNeed}
                     />
                   </div>
                 </div>
