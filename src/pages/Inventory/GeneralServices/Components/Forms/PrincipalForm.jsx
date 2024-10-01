@@ -78,10 +78,11 @@ const PrincipalForm = ({
   // "w-full rounded-xl border border-gris2-transparent text-[14px] font-roboto text-[#8F8F8F] placeholder:text-[#44444F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    <div className="w-full rounded-xl bg-white p-4">
+    <div className="w-full md:max-h-[320px] rounded-xl bg-white p-4">
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex w-full flex-col gap-6">
-          <div className="flex w-full gap-6">
+          <div className="flex flex-col w-full gap-6">
+          <h2 className="font-poppins ml-2 text-sm font-medium text-[#44444F]">PRINCIPAL</h2>
             {/* Código de Artículo */}
             <InputForm
               type="text"

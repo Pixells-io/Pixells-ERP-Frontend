@@ -70,7 +70,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
 
   return (
     <Form
-      className="flex h-full w-full flex-col overflow-auto py-4"
+      className="flex w-full flex-col overflow-auto py-4 md:max-h-[540px]"
       action={`/inventory/branch-points-sale/edit/${store_id}`}
       method="post"
     >
@@ -103,7 +103,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
           value={information?.id}
         />
         <div className="col-span-12 pt-4">
-          <h2 className="text-xs font-normal text-grisSubText">CONFIGURACION</h2>
+          <h2 className="text-xs font-normal text-grisSubText">
+            CONFIGURACION
+          </h2>
           <div className="mt-1 flex w-full justify-between border-b border-t border-[#D7D7D7] py-3 pl-4">
             <div className="flex items-center gap-x-3">
               <Switch
