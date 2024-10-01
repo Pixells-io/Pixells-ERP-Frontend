@@ -40,7 +40,7 @@ function SelectRouter({
           IndicatorSeparator: () => null,
         }}
         maxMenuHeight={150}
-        menuPosition="fixed"
+        // menuPosition="fixed"
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,

@@ -3,7 +3,6 @@ import { json } from "react-router-dom";
 
 //SAVE PRODUCTS
 export async function saveNewProduct(data) {
- 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/create-product`,
     {
@@ -18,8 +17,6 @@ export async function saveNewProduct(data) {
   return response.json();
 }
 
-
-
 //GET PRODUCT
 export async function getProductById(id) {
   const info = { product_id: parseInt(id) };
@@ -28,11 +25,11 @@ export async function getProductById(id) {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}products/get-product`,
       {
-        method: "POST", 
-        body: JSON.stringify(info), 
+        method: "POST",
+        body: JSON.stringify(info),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + Cookies.get("token"), 
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       },
     );
@@ -43,7 +40,6 @@ export async function getProductById(id) {
 }
 
 export async function editProduct(data) {
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}products/edit-product`,
     {
@@ -168,30 +164,28 @@ export async function getSuppliers() {
 
 export async function multiloaderArticle() {
   const [categories, warehouses, suppliers, attributes] = await Promise.all([
-   
     getCategories(),
     getWarehouses(),
     getSuppliers(),
     getAttributes(),
   ]);
-  return json({ categories, warehouses, suppliers, attributes});
+  return json({ categories, warehouses, suppliers, attributes });
 }
 
 export async function getProduct({ params }) {
-  const id=params.id;
+  const id = params.id;
 
-  const info ={ product_id:parseInt(id)};
-
+  const info = { product_id: parseInt(id) };
 
   try {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}products/get-product`,
       {
-        method: "POST", 
-        body: JSON.stringify(info), 
+        method: "POST",
+        body: JSON.stringify(info),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + Cookies.get("token"), 
+          Authorization: "Bearer " + Cookies.get("token"),
         },
       },
     );
@@ -202,16 +196,16 @@ export async function getProduct({ params }) {
 }
 
 export async function multiloaderArticle2({ params }) {
-  const [products, categories, warehouses, suppliers, attributes] = await Promise.all([
-    getProduct({params}),
-    getCategories(),
-    getWarehouses(),
-    getSuppliers(),
-    getAttributes(),
-  ]);
-  return json({products, categories, warehouses, suppliers, attributes });
+  const [products, categories, warehouses, suppliers, attributes] =
+    await Promise.all([
+      getProduct({ params }),
+      getCategories(),
+      getWarehouses(),
+      getSuppliers(),
+      getAttributes(),
+    ]);
+  return json({ products, categories, warehouses, suppliers, attributes });
 }
-
 
 export async function multiloaderInventory() {
   const [categories, attributes, products] = await Promise.all([
