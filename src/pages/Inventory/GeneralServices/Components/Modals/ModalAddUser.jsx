@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,24 +13,20 @@ import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Form, useNavigation } from "react-router-dom";
 
-function ModalAddUser({ users, store_id }) {
-  const navigation = useNavigation();
-
+function ModalAddUser({ users, onAddUsers }) {
   const [modal, setModal] = useState(false);
-  const [userList, setUserList] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   const clearData = () => {
-    setUserList([]);
+    setSelectedUsers([]);
     setModal(false);
   };
 
-  useEffect(() => {
-    if (navigation.state === "idle") {
-      clearData();
-    }
-  }, [navigation.state]);
+  const handleAddUsers = () => {
+    onAddUsers(selectedUsers);
+    clearData();
+  };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -49,7 +44,7 @@ function ModalAddUser({ users, store_id }) {
           options={users}
           placeholder="Seleccionar Usuarios"
           isMulti={true}
-          onChange={(e) => setUserList(e)}
+          onChange={(e) => setSelectedUsers(e)}
           getOptionValue={(option) => option.id}
           getOptionLabel={(option) => {
             return (
@@ -71,54 +66,23 @@ function ModalAddUser({ users, store_id }) {
           }}
         />
 
-        <Form
-          action={`/inventory/branch-points-sale/edit/${store_id}`}
-          method="post"
-        >
-          <input
-            type="text"
-            className="hidden"
-            hidden
-            readOnly
-            name="store_id"
-            value={store_id}
-          />
-          <input
-            type="text"
-            className="hidden"
-            hidden
-            readOnly
-            name="type_option"
-            value="createUsersBranchTab"
-          />
-          <input
-            type="text"
-            className="hidden"
-            hidden
-            readOnly
-            name="users"
-            value={JSON.stringify(userList)}
-          />
-          <DialogFooter>
-            <div className="flex w-full justify-end gap-2">
-              <Button
-                type="button"
-                className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
-                onClick={() => clearData()}
-              >
-                Cancelar
-              </Button>
-              <Button
-                className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
-                disabled={navigation.state === "submitting"}
-              >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Aceptar"}
-              </Button>
-            </div>
-          </DialogFooter>
-        </Form>
+        <DialogFooter>
+          <div className="flex w-full justify-end gap-2">
+            <Button
+              type="button"
+              className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
+              onClick={() => clearData()}
+            >
+              Cancelar
+            </Button>
+            <Button
+              className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
+              onClick={handleAddUsers}
+            >
+              Aceptar
+            </Button>
+          </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
