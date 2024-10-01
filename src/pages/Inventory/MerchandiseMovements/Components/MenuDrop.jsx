@@ -9,10 +9,13 @@ const MenuMovements = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="gap-2 rounded-xl bg-primarioBotones font-roboto text-sm text-white hover:bg-primario">
-          <IonIcon icon={add} className="text-lg" />
-          Nuevo
-        </Button>
+      <Button
+                  type={"button"}
+                  className="flex h-[30px] items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+                >
+                  <IonIcon icon={add} className="h-4 w-4" />
+                  <span className="text-xs font-medium">Nuevo</span>
+                </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-2xl">
         <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
