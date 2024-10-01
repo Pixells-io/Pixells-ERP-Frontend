@@ -6,8 +6,9 @@ import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import ModalPeriod from "../../Modals/ModalPeriod";
+import ModalPeriod from "../../../Modals/ModalPeriod";
 import { format } from "date-fns";
+import FormUpdateContact from "./FormUpdateContact";
 
 const ContactTabs = ({ data }) => {
   const navigation = useNavigation();
@@ -263,11 +264,7 @@ const ContactTabs = ({ data }) => {
         )}
 
         {/* Show list cashBox */}
-        {/* <FormUpdateCashBox
-          cashBoxes={cashBoxes}
-          positions={positions}
-          store_id={store_id}
-        /> */}
+        <FormUpdateContact contacts={data?.contacts} client_id={data?.id} />
       </div>
 
       <div className="mt-10 flex w-full flex-1 items-end px-6">

@@ -19,7 +19,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import GeneralTabs from "./Tabs/GeneralTabs";
 import PaymentTabs from "./Tabs/PaymentTabs";
-import ContactTabs from "./Tabs/ContactTabs";
+import ContactTabs from "./Tabs/ContactTabs/ContactTabs";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
