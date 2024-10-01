@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import InputsGroup from "../Components/DataGroup";
-import FormGroup from "../Components/FormGroup";
 import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import {
+  createBillingInfo,
   createContact,
   createGeneralInfo,
   createPaymentConditions,
+  destroyBillingInfo,
   destroyContact,
   destroyCustomer,
+  editBillingInfo,
   editContact,
   editCustomer,
   editGeneralInfo,
@@ -20,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import GeneralTabs from "./Tabs/GeneralTabs";
 import PaymentTabs from "./Tabs/PaymentTabs";
 import ContactTabs from "./Tabs/ContactTabs/ContactTabs";
+import BillingTabs from "./Tabs/BillingTabs/BillingTabs";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
@@ -293,6 +296,12 @@ const EditCustomer = () => {
                   >
                     <ContactTabs data={customer} />
                   </TabsContent>
+                  <TabsContent
+                    value="Invoices"
+                    className="w-full overflow-auto"
+                  >
+                    <BillingTabs data={customer} />
+                  </TabsContent>
                   <TabsContent value="payment" className="w-full overflow-auto">
                     <PaymentTabs data={customer} />
                   </TabsContent>
@@ -364,6 +373,15 @@ export async function Action({ request }) {
       break;
     case "destroy_contact":
       await destroyContact(data);
+      break;
+    case "createBilling":
+      await createBillingInfo(data);
+      break;
+    case "editBilling":
+      await editBillingInfo(data);
+      break;
+    case "destroyBilling":
+      await destroyBillingInfo(data);
       break;
     case "paymentConditions":
       if (!!data.get("payment_id")) {
