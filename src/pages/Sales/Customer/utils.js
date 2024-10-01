@@ -274,7 +274,6 @@ export async function createBillingInfo(data) {
 
 export async function editBillingInfo(data) {
   const info = {
-    client_transactional_id: Number(data.get("client_transactional_id")),
     billing_id: data.get("billing_id"),
     regimen_fiscal: data.get("regimen_fiscal"),
     uso_cfdi: data.get("uso_cfdi"),

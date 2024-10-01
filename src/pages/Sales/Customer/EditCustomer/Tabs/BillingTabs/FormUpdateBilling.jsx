@@ -7,16 +7,16 @@ import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import { format } from "date-fns";
 import ModalPeriod from "../../../Modals/ModalPeriod";
-import ModalDeleteContact from "../../../Modals/ModalDeleteContacts";
+import ModalDeleteBilling from "../../../Modals/ModalDeleteBilling";
 
-const FormUpdateContact = ({ contacts, client_id }) => {
+const FormUpdateBilling = ({ billings, client_id }) => {
   const navigation = useNavigation();
-  const [contactsSelect, setContactsSelect] = useState(contacts);
+  const [billingsSelect, setBillingsSelect] = useState(billings);
 
-  const [selectEditContact, setSelectEditContact] = useState(null);
+  const [selectEditBilling, setSelectEditBilling] = useState(null);
 
   const addDate = (dateI, dateF, i) => {
-    const cashBoxAux = contactsSelect.map((u, index) => {
+    const billingsAux = billingsSelect.map((u, index) => {
       if (index == i) {
         return {
           ...u,
@@ -27,12 +27,12 @@ const FormUpdateContact = ({ contacts, client_id }) => {
         return u;
       }
     });
-    setContactsSelect(cashBoxAux);
-    setSelectEditContact(i);
+    setBillingsSelect(billingsAux);
+    setSelectEditBilling(i);
   };
 
   const clearPeriod = (i) => {
-    const auxCashBoxes = contactsSelect.map((u, index) => {
+    const auxBillings = billingsSelect.map((u, index) => {
       if (index == i) {
         return {
           ...u,
@@ -43,13 +43,13 @@ const FormUpdateContact = ({ contacts, client_id }) => {
         return u;
       }
     });
-    setContactsSelect(auxCashBoxes);
-    setSelectEditContact(i);
+    setBillingsSelect(auxBillings);
+    setSelectEditBilling(i);
   };
 
   const handleInputChange = (value, name, i) => {
-    setSelectEditContact(i);
-    const aux = contactsSelect.map((prevFormData, index) => {
+    setSelectEditBilling(i);
+    const aux = billingsSelect.map((prevFormData, index) => {
       if (index == i) {
         return { ...prevFormData, [name]: value };
       } else {
@@ -59,77 +59,77 @@ const FormUpdateContact = ({ contacts, client_id }) => {
       }
     });
 
-    setContactsSelect([...aux]);
+    setBillingsSelect([...aux]);
   };
 
   useEffect(() => {
     if (navigation.state === "idle") {
-      setSelectEditContact(null);
+      setSelectEditBilling(null);
     }
   }, [navigation.state]);
 
   useEffect(() => {
-    changeValueContacts();
-  }, [contacts]);
+    changeValueBillings();
+  }, [billings]);
 
-  const changeValueContacts = () => {
-    setContactsSelect(contacts);
+  const changeValueBillings = () => {
+    setBillingsSelect(billings);
   };
 
   return (
     <div>
       {/* Show list contact */}
-      {contactsSelect.map((contact, index) => (
+      {billingsSelect.map((billing, index) => (
         <Form
           key={index}
           className="mt-4"
           action={`/sales/customer/edit/${client_id}`}
           method="post"
         >
-          <input type="hidden" hidden name="contact_id" value={contact?.id} />
-          <input type="hidden" hidden name="type" value={"contact"} />
+          <input type="hidden" hidden name="billing_id" value={billing?.id} />
+          <input type="hidden" hidden name="type" value={"editBilling"} />
           <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
-            CONTACTO {index + 1}
+            Registro {index + 1}
           </p>
           <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
             <div className="col-span-3">
               <InputForm
-                name="name"
+                name="regimen_fiscal"
                 type="text"
-                placeholder={"Nombre"}
+                placeholder={"Régimen Fiscal"}
                 disabled={false}
-                value={contact?.name}
+                value={billing?.regimen_fiscal}
                 onChange={(e) =>
-                  handleInputChange(e.target.value, "name", index)
+                  handleInputChange(e.target.value, "regimen_fiscal", index)
                 }
               />
             </div>
             <div className="col-span-3">
               <InputForm
-                name="middle_name"
+                name="metodo_pago"
                 type="text"
-                placeholder={"Apellido Paterno"}
+                placeholder={"Método de Pago"}
                 disabled={false}
-                value={contact?.middle_name}
+                value={billing?.metodo_pago}
                 onChange={(e) =>
-                  handleInputChange(e.target.value, "middle_name", index)
+                  handleInputChange(e.target.value, "metodo_pago", index)
                 }
               />
             </div>
             <div className="col-span-3">
               <InputForm
-                name="last_name"
+                name="forma_pago"
                 type="text"
-                placeholder={"Apellido Materno"}
+                placeholder={"Forma de Pago"}
                 disabled={false}
-                value={contact?.last_name}
+                value={billing?.forma_pago}
                 onChange={(e) =>
-                  handleInputChange(e.target.value, "last_name", index)
+                  handleInputChange(e.target.value, "forma_pago", index)
                 }
               />
             </div>
             <div className="col-span-3 flex items-end justify-end">
-              {index == selectEditContact && (
+              {index == selectEditBilling && (
                 <Button
                   className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"
                   disabled={navigation.state === "submitting"}
@@ -143,37 +143,25 @@ const FormUpdateContact = ({ contacts, client_id }) => {
             </div>
             <div className="col-span-3">
               <InputForm
+                name="uso_cfdi"
+                type="text"
+                placeholder={"Uso de CFDI"}
+                disabled={false}
+                value={billing?.uso_cfdi}
+                onChange={(e) =>
+                  handleInputChange(e.target.value, "uso_cfdi", index)
+                }
+              />
+            </div>
+            <div className="col-span-3">
+              <InputForm
                 name="email"
                 type="text"
                 placeholder={"E-Mail"}
                 disabled={false}
-                value={contact?.email}
+                value={billing?.email}
                 onChange={(e) =>
                   handleInputChange(e.target.value, "email", index)
-                }
-              />
-            </div>
-            <div className="col-span-3">
-              <InputForm
-                name="phone"
-                type="text"
-                placeholder={"Teléfono"}
-                disabled={false}
-                value={contact?.phone}
-                onChange={(e) =>
-                  handleInputChange(e.target.value, "phone", index)
-                }
-              />
-            </div>
-            <div className="col-span-3">
-              <InputForm
-                name="position"
-                type="text"
-                placeholder={"Posición"}
-                disabled={false}
-                value={contact?.position}
-                onChange={(e) =>
-                  handleInputChange(e.target.value, "position", index)
                 }
               />
             </div>
@@ -184,7 +172,7 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                 <Switch
                   className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                   name="active"
-                  checked={contact?.active == "1"}
+                  checked={billing?.active == "1"}
                   onCheckedChange={(e) =>
                     handleInputChange(e ? "1" : "0", "active", index)
                   }
@@ -193,7 +181,7 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                 <label className="font-roboto text-xs font-normal text-grisText">
                   Activo
                 </label>
-                {!!contact.start && !!contact.end ? (
+                {!!billing.start && !!billing.end ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
@@ -201,10 +189,10 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                         hidden
                         name="start"
                         className="hidden"
-                        value={format(contact?.start, "PP")}
+                        value={format(billing?.start, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(contact?.start, "PP")}
+                        {format(billing?.start, "PP")}
                       </label>
                     </div>
                     <div className="rounded-[8px] bg-gris px-2 py-1">
@@ -213,10 +201,10 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                         hidden
                         name="end"
                         className="hidden"
-                        value={format(contact?.end, "PP")}
+                        value={format(billing?.end, "PP")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(contact?.end, "PP")}
+                        {format(billing?.end, "PP")}
                       </label>
                     </div>
                   </div>
@@ -227,7 +215,7 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                 )}
               </div>
               <div>
-                {!!contact?.start && !!contact?.end ? (
+                {!!billing?.start && !!billing?.end ? (
                   <Button
                     type="button"
                     className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
@@ -249,21 +237,21 @@ const FormUpdateContact = ({ contacts, client_id }) => {
                 <Switch
                   className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                   name="principal"
-                  checked={contact?.principal == "1"}
+                  checked={billing?.principal == "1"}
                   onCheckedChange={(e) =>
                     handleInputChange(e ? "1" : "0", "principal", index)
                   }
                   disabled={false}
                 />
                 <label className="font-roboto text-xs font-normal text-grisText">
-                  Contacto Principal
+                  Registro Principal
                 </label>
               </div>
               <div className="col-span-6 flex justify-end">
-                <ModalDeleteContact
+                <ModalDeleteBilling
                   client_id={client_id}
-                  contact_id={contact?.id}
-                  contact_name={contact?.name}
+                  billing_id={billing?.id}
+                  regimen_fiscal={billing?.regimen_fiscal}
                 />
               </div>
             </div>
@@ -274,4 +262,4 @@ const FormUpdateContact = ({ contacts, client_id }) => {
   );
 };
 
-export default FormUpdateContact;
+export default FormUpdateBilling;

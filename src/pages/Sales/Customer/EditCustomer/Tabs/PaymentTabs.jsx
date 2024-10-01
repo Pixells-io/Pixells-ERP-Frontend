@@ -19,7 +19,7 @@ const PaymentTabs = ({ data }) => {
 
   return (
     <Form
-      className="flex w-full flex-col py-4"
+      className="flex w-full h-full flex-col py-4"
       id="form-supplier-general"
       action={"/sales/customer/edit/" + data?.id}
       method="post"
