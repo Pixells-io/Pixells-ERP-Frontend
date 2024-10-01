@@ -5,21 +5,12 @@ import InputForm from "@/components/InputForm/InputForm";
 
 const PaymentTabs = ({ data }) => {
   const navigation = useNavigation();
-
   const [generalData, setGeneralData] = useState({
-    street: data?.address?.street || "",
-    int: data?.address?.int || "",
-    ext: data?.address?.ext || "",
-    cologne: data?.address?.cologne || "",
-    city: data?.address?.city || "",
-    state: data?.address?.state || "",
-    cp: data?.address?.cp || "",
-    country: data?.address?.country || "",
-    status: data?.status == "1" ? true : false,
-    start: data?.from_date || "",
-    end: data?.to_date || "",
-    shopping_person: data?.address?.shopping_person || "",
-    comment: data?.comments || "",
+    id: data?.payment?.id,
+    conditions: data?.payment?.conditions,
+    interest: data?.payment?.interest,
+    days_of_credit: data?.payment?.days_of_credit,
+    credit_limit: data?.payment?.credit_limit,
   });
 
   const handleInputChange = (value, name) => {
@@ -37,12 +28,17 @@ const PaymentTabs = ({ data }) => {
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           CONDICIONES DE PAGO
         </h2>
-        <input type="hidden" hidden name="supplier_id" value={data?.id} />
+        <input
+          type="hidden"
+          hidden
+          name="client_transactional_id"
+          value={data?.id}
+        />
         <input
           type="hidden"
           hidden
           name="payment_id"
-          value={data?.payment?.id}
+          value={generalData?.id}
         />
         <input type="hidden" hidden name="type" value={"paymentConditions"} />
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">

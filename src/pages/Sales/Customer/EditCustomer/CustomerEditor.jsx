@@ -7,11 +7,13 @@ import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import {
   createContact,
   createGeneralInfo,
+  createPaymentConditions,
   destroyContact,
   destroyCustomer,
   editContact,
   editCustomer,
   editGeneralInfo,
+  editPaymentConditions,
 } from "../utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -361,6 +363,13 @@ export async function Action({ request }) {
       break;
     case "destroy_contact":
       await destroyContact(data);
+      break;
+    case "paymentConditions":
+      if(!!data.get("payment_id")){
+        editPaymentConditions(data);
+      } else {
+        createPaymentConditions(data);
+      }
       break;
   }
   return "0";
