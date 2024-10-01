@@ -32,10 +32,15 @@ const  ShoppingTab = () => {
             <SelectRouter
               placeholder="Proveedor Predeterminado:"
       
-            />
+            /><div className="mt-[500px] flex w-full flex-1 items-end px-6">
+            <div className="flex w-full justify-between">
+              <label className="text-xs font-light text-[#8F8F8F]">Actualizado 07 septiembre 2024</label>
+            </div>
+          </div>
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
