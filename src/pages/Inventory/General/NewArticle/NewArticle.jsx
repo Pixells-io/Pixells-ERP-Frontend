@@ -51,6 +51,7 @@ const CreateArticle = () => {
     stockMaximo: "",
     proveedor: "",
   });
+
   const [inventory, setInventory] = useState({
     metodoValoracion: "",
     costo: "",

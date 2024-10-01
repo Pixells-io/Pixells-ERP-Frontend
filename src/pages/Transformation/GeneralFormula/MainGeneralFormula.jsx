@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import {
+  chevronBack,
+  chevronForward,
+  addCircleOutline,
+  add,
+} from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import { GeneralFormulaColumns } from "./Table/GeneralFormulaColumns";
 import NavigationHeader from "@/components/navigation-header";
@@ -136,19 +141,17 @@ function MainGeneralFormula() {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-grisHeading">
+        <div className="flex items-center justify-between">
+          <p className="font-poppins text-xl font-bold text-[#44444F]">
             Formulas General
           </p>
           <Link to="/transformation/create">
             <Button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+              className="flex h-[30px] items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
             >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
+              <IonIcon icon={add} className="h-4 w-4" />
+              <span className="text-xs font-medium">Nuevo</span>
             </Button>
           </Link>
         </div>
