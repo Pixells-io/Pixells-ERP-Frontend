@@ -45,12 +45,14 @@ const TableForm = ({
   const handleOpenModal = (row) => {
     if (row.isBatchManagementChecked) {
       const selectedProduct = products.find(
-        (product) => product.id.toString() === row.articleNumber.toString()
+        (product) => product.id.toString() === row.articleNumber.toString(),
       );
-      
+
       setSelectedRow({
         ...row,
-        description: selectedProduct ? selectedProduct.name : "Producto no encontrado",
+        description: selectedProduct
+          ? selectedProduct.name
+          : "Producto no encontrado",
       });
       setIsModalOpen(true);
     }
@@ -63,10 +65,10 @@ const TableForm = ({
           ? {
               ...item,
               isBatchManagementChecked: !item.isBatchManagementChecked,
-              hideReceivedAndLocation: !item.isBatchManagementChecked // Agregar control de visibilidad
+              hideReceivedAndLocation: !item.isBatchManagementChecked, // Agregar control de visibilidad
             }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -80,8 +82,8 @@ const TableForm = ({
       prevData.map((item) =>
         item.idAux === selectedRow.idAux
           ? { ...item, batches: updatedBatches }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -109,40 +111,18 @@ const TableForm = ({
   const handleInputChange = useCallback((rowIndex, accessorKey, value) => {
     setTableData((prevData) => {
       const newData = prevData.map((item, index) =>
-        index === rowIndex ? { ...item, [accessorKey]: value } : item
+        index === rowIndex ? { ...item, [accessorKey]: value } : item,
       );
 
       if (accessorKey === "unitPrice" || accessorKey === "receivedQuantity") {
         const unitPrice = parseFloat(newData[rowIndex].unitPrice) || 0;
-        const receivedQuantity = parseFloat(newData[rowIndex].receivedQuantity) || 0;
+        const receivedQuantity =
+          parseFloat(newData[rowIndex].receivedQuantity) || 0;
         newData[rowIndex].total = (unitPrice * receivedQuantity).toFixed(2);
       }
       return newData;
     });
   }, []);
-
-  const handleSelectChange = (rowIndex, field, value) => {
-    setTableData((prevData) => {
-      const newData = [...prevData];
-      if (field === "description") {
-        const selectedProduct = products.find(
-          (product) => product.id.toString() === value
-        );
-        if (selectedProduct) {
-          newData[rowIndex] = {
-            ...newData[rowIndex],
-            type: 1,
-            articleNumber: selectedProduct.id,
-            variation: 0,
-            description: selectedProduct.name,
-            unitPrice: selectedProduct.price,
-            total: (selectedProduct.price * newData[rowIndex].receivedQuantity).toFixed(2),
-          };
-        }
-      }
-      return newData;
-    });
-  };
 
   const handleDataInRow = useCallback((data, rowIndex) => {
     setTableData((prevData) =>
@@ -152,8 +132,8 @@ const TableForm = ({
               ...item,
               ubication_id: data,
             }
-          : item
-      )
+          : item,
+      ),
     );
   }, []);
 
@@ -193,24 +173,9 @@ const TableForm = ({
         accessorKey: "description",
         header: "Descripción",
         cell: ({ row, rowIndex }) => (
-          <Select
-            value={row.articleNumber.toString()}
-            onValueChange={(value) =>
-              handleSelectChange(rowIndex, "description", value)
-            }
-          >
-            <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona" />
-            </SelectTrigger>
-            <SelectContent>
-              {Array.isArray(products) &&
-                products.map((product) => (
-                  <SelectItem key={product.id} value={product.id.toString()}>
-                    {product.name}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
+          <span className="line-clamp-1" title={row.description}>
+            {row.description}
+          </span>
         ),
       },
       {
@@ -231,7 +196,7 @@ const TableForm = ({
       {
         accessorKey: "receivedQuantity",
         header: "Recibido",
-        cell: ({ row, rowIndex }) => (
+        cell: ({ row, rowIndex }) =>
           !row.hideReceivedAndLocation && (
             <Input
               type="number"
@@ -250,40 +215,42 @@ const TableForm = ({
               }
               disabled={!isEditable}
             />
-          )
-        ),
+          ),
       },
-       {
+      {
         accessorKey: "slots",
         header: "Lotes",
-        cell: ({ row }) => (
-          row.hideReceivedAndLocation && (    <div>
-            <button
-              onClick={() => handleOpenModal(row)}
-              className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
-              disabled={!row.isBatchManagementChecked}
-            >
-              Gestionar
-            </button>
-            {isModalOpen && selectedRow && selectedRow.isBatchManagementChecked && (
-              <EntrySlotModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                description={selectedRow.description}
-                productData={selectedRow}
-                lotData={selectedRow}
-                assignmentData={selectedRow.batches}
-                onUpdateBatches={handleUpdateBatches}
-                location={locations}
-              />
-            )}
-          </div>)
-        ),
+        cell: ({ row }) =>
+          row.hideReceivedAndLocation && (
+            <div>
+              <button
+                onClick={() => handleOpenModal(row)}
+                className="rounded-lg bg-[#E0E0E0] px-4 py-2 hover:bg-[#ACEED0]"
+                disabled={!row.isBatchManagementChecked}
+              >
+                Gestionar
+              </button>
+              {isModalOpen &&
+                selectedRow &&
+                selectedRow.isBatchManagementChecked && (
+                  <EntrySlotModal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    description={selectedRow.description}
+                    productData={selectedRow}
+                    lotData={selectedRow}
+                    assignmentData={selectedRow.batches}
+                    onUpdateBatches={handleUpdateBatches}
+                    location={locations}
+                  />
+                )}
+            </div>
+          ),
       },
       {
         accessorKey: "ubication_id",
         header: "Ubicación",
-        cell: ({ row, rowIndex }) => (
+        cell: ({ row, rowIndex }) =>
           !row.hideReceivedAndLocation && (
             <div className="flex items-center justify-between gap-x-2">
               <Select
@@ -318,18 +285,23 @@ const TableForm = ({
                 </button>
               )}
             </div>
-          )
-        ),
+          ),
       },
-     
     ],
-    [handleInputChange, deleteRowId, isEditable, handleOpenModal, handleCheckboxChange, handleDataInRow]
+    [
+      handleInputChange,
+      deleteRowId,
+      isEditable,
+      handleOpenModal,
+      handleCheckboxChange,
+      handleDataInRow,
+    ],
   );
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleNextPage = () => {
@@ -341,7 +313,7 @@ const TableForm = ({
   };
 
   return (
-    <div className="flex mb-2 flex-col h-[400px] rounded-xl">
+    <div className="mb-2 flex h-[400px] flex-col rounded-xl">
       <div className="">
         <Table>
           <TableHeader>

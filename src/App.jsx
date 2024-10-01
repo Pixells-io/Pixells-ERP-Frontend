@@ -519,6 +519,7 @@ import { getMails } from "./pages/CRM/Email/utils";
 import { getCatalogsTransformation } from "./pages/Transformation/utils";
 import {
   getInventoryStock,
+  getProductStock,
   multiloaderStock,
 } from "./pages/Inventory/StockItems/utils";
 
@@ -1271,8 +1272,9 @@ const router = createBrowserRouter([
             loader: multiloaderStock,
           },
           {
-            path: "/inventory/stock-items/product/show/:id",
+            path: "/inventory/stock-items/product/show/:type/:id",
             element: <StockWarehouse />,
+            loader: getProductStock,
           },
           {
             path: "/inventory/stock-items/warehouse/show/:id",

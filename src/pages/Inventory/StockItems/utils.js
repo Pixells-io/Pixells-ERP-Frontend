@@ -51,6 +51,24 @@ export async function getInventoryStock({ params }) {
   }
 }
 
+export async function getProductStock({ params }) {
+  try {
+    const id = params.id;
+    const type = params.type;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-product-stock/${type}/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderStock() {
   const [inventoriesData, productsData] = await Promise.all([
     getInventories(),

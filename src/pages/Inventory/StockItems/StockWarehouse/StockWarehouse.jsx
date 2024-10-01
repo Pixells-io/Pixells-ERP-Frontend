@@ -1,32 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "../Table/Datatable";
 import { StockWarehouseColumns } from "../Table/StockWarehouseColumns";
-
-const data = [
-  {
-    warehouseCode: "01",
-    warehouseName: "Guadalajara",
-    inStock: 54,
-    committed: 10,
-    order: 0,
-    available: 44,
-    ctotal: 5436,
-  },
-  {
-    warehouseCode: "02",
-    warehouseName: "Monterrey",
-    inStock: 2,
-    committed: 0,
-    order: 15,
-    available: 17,
-    ctotal: "",
-    variable:2
-  },
-];
+import { useLoaderData } from "react-router-dom";
+import TableRowInventory from "../Components/TableRowInventory";
+import { Warehouse } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { IonIcon } from "@ionic/react";
+import { searchOutline } from "ionicons/icons";
 
 function StockWarehouse() {
+  const { data } = useLoaderData();
+  const [wharehouses, setwharehouses] = useState(data.inventory);
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -37,20 +25,12 @@ function StockWarehouse() {
           <h2 className="font-poppins text-base font-bold text-[#44444F]">
             INVENTARIO
           </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
         </div>
-        <Tabs
-          defaultValue="stock"
-          className="h-full overflow-auto rounded-lg pt-2"
-        >
+        <Tabs defaultValue="stock" className="h-full rounded-lg pt-2">
           <div className="flex justify-between">
             <div className="flex justify-between">
               <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
-                Stock General
+                Stock General - {data.product}
               </p>
             </div>
             <div className="flex justify-end gap-6">
@@ -70,29 +50,90 @@ function StockWarehouse() {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="stock" className="flex w-full rounded-md p-2">
-            <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
-              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
-                <span className="font-poppins text-lg font-medium text-[#44444F]">
-                  ALMACENES POR ARTÍCULO
-                </span>
-               
+          <TabsContent value="stock" className="w-full rounded-lg bg-white">
+            <div className="border-[#D7D7D7 flex w-full justify-between border-b px-4 py-4">
+              <span className="font-poppins text-lg font-medium text-grisHeading">
+                ALMACENES POR ARTÍCULO
+              </span>
+              <div className="flex h-9 w-44 items-center rounded-3xl border-[1px] border-[#D7D7D7] px-2 py-2 text-[10px]">
+                <Label htmlFor="search">
+                  <IonIcon
+                    icon={searchOutline}
+                    className="h-6 w-6 stroke-1 text-[#8F8F8F]"
+                  ></IonIcon>
+                </Label>
+                <Input
+                  id="search"
+                  className="h-full w-full border-0 bg-transparent text-sm font-normal text-[#8F8F8F] !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
+                  placeholder={"Search"}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
-             <div className="flex">
-             <DataTable data={data} columns={StockWarehouseColumns} />
-             </div>
+            </div>
+            <div className="flex h-full w-full flex-col space-y-4 overflow-x-auto rounded-xl px-8 py-6">
+              <div>
+                {/* HEADER */}
+                <div className="flex w-full border-b border-[#44444F]">
+                  <div className="mx-2 w-2/12 py-4">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      CÓDIGO ALMACEN
+                    </span>
+                  </div>
+                  <div className="mx-2 w-3/12 py-4">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      NOMBRE ALMACEN
+                    </span>
+                  </div>
+                  <div className="mx-2 w-2/12 rounded-t-2xl bg-[#69D8D64D] py-4 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      EN STOCK
+                    </span>
+                  </div>
+                  <div className="mx-2 w-2/12 rounded-t-2xl bg-[#69D8D666] py-4 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      COMP.
+                    </span>
+                  </div>
+                  <div className="mx-2 w-1/12 rounded-t-2xl bg-[#69D8D680] py-4 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      PEDIDO
+                    </span>
+                  </div>
+                  <div className="mx-2 w-2/12 rounded-t-2xl bg-[#69D8D699] py-4 text-center">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      DISPONIBLE
+                    </span>
+                  </div>
+                  <div className="mx-2 w-2/12 py-4">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      COSTO
+                    </span>
+                  </div>
+                  <div className="mx-2 w-2/12 py-4">
+                    <span className="h-full items-center whitespace-nowrap font-poppins text-sm font-medium text-[#44444F]">
+                      UBICACIONES
+                    </span>
+                  </div>
+                </div>
+                {/* BODY */}
+                {wharehouses
+                  .filter(
+                    (item) =>
+                      item.code
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                  )
+                  .map((warehouse, i) => (
+                    <TableRowInventory inventory={warehouse} key={i} />
+                  ))}
+              </div>
             </div>
           </TabsContent>
           <TabsContent value="summary" className="rounded-md p-2">
-          <div className="flex h-full w-full space-y-4 flex-col rounded-xl bg-white">
-              <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
-                <span className="font-poppins text-lg font-medium text-[#44444F]">
-                  ARTICULOS EN ALMACÉN
-                </span>
-               
-              </div>
-              <DataTable data={data} columns={StockWarehouseColumns} />
-            </div>
+            <span>Resumen</span>
           </TabsContent>
         </Tabs>
       </div>

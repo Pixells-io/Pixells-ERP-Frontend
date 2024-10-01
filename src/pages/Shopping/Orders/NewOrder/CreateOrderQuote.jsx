@@ -16,7 +16,7 @@ const CreateQuoteOrder = () => {
   const [selectedWarehouse, setSelectedWarehouse] = useState(undefined);
   const [selectedCostCenter, setSelectedCostCenter] = useState(undefined);
   const [selectedProveedor, setSelectedProveedor] = useState(undefined);
-  const [allProducts, setAllProducts] = useState(data?.products);
+  const [allProducts, setAllProducts] = useState(data);
   const [tableData, setTableData] = useState([]);
   const navigation = useNavigation();
 

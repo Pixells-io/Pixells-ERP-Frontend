@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLoaderData, Form } from "react-router-dom";
+import { Link, useLoaderData, Form, redirect } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -94,7 +94,7 @@ function NewEntry() {
               idAux: index,
               articleNumber: item.master_product || "",
               variation: item.variations || "",
-              description: item.master_product.toString() || "",
+              description: item.name || "",
               rel_id: item.id,
               eQuantity: item.quantity || 0,
               receivedQuantity: "",
@@ -405,10 +405,11 @@ function NewEntry() {
                     commodity.map((item) => ({
                       type: parseInt(item.type) || 0,
                       product_master_id: parseInt(item.articleNumber) || 0,
-                      variation: parseInt(item.variation_id),
+                      variation: parseInt(item.variation),
                       inventory_in: parseInt(item.ubication_id) || null,
                       rel_id: item.rel_id,
                       expected_quantity: parseInt(item.eQuantity) || 0,
+                      quantity: parseInt(item.receivedQuantity) || 0,
                       batches: item.batches || [],
                     })),
                   )}
@@ -442,6 +443,6 @@ export default NewEntry;
 export async function Action({ request }) {
   const formData = await request.formData();
   const response = await saveStockMovement(formData);
-  return "0";
+  return "1";
   //return redirect("/inventory");
 }

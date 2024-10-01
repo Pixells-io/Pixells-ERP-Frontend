@@ -12,56 +12,7 @@ function MainStockItem() {
   const [inventories, seInventories] = useState(inventoriesData.data);
   const [products, setProducts] = useState(productsData.data);
 
-  //datos de prueba --------------------------
-
-  const data = [
-    {
-      id: 1,
-      code: "0987",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 2,
-      code: "0988",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 3,
-      code: "0989",
-      category: "Metales",
-      name: "Clavos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 4,
-      code: "0990",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-  ];
-
-  //-------------------------------------------
+  console.log(products);
 
   return (
     <div className="flex w-full">
