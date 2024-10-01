@@ -70,7 +70,7 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
       action={``}
       method="post"
     >
-      <div className="lg:max-h-[485px] md:max-h-[205px] overflow-auto px-6">
+      <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
