@@ -122,7 +122,7 @@ const CreateService = () => {
                 ),
               )}
             </TabsList>
-            <TabsContent value="principal" className="h-full w-full">
+            <TabsContent value="principal" className="w-full">
               <PrincipalForm />
             </TabsContent>
             <TabsContent value="general" className="w-full">
