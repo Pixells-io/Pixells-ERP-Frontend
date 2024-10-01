@@ -30,10 +30,10 @@ function NewFormula() {
   const [totalWastes, setTotalWastes] = useState(0);
 
   const [newFormula, setNewFormula] = useState({
-    product_id: 123,
-    quantity: 100,
-    unit: "kg",
-    comments: "Esto es un comentario",
+    product_id: "",
+    quantity: "",
+    unit: "",
+    comments: "",
     vars: [
       {
         product_variable_id: 1,
@@ -104,15 +104,25 @@ function NewFormula() {
   const productCraft = data.product_craft.map((product) => ({
     label: product.name,
     value: product.id,
+    ...product,
   }));
 
   const productNeed = data.product_need.map((product) => ({
     label: product.name,
     value: product.id,
+    ...product,
   }));
 
-  console.log("productCraft ", productCraft);
-  console.log("productNeed ", productNeed);
+  // console.log("productCraft ", productCraft);
+  // console.log("productNeed ", productNeed);
+
+  function fillFormulaProduct(e) {
+    console.log(e);
+    setNewFormula({
+      product_id: e.id,
+      unit: e.unit,
+    });
+  }
 
   return (
     <div className="flex h-full w-full">
@@ -156,7 +166,10 @@ function NewFormula() {
             {/* config section */}
             <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
               <div className="flex w-1/3">
-                <SelectRouter options={productCraft} on />
+                <SelectRouter
+                  options={productCraft}
+                  onChange={(e) => fillFormulaProduct(e)}
+                />
               </div>
 
               <div className="flex w-28">
@@ -167,7 +180,15 @@ function NewFormula() {
                 />
               </div>
               <div className="flex w-28">
-                <InputRouter type="text" name="unidad" placeholder="Unidad" />
+                {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
+                  {newFormula.unit}
+                </div> */}
+                <InputRouter
+                  type="text"
+                  name="unidad"
+                  placeholder="Unidad"
+                  value={newFormula.unit}
+                />
               </div>
               <div className="flex w-20">
                 <InputRouter type="number" name="merma" placeholder="Merma" />
@@ -241,6 +262,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
