@@ -209,7 +209,7 @@ const EditCustomer = () => {
                   defaultValue="principal"
                   className="flex w-full flex-1 overflow-auto"
                 >
-                  <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 bg-transparent p-6">
+                  <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 rounded-none border-r border-[#E8E8E8] bg-transparent p-6">
                     {tabOptions.map(
                       ({ value, label, subLabel, disabled, update }) => (
                         <TabsTrigger
@@ -284,10 +284,7 @@ const EditCustomer = () => {
                     </Form>
                   </TabsContent>
 
-                  <TabsContent
-                    value="general"
-                    className="w-full overflow-auto"
-                  >
+                  <TabsContent value="general" className="w-full overflow-auto">
                     <GeneralTabs data={customer} />
                   </TabsContent>
                   <TabsContent
@@ -296,10 +293,7 @@ const EditCustomer = () => {
                   >
                     <ContactTabs data={customer} />
                   </TabsContent>
-                  <TabsContent
-                    value="payment"
-                    className="w-full overflow-auto"
-                  >
+                  <TabsContent value="payment" className="w-full overflow-auto">
                     <PaymentTabs data={customer} />
                   </TabsContent>
                 </Tabs>
@@ -372,7 +366,7 @@ export async function Action({ request }) {
       await destroyContact(data);
       break;
     case "paymentConditions":
-      if(!!data.get("payment_id")){
+      if (!!data.get("payment_id")) {
         editPaymentConditions(data);
       } else {
         createPaymentConditions(data);
