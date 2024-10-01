@@ -49,7 +49,7 @@ const GeneralTabs = ({ data, isDisabled }) => {
 
   return (
     <Form
-      className="flex w-full flex-col py-4"
+      className="flex h-full w-full flex-col overflow-auto py-4"
       id="form-supplier-general"
       action={"/sales/customer/edit/" + data?.id}
       method="post"
