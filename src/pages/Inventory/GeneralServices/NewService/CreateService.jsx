@@ -71,7 +71,7 @@ const CreateService = () => {
           </p>
         </div>
 
-        <div className="flex flex-1 flex-col rounded-xl bg-white">
+        <div className="flex flex-1 flex-col overflow-hidden rounded-xl bg-[#FBFBFB]">
           <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DE LA SUCURSAL
@@ -79,9 +79,9 @@ const CreateService = () => {
           </div>
             <Tabs
               defaultValue="principal"
-              className="flex h-full w-full flex-1 overflow-auto"
+              className="flex h-full w-full flex-1"
             >
-              <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 overflow-auto bg-transparent p-6">
+              <TabsList className="flex border-r h-full w-full max-w-[365px] flex-col justify-start gap-y-5 overflow-auto bg-transparent p-6">
                 {tabOptions.map(
                   ({ value, label, subLabel, disabled, update }) => (
                     <TabsTrigger
@@ -122,8 +122,8 @@ const CreateService = () => {
                   ),
                 )}
               </TabsList>
-              <TabsContent value="principal" className="w-full overflow-auto">
-                <PrincipalForm />
+              <TabsContent value="principal" className="w-full h-full">
+              <PrincipalForm />
               </TabsContent>
               <TabsContent value="general" className="w-full">
                 <GeneralTab />
