@@ -257,7 +257,7 @@ const BillingTabs = ({ data }) => {
       </div>
 
       <div className="mt-10 flex w-full flex-1 items-end px-6">
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between items-center min-h-[32px]">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024
           </label>
