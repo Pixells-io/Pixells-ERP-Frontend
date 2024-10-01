@@ -269,7 +269,6 @@ const CreateArticle = () => {
           </p>
         </div>
 
-        {/* <div className="h-full overflow-auto rounded-xl bg-white"> */}
         <div className="flex h-full flex-1 flex-col overflow-auto rounded-xl bg-white">
           <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
