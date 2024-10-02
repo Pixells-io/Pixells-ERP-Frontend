@@ -6,6 +6,7 @@ import { format } from "date-fns";
 //SAVE SERVICE
 export async function saveNewService(data) {
   const info = {
+    name: data.get("description"),
     description: data.get("description"),
     category_id: parseInt(data.get("categories_id")), 
     type:2, 
@@ -14,8 +15,8 @@ export async function saveNewService(data) {
     code:data.get("code"),
     sale:data.get("sale") == 'on'? true:false,
     shopping:data.get("shopping") == 'on'? true:false,
-    cost_center_id:parseInt(data.get("shopping")),
-    price_list:parseInt(data.get("shopping")),
+    cost_center_id:parseInt(data.get("cost_center_id")),
+    price_list:parseInt(data.get("price_list_id")),
     bar_code:data.get("barcode"),
   };
 
