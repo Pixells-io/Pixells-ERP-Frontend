@@ -59,7 +59,7 @@ function UsersTable({ users, edit }) {
               <AvatarImage src={row?.original.user_image} />
               {/* <AvatarFallback>{row.original.name.slice(1)}</AvatarFallback> */}
             </Avatar>
-            <div className="ml-2 mt-2">
+            <div className="ml-2">
               <span>
                 {row.original.name} {row.original.last_name}{" "}
                 {row.original.second_last_name}

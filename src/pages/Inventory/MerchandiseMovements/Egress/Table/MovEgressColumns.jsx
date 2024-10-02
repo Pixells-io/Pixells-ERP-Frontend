@@ -103,7 +103,9 @@ export const MovEgressColumns = [
     ),
     cell: ({ row }) => (
       <div className="flex justify-center">
-        <Link to="/accounting/policy/details">
+        <Link
+          to={`/inventory/merchandise-movements/entry/record/${row.original?.id}`}
+        >
           <IonIcon
             icon={informationCircleOutline}
             className="h-5 w-5 text-[#44444f]"

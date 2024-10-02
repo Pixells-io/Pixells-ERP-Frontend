@@ -111,6 +111,8 @@ export async function multiFormAction({ request }) {
   const data = await request.formData();
   const action = data.get("action");
 
+  console.log(request, action);
+
   switch (action) {
     case "prospect":
       return await prospectLeadForm(data);

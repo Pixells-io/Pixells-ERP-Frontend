@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
-import { informationCircleOutline} from "ionicons/icons";
+import { informationCircleOutline } from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -46,7 +46,7 @@ export const MovTransferColumns = [
     accessorKey: "accountingAccount",
     header: "ALMACÉN DESTINO",
   },
- 
+
   {
     id: "createdBy",
     accessorKey: "createdBy",
@@ -70,15 +70,15 @@ export const MovTransferColumns = [
     accessorKey: "acciones",
     header: () => (
       <div className="">
-        <p className="text-center">
-          ACCIONES
-        </p>
+        <p className="text-center">ACCIONES</p>
       </div>
-    ),        
+    ),
     cell: ({ row }) => (
       <div className="flex justify-center">
-        <Link to="/inventory/merchandise-movements/transfer/record/1">
-          <span className="text-[#5B89FF] font-roboto text-xs">Ver</span>
+        <Link
+          to={`/inventory/merchandise-movements/entry/record/${row.original?.id}`}
+        >
+          <span className="font-roboto text-xs text-[#5B89FF]">Ver</span>
         </Link>
       </div>
     ),
