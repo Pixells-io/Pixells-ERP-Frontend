@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 
 
-  
+
 export async function getUsers() {
     try {
       const response = await fetch(
@@ -80,4 +80,72 @@ export async function getUsers() {
       getUsers()
     ]);
     return json({ whareHouses, costCenter, priceList,users });
+  }
+
+
+  export async function getCategories() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}services/get-categories`,
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        },
+      );
+      return response.json();
+    } catch (error) {
+      return new Response("Something went wrong...", { status: 500 });
+    }
+  }
+  
+  export async function getPackages() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}services/get-packages`,
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        },
+      );
+      return response.json();
+    } catch (error) {
+      return new Response("Something went wrong...", { status: 500 });
+    }
+  }
+
+  export async function getCategoriesAndServices() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}services/get-categories-with-services`,
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        },
+      );
+      return response.json();
+    } catch (error) {
+      return new Response("Something went wrong...", { status: 500 });
+    }
+  }
+  
+
+  export async function multiLoaderServiceGeneral2() {
+    const [
+      categories,
+      packages,
+      categoriesServices,
+    ] = await Promise.all([
+      getCategories(),
+      getPackages(),
+      getCategoriesAndServices(),
+    ]);
+  
+    return json({
+      categories,
+      packages,
+      categoriesServices,
+    });
   }
