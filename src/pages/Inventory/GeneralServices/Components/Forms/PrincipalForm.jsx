@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation,useLocation } from "react-router-dom";
+import { Form, useNavigation,useLocation,useParams } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
@@ -15,9 +15,11 @@ import {
 const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id }) => {
   const navigation = useNavigation();
   const location = useLocation();
-  
+  const { id: paramId } = useParams();
   const [formData, setFormData] = useState({
+    id:"",
     code: "",
+    name:"",
     description: "",
     categories_id: "",
     shopping: false,
@@ -54,10 +56,14 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
   const handleClosePopover = () => {
     setIsColorPopoverOpen(false);
   };
-  const isEditMode = location.pathname.startsWith('/inventory/general-services/service/edit/');
+
+  //SEND TO ACTIONS
+  const isEditMode = !!paramId; 
+  
   const formAction = isEditMode 
-  ? `/inventory/general-services/service/edit/${id}`
-  : '/inventory/general-services/service/new';
+    ? `/inventory/general-services/service/edit/${paramId}`
+    : '/inventory/general-services/service/new';
+
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
@@ -68,6 +74,14 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
+        <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="type_option"
+              value="update_principalform"
+            />
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-4">
             <InputForm
@@ -82,9 +96,20 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
           <div className="col-span-8">
             <InputForm
               className="border-[#D7586B]"
+              name="name"
+              type="text"
+              placeholder="Nombre"
+              required={true}
+              value={formData.name}
+              onChange={(e) => handleInputChange("name", e.target.value)}
+            />
+          </div>
+          <div className="col-span-12">
+            <InputForm
+              className="border-[#D7586B]"
               name="description"
               type="text"
-              placeholder="Nombre o Descripción"
+              placeholder="Descripción"
               required={true}
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}

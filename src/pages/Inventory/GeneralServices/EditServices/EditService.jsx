@@ -7,7 +7,7 @@ import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
 import ProcessTab from "../Components/Forms/ProcessForm";
 import ShoppingTab from "../Components/Forms/ShoppingForm";
-
+import { updatePrincipalTab } from "../utils";
 const EditService = () => {
 
   const { id } = useParams();
@@ -154,12 +154,11 @@ const EditService = () => {
 export default EditService;
 
 export async function Action({ request }) {
-  // const { level } = useParams();
 
   const data = await request.formData();
   switch (data.get("type_option")) {
-    case "update_principalBranchTab":
-      await updatePrincipalBranchTab(data);
+    case "update_principalform":
+      await updatePrincipalTab(data);
       break;
     case "generalBranchTab":
       if (!!data.get("info_id")) {
@@ -168,28 +167,7 @@ export async function Action({ request }) {
         await createGeneralBranchTab(data);
       }
       break;
-    case "createUsersBranchTab":
-      await createUsersBranchTab(data);
-      break;
-    case "updateUserBranchTab":
-      await updateUserBranchTab(data);
-      break;
-    case "destroyUserBranchTab":
-      await deleteUserBranchTab(data);
-      break;
-    case "createCashBoxBranchTab":
-      await createCashBoxesBranchTab(data);
-      break;
-    case "updateCashBoxBranchTab":
-      await updateCashBoxesBranchTab(data);
-      break;
-    case "destroyCashBoxBranchTab":
-      await destroyCashBoxesBranchTab(data);
-      break;
-    case "createPaymentBranchTab":
-      await createPaymentBranchTab(data);
-      break;
+    
   }
   return "1";
-  // return redirect(`/accounting/${level}`);
 }

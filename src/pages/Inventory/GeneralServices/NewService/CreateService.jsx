@@ -3,10 +3,6 @@ import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
-import GeneralTab from "../Components/Forms/GeneralForm";
-import UserTab from "../Components/Forms/UserForm";
-import ProcessTab from "../Components/Forms/ProcessForm";
-import ShoppingTab from "../Components/Forms/ShoppingForm";
 import { saveNewService } from "../utils";
 const CreateService = () => {
   const tabOptions = [

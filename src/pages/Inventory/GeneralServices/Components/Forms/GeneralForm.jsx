@@ -87,9 +87,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
               hidden
               readOnly
               name="type_option"
-              value="update_principalBranchTab"
+              value="update_generalform"
             />
-            
+
         <div className="col-span-12 pt-4">
           <h2 className="text-xs font-normal text-grisSubText">
             CONFIGURACION
