@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Form, useNavigation,useLocation } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import UnitMeasureButton from "../UnitMeasure";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
@@ -13,23 +12,56 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const PrincipalForm = ({categories, costCenter, priceList }) => {
+const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id }) => {
   const navigation = useNavigation();
+  const location = useLocation();
+  
+  const [formData, setFormData] = useState({
+    code: "",
+    description: "",
+    categories_id: "",
+    shopping: false,
+    sale: false,
+    price: "",
+    cost_center_id: "",
+    price_list_id: "",
+    barcode: "",
+    color: "#FF00FF",
+  });
 
-  const [selectedColor, setSelectedColor] = useState("#FF00FF"); 
   const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
-  const handleClosePopover = () => {
-    setIsColorPopoverOpen(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(prevData => ({
+        ...prevData,
+        ...initialData,
+      }));
+    }
+  }, [initialData]);
+
+  const handleInputChange = (name, value) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleColorChange = (e) => {
-    setSelectedColor(e.target.value);
+    handleInputChange("color", e.target.value);
   };
 
+  const handleClosePopover = () => {
+    setIsColorPopoverOpen(false);
+  };
+  const isEditMode = location.pathname.startsWith('/inventory/general-services/service/edit/');
+  const formAction = isEditMode 
+  ? `/inventory/general-services/service/edit/${id}`
+  : '/inventory/general-services/service/new';
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
-      action={`/inventory/general-services/service/new`}
+      action={formAction}
       method="post"
     >
       <div className="max-h-screen overflow-auto px-6">
@@ -38,33 +70,37 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
         </h2>
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-4">
-            {/* Código de Servicio */}
             <InputForm
               type="text"
               className="border-[#D7586B]"
               placeholder="Código de Servicio"
               name="code"
+              value={formData.code}
+              onChange={(e) => handleInputChange("code", e.target.value)}
             />
           </div>
           <div className="col-span-8">
-            {/* Nombre o Descripción */}
             <InputForm
               className="border-[#D7586B]"
               name="description"
               type="text"
-              placeholder={"Nombre o Descripción"}
+              placeholder="Nombre o Descripción"
               required={true}
+              value={formData.description}
+              onChange={(e) => handleInputChange("description", e.target.value)}
             />
           </div>
 
           <div className="col-span-12">
-          <SelectRouter
-              name={"categories_id"}
+            <SelectRouter
+              name="categories_id"
               options={categories}
               placeholder="Categorias"
               required={true}
               getOptionValue={(e) => e.id}
               getOptionLabel={(e) => e.name}
+              value={categories.find(cat => cat.id === formData.categories_id)}
+              onChange={(selected) => handleInputChange("categories_id", selected.id)}
             />
           </div>
           <div className="col-span-12">
@@ -74,13 +110,14 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
               </p>
             </div>
             <div className="flex flex-col space-y-4">
-              {/* Checkbox Compra */}
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
                     id="shopping"
                     name="shopping"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                    checked={formData.shopping}
+                    onCheckedChange={(checked) => handleInputChange("shopping", checked)}
                   />
                   <label
                     htmlFor="shopping"
@@ -91,13 +128,14 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
                 </div>
               </div>
 
-              {/* Checkbox Venta */}
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
                     id="sale"
                     name="sale"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                    checked={formData.sale}
+                    onCheckedChange={(checked) => handleInputChange("sale", checked)}
                   />
                   <label
                     htmlFor="sale"
@@ -117,27 +155,33 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
               min="0"
               step="0.1"
               className="border-[#D7586B]"
+              value={formData.price}
+              onChange={(e) => handleInputChange("price", e.target.value)}
             />
           </div>
 
           <div className="col-span-12">
             <SelectRouter
-              name={"cost_center_id"}
+              name="cost_center_id"
               options={costCenter}
               placeholder="Centro de Costos"
               required={true}
               getOptionValue={(e) => e.id}
               getOptionLabel={(e) => e.name}
+              value={costCenter.find(cc => cc.id === formData.cost_center_id)}
+              onChange={(selected) => handleInputChange("cost_center_id", selected.id)}
             />
           </div>
           <div className="col-span-12">
             <SelectRouter
-              name={"price_list_id"}
+              name="price_list_id"
               options={priceList}
               placeholder="Lista de Precios"
               required={true}
               getOptionValue={(e) => e.id}
               getOptionLabel={(e) => e.name}
+              value={priceList.find(pl => pl.id === formData.price_list_id)}
+              onChange={(selected) => handleInputChange("price_list_id", selected.id)}
             />
           </div>
 
@@ -146,6 +190,8 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
               placeholder="Codigo de barras"
               name="barcode"
               type="text"
+              value={formData.barcode}
+              onChange={(e) => handleInputChange("barcode", e.target.value)}
             />
           </div>
           <div className="col-span-12">
@@ -154,7 +200,7 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
           <div className="col-span-12 flex items-center border-b border-t">
             <div
               className="ml-4 mr-4 size-[20px] rounded-[6px]"
-              style={{ backgroundColor: selectedColor }}
+              style={{ backgroundColor: formData.color }}
             ></div>
             <div className="flex flex-1 items-end justify-end pt-4">
               <Popover
@@ -164,9 +210,7 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className={
-                      "mb-4 flex justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
-                    }
+                    className="mb-4 flex justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
                   >
                     Selecciona
                   </Button>
@@ -188,7 +232,7 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
                       type="color"
                       name="color"
                       className="h-8 w-full"
-                      value={selectedColor}
+                      value={formData.color}
                       onChange={handleColorChange}
                     />
                   </div>
@@ -196,13 +240,13 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
               </Popover>
             </div>
           </div>
-          <input type="hidden" name="color" value={selectedColor} />
+          <input type="hidden" name="color" value={formData.color} />
         </div>
       </div>
       <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
-            Actualizado 07 septiembre 2024
+          Actualizado 07 septiembre 2024
           </label>
           <Button
             className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
@@ -217,5 +261,3 @@ const PrincipalForm = ({categories, costCenter, priceList }) => {
 };
 
 export default PrincipalForm;
-
-

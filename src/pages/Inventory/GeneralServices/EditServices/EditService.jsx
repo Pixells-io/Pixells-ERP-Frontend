@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLoaderData } from "react-router-dom";
+import {useParams, useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
 import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
 import ProcessTab from "../Components/Forms/ProcessForm";
 import ShoppingTab from "../Components/Forms/ShoppingForm";
-import { saveNewService } from "../utils";
-const CreateService = () => {
+
+const EditService = () => {
+
+  const { id } = useParams();
+  const { categories, costCenter, priceList, users } = useLoaderData();
   const tabOptions = [
     {
       value: "principal",
@@ -24,32 +27,32 @@ const CreateService = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "users",
       label: "Usuarios",
       subLabel: "Determina el responsable y los participantes",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "process",
       label: "Proceso",
       subLabel: "Establece los pasos a seguir por el equipo",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
       value: "shopping",
       label: "Compras",
       subLabel: "Configura parametros para compras",
-      disabled: true,
+      disabled: false,
       update: null,
     },
   ];
-  const { categories, costCenter, priceList, users } = useLoaderData();
+  
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -129,6 +132,18 @@ const CreateService = () => {
               costCenter={costCenter.data}
               priceList={priceList.data}/>
             </TabsContent>
+            <TabsContent value="general" className="w-full">
+              <GeneralTab />
+            </TabsContent>
+            <TabsContent value="users" className="w-full">
+              <UserTab users={users.data} />
+            </TabsContent>
+            <TabsContent value="process" className="w-full">
+              <ProcessTab />
+            </TabsContent>
+            <TabsContent value="shopping" className="w-full">
+              <ShoppingTab />
+            </TabsContent>
           </Tabs>
         </div>
       </div>
@@ -136,11 +151,45 @@ const CreateService = () => {
   );
 };
 
-export default CreateService;
+export default EditService;
+
 export async function Action({ request }) {
+  // const { level } = useParams();
+
   const data = await request.formData();
-
-  const response = await saveNewService(data);
-
-  return "0";///inventory/general-services/service/edit
+  switch (data.get("type_option")) {
+    case "update_principalBranchTab":
+      await updatePrincipalBranchTab(data);
+      break;
+    case "generalBranchTab":
+      if (!!data.get("info_id")) {
+        await updateGeneralBranchTab(data);
+      } else {
+        await createGeneralBranchTab(data);
+      }
+      break;
+    case "createUsersBranchTab":
+      await createUsersBranchTab(data);
+      break;
+    case "updateUserBranchTab":
+      await updateUserBranchTab(data);
+      break;
+    case "destroyUserBranchTab":
+      await deleteUserBranchTab(data);
+      break;
+    case "createCashBoxBranchTab":
+      await createCashBoxesBranchTab(data);
+      break;
+    case "updateCashBoxBranchTab":
+      await updateCashBoxesBranchTab(data);
+      break;
+    case "destroyCashBoxBranchTab":
+      await destroyCashBoxesBranchTab(data);
+      break;
+    case "createPaymentBranchTab":
+      await createPaymentBranchTab(data);
+      break;
+  }
+  return "1";
+  // return redirect(`/accounting/${level}`);
 }
