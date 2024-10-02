@@ -7,6 +7,7 @@ import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
 import ProcessTab from "../Components/Forms/ProcessForm";
 import ShoppingTab from "../Components/Forms/ShoppingForm";
+import { saveNewService } from "../utils";
 const CreateService = () => {
   const tabOptions = [
     {
@@ -23,32 +24,32 @@ const CreateService = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: false,
+      disabled: true,
       update: null,
     },
     {
       value: "users",
       label: "Usuarios",
       subLabel: "Determina el responsable y los participantes",
-      disabled: false,
+      disabled: true,
       update: null,
     },
     {
       value: "process",
       label: "Proceso",
       subLabel: "Establece los pasos a seguir por el equipo",
-      disabled: false,
+      disabled: true,
       update: null,
     },
     {
       value: "shopping",
       label: "Compras",
       subLabel: "Configura parametros para compras",
-      disabled: false,
+      disabled: true,
       update: null,
     },
   ];
-  const { whareHouses, costCenter, priceList, users } = useLoaderData();
+  const { categories, costCenter, priceList, users } = useLoaderData();
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -123,7 +124,10 @@ const CreateService = () => {
               )}
             </TabsList>
             <TabsContent value="principal" className="w-full">
-              <PrincipalForm />
+              <PrincipalForm 
+              categories={categories.data}
+              costCenter={costCenter.data}
+              priceList={priceList.data}/>
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab />
@@ -145,3 +149,10 @@ const CreateService = () => {
 };
 
 export default CreateService;
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const response = await saveNewService(data);
+
+  return "0";
+}

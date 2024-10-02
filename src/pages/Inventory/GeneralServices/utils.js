@@ -3,7 +3,35 @@ import { json } from "react-router-dom";
 import { format } from "date-fns";
 
 
+//SAVE SERVICE
+export async function saveNewService(data) {
+  const info = {
+    description: data.get("description"),
+    category_id: parseInt(data.get("categories_id")), 
+    type:2, 
+    color:data.get("color"), 
+    price:parseFloat(data.get("price")), 
+    code:data.get("code"),
+    sale:data.get("sale") == 'on'? true:false,
+    shopping:data.get("shopping") == 'on'? true:false,
+    cost_center_id:parseInt(data.get("shopping")),
+    price_list:parseInt(data.get("shopping")),
+    bar_code:data.get("barcode"),
+  };
 
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/save-principal-information-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    }
+  );
+
+  return response.json();
+}
 
 export async function getUsers() {
     try {
@@ -71,15 +99,15 @@ export async function getUsers() {
   }
 
   export async function multiLoaderServiceGeneral() {
-    const [ whareHouses,
+    const [ categories,
       costCenter,
       priceList,users] = await Promise.all([
-      getWarehouses(),
+        getCategories(),
       getCostCenter(),
       getPriceList(),
       getUsers()
     ]);
-    return json({ whareHouses, costCenter, priceList,users });
+    return json({ categories, costCenter, priceList,users });
   }
 
 

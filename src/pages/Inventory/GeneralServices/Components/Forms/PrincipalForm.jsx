@@ -13,62 +13,23 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
+const PrincipalForm = ({categories, costCenter, priceList }) => {
   const navigation = useNavigation();
-  const [inputsData, setInputsData] = useState({
-    codigoDeArticulo: "",
-    nombreODescripcion: "",
-    categoria: "",
-    compra: false,
-    venta: false,
-    unidadesDeMedida: "",
-    precio: "",
-    centroDeCostos: "",
-    listaDePrecios: "",
-    almacen: "",
-    codigoDeBarras: "",
-    color: "#FF00FF", // Default color
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleCheckboxChange = (name, checked) => {
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: checked,
-    }));
-  };
-  const handleColorChange = (e) => {
-    const newColor = e.target.value;
-    setInputsData((prevData) => ({ ...prevData, color: newColor }));
-  };
-
-  const handleUnitMeasureSelect = (value) => {
-    setInputsData((prevData) => ({ ...prevData, unidadesDeMedida: value }));
-  };
+  const [selectedColor, setSelectedColor] = useState("#FF00FF"); 
   const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
-
   const handleClosePopover = () => {
     setIsColorPopoverOpen(false);
+  };
+
+  const handleColorChange = (e) => {
+    setSelectedColor(e.target.value);
   };
 
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
-      action={``}
+      action={`/inventory/general-services/service/new`}
       method="post"
     >
       <div className="max-h-screen overflow-auto px-6">
@@ -77,33 +38,33 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
         </h2>
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-4">
-            {/* Código de Artículo */}
+            {/* Código de Servicio */}
             <InputForm
               type="text"
+              className="border-[#D7586B]"
               placeholder="Código de Servicio"
-              name="codigoDeArticulo"
-              value={inputsData?.codigoDeArticulo || ""}
-              onChange={handleInputChange}
+              name="code"
             />
           </div>
           <div className="col-span-8">
             {/* Nombre o Descripción */}
             <InputForm
+              className="border-[#D7586B]"
+              name="description"
               type="text"
-              placeholder="Nombre o descripción"
-              name="nombreODescripcion"
-              value={inputsData?.nombreODescripcion || ""}
-              onChange={handleInputChange}
+              placeholder={"Nombre o Descripción"}
+              required={true}
             />
           </div>
 
           <div className="col-span-12">
-            <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Categoria"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
+          <SelectRouter
+              name={"categories_id"}
+              options={categories}
+              placeholder="Categorias"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
             />
           </div>
           <div className="col-span-12">
@@ -117,16 +78,12 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
-                    id="compra"
-                    name="compra"
-                    checked={inputsData?.compra || false}
-                    onCheckedChange={(checked) =>
-                      handleCheckboxChange("compra", checked)
-                    }
+                    id="shopping"
+                    name="shopping"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
                   />
                   <label
-                    htmlFor="compra"
+                    htmlFor="shopping"
                     className="ml-2 font-roboto text-[14px] text-gris2"
                   >
                     Compra
@@ -138,16 +95,12 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
-                    id="venta"
-                    name="venta"
-                    checked={inputsData?.venta || false}
-                    onCheckedChange={(checked) =>
-                      handleCheckboxChange("venta", checked)
-                    }
+                    id="sale"
+                    name="sale"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
                   />
                   <label
-                    htmlFor="venta"
+                    htmlFor="sale"
                     className="ml-2 font-roboto text-[14px] text-gris2"
                   >
                     Venta
@@ -160,62 +113,39 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
             <InputForm
               type="number"
               placeholder="Precio unitario"
-              name="precio"
+              name="price"
               min="0"
               step="0.1"
-              value={inputsData?.precio || ""}
-              onChange={handleInputChange}
+              className="border-[#D7586B]"
             />
           </div>
-          <div className="col-span-10">
-            {/* Unidades de Medida */}
-            <InputForm
-              placeholder="Unidades de Medida"
-              name="unidadesDeMedida"
-              value={inputsData?.unidadesDeMedida || ""}
-              onChange={handleInputChange} // Added onChange handler for consistency
-              readOnly
-            />
-          </div>
-          <div className="col-span-2 pt-4">
-            {/* Unidades de Medida Modal */}
-            <UnitMeasureButton
-              onSelect={handleUnitMeasureSelect}
-              initialValue={inputsData?.unidadesDeMedida || ""}
+
+          <div className="col-span-12">
+            <SelectRouter
+              name={"cost_center_id"}
+              options={costCenter}
+              placeholder="Centro de Costos"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
             />
           </div>
           <div className="col-span-12">
             <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Centro de Costos"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
+              name={"price_list_id"}
+              options={priceList}
+              placeholder="Lista de Precios"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
             />
           </div>
-          <div className="col-span-12">
-            <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Lista de precios"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="col-span-12">
-            <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Almacén"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
-            />
-          </div>
+
           <div className="col-span-12">
             <InputForm
               placeholder="Codigo de barras"
-              name="unidadesDeMedida"
-              readOnly
+              name="barcode"
+              type="text"
             />
           </div>
           <div className="col-span-12">
@@ -224,7 +154,7 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
           <div className="col-span-12 flex items-center border-b border-t">
             <div
               className="ml-4 mr-4 size-[20px] rounded-[6px]"
-              style={{ backgroundColor: inputsData?.color || "#FF00FF" }}
+              style={{ backgroundColor: selectedColor }}
             ></div>
             <div className="flex flex-1 items-end justify-end pt-4">
               <Popover
@@ -257,15 +187,16 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
                     <input
                       type="color"
                       name="color"
-                      value={inputsData?.color || "#FF00FF"}
-                      onChange={handleColorChange}
                       className="h-8 w-full"
+                      value={selectedColor}
+                      onChange={handleColorChange}
                     />
                   </div>
                 </PopoverContent>
               </Popover>
             </div>
           </div>
+          <input type="hidden" name="color" value={selectedColor} />
         </div>
       </div>
       <div className="mt-10 flex w-full flex-1 items-end px-6">
@@ -286,3 +217,5 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
 };
 
 export default PrincipalForm;
+
+
