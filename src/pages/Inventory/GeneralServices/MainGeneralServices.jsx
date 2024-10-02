@@ -61,33 +61,10 @@ const exampleData = [
 
 const MainGeneralServices = () => {
   /* Get Info */
-  const { categories, packages,  categoriesServices, } = useLoaderData();
+  const { categories, packages, categoriesServices } = useLoaderData();
+
   const [modalCategories, setModalCategories] = useState(false);
-console.log(categoriesServices)
   const [modalPackages, setModalPackages] = useState(false);
-
-  //PERMISSIONS
-  const [edit, setEdit] = useState(true); //2
-  const [create, setCreate] = useState(true); //3
-
-  //CHANGE PERMISSIONS
-  // useEffect(() => {
-  //   const editQuery = permissions.data.filter(
-  //     (item) => item.permision_capability == "2",
-  //   );
-
-  //   if (editQuery.length == 0) {
-  //     setEdit(false);
-  //   }
-
-  //   const createQuery = permissions.data.filter(
-  //     (item) => item.permision_capability == "3",
-  //   );
-
-  //   if (createQuery.length == 0) {
-  //     setCreate(false);
-  //   }
-  // });
 
   return (
     <div className="flex w-full">
