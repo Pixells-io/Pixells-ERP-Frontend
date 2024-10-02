@@ -4,7 +4,7 @@ import ServiceMenu from "./Components/MenuDropList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { ServiceColumns } from "./Components/Table/ServiceColumns";
-
+import { CategoriesColumns } from "./Components/Table/CategoriesColumns";
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
@@ -105,13 +105,13 @@ const MainGeneralServices = () => {
               />
             </TabsContent>
             <TabsContent value="categories" className="mt-[-70px] w-full pt-2">
-              <DataTable
-                data={exampleData}
-                columns={ServiceColumns}
-                searchFilter="name"
-                searchNameFilter="Buscar por nombre"
-                isCheckAll={true}
-              />
+            <DataTable
+              data={exampleData}
+              columns={CategoriesColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
             </TabsContent>
             <TabsContent value="combos" className="mt-[-70px] w-full pt-2">
               <DataTable
