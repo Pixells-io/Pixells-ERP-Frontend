@@ -3,7 +3,9 @@ import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
+import GeneralTab from "../Components/Forms/GeneralForm";
 import { saveNewService } from "../utils";
+
 const CreateService = () => {
   const tabOptions = [
     {
@@ -20,7 +22,7 @@ const CreateService = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: true,
+      disabled: false,
       update: null,
     },
     {
@@ -124,6 +126,9 @@ const CreateService = () => {
               categories={categories.data}
               costCenter={costCenter.data}
               priceList={priceList.data}/>
+            </TabsContent>
+            <TabsContent value="general" className="w-full">
+              <GeneralTab />
             </TabsContent>
           </Tabs>
         </div>

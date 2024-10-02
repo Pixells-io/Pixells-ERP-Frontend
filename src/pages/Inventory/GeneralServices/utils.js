@@ -63,6 +63,40 @@ export async function updatePrincipalTab(data) {
   return response.json();
 }
 
+//GET SERVICES
+export async function getServices() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-services`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+//GET SERVICES BY ID 
+export async function getServiceById(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-service/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 
 //GET USER
 export async function getUsers() {
@@ -115,14 +149,22 @@ export async function getPriceList() {
   }
 }
 
+
+
+
+
+//MULTILOADER TO EDIT
 export async function multiLoaderServiceGeneral() {
-  const [categories, costCenter, priceList, users] = await Promise.all([
+
+  
+  const [ categories, costCenter, priceList, users] = await Promise.all([
+
     getCategories(),
     getCostCenter(),
     getPriceList(),
     getUsers(),
   ]);
-  return json({ categories, costCenter, priceList, users });
+  return json({categories, costCenter, priceList, users });
 }
 
 export async function getCategories() {
@@ -174,15 +216,29 @@ export async function getCategoriesAndServices() {
 }
 
 export async function multiLoaderServiceGeneral2() {
-  const [categories, packages, categoriesServices] = await Promise.all([
+  const [services, categories, packages, categoriesServices] = await Promise.all([
+    getServices(),
     getCategories(),
     getPackages(),
     getCategoriesAndServices(),
   ]);
 
   return json({
+    services,
     categories,
     packages,
     categoriesServices,
   });
+}
+export async function multiLoaderServiceGeneralDetails({ params }) {
+
+  const id = params.id;
+  const [servicesDetails, categories, costCenter, priceList, users] = await Promise.all([
+    getServiceById(id),
+    getCategories(),
+    getCostCenter(),
+    getPriceList(),
+    getUsers(),
+  ]);
+  return json({ servicesDetails, categories, costCenter, priceList, users });
 }

@@ -61,11 +61,11 @@ const exampleData = [
 
 const MainGeneralServices = () => {
   /* Get Info */
-  const { categories, packages, categoriesServices } = useLoaderData();
+  const { services,categories, packages, categoriesServices } = useLoaderData();
 
   const [modalCategories, setModalCategories] = useState(false);
   const [modalPackages, setModalPackages] = useState(false);
-
+  
   return (
     <div className="flex w-full">
       <NewCategoryForm
@@ -120,7 +120,7 @@ const MainGeneralServices = () => {
 
             <TabsContent value="services" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
+                data={services.data}
                 columns={ServiceColumns}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
