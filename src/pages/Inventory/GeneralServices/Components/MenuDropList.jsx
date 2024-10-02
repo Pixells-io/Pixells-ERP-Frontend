@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { IonIcon } from '@ionic/react';
 import { add } from 'ionicons/icons';
 
-const ServiceMenu = () => {
+const ServiceMenu = ({ setModalCategories, setModalPackages }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,21 +23,11 @@ const ServiceMenu = () => {
             <span>Servicios</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
-          <Link
-            to="/inventory/general-services"
-            className="flex w-full items-center"
-          >
-            <span>Categorías</span>
-          </Link>
+        <DropdownMenuItem onClick={() => setModalCategories(true)}>
+          <span>Categorías</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal">
-          <Link
-            to="/inventory/general-services"
-            className="flex w-full items-center"
-          >
-            <span>Combos</span>
-          </Link>
+        <DropdownMenuItem onClick={() => setModalPackages(true)}>
+          <span>Combos</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
