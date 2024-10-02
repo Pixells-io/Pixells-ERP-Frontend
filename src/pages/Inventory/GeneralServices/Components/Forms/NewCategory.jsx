@@ -17,12 +17,12 @@ const categoryInputs = [
   {
     name: "name",
     type: "text",
-    placeholder: "Name",
+    placeholder: "Nombre",
   },
   {
     name: "description",
     type: "text",
-    placeholder: "Description",
+    placeholder: "Descripcion",
   },
 ];
 
@@ -40,7 +40,7 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="border-b px-6 py-4 font-poppins">
-            Create New Category
+            Crear Nueva Categoría
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -57,7 +57,7 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
-              Information
+              Informacion
             </div>
             <div className="flex flex-col gap-4 font-light">
               <input type="hidden" name="type" value={2} hidden readOnly />
