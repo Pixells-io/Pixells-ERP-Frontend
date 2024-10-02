@@ -21,42 +21,42 @@ function MainMyProfile() {
   const businessInfo = [
     {
       label: "Work Location",
-      value: user.working_center,
+      value: user?.working_center,
     },
     {
       label: "Date of Admission",
-      value: user.created_at,
+      value: user?.created_at,
     },
     {
       label: "Phone Number",
-      value: user.institutional_phone,
+      value: user?.institutional_phone,
     },
     {
       label: "Email",
-      value: user.email,
+      value: user?.email,
     },
   ];
 
   const aboutInfo = [
     {
       label: "Complete Name",
-      value: user.name + " " + user.last_name + " " + user.second_last_name,
+      value: user?.name + " " + user?.last_name + " " + user?.second_last_name,
     },
     {
       label: "Date of Birth",
-      value: user.date_of_birth,
+      value: user?.date_of_birth,
     },
     {
       label: "Place of Birth",
-      value: user.city_of_birth,
+      value: user?.city_of_birth,
     },
     {
       label: "Personal Phone Number",
-      value: user.phone,
+      value: user?.phone,
     },
     {
       label: "Personal Email",
-      value: user.personal_email,
+      value: user?.personal_email,
     },
   ];
   return (
@@ -181,26 +181,26 @@ function MainMyProfile() {
             <div className="h-fit w-full rounded-2xl bg-white p-4 shadow-xl">
               <div className="flex">
                 <img
-                  src={user.user_image}
+                  src={user?.user_image}
                   className="h-20 w-20 rounded-full shadow-xl"
                 />
                 <div className="mt-4 w-3/4 text-center">
                   <span className="text-lsm font-roboto font-medium uppercase text-grisText">
-                    {position.position_type} {position.position_name}
+                    {position?.position_type} {position?.position_name}
                   </span>
                   <br />
                   <span className="font-roboto text-sm font-normal text-grisText">
-                    {user.phone}
+                    {user?.phone}
                   </span>
                 </div>
               </div>
               <div className="py-4 text-center">
                 <span className="font-poppins text-lg font-bold uppercase text-grisHeading">
-                  {user.name} {user.last_name} {user.second_last_name}
+                  {user?.name} {user?.last_name} {user?.second_last_name}
                 </span>
                 <br />
                 <span className="font-roboto text-sm font-normal text-grisText">
-                  {user.email}
+                  {user?.email}
                 </span>
               </div>
             </div>
@@ -211,14 +211,14 @@ function MainMyProfile() {
                 ABOUT ME
               </span>
               <br />
-              {aboutInfo.map((info, i) => (
+              {aboutInfo?.map((info, i) => (
                 <div className="border-b border-[#e0e0e0] py-4">
                   <span className="font-roboto text-sm font-normal text-grisHeading">
-                    {info.label}
+                    {info?.label}
                   </span>
                   <br />
                   <span className="font-roboto text-sm font-light text-grisHeading">
-                    {info.value}
+                    {info?.value}
                   </span>
                 </div>
               ))}
@@ -228,14 +228,14 @@ function MainMyProfile() {
                 BUSINESS INFORMATION
               </span>
               <br />
-              {businessInfo.map((info, i) => (
+              {businessInfo?.map((info, i) => (
                 <div className="border-b border-[#e0e0e0] py-4">
                   <span className="font-roboto text-sm font-normal text-grisHeading">
-                    {info.label}
+                    {info?.label}
                   </span>
                   <br />
                   <span className="font-roboto text-sm font-light text-grisHeading">
-                    {info.value}
+                    {info?.value}
                   </span>
                 </div>
               ))}
