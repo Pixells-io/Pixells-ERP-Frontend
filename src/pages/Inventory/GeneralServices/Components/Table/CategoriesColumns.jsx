@@ -7,24 +7,24 @@ export const CategoriesColumns = [
   {
     id: "name",
     accessorKey: "name",
-    header: "NAME",
+    header: "NOMBRE",
   },
   {
     id: "description",
     accessorKey: "description",
-    header: "DESCRIPTION",
+    header: "DESCRIPCION",
   },
 
   {
     id: "created_at",
     accessorKey: "created_at",
-    header: "CREATED",
+    header: "CREADO",
   },
 
   {
     id: "actions",
     accessorKey: "actions",
-    header: "ACTIONS",
+    header: "ACCIONES",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 text-[#696974]">
