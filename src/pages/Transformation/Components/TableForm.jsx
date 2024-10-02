@@ -22,13 +22,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const initialRow = {
   idAux: 1,
   component: "",
   amount: 0,
   unit: "",
-  cost: 0,
+  price: 0,
   amountTax: 16,
   tax: "",
   subTotal: 0,
@@ -124,7 +125,7 @@ const TableForm = ({
         index === rowIndex
           ? {
               ...item,
-              cost: value,
+              price: value,
               tax: (value * item.amountTax * item.amount) / 100,
               subTotal: (
                 value * item.amount +
@@ -145,7 +146,7 @@ const TableForm = ({
               ...item,
               component: comp.id,
               unit: comp.unit,
-              cost: comp.cost,
+              price: comp.price,
               amount: 1,
               amountTax: 16,
               tax: (comp.cost * 16) / 100,
@@ -197,23 +198,26 @@ const TableForm = ({
         accessorKey: "component",
         header: "Componente",
         cell: ({ row, rowIndex }) => (
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px] p-2"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <>
+            {/* <SelectRouter options={components} value={row.component} /> */}
+            <Select
+              name={"selectComponent-" + rowIndex}
+              className="h-10 w-[100px] p-2"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row?.component}
+            >
+              <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue placeholder="Selecciona el componente" />
+              </SelectTrigger>
+              <SelectContent>
+                {components.map((component, index) => (
+                  <SelectItem key={"component-" + index} value={component.id}>
+                    {component.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </>
         ),
       },
       {
@@ -245,14 +249,14 @@ const TableForm = ({
         ),
       },
       {
-        accessorKey: "cost",
+        accessorKey: "price",
         header: "Costo",
         cell: ({ row, rowIndex }) => (
           <Input
             type="number"
             className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
             name={`cost-${rowIndex}`}
-            value={row.cost}
+            value={row.price}
             placeholder="ingrese"
             disabled={!row.component}
             onChange={(e) => handleCostChange(rowIndex, e.target.value)}
