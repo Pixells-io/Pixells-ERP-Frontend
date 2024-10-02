@@ -18,17 +18,17 @@ const packageInputs = [
   {
     name: "name",
     type: "text",
-    placeholder: "Name",
+    placeholder: "Nombre",
   },
   {
     name: "description",
     type: "text",
-    placeholder: "Description",
+    placeholder: "Descripcion",
   },
   {
     name: "price",
     type: "number",
-    placeholder: "Price",
+    placeholder: "Precio",
   },
 ];
 
@@ -45,7 +45,7 @@ function NewComboForm({ modalPackage, setModalPackage, info }) {
     <Dialog open={modalPackage} onOpenChange={setModalPackage}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[480px]">
         <DialogHeader className="border-b px-6 py-4">
-          <DialogTitle className="font-poppins">Create New Combo</DialogTitle>
+          <DialogTitle className="font-poppins">Crear Nuevo Combo</DialogTitle>
         </DialogHeader>
         <Form
           id="package-services-form"
@@ -61,7 +61,7 @@ function NewComboForm({ modalPackage, setModalPackage, info }) {
         >
           <div className="flex flex-col gap-4 rounded-lg px-6 py-2 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
-              Information
+              Informacion
             </div>
             <div className="flex flex-col gap-4 pb-4 font-light">
               <input type="hidden" name="type" value={3} hidden readOnly />
