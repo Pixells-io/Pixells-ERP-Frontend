@@ -24,17 +24,6 @@ import {
 } from "@/components/ui/select";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const initialRow = {
-  idAux: 1,
-  component: "",
-  amount: 0,
-  unit: "",
-  price: 0,
-  amountTax: 16,
-  tax: "",
-  subTotal: 0,
-};
-
 const components = [
   {
     id: 1,
@@ -83,6 +72,17 @@ const TableForm = ({
   // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  const initialRow = {
+    idAux: 1,
+    component: "",
+    amount: 0,
+    unit: "",
+    price: 0,
+    amountTax: 16,
+    tax: "",
+    subTotal: 0,
+  };
 
   useEffect(() => {
     const TotalP = tableData.reduce(
@@ -192,124 +192,6 @@ const TableForm = ({
     return components.find((component) => component.id == id);
   };
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "component",
-        header: "Componente",
-        cell: ({ row, rowIndex }) => (
-          <>
-            {/* <SelectRouter options={components} value={row.component} /> */}
-            <Select
-              name={"selectComponent-" + rowIndex}
-              className="h-10 w-[100px] p-2"
-              onValueChange={(value) => handleDataInRow(value, rowIndex)}
-              value={row?.component}
-            >
-              <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                <SelectValue placeholder="Selecciona el componente" />
-              </SelectTrigger>
-              <SelectContent>
-                {components.map((component, index) => (
-                  <SelectItem key={"component-" + index} value={component.id}>
-                    {component.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </>
-        ),
-      },
-      {
-        accessorKey: "amount",
-        header: "Cantidad",
-        cell: ({ row, rowIndex }) => (
-          <Input
-            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-            name={`amount-${rowIndex}`}
-            value={row.amount}
-            placeholder="ingrese"
-            type="number"
-            disabled={!row.component}
-            onChange={(e) => handleInputChange(rowIndex, e.target.value)}
-          />
-        ),
-      },
-      {
-        accessorKey: "unit",
-        header: "Unidad",
-        cell: ({ row, rowIndex }) => (
-          <Input
-            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-            name={`unit-${rowIndex}`}
-            value={row.unit}
-            type="text"
-            readOnly
-          />
-        ),
-      },
-      {
-        accessorKey: "price",
-        header: "Costo",
-        cell: ({ row, rowIndex }) => (
-          <Input
-            type="number"
-            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-            name={`cost-${rowIndex}`}
-            value={row.price}
-            placeholder="ingrese"
-            disabled={!row.component}
-            onChange={(e) => handleCostChange(rowIndex, e.target.value)}
-          />
-        ),
-      },
-      {
-        accessorKey: "amountTax",
-        header: "Impuesto",
-        cell: ({ row, rowIndex }) => (
-          <div className="flex w-[150px] items-center gap-x-2 p-1">
-            (IVA
-            {
-              <Input
-                className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-                name={`tax-${rowIndex}`}
-                value={row.amountTax}
-                placeholder="tax"
-                type="number"
-                disabled={!row.component}
-                onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-              />
-            }
-            %) {!!row.tax && " - $" + row.tax}
-          </div>
-        ),
-      },
-      {
-        accessorKey: "subTotal",
-        header: "Subtotal",
-        cell: ({ row, rowIndex }) => (
-          <div className="flex w-[100px] justify-between">
-            {row.subTotal}
-            <input
-              type="hidden"
-              hidden
-              value={row.subTotal}
-              name={"subTotal-" + rowIndex}
-            />
-            <button type="button" onClick={() => deleteRowId(row.idAux)}>
-              <IonIcon
-                icon={closeCircle}
-                size="small"
-                className="cursor-pointer text-grisDisabled"
-              ></IonIcon>
-            </button>
-          </div>
-        ),
-      },
-    ],
-    [handleInputChange, deleteRowId],
-  );
-
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
   const paginatedData = tableData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -323,6 +205,121 @@ const TableForm = ({
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
+
+  const columns = [
+    {
+      accessorKey: "component",
+      header: "Componente",
+      cell: ({ row, rowIndex }) => (
+        <>
+          {/* <SelectRouter options={components} value={row.component} /> */}
+          <Select
+            name={"selectComponent-" + rowIndex}
+            className="h-10 w-[100px] p-2"
+            onValueChange={(value) => handleDataInRow(value, rowIndex)}
+            value={row?.component}
+          >
+            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+              <SelectValue placeholder="Selecciona el componente" />
+            </SelectTrigger>
+            <SelectContent>
+              {components.map((component, index) => (
+                <SelectItem key={"component-" + index} value={component.id}>
+                  {component.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </>
+      ),
+    },
+    {
+      accessorKey: "amount",
+      header: "Cantidad",
+      cell: ({ row, rowIndex }) => (
+        <Input
+          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`amount-${rowIndex}`}
+          value={row.amount}
+          placeholder="ingrese"
+          type="number"
+          disabled={!row.component}
+          onChange={(e) => handleInputChange(rowIndex, e.target.value)}
+        />
+      ),
+    },
+    {
+      accessorKey: "unit",
+      header: "Unidad",
+      cell: ({ row, rowIndex }) => (
+        <Input
+          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
+      ),
+    },
+    {
+      accessorKey: "price",
+      header: "Costo",
+      cell: ({ row, rowIndex }) => (
+        <Input
+          type="number"
+          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`cost-${rowIndex}`}
+          value={row.price}
+          placeholder="ingrese"
+          disabled={!row.component}
+          onChange={(e) => handleCostChange(rowIndex, e.target.value)}
+        />
+      ),
+    },
+    {
+      accessorKey: "amountTax",
+      header: "Impuesto",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex w-[150px] items-center gap-x-2 p-1">
+          (IVA
+          {
+            <Input
+              className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+              name={`tax-${rowIndex}`}
+              value={row.amountTax}
+              placeholder="tax"
+              type="number"
+              disabled={!row.component}
+              onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
+            />
+          }
+          %) {!!row.tax && " - $" + row.tax}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "subTotal",
+      header: "Subtotal",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex w-[100px] justify-between">
+          {row.subTotal}
+          <input
+            type="hidden"
+            hidden
+            value={row.subTotal}
+            name={"subTotal-" + rowIndex}
+          />
+          <button type="button" onClick={() => deleteRowId(row.idAux)}>
+            <IonIcon
+              icon={closeCircle}
+              size="small"
+              className="cursor-pointer text-grisDisabled"
+            ></IonIcon>
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="mb-2 rounded-xl">

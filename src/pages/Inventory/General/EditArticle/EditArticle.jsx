@@ -294,11 +294,11 @@ const EditArticle = () => {
           <h2 className="font-poppins text-base font-bold text-[#44444F]">
             INVENTARIO
           </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+          {/* <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
             <div className="text-sm">&bull; 25 SFC </div>
             <div className="text-sm">&bull; 43 Activities</div>
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -362,7 +362,6 @@ const EditArticle = () => {
               <Button
                 className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                 disabled={navigation.state === "submitting"}
-                onClick={handleSubmit}
               >
                 {navigation.state === "submitting"
                   ? "Submitting..."
