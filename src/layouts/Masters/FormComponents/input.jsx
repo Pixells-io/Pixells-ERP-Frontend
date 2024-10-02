@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 function InputRouter({
   type,
@@ -11,15 +12,19 @@ function InputRouter({
   value,
   onChange,
   required,
+  className,
 }) {
   return (
-    <Label className="flex w-full flex-col gap-2">
-      <p className="pl-1 text-[11px] font-light text-grisHeading">
-        {type !== "password" && placeholder} {required && '*'}
+    <Label className="flex w-full flex-col">
+      <p className="mb-1 text-[10px] font-normal text-grisText">
+        {type !== "password" && placeholder} {required && "*"}
       </p>
       <Input
         type={type}
-        className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones"
+        className={cn(
+          "h-[32px] rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f]",
+          className,
+        )}
         name={name}
         // placeholder={placeholder}
         defaultValue={defaultVal}
