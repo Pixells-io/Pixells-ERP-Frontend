@@ -360,6 +360,8 @@ import {
 import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import {
   getCatalogs,
+  getInfoTransfer,
+  getStocksMovement,
   getStocksMovements,
   multiLoaderMovements,
 } from "./pages/Inventory/MerchandiseMovements/utils";
@@ -1218,6 +1220,7 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/entry/record/:id",
             element: <MerchandiseMovRecord />,
+            loader: getStocksMovement,
           },
           {
             path: "/inventory/merchandise-movements/entry/traceability/:id",
@@ -1238,6 +1241,7 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/transfer/direct/new",
             element: <NewDirectTransfer />,
+            loader: getInfoTransfer,
           },
           {
             path: "/inventory/merchandise-movements/transfer/record/:id",

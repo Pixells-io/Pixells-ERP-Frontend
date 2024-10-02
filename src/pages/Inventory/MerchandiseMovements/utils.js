@@ -19,6 +19,24 @@ export async function getStocksMovements() {
   }
 }
 
+export async function getStocksMovement({ params }) {
+  try {
+    const id = params.id;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-stocks-movement/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 //SAVE ENTRY
 export async function saveStockMovement(formData) {
   const info = {
@@ -156,4 +174,37 @@ export async function multiLoaderMovements() {
       getLocations(),
     ]);
   return json({ warehouses, categories, catalogs, products, locations });
+}
+
+//TRANSFER
+export async function getInfoTransfer() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-info-transfer`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getInfoTransferProducts(inventory) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get-info-transfer_products/${inventory}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }

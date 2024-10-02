@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -23,8 +23,9 @@ import { Input } from "@/components/ui/input";
 import { MerchandiseRecordColumns } from "./Table/MerchandiseRecordColumns";
 import NoDocument from "../../Components/NoDocument";
 import OnlyTable from "../../Components/OnlyTable";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-const data = [
+const dataInfo = [
   {
     id: 1,
     articleNumber: "239846",
@@ -55,6 +56,11 @@ const data = [
 ];
 
 function MerchandiseMovRecord() {
+  const { data } = useLoaderData();
+  const [info, setInfo] = useState(data);
+
+  console.log(info);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
@@ -85,29 +91,14 @@ function MerchandiseMovRecord() {
               INVENTARIO
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
-          </div>
         </div>
 
         <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Entrada de Mercancia
+            Entrada de Mercancia - {info.id}
           </p>
 
           <div className="flex items-center justify-end gap-12">
-            <div>
-              <Button
-                type="button"
-                className="rounded-3xl bg-[#F0F0F0] h-[28px] px-2 text-xs font-medium text-grisText hover:bg-[#F0F0F0]"
-              >
-                Convertir a Pedido
-              </Button>
-            </div>
             <div className="flex gap-x-5">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8E8E8]">
                 <IonIcon
@@ -124,9 +115,6 @@ function MerchandiseMovRecord() {
                 ></IonIcon>
               </div>
             </div>
-            <div className="flex w-[250px] items-center gap-2">
-              <NoDocument />
-            </div>
           </div>
           <div className="flex items-end justify-center">
             <Link to={"/inventory/merchandise-movements"}>
@@ -142,50 +130,159 @@ function MerchandiseMovRecord() {
         <div className="flex w-full items-center justify-between rounded-xl bg-blancoBg px-12 py-4">
           <div className="flex w-full gap-x-8">
             <div>
-              <Input
-                className="w-[243px] rounded-xl border border-gris2-transparent bg-inherit text-[14px] font-roboto text-grisSubText placeholder:text-grisSubText focus:ring-2 focus-visible:ring-primarioBotones focus:border-transparent"
-                name={`documentNumber`}
-                // value={row.amount}
-                placeholder="Numero de Documento"
-                type="number"
-              />
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Tipo:
+              </span>
+              <br />
+              {info.movement_type === "1" ? (
+                <span className="font-roboto text-sm text-grisHeading">
+                  Entrada de Compras
+                </span>
+              ) : info.movement_type === "2" ? (
+                <span className="font-roboto text-sm text-grisHeading">
+                  Entrada de Production
+                </span>
+              ) : info.movement_type === "3" ? (
+                <span className="font-roboto text-sm text-grisHeading">
+                  Transferencia
+                </span>
+              ) : info.movement_type === "4" ? (
+                <span className="font-roboto text-sm text-grisHeading">
+                  Salida a Produccion
+                </span>
+              ) : (
+                false
+              )}
             </div>
             <div>
-              <Select name="priceList" className="h-10">
-                <SelectTrigger className="w-[243px] rounded-xl border border-gris2-transparent bg-inherit text-[14px] font-roboto text-grisSubText placeholder:text-grisSubText focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
-                  <SelectValue placeholder="Lista de Precios" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Estatus:
+              </span>
+              <br />
+              {info.status === "1" ? (
+                <span className="rounded-2xl bg-[#5B89FF30] px-4 py-1 font-roboto text-sm text-[#5B89FF]">
+                  Pendiente
+                </span>
+              ) : info.status === "2" ? (
+                <span className="rounded-2xl bg-[#a3ff0030] px-4 py-1 font-roboto text-sm text-[#a3ff00]">
+                  Enviado
+                </span>
+              ) : info.status === "3" ? (
+                <span className="rounded-2xl bg-[#2cba0030] px-4 py-1 font-roboto text-sm text-[#2cba00]">
+                  Recibido
+                </span>
+              ) : info.status === "4" ? (
+                <span className="rounded-2xl bg-[#fff40030] px-4 py-1 font-roboto text-sm text-[#fff400]">
+                  Recepcion Parcial
+                </span>
+              ) : info.status === "5" ? (
+                <span className="rounded-2xl bg-[#ffa70030] px-4 py-1 font-roboto text-sm text-[#ffa700]">
+                  Problemas
+                </span>
+              ) : info.status === "6" ? (
+                <span className="rounded-2xl bg-[#ff000030] px-4 py-1 font-roboto text-sm text-[#ff0000]">
+                  Cancelado
+                </span>
+              ) : info.status === "7" ? (
+                <span className="rounded-2xl bg-[#2cba0030] px-4 py-1 font-roboto text-sm text-[#2cba00]">
+                  Completado
+                </span>
+              ) : (
+                false
+              )}
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Almacen Saliente:
+              </span>
+              <br />
+              {info.inventory_in != null ? (
+                <span
+                  className="line-clamp-1 font-roboto text-sm text-grisHeading"
+                  title={info.inventory_in}
+                >
+                  {info.inventory_in}
+                </span>
+              ) : (
+                <span className="font-roboto text-sm text-grisHeading">
+                  N/A
+                </span>
+              )}
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Almacen Entrante:
+              </span>
+              <br />
+              {info.inventory_out != null ? (
+                <span
+                  className="line-clamp-1 font-roboto text-sm text-grisHeading"
+                  title={info.inventory_out}
+                >
+                  {info.inventory_out}
+                </span>
+              ) : (
+                <span className="font-roboto text-sm text-grisHeading">
+                  N/A
+                </span>
+              )}
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Fecha:
+              </span>
+              <br />
+              <span
+                className="line-clamp-1 font-roboto text-sm text-grisHeading"
+                title={info.receive_date}
+              >
+                {info.receive_date}
+              </span>
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Comentario:
+              </span>
+              <br />
+              <span
+                className="line-clamp-1 font-roboto text-sm text-grisHeading"
+                title={info.comment}
+              >
+                {info.comment}
+              </span>
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Creador:
+              </span>
+              <br />
+              <div className="flex gap-2 text-[#696974]">
+                <Avatar className="size-7">
+                  <AvatarImage src={info?.user_creator.img} />
+                </Avatar>
+                <div className="ml-2">
+                  <span>{info?.user_creator.name}</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span className="font-roboto text-sm font-normal text-[#696974]">
+                Relacion:
+              </span>
+              <br />
+              <span
+                className="line-clamp-1 font-roboto text-sm text-grisHeading"
+                title={info.rel_id}
+              >
+                {info.rel_id}
+              </span>
             </div>
           </div>
         </div>
 
         <div className="rounded-xl bg-blancoBg p-4">
-          <OnlyTable data={data} columns={MerchandiseRecordColumns} />
+          <OnlyTable data={info.slots} columns={MerchandiseRecordColumns} />
         </div>
-
-        <div className="rounded-xl bg-blancoBg px-4 py-6">
-          <textarea
-            placeholder="Observaciones (esto será visible en la OC)"
-            className="h-[120px] w-[270px] resize-none rounded-lg border border-[#E5E5E5] bg-[#FBFBFB] px-3 py-2 text-xs"
-            name="template"
-          ></textarea>
-        </div>
-
-        <StatusInformation
-          status="done"
-          approvedBy={"Oziel duran"}
-          date={"20 agosto 2024"}
-          comments={"Todo Bien"}
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        ></StatusInformation>
       </div>
     </div>
   );
