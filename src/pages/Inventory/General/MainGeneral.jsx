@@ -193,7 +193,7 @@ const MainGeneral = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   type={"button"}
-                  className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+                  className="flex h-[30px] items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
                 >
                   <IonIcon icon={add} className="h-4 w-4" />
                   <span className="text-xs font-medium">Nuevo</span>

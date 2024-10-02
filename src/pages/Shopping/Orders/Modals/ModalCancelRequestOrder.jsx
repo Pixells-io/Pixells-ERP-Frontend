@@ -13,12 +13,7 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { briefcase } from "ionicons/icons";
 
-function ModalCancelRequestOrder({
-  id,
-  name,
-  modal,
-  setModal,
-}) {
+function ModalCancelRequestOrder({ id, name, modal, setModal }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,10 +29,7 @@ function ModalCancelRequestOrder({
           <DialogTitle>
             <div className="flex w-full flex-row gap-x-2">
               <div className="flex items-center justify-center">
-                <IonIcon
-                  icon={briefcase}
-                  className="h-8 w-8 text-white"
-                />
+                <IonIcon icon={briefcase} className="h-8 w-8 text-white" />
               </div>
               <div className="flex flex-col gap-y-1">
                 <h2 className="font-poppins text-[13px] font-medium text-grisHeading text-white">
@@ -56,13 +48,7 @@ function ModalCancelRequestOrder({
           method="post"
           className="flex flex-col gap-4"
         >
-          <input
-            type="hidden"
-            hidden
-            name="buy_id"
-            value={id}
-            readOnly
-          />
+          <input type="hidden" hidden name="buy_id" value={id} readOnly />
           <input
             type="hidden"
             hidden
@@ -71,7 +57,7 @@ function ModalCancelRequestOrder({
             readOnly
           />
           <span className="my-4 font-roboto text-xs font-light text-grisDisabled">
-            You are trying to cancel the request order "{name}", are you sure?
+            Estas tratando de eliminar esta compra "{name}", estas seguro??
           </span>
           <DialogFooter>
             <div className="flex w-full justify-between gap-2">

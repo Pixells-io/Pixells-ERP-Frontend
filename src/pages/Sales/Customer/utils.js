@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function getCustomers() {
   try {
@@ -22,6 +23,7 @@ export async function saveNewCustomer(data) {
     client_code: Number(data.get("client_code")),
     client_type: Number(data.get("client_type")),
     rfc: data.get("rfc"),
+    cfdi: data.get("cfdi"),
     client_group: Number(data.get("client_group")),
     currency: data.get("currency"),
     name: data.get("fiscal_name"),
@@ -105,6 +107,14 @@ export async function destroyCustomer(data) {
 }
 
 export async function createGeneralInfo(data) {
+
+  const startDate = !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "";
+  const endDate = !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "";
+
   const info = {
     client_transactional_id: Number(data.get("client_transactional_id")),
     street: data.get("street"),
@@ -115,13 +125,13 @@ export async function createGeneralInfo(data) {
     cologne: data.get("cologne"),
     state: data.get("state"),
     country: data.get("country"),
-    shopping_person: 0,
+    shopping_person: data.get("shopping_person"),
     comment: data.get("comment"),
-    start: data.get("start"),
-    end: data.get("end"),
-    active: data.get("status") == "true" ? true : false,
+    start: startDate,
+    end: endDate,
+    active: !!data.get("status") ? "1" : "0",
   };
-
+  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}client/create-address-info`,
     {
@@ -171,7 +181,7 @@ export async function editGeneralInfo(data) {
 
 export async function createContact(data) {
   const info = {
-    client_transactional_id: Number(data.get("client_id")),
+    client_transactional_id: Number(data.get("client_transactional_id")),
     name: data.get("name"),
     middle_name: data.get("middle_name"),
     last_name: data.get("last_name"),
@@ -264,7 +274,6 @@ export async function createBillingInfo(data) {
 
 export async function editBillingInfo(data) {
   const info = {
-    client_transactional_id: Number(data.get("client_transactional_id")),
     billing_id: data.get("billing_id"),
     regimen_fiscal: data.get("regimen_fiscal"),
     uso_cfdi: data.get("uso_cfdi"),
@@ -305,3 +314,50 @@ export async function destroyBillingInfo(data) {
 
   return response;
 }
+
+export async function createPaymentConditions(data) {
+  const info = {
+    client_transactional_id: Number(data.get("client_transactional_id")),
+    conditions: data.get("conditions"),
+    interest: data.get("interest"),
+    days_of_credit: data.get("days_of_credit"),
+    credit_limit: data.get("credit_limit"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/create-payment-conditions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editPaymentConditions(data) {
+  const info = {
+    payment_id: Number(data.get("payment_id")),
+    conditions: data.get("conditions"),
+    interest: data.get("interest"),
+    days_of_credit: data.get("days_of_credit"),
+    credit_limit: data.get("credit_limit"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}client/edit-payment-conditions`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+

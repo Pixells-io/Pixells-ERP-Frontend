@@ -21,6 +21,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function NewFormula() {
   const { data } = useLoaderData();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
   const [wastes, setWastes] = useState([]);
@@ -28,9 +29,100 @@ function NewFormula() {
   const [totalSubProducts, setSubTotalProducts] = useState(0);
   const [totalWastes, setTotalWastes] = useState(0);
 
-  const navigate = useNavigate();
+  const [newFormula, setNewFormula] = useState({
+    product_id: "",
+    quantity: "",
+    unit: "",
+    comments: "",
+    vars: [
+      {
+        product_variable_id: 1,
+        quantity: 10,
+        unit: "kg",
+      },
+    ],
+    slots: [
+      {
+        type: "primary",
+        product_master_id: 123,
+        product_variable_id: 2,
+        quantity: 50,
+        unit: "kg",
+      },
+    ],
+    energetics: [
+      {
+        type: "electricity",
+        product_master_id: 456,
+        product_variable_id: 3,
+        quantity: 200,
+        unit: "kWh",
+      },
+    ],
+    packaging: [
+      {
+        type: "box",
+        product_master_id: 789,
+        product_variable_id: 4,
+        quantity: 30,
+        quantity_per_unity: 5,
+        unit: "pieces",
+      },
+    ],
+    packaging_package: [
+      {
+        type: "pallet",
+        product_master_id: 987,
+        product_variable_id: 5,
+        quantity: 10,
+        quantity_per_unity: 2,
+        unit: "pallets",
+      },
+    ],
+    sub_products: [
+      {
+        type: "byproduct",
+        product_master_id: 654,
+        product_variable_id: 6,
+        quantity: 20,
+        unit: "kg",
+      },
+    ],
+    wastes: [
+      {
+        type: "scrap",
+        product_master_id: 321,
+        product_variable_id: 7,
+        quantity: 5,
+        unit: "kg",
+      },
+    ],
+  });
 
-  console.log(data);
+  // const [productCraft, setProductCraft] = useState({});
+
+  const productCraft = data.product_craft.map((product) => ({
+    label: product.name,
+    value: product.id,
+    ...product,
+  }));
+
+  const productNeed = data.product_need.map((product) => ({
+    label: product.name,
+    value: product.id,
+    ...product,
+  }));
+
+  // console.log("productCraft ", productCraft);
+  console.log("productNeed ", productNeed);
+
+  function fillFormulaProduct(e) {
+    console.log(e);
+    setNewFormula({
+      product_id: e.id,
+      unit: e.unit,
+    });
+  }
 
   return (
     <div className="flex h-full w-full">
@@ -40,17 +132,17 @@ function NewFormula() {
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
+            <h2 className="font-poppins font-bold text-grisHeading">
               TRANSFORMACIÓN
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
+          {/* <div className="flex items-center gap-3 font-roboto text-grisSubText">
             <div className="text-xs">4 objectives</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">25 SCF</div>
             <div className="text-2xl">&bull;</div>
             <div className="text-xs">43 activities</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex justify-between">
@@ -74,18 +166,29 @@ function NewFormula() {
             {/* config section */}
             <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
               <div className="flex w-1/3">
-                <SelectRouter />
+                <SelectRouter
+                  options={productCraft}
+                  onChange={(e) => fillFormulaProduct(e)}
+                />
               </div>
 
               <div className="flex w-28">
                 <InputRouter
                   type="number"
                   name="formula_tam"
-                  placeholder="Tamaño Formula"
+                  placeholder="Cantidad"
                 />
               </div>
               <div className="flex w-28">
-                <InputRouter type="text" name="unidad" placeholder="Unidad" />
+                {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
+                  {newFormula.unit}
+                </div> */}
+                <InputRouter
+                  type="text"
+                  name="unidad"
+                  placeholder="Unidad"
+                  value={newFormula.unit}
+                />
               </div>
               <div className="flex w-20">
                 <InputRouter type="number" name="merma" placeholder="Merma" />
@@ -159,6 +262,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -188,6 +292,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -217,6 +322,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -246,6 +352,7 @@ function NewFormula() {
                       tableData={products}
                       setTableData={setProducts}
                       setTotalProducts={setTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
 
@@ -275,6 +382,7 @@ function NewFormula() {
                       tableData={subProducts}
                       setTableData={setSubProducts}
                       setTotalProducts={setSubTotalProducts}
+                      productNeed={productNeed}
                     />
                   </div>
                 </div>
@@ -291,6 +399,7 @@ function NewFormula() {
                       tableData={wastes}
                       setTableData={setWastes}
                       setTotalProducts={setTotalWastes}
+                      productNeed={productNeed}
                     />
                   </div>
                 </div>

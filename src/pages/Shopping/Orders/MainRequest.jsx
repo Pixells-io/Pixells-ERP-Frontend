@@ -19,9 +19,15 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const MainRequestOrder = () => {
   const { data } = useLoaderData();
-  const [requestOrdersInfo, setRequestOrdersInfo] = useState(data);
+  const orderByDate = (data) => { 
+    return [...data].sort((a, b) => new Date(b.delivery_date) - new Date(a.delivery_date))
+  }
+  const [requestOrdersInfo, setRequestOrdersInfo] = useState(orderByDate(data));
   const [modalDeleteRequestOrder, setModalDeleteRequestOrder] = useState(false);
-  const [selectRequestOrder, setSelectRequestOrder] = useState({ id: 0, name: "" });
+  const [selectRequestOrder, setSelectRequestOrder] = useState({
+    id: 0,
+    name: "",
+  });
 
   const pusherClient = createPusherClient();
 
@@ -147,7 +153,7 @@ const MainRequestOrder = () => {
 
   async function getRequestOrdersList() {
     let newData = await getRequestOrders();
-    setRequestOrdersInfo(newData.data);
+    setRequestOrdersInfo(orderByDate(newData.data));
   }
 
   useEffect(() => {
@@ -224,7 +230,7 @@ const MainRequestOrder = () => {
           </div>
         </div>
         {/*content */}
-        <div className="w-full">
+        <div className="w-full overflow-auto">
           <Tabs
             defaultValue="request"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
@@ -261,4 +267,3 @@ export async function Action({ request }) {
 
   return redirect("/shopping/request-orders");
 }
-

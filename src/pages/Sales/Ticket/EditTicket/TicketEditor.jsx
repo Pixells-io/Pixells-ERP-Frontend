@@ -20,20 +20,11 @@ const TicketDetails = () => {
   const [dtcreate, setDtcreate] = useState("opcion1");
   const [dtexpiry, setDtexpiry] = useState("opcion2");
   const [subtotal, setSubTotal] = useState(0);
-  const [items, setItems] = useState([
-    {
-      item: "321",
-      codigo: "001",
-      valor: "100",
-      descuento: "10",
-      impuesto: "19",
-      cantidad: "2",
-      unidad: "unidad",
-      fechaEntrega: "2024-08-15",
-    },
-  ]);
+  const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(false);
-  
+  const [allProducts, setAllProducts] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
   const handleTotalChange = (newSubtotal) => {
     setSubTotal(newSubtotal);
   };
@@ -88,12 +79,11 @@ const TicketDetails = () => {
           <div className="flex flex-row">
             <ActionGroup url={url} setisEditable={setisEditable} />
             <CardCarousel />
-            </div>
+          </div>
         </div>
-        
+
         {/* content */}
         <div className="space-y-3 overflow-auto">
-          
           <Form>
             <div className="flex h-full flex-col space-y-6">
               <SelectsQuote
@@ -115,37 +105,38 @@ const TicketDetails = () => {
                 />
                 <QuoteTable
                   initialItems={items}
-                  setItems={setItems}
                   isEditable={isEditable}
-                  setTotalChanges={handleTotalChange}
+                  allProducts={allProducts}
+                  setTableData={setTableData}
+                  tableData={tableData}
                 />
               </div>
             </div>
-            <Total subtotal={subtotal} />
+            <Total tableData={tableData} comment={""} />
             <div className="flex justify-end">
-        <StatusInformation
-          status={"inProgress"}
-          imgUser={
-            "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          }
-        >
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            variant="outline"
-            className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-          >
-            Save
-          </Button>
-          <Button
-            type="button"
-            onClick={() => alert("save")}
-            className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-          >
-            Save for Aproval
-          </Button>
-        </StatusInformation>
-        </div>
+              <StatusInformation
+                status={"inProgress"}
+                imgUser={
+                  "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                }
+              >
+                <Button
+                  type="button"
+                  onClick={handleSubmit}
+                  variant="outline"
+                  className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
+                >
+                  Save
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => alert("save")}
+                  className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                >
+                  Save for Aproval
+                </Button>
+              </StatusInformation>
+            </div>
           </Form>
         </div>
       </div>

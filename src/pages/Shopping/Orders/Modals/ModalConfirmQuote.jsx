@@ -26,7 +26,7 @@ function ModalConfirmQuote({ id, name }) {
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger className="py-2 px-2 rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+      <DialogTrigger className="rounded-xl bg-[#E0E0E0] px-2 py-2 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
         Aceptar Cotización
       </DialogTrigger>
       <DialogContent className="flex max-w-[400px] flex-col gap-4">
@@ -70,8 +70,8 @@ function ModalConfirmQuote({ id, name }) {
             value={id}
           />
           <span className="my-4 font-roboto text-xs font-light text-grisSubText">
-            This confirm the quote "{name}" will create a purchase order, are
-            you sure?
+            Esto confirma esta cotizacion "{name}" y creara una orden de compra,
+            estas seguro?
           </span>
 
           <DialogFooter>

@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
 export async function saveNewQuoteOrder(data) {
-
   let totalRow = data.getAll("totalRow[]");
   let arrayArticles = [];
   for (let i = 0; i < totalRow.length; i++) {
@@ -32,7 +31,7 @@ export async function saveNewQuoteOrder(data) {
     taxes: data.get("taxes"),
     total: data.get("total"),
     products: arrayArticles,
-  }
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/create-quotes`,
@@ -80,10 +79,8 @@ export async function getQuotesOrder() {
   }
 }
 
-export async function getQuoteOrder({ params }) {
+export async function getQuoteOrder(id) {
   try {
-    const id = params.id;
-
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}shopping/get-quote/${id}`,
       {
@@ -98,12 +95,20 @@ export async function getQuoteOrder({ params }) {
   }
 }
 
-export async function updateQuoteOrder(data) {
+export async function multiloadesGetQuote({ params }) {
+  const [quoteData, info] = await Promise.all([
+    getQuoteOrder(params.id),
+    getProducts(),
+  ]);
 
+  return json({ quoteData, info });
+}
+
+export async function updateQuoteOrder(data) {
   let totalRow = data.getAll("totalRow[]");
   let arrayArticlesNew = [];
   for (let i = 0; i < totalRow.length; i++) {
-    if(data.get(`id_product[${i}]`) == ""){
+    if (data.get(`id_product[${i}]`) == "") {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
@@ -121,9 +126,9 @@ export async function updateQuoteOrder(data) {
 
   let arrayArticlesDelete = [];
   let productsDelete = data.getAll("productDelete[]");
- 
+
   for (let i = 0; i < productsDelete.length; i++) {
-    arrayArticlesDelete.push({slot_id: productsDelete[i]});
+    arrayArticlesDelete.push({ slot_id: productsDelete[i] });
   }
 
   const info = {
@@ -140,8 +145,7 @@ export async function updateQuoteOrder(data) {
     total: data.get("total"),
     products: arrayArticlesNew,
     destroy_products: arrayArticlesDelete,
-  }
-
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/edit-quotes`,
@@ -158,11 +162,10 @@ export async function updateQuoteOrder(data) {
 }
 
 export async function destroyQuoteOrder(data) {
-
   const info = {
     quote_id: data.get("quote_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/destroy-quotes`,
     {
@@ -178,11 +181,10 @@ export async function destroyQuoteOrder(data) {
 }
 
 export async function acceptQuoteOrder(data) {
-
   const info = {
     quote_id: data.get("quote_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/accept-quotes`,
     {
@@ -198,11 +200,10 @@ export async function acceptQuoteOrder(data) {
 }
 
 export async function cancelQuoteOrder(data) {
-
   const info = {
     quote_id: data.get("quote_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/cancel-quotes`,
     {
@@ -216,7 +217,6 @@ export async function cancelQuoteOrder(data) {
 
   return response.json();
 }
-
 
 /* ordenes de compra */
 
@@ -250,7 +250,7 @@ export async function saveNewPurchase(data) {
     taxes: data.get("taxes"),
     total: data.get("total"),
     products: arrayArticles,
-  }
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/create-orders`,
@@ -282,9 +282,8 @@ export async function getPurchases() {
   }
 }
 
-export async function getPurchase({ params }) {
+export async function getPurchase(id) {
   try {
-    const id = params.id;
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}shopping/get-order/${id}`,
       {
@@ -299,12 +298,20 @@ export async function getPurchase({ params }) {
   }
 }
 
-export async function updatePurchase(data) {
+export async function multiloadesGetPurchase({ params }) {
+  const [purchaseData, info] = await Promise.all([
+    getPurchase(params.id),
+    getProducts(),
+  ]);
 
+  return json({ purchaseData, info });
+}
+
+export async function updatePurchase(data) {
   let totalRow = data.getAll("totalRow[]");
   let arrayArticlesNew = [];
   for (let i = 0; i < totalRow.length; i++) {
-    if(data.get(`id_product[${i}]`) == ""){
+    if (data.get(`id_product[${i}]`) == "") {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
@@ -322,9 +329,9 @@ export async function updatePurchase(data) {
 
   let arrayArticlesDelete = [];
   let productsDelete = data.getAll("productDelete[]");
- 
+
   for (let i = 0; i < productsDelete.length; i++) {
-    arrayArticlesDelete.push({slot_id: productsDelete[i]});
+    arrayArticlesDelete.push({ slot_id: productsDelete[i] });
   }
 
   const info = {
@@ -341,8 +348,7 @@ export async function updatePurchase(data) {
     total: data.get("total"),
     products: arrayArticlesNew,
     destroy_products: arrayArticlesDelete,
-  }
-
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/edit-orders`,
@@ -359,13 +365,12 @@ export async function updatePurchase(data) {
 }
 
 export async function acceptPurchase(data) {
-
   const info = {
     order_id: data.get("order_id"),
     payment_type: data.get("payment_type"),
     limit_credit_date: data.get("limit_credit_date"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/accept-orders`,
     {
@@ -381,11 +386,10 @@ export async function acceptPurchase(data) {
 }
 
 export async function cancelPurchase(data) {
-
   const info = {
     order_id: data.get("order_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/cancel-orders`,
     {
@@ -401,11 +405,10 @@ export async function cancelPurchase(data) {
 }
 
 export async function destroyPurchase(data) {
-
   const info = {
     order_id: data.get("order_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/destroy-orders`,
     {
@@ -437,9 +440,8 @@ export async function getRequestOrders() {
   }
 }
 
-export async function getRequestOrder({ params }) {
+export async function getRequestOrder(id) {
   try {
-    const id = params.id;
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}shopping/get-buy/${id}`,
       {
@@ -454,8 +456,16 @@ export async function getRequestOrder({ params }) {
   }
 }
 
-export async function saveNewRequestOrder(data) {
+export async function multiloadesGetRequestOrder({ params }) {
+  const [requestData, info] = await Promise.all([
+    getRequestOrder(params.id),
+    getProducts(),
+  ]);
 
+  return json({ requestData, info });
+}
+
+export async function saveNewRequestOrder(data) {
   let totalRow = data.getAll("totalRow[]");
   let arrayArticles = [];
   for (let i = 0; i < totalRow.length; i++) {
@@ -487,7 +497,7 @@ export async function saveNewRequestOrder(data) {
     payment_type: data.get("payment_type"),
     limit_credit_date: data.get("limit_credit_date"),
     products: arrayArticles,
-  }
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/create-buys`,
@@ -504,11 +514,10 @@ export async function saveNewRequestOrder(data) {
 }
 
 export async function updateRequestOrder(data) {
-
   let totalRow = data.getAll("totalRow[]");
   let arrayArticlesNew = [];
   for (let i = 0; i < totalRow.length; i++) {
-    if(data.get(`id_product[${i}]`) == ""){
+    if (data.get(`id_product[${i}]`) == "") {
       arrayArticlesNew.push({
         master_product: data.get(`master_product[${i}]`),
         variations: data.get(`variations[${i}]`),
@@ -526,9 +535,9 @@ export async function updateRequestOrder(data) {
 
   let arrayArticlesDelete = [];
   let productsDelete = data.getAll("productDelete[]");
- 
+
   for (let i = 0; i < productsDelete.length; i++) {
-    arrayArticlesDelete.push({slot_id: productsDelete[i]});
+    arrayArticlesDelete.push({ slot_id: productsDelete[i] });
   }
 
   const info = {
@@ -547,8 +556,7 @@ export async function updateRequestOrder(data) {
     limit_credit_date: data.get("limit_credit_date"),
     products: arrayArticlesNew,
     destroy_products: arrayArticlesDelete,
-  }
-
+  };
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/edit-buys`,
@@ -565,11 +573,10 @@ export async function updateRequestOrder(data) {
 }
 
 export async function destroyRequestOrder(data) {
-
   const info = {
     buy_id: data.get("buy_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/destroy-buys`,
     {
@@ -585,11 +592,10 @@ export async function destroyRequestOrder(data) {
 }
 
 export async function cancelRequestOrder(data) {
-
   const info = {
     buy_id: data.get("buy_id"),
   };
- 
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}shopping/cancel-buys`,
     {

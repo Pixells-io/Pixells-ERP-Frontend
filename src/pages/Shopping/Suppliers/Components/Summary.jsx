@@ -20,7 +20,7 @@ const Summary = () => {
               { value: "shopping", title: "Compras Realizadas" },
               { value: "payment", title: "Pagos Realizados" },
               { value: "return", title: "Devoluciones" },
-              { value: "balance", title: "Estadísticas" },
+              { value: "balance", title: "Saldos Generales" },
             ].map((tab) => (
               <TabsTrigger
                 key={tab.value}

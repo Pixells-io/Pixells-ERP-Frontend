@@ -1,33 +1,22 @@
 export const MerchandiseRecordColumns = [
-    {
-      id: "articleNumber",
-      header: "Numero Artículo",
-      accessorKey: "articleNumber",
-    },
-    {
-      id: "description",
-      header: "Descripción",
-      accessorKey: "description",
-    },
-    {
-      id: "receivedQuantity",
-      header: "Recibido",
-      accessorKey: "receivedQuantity",
-    },
-    {
-      id: "unitPrice",
-      header: "precio Unitario",
-      accessorKey: "unitPrice",
-    },
-    {
-      id: "total",
-      header: "Total",
-      accessorKey: "total",
-    },
-    {
-      id: "ubication",
-      header: "Ubicación",
-      accessorKey: "ubication",
-    },
-  ];
-  
+  {
+    id: "code",
+    header: "CODIGO",
+    accessorKey: "code",
+  },
+  {
+    id: "name",
+    header: "Nombre",
+    accessorKey: "name",
+  },
+  {
+    id: "expected",
+    header: "Pedido",
+    accessorKey: "received_quantity",
+  },
+  {
+    id: "received",
+    header: "Recibido",
+    accessorKey: "received_quantity",
+  },
+];

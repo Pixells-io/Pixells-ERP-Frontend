@@ -19,7 +19,10 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const MainPurchase = () => {
   const { data } = useLoaderData();
-  const [purchasesInfo, setPurchaseInfo] = useState(data);
+  const orderByDate = (data) => { 
+    return [...data].sort((a, b) => new Date(b.delivery_date) - new Date(a.delivery_date))
+  }
+  const [purchasesInfo, setPurchaseInfo] = useState(orderByDate(data));
   const [modalDeletePurchase, setModalDeletePurchase] = useState(false);
   const [selectPurchase, setSelectPurchase] = useState({ id: 0, name: "" });
 
@@ -148,7 +151,7 @@ const MainPurchase = () => {
 
   async function getPurchaseList() {
     let newData = await getPurchases();
-    setPurchaseInfo(newData.data);
+    setPurchaseInfo(orderByDate(newData.data));
   }
 
   useEffect(() => {
@@ -225,28 +228,28 @@ const MainPurchase = () => {
           </div>
         </div>
         {/*content */}
-        <Tabs
-          defaultValue="orders"
-          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-        >
-          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
-            <TabsTrigger
-              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-              value="orders"
-            >
-              ORDENES
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="orders" className="mt-[-70px] w-full pt-2">
-            <DataTable
-              data={purchasesInfo}
-              columns={columns}
-              searchFilter="document_number"
-              searchNameFilter="Buscar por No. Documento"
-              isCheckAll={true}
-            />
-          </TabsContent>
-        </Tabs>
+          <Tabs
+            defaultValue="orders"
+            className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+          >
+            <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+              <TabsTrigger
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                value="orders"
+              >
+                ORDENES
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="orders" className="mt-[-70px] w-full pt-2">
+              <DataTable
+                data={purchasesInfo}
+                columns={columns}
+                searchFilter="document_number"
+                searchNameFilter="Buscar por No. Documento"
+                isCheckAll={true}
+              />
+            </TabsContent>
+          </Tabs>
       </div>
     </div>
   );

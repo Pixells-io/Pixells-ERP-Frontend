@@ -5,33 +5,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import BranchesTab from "./Tabs/BranchesTab";
 import { Link } from "react-router-dom";
+import NavigationHeader from "@/components/navigation-header";
 
 const newBranch = () => {
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Inventory - General</div>
-          </div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
 
         <div className="flex items-center gap-4">
@@ -69,16 +50,14 @@ const newBranch = () => {
                 </TabsTrigger>
               </TabsList>
               <Link to="/inventory/branch-points-sale/create">
-              <Button
-                type={"button"}
-                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
-              >
-                <IonIcon icon={add} className="h-4 w-4" />
-                <span className="text-xs font-medium">
-                  Nuevo
-                </span>
-              </Button>
-            </Link>
+                <Button
+                  type={"button"}
+                  className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+                >
+                  <IonIcon icon={add} className="h-4 w-4" />
+                  <span className="text-xs font-medium">Nuevo</span>
+                </Button>
+              </Link>
             </div>
           </div>
           <TabsContent value="branches" className="rounded-md bg-blancoBg p-2">

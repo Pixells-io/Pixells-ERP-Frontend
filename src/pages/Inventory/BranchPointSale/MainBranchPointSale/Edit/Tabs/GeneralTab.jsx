@@ -1,13 +1,12 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 
 const GeneralTab = ({ informationDetails, store_id }) => {
-
   const navigation = useNavigation();
 
   const [information, setInformation] = useState({
@@ -24,6 +23,27 @@ const GeneralTab = ({ informationDetails, store_id }) => {
     start: informationDetails?.start,
     end: informationDetails?.end,
   });
+
+  useEffect(() => {
+    changeValueInformation();
+  }, [informationDetails]);
+
+  const changeValueInformation = () => {
+    setInformation({
+      id: informationDetails?.id,
+      street: informationDetails?.street,
+      ext: informationDetails?.ext,
+      int: informationDetails?.int,
+      cologne: informationDetails?.cologne,
+      city: informationDetails?.city,
+      state: informationDetails?.state,
+      cp: informationDetails?.cp,
+      country: informationDetails?.country,
+      status: informationDetails?.status,
+      start: informationDetails?.start,
+      end: informationDetails?.end,
+    });
+  };
 
   const clearPeriod = () => {
     setInformation((prevFormData) => ({
@@ -50,11 +70,11 @@ const GeneralTab = ({ informationDetails, store_id }) => {
 
   return (
     <Form
-      className="flex h-full w-full flex-col overflow-auto px-6 py-4"
+      className="flex h-full w-full flex-col overflow-auto py-4"
       action={`/inventory/branch-points-sale/edit/${store_id}`}
       method="post"
     >
-      <div className="overflow-auto">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           GENERAL
         </h2>
@@ -222,7 +242,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
         </div>
       </div>
 
-      <div className="mt-10 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

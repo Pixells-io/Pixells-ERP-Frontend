@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Form, redirect, useLoaderData, useNavigation, useParams } from "react-router-dom";
+import {
+  Form,
+  redirect,
+  useLoaderData,
+  useNavigation,
+  useParams,
+} from "react-router-dom";
 import ActionsGroup from "../Components/ActionsGroup";
 import CardCarousel from "../Components/CardCarousel";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import ModalConfirmQuote from "../../Modals/ModalConfirmQuote";
-import { acceptQuoteOrder, cancelQuoteOrder, getProducts, updateQuoteOrder } from "@/pages/Shopping/utils";
+import {
+  acceptQuoteOrder,
+  cancelQuoteOrder,
+  getProducts,
+  updateQuoteOrder,
+} from "@/pages/Shopping/utils";
 import InputsGroup from "../Components/ElementGroup";
 import OrderTable from "../Components/OrderFom";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
@@ -15,22 +26,30 @@ import { Button } from "@/components/ui/button";
 import ModalCancelQuote from "../../Modals/ModalCancelQuote";
 
 const EditQuotes = () => {
-  const { data } = useLoaderData();
-  const [quote, setQuote] = useState(data);
+  const { quoteData, info } = useLoaderData();
+  const [quote, setQuote] = useState(quoteData.data);
   const navigation = useNavigation();
-
 
   const { id } = useParams();
   const [documentNumber, setDocumentNumber] = useState(quote.document_number);
-  const [selectedWarehouse, setSelectedWarehouse] = useState(quote.inventory_id.value);
-  const [selectedCostCenter, setSelectedCostCenter] = useState("");
-  const [selectedProveedor, setSelectedProveedor] = useState(quote.supplier_id.value);
-  const [selectedFechaDoc, setSelectedFechaDoc] = useState(quote.document_created);
-  const [selectedFechaEntrega, setSelectedFechaEntrega] = useState(quote.delivery_date);
-  const [selectedCondicionPago, setSelectedCondicionPago] =
-    useState(quote.payment_condition);
+  const [selectedWarehouse, setSelectedWarehouse] = useState(
+    quote.inventory_id,
+  );
+  const [selectedCostCenter, setSelectedCostCenter] = useState(
+    quote.cost_center,
+  );
+  const [selectedProveedor, setSelectedProveedor] = useState(quote.supplier_id);
+  const [selectedFechaDoc, setSelectedFechaDoc] = useState(
+    quote.document_created,
+  );
+  const [selectedFechaEntrega, setSelectedFechaEntrega] = useState(
+    quote.delivery_date,
+  );
+  const [selectedCondicionPago, setSelectedCondicionPago] = useState(
+    quote.payment_condition,
+  );
   const [editable, setEditable] = useState(false);
-  const [items, setItems] = useState(data.slots_array);
+  const [items, setItems] = useState(quote.slots_array);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [modalCancel, setModalCancel] = useState(false);
@@ -43,13 +62,13 @@ const EditQuotes = () => {
 
   const getAllProducts = async () => {
     const response = await getProducts();
-    setAllProducts(response.data);
+    setAllProducts(response);
   };
 
   return (
     <div className="flex w-full">
       {/* Modals */}
-      <ModalCancelQuote 
+      <ModalCancelQuote
         id={quote.id}
         name={quote.document_number}
         modal={modalCancel}
@@ -90,16 +109,24 @@ const EditQuotes = () => {
         </div>
         <div className="flex justify-between">
           <span className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando cotización: {data.document_number}
+            Consultando cotización: {quote.document_number}
           </span>
           <div className="flex flex-row justify-end">
             <div className="flex items-end justify-center pr-5">
-              <ModalConfirmQuote id={data.id} name={data.document_number} />
+              {quote.status != 2 ? (
+                <ModalConfirmQuote id={quote.id} name={quote.document_number} />
+              ) : null}
             </div>
-            <ActionsGroup url={url} setEditable={setEditable} editable={editable}/>
+            <ActionsGroup
+              url={url}
+              setEditable={setEditable}
+              editable={editable}
+            />
+            {/*  
             <div className="flex justify-end">
               <CardCarousel />
             </div>
+            */}
           </div>
         </div>
         <Form
@@ -108,60 +135,62 @@ const EditQuotes = () => {
           method="post"
         >
           <input
-              type="hidden"
-              hidden
-              className="hidden"
-              readOnly
-              name="quote_id"
-              value={quote.id}
-            />
+            type="hidden"
+            hidden
+            className="hidden"
+            readOnly
+            name="quote_id"
+            value={quote.id}
+          />
           <input
-              type="hidden"
-              hidden
-              className="hidden"
-              readOnly
-              name="type_option"
-              value={"update_quote"}
-            />
+            type="hidden"
+            hidden
+            className="hidden"
+            readOnly
+            name="type_option"
+            value={"update_quote"}
+          />
 
-            <div className="overflow-auto">
-              <div className="rounded-xl border border-blancoBox p-4">
-                <InputsGroup
-                  documentNumber={documentNumber}
-                  setDocumentNumber={setDocumentNumber}
-                  selectedWarehouse={selectedWarehouse}
-                  setSelectedWarehouse={setSelectedWarehouse}
-                  selectedCostCenter={selectedCostCenter}
-                  setSelectedCostCenter={setSelectedCostCenter}
-                  isEditable={editable}
-                />
-                <OrderTable
-                  selectedProveedor={selectedProveedor}
-                  setSelectedProveedor={setSelectedProveedor}
-                  selectedFechaDoc={selectedFechaDoc}
-                  setSelectedFechaDoc={setSelectedFechaDoc}
-                  selectedFechaEntrega={selectedFechaEntrega}
-                  setSelectedFechaEntrega={setSelectedFechaEntrega}
-                  selectedCondicionPago={selectedCondicionPago}
-                  setSelectedCondicionPago={setSelectedCondicionPago}
-                  isEditable={editable}
-                />
-              </div>
-
-              <div>
-                <div className="mt-6">
-                  <QuoteTable
-                    initialItems={items}
-                    isEditable={editable}
-                    allProducts={allProducts}
-                    setTableData={setTableData}
-                    tableData={tableData}
-                  />
-                </div>
-                <Total tableData={tableData} comment={data.comments} />
-              </div>
+          <div className="overflow-auto">
+            <div className="rounded-xl border border-blancoBox p-4">
+              <InputsGroup
+                documentNumber={documentNumber}
+                setDocumentNumber={setDocumentNumber}
+                selectedWarehouse={selectedWarehouse}
+                setSelectedWarehouse={setSelectedWarehouse}
+                selectedCostCenter={selectedCostCenter}
+                setSelectedCostCenter={setSelectedCostCenter}
+                isEditable={editable}
+                infoSelects={info?.data}
+              />
+              <OrderTable
+                selectedProveedor={selectedProveedor}
+                setSelectedProveedor={setSelectedProveedor}
+                selectedFechaDoc={selectedFechaDoc}
+                setSelectedFechaDoc={setSelectedFechaDoc}
+                selectedFechaEntrega={selectedFechaEntrega}
+                setSelectedFechaEntrega={setSelectedFechaEntrega}
+                selectedCondicionPago={selectedCondicionPago}
+                setSelectedCondicionPago={setSelectedCondicionPago}
+                isEditable={editable}
+                suppliers={info?.data?.suppliers}
+              />
             </div>
-          
+
+            <div>
+              <div className="mt-6">
+                <QuoteTable
+                  initialItems={items}
+                  isEditable={editable}
+                  allProducts={allProducts?.data}
+                  setTableData={setTableData}
+                  tableData={tableData}
+                />
+              </div>
+              <Total tableData={tableData} comment={quote.comments} />
+            </div>
+          </div>
+
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}
@@ -180,7 +209,7 @@ const EditQuotes = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] text-[#8F8F8F] hover:text-[#8F8F8F] hover:bg-inherit"
+                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:bg-inherit hover:text-[#8F8F8F]"
                 onClick={() => setEditable(false)}
                 disabled={!editable}
               >
@@ -188,7 +217,7 @@ const EditQuotes = () => {
               </Button>
               <Button
                 type="submit"
-                className={`rounded-lg  px-10 text-xs  ${ editable ? "text-white bg-primarioBotones hover:bg-primarioBotones" : "text-[#44444F] bg-[#E0E0E0] hover:bg-[#E0E0E0]"}`}
+                className={`rounded-lg px-10 text-xs ${editable ? "bg-primarioBotones text-white hover:bg-primarioBotones" : "bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"}`}
                 disabled={!editable || navigation.state === "submitting"}
               >
                 {navigation.state === "submitting"

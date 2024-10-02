@@ -1,25 +1,21 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
-import { trashOutline } from "ionicons/icons";
+import { checkmark } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
+import ModalDeleteUser from "../Modals/ModalDeleteUser";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   const navigation = useNavigation();
   const [usersSelect, setUsersSelect] = useState(usersRegister);
+  const [selectEditUser, setSelectEditUser] = useState(null);
 
   const addDate = (dateI, dateF, i) => {
     const auxUser = usersSelect.map((u, index) => {
@@ -34,6 +30,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
       }
     });
     setUsersSelect(auxUser);
+    setSelectEditUser(i);
   };
 
   const clearPeriod = (i) => {
@@ -49,6 +46,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
       }
     });
     setUsersSelect(auxUser);
+    setSelectEditUser(i);
   };
 
   const handleInputChange = (value, name, i) => {
@@ -63,11 +61,26 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
     });
 
     setUsersSelect([...aux]);
+    setSelectEditUser(i);
+  };
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setSelectEditUser(null);
+    }
+  }, [navigation.state]);
+
+  useEffect(() => {
+    changeValueUserList();
+  }, [usersRegister]);
+
+  const changeValueUserList = () => {
+    setUsersSelect(usersRegister);
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-auto px-6 py-4">
-      <div className="overflow-auto">
+    <div className="flex h-full w-full flex-col overflow-auto py-4">
+      <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           USUARIOS
         </h2>
@@ -77,7 +90,28 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
         </div>
 
         {usersSelect.map((userSelect, index) => (
-          <Form className="mt-4" key={index}>
+          <Form
+            className="mt-4"
+            key={index}
+            action={`/inventory/branch-points-sale/edit/${store_id}`}
+            method="post"
+          >
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="store_user_id"
+              value={userSelect?.id}
+            />
+            <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="type_option"
+              value="updateUserBranchTab"
+            />
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
               USUARIO {index + 1}
             </p>
@@ -99,7 +133,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
                   value={userSelect?.position}
                 />
               </div>
-              <div className="col-span-3">
+              <div className="col-span-2">
                 <InputForm
                   name="pos_password"
                   type="password"
@@ -110,37 +144,52 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
                   }
                 />
               </div>
-              <div className="col-span-3">
-                <p className="mb-1 text-[10px] font-normal text-grisText">
-                  Caja Principal
-                </p>
-                <Select
-                  name="pos"
-                  required={false}
-                  value={String(userSelect?.pos?.value)}
-                  onValueChange={(e) =>
-                    handleInputChange(e, "pos", index)
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    cashBoxes.find(
+                      (cashBox) =>
+                        cashBox.id == userSelect?.principal_pos_id?.value,
+                    ) || null
                   }
-                >
-                  <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                    <SelectValue placeholder="Seleccionar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cashBoxes.map((cashBox) => (
-                      <SelectItem key={cashBox.id} value={String(cashBox.id)}>
-                        {cashBox.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  name={"principal_pos_id"}
+                  options={cashBoxes}
+                  placeholder="Caja Principal"
+                  required={true}
+                  onChange={(e) =>
+                    handleInputChange(
+                      { value: e.id },
+                      "principal_pos_id",
+                      index,
+                    )
+                  }
+                  getOptionValue={(e) => e.id}
+                  getOptionLabel={(e) => e.name}
+                />
+              </div>
+              <div className="col-span-2 flex items-end justify-end">
+                {index == selectEditUser && (
+                  <Button
+                    className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"
+                    disabled={navigation.state === "submitting"}
+                  >
+                    <IonIcon className="h-5 w-5" icon={checkmark}></IonIcon>
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Guardar"}
+                  </Button>
+                )}
               </div>
               <div className="col-span-12 flex flex-col gap-y-2">
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
                     <Switch
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                      // checked={checkedInputStatus == "1"}
-                      // onCheckedChange={(e) => setCheckedInputStatus(e ? "1" : "0")}
+                      name="active"
+                      checked={userSelect?.active == "1"}
+                      onCheckedChange={(e) =>
+                        handleInputChange(e ? "1" : "0", "active", index)
+                      }
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
@@ -193,14 +242,11 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
                   </div>
                 </div>
                 <div className="flex w-full justify-end">
-                  <Button
-                    type="button"
-                    className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-[#44444F] bg-inherit px-0 text-[11px] font-medium text-[#44444F] hover:bg-blancoBox2"
-                    onClick={() => deleteUser(index)}
-                  >
-                    <IonIcon className="h-5 w-5" icon={trashOutline}></IonIcon>
-                    Eliminar
-                  </Button>
+                  <ModalDeleteUser
+                    store_id={store_id}
+                    store_user_id={userSelect?.id}
+                    user_name={userSelect?.user?.label}
+                  />
                 </div>
               </div>
             </div>
@@ -208,7 +254,7 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
         ))}
       </div>
 
-      <div className="mt-10 flex w-full flex-1 items-end">
+      <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

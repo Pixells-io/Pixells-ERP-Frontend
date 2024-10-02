@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -24,9 +24,22 @@ import {
 import TableForm from "../Table/TableForm";
 import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
+import { getInfoTransferProducts } from "../../utils";
 
-const NewDirectTransfer =()=> {
+const NewDirectTransfer = () => {
+  const { data } = useLoaderData();
+  const [slots, setSlots] = useState("");
   const [commodity, setCommodity] = useState([]);
+
+  async function changeProducts(id) {
+    const products = await getInfoTransferProducts(id);
+    setSlots(products);
+  }
+
+  console.log(slots);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -72,8 +85,6 @@ const NewDirectTransfer =()=> {
           </p>
 
           <div className="flex justify-end gap-5">
-           
-
             <div className="flex items-end justify-center">
               <Link to={"/inventory/merchandise-movements"}>
                 <IonIcon
@@ -87,61 +98,40 @@ const NewDirectTransfer =()=> {
         </div>
         {/*CONTENT */}
         <div className="rounded-xl bg-blancoBg p-6">
-          <div className="flex w-full flex-wrap gap-4 rounded-xl border p-8">
-            <div>
-              <Label className="font-roboto text-[14px] text-[#696974]">
-                Folio
-              </Label>
-              <InputForm
-                className="border-gris2-transparent w-25 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-                name="documentNumber"
-                type="number"
-              />
-            </div>
-            <div>
-              <Label className="font-roboto text-[14px] text-[#696974]">
-                De Almacén
-              </Label>
-              <Select name="priceList">
-                <SelectTrigger className="border-gris2-transparent h-[32px] w-[500px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="font-roboto text-[14px] text-[#696974]">
-                Almacén Destino
-              </Label>
-              <Select name="priceList">
-                <SelectTrigger className="border-gris2-transparent bg-[#D7D7D7] h-[32px] w-[500px] rounded-xl border font-roboto text-[14px] text-gris2 placeholder:font-roboto placeholder:text-[#8F8F8F] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="font-roboto text-[14px] text-[#696974]">
-                Fecha Esperada
-              </Label>
-              <InputForm
-                className="border-gris2-transparent w-25 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-                name="documentNumber"
-                type="number"
-              />
-            </div>
+          <div className="flex w-full gap-6 rounded-xl border p-8">
+            <InputRouter
+              name={"number"}
+              placeholder={"Folio"}
+              type={"text"}
+              required={true}
+            />
+            <InputRouter
+              name={"date"}
+              placeholder={"Fecha"}
+              type={"date"}
+              required={true}
+            />
+            <SelectRouter
+              name={"inventory_out"}
+              placeholder={"Almacen Saliente"}
+              options={data.inventory}
+              required={true}
+              onChange={(e) => changeProducts(e.value)}
+            />
+            <SelectRouter
+              name={"inventory_in"}
+              placeholder={"Almacen Entrante"}
+              options={data.inventory}
+              required={true}
+            />
           </div>
 
           <div className="pt-4">
-            <TableForm tableData={commodity} setTableData={setCommodity}  isEditable={true}/>
+            <TableForm
+              tableData={commodity}
+              setTableData={setCommodity}
+              isEditable={true}
+            />
           </div>
 
           <StatusInformation
@@ -151,23 +141,23 @@ const NewDirectTransfer =()=> {
             }
           >
             <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="button"
-                className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
-              >
-                Crear
-              </Button>
+              type="button"
+              variant="outline"
+              className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:text-primarioBotones"
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
+            >
+              Crear
+            </Button>
           </StatusInformation>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default NewDirectTransfer;

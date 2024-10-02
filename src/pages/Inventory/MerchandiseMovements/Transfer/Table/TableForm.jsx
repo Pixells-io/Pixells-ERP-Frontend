@@ -46,7 +46,7 @@ const ubications = [
   },
 ];
 
-const TableForm = ({ tableData, setTableData, isEditable }) => {
+const TableForm = ({ tableData, setTableData, isEditable, products }) => {
   useEffect(() => {
     setTableData([initialRow]);
   }, []);
@@ -187,12 +187,12 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
           <div className="flex items-center justify-between gap-x-2">
             <Select
               name={`selectComponent-ubication-${rowIndex}`}
-              className="border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] rounded-lg border text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+              className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
               onValueChange={(value) => handleDataInRow(value, rowIndex)}
               value={row?.ubication_id}
               disabled={!isEditable} // Desactivar si no es editable
             >
-              <SelectTrigger className="rounded-lg border border-gris2-transparent text-xs font-light text-black placeholder:text-grisHeading focus:ring-2 focus:ring-primarioBotones focus:border-transparent">
+              <SelectTrigger className="border-gris2-transparent rounded-lg border text-xs font-light text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                 <SelectValue placeholder="Ubicación" />
               </SelectTrigger>
               <SelectContent>
@@ -234,7 +234,7 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
   };
 
   return (
-    <div className="mb-2 rounded-xl h-[500px] overflow-auto">
+    <div className="mb-2 h-[500px] overflow-auto rounded-xl">
       <div className="">
         <Table>
           <TableHeader>
@@ -264,43 +264,43 @@ const TableForm = ({ tableData, setTableData, isEditable }) => {
         </Table>
       </div>
       {isEditable && (
-      <div className="mt-4 flex items-center justify-between">
-      
-        <IonIcon
-          icon={addCircle}
-          size="small"
-          className="cursor-pointer text-primario"
-          onClick={handleAddRow}
-        />
-       <div className="flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className="mr-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronBack}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="ml-2 rounded-full bg-transparent p-1"
-          >
-            <IonIcon
-              icon={chevronForward}
-              size="small"
-              className="text-primarioBotones"
-            />
-          </Button>
+        <div className="mt-4 flex items-center justify-between">
+          <IonIcon
+            icon={addCircle}
+            size="small"
+            className="cursor-pointer text-primario"
+            onClick={handleAddRow}
+          />
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="mr-2 rounded-full bg-transparent p-1"
+            >
+              <IonIcon
+                icon={chevronBack}
+                size="small"
+                className="text-primarioBotones"
+              />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="ml-2 rounded-full bg-transparent p-1"
+            >
+              <IonIcon
+                icon={chevronForward}
+                size="small"
+                className="text-primarioBotones"
+              />
+            </Button>
+          </div>
         </div>
-      </div>)}
+      )}
     </div>
   );
 };

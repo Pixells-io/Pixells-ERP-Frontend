@@ -1,26 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Form, useNavigate, useLoaderData } from "react-router-dom";
-
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import {
+  Form,
+  useNavigate,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
 
 import NavigationHeader from "@/components/navigation-header";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import Inputs from "../components/InputGroup";
 import FormGroup from "../components/FormGroup";
 
 import { saveNewProduct } from "../utils";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const data = useLoaderData();
   const { categories, warehouses, suppliers, attributes } = data;
 
@@ -56,6 +51,7 @@ const CreateArticle = () => {
     stockMaximo: "",
     proveedor: "",
   });
+
   const [inventory, setInventory] = useState({
     metodoValoracion: "",
     costo: "",
@@ -80,10 +76,12 @@ const CreateArticle = () => {
 
   const [errors, setErrors] = useState({});
   const [errorTimer, setErrorTimer] = useState(null);
+
   const clearErrors = useCallback(() => {
     setErrors({});
     setErrorTimer(null);
   }, []);
+
   useEffect(() => {
     if (Object.keys(errors).length > 0 && !errorTimer) {
       const timer = setTimeout(clearErrors, 5000);
@@ -95,17 +93,22 @@ const CreateArticle = () => {
       }
     };
   }, [errors, errorTimer, clearErrors]);
+
   const validateForm = () => {
     let newErrors = {};
 
     // Validar campos requeridos
     if (!initialValues.codigoDeArticulo.trim())
       newErrors.codigoDeArticulo = "El código de artículo es requerido";
+
     if (!initialValues.nombreODescripcion.trim())
       newErrors.nombreODescripcion = "El nombre o descripción es requerido";
+
     if (!initialValues.precio.trim())
       newErrors.precio = "El precio es requerido";
+
     if (!initialValues.almacen) newErrors.almacen = "El almacén es requerido";
+
     if (!initialValues.categoria)
       newErrors.categoria = "La categoría es requerida";
 
@@ -247,7 +250,7 @@ const CreateArticle = () => {
 
   return (
     <div className="flex h-full w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4 flex h-full w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
         <NavigationHeader />
 
         <div className="flex items-center gap-4">
@@ -267,8 +270,8 @@ const CreateArticle = () => {
           </p>
         </div>
 
-        <div className="h-full overflow-auto rounded-xl bg-white">
-          <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+        <div className="flex h-full flex-1 flex-col overflow-auto rounded-xl bg-white">
+          <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
             <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACIÓN DEL ARTÍCULO
             </span>
@@ -296,43 +299,38 @@ const CreateArticle = () => {
             </div>
           </div>
 
-          {Object.keys(errors).length > 0 && (
-            <div className="mt-4 text-red-500">
-              {Object.values(errors).map((error, index) => (
-                <p key={index}>{error}</p>
-              ))}
-            </div>
-          )}
-          <div className="relative flex w-full flex-col space-y-4 overflow-auto">
-            <FormGroup
-              productType={initialValues.productType}
-              suppliers={suppliers}
-              attrb={attributes}
-              inputsData={inputsData}
-              setInputsData={setInputsData}
-              variableData={variableData}
-              setVariableData={setVariableData}
-              inventory={inventory}
-              setInventory={setInventory}
-              buyData={buyData}
-              setBuyData={setBuyData}
-              categories={categories}
-              warehouses={warehouses}
-              principalInputs={initialValues}
-              setPrincipalInputs={setInitialValues}
-            />
+          <FormGroup
+            productType={initialValues.productType}
+            suppliers={suppliers}
+            attrb={attributes}
+            inputsData={inputsData}
+            setInputsData={setInputsData}
+            variableData={variableData}
+            setVariableData={setVariableData}
+            inventory={inventory}
+            setInventory={setInventory}
+            buyData={buyData}
+            setBuyData={setBuyData}
+            categories={categories}
+            warehouses={warehouses}
+            principalInputs={initialValues}
+            setPrincipalInputs={setInitialValues}
+          />
 
-            <Form onSubmit={handleSubmit}>
-              {/* Otros campos del formulario */}
-              <div className="flex justify-end pr-8">
-                <button
-                  type="submit"
-                  className="rounded bg-blue-500 px-4 py-2 text-white"
-                >
-                  Enviar
-                </button>
-              </div>
-            </Form>
+          <div className="flex w-full items-end px-6 py-4">
+            <div className="flex w-full items-center justify-between">
+              <label className="pl-[370px] text-xs font-light text-[#8F8F8F]">
+                Actualizado 07 septiembre 2024
+              </label>
+              <Button
+                className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -349,7 +347,7 @@ export async function Action({ request }) {
   switch (action) {
     case "phase":
       const res = await saveNewProduct(formData);
-      return redirect(`/inventory/edit/${res.data.id}`);
+      return redirect(`/inventory/edit/${res.data}`);
       break;
 
     default:

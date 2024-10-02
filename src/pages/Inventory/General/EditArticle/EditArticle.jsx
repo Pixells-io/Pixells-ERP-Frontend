@@ -1,28 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Inputs from "../components/InputGroup";
-import FormGroup from "../components/FormGroup";
 import {
   useLoaderData,
   useParams,
   useLocation,
   useSubmit,
   redirect,
+  useNavigation,
 } from "react-router-dom";
-import { createPusherClient } from "@/lib/pusher";
+
+import NavigationHeader from "@/components/navigation-header";
+import { Button } from "@/components/ui/button";
+import FormGroup from "../components/FormGroup";
+
 import { editProduct, getProductById } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 const EditArticle = () => {
   const { id } = useParams();
   const location = useLocation();
+  const navigation = useNavigation();
   const data = useLoaderData();
 
   //DATA
@@ -284,75 +280,61 @@ const EditArticle = () => {
     if (inputsData.imagenPrincipal) {
       formData.append("primary_img", inputsData.imagenPrincipal);
     }
-    const response = await submit(formData, {
+    const response = submit(formData, {
       method: "POST",
       action: `/inventory/edit/${id}`,
     });
   };
+
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+    <div className="flex h-full w-full">
+      <div className="ml-4 flex h-full w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
+        <NavigationHeader />
         <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Inventory - General</div>
-          </div>
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
+            INVENTARIO
+          </h2>
+          {/* <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
+          </div> */}
         </div>
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
             Editor de Artículo
           </p>
-          <div className="flex items-center">
-            <span className="pr-4 pt-2 font-roboto text-[14px] text-[#696974]">
-              Tipo de producto
-            </span>
-            <Select
-              name="productType"
-              value={initialValues.productType || "1"}
-              onValueChange={(value) =>
-                handleSelectChange("productType", value)
-              }
-            >
-              <SelectTrigger className={selectClasses}>
-                <SelectValue placeholder="Selecciona" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">Producto Simple</SelectItem>
-                <SelectItem value="2">Producto Variable</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
-        {Object.keys(errors).length > 0 && (
-          <div className="mt-4 text-red-500">
-            {Object.values(errors).map((error, index) => (
-              <p key={index}>{error}</p>
-            ))}
+
+        <div className="flex h-full flex-1 flex-col overflow-auto rounded-xl bg-white">
+          <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+            <span className="font-poppins text-lg font-medium text-[#44444F]">
+              INFORMACIÓN DEL ARTÍCULO
+            </span>
+            <div className="flex items-center gap-x-4">
+              <span className="font-roboto text-xs font-normal text-[#44444F]">
+                Tipo de producto
+              </span>
+
+              <div className="flex gap-x-1 rounded-md bg-[#F2F2F2] p-1">
+                <Button
+                  type="button"
+                  className={`h-[22px] text-xs font-normal duration-300 ease-out hover:bg-white ${initialValues.productType == "1" ? "bg-white text-[#44444F]" : "bg-inherit text-[#8F8F8F]"}`}
+                  onClick={() => handleSelectChange("productType", "1")}
+                >
+                  Simple
+                </Button>
+                <Button
+                  type="button"
+                  className={`h-[22px] text-xs font-normal duration-300 ease-out hover:bg-white ${initialValues.productType == "2" ? "bg-white text-[#44444F]" : "bg-inherit text-[#8F8F8F]"}`}
+                  onClick={() => handleSelectChange("productType", "2")}
+                >
+                  Variable
+                </Button>
+              </div>
+            </div>
           </div>
-        )}
-        <div className="relative w-full space-y-4 overflow-auto">
-          {/* <Inputs
-            categories={categories}
-            warehouses={warehouses}
-            inputsData={initialValues}
-            setInputsData={setInitialValues}
-          /> */}
 
           <FormGroup
             productType={initialValues.productType}
@@ -372,14 +354,20 @@ const EditArticle = () => {
             setPrincipalInputs={setInitialValues}
           />
 
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="rounded bg-blue-500 px-4 py-2 text-white"
-              onClick={handleSubmit}
-            >
-              Enviar
-            </button>
+          <div className="flex w-full items-end px-6 py-4">
+            <div className="flex w-full items-center justify-between">
+              <label className="pl-[370px] text-xs font-light text-[#8F8F8F]">
+                Actualizado 07 septiembre 2024
+              </label>
+              <Button
+                className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                disabled={navigation.state === "submitting"}
+              >
+                {navigation.state === "submitting"
+                  ? "Submitting..."
+                  : "Guardar"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

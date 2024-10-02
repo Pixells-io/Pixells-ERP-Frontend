@@ -1,10 +1,7 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IonIcon } from "@ionic/react";
-import {
-  chevronBack,
-  chevronForward,
-} from "ionicons/icons";
+import { chevronBack, chevronForward } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
 import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
@@ -15,128 +12,8 @@ import { createPusherClient } from "@/lib/pusher";
 import { getCatalogById, getCatalogs } from "./utils";
 
 function MainMerchandiseMovements() {
-  //datos de prueba --------------------------
-  const data = [
-    {
-      id: 1,
-      code: "0987",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 2,
-      code: "0988",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 3,
-      code: "0989",
-      category: "Metales",
-      name: "Clavos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 4,
-      code: "0990",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-  ];
- 
-  const dataEgress = [
-    {
-      id: 1,
-      code: "0990",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 2,
-      code: "0991",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-    {
-      id: 3,
-      code: "0992",
-      category: "Metales",
-      name: "Clavos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-  ];
-
-  const dataPendings = [
-    {
-      id: 10,
-      code: "0999",
-      category: "Metales",
-      name: "Tornillos",
-      unitMeasurement: "Pieza",
-      accountingAccount: "Activos",
-      type: "Inventario",
-      createdBy: "https://github.com/shadcn.png",
-      createdAt: "21/07/2024",
-    },
-  ];
-
-  //-------------------------------------------
-  /*
   const { data } = useLoaderData();
-  const [catalogInfo, setCatalogInfo] = useState(data);
-  const pusherClient = createPusherClient();
-
-  async function getCatalogsFunction() {
-    let newData = await getCatalogs();
-    
-    setCatalogInfo(newData.data);
-  }
-
- */
-  /*useEffect(() => {
-    pusherClient.subscribe("inventory/get-price-lists");
-
-    pusherClient.bind("fill-price-lists", ({ message }) => {
-      getCatalogsFunction();
-    });
-
-    return () => {
-      pusherClient.unsubscribe("inventory/get-price-lists");
-    };
-  }, []);*/
+  const [info, setInfo] = useState(data);
 
   return (
     <div className="ml-2 flex w-full">
@@ -181,28 +58,28 @@ function MainMerchandiseMovements() {
               Movimientos de Mercancía
             </p>
             <div className="flex justify-end gap-6">
-              <TabsList className="2 ml-4 flex w-fit rounded-lg bg-blancoBox px-1 py-1">
+            <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
                 <TabsTrigger
                   value="entry"
-                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Entradas
                 </TabsTrigger>
                 <TabsTrigger
                   value="egress"
-                  className="text-grisSubTextdata-[state=active]:bg-white rounded-md border-b-2 px-4 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Salidas
                 </TabsTrigger>
                 <TabsTrigger
                   value="transfer"
-                  className="text-grisSubTextdata-[state=active]:bg-white leading- rounded-md border-b-2 px-4 font-roboto text-sm font-normal data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                   className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Transpasos
                 </TabsTrigger>
               </TabsList>
 
-           <MenuMovements/>
+              <MenuMovements />
             </div>
           </div>
           <TabsContent value="entry" className="rounded-md bg-blancoBg p-2">
@@ -217,24 +94,15 @@ function MainMerchandiseMovements() {
                 >
                   ENTRADAS
                 </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-                  value="scheduled"
-                >
-                  PROGRAMADAS
-                </TabsTrigger>
               </TabsList>
               <TabsContent value="entries" className="mt-[-70px] w-full pt-2">
                 <DataTable
-                  data={data}
+                  data={info.entraces}
                   columns={MovEntryColumns}
                   searchNameFilter={"Nombre"}
                   searchFilter={"name"}
                   isCheckAll={true}
                 />
-              </TabsContent>
-              <TabsContent value="scheduled" className="mt-4 w-full pt-2">
-                <span>OTRA TABLA</span>
               </TabsContent>
             </Tabs>
           </TabsContent>
@@ -250,24 +118,15 @@ function MainMerchandiseMovements() {
                 >
                   SALIDAS
                 </TabsTrigger>
-                <TabsTrigger
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-                  value="scheduled"
-                >
-                  PROGRAMADAS
-                </TabsTrigger>
               </TabsList>
               <TabsContent value="egress" className="mt-[-70px] w-full pt-2">
                 <DataTable
-                  data={dataEgress}
+                  data={info.exits}
                   columns={MovEgressColumns}
                   searchNameFilter={"Nombre"}
                   searchFilter={"name"}
                   isCheckAll={true}
                 />
-              </TabsContent>
-              <TabsContent value="scheduled" className="mt-4 w-full pt-2">
-                <span>OTRA TABLA</span>
               </TabsContent>
             </Tabs>
           </TabsContent>
@@ -292,8 +151,8 @@ function MainMerchandiseMovements() {
               </TabsList>
               <TabsContent value="request" className="mt-[-70px] w-full pt-2">
                 <DataTable
-                  data={dataEgress}
-                  columns={ MovTransferColumns}
+                  data={info.transfers}
+                  columns={MovTransferColumns}
                   searchNameFilter={"Nombre"}
                   searchFilter={"name"}
                   isCheckAll={true}

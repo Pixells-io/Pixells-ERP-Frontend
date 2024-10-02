@@ -25,6 +25,9 @@ const TicketForm = () => {
   };
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
+  const [allProducts, setAllProducts] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
 
   const [subtotal, setSubTotal] = useState(0);
   const handleTotalChange = (newSubtotal) => {
@@ -87,14 +90,15 @@ const TicketForm = () => {
                 <SelectDetails isEditable={isEditable}/>
                 <QuoteTable
                   initialItems={items}
-                  setItems={setItems}
                   isEditable={isEditable}
-                  setTotalChanges={handleTotalChange}
+                  allProducts={allProducts}
+                  setTableData={setTableData}
+                  tableData={tableData}
                 />
               </div>
             </div>
             
-            <Total subtotal={subtotal} />
+            <Total tableData={tableData} comment={""} />
             <div className="flex justify-end">
         <StatusInformation
           status={"inProgress"}

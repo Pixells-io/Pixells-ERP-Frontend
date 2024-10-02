@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import React, { useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 
@@ -55,7 +49,7 @@ const AccountingTab = ({ store_id }) => {
             CONFIGURACIÓN
           </p>
           <div className="mt-1 grid w-full grid-cols-12 gap-x-6 gap-y-2 border-t border-[#D7D7D7] py-6">
-            <div className="col-span-4 flex gap-x-4">
+            <div className="col-span-4 flex items-center gap-x-4">
               <div className="flex items-center justify-center">
                 <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
               </div>
@@ -69,27 +63,23 @@ const AccountingTab = ({ store_id }) => {
               </div>
             </div>
             <div className="col-span-4">
-              <Select
-                name="account"
+              <SelectRouter
+                // value={
+                //   [].find(
+                //     (data) => data.id == data?.user_id,
+                //   ) || null
+                // }
+                name={"account"}
+                options={[]}
                 required={false}
-                // value={String(userSelect?.inventory_id)}
-                // onValueChange={(e) => handleInputChange(e, "inventory_id", index)}
-              >
-                <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[].map((account) => (
-                    <SelectItem key={account.id} value={String(account.id)}>
-                      {account.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                // onChange={(e) => handleInputChange(e.id, "account")}
+                getOptionValue={(e) => e.id}
+                getOptionLabel={(e) => e.position_name}
+              />
             </div>
           </div>
           <div className="grid w-full grid-cols-12 gap-x-6 gap-y-2 border-y border-[#D7D7D7] py-4">
-            <div className="col-span-4 flex gap-x-4 items-center">
+            <div className="col-span-4 flex items-center gap-x-4">
               <div className="flex items-center justify-center">
                 <Checkbox className="h-5 w-5 border-2 border-primarioBotones data-[state=checked]:bg-primarioBotones" />
               </div>
@@ -103,48 +93,36 @@ const AccountingTab = ({ store_id }) => {
               </div>
             </div>
             <div className="col-span-4">
-              <p className="mb-2 text-xs font-normal text-grisText">
-                Pedidos
-              </p>
-              <Select
-                name="account"
-                required={false}
-                // value={String(userSelect?.inventory_id)}
-                // onValueChange={(e) => handleInputChange(e, "inventory_id", index)}
-              >
-                <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[].map((account) => (
-                    <SelectItem key={account.id} value={String(account.id)}>
-                      {account.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <SelectRouter
+                // value={
+                //   [].find(
+                //     (data) => data.id == data?.user_id,
+                //   ) || null
+                // }
+                name={"orders"}
+                options={[]}
+                required={true}
+                placeholder={"Pedidos"}
+                // onChange={(e) => handleInputChange(e.id, "account")}
+                getOptionValue={(e) => e.id}
+                getOptionLabel={(e) => e.position_name}
+              />
             </div>
             <div className="col-span-4">
-              <p className="mb-2 text-xs font-normal text-grisText">
-                Facturas
-              </p>
-              <Select
-                name="account"
-                required={false}
-                // value={String(userSelect?.inventory_id)}
-                // onValueChange={(e) => handleInputChange(e, "inventory_id", index)}
-              >
-                <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[].map((account) => (
-                    <SelectItem key={account.id} value={String(account.id)}>
-                      {account.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <SelectRouter
+                // value={
+                //   [].find(
+                //     (data) => data.id == data?.user_id,
+                //   ) || null
+                // }
+                name={"invoices"}
+                options={[]}
+                required={true}
+                placeholder={"Facturas"}
+                // onChange={(e) => handleInputChange(e.id, "account")}
+                getOptionValue={(e) => e.id}
+                getOptionLabel={(e) => e.position_name}
+              />
             </div>
           </div>
         </div>

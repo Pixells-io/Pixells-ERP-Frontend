@@ -90,11 +90,11 @@ function ModalConfirmPurchase({ id, name }) {
             value={id}
           />
           <span className="mt-4 font-roboto text-xs font-light text-grisSubText">
-            This confirm the purchase "{name}" will create a purchase order, are
-            you sure?
+            Quieres confirmar esta orden de compra "{name}" esta accion creara
+            un nuevo pedido, estas seguro?
           </span>
 
-          <div className="flex gap-x-6 my-4">
+          <div className="my-4 flex gap-x-6">
             <div className="w-full">
               <Select
                 name={`payment_type`}
@@ -103,7 +103,7 @@ function ModalConfirmPurchase({ id, name }) {
                 onValueChange={(e) => setPaymentType(e)}
               >
                 <SelectTrigger className="w-full rounded-xl border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder={"Payment type"} />
+                  <SelectValue placeholder={"Tipo de Pago"} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={String(1)}>Crédito</SelectItem>
@@ -114,7 +114,7 @@ function ModalConfirmPurchase({ id, name }) {
             <div className="w-full">
               {paymentType == "1" && (
                 <InputForm
-                  placeholder="Número de Documento"
+                  placeholder="Fecha de Vencimiento"
                   type="date"
                   name="limit_credit_date"
                   required={true}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Components/Header";
 import CardCarousel from "./Components/CardCarousel";
 import { getProducts, saveNewQuoteOrder } from "../../utils";
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import InputsGroup from "./Components/ElementGroup";
 import OrderTable from "./Components/OrderFom";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
@@ -10,31 +10,26 @@ import Total from "@/components/TotalSection/TotalSection";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Button } from "@/components/ui/button";
 const CreateQuoteOrder = () => {
+  const { data } = useLoaderData();
+
   const [documentNumber, setDocumentNumber] = useState("");
   const [selectedWarehouse, setSelectedWarehouse] = useState(undefined);
   const [selectedCostCenter, setSelectedCostCenter] = useState(undefined);
   const [selectedProveedor, setSelectedProveedor] = useState(undefined);
-  const [allProducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState(data);
   const [tableData, setTableData] = useState([]);
   const navigation = useNavigation();
 
   const getTitle = "Nueva Cotización";
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
-  const getAllProducts = async () => {
-    const response = await getProducts();
-    setAllProducts(response.data);
-  };
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         <Header title={getTitle} />
         <div className="flex justify-end">
+          {/* 
           <CardCarousel />
+          */}
         </div>
         <Form
           method="post"
@@ -51,11 +46,13 @@ const CreateQuoteOrder = () => {
                 selectedCostCenter={selectedCostCenter}
                 setSelectedCostCenter={setSelectedCostCenter}
                 isEditable={true}
+                infoSelects={data}
               />
               <OrderTable
                 selectedProveedor={selectedProveedor}
                 setSelectedProveedor={setSelectedProveedor}
                 isEditable={true}
+                suppliers={data.suppliers}
               />
             </div>
 
