@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import ServiceMenu from "./Components/MenuDropList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,6 +8,8 @@ import { CategoriesColumns } from "./Components/Table/CategoriesColumns";
 import { CombosColumns } from "./Components/Table/CombosColumns";
 import NewCategoryForm from "./Components/Forms/NewCategory";
 import NewComboForm from "./Components/Forms/NewComboForm";
+import { useLoaderData } from "react-router-dom";
+
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
@@ -58,33 +60,11 @@ const exampleData = [
 ];
 
 const MainGeneralServices = () => {
+  /* Get Info */
+  const { categories, packages, categoriesServices } = useLoaderData();
 
   const [modalCategories, setModalCategories] = useState(false);
-
   const [modalPackages, setModalPackages] = useState(false);
-
-   //PERMISSIONS
-   const [edit, setEdit] = useState(true); //2
-   const [create, setCreate] = useState(true); //3
-
-  //CHANGE PERMISSIONS
-  // useEffect(() => {
-  //   const editQuery = permissions.data.filter(
-  //     (item) => item.permision_capability == "2",
-  //   );
-
-  //   if (editQuery.length == 0) {
-  //     setEdit(false);
-  //   }
-
-  //   const createQuery = permissions.data.filter(
-  //     (item) => item.permision_capability == "3",
-  //   );
-
-  //   if (createQuery.length == 0) {
-  //     setCreate(false);
-  //   }
-  // });
 
   return (
     <div className="flex w-full">
@@ -95,6 +75,7 @@ const MainGeneralServices = () => {
       <NewComboForm
         modalPackage={modalPackages}
         setModalPackage={setModalPackages}
+        info={categoriesServices.data}
       />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
@@ -117,7 +98,10 @@ const MainGeneralServices = () => {
             Servicios General
           </p>
           <div className="flex justify-end gap-6">
-          <ServiceMenu setModalCategories={setModalCategories} setModalPackages={setModalPackages} />
+            <ServiceMenu
+              setModalCategories={setModalCategories}
+              setModalPackages={setModalPackages}
+            />
           </div>
         </div>
         <div className="flex h-full w-full flex-col rounded-xl bg-white p-6">
@@ -145,7 +129,7 @@ const MainGeneralServices = () => {
             </TabsContent>
             <TabsContent value="categories" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
+                data={categories.data}
                 columns={CategoriesColumns}
                 searchFilter={"name"}
                 searchNameFilter={"Name"}
@@ -154,7 +138,7 @@ const MainGeneralServices = () => {
             </TabsContent>
             <TabsContent value="combos" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
+                data={packages.data}
                 columns={CombosColumns}
                 searchFilter={"name"}
                 searchNameFilter={"Name"}

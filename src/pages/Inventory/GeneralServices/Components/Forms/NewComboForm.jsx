@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 import FormInput from "@/layouts/CRM/components/Form/FormInput";
-import SelectServices from "@/pages/CRM/Services/components/SelectServices";
+import SelectServices from "../SelectService";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const packageInputs = [
@@ -77,7 +77,7 @@ function NewComboForm({ modalPackage, setModalPackage, info }) {
           </div>
           <div className="border-b"></div>
           <div className="flex flex-col gap-4 rounded-lg px-6 font-roboto">
-            {/* {info?.map((category, i) => {
+            {info?.map((category, i) => {
               return (
                 <div key={i} className="flex flex-col gap-3">
                   <div className="text-lg font-normal text-[#696974]">
@@ -92,7 +92,7 @@ function NewComboForm({ modalPackage, setModalPackage, info }) {
                   </div>
                 </div>
               );
-            })} */}
+            })} 
           </div>
         </Form>
         <DialogFooter className="px-6 pb-4">
