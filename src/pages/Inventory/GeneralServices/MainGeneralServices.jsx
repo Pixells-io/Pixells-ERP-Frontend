@@ -28,7 +28,7 @@ const MainGeneralServices = () => {
 
 
 
-  const [serviceInfo, setServiceInfo] = useState(service.data);
+  const [serviceInfo, setServiceInfo] = useState(services.data);
   
   const pusherClient = createPusherClient();
 
@@ -104,7 +104,7 @@ const MainGeneralServices = () => {
 
             <TabsContent value="services" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={services.data}
+                data={serviceInfo}
                 columns={ServiceColumns}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
