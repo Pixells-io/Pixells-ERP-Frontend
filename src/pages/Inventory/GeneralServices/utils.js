@@ -60,8 +60,28 @@ export async function saveNewGeneralTab(data) {
   return response.json();
 }
 
-//SAVE USERS LISTS
+//SAVE USERS LISTS 
 export async function saveNewUsersTab(data) {
+  const info = {
+    service_id: parseInt(data.get("info_id")),
+    users: data.getAll("users[]").map(Number),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/save-service-process`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response.json();
+}
+
+//SAVE PROCESS
+export async function saveNewProcess(data) {
   const info = {
     service_id: parseInt(data.get("info_id")),
     users: data.getAll("users[]").map(Number),
@@ -282,6 +302,22 @@ export async function getCategories() {
   }
 }
 
+//GET AREAS
+export async function getAreas() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/organization/get-areas`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 //GET COMBOS
 export async function getPackages() {
   try {

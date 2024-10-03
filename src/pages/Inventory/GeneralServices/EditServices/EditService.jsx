@@ -148,7 +148,7 @@ const EditService = () => {
               <UserTab users={users.data} />
             </TabsContent>
             <TabsContent value="process" className="w-full">
-              <ProcessTab />
+              <ProcessTab categories={categories.data} />
             </TabsContent>
             <TabsContent value="shopping" className="w-full">
               <ShoppingTab />
@@ -171,7 +171,6 @@ export async function Action({ request }) {
     case "update_generalform":
       await updateGeneralTab(data);
       break;
-   
     case "create_userform":
       await saveNewUsersTab(data);
       break;
