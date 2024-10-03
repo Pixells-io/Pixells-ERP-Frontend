@@ -422,7 +422,7 @@ import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
-import { multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
+import { multiLoaderListEditTickets, multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
 import Summary from "./pages/Sales/Customer/Summary/Summary";
 
 //Shopping
@@ -1370,6 +1370,7 @@ const router = createBrowserRouter([
           {
             path: "/sales/tickets/edit/:id",
             element: <TicketDetails />,
+            loader: multiLoaderListEditTickets,
           },
           {
             path: "/sales/tickets/document/:id",

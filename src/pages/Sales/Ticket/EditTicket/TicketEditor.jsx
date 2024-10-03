@@ -2,38 +2,24 @@ import React, { useState } from "react";
 import ActionGroup from "../../Components/ActionsGroup";
 import CardCarousel from "../../Components/CardCarousel";
 import SelectsQuote from "../../Components/SelectGroup";
-import SelectDetails from "../../Components/SelectDetails";
 import QuoteTable from "@/components/table/Quote/QuoteTable";
 import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { Form, useNavigate, useParams } from "react-router-dom";
+import { Form, useLoaderData, useParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 
 const TicketDetails = () => {
+  const { clients, listPrice, costCenter, users } = useLoaderData();
+
   const { id } = useParams();
   const url = "/sales/tickets/document/" + id;
-  const [client, setClient] = useState("opcion1");
-  const [rfc, setRFC] = useState("opcion3");
-  const [phone, setPhone] = useState("opcion3");
-  const [dtcreate, setDtcreate] = useState("opcion1");
-  const [dtexpiry, setDtexpiry] = useState("opcion2");
-  const [subtotal, setSubTotal] = useState(0);
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
 
-  const handleTotalChange = (newSubtotal) => {
-    setSubTotal(newSubtotal);
-  };
-
-  const navigate = useNavigate();
-
-  const handleSubmit = () => {
-    navigate("/sales/tickets");
-  };
 
   return (
     <div className="flex w-full">
@@ -87,11 +73,11 @@ const TicketDetails = () => {
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuote
-                id={id}
-                sl1={client}
-                sl2={rfc}
-                sl3={phone}
                 isEditable={isEditable}
+                clientsList={clients.data}
+                listPriceList={listPrice.data}
+                costCenterList={costCenter.data}
+                usersList={users.data}
               />
             </div>
 
@@ -118,7 +104,6 @@ const TicketDetails = () => {
             >
               <Button
                 type="button"
-                onClick={handleSubmit}
                 variant="outline"
                 className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
               >

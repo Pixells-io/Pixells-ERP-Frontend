@@ -19,7 +19,12 @@ const SelectsQuote = ({
     date: data?.date,
     stored: data?.stored,
     seller: data?.seller,
+    expiration: data?.expiration,
   });
+
+  const handleInputChange = (value, name) => {
+    setInputValue({ ...inputValue, [name]: value });
+  };
 
   return (
     <div className="rounded-xl bg-white p-4">
@@ -30,7 +35,7 @@ const SelectsQuote = ({
             placeholder="Código de Ticket"
             value={inputValue?.code}
             disabled={!isEditable}
-            // onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value, "code")}
             readOnly
           />
         </div>
@@ -42,7 +47,7 @@ const SelectsQuote = ({
             placeholder="Lista de Precios"
             required={true}
             disabled={!isEditable}
-            // onChange={(value) => handleChange(value.id, "costCenter")}
+            onChange={(e) => handleInputChange(e.id, "priceList")}
             getOptionValue={(e) => e.id}
             getOptionLabel={(e) => e.name}
           />
@@ -56,7 +61,7 @@ const SelectsQuote = ({
             placeholder="Centro de Costos"
             required={true}
             disabled={!isEditable}
-            // onChange={(value) => handleChange(value.id, "costCenter")}
+            onChange={(e) => handleInputChange(e.id, "ccost")}
             getOptionValue={(e) => e.id}
             getOptionLabel={(e) => e.name}
           />
@@ -67,6 +72,7 @@ const SelectsQuote = ({
             placeholder="Condición de Pago"
             value={""}
             disabled={!isEditable}
+            onChange={(e) => handleInputChange(e.target.value, "condition")}
             readOnly
           />
         </div>
@@ -76,9 +82,9 @@ const SelectsQuote = ({
             type={"date"}
             name="expiration"
             placeholder="Vencimiento"
-            value={inputValue}
+            value={inputValue?.expiration}
             disabled={!isEditable}
-            // onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value, "expiration")}
           />
         </div>
         <div className="col-span-4">
@@ -91,7 +97,7 @@ const SelectsQuote = ({
             placeholder="Cliente"
             required={true}
             disabled={!isEditable}
-            // onChange={(value) => handleChange(value.id, "customer")}
+            onChange={(e) => handleInputChange(e.id, "stored")}
             getOptionValue={(e) => e.id}
             getOptionLabel={(e) => e.name}
           />
@@ -104,6 +110,7 @@ const SelectsQuote = ({
             placeholder="Vendedor"
             required={true}
             disabled={!isEditable}
+            onChange={(e) => handleInputChange(e.id, "seller")}
             getOptionValue={(e) => e.id}
             getOptionLabel={(e) => e.name}
           />

@@ -12,6 +12,17 @@ export async function multiLoaderListTickets() {
   return json({ clients, listPrice, costCenter, users });
 }
 
+export async function multiLoaderListEditTickets() {
+  const [clients, listPrice, costCenter, users] = await Promise.all([
+    getClients(),
+    getListPrice(),
+    getCostCenter(),
+    getUsers(),
+  ]);
+
+  return json({ clients, listPrice, costCenter, users });
+}
+
 export async function getClients() {
   try {
     const response = await fetch(
