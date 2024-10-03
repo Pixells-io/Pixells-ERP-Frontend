@@ -59,7 +59,7 @@ export async function saveNewGeneralTab(data) {
 //EDIT SERVICE PRINCIPAL
 export async function updatePrincipalTab(data) {
   const info = {
-    service_id: data.get("id"),
+    service_id: parseInt(data.get("info_id")),
     name: data.get("name"),
     description: data.get("description"),
     category_id: parseInt(data.get("categories_id")),

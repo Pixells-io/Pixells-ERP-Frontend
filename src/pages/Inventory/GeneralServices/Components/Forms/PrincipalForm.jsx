@@ -84,6 +84,14 @@ const PrincipalForm = ({ categories, costCenter, priceList, info }) => {
               className="hidden"
               hidden
               readOnly
+              name="info_id"
+              value={formData.id}
+            />
+        <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
               name="type_option"
               value="update_principalform"
             />
