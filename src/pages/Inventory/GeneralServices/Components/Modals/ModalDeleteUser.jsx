@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { storefront, trashOutline } from "ionicons/icons";
 
-function ModalDeleteUser({ store_id, store_user_id, user_name }) {
+function ModalDeleteUser({ service_id,user_id, user_name }) {
   const [modal, setModal] = useState(false);
   const navigation = useNavigation();
 
@@ -51,18 +51,20 @@ function ModalDeleteUser({ store_id, store_user_id, user_name }) {
         </DialogHeader>
         <Form
           method="post"
+          action={"/inventory/general-services/service/edit/" + service_id}
           className="flex flex-col gap-4"
+
         >
-          <input type="hidden" hidden name="store_user_id" value={store_user_id} readOnly />
+          <input type="hidden" hidden name="service_user" value={user_id} readOnly />
           <input
             type="hidden"
             hidden
             name="type_option"
-            value={"destroyUserBranchTab"}
+            value={"destroyServiceUser"}
             readOnly
           />
           <span className="my-4 font-roboto text-xs font-light text-grisDisabled">
-            You are trying to delete the cashBox "{user_name}", are you sure?
+            You are trying to delete the User "{user_name}", are you sure?
           </span>
           <DialogFooter>
             <div className="flex w-full justify-between gap-2">
