@@ -10,7 +10,6 @@ import ShoppingTab from "../Components/Forms/ShoppingForm";
 import { updatePrincipalTab } from "../utils";
 const EditService = () => {
 
-  const { id } = useParams();
   const { servicesDetails, categories, costCenter, priceList, users } = useLoaderData();
   const tabOptions = [
     {
@@ -52,7 +51,6 @@ const EditService = () => {
       update: null,
     },
   ];
-  console.log(servicesDetails)
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">

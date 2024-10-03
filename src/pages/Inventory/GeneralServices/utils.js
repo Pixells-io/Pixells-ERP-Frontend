@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 import { format } from "date-fns";
 
-//SAVE SERVICE
+//SAVE SERVICE PRINCIPAL
 export async function saveNewService(data) {
   const info = {
     name: data.get("name"),
@@ -32,6 +32,32 @@ export async function saveNewService(data) {
   return response.json();
 }
 
+//SAVE SERVICE GENERAL
+export async function saveNewGeneralTab(data) {
+  const info = {
+    service_id: data.get("id"),
+    taxes: data.get("taxes") == "on" ? 1 : 0,
+    return: data.get("return") == "on" ? 1 : 0,
+    processes:data.get("processes") == "on" ? 1 : 0,
+    manufacturer: data.get("manufacturer"),
+    comments: data.get("code"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/save-general-information-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+
 //EDIT SERVICE PRINCIPAL
 export async function updatePrincipalTab(data) {
   const info = {
@@ -51,6 +77,30 @@ export async function updatePrincipalTab(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-principal-information-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+//EDIT SERVICE GENERAL
+export async function updateGeneralTab(data) {
+  const info = {
+    service_id: data.get("id"),
+    taxes: data.get("taxes") == "on" ? 1 : 0,
+    return: data.get("return") == "on" ? 1 : 0,
+    processes:data.get("processes") == "on" ? 1 : 0,
+    manufacturer: data.get("manufacturer"),
+    comments: data.get("code"),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-general-information-service`,
     {
       method: "POST",
       body: JSON.stringify(info),
@@ -149,24 +199,7 @@ export async function getPriceList() {
   }
 }
 
-
-
-
-
-//MULTILOADER TO EDIT
-export async function multiLoaderServiceGeneral() {
-
-  
-  const [ categories, costCenter, priceList, users] = await Promise.all([
-
-    getCategories(),
-    getCostCenter(),
-    getPriceList(),
-    getUsers(),
-  ]);
-  return json({categories, costCenter, priceList, users });
-}
-
+//GET CATEGORIES
 export async function getCategories() {
   try {
     const response = await fetch(
@@ -183,6 +216,7 @@ export async function getCategories() {
   }
 }
 
+//GET COMBOS
 export async function getPackages() {
   try {
     const response = await fetch(
@@ -199,6 +233,7 @@ export async function getPackages() {
   }
 }
 
+//GET INFO TO COMBOS
 export async function getCategoriesAndServices() {
   try {
     const response = await fetch(
@@ -215,6 +250,21 @@ export async function getCategoriesAndServices() {
   }
 }
 
+//MULTILOADER TO CREATE
+export async function multiLoaderServiceGeneral() {
+
+  
+  const [ categories, costCenter, priceList, users] = await Promise.all([
+
+    getCategories(),
+    getCostCenter(),
+    getPriceList(),
+    getUsers(),
+  ]);
+  return json({categories, costCenter, priceList, users });
+}
+
+//MULTILOADER TO MAIN GENERAL SERVICES
 export async function multiLoaderServiceGeneral2() {
   const [services, categories, packages, categoriesServices] = await Promise.all([
     getServices(),
@@ -230,6 +280,8 @@ export async function multiLoaderServiceGeneral2() {
     categoriesServices,
   });
 }
+
+//MULTILOADER TO EDIT
 export async function multiLoaderServiceGeneralDetails({ params }) {
 
   const id = params.id;

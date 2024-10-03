@@ -22,7 +22,7 @@ const CreateService = () => {
       value: "general",
       label: "General",
       subLabel: "Ajusta los parámetros básicos",
-      disabled: false,
+      disabled: true,
       update: null,
     },
     {
@@ -126,9 +126,6 @@ const CreateService = () => {
               categories={categories.data}
               costCenter={costCenter.data}
               priceList={priceList.data}/>
-            </TabsContent>
-            <TabsContent value="general" className="w-full">
-              <GeneralTab />
             </TabsContent>
           </Tabs>
         </div>
