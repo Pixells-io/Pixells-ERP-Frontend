@@ -41,13 +41,17 @@ export async function saveNewGeneralTab(data) {
     processes: data.get("processes") == "on" ? 1 : 0,
     manufacturer: data.get("manufacturer"),
     comments: data.get("comments"),
-    image: data.get("image"),
   };
+
+  const formData = new FormData();
+  formData.append("image", data.get("image"));
+  formData.append("info", JSON.stringify(info));
+
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/save-general-information-service`,
     {
       method: "POST",
-      body: JSON.stringify(info),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -96,13 +100,16 @@ export async function updateGeneralTab(data) {
     processes: data.get("processes") == "on" ? 1 : 0,
     manufacturer: data.get("manufacturer"),
     comments: data.get("comments"),
-    image: data.get("image"),
   };
+
+  const formData = new FormData();
+  formData.append("image", data.get("image"));
+  formData.append("info", JSON.stringify(info));
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-general-information-service`,
     {
       method: "POST",
-      body: JSON.stringify(info),
+      body: formData,
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

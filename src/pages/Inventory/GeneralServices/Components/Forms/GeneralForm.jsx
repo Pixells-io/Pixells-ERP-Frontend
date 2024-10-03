@@ -25,6 +25,7 @@ const GeneralTab = ({ info }) => {
     image: info.image || null,
     
   });
+  console.log(information.image)
   const isEdit = info?.taxes || info?.return || info?.processes || info?.comments || info?.image;
   const option= isEdit ? "update_generalform" : "create_generalform";
   useEffect(() => {
@@ -241,7 +242,7 @@ const GeneralTab = ({ info }) => {
                       />
                     </button>
                     <img
-                      src={information.image}
+                      src={information.image|| info?.image}
                       alt="Imagen cargada"
                       className="max-h-48 max-w-full object-contain"
                     />
