@@ -11,12 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
+import { Form, useNavigation } from "react-router-dom";
 import SelectSearch from "@/components/SelectSearch/SelectSearch";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-function ModalAddUser({ users, onAddUsers }) {
+function ModalAddUser({ users, onAddUsers, service_id }) {
   const [modal, setModal] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const navigation = useNavigation();
 
   const clearData = () => {
     setSelectedUsers([]);
@@ -27,6 +29,13 @@ function ModalAddUser({ users, onAddUsers }) {
     onAddUsers(selectedUsers);
     clearData();
   };
+
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+        clearData();
+    }
+}, [navigation.state]);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -39,6 +48,7 @@ function ModalAddUser({ users, onAddUsers }) {
           <DialogTitle>Agregar Usuarios</DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
+
         <SelectSearch
           name="users"
           options={users}
@@ -65,24 +75,41 @@ function ModalAddUser({ users, onAddUsers }) {
             );
           }}
         />
-
-        <DialogFooter>
-          <div className="flex w-full justify-end gap-2">
-            <Button
-              type="button"
-              className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
-              onClick={() => clearData()}
-            >
-              Cancelar
-            </Button>
-            <Button
-              className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
-              onClick={handleAddUsers}
-            >
-              Aceptar
-            </Button>
-          </div>
-        </DialogFooter>
+        <Form action={"/inventory/general-services/service/edit/"+service_id} method="POST">
+        <input
+            type="hidden"
+            name="type_option"
+            value={"create_userform"}
+          />
+          <input
+            type="hidden"
+            name="info_id"
+            value={service_id}
+          />
+          <input
+            type="hidden"
+            name="users[]"
+            value={selectedUsers.map((user) => user.id).join(",")}
+          />
+          <DialogFooter>
+            <div className="flex w-full justify-end gap-2">
+              <Button
+                type="button"
+                className="h-8 w-24 rounded-xl bg-[#E0E0E0] font-roboto text-xs font-normal text-[#44444F] hover:bg-[#E0E0E0]"
+                onClick={() => clearData()}
+              >
+                Cancelar
+              </Button>
+              <Button
+                className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
+                onClick={handleAddUsers}
+                disabled={navigation.state === "submitting"}
+              >
+                 {navigation.state === "submitting" ? "submitting..." : "Aceptar"}
+              </Button>
+            </div>
+          </DialogFooter>
+        </Form>
       </DialogContent>
     </Dialog>
   );

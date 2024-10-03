@@ -19,13 +19,13 @@ const GeneralTab = ({ info }) => {
     taxes: info?.taxes === 1,
     return: info?.return === 1,
     returnfactory: info?.processes === 1,
-    status: false,
+    status: info?.status === 1,
     start: info.start ? new Date(info.start) : null,
     end: info.end ? new Date(info.end) : null,
     image: info.image || null,
     
   });
-  console.log(information.image)
+  
   const isEdit = info?.taxes || info?.return || info?.processes || info?.comments || info?.image;
   const option= isEdit ? "update_generalform" : "create_generalform";
   useEffect(() => {
@@ -148,7 +148,7 @@ const GeneralTab = ({ info }) => {
               name="manufacturer"
               type="text"
               placeholder="Fabricante"
-              value={information.manufacturer}
+              value={information.manufacturer||""}
               onChange={(e) => handleInputChange(e.target.value, "manufacturer")}
             />
           </div>
@@ -157,7 +157,7 @@ const GeneralTab = ({ info }) => {
               name="comments"
               type="text"
               placeholder="comments"
-              value={information.comments}
+              value={information.comments||""}
               onChange={(e) => handleInputChange(e.target.value, "comments")}
             />
           </div>

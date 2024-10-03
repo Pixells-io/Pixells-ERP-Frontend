@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation,useParams } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -12,10 +12,13 @@ import ModalPeriod from "../Modals/ModalPeriod";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
 
 const UserTab = ({ users }) => {
+  const {id}=useParams();
   const navigation = useNavigation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [responsibleUser, setResponsibleUser] = useState(null);
   const [selectEditUser, setSelectEditUser] = useState(null);
+
+
 
   const handleAddUsers = (newUsers) => {
     setSelectedUsers((prevUsers) => [
@@ -81,16 +84,16 @@ const UserTab = ({ users }) => {
         </h2>
 
         <div className="mt-2 flex w-fit items-center gap-x-2">
-          <ModalAddUser users={users} onAddUsers={handleAddUsers} />
+          <ModalAddUser users={users} onAddUsers={handleAddUsers} service_id={id} />
         </div>
 
         {selectedUsers.map((user, index) => (
-          <Form className="mt-4" key={user.id} method="post">
+          <Form className="mt-4" key={user.id} action={""} method="post">
             <input
               type="text"
               hidden
               readOnly
-              name="store_user_id"
+              name="service_id"
               value={user.id}
             />
             <input
