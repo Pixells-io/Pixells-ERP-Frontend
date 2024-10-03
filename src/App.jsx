@@ -424,6 +424,7 @@ import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
 import { multiLoaderListEditTickets, multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
 import Summary from "./pages/Sales/Customer/Summary/Summary";
+import Information from "./pages/Sales/Customer/EditCustomer/Information/Information";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1337,10 +1338,16 @@ const router = createBrowserRouter([
             element: <EditCustomer />,
             loader: getCustomer,
             action: editCustomer,
-          },
-          {
-            path: "/sales/customer/resumen/:id",
-            element: <Summary />,
+            children: [
+              {
+                index: true,
+                element: <Information />,
+              },
+              {
+                path: "/sales/customer/edit/:id/resumen",
+                element: <Summary />,
+              },
+            ]
           },
           {
             path: "/sales/invoices",
