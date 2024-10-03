@@ -298,6 +298,16 @@ const TableForm = ({
       ),
     },
     {
+      accessorKey: "merma",
+      header: "Merma",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex items-center gap-x-2 p-1">
+          <input type="checkbox" name="" id="" />
+          5%
+        </div>
+      ),
+    },
+    {
       accessorKey: "subTotal",
       header: "Subtotal",
       cell: ({ row, rowIndex }) => (

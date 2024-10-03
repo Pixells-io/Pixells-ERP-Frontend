@@ -1,103 +1,80 @@
-import InputForm from "@/components/InputForm/InputForm";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import { imageOutline, closeCircle } from "ionicons/icons";
+import InputForm from "@/components/InputForm/InputForm";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import ModalPeriod from "../Modals/ModalPeriod";
 
 const GeneralTab = ({ informationDetails, store_id }) => {
   const navigation = useNavigation();
 
   const [information, setInformation] = useState({
-    id: informationDetails?.id || "",
-    street: informationDetails?.street || "",
-    ext: informationDetails?.ext || "",
-    int: informationDetails?.int || "",
-    cologne: informationDetails?.cologne || "",
-    city: informationDetails?.city || "",
-    state: informationDetails?.state || "",
-    cp: informationDetails?.cp || "",
-    country: informationDetails?.country || "",
-    status: informationDetails?.status || "",
-    start: informationDetails?.start || "",
-    end: informationDetails?.end || "",
+    id: "",
+    manufacturer: "",
+    comments: "",
+    taxes: false,
+    return: false,
+    returnfactory: false,
+    status: false,
+    start: null,
+    end: null,
+    image: null,
   });
 
   useEffect(() => {
-    changeValueInformation();
+    if (informationDetails) {
+      setInformation({
+        id: informationDetails.id || "",
+        manufacturer: informationDetails.manufacturer || "",
+        comments: informationDetails.comments || "",
+        taxes: informationDetails.taxes === "1",
+        return: informationDetails.return === "1",
+        returnfactory: informationDetails.returnfactory === "1",
+        status: informationDetails.status === "1",
+        start: informationDetails.start ? new Date(informationDetails.start) : null,
+        end: informationDetails.end ? new Date(informationDetails.end) : null,
+        image: informationDetails.image || null,
+      });
+    }
   }, [informationDetails]);
 
-  const changeValueInformation = () => {
-    setInformation({
-      id: informationDetails?.id,
-      street: informationDetails?.street,
-      ext: informationDetails?.ext,
-      int: informationDetails?.int,
-      cologne: informationDetails?.cologne,
-      city: informationDetails?.city,
-      state: informationDetails?.state,
-      cp: informationDetails?.cp,
-      country: informationDetails?.country,
-      status: informationDetails?.status,
-      start: informationDetails?.start,
-      end: informationDetails?.end,
-    });
+  const handleInputChange = (value, name) => {
+    setInformation((prev) => ({ ...prev, [name]: value }));
   };
 
-  const [imagePreview, setImagePreview] = useState(null); // Cambié a null para más claridad
-
   const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/*": [],
-    },
-    onDrop: (acceptedFiles) => {
-      handleImageUpload(acceptedFiles[0]);
+    accept: { "image/*": [] },
+    onDrop: ([file]) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setInformation((prev) => ({ ...prev, image: reader.result }));
+        };
+        reader.readAsDataURL(file);
+      }
     },
   });
 
-  const handleImageUpload = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleRemoveImage = () => {
-    setImagePreview(null);
+    setInformation((prev) => ({ ...prev, image: null }));
   };
 
   const clearPeriod = () => {
-    setInformation((prevFormData) => ({
-      ...prevFormData,
-      start: "",
-      end: "",
-    }));
+    setInformation((prev) => ({ ...prev, start: null, end: null }));
   };
 
   const addDate = (dateI, dateF) => {
-    setInformation((prevFormData) => ({
-      ...prevFormData,
-      start: dateI,
-      end: dateF,
-    }));
-  };
-
-  const handleInputChange = (value, name) => {
-    setInformation((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    setInformation((prev) => ({ ...prev, start: dateI, end: dateF }));
   };
 
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
-      action={`/inventory/branch-points-sale/edit/${store_id}`}
+      action={``}
       method="post"
     >
       <div className="max-h-screen overflow-auto px-6">
@@ -105,29 +82,14 @@ const GeneralTab = ({ informationDetails, store_id }) => {
           GENERAL
         </h2>
         <input
-          type="text"
-          className="hidden"
-          hidden
-          readOnly
-          name="store_id"
-          value={store_id}
-        />
-        <input
-          type="text"
-          className="hidden"
-          hidden
-          readOnly
-          name="type_option"
-          value="generalBranchTab"
-        />
-        <input
-          type="text"
-          className="hidden"
-          hidden
-          readOnly
-          name="info_id"
-          value={information?.id}
-        />
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="type_option"
+              value="update_generalform"
+            />
+
         <div className="col-span-12 pt-4">
           <h2 className="text-xs font-normal text-grisSubText">
             CONFIGURACION
@@ -136,11 +98,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name="status"
-                checked={information?.taxes == "1"}
-                onCheckedChange={(e) =>
-                  handleInputChange(e ? "1" : "0", "status")
-                }
+                name="taxes"
+                checked={information.taxes}
+                onCheckedChange={(e) => handleInputChange(e, "taxes")}
               />
               <label className="font-roboto text-xs font-normal text-grisText">
                 Sujeto a impuesto
@@ -151,11 +111,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name="status"
-                checked={information?.return == "1"}
-                onCheckedChange={(e) =>
-                  handleInputChange(e ? "1" : "0", "status")
-                }
+                name="return"
+                checked={information.return}
+                onCheckedChange={(e) => handleInputChange(e, "return")}
               />
               <label className="font-roboto text-xs font-normal text-grisText">
                 Disponible para devolución
@@ -166,11 +124,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name="status"
-                checked={information?.returnfactory == "1"}
-                onCheckedChange={(e) =>
-                  handleInputChange(e ? "1" : "0", "status")
-                }
+                name="returnfactory"
+                checked={information.returnfactory}
+                onCheckedChange={(e) => handleInputChange(e, "returnfactory")}
               />
               <label className="font-roboto text-xs font-normal text-grisText">
                 Disponible para fabricar
@@ -182,21 +138,19 @@ const GeneralTab = ({ informationDetails, store_id }) => {
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-12">
             <InputForm
-              name="fabricante"
+              name="manufacturer"
               type="text"
-              placeholder={"fabricante"}
-              value={information?.manufacturer}
-              onChange={(e) =>
-                handleInputChange(e.target.value, "manufacturer")
-              }
+              placeholder="Fabricante"
+              value={information.manufacturer}
+              onChange={(e) => handleInputChange(e.target.value, "manufacturer")}
             />
           </div>
           <div className="col-span-12">
             <InputForm
-              name="comentarios"
+              name="comments"
               type="text"
-              placeholder={"Comentarios"}
-              value={information?.comments}
+              placeholder="Comentarios"
+              value={information.comments}
               onChange={(e) => handleInputChange(e.target.value, "comments")}
             />
           </div>
@@ -207,39 +161,33 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                 <Switch
                   className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                   name="status"
-                  checked={information?.status == "1"}
-                  onCheckedChange={(e) =>
-                    handleInputChange(e ? "1" : "0", "status")
-                  }
+                  checked={information.status}
+                  onCheckedChange={(e) => handleInputChange(e, "status")}
                 />
                 <label className="font-roboto text-xs font-normal text-grisText">
                   Activo
                 </label>
 
-                {!!information?.start && !!information?.end ? (
+                {information.start && information.end ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
                         type="hidden"
-                        hidden
                         name="start"
-                        className="hidden"
-                        value={format(information?.start, "PP")}
+                        value={format(information.start, "yyyy-MM-dd")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(information?.start, "PP")}
+                        {format(information.start, "PP")}
                       </label>
                     </div>
                     <div className="rounded-[8px] bg-gris px-2 py-1">
                       <input
                         type="hidden"
-                        hidden
                         name="end"
-                        className="hidden"
-                        value={format(information?.end, "PP")}
+                        value={format(information.end, "yyyy-MM-dd")}
                       />
                       <label className="text-xs font-light text-[#44444F]">
-                        {format(information?.end, "PP")}
+                        {format(information.end, "PP")}
                       </label>
                     </div>
                   </div>
@@ -250,11 +198,11 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                 )}
               </div>
               <div className="flex items-center">
-                {!!information?.start && !!information?.end ? (
+                {information.start && information.end ? (
                   <Button
                     type="button"
                     className="flex h-[24px] items-center justify-center rounded-[10px] border border-[#D7586B] bg-inherit px-1 text-xs text-[#D7586B] hover:bg-inherit"
-                    onClick={() => clearPeriod()}
+                    onClick={clearPeriod}
                   >
                     Restablecer
                   </Button>
@@ -272,7 +220,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                 {...getRootProps()}
                 className="relative flex cursor-pointer justify-center"
               >
-                {imagePreview ? (
+                {information.image ? (
                   <div className="relative rounded-xl border border-primarioBotones p-4">
                     <button
                       onClick={(e) => {
@@ -287,7 +235,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                       />
                     </button>
                     <img
-                      src={imagePreview} // Mostrar la vista previa de la imagen
+                      src={information.image}
                       alt="Imagen cargada"
                       className="max-h-48 max-w-full object-contain"
                     />
@@ -301,11 +249,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                     <span className="ml-2 text-gray-500">Agregar Imagen</span>
                   </div>
                 )}
-                <input
-                  {...getInputProps()}
-                  name="imagenPrincipal"
-                  type="file"
-                />
+                <input {...getInputProps()} name="imagenPrincipal" type="file" />
               </div>
             </div>
           </div>

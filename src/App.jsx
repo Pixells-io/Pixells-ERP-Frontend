@@ -329,8 +329,9 @@ import EditArticle, {
   Action as editProduct,
 } from "./pages/Inventory/General/EditArticle/EditArticle";
 import MainGeneralServices from "./pages/Inventory/GeneralServices/MainGeneralServices";
-import { multiLoaderServiceGeneral } from "./pages/Inventory/GeneralServices/utils";
-import CreateService from "./pages/Inventory/GeneralServices/NewService/CreateService";
+import { multiLoaderServiceGeneral, multiLoaderServiceGeneral2, multiLoaderServiceGeneralDetails} from "./pages/Inventory/GeneralServices/utils";
+import CreateService,{Action as SaveNewGeneralService} from "./pages/Inventory/GeneralServices/NewService/CreateService";
+import EditService,{Action as MultiSaveService} from "./pages/Inventory/GeneralServices/EditServices/EditService";
 import MainWL, {
   Action as saveSlotsConfigs,
 } from "./pages/Inventory/WarehouseLocations/MainWL";
@@ -1161,11 +1162,19 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-services",
             element: <MainGeneralServices />,
+            loader:multiLoaderServiceGeneral2
           },
           {
             path: "/inventory/general-services/service/new",
             element: <CreateService />,
             loader: multiLoaderServiceGeneral,
+            action: SaveNewGeneralService
+          },
+          {
+            path: "/inventory/general-services/service/edit/:id",
+            element: <EditService />,
+            loader: multiLoaderServiceGeneralDetails,
+            action: MultiSaveService
           },
           {
             path: "/inventory/general-warehouses",

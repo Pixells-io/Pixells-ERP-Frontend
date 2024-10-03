@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 
 export const ServiceColumns = [
   {
-    id: "code",
-    accessorKey: "code",
+    id: "id",
+    accessorKey: "id",
     header: "CÓDIGO",
     cell: ({ row }) => {
       return (
@@ -18,7 +18,7 @@ export const ServiceColumns = [
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
           />
-          <label>{row?.original?.inventory_code}</label>
+          <label>{row?.original?.id}</label>
         </div>
       );
     },
@@ -27,42 +27,26 @@ export const ServiceColumns = [
   {
     id: "name",
     accessorKey: "name",
-    header: "CATEGORÍA",
-    meta: { filterButton: true },
-  },
-  {
-    id: "products",
-    accessorKey: "products",
     header: "NOMBRE",
     meta: { filterButton: true },
   },
   {
-    id: "ubications",
-    accessorKey: "ubications",
-    header: "UNIDAD MEDIDA",
+    id: "category",
+    accessorKey: "category",
+    header: "CATEGORIAS",
+    meta: { filterButton: true },
   },
   {
-    id: "created",
-    accessorKey: "created",
-    header: "CREADO POR",
-    cell: ({ row }) => (
-      <div className="flex justify-center">
-        <Avatar className="h-6 w-6">
-          <AvatarImage
-            src={row?.original?.creator_image}
-            alt={row?.original?.creator}
-          />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </div>
-    ),
+    id: "price",
+    accessorKey: "price",
+    header: "PRECIO",
   },
   {
     id: "acciones",
     header: "Acciones",
     cell: ({ row }) => (
       <div className="flex items-center">
-        <Link to={``}>
+        <Link to={`/inventory/general-services/service/edit/${row?.original?.id}`}>
           <Button
             type="button"
             className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"

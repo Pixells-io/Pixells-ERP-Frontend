@@ -3,6 +3,7 @@ import { Form, useNavigation } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
 
+
 const ShoppingTab = () => {
   return (
     <Form
@@ -31,9 +32,8 @@ const ShoppingTab = () => {
          </label>
          <Button
            className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
-           disabled={navigation.state === "submitting"}
          >
-           {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+          Guardar
          </Button>
        </div>
      </div>

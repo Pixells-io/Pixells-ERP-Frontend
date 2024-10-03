@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import ServiceMenu from "./Components/MenuDropList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { ServiceColumns } from "./Components/Table/ServiceColumns";
+import { CategoriesColumns } from "./Components/Table/CategoriesColumns";
+import { CombosColumns } from "./Components/Table/CombosColumns";
+import NewCategoryForm from "./Components/Forms/NewCategory";
+import NewComboForm from "./Components/Forms/NewComboForm";
+import { useLoaderData } from "react-router-dom";
 
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
@@ -55,8 +60,23 @@ const exampleData = [
 ];
 
 const MainGeneralServices = () => {
+  /* Get Info */
+  const { services,categories, packages, categoriesServices } = useLoaderData();
+
+  const [modalCategories, setModalCategories] = useState(false);
+  const [modalPackages, setModalPackages] = useState(false);
+  
   return (
     <div className="flex w-full">
+      <NewCategoryForm
+        modalCategories={modalCategories}
+        setModalCategories={setModalCategories}
+      />
+      <NewComboForm
+        modalPackage={modalPackages}
+        setModalPackage={setModalPackages}
+        info={categoriesServices.data}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
@@ -78,7 +98,10 @@ const MainGeneralServices = () => {
             Servicios General
           </p>
           <div className="flex justify-end gap-6">
-            <ServiceMenu />
+            <ServiceMenu
+              setModalCategories={setModalCategories}
+              setModalPackages={setModalPackages}
+            />
           </div>
         </div>
         <div className="flex h-full w-full flex-col rounded-xl bg-white p-6">
@@ -97,7 +120,7 @@ const MainGeneralServices = () => {
 
             <TabsContent value="services" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
+                data={services.data}
                 columns={ServiceColumns}
                 searchFilter="name"
                 searchNameFilter="Buscar por nombre"
@@ -106,20 +129,20 @@ const MainGeneralServices = () => {
             </TabsContent>
             <TabsContent value="categories" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
-                columns={ServiceColumns}
-                searchFilter="name"
-                searchNameFilter="Buscar por nombre"
-                isCheckAll={true}
+                data={categories.data}
+                columns={CategoriesColumns}
+                searchFilter={"name"}
+                searchNameFilter={"Name"}
+                isCheckAll={false}
               />
             </TabsContent>
             <TabsContent value="combos" className="mt-[-70px] w-full pt-2">
               <DataTable
-                data={exampleData}
-                columns={ServiceColumns}
-                searchFilter="name"
-                searchNameFilter="Buscar por nombre"
-                isCheckAll={true}
+                data={packages.data}
+                columns={CombosColumns}
+                searchFilter={"name"}
+                searchNameFilter={"Name"}
+                isCheckAll={false}
               />
             </TabsContent>
           </Tabs>

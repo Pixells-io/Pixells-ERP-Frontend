@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Form, useNavigation,useLocation,useParams } from "react-router-dom";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import UnitMeasureButton from "../UnitMeasure";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
@@ -13,97 +12,125 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
+const PrincipalForm = ({ categories, costCenter, priceList, info }) => {
   const navigation = useNavigation();
-  const [inputsData, setInputsData] = useState({
-    codigoDeArticulo: "",
-    nombreODescripcion: "",
-    categoria: "",
-    compra: false,
-    venta: false,
-    unidadesDeMedida: "",
-    precio: "",
-    centroDeCostos: "",
-    listaDePrecios: "",
-    almacen: "",
-    codigoDeBarras: "",
-    color: "#FF00FF", // Default color
+  const location = useLocation();
+  const { id: paramId } = useParams();
+ 
+  const [formData, setFormData] = useState({
+    id: info?.id || "",
+    code: info?.code || "",
+    name: info?.name || "",
+    description: info?.description || "",
+    categories_id: categories.find(item => item.name === info?.category)?.id || "",
+    shopping: info?.shopping === 1,
+    sale: info?.sale === 1,
+    price: info?.price || "",
+    cost_center_id: costCenter.find(item => item.name === info?.cost_center)?.id || "",
+    price_list_id: priceList.find(item => item.name === info?.price_list)?.id || "",
+    barcode: info?.bar_code || "",
+    color: info?.color || "#FF00FF",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSelectChange = (name, value) => {
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleCheckboxChange = (name, checked) => {
-    setInputsData((prevData) => ({
-      ...prevData,
-      [name]: checked,
-    }));
-  };
-  const handleColorChange = (e) => {
-    const newColor = e.target.value;
-    setInputsData((prevData) => ({ ...prevData, color: newColor }));
-  };
-
-  const handleUnitMeasureSelect = (value) => {
-    setInputsData((prevData) => ({ ...prevData, unidadesDeMedida: value }));
-  };
   const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
+
+  useEffect(() => {
+    if (info) {
+      setFormData(prevData => ({
+        ...prevData,
+        ...info,
+        categories_id: categories.find(item => item.name === info.category)?.id || prevData.categories_id,
+        cost_center_id: costCenter.find(item => item.name === info.cost_center)?.id || prevData.cost_center_id,
+        price_list_id: priceList.find(item => item.name === info.price_list)?.id || prevData.price_list_id,
+      }));
+    }
+  }, [info, categories, costCenter, priceList]);
+
+  const handleInputChange = (name, value) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value !== null ? value : "", 
+    }));
+  };
+  
+
+  const handleColorChange = (e) => {
+    handleInputChange("color", e.target.value);
+  };
 
   const handleClosePopover = () => {
     setIsColorPopoverOpen(false);
   };
 
+  //SEND TO ACTIONS
+  const isEditMode = !!paramId; 
+  
+  const formAction = isEditMode 
+    ? `/inventory/general-services/service/edit/${paramId}`
+    : '/inventory/general-services/service/new';
+
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
-      action={``}
+      action={formAction}
       method="post"
     >
       <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           PRINCIPAL
         </h2>
+        <input
+              type="text"
+              className="hidden"
+              hidden
+              readOnly
+              name="type_option"
+              value="update_principalform"
+            />
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-4">
-            {/* Código de Artículo */}
             <InputForm
               type="text"
+              className="border-[#D7586B]"
               placeholder="Código de Servicio"
-              name="codigoDeArticulo"
-              value={inputsData?.codigoDeArticulo || ""}
-              onChange={handleInputChange}
+              name="code"
+              value={formData.code || ""}
+              onChange={(e) => handleInputChange("code", e.target.value)}
             />
           </div>
           <div className="col-span-8">
-            {/* Nombre o Descripción */}
             <InputForm
+              className="border-[#D7586B]"
+              name="name"
               type="text"
-              placeholder="Nombre o descripción"
-              name="nombreODescripcion"
-              value={inputsData?.nombreODescripcion || ""}
-              onChange={handleInputChange}
+              placeholder="Nombre"
+              required={true}
+              value={formData.name || ""}
+              onChange={(e) => handleInputChange("name", e.target.value)}
+            />
+          </div>
+          <div className="col-span-12">
+            <InputForm
+              className="border-[#D7586B]"
+              name="description"
+              type="text"
+              placeholder="Descripción"
+              required={true}
+              value={formData.description || ""}
+              onChange={(e) => handleInputChange("description", e.target.value)}
             />
           </div>
 
           <div className="col-span-12">
             <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Categoria"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
+              name="categories_id"
+              options={categories}
+              placeholder="Categorias"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+              value={categories.find(cat => cat.id === formData.categories_id)}
+              onChange={(selected) => handleInputChange("categories_id", selected.id)}
             />
           </div>
           <div className="col-span-12">
@@ -113,20 +140,17 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
               </p>
             </div>
             <div className="flex flex-col space-y-4">
-              {/* Checkbox Compra */}
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
-                    id="compra"
-                    name="compra"
-                    checked={inputsData?.compra || false}
-                    onCheckedChange={(checked) =>
-                      handleCheckboxChange("compra", checked)
-                    }
+                    id="shopping"
+                    name="shopping"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                    checked={formData.shopping}
+                    onCheckedChange={(checked) => handleInputChange("shopping", checked)}
                   />
                   <label
-                    htmlFor="compra"
+                    htmlFor="shopping"
                     className="ml-2 font-roboto text-[14px] text-gris2"
                   >
                     Compra
@@ -134,20 +158,17 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
                 </div>
               </div>
 
-              {/* Checkbox Venta */}
               <div className="flex border-b border-grisDisabled">
                 <div className="flex items-center px-4 py-2">
                   <Checkbox
-                    id="venta"
-                    name="venta"
-                    checked={inputsData?.venta || false}
-                    onCheckedChange={(checked) =>
-                      handleCheckboxChange("venta", checked)
-                    }
+                    id="sale"
+                    name="sale"
                     className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                    checked={formData.sale}
+                    onCheckedChange={(checked) => handleInputChange("sale", checked)}
                   />
                   <label
-                    htmlFor="venta"
+                    htmlFor="sale"
                     className="ml-2 font-roboto text-[14px] text-gris2"
                   >
                     Venta
@@ -160,62 +181,47 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
             <InputForm
               type="number"
               placeholder="Precio unitario"
-              name="precio"
+              name="price"
               min="0"
               step="0.1"
-              value={inputsData?.precio || ""}
-              onChange={handleInputChange}
+              className="border-[#D7586B]"
+              value={formData.price}
+              onChange={(e) => handleInputChange("price", e.target.value)}
             />
           </div>
-          <div className="col-span-10">
-            {/* Unidades de Medida */}
-            <InputForm
-              placeholder="Unidades de Medida"
-              name="unidadesDeMedida"
-              value={inputsData?.unidadesDeMedida || ""}
-              onChange={handleInputChange} // Added onChange handler for consistency
-              readOnly
-            />
-          </div>
-          <div className="col-span-2 pt-4">
-            {/* Unidades de Medida Modal */}
-            <UnitMeasureButton
-              onSelect={handleUnitMeasureSelect}
-              initialValue={inputsData?.unidadesDeMedida || ""}
+
+          <div className="col-span-12">
+            <SelectRouter
+              name="cost_center_id"
+              options={costCenter}
+              placeholder="Centro de Costos"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+              value={costCenter.find(cc => cc.id === formData.cost_center_id)}
+              onChange={(selected) => handleInputChange("cost_center_id", selected.id)}
             />
           </div>
           <div className="col-span-12">
             <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Centro de Costos"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
+              name="price_list_id"
+              options={priceList}
+              placeholder="Lista de Precios"
+              required={true}
+              getOptionValue={(e) => e.id}
+              getOptionLabel={(e) => e.name}
+              value={priceList.find(pl => pl.id === formData.price_list_id)}
+              onChange={(selected) => handleInputChange("price_list_id", selected.id)}
             />
           </div>
-          <div className="col-span-12">
-            <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Lista de precios"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="col-span-12">
-            <SelectRouter
-              name="name"
-              type="text"
-              placeholder={"Almacén"}
-              value={inputsData?.categoria}
-              onChange={handleInputChange}
-            />
-          </div>
+
           <div className="col-span-12">
             <InputForm
               placeholder="Codigo de barras"
-              name="unidadesDeMedida"
-              readOnly
+              name="barcode"
+              type="text"
+              value={formData.barcode}
+              onChange={(e) => handleInputChange("barcode", e.target.value)}
             />
           </div>
           <div className="col-span-12">
@@ -224,7 +230,7 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
           <div className="col-span-12 flex items-center border-b border-t">
             <div
               className="ml-4 mr-4 size-[20px] rounded-[6px]"
-              style={{ backgroundColor: inputsData?.color || "#FF00FF" }}
+              style={{ backgroundColor: formData.color }}
             ></div>
             <div className="flex flex-1 items-end justify-end pt-4">
               <Popover
@@ -234,9 +240,7 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className={
-                      "mb-4 flex justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
-                    }
+                    className="mb-4 flex justify-end rounded-[10px] bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"
                   >
                     Selecciona
                   </Button>
@@ -257,21 +261,22 @@ const PrincipalForm = ({ whareHouses, costCenter, priceList }) => {
                     <input
                       type="color"
                       name="color"
-                      value={inputsData?.color || "#FF00FF"}
-                      onChange={handleColorChange}
                       className="h-8 w-full"
+                      value={formData.color}
+                      onChange={handleColorChange}
                     />
                   </div>
                 </PopoverContent>
               </Popover>
             </div>
           </div>
+          <input type="hidden" name="color" value={formData.color} />
         </div>
       </div>
       <div className="mt-10 flex w-full flex-1 items-end px-6">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
-            Actualizado 07 septiembre 2024
+          Actualizado 07 septiembre 2024
           </label>
           <Button
             className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
