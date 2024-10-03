@@ -9,55 +9,14 @@ import { CombosColumns } from "./Components/Table/CombosColumns";
 import NewCategoryForm from "./Components/Forms/NewCategory";
 import NewComboForm from "./Components/Forms/NewComboForm";
 import { useLoaderData } from "react-router-dom";
-
+import { createPusherClient } from "@/lib/pusher";
+import { getServices } from "./utils";
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
   { value: "combos", label: "COMBOS" },
 ];
 
-const exampleData = [
-  {
-    id: 1,
-    inventory_code: "INV-001",
-    name: "Electronics",
-    products: "Laptop",
-    ubications: "Unit",
-    creator_image: "https://example.com/avatar1.jpg",
-    creator: "John Doe",
-    created: "2024-01-01",
-  },
-  {
-    id: 2,
-    inventory_code: "INV-002",
-    name: "Furniture",
-    products: "Office Chair",
-    ubications: "Unit",
-    creator_image: "https://example.com/avatar2.jpg",
-    creator: "Jane Smith",
-    created: "2024-01-02",
-  },
-  {
-    id: 3,
-    inventory_code: "INV-003",
-    name: "Stationery",
-    products: "Ballpoint Pen",
-    ubications: "Box",
-    creator_image: "https://example.com/avatar3.jpg",
-    creator: "Alice Johnson",
-    created: "2024-01-03",
-  },
-  {
-    id: 4,
-    inventory_code: "INV-004",
-    name: "Kitchenware",
-    products: "Dinner Set",
-    ubications: "Set",
-    creator_image: "https://example.com/avatar4.jpg",
-    creator: "Bob Brown",
-    created: "2024-01-04",
-  },
-];
 
 const MainGeneralServices = () => {
   /* Get Info */
@@ -66,6 +25,31 @@ const MainGeneralServices = () => {
   const [modalCategories, setModalCategories] = useState(false);
   const [modalPackages, setModalPackages] = useState(false);
   
+
+
+
+  const [serviceInfo, setServiceInfo] = useState(service.data);
+  
+  const pusherClient = createPusherClient();
+
+  async function getServiceFunction() {
+    let newData = await getServices();
+    setServiceInfo(newData);
+  }
+
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-services");
+
+    pusherClient.bind("fill-services", ({ message }) => {
+      getServiceFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-services");
+    };
+  }, []);
+
   return (
     <div className="flex w-full">
       <NewCategoryForm
