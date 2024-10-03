@@ -139,6 +139,7 @@ export async function updateGeneralTab(data) {
     taxes: data.get("taxes") == "on" ? 1 : 0,
     return: data.get("return") == "on" ? 1 : 0,
     processes: data.get("processes") == "on" ? 1 : 0,
+    status:data.get("status") == "on" ? 1 : 0,
     manufacturer: data.get("manufacturer"),
     comments: data.get("comments"),
   };
