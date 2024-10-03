@@ -27,18 +27,22 @@ import { Label } from "@/components/ui/label";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import { getInfoTransferProducts } from "../../utils";
+import CreareTransferProductRow from "../Components/CreateTransferProductRow";
 
 const NewDirectTransfer = () => {
   const { data } = useLoaderData();
-  const [slots, setSlots] = useState("");
-  const [commodity, setCommodity] = useState([]);
+  const [slots, setSlots] = useState([]);
+  const [slotsData, setSlotsData] = useState([]);
+  const [arrayCount, setArrayCount] = useState([]);
 
   async function changeProducts(id) {
     const products = await getInfoTransferProducts(id);
-    setSlots(products);
+    setSlots(products.data?.map);
+    setSlotsData(products.data?.data);
+    setArrayCount([1]);
   }
 
-  console.log(slots);
+  function addArrayNumber() {}
 
   return (
     <div className="flex w-full">
@@ -126,12 +130,31 @@ const NewDirectTransfer = () => {
             />
           </div>
 
-          <div className="pt-4">
-            <TableForm
-              tableData={commodity}
-              setTableData={setCommodity}
-              isEditable={true}
-            />
+          <div className="w-full pt-4">
+            {/* Header */}
+            <div className="flex w-full">
+              <div className="w-2/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+                <span>Codigo</span>
+              </div>
+              <div className="w-8/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+                <span>Articulo</span>
+              </div>
+              <div className="w-1/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+                <span>Inventario</span>
+              </div>
+              <div className="w-1/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+                <span>A Transferir</span>
+              </div>
+            </div>
+            {/* Body */}
+            {arrayCount?.map((i) => (
+              <CreareTransferProductRow
+                key={i}
+                products={slotsData}
+                map={slots}
+              />
+            ))}
+            {arrayCount.length > 0 ? <span>You</span> : false}
           </div>
 
           <StatusInformation
