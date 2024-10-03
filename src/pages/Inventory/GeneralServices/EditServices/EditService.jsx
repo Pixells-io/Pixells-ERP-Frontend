@@ -11,6 +11,7 @@ import {
   saveNewGeneralTab,
   updateGeneralTab,
   updatePrincipalTab,
+  saveNewUsersTab,
 } from "../utils";
 const EditService = () => {
   const { servicesDetails, categories, costCenter, priceList, users } =
@@ -167,8 +168,9 @@ export async function Action({ request }) {
     case "update_generalform":
       await updateGeneralTab(data);
       break;
-    case "create_generalform":
-      await saveNewGeneralTab(data);
+   
+    case "create_userform":
+      await saveNewUsersTab(data);
       break;
   }
   return "1";

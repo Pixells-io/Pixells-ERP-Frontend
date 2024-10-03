@@ -60,6 +60,28 @@ export async function saveNewGeneralTab(data) {
   return response.json();
 }
 
+//SAVE USERS 
+export async function saveNewUsersTab(data) {
+  const info = {
+    service_id: parseInt(data.get("info_id")),
+    users: data.getAll("users[]")
+  };
+
+console.log(info)
+  // const response = await fetch(
+  //   `${import.meta.env.VITE_SERVER_URL}services/save-service-user`,
+  //   {
+  //     method: "POST",
+  //     body: JSON.stringify(info),
+  //     headers: {
+  //       Authorization: "Bearer " + Cookies.get("token"),
+  //     },
+  //   },
+  // );
+  // return response.json();
+  return null;
+}
+
 //EDIT SERVICE PRINCIPAL
 export async function updatePrincipalTab(data) {
   const info = {
