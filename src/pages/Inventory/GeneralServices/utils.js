@@ -69,7 +69,7 @@ export async function saveNewUsersTab(data) {
   };
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}services/save-service-process`,
+    `${import.meta.env.VITE_SERVER_URL}services/save-service-user`,
     {
       method: "POST",
       body: JSON.stringify(info),
