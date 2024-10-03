@@ -23,8 +23,17 @@ const MENU_ITEMS = [
 
   {
     path: "/sales/tickets",
-    name: "Ticket/Remisión",
-    subname: "De Venta",
+    name: "Ventas",
+    subname: "Ticket/Remisión",
+    icon: ticket,
+    subRoutes: [
+      "/sales/tickets/",
+    ] 
+  },
+  {
+    path: "/sales/customer",
+    name: "Pedidos",
+    subname: "de Clientes",
     icon: ticket,
     subRoutes: [
       "/sales/tickets/",

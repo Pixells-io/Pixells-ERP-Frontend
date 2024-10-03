@@ -44,7 +44,7 @@ const TicketForm = () => {
         {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            FACTURAS
+            Ventas
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -55,7 +55,7 @@ const TicketForm = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Ticket/Remisión
+            Nueva Venta Ticket/Remisión
           </p>
         </div>
         {/* content */}
