@@ -170,6 +170,10 @@ export async function Action({ request }) {
     case "create_generalform":
       await saveNewGeneralTab(data);
       break;
+
+    case "update_generalform":
+      await  updateGeneralTab;
+      break;
     case "create_userform":
       await saveNewUsersTab(data);
       break;
