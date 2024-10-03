@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {useParams, useLoaderData } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
 import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
 import ProcessTab from "../Components/Forms/ProcessForm";
 import ShoppingTab from "../Components/Forms/ShoppingForm";
-import { updatePrincipalTab } from "../utils";
+import {
+  saveNewGeneralTab,
+  updateGeneralTab,
+  updatePrincipalTab,
+} from "../utils";
 const EditService = () => {
-
-  const { servicesDetails, categories, costCenter, priceList, users } = useLoaderData();
+  const { servicesDetails, categories, costCenter, priceList, users } =
+    useLoaderData();
   const tabOptions = [
     {
       value: "principal",
@@ -126,14 +130,15 @@ const EditService = () => {
               )}
             </TabsList>
             <TabsContent value="principal" className="w-full">
-              <PrincipalForm 
-              categories={categories.data}
-              costCenter={costCenter.data}
-              priceList={priceList.data}
-              info={servicesDetails.data}/>
+              <PrincipalForm
+                categories={categories.data}
+                costCenter={costCenter.data}
+                priceList={priceList.data}
+                info={servicesDetails.data}
+              />
             </TabsContent>
             <TabsContent value="general" className="w-full">
-              <GeneralTab />
+              <GeneralTab info={servicesDetails.data} />
             </TabsContent>
             <TabsContent value="users" className="w-full">
               <UserTab users={users.data} />
@@ -154,20 +159,17 @@ const EditService = () => {
 export default EditService;
 
 export async function Action({ request }) {
-
   const data = await request.formData();
   switch (data.get("type_option")) {
     case "update_principalform":
       await updatePrincipalTab(data);
       break;
-    case "generalBranchTab":
-      if (!!data.get("info_id")) {
-        await updateGeneralBranchTab(data);
-      } else {
-        await createGeneralBranchTab(data);
-      }
+    case "update_generalform":
+      await updateGeneralTab(data);
       break;
-    
+    case "create_generalform":
+      await saveNewGeneralTab(data);
+      break;
   }
   return "1";
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation,useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
@@ -9,38 +9,34 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import ModalPeriod from "../Modals/ModalPeriod";
 
-const GeneralTab = ({ informationDetails, store_id }) => {
+const GeneralTab = ({ info }) => {
   const navigation = useNavigation();
-
+  const {id}=useParams();
   const [information, setInformation] = useState({
-    id: "",
-    manufacturer: "",
-    comments: "",
-    taxes: false,
-    return: false,
-    returnfactory: false,
+    id: info?.id || "",
+    manufacturer: info?.manufacturer || "",
+    comments: info?.comments||"",
+    taxes: info?.taxes === 1,
+    return: info?.return === 1,
+    returnfactory: info?.processes === 1,
     status: false,
-    start: null,
-    end: null,
-    image: null,
+    start: info.start ? new Date(info.start) : null,
+    end: info.end ? new Date(info.end) : null,
+    image: info.image || null,
+    
   });
-
+  const isEdit = info?.taxes || info?.return || info?.processes || info?.comments || info?.image;
+  const option= isEdit ? "update_generalform" : "create_generalform";
   useEffect(() => {
-    if (informationDetails) {
-      setInformation({
-        id: informationDetails.id || "",
-        manufacturer: informationDetails.manufacturer || "",
-        comments: informationDetails.comments || "",
-        taxes: informationDetails.taxes === "1",
-        return: informationDetails.return === "1",
-        returnfactory: informationDetails.returnfactory === "1",
-        status: informationDetails.status === "1",
-        start: informationDetails.start ? new Date(informationDetails.start) : null,
-        end: informationDetails.end ? new Date(informationDetails.end) : null,
-        image: informationDetails.image || null,
-      });
+    if (info) {
+      setInformation((prev) => ({
+        ...prev,
+        ...info,
+        start: info.start ? new Date(info.start) : null,
+        end: info.end ? new Date(info.end) : null,
+      }));
     }
-  }, [informationDetails]);
+  }, [info]);
 
   const handleInputChange = (value, name) => {
     setInformation((prev) => ({ ...prev, [name]: value }));
@@ -74,21 +70,31 @@ const GeneralTab = ({ informationDetails, store_id }) => {
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
-      action={``}
+      action={"/inventory/general-services/service/edit/"+id}
       method="post"
+      encType="multipart/form-data"
     >
       <div className="max-h-screen overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
           GENERAL
         </h2>
+       
         <input
               type="text"
               className="hidden"
               hidden
               readOnly
-              name="type_option"
-              value="update_generalform"
+              name="info_id"
+              value={information.id}
             />
+         <input
+          type="text"
+          className="hidden"
+          hidden
+          readOnly
+          name="type_option"
+          value={option}
+        />
 
         <div className="col-span-12 pt-4">
           <h2 className="text-xs font-normal text-grisSubText">
@@ -124,7 +130,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name="returnfactory"
+                name=" processes"
                 checked={information.returnfactory}
                 onCheckedChange={(e) => handleInputChange(e, "returnfactory")}
               />
@@ -149,7 +155,7 @@ const GeneralTab = ({ informationDetails, store_id }) => {
             <InputForm
               name="comments"
               type="text"
-              placeholder="Comentarios"
+              placeholder="comments"
               value={information.comments}
               onChange={(e) => handleInputChange(e.target.value, "comments")}
             />
@@ -249,9 +255,9 @@ const GeneralTab = ({ informationDetails, store_id }) => {
                     <span className="ml-2 text-gray-500">Agregar Imagen</span>
                   </div>
                 )}
-                <input {...getInputProps()} name="imagenPrincipal" type="file" />
               </div>
             </div>
+            <input {...getInputProps()} name="image" type="file" />
           </div>
         </div>
       </div>

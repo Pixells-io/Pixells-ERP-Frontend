@@ -35,14 +35,14 @@ export async function saveNewService(data) {
 //SAVE SERVICE GENERAL
 export async function saveNewGeneralTab(data) {
   const info = {
-    service_id: data.get("id"),
+    service_id: parseInt(data.get("info_id")),
     taxes: data.get("taxes") == "on" ? 1 : 0,
     return: data.get("return") == "on" ? 1 : 0,
-    processes:data.get("processes") == "on" ? 1 : 0,
+    processes: data.get("processes") == "on" ? 1 : 0,
     manufacturer: data.get("manufacturer"),
-    comments: data.get("code"),
+    comments: data.get("comments"),
+    image: data.get("image"),
   };
-
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/save-general-information-service`,
     {
@@ -53,15 +53,13 @@ export async function saveNewGeneralTab(data) {
       },
     },
   );
-
   return response.json();
 }
-
 
 //EDIT SERVICE PRINCIPAL
 export async function updatePrincipalTab(data) {
   const info = {
-    service_id:data.get("id"),
+    service_id: data.get("id"),
     name: data.get("name"),
     description: data.get("description"),
     category_id: parseInt(data.get("categories_id")),
@@ -92,12 +90,13 @@ export async function updatePrincipalTab(data) {
 //EDIT SERVICE GENERAL
 export async function updateGeneralTab(data) {
   const info = {
-    service_id: data.get("id"),
+    service_id: parseInt(data.get("info_id")),
     taxes: data.get("taxes") == "on" ? 1 : 0,
     return: data.get("return") == "on" ? 1 : 0,
-    processes:data.get("processes") == "on" ? 1 : 0,
+    processes: data.get("processes") == "on" ? 1 : 0,
     manufacturer: data.get("manufacturer"),
-    comments: data.get("code"),
+    comments: data.get("comments"),
+    image: data.get("image"),
   };
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-general-information-service`,
@@ -130,7 +129,7 @@ export async function getServices() {
   }
 }
 
-//GET SERVICES BY ID 
+//GET SERVICES BY ID
 export async function getServiceById(id) {
   try {
     const response = await fetch(
@@ -252,26 +251,24 @@ export async function getCategoriesAndServices() {
 
 //MULTILOADER TO CREATE
 export async function multiLoaderServiceGeneral() {
-
-  
-  const [ categories, costCenter, priceList, users] = await Promise.all([
-
+  const [categories, costCenter, priceList, users] = await Promise.all([
     getCategories(),
     getCostCenter(),
     getPriceList(),
     getUsers(),
   ]);
-  return json({categories, costCenter, priceList, users });
+  return json({ categories, costCenter, priceList, users });
 }
 
 //MULTILOADER TO MAIN GENERAL SERVICES
 export async function multiLoaderServiceGeneral2() {
-  const [services, categories, packages, categoriesServices] = await Promise.all([
-    getServices(),
-    getCategories(),
-    getPackages(),
-    getCategoriesAndServices(),
-  ]);
+  const [services, categories, packages, categoriesServices] =
+    await Promise.all([
+      getServices(),
+      getCategories(),
+      getPackages(),
+      getCategoriesAndServices(),
+    ]);
 
   return json({
     services,
@@ -283,14 +280,14 @@ export async function multiLoaderServiceGeneral2() {
 
 //MULTILOADER TO EDIT
 export async function multiLoaderServiceGeneralDetails({ params }) {
-
   const id = params.id;
-  const [servicesDetails, categories, costCenter, priceList, users] = await Promise.all([
-    getServiceById(id),
-    getCategories(),
-    getCostCenter(),
-    getPriceList(),
-    getUsers(),
-  ]);
+  const [servicesDetails, categories, costCenter, priceList, users] =
+    await Promise.all([
+      getServiceById(id),
+      getCategories(),
+      getCostCenter(),
+      getPriceList(),
+      getUsers(),
+    ]);
   return json({ servicesDetails, categories, costCenter, priceList, users });
 }

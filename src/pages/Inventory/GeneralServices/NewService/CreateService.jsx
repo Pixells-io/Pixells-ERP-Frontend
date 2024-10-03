@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import PrincipalForm from "../Components/Forms/PrincipalForm";
 import GeneralTab from "../Components/Forms/GeneralForm";
 import { saveNewService } from "../utils";
@@ -122,10 +122,11 @@ const CreateService = () => {
               )}
             </TabsList>
             <TabsContent value="principal" className="w-full">
-              <PrincipalForm 
-              categories={categories.data}
-              costCenter={costCenter.data}
-              priceList={priceList.data}/>
+              <PrincipalForm
+                categories={categories.data}
+                costCenter={costCenter.data}
+                priceList={priceList.data}
+              />
             </TabsContent>
           </Tabs>
         </div>
@@ -139,6 +140,5 @@ export async function Action({ request }) {
   const data = await request.formData();
 
   const response = await saveNewService(data);
-
-  return "0";///inventory/general-services/service/edit
+  return redirect("/inventory/general-services/service/edit/"+response.data);
 }
