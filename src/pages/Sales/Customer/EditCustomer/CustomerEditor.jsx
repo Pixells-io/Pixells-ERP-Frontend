@@ -176,16 +176,27 @@ const EditCustomer = () => {
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Cliente: {customer?.name}
           </p>
-          <div className="flex items-center gap-x-1 rounded-md bg-[#E8E8E8] px-1 py-0.5">
-            <NavLink to={`/sales/customer/edit/${customer.id}`}>
-              <p className="rounded-md bg-white px-1 py-0.5 font-roboto text-xs font-normal text-[#44444F]">
-                Información
-              </p>
+
+          <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+            <NavLink
+              to={`/sales/customer/edit/${customer.id}`}
+              className={({ isActive }) =>
+                isActive
+                  ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
+                  : "flex h-[24px] items-center rounded-md px-2 py-0 font-roboto text-sm font-normal leading-4 text-grisSubText"
+              }
+            >
+              <span>Información</span>
             </NavLink>
-            <NavLink to={`/sales/customer/resumen/${customer.id}`}>
-              <p className="rounded-md px-1 py-0.5 font-roboto text-xs font-normal text-[#8F8F8F]">
-                Resumen
-              </p>
+            <NavLink
+              to={`/sales/customer/resumen/${customer.id}`}
+              className={({ isActive }) =>
+                isActive
+                  ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
+                  : "flex h-[24px] items-center rounded-md px-2 py-0 font-roboto text-sm font-normal leading-4 text-grisSubText"
+              }
+            >
+              <span>Resumen</span>
             </NavLink>
           </div>
         </div>

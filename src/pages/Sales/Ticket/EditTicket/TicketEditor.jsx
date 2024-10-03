@@ -83,9 +83,9 @@ const TicketDetails = () => {
         </div>
 
         {/* content */}
-        <div className="space-y-3 overflow-auto">
-          <Form>
-            <div className="flex h-full flex-col space-y-6">
+        <Form className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
+          <div className="overflow-auto">
+            <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuote
                 id={id}
                 sl1={client}
@@ -93,16 +93,10 @@ const TicketDetails = () => {
                 sl3={phone}
                 isEditable={isEditable}
               />
-              <div className="mt-6 rounded-xl bg-white p-4">
-                <SelectDetails
-                  id={id}
-                  client={client}
-                  rfc={rfc}
-                  phone={phone}
-                  dtcreate={dtcreate}
-                  dtexpiry={dtexpiry}
-                  isEditable={isEditable}
-                />
+            </div>
+
+            <div>
+              <div className="mt-6">
                 <QuoteTable
                   initialItems={items}
                   isEditable={isEditable}
@@ -111,34 +105,35 @@ const TicketDetails = () => {
                   tableData={tableData}
                 />
               </div>
+              <Total tableData={tableData} comment={""} />
             </div>
-            <Total tableData={tableData} comment={""} />
-            <div className="flex justify-end">
-              <StatusInformation
-                status={"inProgress"}
-                imgUser={
-                  "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                }
+          </div>
+          
+          <div className="flex justify-end">
+            <StatusInformation
+              status={"inProgress"}
+              imgUser={
+                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              }
+            >
+              <Button
+                type="button"
+                onClick={handleSubmit}
+                variant="outline"
+                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
               >
-                <Button
-                  type="button"
-                  onClick={handleSubmit}
-                  variant="outline"
-                  className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-                >
-                  Save
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => alert("save")}
-                  className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
-                >
-                  Save for Aproval
-                </Button>
-              </StatusInformation>
-            </div>
-          </Form>
-        </div>
+                Save
+              </Button>
+              <Button
+                type="button"
+                onClick={() => alert("save")}
+                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+              >
+                Save for Aproval
+              </Button>
+            </StatusInformation>
+          </div>
+        </Form>
       </div>
     </div>
   );

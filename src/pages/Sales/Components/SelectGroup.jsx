@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import InputForm from "@/components/InputForm/InputForm";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
   const [inputValue, setInputValue] = useState(id || "1");
@@ -18,13 +11,13 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
   const handleChange = (value, name) => {
     if (isEditable) {
       switch (name) {
-        case 'user':
+        case "user":
           setSelect1Value(value);
           break;
-        case 'costCenter':
+        case "costCenter":
           setSelect2Value(value);
           break;
-        case 'stored':
+        case "stored":
           setSelect3Value(value);
           break;
         default:
@@ -33,73 +26,102 @@ const SelectsQuote = ({ id, sl1, sl2, sl3, isEditable }) => {
     }
   };
 
-  const selectTriggerClass = "flex rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-
   return (
     <div className="rounded-xl bg-white p-4">
-      <div className="flex space-x-3 justify-center items-center">
-        <Input 
-          name="list"
-          className="flex rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus-visible:ring-primarioBotones focus:border-transparent"
-          placeholder="Lista de precios"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          readOnly
-        />
-        
-        <Select 
-          name="user" 
-          value={select1Value} 
-          onValueChange={(value) => handleChange(value, 'user')}
-          disabled={!isEditable}
-        >
-          <SelectTrigger className={selectTriggerClass}>
-            <SelectValue placeholder="Usuario" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="opcion1">usuario 1</SelectItem>
-              <SelectItem value="opcion2">usuario 2</SelectItem>
-              <SelectItem value="opcion3">usuario 3</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+      <div className="grid w-full grid-cols-12 gap-2">
+        <div className="col-span-2">
+          <InputForm
+            name="list"
+            placeholder="Lista de precios"
+            value={inputValue}
+            disabled={!isEditable}
+            onChange={(e) => setInputValue(e.target.value)}
+            readOnly
+          />
+        </div>
 
-        <Select 
-          name="ccost" 
-          value={select2Value} 
-          onValueChange={(value) => handleChange(value, 'costCenter')}
-          disabled={!isEditable}
-        >
-          <SelectTrigger className={selectTriggerClass}>
-            <SelectValue placeholder="Centro de Costos" />
-          </SelectTrigger>
-          <SelectContent >
-            <SelectGroup>
-              <SelectItem value="opcion1">Centro de costos 1</SelectItem>
-              <SelectItem value="opcion2">Centro de costos 2</SelectItem>
-              <SelectItem value="opcion3">Centro de costos 3</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <div className="col-span-4">
+          <SelectRouter
+            value={
+              [
+                { id: "opcion1", name: "Usuario 1" },
+                { id: "opcion2", name: "Usuario 2" },
+                { id: "opcion3", name: "Usuario 3" },
+              ].find((user) => user.id == select1Value) || null
+            }
+            name={"user"}
+            options={[
+              { id: "opcion1", name: "Usuario 1" },
+              { id: "opcion2", name: "Usuario 2" },
+              { id: "opcion3", name: "Usuario 3" },
+            ]}
+            placeholder="Usuario"
+            required={true}
+            disabled={!isEditable}
+            onChange={(value) => handleChange(value.id, "user")}
+            getOptionValue={(e) => e.id}
+            getOptionLabel={(e) => e.name}
+          />
+        </div>
 
-        <Select 
-          name="stored" 
-          value={select3Value} 
-          onValueChange={(value) => handleChange(value, 'stored')}
-          disabled={!isEditable}
-        >
-          <SelectTrigger className={selectTriggerClass}>
-            <SelectValue placeholder="Almacén" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="opcion1">Almacen Norte</SelectItem>
-              <SelectItem value="opcion2">Almacen Sur</SelectItem>
-              <SelectItem value="opcion3">Almacen Este</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <div className="col-span-4">
+          <SelectRouter
+            value={
+              [
+                { id: "opcion1", name: "Centro de costos 1" },
+                { id: "opcion2", name: "Centro de costos 2" },
+                { id: "opcion3", name: "Centro de costos 3" },
+              ].find((cc) => cc.id == select2Value) || null
+            }
+            name={"ccost"}
+            options={[
+              { id: "opcion1", name: "Centro de costos 1" },
+              { id: "opcion2", name: "Centro de costos 2" },
+              { id: "opcion3", name: "Centro de costos 3" },
+            ]}
+            placeholder="Centro de Costos"
+            required={true}
+            disabled={!isEditable}
+            onChange={(value) => handleChange(value.id, "costCenter")}
+            getOptionValue={(e) => e.id}
+            getOptionLabel={(e) => e.name}
+          />
+        </div>
+        <div className="col-span-2"></div>
+
+        <div className="col-span-2">
+          <InputForm
+            type={"date"}
+            name="expiration"
+            placeholder="Vencimiento"
+            value={inputValue}
+            disabled={!isEditable}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        </div>
+        <div className="col-span-4">
+          <SelectRouter
+            value={
+              [
+                { id: "opcion1", name: "Cliente 1" },
+                { id: "opcion2", name: "Cliente 2" },
+                { id: "opcion3", name: "Cliente 3" },
+              ].find((store) => store.id == select3Value) || null
+            }
+            name={"stored"}
+            options={[
+              { id: "opcion1", name: "Cliente 1" },
+              { id: "opcion2", name: "Cliente 2" },
+              { id: "opcion3", name: "Cliente 3" },
+            ]}
+            placeholder="Cliente"
+            required={true}
+            disabled={!isEditable}
+            onChange={(value) => handleChange(value.id, "customer")}
+            getOptionValue={(e) => e.id}
+            getOptionLabel={(e) => e.name}
+          />
+        </div>
       </div>
     </div>
   );
