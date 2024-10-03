@@ -12,42 +12,47 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id }) => {
+const PrincipalForm = ({ categories, costCenter, priceList, info }) => {
   const navigation = useNavigation();
   const location = useLocation();
   const { id: paramId } = useParams();
+ 
   const [formData, setFormData] = useState({
-    id:"",
-    code: "",
-    name:"",
-    description: "",
-    categories_id: "",
-    shopping: false,
-    sale: false,
-    price: "",
-    cost_center_id: "",
-    price_list_id: "",
-    barcode: "",
-    color: "#FF00FF",
+    id: info?.id || "",
+    code: info?.code || "",
+    name: info?.name || "",
+    description: info?.description || "",
+    categories_id: categories.find(item => item.name === info?.category)?.id || "",
+    shopping: info?.shopping === 1,
+    sale: info?.sale === 1,
+    price: info?.price || "",
+    cost_center_id: costCenter.find(item => item.name === info?.cost_center)?.id || "",
+    price_list_id: priceList.find(item => item.name === info?.price_list)?.id || "",
+    barcode: info?.bar_code || "",
+    color: info?.color || "#FF00FF",
   });
 
   const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
 
   useEffect(() => {
-    if (initialData) {
+    if (info) {
       setFormData(prevData => ({
         ...prevData,
-        ...initialData,
+        ...info,
+        categories_id: categories.find(item => item.name === info.category)?.id || prevData.categories_id,
+        cost_center_id: costCenter.find(item => item.name === info.cost_center)?.id || prevData.cost_center_id,
+        price_list_id: priceList.find(item => item.name === info.price_list)?.id || prevData.price_list_id,
       }));
     }
-  }, [initialData]);
+  }, [info, categories, costCenter, priceList]);
 
   const handleInputChange = (name, value) => {
     setFormData(prevData => ({
       ...prevData,
-      [name]: value,
+      [name]: value !== null ? value : "", 
     }));
   };
+  
 
   const handleColorChange = (e) => {
     handleInputChange("color", e.target.value);
@@ -89,7 +94,7 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
               className="border-[#D7586B]"
               placeholder="Código de Servicio"
               name="code"
-              value={formData.code}
+              value={formData.code || ""}
               onChange={(e) => handleInputChange("code", e.target.value)}
             />
           </div>
@@ -100,7 +105,7 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
               type="text"
               placeholder="Nombre"
               required={true}
-              value={formData.name}
+              value={formData.name || ""}
               onChange={(e) => handleInputChange("name", e.target.value)}
             />
           </div>
@@ -111,7 +116,7 @@ const PrincipalForm = ({ categories, costCenter, priceList, initialData = {},id 
               type="text"
               placeholder="Descripción"
               required={true}
-              value={formData.description}
+              value={formData.description || ""}
               onChange={(e) => handleInputChange("description", e.target.value)}
             />
           </div>

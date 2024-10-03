@@ -51,6 +51,7 @@ const EditService = () => {
       update: null,
     },
   ];
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -128,7 +129,8 @@ const EditService = () => {
               <PrincipalForm 
               categories={categories.data}
               costCenter={costCenter.data}
-              priceList={priceList.data}/>
+              priceList={priceList.data}
+              info={servicesDetails.data}/>
             </TabsContent>
             <TabsContent value="general" className="w-full">
               <GeneralTab />
