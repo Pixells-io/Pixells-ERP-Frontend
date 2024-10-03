@@ -4,30 +4,17 @@ import QuoteTable from "@/components/table/Quote/QuoteTable";
 import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { Form, useNavigate } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 
 const TicketForm = () => {
-  const navigate = useNavigate();
+  const { clients, listPrice, costCenter, users } = useLoaderData();
 
-  const generateRandomId = () => {
-    return Math.floor(100 + Math.random() * 900);
-  };
-
-  const handleSubmit = () => {
-    const id = generateRandomId();
-    navigate("/sales/tickets/edit/" + id);
-  };
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
-
-  const [subtotal, setSubTotal] = useState(0);
-  const handleTotalChange = (newSubtotal) => {
-    setSubTotal(newSubtotal);
-  };
 
   return (
     <div className="flex w-full">
@@ -73,13 +60,18 @@ const TicketForm = () => {
         </div>
         {/* content */}
         <Form
-          onSubmit={handleSubmit}
           method="post"
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
         >
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
-              <SelectsQuote isEditable={isEditable} />
+              <SelectsQuote
+                isEditable={isEditable}
+                clientsList={clients.data}
+                listPriceList={listPrice.data}
+                costCenterList={costCenter.data}
+                usersList={users.data}
+              />
             </div>
 
             <div>
@@ -99,14 +91,12 @@ const TicketForm = () => {
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}
-              applyFunction={handleSubmit}
               imgUser={
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
             >
               <Button
                 type="button"
-                onClick={handleSubmit}
                 variant="outline"
                 className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
               >

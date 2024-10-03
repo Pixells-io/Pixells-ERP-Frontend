@@ -422,6 +422,8 @@ import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
+import { multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
+import Summary from "./pages/Sales/Customer/Summary/Summary";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1337,6 +1339,10 @@ const router = createBrowserRouter([
             action: editCustomer,
           },
           {
+            path: "/sales/customer/resumen/:id",
+            element: <Summary />,
+          },
+          {
             path: "/sales/invoices",
             element: <MainInvoice />,
           },
@@ -1359,6 +1365,7 @@ const router = createBrowserRouter([
           {
             path: "/sales/tickets/new",
             element: <TicketForm />,
+            loader: multiLoaderListTickets,
           },
           {
             path: "/sales/tickets/edit/:id",
