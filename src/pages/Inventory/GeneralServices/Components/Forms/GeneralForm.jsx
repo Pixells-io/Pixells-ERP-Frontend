@@ -131,7 +131,7 @@ console.log(option)
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name=" processes"
+                name="processes"
                 checked={information.returnfactory}
                 onCheckedChange={(e) => handleInputChange(e, "returnfactory")}
               />
