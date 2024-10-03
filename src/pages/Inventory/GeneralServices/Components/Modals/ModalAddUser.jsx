@@ -30,12 +30,11 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
     clearData();
   };
 
-
   useEffect(() => {
     if (navigation.state === "idle") {
-        clearData();
+      clearData();
     }
-}, [navigation.state]);
+  }, [navigation.state]);
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
@@ -75,8 +74,8 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
             );
           }}
         />
-        <Form action={"/inventory/general-services/service/edit/"+service_id} method="POST">
-        <input
+        <Form action={"/inventory/general-services/service/edit/" + service_id} method="POST">
+          <input
             type="hidden"
             name="type_option"
             value={"create_userform"}
@@ -86,11 +85,15 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
             name="info_id"
             value={service_id}
           />
-          <input
-            type="hidden"
-            name="users[]"
-            value={selectedUsers.map((user) => user.id).join(",")}
-          />
+          {/* Cambiar este input para que se envíe como un array */}
+          {selectedUsers.map((user) => (
+            <input
+              key={user.id}
+              type="hidden"
+              name="users[]"
+              value={user.id}
+            />
+          ))}
           <DialogFooter>
             <div className="flex w-full justify-end gap-2">
               <Button
@@ -101,11 +104,11 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
                 Cancelar
               </Button>
               <Button
+                type="submit"
                 className="h-8 w-24 rounded-xl bg-primarioBotones font-roboto text-xs font-normal hover:bg-primarioBotones"
-                onClick={handleAddUsers}
                 disabled={navigation.state === "submitting"}
               >
-                 {navigation.state === "submitting" ? "submitting..." : "Aceptar"}
+                {navigation.state === "submitting" ? "submitting..." : "Aceptar"}
               </Button>
             </div>
           </DialogFooter>

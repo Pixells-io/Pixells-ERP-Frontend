@@ -60,26 +60,24 @@ export async function saveNewGeneralTab(data) {
   return response.json();
 }
 
-//SAVE USERS 
+//SAVE USERS LISTS
 export async function saveNewUsersTab(data) {
   const info = {
     service_id: parseInt(data.get("info_id")),
-    users: data.getAll("users[]")
+    users: data.getAll("users[]").map(Number),
   };
 
-console.log(info)
-  // const response = await fetch(
-  //   `${import.meta.env.VITE_SERVER_URL}services/save-service-user`,
-  //   {
-  //     method: "POST",
-  //     body: JSON.stringify(info),
-  //     headers: {
-  //       Authorization: "Bearer " + Cookies.get("token"),
-  //     },
-  //   },
-  // );
-  // return response.json();
-  return null;
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/save-service-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response.json();
 }
 
 //EDIT SERVICE PRINCIPAL
@@ -140,6 +138,46 @@ export async function updateGeneralTab(data) {
 
   return response.json();
 }
+
+//EDIT SERVICE USER
+export async function EditServiceUserTab(data) {
+  const info = {
+    service_user: parseInt(data.get("service_user")),
+    resposible: parseInt(data.get("responsible")),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-service-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
+//DESTROY SERVICE USER 
+export async function DestroytServiceUserTab(data) {
+  const info = {
+    service_user: parseInt(data.get("service_user")),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/destroy-service-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 
 //GET SERVICES
 export async function getServices() {

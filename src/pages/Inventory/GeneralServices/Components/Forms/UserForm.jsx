@@ -19,7 +19,7 @@ const UserTab = ({ users }) => {
   const [selectEditUser, setSelectEditUser] = useState(null);
 
 
-
+console.log(selectedUsers)
   const handleAddUsers = (newUsers) => {
     setSelectedUsers((prevUsers) => [
       ...prevUsers,
@@ -88,20 +88,34 @@ const UserTab = ({ users }) => {
         </div>
 
         {selectedUsers.map((user, index) => (
-          <Form className="mt-4" key={user.id} action={""} method="post">
+          <Form className="mt-4" key={user.id} action={"/inventory/general-services/service/edit/"+id} method="post">
             <input
               type="text"
               hidden
               readOnly
               name="service_id"
+              value={id}
+            />
+              <input
+              type="text"
+              hidden
+              readOnly
+              name="service_user"
               value={user.id}
+            />
+              <input
+              type="text"
+              hidden
+              readOnly
+              name="responsible"
+              value={user.responsable}
             />
             <input
               type="text"
               hidden
               readOnly
               name="type_option"
-              value="updateUserBranchTab"
+              value="updateServiceUser"
             />
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
               USUARIO {index + 1}
@@ -215,7 +229,8 @@ const UserTab = ({ users }) => {
                   </div>
                   <div className="flex w-full justify-end">
                     <ModalDeleteUser
-                      store_user_id={user.id}
+                    service_id={id}
+                      user_id={user.id}
                       user_name={user.user?.label}
                     />
                   </div>
