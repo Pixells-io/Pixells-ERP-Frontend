@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import InputForm from "@/components/InputForm/InputForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { HoverExclamation } from "@/components/Hovers/HoverExclamation";
+import { alertCircleOutline } from "ionicons/icons";
 
 const SelectsQuote = ({
   data,
@@ -41,7 +43,9 @@ const SelectsQuote = ({
         </div>
         <div className="col-span-4">
           <SelectRouter
-            value={listPriceList.find((cc) => cc.id == inputValue?.priceList) || null}
+            value={
+              listPriceList.find((cc) => cc.id == inputValue?.priceList) || null
+            }
             name={"priceList"}
             options={listPriceList}
             placeholder="Lista de Precios"
@@ -55,7 +59,9 @@ const SelectsQuote = ({
 
         <div className="col-span-4">
           <SelectRouter
-            value={costCenterList.find((cc) => cc.id == inputValue?.ccost) || null}
+            value={
+              costCenterList.find((cc) => cc.id == inputValue?.ccost) || null
+            }
             name={"ccost"}
             options={costCenterList}
             placeholder="Centro de Costos"
@@ -66,7 +72,7 @@ const SelectsQuote = ({
             getOptionLabel={(e) => e.name}
           />
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           <InputForm
             name="condition"
             placeholder="Condición de Pago"
@@ -74,6 +80,11 @@ const SelectsQuote = ({
             disabled={!isEditable}
             onChange={(e) => handleInputChange(e.target.value, "condition")}
             readOnly
+          />
+          <HoverExclamation
+            message={"Para agregar crédito, ve a las condiciones del cliente"}
+            icon={alertCircleOutline}
+            classNameContent={"w-fit"}
           />
         </div>
 
@@ -90,7 +101,8 @@ const SelectsQuote = ({
         <div className="col-span-4">
           <SelectRouter
             value={
-              clientsList.find((store) => store.id == inputValue?.stored) || null
+              clientsList.find((store) => store.id == inputValue?.stored) ||
+              null
             }
             name={"stored"}
             options={clientsList}
@@ -104,7 +116,9 @@ const SelectsQuote = ({
         </div>
         <div className="col-span-4">
           <SelectRouter
-            value={usersList.find((store) => store.id == inputValue?.seller) || null}
+            value={
+              usersList.find((store) => store.id == inputValue?.seller) || null
+            }
             name={"seller"}
             options={usersList}
             placeholder="Vendedor"
