@@ -14,7 +14,6 @@ import {
   saveNewUsersTab,
   EditServiceUserTab,
   DestroytServiceUserTab,
-
 } from "../utils";
 const EditService = () => {
   const { servicesDetails, categories, costCenter, priceList, users } =
@@ -148,7 +147,7 @@ const EditService = () => {
               <UserTab users={users.data} />
             </TabsContent>
             <TabsContent value="process" className="w-full">
-              <ProcessTab />
+              <ProcessTab categories={categories.data} />
             </TabsContent>
             <TabsContent value="shopping" className="w-full">
               <ShoppingTab />
@@ -168,10 +167,13 @@ export async function Action({ request }) {
     case "update_principalform":
       await updatePrincipalTab(data);
       break;
-    case "update_generalform":
-      await updateGeneralTab(data);
+    case "create_generalform":
+      await saveNewGeneralTab(data);
       break;
-   
+
+    case "update_generalform":
+      await  updateGeneralTab(data);
+      break;
     case "create_userform":
       await saveNewUsersTab(data);
       break;

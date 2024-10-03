@@ -67,7 +67,7 @@ const GeneralTab = ({ info }) => {
   const addDate = (dateI, dateF) => {
     setInformation((prev) => ({ ...prev, start: dateI, end: dateF }));
   };
-
+console.log(option)
   return (
     <Form
       className="flex h-full w-full flex-col py-4"
@@ -131,7 +131,7 @@ const GeneralTab = ({ info }) => {
             <div className="flex items-center gap-x-3">
               <Switch
                 className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                name=" processes"
+                name="processes"
                 checked={information.returnfactory}
                 onCheckedChange={(e) => handleInputChange(e, "returnfactory")}
               />
