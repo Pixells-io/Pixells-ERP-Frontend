@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation,useParams } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -11,25 +11,55 @@ import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
 
-const UserTab = ({ users,info }) => {
-  const {id}=useParams();
-  console.log(info.users)
+const UserTab = ({ users, info }) => {
+  const { id } = useParams();
   const navigation = useNavigation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [responsibleUser, setResponsibleUser] = useState(null);
   const [selectEditUser, setSelectEditUser] = useState(null);
 
+  useEffect(() => {
+    if (info.users && info.users.length > 0) {
+      const updatedUsers = info.users.map(user => {
+        const matchingUser = users.find(u => u.id === user.id);
+        return {
+          ...user,
+          position: matchingUser ? matchingUser.position : "",
+          active: "1",
+          responsable: user.responsible ? "1" : "0",
+          start: "",
+          end: "",
+        };
+      });
+
+      setSelectedUsers(updatedUsers);
+
+      // Set initial responsible user
+      const responsibleUserIndex = updatedUsers.findIndex(user => user.responsable === "1");
+      if (responsibleUserIndex === -1) {
+        // If no responsible user, set the first user as responsible
+        updatedUsers[0].responsable = "1";
+        setResponsibleUser(updatedUsers[0].id);
+      } else {
+        setResponsibleUser(updatedUsers[responsibleUserIndex].id);
+      }
+    }
+  }, [info.users, users]);
 
   const handleAddUsers = (newUsers) => {
     setSelectedUsers((prevUsers) => [
       ...prevUsers,
-      ...newUsers.map((user) => ({
-        ...user,
-        active: "1",
-        responsable: "0",
-        start: "",
-        end: "",
-      })),
+      ...newUsers.map((user) => {
+        const matchingUser = users.find(u => u.id === user.id);
+        return {
+          ...user,
+          position: matchingUser ? matchingUser.position : "",
+          active: "1",
+          responsable: "0",
+          start: "",
+          end: "",
+        };
+      }),
     ]);
   };
 
@@ -38,7 +68,7 @@ const UserTab = ({ users,info }) => {
       prevUsers.map((user) => ({
         ...user,
         responsable: user.id === userId ? "1" : "0",
-      })),
+      }))
     );
     setResponsibleUser(userId);
   };
@@ -46,8 +76,8 @@ const UserTab = ({ users,info }) => {
   const handleInputChange = (value, name, userId) => {
     setSelectedUsers((prevUsers) =>
       prevUsers.map((user) =>
-        user.id === userId ? { ...user, [name]: value } : user,
-      ),
+        user.id === userId ? { ...user, [name]: value } : user
+      )
     );
     setSelectEditUser(userId);
   };
@@ -55,8 +85,8 @@ const UserTab = ({ users,info }) => {
   const addDate = (dateI, dateF, userId) => {
     setSelectedUsers((prevUsers) =>
       prevUsers.map((user) =>
-        user.id === userId ? { ...user, start: dateI, end: dateF } : user,
-      ),
+        user.id === userId ? { ...user, start: dateI, end: dateF } : user
+      )
     );
     setSelectEditUser(userId);
   };
@@ -64,8 +94,8 @@ const UserTab = ({ users,info }) => {
   const clearPeriod = (userId) => {
     setSelectedUsers((prevUsers) =>
       prevUsers.map((user) =>
-        user.id === userId ? { ...user, start: "", end: "" } : user,
-      ),
+        user.id === userId ? { ...user, start: "", end: "" } : user
+      )
     );
     setSelectEditUser(userId);
   };
@@ -96,14 +126,14 @@ const UserTab = ({ users,info }) => {
               name="service_id"
               value={id}
             />
-              <input
+            <input
               type="text"
               hidden
               readOnly
               name="service_user"
               value={user.id}
             />
-              <input
+            <input
               type="text"
               hidden
               readOnly
@@ -132,13 +162,13 @@ const UserTab = ({ users,info }) => {
               </div>
               <div className="col-span-3 flex items-center gap-x-2">
                 <Avatar className="size-8">
-                  <AvatarImage src={user.user_image} />
+                  <AvatarImage src={user.img || user.user_image} />
                 </Avatar>
                 <label className="text-xs font-normal text-grisText">
-                  {user.user?.label}
+                  {user.user?.label || user.name}
                 </label>
                 <span className="whitespace-nowrap text-center text-sm text-[#696974]">
-                  {user.name + " " + user.last_name}
+                  {user.name}
                 </span>
               </div>
 
@@ -229,10 +259,10 @@ const UserTab = ({ users,info }) => {
                   </div>
                   <div className="flex w-full justify-end">
                     <ModalDeleteUser
-                    option={"destroyServiceUser"}
-                    service_id={id}
+                      option={"destroyServiceUser"}
+                      service_id={id}
                       user_id={user.id}
-                      user_name={user.user?.label}
+                      user_name={user.user?.label || user.name}
                     />
                   </div>
                 </div>

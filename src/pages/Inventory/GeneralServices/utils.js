@@ -168,7 +168,7 @@ export async function updateGeneralTab(data) {
 export async function EditServiceUserTab(data) {
   const info = {
     service_user: parseInt(data.get("service_user")),
-    resposible: parseInt(data.get("responsible")),
+    responsible: parseInt(data.get("responsible")),
   };
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-service-user`,

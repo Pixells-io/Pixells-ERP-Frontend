@@ -30,16 +30,16 @@ const EditService = () => {
 
   const pusherClient = createPusherClient();
 
-  async function getServiceFunction(id) {
-    let newData = await getServiceById(id);
-    setServiceDetail(newData);
+  async function getServiceFunction() {
+    let newData = await getServiceById(urlId);
+    setServiceDetail(newData.data);
   }
 
   useEffect(() => {
     let channel = pusherClient.subscribe(`private-get-service.${urlId}`);
 
     channel.bind("fill-service", ({ service }) => {
-      getServiceFunction("service");
+      getServiceFunction();
     });
 
     return () => {
