@@ -21,25 +21,24 @@ import {
   DestroytProcessTab,
 } from "../utils";
 
-
 const EditService = () => {
-  const { id_service } = useParams();
-  const { servicesDetails, categories, costCenter, priceList, users } =
+  const { id } = useParams();
+  const { servicesDetails, categories, costCenter, priceList, users, areas } =
     useLoaderData();
   const [serviceDetail, setServiceDetail] = useState(servicesDetails.data);
-  const [urlId, setUrlId] = useState(id_service);
+  const [urlId, setUrlId] = useState(id);
 
   const pusherClient = createPusherClient();
 
-  async function getServiceFunction(id) {
-    let newData = await getServiceById(id);
-    setServiceDetail(newData);
+  async function getServiceFunction() {
+    let newData = await getServiceById(urlId);
+    setServiceDetail(newData.data);
   }
 
   useEffect(() => {
     let channel = pusherClient.subscribe(`private-get-service.${urlId}`);
 
-    channel.bind("fill-service", ({ message }) => {
+    channel.bind("fill-service", ({ service }) => {
       getServiceFunction();
     });
 
@@ -174,10 +173,10 @@ const EditService = () => {
               <GeneralTab info={serviceDetail} />
             </TabsContent>
             <TabsContent value="users" className="w-full">
-              <UserTab users={users.data} />
+              <UserTab users={users.data} info={serviceDetail} />
             </TabsContent>
             <TabsContent value="process" className="w-full">
-              <ProcessTab categories={categories.data} />
+              <ProcessTab categories={categories.data}  info={serviceDetail}  />
             </TabsContent>
             <TabsContent value="shopping" className="w-full">
               <ShoppingTab />
@@ -219,7 +218,7 @@ export async function Action({ request }) {
       await EditProcessTab(data);
       break;
     case "destroyProcessService":
-      await  DestroytProcessTab(data);
+      await DestroytProcessTab(data);
       break;
   }
   return "1";

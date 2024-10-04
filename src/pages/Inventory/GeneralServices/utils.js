@@ -2,6 +2,59 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 import { format } from "date-fns";
 
+//SAVE CATEGORY
+export async function saveCategory(data) {
+  const category = {
+    name: data.get("name"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/store-category`,
+    {
+      method: "POST",
+      body: JSON.stringify(category),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+//SAVE COMBO
+export async function savePackage(data) {
+  const services = [];
+
+  for (const [key, value] of data.entries()) {
+    if (key === "service") {
+      services.push(Number(value));
+    }
+  }
+
+  const info = {
+    name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
+    service: services,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/store-package`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+
 //SAVE SERVICE PRINCIPAL
 export async function saveNewService(data) {
   const info = {
@@ -168,7 +221,7 @@ export async function updateGeneralTab(data) {
 export async function EditServiceUserTab(data) {
   const info = {
     service_user: parseInt(data.get("service_user")),
-    resposible: parseInt(data.get("responsible")),
+    responsible: parseInt(data.get("responsible")),
   };
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-service-user`,
@@ -191,7 +244,7 @@ export async function EditProcessTab(data) {
     last_step:parseInt(data.get("last_step")),
     category:parseInt(data.get("category_id")),
     name:data.get("title"),
-    description:parseInt(data.get("description")),
+    description:data.get("description"),
     area:1,
   };
   const response = await fetch(
@@ -348,22 +401,6 @@ export async function getCategories() {
   }
 }
 
-//GET AREAS
-export async function getAreas() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/organization/get-areas`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
 //GET COMBOS
 export async function getPackages() {
   try {
@@ -438,5 +475,5 @@ export async function multiLoaderServiceGeneralDetails({ params }) {
       getPriceList(),
       getUsers(),
     ]);
-  return json({ servicesDetails, categories, costCenter, priceList, users });
+  return json({ servicesDetails, categories, costCenter, priceList, users});
 }

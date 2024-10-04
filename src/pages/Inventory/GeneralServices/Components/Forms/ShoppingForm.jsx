@@ -25,13 +25,13 @@ const ShoppingTab = () => {
             />
           </div>
       </div>
-     <div className="mt-10 flex w-full flex-1 items-end px-6">
+     <div className="flex w-full flex-1 items-end px-2">
        <div className="flex w-full justify-between">
          <label className="text-xs font-light text-[#8F8F8F]">
            Actualizado 07 septiembre 2024
          </label>
          <Button
-           className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+           className="h-[31px] rounded-xl py-4 py-2 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
          >
           Guardar
          </Button>
