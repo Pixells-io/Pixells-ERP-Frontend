@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import SelectsQuote from "../../Components/SelectGroup";
-import QuoteTable from "@/components/table/Quote/QuoteTable";
 import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import QuoteTable from "../Table/QuoteTable";
 
 const TicketForm = () => {
-  const { clients, listPrice, costCenter, users } = useLoaderData();
+  const { infoCreateSales } = useLoaderData();
 
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [productOrService, setProductOrService] = useState("product");
+  const [wharehouseSelect, setWharehouseSelect] = useState(null);
 
   return (
     <div className="flex w-full">
@@ -67,11 +70,50 @@ const TicketForm = () => {
             <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuote
                 isEditable={isEditable}
-                clientsList={clients.data}
-                listPriceList={listPrice.data}
-                costCenterList={costCenter.data}
-                usersList={users.data}
+                clientsList={infoCreateSales?.data?.clients}
+                listPriceList={infoCreateSales?.data?.price_list}
+                costCenterList={infoCreateSales?.data?.cost_center}
+                sellersList={infoCreateSales?.data?.sellers}
+                defaultSeller={infoCreateSales?.data?.default_seller}
+                productOrService={productOrService}
               />
+            </div>
+
+            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    [
+                      { value: "product", label: "Productos" },
+                      { value: "service", label: "Servicios" },
+                    ].find((ps) => ps.value == productOrService) || null
+                  }
+                  name={"productService"}
+                  options={[
+                    { value: "product", label: "Productos" },
+                    { value: "service", label: "Servicios" },
+                  ]}
+                  placeholder="Producto o Servicio"
+                  required={true}
+                  disabled={!isEditable}
+                  onChange={(e) => setProductOrService(e?.value)}
+                />
+              </div>
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    infoCreateSales?.data?.wharehouses.find(
+                      (wharehouse) => wharehouse.value == wharehouseSelect,
+                    ) || null
+                  }
+                  name={"productService"}
+                  options={infoCreateSales?.data?.wharehouses}
+                  placeholder="Almacén"
+                  required={true}
+                  disabled={!isEditable}
+                  onChange={(e) => setWharehouseSelect(e?.value)}
+                />
+              </div>
             </div>
 
             <div>
@@ -82,6 +124,9 @@ const TicketForm = () => {
                   allProducts={allProducts}
                   setTableData={setTableData}
                   tableData={tableData}
+                  productOrService={productOrService}
+                  services_map={infoCreateSales?.data?.services_map}
+                  services_data={infoCreateSales?.data?.services_data}
                 />
               </div>
               <Total tableData={tableData} comment={""} />

@@ -2,80 +2,25 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
 export async function multiLoaderListTickets() {
-  const [clients, listPrice, costCenter, users] = await Promise.all([
-    getClients(),
-    getListPrice(),
-    getCostCenter(),
-    getUsers(),
+  const [infoCreateSales] = await Promise.all([
+    getInfoCreateSales()
   ]);
 
-  return json({ clients, listPrice, costCenter, users });
+  return json({ infoCreateSales });
 }
 
 export async function multiLoaderListEditTickets() {
-  const [clients, listPrice, costCenter, users] = await Promise.all([
-    getClients(),
-    getListPrice(),
-    getCostCenter(),
-    getUsers(),
+  const [infoCreateSales] = await Promise.all([
+    getInfoCreateSales(),
   ]);
 
-  return json({ clients, listPrice, costCenter, users });
+  return json({ infoCreateSales });
 }
 
-export async function getClients() {
+export async function getInfoCreateSales() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}client/get`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
-
-export async function getListPrice() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}inventory/get-price-lists`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
-
-export async function getCostCenter() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}accounting/get-cost-center`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Ups", { status: 500 });
-  }
-}
-
-export async function getUsers() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}organization/get-users`,
+      `${import.meta.env.VITE_SERVER_URL}sales/get-info-create-sales`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),

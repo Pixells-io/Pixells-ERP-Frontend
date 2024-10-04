@@ -36,7 +36,7 @@ const MENU_ITEMS = [
     subname: "de Clientes",
     icon: ticket,
     subRoutes: [
-      "/sales/tickets/",
+      "/sales/customer/",
     ] 
   },
   {

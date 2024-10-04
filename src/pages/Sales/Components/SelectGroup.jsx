@@ -10,7 +10,8 @@ const SelectsQuote = ({
   clientsList,
   listPriceList,
   costCenterList,
-  usersList,
+  sellersList,
+  defaultSeller,
 }) => {
   const [inputValue, setInputValue] = useState({
     id: data?.id,
@@ -20,7 +21,7 @@ const SelectsQuote = ({
     condition: data?.condition,
     date: data?.date,
     stored: data?.stored,
-    seller: data?.seller,
+    seller: defaultSeller?.value || data?.seller,
     expiration: data?.expiration,
   });
 
@@ -44,47 +45,67 @@ const SelectsQuote = ({
         <div className="col-span-4">
           <SelectRouter
             value={
-              listPriceList.find((cc) => cc.id == inputValue?.priceList) || null
+              listPriceList.find((cc) => cc.value == inputValue?.priceList) ||
+              null
             }
             name={"priceList"}
             options={listPriceList}
             placeholder="Lista de Precios"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.id, "priceList")}
-            getOptionValue={(e) => e.id}
-            getOptionLabel={(e) => e.name}
+            onChange={(e) => handleInputChange(e.value, "priceList")}
           />
         </div>
 
         <div className="col-span-4">
           <SelectRouter
             value={
-              costCenterList.find((cc) => cc.id == inputValue?.ccost) || null
+              costCenterList.find((cc) => cc.value == inputValue?.ccost) || null
             }
             name={"ccost"}
             options={costCenterList}
             placeholder="Centro de Costos"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.id, "ccost")}
-            getOptionValue={(e) => e.id}
-            getOptionLabel={(e) => e.name}
+            onChange={(e) => handleInputChange(e.value, "ccost")}
           />
         </div>
-        <div className="col-span-2 flex items-center">
-          <InputForm
-            name="condition"
+        <div className="col-span-2 flex items-center gap-x-4">
+          <SelectRouter
+            value={
+              [
+                { value: "cash", label: "Contado" },
+                { value: "credit", label: "Crédito" },
+              ].find((condition) => condition.value == inputValue?.condition) ||
+              null
+            }
+            name={"condition"}
+            options={[
+              { value: "cash", label: "Contado" },
+              { value: "credit", label: "Crédito" },
+            ]}
             placeholder="Condición de Pago"
-            value={""}
+            required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.target.value, "condition")}
-            readOnly
+            onChange={(e) => handleInputChange(e.value, "condition")}
+            getOptionLabel={(e) => {
+              return (
+                <div className="text-roboto text-xs font-normal text-grisText">
+                  <span>{e.label}</span>
+                  {false && (
+                    <>
+                      <span> - </span>
+                      <span className="text-[#D7586B]">Límite superado</span>
+                    </>
+                  )}
+                </div>
+              );
+            }}
           />
           <HoverExclamation
             message={"Para agregar crédito, ve a las condiciones del cliente"}
             icon={alertCircleOutline}
-            classNameContent={"w-fit"}
+            classNameContent={"w-[142px]"}
           />
         </div>
 
@@ -101,7 +122,7 @@ const SelectsQuote = ({
         <div className="col-span-4">
           <SelectRouter
             value={
-              clientsList.find((store) => store.id == inputValue?.stored) ||
+              clientsList.find((store) => store.value == inputValue?.stored) ||
               null
             }
             name={"stored"}
@@ -109,24 +130,22 @@ const SelectsQuote = ({
             placeholder="Cliente"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.id, "stored")}
-            getOptionValue={(e) => e.id}
-            getOptionLabel={(e) => e.name}
+            onChange={(e) => handleInputChange(e.value, "stored")}
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
-              usersList.find((store) => store.id == inputValue?.seller) || null
+              sellersList.find(
+                (seller) => seller.value == inputValue?.seller,
+              ) || null
             }
             name={"seller"}
-            options={usersList}
+            options={sellersList}
             placeholder="Vendedor"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.id, "seller")}
-            getOptionValue={(e) => e.id}
-            getOptionLabel={(e) => e.name}
+            onChange={(e) => handleInputChange(e.value, "seller")}
           />
         </div>
       </div>

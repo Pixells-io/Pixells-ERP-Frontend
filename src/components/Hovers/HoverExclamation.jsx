@@ -22,7 +22,7 @@ export function HoverExclamation({
       </HoverCardTrigger>
       <HoverCardContent
         className={cn(
-          "text-roboto max-w-80 bg-[#44444F]/50 text-xs font-semibold text-white border-none",
+          "px-1.5 py-3 text-center rounded-2xl text-roboto max-w-80 bg-[#44444F]/50 text-[10px] font-semibold text-white border-none",
           classNameContent,
         )}
       >
