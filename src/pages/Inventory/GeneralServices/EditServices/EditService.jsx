@@ -23,7 +23,7 @@ import {
 
 const EditService = () => {
   const { id } = useParams();
-  const { servicesDetails, categories, costCenter, priceList, users } =
+  const { servicesDetails, categories, costCenter, priceList, users, areas } =
     useLoaderData();
   const [serviceDetail, setServiceDetail] = useState(servicesDetails.data);
   const [urlId, setUrlId] = useState(id);
@@ -176,7 +176,7 @@ const EditService = () => {
               <UserTab users={users.data} info={serviceDetail} />
             </TabsContent>
             <TabsContent value="process" className="w-full">
-              <ProcessTab categories={categories.data} />
+              <ProcessTab categories={categories.data}  info={serviceDetail}  />
             </TabsContent>
             <TabsContent value="shopping" className="w-full">
               <ShoppingTab />

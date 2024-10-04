@@ -191,7 +191,7 @@ export async function EditProcessTab(data) {
     last_step:parseInt(data.get("last_step")),
     category:parseInt(data.get("category_id")),
     name:data.get("title"),
-    description:parseInt(data.get("description")),
+    description:data.get("description"),
     area:1,
   };
   const response = await fetch(
@@ -348,22 +348,6 @@ export async function getCategories() {
   }
 }
 
-//GET AREAS
-export async function getAreas() {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/organization/get-areas`,
-      {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      },
-    );
-    return response.json();
-  } catch (error) {
-    return new Response("Something went wrong...", { status: 500 });
-  }
-}
 //GET COMBOS
 export async function getPackages() {
   try {
@@ -438,5 +422,5 @@ export async function multiLoaderServiceGeneralDetails({ params }) {
       getPriceList(),
       getUsers(),
     ]);
-  return json({ servicesDetails, categories, costCenter, priceList, users });
+  return json({ servicesDetails, categories, costCenter, priceList, users});
 }

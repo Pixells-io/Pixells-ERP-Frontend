@@ -10,22 +10,34 @@ import ModalDeleteUser from "../Modals/ModalDeleteUser";
 import { format } from "date-fns";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const ProcessTab = ({ categories }) => {
+const ProcessTab = ({ categories, info }) => {
   const { id } = useParams();
   const navigation = useNavigation();
   const [processes, setProcesses] = useState([]);
   const [selectEditProcess, setSelectEditProcess] = useState(null);
 
+  useEffect(() => {
+    if (info.process && Array.isArray(info.process)) {
+      const formattedProcesses = info.process.map(process => ({
+        ...process,
+        active: process.type === 0 ? "0" : "1",
+        option: "updated_process",
+        category_id: parseInt(process.category)
+      }));
+      setProcesses(formattedProcesses);
+    }
+  }, [info.process]);
+
   const addProcess = () => {
     const newProcess = {
-      id: processes.length + 1, 
+      id: processes.length + 1,
       title: "",
       name: "",
-      descripcion: "",
+      description: "",
       active: "0",
       start: "",
       end: "",
-      category_id: null,
+      category_id: "",
       option: "create_process",
     };
     setProcesses([...processes, newProcess]);
@@ -93,8 +105,8 @@ const ProcessTab = ({ categories }) => {
                   name="title"
                   type="text"
                   placeholder="Titulo"
-                  value={process.title}
-                  onChange={(e) => handleInputChange(e.target.value, "title", index)}
+                  value={process.name}
+                  onChange={(e) => handleInputChange(e.target.value, "name", index)}
                 />
               </div>
               <div className="col-span-3">
@@ -102,6 +114,7 @@ const ProcessTab = ({ categories }) => {
                   name="category_id"
                   options={formattedCategories} 
                   placeholder={"Categoría/Acción"}
+                  value={formattedCategories.find(cat => cat.value === process.category_id)}
                   onChange={(selectedOption) => {
                     handleInputChange(selectedOption.value, "category_id", index);
                   }}
@@ -115,8 +128,8 @@ const ProcessTab = ({ categories }) => {
                   name="description"
                   type="text"
                   placeholder="Descripcion"
-                  value={process.descripcion}
-                  onChange={(e) => handleInputChange(e.target.value, "descripcion", index)}
+                  value={process.description}
+                  onChange={(e) => handleInputChange(e.target.value, "description", index)}
                 />
               </div>
 
@@ -146,10 +159,10 @@ const ProcessTab = ({ categories }) => {
                     {!!process.start && !!process.end ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <label className="text-xs font-light text-[#44444F]">{format(process.start, "PP")}</label>
+                          <label className="text-xs font-light text-[#44444F]">{format(new Date(process.start), "PP")}</label>
                         </div>
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <label className="text-xs font-light text-[#44444F]">{format(process.end, "PP")}</label>
+                          <label className="text-xs font-light text-[#44444F]">{format(new Date(process.end), "PP")}</label>
                         </div>
                       </div>
                     ) : (
