@@ -31,11 +31,10 @@ export const CategoriesColumns = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-           <IonIcon
-                icon={informationCircleOutline}
-                className="h-5 w-5 text-[#696974]"
-              />
-         
+          <IonIcon
+            icon={informationCircleOutline}
+            className="h-5 w-5 text-[#696974]"
+          />
         </div>
       );
     },
