@@ -3,8 +3,6 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  informationCircle,
-  addCircleOutline,
   informationCircleOutline,
   add,
 } from "ionicons/icons";
@@ -12,19 +10,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 const MainSalesTicket = () => {
-  const data = [
-    {
-      id: 1,
-      folio: "1",
-      date: "12/Oct/2024",
-      customer: "Mexicana",
-      description: "Descripcion",
-      total: "10",
-      comments: "hola",
-    },
-  ];
+
+  const { data } = useLoaderData();
 
   const columns = [
     {
