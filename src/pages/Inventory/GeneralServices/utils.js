@@ -65,7 +65,7 @@ export async function saveNewGeneralTab(data) {
 export async function saveNewUsersTab(data) {
   const info = {
     service_id: parseInt(data.get("info_id")),
-    users: data.getAll("users[]").map(Number),
+    users: JSON.parse(data.get("users")),
   };
 
   const response = await fetch(
