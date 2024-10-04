@@ -46,7 +46,7 @@ function NewCategoryForm({ modalCategories, setModalCategories }) {
         <Form
           id="category-services-form"
           className="flex flex-col gap-4"
-          action="/crm/services"
+          action="/inventory/general-services"
           method="post"
           encType="multipart/form-data"
           onKeyDown={(e) => {

@@ -50,7 +50,7 @@ function NewComboForm({ modalPackage, setModalPackage, info }) {
         <Form
           id="package-services-form"
           className="flex flex-col gap-4 px-6"
-          action="/crm/services"
+          action="/inventory/general-services"
           method="post"
           encType="multipart/form-data"
           onKeyDown={(e) => {

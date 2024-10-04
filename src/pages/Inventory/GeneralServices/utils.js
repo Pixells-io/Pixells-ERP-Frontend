@@ -2,6 +2,59 @@ import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 import { format } from "date-fns";
 
+//SAVE CATEGORY
+export async function saveCategory(data) {
+  const category = {
+    name: data.get("name"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/store-category`,
+    {
+      method: "POST",
+      body: JSON.stringify(category),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+//SAVE COMBO
+export async function savePackage(data) {
+  const services = [];
+
+  for (const [key, value] of data.entries()) {
+    if (key === "service") {
+      services.push(Number(value));
+    }
+  }
+
+  const info = {
+    name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
+    service: services,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/store-package`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+
 //SAVE SERVICE PRINCIPAL
 export async function saveNewService(data) {
   const info = {

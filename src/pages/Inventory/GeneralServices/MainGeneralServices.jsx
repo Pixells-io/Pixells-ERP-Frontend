@@ -10,7 +10,7 @@ import NewCategoryForm from "./Components/Forms/NewCategory";
 import NewComboForm from "./Components/Forms/NewComboForm";
 import { useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { getServices } from "./utils";
+import { getServices,saveCategory,savePackage} from "./utils";
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
@@ -34,7 +34,7 @@ const MainGeneralServices = () => {
 // ADD WEB SOCKET
   async function getServiceFunction() {
     let newData = await getServices();
-    setServiceInfo(newData);
+    setServiceInfo(newData.reverse());
   }
 
 //CHANNEL
@@ -137,3 +137,40 @@ const MainGeneralServices = () => {
 };
 
 export default MainGeneralServices;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  switch (data.get("type")) {
+    case "1":
+      //Service Case
+      await saveService(data);
+      break;
+    case "2":
+      //Category Case
+      await saveCategory(data);
+      break;
+    case "3":
+      //Package Case
+      await savePackage(data);
+      break;
+    case "4":
+      //Package Case
+      await editCategory(data);
+      break;
+    case "5":
+      //Package Case
+      await editPackage(data);
+      break;
+    case "6":
+      //Package Case
+      await editService(data);
+      break;
+
+    default:
+      break;
+  }
+
+  return data;
+}
+
