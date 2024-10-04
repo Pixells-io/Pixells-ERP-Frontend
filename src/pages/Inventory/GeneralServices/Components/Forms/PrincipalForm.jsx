@@ -281,7 +281,7 @@ const PrincipalForm = ({ categories, costCenter, priceList, info }) => {
           <input type="hidden" name="color" value={formData.color} />
         </div>
       </div>
-      <div className="flex w-full flex-1 items-end px-2">
+      <div className="flex w-full flex-1 items-end pt-4 px-2">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
           Actualizado 07 septiembre 2024

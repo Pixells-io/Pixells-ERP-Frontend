@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
 import { informationCircleOutline, trashOutline, } from "ionicons/icons";
-import { getServices,saveCategory,savePackage, DestroytService} from "./utils";
+import { getServices,saveCategory,savePackage, DestroyService} from "./utils";
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
@@ -225,7 +225,7 @@ export async function Action({ request }) {
   switch (data.get("type")) {
     case "destroy_service":
       //Service Case
-      await DestroytService(data);
+      await DestroyService(data);
       break;
     case "2":
       //Category Case

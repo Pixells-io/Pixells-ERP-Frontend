@@ -298,13 +298,14 @@ export async function DestroytProcessTab(data) {
 }
 
 //DESTROY SERVICE
-export async function DestroytService(data) { 
+export async function DestroyService(data) { 
   
   const service_id =parseInt(data.get("service_id"));
  
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}destroy-service/${service_id}`,
     {
+      body: JSON.stringify(service_id),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

@@ -231,7 +231,7 @@ const ProcessTab = ({ categories, info, area }) => {
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">Actualizado 07 septiembre 2024</label>
         </div>
-        <button className="h-[31px] rounded-xl bg-[#E0E0E0] px-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">Guardar</button>
+        {/* <button className="h-[31px] rounded-xl bg-[#E0E0E0] px-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">Guardar</button> */}
       </div>
     </div>
   );
