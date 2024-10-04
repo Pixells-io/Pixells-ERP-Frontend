@@ -9,9 +9,10 @@ import StatusInformation from "@/components/StatusInformation/status-information
 import { Form, useLoaderData, useParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const TicketDetails = () => {
-  const { clients, listPrice, costCenter, users } = useLoaderData();
+  const { infoCreateSales } = useLoaderData();
 
   const { id } = useParams();
   const url = "/sales/tickets/document/" + id;
@@ -19,7 +20,8 @@ const TicketDetails = () => {
   const [isEditable, setisEditable] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
-
+  const [productOrService, setProductOrService] = useState("product");
+  const [wharehouseSelect, setWharehouseSelect] = useState(null);
 
   return (
     <div className="flex w-full">
@@ -74,11 +76,50 @@ const TicketDetails = () => {
             <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuote
                 isEditable={isEditable}
-                clientsList={clients.data}
-                listPriceList={listPrice.data}
-                costCenterList={costCenter.data}
-                usersList={users.data}
+                clientsList={infoCreateSales?.data?.clients}
+                listPriceList={infoCreateSales?.data?.price_list}
+                costCenterList={infoCreateSales?.data?.cost_center}
+                sellersList={infoCreateSales?.data?.sellers}
+                defaultSeller={infoCreateSales?.data?.default_seller}
+                productOrService={productOrService}
               />
+            </div>
+
+            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    [
+                      { value: "product", label: "Productos" },
+                      { value: "service", label: "Servicios" },
+                    ].find((ps) => ps.value == productOrService) || null
+                  }
+                  name={"productService"}
+                  options={[
+                    { value: "product", label: "Productos" },
+                    { value: "service", label: "Servicios" },
+                  ]}
+                  placeholder="Producto o Servicio"
+                  required={true}
+                  disabled={!isEditable}
+                  onChange={(e) => setProductOrService(e?.value)}
+                />
+              </div>
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    infoCreateSales?.data?.wharehouses.find(
+                      (wharehouse) => wharehouse.value == wharehouseSelect,
+                    ) || null
+                  }
+                  name={"productService"}
+                  options={infoCreateSales?.data?.wharehouses}
+                  placeholder="Almacén"
+                  required={true}
+                  disabled={!isEditable}
+                  onChange={(e) => setWharehouseSelect(e?.value)}
+                />
+              </div>
             </div>
 
             <div>
@@ -94,7 +135,7 @@ const TicketDetails = () => {
               <Total tableData={tableData} comment={""} />
             </div>
           </div>
-          
+
           <div className="flex justify-end">
             <StatusInformation
               status={"inProgress"}
