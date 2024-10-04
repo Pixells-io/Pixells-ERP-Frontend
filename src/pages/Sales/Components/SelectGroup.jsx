@@ -16,13 +16,13 @@ const SelectsQuote = ({
   const [inputValue, setInputValue] = useState({
     id: data?.id,
     code: data?.code,
-    priceList: data?.priceList,
+    price_list: data?.price_list,
+    seller_id: defaultSeller?.value || data?.seller_id,
+    client_id: data?.client_id,
     ccost: data?.ccost,
-    condition: data?.condition,
+    credit: data?.credit,
     date: data?.date,
-    stored: data?.stored,
-    seller: defaultSeller?.value || data?.seller,
-    expiration: data?.expiration,
+    expiration_date: data?.expiration_date,
   });
 
   const handleInputChange = (value, name) => {
@@ -45,15 +45,15 @@ const SelectsQuote = ({
         <div className="col-span-4">
           <SelectRouter
             value={
-              listPriceList.find((cc) => cc.value == inputValue?.priceList) ||
+              listPriceList.find((cc) => cc.value == inputValue?.price_list) ||
               null
             }
-            name={"priceList"}
+            name={"price_list"}
             options={listPriceList}
             placeholder="Lista de Precios"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "priceList")}
+            onChange={(e) => handleInputChange(e.value, "price_list")}
           />
         </div>
 
@@ -74,20 +74,20 @@ const SelectsQuote = ({
           <SelectRouter
             value={
               [
-                { value: "cash", label: "Contado" },
-                { value: "credit", label: "Crédito" },
-              ].find((condition) => condition.value == inputValue?.condition) ||
+                { value: "0", label: "Crédito" },
+                { value: "1", label: "Contado" },
+              ].find((credit) => credit.value == inputValue?.credit) ||
               null
             }
-            name={"condition"}
+            name={"credit"}
             options={[
-              { value: "cash", label: "Contado" },
-              { value: "credit", label: "Crédito" },
+              { value: "0", label: "Crédito" },
+              { value: "1", label: "Contado" },
             ]}
             placeholder="Condición de Pago"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "condition")}
+            onChange={(e) => handleInputChange(e.value, "credit")}
             getOptionLabel={(e) => {
               return (
                 <div className="text-roboto text-xs font-normal text-grisText">
@@ -112,41 +112,41 @@ const SelectsQuote = ({
         <div className="col-span-2">
           <InputForm
             type={"date"}
-            name="expiration"
+            name="expiration_date"
             placeholder="Vencimiento"
-            value={inputValue?.expiration}
+            value={inputValue?.expiration_date}
             disabled={!isEditable}
             required={true}
-            onChange={(e) => handleInputChange(e.target.value, "expiration")}
+            onChange={(e) => handleInputChange(e.target.value, "expiration_date")}
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
-              clientsList.find((store) => store.value == inputValue?.stored) ||
+              clientsList.find((store) => store.value == inputValue?.client_id) ||
               null
             }
-            name={"stored"}
+            name={"client_id"}
             options={clientsList}
             placeholder="Cliente"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "stored")}
+            onChange={(e) => handleInputChange(e.value, "client_id")}
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
               sellersList.find(
-                (seller) => seller.value == inputValue?.seller,
+                (seller) => seller.value == inputValue?.seller_id,
               ) || null
             }
-            name={"seller"}
+            name={"seller_id"}
             options={sellersList}
             placeholder="Vendedor"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "seller")}
+            onChange={(e) => handleInputChange(e.value, "seller_id")}
           />
         </div>
       </div>

@@ -23,10 +23,10 @@ const TicketForm = () => {
 
   const getProducts = async () => {
     await getProductsByWharehouse(wharehouseSelect);
-  }
+  };
 
   useEffect(() => {
-    if(wharehouseSelect != null){
+    if (wharehouseSelect != null) {
       getProducts();
     }
   }, [wharehouseSelect]);
@@ -91,22 +91,7 @@ const TicketForm = () => {
               />
             </div>
 
-            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9"> 
-              <div className="col-span-2">
-                <SelectRouter
-                  value={
-                    infoCreateSales?.data?.wharehouses.find(
-                      (wharehouse) => wharehouse.value == wharehouseSelect,
-                    ) || null
-                  }
-                  name={"productService"}
-                  options={infoCreateSales?.data?.wharehouses}
-                  placeholder="Almacén"
-                  required={true}
-                  disabled={!isEditable}
-                  onChange={(e) => setWharehouseSelect(e?.value)}
-                />
-              </div>
+            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
               <div className="col-span-2">
                 <SelectRouter
                   value={
@@ -126,6 +111,23 @@ const TicketForm = () => {
                   onChange={(e) => setProductOrService(e?.value)}
                 />
               </div>
+              {productOrService == "product" && (
+                <div className="col-span-2">
+                  <SelectRouter
+                    value={
+                      infoCreateSales?.data?.wharehouses.find(
+                        (wharehouse) => wharehouse.value == wharehouseSelect,
+                      ) || null
+                    }
+                    name={"wharehouse"}
+                    options={infoCreateSales?.data?.wharehouses}
+                    placeholder="Almacén"
+                    required={true}
+                    disabled={!isEditable}
+                    onChange={(e) => setWharehouseSelect(e?.value)}
+                  />
+                </div>
+              )}
             </div>
 
             <div>

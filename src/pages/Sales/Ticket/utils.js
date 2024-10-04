@@ -1,18 +1,30 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
+export async function getSalesTicket() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}sales/get-sales`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiLoaderListTickets() {
-  const [infoCreateSales] = await Promise.all([
-    getInfoCreateSales()
-  ]);
+  const [infoCreateSales] = await Promise.all([getInfoCreateSales()]);
 
   return json({ infoCreateSales });
 }
 
 export async function multiLoaderListEditTickets() {
-  const [infoCreateSales] = await Promise.all([
-    getInfoCreateSales(),
-  ]);
+  const [infoCreateSales] = await Promise.all([getInfoCreateSales()]);
 
   return json({ infoCreateSales });
 }
@@ -50,5 +62,40 @@ export async function getProductsByWharehouse(wharehouse) {
 }
 
 export async function saveNewTicketSale(data) {
-  console.log(data);
+  const products = JSON.parse(data.get("productsOrService")).map((p) => {
+    return {
+      type: p.type,
+      inventory_stock_id: p.inventory_stock_id,
+      service_id: p.service_id,
+      price: p.value,
+      discount: p.discount,
+      tax: p.taxes,
+      total: p.total,
+      quantity: p.quantity,
+    };
+  });
+
+  const info = {
+    // code: data.get("code"),
+    price_list: data.get("price_list"),
+    seller_id: data.get("seller_id"),
+    client_id: data.get("client_id"),
+    credit: data.get("credit"),
+    ccost: data.get("ccost"),
+    expiration_date: data.get("expiration_date"),
+
+    productService: data.get("productService"),
+    wharehouse: data.get("wharehouse"),
+
+    sales_slots: products,
+
+    productDelete: data.getAll("productDelete"),
+
+    comments: data.get("comments"),
+    subtotal: data.get("subtotal"),
+    taxes: data.get("taxes"),
+    total: data.get("total"),
+  };
+
+  console.log(info);
 }

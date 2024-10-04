@@ -29,7 +29,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 /**
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
@@ -48,17 +47,21 @@ const QuoteTable = ({
   products_map,
 }) => {
   const initialRow = {
+    type: "",
+    inventory_stock_id: "",
+    service_id: "",
     item: "",
     code: "",
-    value: "",
+    price: "",
     discount: "",
-    taxes: "",
+    tax: "",
     quantity: "",
-    unitHidden: "",
     delivery_date: "",
     product_idAux: undefined,
     master_product: "",
     variations: "",
+    sub_total: "0.00",
+    total: "0.00",
   };
   const location = useLocation();
   const [productDelete, setProductDelete] = useState([]);
@@ -132,7 +135,22 @@ const QuoteTable = ({
           index === rowIndex
             ? {
                 ...item,
+                type: productOrService == "product" ? "1" : "2",
+                inventory_stock_id:
+                  productOrService == "product" ? findProduct?.id : null,
+                service_id:
+                  productOrService == "service" ? findProduct?.id : null,
                 code: findProduct.code,
+                sub_total: calculateSubTotal({
+                  value: findProduct.price,
+                  quantity: 1,
+                }).toFixed(2),
+                total: calculateTotal({
+                  value: findProduct.price,
+                  quantity: 1,
+                  discount: 0,
+                  taxes: 16,
+                }).toFixed(2),
                 value: findProduct.price,
                 product_idAux: value,
                 quantity: 1,
@@ -140,17 +158,48 @@ const QuoteTable = ({
                 variations: findProduct.variation_id,
                 taxes: 16,
                 discount: 0,
-                unit: findProduct.unit,
               }
             : item,
         ),
       );
     } else {
-      setTableData((prevData) =>
-        prevData.map((item, index) =>
-          index === rowIndex ? { ...item, [key]: value } : item,
-        ),
-      );
+      if (key == "total") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex
+              ? {
+                  ...item,
+                  total: calculateTotal({
+                    value: value,
+                    quantity: item.quantity,
+                    discount: item.discount,
+                    taxes: item.taxes,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
+      } else if (key == "sub_total") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex
+              ? {
+                  ...item,
+                  sub_total: calculateSubTotal({
+                    value: findProduct.price,
+                    quantity: item.quantity,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
+      } else {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex ? { ...item, [key]: value } : item,
+          ),
+        );
+      }
     }
   };
 
@@ -218,6 +267,14 @@ const QuoteTable = ({
                       name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={!!row["id"] ? row["id"] : ""}
                     />
+                    <input
+                      type="hidden"
+                      className="hidden"
+                      hidden
+                      readOnly
+                      name={`type[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      value={!!row["type"] ? row["type"] : ""}
+                    />
 
                     {!!row["id"] ? (
                       <label>{row["product"].label}</label>
@@ -283,9 +340,9 @@ const QuoteTable = ({
                       className="hidden"
                       readOnly
                       name={`sub_total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      value={calculateSubTotal(row).toFixed(2)}
+                      value={row["sub_total"]}
                     />
-                    ${calculateSubTotal(row).toFixed(2)}
+                    ${row["sub_total"]}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -296,9 +353,9 @@ const QuoteTable = ({
                       className="hidden"
                       readOnly
                       name={`total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      value={calculateTotal(row).toFixed(2)}
+                      value={row["total"]}
                     />
-                    ${calculateTotal(row).toFixed(2)}
+                    ${row["total"]}
                     <Button
                       variant="ghost"
                       size="icon"

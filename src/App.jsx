@@ -424,7 +424,7 @@ import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
-import { multiLoaderListEditTickets, multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
+import { getSalesTicket, multiLoaderListEditTickets, multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
 import Summary from "./pages/Sales/Customer/Summary/Summary";
 import Information from "./pages/Sales/Customer/EditCustomer/Information/Information";
 
@@ -1371,6 +1371,7 @@ const router = createBrowserRouter([
           {
             path: "/sales/tickets",
             element: <MainSalesTicket />,
+            loader: getSalesTicket,
           },
           {
             path: "/sales/tickets/new",
