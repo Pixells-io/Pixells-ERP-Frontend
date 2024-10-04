@@ -49,7 +49,7 @@ const statusStyles = {
   Completado: "bg-[#00A25940] text-[#00A259]",
 };
 
-const ShoppingTable = () => {
+const SaleTable = () => {
   return (
     <div className="lg:h-60">
       <Table>
@@ -113,4 +113,4 @@ const ShoppingTable = () => {
   );
 };
 
-export default ShoppingTable;
+export default SaleTable;

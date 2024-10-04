@@ -46,7 +46,7 @@ const statusStyles = {
   Pagado: "bg-[#CBF4C9] font-bold text-[#0E6245]",
 };
 
-const PaymentTable = () => {
+const BillingTable = () => {
   return (
     <>
       <Table>
@@ -101,4 +101,4 @@ const PaymentTable = () => {
   );
 };
 
-export default PaymentTable;
+export default BillingTable;
