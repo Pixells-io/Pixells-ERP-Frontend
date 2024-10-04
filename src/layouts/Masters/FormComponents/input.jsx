@@ -13,6 +13,9 @@ function InputRouter({
   onChange,
   required,
   className,
+  maxValue,
+  minValue,
+  titlePlaceholder,
 }) {
   return (
     <Label className="flex w-full flex-col">
@@ -32,6 +35,9 @@ function InputRouter({
         value={value}
         onChange={onChange}
         required={required}
+        max={maxValue}
+        min={minValue}
+        title={titlePlaceholder}
       />
     </Label>
   );

@@ -10,6 +10,7 @@ import {
   create,
   closeCircle,
   qrCodeOutline,
+  addCircle,
 } from "ionicons/icons";
 
 import StatusInformation from "@/components/StatusInformation/status-information";
@@ -154,7 +155,16 @@ const NewDirectTransfer = () => {
                 map={slots}
               />
             ))}
-            {arrayCount.length > 0 ? <span>You</span> : false}
+            {arrayCount.length > 0 ? (
+              <IonIcon
+                icon={addCircle}
+                size="small"
+                className="mt-6 cursor-pointer text-primario"
+                onClick={addArrayNumber}
+              />
+            ) : (
+              false
+            )}
           </div>
 
           <StatusInformation
