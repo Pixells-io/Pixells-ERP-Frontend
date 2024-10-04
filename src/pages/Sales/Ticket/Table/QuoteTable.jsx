@@ -45,6 +45,7 @@ const QuoteTable = ({
   productOrService,
   services_map,
   services_data,
+  products_map,
 }) => {
   const initialRow = {
     item: "",
@@ -85,7 +86,7 @@ const QuoteTable = ({
       setAllProductsOrServices(services_map);
     }
     if (productOrService == "product") {
-      setAllProductsOrServices([]);
+      setAllProductsOrServices(products_map || []);
     }
   }, [productOrService]);
 
@@ -197,18 +198,18 @@ const QuoteTable = ({
             </TableRow>
           </TableHeader>
           <TableBody>
+            <input
+              type="hidden"
+              className="hidden"
+              hidden
+              readOnly
+              name={`productsOrService`}
+              value={JSON.stringify(tableData)}
+            />
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 <TableCell>
                   <div className="w-[200px]">
-                    <input
-                      type="hidden"
-                      hidden
-                      className="hidden"
-                      readOnly
-                      name={`totalRow[]`}
-                      value={""}
-                    />
                     <input
                       type="hidden"
                       className="hidden"
@@ -217,31 +218,7 @@ const QuoteTable = ({
                       name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={!!row["id"] ? row["id"] : ""}
                     />
-                    <input
-                      type="hidden"
-                      hidden
-                      className="hidden"
-                      readOnly
-                      name={`master_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      value={row["master_product"]}
-                    />
-                    <input
-                      type="hidden"
-                      hidden
-                      className="hidden"
-                      readOnly
-                      name={`variations[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      value={row["variations"]}
-                    />
 
-                    <input
-                      type="text"
-                      hidden
-                      className="hidden"
-                      readOnly
-                      name={`unitHidden[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                      value={row["unit"]}
-                    />
                     {!!row["id"] ? (
                       <label>{row["product"].label}</label>
                     ) : (

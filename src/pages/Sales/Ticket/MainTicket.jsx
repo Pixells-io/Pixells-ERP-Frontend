@@ -66,10 +66,10 @@ const MainSalesTicket = () => {
       accessorKey: "comments",
       header: "COMENTARIOS",
     },
-    {
-      accessorKey: "total",
-      header: "TOTAL",
-    },
+    // {
+    //   accessorKey: "total",
+    //   header: "TOTAL",
+    // },
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
@@ -168,8 +168,8 @@ const MainSalesTicket = () => {
             <DataTable
               data={data}
               columns={columns}
-              searchFilter="nombre"
-              searchNameFilter="Buscar por nombre"
+              searchFilter="folio"
+              searchNameFilter="Buscar por folio"
               isCheckAll={true}
             />
           </TabsContent>

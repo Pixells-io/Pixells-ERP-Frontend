@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SelectsQuote from "../../Components/SelectGroup";
 import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
+import { getProductsByWharehouse, saveNewTicketSale } from "../utils";
 
 const TicketForm = () => {
   const { infoCreateSales } = useLoaderData();
@@ -18,6 +19,17 @@ const TicketForm = () => {
   const [tableData, setTableData] = useState([]);
   const [productOrService, setProductOrService] = useState("product");
   const [wharehouseSelect, setWharehouseSelect] = useState(null);
+  const [productsList, setProductsList] = useState(null);
+
+  const getProducts = async () => {
+    await getProductsByWharehouse(wharehouseSelect);
+  }
+
+  useEffect(() => {
+    if(wharehouseSelect != null){
+      getProducts();
+    }
+  }, [wharehouseSelect]);
 
   return (
     <div className="flex w-full">
@@ -65,6 +77,7 @@ const TicketForm = () => {
         <Form
           method="post"
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
+          action={`/sales/tickets/new`}
         >
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
@@ -75,11 +88,25 @@ const TicketForm = () => {
                 costCenterList={infoCreateSales?.data?.cost_center}
                 sellersList={infoCreateSales?.data?.sellers}
                 defaultSeller={infoCreateSales?.data?.default_seller}
-                productOrService={productOrService}
               />
             </div>
 
-            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
+            <div className="my-6 grid w-full grid-cols-12 gap-2 px-9"> 
+              <div className="col-span-2">
+                <SelectRouter
+                  value={
+                    infoCreateSales?.data?.wharehouses.find(
+                      (wharehouse) => wharehouse.value == wharehouseSelect,
+                    ) || null
+                  }
+                  name={"productService"}
+                  options={infoCreateSales?.data?.wharehouses}
+                  placeholder="Almacén"
+                  required={true}
+                  disabled={!isEditable}
+                  onChange={(e) => setWharehouseSelect(e?.value)}
+                />
+              </div>
               <div className="col-span-2">
                 <SelectRouter
                   value={
@@ -99,21 +126,6 @@ const TicketForm = () => {
                   onChange={(e) => setProductOrService(e?.value)}
                 />
               </div>
-              <div className="col-span-2">
-                <SelectRouter
-                  value={
-                    infoCreateSales?.data?.wharehouses.find(
-                      (wharehouse) => wharehouse.value == wharehouseSelect,
-                    ) || null
-                  }
-                  name={"productService"}
-                  options={infoCreateSales?.data?.wharehouses}
-                  placeholder="Almacén"
-                  required={true}
-                  disabled={!isEditable}
-                  onChange={(e) => setWharehouseSelect(e?.value)}
-                />
-              </div>
             </div>
 
             <div>
@@ -127,32 +139,31 @@ const TicketForm = () => {
                   productOrService={productOrService}
                   services_map={infoCreateSales?.data?.services_map}
                   services_data={infoCreateSales?.data?.services_data}
+                  products_map={productsList}
                 />
               </div>
               <Total tableData={tableData} comment={""} />
             </div>
           </div>
 
-          <div className="flex justify-end">
+          <div>
             <StatusInformation
               status={"inProgress"}
               imgUser={
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
             >
-              <Button
+              {/* <Button
                 type="button"
                 variant="outline"
                 className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
               >
                 Save
-              </Button>
+              </Button> */}
               <Button
-                type="button"
-                onClick={() => alert("save")}
                 className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
               >
-                Save for Aproval
+                Save
               </Button>
             </StatusInformation>
           </div>
@@ -163,3 +174,10 @@ const TicketForm = () => {
 };
 
 export default TicketForm;
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  await saveNewTicketSale(formData);
+
+  return redirect("/sales/tickets");
+}

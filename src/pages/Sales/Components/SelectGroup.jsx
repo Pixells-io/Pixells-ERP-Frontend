@@ -116,6 +116,7 @@ const SelectsQuote = ({
             placeholder="Vencimiento"
             value={inputValue?.expiration}
             disabled={!isEditable}
+            required={true}
             onChange={(e) => handleInputChange(e.target.value, "expiration")}
           />
         </div>
