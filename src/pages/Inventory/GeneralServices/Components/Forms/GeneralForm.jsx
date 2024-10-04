@@ -263,7 +263,7 @@ const GeneralTab = ({ info }) => {
         </div>
       </div>
 
-      <div className="flex w-full flex-1 items-end px-2">
+      <div className="flex w-full flex-1 pt-4 items-end px-2">
         <div className="flex w-full justify-between">
           <label className="text-xs font-light text-[#8F8F8F]">
             Actualizado 07 septiembre 2024

@@ -30,7 +30,7 @@ function ModalDeleteService({ modal, setModal, service_id, service_name }) {
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
           <DialogTitle className="py-4 font-poppins font-semibold text-white">
-            Emilinar Producto - {service_name}
+            Eliminar Servicio: {service_name}
           </DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>

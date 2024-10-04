@@ -236,9 +236,9 @@ const UserTab = ({ users, info }) => {
             Actualizado 07 septiembre 2024
           </label>
         </div>
-        <button className="h-[31px] rounded-xl px-4 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+        {/* <button className="h-[31px] rounded-xl px-4 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
           Guardar
-        </button>
+        </button> */}
       </div>
     </div>
   );

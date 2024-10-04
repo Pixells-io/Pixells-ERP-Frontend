@@ -9,30 +9,50 @@ import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-const CreareTransferProductRow = ({ product, map }) => {
+const CreareTransferProductRow = ({ products, map }) => {
+  const [productCode, setProductCode] = useState([]);
+  const [productInventory, setProductInventory] = useState([]);
+
   function selectProducts(id) {
-    const info = product.find((prod) => prod.toLowerCase() === id.toLowerCase);
+    const info = products.find((prod) => prod.id === id);
+    setProductCode(info.code);
+    setProductInventory(info.quantity);
   }
 
   return (
-    <div className="flex w-full">
-      <div className="w-2/12 border-b border-b-[#44444F40] py-4 text-xs font-medium text-[#44444F]">
-        <span>Codigo</span>
+    <div className="flex w-full gap-6 border-b border-b-[#44444F40]">
+      <div className="mt-1 w-2/12 py-4">
+        <InputRouter
+          name={"code[]"}
+          type={"number"}
+          disabled={true}
+          value={productCode}
+          titlePlaceholder={productCode}
+        />
       </div>
-      <div className="w-8/12 border-b border-b-[#44444F40] py-4">
+      <div className="w-8/12 py-4">
         <SelectRouter
           name={"product[]"}
-          placeholder={"Producto"}
           options={map}
           className="w-full text-sm font-light"
           onChange={(e) => selectProducts(e.value)}
         />
       </div>
-      <div className="w-1/12 border-b border-b-[#44444F40] py-4 text-xs font-medium text-[#44444F]">
-        <span>Inventario</span>
+      <div className="mt-1 w-1/12 py-4">
+        <InputRouter
+          name={"inventory[]"}
+          type={"number"}
+          disabled={true}
+          value={productInventory}
+        />
       </div>
-      <div className="w-1/12 border-b border-b-[#44444F40] py-4 text-xs font-medium text-[#44444F]">
-        <span>A Transferir</span>
+      <div className="mt-1 w-1/12 py-4">
+        <InputRouter
+          name={"to_transfer[]"}
+          type={"number"}
+          maxValue={productInventory}
+          minValue={0}
+        />
       </div>
     </div>
   );
