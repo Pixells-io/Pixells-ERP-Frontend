@@ -11,8 +11,9 @@ import ModalAddUser from "../Modals/ModalAddUser";
 import ModalPeriod from "../Modals/ModalPeriod";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
 
-const UserTab = ({ users }) => {
+const UserTab = ({ users,info }) => {
   const {id}=useParams();
+  console.log(info.users)
   const navigation = useNavigation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [responsibleUser, setResponsibleUser] = useState(null);
