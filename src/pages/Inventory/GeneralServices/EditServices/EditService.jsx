@@ -176,7 +176,7 @@ const EditService = () => {
               <UserTab users={users.data} info={serviceDetail} />
             </TabsContent>
             <TabsContent value="process" className="w-full">
-              <ProcessTab categories={categories.data}  info={serviceDetail}  />
+              <ProcessTab categories={categories.data}  info={serviceDetail} area={areas.data} />
             </TabsContent>
             <TabsContent value="shopping" className="w-full">
               <ShoppingTab />

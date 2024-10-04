@@ -10,7 +10,7 @@ import ModalDeleteUser from "../Modals/ModalDeleteUser";
 import { format } from "date-fns";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const ProcessTab = ({ categories, info }) => {
+const ProcessTab = ({ categories, info, area }) => {
   const { id } = useParams();
   const navigation = useNavigation();
   const [processes, setProcesses] = useState([]);
@@ -22,7 +22,8 @@ const ProcessTab = ({ categories, info }) => {
         ...process,
         active: process.type === 0 ? "0" : "1",
         option: "updated_process",
-        category_id: parseInt(process.category)
+        category_id: parseInt(process.category),
+        area_id: process.area_id || ""
       }));
       setProcesses(formattedProcesses);
     }
@@ -38,6 +39,7 @@ const ProcessTab = ({ categories, info }) => {
       start: "",
       end: "",
       category_id: "",
+      area_id: "",
       option: "create_process",
     };
     setProcesses([...processes, newProcess]);
@@ -75,6 +77,11 @@ const ProcessTab = ({ categories, info }) => {
   const formattedCategories = categories.map(category => ({
     value: category.id,
     label: category.name,
+  }));
+
+  const formattedAreas = area.map(a => ({
+    value: a.id,
+    label: a.nombre,
   }));
 
   return (
@@ -133,7 +140,21 @@ const ProcessTab = ({ categories, info }) => {
                 />
               </div>
 
-              <div className="col-span-3 flex items-end justify-end">
+              <div className="col-span-3">
+                <SelectRouter 
+                  name="area_id"
+                  options={formattedAreas} 
+                  placeholder={"Área"}
+                  value={formattedAreas.find(a => a.value === process.area_id)}
+                  onChange={(selectedOption) => {
+                    handleInputChange(selectedOption.value, "area_id", index);
+                  }}
+                  getOptionValue={(option) => option.value} 
+                  getOptionLabel={(option) => option.label} 
+                />
+              </div>
+
+              <div className="col-span-12 flex pt-4 items-end justify-end">
                 {index === selectEditProcess && (
                   <Button
                     type="submit"

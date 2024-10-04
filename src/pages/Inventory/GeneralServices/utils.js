@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
-import { format } from "date-fns";
 
 //SAVE CATEGORY
 export async function saveCategory(data) {
@@ -53,7 +52,6 @@ export async function savePackage(data) {
 
   return response;
 }
-
 
 //SAVE SERVICE PRINCIPAL
 export async function saveNewService(data) {
@@ -141,7 +139,7 @@ export async function saveNewProcess(data) {
     name:data.get("title"), 
     category:parseInt(data.get("category_id")),
     description:data.get("description"),
-    area:1
+    area:parseInt(data.get("area_id"))
   };
 
   const response = await fetch(
@@ -245,7 +243,7 @@ export async function EditProcessTab(data) {
     category:parseInt(data.get("category_id")),
     name:data.get("title"),
     description:data.get("description"),
-    area:1,
+    area:parseInt(data.get("area_id"))
   };
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}services/edit-service-process`,
@@ -301,14 +299,12 @@ export async function DestroytProcessTab(data) {
 
 //DESTROY SERVICE
 export async function DestroytService(data) { 
-  const info = {
-    service_id:parseInt(data.get("service_id")),
-  };
+  
+  const service_id =parseInt(data.get("service_id"));
+ 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}services/destroy-service-process`,
+    `${import.meta.env.VITE_SERVER_URL}destroy-service/${service_id}`,
     {
-      method: "POST",
-      body: JSON.stringify(info),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },
@@ -455,6 +451,22 @@ export async function getCategoriesAndServices() {
   }
 }
 
+export async function getAreas() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-areas`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 //MULTILOADER TO CREATE
 export async function multiLoaderServiceGeneral() {
   const [categories, costCenter, priceList, users] = await Promise.all([
@@ -487,13 +499,14 @@ export async function multiLoaderServiceGeneral2() {
 //MULTILOADER TO EDIT
 export async function multiLoaderServiceGeneralDetails({ params }) {
   const id = params.id;
-  const [servicesDetails, categories, costCenter, priceList, users] =
+  const [servicesDetails, categories, costCenter, priceList, users, areas] =
     await Promise.all([
       getServiceById(id),
       getCategories(),
       getCostCenter(),
       getPriceList(),
       getUsers(),
+      getAreas()
     ]);
-  return json({ servicesDetails, categories, costCenter, priceList, users});
+  return json({ servicesDetails, categories, costCenter, priceList, users,areas});
 }
