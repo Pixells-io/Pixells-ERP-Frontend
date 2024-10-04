@@ -281,7 +281,7 @@ export async function DestroytServiceUserTab(data) {
 }
 
 //DESTROY PROCESS
-export async function DestroytProcessTab(data) {
+export async function DestroytProcessTab(data) { 
   const info = {
     service_step_id:parseInt(data.get("service_step_id")),
   };
@@ -298,6 +298,26 @@ export async function DestroytProcessTab(data) {
 
   return response.json();
 }
+
+//DESTROY SERVICE
+export async function DestroytService(data) { 
+  const info = {
+    service_id:parseInt(data.get("service_id")),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/destroy-service-process`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 //GET SERVICES
 export async function getServices() {
   try {
