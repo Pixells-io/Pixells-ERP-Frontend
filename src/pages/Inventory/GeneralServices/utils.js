@@ -303,9 +303,8 @@ export async function DestroyService(data) {
   const service_id =parseInt(data.get("service_id"));
  
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}destroy-service/${service_id}`,
+    `${import.meta.env.VITE_SERVER_URL}services/destroy-service/${service_id}`,
     {
-      body: JSON.stringify(service_id),
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

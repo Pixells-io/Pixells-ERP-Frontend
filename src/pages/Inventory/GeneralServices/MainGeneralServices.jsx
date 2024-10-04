@@ -7,40 +7,45 @@ import { CategoriesColumns } from "./Components/Table/CategoriesColumns";
 import { CombosColumns } from "./Components/Table/CombosColumns";
 import NewCategoryForm from "./Components/Forms/NewCategory";
 import NewComboForm from "./Components/Forms/NewComboForm";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, redirect } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import ModalDeleteService from "./Components/Modals/ModalDeleteService";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
-import { informationCircleOutline, trashOutline, } from "ionicons/icons";
-import { getServices,saveCategory,savePackage, DestroyService} from "./utils";
+import { informationCircleOutline, trashOutline } from "ionicons/icons";
+import {
+  getServices,
+  saveCategory,
+  savePackage,
+  DestroyService,
+} from "./utils";
 const tabItems = [
   { value: "services", label: "SERVICIOS" },
   { value: "categories", label: "CATEGORÍAS" },
   { value: "combos", label: "COMBOS" },
 ];
 
-
 const MainGeneralServices = () => {
   /* Get Info */
-  const { services,categories, packages, categoriesServices } = useLoaderData();
+  const { services, categories, packages, categoriesServices } =
+    useLoaderData();
 
   const [modalCategories, setModalCategories] = useState(false);
   const [modalPackages, setModalPackages] = useState(false);
-  const [serviceInfo, setServiceInfo] = useState(services.data);
+  const [serviceInfo, setServiceInfo] = useState([...services.data].reverse());
   const [serviceId, setServiceId] = useState(null);
   const [serviceName, setServiceName] = useState(null);
   const [serviceDestroyModal, setServiceDestroyModal] = useState(false);
-  
+
   const pusherClient = createPusherClient();
-// ADD WEB SOCKET
+  // ADD WEB SOCKET
   async function getServiceFunction() {
     let newData = await getServices();
-    setServiceInfo(newData.reverse());
+    setServiceInfo([...newData.data].reverse());
   }
 
-//CHANNEL
+  //CHANNEL
   useEffect(() => {
     pusherClient.subscribe("private-get-services");
 
@@ -52,26 +57,8 @@ const MainGeneralServices = () => {
       pusherClient.unsubscribe("private-get-services");
     };
   }, []);
-  
- const ServiceColumns = [
-    {
-      id: "id",
-      accessorKey: "id",
-      header: "CÓDIGO",
-      cell: ({ row }) => {
-        return (
-          <div className="flex gap-2">
-            <Checkbox
-              className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-              checked={row.getIsSelected()}
-              onCheckedChange={(value) => row.toggleSelected(!!value)}
-            />
-            <label>{row?.original?.id}</label>
-          </div>
-        );
-      },
-      meta: { filterButton: true },
-    },
+
+  const ServiceColumns = [
     {
       id: "name",
       accessorKey: "name",
@@ -88,37 +75,41 @@ const MainGeneralServices = () => {
       id: "price",
       accessorKey: "price",
       header: "PRECIO",
+      meta: { filterButton: true },
     },
+
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-1">
-          <Link to={`/inventory/general-services/service/edit/${row?.original?.id}`}>
-          <Button
-                type="button"
-                className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-              >
-                <IonIcon
-                  icon={informationCircleOutline}
-                  className="h-5 w-5 text-[#696974]"
-                />
-              </Button>
-          </Link>
-          <Button
+          <Link
+            to={`/inventory/general-services/service/edit/${row?.original?.id}`}
+          >
+            <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-              onClick={() =>
-                openDestroyServiceModal(row.original?.name, row.original?.id)
-              }
             >
-              <IonIcon icon={trashOutline} className="h-5 w-5 text-[#696974]" />
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#696974]"
+              />
             </Button>
+          </Link>
+          <Button
+            type="button"
+            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            onClick={() =>
+              openDestroyServiceModal(row.original?.name, row.original?.id)
+            }
+          >
+            <IonIcon icon={trashOutline} className="h-5 w-5 text-[#696974]" />
+          </Button>
         </div>
       ),
     },
   ];
-  
+
   function openDestroyServiceModal(name, id) {
     setServiceName(name);
     setServiceId(id);
@@ -136,7 +127,7 @@ const MainGeneralServices = () => {
         setModalPackage={setModalPackages}
         info={categoriesServices.data}
       />
-       <ModalDeleteService
+      <ModalDeleteService
         modal={serviceDestroyModal}
         setModal={setServiceDestroyModal}
         service_name={serviceName}
@@ -169,51 +160,56 @@ const MainGeneralServices = () => {
             />
           </div>
         </div>
-        
-          <Tabs defaultValue="services"className="h-full overflow-auto rounded-lg bg-blancoBg pt-2">
-            <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
-              {tabItems.map(({ value, label }) => (
-                <TabsTrigger
-                  key={value}
-                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-                  value={value}
-                >
-                  {label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
 
-            <TabsContent value="services" className="mt-[-70px] w-full overflow-auto pt-2">
-              <DataTable
-                data={serviceInfo}
-                columns={ServiceColumns}
-                searchFilter="name"
-                searchNameFilter="Buscar por nombre"
-                isCheckAll={true}
-              />
-            </TabsContent>
-            <TabsContent value="categories" className="mt-[-70px] w-full pt-2">
-              <DataTable
-                data={categories.data}
-                columns={CategoriesColumns}
-                searchFilter={"name"}
-                searchNameFilter={"Name"}
-                isCheckAll={false}
-              />
-            </TabsContent>
-            <TabsContent value="combos" className="mt-[-70px] w-full pt-2">
-              <DataTable
-                data={packages.data}
-                columns={CombosColumns}
-                searchFilter={"name"}
-                searchNameFilter={"Name"}
-                isCheckAll={false}
-              />
-            </TabsContent>
-          </Tabs>
-        </div>
+        <Tabs
+          defaultValue="services"
+          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        >
+          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+            {tabItems.map(({ value, label }) => (
+              <TabsTrigger
+                key={value}
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                value={value}
+              >
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          <TabsContent
+            value="services"
+            className="mt-[-70px] w-full overflow-auto pt-2"
+          >
+            <DataTable
+              data={serviceInfo}
+              columns={ServiceColumns}
+              searchFilter="name"
+              searchNameFilter="Buscar por nombre"
+              isCheckAll={true}
+            />
+          </TabsContent>
+          <TabsContent value="categories" className="mt-[-70px] w-full pt-2">
+            <DataTable
+              data={[...categories.data].reverse()}
+              columns={CategoriesColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
+          </TabsContent>
+          <TabsContent value="combos" className="mt-[-70px] w-full pt-2">
+            <DataTable
+              data={[...packages.data].reverse()}
+              columns={CombosColumns}
+              searchFilter={"name"}
+              searchNameFilter={"Name"}
+              isCheckAll={false}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
-    
+    </div>
   );
 };
 
@@ -235,12 +231,7 @@ export async function Action({ request }) {
       //Package Case
       await savePackage(data);
       break;
-  
-
-    default:
-      break;
   }
 
-  return data;
+  return redirect("/inventory/general-services");
 }
-
