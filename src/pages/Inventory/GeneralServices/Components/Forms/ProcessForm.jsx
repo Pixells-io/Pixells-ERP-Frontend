@@ -26,12 +26,11 @@ const ProcessTab = ({ categories }) => {
       start: "",
       end: "",
       category_id: null,
+      option: "create_process",
     };
     setProcesses([...processes, newProcess]);
     setSelectEditProcess(processes.length);
   };
-
-  const [option, setOption] = useState("create_process");
 
   const clearPeriod = (i) => {
     const updatedProcesses = processes.map((p, index) => {
@@ -42,10 +41,6 @@ const ProcessTab = ({ categories }) => {
     });
     setProcesses(updatedProcesses);
     setSelectEditProcess(i);
-  };
-
-  const handleSave = () => {
-    setOption("updated_process");
   };
 
   const handleInputChange = (value, name, i) => {
@@ -89,7 +84,7 @@ const ProcessTab = ({ categories }) => {
           <Form action={"/inventory/general-services/service/edit/" + id} className="mt-4" key={process.id} method="post">
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">PROCESO {index + 1}</p>
             <input type="text" hidden readOnly name="service_id" value={id} />
-            <input type="text" hidden readOnly name="type_option" value={option} />
+            <input type="text" hidden readOnly name="type_option" value={process.option} />
             <input type="text" hidden readOnly name="service_step_id" value={process.id} />
             <input type="text" hidden readOnly name="last_step" value={processes.length} />
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
@@ -128,7 +123,7 @@ const ProcessTab = ({ categories }) => {
               <div className="col-span-3 flex items-end justify-end">
                 {index === selectEditProcess && (
                   <Button
-                    onClick={handleSave}
+                    type="submit"
                     className="flex h-[24px] min-w-[73px] gap-x-0.5 rounded-xl border border-primarioBotones bg-inherit px-1.5 text-[11px] font-medium text-primarioBotones hover:bg-primarioBotones"
                     disabled={navigation.state === "submitting"}
                   >

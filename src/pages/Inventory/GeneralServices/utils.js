@@ -84,10 +84,10 @@ export async function saveNewUsersTab(data) {
 //SAVE PROCESS
 export async function saveNewProcess(data) {
   const info = {
-    service_id:data.get("service_id"),
+    service_id:parseInt(data.get("service_id")),
     name:data.get("title"), 
-    category:parseInt(data.get("category")),
-    description:parseInt(data.get("description")),
+    category:parseInt(data.get("category_id")),
+    description:data.get("description"),
     area:1
   };
 

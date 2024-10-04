@@ -16,6 +16,7 @@ import {
   saveNewUsersTab,
   EditServiceUserTab,
   DestroytServiceUserTab,
+  saveNewProcess,
   EditProcessTab,
   DestroytProcessTab,
 } from "../utils";
