@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useParams, useLoaderData } from "react-router-dom";
@@ -7,17 +7,46 @@ import GeneralTab from "../Components/Forms/GeneralForm";
 import UserTab from "../Components/Forms/UserForm";
 import ProcessTab from "../Components/Forms/ProcessForm";
 import ShoppingTab from "../Components/Forms/ShoppingForm";
+import { createPusherClient } from "@/lib/pusher";
 import {
+  getServiceById,
   saveNewGeneralTab,
   updateGeneralTab,
   updatePrincipalTab,
   saveNewUsersTab,
   EditServiceUserTab,
   DestroytServiceUserTab,
+  EditProcessTab,
+  DestroytProcessTab,
 } from "../utils";
+
+
 const EditService = () => {
+  const { id_service } = useParams();
   const { servicesDetails, categories, costCenter, priceList, users } =
     useLoaderData();
+  const [serviceDetail, setServiceDetail] = useState(servicesDetails.data);
+  const [urlId, setUrlId] = useState(id_service);
+
+  const pusherClient = createPusherClient();
+
+  async function getServiceFunction(id) {
+    let newData = await getServiceById(id);
+    setServiceDetail(newData);
+  }
+
+  useEffect(() => {
+    let channel = pusherClient.subscribe(`private-get-service.${urlId}`);
+
+    channel.bind("fill-service", ({ message }) => {
+      getServiceFunction();
+    });
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-service.${urlId}`);
+    };
+  }, [urlId]);
+
   const tabOptions = [
     {
       value: "principal",
@@ -137,11 +166,11 @@ const EditService = () => {
                 categories={categories.data}
                 costCenter={costCenter.data}
                 priceList={priceList.data}
-                info={servicesDetails.data}
+                info={serviceDetail}
               />
             </TabsContent>
             <TabsContent value="general" className="w-full">
-              <GeneralTab info={servicesDetails.data} />
+              <GeneralTab info={serviceDetail} />
             </TabsContent>
             <TabsContent value="users" className="w-full">
               <UserTab users={users.data} />
@@ -170,9 +199,8 @@ export async function Action({ request }) {
     case "create_generalform":
       await saveNewGeneralTab(data);
       break;
-
     case "update_generalform":
-      await  updateGeneralTab(data);
+      await updateGeneralTab(data);
       break;
     case "create_userform":
       await saveNewUsersTab(data);
@@ -182,6 +210,15 @@ export async function Action({ request }) {
       break;
     case "destroyServiceUser":
       await DestroytServiceUserTab(data);
+      break;
+    case "create_process":
+      await saveNewProcess(data);
+      break;
+    case "updated_process":
+      await EditProcessTab(data);
+      break;
+    case "destroyProcessService":
+      await  DestroytProcessTab(data);
       break;
   }
   return "1";

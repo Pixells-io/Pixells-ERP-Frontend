@@ -84,12 +84,15 @@ export async function saveNewUsersTab(data) {
 //SAVE PROCESS
 export async function saveNewProcess(data) {
   const info = {
-    service_id: parseInt(data.get("info_id")),
-    users: data.getAll("users[]").map(Number),
+    service_id:data.get("service_id"),
+    name:data.get("title"), 
+    category:parseInt(data.get("category")),
+    description:parseInt(data.get("description")),
+    area:1
   };
 
   const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}services/save-service-user`,
+    `${import.meta.env.VITE_SERVER_URL}services/save-service-process`,
     {
       method: "POST",
       body: JSON.stringify(info),
@@ -181,6 +184,30 @@ export async function EditServiceUserTab(data) {
   return response.json();
 }
 
+//EDIT SERVICE PROCCESS
+export async function EditProcessTab(data) {
+  const info = {
+    service_step_id:parseInt(data.get("service_step_id")),
+    last_step:parseInt(data.get("last_step")),
+    category:parseInt(data.get("category_id")),
+    name:data.get("title"),
+    description:parseInt(data.get("description")),
+    area:1,
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-service-process`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
+
 //DESTROY SERVICE USER 
 export async function DestroytServiceUserTab(data) {
   const info = {
@@ -200,7 +227,24 @@ export async function DestroytServiceUserTab(data) {
   return response.json();
 }
 
+//DESTROY PROCESS
+export async function DestroytProcessTab(data) {
+  const info = {
+    service_step_id:parseInt(data.get("service_step_id")),
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/destroy-service-process`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
 
+  return response.json();
+}
 //GET SERVICES
 export async function getServices() {
   try {

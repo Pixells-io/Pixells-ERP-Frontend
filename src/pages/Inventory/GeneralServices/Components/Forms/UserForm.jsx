@@ -19,7 +19,6 @@ const UserTab = ({ users }) => {
   const [selectEditUser, setSelectEditUser] = useState(null);
 
 
-console.log(selectedUsers)
   const handleAddUsers = (newUsers) => {
     setSelectedUsers((prevUsers) => [
       ...prevUsers,
@@ -229,6 +228,7 @@ console.log(selectedUsers)
                   </div>
                   <div className="flex w-full justify-end">
                     <ModalDeleteUser
+                    option={"destroyServiceUser"}
                     service_id={id}
                       user_id={user.id}
                       user_name={user.user?.label}
