@@ -67,7 +67,7 @@ const GeneralTab = ({ info }) => {
   const addDate = (dateI, dateF) => {
     setInformation((prev) => ({ ...prev, start: dateI, end: dateF }));
   };
-console.log(option)
+
   return (
     <Form
       className="flex h-full w-full flex-col py-4"

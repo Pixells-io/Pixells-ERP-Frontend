@@ -49,7 +49,7 @@ const MainGeneralServices = () => {
       pusherClient.unsubscribe("private-get-services");
     };
   }, []);
-
+  
   return (
     <div className="flex w-full">
       <NewCategoryForm

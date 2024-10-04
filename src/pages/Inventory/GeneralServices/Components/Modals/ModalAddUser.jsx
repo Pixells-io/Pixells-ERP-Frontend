@@ -25,11 +25,6 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
     setModal(false);
   };
 
-  const handleAddUsers = () => {
-    onAddUsers(selectedUsers);
-    clearData();
-  };
-
   useEffect(() => {
     if (navigation.state === "idle") {
       clearData();
@@ -74,7 +69,7 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
             );
           }}
         />
-        <Form action={"/inventory/general-services/service/edit/" + service_id} method="POST">
+        <Form action={`/inventory/general-services/service/edit/${service_id}`} method="POST">
           <input
             type="hidden"
             name="type_option"
@@ -85,15 +80,12 @@ function ModalAddUser({ users, onAddUsers, service_id }) {
             name="info_id"
             value={service_id}
           />
-          {/* Cambiar este input para que se envíe como un array */}
-          {selectedUsers.map((user) => (
-            <input
-              key={user.id}
-              type="hidden"
-              name="users[]"
-              value={user.id}
-            />
-          ))}
+          {/* Cambiar este input para que se envíe como un array de objetos */}
+          <input
+            type="hidden"
+            name="users"
+            value={JSON.stringify(selectedUsers.map(user => ({ id: user.id })))}
+          />
           <DialogFooter>
             <div className="flex w-full justify-end gap-2">
               <Button
