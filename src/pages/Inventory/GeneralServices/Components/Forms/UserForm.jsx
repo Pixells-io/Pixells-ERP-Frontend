@@ -18,10 +18,14 @@ const UserTab = ({ users, info }) => {
   const [responsibleUser, setResponsibleUser] = useState(null);
   const [selectEditUser, setSelectEditUser] = useState(null);
 
+  const areNamesSimilar = (name1, name2) => {
+    return name1.toLowerCase().includes(name2.toLowerCase()) || name2.toLowerCase().includes(name1.toLowerCase());
+  };
+
   useEffect(() => {
     if (info.users && info.users.length > 0) {
       const updatedUsers = info.users.map(user => {
-        const matchingUser = users.find(u => u.id === user.id);
+        const matchingUser = users.find(u => areNamesSimilar(u.name, user.name));
         return {
           ...user,
           position: matchingUser ? matchingUser.position : "",
@@ -50,7 +54,7 @@ const UserTab = ({ users, info }) => {
     setSelectedUsers((prevUsers) => [
       ...prevUsers,
       ...newUsers.map((user) => {
-        const matchingUser = users.find(u => u.id === user.id);
+        const matchingUser = users.find(u => areNamesSimilar(u.name, user.name));
         return {
           ...user,
           position: matchingUser ? matchingUser.position : "",
@@ -118,58 +122,25 @@ const UserTab = ({ users, info }) => {
         </div>
 
         {selectedUsers.map((user, index) => (
-          <Form className="mt-4" key={user.id} action={"/inventory/general-services/service/edit/"+id} method="post">
-            <input
-              type="text"
-              hidden
-              readOnly
-              name="service_id"
-              value={id}
-            />
-            <input
-              type="text"
-              hidden
-              readOnly
-              name="service_user"
-              value={user.id}
-            />
-            <input
-              type="text"
-              hidden
-              readOnly
-              name="responsible"
-              value={user.responsable}
-            />
-            <input
-              type="text"
-              hidden
-              readOnly
-              name="type_option"
-              value="updateServiceUser"
-            />
+          <Form className="mt-4" key={user.id} action={`/inventory/general-services/service/edit/${id}`} method="post">
+            <input type="text" hidden readOnly name="service_id" value={id} />
+            <input type="text" hidden readOnly name="service_user" value={user.id} />
+            <input type="text" hidden readOnly name="responsible" value={user.responsable} />
+            <input type="text" hidden readOnly name="type_option" value="updateServiceUser" />
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
               USUARIO {index + 1}
             </p>
             <div className="mt-1 grid w-full grid-cols-12 gap-x-8 gap-y-2 border-t border-[#D7D7D7] py-4">
               <div className="col-span-3">
-                <InputForm
-                  name="position"
-                  type="text"
-                  placeholder={"Posición"}
-                  disabled={true}
-                  value={user.position}
-                />
+                <InputForm name="position" type="text" placeholder={"Posición"} disabled={true} value={user.position} />
               </div>
               <div className="col-span-3 flex items-center gap-x-2">
                 <Avatar className="size-8">
                   <AvatarImage src={user.img || user.user_image} />
                 </Avatar>
-                <label className="text-xs font-normal text-grisText">
+                <label className="pl-4 whitespace-nowrap text-center text-sm text-[#696974]">
                   {user.user?.label || user.name}
                 </label>
-                <span className="whitespace-nowrap text-center text-sm text-[#696974]">
-                  {user.name}
-                </span>
               </div>
 
               <div className="col-span-6 flex items-end justify-end">
@@ -179,9 +150,7 @@ const UserTab = ({ users, info }) => {
                     disabled={navigation.state === "submitting"}
                   >
                     <IonIcon className="h-5 w-5" icon={checkmark}></IonIcon>
-                    {navigation.state === "submitting"
-                      ? "Submitting..."
-                      : "Guardar"}
+                    {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
                   </Button>
                 )}
               </div>
@@ -192,9 +161,7 @@ const UserTab = ({ users, info }) => {
                       className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       name="active"
                       checked={user.active === "1"}
-                      onCheckedChange={(e) =>
-                        handleInputChange(e ? "1" : "0", "active", user.id)
-                      }
+                      onCheckedChange={(e) => handleInputChange(e ? "1" : "0", "active", user.id)}
                     />
                     <label className="font-roboto text-xs font-normal text-grisText">
                       Activo
@@ -202,21 +169,13 @@ const UserTab = ({ users, info }) => {
                     {!!user.start && !!user.end ? (
                       <div className="flex items-center gap-x-2">
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input
-                            type="hidden"
-                            name="start"
-                            value={format(new Date(user.start), "PP")}
-                          />
+                          <input type="hidden" name="start" value={format(new Date(user.start), "PP")} />
                           <label className="text-xs font-light text-[#44444F]">
                             {format(new Date(user.start), "PP")}
                           </label>
                         </div>
                         <div className="rounded-[8px] bg-gris px-2 py-1">
-                          <input
-                            type="hidden"
-                            name="end"
-                            value={format(new Date(user.end), "PP")}
-                          />
+                          <input type="hidden" name="end" value={format(new Date(user.end), "PP")} />
                           <label className="text-xs font-light text-[#44444F]">
                             {format(new Date(user.end), "PP")}
                           </label>
@@ -238,10 +197,7 @@ const UserTab = ({ users, info }) => {
                         Restablecer
                       </Button>
                     ) : (
-                      <ModalPeriod
-                        setFunctionParent={addDate}
-                        index={user.id}
-                      />
+                      <ModalPeriod setFunctionParent={addDate} index={user.id} />
                     )}
                   </div>
                 </div>
@@ -270,6 +226,7 @@ const UserTab = ({ users, info }) => {
             </div>
           </Form>
         ))}
+
       </div>
 
       <div className="flex w-full flex-1 items-end px-2">
@@ -278,7 +235,7 @@ const UserTab = ({ users, info }) => {
             Actualizado 07 septiembre 2024
           </label>
         </div>
-        <button className="h-[31px] rounded-xl px-4  bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+        <button className="h-[31px] rounded-xl px-4 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
           Guardar
         </button>
       </div>
