@@ -75,6 +75,7 @@ const UserTab = ({ users, info }) => {
       }))
     );
     setResponsibleUser(userId);
+    setSelectEditUser(userId); 
   };
 
   const handleInputChange = (value, name, userId) => {
