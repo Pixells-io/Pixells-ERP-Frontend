@@ -31,13 +31,13 @@ const MainGeneralServices = () => {
   const [serviceInfo, setServiceInfo] = useState(services.data);
   
   const pusherClient = createPusherClient();
-
+// ADD WEB SOCKET
   async function getServiceFunction() {
     let newData = await getServices();
     setServiceInfo(newData);
   }
 
-
+//CHANNEL
   useEffect(() => {
     pusherClient.subscribe("private-get-services");
 
