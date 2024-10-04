@@ -510,3 +510,97 @@ export async function multiLoaderServiceGeneralDetails({ params }) {
     ]);
   return json({ servicesDetails, categories, costCenter, priceList, users,areas});
 }
+
+export async function addCategoryService(data) {
+  const info = {
+    category_id: data.get("category_id"),
+    service: data.get("service"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/add-category-service`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function destroyCategory(data) {
+  let id = data.get("category_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/destroy-category/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function destroyServiceCategory(data) {
+  let id = data.get("service_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/destroy-category-service/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function editCategory(data) {
+  const info = {
+    category_id: data.get("category_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-category`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function ReadCategory({ params }) {
+  const category_id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}services/get-category/${category_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}

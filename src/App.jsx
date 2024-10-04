@@ -328,10 +328,22 @@ import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
 import EditArticle, {
   Action as editProduct,
 } from "./pages/Inventory/General/EditArticle/EditArticle";
-import MainGeneralServices,{Action as multiFunctionService} from "./pages/Inventory/GeneralServices/MainGeneralServices";
-import { multiLoaderServiceGeneral, multiLoaderServiceGeneral2, multiLoaderServiceGeneralDetails} from "./pages/Inventory/GeneralServices/utils";
-import CreateService,{Action as SaveNewGeneralService} from "./pages/Inventory/GeneralServices/NewService/CreateService";
-import EditService,{Action as MultiSaveService} from "./pages/Inventory/GeneralServices/EditServices/EditService";
+import MainGeneralServices, {
+  Action as multiFunctionService,
+} from "./pages/Inventory/GeneralServices/MainGeneralServices";
+import EditCategory,{Action as multiFunctionCategories} from "./pages/Inventory/GeneralServices/Category/MainCategory";
+import {
+  multiLoaderServiceGeneral,
+  multiLoaderServiceGeneral2,
+  multiLoaderServiceGeneralDetails,
+  ReadCategory
+} from "./pages/Inventory/GeneralServices/utils";
+import CreateService, {
+  Action as SaveNewGeneralService,
+} from "./pages/Inventory/GeneralServices/NewService/CreateService";
+import EditService, {
+  Action as MultiSaveService,
+} from "./pages/Inventory/GeneralServices/EditServices/EditService";
 import MainWL, {
   Action as saveSlotsConfigs,
 } from "./pages/Inventory/WarehouseLocations/MainWL";
@@ -424,7 +436,11 @@ import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
-import { getSalesTicket, multiLoaderListEditTickets, multiLoaderListTickets } from "./pages/Sales/Ticket/utils";
+import {
+  getSalesTicket,
+  multiLoaderListEditTickets,
+  multiLoaderListTickets,
+} from "./pages/Sales/Ticket/utils";
 import Summary from "./pages/Sales/Customer/Summary/Summary";
 import Information from "./pages/Sales/Customer/EditCustomer/Information/Information";
 
@@ -1167,20 +1183,26 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-services",
             element: <MainGeneralServices />,
-            loader:multiLoaderServiceGeneral2,
-            action: multiFunctionService
+            loader: multiLoaderServiceGeneral2,
+            action: multiFunctionService,
+          },
+          {
+            path: "/inventory/general-services/category/:id",
+            element: <EditCategory />,
+            loader:ReadCategory,
+            action:multiFunctionCategories
           },
           {
             path: "/inventory/general-services/service/new",
             element: <CreateService />,
             loader: multiLoaderServiceGeneral,
-            action: SaveNewGeneralService
+            action: SaveNewGeneralService,
           },
           {
             path: "/inventory/general-services/service/edit/:id",
             element: <EditService />,
             loader: multiLoaderServiceGeneralDetails,
-            action: MultiSaveService
+            action: MultiSaveService,
           },
           {
             path: "/inventory/general-warehouses",
@@ -1350,7 +1372,7 @@ const router = createBrowserRouter([
                 path: "/sales/customer/edit/:id/resumen",
                 element: <Summary />,
               },
-            ]
+            ],
           },
           {
             path: "/sales/invoices",
@@ -1377,7 +1399,7 @@ const router = createBrowserRouter([
             path: "/sales/tickets/new",
             element: <TicketForm />,
             loader: multiLoaderListTickets,
-            action: createSaleTickets
+            action: createSaleTickets,
           },
           {
             path: "/sales/tickets/edit/:id",
