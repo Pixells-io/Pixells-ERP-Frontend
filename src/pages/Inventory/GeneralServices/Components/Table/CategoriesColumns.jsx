@@ -28,9 +28,9 @@ export const CategoriesColumns = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 text-[#696974]">
-          <a href={``}>
+          
             <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-          </a>
+         
         </div>
       );
     },
