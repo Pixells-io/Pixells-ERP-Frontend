@@ -684,3 +684,25 @@ export async function getComboById({ params }) {
     return new Response("Something went wrong...", { status: 500 });
   }
 }
+
+export async function editPackage(data) {
+  const info = {
+    package_id: data.get("package_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+    price: data.get("price"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}services/edit-packages`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

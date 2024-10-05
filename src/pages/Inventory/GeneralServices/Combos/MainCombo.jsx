@@ -66,7 +66,7 @@ function EditCombo() {
           <div className="flex items-center gap-4">
             <div>
               <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                MEMBERSHIP
+                COMBOS
               </h2>
             </div>
           </div>
@@ -78,7 +78,7 @@ function EditCombo() {
                 {data[0].name}
               </h2>
               <span className="text-xs font-medium text-grisText">
-                Membership Name
+                NOMBRE DEL COMBO
               </span>
             </div>
           </div>
@@ -89,7 +89,7 @@ function EditCombo() {
               <div className="flex flex-col gap-5 rounded-lg bg-blancoForms p-4">
                 <div className="flex gap-4">
                   <p className="text-sm font-medium text-grisText">
-                    Membership Information
+                    Informacion del combo
                   </p>
                   <div className="flex gap-2 text-[#696974]">
                     <button onClick={() => setModal(true)}>

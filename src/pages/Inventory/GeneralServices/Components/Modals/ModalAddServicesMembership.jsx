@@ -34,7 +34,7 @@ function ModalAddServicesMembership({ modal, setModal, id, services }) {
         <Form
           id="category-services-form"
           className="flex flex-col gap-4"
-          action={`/crm/services/packages/${id}`}
+          action={`/inventory/general-services/combo/${id}`}
           method="post"
           encType="multipart/form-data"
           onKeyDown={(e) => {

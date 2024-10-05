@@ -40,7 +40,7 @@ function ModalDestroyServicePackage({ modal, setModal, id }) {
         <Form
           id="form-destroy-task"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/services/packages/${id}`}
+          action={`/inventory/general-services/combo/${id}`}
           method="post"
         >
           <input type="hidden" value={id} name="service_id" />
