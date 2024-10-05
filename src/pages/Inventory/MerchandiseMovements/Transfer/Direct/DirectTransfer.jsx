@@ -40,10 +40,19 @@ const NewDirectTransfer = () => {
     const products = await getInfoTransferProducts(id);
     setSlots(products.data?.map);
     setSlotsData(products.data?.data);
-    setArrayCount([1]);
+    setArrayCount([]);
+    setArrayCount([...arrayCount, ""]);
   }
 
-  function addArrayNumber() {}
+  function addProduct() {
+    console.log("Index");
+    setArrayCount([...arrayCount, ""]);
+  }
+
+  const removeInput = (index) => {
+    const newArray = arrayCount.filter((_, i) => i !== index);
+    setArrayCount(newArray);
+  };
 
   return (
     <div className="flex w-full">
@@ -148,19 +157,24 @@ const NewDirectTransfer = () => {
               </div>
             </div>
             {/* Body */}
-            {arrayCount?.map((i) => (
-              <CreareTransferProductRow
-                key={i}
-                products={slotsData}
-                map={slots}
-              />
+            {arrayCount?.map((count, index) => (
+              <>
+                <CreareTransferProductRow
+                  key={index}
+                  products={slotsData}
+                  map={slots}
+                />
+                <button type="button" onClick={() => removeInputPair(index)}>
+                  Borrar
+                </button>
+              </>
             ))}
             {arrayCount.length > 0 ? (
               <IonIcon
                 icon={addCircle}
                 size="small"
                 className="mt-6 cursor-pointer text-primario"
-                onClick={addArrayNumber}
+                onClick={() => addProduct()}
               />
             ) : (
               false
