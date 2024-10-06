@@ -95,7 +95,20 @@ export async function saveNewTicketSale(data) {
     subtotal: data.get("subtotal"),
     taxes: data.get("taxes"),
     total: data.get("total"),
+    shipping: !!data.get("shipping") ? "1" : "0",
+    discount: 0,
   };
 
-  console.log(info);
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}sales/store-sale`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }

@@ -20,7 +20,6 @@ import { Button } from "@/components/ui/button";
 import {
   calculateSubTotal,
   calculateTotal,
-  handleAddRow,
 } from "@/components/table/Quote/Utils";
 import {
   Select,
@@ -45,9 +44,11 @@ const QuoteTable = ({
   services_map,
   services_data,
   products_map,
+  products_info,
+  wharehouseSelect,
 }) => {
   const initialRow = {
-    type: "",
+    type: productOrService == "product" ? "1" : "2",
     inventory_stock_id: "",
     service_id: "",
     item: "",
@@ -62,6 +63,7 @@ const QuoteTable = ({
     variations: "",
     sub_total: "0.00",
     total: "0.00",
+    wharehouseSelect: wharehouseSelect,
   };
   const location = useLocation();
   const [productDelete, setProductDelete] = useState([]);
@@ -74,7 +76,7 @@ const QuoteTable = ({
           ? initialItems.map((item) => {
               return {
                 ...item,
-                product_idAux: item.product.value,
+                product_idAux: item?.product?.value,
               };
             })
           : [initialRow],
@@ -85,13 +87,29 @@ const QuoteTable = ({
   }, [location.pathname, initialItems]);
 
   useEffect(() => {
-    if (productOrService == "service") {
-      setAllProductsOrServices(services_map);
-    }
-    if (productOrService == "product") {
-      setAllProductsOrServices(products_map || []);
-    }
-  }, [productOrService]);
+    // si ya existe
+    const findProducts = allProductsOrServices.find(
+      (p) => p.type == wharehouseSelect,
+    );
+    if (
+      !!findProducts &&
+      JSON.stringify(products_map) == JSON.stringify(findProducts?.value)
+    )
+      return;
+    const auxProductsOrServices = [...allProductsOrServices];
+    setAllProductsOrServices([
+      ...auxProductsOrServices,
+      { type: wharehouseSelect, value: products_map },
+    ]);
+  }, [products_map]);
+
+  useEffect(() => {
+    const auxProductsOrServices = [...allProductsOrServices];
+    setAllProductsOrServices([
+      ...auxProductsOrServices,
+      { type: "service", value: services_map },
+    ]);
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -120,14 +138,15 @@ const QuoteTable = ({
     [],
   );
 
-  const handleInputChange = (rowIndex, key, value) => {
+  const handleInputChange = (rowIndex, key, value, type) => {
+    //type 1 = products, type 2 = service
     if (key == "product_idAux" && !!value) {
       let findProduct = null;
-      if (productOrService == "service") {
+      if (type == "2") {
         findProduct = services_data.find((sd) => sd.id == value);
       }
-      if (productOrService == "product") {
-        findProduct = products.find((p) => p.value == value);
+      if (type == "1") {
+        findProduct = products_info.find((p) => p.id == value);
       }
 
       setTableData((prevData) =>
@@ -135,29 +154,29 @@ const QuoteTable = ({
           index === rowIndex
             ? {
                 ...item,
-                type: productOrService == "product" ? "1" : "2",
+                // type: productOrService == "product" ? "1" : "2",
                 inventory_stock_id:
                   productOrService == "product" ? findProduct?.id : null,
                 service_id:
                   productOrService == "service" ? findProduct?.id : null,
-                code: findProduct.code,
+                code: findProduct?.code,
                 sub_total: calculateSubTotal({
-                  value: findProduct.price,
+                  value: findProduct?.price,
                   quantity: 1,
                 }).toFixed(2),
                 total: calculateTotal({
-                  value: findProduct.price,
+                  value: findProduct?.price,
                   quantity: 1,
                   discount: 0,
                   taxes: 16,
                 }).toFixed(2),
-                value: findProduct.price,
+                value: findProduct?.price,
                 product_idAux: value,
                 quantity: 1,
-                master_product: findProduct.product_master_id,
-                variations: findProduct.variation_id,
+                master_product: findProduct?.product_master_id,
+                variations: findProduct?.variation_id,
                 taxes: 16,
-                discount: 0,
+                discount: "0",
               }
             : item,
         ),
@@ -215,6 +234,18 @@ const QuoteTable = ({
     });
   };
 
+  const handleAddRow = (e, setTableData, initialRow) => {
+    e.preventDefault();
+    setTableData((prevData) => [
+      ...prevData,
+      {
+        ...initialRow,
+        type: productOrService == "product" ? "1" : "2",
+        wharehouseSelect: wharehouseSelect,
+      },
+    ]);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -254,6 +285,7 @@ const QuoteTable = ({
               readOnly
               name={`productsOrService`}
               value={JSON.stringify(tableData)}
+              onChange={() => {}}
             />
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
@@ -266,6 +298,7 @@ const QuoteTable = ({
                       readOnly
                       name={`id_product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={!!row["id"] ? row["id"] : ""}
+                      onChange={() => {}}
                     />
                     <input
                       type="hidden"
@@ -274,6 +307,7 @@ const QuoteTable = ({
                       readOnly
                       name={`type[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={!!row["type"] ? row["type"] : ""}
+                      onChange={() => {}}
                     />
 
                     {!!row["id"] ? (
@@ -289,14 +323,33 @@ const QuoteTable = ({
                             (currentPage - 1) * itemsPerPage + rowIndex,
                             "product_idAux",
                             e,
+                            row["type"],
                           )
                         }
                       >
                         <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                          <SelectValue placeholder={"Producto"} />
+                          <SelectValue
+                            placeholder={
+                              row["type"] == "1" ? "Producto" : "Servicio"
+                            }
+                          />
                         </SelectTrigger>
                         <SelectContent>
-                          {allProductsOrServices.map((product, index) => (
+                          {(
+                            allProductsOrServices.find((pOrs) => {
+                              if (
+                                row["type"] == "1" &&
+                                pOrs?.type == row["wharehouseSelect"]
+                              ) {
+                                return pOrs;
+                              } else if (
+                                row["type"] == "2" &&
+                                pOrs?.type == "service"
+                              ) {
+                                return pOrs;
+                              }
+                            })?.value ?? []
+                          ).map((product, index) => (
                             <div key={index}>
                               <SelectItem
                                 key={"product-" + index}
@@ -317,7 +370,7 @@ const QuoteTable = ({
                       type={column.type}
                       name={`${column.key}[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                      value={row[column.key]}
+                      value={row[column.key] || ""}
                       disabled={column.disabled}
                       onChange={(e) =>
                         isEditable &&
@@ -341,6 +394,7 @@ const QuoteTable = ({
                       readOnly
                       name={`sub_total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={row["sub_total"]}
+                      onChange={() => {}}
                     />
                     ${row["sub_total"]}
                   </div>
@@ -354,6 +408,7 @@ const QuoteTable = ({
                       readOnly
                       name={`total[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       value={row["total"]}
+                      onChange={() => {}}
                     />
                     ${row["total"]}
                     <Button
@@ -393,6 +448,7 @@ const QuoteTable = ({
           readOnly
           name={`productDelete[]`}
           value={pd}
+          onChange={() => {}}
         />
       ))}
       <div className="mt-4 flex items-center justify-between">
@@ -403,7 +459,7 @@ const QuoteTable = ({
           onClick={(e) =>
             isEditable && handleAddRow(e, setTableData, initialRow)
           }
-          disabled={!isEditable}
+          disabled={!isEditable || (productOrService == "product" && !wharehouseSelect)}
           className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon

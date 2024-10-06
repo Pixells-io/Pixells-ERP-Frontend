@@ -84,13 +84,13 @@ const SelectsQuote = ({
               { value: "0", label: "Crédito" },
               { value: "1", label: "Contado" },
             ]}
-            placeholder="Condición de Pago"
+            placeholder="Condiciones de Pago"
             required={true}
             disabled={!isEditable}
             onChange={(e) => handleInputChange(e.value, "credit")}
             getOptionLabel={(e) => {
               return (
-                <div className="text-roboto text-xs font-normal text-grisText">
+                <div className="text-roboto text-xs font-normal">
                   <span>{e.label}</span>
                   {false && (
                     <>

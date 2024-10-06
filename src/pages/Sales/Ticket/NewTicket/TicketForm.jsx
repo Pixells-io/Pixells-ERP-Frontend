@@ -3,26 +3,32 @@ import SelectsQuote from "../../Components/SelectGroup";
 import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
 import { getProductsByWharehouse, saveNewTicketSale } from "../utils";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const TicketForm = () => {
+  const navigation = useNavigation();
+
   const { infoCreateSales } = useLoaderData();
 
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [productOrService, setProductOrService] = useState("product");
+  const [productOrService, setProductOrService] = useState("service");
   const [wharehouseSelect, setWharehouseSelect] = useState(null);
-  const [productsList, setProductsList] = useState(null);
+  const [productsListMap, setProductsListMap] = useState([]);
+  const [productsListInfo, setProductsListInfo] = useState([]);
 
   const getProducts = async () => {
-    await getProductsByWharehouse(wharehouseSelect);
+    const auxProducts = await getProductsByWharehouse(wharehouseSelect);
+    setProductsListMap([...auxProducts?.data?.map]);
+    setProductsListInfo([...auxProducts?.data?.info]);
   };
 
   useEffect(() => {
@@ -128,6 +134,16 @@ const TicketForm = () => {
                   />
                 </div>
               )}
+              <div className="col-span-2 flex items-center gap-x-2 justify-center pt-2">
+                <Checkbox
+                  className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                  name="shipping"
+                  checked={infoCreateSales?.data?.shipping}
+                />
+                <label className="text-[11px] font-light text-grisHeading">
+                  Envio
+                </label>
+              </div>
             </div>
 
             <div>
@@ -141,7 +157,9 @@ const TicketForm = () => {
                   productOrService={productOrService}
                   services_map={infoCreateSales?.data?.services_map}
                   services_data={infoCreateSales?.data?.services_data}
-                  products_map={productsList}
+                  products_map={productsListMap}
+                  products_info={productsListInfo}
+                  wharehouseSelect={wharehouseSelect}
                 />
               </div>
               <Total tableData={tableData} comment={""} />
@@ -164,8 +182,9 @@ const TicketForm = () => {
               </Button> */}
               <Button
                 className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                disabled={navigation.state === "submitting"}
               >
-                Save
+                {navigation.state === "submitting" ? "Submitting..." : "Save"}
               </Button>
             </StatusInformation>
           </div>
