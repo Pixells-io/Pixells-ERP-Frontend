@@ -58,7 +58,7 @@ const QuoteTable = ({
     tax: "",
     quantity: "",
     delivery_date: "",
-    product_idAux: undefined,
+    product_idAux: "",
     master_product: "",
     variations: "",
     sub_total: "0.00",
