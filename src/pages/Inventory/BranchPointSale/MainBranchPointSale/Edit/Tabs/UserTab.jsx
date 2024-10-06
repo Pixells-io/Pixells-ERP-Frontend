@@ -50,6 +50,9 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   };
 
   const handleInputChange = (value, name, i) => {
+    console.log(value);
+    console.log(name);
+    console.log(i);
     const aux = usersSelect.map((prevFormData, index) => {
       if (index == i) {
         return { ...prevFormData, [name]: value };
