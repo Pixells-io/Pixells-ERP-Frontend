@@ -1,7 +1,6 @@
 import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { IonIcon } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import ModalPeriod from "../Modals/ModalPeriod";
 import { format } from "date-fns";
 import ModalDeleteUser from "../Modals/ModalDeleteUser";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import Switch from "@/components/SwitchPropio/Switch";
 
 const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
   const navigation = useNavigation();
@@ -184,7 +184,6 @@ const UserTab = ({ users, cashBoxes, store_id, usersRegister }) => {
                 <div className="flex w-full justify-between py-2">
                   <div className="flex items-center gap-x-3">
                     <Switch
-                      className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
                       name="active"
                       checked={userSelect?.active == "1"}
                       onCheckedChange={(e) =>
