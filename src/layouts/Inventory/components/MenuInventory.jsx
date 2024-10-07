@@ -54,6 +54,13 @@ const MENU_ITEMS = [
     ],
   },
   {
+    path: "/inventory/goods-receipt",
+    name: "Entrega",
+    subname: "De Mercancias",
+    icon: arrowForwardCircle,
+    subRoutes: ["/inventory/goods-receipt/"],
+  },
+  {
     path: "/inventory/traceability-reports/create",
     name: "Informes",
     subname: "De Trazabilidad",
