@@ -7,11 +7,11 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
-import { getProductsByWharehouse, saveNewTicketSale } from "../utils";
+import { saveNewOrderSale } from "../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import Total from "../TotalSection/TotalSection";
 
-const TicketForm = () => {
+const OrderForm = () => {
   const navigation = useNavigation();
 
   const { infoCreateSales } = useLoaderData();
@@ -21,25 +21,9 @@ const TicketForm = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [productOrService, setProductOrService] = useState("service");
-  const [wharehouseSelect, setWharehouseSelect] = useState(null);
-  const [wharehouseName, setWharehouseName] = useState("");
-  const [productsListMap, setProductsListMap] = useState([]);
-  const [productsListInfo, setProductsListInfo] = useState([]);
   const [discountGeneral, setDiscountGeneral] = useState(0);
   const [isShipping, setIsShipping] = useState(false);
   const [expirationDate, setExpirationDate] = useState("");
-
-  const getProducts = async () => {
-    const auxProducts = await getProductsByWharehouse(wharehouseSelect);
-    setProductsListMap([...auxProducts?.data?.map]);
-    setProductsListInfo([...auxProducts?.data?.info]);
-  };
-
-  useEffect(() => {
-    if (wharehouseSelect != null) {
-      getProducts();
-    }
-  }, [wharehouseSelect]);
 
   return (
     <div className="flex w-full">
@@ -69,7 +53,7 @@ const TicketForm = () => {
         {/* top content */}
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            Ventas
+            Pedidos
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -80,14 +64,14 @@ const TicketForm = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nueva Venta Ticket/Remisión
+            Nuevo Pedido
           </p>
         </div>
         {/* content */}
         <Form
           method="post"
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
-          action={`/sales/tickets/new`}
+          action={`/sales/orders/new`}
         >
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
@@ -125,26 +109,6 @@ const TicketForm = () => {
                   onChange={(e) => setProductOrService(e?.value)}
                 />
               </div>
-              {productOrService == "product" && (
-                <div className="col-span-2">
-                  <SelectRouter
-                    value={
-                      infoCreateSales?.data?.wharehouses.find(
-                        (wharehouse) => wharehouse.value == wharehouseSelect,
-                      ) || null
-                    }
-                    name={"wharehouse"}
-                    options={infoCreateSales?.data?.wharehouses}
-                    placeholder="Almacén"
-                    required={true}
-                    disabled={!isEditable}
-                    onChange={(e) => {
-                      setWharehouseSelect(e?.value);
-                      setWharehouseName(e?.label);
-                    }}
-                  />
-                </div>
-              )}
               <div className="col-span-2 flex items-center justify-center gap-x-2 pt-2">
                 <Checkbox
                   className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
@@ -170,11 +134,9 @@ const TicketForm = () => {
                   productOrService={productOrService}
                   services_map={infoCreateSales?.data?.services_map}
                   services_data={infoCreateSales?.data?.services_data}
-                  products_map={productsListMap}
-                  products_info={productsListInfo}
-                  wharehouseSelect={wharehouseSelect}
+                  products_map={[]}
+                  products_info={[]}
                   discountGeneral={discountGeneral}
-                  wharehouseName={wharehouseName}
                   expirationDate={expirationDate}
                 />
               </div>
@@ -207,11 +169,11 @@ const TicketForm = () => {
   );
 };
 
-export default TicketForm;
+export default OrderForm;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  await saveNewTicketSale(formData);
+  await saveNewOrderSale(formData);
 
-  return redirect("/sales/tickets");
+  return redirect("/sales/orders");
 }

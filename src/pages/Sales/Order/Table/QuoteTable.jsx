@@ -15,7 +15,6 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   calculateSubTotal,
@@ -46,9 +45,7 @@ const QuoteTable = ({
   services_data,
   products_map,
   products_info,
-  wharehouseSelect,
   discountGeneral,
-  wharehouseName,
   expirationDate,
 }) => {
   const initialRow = {
@@ -67,51 +64,15 @@ const QuoteTable = ({
     variations: "",
     sub_total: "0.00",
     total: "0.00",
-    wharehouseSelect: wharehouseSelect,
   };
-  const location = useLocation();
-  // const [productDelete, setProductDelete] = useState([]);
   const [allProductsOrServices, setAllProductsOrServices] = useState([]);
-
-  // useEffect(() => {
-  //   if (location.pathname.includes("edit")) {
-  //     setTableData(
-  //       initialItems.length > 0
-  //         ? initialItems.map((item) => {
-  //             return {
-  //               ...item,
-  //               product_idAux: item?.product?.value,
-  //             };
-  //           })
-  //         : [initialRow],
-  //     );
-  //   } else {
-  //     setTableData([initialRow]);
-  //   }
-  // }, [location.pathname, initialItems]);
-
-  useEffect(() => {
-    // si ya existe
-    const findProducts = allProductsOrServices.find(
-      (p) => p.type == wharehouseSelect,
-    );
-    if (
-      !!findProducts &&
-      JSON.stringify(products_map) == JSON.stringify(findProducts?.value)
-    )
-      return;
-    const auxProductsOrServices = [...allProductsOrServices];
-    setAllProductsOrServices([
-      ...auxProductsOrServices,
-      { type: wharehouseSelect, value: products_map },
-    ]);
-  }, [products_map]);
 
   useEffect(() => {
     const auxProductsOrServices = [...allProductsOrServices];
     setAllProductsOrServices([
       ...auxProductsOrServices,
       { type: "service", value: services_map },
+      { type: "product", value: products_map },
     ]);
   }, []);
 
@@ -218,38 +179,6 @@ const QuoteTable = ({
         ),
       );
     } else {
-      // if (key == "total") {
-      //   setTableData((prevData) =>
-      //     prevData.map((item, index) =>
-      //       index === rowIndex
-      //         ? {
-      //             ...item,
-      //             total: calculateTotal({
-      //               value: value,
-      //               quantity: item.quantity,
-      //               discount: item.discount,
-      //               taxes: item.taxes,
-      //             }).toFixed(2),
-      //           }
-      //         : item,
-      //     ),
-      //   );
-      // } else if (key == "sub_total") {
-      //   setTableData((prevData) =>
-      //     prevData.map((item, index) =>
-      //       index === rowIndex
-      //         ? {
-      //             ...item,
-      //             sub_total: calculateSubTotal({
-      //               value: findProduct.price,
-      //               quantity: item.quantity,
-      //             }).toFixed(2),
-      //           }
-      //         : item,
-      //     ),
-      //   );
-      // }
-      // else
       if (key == "discount") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
@@ -315,14 +244,9 @@ const QuoteTable = ({
     }
   };
 
-  const handleDeleteRow = (rowIndex /*, setProductDelete, productDelete*/) => {
+  const handleDeleteRow = (rowIndex) => {
     setTableData((prevData) => {
-      // if (prevData.length > 1) {
-      // if (!!tableData[rowIndex]?.id) {
-      //   setProductDelete([...productDelete, tableData[rowIndex].id]);
-      // }
       return prevData.filter((_, index) => index !== rowIndex);
-      // }
     });
   };
 
@@ -334,8 +258,6 @@ const QuoteTable = ({
         ...initialRow,
         discount: discountGeneral || 0,
         type: productOrService == "product" ? "1" : "2",
-        wharehouseSelect: wharehouseSelect,
-        wharehouseName: wharehouseName || "N/A",
         delivery_date: expirationDate,
       },
     ]);
@@ -361,6 +283,15 @@ const QuoteTable = ({
   return (
     <>
       <div className="flex overflow-auto">
+        <input
+          type="hidden"
+          className="hidden"
+          hidden
+          readOnly
+          name={`productsOrService`}
+          value={JSON.stringify(tableData)}
+          onChange={() => {}}
+        />
         <Table>
           <TableHeader>
             <TableRow className="justify-center border-b-2 border-b-primario">
@@ -374,15 +305,6 @@ const QuoteTable = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            <input
-              type="hidden"
-              className="hidden"
-              hidden
-              readOnly
-              name={`productsOrService`}
-              value={JSON.stringify(tableData)}
-              onChange={() => {}}
-            />
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 <TableCell className="pb-0">
@@ -436,7 +358,7 @@ const QuoteTable = ({
                               allProductsOrServices.find((pOrs) => {
                                 if (
                                   row["type"] == "1" &&
-                                  pOrs?.type == row["wharehouseSelect"]
+                                  pOrs?.type == "product"
                                 ) {
                                   return pOrs;
                                 } else if (
@@ -460,12 +382,6 @@ const QuoteTable = ({
                         </Select>
                         <p className="pl-3.5 font-roboto text-[10px] font-normal text-grisDisabled">
                           {row["type"] == "1" ? "Producto" : "Servicio"}
-                          {row["type"] == "1" && (
-                            <>
-                              &nbsp;&bull;&nbsp;
-                              {row["wharehouseName"]}
-                            </>
-                          )}
                         </p>
                       </div>
                     )}
@@ -544,8 +460,6 @@ const QuoteTable = ({
                         isEditable &&
                         handleDeleteRow(
                           (currentPage - 1) * itemsPerPage + rowIndex,
-                          // setProductDelete,
-                          // productDelete,
                         )
                       }
                       disabled={!isEditable}
@@ -564,18 +478,6 @@ const QuoteTable = ({
           </TableBody>
         </Table>
       </div>
-      {/* Productos que se van a eliminar */}
-      {/* {productDelete.map((pd) => (
-        <input
-          type="hidden"
-          hidden
-          className="hidden"
-          readOnly
-          name={`productDelete[]`}
-          value={pd}
-          onChange={() => {}}
-        />
-      ))} */}
       <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"
@@ -584,9 +486,7 @@ const QuoteTable = ({
           onClick={(e) =>
             isEditable && handleAddRow(e, setTableData, initialRow)
           }
-          disabled={
-            !isEditable || (productOrService == "product" && !wharehouseSelect)
-          }
+          disabled={!isEditable}
           className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon

@@ -361,6 +361,15 @@ const QuoteTable = ({
   return (
     <>
       <div className="flex overflow-auto">
+        <input
+          type="hidden"
+          className="hidden"
+          hidden
+          readOnly
+          name={`productsOrService`}
+          value={JSON.stringify(tableData)}
+          onChange={() => {}}
+        />
         <Table>
           <TableHeader>
             <TableRow className="justify-center border-b-2 border-b-primario">
@@ -374,15 +383,6 @@ const QuoteTable = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            <input
-              type="hidden"
-              className="hidden"
-              hidden
-              readOnly
-              name={`productsOrService`}
-              value={JSON.stringify(tableData)}
-              onChange={() => {}}
-            />
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 <TableCell className="pb-0">
