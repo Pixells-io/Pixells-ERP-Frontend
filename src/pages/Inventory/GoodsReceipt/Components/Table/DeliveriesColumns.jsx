@@ -90,7 +90,7 @@ export const DeliveriesColumns = [
     cell: ({ row }) => (
       <div className="flex justify-center">
         <Link
-          to={`/${row.original?.id}`}
+          to={`/inventory/goods-receipt/deliveries/details/${row.original?.id}`}
         >
           <IonIcon
             icon={informationCircleOutline}
