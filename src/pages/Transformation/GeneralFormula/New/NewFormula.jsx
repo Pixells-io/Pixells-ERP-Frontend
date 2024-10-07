@@ -122,8 +122,6 @@ function NewFormula() {
     ],
   });
 
-  // const [productCraft, setProductCraft] = useState({});
-
   const productCraft = data.product_craft.map((product) => ({
     label: product.name,
     value: product.id,
@@ -135,9 +133,6 @@ function NewFormula() {
     value: product.id,
     ...product,
   }));
-
-  // console.log("productCraft ", productCraft);
-  // console.log("productNeed ", productNeed);
 
   function fillFormulaProduct(e) {
     console.log(e);
@@ -166,13 +161,6 @@ function NewFormula() {
               TRANSFORMACIÓN
             </h2>
           </div>
-          {/* <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
-          </div> */}
         </div>
 
         <div className="flex justify-between">
@@ -197,24 +185,24 @@ function NewFormula() {
             className="flex h-full w-full flex-col"
           >
             {/* <TabsList className="relative bottom-12 left-60"> */}
-            <TabsList className="flex w-fit self-end bg-[#F2F2F2]">
+            <TabsList className="flex h-8 w-fit self-end bg-[#E8E8E8] p-1 px-1">
               <TabsTrigger
                 value="productos"
-                className="text-grisSubText data-[state=active]:text-grisHeading"
+                className="h-[24px] px-3 py-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:text-grisHeading"
               >
                 Productos
               </TabsTrigger>
 
               <TabsTrigger
                 value="proceso"
-                className="text-grisSubText data-[state=active]:text-grisHeading"
+                className="h-[24px] px-3 py-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:text-grisHeading"
               >
                 Proceso
               </TabsTrigger>
 
               <TabsTrigger
                 value="personal"
-                className="text-grisSubText data-[state=active]:text-grisHeading"
+                className="h-[24px] px-3 py-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:text-grisHeading"
               >
                 Personal
               </TabsTrigger>
