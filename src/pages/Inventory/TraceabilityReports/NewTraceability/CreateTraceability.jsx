@@ -35,7 +35,7 @@ const CreateTraceability = () => {
             <p className="mt-1 h-[30px] font-poppins text-xl font-bold text-grisHeading">
               Informes de Trazabilidad
             </p>
-            <div className="flex justify-end gap-3 pr-8">
+            <div className="flex justify-end gap-3">
               <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
                 <TabsTrigger
                   value="article"
@@ -50,23 +50,12 @@ const CreateTraceability = () => {
                   Lote
                 </TabsTrigger>
               </TabsList>
-              <Link to="/inventory/traceability-reports">
-                <Button
-                  type={"button"}
-                  className={"bg-transparent hover:bg-transparent pb-4"}
-                >
-                  <IonIcon
-                    icon={closeCircle}
-                    className="h-7 w-7 text-[#D7D7D7]"
-                  />
-                </Button>
-              </Link>
             </div>
           </div>
           <TabsContent value="article">
            <ArticleForm/>
           </TabsContent>
-          <TabsContent value="branch">
+          <TabsContent value="branch" >
            <BatchForm/>
           </TabsContent>
         </Tabs>
