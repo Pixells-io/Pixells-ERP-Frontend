@@ -300,38 +300,38 @@ function NewFormula() {
                     defaultValue="fabricacion"
                     className="flex h-full w-full flex-col"
                   >
-                    <TabsList className="flex justify-around bg-blancoBg">
+                    <TabsList className="flex justify-start gap-4 rounded-none border-b bg-inherit py-6">
                       <TabsTrigger
                         value="fabricacion"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         MATERIALES
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="energeticos"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         RECURSOS
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="empaque"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         EMPAQUE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="embalaje"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         EMBALAJE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="subproductos"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         SUBPRODUCTOS
                       </TabsTrigger>
@@ -339,7 +339,7 @@ function NewFormula() {
 
                     <TabsContent value="fabricacion" className="w-full">
                       {/* materiales fab section */}
-                      <div className="rounded-xl p-4">
+                      <div className="rounded-xl py-4">
                         <h2 className="text-md font-poppins font-medium text-[#44444F]">
                           Materiales de Fabricación
                         </h2>
