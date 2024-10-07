@@ -11,9 +11,9 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-const MainSalesTicket = () => {
+const MainOrders = () => {
 
-  const { data } = useLoaderData();
+  // const { data } = useLoaderData();
 
   const columns = [
     {
@@ -64,7 +64,7 @@ const MainSalesTicket = () => {
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
-          <Link to={`/sales/tickets/edit/${row.original.id}`}>
+          <Link to={`/sales/orders/edit/${row.original.id}`}>
             <Button
               type="button"
               className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
@@ -109,7 +109,7 @@ const MainSalesTicket = () => {
 
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            VENTAS
+            PEDIDOS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -120,10 +120,10 @@ const MainSalesTicket = () => {
 
         <div className="flex justify-between">
           <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
-            Ticket/Remisíon de ventas
+            Clientes
           </p>
           <div className="flex justify-end gap-6">
-            <Link to="/sales/tickets/new">
+            <Link to="/sales/orders/new">
               <Button
                 type={"button"}
                 className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
@@ -136,20 +136,20 @@ const MainSalesTicket = () => {
         </div>
         {/*content */}
         <Tabs
-          defaultValue="tickets"
+          defaultValue="orders"
           className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
             <TabsTrigger
               className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-              value="tickets"
+              value="orders"
             >
-              TICKETS/REMISIONES
+              PEDIDOS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
+          <TabsContent value="orders" className="mt-[-70px] w-full pt-2">
             <DataTable
-              data={data}
+              data={[]}
               columns={columns}
               searchFilter="folio"
               searchNameFilter="Buscar por folio"
@@ -162,4 +162,4 @@ const MainSalesTicket = () => {
   );
 };
 
-export default MainSalesTicket;
+export default MainOrders;

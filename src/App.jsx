@@ -456,6 +456,7 @@ import {
 } from "./pages/Sales/Ticket/utils";
 import Summary from "./pages/Sales/Customer/Summary/Summary";
 import Information from "./pages/Sales/Customer/EditCustomer/Information/Information";
+import MainOrders from "./pages/Sales/Order/MainOrders";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1441,6 +1442,10 @@ const router = createBrowserRouter([
           {
             path: "/sales/tickets/document/:id",
             element: <TicketPDF />,
+          },
+          {
+            path: "/sales/orders/",
+            element: <MainOrders />,
           },
           {
             path: "/sales/quotes",
