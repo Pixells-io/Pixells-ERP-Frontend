@@ -6,6 +6,12 @@ import { closeCircle } from "ionicons/icons";
 
 import NavigationHeader from "@/components/navigation-header";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -24,6 +30,7 @@ function NewFormula() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [subProducts, setSubProducts] = useState([]);
+  const [variables, setVariables] = useState([]);
   const [wastes, setWastes] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
@@ -117,7 +124,10 @@ function NewFormula() {
   // console.log("productNeed ", productNeed);
 
   function fillFormulaProduct(e) {
-    // console.log(e);
+    console.log(e);
+    if (e.variables) {
+      setVariables(e.variables);
+    }
     setNewFormula({
       product_id: e.id,
       unit: e.unit,
@@ -640,6 +650,18 @@ function NewFormula() {
                       </label>
                     </div>
                   </div>
+
+                  {/* variable section */}
+                  {
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="item-1">
+                        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                        <AccordionContent>
+                          Yes. It adheres to the WAI-ARIA design pattern.
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  }
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">

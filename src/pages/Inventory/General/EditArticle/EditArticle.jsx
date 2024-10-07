@@ -17,6 +17,7 @@ import { createPusherClient } from "@/lib/pusher";
 
 const EditArticle = () => {
   const { id } = useParams();
+  const submit = useSubmit();
   const location = useLocation();
   const navigation = useNavigation();
   const data = useLoaderData();
@@ -26,7 +27,6 @@ const EditArticle = () => {
 
   const [productId, setProductId] = useState(id);
   const [product, setProduct] = useState(products.data);
-  const submit = useSubmit();
 
   //WEBSOCKET
   const pusherClient = createPusherClient();
@@ -286,6 +286,92 @@ const EditArticle = () => {
     });
   };
 
+  function handleSubmitForm() {
+    const formData = new FormData();
+    const convertToBoolean = (value) =>
+      value === true ? 1 : value === false ? 0 : 0;
+
+    if (initialValues.productType == "1") {
+      const info = {
+        type: parseInt(initialValues.productType) || 1,
+        code: initialValues.codigoDeArticulo || "",
+        name: initialValues.nombreODescripcion || "",
+        cost_center_id: parseInt(initialValues.centroDeCostos) || "",
+        preferred_warehouse_id: parseInt(initialValues.almacen) || "",
+        price: initialValues.precio || "",
+        category_id: parseInt(initialValues.categoria) || "",
+        barcode: initialValues.codigoDeBarras || "",
+        measure: initialValues.unidadesDeMedida || "",
+        raw_material: convertToBoolean(initialValues.inventario) || 0,
+        buys: convertToBoolean(initialValues.compra) || 0,
+        sale: convertToBoolean(initialValues.venta) || 0,
+        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
+        available_for_return:
+          convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
+        manufacturing_available:
+          convertToBoolean(inputsData.manufacturaDisponible) || 0,
+        manufacturer: inputsData.fabricantes || "",
+        active: convertToBoolean(inputsData.activos) || 0,
+        from_active: inputsData.from || "",
+        to_active: inputsData.to || "",
+        valuation_method: inventory.metodoValoracion || "",
+        min_stock: inventory.stockMinimo || "",
+        max_stock: inventory.stockMaximo || "",
+        default_supplier: parseInt(buyData.proveedor) || "",
+      };
+      formData.append("info", JSON.stringify(info));
+      if (inputsData.imagenPrincipal) {
+        formData.append("primary_img", inputsData.imagenPrincipal);
+      }
+      console.log(formData);
+      submit(formData, {
+        method: "post",
+        action: `/inventory/edit/${id}`,
+      });
+    } else {
+      const info = {
+        type: parseInt(initialValues.productType) || 2,
+        code: initialValues.codigoDeArticulo || "",
+        name: initialValues.nombreODescripcion || "",
+        cost_center_id: parseInt(initialValues.centroDeCostos) || "",
+        preferred_warehouse_id: parseInt(initialValues.almacen) || "",
+        price: initialValues.precio || "",
+        category_id: parseInt(initialValues.categoria) || "",
+        barcode: initialValues.codigoDeBarras || "",
+        measure: initialValues.unidadesDeMedida || "",
+        raw_material: convertToBoolean(initialValues.inventario) || 0,
+        buys: convertToBoolean(initialValues.compra) || 0,
+        sale: convertToBoolean(initialValues.venta) || 0,
+        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
+        available_for_return:
+          convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
+        manufacturing_available:
+          convertToBoolean(inputsData.manufacturaDisponible) || 0,
+        manufacturer: inputsData.fabricantes || "",
+        active: convertToBoolean(inputsData.activos) || 0,
+        from_active: inputsData.from || "",
+        to_active: inputsData.to || "",
+        valuation_method: inventory.metodoValoracion || "",
+        min_stock: inventory.stockMinimo || "",
+        max_stock: inventory.stockMaximo || "",
+        default_supplier: parseInt(buyData.proveedor) || "",
+      };
+      if (inputsData.imagenPrincipal) {
+        formData.append("primary_img", inputsData.imagenPrincipal);
+      }
+      info.variables = variableData.selectedGroups;
+      variableData.images.forEach((image) => {
+        formData.append("second_images[]", image.file);
+      });
+      formData.append("info", JSON.stringify(info));
+      console.log(formData);
+      submit(formData, {
+        method: "post",
+        action: `/inventory/edit/${id}`,
+      });
+    }
+  }
+
   return (
     <div className="flex h-full w-full">
       <div className="ml-4 flex h-full w-full flex-col gap-4 rounded-lg bg-gris px-8 py-4">
@@ -362,6 +448,7 @@ const EditArticle = () => {
               <Button
                 className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                 disabled={navigation.state === "submitting"}
+                onClick={() => handleSubmitForm()}
               >
                 {navigation.state === "submitting"
                   ? "Submitting..."
