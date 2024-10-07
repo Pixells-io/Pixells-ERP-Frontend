@@ -10,6 +10,7 @@ import {
 import UnitMeasure from "./UnitMeasureModal";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
   const handleInputChange = (e) => {
@@ -48,12 +49,13 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             />
 
             {/* Nombre o Descripción */}
-            <InputForm
+            <InputRouter
               type="text"
               placeholder="Nombre o descripción"
               name="nombreODescripcion"
               value={inputsData?.nombreODescripcion || ""}
               onChange={handleInputChange}
+              required={true}
             />
           </div>
 
@@ -66,6 +68,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
               name="categoria"
               value={inputsData?.categoria || ""}
               onValueChange={(value) => handleSelectChange("categoria", value)}
+              required={true}
             >
               <SelectTrigger className={selectClasses}>
                 <SelectValue placeholder="Seleccionar" />
@@ -179,6 +182,7 @@ const Inputs = ({ categories, warehouses, inputsData, setInputsData }) => {
             step="0.1"
             value={inputsData?.precio || ""}
             onChange={handleInputChange}
+            required={true}
           />
 
           {/* Centro de Costos */}

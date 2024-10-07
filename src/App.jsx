@@ -324,21 +324,27 @@ import {
   multiloaderArticle,
   multiloaderArticle2,
 } from "./pages/Inventory/General/utils";
-import CreateArticle from "./pages/Inventory/General/NewArticle/NewArticle";
+import CreateArticle, {
+  Action as createArticle,
+} from "./pages/Inventory/General/NewArticle/NewArticle";
 import EditArticle, {
   Action as editProduct,
 } from "./pages/Inventory/General/EditArticle/EditArticle";
 import MainGeneralServices, {
   Action as multiFunctionService,
 } from "./pages/Inventory/GeneralServices/MainGeneralServices";
-import EditCategory,{Action as multiFunctionCategories} from "./pages/Inventory/GeneralServices/Category/MainCategory";
-import EditCombo,{Action as multiFunctionCombos} from "./pages/Inventory/GeneralServices/Combos/MainCombo";
+import EditCategory, {
+  Action as multiFunctionCategories,
+} from "./pages/Inventory/GeneralServices/Category/MainCategory";
+import EditCombo, {
+  Action as multiFunctionCombos,
+} from "./pages/Inventory/GeneralServices/Combos/MainCombo";
 import {
   multiLoaderServiceGeneral,
   multiLoaderServiceGeneral2,
   multiLoaderServiceGeneralDetails,
   ReadCategory,
-  getComboById
+  getComboById,
 } from "./pages/Inventory/GeneralServices/utils";
 import CreateService, {
   Action as SaveNewGeneralService,
@@ -1175,6 +1181,7 @@ const router = createBrowserRouter([
             path: "/inventory/create",
             element: <CreateArticle />,
             loader: multiloaderArticle,
+            action: createArticle,
           },
           {
             path: "/inventory/edit/:id",
@@ -1191,14 +1198,14 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-services/category/:id",
             element: <EditCategory />,
-            loader:ReadCategory,
-            action:multiFunctionCategories
+            loader: ReadCategory,
+            action: multiFunctionCategories,
           },
           {
             path: "/inventory/general-services/combo/:id",
             element: <EditCombo />,
             loader: getComboById,
-            action:multiFunctionCombos
+            action: multiFunctionCombos,
           },
           {
             path: "/inventory/general-services/service/new",
