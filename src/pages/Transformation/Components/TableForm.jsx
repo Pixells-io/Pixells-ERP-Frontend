@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
+
 import {
   Table,
   TableBody,
@@ -7,14 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { IonIcon } from "@ionic/react";
-import {
-  addCircle,
-  chevronBack,
-  chevronForward,
-  closeCircle,
-} from "ionicons/icons";
 import {
   Select,
   SelectContent,
@@ -22,34 +15,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const components = [
-  {
-    id: 1,
-    name: "Aceite vegetal",
-    unit: "L",
-    cost: "60.00",
-  },
-  {
-    id: 2,
-    name: "Aceite Motor",
-    unit: "L",
-    cost: "210.00",
-  },
-  {
-    id: 3,
-    name: "Aguacate",
-    unit: "U",
-    cost: "30.00",
-  },
-  {
-    id: 4,
-    name: "Huevos",
-    unit: "U",
-    cost: "7.00",
-  },
-];
+import { IonIcon } from "@ionic/react";
+import {
+  addCircle,
+  chevronBack,
+  chevronForward,
+  closeCircle,
+} from "ionicons/icons";
 
 const TableForm = ({
   tableData,
@@ -79,8 +54,6 @@ const TableForm = ({
     amount: 0,
     unit: "",
     price: 0,
-    amountTax: 0,
-    tax: "",
     subTotal: 0,
   };
 
@@ -108,11 +81,7 @@ const TableForm = ({
           ? {
               ...item,
               amount: value,
-              tax: (item.price * item.amountTax * value) / 100,
-              subTotal: (
-                item.price * value +
-                (item.price * item.amountTax * value) / 100
-              ).toFixed(2),
+              subTotal: (item.price * value).toFixed(2),
             }
           : item,
       ),
@@ -179,24 +148,6 @@ const TableForm = ({
         ),
       );
     }
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal: (
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
   }, []);
 
   const deleteRowId = (id) => {
