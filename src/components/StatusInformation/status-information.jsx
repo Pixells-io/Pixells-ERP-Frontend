@@ -12,7 +12,7 @@ function StatusInformation({
   comments,
   date,
   children,
-  setComments
+  setComments,
 }) {
   //status 1 = Draft
   //status 2 = In progress
@@ -23,13 +23,11 @@ function StatusInformation({
   //date = aparece la fecha aprobado, aparece status 3.
   //setComment = manejo del valor de comentarios.
 
-  
   const [additionalComments, setAdditionalComments] = useState("");
 
   const handleChange = (event) => {
     setAdditionalComments(event.target.value);
     setComments(event.target.value);
-    
   };
 
   return (
@@ -60,24 +58,24 @@ function StatusInformation({
         </div>
       </div>
 
-      <div className="col-span-12 flex gap-x-8 items-center pl-8 md:col-span-6 xl:col-span-5">
-          <div className="flex justify-center">
-            {status == "draft" ? (
-              <StatusDraft />
-            ) : status == "inProgress" ? (
-              <StatusInProgress />
-            ) : (
-              status == "done" && <StatusDone />
-            )}
-          </div>
-          <div>
+      <div className="col-span-12 flex items-center gap-x-8 pl-8 md:col-span-6 xl:col-span-5">
+        <div className="flex justify-center">
+          {status == "draft" ? (
+            <StatusDraft />
+          ) : status == "inProgress" ? (
+            <StatusInProgress />
+          ) : (
+            status == "done" && <StatusDone />
+          )}
+        </div>
+        <div>
           <label className="rounded-xl bg-blancoBox px-2 py-1 text-center text-xs font-semibold text-grisSubText">
             {status == "draft" || status == "inProgress"
               ? "Pending Aproval"
               : status == "done" && approvedBy}
           </label>
         </div>
-          
+
         <div className="flex justify-center">
           <label className="rounded-xl bg-blancoBox px-2 py-1 text-center text-xs font-semibold text-grisSubText">
             {status == "draft" || status == "inProgress"
@@ -87,14 +85,11 @@ function StatusInformation({
         </div>
       </div>
 
-      
       {(status == "draft" || status == "inProgress") && (
         <div className="col-span-12 xl:col-span-3">
           {(status == "draft" || status == "inProgress") && (
             <div className="flex h-full items-center justify-center gap-2">
-              {
-                children
-              }
+              {children}
             </div>
           )}
         </div>

@@ -114,10 +114,10 @@ function NewFormula() {
   }));
 
   // console.log("productCraft ", productCraft);
-  console.log("productNeed ", productNeed);
+  // console.log("productNeed ", productNeed);
 
   function fillFormulaProduct(e) {
-    console.log(e);
+    // console.log(e);
     setNewFormula({
       product_id: e.id,
       unit: e.unit,
@@ -161,254 +161,791 @@ function NewFormula() {
           </div>
         </div>
 
-        <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
-          <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
-            {/* config section */}
-            <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
-              <div className="flex w-1/3">
-                <SelectRouter
-                  options={productCraft}
-                  onChange={(e) => fillFormulaProduct(e)}
-                />
-              </div>
+        <div className="flex h-full flex-col justify-between">
+          <Tabs defaultValue="productos" className="h-full">
+            {/* <TabsList className="relative bottom-12 left-60"> */}
+            <TabsList className="">
+              <TabsTrigger value="productos">Productos</TabsTrigger>
 
-              <div className="flex w-28">
-                <InputRouter
-                  type="number"
-                  name="formula_tam"
-                  placeholder="Cantidad"
-                />
-              </div>
-              <div className="flex w-28">
-                {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
+              <TabsTrigger value="proceso">Proceso</TabsTrigger>
+
+              <TabsTrigger value="personal">Personal</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="productos" className="h-full">
+              <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
+                <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
+                  {/* config section */}
+                  <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
+                    <div className="flex w-1/3">
+                      <SelectRouter
+                        options={productCraft}
+                        onChange={(e) => fillFormulaProduct(e)}
+                      />
+                    </div>
+
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="number"
+                        name="formula_tam"
+                        placeholder="Cantidad"
+                      />
+                    </div>
+                    <div className="flex w-28">
+                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
                   {newFormula.unit}
                 </div> */}
-                <InputRouter
-                  type="text"
-                  name="unidad"
-                  placeholder="Unidad"
-                  value={newFormula.unit}
-                />
-              </div>
-              <div className="flex w-20">
-                <InputRouter type="number" name="merma" placeholder="Merma" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label
-                  htmlFor="checkBoxMultiProcess"
-                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                >
-                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                  <p className="text-[12px]">Porcentaje</p>
-                </label>
-                <label
-                  htmlFor="checkBoxMultiProcess"
-                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                >
-                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                  <p className="text-[12px]">Unidad</p>
-                </label>
-              </div>
-              <div className="flex flex-col gap-1">
-                <label
-                  htmlFor="checkBoxMultiProcess"
-                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                >
-                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                  <p className="text-[12px]">Global</p>
-                </label>
-                <label
-                  htmlFor="checkBoxMultiProcess"
-                  className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                >
-                  <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                  <p className="text-[12px]">Individual</p>
-                </label>
-              </div>
-            </div>
-
-            <Tabs
-              defaultValue="fabricacion"
-              className="flex h-full w-full flex-col"
-            >
-              <TabsList>
-                <TabsTrigger value="fabricacion">
-                  Materiales de Fabricación
-                </TabsTrigger>
-
-                <TabsTrigger value="energeticos">
-                  Recursos Energéticos
-                </TabsTrigger>
-
-                <TabsTrigger value="empaque">Materiales de Empaque</TabsTrigger>
-
-                <TabsTrigger value="embalaje">
-                  Materiales de Embalaje
-                </TabsTrigger>
-
-                <TabsTrigger value="subproductos">SubProductos</TabsTrigger>
-
-                <TabsTrigger value="desechos">Desechos</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="fabricacion" className="w-full">
-                {/* materiales fab section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    Materiales de Fabricación
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableForm
-                      tableData={products}
-                      setTableData={setProducts}
-                      setTotalProducts={setTotalProducts}
-                      productNeed={productNeed}
-                    />
-                  </div>
-
-                  <div className="mt-4 flex justify-end">
-                    <div className="flex items-center gap-x-4">
-                      <h2 className="text-sm font-medium text-grisText">
-                        Total
-                      </h2>
-                      <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                        <p className="text-end text-sm font-medium text-grisText">
-                          {totalProducts}
-                        </p>
-                      </div>
+                      <InputRouter
+                        type="text"
+                        name="unidad"
+                        placeholder="Unidad"
+                        value={newFormula.unit}
+                      />
+                    </div>
+                    <div className="flex w-20">
+                      <InputRouter
+                        type="number"
+                        name="merma"
+                        placeholder="Merma"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Porcentaje</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Unidad</p>
+                      </label>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Global</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Individual</p>
+                      </label>
                     </div>
                   </div>
-                </div>
-              </TabsContent>
 
-              <TabsContent value="energeticos" className="w-full">
-                {/* recursos ene fab section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    Recursos Energéticos
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableForm
-                      tableData={products}
-                      setTableData={setProducts}
-                      setTotalProducts={setTotalProducts}
-                      productNeed={productNeed}
-                    />
-                  </div>
+                  <Tabs
+                    defaultValue="fabricacion"
+                    className="flex h-full w-full flex-col"
+                  >
+                    <TabsList>
+                      <TabsTrigger value="fabricacion">
+                        Materiales de Fabricación
+                      </TabsTrigger>
 
-                  <div className="mt-4 flex justify-end">
-                    <div className="flex items-center gap-x-4">
-                      <h2 className="text-sm font-medium text-grisText">
-                        Total
-                      </h2>
-                      <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                        <p className="text-end text-sm font-medium text-grisText">
-                          {totalProducts}
-                        </p>
+                      <TabsTrigger value="energeticos">
+                        Recursos Energéticos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="empaque">
+                        Materiales de Empaque
+                      </TabsTrigger>
+
+                      <TabsTrigger value="embalaje">
+                        Materiales de Embalaje
+                      </TabsTrigger>
+
+                      <TabsTrigger value="subproductos">
+                        SubProductos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="desechos">Desechos</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="fabricacion" className="w-full">
+                      {/* materiales fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Fabricación
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    </TabsContent>
+
+                    <TabsContent value="energeticos" className="w-full">
+                      {/* recursos ene fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Recursos Energéticos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="empaque" className="w-full">
+                      {/* materiales empaque section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Empaque
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="embalaje" className="w-full">
+                      {/* materiales embalaje section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Embalaje
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="subproductos" className="w-full">
+                      {/* subproductos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          SubProductos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormSubProducts
+                            tableData={subProducts}
+                            setTableData={setSubProducts}
+                            setTotalProducts={setSubTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="desechos" className="w-full">
+                      {/* desechos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Desechos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormWaste
+                            tableData={wastes}
+                            setTableData={setWastes}
+                            setTotalProducts={setTotalWastes}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="proceso">
+              <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
+                <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
+                  {/* config section */}
+                  <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
+                    <div className="flex w-1/3">
+                      <SelectRouter
+                        options={productCraft}
+                        onChange={(e) => fillFormulaProduct(e)}
+                      />
+                    </div>
+
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="number"
+                        name="formula_tam"
+                        placeholder="Cantidad"
+                      />
+                    </div>
+                    <div className="flex w-28">
+                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
+                  {newFormula.unit}
+                </div> */}
+                      <InputRouter
+                        type="text"
+                        name="unidad"
+                        placeholder="Unidad"
+                        value={newFormula.unit}
+                      />
+                    </div>
+                    <div className="flex w-20">
+                      <InputRouter
+                        type="number"
+                        name="merma"
+                        placeholder="Merma"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Porcentaje</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Unidad</p>
+                      </label>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Global</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Individual</p>
+                      </label>
                     </div>
                   </div>
-                </div>
-              </TabsContent>
 
-              <TabsContent value="empaque" className="w-full">
-                {/* materiales empaque section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    Materiales de Empaque
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableForm
-                      tableData={products}
-                      setTableData={setProducts}
-                      setTotalProducts={setTotalProducts}
-                      productNeed={productNeed}
-                    />
-                  </div>
+                  <Tabs
+                    defaultValue="fabricacion"
+                    className="flex h-full w-full flex-col"
+                  >
+                    <TabsList>
+                      <TabsTrigger value="fabricacion">
+                        Materiales de Fabricación
+                      </TabsTrigger>
 
-                  <div className="mt-4 flex justify-end">
-                    <div className="flex items-center gap-x-4">
-                      <h2 className="text-sm font-medium text-grisText">
-                        Total
-                      </h2>
-                      <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                        <p className="text-end text-sm font-medium text-grisText">
-                          {totalProducts}
-                        </p>
+                      <TabsTrigger value="energeticos">
+                        Recursos Energéticos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="empaque">
+                        Materiales de Empaque
+                      </TabsTrigger>
+
+                      <TabsTrigger value="embalaje">
+                        Materiales de Embalaje
+                      </TabsTrigger>
+
+                      <TabsTrigger value="subproductos">
+                        SubProductos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="desechos">Desechos</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="fabricacion" className="w-full">
+                      {/* materiales fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Fabricación
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    </TabsContent>
+
+                    <TabsContent value="energeticos" className="w-full">
+                      {/* recursos ene fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Recursos Energéticos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="empaque" className="w-full">
+                      {/* materiales empaque section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Empaque
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="embalaje" className="w-full">
+                      {/* materiales embalaje section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Embalaje
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="subproductos" className="w-full">
+                      {/* subproductos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          SubProductos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormSubProducts
+                            tableData={subProducts}
+                            setTableData={setSubProducts}
+                            setTotalProducts={setSubTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="desechos" className="w-full">
+                      {/* desechos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Desechos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormWaste
+                            tableData={wastes}
+                            setTableData={setWastes}
+                            setTotalProducts={setTotalWastes}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="personal">
+              <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
+                <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
+                  {/* config section */}
+                  <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
+                    <div className="flex w-1/3">
+                      <SelectRouter
+                        options={productCraft}
+                        onChange={(e) => fillFormulaProduct(e)}
+                      />
+                    </div>
+
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="number"
+                        name="formula_tam"
+                        placeholder="Cantidad"
+                      />
+                    </div>
+                    <div className="flex w-28">
+                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
+                  {newFormula.unit}
+                </div> */}
+                      <InputRouter
+                        type="text"
+                        name="unidad"
+                        placeholder="Unidad"
+                        value={newFormula.unit}
+                      />
+                    </div>
+                    <div className="flex w-20">
+                      <InputRouter
+                        type="number"
+                        name="merma"
+                        placeholder="Merma"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Porcentaje</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Unidad</p>
+                      </label>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Global</p>
+                      </label>
+                      <label
+                        htmlFor="checkBoxMultiProcess"
+                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
+                      >
+                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
+                        <p className="text-[12px]">Individual</p>
+                      </label>
                     </div>
                   </div>
-                </div>
-              </TabsContent>
 
-              <TabsContent value="embalaje" className="w-full">
-                {/* materiales embalaje section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    Materiales de Embalaje
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableForm
-                      tableData={products}
-                      setTableData={setProducts}
-                      setTotalProducts={setTotalProducts}
-                      productNeed={productNeed}
-                    />
-                  </div>
+                  <Tabs
+                    defaultValue="fabricacion"
+                    className="flex h-full w-full flex-col"
+                  >
+                    <TabsList>
+                      <TabsTrigger value="fabricacion">
+                        Materiales de Fabricación
+                      </TabsTrigger>
 
-                  <div className="mt-4 flex justify-end">
-                    <div className="flex items-center gap-x-4">
-                      <h2 className="text-sm font-medium text-grisText">
-                        Total
-                      </h2>
-                      <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                        <p className="text-end text-sm font-medium text-grisText">
-                          {totalProducts}
-                        </p>
+                      <TabsTrigger value="energeticos">
+                        Recursos Energéticos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="empaque">
+                        Materiales de Empaque
+                      </TabsTrigger>
+
+                      <TabsTrigger value="embalaje">
+                        Materiales de Embalaje
+                      </TabsTrigger>
+
+                      <TabsTrigger value="subproductos">
+                        SubProductos
+                      </TabsTrigger>
+
+                      <TabsTrigger value="desechos">Desechos</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="fabricacion" className="w-full">
+                      {/* materiales fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Fabricación
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
+                    </TabsContent>
 
-              <TabsContent value="subproductos" className="w-full">
-                {/* subproductos section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    SubProductos
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableFormSubProducts
-                      tableData={subProducts}
-                      setTableData={setSubProducts}
-                      setTotalProducts={setSubTotalProducts}
-                      productNeed={productNeed}
-                    />
-                  </div>
-                </div>
-              </TabsContent>
+                    <TabsContent value="energeticos" className="w-full">
+                      {/* recursos ene fab section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Recursos Energéticos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
 
-              <TabsContent value="desechos" className="w-full">
-                {/* desechos section */}
-                <div className="rounded-xl p-4">
-                  <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                    Desechos
-                  </h2>
-                  <div className="overflow-auto">
-                    <TableFormWaste
-                      tableData={wastes}
-                      setTableData={setWastes}
-                      setTotalProducts={setTotalWastes}
-                      productNeed={productNeed}
-                    />
-                  </div>
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="empaque" className="w-full">
+                      {/* materiales empaque section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Empaque
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="embalaje" className="w-full">
+                      {/* materiales embalaje section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Materiales de Embalaje
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableForm
+                            tableData={products}
+                            setTableData={setProducts}
+                            setTotalProducts={setTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                          <div className="flex items-center gap-x-4">
+                            <h2 className="text-sm font-medium text-grisText">
+                              Total
+                            </h2>
+                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
+                              <p className="text-end text-sm font-medium text-grisText">
+                                {totalProducts}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="subproductos" className="w-full">
+                      {/* subproductos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          SubProductos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormSubProducts
+                            tableData={subProducts}
+                            setTableData={setSubProducts}
+                            setTotalProducts={setSubTotalProducts}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="desechos" className="w-full">
+                      {/* desechos section */}
+                      <div className="rounded-xl p-4">
+                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
+                          Desechos
+                        </h2>
+                        <div className="overflow-auto">
+                          <TableFormWaste
+                            tableData={wastes}
+                            setTableData={setWastes}
+                            setTotalProducts={setTotalWastes}
+                            productNeed={productNeed}
+                          />
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </div>
-              </TabsContent>
-            </Tabs>
-          </div>
+              </div>
+            </TabsContent>
+          </Tabs>
 
           {/* end section */}
-          <div className="flex w-full justify-center">
+          <div className="flex w-full justify-center rounded-b-lg bg-blancoBg">
             <StatusInformation
               status={"inProgress"}
               imgUser={
@@ -417,7 +954,7 @@ function NewFormula() {
             >
               <Button
                 type="button"
-                onClick={() => navigate("/transformation/record/1")}
+                // onClick={() => navigate("/transformation/record/1")}
                 className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
               >
                 Save
