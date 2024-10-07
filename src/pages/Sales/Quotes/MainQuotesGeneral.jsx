@@ -112,9 +112,9 @@ const MainQtGeneral = () => {
           </div>
         </div>
 
-        <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Cotizaciones Generales
+        <div className="flex justify-between">
+        <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
+        Cotizaciones Generales
           </p>
           <div className="flex justify-end gap-6">
             <Link to="/sales/quotes/new">
