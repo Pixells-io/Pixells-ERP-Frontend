@@ -30,10 +30,13 @@ import EnergyTable from "../../Components/Tables/EnergyTable";
 import PackagesTable from "../../Components/Tables/PackagesTable";
 import CrateTable from "../../Components/Tables/CrateTable";
 import SubProductsTable from "../../Components/Tables/SubProductsTable";
+import ProcesoTable from "../../Components/Tables/ProcesoTable";
+import PersonalTable from "../../Components/Tables/PersonalTable";
 
 function NewFormula() {
   const { data } = useLoaderData();
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
@@ -51,12 +54,20 @@ function NewFormula() {
   const [subProducts, setSubProducts] = useState([]);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
 
+  const [proceso, setProceso] = useState([]);
+  const [totalProceso, setTotalProceso] = useState(0);
+
+  const [personal, setPersonal] = useState([]);
+  const [totalPersonal, setTotalPersonal] = useState(0);
+
   const [newFormula, setNewFormula] = useState({
     product_id: "",
     quantity: "",
     unit: "",
     comments: "",
     type: "",
+    label: "",
+    value: "",
     vars: [
       {
         product_variable_id: 1,
@@ -145,7 +156,10 @@ function NewFormula() {
       unit: e.unit,
       type: e.type,
       price: e.price,
+      quantity: 1,
       comments: "",
+      label: e.name,
+      value: e.id,
     });
   }
 
@@ -217,6 +231,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
@@ -300,38 +315,38 @@ function NewFormula() {
                     defaultValue="fabricacion"
                     className="flex h-full w-full flex-col"
                   >
-                    <TabsList className="flex justify-around bg-blancoBg">
+                    <TabsList className="flex justify-start gap-4 rounded-none border-b bg-inherit py-6">
                       <TabsTrigger
                         value="fabricacion"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         MATERIALES
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="energeticos"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         RECURSOS
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="empaque"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         EMPAQUE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="embalaje"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         EMBALAJE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="subproductos"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                        className="rounded-none border-b-2 border-blancoBg px-0 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                       >
                         SUBPRODUCTOS
                       </TabsTrigger>
@@ -339,7 +354,7 @@ function NewFormula() {
 
                     <TabsContent value="fabricacion" className="w-full">
                       {/* materiales fab section */}
-                      <div className="rounded-xl p-4">
+                      <div className="rounded-xl py-4">
                         <h2 className="text-md font-poppins font-medium text-[#44444F]">
                           Materiales de Fabricación
                         </h2>
@@ -487,6 +502,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
@@ -504,48 +520,29 @@ function NewFormula() {
                       <InputRouter
                         type="text"
                         name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
+                        placeholder="Fecha de producción"
                       />
                     </div>
-                    <div className="flex w-20">
+                    <div className="flex w-28">
                       <InputRouter
-                        type="number"
+                        type="text"
                         name="merma"
-                        placeholder="Merma"
+                        placeholder="Cuenta Contable"
                       />
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="text"
+                        name="merma"
+                        placeholder="Almacen PEP"
+                      />
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="text"
+                        name="merma"
+                        placeholder="Almacen Destino"
+                      />
                     </div>
                   </div>
 
@@ -555,7 +552,7 @@ function NewFormula() {
                       Proceso
                     </h2>
                     <div className="overflow-auto">
-                      <TableForm
+                      <ProcesoTable
                         tableData={products}
                         setTableData={setProducts}
                         setTotalProducts={setTotalProducts}
@@ -589,6 +586,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
@@ -606,48 +604,29 @@ function NewFormula() {
                       <InputRouter
                         type="text"
                         name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
+                        placeholder="Fecha de producción"
                       />
                     </div>
-                    <div className="flex w-20">
+                    <div className="flex w-28">
                       <InputRouter
-                        type="number"
+                        type="text"
                         name="merma"
-                        placeholder="Merma"
+                        placeholder="Cuenta Contable"
                       />
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="text"
+                        name="merma"
+                        placeholder="Almacen PEP"
+                      />
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
+                    <div className="flex w-28">
+                      <InputRouter
+                        type="text"
+                        name="merma"
+                        placeholder="Almacen Destino"
+                      />
                     </div>
                   </div>
 
@@ -657,7 +636,7 @@ function NewFormula() {
                       Personal
                     </h2>
                     <div className="overflow-auto">
-                      <TableForm
+                      <PersonalTable
                         tableData={products}
                         setTableData={setProducts}
                         setTotalProducts={setTotalProducts}

@@ -1322,10 +1322,6 @@ const router = createBrowserRouter([
             element: <TraceabilityTransfer />,
           },
           {
-            path: "/inventory/traceability-reports",
-            element:<MainTraceabilityReport/>,
-          },
-          {
             path: "/inventory/traceability-reports/create",
             element:<CreateTraceability/>,
           },

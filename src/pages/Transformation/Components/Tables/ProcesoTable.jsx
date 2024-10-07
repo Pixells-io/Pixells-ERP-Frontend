@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
-
 import {
   Table,
   TableBody,
@@ -8,16 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
-
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
@@ -25,8 +15,16 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const TableForm = ({
+const ProcesoTable = ({
   tableData,
   setTableData,
   setTotalProducts,
@@ -49,12 +47,12 @@ const TableForm = ({
   const itemsPerPage = 10;
 
   const initialRow = {
-    idAux: 1,
-    component: "",
-    amount: 0,
-    unit: "",
-    price: 0,
-    subTotal: 0,
+    type: "electricity",
+    product_master_id: 456,
+    product_variable_id: 3,
+    quantity: 200,
+    unit: "kWh",
+    price: "",
   };
 
   useEffect(() => {
@@ -81,7 +79,11 @@ const TableForm = ({
           ? {
               ...item,
               amount: value,
-              subTotal: (item.price * value).toFixed(2),
+              tax: (item.price * item.amountTax * value) / 100,
+              subTotal: (
+                item.price * value +
+                (item.price * item.amountTax * value) / 100
+              ).toFixed(2),
             }
           : item,
       ),
@@ -150,6 +152,24 @@ const TableForm = ({
     }
   }, []);
 
+  const handleTaxChange = useCallback((rowIndex, value) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              amountTax: value,
+              tax: (item.cost * value * item.amount) / 100,
+              subTotal: (
+                item.cost * item.amount +
+                (item.cost * value * item.amount) / 100
+              ).toFixed(2),
+            }
+          : item,
+      ),
+    );
+  }, []);
+
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
     const auxRowDelete = tableData.filter((row) => row.idAux !== id);
@@ -184,7 +204,7 @@ const TableForm = ({
   const columns = [
     {
       accessorKey: "component",
-      header: "Componente",
+      header: "Operación",
       cell: ({ row, rowIndex }) => (
         <>
           {/* <SelectRouter
@@ -215,7 +235,7 @@ const TableForm = ({
     },
     {
       accessorKey: "amount",
-      header: "Cantidad",
+      header: "Proceso de Operación ",
       cell: ({ row, rowIndex }) => (
         <Input
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
@@ -230,7 +250,7 @@ const TableForm = ({
     },
     {
       accessorKey: "unit",
-      header: "Unidad",
+      header: "Producto",
       cell: ({ row, rowIndex }) => (
         <Input
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
@@ -243,7 +263,7 @@ const TableForm = ({
     },
     {
       accessorKey: "price",
-      header: "Costo",
+      header: "Duración Estimada",
       cell: ({ row, rowIndex }) => (
         <Input
           type="number"
@@ -256,40 +276,9 @@ const TableForm = ({
         />
       ),
     },
-    // {
-    //   accessorKey: "amountTax",
-    //   header: "Impuesto",
-    //   cell: ({ row, rowIndex }) => (
-    //     <div className="flex w-[150px] items-center gap-x-2 p-1">
-    //       (IVA
-    //       {
-    //         <Input
-    //           className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //           name={`tax-${rowIndex}`}
-    //           value={row.amountTax}
-    //           placeholder="tax"
-    //           type="number"
-    //           disabled={!row.component}
-    //           onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-    //         />
-    //       }
-    //       %) {!!row.tax && " - $" + row.tax}
-    //     </div>
-    //   ),
-    // },
-    {
-      accessorKey: "merma",
-      header: "Merma",
-      cell: ({ row, rowIndex }) => (
-        <div className="flex items-center gap-x-2 p-1">
-          <input type="checkbox" name="" id="" />
-          5%
-        </div>
-      ),
-    },
     {
       accessorKey: "subTotal",
-      header: "Subtotal",
+      header: "Estado",
       cell: ({ row, rowIndex }) => (
         <div className="flex w-[100px] justify-between">
           {row.subTotal}
@@ -367,4 +356,4 @@ const TableForm = ({
   );
 };
 
-export default TableForm;
+export default ProcesoTable;
