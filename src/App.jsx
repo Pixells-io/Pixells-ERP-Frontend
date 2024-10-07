@@ -457,6 +457,10 @@ import {
 import Summary from "./pages/Sales/Customer/Summary/Summary";
 import Information from "./pages/Sales/Customer/EditCustomer/Information/Information";
 import MainOrders from "./pages/Sales/Order/MainOrders";
+import OrderForm, {
+  Action as createSaleOrders,
+} from "./pages/Sales/Order/NewOrder/OrderForm";
+import { multiLoaderListOrders } from "./pages/Sales/Order/utils";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1446,6 +1450,12 @@ const router = createBrowserRouter([
           {
             path: "/sales/orders/",
             element: <MainOrders />,
+          },
+          {
+            path: "/sales/orders/new",
+            element: <OrderForm />,
+            loader: multiLoaderListOrders,
+            action: createSaleOrders,
           },
           {
             path: "/sales/quotes",
