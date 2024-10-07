@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { person, bagCheck, ticket, clipboard } from "ionicons/icons";
+import { person, bagCheck, ticket, clipboard, addCircle, arrowRedoCircle } from "ionicons/icons";
 
 const MENU_ITEMS = [
   { path: "/sales", 
@@ -25,7 +25,7 @@ const MENU_ITEMS = [
     path: "/sales/tickets",
     name: "Ventas",
     subname: "Ticket/Remisión",
-    icon: ticket,
+    icon: addCircle,
     subRoutes: [
       "/sales/tickets/",
     ] 
@@ -34,7 +34,7 @@ const MENU_ITEMS = [
     path: "/sales/orders",
     name: "Pedidos",
     subname: "de Clientes",
-    icon: ticket,
+    icon: arrowRedoCircle,
     subRoutes: [
       "/sales/orders/",
     ] 
