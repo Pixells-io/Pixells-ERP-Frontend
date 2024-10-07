@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function getSalesTicket() {
   try {
@@ -72,6 +73,7 @@ export async function saveNewTicketSale(data) {
       tax: p.taxes,
       total: p.total,
       quantity: p.quantity,
+      delivery_date: format(p.delivery_date, "yyyy-MM-dd"),
     };
   });
 
@@ -82,7 +84,7 @@ export async function saveNewTicketSale(data) {
     client_id: data.get("client_id"),
     credit: data.get("credit"),
     ccost: data.get("ccost"),
-    expiration_date: data.get("expiration_date"),
+    expiration_date: format(data.get("expiration_date"), "yyyy-MM-dd"),
 
     productService: data.get("productService"),
     wharehouse: data.get("wharehouse"),

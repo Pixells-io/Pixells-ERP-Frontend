@@ -3,6 +3,7 @@ import InputForm from "@/components/InputForm/InputForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { HoverExclamation } from "@/components/Hovers/HoverExclamation";
 import { alertCircleOutline } from "ionicons/icons";
+import DatePicker from "@/components/DatePickerStyle/DatePicker";
 
 const SelectsQuote = ({
   data,
@@ -14,6 +15,8 @@ const SelectsQuote = ({
   defaultSeller,
   discountGeneral,
   setDiscountGeneral,
+  expirationDate,
+  setExpirationDate,
 }) => {
   const [inputValue, setInputValue] = useState({
     id: data?.id,
@@ -24,7 +27,6 @@ const SelectsQuote = ({
     ccost: data?.ccost,
     credit: data?.credit,
     date: data?.date,
-    expiration_date: data?.expiration_date,
   });
 
   const handleInputChange = (value, name) => {
@@ -47,29 +49,31 @@ const SelectsQuote = ({
         <div className="col-span-4">
           <SelectRouter
             value={
-              listPriceList.find((cc) => cc.value == inputValue?.price_list) ||
-              null
+              clientsList.find(
+                (store) => store.value == inputValue?.client_id,
+              ) || null
             }
-            name={"price_list"}
-            options={listPriceList}
-            placeholder="Lista de Precios"
+            name={"client_id"}
+            options={clientsList}
+            placeholder="Cliente"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "price_list")}
+            onChange={(e) => handleInputChange(e.value, "client_id")}
           />
         </div>
-
         <div className="col-span-4">
           <SelectRouter
             value={
-              costCenterList.find((cc) => cc.value == inputValue?.ccost) || null
+              sellersList.find(
+                (seller) => seller.value == inputValue?.seller_id,
+              ) || null
             }
-            name={"ccost"}
-            options={costCenterList}
-            placeholder="Centro de Costos"
+            name={"seller_id"}
+            options={sellersList}
+            placeholder="Vendedor"
             required={true}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "ccost")}
+            onChange={(e) => handleInputChange(e.value, "seller_id")}
           />
         </div>
         <div className="col-span-2 flex items-center gap-x-4">
@@ -109,48 +113,42 @@ const SelectsQuote = ({
             classNameContent={"w-[142px]"}
           />
         </div>
-
         <div className="col-span-2">
-          <InputForm
-            type={"date"}
-            name="expiration_date"
-            placeholder="Vencimiento"
-            value={inputValue?.expiration_date}
-            disabled={!isEditable}
-            required={true}
-            onChange={(e) =>
-              handleInputChange(e.target.value, "expiration_date")
-            }
+          <DatePicker
+            title={"MM/DD/YYYY"}
+            value={expirationDate}
+            name={`expiration_date`}
+            className={"w-full text-xs font-normal"}
+            required={false}
+            onChange={(e) => setExpirationDate(e)}
+            placeholder={"Vencimiento"}
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
-              clientsList.find(
-                (store) => store.value == inputValue?.client_id,
-              ) || null
+              listPriceList.find((cc) => cc.value == inputValue?.price_list) ||
+              null
             }
-            name={"client_id"}
-            options={clientsList}
-            placeholder="Cliente"
-            required={true}
+            name={"price_list"}
+            options={listPriceList}
+            placeholder="Lista de Precios"
+            required={false}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "client_id")}
+            onChange={(e) => handleInputChange(e.value, "price_list")}
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
-              sellersList.find(
-                (seller) => seller.value == inputValue?.seller_id,
-              ) || null
+              costCenterList.find((cc) => cc.value == inputValue?.ccost) || null
             }
-            name={"seller_id"}
-            options={sellersList}
-            placeholder="Vendedor"
-            required={true}
+            name={"ccost"}
+            options={costCenterList}
+            placeholder="Centro de Costos"
+            required={false}
             disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "seller_id")}
+            onChange={(e) => handleInputChange(e.value, "ccost")}
           />
         </div>
         <div className="col-span-2">

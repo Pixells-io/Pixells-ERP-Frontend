@@ -27,6 +27,7 @@ const TicketForm = () => {
   const [productsListInfo, setProductsListInfo] = useState([]);
   const [discountGeneral, setDiscountGeneral] = useState(0);
   const [isShipping, setIsShipping] = useState(false);
+  const [expirationDate, setExpirationDate] = useState("");
 
   const getProducts = async () => {
     const auxProducts = await getProductsByWharehouse(wharehouseSelect);
@@ -99,6 +100,8 @@ const TicketForm = () => {
                 defaultSeller={infoCreateSales?.data?.default_seller}
                 discountGeneral={discountGeneral}
                 setDiscountGeneral={setDiscountGeneral}
+                expirationDate={expirationDate}
+                setExpirationDate={setExpirationDate}
               />
             </div>
 
@@ -172,6 +175,7 @@ const TicketForm = () => {
                   wharehouseSelect={wharehouseSelect}
                   discountGeneral={discountGeneral}
                   wharehouseName={wharehouseName}
+                  expirationDate={expirationDate}
                 />
               </div>
               <Total
