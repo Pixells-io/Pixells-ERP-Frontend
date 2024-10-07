@@ -193,6 +193,23 @@ export async function getInfoTransfer() {
   }
 }
 
+export async function getTransfer({ params }) {
+  const id = params.id;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}inventory/get_transfer/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function getInfoTransferProducts(inventory) {
   try {
     const response = await fetch(
@@ -207,4 +224,28 @@ export async function getInfoTransferProducts(inventory) {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+//SAVE ENTRY
+export async function saveStockTransfer(formData) {
+  const info = {
+    code: formData.get("code"),
+    date: formData.get("date"),
+    inventory_in: formData.get("inventory_in"),
+    inventory_out: formData.get("inventory_out"),
+    comments: formData.get("template"),
+    products: formData.get("slots"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/save-stock-transfer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
 }

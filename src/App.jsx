@@ -331,14 +331,18 @@ import EditArticle, {
 import MainGeneralServices, {
   Action as multiFunctionService,
 } from "./pages/Inventory/GeneralServices/MainGeneralServices";
-import EditCategory,{Action as multiFunctionCategories} from "./pages/Inventory/GeneralServices/Category/MainCategory";
-import EditCombo,{Action as multiFunctionCombos} from "./pages/Inventory/GeneralServices/Combos/MainCombo";
+import EditCategory, {
+  Action as multiFunctionCategories,
+} from "./pages/Inventory/GeneralServices/Category/MainCategory";
+import EditCombo, {
+  Action as multiFunctionCombos,
+} from "./pages/Inventory/GeneralServices/Combos/MainCombo";
 import {
   multiLoaderServiceGeneral,
   multiLoaderServiceGeneral2,
   multiLoaderServiceGeneralDetails,
   ReadCategory,
-  getComboById
+  getComboById,
 } from "./pages/Inventory/GeneralServices/utils";
 import CreateService, {
   Action as SaveNewGeneralService,
@@ -378,11 +382,14 @@ import {
   getInfoTransfer,
   getStocksMovement,
   getStocksMovements,
+  getTransfer,
   multiLoaderMovements,
 } from "./pages/Inventory/MerchandiseMovements/utils";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
-import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
+import NewDirectTransfer, {
+  Action as saveStockTransfer,
+} from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
@@ -1191,14 +1198,14 @@ const router = createBrowserRouter([
           {
             path: "/inventory/general-services/category/:id",
             element: <EditCategory />,
-            loader:ReadCategory,
-            action:multiFunctionCategories
+            loader: ReadCategory,
+            action: multiFunctionCategories,
           },
           {
             path: "/inventory/general-services/combo/:id",
             element: <EditCombo />,
             loader: getComboById,
-            action:multiFunctionCombos
+            action: multiFunctionCombos,
           },
           {
             path: "/inventory/general-services/service/new",
@@ -1287,6 +1294,12 @@ const router = createBrowserRouter([
             path: "/inventory/merchandise-movements/transfer/direct/new",
             element: <NewDirectTransfer />,
             loader: getInfoTransfer,
+            action: saveStockTransfer,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/entry/:id",
+            element: <TransferEntry />,
+            loader: getTransfer,
           },
           {
             path: "/inventory/merchandise-movements/transfer/record/:id",
@@ -1295,10 +1308,6 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/transfer/traceability/:id",
             element: <TraceabilityTransfer />,
-          },
-          {
-            path: "/inventory/merchandise-movements/transfer/entry/:id",
-            element: <TransferEntry />,
           },
           {
             path: "/inventory/prices-lists",
