@@ -396,8 +396,8 @@ import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Rec
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MaterialWarehouse from "./pages/Inventory/StockItems/RawMaterial/RawMaterial";
-
-
+import MainGoodsReceipt from "./pages/Inventory/GoodsReceipt/MainGoodsReceipt";
+import CreateTraceability from "./pages/Inventory/TraceabilityReports/NewTraceability/CreateTraceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList, {
   Action as newPriceList,
@@ -566,7 +566,6 @@ import {
   multiloaderStock,
 } from "./pages/Inventory/StockItems/utils";
 import MainTraceabilityReport from "./pages/Inventory/TraceabilityReports/MainTraceabilityReport";
-import CreateTraceability from "./pages/Inventory/TraceabilityReports/NewTraceability/CreateTraceability";
 
 const router = createBrowserRouter([
   {
@@ -1320,6 +1319,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/transfer/traceability/:id",
             element: <TraceabilityTransfer />,
+          },
+          {
+            path: "/inventory/goods-receipt",
+            element:<MainGoodsReceipt/>,
           },
           {
             path: "/inventory/traceability-reports/create",
