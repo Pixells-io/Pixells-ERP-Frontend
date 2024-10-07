@@ -161,15 +161,33 @@ function NewFormula() {
           </div>
         </div>
 
-        <div className="flex h-full flex-col justify-between">
-          <Tabs defaultValue="productos" className="h-full">
+        <div className="flex h-full w-full flex-col justify-between">
+          <Tabs
+            defaultValue="productos"
+            className="flex h-full w-full flex-col"
+          >
             {/* <TabsList className="relative bottom-12 left-60"> */}
-            <TabsList className="">
-              <TabsTrigger value="productos">Productos</TabsTrigger>
+            <TabsList className="flex w-fit self-end bg-[#F2F2F2]">
+              <TabsTrigger
+                value="productos"
+                className="text-grisSubText data-[state=active]:text-grisHeading"
+              >
+                Productos
+              </TabsTrigger>
 
-              <TabsTrigger value="proceso">Proceso</TabsTrigger>
+              <TabsTrigger
+                value="proceso"
+                className="text-grisSubText data-[state=active]:text-grisHeading"
+              >
+                Proceso
+              </TabsTrigger>
 
-              <TabsTrigger value="personal">Personal</TabsTrigger>
+              <TabsTrigger
+                value="personal"
+                className="text-grisSubText data-[state=active]:text-grisHeading"
+              >
+                Personal
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="productos" className="h-full">
@@ -243,32 +261,53 @@ function NewFormula() {
                     </div>
                   </div>
 
+                  {/* tabs section */}
                   <Tabs
                     defaultValue="fabricacion"
                     className="flex h-full w-full flex-col"
                   >
-                    <TabsList>
-                      <TabsTrigger value="fabricacion">
+                    <TabsList className="flex justify-between bg-grisBg">
+                      <TabsTrigger
+                        value="fabricacion"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
                         Materiales de Fabricación
                       </TabsTrigger>
 
-                      <TabsTrigger value="energeticos">
+                      <TabsTrigger
+                        value="energeticos"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
                         Recursos Energéticos
                       </TabsTrigger>
 
-                      <TabsTrigger value="empaque">
+                      <TabsTrigger
+                        value="empaque"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
                         Materiales de Empaque
                       </TabsTrigger>
 
-                      <TabsTrigger value="embalaje">
+                      <TabsTrigger
+                        value="embalaje"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
                         Materiales de Embalaje
                       </TabsTrigger>
 
-                      <TabsTrigger value="subproductos">
+                      <TabsTrigger
+                        value="subproductos"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
                         SubProductos
                       </TabsTrigger>
 
-                      <TabsTrigger value="desechos">Desechos</TabsTrigger>
+                      <TabsTrigger
+                        value="desechos"
+                        className="text-grisSubText data-[state=active]:text-grisHeading"
+                      >
+                        Desechos
+                      </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="fabricacion" className="w-full">
@@ -429,7 +468,7 @@ function NewFormula() {
               </div>
             </TabsContent>
 
-            <TabsContent value="proceso">
+            <TabsContent value="proceso" className="h-full">
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
@@ -686,7 +725,7 @@ function NewFormula() {
               </div>
             </TabsContent>
 
-            <TabsContent value="personal">
+            <TabsContent value="personal" className="h-full">
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
