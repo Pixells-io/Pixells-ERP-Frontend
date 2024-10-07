@@ -31,12 +31,12 @@ const MENU_ITEMS = [
     ] 
   },
   {
-    path: "/sales/customer",
+    path: "/sales/orders",
     name: "Pedidos",
     subname: "de Clientes",
     icon: ticket,
     subRoutes: [
-      "/sales/customer/",
+      "/sales/orders/",
     ] 
   },
   {
