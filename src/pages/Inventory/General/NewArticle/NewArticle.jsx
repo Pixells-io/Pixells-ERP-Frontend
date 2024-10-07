@@ -140,6 +140,7 @@ const CreateArticle = () => {
     const formData = new FormData();
     const convertToBoolean = (value) =>
       value === true ? 1 : value === false ? 0 : 0;
+
     if (initialValues.productType == "1") {
       const info = {
         type: parseInt(initialValues.productType) || 1,
@@ -206,9 +207,19 @@ const CreateArticle = () => {
         max_stock: inventory.stockMaximo || "",
         default_supplier: parseInt(buyData.proveedor) || "",
       };
+      if (inputsData.imagenPrincipal) {
+        formData.append("primary_img", inputsData.imagenPrincipal);
+      }
       info.variables = variableData.selectedGroups;
       variableData.images.forEach((image) => {
         formData.append("second_images[]", image.file);
+      });
+      formData.append("info", JSON.stringify(info));
+      formData.append("action", "create");
+      console.log(formData);
+      submit(formData, {
+        method: "post",
+        action: `/inventory/create`,
       });
     }
   }
