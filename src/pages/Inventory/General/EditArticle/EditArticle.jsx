@@ -291,85 +291,53 @@ const EditArticle = () => {
     const convertToBoolean = (value) =>
       value === true ? 1 : value === false ? 0 : 0;
 
-    if (initialValues.productType == "1") {
-      const info = {
-        type: parseInt(initialValues.productType) || 1,
-        code: initialValues.codigoDeArticulo || "",
-        name: initialValues.nombreODescripcion || "",
-        cost_center_id: parseInt(initialValues.centroDeCostos) || "",
-        preferred_warehouse_id: parseInt(initialValues.almacen) || "",
-        price: initialValues.precio || "",
-        category_id: parseInt(initialValues.categoria) || "",
-        barcode: initialValues.codigoDeBarras || "",
-        measure: initialValues.unidadesDeMedida || "",
-        raw_material: convertToBoolean(initialValues.inventario) || 0,
-        buys: convertToBoolean(initialValues.compra) || 0,
-        sale: convertToBoolean(initialValues.venta) || 0,
-        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
-        available_for_return:
-          convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
-        manufacturing_available:
-          convertToBoolean(inputsData.manufacturaDisponible) || 0,
-        manufacturer: inputsData.fabricantes || "",
-        active: convertToBoolean(inputsData.activos) || 0,
-        from_active: inputsData.from || "",
-        to_active: inputsData.to || "",
-        valuation_method: inventory.metodoValoracion || "",
-        min_stock: inventory.stockMinimo || "",
-        max_stock: inventory.stockMaximo || "",
-        default_supplier: parseInt(buyData.proveedor) || "",
-      };
-      formData.append("info", JSON.stringify(info));
-      if (inputsData.imagenPrincipal) {
-        formData.append("primary_img", inputsData.imagenPrincipal);
-      }
-      console.log(formData);
-      submit(formData, {
-        method: "post",
-        action: `/inventory/edit/${id}`,
-      });
-    } else {
-      const info = {
-        type: parseInt(initialValues.productType) || 2,
-        code: initialValues.codigoDeArticulo || "",
-        name: initialValues.nombreODescripcion || "",
-        cost_center_id: parseInt(initialValues.centroDeCostos) || "",
-        preferred_warehouse_id: parseInt(initialValues.almacen) || "",
-        price: initialValues.precio || "",
-        category_id: parseInt(initialValues.categoria) || "",
-        barcode: initialValues.codigoDeBarras || "",
-        measure: initialValues.unidadesDeMedida || "",
-        raw_material: convertToBoolean(initialValues.inventario) || 0,
-        buys: convertToBoolean(initialValues.compra) || 0,
-        sale: convertToBoolean(initialValues.venta) || 0,
-        subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
-        available_for_return:
-          convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
-        manufacturing_available:
-          convertToBoolean(inputsData.manufacturaDisponible) || 0,
-        manufacturer: inputsData.fabricantes || "",
-        active: convertToBoolean(inputsData.activos) || 0,
-        from_active: inputsData.from || "",
-        to_active: inputsData.to || "",
-        valuation_method: inventory.metodoValoracion || "",
-        min_stock: inventory.stockMinimo || "",
-        max_stock: inventory.stockMaximo || "",
-        default_supplier: parseInt(buyData.proveedor) || "",
-      };
-      if (inputsData.imagenPrincipal) {
-        formData.append("primary_img", inputsData.imagenPrincipal);
-      }
-      info.variables = variableData.selectedGroups;
-      variableData.images.forEach((image) => {
-        formData.append("second_images[]", image.file);
-      });
-      formData.append("info", JSON.stringify(info));
-      console.log(formData);
-      submit(formData, {
-        method: "post",
-        action: `/inventory/edit/${id}`,
-      });
+    const info = {
+      product_id: id,
+      type: parseInt(initialValues.productType) || 1,
+      code: initialValues.codigoDeArticulo || "",
+      name: initialValues.nombreODescripcion || "",
+      cost_center_id: parseInt(initialValues.centroDeCostos) || "",
+      preferred_warehouse_id: parseInt(initialValues.almacen) || "",
+      price: initialValues.precio || "",
+      category_id: parseInt(initialValues.categoria) || "",
+      barcode: initialValues.codigoDeBarras || "",
+      measure: initialValues.unidadesDeMedida || "",
+      raw_material: convertToBoolean(initialValues.inventario) || 0,
+      buys: convertToBoolean(initialValues.compra) || 0,
+      sale: convertToBoolean(initialValues.venta) || 0,
+      subject_to_tax: convertToBoolean(inputsData.sujetoAImpuesto) || 0,
+      available_for_return:
+        convertToBoolean(inputsData.disponibleParaDevolucion) || 0,
+      manufacturing_available:
+        convertToBoolean(inputsData.manufacturaDisponible) || 0,
+      manufacturer: inputsData.fabricantes || "",
+      active: convertToBoolean(inputsData.activos) || 0,
+      from_active: inputsData.from || "",
+      to_active: inputsData.to || "",
+      valuation_method: inventory.metodoValoracion || "",
+      min_stock: inventory.stockMinimo || "",
+      max_stock: inventory.stockMaximo || "",
+      default_supplier: parseInt(buyData.proveedor) || "",
+    };
+
+    if (inputsData.imagenPrincipal) {
+      formData.append("primary_img", inputsData.imagenPrincipal);
     }
+
+    info.variables = variableData.selectedGroups;
+    variableData.images.forEach((image) => {
+      formData.append("second_images[]", image.file);
+    });
+    info.images_destroy = variableData.images_destroy;
+    info.variables_add = variableData.selectedGroups;
+    info.variables_destroy = variableData.variables_destroy;
+
+    formData.append("info", JSON.stringify(info));
+    console.log(formData);
+    submit(formData, {
+      method: "post",
+      action: `/inventory/edit/${id}`,
+    });
   }
 
   return (

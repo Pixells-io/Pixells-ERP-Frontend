@@ -41,6 +41,7 @@ function NewFormula() {
     quantity: "",
     unit: "",
     comments: "",
+    type: "",
     vars: [
       {
         product_variable_id: 1,
@@ -129,8 +130,12 @@ function NewFormula() {
       setVariables(e.variables);
     }
     setNewFormula({
+      ...newFormula,
       product_id: e.id,
       unit: e.unit,
+      type: e.type,
+      price: e.price,
+      comments: "",
     });
   }
 
@@ -270,6 +275,22 @@ function NewFormula() {
                       </label>
                     </div>
                   </div>
+
+                  {/* variable section */}
+                  {newFormula.type == "2" && (
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="item-1">
+                        <AccordionTrigger className="flex font-poppins font-medium text-grisHeading">
+                          Variables
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          {variables?.map((vari, i) => (
+                            <div>{vari?.name}</div>
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
 
                   {/* tabs section */}
                   <Tabs
@@ -650,18 +671,6 @@ function NewFormula() {
                       </label>
                     </div>
                   </div>
-
-                  {/* variable section */}
-                  {
-                    <Accordion type="single" collapsible>
-                      <AccordionItem value="item-1">
-                        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                        <AccordionContent>
-                          Yes. It adheres to the WAI-ARIA design pattern.
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  }
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">
