@@ -73,7 +73,7 @@ const ArticleForm = () => {
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell colSpan={4} className="text-right font-semibold">Total:</TableCell>
+                  <TableCell colSpan={4} className="text-right font-semibold"></TableCell>
                   <TableCell className="font-semibold">{lotesTotal}</TableCell>
                   <TableCell colSpan={2}></TableCell>
                 </TableRow>
@@ -107,7 +107,7 @@ const ArticleForm = () => {
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell colSpan={4} className="text-right font-semibold">Total:</TableCell>
+                  <TableCell colSpan={4} className="text-right font-semibold"></TableCell>
                   <TableCell className="font-semibold">{operacionesTotal}</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
