@@ -397,6 +397,7 @@ import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MaterialWarehouse from "./pages/Inventory/StockItems/RawMaterial/RawMaterial";
 import MainGoodsReceipt from "./pages/Inventory/GoodsReceipt/MainGoodsReceipt";
+import DeliveryDetails from "./pages/Inventory/GoodsReceipt/DetailsDelivery/PendingDelivery";
 import CreateTraceability from "./pages/Inventory/TraceabilityReports/NewTraceability/CreateTraceability";
 import MainPriceList from "./pages/Inventory/PriceList/MainPriceList";
 import CreatePriceList, {
@@ -1323,6 +1324,10 @@ const router = createBrowserRouter([
           {
             path: "/inventory/goods-receipt",
             element:<MainGoodsReceipt/>,
+          },
+          {
+            path: "/inventory/goods-receipt/deliveries/details/:id",
+            element:<DeliveryDetails/>
           },
           {
             path: "/inventory/traceability-reports/create",
