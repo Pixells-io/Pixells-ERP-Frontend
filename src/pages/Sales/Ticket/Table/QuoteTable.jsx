@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import DatePicker from "@/components/DatePickerStyle/DatePicker";
 /**
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
@@ -48,6 +49,7 @@ const QuoteTable = ({
   wharehouseSelect,
   discountGeneral,
   wharehouseName,
+  expirationDate,
 }) => {
   const initialRow = {
     type: productOrService == "product" ? "1" : "2",
@@ -117,6 +119,10 @@ const QuoteTable = ({
     changeValueDiscountByGeneral();
   }, [discountGeneral]);
 
+  useEffect(() => {
+    changeValueExpirationDateInInputs();
+  }, [expirationDate]);
+
   const changeValueDiscountByGeneral = () => {
     if (tableData.length > 0) {
       const auxTableData = tableData.map((td) => {
@@ -129,6 +135,18 @@ const QuoteTable = ({
             discount: discountGeneral,
             taxes: td.taxes,
           }).toFixed(2),
+        };
+      });
+      setTableData([...auxTableData]);
+    }
+  };
+
+  const changeValueExpirationDateInInputs = () => {
+    if (tableData.length > 0) {
+      const auxTableData = tableData.map((td) => {
+        return {
+          ...td,
+          delivery_date: expirationDate,
         };
       });
       setTableData([...auxTableData]);
@@ -152,12 +170,6 @@ const QuoteTable = ({
       },
       { key: "taxes", header: "Impuesto (%)", type: "number", disabled: false },
       { key: "quantity", header: "Cantidad", type: "number", disabled: false },
-      {
-        key: "delivery_date",
-        header: "Fecha de Entrega",
-        type: "date",
-        disabled: false,
-      },
     ],
     [],
   );
@@ -305,13 +317,12 @@ const QuoteTable = ({
 
   const handleDeleteRow = (rowIndex /*, setProductDelete, productDelete*/) => {
     setTableData((prevData) => {
-      if (prevData.length > 1) {
-        // if (!!tableData[rowIndex]?.id) {
-        //   setProductDelete([...productDelete, tableData[rowIndex].id]);
-        // }
-        return prevData.filter((_, index) => index !== rowIndex);
-      }
-      return prevData;
+      // if (prevData.length > 1) {
+      // if (!!tableData[rowIndex]?.id) {
+      //   setProductDelete([...productDelete, tableData[rowIndex].id]);
+      // }
+      return prevData.filter((_, index) => index !== rowIndex);
+      // }
     });
   };
 
@@ -325,6 +336,7 @@ const QuoteTable = ({
         type: productOrService == "product" ? "1" : "2",
         wharehouseSelect: wharehouseSelect,
         wharehouseName: wharehouseName || "N/A",
+        delivery_date: expirationDate,
       },
     ]);
   };
@@ -356,6 +368,7 @@ const QuoteTable = ({
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.header}</TableHead>
               ))}
+              <TableHead>Fecha de Entrega</TableHead>
               <TableHead>SubTotal</TableHead>
               <TableHead>Total</TableHead>
             </TableRow>
@@ -481,6 +494,24 @@ const QuoteTable = ({
                 ))}
                 <TableCell>
                   <div className="flex items-center justify-between gap-x-2">
+                    <DatePicker
+                      title={"MM/DD/YYYY"}
+                      value={row["delivery_date"]}
+                      onChange={(e) =>
+                        handleInputChange(
+                          (currentPage - 1) * itemsPerPage + rowIndex,
+                          "delivery_date",
+                          e,
+                        )
+                      }
+                      name={`delivery_date[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                      className={"w-fit text-[11px] font-normal"}
+                      required={false}
+                    />
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-between gap-x-2">
                     <input
                       type="hidden"
                       hidden
@@ -517,7 +548,7 @@ const QuoteTable = ({
                           // productDelete,
                         )
                       }
-                      disabled={tableData.length === 1 || !isEditable}
+                      disabled={!isEditable}
                       className="rounded-full bg-transparent p-1 focus-visible:ring-primarioBotones"
                     >
                       <IonIcon
