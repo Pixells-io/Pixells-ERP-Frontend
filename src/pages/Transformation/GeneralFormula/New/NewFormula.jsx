@@ -57,6 +57,8 @@ function NewFormula() {
     unit: "",
     comments: "",
     type: "",
+    label: "",
+    value: "",
     vars: [
       {
         product_variable_id: 1,
@@ -145,7 +147,10 @@ function NewFormula() {
       unit: e.unit,
       type: e.type,
       price: e.price,
+      quantity: 1,
       comments: "",
+      label: e.name,
+      value: e.id,
     });
   }
 
@@ -217,6 +222,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
@@ -487,6 +493,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
@@ -589,6 +596,7 @@ function NewFormula() {
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
+                        value={newFormula}
                       />
                     </div>
 
