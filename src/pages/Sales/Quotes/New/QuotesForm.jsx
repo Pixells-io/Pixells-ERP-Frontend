@@ -7,9 +7,9 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
-import { saveNewOrderSale } from "../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import Total from "../TotalSection/TotalSection";
+import { saveNewQuoteSale } from "../utils";
 
 const OrderForm = () => {
   const navigation = useNavigation();
@@ -64,14 +64,14 @@ const OrderForm = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Pedido
+            Nueva Cotización
           </p>
         </div>
         {/* content */}
         <Form
           method="post"
           className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
-          action={`/sales/orders/new`}
+          action={`/sales/quotes/new`}
         >
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
@@ -173,7 +173,7 @@ export default OrderForm;
 
 export async function Action({ request }) {
   const formData = await request.formData();
-  await saveNewOrderSale(formData);
+  await saveNewQuoteSale(formData);
 
-  return redirect("/sales/orders");
+  return redirect("/sales/quotes");
 }

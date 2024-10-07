@@ -445,7 +445,6 @@ import TicketForm, {
 } from "./pages/Sales/Ticket/NewTicket/TicketForm";
 import TicketPDF from "./pages/Sales/Components/DocFormat/DocumentTicket";
 import MainQtGeneral from "./pages/Sales/Quotes/MainQuotesGeneral";
-import MainQuotes from "./pages/Sales/Quotes/New/MainQuotes";
 import QuotesDetails from "./pages/Sales/Quotes/EditQuotes/QuotesEditor";
 import QuotePDF from "./pages/Sales/Components/DocFormat/DocumentQuote";
 import { getCustomer, getCustomers } from "./pages/Sales/Customer/utils";
@@ -461,6 +460,10 @@ import OrderForm, {
   Action as createSaleOrders,
 } from "./pages/Sales/Order/NewOrder/OrderForm";
 import { multiLoaderListOrders } from "./pages/Sales/Order/utils";
+import QuotesForm, {
+  Action as createSaleQuotes,
+} from "./pages/Sales/Quotes/New/QuotesForm";
+import { multiLoaderListQuotes } from "./pages/Sales/Quotes/utils";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1462,7 +1465,9 @@ const router = createBrowserRouter([
           },
           {
             path: "/sales/quotes/new",
-            element: <MainQuotes />,
+            element: <QuotesForm />,
+            loader: multiLoaderListQuotes,
+            action: createSaleQuotes,
           },
           {
             path: "/sales/quotes/edit/:id",

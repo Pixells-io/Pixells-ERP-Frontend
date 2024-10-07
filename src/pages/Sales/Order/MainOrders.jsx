@@ -12,7 +12,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
 const MainOrders = () => {
-
   // const { data } = useLoaderData();
 
   const columns = [
@@ -109,7 +108,7 @@ const MainOrders = () => {
 
         <div className="flex items-center gap-4">
           <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            PEDIDOS
+            VENTAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
             <div className="text-sm">&bull; 4 objective </div>
@@ -120,7 +119,7 @@ const MainOrders = () => {
 
         <div className="flex justify-between">
           <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
-            Clientes
+            Pedidos
           </p>
           <div className="flex justify-end gap-6">
             <Link to="/sales/orders/new">

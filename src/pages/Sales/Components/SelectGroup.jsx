@@ -39,7 +39,7 @@ const SelectsQuote = ({
         <div className="col-span-2">
           <InputForm
             name="code"
-            placeholder="Código de Orden"
+            placeholder="Código de Cotización"
             value={inputValue?.code}
             disabled={!isEditable}
             onChange={(e) => handleInputChange(e.target.value, "code")}
