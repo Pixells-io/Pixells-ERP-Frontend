@@ -54,7 +54,7 @@ const MENU_ITEMS = [
     ],
   },
   {
-    path: "/inventory/traceability-reports",
+    path: "/inventory/traceability-reports/create",
     name: "Informes",
     subname: "De Trazabilidad",
     icon: clipboard,
