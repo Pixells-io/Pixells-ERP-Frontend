@@ -285,7 +285,7 @@ function NewFormula() {
                         </AccordionTrigger>
                         <AccordionContent>
                           {variables?.map((vari, i) => (
-                            <div>{vari?.name}</div>
+                            <div key={i}>{vari?.name}</div>
                           ))}
                         </AccordionContent>
                       </AccordionItem>
