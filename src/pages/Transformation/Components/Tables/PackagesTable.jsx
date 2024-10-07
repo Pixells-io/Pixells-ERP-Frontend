@@ -24,34 +24,7 @@ import {
 } from "@/components/ui/select";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-const components = [
-  {
-    id: 1,
-    name: "Aceite vegetal",
-    unit: "L",
-    cost: "60.00",
-  },
-  {
-    id: 2,
-    name: "Aceite Motor",
-    unit: "L",
-    cost: "210.00",
-  },
-  {
-    id: 3,
-    name: "Aguacate",
-    unit: "U",
-    cost: "30.00",
-  },
-  {
-    id: 4,
-    name: "Huevos",
-    unit: "U",
-    cost: "7.00",
-  },
-];
-
-const TableForm = ({
+const PackagesTable = ({
   tableData,
   setTableData,
   setTotalProducts,
@@ -74,14 +47,12 @@ const TableForm = ({
   const itemsPerPage = 10;
 
   const initialRow = {
-    idAux: 1,
-    component: "",
-    amount: 0,
-    unit: "",
-    price: 0,
-    amountTax: 0,
-    tax: "",
-    subTotal: 0,
+    type: "electricity",
+    product_master_id: 456,
+    product_variable_id: 3,
+    quantity: 200,
+    unit: "kWh",
+    price: "",
   };
 
   useEffect(() => {
@@ -305,37 +276,6 @@ const TableForm = ({
         />
       ),
     },
-    // {
-    //   accessorKey: "amountTax",
-    //   header: "Impuesto",
-    //   cell: ({ row, rowIndex }) => (
-    //     <div className="flex w-[150px] items-center gap-x-2 p-1">
-    //       (IVA
-    //       {
-    //         <Input
-    //           className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //           name={`tax-${rowIndex}`}
-    //           value={row.amountTax}
-    //           placeholder="tax"
-    //           type="number"
-    //           disabled={!row.component}
-    //           onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-    //         />
-    //       }
-    //       %) {!!row.tax && " - $" + row.tax}
-    //     </div>
-    //   ),
-    // },
-    {
-      accessorKey: "merma",
-      header: "Merma",
-      cell: ({ row, rowIndex }) => (
-        <div className="flex items-center gap-x-2 p-1">
-          <input type="checkbox" name="" id="" />
-          5%
-        </div>
-      ),
-    },
     {
       accessorKey: "subTotal",
       header: "Subtotal",
@@ -416,4 +356,4 @@ const TableForm = ({
   );
 };
 
-export default TableForm;
+export default PackagesTable;
