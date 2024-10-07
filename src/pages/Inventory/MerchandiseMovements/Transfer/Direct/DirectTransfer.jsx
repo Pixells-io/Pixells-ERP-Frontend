@@ -1,62 +1,96 @@
 import React, { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  copy,
-  print,
-  create,
   closeCircle,
-  qrCodeOutline,
   addCircle,
+  trash,
 } from "ionicons/icons";
 
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import TableForm from "../Table/TableForm";
-import InputForm from "@/components/InputForm/InputForm";
-import { Label } from "@/components/ui/label";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
-import { getInfoTransferProducts } from "../../utils";
-import CreareTransferProductRow from "../Components/CreateTransferProductRow";
+import { getInfoTransferProducts, saveStockTransfer } from "../../utils";
 
 const NewDirectTransfer = () => {
   const { data } = useLoaderData();
   const [slots, setSlots] = useState([]);
   const [slotsData, setSlotsData] = useState([]);
-  const [arrayCount, setArrayCount] = useState([]);
+  const [arrayInputs, setArrayInputs] = useState([]);
+
+  const input = [
+    {
+      id: "",
+      code: "",
+      selected_item: {
+        label: "Seleccinar Articulo",
+        value: "",
+      },
+      inventory: "",
+      quantity: 0,
+    },
+  ];
 
   async function changeProducts(id) {
     const products = await getInfoTransferProducts(id);
     setSlots(products.data?.map);
     setSlotsData(products.data?.data);
-    setArrayCount([]);
-    setArrayCount([...arrayCount, ""]);
+    setArrayInputs([]);
+    setArrayInputs(input);
   }
 
   function addProduct() {
-    console.log("Index");
-    setArrayCount([...arrayCount, ""]);
+    setArrayInputs([...arrayInputs, input]);
   }
 
   const removeInput = (index) => {
-    const newArray = arrayCount.filter((_, i) => i !== index);
-    setArrayCount(newArray);
+    const newArray = arrayInputs.filter((_, i) => i !== index);
+    setArrayInputs(newArray);
   };
+
+  function selectProducts(id, index) {
+    //First find the product
+    const product = slotsData.find((prod) => prod.id === id);
+    const newFields = arrayInputs.map((row, i) =>
+      i === index
+        ? {
+            ...row,
+            id: product.id,
+            code: product.code,
+            quantity: product.quantity,
+            selected_item: {
+              label: product.name,
+              value: product.id,
+            },
+          }
+        : row,
+    );
+    setArrayInputs(newFields);
+  }
+
+  function changeQuantity(e, index) {
+    const newFields = arrayInputs.map((row, i) =>
+      i === index
+        ? {
+            ...row,
+            inventory: e.target.value,
+          }
+        : row,
+    );
+    setArrayInputs(newFields);
+  }
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <Form
+        action="/inventory/merchandise-movements/transfer/direct/new"
+        method="POST"
+        className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4"
+      >
         {/* navigation inside */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 text-gris2">
@@ -75,7 +109,7 @@ const NewDirectTransfer = () => {
               ></IonIcon>
             </div>
           </div>
-          <div className="font-roboto text-sm text-grisText">tickets </div>
+          <div className="font-roboto text-sm text-grisText">tickets</div>
         </div>
         {/* top content */}
         <div className="flex items-center gap-4">
@@ -113,8 +147,13 @@ const NewDirectTransfer = () => {
         {/*CONTENT */}
         <div className="rounded-xl bg-blancoBg p-6">
           <div className="flex w-full gap-6 rounded-xl border p-8">
+            <input
+              type="hidden"
+              name="slots"
+              value={JSON.stringify(arrayInputs)}
+            />
             <InputRouter
-              name={"number"}
+              name={"code"}
               placeholder={"Folio"}
               type={"text"}
               required={true}
@@ -142,34 +181,73 @@ const NewDirectTransfer = () => {
 
           <div className="w-full pt-4">
             {/* Header */}
-            <div className="flex w-full">
-              <div className="w-2/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+            <div className="flex w-full border-b border-b-primario">
+              <div className="w-2/12 py-4 text-xs font-medium text-[#44444F]">
                 <span>Codigo</span>
               </div>
-              <div className="w-8/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+              <div className="w-7/12 py-4 text-xs font-medium text-[#44444F]">
                 <span>Articulo</span>
               </div>
-              <div className="w-1/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+              <div className="w-1/12 py-4 text-xs font-medium text-[#44444F]">
                 <span>Inventario</span>
               </div>
-              <div className="w-1/12 border-b border-b-primario py-4 text-xs font-medium text-[#44444F]">
+              <div className="w-1/12 border-b py-4 text-xs font-medium text-[#44444F]">
                 <span>A Transferir</span>
+              </div>
+              <div className="w-1/12 border-b py-4 text-xs font-medium text-[#44444F]">
+                <span>Act.</span>
               </div>
             </div>
             {/* Body */}
-            {arrayCount?.map((count, index) => (
-              <>
-                <CreareTransferProductRow
-                  key={index}
-                  products={slotsData}
-                  map={slots}
-                />
-                <button type="button" onClick={() => removeInputPair(index)}>
-                  Borrar
-                </button>
-              </>
+            {arrayInputs?.map((inputsData, index) => (
+              <div
+                className="flex items-center justify-center gap-8"
+                key={index}
+              >
+                <div className="flex w-full gap-6 border-b border-b-[#44444F40]">
+                  <div className="mt-1 w-2/12 py-4">
+                    <InputRouter
+                      type={"text"}
+                      disabled={true}
+                      value={inputsData.code}
+                      titlePlaceholder={inputsData.code}
+                    />
+                  </div>
+                  <div className="w-7/12 py-4">
+                    <SelectRouter
+                      options={slots}
+                      className="w-full text-sm font-light"
+                      value={inputsData.selected_item}
+                      onChange={(e) => selectProducts(e.value, index)}
+                    />
+                  </div>
+                  <div className="mt-1 w-1/12 py-4">
+                    <InputRouter
+                      type={"number"}
+                      disabled={true}
+                      value={inputsData.quantity}
+                    />
+                  </div>
+                  <div className="mt-1 w-1/12 py-4">
+                    <InputRouter
+                      type={"number"}
+                      value={inputsData.inventory}
+                      maxValue={inputsData.quantity}
+                      minValue={0}
+                      onChange={(e) => changeQuantity(e, index)}
+                    />
+                  </div>
+                  <div className="mt-1 w-1/12 py-4">
+                    <IonIcon
+                      icon={trash}
+                      className="cursor-pointer text-xl text-[#44444F]"
+                      onClick={() => removeInput(index)}
+                    />
+                  </div>
+                </div>
+              </div>
             ))}
-            {arrayCount.length > 0 ? (
+            {arrayInputs.length > 0 ? (
               <IonIcon
                 icon={addCircle}
                 size="small"
@@ -195,16 +273,24 @@ const NewDirectTransfer = () => {
               Cancelar
             </Button>
             <Button
-              type="button"
+              type="submit"
               className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
             >
               Crear
             </Button>
           </StatusInformation>
         </div>
-      </div>
+      </Form>
     </div>
   );
 };
 
 export default NewDirectTransfer;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+
+  const response = await saveStockTransfer(data);
+
+  return redirect("/inventory/merchandise-movements");
+}

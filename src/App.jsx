@@ -384,11 +384,14 @@ import {
   getInfoTransfer,
   getStocksMovement,
   getStocksMovements,
+  getTransfer,
   multiLoaderMovements,
 } from "./pages/Inventory/MerchandiseMovements/utils";
 import TraceabilityDetails from "./pages/Inventory/MerchandiseMovements/Entry/New/MovTraceability/Traceability";
 import NewTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/New/NewTransfer";
-import NewDirectTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
+import NewDirectTransfer, {
+  Action as saveStockTransfer,
+} from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
 import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
@@ -1294,6 +1297,12 @@ const router = createBrowserRouter([
             path: "/inventory/merchandise-movements/transfer/direct/new",
             element: <NewDirectTransfer />,
             loader: getInfoTransfer,
+            action: saveStockTransfer,
+          },
+          {
+            path: "/inventory/merchandise-movements/transfer/entry/:id",
+            element: <TransferEntry />,
+            loader: getTransfer,
           },
           {
             path: "/inventory/merchandise-movements/transfer/record/:id",
@@ -1302,10 +1311,6 @@ const router = createBrowserRouter([
           {
             path: "/inventory/merchandise-movements/transfer/traceability/:id",
             element: <TraceabilityTransfer />,
-          },
-          {
-            path: "/inventory/merchandise-movements/transfer/entry/:id",
-            element: <TransferEntry />,
           },
           {
             path: "/inventory/prices-lists",

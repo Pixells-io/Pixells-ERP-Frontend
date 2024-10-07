@@ -1,19 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
-import {
-  checkmarkCircleOutline,
-  closeCircleOutline,
-  informationCircleOutline,
-} from "ionicons/icons";
+import { informationCircleOutline } from "ionicons/icons";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-export const MovTransferColumns = [
+export const MovEntryColumnsPending = [
   {
     id: "code",
-    accessorKey: "id",
-    header: "CÓDIGO",
+    accessorKey: "code",
+    header: "CODIGO",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
@@ -22,46 +18,34 @@ export const MovTransferColumns = [
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
           />
-          <label>{row?.original?.id}</label>
+          <label>{row?.original?.code}</label>
         </div>
       );
     },
     meta: { filterButton: true },
   },
   {
-    id: "status",
-    accessorKey: "status",
-    header: "ESTATUS",
-    cell: ({ row }) => (
-      <div className="flex items-center">
-        <span className="rounded-2xl bg-blue-100 px-2 py-1 text-primario">
-          Enviado
-        </span>
-      </div>
-    ),
+    id: "supplier",
+    accessorKey: "supplier",
+    header: "PROVEEDOR",
   },
   {
-    id: "quantity",
-    accessorKey: "quantity",
-    header: "CANT. DE ARTICULOS",
-    meta: { filterButton: true },
-  },
-  {
-    id: "from",
+    id: "inventory_in",
     accessorKey: "inventory_out",
-    header: "DE ALMACÉN",
+    header: "ALMACEN",
   },
   {
-    id: "to",
-    accessorKey: "inventory_in",
-    header: "ALMACÉN DESTINO",
+    id: "pending",
+    accessorKey: "pending",
+    header: "PEND.",
   },
   {
     id: "createdBy",
-    accessorKey: "user",
-    header: "SOLICITANTE",
+    accessorKey: "createdBy",
+    header: "CREADO POR",
     cell: ({ row }) => (
-      <div className="flex items-center">
+      <div className="flex justify-center">
+        {console.log(row?.original)}
         <Avatar className="h-6 w-6">
           <AvatarImage
             src={row?.original?.user?.img}
@@ -72,9 +56,9 @@ export const MovTransferColumns = [
     ),
   },
   {
-    id: "createdAt",
+    id: "created",
     accessorKey: "date",
-    header: "FECHA",
+    header: "CREACIÓN",
   },
   {
     id: "acciones",
@@ -85,16 +69,13 @@ export const MovTransferColumns = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex justify-center gap-4">
-        <Link
-          to={`/inventory/merchandise-movements/transfer/entry/${row.original?.id}`}
-        >
+      <div className="flex justify-center">
+        <Link to={`/shopping/request-orders/edit/${row.original?.id}`}>
           <IonIcon
-            icon={checkmarkCircleOutline}
+            icon={informationCircleOutline}
             className="h-5 w-5 text-[#44444f]"
           />
         </Link>
-        <IonIcon icon={closeCircleOutline} className="h-5 w-5 text-[#44444f]" />
       </div>
     ),
   },

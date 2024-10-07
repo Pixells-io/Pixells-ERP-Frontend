@@ -10,6 +10,7 @@ import MenuMovements from "./Components/MenuDrop";
 import { Link, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { getCatalogById, getCatalogs } from "./utils";
+import { MovEntryColumnsPending } from "./Entry/Table/MovEntryColumnsPending";
 
 function MainMerchandiseMovements() {
   const { data } = useLoaderData();
@@ -37,7 +38,7 @@ function MainMerchandiseMovements() {
             </div>
           </div>
           <div className="font-roboto text-sm text-grisText">
-            Movimientos de Mercancia{" "}
+            Movimientos de Mercancia
           </div>
         </div>
         {/* top content */}
@@ -58,22 +59,22 @@ function MainMerchandiseMovements() {
               Movimientos de Mercancía
             </p>
             <div className="flex justify-end gap-6">
-            <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
                 <TabsTrigger
                   value="entry"
-                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Entradas
                 </TabsTrigger>
                 <TabsTrigger
                   value="egress"
-                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Salidas
                 </TabsTrigger>
                 <TabsTrigger
                   value="transfer"
-                   className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Transpasos
                 </TabsTrigger>
@@ -94,11 +95,26 @@ function MainMerchandiseMovements() {
                 >
                   ENTRADAS
                 </TabsTrigger>
+                <TabsTrigger
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  value="pending"
+                >
+                  PENDIENTES
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="entries" className="mt-[-70px] w-full pt-2">
                 <DataTable
                   data={info.entraces}
                   columns={MovEntryColumns}
+                  searchNameFilter={"Nombre"}
+                  searchFilter={"name"}
+                  isCheckAll={true}
+                />
+              </TabsContent>
+              <TabsContent value="pending" className="mt-[-70px] w-full pt-2">
+                <DataTable
+                  data={info.entraces_pending}
+                  columns={MovEntryColumnsPending}
                   searchNameFilter={"Nombre"}
                   searchFilter={"name"}
                   isCheckAll={true}
