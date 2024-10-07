@@ -88,15 +88,13 @@ export async function saveNewTicketSale(data) {
     wharehouse: data.get("wharehouse"),
 
     sales_slots: products,
-
-    productDelete: data.getAll("productDelete"),
-
+    // productDelete: data.getAll("productDelete"),
     comments: data.get("comments"),
     subtotal: data.get("subtotal"),
     taxes: data.get("taxes"),
     total: data.get("total"),
-    shipping: !!data.get("shipping") ? "1" : "0",
-    discount: 0,
+    shipping: data.get("shipping"),
+    discount: data.get("totalDiscount"),
   };
 
   const response = await fetch(

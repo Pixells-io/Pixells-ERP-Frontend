@@ -12,6 +12,8 @@ const SelectsQuote = ({
   costCenterList,
   sellersList,
   defaultSeller,
+  discountGeneral,
+  setDiscountGeneral,
 }) => {
   const [inputValue, setInputValue] = useState({
     id: data?.id,
@@ -76,8 +78,7 @@ const SelectsQuote = ({
               [
                 { value: "0", label: "Crédito" },
                 { value: "1", label: "Contado" },
-              ].find((credit) => credit.value == inputValue?.credit) ||
-              null
+              ].find((credit) => credit.value == inputValue?.credit) || null
             }
             name={"credit"}
             options={[
@@ -117,14 +118,17 @@ const SelectsQuote = ({
             value={inputValue?.expiration_date}
             disabled={!isEditable}
             required={true}
-            onChange={(e) => handleInputChange(e.target.value, "expiration_date")}
+            onChange={(e) =>
+              handleInputChange(e.target.value, "expiration_date")
+            }
           />
         </div>
         <div className="col-span-4">
           <SelectRouter
             value={
-              clientsList.find((store) => store.value == inputValue?.client_id) ||
-              null
+              clientsList.find(
+                (store) => store.value == inputValue?.client_id,
+              ) || null
             }
             name={"client_id"}
             options={clientsList}
@@ -147,6 +151,16 @@ const SelectsQuote = ({
             required={true}
             disabled={!isEditable}
             onChange={(e) => handleInputChange(e.value, "seller_id")}
+          />
+        </div>
+        <div className="col-span-2">
+          <InputForm
+            type={"number"}
+            name="discountGeneral"
+            placeholder="Descuento %"
+            value={discountGeneral}
+            disabled={!isEditable}
+            onChange={(e) => setDiscountGeneral(e.target.value)}
           />
         </div>
       </div>
