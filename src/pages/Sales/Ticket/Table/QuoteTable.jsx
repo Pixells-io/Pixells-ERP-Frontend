@@ -46,6 +46,8 @@ const QuoteTable = ({
   products_map,
   products_info,
   wharehouseSelect,
+  discountGeneral,
+  wharehouseName,
 }) => {
   const initialRow = {
     type: productOrService == "product" ? "1" : "2",
@@ -66,25 +68,25 @@ const QuoteTable = ({
     wharehouseSelect: wharehouseSelect,
   };
   const location = useLocation();
-  const [productDelete, setProductDelete] = useState([]);
+  // const [productDelete, setProductDelete] = useState([]);
   const [allProductsOrServices, setAllProductsOrServices] = useState([]);
 
-  useEffect(() => {
-    if (location.pathname.includes("edit")) {
-      setTableData(
-        initialItems.length > 0
-          ? initialItems.map((item) => {
-              return {
-                ...item,
-                product_idAux: item?.product?.value,
-              };
-            })
-          : [initialRow],
-      );
-    } else {
-      setTableData([initialRow]);
-    }
-  }, [location.pathname, initialItems]);
+  // useEffect(() => {
+  //   if (location.pathname.includes("edit")) {
+  //     setTableData(
+  //       initialItems.length > 0
+  //         ? initialItems.map((item) => {
+  //             return {
+  //               ...item,
+  //               product_idAux: item?.product?.value,
+  //             };
+  //           })
+  //         : [initialRow],
+  //     );
+  //   } else {
+  //     setTableData([initialRow]);
+  //   }
+  // }, [location.pathname, initialItems]);
 
   useEffect(() => {
     // si ya existe
@@ -110,6 +112,28 @@ const QuoteTable = ({
       { type: "service", value: services_map },
     ]);
   }, []);
+
+  useEffect(() => {
+    changeValueDiscountByGeneral();
+  }, [discountGeneral]);
+
+  const changeValueDiscountByGeneral = () => {
+    if (tableData.length > 0) {
+      const auxTableData = tableData.map((td) => {
+        return {
+          ...td,
+          discount: discountGeneral,
+          total: calculateTotal({
+            value: td.value,
+            quantity: td.quantity,
+            discount: discountGeneral,
+            taxes: td.taxes,
+          }).toFixed(2),
+        };
+      });
+      setTableData([...auxTableData]);
+    }
+  };
 
   const columns = useMemo(
     () => [
@@ -167,7 +191,7 @@ const QuoteTable = ({
                 total: calculateTotal({
                   value: findProduct?.price,
                   quantity: 1,
-                  discount: 0,
+                  discount: item.discount,
                   taxes: 16,
                 }).toFixed(2),
                 value: findProduct?.price,
@@ -176,37 +200,94 @@ const QuoteTable = ({
                 master_product: findProduct?.product_master_id,
                 variations: findProduct?.variation_id,
                 taxes: 16,
-                discount: "0",
+                discount: item.discount || "0",
               }
             : item,
         ),
       );
     } else {
-      if (key == "total") {
+      // if (key == "total") {
+      //   setTableData((prevData) =>
+      //     prevData.map((item, index) =>
+      //       index === rowIndex
+      //         ? {
+      //             ...item,
+      //             total: calculateTotal({
+      //               value: value,
+      //               quantity: item.quantity,
+      //               discount: item.discount,
+      //               taxes: item.taxes,
+      //             }).toFixed(2),
+      //           }
+      //         : item,
+      //     ),
+      //   );
+      // } else if (key == "sub_total") {
+      //   setTableData((prevData) =>
+      //     prevData.map((item, index) =>
+      //       index === rowIndex
+      //         ? {
+      //             ...item,
+      //             sub_total: calculateSubTotal({
+      //               value: findProduct.price,
+      //               quantity: item.quantity,
+      //             }).toFixed(2),
+      //           }
+      //         : item,
+      //     ),
+      //   );
+      // }
+      // else
+      if (key == "discount") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
             index === rowIndex
               ? {
                   ...item,
+                  discount: value,
                   total: calculateTotal({
-                    value: value,
+                    value: item.value,
                     quantity: item.quantity,
-                    discount: item.discount,
+                    discount: value,
                     taxes: item.taxes,
                   }).toFixed(2),
                 }
               : item,
           ),
         );
-      } else if (key == "sub_total") {
+      } else if (key == "taxes") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
             index === rowIndex
               ? {
                   ...item,
-                  sub_total: calculateSubTotal({
-                    value: findProduct.price,
+                  taxes: value,
+                  total: calculateTotal({
+                    value: item.value,
                     quantity: item.quantity,
+                    discount: item.discount,
+                    taxes: value,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
+      } else if (key == "quantity") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex
+              ? {
+                  ...item,
+                  quantity: value,
+                  total: calculateTotal({
+                    value: item.value,
+                    quantity: value,
+                    discount: item.discount,
+                    taxes: item.taxes,
+                  }).toFixed(2),
+                  sub_total: calculateSubTotal({
+                    value: item.value,
+                    quantity: value,
                   }).toFixed(2),
                 }
               : item,
@@ -222,12 +303,12 @@ const QuoteTable = ({
     }
   };
 
-  const handleDeleteRow = (rowIndex, setProductDelete, productDelete) => {
+  const handleDeleteRow = (rowIndex /*, setProductDelete, productDelete*/) => {
     setTableData((prevData) => {
       if (prevData.length > 1) {
-        if (!!tableData[rowIndex]?.id) {
-          setProductDelete([...productDelete, tableData[rowIndex].id]);
-        }
+        // if (!!tableData[rowIndex]?.id) {
+        //   setProductDelete([...productDelete, tableData[rowIndex].id]);
+        // }
         return prevData.filter((_, index) => index !== rowIndex);
       }
       return prevData;
@@ -240,8 +321,10 @@ const QuoteTable = ({
       ...prevData,
       {
         ...initialRow,
+        discount: discountGeneral || 0,
         type: productOrService == "product" ? "1" : "2",
         wharehouseSelect: wharehouseSelect,
+        wharehouseName: wharehouseName || "N/A",
       },
     ]);
   };
@@ -289,7 +372,7 @@ const QuoteTable = ({
             />
             {paginatedData.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
-                <TableCell>
+                <TableCell className="pb-0">
                   <div className="w-[200px]">
                     <input
                       type="hidden"
@@ -313,54 +396,65 @@ const QuoteTable = ({
                     {!!row["id"] ? (
                       <label>{row["product"].label}</label>
                     ) : (
-                      <Select
-                        name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
-                        value={row["product_idAux"]}
-                        required={true}
-                        onValueChange={(e) =>
-                          isEditable &&
-                          handleInputChange(
-                            (currentPage - 1) * itemsPerPage + rowIndex,
-                            "product_idAux",
-                            e,
-                            row["type"],
-                          )
-                        }
-                      >
-                        <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                          <SelectValue
-                            placeholder={
-                              row["type"] == "1" ? "Producto" : "Servicio"
-                            }
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {(
-                            allProductsOrServices.find((pOrs) => {
-                              if (
-                                row["type"] == "1" &&
-                                pOrs?.type == row["wharehouseSelect"]
-                              ) {
-                                return pOrs;
-                              } else if (
-                                row["type"] == "2" &&
-                                pOrs?.type == "service"
-                              ) {
-                                return pOrs;
+                      <div className="flex flex-col pt-[4px]">
+                        <Select
+                          name={`product[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
+                          value={row["product_idAux"]}
+                          required={true}
+                          onValueChange={(e) =>
+                            isEditable &&
+                            handleInputChange(
+                              (currentPage - 1) * itemsPerPage + rowIndex,
+                              "product_idAux",
+                              e,
+                              row["type"],
+                            )
+                          }
+                        >
+                          <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                            <SelectValue
+                              placeholder={
+                                row["type"] == "1" ? "Producto" : "Servicio"
                               }
-                            })?.value ?? []
-                          ).map((product, index) => (
-                            <div key={index}>
-                              <SelectItem
-                                key={"product-" + index}
-                                value={String(product.value)}
-                              >
-                                {product.label}
-                              </SelectItem>
-                            </div>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {(
+                              allProductsOrServices.find((pOrs) => {
+                                if (
+                                  row["type"] == "1" &&
+                                  pOrs?.type == row["wharehouseSelect"]
+                                ) {
+                                  return pOrs;
+                                } else if (
+                                  row["type"] == "2" &&
+                                  pOrs?.type == "service"
+                                ) {
+                                  return pOrs;
+                                }
+                              })?.value ?? []
+                            ).map((product, index) => (
+                              <div key={index}>
+                                <SelectItem
+                                  key={"product-" + index}
+                                  value={String(product.value)}
+                                >
+                                  {product.label}
+                                </SelectItem>
+                              </div>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <p className="pl-3.5 font-roboto text-[10px] font-normal text-grisDisabled">
+                          {row["type"] == "1" ? "Producto" : "Servicio"}
+                          {row["type"] == "1" && (
+                            <>
+                              &nbsp;&bull;&nbsp;
+                              {row["wharehouseName"]}
+                            </>
+                          )}
+                        </p>
+                      </div>
                     )}
                   </div>
                 </TableCell>
@@ -419,8 +513,8 @@ const QuoteTable = ({
                         isEditable &&
                         handleDeleteRow(
                           (currentPage - 1) * itemsPerPage + rowIndex,
-                          setProductDelete,
-                          productDelete,
+                          // setProductDelete,
+                          // productDelete,
                         )
                       }
                       disabled={tableData.length === 1 || !isEditable}
@@ -440,7 +534,7 @@ const QuoteTable = ({
         </Table>
       </div>
       {/* Productos que se van a eliminar */}
-      {productDelete.map((pd) => (
+      {/* {productDelete.map((pd) => (
         <input
           type="hidden"
           hidden
@@ -450,7 +544,7 @@ const QuoteTable = ({
           value={pd}
           onChange={() => {}}
         />
-      ))}
+      ))} */}
       <div className="mt-4 flex items-center justify-between">
         <Button
           variant="ghost"
@@ -459,7 +553,9 @@ const QuoteTable = ({
           onClick={(e) =>
             isEditable && handleAddRow(e, setTableData, initialRow)
           }
-          disabled={!isEditable || (productOrService == "product" && !wharehouseSelect)}
+          disabled={
+            !isEditable || (productOrService == "product" && !wharehouseSelect)
+          }
           className="rounded-full bg-transparent p-1 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
         >
           <IonIcon

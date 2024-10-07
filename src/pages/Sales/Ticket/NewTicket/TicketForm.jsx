@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import SelectsQuote from "../../Components/SelectGroup";
-import Total from "@/components/TotalSection/TotalSection";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
@@ -10,6 +9,7 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
 import { getProductsByWharehouse, saveNewTicketSale } from "../utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import Total from "../TotalSection/TotalSection";
 
 const TicketForm = () => {
   const navigation = useNavigation();
@@ -22,8 +22,11 @@ const TicketForm = () => {
   const [tableData, setTableData] = useState([]);
   const [productOrService, setProductOrService] = useState("service");
   const [wharehouseSelect, setWharehouseSelect] = useState(null);
+  const [wharehouseName, setWharehouseName] = useState("");
   const [productsListMap, setProductsListMap] = useState([]);
   const [productsListInfo, setProductsListInfo] = useState([]);
+  const [discountGeneral, setDiscountGeneral] = useState(0);
+  const [isShipping, setIsShipping] = useState(false);
 
   const getProducts = async () => {
     const auxProducts = await getProductsByWharehouse(wharehouseSelect);
@@ -94,6 +97,8 @@ const TicketForm = () => {
                 costCenterList={infoCreateSales?.data?.cost_center}
                 sellersList={infoCreateSales?.data?.sellers}
                 defaultSeller={infoCreateSales?.data?.default_seller}
+                discountGeneral={discountGeneral}
+                setDiscountGeneral={setDiscountGeneral}
               />
             </div>
 
@@ -130,15 +135,20 @@ const TicketForm = () => {
                     placeholder="Almacén"
                     required={true}
                     disabled={!isEditable}
-                    onChange={(e) => setWharehouseSelect(e?.value)}
+                    onChange={(e) => {
+                      setWharehouseSelect(e?.value);
+                      setWharehouseName(e?.label);
+                    }}
                   />
                 </div>
               )}
-              <div className="col-span-2 flex items-center gap-x-2 justify-center pt-2">
+              <div className="col-span-2 flex items-center justify-center gap-x-2 pt-2">
                 <Checkbox
                   className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-                  name="shipping"
-                  checked={infoCreateSales?.data?.shipping}
+                  checked={isShipping}
+                  onCheckedChange={(e) => {
+                    setIsShipping(e);
+                  }}
                 />
                 <label className="text-[11px] font-light text-grisHeading">
                   Envio
@@ -160,9 +170,15 @@ const TicketForm = () => {
                   products_map={productsListMap}
                   products_info={productsListInfo}
                   wharehouseSelect={wharehouseSelect}
+                  discountGeneral={discountGeneral}
+                  wharehouseName={wharehouseName}
                 />
               </div>
-              <Total tableData={tableData} comment={""} />
+              <Total
+                tableData={tableData}
+                comment={""}
+                isShipping={isShipping}
+              />
             </div>
           </div>
 
@@ -173,13 +189,6 @@ const TicketForm = () => {
                 "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               }
             >
-              {/* <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-primarioBotones text-xs text-primarioBotones hover:text-primarioBotones"
-              >
-                Save
-              </Button> */}
               <Button
                 className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
                 disabled={navigation.state === "submitting"}
