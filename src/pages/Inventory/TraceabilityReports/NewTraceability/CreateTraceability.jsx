@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
 import ArticleForm from "../Components/ArticleForm";
+import BatchForm from "../Components/BatchForm";
 
 const CreateTraceability = () => {
   return (
@@ -27,7 +28,7 @@ const CreateTraceability = () => {
         </div>
 
         <Tabs
-          defaultValue="branches"
+          defaultValue="article"
           className="h-full overflow-auto rounded-lg pt-2"
         >
           <div className="flex justify-between">
@@ -37,13 +38,13 @@ const CreateTraceability = () => {
             <div className="flex justify-end gap-3 pr-8">
               <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
                 <TabsTrigger
-                  value="branches"
+                  value="article"
                   className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Articulo
                 </TabsTrigger>
                 <TabsTrigger
-                  value="resume"
+                  value="branch"
                   className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                 >
                   Lote
@@ -62,11 +63,11 @@ const CreateTraceability = () => {
               </Link>
             </div>
           </div>
-          <TabsContent value="branches" className="">
+          <TabsContent value="article">
            <ArticleForm/>
           </TabsContent>
-          <TabsContent value="resume" className="rounded-md bg-blancoBg p-2">
-            <h2>resumen</h2>
+          <TabsContent value="branch">
+           <BatchForm/>
           </TabsContent>
         </Tabs>
       </div>

@@ -42,7 +42,7 @@ const ArticleForm = () => {
           <SelectRouter className="w-full" placeholder="Selecciona un producto" />
         </div>
         <div className="mb-6 border rounded-[10px] p-4">
-          <h2 className="mb-4 font-poppins text-sm font-semibold">Lotes</h2>
+          <h2 className="mb-4 font-poppins text-sm text-[#44444F] font-semibold">Lotes</h2>
           <div className="overflow-x-auto">
             <Table className="w-full border-collapse">
               <TableHeader>
@@ -82,7 +82,7 @@ const ArticleForm = () => {
           </div>
         </div>
         <div className="mb-6 p-4">
-          <h2 className="mb-4 font-poppins text-sm font-semibold">Operaciones por Lote</h2>
+          <h2 className="mb-4 font-poppins text-sm text-[#44444F] font-semibold">Operaciones por Lote</h2>
           <div className="overflow-x-auto">
             <Table className="w-full border-collapse">
               <TableHeader>
