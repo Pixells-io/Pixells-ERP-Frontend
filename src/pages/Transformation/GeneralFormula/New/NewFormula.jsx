@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
+import {
+  chatbubbleEllipsesOutline,
+  chevronForward,
+  closeCircle,
+} from "ionicons/icons";
 
 import NavigationHeader from "@/components/navigation-header";
 
@@ -20,21 +24,32 @@ import TableForm from "../../Components/TableForm";
 import TableFormWaste from "../../Components/TableFormWaste";
 import TableFormSubProducts from "../../Components/TableFormSubProducts";
 
-import StatusInformation from "@/components/StatusInformation/status-information";
-
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import EnergyTable from "../../Components/Tables/EnergyTable";
+import PackagesTable from "../../Components/Tables/PackagesTable";
+import CrateTable from "../../Components/Tables/CrateTable";
+import SubProductsTable from "../../Components/Tables/SubProductsTable";
 
 function NewFormula() {
   const { data } = useLoaderData();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [subProducts, setSubProducts] = useState([]);
-  const [variables, setVariables] = useState([]);
-  const [wastes, setWastes] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
+
+  const [variables, setVariables] = useState([]);
+
+  const [energetics, setEnergetics] = useState([]);
+  const [totalEnergetics, setTotalEnergetics] = useState(0);
+
+  const [packages, setPackages] = useState([]);
+  const [totalPackages, setTotalPackages] = useState(0);
+
+  const [crate, setCrate] = useState([]);
+  const [totalCrate, setTotalCrate] = useState(0);
+
+  const [subProducts, setSubProducts] = useState([]);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
-  const [totalWastes, setTotalWastes] = useState(0);
 
   const [newFormula, setNewFormula] = useState({
     product_id: "",
@@ -297,47 +312,40 @@ function NewFormula() {
                     defaultValue="fabricacion"
                     className="flex h-full w-full flex-col"
                   >
-                    <TabsList className="flex justify-between bg-grisBg">
+                    <TabsList className="flex justify-around bg-blancoBg">
                       <TabsTrigger
                         value="fabricacion"
                         className="text-grisSubText data-[state=active]:text-grisHeading"
                       >
-                        Materiales de Fabricación
+                        MATERIALES
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="energeticos"
                         className="text-grisSubText data-[state=active]:text-grisHeading"
                       >
-                        Recursos Energéticos
+                        RECURSOS
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="empaque"
                         className="text-grisSubText data-[state=active]:text-grisHeading"
                       >
-                        Materiales de Empaque
+                        EMPAQUE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="embalaje"
                         className="text-grisSubText data-[state=active]:text-grisHeading"
                       >
-                        Materiales de Embalaje
+                        EMBALAJE
                       </TabsTrigger>
 
                       <TabsTrigger
                         value="subproductos"
                         className="text-grisSubText data-[state=active]:text-grisHeading"
                       >
-                        SubProductos
-                      </TabsTrigger>
-
-                      <TabsTrigger
-                        value="desechos"
-                        className="text-grisSubText data-[state=active]:text-grisHeading"
-                      >
-                        Desechos
+                        SUBPRODUCTOS
                       </TabsTrigger>
                     </TabsList>
 
@@ -378,10 +386,10 @@ function NewFormula() {
                           Recursos Energéticos
                         </h2>
                         <div className="overflow-auto">
-                          <TableForm
-                            tableData={products}
-                            setTableData={setProducts}
-                            setTotalProducts={setTotalProducts}
+                          <EnergyTable
+                            tableData={energetics}
+                            setTableData={setEnergetics}
+                            setTotalProducts={setTotalEnergetics}
                             productNeed={productNeed}
                           />
                         </div>
@@ -408,10 +416,10 @@ function NewFormula() {
                           Materiales de Empaque
                         </h2>
                         <div className="overflow-auto">
-                          <TableForm
-                            tableData={products}
-                            setTableData={setProducts}
-                            setTotalProducts={setTotalProducts}
+                          <PackagesTable
+                            tableData={packages}
+                            setTableData={setPackages}
+                            setTotalProducts={setTotalPackages}
                             productNeed={productNeed}
                           />
                         </div>
@@ -438,10 +446,10 @@ function NewFormula() {
                           Materiales de Embalaje
                         </h2>
                         <div className="overflow-auto">
-                          <TableForm
-                            tableData={products}
-                            setTableData={setProducts}
-                            setTotalProducts={setTotalProducts}
+                          <CrateTable
+                            tableData={crate}
+                            setTableData={setCrate}
+                            setTotalProducts={setTotalCrate}
                             productNeed={productNeed}
                           />
                         </div>
@@ -468,27 +476,10 @@ function NewFormula() {
                           SubProductos
                         </h2>
                         <div className="overflow-auto">
-                          <TableFormSubProducts
+                          <SubProductsTable
                             tableData={subProducts}
                             setTableData={setSubProducts}
                             setTotalProducts={setSubTotalProducts}
-                            productNeed={productNeed}
-                          />
-                        </div>
-                      </div>
-                    </TabsContent>
-
-                    <TabsContent value="desechos" className="w-full">
-                      {/* desechos section */}
-                      <div className="rounded-xl p-4">
-                        <h2 className="text-md font-poppins font-medium text-[#44444F]">
-                          Desechos
-                        </h2>
-                        <div className="overflow-auto">
-                          <TableFormWaste
-                            tableData={wastes}
-                            setTableData={setWastes}
-                            setTotalProducts={setTotalWastes}
                             productNeed={productNeed}
                           />
                         </div>
@@ -705,21 +696,55 @@ function NewFormula() {
           </Tabs>
 
           {/* end section */}
-          <div className="flex w-full justify-center rounded-b-lg bg-blancoBg">
-            <StatusInformation
-              status={"inProgress"}
-              imgUser={
-                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              }
-            >
-              <Button
+          <div className="flex w-full items-center justify-between rounded-b-lg bg-blancoBg px-4 py-2">
+            <div className="flex rounded-full border-2 p-2">
+              <IonIcon
+                icon={chatbubbleEllipsesOutline}
+                className="flex size-5"
+              />
+            </div>
+
+            <div className="">|</div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="text-xs text-grisSubText">TOTAL “TABLA”</div>
+                <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
+                  $765.99
+                </div>
+              </div>
+              <IonIcon icon={chevronForward} className="size-4 text-black" />
+              <div className="flex items-center gap-2">
+                <div className="text-xs text-grisSubText">TOTAL “SECCIÓN”</div>
+                <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
+                  $765.99
+                </div>
+              </div>
+              <IonIcon icon={chevronForward} className="size-4 text-black" />
+              <div className="flex items-center gap-2">
+                <div className="text-xs text-grisSubText">TOTAL “FÓRMULA”</div>
+                <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
+                  $765.99
+                </div>
+              </div>
+            </div>
+
+            <div className="">|</div>
+
+            <div className="flex gap-4">
+              <button
                 type="button"
-                // onClick={() => navigate("/transformation/record/1")}
-                className={`rounded-lg bg-primarioBotones px-10 text-xs hover:bg-primarioBotones`}
+                className="h-8 w-24 rounded-xl border border-blancoBox2 bg-blancoBg text-sm font-semibold text-grisSubText"
               >
-                Save
-              </Button>
-            </StatusInformation>
+                <Link to={"/transformation"}>Cancelar</Link>
+              </button>
+              <button
+                type="button"
+                className="h-8 w-24 rounded-xl bg-blancoBox2 text-sm font-semibold text-grisHeading"
+              >
+                Crear
+              </button>
+            </div>
           </div>
         </div>
       </div>
