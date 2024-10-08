@@ -84,11 +84,10 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const articleHeaders = [
-    { key: 'articleNumber', label: 'Número Artículo' },
+    { key: 'articleNumber', label: 'Artículo' },
     { key: 'expectedQuantity', label: 'Cantidad Esperada' },
     { key: 'received', label: 'Recibido' },
     { key: 'unitPrice', label: 'Precio Unitario' },
-    { key: 'location', label: 'Ubicación' },
   ];
 
   const slotHeaders = [
@@ -100,9 +99,9 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const getQuantityIndicator = () => {
     const expectedQuantity = parseInt(lotData.eQuantity) || 0;
     if (totalReceived === expectedQuantity) {
-      return <span className="ml-2 text-sm text-green-600">✓ Cantidad completa</span>;
+      return <span className="ml-6 text-sm text-center text-green-600">✓ Cantidad completa</span>;
     } else if (totalReceived > expectedQuantity) {
-      return <span className="ml-2 text-sm text-red-600">X Cantidad Sobrepasada</span>;
+      return <span className="ml-6 text-sm text-center text-red-600">X Cantidad Sobrepasada</span>;
     }
     return null;
   };
@@ -133,14 +132,13 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell>{lotData.articleNumber || "0"}</TableCell>
+                <TableCell>{description || "0"}</TableCell>
                 <TableCell>{lotData.eQuantity || "0"}</TableCell>
                 <TableCell>
                   {totalReceived}
                   {getQuantityIndicator()}
                 </TableCell>
                 <TableCell>${lotData.unitPrice || "0"}</TableCell>
-                <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
