@@ -249,3 +249,42 @@ export async function saveStockTransfer(formData) {
   );
   return response;
 }
+
+export async function saveStockTransferReceive(formData) {
+  const info = {
+    transfer_id: formData.get("transfer_id"),
+    type: formData.get("type"),
+    products: formData.get("products"),
+    options: formData.get("options"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/receive-stock-transfer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
+}
+
+export async function cancelStockTransfer(formData) {
+  const info = {
+    transfer_id: formData.get("transfer_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}inventory/cancel-stock-transfer`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+  return response;
+}

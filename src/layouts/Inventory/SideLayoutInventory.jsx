@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Outlet,
-} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import TopMenu from "../Masters/Menus/TopMenu";
 import MenuInventory from "./components/MenuInventory";
@@ -12,21 +10,20 @@ const SideLayoutInventory = () => {
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* top block */}
         <div className="flex w-[280px] flex-col gap-4 rounded-lg bg-gris px-8 py-4">
-        <TopMenu main={"/inventory"} />
+          <TopMenu main={"/inventory"} />
         </div>
 
         {/*bottom block */}
-        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-gris px-4 py-8">
           <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
             Menu
           </p>
           <MenuInventory />
         </div>
       </div>
-      <Outlet/>
+      <Outlet />
     </div>
   );
 };
 
 export default SideLayoutInventory;
-
