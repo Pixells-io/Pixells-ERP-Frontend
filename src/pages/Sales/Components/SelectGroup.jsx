@@ -122,6 +122,7 @@ const SelectsQuote = ({
             required={false}
             onChange={(e) => setExpirationDate(e)}
             placeholder={"Vencimiento"}
+            disabled={!isEditable}
           />
         </div>
         <div className="col-span-4">
