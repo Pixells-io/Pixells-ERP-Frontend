@@ -26,6 +26,7 @@ import { getCatalogById, saveStockMovement } from "../../utils";
 function NewEntry() {
   const data = useLoaderData();
   const { warehouses, categories, catalogs, products, locations } = data;
+  
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
   const [initialData, setInitialData] = useState({
@@ -100,7 +101,7 @@ function NewEntry() {
               receivedQuantity: "",
               unitPrice: unitPrice,
               total: 0,
-              batches: item.batches || [],
+              batches: [],
               ubication: null,
             };
           });
@@ -206,6 +207,7 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("requestNumber", value)
                   }
+                  required
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -233,6 +235,7 @@ function NewEntry() {
                       onValueChange={(value) =>
                         handleSelectChange("fromWarehouse", value)
                       }
+                      required
                     >
                       <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                         <SelectValue />
@@ -262,8 +265,9 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("toWarehouse", value)
                   }
+                  required
                 >
-                  <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl bg-[#E0E0E0]">
+                  <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

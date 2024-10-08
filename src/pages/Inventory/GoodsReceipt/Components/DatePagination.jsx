@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 
-const DatePagination = () => {
+const DatePagination = ({ onDateChange }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [dateRange, setDateRange] = useState([]);
 
@@ -11,7 +11,8 @@ const DatePagination = () => {
 
   useEffect(() => {
     generateDateRange(currentDate);
-  }, [currentDate]);
+    onDateChange(currentDate);
+  }, [currentDate, onDateChange]);
 
   const generateDateRange = (date) => {
     const range = [];
@@ -63,14 +64,14 @@ const DatePagination = () => {
             className={`px-2 py-1 font-poppins ${
               isMiddleDate(date, index)
                 ? "bg-[#E8E8E8] border text-sm border-[#44444F] w-[90px] h-[39px] rounded-[8px]"
-                : "text-[#44444F] text-xs font-semibold"
+                : "text-[#44444F] text-xs"
             }`}
             onClick={() => setCurrentDate(date)}
           >
             <div className="text-xs font-medium">
               {isToday(date) ? (
                 <>
-                  <div className="font-poppins text-[#44444F] mb-0 text-base">
+                  <div className="font-poppins font-semibold text-[#44444F] mb-0 text-base">
                     HOY
                   </div>
                   <div>{formatDate(date)}</div>
