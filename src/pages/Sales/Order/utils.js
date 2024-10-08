@@ -19,9 +19,27 @@ export async function getSaleOrders() {
 }
 
 export async function multiLoaderListOrders() {
-  const [infoCreateSales] = await Promise.all([getInfoCreateSales()]);
+  const [infoCreateSales] = await Promise.all([
+    getInfoCreateSales(),
+  ]);
 
   return json({ infoCreateSales });
+}
+
+export async function getProducts() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}sales/get-info-create-sales-products/0`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
 }
 
 export async function getInfoCreateSales() {
