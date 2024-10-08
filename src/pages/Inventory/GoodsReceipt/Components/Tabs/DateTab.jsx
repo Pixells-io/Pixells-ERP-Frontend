@@ -1,7 +1,7 @@
 import React from "react";
 import DatePagination from "../DatePagination";
 const DateTab = () => {
-  return (<div>
+  return (<div className="">
 <DatePagination/>
 
   </div>);

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import React, { useState, useEffect } from "react";
+import { IonIcon } from "@ionic/react";
+import { chevronBack, chevronForward } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
 
 const DatePagination = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [dateRange, setDateRange] = useState([]);
 
-  const dayNames = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+  const dayNames = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
 
   useEffect(() => {
     generateDateRange(currentDate);
@@ -39,24 +40,39 @@ const DatePagination = () => {
     return date.toDateString() === today.toDateString();
   };
 
+  const isMiddleDate = (date, index) => {
+    return index === 4; // The middle date is at index 4 (0-based index)
+  };
+
   return (
-    <div className="flex items-center justify-evenly px-4 py-2 rounded-full">
-      <Button variant="ghost" size="icon" className="w-8 h-8" onClick={() => navigateDate(-1)}>
-        <ChevronLeft className="h-4 w-4" />
+    <div className="flex items-center justify-evenly border-b px-4 py-2">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8"
+        onClick={() => navigateDate(-1)}
+      >
+        <IonIcon icon={chevronBack} className="h-4 w-4" />
       </Button>
-      <div className="flex space-x-4">
-        {dateRange.map((date) => (
-          <Button 
-            key={date.toISOString()} 
+      <div className="flex space-x-8">
+        {dateRange.map((date, index) => (
+          <Button
+            key={date.toISOString()}
             variant="ghost"
-            size="sm" 
-            className={`px-2 py-1 ${isToday(date) ? 'bg-white rounded-full shadow' : ''}`}
+            size="sm"
+            className={`px-2 py-1 font-poppins ${
+              isMiddleDate(date, index)
+                ? "bg-[#E8E8E8] border text-sm border-[#44444F] w-[90px] h-[39px] rounded-[8px]"
+                : "text-[#44444F] text-xs font-semibold"
+            }`}
             onClick={() => setCurrentDate(date)}
           >
             <div className="text-xs font-medium">
               {isToday(date) ? (
                 <>
-                  <div className="text-[10px] rounded-[10px] border-[#44444F] leading-tight">HOY</div>
+                  <div className="font-poppins text-[#44444F] mb-0 text-base">
+                    HOY
+                  </div>
                   <div>{formatDate(date)}</div>
                 </>
               ) : (
@@ -66,10 +82,14 @@ const DatePagination = () => {
           </Button>
         ))}
       </div>
-      <Button variant="ghost" size="icon" className="w-8 h-8" onClick={() => navigateDate(1)}>
-        <ChevronRight className="h-4 w-4" />
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8"
+        onClick={() => navigateDate(1)}
+      >
+        <IonIcon icon={chevronForward} className="h-4 w-4" />
       </Button>
-     
     </div>
   );
 };
