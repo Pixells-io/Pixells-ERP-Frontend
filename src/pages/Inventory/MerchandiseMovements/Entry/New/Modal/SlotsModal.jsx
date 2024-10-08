@@ -93,6 +93,9 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const slotHeaders = [
     { key: 'batch', label: 'Lote Interno' },
     { key: 'quantity', label: 'Cantidad' },
+    { key: 'attbr1', label: 'Atributo 1' },
+    { key: 'attbr2', label: 'Atributo 2' },
+    { key: 'attbr2', label: 'Precio Unitario' },
     { key: 'actions', label: 'Acciones', width: '40px' }
   ];
 
