@@ -95,7 +95,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
     { key: 'quantity', label: 'Cantidad' },
     { key: 'attbr1', label: 'Atributo 1' },
     { key: 'attbr2', label: 'Atributo 2' },
-    { key: 'attbr2', label: 'Precio Unitario' },
+    { key: 'price', label: 'Precio Unitario' },
     { key: 'actions', label: 'Acciones', width: '40px' }
   ];
 
@@ -150,39 +150,46 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
          
           {/* Slot Table */}
           <Table>
-            <TableHeader>
-              <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
-                {slotHeaders.map((header) => (
-                  <TableHead key={header.key}>{header.label}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {paginatedData.map((row) => (
-                <TableRow key={row.auxId} className="border-b border-gray-100">
-                  {slotHeaders.map((header) => (
-                    <TableCell key={header.key}>
-                      {header.key !== 'actions' ? (
-                        <InputForm
-                        className={"w-[100px]"}
-                          value={row[header.key] || ""}
-                          onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
-                        />
-                      ) : (
-                        <Button
-                          type="button"
-                          className="bg-transparent p-0 hover:bg-transparent"
-                          onClick={() => handleDeleteRow(row.auxId)}
-                        >
-                          <IonIcon size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
-                        </Button>
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+  <TableHeader>
+    <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
+      {slotHeaders.map((header) => (
+        <TableHead key={header.key}>
+          {header.label}
+        </TableHead>
+      ))}
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {paginatedData.map((row) => (
+      <TableRow key={row.auxId} className="border-b border-gray-100">
+        {slotHeaders.map((header) => (
+          <TableCell key={header.key}>
+            {header.key === 'price' ? (
+              // Muestra el precio unitario como texto
+              <span>{row[header.key] || "0"}</span>
+            ) : header.key !== 'actions' ? (
+              <InputForm
+                className={"w-[100px]"}
+                value={row[header.key] || ""}
+                onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
+              />
+            ) : (
+              <Button
+                type="button"
+                className="bg-transparent p-0 hover:bg-transparent"
+                onClick={() => handleDeleteRow(row.auxId)}
+              >
+                <IonIcon size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
+              </Button>
+            )}
+          </TableCell>
+        ))}
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
+
 
           <div className="flex items-center justify-between">
             <Button
