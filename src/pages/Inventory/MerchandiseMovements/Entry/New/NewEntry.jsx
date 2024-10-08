@@ -23,6 +23,7 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
 import { getCatalogById, saveStockMovement } from "../../utils";
 
+
 function NewEntry() {
   const data = useLoaderData();
   const { warehouses, categories, catalogs, products, locations } = data;
@@ -425,12 +426,13 @@ function NewEntry() {
                   >
                     Cancelar
                   </Button>
+                  {initialData.toWarehouse !== "" && (
                   <Button
                   type={"submit"}
                     className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
                   >
                     Crear
-                  </Button>
+                  </Button>)}
                 </div>
               </Form>
             </StatusInformation>
@@ -445,6 +447,7 @@ export default NewEntry;
 
 export async function Action({ request }) {
   const formData = await request.formData();
+
   const response = await saveStockMovement(formData);
   return "1";
   //return redirect("/inventory");
