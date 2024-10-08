@@ -322,7 +322,8 @@ const TableForm = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedData.map((row, rowIndex) => (
+          {tableData.length > 0 ? (
+            paginatedData.map((row, rowIndex) => (
               <TableRow
                 key={row.idAux}
                 className="text-sm font-normal text-[#44444F]"
@@ -336,11 +337,18 @@ const TableForm = ({
                   </TableCell>
                 ))}
               </TableRow>
-            ))}
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center text-gray-500">
+                No hay datos disponibles
+              </TableCell>
+            </TableRow>
+          )}
           </TableBody>
         </Table>
       </div>
-      {isEditable && (
+      {isEditable && tableData.length > 0 && (
         <div className="mt-4 flex items-center justify-between">
           <IonIcon
             icon={addCircle}

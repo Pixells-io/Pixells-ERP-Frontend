@@ -26,7 +26,7 @@ import { getCatalogById, saveStockMovement } from "../../utils";
 function NewEntry() {
   const data = useLoaderData();
   const { warehouses, categories, catalogs, products, locations } = data;
-  
+
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
   const [initialData, setInitialData] = useState({
@@ -107,11 +107,15 @@ function NewEntry() {
           });
           setCommodity(formattedData);
         }
+      } else {
+        // Si no hay orden seleccionada, establecer commodity como un array vacío
+        setCommodity([]);
       }
     }
 
     fetchCatalog();
   }, [selectedCatalog]);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -369,6 +373,7 @@ function NewEntry() {
                   type="hidden"
                   name="rel_id"
                   value={initialData.requestNumber}
+                  required
                 />
                 <input
                   type="hidden"
@@ -379,11 +384,13 @@ function NewEntry() {
                   type="hidden"
                   name="inventory_in"
                   value={initialData.fromWarehouse}
+                  required
                 />
                 <input
                   type="hidden"
                   name="inventory_out"
                   value={initialData.toWarehouse}
+                  required
                 />
                 <input type="hidden" name="comment" value={comments} />
                 <input
@@ -412,6 +419,7 @@ function NewEntry() {
                     })),
                   )}
                 />
+
                 <div className="justify-between gap-3 lg:flex">
                   <Button
                     type="button"
