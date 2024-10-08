@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
 import { IonIcon } from "@ionic/react";
-import { addCircle } from "ionicons/icons";
+import { addCircle, closeCircle } from "ionicons/icons";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -25,6 +25,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const [assignmentData, setAssignmentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [nextAuxId, setNextAuxId] = useState(1);
+  const [totalReceived, setTotalReceived] = useState(0);
 
   useEffect(() => {
     if (initialAssignmentData && initialAssignmentData.length > 0) {
@@ -34,14 +35,21 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
       }));
       setAssignmentData(dataWithAuxIds);
       setNextAuxId(dataWithAuxIds.length + 1);
+      updateTotalReceived(dataWithAuxIds);
     } else {
       setAssignmentData([{ id: null, quantity: "", batch: "", auxId: 1 }]);
       setNextAuxId(2);
     }
   }, [initialAssignmentData]);
 
+  const updateTotalReceived = (data) => {
+    const total = data.reduce((sum, row) => sum + (parseInt(row.quantity) || 0), 0);
+    setTotalReceived(total);
+  };
+
   const addNewRow = () => {
-    setAssignmentData([...assignmentData, { id: null, quantity: "", batch: "", auxId: nextAuxId }]);
+    const newRow = { id: null, quantity: "", batch: "", auxId: nextAuxId };
+    setAssignmentData([...assignmentData, newRow]);
     setNextAuxId(nextAuxId + 1);
   };
 
@@ -50,6 +58,16 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
       row.auxId === auxId ? { ...row, [field]: value } : row
     );
     setAssignmentData(newData);
+    updateTotalReceived(newData);
+  };
+
+  const handleDeleteRow = (auxId) => {
+    if (assignmentData.length <= 1) {
+      return;
+    }
+    const newData = assignmentData.filter(row => row.auxId !== auxId);
+    setAssignmentData(newData);
+    updateTotalReceived(newData);
   };
 
   const handleSave = () => {
@@ -66,19 +84,32 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const articleHeaders = [
-    { key: 'checkbox', label: '', width: '40px' },
-    { key: 'articleNumber', label: 'Número Artículo' },
+    { key: 'articleNumber', label: 'Artículo' },
     { key: 'expectedQuantity', label: 'Cantidad Esperada' },
     { key: 'received', label: 'Recibido' },
     { key: 'unitPrice', label: 'Precio Unitario' },
-    { key: 'location', label: 'Ubicación' },
-    { key: 'actions', label: '', width: '40px' }
   ];
 
   const slotHeaders = [
     { key: 'batch', label: 'Lote Interno' },
     { key: 'quantity', label: 'Cantidad' },
+    { key: 'attbr1', label: 'Atributo 1' },
+    { key: 'attbr2', label: 'Atributo 2' },
+    { key: 'price', label: 'Precio Unitario' },
+    { key: 'actions', label: 'Acciones', width: '40px' }
   ];
+
+  const getQuantityIndicator = () => {
+    const expectedQuantity = parseInt(lotData.eQuantity) || 0;
+    if (totalReceived === expectedQuantity) {
+      return <span className="ml-6 text-sm text-center text-green-600">✓ Cantidad completa</span>;
+    } else if (totalReceived > expectedQuantity) {
+      return <span className="ml-6 text-sm text-center text-red-600">X Cantidad Sobrepasada</span>;
+    }
+    return null;
+  };
+
+  const isSaveDisabled = totalReceived > (parseInt(lotData.eQuantity) || 0);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -89,7 +120,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 p-4">
-          <h2 className="text-base font-semibold">{description} | Cantidad: {lotData.eQuantity}</h2>
+          <h2 className="text-base font-semibold">{description}</h2>
           
           {/* Article Details Table */}
           <Table>
@@ -104,13 +135,13 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><Checkbox /></TableCell>
-                <TableCell>{lotData.articleNumber || "0"}</TableCell>
+                <TableCell>{description || "0"}</TableCell>
                 <TableCell>{lotData.eQuantity || "0"}</TableCell>
-                <TableCell>{lotData.received || "0"}</TableCell>
-                <TableCell>${lotData.unitPrice || "$0"}</TableCell>
-                <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>
-                <TableCell></TableCell>
+                <TableCell>
+                  {totalReceived}
+                  {getQuantityIndicator()}
+                </TableCell>
+                <TableCell>${lotData.unitPrice || "0"}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -119,28 +150,46 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
          
           {/* Slot Table */}
           <Table>
-            <TableHeader>
-              <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
-                {slotHeaders.map((header) => (
-                  <TableHead key={header.key}>{header.label}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {paginatedData.map((row) => (
-                <TableRow key={row.auxId} className="border-b border-gray-100">
-                  {slotHeaders.map((header) => (
-                    <TableCell key={header.key}>
-                      <InputForm
-                        value={row[header.key] || ""}
-                        onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
-                      />
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+  <TableHeader>
+    <TableRow className="whitespace-nowrap border-b border-[#5B89FF] text-center">
+      {slotHeaders.map((header) => (
+        <TableHead key={header.key}>
+          {header.label}
+        </TableHead>
+      ))}
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {paginatedData.map((row) => (
+      <TableRow key={row.auxId} className="border-b border-gray-100">
+        {slotHeaders.map((header) => (
+          <TableCell key={header.key}>
+            {header.key === 'price' ? (
+              // Muestra el precio unitario como texto
+              <span>{row[header.key] || "0"}</span>
+            ) : header.key !== 'actions' ? (
+              <InputForm
+                className={"w-[100px]"}
+                value={row[header.key] || ""}
+                onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
+              />
+            ) : (
+              <Button
+                type="button"
+                className="bg-transparent p-0 hover:bg-transparent"
+                onClick={() => handleDeleteRow(row.auxId)}
+              >
+                <IonIcon size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
+              </Button>
+            )}
+          </TableCell>
+        ))}
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
+
 
           <div className="flex items-center justify-between">
             <Button
@@ -155,7 +204,11 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
               />
             </Button>
           
-            <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleSave}>
+            <Button 
+              className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" 
+              onClick={handleSave}
+              disabled={isSaveDisabled}
+            >
               Save
             </Button>
           </div>

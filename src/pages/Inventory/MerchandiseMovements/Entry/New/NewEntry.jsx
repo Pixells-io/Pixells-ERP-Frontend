@@ -23,6 +23,7 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Label } from "@/components/ui/label";
 import { getCatalogById, saveStockMovement } from "../../utils";
 
+
 function NewEntry() {
   const data = useLoaderData();
   const { warehouses, categories, catalogs, products, locations } = data;
@@ -108,13 +109,13 @@ function NewEntry() {
           setCommodity(formattedData);
         }
       } else {
-        // Si no hay orden seleccionada, establecer commodity como un array vacío
         setCommodity([]);
       }
     }
 
     fetchCatalog();
   }, [selectedCatalog]);
+
 
   return (
     <div className="flex w-full">
@@ -254,6 +255,7 @@ function NewEntry() {
                           ))}
                       </SelectContent>
                     </Select>
+                    
                   </div>
                 </>
               )}
@@ -267,7 +269,6 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("toWarehouse", value)
                   }
-                 required={initialData.toWarehouse !=""}
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -281,6 +282,7 @@ function NewEntry() {
                       ))}
                   </SelectContent>
                 </Select>
+               
               </div>
               {initialData.category !== "1" && (
                 <>
@@ -361,6 +363,7 @@ function NewEntry() {
               <Form
                 action="/inventory/merchandise-movements/entry/new"
                 method="POST"
+
               >
                 <input
                   type="hidden"
@@ -371,7 +374,6 @@ function NewEntry() {
                   type="hidden"
                   name="rel_id"
                   value={initialData.requestNumber}
-                  
                 />
                 <input
                   type="hidden"
@@ -382,13 +384,11 @@ function NewEntry() {
                   type="hidden"
                   name="inventory_in"
                   value={initialData.fromWarehouse}
-                  
                 />
                 <input
                   type="hidden"
                   name="inventory_out"
                   value={initialData.toWarehouse}
-                  
                 />
                 <input type="hidden" name="comment" value={comments} />
                 <input
@@ -426,12 +426,13 @@ function NewEntry() {
                   >
                     Cancelar
                   </Button>
+                  {initialData.toWarehouse !== "" && (
                   <Button
-                    type="submit"
+                  type={"submit"}
                     className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
                   >
                     Crear
-                  </Button>
+                  </Button>)}
                 </div>
               </Form>
             </StatusInformation>
@@ -446,6 +447,7 @@ export default NewEntry;
 
 export async function Action({ request }) {
   const formData = await request.formData();
+
   const response = await saveStockMovement(formData);
   return "1";
   //return redirect("/inventory");

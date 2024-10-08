@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 
-const DatePagination = ({ onDateChange }) => {
+const DatePagination = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [dateRange, setDateRange] = useState([]);
 
@@ -11,8 +11,7 @@ const DatePagination = ({ onDateChange }) => {
 
   useEffect(() => {
     generateDateRange(currentDate);
-    onDateChange(currentDate);
-  }, [currentDate, onDateChange]);
+  }, [currentDate]);
 
   const generateDateRange = (date) => {
     const range = [];
