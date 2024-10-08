@@ -3,9 +3,8 @@ import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
-  informationCircle,
-  addCircleOutline,
   add,
+  informationCircleOutline,
 } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
@@ -13,14 +12,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
 const MainQtGeneral = () => {
-  
-    // const { data } = useLoaderData();
-
+  // const { data } = useLoaderData();
+  const dataAux = [
+    {
+      id: 1,
+      folio: "123",
+      date: "11/03/1998",
+      customer: "Agustin",
+      description: "none",
+      total: "100",
+      comments: "Comentario",
+    },
+  ];
 
   const columns = [
     {
-      accessorKey: "nombre",
-      header: "Nombre",
+      accessorKey: "folio",
+      header: "FOLIO",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
@@ -29,45 +37,53 @@ const MainQtGeneral = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.nombre}</label>
+            <label>{row?.original?.folio}</label>
           </div>
         );
       },
       meta: { filterButton: true },
     },
     {
-      accessorKey: "tipo",
-      header: "Tipo",
+      accessorKey: "date",
+      header: "FECHA",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "nacionalidad",
-      header: "Nacionalidad",
+      accessorKey: "customer",
+      header: "CLIENTE",
       meta: { filterButton: true },
     },
     {
-      accessorKey: "contacto",
-      header: "Contacto",
+      accessorKey: "description",
+      header: "DESCRIPCIÓN",
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: "total",
+      header: "TOTAL",
     },
+    {
+      accessorKey: "comments",
+      header: "COMENTARIOS",
+    },
+    // {
+    //   accessorKey: "total",
+    //   header: "TOTAL",
+    // },
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
       cell: ({ row }) => (
         <div className="flex items-center justify-center">
           <Link to={`/sales/quotes/edit/${row.original.id}`}>
-          <Button
-            type="button"
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-          >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
-          </Button>
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
           </Link>
         </div>
       ),
@@ -113,8 +129,8 @@ const MainQtGeneral = () => {
         </div>
 
         <div className="flex justify-between">
-        <p className="font-poppins text-xl font-bold text-grisHeading">
-        Cotizaciones Generales
+          <p className="font-poppins text-xl font-bold text-grisHeading">
+            Cotizaciones Generales
           </p>
           <div className="flex justify-end gap-6">
             <Link to="/sales/quotes/new">
@@ -143,10 +159,10 @@ const MainQtGeneral = () => {
           </TabsList>
           <TabsContent value="quotes" className="mt-[-70px] w-full pt-2">
             <DataTable
-              data={[]}
+              data={dataAux}
               columns={columns}
-              searchFilter="nombre"
-              searchNameFilter="Buscar por nombre"
+              searchFilter="folio"
+              searchNameFilter="Buscar por folio"
               isCheckAll={true}
             />
           </TabsContent>

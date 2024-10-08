@@ -15,6 +15,18 @@ const MainSalesTicket = () => {
 
   const { data } = useLoaderData();
 
+  const dataAux = [
+    {
+      id: 1,
+      folio: "123",
+      date: "11/03/1998",
+      customer: "Agustin",
+      description: "none",
+      total: "100",
+      comments: "Comentario",
+    },
+  ];
+
   const columns = [
     {
       accessorKey: "folio",
@@ -149,7 +161,7 @@ const MainSalesTicket = () => {
           </TabsList>
           <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
             <DataTable
-              data={data}
+              data={dataAux}
               columns={columns}
               searchFilter="folio"
               searchNameFilter="Buscar por folio"
