@@ -28,7 +28,6 @@ function NewEntry() {
   const { warehouses, categories, catalogs, products, locations } = data;
 
   const [selectedCatalog, setSelectedCatalog] = useState(null);
-  const [errors, setErrors] = useState({});
 
   const [initialData, setInitialData] = useState({
     category: "1",
@@ -65,7 +64,6 @@ function NewEntry() {
       ...prevData,
       [name]: value,
     }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const handleSelectChange = (name, value) => {
@@ -73,7 +71,6 @@ function NewEntry() {
       ...prevData,
       [name]: value,
     }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
 
     if (name === "requestNumber") {
       const selected = catalogs.data.find(
@@ -118,27 +115,7 @@ function NewEntry() {
     fetchCatalog();
   }, [selectedCatalog]);
 
-  const validateForm = () => {
-    let formErrors = {};
 
-    if (initialData.category === "2" && !initialData.fromWarehouse) {
-      formErrors.fromWarehouse = "De Almacén es requerido";
-    }
-
-    if (!initialData.toWarehouse) {
-      formErrors.toWarehouse = "Almacén Destino es requerido";
-    }
-
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      event.target.submit();
-    }
-  };
 
   return (
     <div className="flex w-full">
@@ -278,9 +255,7 @@ function NewEntry() {
                           ))}
                       </SelectContent>
                     </Select>
-                    {errors.fromWarehouse && (
-                      <p className="text-xs text-red-500">{errors.fromWarehouse}</p>
-                    )}
+                    
                   </div>
                 </>
               )}
@@ -307,9 +282,7 @@ function NewEntry() {
                       ))}
                   </SelectContent>
                 </Select>
-                {errors.toWarehouse && (
-                  <p className="text-xs text-red-500">{errors.toWarehouse}</p>
-                )}
+               
               </div>
               {initialData.category !== "1" && (
                 <>
@@ -390,7 +363,7 @@ function NewEntry() {
               <Form
                 action="/inventory/merchandise-movements/entry/new"
                 method="POST"
-                onSubmit={handleSubmit}
+
               >
                 <input
                   type="hidden"
@@ -454,7 +427,7 @@ function NewEntry() {
                     Cancelar
                   </Button>
                   <Button
-                    type="submit"
+                  type={"submit"}
                     className={`rounded-lg bg-[#E0E0E0] px-10 text-xs text-[#44444F] hover:bg-[#E0E0E0]`}
                   >
                     Crear
