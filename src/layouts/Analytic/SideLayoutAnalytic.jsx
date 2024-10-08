@@ -6,6 +6,7 @@ import { pieChart } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
 
 function SideLayoutAnalytic() {
+  s;
   const location = useLocation();
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">

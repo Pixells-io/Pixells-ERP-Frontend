@@ -118,7 +118,7 @@ const MainOrders = () => {
         </div>
 
         <div className="flex justify-between">
-          <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
+          <p className="font-poppins text-xl font-bold text-grisHeading">
             Pedidos
           </p>
           <div className="flex justify-end gap-6">

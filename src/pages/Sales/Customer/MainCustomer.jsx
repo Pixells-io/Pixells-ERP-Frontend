@@ -161,7 +161,7 @@ const MainCustomer = () => {
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="text-md font-poppins font-bold text-[#44444F]">
+          <h2 className="text-xl font-poppins font-bold text-[#44444F]">
             VENTAS
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">

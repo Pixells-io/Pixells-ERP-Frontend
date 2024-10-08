@@ -45,7 +45,6 @@ export const MovEntryColumnsPending = [
     header: "CREADO POR",
     cell: ({ row }) => (
       <div className="flex justify-center">
-        {console.log(row?.original)}
         <Avatar className="h-6 w-6">
           <AvatarImage
             src={row?.original?.user?.img}
