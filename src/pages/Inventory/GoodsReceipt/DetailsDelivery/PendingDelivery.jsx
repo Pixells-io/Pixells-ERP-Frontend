@@ -1,6 +1,8 @@
 import React from "react";
 import NavigationHeader from "@/components/navigation-header";
 import { useParams } from "react-router-dom";
+import InputForm from "@/components/InputForm/InputForm";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const DeliveryDetails = () => {
   const { id } = useParams();
@@ -29,8 +31,30 @@ const DeliveryDetails = () => {
           </p>
         </div>
 
-
-        
+        <div className="bg-white p-7">
+        <div className="space-y-4 border p-4 rounded-[10px]">
+          <div className="grid grid-cols-5 gap-4">
+            <div className="col-span-1">
+              <InputForm 
+              placeholder="Código" />
+            </div>
+            <div className="col-span-2">
+            <SelectRouter placeholder={"Listas de Precios"} />
+            </div>
+            <div className="col-span-2">
+              <SelectRouter placeholder={"Centro de Costos"} />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <InputForm placeholder="vencimiento" type="date" />
+            </div>
+            <div>
+              <InputForm placeholder="cliente"/>
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
   );

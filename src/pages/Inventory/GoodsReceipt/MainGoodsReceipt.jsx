@@ -3,7 +3,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import NavigationHeader from "@/components/navigation-header";
 import DataTable from "@/components/table/DataTable";
 import { DeliveriesColumns } from "./Components/Table/DeliveriesColumns";
+import DateTab from "./Components/Tabs/DateTab";
 const MainGoodsReceipt = () => {
+  const tabTriggers = [
+    { value: "lists", label: "Por Listas" },
+    { value: "dates", label: "Por Fecha" },
+    { value: "warehouses", label: "Por Almacén" },
+    { value: "status", label: "Por Estatus" },
+  ];
   const tabItems = [
     { value: "deliveries", label: "ENTREGAS" },
     { value: "pending", label: "PENDIENTES" },
@@ -89,13 +96,13 @@ const MainGoodsReceipt = () => {
             </p>
             <div className="flex justify-end gap-6">
               <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
-                {["lists", "warehouses"].map((value) => (
+                {tabTriggers.map((item) => (
                   <TabsTrigger
-                    key={value}
-                    value={value}
+                    key={item.value}
+                    value={item.value}
                     className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
                   >
-                    {value === "lists" ? "Por Lista" : "Por Almacén"}
+                    {item.label}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -107,7 +114,7 @@ const MainGoodsReceipt = () => {
               className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
             >
               <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
-              {tabItems.map((item) => (
+                {tabItems.map((item) => (
                   <TabsTrigger
                     key={item.value}
                     className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
@@ -123,12 +130,15 @@ const MainGoodsReceipt = () => {
                 className="mt-[-70px] w-full pt-2"
               >
                 <DataTable
-                 data={deliveriesData}
-                 columns={DeliveriesColumns}
-                 searchFilter={"code"}
+                  data={deliveriesData}
+                  columns={DeliveriesColumns}
+                  searchFilter={"code"}
                 />
               </TabsContent>
             </Tabs>
+          </TabsContent>
+          <TabsContent value="dates" className="rounded-md bg-blancoBg p-2">
+          <DateTab/>
           </TabsContent>
           <TabsContent
             value="warehouses"
