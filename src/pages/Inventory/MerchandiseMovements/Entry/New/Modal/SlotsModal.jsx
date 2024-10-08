@@ -25,6 +25,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const [assignmentData, setAssignmentData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [nextAuxId, setNextAuxId] = useState(1);
+  const [totalReceived, setTotalReceived] = useState(0);
 
   useEffect(() => {
     if (initialAssignmentData && initialAssignmentData.length > 0) {
@@ -34,14 +35,21 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
       }));
       setAssignmentData(dataWithAuxIds);
       setNextAuxId(dataWithAuxIds.length + 1);
+      updateTotalReceived(dataWithAuxIds);
     } else {
       setAssignmentData([{ id: null, quantity: "", batch: "", auxId: 1 }]);
       setNextAuxId(2);
     }
   }, [initialAssignmentData]);
 
+  const updateTotalReceived = (data) => {
+    const total = data.reduce((sum, row) => sum + (parseInt(row.quantity) || 0), 0);
+    setTotalReceived(total);
+  };
+
   const addNewRow = () => {
-    setAssignmentData([...assignmentData, { id: null, quantity: "", batch: "", auxId: nextAuxId }]);
+    const newRow = { id: null, quantity: "", batch: "", auxId: nextAuxId };
+    setAssignmentData([...assignmentData, newRow]);
     setNextAuxId(nextAuxId + 1);
   };
 
@@ -50,6 +58,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
       row.auxId === auxId ? { ...row, [field]: value } : row
     );
     setAssignmentData(newData);
+    updateTotalReceived(newData);
   };
 
   const handleDeleteRow = (auxId) => {
@@ -58,6 +67,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
     }
     const newData = assignmentData.filter(row => row.auxId !== auxId);
     setAssignmentData(newData);
+    updateTotalReceived(newData);
   };
 
   const handleSave = () => {
@@ -73,7 +83,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const totalPages = Math.ceil(assignmentData.length / ITEMS_PER_PAGE);
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-  const articleHeaders = [,
+  const articleHeaders = [
     { key: 'articleNumber', label: 'Número Artículo' },
     { key: 'expectedQuantity', label: 'Cantidad Esperada' },
     { key: 'received', label: 'Recibido' },
@@ -86,6 +96,18 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
     { key: 'quantity', label: 'Cantidad' },
     { key: 'actions', label: 'Acciones', width: '40px' }
   ];
+
+  const getQuantityIndicator = () => {
+    const expectedQuantity = parseInt(lotData.eQuantity) || 0;
+    if (totalReceived === expectedQuantity) {
+      return <span className="ml-2 text-sm text-green-600">✓ Cantidad completa</span>;
+    } else if (totalReceived > expectedQuantity) {
+      return <span className="ml-2 text-sm text-red-600">X Cantidad Sobrepasada</span>;
+    }
+    return null;
+  };
+
+  const isSaveDisabled = totalReceived > (parseInt(lotData.eQuantity) || 0);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -113,8 +135,11 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
               <TableRow>
                 <TableCell>{lotData.articleNumber || "0"}</TableCell>
                 <TableCell>{lotData.eQuantity || "0"}</TableCell>
-                <TableCell>{lotData.received || "0"}</TableCell>
-                <TableCell>${lotData.unitPrice || "$0"}</TableCell>
+                <TableCell>
+                  {totalReceived}
+                  {getQuantityIndicator()}
+                </TableCell>
+                <TableCell>${lotData.unitPrice || "0"}</TableCell>
                 <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>
               </TableRow>
             </TableBody>
@@ -138,16 +163,17 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
                     <TableCell key={header.key}>
                       {header.key !== 'actions' ? (
                         <InputForm
+                        className={"w-[100px]"}
                           value={row[header.key] || ""}
                           onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
                         />
                       ) : (
                         <Button
                           type="button"
-                         className="bg-transparent p-0 hover:bg-transparent"
+                          className="bg-transparent p-0 hover:bg-transparent"
                           onClick={() => handleDeleteRow(row.auxId)}
                         >
-                          <IonIcon  size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
+                          <IonIcon size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
                         </Button>
                       )}
                     </TableCell>
@@ -170,7 +196,11 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
               />
             </Button>
           
-            <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={handleSave}>
+            <Button 
+              className="bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" 
+              onClick={handleSave}
+              disabled={isSaveDisabled}
+            >
               Save
             </Button>
           </div>
