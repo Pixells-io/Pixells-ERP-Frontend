@@ -299,6 +299,7 @@ import EditBank, {
 import EditBankAccount, {
   Action as updateBankAccount,
 } from "./pages/BankManagement/Accounts/Edit/EditBankAccount";
+import MainPlan from "./pages/BankManagement/Plan/MainPlan";
 
 //Client Platform
 import LoginClient, {
@@ -1101,6 +1102,10 @@ const router = createBrowserRouter([
             path: "/bank-management/payment/record/:id",
             element: <PaymentRecord />,
           },
+          {
+            path: "/bank-management/plan",
+            element: <MainPlan />
+          }
         ],
       },
       //Acounting

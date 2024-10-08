@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { bagCheck, cash, card, newspaper } from "ionicons/icons";
+import { bagCheck, cash, card, newspaper, albums } from "ionicons/icons";
 import TopMenu from "../Masters/Menus/TopMenu";
 
 function SideLayoutBankManag() {
@@ -41,6 +41,24 @@ function SideLayoutBankManag() {
                 <div>
                   <p className="text-base font-medium">Cuentas</p>
                   <p className="text-[10px] font-medium">Bancarias</p>
+                </div>
+              </div>
+            </NavLink>
+
+            <NavLink
+              to="/bank-management/plan"
+              className={({ isActive }) =>
+                isActive &&
+                (location.pathname === "/bank-management/plan")
+                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
+                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
+              }
+            >
+              <div className="flex items-center gap-6">
+                <IonIcon icon={albums} size="large"></IonIcon>
+                <div>
+                  <p className="text-base font-medium">Plan</p>
+                  <p className="text-[10px] font-medium">De Flujo de Efectivo</p>
                 </div>
               </div>
             </NavLink>
