@@ -378,7 +378,9 @@ import {
   getWarehouses,
   getWarehouse,
 } from "./pages/Inventory/GeneralWarehouses/utils";
-import MainMerchandiseMovements from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
+import MainMerchandiseMovements, {
+  Action as multiActionsInventoryMovements,
+} from "./pages/Inventory/MerchandiseMovements/MainMerchandiseMovements";
 import {
   getCatalogs,
   getInfoTransfer,
@@ -393,7 +395,9 @@ import NewDirectTransfer, {
   Action as saveStockTransfer,
 } from "./pages/Inventory/MerchandiseMovements/Transfer/Direct/DirectTransfer";
 import TransferDetails from "./pages/Inventory/MerchandiseMovements/Transfer/Record/TransferDetails";
-import TransferEntry from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
+import TransferEntry, {
+  Action as stockTransferEntryActions,
+} from "./pages/Inventory/MerchandiseMovements/Transfer/Entry/TransferEntry";
 import TraceabilityTransfer from "./pages/Inventory/MerchandiseMovements/Transfer/Record/MovTraceability/Traceability";
 import MaterialWarehouse from "./pages/Inventory/StockItems/RawMaterial/RawMaterial";
 import MainGoodsReceipt from "./pages/Inventory/GoodsReceipt/MainGoodsReceipt";
@@ -1277,6 +1281,7 @@ const router = createBrowserRouter([
             path: "/inventory/merchandise-movements",
             element: <MainMerchandiseMovements />,
             loader: getStocksMovements,
+            action: multiActionsInventoryMovements,
           },
           {
             path: "/inventory/merchandise-movements/entry/new",
@@ -1315,10 +1320,12 @@ const router = createBrowserRouter([
             path: "/inventory/merchandise-movements/transfer/entry/:id",
             element: <TransferEntry />,
             loader: getTransfer,
+            action: stockTransferEntryActions,
           },
           {
             path: "/inventory/merchandise-movements/transfer/record/:id",
             element: <TransferDetails />,
+            loader: getTransfer,
           },
           {
             path: "/inventory/merchandise-movements/transfer/traceability/:id",
@@ -1326,15 +1333,15 @@ const router = createBrowserRouter([
           },
           {
             path: "/inventory/goods-receipt",
-            element:<MainGoodsReceipt/>,
+            element: <MainGoodsReceipt />,
           },
           {
             path: "/inventory/goods-receipt/deliveries/details/:id",
-            element:<DeliveryDetails/>
+            element: <DeliveryDetails />,
           },
           {
             path: "/inventory/traceability-reports/create",
-            element:<CreateTraceability/>,
+            element: <CreateTraceability />,
           },
           {
             path: "/inventory/prices-lists",

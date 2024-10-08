@@ -9,57 +9,14 @@ import {
   print,
   closeCircle,
 } from "ionicons/icons";
-
-import StatusInformation from "@/components/StatusInformation/status-information";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { MerchandiseRecordColumns } from "./Table/MerchandiseRecordColumns";
-import NoDocument from "../../Components/NoDocument";
-import OnlyTable from "../../Components/OnlyTable";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
-const dataInfo = [
-  {
-    id: 1,
-    articleNumber: "239846",
-    description: "Aceite Vegetal",
-    receivedQuantity: "8",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén MP",
-  },
-  {
-    id: 2,
-    articleNumber: "239847",
-    description: "Aceite Vegetal",
-    receivedQuantity: "5",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén PM",
-  },
-  {
-    id: 3,
-    articleNumber: "239848",
-    description: "Aceite Vegetal",
-    receivedQuantity: "8",
-    unitPrice: "55.00",
-    total: "550.00",
-    ubication: "Almacén MP",
-  },
-];
+import InputRouter from "@/layouts/Masters/FormComponents/input";
 
 function MerchandiseMovRecord() {
   const { data } = useLoaderData();
   const [info, setInfo] = useState(data);
 
-  console.log(info);
+  console.log(info.slots);
 
   return (
     <div className="flex w-full">
@@ -127,32 +84,56 @@ function MerchandiseMovRecord() {
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-between rounded-xl bg-blancoBg px-12 py-4">
+        <div className="w-full items-center justify-between rounded-xl bg-blancoBg px-12 py-4">
           <div className="flex w-full gap-x-8">
             <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Tipo:
-              </span>
-              <br />
               {info.movement_type === "1" ? (
-                <span className="font-roboto text-sm text-grisHeading">
-                  Entrada de Compras
-                </span>
+                <InputRouter
+                  value={"Entrada de Compras"}
+                  placeholder={"Tipo"}
+                  disabled={true}
+                />
               ) : info.movement_type === "2" ? (
-                <span className="font-roboto text-sm text-grisHeading">
-                  Entrada de Production
-                </span>
+                <InputRouter
+                  value={"Entrada de Production"}
+                  placeholder={"Tipo"}
+                  disabled={true}
+                />
               ) : info.movement_type === "3" ? (
-                <span className="font-roboto text-sm text-grisHeading">
-                  Transferencia
-                </span>
+                <InputRouter
+                  value={"Transferencia"}
+                  placeholder={"Tipo"}
+                  disabled={true}
+                />
               ) : info.movement_type === "4" ? (
-                <span className="font-roboto text-sm text-grisHeading">
-                  Salida a Produccion
-                </span>
+                <InputRouter
+                  value={"ESalida a Produccion"}
+                  placeholder={"Tipo"}
+                  disabled={true}
+                />
               ) : (
                 false
               )}
+            </div>
+            <div>
+              {info.inventory_out != null ? (
+                <InputRouter
+                  value={info.inventory_in}
+                  placeholder={"Almacen Entrante"}
+                  disabled={true}
+                />
+              ) : (
+                <span className="font-roboto text-sm text-grisHeading">
+                  N/A
+                </span>
+              )}
+            </div>
+            <div>
+              <InputRouter
+                value={info.receive_date}
+                placeholder={"Fecha de Entrada"}
+                disabled={true}
+              />
             </div>
             <div>
               <span className="font-roboto text-sm font-normal text-[#696974]">
@@ -191,65 +172,22 @@ function MerchandiseMovRecord() {
                 false
               )}
             </div>
+          </div>
+          <div className="mt-6 flex w-full gap-x-8">
             <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Almacen Saliente:
-              </span>
-              <br />
-              {info.inventory_in != null ? (
-                <span
-                  className="line-clamp-1 font-roboto text-sm text-grisHeading"
-                  title={info.inventory_in}
-                >
-                  {info.inventory_in}
-                </span>
-              ) : (
-                <span className="font-roboto text-sm text-grisHeading">
-                  N/A
-                </span>
-              )}
+              <InputRouter
+                value={info.comment}
+                placeholder={"Comentarios"}
+                disabled={true}
+                titlePlaceholder={info.comment}
+              />
             </div>
             <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Almacen Entrante:
-              </span>
-              <br />
-              {info.inventory_out != null ? (
-                <span
-                  className="line-clamp-1 font-roboto text-sm text-grisHeading"
-                  title={info.inventory_out}
-                >
-                  {info.inventory_out}
-                </span>
-              ) : (
-                <span className="font-roboto text-sm text-grisHeading">
-                  N/A
-                </span>
-              )}
-            </div>
-            <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Fecha:
-              </span>
-              <br />
-              <span
-                className="line-clamp-1 font-roboto text-sm text-grisHeading"
-                title={info.receive_date}
-              >
-                {info.receive_date}
-              </span>
-            </div>
-            <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Comentario:
-              </span>
-              <br />
-              <span
-                className="line-clamp-1 font-roboto text-sm text-grisHeading"
-                title={info.comment}
-              >
-                {info.comment}
-              </span>
+              <InputRouter
+                value={info.rel_id}
+                placeholder={"Relacion:"}
+                disabled={true}
+              />
             </div>
             <div>
               <span className="font-roboto text-sm font-normal text-[#696974]">
@@ -265,23 +203,70 @@ function MerchandiseMovRecord() {
                 </div>
               </div>
             </div>
-            <div>
-              <span className="font-roboto text-sm font-normal text-[#696974]">
-                Relacion:
-              </span>
-              <br />
-              <span
-                className="line-clamp-1 font-roboto text-sm text-grisHeading"
-                title={info.rel_id}
-              >
-                {info.rel_id}
-              </span>
-            </div>
           </div>
         </div>
 
         <div className="rounded-xl bg-blancoBg p-4">
-          <OnlyTable data={info.slots} columns={MerchandiseRecordColumns} />
+          {/* HEADER */}
+          <div className="flex border-b-2 border-b-primarioBotones text-sm font-normal">
+            <div className="w-2/12 px-4 py-4 font-normal text-grisText">
+              <span>Numero Artículo</span>
+            </div>
+            <div className="w-5/12 px-4 py-4 font-normal text-grisText">
+              <span>Descripción</span>
+            </div>
+            <div className="w-1/12 px-4 py-4 font-normal text-grisText">
+              <span>Recibido</span>
+            </div>
+            <div className="w-2/12 px-4 py-4 font-normal text-grisText">
+              <span>Precio Unitario</span>
+            </div>
+            <div className="w-2/12 px-4 py-4 font-normal text-grisText">
+              <span>Total</span>
+            </div>
+          </div>
+          {/* Body */}
+          {info.slots?.map((product, i) => (
+            <div className="flex border-b-2 border-[#D7D7D7] text-sm font-normal">
+              <div className="w-2/12 px-4 py-4">
+                <InputRouter
+                  disabled={true}
+                  value={product.code}
+                  titlePlaceholder={product.code}
+                />
+              </div>
+              <div className="w-5/12 px-4 py-4">
+                <InputRouter
+                  disabled={true}
+                  value={product.name}
+                  titlePlaceholder={product.name}
+                />
+              </div>
+              <div className="w-1/12 px-4 py-4">
+                <InputRouter
+                  disabled={true}
+                  value={product.received_quantity}
+                  titlePlaceholder={product.received_quantity}
+                />
+              </div>
+              <div className="w-2/12 px-4 py-4 font-normal text-grisText">
+                <InputRouter
+                  disabled={true}
+                  type={"number"}
+                  value={product.price}
+                  titlePlaceholder={product.price}
+                />
+              </div>
+              <div className="w-2/12 px-4 py-4 font-normal text-grisText">
+                <InputRouter
+                  disabled={true}
+                  type={"number"}
+                  value={product.price * product.received_quantity}
+                  titlePlaceholder={product.price * product.received_quantity}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

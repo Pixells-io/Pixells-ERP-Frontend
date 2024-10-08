@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IonIcon } from "@ionic/react";
 import {
@@ -7,7 +7,7 @@ import {
   informationCircleOutline,
 } from "ionicons/icons";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import ModalCancelTransfer from "../Entry/Modal/ModalCancelTransfer";
 
 export const MovTransferColumns = [
   {
@@ -34,9 +34,37 @@ export const MovTransferColumns = [
     header: "ESTATUS",
     cell: ({ row }) => (
       <div className="flex items-center">
-        <span className="rounded-2xl bg-blue-100 px-2 py-1 text-primario">
-          Enviado
-        </span>
+        {row?.original?.status == 1 ? (
+          <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario">
+            Pendiente
+          </span>
+        ) : row?.original?.status == 2 ? (
+          <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario">
+            Enviado
+          </span>
+        ) : row?.original?.status == 3 ? (
+          <span className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600">
+            Recibido
+          </span>
+        ) : row?.original?.status == 4 ? (
+          <span className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600">
+            Parcial
+          </span>
+        ) : row?.original?.status == 5 ? (
+          <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600">
+            Problema
+          </span>
+        ) : row?.original?.status == 6 ? (
+          <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600">
+            Cancelado
+          </span>
+        ) : row?.original?.status == 7 ? (
+          <span className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600">
+            Completo
+          </span>
+        ) : (
+          false
+        )}
       </div>
     ),
   },
@@ -86,15 +114,30 @@ export const MovTransferColumns = [
     ),
     cell: ({ row }) => (
       <div className="flex justify-center gap-4">
-        <Link
-          to={`/inventory/merchandise-movements/transfer/entry/${row.original?.id}`}
-        >
-          <IonIcon
-            icon={checkmarkCircleOutline}
-            className="h-5 w-5 text-[#44444f]"
-          />
-        </Link>
-        <IonIcon icon={closeCircleOutline} className="h-5 w-5 text-[#44444f]" />
+        {row?.original?.status == 2 ? (
+          <>
+            <Link
+              to={`/inventory/merchandise-movements/transfer/entry/${row?.original?.id}`}
+            >
+              <IonIcon
+                icon={checkmarkCircleOutline}
+                className="h-5 w-5 text-[#44444f]"
+              />
+            </Link>
+            <ModalCancelTransfer transfer_id={row?.original?.id} />
+          </>
+        ) : (
+          <>
+            <Link
+              to={`/inventory/merchandise-movements/transfer/record/${row?.original?.id}`}
+            >
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#44444f]"
+              />
+            </Link>
+          </>
+        )}
       </div>
     ),
   },

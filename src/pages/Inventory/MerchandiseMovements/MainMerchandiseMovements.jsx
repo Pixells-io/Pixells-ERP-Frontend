@@ -7,9 +7,9 @@ import { MovEntryColumns } from "./Entry/Table/MovEntryColumns";
 import { MovEgressColumns } from "./Egress/Table/MovEgressColumns";
 import { MovTransferColumns } from "./Transfer/Table/MovTransferColumns";
 import MenuMovements from "./Components/MenuDrop";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, redirect, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { getCatalogById, getCatalogs } from "./utils";
+import { cancelStockTransfer } from "./utils";
 import { MovEntryColumnsPending } from "./Entry/Table/MovEntryColumnsPending";
 
 function MainMerchandiseMovements() {
@@ -174,8 +174,14 @@ function MainMerchandiseMovements() {
                   isCheckAll={true}
                 />
               </TabsContent>
-              <TabsContent value="transfers" className="mt-4 w-full pt-2">
-                <span>OTRA TABLA</span>
+              <TabsContent value="transfers" className="mt-[-70px] w-full pt-2">
+                <DataTable
+                  data={info.transfer_all}
+                  columns={MovTransferColumns}
+                  searchNameFilter={"Nombre"}
+                  searchFilter={"name"}
+                  isCheckAll={true}
+                />
               </TabsContent>
             </Tabs>
           </TabsContent>
@@ -186,3 +192,17 @@ function MainMerchandiseMovements() {
 }
 
 export default MainMerchandiseMovements;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  const action = data.get("type_option");
+
+  switch (action) {
+    case "cancel_transfer":
+      await cancelStockTransfer(data);
+      return redirect("/inventory/merchandise-movements");
+      break;
+
+    default:
+  }
+}
