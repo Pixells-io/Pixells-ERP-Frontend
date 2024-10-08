@@ -469,6 +469,8 @@ import QuotesForm, {
   Action as createSaleQuotes,
 } from "./pages/Sales/Quotes/New/QuotesForm";
 import { multiLoaderListQuotes } from "./pages/Sales/Quotes/utils";
+import OrderEditor from "./pages/Sales/Order/EditOrder/OrderEditor";
+import OrderPDF from "./pages/Sales/Components/DocFormat/DocumentOrder";
 
 //Shopping
 import SideLayoutShopping from "./layouts/Shopping/SideLayoutShopping";
@@ -1466,10 +1468,19 @@ const router = createBrowserRouter([
             element: <MainOrders />,
           },
           {
+            path: "/sales/orders/edit/:id",
+            element: <OrderEditor />,
+            loader: multiLoaderListOrders,
+          },
+          {
             path: "/sales/orders/new",
             element: <OrderForm />,
             loader: multiLoaderListOrders,
             action: createSaleOrders,
+          },
+          {
+            path: "/sales/orders/document/:id",
+            element: <OrderPDF />,
           },
           {
             path: "/sales/quotes",
@@ -1484,6 +1495,7 @@ const router = createBrowserRouter([
           {
             path: "/sales/quotes/edit/:id",
             element: <QuotesDetails />,
+            loader: multiLoaderListQuotes,
           },
           {
             path: "/sales/quotes/document/:id",

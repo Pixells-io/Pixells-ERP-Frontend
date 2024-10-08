@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import DatePicker from "@/components/DatePickerStyle/DatePicker";
+import { useLocation } from "react-router-dom";
 /**
  * initialItems -> Lista de items para cargar en tabla
  * isEditable - True -> permite realizar las acciones de la tabla
@@ -66,6 +67,7 @@ const QuoteTable = ({
     total: "0.00",
   };
   const [allProductsOrServices, setAllProductsOrServices] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     const auxProductsOrServices = [...allProductsOrServices];
@@ -85,7 +87,7 @@ const QuoteTable = ({
   }, [expirationDate]);
 
   const changeValueDiscountByGeneral = () => {
-    if (tableData.length > 0) {
+    if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
@@ -103,7 +105,7 @@ const QuoteTable = ({
   };
 
   const changeValueExpirationDateInInputs = () => {
-    if (tableData.length > 0) {
+    if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
@@ -329,7 +331,16 @@ const QuoteTable = ({
                     />
 
                     {!!row["id"] ? (
-                      <label>{row["product"].label}</label>
+                      <>
+                        <Input
+                          className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                          value={row["product"].label || ""}
+                          readOnly={!isEditable}
+                        />
+                        <p className="pl-3.5 font-roboto text-[10px] font-normal text-grisDisabled">
+                          {row["type"] == "1" ? "Producto" : "Servicio"}
+                        </p>
+                      </>
                     ) : (
                       <div className="flex flex-col pt-[4px]">
                         <Select

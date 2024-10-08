@@ -10,8 +10,8 @@ import {
  * Component for total, comments and taxes
  *
  */
-const Total = ({ tableData, comment, isShipping }) => {
-  const [totalShipping, setTotalShipping] = useState("0.00");
+const Total = ({ tableData, comment, isShipping, shipping }) => {
+  const [totalShipping, setTotalShipping] = useState(shipping || "0.00");
 
   useEffect(() => {
     if(!isShipping){
