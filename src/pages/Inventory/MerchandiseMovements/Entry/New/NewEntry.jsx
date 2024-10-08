@@ -211,7 +211,6 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("requestNumber", value)
                   }
-                  required
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -239,7 +238,6 @@ function NewEntry() {
                       onValueChange={(value) =>
                         handleSelectChange("fromWarehouse", value)
                       }
-                      required
                     >
                       <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                         <SelectValue />
@@ -269,7 +267,7 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("toWarehouse", value)
                   }
-                  required
+                 required={initialData.toWarehouse !=""}
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -373,7 +371,7 @@ function NewEntry() {
                   type="hidden"
                   name="rel_id"
                   value={initialData.requestNumber}
-                  required
+                  
                 />
                 <input
                   type="hidden"
@@ -384,13 +382,13 @@ function NewEntry() {
                   type="hidden"
                   name="inventory_in"
                   value={initialData.fromWarehouse}
-                  required
+                  
                 />
                 <input
                   type="hidden"
                   name="inventory_out"
                   value={initialData.toWarehouse}
-                  required
+                  
                 />
                 <input type="hidden" name="comment" value={comments} />
                 <input
