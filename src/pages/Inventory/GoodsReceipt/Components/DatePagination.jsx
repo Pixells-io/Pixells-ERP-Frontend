@@ -40,7 +40,7 @@ const DatePagination = () => {
   };
 
   return (
-    <div className="flex items-center justify-between px-4 py-2 rounded-full">
+    <div className="flex items-center justify-evenly px-4 py-2 rounded-full">
       <Button variant="ghost" size="icon" className="w-8 h-8" onClick={() => navigateDate(-1)}>
         <ChevronLeft className="h-4 w-4" />
       </Button>
@@ -56,7 +56,7 @@ const DatePagination = () => {
             <div className="text-xs font-medium">
               {isToday(date) ? (
                 <>
-                  <div className="text-[10px] leading-tight">HOY</div>
+                  <div className="text-[10px] rounded-[10px] border-[#44444F] leading-tight">HOY</div>
                   <div>{formatDate(date)}</div>
                 </>
               ) : (
