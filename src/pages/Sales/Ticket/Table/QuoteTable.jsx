@@ -124,7 +124,7 @@ const QuoteTable = ({
   }, [expirationDate]);
 
   const changeValueDiscountByGeneral = () => {
-    if (tableData.length > 0) {
+    if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
@@ -142,7 +142,7 @@ const QuoteTable = ({
   };
 
   const changeValueExpirationDateInInputs = () => {
-    if (tableData.length > 0) {
+    if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
@@ -407,7 +407,22 @@ const QuoteTable = ({
                     />
 
                     {!!row["id"] ? (
-                      <label>{row["product"].label}</label>
+                      <div className="flex flex-col pt-[4px]">
+                        <Input
+                          className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                          value={row["product"].label || ""}
+                          readOnly={!isEditable}
+                        />
+                        <p className="pl-3.5 font-roboto text-[10px] font-normal text-grisDisabled">
+                          {row["type"] == "1" ? "Producto" : "Servicio"}
+                          {row["type"] == "1" && (
+                            <>
+                              &nbsp;&bull;&nbsp;
+                              {row["wharehouseName"]}
+                            </>
+                          )}
+                        </p>
+                      </div>
                     ) : (
                       <div className="flex flex-col pt-[4px]">
                         <Select
@@ -507,6 +522,7 @@ const QuoteTable = ({
                       name={`delivery_date[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className={"w-fit text-[11px] font-normal"}
                       required={false}
+                      disabled={!isEditable}
                     />
                   </div>
                 </TableCell>

@@ -48,6 +48,7 @@ function DatePicker({
               "flex h-[32px] items-center gap-x-1 rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f]",
               className,
             )}
+            type="button"
           >
             {value ? format(value, "PP") : <span>{title}</span>}
             <CalendarIcon className="mr-2 h-4 w-4" />
