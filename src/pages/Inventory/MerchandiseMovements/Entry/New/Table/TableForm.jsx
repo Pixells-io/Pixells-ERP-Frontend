@@ -179,11 +179,6 @@ const TableForm = ({
         ),
       },
       {
-        accessorKey: "expectedQuantity",
-        header: "Cantidad esperada",
-        cell: ({ row }) => <div>{row?.eQuantity}</div>,
-      },
-      {
         accessorKey: "batchManagement",
         header: "Gestionar por lotes",
         cell: ({ row, rowIndex }) => (
@@ -194,10 +189,16 @@ const TableForm = ({
         ),
       },
       {
+        accessorKey: "expectedQuantity",
+        header: "Cantidad esperada",
+        cell: ({ row }) => <div>{row?.eQuantity}</div>,
+      },
+    
+      {
         accessorKey: "receivedQuantity",
         header: "Recibido",
         cell: ({ row, rowIndex }) =>
-          !row.hideReceivedAndLocation && (
+        
             <Input
               type="number"
               className={`border-gris2-transparent h-auto w-full max-w-[140px] bg-inherit p-1 font-roboto text-[14px] focus-visible:ring-primarioBotones ${
@@ -213,9 +214,9 @@ const TableForm = ({
               onChange={(e) =>
                 handleInputChange(rowIndex, "receivedQuantity", e.target.value)
               }
-              disabled={!isEditable}
+              disabled={!isEditable||row.hideReceivedAndLocation}
             />
-          ),
+          
       },
       {
         accessorKey: "slots",
@@ -250,43 +251,40 @@ const TableForm = ({
       {
         accessorKey: "ubication_id",
         header: "Ubicación",
-        cell: ({ row, rowIndex }) =>
-          !row.hideReceivedAndLocation && (
-            <div className="flex items-center justify-between gap-x-2">
-              <Select
-                name={`selectComponent-ubication-${rowIndex}`}
-                className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
-                onValueChange={(value) => handleDataInRow(value, rowIndex)}
-                value={row?.ubication_id}
-                disabled={!isEditable}
-              >
-                <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                  <SelectValue placeholder="Ubicación" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.isArray(locations) &&
-                    locations.map((location) => (
-                      <SelectItem
-                        key={location.id}
-                        value={location.id.toString()}
-                      >
-                        {location.name}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
-              {isEditable && (
-                <button type="button" onClick={() => deleteRowId(row.idAux)}>
-                  <IonIcon
-                    icon={closeCircle}
-                    size="small"
-                    className="cursor-pointer text-grisDisabled"
-                  ></IonIcon>
-                </button>
-              )}
-            </div>
-          ),
-      },
+        cell: ({ row, rowIndex }) => (
+          <div className="flex items-center justify-between gap-x-2">
+            <Select
+              name={`selectComponent-ubication-${rowIndex}`}
+              className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones"
+              onValueChange={(value) => handleDataInRow(value, rowIndex)}
+              value={row?.ubication_id}
+              disabled={!isEditable || row.hideReceivedAndLocation} // Deshabilitar si la fila está bloqueada
+            >
+              <SelectTrigger className="border-gris2-transparent h-auto w-full max-w-[140px] rounded-lg border bg-inherit p-1 font-roboto text-[14px] text-black placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue placeholder="Ubicación" />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.isArray(locations) &&
+                  locations.map((location) => (
+                    <SelectItem key={location.id} value={location.id.toString()}>
+                      {location.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+            {isEditable && (
+              <button type="button" onClick={() => deleteRowId(row.idAux)}>
+                <IonIcon
+                  icon={closeCircle}
+                  size="small"
+                  className="cursor-pointer text-grisDisabled"
+                ></IonIcon>
+              </button>
+            )}
+          </div>
+        ),
+      }
+      
     ],
     [
       handleInputChange,
