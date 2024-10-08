@@ -26,7 +26,7 @@ import { getCatalogById, saveStockMovement } from "../../utils";
 function NewEntry() {
   const data = useLoaderData();
   const { warehouses, categories, catalogs, products, locations } = data;
-  
+
   const [selectedCatalog, setSelectedCatalog] = useState(null);
 
   const [initialData, setInitialData] = useState({
@@ -107,11 +107,15 @@ function NewEntry() {
           });
           setCommodity(formattedData);
         }
+      } else {
+        // Si no hay orden seleccionada, establecer commodity como un array vacío
+        setCommodity([]);
       }
     }
 
     fetchCatalog();
   }, [selectedCatalog]);
+
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -207,7 +211,6 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("requestNumber", value)
                   }
-                  required
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -235,7 +238,6 @@ function NewEntry() {
                       onValueChange={(value) =>
                         handleSelectChange("fromWarehouse", value)
                       }
-                      required
                     >
                       <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                         <SelectValue />
@@ -265,7 +267,7 @@ function NewEntry() {
                   onValueChange={(value) =>
                     handleSelectChange("toWarehouse", value)
                   }
-                  required
+                 required={initialData.toWarehouse !=""}
                 >
                   <SelectTrigger className="border-gris2-transparent h-[32px] w-full rounded-xl">
                     <SelectValue />
@@ -369,6 +371,7 @@ function NewEntry() {
                   type="hidden"
                   name="rel_id"
                   value={initialData.requestNumber}
+                  
                 />
                 <input
                   type="hidden"
@@ -379,11 +382,13 @@ function NewEntry() {
                   type="hidden"
                   name="inventory_in"
                   value={initialData.fromWarehouse}
+                  
                 />
                 <input
                   type="hidden"
                   name="inventory_out"
                   value={initialData.toWarehouse}
+                  
                 />
                 <input type="hidden" name="comment" value={comments} />
                 <input
@@ -412,6 +417,7 @@ function NewEntry() {
                     })),
                   )}
                 />
+
                 <div className="justify-between gap-3 lg:flex">
                   <Button
                     type="button"
