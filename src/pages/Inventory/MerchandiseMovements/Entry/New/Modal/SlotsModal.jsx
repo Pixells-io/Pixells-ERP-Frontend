@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import InputForm from "@/components/InputForm/InputForm";
 import { IonIcon } from "@ionic/react";
-import { addCircle } from "ionicons/icons";
+import { addCircle, closeCircle } from "ionicons/icons";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -52,6 +52,14 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
     setAssignmentData(newData);
   };
 
+  const handleDeleteRow = (auxId) => {
+    if (assignmentData.length <= 1) {
+      return;
+    }
+    const newData = assignmentData.filter(row => row.auxId !== auxId);
+    setAssignmentData(newData);
+  };
+
   const handleSave = () => {
     const updatedBatches = assignmentData.map(batch => ({
       id: batch.id,
@@ -65,19 +73,18 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
   const totalPages = Math.ceil(assignmentData.length / ITEMS_PER_PAGE);
   const paginatedData = assignmentData.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-  const articleHeaders = [
-    { key: 'checkbox', label: '', width: '40px' },
+  const articleHeaders = [,
     { key: 'articleNumber', label: 'Número Artículo' },
     { key: 'expectedQuantity', label: 'Cantidad Esperada' },
     { key: 'received', label: 'Recibido' },
     { key: 'unitPrice', label: 'Precio Unitario' },
     { key: 'location', label: 'Ubicación' },
-    { key: 'actions', label: '', width: '40px' }
   ];
 
   const slotHeaders = [
     { key: 'batch', label: 'Lote Interno' },
     { key: 'quantity', label: 'Cantidad' },
+    { key: 'actions', label: 'Acciones', width: '40px' }
   ];
 
   return (
@@ -89,7 +96,7 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 p-4">
-          <h2 className="text-base font-semibold">{description} | Cantidad: {lotData.eQuantity}</h2>
+          <h2 className="text-base font-semibold">{description}</h2>
           
           {/* Article Details Table */}
           <Table>
@@ -104,13 +111,11 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><Checkbox /></TableCell>
                 <TableCell>{lotData.articleNumber || "0"}</TableCell>
                 <TableCell>{lotData.eQuantity || "0"}</TableCell>
                 <TableCell>{lotData.received || "0"}</TableCell>
                 <TableCell>${lotData.unitPrice || "$0"}</TableCell>
                 <TableCell>{location.find(p => p.id === parseInt(lotData.ubication_id))?.name || "Ninguna"}</TableCell>
-                <TableCell></TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -131,10 +136,20 @@ const EntrySlotModal = ({ isOpen, onClose, description, lotData, initialAssignme
                 <TableRow key={row.auxId} className="border-b border-gray-100">
                   {slotHeaders.map((header) => (
                     <TableCell key={header.key}>
-                      <InputForm
-                        value={row[header.key] || ""}
-                        onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
-                      />
+                      {header.key !== 'actions' ? (
+                        <InputForm
+                          value={row[header.key] || ""}
+                          onChange={(e) => handleInputChange(row.auxId, header.key, e.target.value)}
+                        />
+                      ) : (
+                        <Button
+                          type="button"
+                         className="bg-transparent p-0 hover:bg-transparent"
+                          onClick={() => handleDeleteRow(row.auxId)}
+                        >
+                          <IonIcon  size="small" icon={closeCircle} className="cursor-pointer text-grisDisabled"/>
+                        </Button>
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
