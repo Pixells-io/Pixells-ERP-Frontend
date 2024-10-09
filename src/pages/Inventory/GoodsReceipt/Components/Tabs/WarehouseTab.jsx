@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const renderColumn = (title) => (
-  <div className="max-h-[400px] min-w-[250px] overflow-hidden p-2">
+  <div className="max-h-[400px] min-w-[250px] overflow-auto p-2">
    <h2 className="mb-2 flex justify-between rounded border-b p-2">
   <span className="font-semibold font-poppins text-lg text-[#44444F]">{title}</span>
   <div className="flex justify-end">
