@@ -98,7 +98,12 @@ const InfoPayment = ({
                   type="number"
                   className={`w-[93px] rounded-lg border border-grisDisabled px-0 py-1 text-end font-roboto text-[10px] font-normal text-grisSubText ${isDisBalance ? "bg-[#F4F4F4]" : ""} ${balanceClass}`}
                   value={totalShipping}
-                  onChange={(e) => setTotalShipping(e.target.value)}
+                  required={true}
+                  onChange={(e) => {
+                    if(totalShipping >= 0 || totalShipping == ""){
+                      setTotalShipping(e.target.value);
+                    }
+                  }}
                 />
               </>
             )}

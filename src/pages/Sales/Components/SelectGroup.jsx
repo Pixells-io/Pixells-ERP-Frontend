@@ -117,7 +117,7 @@ const SelectsQuote = ({
           <div className="col-span-2">
             <DatePicker
               title={"MM/DD/YYYY"}
-              value={inputValue?.expiration_date}
+              value={inputValue?.expiration_date || ""}
               name={`expiration_date`}
               className={"w-full text-xs font-normal"}
               required={true}

@@ -498,7 +498,7 @@ const QuoteTable = ({
                       }
                       name={`delivery_date[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className={"w-fit text-[11px] font-normal"}
-                      required={false}
+                      required={true}
                       disabled={!isEditable}
                     />
                   </div>
