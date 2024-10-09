@@ -37,29 +37,6 @@ function NewFormula() {
   const { data } = useLoaderData();
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0);
-
-  const [variables, setVariables] = useState([]);
-
-  const [energetics, setEnergetics] = useState([]);
-  const [totalEnergetics, setTotalEnergetics] = useState(0);
-
-  const [packages, setPackages] = useState([]);
-  const [totalPackages, setTotalPackages] = useState(0);
-
-  const [crate, setCrate] = useState([]);
-  const [totalCrate, setTotalCrate] = useState(0);
-
-  const [subProducts, setSubProducts] = useState([]);
-  const [totalSubProducts, setSubTotalProducts] = useState(0);
-
-  const [proceso, setProceso] = useState([]);
-  const [totalProceso, setTotalProceso] = useState(0);
-
-  const [personal, setPersonal] = useState([]);
-  const [totalPersonal, setTotalPersonal] = useState(0);
-
   const [newFormula, setNewFormula] = useState({
     product_id: "",
     quantity: "",
@@ -133,6 +110,29 @@ function NewFormula() {
     ],
   });
 
+  const [products, setProducts] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  const [variables, setVariables] = useState([]);
+
+  const [energetics, setEnergetics] = useState([]);
+  const [totalEnergetics, setTotalEnergetics] = useState(0);
+
+  const [packages, setPackages] = useState([]);
+  const [totalPackages, setTotalPackages] = useState(0);
+
+  const [crate, setCrate] = useState([]);
+  const [totalCrate, setTotalCrate] = useState(0);
+
+  const [subProducts, setSubProducts] = useState([]);
+  const [totalSubProducts, setSubTotalProducts] = useState(0);
+
+  const [proceso, setProceso] = useState([]);
+  const [totalProceso, setTotalProceso] = useState(0);
+
+  const [personal, setPersonal] = useState([]);
+  const [totalPersonal, setTotalPersonal] = useState(0);
+
   const productCraft = data.product_craft.map((product) => ({
     label: product.name,
     value: product.id,
@@ -162,6 +162,32 @@ function NewFormula() {
       value: e.id,
     });
   }
+
+  const rows2 = [
+    {
+      name: " - Grande",
+      var: [
+        {
+          attribute: "Tamaños",
+          name: "Grande",
+        },
+      ],
+      id: 15,
+    },
+    {
+      name: " - Grande",
+      var: [
+        {
+          attribute: "Tamaños",
+          name: "Grande",
+        },
+      ],
+      id: 15,
+    },
+  ];
+
+  const rows = ["Row 1", "Row 2", "Row 3"];
+  const columns = ["Col 1", "Col 2", "Col 3"];
 
   return (
     <div className="flex h-full w-full">
@@ -302,9 +328,28 @@ function NewFormula() {
                           Variables
                         </AccordionTrigger>
                         <AccordionContent>
-                          {variables?.map((vari, i) => (
-                            <div key={i}>{vari?.name}</div>
-                          ))}
+                          <div
+                            style={{
+                              display: "grid",
+                              gridTemplateColumns: `repeat(${columns.length}, 1fr)`,
+                              gap: "10px",
+                            }}
+                          >
+                            {rows.map((row, rowIndex) =>
+                              columns.map((col, colIndex) => (
+                                <div
+                                  key={`${rowIndex}-${colIndex}`}
+                                  style={{
+                                    border: "1px solid black",
+                                    padding: "10px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {row} - {col}
+                                </div>
+                              )),
+                            )}
+                          </div>
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
