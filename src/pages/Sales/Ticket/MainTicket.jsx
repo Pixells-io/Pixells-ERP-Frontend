@@ -11,8 +11,8 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 const MainSalesTicket = () => {
-
   const { data } = useLoaderData();
 
   const columns = [
@@ -44,21 +44,35 @@ const MainSalesTicket = () => {
       meta: { filterButton: true },
     },
     {
-      accessorKey: "description",
-      header: "DESCRIPCIÓN",
+      accessorKey: "status",
+      header: "ESTATUS",
+      cell: ({ row }) => (
+        <div>
+          {row?.original?.status == "Creada" ? (
+            <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario">
+              Creada
+            </span>
+          ) : (
+            <span></span>
+          )}
+        </div>
+      ),
     },
     {
       accessorKey: "total",
       header: "TOTAL",
     },
     {
-      accessorKey: "comments",
-      header: "COMENTARIOS",
+      accessorKey: "seller",
+      header: "VENDEDOR",
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <Avatar className="size-7">
+            <AvatarImage src={row?.original?.seller?.img} />
+          </Avatar>
+        </div>
+      ),
     },
-    // {
-    //   accessorKey: "total",
-    //   header: "TOTAL",
-    // },
     {
       id: "acciones",
       header: <div className="text-center">Acciones</div>,
