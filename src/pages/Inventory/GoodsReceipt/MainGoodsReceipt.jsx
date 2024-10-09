@@ -140,7 +140,7 @@ const MainGoodsReceipt = () => {
             </Tabs>
           </TabsContent>
           <TabsContent value="dates" >
-          <div className="h-[calc(100vh-200px)]">
+          <div className="h-[calc(100vh-280px)]">
   <DateTab />
 </div>
           </TabsContent>

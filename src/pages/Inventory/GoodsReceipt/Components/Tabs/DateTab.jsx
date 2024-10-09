@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DatePagination from "../DatePagination";
 import { Button } from "@/components/ui/button";
+
 const Card = ({ title }) => (
   <div
     className="mb-4 ml-2 mr-2 mt-2 rounded-lg bg-white p-4"
@@ -12,9 +13,7 @@ const Card = ({ title }) => (
     <div className="mb-6 mt-6 flex items-center justify-between text-sm">
       <span className="font-roboto text-sm text-[#44444F]">Por Entregar</span>
       <span className="font-roboto text-sm text-[#44444F]">5 a procesar</span>
-      <span className="cursor-pointer font-roboto text-primarioBotones">
-        Ver
-      </span>
+      <span className="cursor-pointer font-roboto text-primarioBotones">Ver</span>
     </div>
   </div>
 );
@@ -45,10 +44,7 @@ const DateTab = () => {
   return (
     <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
       <div className="border-b">
-        <DatePagination
-          onDateChange={handleDateChange}
-          initialDate={selectedDate}
-        />
+        <DatePagination onDateChange={handleDateChange} initialDate={selectedDate} />
       </div>
       <div className="flex-1 overflow-hidden">
         <div className="flex flex-wrap justify-between">
@@ -97,21 +93,15 @@ const DateTab = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 overflow-hidden">
-        <div className="flex flex-wrap">
-          <div className="max-h-[400px] min-w-[250px] flex-1 overflow-hidden p-2">
-            <div className="w-full flex-1 items-end px-2 pt-4">
-              <div className="mt-20 flex w-full justify-between">
-                <label className="text-xs font-light text-[#8F8F8F]">
-                  Actualizado 07 septiembre 2024
-                </label>
-                <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-                  Listo
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+      
+      {/* Pie de página */}
+      <div className="ml-2 flex w-full items-center justify-between border-t p-4">
+        <label className="text-xs font-light text-[#8F8F8F]">
+          Actualizado 07 septiembre 2024
+        </label>
+        <Button className="h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+          Listo
+        </Button>
       </div>
     </div>
   );
