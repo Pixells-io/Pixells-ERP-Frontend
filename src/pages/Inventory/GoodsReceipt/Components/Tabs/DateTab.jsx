@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePagination from "../DatePagination";
 
 const Card = ({ title }) => (
-  <div className="mb-4 rounded-lg bg-white p-4" style={{ boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.15)' }}>
+  <div className="mb-4 mt-2 ml-2 mr-2 rounded-lg bg-white p-4" style={{ boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.15)' }}>
     <h3 className="mb-2 border-b pb-2 font-poppins font-semibold text-[#44444F]">{title}</h3>
     <div className="mt-6 mb-6 flex items-center justify-between text-sm">
       <span className="font-roboto text-sm text-[#44444F]">Por Entregar</span>
