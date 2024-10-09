@@ -5,6 +5,7 @@ import DataTable from "@/components/table/DataTable";
 import { DeliveriesColumns } from "./Components/Table/DeliveriesColumns";
 import DateTab from "./Components/Tabs/DateTab";
 import WarehouseTab from "./Components/Tabs/WarehouseTab";
+import StatusTab from "./Components/Tabs/StatusTab";
 const MainGoodsReceipt = () => {
   const tabTriggers = [
     { value: "lists", label: "Por Listas" },
@@ -141,7 +142,7 @@ const MainGoodsReceipt = () => {
             </Tabs>
           </TabsContent>
           <TabsContent value="dates">
-            <div className="h-[calc(100vh-280px)]">
+            <div className=" h-[calc(100vh-280px)]">
               <DateTab />
             </div>
           </TabsContent>
@@ -149,8 +150,16 @@ const MainGoodsReceipt = () => {
             value="warehouses"
            
           >
-            <div className="h-[calc(100vh-280px)]">
+            <div className=" h-[calc(100vh-280px)]">
               <WarehouseTab/>
+            </div>
+          </TabsContent>
+
+          <TabsContent
+            value="status"
+          >
+            <div className=" h-[calc(100vh-280px)]">
+              <StatusTab/>
             </div>
           </TabsContent>
         </Tabs>

@@ -35,7 +35,7 @@ const Card = ({ title, id, date, onViewClick, showDetails }) => (
         <div className="flex justify-between p-2">
           <div>
             {" "}
-            <p className=" font-roboto text-sm text-[#44444F]">ID: {id}</p>
+            <p className=" font-roboto text-sm font-semibold text-[#44444F]">ID: {id}</p>
             <p className="mb-2 font-roboto text-sm text-[#44444F]">
               Fecha: {date}
             </p>

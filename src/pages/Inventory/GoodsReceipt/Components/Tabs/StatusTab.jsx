@@ -32,6 +32,7 @@ const Card = ({ title,id ,date}) => (
       style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.15)" }}
     >
       
+
           <div className="flex justify-between p-2">
           <div>
             {" "}
@@ -55,19 +56,19 @@ const Card = ({ title,id ,date}) => (
     </div>
   );
 
-const WarehouseTab = () => {
+const StatusTab = () => {
   return (
     <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
       <div className="border-b">
         <h2 className="font-poppins font-semibold text-xl text-[#44444F] p-4">
-          ENTREGAS POR ALMACÉN
+          ENTREGAS POR ESTATUS
         </h2>
       </div>
 
       <div className="mt-4 grid flex-grow grid-cols-3 gap-4 overflow-hidden">
-      {renderColumn("ALMACEN GDL")}
-      {renderColumn("ALMACEN GDL SUR")}
-      {renderColumn("ALMACEN GDL CENTRO")}
+      {renderColumn("POR ACEPTAR")}
+      {renderColumn("EN PREPARACION")}
+      {renderColumn("POR ENTREGAR")}
       </div>
       <div className="ml-2 flex w-full items-center justify-between border-t p-4">
         <label className="text-xs font-light text-[#8F8F8F]">
@@ -80,4 +81,4 @@ const WarehouseTab = () => {
     </div>
   );
 };
-export default WarehouseTab;
+export default StatusTab;
