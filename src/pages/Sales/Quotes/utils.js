@@ -19,9 +19,9 @@ export async function getSaleQuotes() {
 }
 
 export async function multiLoaderListQuotes() {
-  const [infoCreateSales] = await Promise.all([getInfoCreateSales()]);
+  const [infoCreateSales, products] = await Promise.all([getInfoCreateSales(), getProducts()]);
 
-  return json({ infoCreateSales });
+  return json({ infoCreateSales, products });
 }
 
 export async function getInfoCreateSales() {

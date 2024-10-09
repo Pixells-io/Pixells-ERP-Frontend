@@ -26,12 +26,12 @@ export async function multiLoaderListTickets() {
 
 export async function multiLoaderListEditTickets({ params }) {
   const id = params.id;
-  const [infoCreateSales/*, ticketSale*/] = await Promise.all([
+  const [infoCreateSales, ticketSale] = await Promise.all([
     getInfoCreateSales(),
-    // getTicketSale(id),
+    getTicketSale(id),
   ]);
 
-  return json({ infoCreateSales/*, ticketSale*/ });
+  return json({ infoCreateSales, ticketSale });
 }
 
 export async function getInfoCreateSales() {

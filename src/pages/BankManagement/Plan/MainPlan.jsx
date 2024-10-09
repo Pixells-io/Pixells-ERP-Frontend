@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import "./styles.css";
@@ -10,12 +10,26 @@ import { Button } from "@/components/ui/button";
 
 function MainPlan() {
   const [selectCollection, setSelectCollection] = useState(null);
+  const calendarRef = useRef(null);
+
+  const updateCurrentDate = (event) => {
+    if (calendarRef.current) {
+      setTimeout(() => {
+        const calendarApi = calendarRef.current.getApi();
+        const targetDate = new Date(event.event.start);
+        calendarApi.gotoDate(targetDate);
+      }, 1000);
+    }
+  };
 
   function renderEventContent(eventInfo) {
     return (
       <div
         className="flex h-full w-full flex-1 cursor-pointer flex-col items-center justify-center gap-y-3 hover:bg-[#F6F6F6]"
-        onClick={() => setSelectCollection("hola")}
+        onClick={() => {
+          setSelectCollection(eventInfo);
+          updateCurrentDate(eventInfo);
+        }}
       >
         <span
           className="font-poppins text-sm font-light text-[#00A259]"
@@ -81,17 +95,25 @@ function MainPlan() {
         <div className="flex w-full overflow-auto">
           <div className="w-full bg-blancoBg">
             <FullCalendar
+              ref={calendarRef}
               plugins={[multiMonthPlugin, dayGridPlugin]}
               locale="es"
               initialView="multiMonthYear"
               multiMonthMaxColumns={1}
-              editable={true}
+              editable={false}
               events={[
                 {
                   title: "hola",
                   date: "2024-10-09",
                   collect: "- $32,000.00",
                   pay: "+ $57,000.00",
+                  allDay: true,
+                },
+                {
+                  title: "hola",
+                  date: "2024-06-09",
+                  collect: "- $323,000.00",
+                  pay: "+ $557,000.00",
                   allDay: true,
                 },
               ]}
@@ -199,7 +221,10 @@ function MainPlan() {
                       <Button
                         className="h-[31px] rounded-xl bg-[#E0E0E0] px-8 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                         type="button"
-                        onClick={() => setSelectCollection(null)}
+                        onClick={() => {
+                          updateCurrentDate(selectCollection);
+                          setSelectCollection(null);
+                        }}
                       >
                         Listo
                       </Button>

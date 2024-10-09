@@ -11,7 +11,7 @@ import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const MainSalesTicket = () => {
   const { data } = useLoaderData();
 
@@ -68,7 +68,11 @@ const MainSalesTicket = () => {
       cell: ({ row }) => (
         <div className="flex justify-center">
           <Avatar className="size-7">
-            <AvatarImage src={row?.original?.seller?.img} />
+            <AvatarImage
+              src={row?.original?.seller?.img}
+              title={row?.original?.seller?.name}
+            />
+            <AvatarFallback>hola</AvatarFallback>
           </Avatar>
         </div>
       ),

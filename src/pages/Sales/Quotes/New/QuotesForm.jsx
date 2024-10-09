@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SelectsQuote from "../../Components/SelectGroup";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
@@ -10,6 +9,7 @@ import QuoteTable from "../Table/QuoteTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import Total from "../TotalSection/TotalSection";
 import { saveNewQuoteSale } from "../utils";
+import SelectsQuote from "../SelectGroup/SelectGroup";
 
 const OrderForm = () => {
   const navigation = useNavigation();

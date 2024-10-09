@@ -16,57 +16,22 @@ import Total from "../TotalSection/TotalSection";
 import QuoteTable from "../Table/QuoteTable";
 
 const TicketDetails = () => {
-  const { infoCreateSales } = useLoaderData();
+  const { infoCreateSales, ticketSale } = useLoaderData();
 
-  const dataAux = {
-    id: 2,
-    code: "A123",
-    client_id: 10,
-    price_list: 4,
-    seller_id: 4,
-    credit: "0",
-    ccost: 8,
-    expiration_date: "03/11/1997",
-    discount: "10",
-    comment: "Hola",
-    isShipping: true,
-    shipping: "10.00",
-    sales_slots: [
-      {
-        product: {
-          label: "guitarra",
-        },
-        wharehouseName: "Lombriz",
-        code: "1010101",
-        id: 1,
-        type: "1",
-        inventory_stock_id: null,
-        service_id: "14",
-        value: 100,
-        sub_total: "100",
-        discount: "13",
-        taxes: "16",
-        total: "100.92",
-        quantity: "1",
-        delivery_date: "11/03/1998",
-      },
-    ],
-  };
-
-  const url = "/sales/tickets/document/" + dataAux?.id;
+  const url = "/sales/tickets/document/" + ticketSale?.data?.id;
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
-  const [tableData, setTableData] = useState(dataAux?.sales_slots);
+  const [tableData, setTableData] = useState(ticketSale?.data?.slots);
   // const [productOrService, setProductOrService] = useState("service");
   // const [wharehouseSelect, setWharehouseSelect] = useState(null);
   // const [wharehouseName, setWharehouseName] = useState("");
   // const [productsListMap, setProductsListMap] = useState([]);
   // const [productsListInfo, setProductsListInfo] = useState([]);
-  const [discountGeneral, setDiscountGeneral] = useState(dataAux?.discount);
-  const [isShipping, setIsShipping] = useState(dataAux?.isShipping);
+  const [discountGeneral, setDiscountGeneral] = useState(ticketSale?.data?.discount);
+  const [isShipping, setIsShipping] = useState(!ticketSale?.data?.shipping == "0.00");
   const [expirationDate, setExpirationDate] = useState(
-    dataAux?.expiration_date,
+    ticketSale?.data?.expiration_date,
   );
 
   return (
@@ -108,7 +73,7 @@ const TicketDetails = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Ticket/Remisión: {dataAux?.code}
+            Consultando Ticket/Remisión: sin agregar aun
           </p>
           <div className="flex flex-row">
             <Button
@@ -157,7 +122,6 @@ const TicketDetails = () => {
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuote
-                data={dataAux}
                 isEditable={isEditable}
                 clientsList={infoCreateSales?.data?.clients}
                 listPriceList={infoCreateSales?.data?.price_list}
@@ -208,9 +172,9 @@ const TicketDetails = () => {
               </div>
               <Total
                 tableData={tableData}
-                comment={dataAux?.comment}
+                comment={ticketSale?.data?.comment}
                 isShipping={isShipping}
-                shipping={dataAux?.shipping}
+                shipping={ticketSale?.data?.shipping}
               />
             </div>
           </div>
