@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import NavigationHeader from "@/components/navigation-header";
-import { createPusherClient } from "@/lib/pusher";
 import CreateProcessSaleModal from "./components/Modals/CreateProcessSaleModal";
 import {
   DropdownMenu,
@@ -18,7 +17,6 @@ import {
 import { add } from "ionicons/icons";
 import SalesProcessTable from "./components/Table/SalesProcessTable";
 import LeadsTable from "./components/Table/LeadsTable";
-import { getLeads } from "./utils";
 
 function MainCRM() {
   const { leads, process, permissions } = useLoaderData();
@@ -28,32 +26,6 @@ function MainCRM() {
 
   //MODALS STATES
   const [modalCreateProcess, setModalCreateProcess] = useState(false);
-
-  //WEBSOCKET
-  const pusherClient = createPusherClient();
-
-  useEffect(() => {
-    //Socket fot table leads and clients
-    pusherClient.subscribe("private-fill-table-leads");
-
-    pusherClient.bind("make-table-leads", ({ message }) => {
-      getLeadsInfo();
-    });
-
-    //Function Sync Info
-    async function getLeadsInfo() {
-      //Leads
-      let newLeads = await getLeads();
-      setLeadsData(newLeads.data);
-      //Process
-      let newProcess = await getSalesProcess();
-      setProcessData(newProcess.data);
-    }
-
-    return () => {
-      pusherClient.unsubscribe("private-fill-table-leads");
-    };
-  }, []);
 
   //PERMISSIONS
   const [edit, setEdit] = useState(true); //2
