@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 
-const DatePagination = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+const DatePagination = ({ onDateChange, initialDate }) => {
+  const [currentDate, setCurrentDate] = useState(initialDate || new Date());
   const [dateRange, setDateRange] = useState([]);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
@@ -18,11 +18,12 @@ const DatePagination = () => {
 
   useEffect(() => {
     generateDateRange(currentDate);
-  }, [currentDate]);
+    onDateChange(currentDate);
+  }, [currentDate, onDateChange]);
 
   const generateDateRange = (date) => {
     const range = [];
-    for (let i = -5; i <= 5; i++) {
+    for (let i = -4; i <= 5; i++) {
       const newDate = new Date(date);
       newDate.setDate(date.getDate() + i);
       range.push(newDate);
@@ -48,7 +49,7 @@ const DatePagination = () => {
   };
 
   const isMiddleDate = (date, index) => {
-    return index === 5;
+    return index === 4;
   };
 
   const handleCalendarSelect = (date) => {
@@ -57,8 +58,8 @@ const DatePagination = () => {
   };
 
   return (
-    <div className="flex items-center justify-evenly">
-      <div className="flex w-full justify-center">
+    <div className="flex flex-col items-center px-2">
+      <div className="flex justify-between items-center w-full mb-2">
         <Button
           variant="ghost"
           size="icon"
@@ -67,62 +68,66 @@ const DatePagination = () => {
         >
           <IonIcon icon={chevronBack} className="h-4 w-4" />
         </Button>
-        <div className="flex space-x-8">
-          {dateRange.map((date, index) => (
-            <Button
-              key={date.toISOString()}
-              variant="ghost"
-              size="sm"
-              className={`px-2 py-1 font-poppins ${
-                isMiddleDate(date, index)
-                  ? "h-[39px] w-[90px] rounded-[8px] border border-[#44444F] bg-[#E8E8E8] text-sm"
-                  : "h-[35px] w-[63px] text-xs text-[#44444F]"
-              }`}
-              onClick={() => setCurrentDate(date)}
-            >
-              <div className="text-xs font-medium">
-                {isToday(date) ? (
-                  <>
-                    <div className="mb-0 font-poppins text-base font-semibold text-[#44444F]">
-                      HOY
-                    </div>
-                    <div>{formatDate(date)}</div>
-                  </>
-                ) : (
-                  formatDate(date)
-                )}
-              </div>
-            </Button>
-          ))}
+
+        <div className="flex-1 flex justify-center overflow-x-auto">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            {dateRange.map((date, index) => (
+              <Button
+                key={date.toISOString()}
+                variant="ghost"
+                size="sm"
+                className={`px-1 py-1 font-poppins ${
+                  isMiddleDate(date, index)
+                    ? "h-10 min-w-[70px] rounded-lg border border-[#44444F] bg-[#E8E8E8] text-sm"
+                    : "h-8 min-w-[50px] text-xs text-[#44444F]"
+                }`}
+                onClick={() => setCurrentDate(date)}
+              >
+                <div className="text-xs font-medium text-center">
+                  {isToday(date) ? (
+                    <>
+                      <div className="font-poppins text-base font-semibold text-[#44444F]">
+                        HOY
+                      </div>
+                      <div>{formatDate(date)}</div>
+                    </>
+                  ) : (
+                    formatDate(date)
+                  )}
+                </div>
+              </Button>
+            ))}
+          </div>
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8"
-          onClick={() => navigateDate(1)}
-        >
-          <IonIcon icon={chevronForward} className="h-4 w-4" />
-        </Button>
-      </div>
-      <div className="flex justify-end pb-2">
-        <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className="px-4 h-[24px] rounded-[20px] border-[#D7D7D7] bg-transparent text-center text-sm text-[#8F8F8F]"
-            >
-              Fecha
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              selected={currentDate}
-              onSelect={handleCalendarSelect}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
+
+        <div className="flex items-center space-x-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8"
+            onClick={() => navigateDate(1)}
+          >
+            <IonIcon icon={chevronForward} className="h-4 w-4" />
+          </Button>
+          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="h-[24px] rounded-full border-[#D7D7D7] bg-transparent px-4 text-center text-sm text-[#8F8F8F]"
+              >
+                Fecha
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={currentDate}
+                onSelect={handleCalendarSelect}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </div>
   );

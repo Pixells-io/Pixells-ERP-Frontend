@@ -88,7 +88,7 @@ const MainGoodsReceipt = () => {
 
         <Tabs
           defaultValue="lists"
-          className="h-full overflow-auto rounded-lg pt-2"
+          className="h-full overflow-hidden rounded-lg pt-2"
         >
           <div className="flex justify-between">
             <p className="mt-1 h-[30px] font-poppins text-xl font-bold text-grisHeading">
@@ -129,16 +129,20 @@ const MainGoodsReceipt = () => {
                 value="deliveries"
                 className="mt-[-70px] w-full pt-2"
               >
+                 <div className="h-[calc(100vh-200px)]">
                 <DataTable
                   data={deliveriesData}
                   columns={DeliveriesColumns}
                   searchFilter={"code"}
                 />
+                </div>
               </TabsContent>
             </Tabs>
           </TabsContent>
-          <TabsContent value="dates" className="">
-            <DateTab />
+          <TabsContent value="dates" >
+          <div className="h-[calc(100vh-280px)]">
+  <DateTab />
+</div>
           </TabsContent>
           <TabsContent
             value="warehouses"

@@ -212,6 +212,5 @@ export default TicketForm;
 export async function Action({ request }) {
   const formData = await request.formData();
   await saveNewTicketSale(formData);
-
   return redirect("/sales/tickets");
 }

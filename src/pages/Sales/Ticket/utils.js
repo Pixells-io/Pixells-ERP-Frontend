@@ -83,7 +83,7 @@ export async function saveNewTicketSale(data) {
     seller_id: data.get("seller_id"),
     client_id: data.get("client_id"),
     credit: data.get("credit"),
-    ccost: data.get("ccost"),
+    cost_center_id: data.get("ccost"),
     expiration_date: format(data.get("expiration_date"), "yyyy-MM-dd"),
 
     productService: data.get("productService"),

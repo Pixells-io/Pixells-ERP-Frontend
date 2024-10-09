@@ -19,8 +19,8 @@ import { getSalesProcess } from "../../utils";
 
 function SalesProcessTable({ process, edit, destroy }) {
   //Data
+  const [info, setInfo] = useState(process);
   const [data, setData] = useState(process);
-  const [info, setInfo] = useState(data);
 
   //Web Socket
   const pusherClient = createPusherClient();
@@ -35,7 +35,9 @@ function SalesProcessTable({ process, edit, destroy }) {
 
     //Function Sync Info
     async function getLeadsInfo() {
+      console.log("Jelou");
       let newProcess = await getSalesProcess();
+      setInfo(newProcess.data);
       setData(newProcess.data);
     }
 
@@ -69,15 +71,15 @@ function SalesProcessTable({ process, edit, destroy }) {
     setModalEdit(true);
   }
 
-  function filterData(info) {
-    const filtered = data.filter(
+  function filterData(infoInput) {
+    const filtered = info.filter(
       (item) =>
-        item.name.toLowerCase().includes(info.toLowerCase()) ||
-        item.color.toLowerCase().includes(info.toLowerCase()) ||
-        item.created.toLowerCase().includes(info.toLowerCase()),
+        item.name.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.color.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.created.toLowerCase().includes(infoInput.toLowerCase()),
     );
 
-    setInfo(filtered);
+    setData(filtered);
   }
 
   const columns = [
@@ -136,7 +138,7 @@ function SalesProcessTable({ process, edit, destroy }) {
   ];
 
   const table = useReactTable({
-    info,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
