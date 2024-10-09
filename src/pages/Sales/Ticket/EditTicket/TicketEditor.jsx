@@ -11,9 +11,9 @@ import {
   print,
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import QuoteTable from "../Table/QuoteTable";
 import SelectsQuoteShow from "./Components/SelectsQuoteShow";
 import TotalShow from "./Components/TotalSectionShow/TotalSectionShow";
+import QuoteTableShow from "./Components/QuoteTableShow";
 
 const TicketDetails = () => {
   const { ticketSale } = useLoaderData();
@@ -130,24 +130,11 @@ const TicketDetails = () => {
             </div>
 
             <div>
-              {/* <div className="mt-6">
-                <QuoteTable
-                  initialItems={items}
-                  isEditable={isEditable}
-                  allProducts={allProducts}
-                  setTableData={setTableData}
-                  tableData={tableData}
-                  // productOrService={productOrService}
-                  // services_map={infoCreateSales?.data?.services_map}
-                  // services_data={infoCreateSales?.data?.services_data}
-                  // products_map={productsListMap}
-                  // products_info={productsListInfo}
-                  // wharehouseSelect={wharehouseSelect}
-                  // discountGeneral={discountGeneral}
-                  // wharehouseName={wharehouseName}
-                  // expirationDate={expirationDate}
+              <div className="mt-6">
+                <QuoteTableShow
+                  tableData={ticketSale?.data?.slots}
                 />
-              </div>*/}
+              </div>
               <TotalShow data={ticketSale?.data} />
             </div>
           </div>
