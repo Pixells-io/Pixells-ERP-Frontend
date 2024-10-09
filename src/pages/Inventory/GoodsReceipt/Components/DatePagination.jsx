@@ -58,7 +58,7 @@ const DatePagination = ({ onDateChange, initialDate }) => {
   };
 
   return (
-    <div className="flex flex-col items-center mb-4 px-2">
+    <div className="flex flex-col items-center px-2">
       <div className="flex justify-between items-center w-full mb-2">
         <Button
           variant="ghost"
