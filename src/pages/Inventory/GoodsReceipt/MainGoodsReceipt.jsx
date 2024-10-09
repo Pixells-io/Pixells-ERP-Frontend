@@ -4,6 +4,8 @@ import NavigationHeader from "@/components/navigation-header";
 import DataTable from "@/components/table/DataTable";
 import { DeliveriesColumns } from "./Components/Table/DeliveriesColumns";
 import DateTab from "./Components/Tabs/DateTab";
+import WarehouseTab from "./Components/Tabs/WarehouseTab";
+import StatusTab from "./Components/Tabs/StatusTab";
 const MainGoodsReceipt = () => {
   const tabTriggers = [
     { value: "lists", label: "Por Listas" },
@@ -129,26 +131,36 @@ const MainGoodsReceipt = () => {
                 value="deliveries"
                 className="mt-[-70px] w-full pt-2"
               >
-                 <div className="h-[calc(100vh-200px)]">
-                <DataTable
-                  data={deliveriesData}
-                  columns={DeliveriesColumns}
-                  searchFilter={"code"}
-                />
+                <div className="h-[calc(100vh-200px)]">
+                  <DataTable
+                    data={deliveriesData}
+                    columns={DeliveriesColumns}
+                    searchFilter={"code"}
+                  />
                 </div>
               </TabsContent>
             </Tabs>
           </TabsContent>
-          <TabsContent value="dates" >
-          <div className="h-[calc(100vh-280px)]">
-  <DateTab />
-</div>
+          <TabsContent value="dates">
+            <div className=" h-[calc(100vh-280px)]">
+              <DateTab />
+            </div>
           </TabsContent>
           <TabsContent
             value="warehouses"
-            className="rounded-md bg-blancoBg p-2"
+           
           >
-            <h2>resumen</h2>
+            <div className=" h-[calc(100vh-280px)]">
+              <WarehouseTab/>
+            </div>
+          </TabsContent>
+
+          <TabsContent
+            value="status"
+          >
+            <div className=" h-[calc(100vh-280px)]">
+              <StatusTab/>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

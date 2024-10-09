@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
+  apps,
   appsSharp,
   disc,
   documentText,
@@ -13,8 +14,14 @@ import {
 } from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { path: "/crm", name: "CRM", subname: "Homepage", icon: disc },
+  { path: "/crm", name: "CRM", subname: "Inicio", icon: disc },
   { path: "/crm/leads", name: "Leads", subname: "Dashboard", icon: person },
+  {
+    path: "/crm/dashboard",
+    name: "Dashboard",
+    subname: "Procesos Comerciales",
+    icon: apps,
+  },
 
   // {
   //   path: "/crm/after-sales",

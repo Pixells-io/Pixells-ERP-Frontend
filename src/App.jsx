@@ -578,6 +578,9 @@ import {
 } from "./pages/Inventory/StockItems/utils";
 import MainTraceabilityReport from "./pages/Inventory/TraceabilityReports/MainTraceabilityReport";
 import { multiLoaderCrmLayout, multiLoaderCrmTables } from "./pages/CRM/utils";
+import CrmDashboard, {
+  Action as MultiFunctionsDashboardCrm,
+} from "./pages/CRM/Leads/CrmDashboard";
 
 const router = createBrowserRouter([
   {
@@ -623,6 +626,14 @@ const router = createBrowserRouter([
                 element: <Timeline />,
               },
             ],
+          },
+          {
+            //crm Dashboard
+            path: "/crm/dashboard",
+            element: <CrmDashboard />,
+            loader: getLeads,
+            action: MultiFunctionsDashboardCrm,
+            children: [],
           },
           //crm services
           {
@@ -1053,8 +1064,8 @@ const router = createBrowserRouter([
           },
           {
             path: "/bank-management/plan",
-            element: <MainPlan />
-          }
+            element: <MainPlan />,
+          },
         ],
       },
       //Acounting
