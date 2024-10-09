@@ -23,7 +23,7 @@ const OrderForm = () => {
   const [productOrService, setProductOrService] = useState("service");
   const [discountGeneral, setDiscountGeneral] = useState(0);
   const [isShipping, setIsShipping] = useState(false);
-  const [expirationDate, setExpirationDate] = useState("");
+  const [deliveryDateGlobal, setDeliveryDateGlobal] = useState("");
 
   return (
     <div className="flex w-full">
@@ -84,8 +84,8 @@ const OrderForm = () => {
                 defaultSeller={infoCreateSales?.data?.default_seller}
                 discountGeneral={discountGeneral}
                 setDiscountGeneral={setDiscountGeneral}
-                expirationDate={expirationDate}
-                setExpirationDate={setExpirationDate}
+                deliveryDateGlobal={deliveryDateGlobal}
+                setDeliveryDateGlobal={setDeliveryDateGlobal}
               />
             </div>
 
@@ -137,7 +137,7 @@ const OrderForm = () => {
                   products_map={[]}
                   products_info={[]}
                   discountGeneral={discountGeneral}
-                  expirationDate={expirationDate}
+                  deliveryDateGlobal={deliveryDateGlobal}
                 />
               </div>
               <Total

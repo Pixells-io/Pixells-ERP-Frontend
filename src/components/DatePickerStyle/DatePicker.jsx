@@ -37,7 +37,7 @@ function DatePicker({
       />
       {!!placeholder && (
         <p className="mb-1 text-[10px] font-normal text-grisText">
-          {placeholder}
+          {placeholder} {required && "*"}
         </p>
       )}
       <Popover open={open} onOpenChange={setOpen}>
@@ -45,7 +45,7 @@ function DatePicker({
           <Button
             variant={"outline"}
             className={cn(
-              "flex h-[32px] items-center gap-x-1 rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f]",
+              "flex h-[32px] items-center gap-x-1 rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f] bg-inherit hover:bg-inherit",
               className,
             )}
             type="button"

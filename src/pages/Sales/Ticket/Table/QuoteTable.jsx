@@ -49,7 +49,7 @@ const QuoteTable = ({
   wharehouseSelect,
   discountGeneral,
   wharehouseName,
-  expirationDate,
+  deliveryDateGlobal,
 }) => {
   const initialRow = {
     type: productOrService == "product" ? "1" : "2",
@@ -57,14 +57,14 @@ const QuoteTable = ({
     service_id: "",
     item: "",
     code: "",
-    price: "",
+    // price: "",
     discount: "",
-    tax: "",
+    // tax: "",
     quantity: "",
     delivery_date: "",
     product_idAux: "",
-    master_product: "",
-    variations: "",
+    // master_product: "",
+    // variations: "",
     sub_total: "0.00",
     total: "0.00",
     wharehouseSelect: wharehouseSelect,
@@ -103,7 +103,11 @@ const QuoteTable = ({
     const auxProductsOrServices = [...allProductsOrServices];
     setAllProductsOrServices([
       ...auxProductsOrServices,
-      { type: wharehouseSelect, value: products_map },
+      {
+        type: wharehouseSelect,
+        value: products_map,
+        products_info: products_info,
+      },
     ]);
   }, [products_map]);
 
@@ -120,8 +124,8 @@ const QuoteTable = ({
   }, [discountGeneral]);
 
   useEffect(() => {
-    changeValueExpirationDateInInputs();
-  }, [expirationDate]);
+    changeValueDeliveryDateGlobalInInputs();
+  }, [deliveryDateGlobal]);
 
   const changeValueDiscountByGeneral = () => {
     if (tableData.length > 0 && !location.pathname.includes("edit")) {
@@ -141,12 +145,12 @@ const QuoteTable = ({
     }
   };
 
-  const changeValueExpirationDateInInputs = () => {
+  const changeValueDeliveryDateGlobalInInputs = () => {
     if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
-          delivery_date: expirationDate,
+          delivery_date: deliveryDateGlobal,
         };
       });
       setTableData([...auxTableData]);
@@ -174,15 +178,22 @@ const QuoteTable = ({
     [],
   );
 
-  const handleInputChange = (rowIndex, key, value, type) => {
+  const handleInputChange = (rowIndex, key, value, type, wharehouseSelect) => {
     //type 1 = products, type 2 = service
+    //si es product_idAux y no tiene valor eliminar proceso
+    if (key == "product_idAux" && value == "") return;
     if (key == "product_idAux" && !!value) {
       let findProduct = null;
       if (type == "2") {
         findProduct = services_data.find((sd) => sd.id == value);
       }
       if (type == "1") {
-        findProduct = products_info.find((p) => p.id == value);
+        const findProducts_info = allProductsOrServices.find(
+          (p) => p.type == wharehouseSelect,
+        );
+        findProduct = findProducts_info?.products_info?.find(
+          (pi) => pi.id == value,
+        );
       }
 
       setTableData((prevData) =>
@@ -209,51 +220,20 @@ const QuoteTable = ({
                 value: findProduct?.price,
                 product_idAux: value,
                 quantity: 1,
-                master_product: findProduct?.product_master_id,
-                variations: findProduct?.variation_id,
+                // master_product: findProduct?.product_master_id,
+                // variations: findProduct?.variation_id,
                 taxes: 16,
                 discount: item.discount || "0",
+                inventory: findProduct?.inventory,
               }
             : item,
         ),
       );
     } else {
-      // if (key == "total") {
-      //   setTableData((prevData) =>
-      //     prevData.map((item, index) =>
-      //       index === rowIndex
-      //         ? {
-      //             ...item,
-      //             total: calculateTotal({
-      //               value: value,
-      //               quantity: item.quantity,
-      //               discount: item.discount,
-      //               taxes: item.taxes,
-      //             }).toFixed(2),
-      //           }
-      //         : item,
-      //     ),
-      //   );
-      // } else if (key == "sub_total") {
-      //   setTableData((prevData) =>
-      //     prevData.map((item, index) =>
-      //       index === rowIndex
-      //         ? {
-      //             ...item,
-      //             sub_total: calculateSubTotal({
-      //               value: findProduct.price,
-      //               quantity: item.quantity,
-      //             }).toFixed(2),
-      //           }
-      //         : item,
-      //     ),
-      //   );
-      // }
-      // else
       if (key == "discount") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   discount: value,
@@ -270,7 +250,7 @@ const QuoteTable = ({
       } else if (key == "taxes") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   taxes: value,
@@ -287,7 +267,9 @@ const QuoteTable = ({
       } else if (key == "quantity") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex &&
+            (value >= 1 || value == "") &&
+            value <= item.inventory
               ? {
                   ...item,
                   quantity: value,
@@ -305,6 +287,27 @@ const QuoteTable = ({
               : item,
           ),
         );
+      } else if (key == "value") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex && (value >= 0 || value == "")
+              ? {
+                  ...item,
+                  value: value,
+                  total: calculateTotal({
+                    value: value,
+                    quantity: item.quantity,
+                    discount: item.discount,
+                    taxes: item.taxes,
+                  }).toFixed(2),
+                  sub_total: calculateSubTotal({
+                    value: value,
+                    quantity: item.quantity,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
       } else {
         setTableData((prevData) =>
           prevData.map((item, index) =>
@@ -315,14 +318,9 @@ const QuoteTable = ({
     }
   };
 
-  const handleDeleteRow = (rowIndex /*, setProductDelete, productDelete*/) => {
+  const handleDeleteRow = (rowIndex) => {
     setTableData((prevData) => {
-      // if (prevData.length > 1) {
-      // if (!!tableData[rowIndex]?.id) {
-      //   setProductDelete([...productDelete, tableData[rowIndex].id]);
-      // }
       return prevData.filter((_, index) => index !== rowIndex);
-      // }
     });
   };
 
@@ -336,7 +334,7 @@ const QuoteTable = ({
         type: productOrService == "product" ? "1" : "2",
         wharehouseSelect: wharehouseSelect,
         wharehouseName: wharehouseName || "N/A",
-        delivery_date: expirationDate,
+        delivery_date: deliveryDateGlobal,
       },
     ]);
   };
@@ -436,6 +434,7 @@ const QuoteTable = ({
                               "product_idAux",
                               e,
                               row["type"],
+                              row["wharehouseSelect"],
                             )
                           }
                         >
@@ -466,6 +465,11 @@ const QuoteTable = ({
                                 <SelectItem
                                   key={"product-" + index}
                                   value={String(product.value)}
+                                  disabled={
+                                    !!tableData.find(
+                                      (td) => td.product_idAux == product.value,
+                                    ) && row["type"] == "1"
+                                  }
                                 >
                                   {product.label}
                                 </SelectItem>
@@ -521,7 +525,7 @@ const QuoteTable = ({
                       }
                       name={`delivery_date[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className={"w-fit text-[11px] font-normal"}
-                      required={false}
+                      required={true}
                       disabled={!isEditable}
                     />
                   </div>
@@ -560,8 +564,6 @@ const QuoteTable = ({
                         isEditable &&
                         handleDeleteRow(
                           (currentPage - 1) * itemsPerPage + rowIndex,
-                          // setProductDelete,
-                          // productDelete,
                         )
                       }
                       disabled={!isEditable}

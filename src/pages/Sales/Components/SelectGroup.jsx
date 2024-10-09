@@ -15,8 +15,8 @@ const SelectsQuote = ({
   defaultSeller,
   discountGeneral,
   setDiscountGeneral,
-  expirationDate,
-  setExpirationDate,
+  deliveryDateGlobal,
+  setDeliveryDateGlobal,
 }) => {
   const [inputValue, setInputValue] = useState({
     id: data?.id,
@@ -24,9 +24,8 @@ const SelectsQuote = ({
     price_list: data?.price_list,
     seller_id: defaultSeller?.value || data?.seller_id,
     client_id: data?.client_id,
-    ccost: data?.ccost,
     credit: data?.credit,
-    date: data?.date,
+    expiration_date: data?.expiration_date,
   });
 
   const handleInputChange = (value, name) => {
@@ -113,19 +112,22 @@ const SelectsQuote = ({
             classNameContent={"w-[142px]"}
           />
         </div>
-        <div className="col-span-2">
-          <DatePicker
-            title={"MM/DD/YYYY"}
-            value={expirationDate}
-            name={`expiration_date`}
-            className={"w-full text-xs font-normal"}
-            required={false}
-            onChange={(e) => setExpirationDate(e)}
-            placeholder={"Vencimiento"}
-            disabled={!isEditable}
-          />
-        </div>
-        <div className="col-span-4">
+
+        {inputValue?.credit == "0" && (
+          <div className="col-span-2">
+            <DatePicker
+              title={"MM/DD/YYYY"}
+              value={inputValue?.expiration_date || ""}
+              name={`expiration_date`}
+              className={"w-full text-xs font-normal"}
+              required={true}
+              onChange={(e) => handleInputChange(e, "expiration_date")}
+              placeholder={"Vencimiento"}
+              disabled={!isEditable}
+            />
+          </div>
+        )}
+        <div className={inputValue?.credit == "0" ? "col-span-4" : "col-span-2"}>
           <SelectRouter
             value={
               listPriceList.find((cc) => cc.value == inputValue?.price_list) ||
@@ -139,19 +141,16 @@ const SelectsQuote = ({
             onChange={(e) => handleInputChange(e.value, "price_list")}
           />
         </div>
-        <div className="col-span-4">
-          <SelectRouter
-            value={
-              costCenterList.find((cc) => cc.value == inputValue?.ccost) || null
-            }
-            name={"ccost"}
-            options={costCenterList}
-            placeholder="Centro de Costos"
-            required={false}
-            disabled={!isEditable}
-            onChange={(e) => handleInputChange(e.value, "ccost")}
-          />
-        </div>
+        <div className="col-span-2">
+            <DatePicker
+              title={"MM/DD/YYYY"}
+              value={deliveryDateGlobal}
+              className={"w-full text-xs font-normal"}
+              onChange={(e) => setDeliveryDateGlobal(e)}
+              placeholder={"Entrega Programada"}
+              disabled={!isEditable}
+            />
+          </div>
         <div className="col-span-2">
           <InputForm
             type={"number"}

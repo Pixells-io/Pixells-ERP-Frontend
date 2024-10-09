@@ -47,7 +47,7 @@ const QuoteTable = ({
   products_map,
   products_info,
   discountGeneral,
-  expirationDate,
+  deliveryDateGlobal,
 }) => {
   const initialRow = {
     type: productOrService == "product" ? "1" : "2",
@@ -55,14 +55,14 @@ const QuoteTable = ({
     service_id: "",
     item: "",
     code: "",
-    price: "",
+    // price: "",
     discount: "",
-    tax: "",
+    // tax: "",
     quantity: "",
     delivery_date: "",
     product_idAux: "",
-    master_product: "",
-    variations: "",
+    // master_product: "",
+    // variations: "",
     sub_total: "0.00",
     total: "0.00",
   };
@@ -83,8 +83,8 @@ const QuoteTable = ({
   }, [discountGeneral]);
 
   useEffect(() => {
-    changeValueExpirationDateInInputs();
-  }, [expirationDate]);
+    changeValueDeliveryDateGlobalInInputs();
+  }, [deliveryDateGlobal]);
 
   const changeValueDiscountByGeneral = () => {
     if (tableData.length > 0 && !location.pathname.includes("edit")) {
@@ -104,12 +104,12 @@ const QuoteTable = ({
     }
   };
 
-  const changeValueExpirationDateInInputs = () => {
+  const changeValueDeliveryDateGlobalInInputs = () => {
     if (tableData.length > 0 && !location.pathname.includes("edit")) {
       const auxTableData = tableData.map((td) => {
         return {
           ...td,
-          delivery_date: expirationDate,
+          delivery_date: deliveryDateGlobal,
         };
       });
       setTableData([...auxTableData]);
@@ -139,6 +139,8 @@ const QuoteTable = ({
 
   const handleInputChange = (rowIndex, key, value, type) => {
     //type 1 = products, type 2 = service
+    //si es product_idAux y no tiene valor eliminar proceso
+    if (key == "product_idAux" && value == "") return;
     if (key == "product_idAux" && !!value) {
       let findProduct = null;
       if (type == "2") {
@@ -184,7 +186,7 @@ const QuoteTable = ({
       if (key == "discount") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   discount: value,
@@ -201,7 +203,7 @@ const QuoteTable = ({
       } else if (key == "taxes") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   taxes: value,
@@ -218,7 +220,9 @@ const QuoteTable = ({
       } else if (key == "quantity") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex &&
+            (value >= 1 || value == "") &&
+            value <= item.inventory
               ? {
                   ...item,
                   quantity: value,
@@ -231,6 +235,27 @@ const QuoteTable = ({
                   sub_total: calculateSubTotal({
                     value: item.value,
                     quantity: value,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
+      } else if (key == "value") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex && (value >= 0 || value == "")
+              ? {
+                  ...item,
+                  value: value,
+                  total: calculateTotal({
+                    value: value,
+                    quantity: item.quantity,
+                    discount: item.discount,
+                    taxes: item.taxes,
+                  }).toFixed(2),
+                  sub_total: calculateSubTotal({
+                    value: value,
+                    quantity: item.quantity,
                   }).toFixed(2),
                 }
               : item,
@@ -260,7 +285,7 @@ const QuoteTable = ({
         ...initialRow,
         discount: discountGeneral || 0,
         type: productOrService == "product" ? "1" : "2",
-        delivery_date: expirationDate,
+        delivery_date: deliveryDateGlobal,
       },
     ]);
   };
@@ -331,7 +356,7 @@ const QuoteTable = ({
                     />
 
                     {!!row["id"] ? (
-                      <>
+                      <div className="flex flex-col pt-[4px]">
                         <Input
                           className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           value={row["product"].label || ""}
@@ -340,7 +365,7 @@ const QuoteTable = ({
                         <p className="pl-3.5 font-roboto text-[10px] font-normal text-grisDisabled">
                           {row["type"] == "1" ? "Producto" : "Servicio"}
                         </p>
-                      </>
+                      </div>
                     ) : (
                       <div className="flex flex-col pt-[4px]">
                         <Select
@@ -384,6 +409,11 @@ const QuoteTable = ({
                                 <SelectItem
                                   key={"product-" + index}
                                   value={String(product.value)}
+                                  disabled={
+                                    !!tableData.find(
+                                      (td) => td.product_idAux == product.value,
+                                    ) && row["type"] == "1"
+                                  }
                                 >
                                   {product.label}
                                 </SelectItem>
@@ -433,7 +463,8 @@ const QuoteTable = ({
                       }
                       name={`delivery_date[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className={"w-fit text-[11px] font-normal"}
-                      required={false}
+                      required={true}
+                      disabled={!isEditable}
                     />
                   </div>
                 </TableCell>
