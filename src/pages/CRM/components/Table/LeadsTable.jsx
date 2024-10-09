@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   useReactTable,
@@ -14,10 +14,36 @@ import { IonIcon } from "@ionic/react";
 import { informationCircle, searchOutline, trash } from "ionicons/icons";
 import DeleteLeadsModal from "../Modals/DeleteLeadsModal";
 import { Link } from "react-router-dom";
+import { createPusherClient } from "@/lib/pusher";
+import { getLeads } from "../../utils";
 
 function LeadsTable({ leads, edit, destroy }) {
   //Data
+  const [info, setInfo] = useState(leads);
   const [data, setData] = useState(leads);
+
+  //Web Socket
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    //Socket fot table leads and clients
+    pusherClient.subscribe("private-fill-table-leads");
+
+    pusherClient.bind("make-table-leads", ({ message }) => {
+      getLeadsInfo();
+    });
+
+    //Function Sync Info
+    async function getLeadsInfo() {
+      let newProcess = await getLeads();
+      setInfo(newProcess.data);
+      setData(newProcess.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe("private-fill-table-leads");
+    };
+  }, []);
 
   //Modals
   const [modalDestroy, setModalDestroy] = useState(false);
@@ -34,15 +60,15 @@ function LeadsTable({ leads, edit, destroy }) {
     setModalDestroy(true);
   }
 
-  function filterData(info) {
-    const filtered = leads.filter(
+  function filterData(infoInput) {
+    const filtered = info.filter(
       (item) =>
-        item.company.toLowerCase().includes(info.toLowerCase()) ||
-        item.services.toLowerCase().includes(info.toLowerCase()) ||
-        item.name.toLowerCase().includes(info.toLowerCase()) ||
-        item.phone.toLowerCase().includes(info.toLowerCase()) ||
-        item.status.toLowerCase().includes(info.toLowerCase()) ||
-        item.process.toLowerCase().includes(info.toLowerCase()),
+        item.company.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.services.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.name.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.phone.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.status.toLowerCase().includes(infoInput.toLowerCase()) ||
+        item.process.toLowerCase().includes(infoInput.toLowerCase()),
     );
 
     setData(filtered);
