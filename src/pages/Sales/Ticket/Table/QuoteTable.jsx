@@ -103,7 +103,11 @@ const QuoteTable = ({
     const auxProductsOrServices = [...allProductsOrServices];
     setAllProductsOrServices([
       ...auxProductsOrServices,
-      { type: wharehouseSelect, value: products_map, products_info: products_info },
+      {
+        type: wharehouseSelect,
+        value: products_map,
+        products_info: products_info,
+      },
     ]);
   }, [products_map]);
 
@@ -177,15 +181,19 @@ const QuoteTable = ({
   const handleInputChange = (rowIndex, key, value, type, wharehouseSelect) => {
     //type 1 = products, type 2 = service
     //si es product_idAux y no tiene valor eliminar proceso
-    if(key == "product_idAux" && value == "") return;
+    if (key == "product_idAux" && value == "") return;
     if (key == "product_idAux" && !!value) {
       let findProduct = null;
       if (type == "2") {
         findProduct = services_data.find((sd) => sd.id == value);
       }
       if (type == "1") {
-        const findProducts_info = allProductsOrServices.find((p) => p.type == wharehouseSelect);
-        findProduct = findProducts_info?.products_info?.find((pi) => pi.id == value);
+        const findProducts_info = allProductsOrServices.find(
+          (p) => p.type == wharehouseSelect,
+        );
+        findProduct = findProducts_info?.products_info?.find(
+          (pi) => pi.id == value,
+        );
       }
 
       setTableData((prevData) =>
@@ -225,7 +233,7 @@ const QuoteTable = ({
       if (key == "discount") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   discount: value,
@@ -242,7 +250,7 @@ const QuoteTable = ({
       } else if (key == "taxes") {
         setTableData((prevData) =>
           prevData.map((item, index) =>
-            index === rowIndex
+            index === rowIndex && ((value >= 0 && value < 100) || value == "")
               ? {
                   ...item,
                   taxes: value,
@@ -279,6 +287,27 @@ const QuoteTable = ({
               : item,
           ),
         );
+      } else if (key == "value") {
+        setTableData((prevData) =>
+          prevData.map((item, index) =>
+            index === rowIndex && (value >= 0 || value == "")
+              ? {
+                  ...item,
+                  value: value,
+                  total: calculateTotal({
+                    value: value,
+                    quantity: item.quantity,
+                    discount: item.discount,
+                    taxes: item.taxes,
+                  }).toFixed(2),
+                  sub_total: calculateSubTotal({
+                    value: value,
+                    quantity: item.quantity,
+                  }).toFixed(2),
+                }
+              : item,
+          ),
+        );
       } else {
         setTableData((prevData) =>
           prevData.map((item, index) =>
@@ -291,9 +320,7 @@ const QuoteTable = ({
 
   const handleDeleteRow = (rowIndex) => {
     setTableData((prevData) => {
-     
       return prevData.filter((_, index) => index !== rowIndex);
-    
     });
   };
 
@@ -439,9 +466,9 @@ const QuoteTable = ({
                                   key={"product-" + index}
                                   value={String(product.value)}
                                   disabled={
-                                    (!!tableData.find(
+                                    !!tableData.find(
                                       (td) => td.product_idAux == product.value,
-                                    ) && row["type"] == "1")
+                                    ) && row["type"] == "1"
                                   }
                                 >
                                   {product.label}
