@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 
 const Card = ({ title, id, date, onViewClick, showDetails }) => (
   <div
-    className={`mb-4 ml-2 mr-2 mt-2 rounded-lg bg-white p-4 ${
-      showDetails ? "max-w-[30%]" : "w-full"
+    className={`rounded-lg bg-white p-4 ${
+      showDetails ? "max-w-[40%]" : "mb-4 ml-2 mr-2 mt-2 w-full"
     }`}
     style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.15)" }}
   >
@@ -16,8 +16,12 @@ const Card = ({ title, id, date, onViewClick, showDetails }) => (
           {title}
         </h3>
         <div className="mb-6 mt-6 flex items-center justify-between text-sm">
-          <span className="font-roboto text-sm text-[#44444F]">Por Entregar</span>
-          <span className="font-roboto text-sm text-[#44444F]">5 a procesar</span>
+          <span className="font-roboto text-sm text-[#44444F]">
+            Por Entregar
+          </span>
+          <span className="font-roboto text-sm text-[#44444F]">
+            5 a procesar
+          </span>
           <span
             className="cursor-pointer font-roboto text-primarioBotones"
             onClick={() => onViewClick(id, date)}
@@ -28,15 +32,23 @@ const Card = ({ title, id, date, onViewClick, showDetails }) => (
       </>
     ) : (
       <>
-        <p className="font-roboto text-sm text-[#44444F]">ID: {id}</p>
-        <p className="font-roboto text-sm text-[#44444F] mb-2">Fecha: {date}</p>
-        <div className="flex justify-end items-end mb-4">
-          <Link
-            to={`/inventory/goods-receipt/deliveries/details/${id}`}
-            className="cursor-pointer mb-6 font-roboto mb-4 text-primarioBotones"
-          >
-            Ver
-          </Link>
+        <div className="flex justify-between p-2">
+          <div>
+            {" "}
+            <p className=" font-roboto text-sm text-[#44444F]">ID: {id}</p>
+            <p className="mb-2 font-roboto text-sm text-[#44444F]">
+              Fecha: {date}
+            </p>
+          </div>
+
+          <div className="flex items-end justify-end">
+            <Link
+              to={`/inventory/goods-receipt/deliveries/details/${id}`}
+              className="cursor-pointer mb-4 font-roboto text-primarioBotones"
+            >
+              Ver
+            </Link>
+          </div>
         </div>
       </>
     )}
@@ -72,9 +84,11 @@ const DateTab = () => {
 
   const isToday = (date) => {
     const today = new Date();
-    return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
   };
 
   const getDateTitle = (date) => {
@@ -91,7 +105,7 @@ const DateTab = () => {
       </h2>
       <div className="h-[calc(400px-56px)] overflow-auto">
         <div className="space-y-4">
-          {[1, 2, 3].map(id => (
+          {[1, 2, 3].map((id) => (
             <Card
               key={id}
               title="Almacene Norte GDL"
@@ -109,32 +123,40 @@ const DateTab = () => {
   return (
     <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
       <div className="border-b">
-        <DatePagination onDateChange={handleDateChange} initialDate={selectedDate} />
+        <DatePagination
+          onDateChange={handleDateChange}
+          initialDate={selectedDate}
+        />
       </div>
-      <div className="grid grid-cols-3 gap-4 flex-grow overflow-hidden mt-4">
-        {isShowModal ? (<>
-          {renderColumn(selectedCardDate)}
-          <div className="col-span-2 border-l pl-4">
-            <h2 className="mb-2 rounded border-b p-2 font-poppins text-lg font-semibold text-[#44444F]">
-              POR ENTREGAR
-            </h2>
-            <div className="flex items-end mr-4 justify-end">
-            <Button onClick={handleModalClose} className="w-[98px] h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">Cerrar</Button>
+      <div className="mt-4 grid flex-grow grid-cols-3 gap-4 overflow-hidden">
+        {isShowModal ? (
+          <>
+            {renderColumn(selectedCardDate)}
+            <div className="col-span-2 border-l pl-4">
+              <h2 className="mb-2 rounded border-b p-2 font-poppins text-lg font-semibold text-[#44444F]">
+                POR ENTREGAR
+              </h2>
+              <div className="mr-4 flex items-end justify-end">
+                <Button
+                  onClick={handleModalClose}
+                  className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                >
+                  Cerrar
+                </Button>
+              </div>
+              <div className="h-[calc(400px-56px)] overflow-auto">
+                <Card
+                  id={selectedCardId}
+                  date={"27 Septiembre 2024"}
+                  showDetails={true}
+                  title="Almacene Norte GDL" // Aquí puedes poner el nombre que desees
+                />
+              </div>
             </div>
-            <div className="h-[calc(400px-56px)] overflow-auto">
-              <Card
-                id={selectedCardId}
-                date={selectedCardDate.toLocaleDateString()}
-                showDetails={true}
-                title="Almacene Norte GDL" // Aquí puedes poner el nombre que desees
-              />
-            </div>
-            
-          </div>
           </>
         ) : (
           <>
-          {renderColumn(selectedDate)}
+            {renderColumn(selectedDate)}
             {renderColumn(new Date(selectedDate.getTime() + 86400000))}
             {renderColumn(new Date(selectedDate.getTime() + 172800000))}
           </>
@@ -144,7 +166,7 @@ const DateTab = () => {
         <label className="text-xs font-light text-[#8F8F8F]">
           Actualizado 07 septiembre 2024
         </label>
-        <Button className="w-[98px] h-[31px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
+        <Button className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
           Listo
         </Button>
       </div>
