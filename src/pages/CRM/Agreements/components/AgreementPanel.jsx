@@ -77,7 +77,7 @@ function AgreementsPanel({ data }) {
             type="button"
             className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
-            Customer Name
+            Nombre del Cliente
           </button>
         </div>
         <div>
@@ -86,7 +86,7 @@ function AgreementsPanel({ data }) {
             type="button"
             className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
-            Service
+            Servicio
           </button>
         </div>
         <div>
@@ -95,7 +95,7 @@ function AgreementsPanel({ data }) {
             type="button"
             className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
-            Date
+            Fecha
           </button>
         </div>
         <div>
@@ -104,7 +104,7 @@ function AgreementsPanel({ data }) {
             type="button"
             className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
-            Sign
+            Firma
           </button>
         </div>
         <div>
@@ -113,7 +113,7 @@ function AgreementsPanel({ data }) {
             type="button"
             className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
           >
-            Open Field
+            Campo Abierto
           </button>
         </div>
       </div>

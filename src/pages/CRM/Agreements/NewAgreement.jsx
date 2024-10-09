@@ -86,7 +86,7 @@ function NewAgreements() {
     <div className="flex w-full overflow-auto">
       <Form
         id="new-agreement-template"
-        action="/crm/agreements/create"
+        action="/sales/agreements/create"
         method="post"
         className="mr-3 w-full overflow-hidden"
       >
@@ -98,13 +98,8 @@ function NewAgreements() {
           <div className="flex items-center gap-4">
             <div>
               <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                AGREEMENTS CONSOLE
+                CREAR PLANTILLA
               </h2>
-            </div>
-            <div className="flex items-center gap-3 text-[#8F8F8F]">
-              <div className="text-xs">6 services</div>
-              <div className="text-2xl">&bull;</div>
-              <div className="text-xs">36 templates</div>
             </div>
           </div>
           <div className="">
@@ -112,21 +107,21 @@ function NewAgreements() {
               <div className="col">
                 <SelectRouter
                   name={"category"}
-                  placeholder={"Category"}
+                  placeholder={"Categoria"}
                   options={servicesArray}
                 />
               </div>
               <div className="col">
                 <InputRouter
                   name={"name"}
-                  placeholder={"Name of Agreement"}
+                  placeholder={"Nombre de la plantilla"}
                   type={"text"}
                 />
               </div>
               <div className="col">
                 <InputRouter
                   name={"comments"}
-                  placeholder={"Comments of Agreement"}
+                  placeholder={"Comentarios"}
                   type={"text"}
                 />
                 <textarea
@@ -140,7 +135,7 @@ function NewAgreements() {
                   form="new-agreement-template"
                   className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
                 >
-                  Save
+                  Guardar
                 </Button>
               </div>
             </div>
@@ -160,7 +155,7 @@ function NewAgreements() {
                   type="button"
                   className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
-                  Customer Name
+                  Nombre del Cliente
                 </button>
               </div>
               <div>
@@ -169,7 +164,7 @@ function NewAgreements() {
                   type="button"
                   className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
-                  Service
+                  Servicio
                 </button>
               </div>
               <div>
@@ -178,7 +173,7 @@ function NewAgreements() {
                   type="button"
                   className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
-                  Date
+                  Fecha
                 </button>
               </div>
               <div>
@@ -187,7 +182,7 @@ function NewAgreements() {
                   type="button"
                   className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
-                  Sign
+                  Firma
                 </button>
               </div>
               <div>
@@ -196,7 +191,7 @@ function NewAgreements() {
                   type="button"
                   className="h-6 w-auto rounded-xl bg-primario px-4 text-[11px] font-medium text-white"
                 >
-                  Open Field
+                  Campo Abierto
                 </button>
               </div>
             </div>

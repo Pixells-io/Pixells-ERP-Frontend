@@ -197,7 +197,6 @@ function NewEntry() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="1">Almacén</SelectItem>
-                    <SelectItem value="2">Transferencia</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -382,12 +381,12 @@ function NewEntry() {
                 />
                 <input
                   type="hidden"
-                  name="inventory_in"
+                  name="inventory_out"
                   value={initialData.fromWarehouse}
                 />
                 <input
                   type="hidden"
-                  name="inventory_out"
+                  name="inventory_in"
                   value={initialData.toWarehouse}
                 />
                 <input type="hidden" name="comment" value={comments} />

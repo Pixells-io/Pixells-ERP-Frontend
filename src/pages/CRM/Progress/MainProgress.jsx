@@ -74,7 +74,7 @@ function Main() {
           <Form
             id="form-remove-service"
             className="flex h-full w-full flex-col gap-3 px-8"
-            action="/crm/progress/"
+            action="/sales/progress/"
             method="post"
           >
             <input
@@ -131,7 +131,7 @@ function Main() {
               <div key={i} className="flex shrink-0">
                 <NavLink
                   key={i}
-                  to={`/crm/progress/${service?.id}`}
+                  to={`/sales/progress/${service?.id}`}
                   className={({ isActive }) =>
                     isActive
                       ? `space-evenly flex shrink-0 items-center gap-4 rounded-full bg-grisHeading p-2 pr-5 font-poppins font-bold`
@@ -202,14 +202,14 @@ export async function Action({ request }) {
     case "set-services":
       //Add Selected Service
       await setSelectedService(data);
-      return redirect("/crm/progress");
+      return redirect("/sales/progress");
     case "set-client":
       //Add Selected Service
       await setClientServices(data);
-      return redirect("/crm/progress");
+      return redirect("/sales/progress");
     case "remove-service":
       //Remove selected Service
       await removeSelectedService(data);
-      return redirect("/crm/progress");
+      return redirect("/sales/progress");
   }
 }

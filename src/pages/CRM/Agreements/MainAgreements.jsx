@@ -44,13 +44,8 @@ function MainAgreements() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              AGREEMENTS CONSOLE
+              CONTRATOS
             </h2>
-          </div>
-          <div className="flex items-center gap-3 text-[#8F8F8F]">
-            <div className="text-xs">6 services</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">36 templates</div>
           </div>
         </div>
 
@@ -64,17 +59,17 @@ function MainAgreements() {
                 value={"template"}
                 className="flex h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4 text-grisHeading data-[state=active]:bg-primario data-[state=active]:text-white"
               >
-                <p className="text-[10px] font-semibold">Templates</p>
+                <p className="text-[10px] font-semibold">Plantillas</p>
               </TabsTrigger>
               <TabsTrigger
                 value={"contracts"}
                 className="flex h-6 items-center justify-center rounded-xl bg-blancoBox2 px-4 text-grisHeading data-[state=active]:bg-primario data-[state=active]:text-white"
               >
-                <p className="text-[10px] font-semibold">Contracts</p>
+                <p className="text-[10px] font-semibold">Contratos</p>
               </TabsTrigger>
             </TabsList>
             {create == true ? (
-              <Link to={"/crm/agreements/create"}>
+              <Link to={"/sales/agreements/create"}>
                 <IonIcon
                   icon={addCircleOutline}
                   size="large"
@@ -113,5 +108,5 @@ export async function Action({ request }) {
   const agreement = data.get("agreement_id");
   const customer = data.get("customer_id");
 
-  return redirect(`/crm/agreements/new-contract/${agreement}/${customer}`);
+  return redirect(`/sales/agreements/new-contract/${agreement}/${customer}`);
 }

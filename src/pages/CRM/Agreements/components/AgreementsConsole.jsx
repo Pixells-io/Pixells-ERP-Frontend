@@ -45,7 +45,7 @@ function AgreementsConsole({ services, customers, edit, create }) {
       <Tabs defaultValue="inbox" className="flex h-full w-full">
         <TabsList className="flex h-full flex-col gap-2 bg-transparent">
           <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
-            Templates
+            Plantillas
           </p>
           <div className="flex h-full flex-col gap-2 overflow-auto border-r pr-2">
             {TABS?.map((tab, i) => (
@@ -96,8 +96,8 @@ function AgreementsConsole({ services, customers, edit, create }) {
                     <DropdownMenuContent>
                       {edit == true ? (
                         <DropdownMenuItem>
-                          <Link to={`/crm/agreements/edit/${agreement.id}`}>
-                            Edit
+                          <Link to={`/sales/agreements/edit/${agreement.id}`}>
+                            Editar
                           </Link>
                         </DropdownMenuItem>
                       ) : (
@@ -108,7 +108,7 @@ function AgreementsConsole({ services, customers, edit, create }) {
                           <button
                             onClick={() => openModalFunction(agreement.id)}
                           >
-                            Create
+                            Crear
                           </button>
                         </DropdownMenuItem>
                       ) : (
@@ -119,7 +119,7 @@ function AgreementsConsole({ services, customers, edit, create }) {
                   <div className="h-full bg-blancoBg"></div>
                 </div>
                 <div className="flex h-14 flex-col justify-center rounded-lg bg-blancoBox p-3">
-                  <p className="text-[10px] text-grisHeading">Name</p>
+                  <p className="text-[10px] text-grisHeading">Nombre</p>
                   <p className="flex truncate text-[10px] text-grisHeading">
                     {agreement.name}
                   </p>

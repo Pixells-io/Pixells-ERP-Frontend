@@ -65,7 +65,7 @@ function FormStepCustom({
         </DialogDescription>
         <Form
           id="progress-step-form"
-          action={`/crm/progress/${params?.id}`}
+          action={`/sales/progress/${params?.id}`}
           method="post"
           className="flex flex-col gap-2 px-8"
           encType="multipart/form-data"

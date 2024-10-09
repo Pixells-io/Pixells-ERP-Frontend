@@ -51,7 +51,7 @@ export const MovTransferColumns = [
             Parcial
           </span>
         ) : row?.original?.status == 5 ? (
-          <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600">
+          <span className="rounded-2xl bg-orange-200 px-2 py-1 text-xs text-orange-600">
             Problema
           </span>
         ) : row?.original?.status == 6 ? (

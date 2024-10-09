@@ -31,7 +31,7 @@ function FormRequireDocument({ modal, setModal, customer }) {
         </DialogHeader>
         <Form
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/progress/${id}`}
+          action={`/sales/progress/${id}`}
           method="post"
           encType="multipart/form-data"
         >

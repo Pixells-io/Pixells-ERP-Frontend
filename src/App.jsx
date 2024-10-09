@@ -577,6 +577,7 @@ import {
   multiloaderStock,
 } from "./pages/Inventory/StockItems/utils";
 import MainTraceabilityReport from "./pages/Inventory/TraceabilityReports/MainTraceabilityReport";
+import { multiLoaderCrmLayout, multiLoaderCrmTables } from "./pages/CRM/utils";
 
 const router = createBrowserRouter([
   {
@@ -596,13 +597,13 @@ const router = createBrowserRouter([
         path: "/crm",
         element: <SideLayout />,
         // errorElement: <NotFound />,
-        loader: multilaoderSideLayoutCRM,
+        loader: multiLoaderCrmLayout,
         action: newLead,
         children: [
           //crm home
           {
             index: true,
-            loader: multiloaderTablesCRM,
+            loader: multiLoaderCrmTables,
             element: <MainCRM />,
           },
           {
@@ -623,33 +624,12 @@ const router = createBrowserRouter([
               },
             ],
           },
-          // crm progress
-          {
-            path: "/crm/progress",
-            element: <MainProgress />,
-            loader: getAllServices,
-            action: setServices,
-            children: [
-              {
-                path: "/crm/progress/:id",
-                element: <StepsProgress />,
-                loader: multiloaderProgressSteps,
-                action: newStepService,
-              },
-            ],
-          },
           //crm services
           {
             path: "/crm/services/packages/:id",
             element: <MainPackage />,
             loader: getPackageById,
             action: PackageEditFunction,
-          },
-          {
-            path: "/crm/services",
-            element: <MainServices />,
-            action: NewFunction,
-            loader: multiLoaderServices,
           },
           {
             path: "/crm/services/:id",
@@ -668,37 +648,6 @@ const router = createBrowserRouter([
             path: "/crm/email",
             element: <MainEmail />,
             loader: getMails,
-          },
-          //crm agreements
-          {
-            path: "/crm/agreements",
-            element: <MainAgreements />,
-            loader: multiloaderAgreements,
-            action: CreateAgreementCustomer,
-          },
-          {
-            path: "/crm/agreements/create",
-            element: <NewAgreements />,
-            action: newAgreementTemplate,
-            loader: getAllServices,
-          },
-          {
-            path: "/crm/agreements/edit/:id",
-            element: <EditAgreements />,
-            loader: getAgreement,
-            action: EditAgreementTemplate,
-          },
-          {
-            path: "/crm/agreements/show/:id",
-            element: <ShowAgreements />,
-            loader: getContract,
-            action: EditContract,
-          },
-          {
-            path: "/crm/agreements/new-contract/:id/:customer",
-            element: <NewContract />,
-            loader: getContractCreate,
-            action: NewContractAction,
           },
           //crm client :id
           {
@@ -1505,6 +1454,52 @@ const router = createBrowserRouter([
           {
             path: "/sales/quotes/document/:id",
             element: <QuotePDF />,
+          },
+          //crm agreements
+          {
+            path: "/sales/agreements",
+            element: <MainAgreements />,
+            loader: multiloaderAgreements,
+            action: CreateAgreementCustomer,
+          },
+          {
+            path: "/sales/agreements/create",
+            element: <NewAgreements />,
+            action: newAgreementTemplate,
+            loader: getAllServices,
+          },
+          {
+            path: "/sales/agreements/edit/:id",
+            element: <EditAgreements />,
+            loader: getAgreement,
+            action: EditAgreementTemplate,
+          },
+          {
+            path: "/sales/agreements/show/:id",
+            element: <ShowAgreements />,
+            loader: getContract,
+            action: EditContract,
+          },
+          {
+            path: "/sales/agreements/new-contract/:id/:customer",
+            element: <NewContract />,
+            loader: getContractCreate,
+            action: NewContractAction,
+          },
+          // crm progress
+          {
+            path: "/sales/progress",
+            element: <MainProgress />,
+            loader: getAllServices,
+            action: setServices,
+            children: [
+              {
+                path: "/sales/progress/:id",
+                element: <StepsProgress />,
+                loader: multiloaderProgressSteps,
+                action: newStepService,
+              },
+            ],
           },
         ],
       },

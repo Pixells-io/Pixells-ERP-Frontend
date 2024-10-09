@@ -60,24 +60,9 @@ export const columns = [
       return <span>{row.original.contact_last_name}</span>;
     },
   },
-  // {
-  //   accessorKey: "contact",
-  //   header: "CONTACT",
-  //   cell: ({ row }) => {
-  //     return <span>{row.original.contact}</span>;
-  //   },
-  //   meta: {
-  //     filterButton: true
-  //   },
-  //   filterFn: "equals",
-  // },
   {
     accessorKey: "phone",
     header: "PHONE",
-  },
-  {
-    accessorKey: "email",
-    header: "EMAIL",
   },
   {
     accessorKey: "actions",

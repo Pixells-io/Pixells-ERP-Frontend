@@ -15,30 +15,13 @@ import {
 const MENU_ITEMS = [
   { path: "/crm", name: "CRM", subname: "Homepage", icon: disc },
   { path: "/crm/leads", name: "Leads", subname: "Dashboard", icon: person },
-  {
-    path: "/crm/progress",
-    name: "Process",
-    subname: "Dashboard",
-    icon: appsSharp,
-  },
-  {
-    path: "/crm/agreements",
-    name: "Agreements",
-    subname: "Console",
-    icon: documentText,
-  },
+
   // {
   //   path: "/crm/after-sales",
   //   name: "After sales",
   //   subname: "Service",
   //   icon: settings,
   // },
-  {
-    path: "/crm/services",
-    name: "Services",
-    subname: "Administration",
-    icon: folder,
-  },
   //{ path: "/crm/email", name: "Email", subname: "Console", icon: mail },
 ];
 

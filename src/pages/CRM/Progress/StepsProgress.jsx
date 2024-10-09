@@ -169,7 +169,7 @@ function StepsProgress() {
                       <Form
                         onSubmit={onEnterForm}
                         id="edit-form-step-name"
-                        action={`/crm/progress/${id}`}
+                        action={`/sales/progress/${id}`}
                         method="post"
                       >
                         <input
@@ -281,14 +281,14 @@ export async function Action({ params, request }) {
 
     case "delete-step":
       await deleteStepProcess(data);
-      return redirect(`/crm/progress/${params.id}`);
+      return redirect(`/sales/progress/${params.id}`);
 
     case "edit-step":
       await editStepProcess(data);
-      return redirect(`/crm/progress/${params.id}`);
+      return redirect(`/sales/progress/${params.id}`);
 
     case "add-comment-client":
       await addCommentClient(data);
-      return redirect(`/crm/progress/${params.id}`);
+      return redirect(`/sales/progress/${params.id}`);
   }
 }

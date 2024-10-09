@@ -23,7 +23,7 @@ function StepOptions({ open, setOpen, step }) {
         <Form
           id="form-delete-step"
           className="flex h-full w-full flex-col gap-3 px-8"
-          action={`/crm/progress/${params.id}`}
+          action={`/sales/progress/${params.id}`}
           method="post"
         >
           <input type="hidden" value={step.id} name="step_id" />

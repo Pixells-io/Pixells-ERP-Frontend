@@ -34,7 +34,7 @@ function AgreementsConsoleContracts({ info }) {
         <div className="flex h-full w-full">
           <TabsList className="flex h-full flex-col justify-normal gap-2 bg-transparent">
             <p className="text-center font-poppins text-[28px] font-medium text-grisHeading">
-              Contracts
+              Contratos
             </p>
             <div className="flex h-full flex-col gap-2 border-r pr-2">
               {TABS?.map((tab, i) => (
@@ -87,12 +87,12 @@ function AgreementsConsoleContracts({ info }) {
                           <Link
                             to={`${import.meta.env.VITE_SERVER_URL}agreements/print-contract/${agreement.id}`}
                           >
-                            Print
+                            Imprimir
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                          <Link to={`/crm/agreements/show/${agreement.id}`}>
-                            Show
+                          <Link to={`/sales/agreements/show/${agreement.id}`}>
+                            Ver
                           </Link>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -101,7 +101,7 @@ function AgreementsConsoleContracts({ info }) {
                   <div className="h-full bg-blancoBg"></div>
                   <div className="flex h-14 flex-col rounded-lg bg-blancoBox pt-2">
                     <p className="text-[10px] font-medium text-grisHeading">
-                      Service
+                      Servicio
                     </p>
 
                     <p className="flex text-[10px] text-grisHeading">

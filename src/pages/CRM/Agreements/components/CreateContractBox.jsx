@@ -12,7 +12,7 @@ function CreateContractBox({ data }) {
   return (
     <Form
       id="form-create-contract"
-      action={`/crm/agreements/new-contract/${data.template_id}/${data.customer_id}`}
+      action={`/sales/agreements/new-contract/${data.template_id}/${data.customer_id}`}
       method="post"
       className="mr-3 w-full overflow-hidden"
     >
@@ -24,7 +24,7 @@ function CreateContractBox({ data }) {
             <input type="hidden" value={data.service_id} name="service_id" />
             <InputRouter
               name={"comments"}
-              placeholder={"Contract Name"}
+              placeholder={"Nombre del Contrato"}
               type={"text"}
             />
           </div>
@@ -33,7 +33,7 @@ function CreateContractBox({ data }) {
               form="form-create-contract"
               className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
             >
-              Save
+              Guardar
             </Button>
           </div>
         </div>

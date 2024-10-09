@@ -74,7 +74,7 @@ function CommentsProcess({ customerId, comments }) {
                 <Form
                   onKeyDown={onInputEnter}
                   method="post"
-                  action={`/crm/progress/${id}`}
+                  action={`/sales/progress/${id}`}
                   s
                   id="client-comment-form"
                   name="client-comment"

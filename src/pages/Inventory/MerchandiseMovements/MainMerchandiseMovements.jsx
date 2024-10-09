@@ -9,12 +9,30 @@ import { MovTransferColumns } from "./Transfer/Table/MovTransferColumns";
 import MenuMovements from "./Components/MenuDrop";
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
-import { cancelStockTransfer } from "./utils";
+import { cancelStockTransfer, getStocksMovements } from "./utils";
 import { MovEntryColumnsPending } from "./Entry/Table/MovEntryColumnsPending";
 
 function MainMerchandiseMovements() {
   const { data } = useLoaderData();
   const [info, setInfo] = useState(data);
+  const pusherClient = createPusherClient();
+
+  async function getStockMovementRequest() {
+    let newData = await getStocksMovements();
+    setServiceInfo(newData.data);
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("get-stock-movements");
+
+    pusherClient.bind("fill-stock-movements", ({ message }) => {
+      getStockMovementRequest();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("get-stock-movements");
+    };
+  }, []);
 
   return (
     <div className="ml-2 flex w-full">

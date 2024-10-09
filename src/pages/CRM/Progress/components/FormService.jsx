@@ -44,7 +44,7 @@ function FormService({ csrf, submitting }) {
         <Form
           id="service-form"
           className="flex flex-col gap-2"
-          action="/crm/progress"
+          action="/sales/progress"
           method="post"
         >
           <div className="flex flex-col gap-4 rounded-lg bg-[#F6F6F6] p-4 font-roboto">

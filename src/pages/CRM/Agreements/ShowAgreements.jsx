@@ -14,7 +14,7 @@ function ShowAgreements() {
     <div className="flex w-full overflow-auto">
       <Form
         id="edit-contract-template"
-        action={`/crm/agreements/show/${data.id}`}
+        action={`/sales/agreements/show/${data.id}`}
         method="post"
         className="mr-3 w-full overflow-hidden"
       >
@@ -27,7 +27,7 @@ function ShowAgreements() {
           <div className="flex items-center gap-4">
             <div>
               <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-                AGREEMENT - {data.name}
+                Plantilla - {data.name}
               </h2>
             </div>
             <div className="col">
@@ -35,7 +35,7 @@ function ShowAgreements() {
                 type="submit"
                 className="justify-normal rounded-lg bg-primarioBotones p-4 pl-6 pr-6 font-roboto text-sm font-semibold text-white"
               >
-                Save
+                Guardar
               </Button>
             </div>
           </div>

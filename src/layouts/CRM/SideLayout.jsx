@@ -10,25 +10,23 @@ import TopMenuCRM from "./components/TopMenuCRM";
 import MenuCRM from "./components/MenuCRM";
 
 import FormNewLead from "./components/Form/FormNewLead";
-import FormNewSale from "./components/Form/FormNewSale";
-
 import {
-  newSale,
-  removeClient,
-  removeLead,
-  saveImportClients,
-  saveNewClient,
-  saveNewLead,
-} from "./utils";
-import FormNewClient from "./components/Form/FormNewClient";
+  destroyLead,
+  functionCreateNewSaleProcess,
+  functionDestroyNewSaleProcess,
+  functionEditSaleProcess,
+  functionSaveNewLead,
+} from "@/pages/CRM/utils";
 
 function SideLayout() {
-  const { services, customers, memberships, permission } = useLoaderData();
+  const { process, permissions } = useLoaderData();
   const navigation = useNavigation();
   const [create, setCreate] = useState(true);
+  //Info State
+  const [processInfo, setProcessInfo] = useState(process.data);
 
   useEffect(() => {
-    const createQuery = permission.data.filter(
+    const createQuery = permissions.data.filter(
       (item) => item.permision_capability == "3",
     );
 
@@ -55,14 +53,7 @@ function SideLayout() {
 
           {create == true ? (
             <div className="flex flex-col gap-4">
-              <FormNewLead navigation={navigation} services={services} />
-              <FormNewClient navigation={navigation} />
-              {/* <FormNewClient /> */}
-              <FormNewSale
-                clients={customers}
-                membership={memberships}
-                services={services}
-              />
+              <FormNewLead navigation={navigation} process={processInfo} />
             </div>
           ) : null}
 
@@ -86,28 +77,32 @@ export async function Action({ request }) {
   const action = data.get("action");
 
   switch (action) {
+    case "create-sale-process":
+      await functionCreateNewSaleProcess(data);
+      return redirect("/crm");
+      break;
+
+    case "edit-sale-process":
+      await functionEditSaleProcess(data);
+      return redirect("/crm");
+      break;
+
+    case "delete-sale-process":
+      await functionDestroyNewSaleProcess(data);
+      return redirect("/crm");
+      break;
+
     case "save-lead":
-      await saveNewLead(data);
+      await functionSaveNewLead(data);
       return redirect("/crm");
-
-    case "save-client":
-      await saveNewClient(data);
-      return redirect("/crm");
-
-    case "2":
-      await saveImportClients(data);
-      return redirect("/crm");
+      break;
 
     case "delete-lead":
-      await removeLead(data);
+      await destroyLead(data);
       return redirect("/crm");
+      break;
 
-    case "delete-client":
-      await removeClient(data);
-      return redirect("/crm");
-
-    case "add-on":
-      await newSale(data);
-      return redirect("/crm");
+    default:
+      break;
   }
 }

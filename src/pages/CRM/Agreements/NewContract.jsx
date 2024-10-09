@@ -20,13 +20,8 @@ function NewContract() {
         <div className="flex items-center gap-4">
           <div>
             <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              NEW CONTRACT
+              CREAR CONTRATO
             </h2>
-          </div>
-          <div className="flex items-center gap-3 text-[#8F8F8F]">
-            <div className="text-xs">6 services</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">36 templates</div>
           </div>
         </div>
         <CreateContractBox data={data} />

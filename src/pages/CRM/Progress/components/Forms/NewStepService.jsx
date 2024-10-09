@@ -54,7 +54,7 @@ function NewStepService({ serviceId, submitting, service }) {
         <Form
           id="service-step-form"
           className="flex flex-col px-6"
-          action={`/crm/progress/${serviceId}`}
+          action={`/sales/progress/${serviceId}`}
           method="post"
         >
           <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">

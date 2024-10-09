@@ -12,21 +12,20 @@ import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import { personAdd } from "ionicons/icons";
-
-import FromMultiSelect from "./FromMultiSelect";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
+import InputForm from "@/components/InputForm/InputForm";
 
 const businessInputs = [
   {
     name: "business_name",
     type: "text",
-    placeholder: "Bussines Name",
+    placeholder: "Nombre de la Empresa",
   },
   {
     name: "business_phone",
     type: "text",
-    placeholder: "Business Phone",
+    placeholder: "Telefono de la Empresa",
   },
 ];
 
@@ -34,12 +33,12 @@ const individualInputs = [
   {
     name: "business_name",
     type: "text",
-    placeholder: "Personal Name",
+    placeholder: "Nombre de la persona",
   },
   {
     name: "business_phone",
     type: "text",
-    placeholder: "Personal Phone",
+    placeholder: "Telefono",
   },
 ];
 
@@ -47,27 +46,27 @@ const contactInputs = [
   {
     name: "contact_name",
     type: "text",
-    placeholder: "Contact Name",
+    placeholder: "Nombre(s) del Contacto",
   },
   {
     name: "contact_middle_name",
     type: "text",
-    placeholder: "Contact Midde Name",
+    placeholder: "Apellido Paterno del Contacto",
   },
   {
     name: "contact_last_name",
     type: "text",
-    placeholder: "Contact Last Name",
+    placeholder: "Apellido Materno del Contacto",
   },
   {
     name: "contact_phone",
     type: "text",
-    placeholder: "Contact Phone",
+    placeholder: "Telefono del Contacto",
   },
   {
     name: "contact_email",
     type: "text",
-    placeholder: "Contact Email",
+    placeholder: "Email del Contacto",
   },
 ];
 
@@ -75,25 +74,25 @@ const categoryInputs = [
   {
     name: "channel",
     type: "text",
-    placeholder: "Channel",
+    placeholder: "Canal",
   },
 ];
 
 const typeArray = [
   {
-    label: "Individual",
+    label: "Persona",
     value: "1",
   },
   {
-    label: "Business",
+    label: "Empresa",
     value: "2",
   },
 ];
 
 const channelArray = [
   {
-    label: "Recommendation",
-    value: "Recommendation",
+    label: "Recomendacion",
+    value: "Recomendacion",
   },
   {
     label: "Instagram",
@@ -108,14 +107,22 @@ const channelArray = [
     value: "Google",
   },
   {
-    label: "Other",
-    value: "Other",
+    label: "Expo",
+    value: "Expo",
+  },
+  {
+    label: "Presencial",
+    value: "Presencial",
+  },
+  {
+    label: "Otro",
+    value: "Otro",
   },
 ];
 
-function FormNewLead({ services, navigation }) {
+function FormNewLead({ navigation, process }) {
   const [open, setOpen] = useState(false);
-  const [type, setType] = useState("");
+  const [type, setType] = useState(null);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -123,18 +130,33 @@ function FormNewLead({ services, navigation }) {
     }
   }, [navigation.state]);
 
+  const selectProcess = [];
+
+  arrayFill(process, selectProcess);
+
+  function arrayFill(data, array) {
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+
+      array.push({
+        label: element.name,
+        value: element.id,
+      });
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="group flex w-full items-center justify-start gap-6 p-0 py-1 pl-4 text-gris2 hover:rounded-lg hover:bg-blue-100 hover:text-blue-500">
         <IonIcon icon={personAdd} size="large"></IonIcon>
         <p className="text-base font-medium text-gris2 group-hover:text-blue-500">
-          New Oportunity
+          Nuevo Prospecto
         </p>
       </DialogTrigger>
-      <DialogContent className="h-[650px] overflow-auto p-0 sm:max-w-[425px]">
+      <DialogContent className="max-h-[650px] overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
           <DialogTitle className="font-poppins">
-            Create New Oportunity
+            Crear Nuevo Prospecto
           </DialogTitle>
         </DialogHeader>
         <Form
@@ -159,16 +181,16 @@ function FormNewLead({ services, navigation }) {
             <SelectRouter
               name="register_type"
               options={typeArray}
-              placeholder="Type of Oportunity"
+              placeholder="Tipo de Prospecto"
               onChange={(e) => setType(e.value)}
               required={true}
             />
           </div>
 
-          {type == "" && (
+          {type == null && (
             <div className="flex flex-col rounded-lg px-4 font-roboto">
               <div className="text-center font-normal text-grisSubText">
-                Select type of Oportunity
+                Selecciona el tipo de prospecto
               </div>
             </div>
           )}
@@ -176,11 +198,11 @@ function FormNewLead({ services, navigation }) {
           {type == 1 ? (
             <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
               <div className="text-lg font-normal text-[#696974]">
-                Individual Information
+                Informacion Individual
               </div>
               <div className="flex flex-col gap-4 pb-4 font-light">
                 {individualInputs?.map((input, i) => (
-                  <InputRouter
+                  <InputForm
                     key={i}
                     name={input.name}
                     type={input.type}
@@ -190,14 +212,14 @@ function FormNewLead({ services, navigation }) {
                 ))}
               </div>
             </div>
-          ) : (
+          ) : type == 2 ? (
             <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
               <div className="text-lg font-normal text-[#696974]">
-                Business Information
+                Informacion del Negocio
               </div>
               <div className="flex flex-col gap-4 pb-4 font-light">
                 {businessInputs?.map((input, i) => (
-                  <InputRouter
+                  <InputForm
                     key={i}
                     name={input.name}
                     type={input.type}
@@ -207,38 +229,49 @@ function FormNewLead({ services, navigation }) {
                 ))}
               </div>
             </div>
+          ) : null}
+
+          {type != null ? (
+            <>
+              <div className="flex flex-col gap-4 rounded-lg px-4 font-roboto">
+                <div className="text-lg font-normal text-[#696974]">
+                  Informacion de Contacto
+                </div>
+                <div className="flex flex-col gap-4 pb-4 font-light">
+                  {contactInputs?.map((input, i) => (
+                    <InputForm
+                      key={i}
+                      name={input.name}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
+                <div className="text-lg font-normal text-[#696974]">
+                  Canal de Venta
+                </div>
+                <div className="flex flex-col gap-4 pb-4 font-light">
+                  <SelectRouter
+                    name="channel"
+                    placeholder="¿Como se obtuvo el prospecto?"
+                    options={channelArray}
+                    required={true}
+                  />
+                  <SelectRouter
+                    name="type_process_sale"
+                    placeholder="Proceso Comercial"
+                    options={selectProcess}
+                    required={true}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            false
           )}
-
-          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
-            <div className="text-lg font-normal text-[#696974]">
-              Contact Information
-            </div>
-            <div className="flex flex-col gap-4 pb-4 font-light">
-              {contactInputs?.map((input, i) => (
-                <InputRouter
-                  key={i}
-                  name={input.name}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                  required={true}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 rounded-lg p-4 font-roboto">
-            <div className="text-lg font-normal text-[#696974]">
-              Category Information
-            </div>
-            <div className="flex flex-col gap-4 pb-4 font-light">
-              <SelectRouter
-                name="channel"
-                placeholder="Channel"
-                options={channelArray}
-              />
-              <FromMultiSelect services={services} />
-            </div>
-          </div>
         </Form>
         <DialogFooter className="px-8 py-4">
           <Button

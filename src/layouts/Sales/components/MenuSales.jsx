@@ -1,24 +1,31 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { person, bagCheck, ticket, clipboard, addCircle, arrowRedoCircle } from "ionicons/icons";
+import {
+  person,
+  bagCheck,
+  ticket,
+  clipboard,
+  addCircle,
+  arrowRedoCircle,
+  documentText,
+  appsSharp,
+} from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { path: "/sales", 
-    name: "Clientes", 
-    subname: "General", 
+  {
+    path: "/sales",
+    name: "Clientes",
+    subname: "General",
     icon: person,
-    subRoutes: [
-      "/sales/customer/",
-    ] },
+    subRoutes: ["/sales/customer/"],
+  },
   {
     path: "/sales/invoices",
     name: "Facturas",
     subname: "de Venta",
     icon: bagCheck,
-    subRoutes: [
-      "/sales/invoices/",
-    ] 
+    subRoutes: ["/sales/invoices/"],
   },
 
   {
@@ -26,27 +33,35 @@ const MENU_ITEMS = [
     name: "Ventas",
     subname: "Ticket/Remisión",
     icon: addCircle,
-    subRoutes: [
-      "/sales/tickets/",
-    ] 
+    subRoutes: ["/sales/tickets/"],
   },
   {
     path: "/sales/orders",
     name: "Pedidos",
     subname: "de Clientes",
     icon: arrowRedoCircle,
-    subRoutes: [
-      "/sales/orders/",
-    ] 
+    subRoutes: ["/sales/orders/"],
   },
   {
     path: "/sales/quotes",
     name: "Cotizaciones",
     subname: "General",
     icon: clipboard,
-    subRoutes: [
-      "/sales/quotes/",
-    ]
+    subRoutes: ["/sales/quotes/"],
+  },
+  {
+    path: "/sales/progress",
+    name: "Seguimiento ",
+    subname: "De Servicios",
+    icon: appsSharp,
+    subRoutes: ["/sales/progress"],
+  },
+  {
+    path: "/sales/agreements",
+    name: "Contratos",
+    subname: "De Servicios",
+    icon: documentText,
+    subRoutes: ["/sales/agreements"],
   },
 ];
 

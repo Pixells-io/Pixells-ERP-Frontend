@@ -39,7 +39,7 @@ function ServiceSelectAdd({ services, clients }) {
         <DropdownMenuSeparator />
         <div className="flex flex-col gap-2">
           <Form
-            action="/crm/progress"
+            action="/sales/progress"
             method="post"
             className="flex h-full flex-col gap-2"
           >
@@ -61,7 +61,7 @@ function ServiceSelectAdd({ services, clients }) {
         </div>
         <div className="relative flex flex-col gap-2">
           <Form
-            action="/crm/progress"
+            action="/sales/progress"
             method="post"
             className="flex h-full flex-col gap-2"
           >
