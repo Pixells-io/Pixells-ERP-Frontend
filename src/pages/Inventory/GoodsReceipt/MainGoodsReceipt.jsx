@@ -137,7 +137,7 @@ const MainGoodsReceipt = () => {
               </TabsContent>
             </Tabs>
           </TabsContent>
-          <TabsContent value="dates" className="rounded-md bg-blancoBg p-2">
+          <TabsContent value="dates" className="">
             <DateTab />
           </TabsContent>
           <TabsContent
