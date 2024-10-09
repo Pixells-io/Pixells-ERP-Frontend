@@ -64,7 +64,7 @@ const MainSalesTicket = () => {
     },
     {
       accessorKey: "seller",
-      header: "VENDEDOR",
+      header: () => (<div className="text-center">VENDEDOR</div>),
       cell: ({ row }) => (
         <div className="flex justify-center">
           <Avatar className="size-7">
@@ -72,7 +72,6 @@ const MainSalesTicket = () => {
               src={row?.original?.seller?.img}
               title={row?.original?.seller?.name}
             />
-            <AvatarFallback>hola</AvatarFallback>
           </Avatar>
         </div>
       ),

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SelectsQuote from "../../Components/SelectGroup";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, Link, useLoaderData } from "react-router-dom";
@@ -12,26 +11,16 @@ import {
   print,
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import Total from "../TotalSection/TotalSection";
 import QuoteTable from "../Table/QuoteTable";
+import SelectsQuoteShow from "./Components/SelectsQuoteShow";
+import TotalShow from "./Components/TotalSectionShow/TotalSectionShow";
 
 const TicketDetails = () => {
-  const { infoCreateSales, ticketSale } = useLoaderData();
+  const { ticketSale } = useLoaderData();
 
   const url = "/sales/tickets/document/" + ticketSale?.data?.id;
-  const [items, setItems] = useState([]);
-  const [isEditable, setisEditable] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
-  const [tableData, setTableData] = useState(ticketSale?.data?.slots);
-  // const [productOrService, setProductOrService] = useState("service");
-  // const [wharehouseSelect, setWharehouseSelect] = useState(null);
-  // const [wharehouseName, setWharehouseName] = useState("");
-  // const [productsListMap, setProductsListMap] = useState([]);
-  // const [productsListInfo, setProductsListInfo] = useState([]);
-  const [discountGeneral, setDiscountGeneral] = useState(ticketSale?.data?.discount);
-  const [isShipping, setIsShipping] = useState(!ticketSale?.data?.shipping == "0.00");
-  const [expirationDate, setExpirationDate] = useState(
-    ticketSale?.data?.expiration_date,
+  const [isShipping, setIsShipping] = useState(
+    !(ticketSale?.data?.shipping == "0.00"),
   );
 
   return (
@@ -73,7 +62,7 @@ const TicketDetails = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Ticket/Remisión: sin agregar aun
+            Consultando Ticket/Remisión: { ticketSale?.data?.id }
           </p>
           <div className="flex flex-row">
             <Button
@@ -121,22 +110,11 @@ const TicketDetails = () => {
         <Form className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
-              <SelectsQuote
-                isEditable={isEditable}
-                clientsList={infoCreateSales?.data?.clients}
-                listPriceList={infoCreateSales?.data?.price_list}
-                costCenterList={infoCreateSales?.data?.cost_center}
-                sellersList={infoCreateSales?.data?.sellers}
-                defaultSeller={infoCreateSales?.data?.default_seller}
-                discountGeneral={discountGeneral}
-                setDiscountGeneral={setDiscountGeneral}
-                expirationDate={expirationDate}
-                setExpirationDate={setExpirationDate}
-              />
+              <SelectsQuoteShow data={ticketSale?.data} />
             </div>
 
             <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
-              <div className="col-span-2 flex items-center justify-center gap-x-2 pt-2">
+              <div className="col-span-2 flex items-center justify-start gap-x-2 pt-2">
                 <Checkbox
                   className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
                   checked={isShipping}
@@ -152,7 +130,7 @@ const TicketDetails = () => {
             </div>
 
             <div>
-              <div className="mt-6">
+              {/* <div className="mt-6">
                 <QuoteTable
                   initialItems={items}
                   isEditable={isEditable}
@@ -169,13 +147,8 @@ const TicketDetails = () => {
                   // wharehouseName={wharehouseName}
                   // expirationDate={expirationDate}
                 />
-              </div>
-              <Total
-                tableData={tableData}
-                comment={ticketSale?.data?.comment}
-                isShipping={isShipping}
-                shipping={ticketSale?.data?.shipping}
-              />
+              </div>*/}
+              <TotalShow data={ticketSale?.data} />
             </div>
           </div>
 
