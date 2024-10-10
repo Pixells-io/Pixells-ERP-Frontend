@@ -148,13 +148,15 @@ function MainDashboardCrm() {
       <div className="flex h-screen w-full gap-4 overflow-auto">
         {infoStages.map((stage, i) => (
           <div
-            className={`h-full w-60 flex-shrink-0 rounded-xl bg-[${stage.color}] px-2 py-4`}
+            className={`h-full w-60 flex-shrink-0 rounded-xl px-2 py-4`}
             key={i}
-          >
+            style={{ backgroundColor: `${stage.color}0D` }} // 5% de opacidad
+            >
             <div className="flex items-center justify-between">
               <span
-                className={`rounded-lg bg-[${stage.color}] px-2 py-1 font-roboto text-xs font-normal`}
-              >
+                className={`rounded-lg px-2 py-1 font-roboto text-xs font-normal`}
+                style={{ backgroundColor: `${stage.color}4D` }} // 30% de opacidad
+                >
                 {stage.name}
               </span>
               <IonIcon
