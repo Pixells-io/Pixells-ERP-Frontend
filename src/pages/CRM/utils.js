@@ -145,6 +145,91 @@ export async function functionDestroyNewSaleProcess(data) {
   return response;
 }
 
+//Dashboard
+export async function getSelectedProcess() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}crm/get-selected-process`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
+
+export async function functionUpdateSelectedProcess(data) {
+  const info = {
+    process_ids: data.getAll("process_ids"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/store-selected-process`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function getAuthUser() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/get-user`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getProcessInfo({ params }) {
+  try {
+    const id = params.id;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}crm/get-selected-process/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getProcessInfoId(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}crm/get-selected-process/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 //Multiloaders
 export async function multiLoaderCrmTables() {
   const [leads, process, permissions] = await Promise.all([
@@ -163,6 +248,16 @@ export async function multiLoaderCrmLayout() {
   ]);
 
   return json({ process, permissions });
+}
+
+export async function multiLoaderCrmDasboard() {
+  const [process, selected, user] = await Promise.all([
+    getSalesProcess(),
+    getSelectedProcess(),
+    getAuthUser(),
+  ]);
+
+  return json({ process, selected, user });
 }
 
 //Others

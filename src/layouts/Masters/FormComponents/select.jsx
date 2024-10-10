@@ -18,7 +18,7 @@ function SelectRouter({
   required,
 }) {
   return (
-    <Label className="flex w-full flex-col gap-2">
+    <Label className="z-10 flex w-full flex-col gap-2">
       <p className="pl-1 text-[11px] font-light text-grisHeading">
         {placeholder} {required && "*"}
       </p>

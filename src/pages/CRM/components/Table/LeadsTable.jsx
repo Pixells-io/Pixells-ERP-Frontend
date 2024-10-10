@@ -16,6 +16,7 @@ import DeleteLeadsModal from "../Modals/DeleteLeadsModal";
 import { Link } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { getLeads } from "../../utils";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 function LeadsTable({ leads, edit, destroy }) {
   //Data
@@ -121,6 +122,20 @@ function LeadsTable({ leads, edit, destroy }) {
               false
             )}
           </div>
+        );
+      },
+    },
+    {
+      accessorKey: "assigned",
+      header: "AGENTE",
+      cell: ({ row }) => {
+        return (
+          <Avatar className="size-6">
+            <AvatarImage
+              src={row.original?.assigned?.img}
+              title={row.original?.assigned?.name}
+            />
+          </Avatar>
         );
       },
     },
