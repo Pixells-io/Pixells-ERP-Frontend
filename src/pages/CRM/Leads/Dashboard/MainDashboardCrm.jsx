@@ -120,9 +120,13 @@ function MainDashboardCrm() {
         </div>
       </div>
       {/*  */}
-      <div className="flex gap-x-2">
+      <div className="flex h-screen w-full gap-4 overflow-auto">
         {infoStages.map((stage, i) => (
-          <div className="w-64 rounded-xl bg-[#00A9B315] px-2 py-4" key={i}>
+          <div
+            className={`h-full w-60 flex-shrink-0 rounded-xl bg-[${stage.color}] px-2 py-4`}
+            key={i}
+          >
+            {console.log(stage)}
             <div className="flex items-center justify-between">
               <span className="rounded-lg bg-[#00A9B330] px-2 py-1 font-roboto text-xs font-normal">
                 {stage.name}
