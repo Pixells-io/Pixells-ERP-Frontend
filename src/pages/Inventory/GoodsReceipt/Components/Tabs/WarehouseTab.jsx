@@ -1,10 +1,13 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
+import InputForm from "@/components/InputForm/InputForm";
+import { Label } from "@/components/ui/label";
+import {  searchOutline } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
 const renderColumn = (title) => (
   <div className="min-h-[400px] min-w-[250px] p-2 flex flex-col">
-    <h2 className="mb-2 flex justify-between rounded border-b p-2">
+    <h2 className="mb-2 flex justify-between border-b p-2">
       <span className="font-semibold font-poppins text-lg text-[#44444F]">{title}</span>
       <div className="flex justify-end">
         <div className="rounded-full h-6 w-6 flex justify-center items-center bg-[#E8E8E8]">3</div>
@@ -45,11 +48,23 @@ const Card = ({ title, id, date }) => (
 
 const WarehouseTab = () => {
   return (
-    <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
-      <div className="border-b">
-        <h2 className="font-poppins font-semibold text-xl text-[#44444F] p-4">
+    <div className="flex h-full flex-col overflow-hidden rounded-md bg-blancoBg">
+      <div className="flex-shrink-0 h-[54px] flex justify-between border-b">
+        <h2 className="font-poppins font-semibold text-xl text-[#44444F] ml-4 mt-4">
           ENTREGAS POR ALMACÉN
         </h2>
+        <div className="flex mt-2 mr-2 h-9 w-44 items-center justify-end rounded-3xl border-[1px] border-[#D7D7D7] px-2 py-2 text-[10px]">
+          <Label htmlFor="search">
+            <IonIcon
+              icon={searchOutline}
+              className="h-6 w-6 stroke-1 text-[#8F8F8F]"
+            />
+          </Label>
+          <InputForm
+            name="search"
+            className="h-full w-full border-0 bg-transparent text-sm font-normal text-[#8F8F8F] !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
+          />
+        </div>
       </div>
 
       <div className="mt-4 grid flex-grow grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden">
@@ -58,12 +73,18 @@ const WarehouseTab = () => {
         {renderColumn("ALMACEN GDL CENTRO")}
       </div>
 
-      <div className="ml-2 flex w-full items-center justify-between border-t p-4">
-        <label className="text-xs font-light text-[#8F8F8F]">Actualizado 07 septiembre 2024</label>
-        <Button className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-          Listo
-        </Button>
-      </div>
+      <div className="h-[54px] pb-6 flex-shrink-0 p-4 mb-2">
+          <div className="flex items-center pb-2  justify-between">
+            <label className="text-xs font-light text-[#8F8F8F]">
+              Actualizado 07 septiembre 2024
+            </label>
+            <Button
+              className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            >
+              Listo
+            </Button>
+          </div>
+        </div>
     </div>
   );
 };

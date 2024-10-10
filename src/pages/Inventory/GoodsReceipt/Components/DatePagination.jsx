@@ -46,7 +46,7 @@ const DatePagination = ({ onDateChange, initialDate }) => {
   const isMiddleDate = (index) => index === 4;
 
   return (
-    <div className="flex pb-1 h-[47px] items-center justify-between px-2">
+    <div className="flex pb-1 h-[54px] overflow-x-auto overflow-y-auto items-center justify-between px-2">
       <div className="flex-1" /> {/* Espaciador izquierdo */}
       
       {/* Paginación centrada */}
