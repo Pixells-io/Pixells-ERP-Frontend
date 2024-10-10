@@ -71,12 +71,10 @@ const MainGoodsReceipt = () => {
     },
   ];
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
+    <div className="flex w-full h-full overflow-hidden">
+      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4 overflow-hidden">
         <NavigationHeader />
-        {/* top content */}
-
+        
         <div className="flex items-center gap-4">
           <h2 className="text-md font-poppins font-bold text-[#44444F]">
             INVENTARIO
@@ -90,9 +88,9 @@ const MainGoodsReceipt = () => {
 
         <Tabs
           defaultValue="lists"
-          className="h-full overflow-hidden rounded-lg pt-2"
+          className="flex flex-col h-full overflow-hidden"
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between mb-2">
             <p className="mt-1 h-[30px] font-poppins text-xl font-bold text-grisHeading">
               Entrega de Mercancías
             </p>
@@ -110,58 +108,46 @@ const MainGoodsReceipt = () => {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="lists" className="rounded-md bg-blancoBg p-2">
-            <Tabs
-              defaultValue="deliveries"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
-                {tabItems.map((item) => (
-                  <TabsTrigger
-                    key={item.value}
-                    className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-                    value={item.value}
-                  >
-                    {item.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+          
+          <div className="flex-grow overflow-hidden">
+            <TabsContent value="lists" className="h-full">
+              <Tabs defaultValue="deliveries" className="h-full flex flex-col">
+                <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+                  {tabItems.map((item) => (
+                    <TabsTrigger
+                      key={item.value}
+                      className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                      value={item.value}
+                    >
+                      {item.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
 
-              <TabsContent
-                value="deliveries"
-                className="mt-[-70px] w-full pt-2"
-              >
-                <div className="h-[calc(100vh-200px)]">
-                  <DataTable
-                    data={deliveriesData}
-                    columns={DeliveriesColumns}
-                    searchFilter={"code"}
-                  />
-                </div>
-              </TabsContent>
-            </Tabs>
-          </TabsContent>
-          <TabsContent value="dates">
-            <div className=" h-[calc(100vh-280px)]">
+                <TabsContent value="deliveries" className="flex-grow overflow-hidden">
+                  <div className="h-full rounded-md bg-blancoBg overflow-auto">
+                    <DataTable
+                      data={deliveriesData}
+                      columns={DeliveriesColumns}
+                      searchFilter={"code"}
+                    />
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </TabsContent>
+            
+            <TabsContent value="dates" className="h-[calc(100vh-280px)] overflow-hidden">
               <DateTab />
-            </div>
-          </TabsContent>
-          <TabsContent
-            value="warehouses"
-           
-          >
-            <div className=" h-[calc(100vh-280px)]">
-              <WarehouseTab/>
-            </div>
-          </TabsContent>
+            </TabsContent>
+            
+            <TabsContent value="warehouses" className="h-full overflow-hidden">
+              <WarehouseTab />
+            </TabsContent>
 
-          <TabsContent
-            value="status"
-          >
-            <div className=" h-[calc(100vh-280px)]">
-              <StatusTab/>
-            </div>
-          </TabsContent>
+            <TabsContent value="status" className="h-full overflow-hidden">
+              <StatusTab />
+            </TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>
