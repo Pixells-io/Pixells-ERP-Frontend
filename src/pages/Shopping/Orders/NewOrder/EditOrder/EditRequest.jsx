@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Components/Header";
 import {
   Form,
   redirect,
@@ -29,6 +28,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ModalCancelRequestOrder from "../../Modals/ModalCancelRequestOrder";
+import NavigationHeader from "@/components/navigation-header";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import ReceiptAnalyticsTable from "../Components/Table/ReceiptDataChart";
+import PaymentDataTable from "../Components/Table/PaymentData";
 
 const EditRequests = () => {
   const { requestData, info } = useLoaderData();
@@ -76,6 +79,12 @@ const EditRequests = () => {
     setAllProducts(response.data);
   };
 
+  const tabTriggers = [
+    { value: "request", label: "Pedidos" },
+    { value: "receipts", label: "Recibos" },
+    { value: "payment", label: "Pagos" },
+  ];
+
   return (
     <div className="flex w-full">
       {/* Modals */}
@@ -86,147 +95,204 @@ const EditRequests = () => {
         setModal={setModalCancel}
       />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        <Header title={getTitle} />
-        <div className="flex flex-row justify-end">
-          <ActionsGroup
-            url={url}
-            setEditable={setEditable}
-            editable={editable}
-          />
-          <div className="flex justify-end">
-            {/* 
-            <CardCarousel />
-            */}
+        {/* navigation inside */}
+        <NavigationHeader />
+        {/* top content */}
+
+        <div className="flex items-center gap-4">
+          <h2 className="text-md font-poppins font-bold text-[#44444F]">
+            COMPRAS
+          </h2>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-        <Form
-          className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
-          action={`/shopping/request-orders/edit/${id}`}
-          method="post"
+
+        <Tabs
+          defaultValue="request"
+          className="flex h-full flex-col overflow-hidden"
         >
-          <input
-            type="hidden"
-            hidden
-            className="hidden"
-            readOnly
-            name="buy_id"
-            value={requestOrder.id}
-          />
-          <input
-            type="hidden"
-            hidden
-            className="hidden"
-            readOnly
-            name="type_option"
-            value={"update_requestOrder"}
-          />
-          <div className="overflow-auto">
-            <div className="rounded-xl border border-blancoBox p-4">
-              <InputsGroup
-                documentNumber={documentNumber}
-                setDocumentNumber={setDocumentNumber}
-                selectedWarehouse={selectedWarehouse}
-                setSelectedWarehouse={setSelectedWarehouse}
-                selectedCostCenter={selectedCostCenter}
-                setSelectedCostCenter={setSelectedCostCenter}
-                isEditable={editable}
-                infoSelects={info?.data}
+          <div className="flex justify-between">
+            <div>
+              <span className="font-poppins text-xl font-bold text-[#44444F]">
+                {getTitle}
+              </span>
+            </div>
+            <div className="flex flex-row justify-end">
+              <ActionsGroup
+                url={url}
+                setEditable={setEditable}
+                editable={editable}
               />
-              <OrderTable
-                selectedProveedor={selectedProveedor}
-                setSelectedProveedor={setSelectedProveedor}
-                selectedFechaDoc={selectedFechaDoc}
-                setSelectedFechaDoc={setSelectedFechaDoc}
-                selectedFechaEntrega={selectedFechaEntrega}
-                setSelectedFechaEntrega={setSelectedFechaEntrega}
-                selectedCondicionPago={selectedCondicionPago}
-                setSelectedCondicionPago={setSelectedCondicionPago}
-                isEditable={editable}
-                suppliers={info?.data?.suppliers}
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+                {tabTriggers.map((item) => (
+                  <TabsTrigger
+                    key={item.value}
+                    value={item.value}
+                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                  >
+                    {item.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <div className="flex justify-end">
+                {/* 
+            <CardCarousel />
+            */}
+              </div>
+            </div>
+          </div>
+          <TabsContent value="request" className="w-auto overflow-hidden">
+            <Form
+              className="flex h-full w-full flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
+              action={`/shopping/request-orders/edit/${id}`}
+              method="post"
+            >
+              <input
+                type="hidden"
+                hidden
+                className="hidden"
+                readOnly
+                name="buy_id"
+                value={requestOrder.id}
               />
-              <div className="mt-4 flex gap-x-6">
-                <div className="w-fit">
-                  <Select
-                    name={`payment_type`}
-                    value={paymentType}
-                    required={true}
-                    onValueChange={(e) => setPaymentType(e)}
+              <input
+                type="hidden"
+                hidden
+                className="hidden"
+                readOnly
+                name="type_option"
+                value={"update_requestOrder"}
+              />
+              <div className="overflow-auto">
+                <div className="rounded-xl border border-blancoBox p-4">
+                  <InputsGroup
+                    documentNumber={documentNumber}
+                    setDocumentNumber={setDocumentNumber}
+                    selectedWarehouse={selectedWarehouse}
+                    setSelectedWarehouse={setSelectedWarehouse}
+                    selectedCostCenter={selectedCostCenter}
+                    setSelectedCostCenter={setSelectedCostCenter}
+                    isEditable={editable}
+                    infoSelects={info?.data}
+                  />
+                  <OrderTable
+                    selectedProveedor={selectedProveedor}
+                    setSelectedProveedor={setSelectedProveedor}
+                    selectedFechaDoc={selectedFechaDoc}
+                    setSelectedFechaDoc={setSelectedFechaDoc}
+                    selectedFechaEntrega={selectedFechaEntrega}
+                    setSelectedFechaEntrega={setSelectedFechaEntrega}
+                    selectedCondicionPago={selectedCondicionPago}
+                    setSelectedCondicionPago={setSelectedCondicionPago}
+                    isEditable={editable}
+                    suppliers={info?.data?.suppliers}
+                  />
+                  <div className="mt-4 flex gap-x-6">
+                    <div className="w-fit">
+                      <Select
+                        name={`payment_type`}
+                        value={paymentType}
+                        required={true}
+                        onValueChange={(e) => setPaymentType(e)}
+                        disabled={!editable}
+                      >
+                        <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                          <SelectValue placeholder={"Payment type"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value={String(1)}>Crédito</SelectItem>
+                          <SelectItem value={String(2)}>
+                            Un solo pago
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="w-fit">
+                      {paymentType == "1" && (
+                        <InputForm
+                          placeholder="Número de Documento"
+                          type="date"
+                          name="limit_credit_date"
+                          required={true}
+                          defaultValue={requestOrder.limit_credit_date}
+                          disabled={!editable}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mt-6">
+                    <QuoteTable
+                      initialItems={items}
+                      isEditable={editable}
+                      allProducts={allProducts}
+                      setTableData={setTableData}
+                      tableData={tableData}
+                    />
+                  </div>
+
+                  <Total
+                    tableData={tableData}
+                    comment={requestOrder.comments}
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end">
+                <StatusInformation
+                  status={"inProgress"}
+                  imgUser={
+                    "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  }
+                >
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-[120px] rounded-lg border-2 border-[#D7586B] text-xs text-[#D7586B] hover:text-[#D7586B]"
+                    onClick={() => setModalCancel(true)}
+                  >
+                    Eliminar
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:bg-inherit hover:text-[#8F8F8F]"
+                    onClick={() => setEditable(false)}
                     disabled={!editable}
                   >
-                    <SelectTrigger className="h-[32px] w-full rounded-[10px] rounded-xl border border-[#D7D7D7] bg-inherit font-roboto text-sm font-light text-[#44444f] placeholder:text-[#44444f] focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                      <SelectValue placeholder={"Payment type"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={String(1)}>Crédito</SelectItem>
-                      <SelectItem value={String(2)}>Un solo pago</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="w-fit">
-                  {paymentType == "1" && (
-                    <InputForm
-                      placeholder="Número de Documento"
-                      type="date"
-                      name="limit_credit_date"
-                      required={true}
-                      defaultValue={requestOrder.limit_credit_date}
-                      disabled={!editable}
-                    />
-                  )}
-                </div>
+                    Cancelar
+                  </Button>
+                  <Button
+                    type="submit"
+                    className={`rounded-lg px-10 text-xs ${editable ? "bg-primarioBotones text-white hover:bg-primarioBotones" : "bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"}`}
+                    disabled={!editable || navigation.state === "submitting"}
+                  >
+                    {navigation.state === "submitting"
+                      ? "Submitting..."
+                      : "Aceptar"}
+                  </Button>
+                </StatusInformation>
               </div>
-            </div>
-
-            <div>
-              <div className="mt-6">
-                <QuoteTable
-                  initialItems={items}
-                  isEditable={editable}
-                  allProducts={allProducts}
-                  setTableData={setTableData}
-                  tableData={tableData}
-                />
-              </div>
-              <Total tableData={tableData} comment={requestOrder.comments} />
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <StatusInformation
-              status={"inProgress"}
-              imgUser={
-                "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              }
-            >
-              <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#D7586B] text-xs text-[#D7586B] hover:text-[#D7586B]"
-                onClick={() => setModalCancel(true)}
-              >
-                Eliminar
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-[120px] rounded-lg border-2 border-[#E0E0E0] text-xs text-[#8F8F8F] hover:bg-inherit hover:text-[#8F8F8F]"
-                onClick={() => setEditable(false)}
-                disabled={!editable}
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="submit"
-                className={`rounded-lg px-10 text-xs ${editable ? "bg-primarioBotones text-white hover:bg-primarioBotones" : "bg-[#E0E0E0] text-[#44444F] hover:bg-[#E0E0E0]"}`}
-                disabled={!editable || navigation.state === "submitting"}
-              >
-                {navigation.state === "submitting"
-                  ? "Submitting..."
-                  : "Aceptar"}
-              </Button>
-            </StatusInformation>
-          </div>
-        </Form>
+            </Form>
+          </TabsContent>
+          <TabsContent
+            value="receipts"
+            className="h-[calc(100vh-250px)] overflow-hidden"
+          >
+            <ReceiptAnalyticsTable />
+          </TabsContent>
+          <TabsContent
+            value="payment"
+            className="h-[calc(100vh-250px)] overflow-hidden"
+          >
+            <PaymentDataTable />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

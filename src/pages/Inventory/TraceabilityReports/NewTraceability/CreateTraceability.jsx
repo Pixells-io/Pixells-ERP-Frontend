@@ -29,7 +29,7 @@ const CreateTraceability = () => {
 
         <Tabs
           defaultValue="article"
-          className="h-full overflow-auto rounded-lg pt-2"
+          className="h-full overflow-hidden rounded-lg pt-2"
         >
           <div className="flex justify-between">
             <p className="mt-1 h-[30px] font-poppins text-xl font-bold text-grisHeading">
@@ -52,7 +52,7 @@ const CreateTraceability = () => {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="article">
+          <TabsContent value="article" className="h-[calc(100vh-250px)] overflow-hidden">
            <ArticleForm/>
           </TabsContent>
           <TabsContent value="branch" >

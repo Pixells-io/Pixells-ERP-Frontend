@@ -31,13 +31,16 @@ const ArticleForm = () => {
   const operacionesTotal = filteredOperaciones.reduce((sum, op) => sum + op.cantidad, 0);
 
   return (
-    <div className="flex h-full flex-1 flex-col overflow-auto rounded-xl bg-white">
+    <div className="flex flex-col h-full bg-white rounded-xl">
+      {/* Header */}
       <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
         <span className="font-poppins text-lg font-medium text-[#44444F]">
           POR ARTICULO
         </span>
       </div>
-      <div className="h-full overflow-auto p-6">
+      
+      {/* Scrollable Body */}
+      <div className="flex-1 overflow-auto p-6">
         <div className="max-w-[400px] mb-6">
           <SelectRouter className="w-full" placeholder="Selecciona un producto" />
         </div>
@@ -116,7 +119,9 @@ const ArticleForm = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full items-center justify-between px-6 py-4">
+      
+      {/* Footer */}
+      <div className="flex w-full items-center justify-between px-6 py-4 border-t border-[#E8E8E8]">
         <label className="text-xs font-light text-[#8F8F8F]">
           Actualizado 07 septiembre 2024
         </label>
