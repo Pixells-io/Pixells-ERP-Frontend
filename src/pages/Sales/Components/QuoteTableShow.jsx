@@ -61,8 +61,8 @@ const QuoteTableShow = ({ tableData }) => {
         header: "Descuento (%)",
         type: "text",
         disabled: false,
-        prefix: "$",
-        subfix: "",
+        prefix: "",
+        subfix: "%",
       },
       {
         key: "tax",

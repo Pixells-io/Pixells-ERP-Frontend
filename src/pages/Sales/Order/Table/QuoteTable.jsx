@@ -157,9 +157,9 @@ const QuoteTable = ({
                 ...item,
                 // type: productOrService == "product" ? "1" : "2",
                 inventory_stock_id:
-                  productOrService == "product" ? findProduct?.id : null,
+                  item.type == "1" ? findProduct?.id : null,
                 service_id:
-                  productOrService == "service" ? findProduct?.id : null,
+                  item.type == "2" ? findProduct?.id : null,
                 code: findProduct?.code,
                 sub_total: calculateSubTotal({
                   value: findProduct?.price,
@@ -411,7 +411,7 @@ const QuoteTable = ({
                                   value={String(product.value)}
                                   disabled={
                                     !!tableData.find(
-                                      (td) => td.product_idAux == product.value,
+                                      (td) => (td.product_idAux == product.value && td.type == "1"),
                                     ) && row["type"] == "1"
                                   }
                                 >
