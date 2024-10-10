@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const renderColumn = (title) => (
   <div className="min-h-[400px] min-w-[250px] p-2 flex flex-col">
-    <h2 className="mb-2 flex justify-between rounded border-b p-2">
+    <h2 className="mb-2 flex justify-between border-b p-2">
       <span className="font-semibold font-poppins text-lg text-[#44444F]">{title}</span>
       <div className="flex justify-end">
         <div className="rounded-full h-6 w-6 flex justify-center items-center bg-[#E8E8E8]">3</div>
@@ -45,12 +45,12 @@ const Card = ({ title, id, date }) => (
 
 const StatusTab = () => {
   return (
-    <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
-      <div className="border-b">
-        <h2 className="font-poppins font-semibold text-xl text-[#44444F] p-4">
+    <div className="flex h-full flex-col overflow-hidden rounded-md bg-blancoBg">
+      <div className="flex-shrink-0 h-[54px] flex justify-between border-b">
+        <h2 className="font-poppins font-semibold text-xl text-[#44444F] ml-4 mt-4">
           ENTREGAS POR ESTATUS
         </h2>
-      </div>
+        </div>
 
       <div className="mt-4 grid flex-grow grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden">
         {renderColumn("POR ACEPTAR")}
@@ -58,14 +58,18 @@ const StatusTab = () => {
         {renderColumn("POR ENTREGAR")}
       </div>
       
-      <div className="ml-2 flex w-full items-center justify-between border-t p-4">
-        <label className="text-xs font-light text-[#8F8F8F]">
-          Actualizado 07 septiembre 2024
-        </label>
-        <Button className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-          Listo
-        </Button>
-      </div>
+      <div className="h-[54px] flex-shrink-0 p-4">
+          <div className="flex items-center pb-2  justify-between">
+            <label className="text-xs font-light text-[#8F8F8F]">
+              Actualizado 07 septiembre 2024
+            </label>
+            <Button
+              className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            >
+              Listo
+            </Button>
+          </div>
+        </div>
     </div>
   );
 };

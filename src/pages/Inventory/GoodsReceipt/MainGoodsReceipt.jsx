@@ -110,7 +110,7 @@ const MainGoodsReceipt = () => {
           </div>
           
           <div className="flex-grow overflow-hidden">
-            <TabsContent value="lists" className="h-full">
+            <TabsContent value="lists" className="h-full rounded-md bg-blancoBg">
               <Tabs defaultValue="deliveries" className="h-full flex flex-col">
                 <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
                   {tabItems.map((item) => (
@@ -124,8 +124,8 @@ const MainGoodsReceipt = () => {
                   ))}
                 </TabsList>
 
-                <TabsContent value="deliveries" className="flex-grow overflow-hidden">
-                  <div className="h-full rounded-md bg-blancoBg overflow-auto">
+                <TabsContent value="deliveries" className="flex-grow mt-[-60px] overflow-hidden">
+                  <div className="h-full overflow-auto">
                     <DataTable
                       data={deliveriesData}
                       columns={DeliveriesColumns}
@@ -136,7 +136,7 @@ const MainGoodsReceipt = () => {
               </Tabs>
             </TabsContent>
             
-            <TabsContent value="dates" className="h-[calc(100vh-280px)] overflow-hidden">
+            <TabsContent value="dates" className="h-[calc(100vh-250px)] overflow-hidden">
               <DateTab />
             </TabsContent>
             

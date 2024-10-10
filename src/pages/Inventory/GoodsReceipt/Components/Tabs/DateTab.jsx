@@ -129,7 +129,7 @@ const DateTab = () => {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-blancoBg">
-      <div className="flex-shrink-0 border-b p-2">
+      <div className="flex-shrink-0 h-[54px] pb-3 border-b">
         <DatePagination
           onDateChange={handleDateChange}
           initialDate={selectedDate}
@@ -187,8 +187,8 @@ const DateTab = () => {
         </div>
       </div>
       {!isShowModal && (
-        <div className="flex-shrink-0 border-t p-4">
-          <div className="flex items-center justify-between">
+        <div className="h-[54px] flex-shrink-0 p-4">
+          <div className="flex items-center pb-2  justify-between">
             <label className="text-xs font-light text-[#8F8F8F]">
               Actualizado 07 septiembre 2024
             </label>
