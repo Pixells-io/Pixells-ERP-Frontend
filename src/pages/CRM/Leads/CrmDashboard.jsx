@@ -92,18 +92,19 @@ function CrmDashboard() {
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-x-2">
           <div className="flex gap-2">
             {selectedProcess.map((process, i) => (
               <Link
                 to={`/crm/dashboard/${process.process_id}`}
                 className={
                   params.id == process.process_id
-                    ? "w-fit rounded-lg bg-grisHeading px-6 py-2 text-white"
-                    : "w-fit rounded-lg bg-blancoBox px-6 py-2 text-black"
+                    ? "w-fit rounded-lg bg-grisHeading px-6 py-2 text-white font-semibold"
+                    : "w-fit rounded-lg bg-blancoBox px-6 py-2 text-black font-normal"
                 }
+                key={i}
               >
-                <p className="font-roboto text-xs font-medium">
+                <p className="font-roboto text-xs">
                   {process.name}
                 </p>
               </Link>
