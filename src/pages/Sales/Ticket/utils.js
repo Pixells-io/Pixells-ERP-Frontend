@@ -101,7 +101,7 @@ export async function saveNewTicketSale(data) {
     seller_id: data.get("seller_id"),
     client_id: data.get("client_id"),
     credit: data.get("credit"),
-    expiration_date: format(data.get("expiration_date"), "yyyy-MM-dd"),
+    expiration_date: !!data.get("expiration_date") ? format(data.get("expiration_date"), "yyyy-MM-dd") : null,
 
     productService: data.get("productService"),
     wharehouse: data.get("wharehouse"),
