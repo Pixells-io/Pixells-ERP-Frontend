@@ -203,7 +203,7 @@ const CrateTable = ({
 
   const columns = [
     {
-      accessorKey: "component",
+      accessorKey: "embalaje",
       header: "E",
       cell: ({ row, rowIndex }) => <input type="checkbox" name="" id="" />,
     },

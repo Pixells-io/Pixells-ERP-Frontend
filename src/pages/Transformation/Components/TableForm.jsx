@@ -95,11 +95,7 @@ const TableForm = ({
           ? {
               ...item,
               price: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal: (
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100
-              ).toFixed(2),
+              subTotal: (value * item.amount).toFixed(2),
             }
           : item,
       ),
@@ -121,8 +117,7 @@ const TableForm = ({
                 amountTax: 16,
                 label: data.name,
                 value: data.id,
-                tax: (data.price * 16) / 100,
-                subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
+                subTotal: data.price.toFixed(2),
               }
             : item,
         ),
@@ -141,8 +136,7 @@ const TableForm = ({
                 amountTax: 16,
                 label: comp.name,
                 value: comp.id,
-                tax: (comp.price * 16) / 100,
-                subTotal: (comp.price * 1 + (comp.price * 16) / 100).toFixed(2),
+                subTotal: Number(comp.price).toFixed(2),
               }
             : item,
         ),
