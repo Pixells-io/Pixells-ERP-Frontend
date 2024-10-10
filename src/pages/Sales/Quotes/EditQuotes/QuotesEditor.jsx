@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import SelectsQuote from "../../Components/SelectGroup";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
-import { Form, Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -12,61 +11,119 @@ import {
   print,
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
-import Total from "../TotalSection/TotalSection";
-import QuoteTable from "../Table/QuoteTable";
+import SelectsQuoteShow from "../../Ticket/EditTicket/Components/SelectsQuoteShow";
+import QuoteTableShow from "../../Components/QuoteTableShow";
+import TotalShow from "../../Components/TotalSectionShow";
 
 const QuotesDetails = () => {
-  const { infoCreateSales } = useLoaderData();
 
-  const dataAux = {
-    id: 2,
-    code: "A123",
-    client_id: 10,
-    price_list: 4,
-    seller_id: 4,
-    credit: "0",
-    ccost: 8,
-    expiration_date: "03/11/1997",
-    discount: "10",
-    comment: "Hola",
-    isShipping: true,
-    shipping: "10.00",
-    sales_slots: [
-      {
-        product: {
-          label: "guitarra",
-        },
-        wharehouseName: "Lombriz",
-        code: "1010101",
-        id: 1,
-        type: "1",
-        inventory_stock_id: null,
-        service_id: "14",
-        value: 100,
-        sub_total: "100",
-        discount: "13",
-        taxes: "16",
-        total: "100.92",
-        quantity: "1",
-        delivery_date: "11/03/1998",
+  const quoteSale = {
+    "code": 201,
+    "message": "The query was created successfully",
+    "data": {
+      "id": 13,
+      "order_id": null,
+      "price_list": "Lista de Agustin",
+      "seller": {
+        "img": "http://demoback.pixells.io/storage/BT9kgdWc9GgqSicKdSpi9orXHS9oU0Mruffi1CJk.png",
+        "name": "Luis Daniel Rios"
       },
-    ],
+      "creator": {
+        "img": "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
+        "name": "Developer Pixells"
+      },
+      "client": "rtrt edit edit",
+      "expiration_date": "31 Dec 1969",
+      "comments": "asdasd",
+      "status": "Creada",
+      "subtotal": "6,591.00",
+      "shipping": "0.00",
+      "discount": "659.10",
+      "taxes": "949.10",
+      "total": "6,881.00",
+      "slots": [
+        {
+          "id": 17,
+          "type": {
+            "id": 9,
+            "name": "SERVICIO DE PRUEBA",
+            "description": "GARANTIA",
+            "category_id": "1",
+            "position_id": null,
+            "type": "0",
+            "color": "#743474",
+            "icon": null,
+            "price": "345",
+            "created_at": "2024-10-03T13:51:10.000000Z",
+            "updated_at": "2024-10-03T13:51:10.000000Z"
+          },
+          "name": "SERVICIO DE PRUEBA",
+          "quantity": "1",
+          "delivered": "0",
+          "return": "0",
+          "shipping_date": "03 Oct 2024",
+          "price": "$ 0.00",
+          "discount": "$ 659.10",
+          "tax": "$ 0.00",
+          "total": "$ 6,881.00"
+        },
+        {
+          "id": 18,
+          "type": {
+            "id": 14,
+            "name": "PayRoll",
+            "description": "NA",
+            "category_id": "1",
+            "position_id": null,
+            "type": "0",
+            "color": "#00ffcc",
+            "icon": null,
+            "price": "5000",
+            "created_at": "2024-10-04T00:06:53.000000Z",
+            "updated_at": "2024-10-04T23:19:14.000000Z"
+          },
+          "name": "PayRoll",
+          "quantity": "1",
+          "delivered": "0",
+          "return": "0",
+          "shipping_date": "03 Oct 2024",
+          "price": "$ 0.00",
+          "discount": "$ 659.10",
+          "tax": "$ 0.00",
+          "total": "$ 6,881.00"
+        },
+        {
+          "id": 19,
+          "type": {
+            "id": 13,
+            "name": "SERVICIO DE VERIFICACION",
+            "description": "VERIFICACION DE SERVICIO",
+            "category_id": "1",
+            "position_id": null,
+            "type": "0",
+            "color": "#ff007b",
+            "icon": null,
+            "price": "1246",
+            "created_at": "2024-10-04T00:02:47.000000Z",
+            "updated_at": "2024-10-04T00:02:47.000000Z"
+          },
+          "name": "SERVICIO DE VERIFICACION",
+          "quantity": "1",
+          "delivered": "0",
+          "return": "0",
+          "shipping_date": "03 Oct 2024",
+          "price": "$ 0.00",
+          "discount": "$ 659.10",
+          "tax": "$ 0.00",
+          "total": "$ 6,881.00"
+        }
+      ]
+    }
   };
 
-  const url = "/sales/quotes/document/" + dataAux?.id;
-  const [items, setItems] = useState([]);
-  const [isEditable, setisEditable] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
-  const [tableData, setTableData] = useState(dataAux?.sales_slots);
-  // const [productOrService, setProductOrService] = useState("service");
-  // const [wharehouseSelect, setWharehouseSelect] = useState(null);
-  // const [wharehouseName, setWharehouseName] = useState("");
-  // const [productsListMap, setProductsListMap] = useState([]);
-  // const [productsListInfo, setProductsListInfo] = useState([]);
-  const [discountGeneral, setDiscountGeneral] = useState(dataAux?.discount);
-  const [isShipping, setIsShipping] = useState(dataAux?.isShipping);
-  const [expirationDate, setExpirationDate] = useState(
-    dataAux?.expiration_date,
+  const url = "/sales/quotes/document/" + quoteSale?.data?.id;
+  const [isShipping, setIsShipping] = useState(
+    !(quoteSale?.data?.shipping == "0.00"),
   );
 
   return (
@@ -108,7 +165,7 @@ const QuotesDetails = () => {
 
         <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Cotización: {dataAux?.code}
+            Consultando Cotización: { quoteSale?.data?.id }
           </p>
           <div className="flex flex-row">
             <Button
@@ -153,26 +210,14 @@ const QuotesDetails = () => {
         </div>
 
         {/* content */}
-        <Form className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
+        <div className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
-              <SelectsQuote
-                data={dataAux}
-                isEditable={isEditable}
-                clientsList={infoCreateSales?.data?.clients}
-                listPriceList={infoCreateSales?.data?.price_list}
-                costCenterList={infoCreateSales?.data?.cost_center}
-                sellersList={infoCreateSales?.data?.sellers}
-                defaultSeller={infoCreateSales?.data?.default_seller}
-                discountGeneral={discountGeneral}
-                setDiscountGeneral={setDiscountGeneral}
-                expirationDate={expirationDate}
-                setExpirationDate={setExpirationDate}
-              />
+              <SelectsQuoteShow data={quoteSale?.data} />
             </div>
 
             <div className="my-6 grid w-full grid-cols-12 gap-2 px-9">
-              <div className="col-span-2 flex items-center justify-center gap-x-2 pt-2">
+              <div className="col-span-2 flex items-center justify-start gap-x-2 pt-2">
                 <Checkbox
                   className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
                   checked={isShipping}
@@ -189,29 +234,11 @@ const QuotesDetails = () => {
 
             <div>
               <div className="mt-6">
-                <QuoteTable
-                  initialItems={items}
-                  isEditable={isEditable}
-                  allProducts={allProducts}
-                  setTableData={setTableData}
-                  tableData={tableData}
-                  // productOrService={productOrService}
-                  // services_map={infoCreateSales?.data?.services_map}
-                  // services_data={infoCreateSales?.data?.services_data}
-                  // products_map={productsListMap}
-                  // products_info={productsListInfo}
-                  // wharehouseSelect={wharehouseSelect}
-                  // discountGeneral={discountGeneral}
-                  // wharehouseName={wharehouseName}
-                  // expirationDate={expirationDate}
+                <QuoteTableShow
+                  tableData={quoteSale?.data?.slots}
                 />
               </div>
-              <Total
-                tableData={tableData}
-                comment={dataAux?.comment}
-                isShipping={isShipping}
-                shipping={dataAux?.shipping}
-              />
+              <TotalShow data={quoteSale?.data} />
             </div>
           </div>
 
@@ -223,7 +250,7 @@ const QuotesDetails = () => {
               }
             ></StatusInformation>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   );

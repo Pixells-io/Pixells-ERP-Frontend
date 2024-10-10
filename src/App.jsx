@@ -586,7 +586,9 @@ import {
 import CrmDashboard, {
   Action as MultiFunctionsDashboardCrm,
 } from "./pages/CRM/Leads/CrmDashboard";
-import MainDashboardCrm from "./pages/CRM/Leads/Dashboard/MainDashboardCrm";
+import MainDashboardCrm, {
+  Action as FuncionsDashboardCrm,
+} from "./pages/CRM/Leads/Dashboard/MainDashboardCrm";
 
 const router = createBrowserRouter([
   {
@@ -644,6 +646,7 @@ const router = createBrowserRouter([
                 path: "/crm/dashboard/:id",
                 element: <MainDashboardCrm />,
                 loader: getProcessInfo,
+                action: FuncionsDashboardCrm,
               },
             ],
           },

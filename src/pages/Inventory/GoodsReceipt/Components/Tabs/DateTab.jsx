@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 const Card = ({ title, id, date, onViewClick, showDetails }) => (
   <div
     className={`rounded-lg bg-white p-4 ${
-      showDetails ? "max-w-[40%]" : "mb-4 ml-2 mr-2 mt-2 w-full"
+      showDetails ? "w-full" : "mb-4 ml-2 mr-2 mt-2 w-full"
     }`}
     style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.15)" }}
   >
@@ -34,17 +34,17 @@ const Card = ({ title, id, date, onViewClick, showDetails }) => (
       <>
         <div className="flex justify-between p-2">
           <div>
-            {" "}
-            <p className=" font-roboto text-sm font-semibold text-[#44444F]">ID: {id}</p>
+            <p className="font-roboto text-sm font-semibold text-[#44444F]">
+              ID: {id}
+            </p>
             <p className="mb-2 font-roboto text-sm text-[#44444F]">
               Fecha: {date}
             </p>
           </div>
-
           <div className="flex items-end justify-end">
             <Link
               to={`/inventory/goods-receipt/deliveries/details/${id}`}
-              className="cursor-pointer mb-4 font-roboto text-primarioBotones"
+              className="mb-4 cursor-pointer font-roboto text-primarioBotones"
             >
               Ver
             </Link>
@@ -100,12 +100,19 @@ const DateTab = () => {
 
   const renderColumn = (date, title, showDetails = false) => (
     <div className="min-h-[400px] min-w-[250px] p-2 flex flex-col">
-      <h2 className="mb-2 rounded border-b p-2 font-poppins text-lg font-semibold text-[#44444F]">
-        {title || getDateTitle(date)}
+      <h2 className="sticky top-0 z-10 mb-2 flex justify-between border-b bg-white p-4">
+        <span className="font-semibold font-poppins text-lg text-[#44444F]">
+          {title || getDateTitle(date)}
+        </span>
+        <div className="flex justify-end">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E8E8E8]">
+            7
+          </div>
+        </div>
       </h2>
-      <div className="flex-grow pr-4 overflow-auto">
+      <div className="flex-grow overflow-y-auto pr-4">
         <div className="space-y-4">
-          {[1, 2, 3,4,5,6,7].map((id) => (
+          {[1, 2, 3, 4, 5, 6, 7].map((id) => (
             <Card
               key={id}
               title="Almacene Norte GDL"
@@ -121,55 +128,79 @@ const DateTab = () => {
   );
 
   return (
-    <div className="flex h-full flex-col rounded-md bg-blancoBg p-2">
-      <div className="border-b">
+    <div className="flex h-full flex-col overflow-hidden bg-blancoBg">
+      <div className="flex-shrink-0 h-[54px] pb-3 border-b">
         <DatePagination
           onDateChange={handleDateChange}
           initialDate={selectedDate}
         />
       </div>
-      <div className="mt-4 grid flex-grow grid-cols-3 gap-4 overflow-hidden">
-        {isShowModal ? (
-          <>
-            {renderColumn(selectedCardDate)}
-            <div className="col-span-2 border-l pl-4">
-              <h2 className="mb-2 rounded border-b p-2 font-poppins text-lg font-semibold text-[#44444F]">
-                POR ENTREGAR
-              </h2>
-              <div className="mr-4 flex items-end justify-end">
-                <Button
-                  onClick={handleModalClose}
-                  className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
-                >
-                  Cerrar
-                </Button>
-              </div>
-              <div className="h-[calc(400px-56px)] overflow-auto">
-                <Card
-                  id={selectedCardId}
-                  date={"27 Septiembre 2024"}
-                  showDetails={true}
-                  title="Almacene Norte GDL" // Aquí puedes poner el nombre que desees
-                />
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {renderColumn(selectedDate)}
-            {renderColumn(new Date(selectedDate.getTime() + 86400000))}
-            {renderColumn(new Date(selectedDate.getTime() + 172800000))}
-          </>
-        )}
+      <div className="flex-grow overflow-hidden">
+        <div className="h-full overflow-hidden p-2">
+          <div
+            className={`grid gap-4 ${isShowModal ? "grid-cols-3" : "grid-cols-3"} h-full`}
+          >
+            {isShowModal ? (
+              <>
+                {renderColumn(selectedCardDate)}
+                <div className="col-span-2 flex min-h-[700px] md:min-h-[2px] min-w-[250px] flex-col border-l p-2 pl-4">
+                  <h2 className="sticky top-0 z-10 mb-2 font-poppins font-semibold flex justify-between bg-white p-4">
+                    POR ENTREGAR
+                  </h2>
+                  <div className="flex-grow overflow-auto pr-4">
+                    <div className="space-y-4">
+                      {[1, 2, 3, 4, 5].map((id) => (
+                        <Card
+                          key={id}
+                          title={id}
+                          id={`019876${id}`}
+                          date={"22 de septiembre 2024"}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  {/* Aquí se modifica el footer */}
+                  <div className=" lg:h-[54px] md:h-[280px] border-t p-4">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-light text-[#8F8F8F]">
+                        Actualizado 07 septiembre 2024
+                      </label>
+                      <Button
+                        onClick={handleModalClose}
+                        className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                      >
+                        Listo
+                      </Button>
+                    </div>
+                  </div>
+                  {/* Fin de la modificación */}
+                </div>
+              </>
+            ) : (
+              <>
+                {renderColumn(selectedDate)}
+                {renderColumn(new Date(selectedDate.getTime() + 86400000))}
+                {renderColumn(new Date(selectedDate.getTime() + 172800000))}
+              </>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="ml-2 flex w-full items-center justify-between border-t p-4">
-        <label className="text-xs font-light text-[#8F8F8F]">
-          Actualizado 07 septiembre 2024
-        </label>
-        <Button className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]">
-          Listo
-        </Button>
-      </div>
+      {!isShowModal && (
+        <div className="h-[54px] flex-shrink-0 p-4">
+          <div className="flex items-center pb-2  justify-between">
+            <label className="text-xs font-light text-[#8F8F8F]">
+              Actualizado 07 septiembre 2024
+            </label>
+            <Button
+              onClick={handleModalClose}
+              className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+            >
+              Listo
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

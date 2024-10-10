@@ -181,6 +181,28 @@ export async function functionUpdateSelectedProcess(data) {
   return response;
 }
 
+export async function functionCreateSaleProcessStage(data) {
+  const info = {
+    sale_process_id: data.get("sale_process_id"),
+    color: data.get("color"),
+    name: data.get("name"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/store-sale-process-stage`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function getAuthUser() {
   try {
     const response = await fetch(

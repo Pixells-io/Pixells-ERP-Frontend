@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   chevronBack,
@@ -12,12 +12,35 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { createPusherClient } from "@/lib/pusher";
+import { getSalesTicket } from "./utils";
 const MainSalesTicket = () => {
   const { data } = useLoaderData();
 
+  const [saleTicketsList, setSaleTicketsList] = useState([...data].reverse());
+
+  const pusherClient = createPusherClient();
+
+  async function getSaleTicketList() {
+    let newData = await getSalesTicket();
+    setSaleTicketsList([...newData.data].reverse());
+  }
+
+  useEffect(() => {
+    pusherClient.subscribe("private-get-sales");
+
+    pusherClient.bind("fill-sales", ({ message }) => {
+      getSaleTicketList();
+    });
+
+    return () => {
+      pusherClient.unsubscribe("private-get-sales");
+    };
+  }, []);
+
   const columns = [
     {
-      accessorKey: "folio",
+      accessorKey: "id",
       header: "FOLIO",
       cell: ({ row }) => {
         return (
@@ -27,7 +50,7 @@ const MainSalesTicket = () => {
               checked={row.getIsSelected()}
               onCheckedChange={(value) => row.toggleSelected(!!value)}
             />
-            <label>{row?.original?.folio}</label>
+            <label>{row?.original?.id}</label>
           </div>
         );
       },
@@ -64,7 +87,7 @@ const MainSalesTicket = () => {
     },
     {
       accessorKey: "seller",
-      header: () => (<div className="text-center">VENDEDOR</div>),
+      header: () => <div className="text-center">VENDEDOR</div>,
       cell: ({ row }) => (
         <div className="flex justify-center">
           <Avatar className="size-7">
@@ -166,9 +189,9 @@ const MainSalesTicket = () => {
           </TabsList>
           <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
             <DataTable
-              data={data}
+              data={saleTicketsList}
               columns={columns}
-              searchFilter="folio"
+              searchFilter="id"
               searchNameFilter="Buscar por folio"
               isCheckAll={true}
             />
