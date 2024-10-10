@@ -79,11 +79,7 @@ const EnergyTable = ({
           ? {
               ...item,
               amount: value,
-              tax: (item.price * item.amountTax * value) / 100,
-              subTotal: (
-                item.price * value +
-                (item.price * item.amountTax * value) / 100
-              ).toFixed(2),
+              subTotal: (item.price * value).toFixed(2),
             }
           : item,
       ),
@@ -97,11 +93,7 @@ const EnergyTable = ({
           ? {
               ...item,
               price: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal: (
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100
-              ).toFixed(2),
+              subTotal: (value * item.amount).toFixed(2),
             }
           : item,
       ),
@@ -120,11 +112,9 @@ const EnergyTable = ({
                 unit: data.unit,
                 price: data.price,
                 amount: 1,
-                amountTax: 16,
                 label: data.name,
                 value: data.id,
-                tax: (data.price * 16) / 100,
-                subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
+                subTotal: data.price.toFixed(2),
               }
             : item,
         ),
@@ -140,34 +130,14 @@ const EnergyTable = ({
                 unit: comp.unit,
                 price: comp.price,
                 amount: 1,
-                amountTax: 16,
                 label: comp.name,
                 value: comp.id,
-                tax: (comp.price * 16) / 100,
-                subTotal: (comp.price * 1 + (comp.price * 16) / 100).toFixed(2),
+                subTotal: Number(comp.price).toFixed(2),
               }
             : item,
         ),
       );
     }
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal: (
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
   }, []);
 
   const deleteRowId = (id) => {

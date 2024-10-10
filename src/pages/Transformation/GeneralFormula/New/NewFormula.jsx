@@ -111,7 +111,7 @@ function NewFormula() {
   });
 
   const [products, setProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0.0);
 
   const [variables, setVariables] = useState([]);
 
@@ -133,14 +133,14 @@ function NewFormula() {
   const [personal, setPersonal] = useState([]);
   const [totalPersonal, setTotalPersonal] = useState(0);
 
-  const [totalTableSection, setTotalTableSection] = useState(
-    Number(products[0]?.subTotal) || 0,
-  );
+  const [totalTableSection, setTotalTableSection] = useState(totalProducts);
   const [tableName, setTableName] = useState("FABRICACION");
 
   useEffect(() => {
-    switch (tableName) {
+    console.log(tableName);
+    switch (tableName.toLowerCase()) {
       case "fabricacion":
+        console.log("fabricacion");
         setTotalTableSection(totalProducts);
         break;
 
@@ -163,13 +163,19 @@ function NewFormula() {
       default:
         break;
     }
-  }, [products, energetics, packages, crate, subProducts, tableName]);
+  }, [
+    totalProducts,
+    totalEnergetics,
+    totalPackages,
+    totalCrate,
+    totalSubProducts,
+    tableName,
+  ]);
 
   function setTableTotal(table) {
     switch (table) {
       case "fabricacion":
         setTableName(table.toUpperCase());
-        console.log(totalProducts);
         setTotalTableSection(totalProducts);
         break;
       case "energeticos":
