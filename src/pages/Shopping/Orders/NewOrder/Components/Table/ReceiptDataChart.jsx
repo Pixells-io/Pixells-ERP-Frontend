@@ -1,110 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { RadialBarChart, RadialBar, PolarGrid, PolarRadiusAxis, Label } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons"; 
-
-import { TrendingUp } from "lucide-react";
-import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-
-const createGradient = (id, colors) => (
-  <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="0%">
-    {colors.map((color, index) => (
-      <stop
-        key={index}
-        offset={`${(index / (colors.length - 1)) * 100}%`}
-        stopColor={color}
-      />
-    ))}
-  </linearGradient>
-);
-
-const MetricCard = ({ percentage, value, total, label, gradientColors, id, backgroundColor }) => {
-  const chartData = [{ value: percentage, fill: `url(#gradient-${id})` }];
-
-  const chartConfig = {
-    value: { label: label },
-  };
-
-  return (
-    <Card className="flex flex-col w-[250px]">
-      <CardHeader className="items-center pb-0">
-        <CardTitle className="text-sm font-medium">
-          {value}/{total} {label}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
-          <RadialBarChart
-            data={chartData}
-            startAngle={180}
-            endAngle={0}
-            innerRadius={80}
-            outerRadius={110}
-          >
-            <defs>
-              {createGradient(`gradient-${id}`, gradientColors)}
-            </defs>
-            <PolarGrid gridType="circle" radialLines={false} stroke="none" />
-            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false} />
-            <RadialBar
-              dataKey="value"
-              background={{ fill: backgroundColor }}
-              cornerRadius={10}
-            />
-            <Label
-              content={({ viewBox }) => (
-                <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
-                  <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-4xl font-bold">
-                    {percentage}%
-                  </tspan>
-                </text>
-              )}
-            />
-          </RadialBarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <button className="text-sm text-muted-foreground flex items-center">
-          Ver estadística completa
-          <TrendingUp className="ml-1 h-4 w-4" />
-        </button>
-      </CardFooter>
-    </Card>
-  );
-};
-
-export function DashboardMetrics() {
-  return (
-    <div className="flex space-x-4">
-      <MetricCard
-        percentage={57}
-        value={56}
-        total={75}
-        label="art."
-        gradientColors={['#DC1C3B', '#FF79AB', '#DC1C3B', '#FF79AB']}
-        id="red"
-        backgroundColor="#D7586B40"
-      />
-      <MetricCard
-        percentage={64}
-        value={64}
-        total={100}
-        label="pedidos Entregados en tiempo"
-        gradientColors={['#3EC5FF', '#00E0E0', '#3EC5FF', '#00E0E0']}
-        id="blue"
-        backgroundColor="#5B89FF40"
-      />
-    </div>
-  );
-}
+const chartData = [
+  { name: "Pedidos", value: 80, fill: "#3EC5FF" },
+];
 
 const ReceiptAnalyticsTable = () => {
-
   return (
     <div className="flex flex-col h-full bg-white rounded-xl">
       {/* Header */}
@@ -113,47 +16,133 @@ const ReceiptAnalyticsTable = () => {
           RESUMEN DE PEDIDO
         </span>
       </div>
-      
+
+      {/* Circular Chart with Custom Border */}
+      <div className="px-6 py-4 flex justify-center">
+        <div
+          className="relative rounded-full"
+          style={{
+            width: "250px",
+            height: "250px",
+            border: "10px solid rgba(91, 137, 255, 0.25)", // Background border color
+            borderImage: `conic-gradient(
+              from 180deg at 50% 50%,
+              #3EC5FF -178.48deg,
+              #00E0E0 164.3deg,
+              #3EC5FF 181.52deg,
+              #00E0E0 524.3deg
+            )`,
+            borderImageSlice: 1,
+            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)", // Shadow for the border
+          }}
+        >
+          {/* Radial Bar Chart */}
+          <div className="absolute inset-0 flex justify-center items-center">
+            <RadialBarChart
+              width={200}
+              height={200}
+              cx={100}
+              cy={100}
+              innerRadius={80}
+              outerRadius={90}
+              barSize={10}
+              data={chartData}
+              startAngle={90}
+              endAngle={450}
+            >
+              <PolarGrid radialLines={false} />
+              <RadialBar minAngle={15} background clockWise dataKey="value" />
+              <PolarRadiusAxis tick={false} />
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          80%
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 20}
+                          className="fill-muted text-sm"
+                        >
+                          Pedidos Recibidos
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </RadialBarChart>
+          </div>
+        </div>
+      </div>
+
       {/* Scrollable Body */}
       <div className="flex-1 overflow-auto mx-2 p-6">
-      
-          <div className="overflow-x-auto">
-            <Table className="w-full border-collapse">
-              <TableHeader>
-                <TableRow className="border-b border-[#44444F]">
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Entrega</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Folio</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">SKU.Recibidos</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Productos Total</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Ubicación</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Quién Recibio</TableHead>
-                  <TableHead className="font-poppins text-[#44444F] text-xs">Fecha de Recibido</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                
-                <TableRow>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                 <TableCell></TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
-        
+        <div className="overflow-x-auto">
+          <Table className="w-full border-collapse">
+            <TableHeader>
+              <TableRow className="border-b border-[#44444F]">
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Entrega
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Folio
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  SKU.Recibidos
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Productos Total
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Ubicación
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Quién Recibió
+                </TableHead>
+                <TableHead className="font-poppins text-[#44444F] text-xs">
+                  Fecha de Recibido
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </div>
-      
+
       {/* Footer */}
       <div className="flex w-full items-center justify-between px-6 py-4">
         <label className="text-xs font-light text-[#8F8F8F]">
           Actualizado 07 septiembre 2024
         </label>
-        <Button className="h-[31px] rounded-xl px-6 py-4 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]" variant="outline">Listo</Button>
+        <Button
+          className="h-[31px] rounded-xl px-6 py-4 bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+          variant="outline"
+        >
+          Listo
+        </Button>
       </div>
     </div>
   );
