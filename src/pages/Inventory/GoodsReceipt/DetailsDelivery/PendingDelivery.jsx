@@ -58,6 +58,7 @@ const DeliveryDetails = () => {
 
         {/* Contenedor flex para llenar el espacio disponible y tener el footer en la parte inferior */}
         <div className="flex flex-col justify-between space-y-4 overflow-hidden h-full rounded-xl bg-white p-4 pr-12">
+         <div className="overflow-auto">
           {/* Contenido principal (Formulario y tabla) */}
           <div className="space-y-4 rounded-[10px] border p-4">
             <div className="grid grid-cols-4 gap-4">
@@ -88,7 +89,7 @@ const DeliveryDetails = () => {
           <div className="flex-grow">
             <ProductsTable data={datos} />
           </div>
-
+          </div>
           {/* StatusInformation como footer */}
           <div className="mt-10 w-full self-end">
             <StatusInformation
