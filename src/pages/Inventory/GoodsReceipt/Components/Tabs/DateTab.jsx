@@ -99,13 +99,13 @@ const DateTab = () => {
   };
 
   const renderColumn = (date, title, showDetails = false) => (
-    <div className="max-h-[400px] min-w-[250px] overflow-hidden p-2">
+    <div className="min-h-[400px] min-w-[250px] p-2 flex flex-col">
       <h2 className="mb-2 rounded border-b p-2 font-poppins text-lg font-semibold text-[#44444F]">
         {title || getDateTitle(date)}
       </h2>
-      <div className="h-[calc(400px-56px)] overflow-auto">
+      <div className="flex-grow pr-4 overflow-auto">
         <div className="space-y-4">
-          {[1, 2, 3].map((id) => (
+          {[1, 2, 3,4,5,6,7].map((id) => (
             <Card
               key={id}
               title="Almacene Norte GDL"
