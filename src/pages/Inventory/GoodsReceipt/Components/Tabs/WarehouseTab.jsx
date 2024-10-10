@@ -73,7 +73,7 @@ const WarehouseTab = () => {
         {renderColumn("ALMACEN GDL CENTRO")}
       </div>
 
-      <div className="h-[54px] flex-shrink-0 p-4">
+      <div className="h-[54px] pb-6 flex-shrink-0 p-4 mb-2">
           <div className="flex items-center pb-2  justify-between">
             <label className="text-xs font-light text-[#8F8F8F]">
               Actualizado 07 septiembre 2024
