@@ -12,8 +12,8 @@ import {
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import SelectsQuoteShow from "./Components/SelectsQuoteShow";
-import TotalShow from "./Components/TotalSectionShow/TotalSectionShow";
-import QuoteTableShow from "./Components/QuoteTableShow";
+import TotalShow from "../../Components/TotalSectionShow";
+import QuoteTableShow from "../../Components/QuoteTableShow";
 
 const TicketDetails = () => {
   const { ticketSale } = useLoaderData();
@@ -107,7 +107,7 @@ const TicketDetails = () => {
         </div>
 
         {/* content */}
-        <Form className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
+        <div className="flex flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12">
           <div className="overflow-auto">
             <div className="rounded-xl border border-blancoBox p-4">
               <SelectsQuoteShow data={ticketSale?.data} />
@@ -147,7 +147,7 @@ const TicketDetails = () => {
               }
             ></StatusInformation>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   );
