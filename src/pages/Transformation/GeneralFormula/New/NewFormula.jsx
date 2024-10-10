@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
@@ -133,6 +133,67 @@ function NewFormula() {
   const [personal, setPersonal] = useState([]);
   const [totalPersonal, setTotalPersonal] = useState(0);
 
+  const [totalTableSection, setTotalTableSection] = useState(
+    Number(products[0]?.subTotal) || 0,
+  );
+  const [tableName, setTableName] = useState("FABRICACION");
+
+  useEffect(() => {
+    switch (tableName) {
+      case "fabricacion":
+        setTotalTableSection(totalProducts);
+        break;
+
+      case "energeticos":
+        setTotalTableSection(totalEnergetics);
+        break;
+
+      case "empaque":
+        setTotalTableSection(totalPackages);
+        break;
+
+      case "embalaje":
+        setTotalTableSection(totalCrate);
+        break;
+
+      case "subproductos":
+        setTotalTableSection(totalSubProducts);
+        break;
+
+      default:
+        break;
+    }
+  }, [products, energetics, packages, crate, subProducts, tableName]);
+
+  function setTableTotal(table) {
+    switch (table) {
+      case "fabricacion":
+        setTableName(table.toUpperCase());
+        console.log(totalProducts);
+        setTotalTableSection(totalProducts);
+        break;
+      case "energeticos":
+        setTableName(table.toUpperCase());
+        setTotalTableSection(totalEnergetics);
+        break;
+      case "empaque":
+        setTableName(table.toUpperCase());
+        setTotalTableSection(totalPackages);
+        break;
+      case "embalaje":
+        setTableName(table.toUpperCase());
+        setTotalTableSection(totalCrate);
+        break;
+      case "subproductos":
+        setTableName(table.toUpperCase());
+        setTotalTableSection(totalSubProducts);
+        break;
+
+      default:
+        break;
+    }
+  }
+
   const productCraft = data.product_craft.map((product) => ({
     label: product.name,
     value: product.id,
@@ -165,28 +226,18 @@ function NewFormula() {
 
   const rows2 = [
     {
-      name: " - Grande",
-      var: [
-        {
-          attribute: "Tamaños",
-          name: "Grande",
-        },
-      ],
+      name: "Grande",
       id: 15,
     },
     {
-      name: " - Grande",
-      var: [
-        {
-          attribute: "Tamaños",
-          name: "Grande",
-        },
-      ],
-      id: 15,
+      name: "Mediana",
+      id: 16,
+    },
+    {
+      name: "Pequeña",
+      id: 17,
     },
   ];
-
-  const rows = ["Row 1", "Row 2", "Row 3"];
   const columns = ["Col 1", "Col 2", "Col 3"];
 
   return (
@@ -335,7 +386,7 @@ function NewFormula() {
                               gap: "10px",
                             }}
                           >
-                            {rows.map((row, rowIndex) =>
+                            {rows2.map((row, rowIndex) =>
                               columns.map((col, colIndex) => (
                                 <div
                                   key={`${rowIndex}-${colIndex}`}
@@ -345,7 +396,7 @@ function NewFormula() {
                                     textAlign: "center",
                                   }}
                                 >
-                                  {row} - {col}
+                                  {row.name}
                                 </div>
                               )),
                             )}
@@ -359,6 +410,7 @@ function NewFormula() {
                   <Tabs
                     defaultValue="fabricacion"
                     className="flex h-full w-full flex-col"
+                    onValueChange={(e) => setTableTotal(e)}
                   >
                     <TabsList className="flex justify-start gap-4 rounded-none border-b bg-inherit py-6">
                       <TabsTrigger
@@ -412,7 +464,7 @@ function NewFormula() {
                           />
                         </div>
 
-                        <div className="mt-4 flex justify-end">
+                        {/* <div className="mt-4 flex justify-end">
                           <div className="flex items-center gap-x-4">
                             <h2 className="text-sm font-medium text-grisText">
                               Total
@@ -423,7 +475,7 @@ function NewFormula() {
                               </p>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </TabsContent>
 
@@ -440,19 +492,6 @@ function NewFormula() {
                             setTotalProducts={setTotalEnergetics}
                             productNeed={productNeed}
                           />
-                        </div>
-
-                        <div className="mt-4 flex justify-end">
-                          <div className="flex items-center gap-x-4">
-                            <h2 className="text-sm font-medium text-grisText">
-                              Total
-                            </h2>
-                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                              <p className="text-end text-sm font-medium text-grisText">
-                                {totalProducts}
-                              </p>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </TabsContent>
@@ -720,9 +759,11 @@ function NewFormula() {
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <div className="text-xs text-grisSubText">TOTAL “TABLA”</div>
+                <div className="text-xs text-grisSubText">
+                  TOTAL “{tableName}”
+                </div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  $765.99
+                  ${totalTableSection}
                 </div>
               </div>
               <IonIcon icon={chevronForward} className="size-4 text-black" />

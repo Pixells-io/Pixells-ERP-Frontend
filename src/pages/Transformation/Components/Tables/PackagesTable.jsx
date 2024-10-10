@@ -204,6 +204,11 @@ const PackagesTable = ({
   const columns = [
     {
       accessorKey: "component",
+      header: "E",
+      cell: ({ row, rowIndex }) => <input type="checkbox" name="" id="" />,
+    },
+    {
+      accessorKey: "component",
       header: "Componente",
       cell: ({ row, rowIndex }) => (
         <>
@@ -251,6 +256,19 @@ const PackagesTable = ({
     {
       accessorKey: "unit",
       header: "Unidad",
+      cell: ({ row, rowIndex }) => (
+        <Input
+          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`unit-${rowIndex}`}
+          value={row.unit}
+          type="text"
+          readOnly
+        />
+      ),
+    },
+    {
+      accessorKey: "unit",
+      header: "Cantidad producto x unidad de empaque",
       cell: ({ row, rowIndex }) => (
         <Input
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
