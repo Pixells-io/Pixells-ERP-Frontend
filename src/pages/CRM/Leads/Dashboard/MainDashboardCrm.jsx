@@ -40,6 +40,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { functionCreateSaleProcessStage, getProcessInfoId } from "../../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
+import { createPusherClient } from "@/lib/pusher";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -61,6 +62,30 @@ function MainDashboardCrm() {
 
     getSteps();
   }, [id]);
+
+  //WEBSOCKETS
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    //Socket fot table leads and clients
+    pusherClient.subscribe(`private-get-sales-process-stages.${id}`);
+
+    pusherClient.bind("fill-sales-process-stages", ({ process }) => {
+      console.log("2");
+      getProcessFill();
+    });
+
+    //Function Sync Info
+    async function getProcessFill() {
+      console.log("3");
+      let newData = await getProcessInfoId(id);
+      setInfoStages(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-sales-process-stages.${id}`);
+    };
+  });
 
   return (
     <div className="flex w-full flex-col gap-y-2 overflow-auto">
@@ -126,9 +151,10 @@ function MainDashboardCrm() {
             className={`h-full w-60 flex-shrink-0 rounded-xl bg-[${stage.color}] px-2 py-4`}
             key={i}
           >
-            {console.log(stage)}
             <div className="flex items-center justify-between">
-              <span className="rounded-lg bg-[#00A9B330] px-2 py-1 font-roboto text-xs font-normal">
+              <span
+                className={`rounded-lg bg-[${stage.color}] px-2 py-1 font-roboto text-xs font-normal`}
+              >
                 {stage.name}
               </span>
               <IonIcon
