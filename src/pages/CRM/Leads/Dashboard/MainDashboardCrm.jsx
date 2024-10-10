@@ -30,7 +30,7 @@ import {
 import { Button } from "@/components/ui/button";
 import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { getProcessInfoId } from "../../utils";
+import { functionCreateSaleProcessStage, getProcessInfoId } from "../../utils";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -125,12 +125,12 @@ function MainDashboardCrm() {
           <DropdownMenuSeparator />
           <div className="flex flex-col gap-2">
             <Form
-              action="/crm/dashboard"
+              action={`/crm/dashboard/${id}`}
               method="post"
               className="flex h-full flex-col gap-2"
             >
-              <input type="hidden" value="create-stage" name="action" />
-              <input type="hidden" value={id} name="process_id" />
+              <input type="hidden" value="create-process-stage" name="action" />
+              <input type="hidden" value={id} name="sale_process_id" />
               <div className="px-4 pt-4">
                 <InputForm placeholder={"Nombre"} name={"name"} />
                 <InputForm placeholder={"Descripcion"} name={"description"} />
@@ -159,10 +159,10 @@ export async function Action({ request }) {
   const data = await request.formData();
   const action = data.get("action");
 
-  /*switch (action) {
-    case "set-process":
-      await functionUpdateSelectedProcess(data);
-      return redirect("/crm/dashboard");
+  switch (action) {
+    case "create-process-stage":
+      await functionCreateSaleProcessStage(data);
+      return "201";
       break;
-  }*/
+  }
 }
