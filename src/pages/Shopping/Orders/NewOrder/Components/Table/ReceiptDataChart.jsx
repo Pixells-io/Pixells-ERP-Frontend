@@ -17,75 +17,7 @@ const ReceiptAnalyticsTable = () => {
         </span>
       </div>
 
-      {/* Circular Chart with Custom Border */}
-      <div className="px-6 py-4 flex justify-center">
-        <div
-          className="relative rounded-full"
-          style={{
-            width: "250px",
-            height: "250px",
-            border: "10px solid rgba(91, 137, 255, 0.25)", // Background border color
-            borderImage: `conic-gradient(
-              from 180deg at 50% 50%,
-              #3EC5FF -178.48deg,
-              #00E0E0 164.3deg,
-              #3EC5FF 181.52deg,
-              #00E0E0 524.3deg
-            )`,
-            borderImageSlice: 1,
-            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)", // Shadow for the border
-          }}
-        >
-          {/* Radial Bar Chart */}
-          <div className="absolute inset-0 flex justify-center items-center">
-            <RadialBarChart
-              width={200}
-              height={200}
-              cx={100}
-              cy={100}
-              innerRadius={80}
-              outerRadius={90}
-              barSize={10}
-              data={chartData}
-              startAngle={90}
-              endAngle={450}
-            >
-              <PolarGrid radialLines={false} />
-              <RadialBar minAngle={15} background clockWise dataKey="value" />
-              <PolarRadiusAxis tick={false} />
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
-                        >
-                          80%
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 20}
-                          className="fill-muted text-sm"
-                        >
-                          Pedidos Recibidos
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            </RadialBarChart>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Scrollable Body */}
       <div className="flex-1 overflow-auto mx-2 p-6">
