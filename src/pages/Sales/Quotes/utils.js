@@ -61,11 +61,11 @@ export async function saveNewQuoteSale(data) {
     seller_id: data.get("seller_id"),
     client_id: data.get("client_id"),
     credit: data.get("credit"),
-    ccost: data.get("ccost"),
-    expiration_date: format(data.get("expiration_date"), "yyyy-MM-dd"),
+    // ccost: data.get("ccost"),
+    expiration_date: !!data.get("expiration_date") ? format(data.get("expiration_date"), "yyyy-MM-dd") : null,
 
     productService: data.get("productService"),
-    wharehouse: data.get("wharehouse"),
+    // wharehouse: data.get("wharehouse"),
 
     sales_slots: products,
     // productDelete: data.getAll("productDelete"),
@@ -73,22 +73,24 @@ export async function saveNewQuoteSale(data) {
     subtotal: data.get("subtotal"),
     taxes: data.get("taxes"),
     total: data.get("total"),
-    shipping: data.get("shipping"),
+    shipping: data.get("shipping") == null ? "0" : data.get("shipping"),
     discount: data.get("totalDiscount"),
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_SERVER_URL}sales/store-sale`,
-    {
-      method: "POST",
-      body: JSON.stringify(info),
-      headers: {
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    },
-  );
+  console.log(info);
 
-  return response;
+  // const response = await fetch(
+  //   `${import.meta.env.VITE_SERVER_URL}sales/store-sale`,
+  //   {
+  //     method: "POST",
+  //     body: JSON.stringify(info),
+  //     headers: {
+  //       Authorization: "Bearer " + Cookies.get("token"),
+  //     },
+  //   },
+  // );
+
+  // return response;
 }
 
 export async function getProducts() {

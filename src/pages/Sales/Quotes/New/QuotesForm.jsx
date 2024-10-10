@@ -14,7 +14,7 @@ import SelectsQuote from "../SelectGroup/SelectGroup";
 const OrderForm = () => {
   const navigation = useNavigation();
 
-  const { infoCreateSales } = useLoaderData();
+  const { infoCreateSales, products } = useLoaderData();
 
   const [items, setItems] = useState([]);
   const [isEditable, setisEditable] = useState(true);
@@ -134,8 +134,8 @@ const OrderForm = () => {
                   productOrService={productOrService}
                   services_map={infoCreateSales?.data?.services_map}
                   services_data={infoCreateSales?.data?.services_data}
-                  products_map={[]}
-                  products_info={[]}
+                  products_map={products?.data?.map}
+                  products_info={products?.data?.info}
                   discountGeneral={discountGeneral}
                   deliveryDateGlobal={deliveryDateGlobal}
                 />
