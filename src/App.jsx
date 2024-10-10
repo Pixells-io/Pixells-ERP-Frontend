@@ -577,10 +577,16 @@ import {
   multiloaderStock,
 } from "./pages/Inventory/StockItems/utils";
 import MainTraceabilityReport from "./pages/Inventory/TraceabilityReports/MainTraceabilityReport";
-import { multiLoaderCrmLayout, multiLoaderCrmTables } from "./pages/CRM/utils";
+import {
+  getProcessInfo,
+  multiLoaderCrmDasboard,
+  multiLoaderCrmLayout,
+  multiLoaderCrmTables,
+} from "./pages/CRM/utils";
 import CrmDashboard, {
   Action as MultiFunctionsDashboardCrm,
 } from "./pages/CRM/Leads/CrmDashboard";
+import MainDashboardCrm from "./pages/CRM/Leads/Dashboard/MainDashboardCrm";
 
 const router = createBrowserRouter([
   {
@@ -631,9 +637,15 @@ const router = createBrowserRouter([
             //crm Dashboard
             path: "/crm/dashboard",
             element: <CrmDashboard />,
-            loader: getLeads,
+            loader: multiLoaderCrmDasboard,
             action: MultiFunctionsDashboardCrm,
-            children: [],
+            children: [
+              {
+                path: "/crm/dashboard/:id",
+                element: <MainDashboardCrm />,
+                loader: getProcessInfo,
+              },
+            ],
           },
           //crm services
           {

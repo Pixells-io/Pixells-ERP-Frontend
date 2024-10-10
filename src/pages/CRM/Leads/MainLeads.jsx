@@ -75,27 +75,6 @@ function MainLeads() {
             >
               Dashboard
             </NavLink>
-
-            {/* <NavLink
-              to="/crm/leads/timeline"
-              className={({ isActive }) =>
-                isActive
-                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[11px] font-medium text-white`
-                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[11px] font-medium text-grisHeading`
-              }
-            >
-              Timeline
-            </NavLink>
-            <NavLink
-              to="/crm/leads/timeline"
-              className={({ isActive }) =>
-                isActive
-                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[11px] font-medium text-white`
-                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[11px] font-medium text-grisHeading`
-              }
-            >
-              Past On Boardings
-            </NavLink> */}
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   NavLink,
@@ -6,27 +6,14 @@ import {
   Outlet,
   useLoaderData,
   Form,
+  redirect,
+  Link,
+  useParams,
 } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  add,
-  chevronBack,
-  chevronForward,
-  ellipsisVertical,
-  globeOutline,
-} from "ionicons/icons";
+import { add } from "ionicons/icons";
 
-import {
-  addCommentLead,
-  closingLeadForm,
-  followupLeadForm,
-  onboardingLeadForm,
-  payLeadForm,
-  potencialLeadForm,
-  proposalLeadForm,
-  prospectLeadForm,
-} from "./utils";
 import NavigationHeader from "@/components/navigation-header";
 import {
   DropdownMenu,
@@ -37,10 +24,58 @@ import {
 } from "@/components/ui/dropdown-menu";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Button } from "@/components/ui/button";
+import { functionUpdateSelectedProcess, getSelectedProcess } from "../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 function CrmDashboard() {
-  const location = useLocation();
-  /*const { data } = useLoaderData();*/
+  const params = useParams();
+  const { process, selected, user } = useLoaderData();
+
+  //INFO STATES
+  const [processAll, setProcessAll] = useState(process.data);
+  const [selectedProcess, setSelectedProcess] = useState(selected.data);
+
+  const userId = user?.data?.user?.id;
+
+  //WEBSOCKETS
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    //Socket fot table leads and clients
+    pusherClient.subscribe(`private-get-user-selected-process-crm.${userId}`);
+
+    pusherClient.bind("fill-user-selected-process-crm", ({ user_id }) => {
+      getProcessFill();
+    });
+
+    //Function Sync Info
+    async function getProcessFill() {
+      let newProcess = await getSelectedProcess();
+      setSelectedProcess(newProcess.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(
+        `private-get-user-selected-process-crm.${userId}`,
+      );
+    };
+  }, []);
+
+  //ARRAY FILL OPTIONS
+  const processOptions = [];
+
+  arrayFill(processAll, processOptions);
+
+  function arrayFill(data, array) {
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+
+      array.push({
+        label: element.name,
+        value: element.id,
+      });
+    }
+  }
 
   return (
     <div className="flex w-full overflow-auto">
@@ -55,20 +90,24 @@ function CrmDashboard() {
               LEADS DASHBOARD
             </h2>
           </div>
-          <div className="flex items-center gap-3 text-[#8F8F8F]">
-            {/* 
-            <div className="text-xs">
-              {data?.length} {data?.length > 1 ? "leads" : "lead"}
-            </div>
-            */}
-          </div>
         </div>
 
         <div className="flex items-center">
-          <div className="space-evenly flex w-fit items-center gap-4 rounded-lg bg-grisHeading px-6 py-2">
-            <p className="font-roboto text-xs font-semibold uppercase text-white">
-              Proceso 1
-            </p>
+          <div className="flex gap-2">
+            {selectedProcess.map((process, i) => (
+              <Link
+                to={`/crm/dashboard/${process.process_id}`}
+                className={
+                  params.id == process.process_id
+                    ? "w-fit rounded-lg bg-grisHeading px-6 py-2 text-white"
+                    : "w-fit rounded-lg bg-blancoBox px-6 py-2 text-black"
+                }
+              >
+                <p className="font-roboto text-xs font-medium">
+                  {process.name}
+                </p>
+              </Link>
+            ))}
           </div>
           <div>
             <DropdownMenu>
@@ -77,26 +116,28 @@ function CrmDashboard() {
                   <IonIcon
                     icon={add}
                     size={32}
-                    className="text-4xl text-primario"
+                    className="text-3xl text-grisHeading"
                   ></IonIcon>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="h-[300px] w-64 overflow-scroll">
-                <DropdownMenuLabel>Select services to show</DropdownMenuLabel>
+              <DropdownMenuContent className="overflow-auto px-3 pb-6">
+                <DropdownMenuLabel>
+                  Seleccionar Procesos Comerciales
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <div className="flex flex-col gap-2">
                   <Form
-                    action="/sales/progress"
+                    action="/crm/dashboard"
                     method="post"
                     className="flex h-full flex-col gap-2"
                   >
-                    <input type="hidden" value="set-services" name="action" />
+                    <input type="hidden" value="set-process" name="action" />
                     <div className="px-4 pt-4">
                       <SelectRouter
-                        name="serviceId"
-                        //options={options}
+                        name="process_ids"
+                        options={processOptions}
                         isMulti={true}
-                        placeholder="Select services"
+                        placeholder="Procesos Comerciales"
                       />
                     </div>
                     <div className="flex self-end px-4 pt-4">
@@ -104,7 +145,7 @@ function CrmDashboard() {
                         type="submit"
                         className="w-fit bg-primarioBotones px-6"
                       >
-                        Add
+                        Agregar
                       </Button>
                     </div>
                   </Form>
@@ -112,27 +153,6 @@ function CrmDashboard() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
-          {/* <NavLink
-              to="/crm/leads/timeline"
-              className={({ isActive }) =>
-                isActive
-                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[11px] font-medium text-white`
-                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[11px] font-medium text-grisHeading`
-              }
-            >
-              Timeline
-            </NavLink>
-            <NavLink
-              to="/crm/leads/timeline"
-              className={({ isActive }) =>
-                isActive
-                  ? `flex h-6 w-auto items-center rounded-xl bg-primario px-4 text-[11px] font-medium text-white`
-                  : `flex h-6 w-auto items-center rounded-xl bg-blancoBox2 px-4 text-[11px] font-medium text-grisHeading`
-              }
-            >
-              Past On Boardings
-            </NavLink> */}
         </div>
 
         <Outlet />
@@ -144,37 +164,13 @@ function CrmDashboard() {
 export default CrmDashboard;
 
 export async function Action({ request }) {
-  /*const data = await request.formData();
+  const data = await request.formData();
   const action = data.get("action");
 
-  console.log(request, action);
-
   switch (action) {
-    case "prospect":
-      return await prospectLeadForm(data);
-
-    case "potencial":
-      return await potencialLeadForm(data);
-
-    case "followup":
-      return await followupLeadForm(data);
-
-    case "proposal":
-      return await proposalLeadForm(data);
-
-    case "closing":
-      return await closingLeadForm(data);
-
-    case "pay":
-      return await payLeadForm(data);
-
-    case "onboarding":
-      return await onboardingLeadForm(data);
-
-    case "add-comment-lead":
-      return await addCommentLead(data);
-
-    default:
+    case "set-process":
+      await functionUpdateSelectedProcess(data);
+      return redirect("/crm/dashboard");
       break;
-  }*/
+  }
 }
