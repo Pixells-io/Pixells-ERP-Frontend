@@ -32,27 +32,61 @@ const QuoteTableShow = ({ tableData }) => {
 
   const columns = useMemo(
     () => [
-      { key: "name", header: "Item", type: "text", disabled: false },
-      { key: "code", header: "Código", type: "text", disabled: false },
+      {
+        key: "name",
+        header: "Item",
+        type: "text",
+        disabled: false,
+        prefix: "",
+        subfix: "",
+      },
+      {
+        key: "code",
+        header: "Código",
+        type: "text",
+        disabled: false,
+        prefix: "",
+        subfix: "",
+      },
       {
         key: "price",
         header: "Precio x Unidad",
         type: "text",
         disabled: false,
+        prefix: "$",
+        subfix: "",
       },
       {
         key: "discount",
         header: "Descuento (%)",
         type: "text",
         disabled: false,
+        prefix: "$",
+        subfix: "",
       },
-      { key: "tax", header: "Impuesto (%)", type: "text", disabled: false },
-      { key: "quantity", header: "Cantidad", type: "text", disabled: false },
+      {
+        key: "tax",
+        header: "Impuesto (%)",
+        type: "text",
+        disabled: false,
+        prefix: "",
+        subfix: "%",
+      },
+      {
+        key: "quantity",
+        header: "Cantidad",
+        type: "text",
+        disabled: false,
+        prefix: "",
+        subfix: "",
+      },
       {
         key: "shipping_date",
         header: "Fecha de Entrega",
         type: "text",
         disabled: false,
+        prefix: "",
+        subfix: "",
       },
     ],
     [],
@@ -80,7 +114,9 @@ const QuoteTableShow = ({ tableData }) => {
                       type={column.type}
                       name={`${column.key}[${(currentPage - 1) * itemsPerPage + rowIndex}]`}
                       className="h-[32px] rounded-[10px] border border-[#D7D7D7] bg-inherit p-1 font-roboto text-sm text-[#44444f] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                      value={row[column.key] || ""}
+                      value={
+                        column?.prefix  + " " +  row[column.key] + " " + column?.subfix || ""
+                      }
                       disabled={column.disabled}
                       readOnly
                     />
@@ -93,7 +129,7 @@ const QuoteTableShow = ({ tableData }) => {
                 </TableCell> */}
                 <TableCell>
                   <div className="flex items-center justify-between gap-x-2">
-                    {row?.total}
+                    ${row?.total}
                   </div>
                 </TableCell>
               </TableRow>
