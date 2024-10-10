@@ -62,7 +62,7 @@ function MainDashboardCrm() {
               className="rounded-lg bg-white px-2 text-2xl text-grisHeading"
             ></IonIcon>
           </div>
-          {stage.data.map((lead, index) => (
+          {stage.data?.map((lead, index) => (
             <div className="my-4 rounded-lg bg-white px-2 py-2" key={index}>
               <span
                 className="line-clamp-1 font-poppins text-base font-medium text-grisHeading"
