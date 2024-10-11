@@ -150,13 +150,21 @@ function MainDashboardCrm() {
           <div
             className={`h-full w-60 flex-shrink-0 rounded-xl px-2 py-4`}
             key={i}
-            style={{ backgroundColor: `${stage.color}0D` }} // 5% de opacidad
-            >
+            style={
+              stage.color != null
+                ? { backgroundColor: `${stage.color}0D` }
+                : { backgroundColor: "#00A9B315" }
+            } // 5% de opacidad
+          >
             <div className="flex items-center justify-between">
               <span
                 className={`rounded-lg px-2 py-1 font-roboto text-xs font-normal`}
-                style={{ backgroundColor: `${stage.color}4D` }} // 30% de opacidad
-                >
+                style={
+                  stage.color != null
+                    ? { backgroundColor: `${stage.color}4D` }
+                    : { backgroundColor: "#00A9B340" }
+                } // 30% de opacidad
+              >
                 {stage.name}
               </span>
               <IonIcon
