@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import { chevronBack, chevronForward, add } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import CardInformation from "./Components/CardInformation";
 import {
@@ -15,17 +15,50 @@ import {
 import FormAddOwnBank from "./Accounts/FormAddOwnBank";
 import FormAddBankAccount from "./Accounts/FormAddBankAccount";
 import { redirect, useLoaderData } from "react-router-dom";
-import { destroyBank, destroyBankAccount, getBanks, saveBank, saveBankAccount } from "./Accounts/utils";
+import {
+  destroyBank,
+  destroyBankAccount,
+  getBanks,
+  saveBank,
+  saveBankAccount,
+} from "./Accounts/utils";
 import Banks from "./Accounts/Banks/Banks";
 import BankAccounts from "./Accounts/BankAccounts/BankAccounts";
-
+import NavigationHeader from "@/components/navigation-header";
+import BalanceDataTable from "./Components/Table/BalanceTable";
+import BankCard from "./Components/BankBalanceCard";
+import CardBalanceTotal from "./Components/CardBalanceGeneral";
 function MainBankManagement() {
   const { banks, bankAccounts } = useLoaderData();
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
-  
+  const tabsContents = [
+    { value: "accounts", label: "CUENTAS" },
+    { value: "balances", label: "SALDOS" },
+  ];
+  const tabItems = [
+    { value: "accounts", label: "CUENTAS" },
+    { value: "banks", label: "BANCOS" },
+  ];
+  const banksData = [
+    { title: "Banamex", balance: "$1,400,527.00" },
+    { title: "Bancomer", balance: "$237,458.00" },
+    { title: "Santander", balance: "$567,492.00" },
+    { title: "BanRegio", balance: "$69,599.90" },
+  ];
+  const datos = [
+    {
+      cuenta: "38947289",
+      bancos: "Banamex",
+      razonSocial: "Pixells Inc.",
+      descripcion: "Cuenta Cheques",
+      ingreso: "$2,400,527.00",
+      egreso: "$1,000,000.00",
+      balance: "$1,400,527.00",
+    },
+  ];
   return (
-    <div className="flex w-full">
+    <div className="flex h-full w-full">
       {/* Modals */}
       <FormAddOwnBank modal={modalAddOwnBank} setModal={setModalAddOwnBank} />
       <FormAddBankAccount
@@ -36,57 +69,66 @@ function MainBankManagement() {
 
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">Tickets</div>
-        </div>
+        <NavigationHeader />
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-grisHeading">
+            <h2 className="text-md font-poppins font-bold text-[#44444F]">
               GESTIÓN DE BANCOS
             </h2>
           </div>
-          <div className="flex items-center gap-3 font-roboto text-grisSubText">
-            <div className="text-xs">4 objectives</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">25 SCF</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">43 activities</div>
+          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+            <div className="text-sm">&bull; 4 objective </div>
+            <div className="text-sm">&bull; 25 SFC </div>
+            <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
         <div className="flex justify-between gap-4">
-          <div>
-            <p className="font-poppins text-xl font-bold text-grisHeading">
-              Cuentas Bancarias
-            </p>
-            <div>
+          {/* <div className="flex flex-col sm:flex-row gap-6 pr-6">
+            <CardInformation
+              title="SALDO"
+              subtitle="Bancos y efectivo"
+              total="1002.34"
+              percentage="20"
+              isPositive={true}
+            />
+            <CardInformation
+              title="DEUDA"
+              subtitle="Tarjeta de crédito"
+              total="8700.40"
+              percentage="20"
+              isPositive={false}
+            />
+          </div> */}
+        </div>
+        <Tabs
+          defaultValue="accounts"
+          className="h-full w-full overflow-hidden rounded-lg pt-2"
+        >
+          <div className="flex justify-between">
+            <div className="flex justify-start">
+              <p className="font-poppins text-xl font-bold text-grisHeading">
+                Cuentas Bancarias
+              </p>
+            </div>
+            <div className="flex justify-end gap-3">
+              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+                {tabsContents.map(({ value, label }) => (
+                  <TabsTrigger
+                    key={value}
+                    className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
+                    value={value}
+                  >
+                    {label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
+                  <Button className="flex h-[30px] items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones">
+                    <IonIcon icon={add} className="h-4 w-4" />
+                    <span className="text-xs font-medium">Nuevo</span>
+                  </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
@@ -105,47 +147,44 @@ function MainBankManagement() {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6 pr-6">
-            <CardInformation
-              title="SALDO"
-              subtitle="Bancos y efectivo"
-              total="1002.34"
-              percentage="20"
-              isPositive={true}
-            />
-            <CardInformation
-              title="DEUDA"
-              subtitle="Tarjeta de crédito"
-              total="8700.40"
-              percentage="20"
-              isPositive={false}
-            />
-          </div>
-        </div>
-
-        <Tabs
-          defaultValue="accounts"
-          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-        >
-          <TabsList className="2 ml-4 flex w-fit rounded-none bg-blancoBg">
-            <TabsTrigger
-              value="accounts"
-              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+          <TabsContent value="accounts" className="h-full">
+            <Tabs
+              defaultValue="accounts"
+              className="h-full overflow-hidden rounded-lg bg-blancoBg pt-2"
             >
-              CUENTAS
-            </TabsTrigger>
-            <TabsTrigger
-              value="banks"
-              className="rounded-none border-b-2 px-4 text-sm font-normal text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-            >
-              BANCOS
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="accounts" className="mt-[-60px] p-2">
-            <BankAccounts bankAccounts={bankAccounts}/>
+              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+                {tabItems.map(({ value, label }) => (
+                  <TabsTrigger
+                    key={value}
+                    className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                    value={value}
+                  >
+                    {label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <TabsContent value="accounts" className="mt-[-70px] p-2">
+                <BankAccounts bankAccounts={bankAccounts} />
+              </TabsContent>
+              <TabsContent className="mt-[-70px] p-2" value="banks">
+                <Banks banks={banks} />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
-          <TabsContent className="mt-[-60px] p-2" value="banks">
-            <Banks banks={banks} />
+          <TabsContent
+            value="balances"
+            className="h-full w-full rounded-md bg-blancoBg p-7"
+          >
+            <CardBalanceTotal total={"$2,275,077.13"}/>
+            <div className="space-y-6">
+              <div className="flex justify-start gap-6 overflow-y-auto p-4">
+                {banksData.map(({ title, balance }) => (
+                  <BankCard key={title} title={title} balances={balance} />
+                ))}
+              </div>
+              <div className="flex w-[70px] p-1 ml-1 text-center border border-[#D7D7D7] text-xs text-[#8F8F8F] rounded-[20px] font-roboto">Septiembre</div>
+              <BalanceDataTable data={datos} />
+            </div>
           </TabsContent>
         </Tabs>
       </div>

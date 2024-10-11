@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle, create, trash } from "ionicons/icons";
+import { informationCircleOutline, create, trash } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import ModalDeleteBank from "../Modals/ModalDeleteBank";
 
@@ -62,17 +62,11 @@ export const BanksColumns = [
       return (
         <div className="flex items-center gap-1 text-[#696974]">
           <Link
-            // to={`/crm/leads/${row?.original?.id}`}
-            className="flex items-center"
-          >
-            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-          </Link>
-          <Link
             to={`/bank-management/edit-bank/` + row?.original?.id}
             className="flex items-center"
           >
-            <IonIcon icon={create} className="h-5 w-5"></IonIcon>
-          </Link>
+            <IonIcon icon={informationCircleOutline} className="h-5 w-5 text-[#696974]"></IonIcon>
+            </Link>
           <ModalDeleteBank bank_id={row?.original?.id} bank_name={row?.original?.name} />
         </div>
       );

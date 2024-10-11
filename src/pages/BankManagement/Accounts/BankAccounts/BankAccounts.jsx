@@ -27,7 +27,8 @@ function BankAccounts({ bankAccounts }) {
   }, []);
 
   return (
-    <DataTable
+ 
+      <DataTable
       data={bankAccountsInfo}
       columns={AccountsColumns}
       searchFilter={"name"}

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { trash } from "ionicons/icons";
+import { trashOutline } from "ionicons/icons";
 
 function ModalDeleteBankAccount({ bank_account_id, bankAccount_name }) {
   const [modal, setModal] = useState(false);
@@ -30,7 +30,7 @@ function ModalDeleteBankAccount({ bank_account_id, bankAccount_name }) {
         disabled={navigation.state === "submitting"}
         className="flex items-center"
       >
-        <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+        <IonIcon icon={trashOutline} className="h-5 w-5 text-[#696974]"></IonIcon>
       </DialogTrigger>
       <DialogContent className="overflow-auto border-none bg-black p-0 px-8 sm:max-w-[425px]">
         <DialogHeader className="pt-2">
