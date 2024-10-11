@@ -143,7 +143,7 @@ const DateTab = () => {
             {isShowModal ? (
               <>
                 {renderColumn(selectedCardDate)}
-                <div className="col-span-2 flex min-h-[700px] md:min-h-[2px] min-w-[250px] flex-col border-l p-2 pl-4">
+                <div className="col-span-2 flex min-h-[700px] md:min-h-[2px] min-w-[250px] flex-col border-l">
                   <h2 className="sticky top-0 z-10 mb-2 font-poppins font-semibold flex justify-between bg-transparent p-4">
                     POR ENTREGAR
                   </h2>
@@ -159,9 +159,8 @@ const DateTab = () => {
                       ))}
                     </div>
                   </div>
-                  {/* Aquí se modifica el footer */}
-                  <div className=" lg:h-[54px] border-t p-4">
-                    <div className="flex items-center justify-between">
+                  <div className="border-t">
+                    <div className="flex items-center mt-2 justify-between p-2">
                       <label className="text-xs font-light text-[#8F8F8F]">
                         Actualizado 07 septiembre 2024
                       </label>
@@ -173,7 +172,7 @@ const DateTab = () => {
                       </Button>
                     </div>
                   </div>
-                  {/* Fin de la modificación */}
+                  {/* End of updated footer */}
                 </div>
               </>
             ) : (
@@ -187,8 +186,8 @@ const DateTab = () => {
         </div>
       </div>
       {!isShowModal && (
-        <div className="h-[54px] flex-shrink-0 p-4">
-          <div className="flex items-center pb-2  justify-between">
+        <div className="h-[54px] flex-shrink-0 border-t">
+          <div className="flex items-center justify-between p-2">
             <label className="text-xs font-light text-[#8F8F8F]">
               Actualizado 07 septiembre 2024
             </label>
