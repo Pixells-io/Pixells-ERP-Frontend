@@ -12,133 +12,133 @@ import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";
 
 const CircularProgressBar = ({ value }) => {
-  const radius = 25;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (value / 100) * circumference;
-
-  return (
-    <div className="relative h-[60px] w-[60px]">
-      <svg className="h-full w-full -rotate-90 transform">
-        <defs>
-          <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(0, 224, 224, 1)" />
-            <stop offset="100%" stopColor="rgba(62, 197, 255, 1)" />
-          </linearGradient>
-          <filter id="inset-shadow">
-            <feOffset dx="0" dy="2" />
-            <feGaussianBlur stdDeviation="1" result="offset-blur" />
-            <feComposite
-              operator="out"
-              in="SourceGraphic"
-              in2="offset-blur"
-              result="inverse"
-            />
-            <feFlood floodColor="black" floodOpacity="0.15" result="color" />
-            <feComposite
-              operator="in"
-              in="color"
-              in2="inverse"
-              result="shadow"
-            />
-            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
-          </filter>
-        </defs>
-        <circle
-          className="text-[#5B89FF40]"
-          strokeWidth="6"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx="30"
-          cy="30"
-        />
-        <circle
-          className="text-blue-500"
-          strokeWidth="6"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          stroke="url(#gradient1)"
-          fill="transparent"
-          r={radius}
-          cx="30"
-          cy="30"
-          filter="url(#inset-shadow)"
-        />
-      </svg>
-      <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center">
-        <span className="text-sm">{value}%</span>
+    const radius = 25;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (value / 100) * circumference;
+  
+    return (
+      <div className="relative h-[60px] w-[60px]">
+        <svg className="h-full w-full -rotate-90 transform">
+          <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(0, 224, 224, 1)" />
+              <stop offset={`${value}%`} stopColor="rgba(62, 197, 255, 1)" />
+            </linearGradient>
+            <filter id="inset-shadow">
+              <feOffset dx="0" dy="2" />
+              <feGaussianBlur stdDeviation="1" result="offset-blur" />
+              <feComposite
+                operator="out"
+                in="SourceGraphic"
+                in2="offset-blur"
+                result="inverse"
+              />
+              <feFlood floodColor="black" floodOpacity="0.15" result="color" />
+              <feComposite
+                operator="in"
+                in="color"
+                in2="inverse"
+                result="shadow"
+              />
+              <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+            </filter>
+          </defs>
+          <circle
+            className="text-[#5B89FF40]"
+            strokeWidth="8"
+            stroke="currentColor"
+            fill="transparent"
+            r={radius}
+            cx="30"
+            cy="30"
+          />
+          <circle
+            className="text-blue-500"
+            strokeWidth="8"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            stroke="url(#gradient1)"
+            fill="transparent"
+            r={radius}
+            cx="30"
+            cy="30"
+            filter="url(#inset-shadow)"
+          />
+        </svg>
+        <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center">
+          <span className="text-sm">{value}%</span>
+        </div>
       </div>
-    </div>
-  );
-};
-
-const CircularProgressBar2 = ({ value }) => {
-  const radius = 25;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (value / 100) * circumference;
-
-  return (
-    <div className="relative h-[60px] w-[60px]">
-      <svg className="h-full w-full -rotate-90 transform">
-        <defs>
-          <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(255, 121, 171, 1)" />
-            <stop offset="100%" stopColor="rgba(220, 28, 59, 1)" />
-          </linearGradient>
-          <filter id="drop-shadow">
-            <feOffset dx="0" dy="2" />
-            <feGaussianBlur stdDeviation="2" result="offset-blur" />
-            <feComposite
-              operator="out"
-              in="SourceGraphic"
-              in2="offset-blur"
-              result="inverse"
-            />
-            <feFlood
-              floodColor="rgba(0, 0, 0, 0.1)"
-              floodOpacity="1"
-              result="color"
-            />
-            <feComposite
-              operator="in"
-              in="color"
-              in2="inverse"
-              result="shadow"
-            />
-            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
-          </filter>
-        </defs>
-        <circle
-          className="text-[#D7586B40]"
-          strokeWidth="6"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx="30"
-          cy="30"
-        />
-        <circle
-          className="text-red"
-          strokeWidth="6"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          stroke="url(#gradient2)"
-          fill="transparent"
-          r={radius}
-          cx="30"
-          cy="30"
-          filter="url(#drop-shadow)"
-        />
-      </svg>
-
-      <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center">
-        <span className="text-sm">{value}%</span>
+    );
+  };
+  
+  const CircularProgressBar2 = ({ value }) => {
+    const radius = 25;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (value / 100) * circumference;
+  
+    return (
+      <div className="relative h-[60px] w-[60px]">
+        <svg className="h-full w-full -rotate-90 transform">
+          <defs>
+            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(255, 121, 171, 1)" />
+              <stop offset={`${value}%`} stopColor="rgba(220, 28, 59, 1)" />
+            </linearGradient>
+            <filter id="drop-shadow">
+              <feOffset dx="0" dy="2" />
+              <feGaussianBlur stdDeviation="2" result="offset-blur" />
+              <feComposite
+                operator="out"
+                in="SourceGraphic"
+                in2="offset-blur"
+                result="inverse"
+              />
+              <feFlood
+                floodColor="rgba(0, 0, 0, 0.1)"
+                floodOpacity="1"
+                result="color"
+              />
+              <feComposite
+                operator="in"
+                in="color"
+                in2="inverse"
+                result="shadow"
+              />
+              <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+            </filter>
+          </defs>
+          <circle
+            className="text-[#D7586B40]"
+            strokeWidth="8"
+            stroke="currentColor"
+            fill="transparent"
+            r={radius}
+            cx="30"
+            cy="30"
+          />
+          <circle
+            className="text-red"
+            strokeWidth="8"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            stroke="url(#gradient2)"
+            fill="transparent"
+            r={radius}
+            cx="30"
+            cy="30"
+            filter="url(#drop-shadow)"
+          />
+        </svg>
+  
+        <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center">
+          <span className="text-sm">{value}%</span>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const ReceiptAnalyticsTable = () => {
   return (
@@ -156,20 +156,20 @@ const ReceiptAnalyticsTable = () => {
             {" "}
             <div className="flex flex-col items-start">
               <div className="flex items-center gap-4">
-                <CircularProgressBar2 value={85} />
+                <CircularProgressBar2 value={96} />
                 <div className="flex flex-col">
                   <span className="text-base font-bold">56</span>
                   <span className="text-sm">/75 art.</span>
                 </div>
               </div>
-              <Button className="mt-2 h-[31px] border-[0.5px] border-[#D7D7D7] bg-[#F5F5F5] font-roboto text-xs text-[#44444F] hover:bg-[#F5F5F5]">
+              <Button className="mt-2 h-[31px] border-[0.5px] gap-3 border-[#D7D7D7] bg-[#F5F5F5] font-roboto text-xs text-[#44444F] hover:bg-[#F5F5F5]">
                 Ver Estadísticas Completas
                 <IonIcon icon={arrowForward} size="small"></IonIcon>
               </Button>
             </div>
           </div>
           <div className="mb-2 flex justify-end gap-4">
-            <CircularProgressBar value={100} />
+            <CircularProgressBar value={85} />
             <div className="flex flex-col">
               <span className="text-base font-bold">64</span>
               <span className="text-sm">/100 pedidos</span>

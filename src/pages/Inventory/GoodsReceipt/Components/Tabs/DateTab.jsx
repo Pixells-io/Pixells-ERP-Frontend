@@ -100,7 +100,7 @@ const DateTab = () => {
 
   const renderColumn = (date, title, showDetails = false) => (
     <div className="min-h-[400px] min-w-[250px] p-2 flex flex-col">
-      <h2 className="sticky top-0 z-10 mb-2 flex justify-between border-b bg-white p-4">
+      <h2 className="sticky top-0 z-10 mb-2 flex justify-between border-b bg-transparent p-4">
         <span className="font-semibold font-poppins text-lg text-[#44444F]">
           {title || getDateTitle(date)}
         </span>
@@ -144,7 +144,7 @@ const DateTab = () => {
               <>
                 {renderColumn(selectedCardDate)}
                 <div className="col-span-2 flex min-h-[700px] md:min-h-[2px] min-w-[250px] flex-col border-l p-2 pl-4">
-                  <h2 className="sticky top-0 z-10 mb-2 font-poppins font-semibold flex justify-between bg-white p-4">
+                  <h2 className="sticky top-0 z-10 mb-2 font-poppins font-semibold flex justify-between bg-transparent p-4">
                     POR ENTREGAR
                   </h2>
                   <div className="flex-grow overflow-auto pr-4">
@@ -160,7 +160,7 @@ const DateTab = () => {
                     </div>
                   </div>
                   {/* Aquí se modifica el footer */}
-                  <div className=" lg:h-[54px] md:h-[280px] border-t p-4">
+                  <div className=" lg:h-[54px] border-t p-4">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-light text-[#8F8F8F]">
                         Actualizado 07 septiembre 2024
