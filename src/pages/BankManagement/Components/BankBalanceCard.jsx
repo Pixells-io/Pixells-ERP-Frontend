@@ -8,8 +8,9 @@ const BankCard = ({ title, balances }) => {
     >
       <div className="flex flex-col justify-between w-full">
         <span className="text-lg font-semibold text-gray-800">{balances}</span>
+        <span className="text-base font-medium pb-4 text-gray-600">{title}</span>
         <Link to={"/bank-management/detail-balances/bank/"+1}>
-        <span className="text-base font-medium pb-4 text-gray-600">{title}</span></Link>
+        </Link>
        
       </div>
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import BankDetailsGeneral from "../Components/Table/BalanceDetailsTable";
 import { useParams } from "react-router-dom";
-const BankDetailsGeneral = () => {
+import { Button } from "@/components/ui/button";
+const MainBankDetailsGeneral = () => {
     const {id}=useParams();
   const datos = [
     {
@@ -52,4 +53,4 @@ const BankDetailsGeneral = () => {
     </div>
   );
 };
-export default BankDetailsGeneral;
+export default MainBankDetailsGeneral;

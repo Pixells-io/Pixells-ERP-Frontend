@@ -279,7 +279,7 @@ import MainBankManagement, {
   Action as CreateNewBank,
 } from "./pages/BankManagement/MainBankManagement";
 import SideLayoutBankManag from "./layouts/BankManagement/SideLayoutBankManag";
-import BankDetailsGeneral from "./pages/BankManagement/BankDetails/BankInformation";
+import MainBankDetailsGeneral from "./pages/BankManagement/BankDetails/BankInformation";
 import MainCollectionBankManag from "./pages/BankManagement/Collections/MainCollectionBankManag";
 import AddNewCollection from "./pages/BankManagement/Collections/AddNewCollection";
 import MainCategory, {
@@ -1060,7 +1060,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/bank-management/detail-balances/bank/:id",
-            element: <BankDetailsGeneral />,
+            element: <MainBankDetailsGeneral />,
           },
           {
             path: "/bank-management/collection/create",
