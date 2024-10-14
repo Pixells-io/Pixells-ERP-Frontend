@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircleOutline } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatusInProgress from "../../Components/StatusInformation/StatusInProgress";
 import StatusDone from "../../Components/StatusInformation/StatusDone";
@@ -82,8 +82,8 @@ export const CollectionsColumns = [
             to={`/bank-management/collection/record/${row?.original?.id}`}
             className="flex items-center"
           >
-            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
-          </Link>
+            <IonIcon icon={informationCircleOutline} className="h-5 w-5 text-[#696974]"></IonIcon>
+            </Link>
         </div>
       );
     },
