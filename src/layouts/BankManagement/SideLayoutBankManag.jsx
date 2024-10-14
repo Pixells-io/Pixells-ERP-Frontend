@@ -31,6 +31,7 @@ function SideLayoutBankManag() {
                   location.pathname.includes("/bank-management/edit-bank/") ||
                   location.pathname.includes(
                     "/bank-management/edit-bank-account/",
+                    "/bank-management/detail-balances/bank/"
                   ))
                   ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
                   : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
