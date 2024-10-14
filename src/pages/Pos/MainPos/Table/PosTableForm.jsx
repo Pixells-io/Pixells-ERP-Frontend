@@ -307,7 +307,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
           {tableData.map((row, rowIndex) => (
             <TableRow
               key={rowIndex}
-              className={`text-sm font-normal text-[#44444F] ${row.isSelected && "bg-primario/25 hover:hover:bg-primario/20"}`}
+              className={`text-sm font-normal text-[#44444F] ${row.isSelected && "bg-primario/25 hover:bg-primario/20"}`}
               onClick={() => selectedRow(rowIndex)}
             >
               {columns.map((column) => (
