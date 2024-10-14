@@ -70,7 +70,7 @@ const MainBankDetailsGeneral = () => {
             </label>
             <Link to="/bank-management">
               <Button
-                className="h-[31px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                className="w-[98px] h-[31px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                 variant="outline"
               >
                 Listo
