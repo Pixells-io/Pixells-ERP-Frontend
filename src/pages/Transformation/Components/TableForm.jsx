@@ -32,6 +32,8 @@ const TableForm = ({
   setTotalProducts,
   productNeed: components,
 }) => {
+  const [inventoryArray, setInventoryArray] = useState(components);
+
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -114,7 +116,6 @@ const TableForm = ({
                 unit: data.unit,
                 price: data.price,
                 amount: 1,
-                amountTax: 16,
                 label: data.name,
                 value: data.id,
                 subTotal: data.price.toFixed(2),
@@ -133,7 +134,6 @@ const TableForm = ({
                 unit: comp.unit,
                 price: comp.price,
                 amount: 1,
-                amountTax: 16,
                 label: comp.name,
                 value: comp.id,
                 subTotal: Number(comp.price).toFixed(2),

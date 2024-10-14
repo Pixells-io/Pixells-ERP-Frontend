@@ -19,23 +19,20 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
-import TableForm from "../../Components/TableForm";
-import TableFormWaste from "../../Components/TableFormWaste";
-import TableFormSubProducts from "../../Components/TableFormSubProducts";
-
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+
+import TableForm from "../../Components/TableForm";
 import EnergyTable from "../../Components/Tables/EnergyTable";
 import PackagesTable from "../../Components/Tables/PackagesTable";
 import CrateTable from "../../Components/Tables/CrateTable";
 import SubProductsTable from "../../Components/Tables/SubProductsTable";
+
 import ProcesoTable from "../../Components/Tables/ProcesoTable";
 import PersonalTable from "../../Components/Tables/PersonalTable";
 
 function NewFormula() {
   const { data } = useLoaderData();
-  const navigate = useNavigate();
 
   const [newFormula, setNewFormula] = useState({
     product_id: "",
@@ -45,6 +42,17 @@ function NewFormula() {
     type: "",
     label: "",
     value: "",
+    // variables: [
+    //   { name: ["Item 1A", "Item 1B"], id: 18, quantities: 0 },
+    //   { name: ["Item 2A", "Item 2B"], id: 19, quantities: 0 },
+    //   { name: ["Item 3A", "Item 3B"], id: 20, quantities: 0 },
+    //   { name: ["Item 4A", "Item 4B"], id: 21, quantities: 0 },
+    //   { name: ["Item 5A", "Item 5B"], id: 22, quantities: 0 },
+    //   { name: ["Item 6A", "Item 6B"], id: 23, quantities: 0 },
+    //   { name: ["Item 7A", "Item 7B"], id: 24, quantities: 0 },
+    //   { name: ["Item 8A", "Item 8B"], id: 25, quantities: 0 },
+    //   { name: ["Item 9A", "Item 9B"], id: 26, quantities: 0 },
+    // ],
     vars: [
       {
         product_variable_id: 1,
@@ -109,6 +117,12 @@ function NewFormula() {
       },
     ],
   });
+
+  useEffect(() => {
+    if (newFormula.variables) {
+      setVariables(newFormula.variables);
+    }
+  }, [newFormula]);
 
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0.0);
@@ -384,29 +398,33 @@ function NewFormula() {
                         <AccordionTrigger className="flex font-poppins font-medium text-grisHeading">
                           Variables
                         </AccordionTrigger>
-                        <AccordionContent>
-                          <div
-                            style={{
-                              display: "grid",
-                              gridTemplateColumns: `repeat(${columns.length}, 1fr)`,
-                              gap: "10px",
-                            }}
-                          >
-                            {rows2.map((row, rowIndex) =>
-                              columns.map((col, colIndex) => (
-                                <div
-                                  key={`${rowIndex}-${colIndex}`}
-                                  style={{
-                                    border: "1px solid black",
-                                    padding: "10px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  {row.name}
+                        <AccordionContent className="flex w-full flex-col gap-4 px-4 py-2">
+                          {variables?.map((variable, i) => (
+                            <div
+                              className="flex items-center justify-between gap-4"
+                              key={variable.id}
+                            >
+                              <div className="flex items-center gap-4">
+                                <input type="checkbox" name="" id="" />
+                                <span>V{i + 1}</span>
+                                <div className="flex items-center gap-2">
+                                  {variable.name.map(({ name }, i) => (
+                                    <div className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText">
+                                      {name}
+                                    </div>
+                                  ))}
                                 </div>
-                              )),
-                            )}
-                          </div>
+                              </div>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="h-8 rounded-lg border border-[#D7D7D7] px-3 py-1"
+                                min={0}
+                                defaultValue={0}
+                              />
+                            </div>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
