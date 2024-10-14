@@ -106,7 +106,7 @@ function ProductsPos() {
   const { id } = useParams();
   const [products, setProducts] = useState(getProducts(id));
   const [cancelTicket] = useOutletContext();
-  const [subTotalProducts, setSubTotalProducts] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
   const [modalScanItemN, setModalScanItemN] = useState(false);
   const [modalPaymentMethod, setModalPaymentMethod] = useState(false);
@@ -160,8 +160,16 @@ function ProductsPos() {
             (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
             0,
           ),
-          subTotal: subTotalProducts,
-          total: subTotalProducts,
+          subTotal: products
+            .reduce((a, c) => a + Number(c.price) * Number(c.quantity), 0)
+            .toFixed(2),
+          iva: products
+            .reduce(
+              (a, c) => a + Number(c.price) * 0.16 * Number(c.quantity),
+              0,
+            )
+            .toFixed(2),
+          total: totalProducts,
         }}
       />
 
@@ -212,7 +220,7 @@ function ProductsPos() {
         <div className="flex h-full w-full flex-col justify-between">
           <PosTableForm
             tableData={products}
-            setTotalProducts={setSubTotalProducts}
+            setTotalProducts={setTotalProducts}
             setProducts={setProducts}
           />
           <div className="mt-2 w-full">
@@ -250,7 +258,7 @@ function ProductsPos() {
                 >
                   <span className="text-lg font-medium text-white">COBRAR</span>
                   <span className="font-poppins text-xl font-semibold text-white">
-                    ${subTotalProducts}
+                    ${totalProducts}
                   </span>
                 </Button>
               </div>

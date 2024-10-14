@@ -21,7 +21,7 @@ function SaleInformation({ information }) {
       </div>
       <div className="col-span-4">
         <p className="text-md text-end font-roboto font-normal text-[#44444F]">
-          $0.00
+          ${information.iva}
         </p>
       </div>
       <div className="col-span-12 border"></div>
