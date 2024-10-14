@@ -59,10 +59,10 @@ function MainPos() {
 
   return (
     <div
-      className={`flex h-full w-full overflow-auto rounded-lg bg-[#F9F9F9] px-4 py-4 ${isGrid ? "flex-row gap-x-4" : "flex-col gap-y-2"}`}
+      className={`flex h-full w-full overflow-auto rounded-lg bg-[#F9F9F9] ${isGrid ? "flex-row" : "flex-col gap-y-2 p-4"}`}
     >
       <div
-        className={`flex gap-x-3 rounded-none bg-inherit ${isGrid ? "max-w-[120px] flex-col gap-y-2 px-2" : ""}`}
+        className={`flex gap-x-3 rounded-none bg-inherit ${isGrid ? "max-w-[120px] flex-col gap-y-2 p-4" : ""}`}
       >
         <Button
           type="button"
