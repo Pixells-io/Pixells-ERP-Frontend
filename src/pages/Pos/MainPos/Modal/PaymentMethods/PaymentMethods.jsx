@@ -13,7 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import OptionsPayments from "./OptionsPayment";
 import SaleInformation from "./SaleInformation";
-import { Input } from "@/components/ui/input";
+import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputForm from "@/components/InputForm/InputForm";
 
 function PaymentMethods({ modal, setModal, information }) {
   const [method, setMethod] = useState("none");
@@ -42,7 +43,7 @@ function PaymentMethods({ modal, setModal, information }) {
     setIsSaveSale(true);
     setTimeout(() => {
       setModal(false);
-    }, 3000)
+    }, 3000);
   };
 
   return (
@@ -80,7 +81,7 @@ function PaymentMethods({ modal, setModal, information }) {
                         </p>
                       </div>
                       <div className="col-span-8">
-                        <Input
+                        <InputForm
                           className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           name="cash-payment"
                           type="number"
@@ -108,7 +109,7 @@ function PaymentMethods({ modal, setModal, information }) {
                         </p>
                       </div>
                       <div className="col-span-8">
-                        <Input
+                        <InputForm
                           className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           name="card-reference"
                           type="number"
@@ -116,11 +117,17 @@ function PaymentMethods({ modal, setModal, information }) {
                       </div>
 
                       <div className="col-span-4 flex items-center">
-                        <p className="text-md font-roboto font-medium text-[#44444F]">
+                        <p className="text-md font-roboto font-normal text-[#44444F]">
                           Banco
                         </p>
                       </div>
-                      <div className="col-span-8"></div>
+                      <div className="col-span-8">
+                        <SelectRouter
+                          name="bank"
+                          options={[]}
+                          required={false}
+                        />
+                      </div>
                     </div>
                   ) : method == "transfer" ? (
                     <div className="grid w-full grid-cols-12 gap-y-5 py-3 pr-7">
@@ -130,19 +137,24 @@ function PaymentMethods({ modal, setModal, information }) {
                         </p>
                       </div>
                       <div className="col-span-8">
-                        <Input
+                        <InputForm
                           className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           name="transfer-reference"
                           type="number"
                         />
                       </div>
-
                       <div className="col-span-4 flex items-center">
-                        <p className="text-md font-roboto font-medium text-[#44444F]">
+                        <p className="text-md font-roboto font-normal text-[#44444F]">
                           Banco
                         </p>
                       </div>
-                      <div className="col-span-8"></div>
+                      <div className="col-span-8">
+                        <SelectRouter
+                          name="bank"
+                          options={[]}
+                          required={false}
+                        />
+                      </div>{" "}
                     </div>
                   ) : method == "gift" ? (
                     <div className="grid w-full grid-cols-12 gap-y-5 py-3 pr-7">
@@ -152,7 +164,7 @@ function PaymentMethods({ modal, setModal, information }) {
                         </p>
                       </div>
                       <div className="col-span-8">
-                        <Input
+                        <InputForm
                           className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           name="gigy-refence"
                           type="text"
@@ -167,7 +179,7 @@ function PaymentMethods({ modal, setModal, information }) {
                         </p>
                       </div>
                       <div className="col-span-8">
-                        <Input
+                        <InputForm
                           className="text-md rounded-xl border border-[#D7D7D7] bg-inherit text-center font-roboto font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                           name="reference-multipayment"
                           type="text"
