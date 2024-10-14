@@ -26,7 +26,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
 
   useEffect(() => {
     const TotalP = tableData.reduce(
-      (sum, row) => sum + (parseFloat(row?.price * row?.quantity) || 0),
+      (sum, row) => sum + (parseFloat(((Number(row?.price) + calculateIva(row?.price)) * row?.quantity)) || 0),
       0,
     );
 
@@ -96,6 +96,10 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
       return product;
     });
     setProducts(updateProducts);
+  };
+
+  const calculateIva = (price) => {
+    return (Number(price) * 0.16);
   };
 
   const columns = useMemo(
@@ -192,7 +196,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         header: "PRECIO",
         accessorKey: "price",
         cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.price}</p>
+          <p className="text-xs font-light text-[#44444F]">${(row?.price).toFixed(2)}</p>
         ),
       },
       {
@@ -200,7 +204,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         header: "DESCUENTO",
         accessorKey: "discount",
         cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.discount}</p>
+          <p className="text-xs font-light text-[#44444F]">${(row?.discount).toFixed(2)}</p>
         ),
       },
       {
@@ -208,7 +212,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         header: "IMPUESTO",
         accessorKey: "iva",
         cell: ({ row }) => (
-          <p className="text-xs font-light text-[#44444F]">{row?.iva}</p>
+          <p className="text-xs font-light text-[#44444F]">(IVA 16%) ${calculateIva(row?.price).toFixed(2)}</p>
         ),
       },
       {
@@ -218,7 +222,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
         cell: ({ row, rowIndex }) => (
           <div className="flex items-center justify-between">
             <p className="text-xs font-normal text-[#44444F]">
-              {parseFloat(row?.price * row?.quantity) || 0}
+              ${parseFloat(row?.price * row?.quantity).toFixed(2) || 0}
             </p>
             {row?.isSelected && (
               <button

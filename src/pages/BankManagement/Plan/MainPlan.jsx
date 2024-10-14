@@ -218,7 +218,7 @@ function MainPlan() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex w-full items-end px-0 py-2">
+                    <div className="flex w-full items-end px-5 py-2">
                       <div className="flex w-full items-center justify-between">
                         <label className="text-xs font-light text-[#8F8F8F]">
                           Actualizado 07 septiembre 2024
