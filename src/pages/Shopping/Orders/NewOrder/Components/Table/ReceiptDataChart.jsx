@@ -259,7 +259,7 @@ const ReceiptAnalyticsTable = ({ deliveryData }) => {
           </div>
 
           {/* Footer */}
-          <div className="flex w-full items-center justify-between px-6 py-4">
+          <div className="flex w-full items-center justify-between h-[54px] p-4 border-t">
             <label className="text-xs font-light text-[#8F8F8F]">Actualizado 07 septiembre 2024</label>
             <Button
               className="h-[31px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"

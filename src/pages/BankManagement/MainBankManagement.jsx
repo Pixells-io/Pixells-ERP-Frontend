@@ -34,8 +34,8 @@ function MainBankManagement() {
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
   const tabsContents = [
-    { value: "accounts", label: "CUENTAS" },
-    { value: "balances", label: "SALDOS" },
+    { value: "accounts", label: "Cuentas" },
+    { value: "balances", label: "Saldos" },
   ];
   const tabItems = [
     { value: "accounts", label: "CUENTAS" },

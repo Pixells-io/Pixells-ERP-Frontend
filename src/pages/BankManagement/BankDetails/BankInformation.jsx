@@ -3,6 +3,8 @@ import BankDetailsGeneral from "../Components/Table/BalanceDetailsTable";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import NavigationHeader from "@/components/navigation-header";
+import { Link } from "react-router-dom";
+
 const MainBankDetailsGeneral = () => {
   const { id } = useParams();
   const datos = [
@@ -45,34 +47,37 @@ const MainBankDetailsGeneral = () => {
           </p>
         </div>
 
-        <div className="flex h-full w-full flex-col rounded-md overflow-auto bg-blancoBg">
-      <div className="border-b">
-        <h2 className="ml-4 mt-4 mb-4 font-poppins text-xl font-semibold text-[#44444F]">
-          INFORMACION BANAMEX 86968{id}
-        </h2>
-      </div>
-      <div className="flex flex-grow flex-col overflow-auto p-4">
-        <div className="flex h-[50px] w-[200px] flex-col rounded-[10px] border border-[#44444F] p-2 mb-4">
-          <span className="font-poppins text-xs">
-            SALDO EN CUENTAS
-          </span>
-          <span className="font-poppins text-base font-semibold">
-            $23,000.00
-          </span>
+        <div className="flex h-full w-full flex-col overflow-auto rounded-md bg-blancoBg">
+          <div className="border-b">
+            <h2 className="mb-4 ml-4 mt-4 font-poppins text-xl font-semibold text-[#44444F]">
+              INFORMACION BANAMEX 86968{id}
+            </h2>
+          </div>
+          <div className="flex flex-grow flex-col overflow-auto p-4">
+            <div className="mb-4 flex h-[50px] w-[200px] flex-col rounded-[10px] border border-[#44444F] p-2">
+              <span className="font-poppins text-xs">SALDO EN CUENTAS</span>
+              <span className="font-poppins text-base font-semibold">
+                $23,000.00
+              </span>
+            </div>
+            <div className="flex-grow overflow-auto">
+              <BankDetailsGeneral data={datos} />
+            </div>
+          </div>
+          <div className="mt-auto flex h-[54px] w-full items-center justify-between border-t p-4">
+            <label className="text-xs font-light text-[#8F8F8F]">
+              Actualizado 07 septiembre 2024
+            </label>
+            <Link to="/bank-management">
+              <Button
+                className="h-[31px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                variant="outline"
+              >
+                Listo
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex-grow overflow-auto">
-          <BankDetailsGeneral data={datos} />
-        </div>
-      </div>
-      <div className="mt-auto border-t p-4 flex items-center justify-between">
-        <span className="text-sm text-gray-500">
-          Actualizado 07 septiembre 2024
-        </span>
-        <button className="rounded-md bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300">
-          Listo
-        </button>
-      </div>
-    </div>
       </div>
     </div>
   );
