@@ -37,7 +37,11 @@ import {
 import { Button } from "@/components/ui/button";
 import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { functionCreateSaleProcessStage, getProcessInfoId } from "../../utils";
+import {
+  changeLeadStage,
+  functionCreateSaleProcessStage,
+  getProcessInfoId,
+} from "../../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { createPusherClient } from "@/lib/pusher";
@@ -48,10 +52,33 @@ function MainDashboardCrm() {
 
   const [processId, setProcessId] = useState(id);
   const [infoStages, setInfoStages] = useState(data);
+  const [dragLeadId, setDragLeadId] = useState(0);
+  const [dragLeadColumn, setDragLeadColumn] = useState(0);
 
   const [selectTypeFilter, setSelectTypeFilter] = useState("all");
   const [businessNameFilter, setBusinessNameFilter] = useState([]);
   const [inputNameFilter, setInputNameFilter] = useState("");
+
+  //FUNCTIONS DRAG AND DROP
+
+  const startDrag = (evt, item, column) => {
+    setDragLeadId(item.id);
+    setDragLeadColumn(column);
+  };
+
+  const draggingOver = (evt) => {
+    evt.preventDefault();
+  };
+
+  const onDrop = (evt, list) => {
+    if (dragLeadColumn != list) {
+      changeLeadStep(list, dragLeadId);
+    }
+  };
+
+  async function changeLeadStep(process, lead) {
+    await changeLeadStage(process, lead);
+  }
 
   useEffect(() => {
     setProcessId(id);
@@ -155,6 +182,8 @@ function MainDashboardCrm() {
                 ? { backgroundColor: `${stage.color}0D` }
                 : { backgroundColor: "#00A9B315" }
             } // 5% de opacidad
+            onDragOver={(evt) => draggingOver(evt)}
+            onDrop={(evt) => onDrop(evt, stage.id)}
           >
             <div className="flex items-center justify-between">
               <span
@@ -176,6 +205,8 @@ function MainDashboardCrm() {
               <div
                 className="group relative my-4 rounded-lg bg-white px-2 py-2"
                 key={index}
+                onDragStart={(evt) => startDrag(evt, lead, stage.id)}
+                draggable="true"
               >
                 <span
                   className="line-clamp-1 font-poppins text-sm font-medium text-grisHeading"

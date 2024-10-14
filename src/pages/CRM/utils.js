@@ -252,6 +252,26 @@ export async function getProcessInfoId(id) {
   }
 }
 
+export async function changeLeadStage(process, lead) {
+  const info = {
+    step_id: process,
+    lead_id: lead,
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/change-lead-stage`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 //Multiloaders
 export async function multiLoaderCrmTables() {
   const [leads, process, permissions] = await Promise.all([
