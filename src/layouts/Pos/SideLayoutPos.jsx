@@ -18,7 +18,7 @@ const setIsDisabledBD = (value) => {
 
 const SideLayoutPos = () => {
   const [isDisabled, setIsDisabled] = useState(getIsDisabledBD());
-  const timeOut = 20000;
+  const timeOut = 200000;
   let timer;
 
   useEffect(() => {

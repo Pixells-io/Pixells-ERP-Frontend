@@ -28,6 +28,7 @@ import NavigationHeader from "@/components/navigation-header";
 import BalanceDataTable from "./Components/Table/BalanceTable";
 import BankCard from "./Components/BankBalanceCard";
 import CardBalanceTotal from "./Components/CardBalanceGeneral";
+import BalanceTabContent from "./Components/Tabs/BalancesTab";
 function MainBankManagement() {
   const { banks, bankAccounts } = useLoaderData();
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
@@ -57,6 +58,7 @@ function MainBankManagement() {
       balance: "$1,400,527.00",
     },
   ];
+
   return (
     <div className="flex h-full w-full">
       {/* Modals */}
@@ -173,18 +175,9 @@ function MainBankManagement() {
           </TabsContent>
           <TabsContent
             value="balances"
-            className="h-full w-full rounded-md bg-blancoBg p-7"
+            className="h-full overflow-auto"
           >
-            <CardBalanceTotal total={"$2,275,077.13"}/>
-            <div className="space-y-6">
-              <div className="flex justify-start gap-6 overflow-y-auto p-4">
-                {banksData.map(({ title, balance }) => (
-                  <BankCard key={title} title={title} balances={balance} />
-                ))}
-              </div>
-              <div className="flex w-[70px] p-1 ml-1 text-center border border-[#D7D7D7] text-xs text-[#8F8F8F] rounded-[20px] font-roboto">Septiembre</div>
-              <BalanceDataTable data={datos} />
-            </div>
+          <BalanceTabContent banksData={banksData} balanceData={datos}/>
           </TabsContent>
         </Tabs>
       </div>
