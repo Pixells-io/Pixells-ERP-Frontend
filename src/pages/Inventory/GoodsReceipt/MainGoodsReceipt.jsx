@@ -136,7 +136,7 @@ const MainGoodsReceipt = () => {
               </Tabs>
             </TabsContent>
             
-            <TabsContent value="dates" className="h-[calc(100vh-250px)] overflow-hidden">
+            <TabsContent value="dates" className="h-full overflow-hidden">
               <DateTab />
             </TabsContent>
             

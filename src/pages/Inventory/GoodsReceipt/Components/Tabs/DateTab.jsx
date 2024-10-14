@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import DatePagination from "../DatePagination";
 import { Button } from "@/components/ui/button";
 
-const Card = ({ title, id, date, onViewClick, showDetails }) => (
+const Card = ({ title, id, date, onViewClick, showDetails,delivery }) => (
   <div
     className={`rounded-lg bg-white p-4 ${
       showDetails ? "w-full" : "mb-4 ml-2 mr-2 mt-2 w-full"
     }`}
     style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.15)" }}
   >
-    {!showDetails ? (
+    {!showDetails && !delivery? (
       <>
         <h3 className="mb-2 border-b pb-2 font-poppins font-semibold text-[#44444F]">
           {title}
@@ -120,6 +120,7 @@ const DateTab = () => {
               date={date.toLocaleDateString()}
               onViewClick={(cardId) => handleModalOpen(cardId, date)}
               showDetails={showDetails}
+              delivery={false}
             />
           ))}
         </div>
@@ -155,6 +156,7 @@ const DateTab = () => {
                           title={id}
                           id={`019876${id}`}
                           date={"22 de septiembre 2024"}
+                          delivery={true}
                         />
                       ))}
                     </div>
@@ -186,19 +188,18 @@ const DateTab = () => {
         </div>
       </div>
       {!isShowModal && (
-        <div className="h-[54px] flex-shrink-0 border-t">
-          <div className="flex items-center justify-between p-2">
-            <label className="text-xs font-light text-[#8F8F8F]">
-              Actualizado 07 septiembre 2024
-            </label>
-            <Button
-              onClick={handleModalClose}
-              className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
-            >
-              Listo
-            </Button>
-          </div>
-        </div>
+       <div className="h-[54px] pb-6 flex-shrink-0 p-4 mb-2">
+       <div className="flex items-center pb-2  justify-between">
+         <label className="text-xs font-light text-[#8F8F8F]">
+           Actualizado 07 septiembre 2024
+         </label>
+         <Button
+           className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+         >
+           Listo
+         </Button>
+       </div>
+     </div>
       )}
     </div>
   );
