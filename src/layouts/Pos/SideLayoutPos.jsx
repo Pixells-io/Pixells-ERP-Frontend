@@ -18,6 +18,7 @@ const setIsDisabledBD = (value) => {
 
 const SideLayoutPos = () => {
   const [isDisabled, setIsDisabled] = useState(getIsDisabledBD());
+  const [isGrid, setIsGrid] = useState(false);
   const timeOut = 200000;
   let timer;
 
@@ -53,7 +54,7 @@ const SideLayoutPos = () => {
       {isDisabled ? (
         <DisabledPos setIsDisabled={setIsDisabled} />
       ) : (
-        <EnabledPos setIsDisabled={setIsDisabled} />
+        <EnabledPos setIsDisabled={setIsDisabled} setIsGrid={setIsGrid} isGrid={isGrid} />
       )}
     </>
   );
