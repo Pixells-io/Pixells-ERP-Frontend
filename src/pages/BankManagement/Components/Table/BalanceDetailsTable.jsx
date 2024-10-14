@@ -48,7 +48,7 @@ const BankDetailsGeneral =({data})=>{
                     {header}
                   </TableHead>
                 ))}
-                <TableHead></TableHead>
+                <TableHead className="border-b-2 border-[#44444F]"></TableHead>
               </TableRow>
             </TableHeader>
             {/* Cuerpo */}
@@ -56,11 +56,11 @@ const BankDetailsGeneral =({data})=>{
               {currentItems.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   {Object.values(row).map((cell, cellIndex) => (
-                    <TableCell key={cellIndex} className="text-center">
+                    <TableCell key={cellIndex} className="text-center font-roboto text-sm">
                       {cell}
                     </TableCell>
                   ))}
-                  <TableCell className="text-[#5B89FF] font-roboto text-sm">Ver documento</TableCell>
+                  <TableCell className="text-[#5B89FF] text-center font-roboto text-sm">Ver documento</TableCell>
                 </TableRow>
               ))}
             </TableBody>
