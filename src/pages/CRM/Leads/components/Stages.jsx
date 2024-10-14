@@ -54,7 +54,6 @@ function Stages() {
   //FUNCTIONS DRAG AND DROP
 
   const startDrag = (evt, item) => {
-    //evt.dataTransfer.setData("lead", item);
     setLeadInformation(item);
   };
 
@@ -63,7 +62,7 @@ function Stages() {
   };
 
   const onDrop = (evt, list) => {
-    //const lead = evt.dataTransfer.getData("lead");
+    const lead = evt.dataTransfer.getData("lead");
     openCorrectModal(list, leadInformation);
   };
 
