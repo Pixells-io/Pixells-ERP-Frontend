@@ -12,6 +12,8 @@ import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";
 import { Link } from "react-router-dom";
 import PaymentDataTable from "./PaymentData";
+
+
 const CircularProgressBar = ({ value }) => {
   const radius = 25;
   const circumference = 2 * Math.PI * radius;
@@ -241,11 +243,13 @@ const ReceiptAnalyticsTable = ({ deliveryData }) => {
                       <TableCell>{delivery.ubicacion}</TableCell>
                       <TableCell>{delivery.quienRecibio}</TableCell>
                       <TableCell>{delivery.fechaRecibido}</TableCell>
+
                       <TableCell
                         className={"font-roboto text-sm text-[#5B89FF]"}
                         onClick={() => handlerShowPayment(index)}
                       >
-                        Ver Documento
+                         <Link to={``}>Ver</Link>
+                        
                       </TableCell>
                     </TableRow>
                   ))}
