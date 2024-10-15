@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { gridOutline, list, lockClosed } from "ionicons/icons";
+import { gridOutline, list, lockClosed, settingsOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 
@@ -31,7 +31,7 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
 
     const formattedDate = `${day} ${month} ${year}`;
 
-    return formattedDate; 
+    return formattedDate;
   };
 
   return (
@@ -45,7 +45,7 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
           <div className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading">
             <h2 className="font-poppins text-xl font-bold text-white">Home</h2>
             <label className="text-sm font-medium text-[#D7D7D7]">
-              { getDate() }
+              {getDate()}
             </label>
           </div>
           <div className="col-span-8 flex w-full items-center justify-center">
@@ -146,7 +146,7 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
             </div>
           </div>
           <div className="overflow-y-none col-span-3 flex h-full w-full justify-center">
-            <div className="flex h-full w-fit gap-x-6 overflow-x-auto">
+            <div className="flex h-full w-fit gap-x-3 overflow-x-auto">
               <div className="flex flex-col gap-y-1">
                 <div>
                   <label className="text-xs font-semibold text-grisText">
@@ -171,25 +171,34 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                   </label>
                 </div>
               </div>
-              <div className="justfiy-center flex items-center gap-x-4">
-                <button type="button" onClick={() => setIsGrid(true)}>
-                  <IonIcon
-                    icon={gridOutline}
-                    className={`h-6 w-7 rounded-lg p-1 text-white ${isGrid ? "bg-primarioBotones" : "bg-blancoBox"}`}
-                  ></IonIcon>
+              <div className="justfiy-center flex items-center gap-x-2">
+                <button
+                  type="button"
+                  onClick={() => setIsGrid(true)}
+                  className={`h-[28px] w-[30px] rounded-lg p-1 ${isGrid ? "bg-primarioBotones text-white" : "bg-blancoBox text-[#44444F]"}`}
+                >
+                  <IonIcon icon={gridOutline}></IonIcon>
                 </button>
-                <button type="button" onClick={() => setIsGrid(false)}>
-                  <IonIcon
-                    icon={list}
-                    className={`h-6 w-7 rounded-lg p-1 text-white ${isGrid ? "bg-blancoBox" : "bg-primarioBotones"}`}
-                  ></IonIcon>
+                <button
+                  type="button"
+                  onClick={() => setIsGrid(false)}
+                  className={`h-[28px] w-[30px] rounded-lg p-1 ${isGrid ? "bg-blancoBox text-[#44444F]" : "bg-primarioBotones text-white"}`}
+                >
+                  <IonIcon icon={list}></IonIcon>
                 </button>
-                <button type="button" onClick={() => setIsDisabled(true)}>
-                  <IonIcon
-                    icon={lockClosed}
-                    className="h-6 w-7 rounded-lg bg-blancoBox p-1 text-grisText text-primarioBotones"
-                  ></IonIcon>
+                <button
+                  type="button"
+                  onClick={() => setIsDisabled(true)}
+                  className="h-[28px] w-[30px] rounded-lg bg-blancoBox p-1 text-grisText text-primarioBotones"
+                >
+                  <IonIcon icon={lockClosed}></IonIcon>
                 </button>
+                <NavLink
+                  to="/pos/configuration"
+                  className="flex h-[28px] w-[30px] items-center justify-center rounded-lg bg-blancoBox p-1 text-[#44444F]"
+                >
+                  <IonIcon icon={settingsOutline}></IonIcon>
+                </NavLink>
               </div>
             </div>
           </div>

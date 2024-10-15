@@ -1684,6 +1684,10 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "/pos/configuration",
+            element: <MainPos />,
+          },
         ],
       },
     ],
