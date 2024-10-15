@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -8,7 +8,6 @@ import {
 
 const chartConfig = {
   desktop: {
-    label: "Ventas",
     color: "#00a9b3",
   },
 };
@@ -93,6 +92,46 @@ export function Component({chartData}) {
     return `${tickItem / 10000}k`;
   };
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const dataPoint = payload[0].payload;
+      const monthIndex = chartData.findIndex(data => data.month === label);
+      let status;
+      let color;
+  
+      if (monthIndex < currentMonthIndex) {
+        status = "Cobrado";
+        color = "#00A9B3";
+      } else if (monthIndex === currentMonthIndex) {
+        status = "En Proceso";
+        color = "#00A9B3";
+      } else {
+        status = "Por Cobrar";
+        color = "#CCCCCC";
+      }
+  
+      return (
+        <div className="bg-white p-2 border border-gray-300 rounded shadow">
+          <p className="font-poppins text-sm font-bold">{label}</p>
+          <div className="flex items-center justify-between gap-3">
+            <div 
+              style={{ 
+                backgroundColor: color, 
+                width: '12px', 
+                height: '12px', 
+                borderRadius: '50%', 
+                marginRight: '6px' 
+              }} 
+            />
+            <p className="text-sm mb-0">{status}</p>
+            <p className="font-bold mb-0">${dataPoint.desktop.toLocaleString()}</p>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+  
   return (
     <ChartContainer config={chartConfig} className="flex h-[184px] w-full">
       <BarChart accessibilityLayer data={chartData}>
@@ -110,7 +149,7 @@ export function Component({chartData}) {
           tickLine={false}
           ticks={[100000, 150000, 200000, 250000, 300000]}
         />
-        <ChartTooltip content={<ChartTooltipContent />} />
+        <Tooltip content={<CustomTooltip />} />
         <Bar
           dataKey="desktop"
           fill="var(--color-desktop)"
