@@ -98,7 +98,7 @@ const BillingSummary = () => {
       </div>
 
       {/* Footer */}
-      <div className="flex h-[54px] w-full items-center justify-between border-t p-4">
+      {/* <div className="flex h-[54px] w-full items-center justify-between border-t p-4">
         <label className="text-xs font-light text-[#8F8F8F]">
           Actualizado 07 septiembre 2024
         </label>
@@ -109,7 +109,7 @@ const BillingSummary = () => {
         >
           Listo
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

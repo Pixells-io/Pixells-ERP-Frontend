@@ -1,12 +1,10 @@
 import React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-
 
 const chartConfig = {
   desktop: {
@@ -24,27 +22,24 @@ export function Component({chartData}) {
   const currentMonth = getCurrentMonth();
   const currentMonthIndex = chartData.findIndex(data => data.month === currentMonth);
 
-
-  //Grafica Personalizada
+  // Custom Bar Component
   const CustomBar = (props) => {
     const { x, y, width, height, fill, payload } = props;
     const isCurrentMonth = payload.month === currentMonth;
     const isFutureMonth = chartData.indexOf(payload) > currentMonthIndex;
 
     return (
-      <g>
-        <rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          fill={isCurrentMonth || isFutureMonth ? "transparent" : fill}
-          stroke={isCurrentMonth ? "#DC1C3B" : (isFutureMonth ? "#D7D7D7" : "none")}
-          strokeWidth={isCurrentMonth ? 1 : (isFutureMonth ? 1 : 0)}
-          rx={4}
-          ry={4}
-        />
-      </g>
+      <path
+        d={`M ${x},${y + height} 
+           L ${x},${y + 6} 
+           Q ${x},${y} ${x + 6},${y}
+           L ${x + width - 6},${y}
+           Q ${x + width},${y} ${x + width},${y + 6}
+           L ${x + width},${y + height}`}
+        fill={isCurrentMonth || isFutureMonth ? "transparent" : fill}
+        stroke={isCurrentMonth ? "#DC1C3B" : (isFutureMonth ? "#D7D7D7" : "none")}
+        strokeWidth={isCurrentMonth ? 1 : (isFutureMonth ? 1 : 0)}
+      />
     );
   };
 
@@ -95,7 +90,7 @@ export function Component({chartData}) {
   };
 
   const formatYAxis = (tickItem) => {
-    return `${tickItem / 1000}k`;
+    return `${tickItem / 10000}k`;
   };
 
   return (
@@ -106,7 +101,7 @@ export function Component({chartData}) {
           dataKey="month"
           tickLine={false}
           tickMargin={10}
-          axisLine={false}
+          axisLine={{ stroke: '#CCCCCC', strokeWidth: 1 }}
           tick={<CustomXAxisTick />}
         />
         <YAxis
