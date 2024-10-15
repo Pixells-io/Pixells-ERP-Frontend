@@ -1,29 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  NavLink,
-  useLocation,
-  Outlet,
-  useLoaderData,
-  Form,
-  redirect,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { useLoaderData, Form, useParams, Link } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  add,
-  closeCircle,
-  ellipsisHorizontalSharp,
-  settingsOutline,
-} from "ionicons/icons";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { add, ellipsisHorizontalSharp, settingsOutline } from "ionicons/icons";
 
 import {
   DropdownMenu,
@@ -41,10 +21,12 @@ import {
   changeLeadStage,
   functionCreateSaleProcessStage,
   getProcessInfoId,
+  saveLeadComments,
 } from "../../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { createPusherClient } from "@/lib/pusher";
+import CommentsLead from "../components/CommentsLead";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -80,6 +62,9 @@ function MainDashboardCrm() {
     await changeLeadStage(process, lead);
   }
 
+  //WEBSOCKETS
+  const pusherClient = createPusherClient();
+
   useEffect(() => {
     setProcessId(id);
     async function getSteps() {
@@ -88,31 +73,26 @@ function MainDashboardCrm() {
     }
 
     getSteps();
-  }, [id]);
 
-  //WEBSOCKETS
-  const pusherClient = createPusherClient();
-
-  useEffect(() => {
     //Socket fot table leads and clients
     pusherClient.subscribe(`private-get-sales-process-stages.${id}`);
 
     pusherClient.bind("fill-sales-process-stages", ({ process }) => {
-      console.log("2");
-      getProcessFill();
+      getProcessFill(process);
     });
 
     //Function Sync Info
-    async function getProcessFill() {
-      console.log("3");
-      let newData = await getProcessInfoId(id);
+    async function getProcessFill(process) {
+      let newData = await getProcessInfoId(process);
       setInfoStages(newData.data);
     }
 
     return () => {
       pusherClient.unsubscribe(`private-get-sales-process-stages.${id}`);
     };
-  });
+  }, [id]);
+
+  useEffect(() => {});
 
   return (
     <div className="flex w-full flex-col gap-y-2 overflow-auto">
@@ -123,10 +103,10 @@ function MainDashboardCrm() {
             asChild
             className="flex h-6 w-16 cursor-pointer items-center justify-center rounded-3xl border border-grisDisabled bg-inherit text-[10px] font-medium text-grisSubText"
           >
-            <div>Date</div>
+            <div>Fecha</div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="max-h-[300px] w-full overflow-auto">
-            <DropdownMenuLabel>Select to filter</DropdownMenuLabel>
+            <DropdownMenuLabel>Filtrar</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
               value={selectTypeFilter}
@@ -135,7 +115,7 @@ function MainDashboardCrm() {
               }}
             >
               <DropdownMenuRadioItem value="">
-                Clear filter
+                Borra Filtro
               </DropdownMenuRadioItem>
               {businessNameFilter?.map((businessNameF, i) => (
                 <DropdownMenuRadioItem key={i} value={businessNameF.name}>
@@ -196,10 +176,34 @@ function MainDashboardCrm() {
               >
                 {stage.name}
               </span>
-              <IonIcon
-                icon={ellipsisHorizontalSharp}
-                className="rounded-md border border-blancoBox bg-white px-2 py-1 text-sm text-grisText drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)]"
-              ></IonIcon>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex">
+                  <IonIcon
+                    icon={ellipsisHorizontalSharp}
+                    className="rounded-md border border-blancoBox bg-white px-2 py-1 text-sm text-grisText drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)]"
+                  ></IonIcon>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                  >
+                    Editar Nombre
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                  >
+                    Editar Color
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                  >
+                    Eliminar
+                  </button>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             {stage.data?.map((lead, index) => (
               <div
@@ -208,22 +212,71 @@ function MainDashboardCrm() {
                 onDragStart={(evt) => startDrag(evt, lead, stage.id)}
                 draggable="true"
               >
-                <span
+                <Link
+                  to={`/crm/leads/${lead.id}`}
                   className="line-clamp-1 font-poppins text-sm font-medium text-grisHeading"
                   title={"Nombre"}
                 >
                   {lead.name}
-                </span>
+                </Link>
                 <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
                   <div className="flex h-[22px] items-center">
-                    <IonIcon
-                      icon={settingsOutline}
-                      className="h-full cursor-pointer border-r px-1.5"
-                    ></IonIcon>
-                    <IonIcon
-                      icon={ellipsisHorizontalSharp}
-                      className="h-full cursor-pointer px-1.5"
-                    ></IonIcon>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <IonIcon
+                          icon={settingsOutline}
+                          className="px-1.5"
+                        ></IonIcon>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Asignar a otro usuario
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Programar mensaje de chat
+                        </button>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <IonIcon
+                          icon={ellipsisHorizontalSharp}
+                          className="px-1.5"
+                        ></IonIcon>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Editar Nombre
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Editar Color
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                        >
+                          Eliminar
+                        </button>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
 
@@ -262,16 +315,25 @@ function MainDashboardCrm() {
                 </span>
                 <div className="grid grid-cols-12">
                   <div className="col-span-5 flex items-end gap-x-2">
-                    <Progress
-                      value={80}
-                      className="mb-[5px] h-[4px] bg-[#D7D7D7]"
-                      color="bg-[#5B84FF]"
-                    />
-                    <span className="h-fit text-[10px] font-medium text-[#696974B2]">
-                      80%
+                    <span
+                      className="flex h-[18px] items-center rounded-full bg-[#FFC7C7] px-2 py-2 text-[10px] font-normal text-[#620E0E]"
+                      title="Dias desde la creacion"
+                    >
+                      {lead?.created}
+                    </span>
+                    <span
+                      className="flex h-[18px] items-center rounded-full bg-[#FFEDC7] px-2 py-2 text-[10px] font-normal text-[#624E0E]"
+                      title="Dias desde la ultima edicion"
+                    >
+                      {lead?.edited}
                     </span>
                   </div>
-                  <div className="col-span-7 flex justify-end">
+                  <div className="col-span-7 flex justify-end gap-3">
+                    <CommentsLead
+                      leadId={lead?.id}
+                      comments={lead?.comments}
+                      process={id}
+                    />
                     <Avatar className="size-6">
                       <AvatarImage
                         src={lead.assigned?.img}
@@ -349,6 +411,10 @@ export async function Action({ request }) {
   switch (action) {
     case "create-process-stage":
       await functionCreateSaleProcessStage(data);
+      return "201";
+      break;
+    case "add-comment-lead":
+      await saveLeadComments(data);
       return "201";
       break;
   }

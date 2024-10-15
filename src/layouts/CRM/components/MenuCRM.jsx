@@ -2,20 +2,10 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import {
-  apps,
-  appsSharp,
-  disc,
-  documentText,
-  folder,
-  mail,
-  person,
-  settings,
-} from "ionicons/icons";
+import { apps, disc } from "ionicons/icons";
 
 const MENU_ITEMS = [
   { path: "/crm", name: "CRM", subname: "Inicio", icon: disc },
-  { path: "/crm/leads", name: "Leads", subname: "Dashboard", icon: person },
   {
     path: "/crm/dashboard",
     name: "Dashboard",

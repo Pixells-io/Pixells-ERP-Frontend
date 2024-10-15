@@ -272,6 +272,26 @@ export async function changeLeadStage(process, lead) {
   return response;
 }
 
+export async function saveLeadComments(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    comments: data.get("comment"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/save-lead-comments`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 //Multiloaders
 export async function multiLoaderCrmTables() {
   const [leads, process, permissions] = await Promise.all([

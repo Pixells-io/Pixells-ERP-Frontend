@@ -619,24 +619,6 @@ const router = createBrowserRouter([
             element: <MainCRM />,
           },
           {
-            //crm leads
-            path: "/crm/leads",
-            element: <MainLeads />,
-            loader: getLeads,
-            action: ActionsLeads,
-            children: [
-              {
-                index: true,
-                element: <Stages />,
-                loader: multiLoaderStageLeads,
-              },
-              {
-                path: "/crm/leads/timeline",
-                element: <Timeline />,
-              },
-            ],
-          },
-          {
             //crm Dashboard
             path: "/crm/dashboard",
             element: <CrmDashboard />,
@@ -1067,7 +1049,7 @@ const router = createBrowserRouter([
             element: <AddNewCollection />,
           },
           {
-            path: "/bank-management/collection/record/:id",//BankDetailsGeneral
+            path: "/bank-management/collection/record/:id", //BankDetailsGeneral
             element: <CollectionRecord />,
           },
           {
