@@ -23,8 +23,19 @@ const PersonalTable = ({
   tableData,
   setTableData,
   setTotalProducts,
-  productNeed: components,
+  productNeed,
+  positions,
 }) => {
+  const components = productNeed.map((product, i) => ({
+    label: product.operation,
+    value: product.i,
+  }));
+
+  const positionsArray = positions.map((position, i) => ({
+    label: position.position_name,
+    value: position.id,
+  }));
+
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -73,12 +84,8 @@ const PersonalTable = ({
         index === rowIndex
           ? {
               ...item,
-              amount: value,
-              tax: (item.price * item.amountTax * value) / 100,
-              subTotal: (
-                item.price * value +
-                (item.price * item.amountTax * value) / 100
-              ).toFixed(2),
+              [value.name]: value.value,
+              subTotal: (item.price * value).toFixed(2),
             }
           : item,
       ),
@@ -92,11 +99,7 @@ const PersonalTable = ({
           ? {
               ...item,
               price: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal: (
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100
-              ).toFixed(2),
+              subTotal: (value * item.amount).toFixed(2),
             }
           : item,
       ),
@@ -183,15 +186,14 @@ const PersonalTable = ({
       accessorKey: "process_operation",
       header: "Proceso de Operación ",
       cell: ({ row, rowIndex }) => (
-        <Input
-          className="border-gris2-transparent w-[200px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`process_operation-${rowIndex}`}
-          value={row.process_operation}
-          placeholder="ingrese"
-          type="number"
-          // disabled={!row.process_operation}
-          onChange={(e) => handleInputChange(rowIndex, e.target.value)}
-        />
+        <div className="w-[200px]">
+          <SelectRouter
+            name={"selectComponent-" + rowIndex}
+            options={components}
+            // value={row.position}
+            // onChange={(value) => handleDataInRow(value, rowIndex)}
+          />
+        </div>
       ),
     },
     {
@@ -201,9 +203,9 @@ const PersonalTable = ({
         <div className="w-[200px]">
           <SelectRouter
             name={"selectComponent-" + rowIndex}
-            options={components}
-            value={row.position}
-            onChange={(value) => handleDataInRow(value, rowIndex)}
+            options={positionsArray}
+            // value={row.position}
+            // onChange={(value) => handleDataInRow(value, rowIndex)}
           />
         </div>
       ),
@@ -217,6 +219,7 @@ const PersonalTable = ({
           name={`cost_hour-${rowIndex}`}
           value={row.cost_hour}
           type="number"
+          onChange={(e) => handleInputChange(rowIndex, e.target)}
         />
       ),
     },
@@ -229,17 +232,25 @@ const PersonalTable = ({
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
           name={`hours-${rowIndex}`}
           value={row.price}
+          min="0"
           placeholder="ingrese"
           // disabled={!row.component}
-          onChange={(e) => handleCostChange(rowIndex, e.target.value)}
+          onChange={(e) => handleInputChange(rowIndex, e.target)}
         />
       ),
     },
     {
-      accessorKey: "",
-      header: "",
+      accessorKey: "subTotal",
+      header: "Subtotal",
       cell: ({ row, rowIndex }) => (
-        <div className="flex justify-end">
+        <div className="flex w-[100px] justify-between">
+          {row.subTotal}
+          <input
+            type="hidden"
+            hidden
+            value={row.subTotal}
+            name={"subTotal-" + rowIndex}
+          />
           <button type="button" onClick={() => deleteRowId(row.idAux)}>
             <IonIcon
               icon={closeCircle}
