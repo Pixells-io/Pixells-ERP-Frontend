@@ -574,6 +574,7 @@ import {
 } from "./pages/Inventory/StockItems/utils";
 import MainTraceabilityReport from "./pages/Inventory/TraceabilityReports/MainTraceabilityReport";
 import {
+  getOneLead,
   getProcessInfo,
   multiLoaderCrmDasboard,
   multiLoaderCrmLayout,
@@ -662,12 +663,12 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // crm - lead id
+      //Show Lead
       {
         path: "/crm/leads/:id",
         element: <SidelayoutLead />,
         action: LeadsEditFunction,
-        loader: multiloaderSideLayoutLead,
+        loader: getOneLead,
         children: [
           {
             index: true,

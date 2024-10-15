@@ -103,19 +103,19 @@ function LeadsTable({ leads, edit, destroy }) {
         return (
           <div className="gap-2">
             {row.original?.status == "Activo" ? (
-              <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario">
+              <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario hover:bg-blue-200">
                 Activo
               </span>
             ) : row.original?.status == "Suspendido" ? (
-              <span className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600">
+              <span className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600 hover:bg-yellow-300">
                 Suspendido
               </span>
             ) : row.original?.status == "Cancelado" ? (
-              <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600">
+              <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600 hover:bg-red-300">
                 Cancelado
               </span>
             ) : row.original?.status == "Completado" ? (
-              <span className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600">
+              <span className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600 hover:bg-green-300">
                 Completado
               </span>
             ) : (

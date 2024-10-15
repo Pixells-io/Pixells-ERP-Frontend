@@ -20,25 +20,14 @@ import { create } from "ionicons/icons";
 
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 import EditLeadInformation from "./Modals/EditLeadInformation";
-import { editLeadForm, editStatusLead } from "../utils";
+import { editLead } from "../../utils";
 
 function SidelayoutLead() {
   const params = useParams();
   const submit = useSubmit();
-  const { leadLoader, servicesLoader } = useLoaderData();
+  const { data } = useLoaderData();
 
-  const {
-    data: lead,
-    services,
-    follow_ups,
-    user_assigned,
-    extra_information: info,
-    main_lead,
-    closing,
-    pay,
-    onBoarding,
-  } = leadLoader;
-
+  const [lead, setLead] = useState(data);
   const [modalEdit, setModalEdit] = useState(false);
 
   function Capitalize(string) {
@@ -58,10 +47,7 @@ function SidelayoutLead() {
       <EditLeadInformation
         modal={modalEdit}
         setModal={setModalEdit}
-        info={info}
         lead={lead}
-        serviceSelected={services}
-        services={servicesLoader}
       />
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* Top block */}
@@ -75,14 +61,14 @@ function SidelayoutLead() {
             Informacion General
           </p>
 
-          <div className="flex justify-between rounded-lg bg-blancoBox px-7 py-4">
+          <div className="flex justify-between rounded-lg bg-blancoBox2 px-7 py-4">
             <div className="flex flex-col gap-2">
               <div className="">
                 <p className="text-[15px] font-medium text-grisText">
                   Nombre del Negocio
                 </p>
                 <span className="text-xs text-grisSubText">
-                  {Capitalize(info?.business_name)}
+                  {lead?.business_name}
                 </span>
               </div>
               <div>
@@ -90,22 +76,30 @@ function SidelayoutLead() {
                   Nombre del Contacto
                 </p>
                 <span className="text-xs text-grisSubText">
-                  {Capitalize(info?.contact_name)}{" "}
-                  {Capitalize(info?.contact_middle_name)}{" "}
-                  {Capitalize(info?.contact_last_name)}
+                  {lead?.contact_name} {lead?.contact_middle_name}{" "}
+                  {lead?.contact_last_name}
                 </span>
               </div>
               <div>
-                <p className="text-[15px] font-medium text-grisText">Celular</p>
+                <p className="text-[15px] font-medium text-grisText">
+                  Telefono del Contacto
+                </p>
                 <span className="text-xs text-grisSubText">
-                  {info?.contact_phone} <br />
-                  {info?.business_phone}
+                  {lead?.contact_phone} <br />
+                </span>
+              </div>
+              <div>
+                <p className="text-[15px] font-medium text-grisText">
+                  Telefono del Negocio
+                </p>
+                <span className="text-xs text-grisSubText">
+                  {lead?.business_phone} <br />
                 </span>
               </div>
               <div>
                 <p className="text-[15px] font-medium text-grisText">Email</p>
                 <span className="text-xs text-grisSubText">
-                  {info?.contact_email}
+                  {lead?.contact_email}
                 </span>
               </div>
             </div>
@@ -120,41 +114,16 @@ function SidelayoutLead() {
 
           <div className="flex flex-col gap-6 px-[10px]">
             <div className="flex flex-col gap-2">
-              <p className="font-poppins text-lg font-semibold text-grisHeading">
-                Metodo de Contacto
-              </p>
-
-              <p className="text-base font-medium text-grisText">
-                Servicio de Interes
-              </p>
-
-              <div className="flex gap-2 overflow-auto">
-                {services?.map((service, i) => (
-                  <Badge
-                    key={i}
-                    className="shrink-0 bg-primario py-[6px] text-[10px] text-blancoBox"
-                  >
-                    {service?.name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
-                  <img
-                    src={user_assigned?.user_image}
-                    className="rounded-md"
-                    alt=""
-                  />
+                  <img src={lead?.assigned?.img} className="rounded-md" />
                 </div>
                 <div>
                   <p className="text-[15px] font-medium text-grisText">
                     Agente
                   </p>
                   <span className="text-xs text-grisSubText">
-                    {user_assigned?.name} {user_assigned?.last_name}
+                    {lead?.assigned?.name}
                   </span>
                 </div>
               </div>
@@ -182,14 +151,22 @@ function SidelayoutLead() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-fit">
-                    {main_lead?.active == "1" ? (
-                      <Badge className="w-fit bg-[#00A259]">Activo</Badge>
-                    ) : main_lead?.active == "2" ? (
-                      <Badge className="w-fit bg-[#FAA364]">Suspendido</Badge>
-                    ) : main_lead?.active == "3" ? (
-                      <Badge className="w-fit bg-[#D7586B]">Cancelado</Badge>
+                    {lead?.status == "1" ? (
+                      <Badge className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario hover:bg-blue-200">
+                        Activo
+                      </Badge>
+                    ) : lead?.status == "2" ? (
+                      <Badge className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600 hover:bg-yellow-300">
+                        Suspendido
+                      </Badge>
+                    ) : lead?.status == "3" ? (
+                      <Badge className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600 hover:bg-red-300">
+                        Cancelado
+                      </Badge>
                     ) : (
-                      <Badge className="w-fit bg-primario">Completo</Badge>
+                      <Badge className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600 hover:bg-green-300">
+                        Completo
+                      </Badge>
                     )}
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
@@ -212,18 +189,7 @@ function SidelayoutLead() {
           </div>
         </div>
       </div>
-      <Outlet
-        context={[
-          lead,
-          services,
-          info,
-          follow_ups,
-          main_lead,
-          closing,
-          pay,
-          onBoarding,
-        ]}
-      />
+      <Outlet context={[lead]} />
     </div>
   );
 }
@@ -236,13 +202,13 @@ export async function Action({ params, request }) {
 
   switch (action) {
     case "edit-lead":
-      const response1 = await editLeadForm(data);
-      return redirect(`/crm/leads/${response1.data}`);
+      await editLead(data);
+      return redirect(`/crm/leads/${params.id}`);
       break;
 
     case "edit-status":
-      const response2 = await editStatusLead(data);
-      return redirect(`/crm/leads/${response2.data}`);
+      await editLead(data);
+      return redirect(`/crm/leads/${params.id}`);
       break;
   }
 }

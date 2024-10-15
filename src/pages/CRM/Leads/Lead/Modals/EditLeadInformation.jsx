@@ -13,14 +13,7 @@ import {
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function EditLeadInformation({
-  modal,
-  setModal,
-  info,
-  lead,
-  services,
-  serviceSelected,
-}) {
+function EditLeadInformation({ modal, setModal, lead }) {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -28,18 +21,6 @@ function EditLeadInformation({
       setModal(false);
     }
   }, [navigation.state]);
-
-  const servicesLead = services.data.filter((service) =>
-    serviceSelected.some((serv) => serv.name == service.name),
-  );
-
-  const formatedLeadServices = servicesLead.map((serv) => {
-    return { label: serv.name, value: serv.id };
-  });
-
-  const formatedServices = services?.data.map((serv) => {
-    return { label: serv.name, value: serv.id };
-  });
 
   const placeholders = [
     "Nombre del Negocio",
@@ -85,13 +66,13 @@ function EditLeadInformation({
                 name="bussines_name"
                 type="text"
                 placeholder={placeholders[0]}
-                defaultVal={info.business_name}
+                defaultVal={lead.business_name}
               />
               <InputRouter
                 name="bussines_phone"
                 type="text"
                 placeholder={placeholders[1]}
-                defaultVal={info.business_phone}
+                defaultVal={lead.business_phone}
               />
             </div>
           </div>
@@ -104,42 +85,33 @@ function EditLeadInformation({
                 name="contact_name"
                 type="text"
                 placeholder={placeholders[2]}
-                defaultVal={info.contact_name}
+                defaultVal={lead.contact_name}
               />
               <InputRouter
                 name="contact_middle_name"
                 type="text"
                 placeholder={placeholders[3]}
-                defaultVal={info.contact_middle_name}
+                defaultVal={lead.contact_middle_name}
               />
               <InputRouter
                 name="contact_last_name"
                 type="text"
                 placeholder={placeholders[4]}
-                defaultVal={info.contact_last_name}
+                defaultVal={lead.contact_last_name}
               />
               <InputRouter
                 name="contact_phone"
                 type="text"
                 placeholder={placeholders[5]}
-                defaultVal={info.contact_phone}
+                defaultVal={lead.contact_phone}
               />
               <InputRouter
                 name="contact_email"
                 type="email"
                 placeholder={placeholders[6]}
-                defaultVal={info.contact_email}
+                defaultVal={lead.contact_email}
               />
             </div>
-          </div>
-          <div className="flex items-center justify-center px-4 py-2">
-            <SelectRouter
-              placeholder="Select Services to Add"
-              isMulti="true"
-              defaultVal={formatedLeadServices}
-              options={formatedServices}
-              name="services"
-            />
           </div>
         </Form>
         <DialogFooter className="px-8 py-4">

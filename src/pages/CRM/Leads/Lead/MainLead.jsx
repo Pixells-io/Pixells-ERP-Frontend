@@ -9,6 +9,7 @@ import {
   chevronForward,
   cloud,
   document,
+  ellipseSharp,
   mail,
   person,
   syncCircle,
@@ -20,24 +21,13 @@ import { format } from "date-fns";
 import NavigationHeader from "@/components/navigation-header";
 
 function MainLead() {
-  const [
-    lead,
-    services,
-    info,
-    follow_ups,
-    main_lead,
-    closing,
-    pay,
-    onBoarding,
-  ] = useOutletContext();
-  const step = main_lead.step;
+  const [lead] = useOutletContext();
 
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
-
         {/* top content */}
         <div className="flex items-center gap-16">
           <div>
@@ -53,152 +43,48 @@ function MainLead() {
             <div>43 activities</div>
           </div> */}
         </div>
-
-        <div className="flex items-center gap-64 pl-3 pt-4">
-          <div>
-            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-              Seguimiento
-            </h2>
-          </div>
-        </div>
-
         {/* icons line */}
-        <div className="flex items-center justify-center gap-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primario">
-            <IonIcon icon={person} className="h-6 w-6 text-grisBg"></IonIcon>
-          </div>
-          <div className="w-[70px] border-t border-primario"></div>
-
-          {step >= 1 ? (
+        <div className="flex h-20 overflow-auto">
+          {lead.steps?.map((step, i) => (
             <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={cloud}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
+              {step.id > lead.process_sale_step ? (
+                <div className="flex items-start justify-center gap-4">
+                  <div className="items-start text-center">
+                    <IonIcon
+                      icon={ellipseSharp}
+                      className="h-2 w-2 text-grisDisabled"
+                    ></IonIcon>
+                    <br />
+                    <span
+                      className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
+                      title={step.name}
+                    >
+                      {step.name}
+                    </span>
+                  </div>
+                  <div className="mt-3 w-[70px] border-t border-grisDisabled"></div>
+                </div>
+              ) : (
+                <div className="flex items-start justify-center gap-4">
+                  <div className="items-start text-center">
+                    <IonIcon
+                      icon={ellipseSharp}
+                      className="h-2 w-2 text-grisHeading"
+                    ></IonIcon>
+                    <br />
+                    <span
+                      className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
+                      title={step.name}
+                    >
+                      {step.name}
+                    </span>
+                  </div>
+                  <div className="mt-3 w-[70px] border-t border-grisHeading"></div>
+                </div>
+              )}
             </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon icon={cloud} className="h-6 w-6 text-gris2"></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
-
-          {step >= 2 ? (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={syncCircle}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
-            </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon
-                  icon={syncCircle}
-                  className="h-6 w-6 text-gris2"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
-
-          {step >= 3 ? (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={mail}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
-            </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon icon={mail} className="h-6 w-6 text-gris2"></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
-
-          {step >= 4 ? (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={document}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
-            </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon
-                  icon={document}
-                  className="h-6 w-6 text-gris2"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
-
-          {step >= 5 ? (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={card}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
-            </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon icon={card} className="h-6 w-6 text-gris2"></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
-
-          {step >= 6 ? (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-primario">
-                <IonIcon
-                  icon={checkmarkCircle}
-                  className="h-6 w-6 text-primario"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-primario"></div>
-            </>
-          ) : (
-            <>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-[1px] border-gris2">
-                <IonIcon
-                  icon={checkmarkCircle}
-                  className="h-6 w-6 text-gris2"
-                ></IonIcon>
-              </div>
-              <div className="w-[70px] border-t border-grisDisabled"></div>
-            </>
-          )}
+          ))}
         </div>
-
-        <div className="flex items-center gap-64 pl-3 pt-4">
-          <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-            Actualizaciones
-          </h2>
-        </div>
-
         {/* cards */}
         <div className="flex h-full w-full flex-col items-center overflow-auto bg-blancoBg">
           <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
@@ -216,172 +102,22 @@ function MainLead() {
               <div className="flex items-center gap-2 p-1 text-grisSubText">
                 <div className="flex items-center gap-1">
                   <IonIcon icon={time} className=""></IonIcon>
-                  <span className="text-[10px]">
-                    {format(lead.created_at, "PP")}
-                  </span>
+                  <span className="text-[10px]">Fecha</span>
                 </div>
               </div>
             </div>
             {/* card content */}
             <div className="flex justify-between px-3">
               <div className="mt-2 flex gap-6">
-                <div className="gap-1">
-                  {services?.map((service, i) => (
-                    <div className="mt-2 flex gap-4" key={i}>
-                      <p className="text-xs font-medium text-grisSubText">
-                        Servicio:
-                      </p>
-                      <p className="text-xs font-medium text-grisSubText">
-                        {service.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <div className="gap-1"></div>
               </div>
             </div>
           </div>
+          {/*
           {follow_ups?.map((follow, i) => (
             <CardFollowUp info={follow} key={i} />
-          ))}
+          ))}*/}
           {/* Here is the cards */}
-          {closing != "N/A" ? (
-            <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
-              {/* card header */}
-              <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-                <div className="flex items-center gap-2 p-1">
-                  <IonIcon
-                    icon={document}
-                    size="large"
-                    className="text-primario"
-                  ></IonIcon>
-
-                  <p className="text-[15px] font-medium text-gris2">Cierre</p>
-                </div>
-                <div className="flex items-center gap-2 p-1 text-grisSubText">
-                  <div className="flex items-center gap-1">
-                    <IonIcon icon={time} className=""></IonIcon>
-                    <span className="text-[10px]">{closing.date} </span>
-                  </div>
-                </div>
-              </div>
-              {/* card content */}
-              <div className="flex justify-between px-3">
-                <div className="mt-2 flex gap-6">
-                  <div className="flex flex-col gap-1">
-                    <p className="text-xs font-medium text-grisSubText">
-                      Recurrencia
-                    </p>
-                    <p className="text-xs font-medium text-grisSubText">
-                      Monto
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs text-grisHeading">
-                      Pago Recurrente
-                    </span>
-                    <span className="text-xs text-grisHeading">
-                      ${closing?.month_billing}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="justify-between px-3">
-                {closing?.sales.map((sale, i) => (
-                  <div className="mt-3 flex gap-6" key={i}>
-                    <div className="flex flex-col gap-1">
-                      <p className="text-xs font-medium text-grisSubText">
-                        Servicio {i + 1}
-                      </p>
-                      <p className="text-xs font-medium text-grisSubText">
-                        Precio
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-xs text-grisHeading">
-                        {sale.name}
-                      </span>
-                      <span className="text-xs text-grisHeading">
-                        ${sale.ammount}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-          {pay != "N/A" ? (
-            <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
-              {/* card header */}
-              <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-                <div className="flex items-center gap-2 p-1">
-                  <IonIcon
-                    icon={card}
-                    size="large"
-                    className="text-primario"
-                  ></IonIcon>
-
-                  <p className="text-[15px] font-medium text-gris2">Pago</p>
-                </div>
-                <div className="flex items-center gap-2 p-1 text-grisSubText">
-                  <div className="flex items-center gap-1">
-                    <IonIcon icon={time} className=""></IonIcon>
-                    <span className="text-[10px]">{closing.date} </span>
-                  </div>
-                </div>
-              </div>
-              {/* card content */}
-              <div className="flex justify-between px-3">
-                <div className="mt-2 flex gap-6">
-                  <div className="flex flex-col gap-1">
-                    <p className="text-xs font-medium text-grisSubText">
-                      Fecha
-                    </p>
-                    <p className="text-xs font-medium text-grisSubText">
-                      Total
-                    </p>
-                    <p className="text-xs font-medium text-grisSubText">
-                      Comment
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs text-grisHeading">
-                      $ {pay.total}
-                    </span>
-                    <span className="text-xs text-grisHeading">
-                      {pay.comments}
-                    </span>
-                    <span className="text-xs text-grisHeading">
-                      {pay.date_of_pay}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : null}
-          {onBoarding != "N/A" ? (
-            <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
-              {/* card header */}
-              <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-                <div className="flex items-center gap-2 p-1">
-                  <IonIcon
-                    icon={checkmarkCircle}
-                    size="large"
-                    className="text-primario"
-                  ></IonIcon>
-
-                  <p className="text-[15px] font-medium text-gris2">
-                    Integracion
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 p-1 text-grisSubText">
-                  <div className="flex items-center gap-1">
-                    <IonIcon icon={time} className=""></IonIcon>
-                    <span className="text-[10px]">{onBoarding.date} </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
     </div>

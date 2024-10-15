@@ -19,6 +19,23 @@ export async function getLeads() {
   }
 }
 
+export async function getOneLead({ params }) {
+  try {
+    const id = params.id;
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}crm/get-lead/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
+
 export async function functionSaveNewLead(data) {
   const info = {
     type: data.get("register_type"),
@@ -54,6 +71,39 @@ export async function destroyLead(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}crm/delete-lead`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editLead(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+    status: data.get("status"),
+    type: data.get("type"),
+    type_process_sale: data.get("type_process_sale"),
+    tax_id: data.get("tax_id"),
+    business_name: data.get("bussines_name"),
+    business_phone: data.get("bussines_phone"),
+    contact_name: data.get("contact_name"),
+    contact_middle_name: data.get("contact_middle_name"),
+    contact_last_name: data.get("contact_last_name"),
+    contact_phone: data.get("contact_phone"),
+    contact_email: data.get("contact_email"),
+    channel: data.get("channel"),
+    email: data.get("email"),
+    assigned_id: data.get("assigned_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/edit-lead`,
     {
       method: "POST",
       body: JSON.stringify(info),
