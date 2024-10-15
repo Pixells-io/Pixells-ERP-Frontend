@@ -43,7 +43,7 @@ const MainBankDetailsGeneral = () => {
 
         <div className="flex justify-start">
           <p className="font-poppins text-xl font-bold text-grisHeading">
-            Nuevo Servicio
+            Cuentas Bancarias
           </p>
         </div>
 

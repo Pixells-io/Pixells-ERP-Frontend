@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircleOutline } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatusInProgress from "../../Components/StatusInformation/StatusInProgress";
 import StatusDone from "../../Components/StatusInformation/StatusDone";
@@ -24,7 +24,7 @@ export const PaymentsColumns = [
       );
     },
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -33,7 +33,7 @@ export const PaymentsColumns = [
     header: "NO. DOC",
     accessorKey: "noDoc",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -42,7 +42,7 @@ export const PaymentsColumns = [
     header: "TIPO DOC.",
     accessorKey: "typeDoc",
     meta: {
-      filterButton: true
+      filterButton: true,
     },
     filterFn: "equals",
   },
@@ -64,11 +64,15 @@ export const PaymentsColumns = [
     header: "ESTATUS",
     accessorKey: "status",
     cell: ({ row }) => {
-      
-      return <> 
-      {row?.original?.status == "inProgress" ? <StatusInProgress /> : 
-      row?.original?.status == "done" && <StatusDone />}
-      </>;
+      return (
+        <>
+          {row?.original?.status == "inProgress" ? (
+            <StatusInProgress />
+          ) : (
+            row?.original?.status == "done" && <StatusDone />
+          )}
+        </>
+      );
     },
   },
   {
@@ -82,7 +86,10 @@ export const PaymentsColumns = [
             to={`/bank-management/payment/record/${row?.original?.id}`}
             className="flex items-center"
           >
-            <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+            <IonIcon
+              icon={informationCircleOutline}
+              className="h-5 w-5 text-[#696974]"
+            ></IonIcon>
           </Link>
         </div>
       );
