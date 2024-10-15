@@ -34,8 +34,8 @@ function MainBankManagement() {
   const [modalAddOwnBank, setModalAddOwnBank] = useState(false);
   const [modalBankAccount, setModalAddBankAccount] = useState(false);
   const tabsContents = [
-    { value: "accounts", label: "CUENTAS" },
-    { value: "balances", label: "SALDOS" },
+    { value: "accounts", label: "Cuentas" },
+    { value: "balances", label: "Saldos" },
   ];
   const tabItems = [
     { value: "accounts", label: "CUENTAS" },
@@ -85,24 +85,7 @@ function MainBankManagement() {
             <div className="text-sm">&bull; 43 Activities</div>
           </div>
         </div>
-        <div className="flex justify-between gap-4">
-          {/* <div className="flex flex-col sm:flex-row gap-6 pr-6">
-            <CardInformation
-              title="SALDO"
-              subtitle="Bancos y efectivo"
-              total="1002.34"
-              percentage="20"
-              isPositive={true}
-            />
-            <CardInformation
-              title="DEUDA"
-              subtitle="Tarjeta de crédito"
-              total="8700.40"
-              percentage="20"
-              isPositive={false}
-            />
-          </div> */}
-        </div>
+     
         <Tabs
           defaultValue="accounts"
           className="h-full w-full overflow-hidden rounded-lg pt-2"

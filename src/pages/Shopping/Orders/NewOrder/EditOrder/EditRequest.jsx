@@ -79,10 +79,24 @@ const EditRequests = () => {
     setAllProducts(response.data);
   };
 
+
   const tabTriggers = [
     { value: "request", label: "Pedidos" },
     { value: "receipts", label: "Recibos" },
     { value: "payment", label: "Pagos" },
+  ];
+
+  const deliveryDataExample = [
+    {
+      entrega: "Entrega 1",
+      folio: "P-1978",
+      skuRecibidos: 28,
+      productosTotal: "359.00",
+      ubicacion: "IVA 16%",
+      quienRecibio: 4,
+      fechaRecibido: "04-06-2024",
+      documentoId:2,
+    },
   ];
 
   return (
@@ -144,7 +158,7 @@ const EditRequests = () => {
               </div>
             </div>
           </div>
-          <TabsContent value="request" className="w-auto overflow-hidden">
+          <TabsContent value="request" className="overflow-hidden">
             <Form
               className="flex h-full w-full flex-col space-y-4 overflow-auto rounded-xl bg-white p-4 pr-12"
               action={`/shopping/request-orders/edit/${id}`}
@@ -282,15 +296,15 @@ const EditRequests = () => {
           </TabsContent>
           <TabsContent
             value="receipts"
-            className="h-[calc(100vh-250px)] overflow-hidden"
+            className="h-full overflow-hidden"
           >
-            <ReceiptAnalyticsTable />
+            <ReceiptAnalyticsTable deliveryData={deliveryDataExample}  />
           </TabsContent>
           <TabsContent
             value="payment"
-            className="h-[calc(100vh-250px)] overflow-hidden"
+            className="h-full overflow-hidden"
           >
-            <PaymentDataTable />
+         
           </TabsContent>
         </Tabs>
       </div>

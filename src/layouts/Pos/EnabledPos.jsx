@@ -5,27 +5,47 @@ import { gridOutline, list, lockClosed } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 
-const EnabledPos = ({ setIsDisabled }) => {
+const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
   const [openConsultArticle, setOpenConsultArticle] = useState(false);
+
+  const getDate = () => {
+    const today = new Date();
+    const day = today.getDate();
+    const year = today.getFullYear();
+
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = months[today.getMonth()];
+
+    const formattedDate = `${day} ${month} ${year}`;
+
+    return formattedDate; 
+  };
 
   return (
     <div className="flex h-full flex-col px-4 pb-4 font-roboto">
-      <ConsultArticle 
+      <ConsultArticle
         modal={openConsultArticle}
         setModal={setOpenConsultArticle}
       />
       <div className="w-full pb-4 font-roboto">
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
           <div className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading">
-            {/* <h2 className="font-poppins text-xl font-bold text-grisHeading">
-            Home
-          </h2>
-          <label className="text-sm font-medium text-grisText">
-            21 FEB 2024
-          </label> */}
             <h2 className="font-poppins text-xl font-bold text-white">Home</h2>
             <label className="text-sm font-medium text-[#D7D7D7]">
-              21 FEB 2024
+              { getDate() }
             </label>
           </div>
           <div className="col-span-8 flex w-full items-center justify-center">
@@ -152,16 +172,16 @@ const EnabledPos = ({ setIsDisabled }) => {
                 </div>
               </div>
               <div className="justfiy-center flex items-center gap-x-4">
-                <button type="button">
+                <button type="button" onClick={() => setIsGrid(true)}>
                   <IonIcon
                     icon={gridOutline}
-                    className="h-6 w-7 rounded-lg bg-primarioBotones p-1 text-white"
+                    className={`h-6 w-7 rounded-lg p-1 text-white ${isGrid ? "bg-primarioBotones" : "bg-blancoBox"}`}
                   ></IonIcon>
                 </button>
-                <button type="button">
+                <button type="button" onClick={() => setIsGrid(false)}>
                   <IonIcon
                     icon={list}
-                    className="h-6 w-7 rounded-lg bg-blancoBox p-1 text-grisText"
+                    className={`h-6 w-7 rounded-lg p-1 text-white ${isGrid ? "bg-blancoBox" : "bg-primarioBotones"}`}
                   ></IonIcon>
                 </button>
                 <button type="button" onClick={() => setIsDisabled(true)}>
@@ -175,7 +195,7 @@ const EnabledPos = ({ setIsDisabled }) => {
           </div>
         </div>
       </div>
-      <Outlet />
+      <Outlet context={[isGrid]} />
     </div>
   );
 };
