@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import PosTableForm from "../Table/PosTableForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, chevronForward } from "ionicons/icons";
 
 function ProductsPosGrid({
   productsOptions,
@@ -25,6 +25,19 @@ function ProductsPosGrid({
     { id: 3, name: "Accesorios" },
     { id: 4, name: "Ropa de cama" },
   ]);
+  const [categorySelect, setCategorySelect] = useState({});
+  const [productsFilter, setProductsFilter] = useState([]);
+
+  const getProductsCategory = (c) => {
+    const getProducts = productsOptions.filter((p) => p.category == c.id);
+    setCategorySelect(c);
+    setProductsFilter([...getProducts]);
+  };
+
+  const clearCategorySelect = () => {
+    setCategorySelect({});
+    setProductsFilter([]);
+  };
 
   return (
     <div className="flex h-full w-full">
@@ -50,23 +63,63 @@ function ProductsPosGrid({
               );
             }}
           />
-          <h2 className="text-md font-roboto font-semibold text-grisHeading">
-            Categorías
+          <h2 className="text-md flex items-center gap-x-3 font-roboto font-semibold text-grisHeading">
+            <label
+              className="cursor-pointer"
+              onClick={() => clearCategorySelect()}
+            >
+              Categorías
+            </label>
+            {!!categorySelect?.name && (
+              <>
+                <IonIcon icon={chevronForward} className="h-4 w-4"></IonIcon>
+                {categorySelect?.name}
+              </>
+            )}
           </h2>
         </div>
         {/* categorias */}
-
         <div className="flex flex-wrap gap-4 overflow-auto">
+          {/* all categories */}
           {categories.map((c, index) => (
             <div
               key={index}
               className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+              onClick={() => getProductsCategory(c)}
             >
               {c.name}
             </div>
           ))}
         </div>
+        {/* products filter by category */}
+        <div className="flex flex-wrap gap-4 overflow-auto">
+          {/* all products */}
+          {productsFilter.map((p, index) => (
+            <div
+              key={index}
+              className="flex h-[164px] w-[160px] cursor-pointer flex-col items-center justify-center rounded-xl border-[1px] border-[##D7D7D7] bg-white"
+              onClick={() => validateIsGranel(p)}
+            >
+              <div className="h-[115px] w-full rounded-t-xl">
+                <img
+                  loading="lazy"
+                  src={p?.image}
+                  className="h-full w-full rounded-t-xl object-cover"
+                />
+              </div>
+              <div className="flex w-full flex-1 flex-col items-center justify-center gap-y-1 border-t border-[#D7D7D7]">
+                <p className="text-center text-xs font-normal text-grisHeading">
+                  {p?.article}
+                </p>
+                <p className="text-center text-xs font-medium text-grisHeading">
+                  ${(p?.price).toFixed(2)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+      {/* menu right */}
       <div className="flex w-full max-w-[413px] flex-col border-l border-[#D7D7D7] p-4">
         {/* info clients and tickets */}
         <div className="">
@@ -120,8 +173,11 @@ function ProductsPosGrid({
             </div>
           </div>
           <div className="overflow-auto">
-            {products.map((p) => (
-              <div className="grid grid-cols-12 px-2 py-2.5 hover:bg-primario/10">
+            {products.map((p, index) => (
+              <div
+                key={index}
+                className="grid grid-cols-12 px-2 py-2.5 hover:bg-primario/10"
+              >
                 <div className="col-span-5 text-sm font-normal text-grisHeading">
                   {p.article}
                 </div>
