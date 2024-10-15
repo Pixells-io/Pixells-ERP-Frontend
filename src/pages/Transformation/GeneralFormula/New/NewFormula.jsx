@@ -40,19 +40,9 @@ function NewFormula() {
     unit: "",
     comments: "",
     type: "",
-    label: "",
-    value: "",
-    // variables: [
-    //   { name: ["Item 1A", "Item 1B"], id: 18, quantities: 0 },
-    //   { name: ["Item 2A", "Item 2B"], id: 19, quantities: 0 },
-    //   { name: ["Item 3A", "Item 3B"], id: 20, quantities: 0 },
-    //   { name: ["Item 4A", "Item 4B"], id: 21, quantities: 0 },
-    //   { name: ["Item 5A", "Item 5B"], id: 22, quantities: 0 },
-    //   { name: ["Item 6A", "Item 6B"], id: 23, quantities: 0 },
-    //   { name: ["Item 7A", "Item 7B"], id: 24, quantities: 0 },
-    //   { name: ["Item 8A", "Item 8B"], id: 25, quantities: 0 },
-    //   { name: ["Item 9A", "Item 9B"], id: 26, quantities: 0 },
-    // ],
+    label: "Selecciona un Articulo",
+    value: "default",
+    merma: 0,
     vars: [
       {
         product_variable_id: 1,
@@ -118,12 +108,6 @@ function NewFormula() {
     ],
   });
 
-  useEffect(() => {
-    if (newFormula.variables) {
-      setVariables(newFormula.variables);
-    }
-  }, [newFormula]);
-
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0.0);
 
@@ -141,6 +125,8 @@ function NewFormula() {
   const [subProducts, setSubProducts] = useState([]);
   const [totalSubProducts, setSubTotalProducts] = useState(0);
 
+  const [totalProductsSection, setTotalProductsSection] = useState(0);
+
   const [proceso, setProceso] = useState([]);
   const [totalProceso, setTotalProceso] = useState(0);
 
@@ -151,10 +137,8 @@ function NewFormula() {
   const [tableName, setTableName] = useState("FABRICACION");
 
   useEffect(() => {
-    console.log(tableName);
     switch (tableName.toLowerCase()) {
       case "fabricacion":
-        console.log("fabricacion");
         setTotalTableSection(totalProducts);
         break;
 
@@ -214,6 +198,29 @@ function NewFormula() {
     }
   }
 
+  const [sectionName, setSectionName] = useState("PRODUCTOS");
+
+  function setSectionTotal(table) {
+    console.log(table);
+    switch (table) {
+      case "productos":
+        setSectionName(table.toUpperCase());
+        setTotalProductsSection(totalProductsSection);
+        break;
+      case "proceso":
+        setSectionName(table.toUpperCase());
+        setTotalProductsSection(totalProceso);
+        break;
+      case "personal":
+        setSectionName(table.toUpperCase());
+        setTotalProductsSection(totalPersonal);
+        break;
+
+      default:
+        break;
+    }
+  }
+
   const productCraft = data.product_craft.map((product) => ({
     label: product.name,
     value: product.id,
@@ -225,6 +232,39 @@ function NewFormula() {
     value: product.id,
     ...product,
   }));
+
+  const [productsSelected, setProductsSelected] = useState(productNeed);
+
+  useEffect(() => {
+    const combinedArrays = [...products, ...energetics, ...packages, ...crate];
+    const combinedIDs = new Set(combinedArrays.map((item) => item.id));
+    const uniqueFromMaster = productNeed.filter(
+      (item) => !combinedIDs.has(item.id),
+    );
+    const uniqueFromCombined = combinedArrays.filter(
+      (item) => !productNeed.some((masterItem) => masterItem.id === item.id),
+    );
+    const result = [...uniqueFromMaster, ...uniqueFromCombined];
+    setProductsSelected(result);
+  }, [products, energetics, packages, crate]);
+
+  useEffect(() => {
+    setTotalProductsSection(
+      (
+        Number(totalProducts) +
+        Number(totalEnergetics) +
+        Number(totalPackages) +
+        Number(totalCrate) +
+        Number(totalSubProducts)
+      ).toFixed(2),
+    );
+  }, [
+    totalProducts,
+    totalEnergetics,
+    totalPackages,
+    totalCrate,
+    totalSubProducts,
+  ]);
 
   function fillFormulaProduct(e) {
     console.log(e);
@@ -243,22 +283,6 @@ function NewFormula() {
       value: e.id,
     });
   }
-
-  const rows2 = [
-    {
-      name: "Grande",
-      id: 15,
-    },
-    {
-      name: "Mediana",
-      id: 16,
-    },
-    {
-      name: "Pequeña",
-      id: 17,
-    },
-  ];
-  const columns = ["Col 1", "Col 2", "Col 3"];
 
   return (
     <div className="flex h-full w-full">
@@ -294,6 +318,7 @@ function NewFormula() {
           <Tabs
             defaultValue="productos"
             className="flex h-full w-full flex-col"
+            onValueChange={(e) => setSectionTotal(e)}
           >
             {/* <TabsList className="relative bottom-12 left-60"> */}
             <TabsList className="flex h-8 w-fit self-end bg-[#E8E8E8] p-1 px-1">
@@ -329,6 +354,7 @@ function NewFormula() {
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
                         value={newFormula}
+                        placeholder="Articulo"
                       />
                     </div>
 
@@ -341,8 +367,8 @@ function NewFormula() {
                     </div>
                     <div className="flex w-28">
                       {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
-                  {newFormula.unit}
-                </div> */}
+                      {newFormula.unit}
+                      </div> */}
                       <InputRouter
                         type="text"
                         name="unidad"
@@ -398,7 +424,7 @@ function NewFormula() {
                         <AccordionTrigger className="flex font-poppins font-medium text-grisHeading">
                           Variables
                         </AccordionTrigger>
-                        <AccordionContent className="flex w-full flex-col gap-4 px-4 py-2">
+                        <AccordionContent className="flex max-h-[240px] w-full flex-col gap-4 overflow-y-scroll px-4 py-2">
                           {variables?.map((variable, i) => (
                             <div
                               className="flex items-center justify-between gap-4"
@@ -484,22 +510,9 @@ function NewFormula() {
                             tableData={products}
                             setTableData={setProducts}
                             setTotalProducts={setTotalProducts}
-                            productNeed={productNeed}
+                            productNeed={productsSelected}
                           />
                         </div>
-
-                        {/* <div className="mt-4 flex justify-end">
-                          <div className="flex items-center gap-x-4">
-                            <h2 className="text-sm font-medium text-grisText">
-                              Total
-                            </h2>
-                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                              <p className="text-end text-sm font-medium text-grisText">
-                                {totalProducts}
-                              </p>
-                            </div>
-                          </div>
-                        </div> */}
                       </div>
                     </TabsContent>
 
@@ -514,7 +527,7 @@ function NewFormula() {
                             tableData={energetics}
                             setTableData={setEnergetics}
                             setTotalProducts={setTotalEnergetics}
-                            productNeed={productNeed}
+                            productNeed={productsSelected}
                           />
                         </div>
                       </div>
@@ -531,21 +544,8 @@ function NewFormula() {
                             tableData={packages}
                             setTableData={setPackages}
                             setTotalProducts={setTotalPackages}
-                            productNeed={productNeed}
+                            productNeed={productsSelected}
                           />
-                        </div>
-
-                        <div className="mt-4 flex justify-end">
-                          <div className="flex items-center gap-x-4">
-                            <h2 className="text-sm font-medium text-grisText">
-                              Total
-                            </h2>
-                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                              <p className="text-end text-sm font-medium text-grisText">
-                                {totalProducts}
-                              </p>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </TabsContent>
@@ -561,21 +561,8 @@ function NewFormula() {
                             tableData={crate}
                             setTableData={setCrate}
                             setTotalProducts={setTotalCrate}
-                            productNeed={productNeed}
+                            productNeed={productsSelected}
                           />
-                        </div>
-
-                        <div className="mt-4 flex justify-end">
-                          <div className="flex items-center gap-x-4">
-                            <h2 className="text-sm font-medium text-grisText">
-                              Total
-                            </h2>
-                            <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                              <p className="text-end text-sm font-medium text-grisText">
-                                {totalProducts}
-                              </p>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </TabsContent>
@@ -661,24 +648,11 @@ function NewFormula() {
                     </h2>
                     <div className="overflow-auto">
                       <ProcesoTable
-                        tableData={products}
-                        setTableData={setProducts}
-                        setTotalProducts={setTotalProducts}
+                        tableData={proceso}
+                        setTableData={setProceso}
+                        setTotalProducts={setTotalProceso}
                         productNeed={productNeed}
                       />
-                    </div>
-
-                    <div className="mt-4 flex justify-end">
-                      <div className="flex items-center gap-x-4">
-                        <h2 className="text-sm font-medium text-grisText">
-                          Total
-                        </h2>
-                        <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                          <p className="text-end text-sm font-medium text-grisText">
-                            {totalProducts}
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -745,24 +719,11 @@ function NewFormula() {
                     </h2>
                     <div className="overflow-auto">
                       <PersonalTable
-                        tableData={products}
-                        setTableData={setProducts}
-                        setTotalProducts={setTotalProducts}
+                        tableData={personal}
+                        setTableData={setPersonal}
+                        setTotalProducts={setTotalPersonal}
                         productNeed={productNeed}
                       />
-                    </div>
-
-                    <div className="mt-4 flex justify-end">
-                      <div className="flex items-center gap-x-4">
-                        <h2 className="text-sm font-medium text-grisText">
-                          Total
-                        </h2>
-                        <div className="min-w-24 rounded-lg border border-[#8F8F8F] px-2 py-1">
-                          <p className="text-end text-sm font-medium text-grisText">
-                            {totalProducts}
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -782,19 +743,28 @@ function NewFormula() {
             <div className="">|</div>
 
             <div className="flex items-center gap-4">
+              {sectionName == "PRODUCTOS" && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <div className="text-xs text-grisSubText">
+                      TOTAL “{tableName}”
+                    </div>
+                    <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
+                      ${totalTableSection}
+                    </div>
+                  </div>
+                  <IonIcon
+                    icon={chevronForward}
+                    className="size-4 text-black"
+                  />
+                </>
+              )}
               <div className="flex items-center gap-2">
                 <div className="text-xs text-grisSubText">
-                  TOTAL “{tableName}”
+                  TOTAL “{sectionName}”
                 </div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  ${totalTableSection}
-                </div>
-              </div>
-              <IonIcon icon={chevronForward} className="size-4 text-black" />
-              <div className="flex items-center gap-2">
-                <div className="text-xs text-grisSubText">TOTAL “SECCIÓN”</div>
-                <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  $765.99
+                  ${totalProductsSection}
                 </div>
               </div>
               <IonIcon icon={chevronForward} className="size-4 text-black" />

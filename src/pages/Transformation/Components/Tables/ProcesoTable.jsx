@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
@@ -15,14 +15,9 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Input } from "@/components/ui/input";
 
 const ProcesoTable = ({
   tableData,
@@ -42,17 +37,15 @@ const ProcesoTable = ({
     }
   }, []);
 
-  // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const initialRow = {
-    type: "electricity",
-    product_master_id: 456,
-    product_variable_id: 3,
-    quantity: 200,
-    unit: "kWh",
-    price: "",
+    idAux: 1,
+    operation: "",
+    process_operation: "",
+    product: { label: "Selecciona", value: "selecciona" },
+    durartion: "00:00",
   };
 
   useEffect(() => {
@@ -72,43 +65,22 @@ const ProcesoTable = ({
     ]);
   };
 
-  const handleInputChange = useCallback((rowIndex, value) => {
+  const handleInputChange = (rowIndex, value) => {
+    console.log(value.name);
+    console.log(value.value);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
-              amount: value,
-              tax: (item.price * item.amountTax * value) / 100,
-              subTotal: (
-                item.price * value +
-                (item.price * item.amountTax * value) / 100
-              ).toFixed(2),
+              [value.name]: value.value,
             }
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleCostChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              price: value,
-              tax: (value * item.amountTax * item.amount) / 100,
-              subTotal: (
-                value * item.amount +
-                (value * item.amountTax * item.amount) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  }, []);
-
-  const handleDataInRow = useCallback((data, rowIndex) => {
+  const handleDataInRow = (data, rowIndex) => {
     console.log(data);
     if (data.id) {
       setTableData((prevData) =>
@@ -116,59 +88,21 @@ const ProcesoTable = ({
           index === rowIndex
             ? {
                 ...item,
-                component: data.id,
-                unit: data.unit,
-                price: data.price,
-                amount: 1,
-                amountTax: 16,
+                id: data.id,
+                operation: "",
+                process_operation: "",
+                product: { label: "Slecciona", value: "selecciona" },
+                durartion: "00:00",
                 label: data.name,
                 value: data.id,
-                tax: (data.price * 16) / 100,
-                subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
               }
             : item,
         ),
       );
     } else {
-      const comp = getComponentId(data);
-      setTableData((prevData) =>
-        prevData.map((item, index) =>
-          index === rowIndex
-            ? {
-                ...item,
-                component: comp.id,
-                unit: comp.unit,
-                price: comp.price,
-                amount: 1,
-                amountTax: 16,
-                label: comp.name,
-                value: comp.id,
-                tax: (comp.price * 16) / 100,
-                subTotal: (comp.price * 1 + (comp.price * 16) / 100).toFixed(2),
-              }
-            : item,
-        ),
-      );
+      return;
     }
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal: (
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  }, []);
+  };
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
@@ -181,10 +115,6 @@ const ProcesoTable = ({
       return tableData[tableData.length - 1].idAux;
     }
     return 0;
-  };
-
-  const getComponentId = (id) => {
-    return components.find((component) => component.id == id);
   };
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
@@ -201,101 +131,99 @@ const ProcesoTable = ({
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
+  const [hours, setHours] = useState(null);
+  const [minutes, setMinutes] = useState(null);
+
   const columns = [
     {
-      accessorKey: "component",
+      accessorKey: "operation",
       header: "Operación",
       cell: ({ row, rowIndex }) => (
-        <>
-          {/* <SelectRouter
-            name={"selectComponent-" + rowIndex}
-            options={components}
-            value={row.component}
-            onChange={(value) => handleDataInRow(value, rowIndex)}
-          /> */}
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px] p-2"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </>
+        <Input
+          className="border-gris2-transparent w-52 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`operation`}
+          value={row.operation}
+          placeholder="ingrese"
+          type="text"
+          // disabled={!row.component}
+          onChange={(e) => handleInputChange(rowIndex, e.target)}
+        />
       ),
     },
     {
-      accessorKey: "amount",
+      accessorKey: "process_operation",
       header: "Proceso de Operación ",
       cell: ({ row, rowIndex }) => (
         <Input
-          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`amount-${rowIndex}`}
-          value={row.amount}
+          className="border-gris2-transparent w-52 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`process_operation`}
+          value={row.process_operation}
           placeholder="ingrese"
-          type="number"
-          disabled={!row.component}
-          onChange={(e) => handleInputChange(rowIndex, e.target.value)}
+          type="text"
+          // disabled={!row.component}
+          onChange={(e) => handleInputChange(rowIndex, e.target)}
         />
       ),
     },
     {
-      accessorKey: "unit",
+      accessorKey: "product",
       header: "Producto",
       cell: ({ row, rowIndex }) => (
-        <Input
-          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`unit-${rowIndex}`}
-          value={row.unit}
-          type="text"
-          readOnly
-        />
+        <div className="w-60">
+          <SelectRouter
+            name={"selectComponent-" + rowIndex}
+            value={tableData[rowIndex]}
+            options={components}
+            onChange={(value) => handleDataInRow(value, rowIndex)}
+          />
+        </div>
       ),
     },
     {
-      accessorKey: "price",
+      accessorKey: "duration",
       header: "Duración Estimada",
       cell: ({ row, rowIndex }) => (
-        <Input
-          type="number"
-          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`cost-${rowIndex}`}
-          value={row.price}
-          placeholder="ingrese"
-          disabled={!row.component}
-          onChange={(e) => handleCostChange(rowIndex, e.target.value)}
-        />
+        // <Input
+        //   type="time"
+        //   className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+        //   name={`duration`}
+        //   // value={row.durartion}
+        //   // disabled={!row.component}
+        //   // onChange={(e) => handleInputChange(rowIndex, e.target)}
+        // />
+        <div className="flex items-center space-x-1">
+          <input
+            type="number"
+            value={hours}
+            onChange={(e) => setHours(e.target.value)}
+            min="0"
+            placeholder="Hrs"
+            className="w-12 rounded-md border p-2 text-center [appearance:textfield] focus:outline-none focus:ring-2 focus:ring-blue-500 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          />
+          <span className="text-gray-600">:</span>
+          <input
+            type="number"
+            value={minutes}
+            onChange={(e) => setMinutes(e.target.value)}
+            min="0"
+            max="59"
+            placeholder="Min"
+            className="w-12 rounded-md border p-2 text-center [appearance:textfield] focus:outline-none focus:ring-2 focus:ring-blue-500 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          />
+        </div>
       ),
     },
     {
-      accessorKey: "subTotal",
-      header: "Estado",
+      accessorKey: "close",
+      header: "",
       cell: ({ row, rowIndex }) => (
-        <div className="flex w-[100px] justify-between">
-          {row.subTotal}
-          <input
-            type="hidden"
-            hidden
-            value={row.subTotal}
-            name={"subTotal-" + rowIndex}
-          />
-          <button type="button" onClick={() => deleteRowId(row.idAux)}>
-            <IonIcon
-              icon={closeCircle}
-              size="small"
-              className="cursor-pointer text-grisDisabled"
-            ></IonIcon>
-          </button>
-        </div>
+        <button type="button" onClick={() => deleteRowId(row.idAux)}>
+          <IonIcon
+            icon={closeCircle}
+            size="small"
+            className="cursor-pointer text-grisDisabled"
+          ></IonIcon>
+        </button>
       ),
     },
   ];

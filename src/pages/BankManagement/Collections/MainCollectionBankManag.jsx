@@ -8,6 +8,7 @@ import { add } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import { CollectionsColumns } from "./Table/CollectionsColumns";
 import NavigationHeader from "@/components/navigation-header";
+import BillingSummary from "./Tabs/BillingSummaries";
 
 function MainCollectionBankManag() {
   //datos de prueba --------------------------
@@ -187,12 +188,8 @@ function MainCollectionBankManag() {
               </TabsContent>
             </Tabs>
           </TabsContent>
-          <TabsContent
-            value="summary"
-            className="h-full overflow-auto"
-          >
-
-
+          <TabsContent value="summary" className="h-full overflow-hidden">
+            <BillingSummary />
           </TabsContent>
         </Tabs>
       </div>
