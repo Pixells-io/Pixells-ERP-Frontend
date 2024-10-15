@@ -11,11 +11,6 @@ import MainDashboard from "./pages/Dashboard/MainDashboard";
 import MainCRM from "@/pages/CRM/MainCRM";
 
 //Leads
-import MainLeads, {
-  multiFormAction as ActionsLeads,
-} from "./pages/CRM/Leads/MainLeads";
-import Stages from "./pages/CRM/Leads/components/Stages";
-import Timeline from "./pages/CRM/Leads/Timeline";
 import {
   multiloaderSideLayoutLead,
   multiLoaderStageLeads,

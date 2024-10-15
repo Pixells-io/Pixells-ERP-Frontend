@@ -33,7 +33,7 @@ function NotificationChat({ notifications }) {
 
   useEffect(() => {
     let newTitle =
-      notificationsPusher[0]?.number == 0
+      notificationsPusher[0]?.number == undefined
         ? "ERP"
         : `(${notificationsPusher[0]?.number}) ERP`;
     document.title = newTitle;
