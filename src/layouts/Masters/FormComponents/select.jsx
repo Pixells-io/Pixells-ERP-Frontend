@@ -18,8 +18,8 @@ function SelectRouter({
   required,
 }) {
   return (
-    <Label className="z-10 flex w-full flex-col gap-2">
-      <p className="pl-1 text-[11px] font-light text-grisHeading">
+    <Label className="z-10 flex w-full flex-col">
+      <p className="pb-1 pl-1 text-[11px] font-light text-grisHeading">
         {placeholder} {required && "*"}
       </p>
       <Select
@@ -41,7 +41,9 @@ function SelectRouter({
         }}
         maxMenuHeight={150}
         // menuPosition="fixed"
+        menuPortalTarget={document.body}
         styles={{
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
           control: (baseStyles, state) => ({
             ...baseStyles,
             borderRadius: "10px",

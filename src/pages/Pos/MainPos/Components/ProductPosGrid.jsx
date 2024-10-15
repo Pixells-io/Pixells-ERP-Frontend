@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PosTableForm from "../Table/PosTableForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
@@ -17,7 +17,15 @@ function ProductsPosGrid({
   openConfirmSale,
   totalProducts,
   clientsOptions,
+  ticketSelect,
 }) {
+  const [categories, setCategories] = useState([
+    { id: 1, name: "Calzado" },
+    { id: 2, name: "Ropa" },
+    { id: 3, name: "Accesorios" },
+    { id: 4, name: "Ropa de cama" },
+  ]);
+
   return (
     <div className="flex h-full w-full">
       {/* add */}
@@ -49,35 +57,158 @@ function ProductsPosGrid({
         {/* categorias */}
 
         <div className="flex flex-wrap gap-4 overflow-auto">
-          {Array(50)
-            .fill()
-            .map((e, index) => (
-              <div
-                key={index}
-                className="cursor-pointer text-roboto flex h-[100px] w-[169px] items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
-              >
-                Calzado
-              </div>
-            ))}
+          {categories.map((c, index) => (
+            <div
+              key={index}
+              className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+            >
+              {c.name}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="w-full max-w-[413px] border-l border-[#D7D7D7] p-4">
-        <div className="flex w-full max-w-[413px] flex-row justify-between">
-          <div className="flex gap-x-4">
-            <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
-              Cliente
+      <div className="flex w-full max-w-[413px] flex-col border-l border-[#D7D7D7] p-4">
+        {/* info clients and tickets */}
+        <div className="">
+          <div className="flex w-full max-w-[413px] flex-row justify-between gap-x-8">
+            <div className="flex w-full items-center gap-x-4">
+              <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
+                Cliente
+              </div>
+              <div className="w-full font-poppins text-base font-medium text-grisText">
+                <SelectRouter
+                  name="client"
+                  options={clientsOptions}
+                  value={clientSelect}
+                  onChange={(e) => setClientSelect(e)}
+                />
+              </div>
             </div>
-            <div className="w-fit font-poppins text-base font-medium text-grisText">
-              José Saturdino Cardozo
+            <div className="flex w-fit items-center">
+              <Button
+                type="button"
+                className="flex h-[24px] w-fit cursor-pointer items-center justify-center gap-x-2 rounded-xl bg-primarioBotones px-2 py-0 text-[11px] font-medium"
+              >
+                <IonIcon icon={add} className="h-4 w-4"></IonIcon>
+                Cliente
+              </Button>
             </div>
           </div>
-          <div className="w-fit">
+          <div className="mt-2 flex gap-x-7">
+            <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
+              Ticket
+            </div>
+            <div className="w-fit font-poppins text-base font-medium text-grisText">
+              {ticketSelect}
+            </div>
+          </div>
+        </div>
+        {/* products */}
+        <div className="flex w-full flex-1 flex-col overflow-auto">
+          <div className="mt-4 grid grid-cols-12 border-b border-[#D7D7D7] p-2">
+            <div className="col-span-5 text-xs font-medium text-grisText">
+              Producto
+            </div>
+            <div className="col-span-1 text-xs font-medium text-grisText">
+              Qty
+            </div>
+            <div className="col-span-3 text-xs font-medium text-grisText">
+              Each
+            </div>
+            <div className="col-span-3 text-xs font-medium text-grisText">
+              Total
+            </div>
+          </div>
+          <div className="overflow-auto">
+            {products.map((p) => (
+              <div className="grid grid-cols-12 px-2 py-2.5 hover:bg-primario/10">
+                <div className="col-span-5 text-sm font-normal text-grisHeading">
+                  {p.article}
+                </div>
+                <div className="col-span-1 flex justify-center text-sm font-normal text-grisHeading">
+                  {p.quantity}
+                </div>
+                <div className="col-span-3 text-sm font-normal text-grisHeading">
+                  ${p.price.toFixed(2)}
+                </div>
+                <div className="col-span-3 flex items-center justify-center rounded-3xl border border-[#44444F] text-sm font-medium text-grisHeading">
+                  $
+                  {(
+                    (Number(p.price) + Number(p.price) * 0.16) *
+                    Number(p.quantity)
+                  ).toFixed(2)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* info */}
+        <div className="grid grid-cols-12 gap-y-4 border-t border-[#D7D7D7] py-4">
+          <div className="col-span-7 text-sm font-medium text-grisHeading">
+            ITEMS
+          </div>
+          <div className="col-span-5 text-sm font-medium text-grisHeading">
+            {products.reduce(
+              (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
+              0,
+            )}
+          </div>
+          <div className="col-span-7 text-sm font-medium text-grisHeading">
+            SUBTOTAL
+          </div>
+          <div className="col-span-5 text-sm font-medium text-grisHeading">
+            $
+            {products
+              .reduce((a, c) => a + Number(c.price) * Number(c.quantity), 0)
+              .toFixed(2)}
+          </div>
+          <div className="col-span-7 text-sm font-medium text-grisHeading">
+            DESCUENTO
+          </div>
+          <div className="col-span-5 text-sm font-medium text-[#D7586B]">
+            $0.00
+          </div>
+          <div className="col-span-7 text-sm font-medium text-grisHeading">
+            IMPUESTO
+          </div>
+          <div className="col-span-5 text-sm font-medium text-grisHeading">
+            $
+            {products
+              .reduce(
+                (a, c) => a + Number(c.quantity) * (Number(c.price) * 0.16),
+                0,
+              )
+              .toFixed(2)}
+          </div>
+          <div className="col-span-12 grid grid-cols-12 rounded-md bg-[#00A25940]/25 px-2 py-0.5">
+            <div className="col-span-7 flex items-center text-base font-semibold text-grisHeading">
+              TOTAL
+            </div>
+            <div className="col-span-5 flex items-center text-xl font-semibold text-grisHeading">
+              ${totalProducts}
+            </div>
+          </div>
+          <div className="col-span-12 mt-6 flex w-full justify-between">
             <Button
               type="button"
-              className="flex h-[24px] w-fit cursor-pointer items-center justify-center gap-x-2 rounded-xl bg-primarioBotones px-2 py-0 text-[11px] font-medium"
+              className="h-[54px] w-[138px] rounded-3xl bg-[#D7586B] p-0 text-xl font-semibold text-white"
+              onClick={() => cancelTicket()}
             >
-              <IonIcon icon={add} className="h-4 w-4"></IonIcon>
-              Cliente
+              CANCELAR
+            </Button>
+            <Button
+              type="button"
+              className="h-[54px] w-[194px] rounded-3xl bg-[#00A259] p-0 text-xl font-semibold text-white"
+              onClick={() =>
+                openConfirmSale(
+                  products.reduce(
+                    (a, c) => a + (c.isGranel ? 1 : Number(c.quantity)),
+                    0,
+                  ),
+                )
+              }
+            >
+              PAGAR
             </Button>
           </div>
         </div>

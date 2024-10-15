@@ -55,6 +55,7 @@ function ProductsPosList({
             className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
             name={"clients"}
             options={clientsOptions}
+            value={clientSelect}
             onChange={(e) => setClientSelect(e)}
           />
         </div>

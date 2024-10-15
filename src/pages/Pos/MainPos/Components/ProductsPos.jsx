@@ -17,8 +17,9 @@ const productsOptions = [
     description: "Balon profesional mundial 2014",
     quantity: 1,
     price: 300,
-    discount: 0,
+    discount: 10,
     iva: 16,
+    category: 3,
   },
   {
     id: 2,
@@ -29,8 +30,9 @@ const productsOptions = [
     description: "Playera de algodón rosita",
     quantity: 1,
     price: 740,
-    discount: 0,
+    discount: 10,
     iva: 16,
+    category: 2,
   },
   {
     id: 3,
@@ -41,8 +43,9 @@ const productsOptions = [
     description: "Calzado adidas",
     quantity: 1,
     price: 800,
-    discount: 0,
+    discount: 20,
     iva: 16,
+    category: 1,
   },
   {
     id: 4,
@@ -53,8 +56,9 @@ const productsOptions = [
     description: "Playera de algodón azul",
     quantity: 1,
     price: 95,
-    discount: 0,
+    discount: 10,
     iva: 16,
+    category: 2,
   },
   {
     id: 5,
@@ -67,6 +71,7 @@ const productsOptions = [
     price: 20,
     discount: 0,
     iva: 16,
+    category: 4,
   },
 ];
 
@@ -104,7 +109,7 @@ const getProducts = (ticket) => {
 function ProductsPos() {
   const { id } = useParams();
   const [products, setProducts] = useState(getProducts(id));
-  const [cancelTicket, isGrid] = useOutletContext();
+  const [cancelTicket, isGrid, ticketSelect] = useOutletContext();
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalInProducts, setTotalInProducts] = useState(0);
   const [modalScanItemN, setModalScanItemN] = useState(false);
@@ -185,6 +190,7 @@ function ProductsPos() {
           openConfirmSale={openConfirmSale}
           totalProducts={totalProducts}
           clientsOptions={clientsOptions}
+          ticketSelect={ticketSelect}
         />
       ) : (
         <ProductsPosList
