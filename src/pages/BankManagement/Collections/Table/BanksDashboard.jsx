@@ -58,13 +58,15 @@ const BankTable = ({ data }) => {
                  {cell}
                 </TableCell>
               ))}
+               <TableCell ></TableCell>
             </TableRow>
 
           ))}
           <TableRow >
             <TableCell  className="text-center font-roboto font-bold text-xs">TOTAL</TableCell>
             <TableCell  className="text-center font-roboto font-bold text-xs">$180,000.00</TableCell>
-            <TableCell colSpan={2}></TableCell>
+            <TableCell ></TableCell>
+            <TableCell ></TableCell>
           </TableRow>
 
         </TableBody>
