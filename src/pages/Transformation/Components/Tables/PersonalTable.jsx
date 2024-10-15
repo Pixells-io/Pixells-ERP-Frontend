@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
@@ -15,14 +15,9 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Input } from "@/components/ui/input";
 
 const PersonalTable = ({
   tableData,
@@ -47,12 +42,11 @@ const PersonalTable = ({
   const itemsPerPage = 10;
 
   const initialRow = {
-    type: "electricity",
-    product_master_id: 456,
-    product_variable_id: 3,
-    quantity: 200,
-    unit: "kWh",
-    price: "",
+    idAux: 1,
+    process_operation: "",
+    position: "",
+    cost_hour: 0,
+    hours: 0,
   };
 
   useEffect(() => {
@@ -72,7 +66,7 @@ const PersonalTable = ({
     ]);
   };
 
-  const handleInputChange = useCallback((rowIndex, value) => {
+  const handleInputChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -88,9 +82,9 @@ const PersonalTable = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleCostChange = useCallback((rowIndex, value) => {
+  const handleCostChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -106,9 +100,9 @@ const PersonalTable = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleDataInRow = useCallback((data, rowIndex) => {
+  const handleDataInRow = (data, rowIndex) => {
     console.log(data);
     if (data.id) {
       setTableData((prevData) =>
@@ -150,25 +144,7 @@ const PersonalTable = ({
         ),
       );
     }
-  }, []);
-
-  const handleTaxChange = useCallback((rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              amountTax: value,
-              tax: (item.cost * value * item.amount) / 100,
-              subTotal: (
-                item.cost * item.amount +
-                (item.cost * value * item.amount) / 100
-              ).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  }, []);
+  };
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
@@ -203,75 +179,57 @@ const PersonalTable = ({
 
   const columns = [
     {
-      accessorKey: "component",
+      accessorKey: "process_operation",
       header: "Proceso de Operación ",
       cell: ({ row, rowIndex }) => (
-        <>
-          {/* <SelectRouter
-            name={"selectComponent-" + rowIndex}
-            options={components}
-            value={row.component}
-            onChange={(value) => handleDataInRow(value, rowIndex)}
-          /> */}
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px] p-2"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </>
-      ),
-    },
-    {
-      accessorKey: "amount",
-      header: "Posición",
-      cell: ({ row, rowIndex }) => (
         <Input
-          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`amount-${rowIndex}`}
-          value={row.amount}
+          className="border-gris2-transparent w-[200px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`process_operation-${rowIndex}`}
+          value={row.process_operation}
           placeholder="ingrese"
           type="number"
-          disabled={!row.component}
+          // disabled={!row.process_operation}
           onChange={(e) => handleInputChange(rowIndex, e.target.value)}
         />
       ),
     },
     {
-      accessorKey: "unit",
+      accessorKey: "position",
+      header: "Posición",
+      cell: ({ row, rowIndex }) => (
+        <div className="w-[200px]">
+          <SelectRouter
+            name={"selectComponent-" + rowIndex}
+            options={components}
+            value={row.position}
+            onChange={(value) => handleDataInRow(value, rowIndex)}
+          />
+        </div>
+      ),
+    },
+    {
+      accessorKey: "cost_hour",
       header: "Costo x Hora",
       cell: ({ row, rowIndex }) => (
         <Input
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`unit-${rowIndex}`}
-          value={row.unit}
-          type="text"
-          readOnly
+          name={`cost_hour-${rowIndex}`}
+          value={row.cost_hour}
+          type="number"
         />
       ),
     },
     {
-      accessorKey: "price",
+      accessorKey: "hours",
       header: "Cantidad",
       cell: ({ row, rowIndex }) => (
         <Input
           type="number"
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`cost-${rowIndex}`}
+          name={`hours-${rowIndex}`}
           value={row.price}
           placeholder="ingrese"
-          disabled={!row.component}
+          // disabled={!row.component}
           onChange={(e) => handleCostChange(rowIndex, e.target.value)}
         />
       ),
