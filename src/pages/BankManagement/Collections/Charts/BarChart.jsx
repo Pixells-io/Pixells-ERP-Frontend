@@ -38,7 +38,7 @@ export function Component({chartData}) {
            L ${x + width},${y + height}`}
         fill={isCurrentMonth || isFutureMonth ? "transparent" : fill}
         stroke={isCurrentMonth ? "#DC1C3B" : (isFutureMonth ? "#D7D7D7" : "none")}
-        strokeWidth={isCurrentMonth ? 1 : (isFutureMonth ? 1 : 0)}
+        strokeWidth={isCurrentMonth ? 0.5 : (isFutureMonth ? 0.5 : 0)}
       />
     );
   };

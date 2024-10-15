@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { Component } from "../Charts/BarChart";
 import ClientPipelineTable from "../Table/NextClientsDashboard";
 import BankTable from "../Table/BanksDashboard";
@@ -79,7 +78,10 @@ const BillingSummary = () => {
               este mes
             </h3>
           </div>
+
+          <div className="mt-6">
           <Component chartData={months} />
+          </div>
           <h2 className="pt-12 text-left font-poppins text-sm font-medium">
             PROXIMOS
           </h2>
