@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import PosTableForm from "../Table/PosTableForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
-import { add, chevronForward } from "ionicons/icons";
+import { add, chevronForward, closeCircle } from "ionicons/icons";
+import { useParams } from "react-router-dom";
+import ModalItemGranel from "../Modal/ModalItemGranel";
 
 function ProductsPosGrid({
   productsOptions,
@@ -39,9 +40,121 @@ function ProductsPosGrid({
     setProductsFilter([]);
   };
 
+  const [modalItemGranel, setModalItemGranel] = useState(false);
+  const [productSelect, setProductSelect] = useState({});
+  const [indexProductSelect, setIndexProductSelec] = useState(null);
+  const [ultimateLengthtableData, setUltimateLengthtableData] = useState(
+    products.length,
+  );
+
+  const tablePosRef = useRef(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const TotalP = products.reduce(
+      (sum, row) =>
+        sum +
+        (parseFloat(
+          (Number(row?.price) + calculateIva(row?.price)) * row?.quantity,
+        ) || 0),
+      0,
+    );
+
+    setTotalProducts(TotalP.toFixed(2));
+  }, [products]);
+
+  useEffect(() => {
+    if (!!tablePosRef.current && products.length > ultimateLengthtableData) {
+      tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
+    }
+    setUltimateLengthtableData(products.length);
+  }, [products]);
+
+  const deleteProduct = (event, index) => {
+    event.stopPropagation();
+    const updateProducts = products.filter((_, index_p) => index_p !== index);
+    localStorage.setItem("products-" + id, JSON.stringify(updateProducts));
+    setProducts(updateProducts);
+  };
+
+  const incrementProduct = (event, index) => {
+    event.stopPropagation();
+    const updateProducts = products.map((product, index_p) => {
+      if (index_p == index) {
+        return {
+          ...product,
+          quantity: product.quantity + 1,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
+  const decrementProduct = (event, index) => {
+    event.stopPropagation();
+    const updateProducts = products.map((product, index_p) => {
+      if (index_p == index && product.quantity > 1) {
+        return {
+          ...product,
+          quantity: product.quantity - 1,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
+  const openModalGranel = (event, index, isGranel, isSelected) => {
+    if (!isGranel || !isSelected) {
+      return;
+    } else {
+      event.stopPropagation();
+      setIndexProductSelec(index);
+      let productFind = products.find((product, index_p) => index_p == index);
+      setProductSelect(productFind);
+      setModalItemGranel(true);
+    }
+  };
+
+  const editProductGranel = (newProduct) => {
+    const updateProducts = products.map((product, index_p) => {
+      if (index_p == indexProductSelect) {
+        return {
+          ...newProduct,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
+  const calculateIva = (price) => {
+    return Number(price) * 0.16;
+  };
+
+  const selectedRow = (index) => {
+    const updateProducts = products.map((product, index_p) => {
+      if (index_p == index) {
+        return {
+          ...product,
+          isSelected: !product.isSelected,
+        };
+      }
+      return product;
+    });
+    setProducts(updateProducts);
+  };
+
   return (
     <div className="flex h-full w-full">
       {/* add */}
+      <ModalItemGranel
+        modal={modalItemGranel}
+        setModal={setModalItemGranel}
+        functionModal={editProductGranel}
+        product={productSelect}
+      />
       <div className="flex w-full flex-col gap-y-4 p-4">
         <div className="flex flex-col gap-y-4">
           <SelectRouter
@@ -92,7 +205,7 @@ function ProductsPosGrid({
           ))}
         </div>
         {/* products filter by category */}
-        <div className="flex flex-wrap gap-4 overflow-auto">
+        <div className="flex flex-wrap gap-8 overflow-auto">
           {/* all products */}
           {productsFilter.map((p, index) => (
             <div
@@ -120,10 +233,10 @@ function ProductsPosGrid({
         </div>
       </div>
       {/* menu right */}
-      <div className="flex w-full max-w-[413px] flex-col border-l border-[#D7D7D7] p-4">
+      <div className="flex w-fit min-w-[413px] flex-col border-l border-[#D7D7D7] p-4">
         {/* info clients and tickets */}
         <div className="">
-          <div className="flex w-full max-w-[413px] flex-row justify-between gap-x-8">
+          <div className="flex w-full flex-row justify-between gap-x-8">
             <div className="flex w-full items-center gap-x-4">
               <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
                 Cliente
@@ -158,7 +271,7 @@ function ProductsPosGrid({
         </div>
         {/* products */}
         <div className="flex w-full flex-1 flex-col overflow-auto">
-          <div className="mt-4 grid grid-cols-12 border-b border-[#D7D7D7] p-2">
+          <div className="mt-4 grid grid-cols-12 gap-x-2 border-b border-[#D7D7D7] p-2">
             <div className="col-span-5 text-xs font-medium text-grisText">
               Producto
             </div>
@@ -172,27 +285,47 @@ function ProductsPosGrid({
               Total
             </div>
           </div>
-          <div className="overflow-auto">
+          <div className="overflow-auto" ref={tablePosRef}>
             {products.map((p, index) => (
               <div
                 key={index}
-                className="grid grid-cols-12 px-2 py-2.5 hover:bg-primario/10"
+                className={`grid grid-cols-12 gap-x-2 px-2 py-2.5 hover:bg-primario/10 ${p.isSelected && "bg-primario/25 hover:bg-primario/20"}`}
+                onClick={() => selectedRow(index)}
               >
-                <div className="col-span-5 text-sm font-normal text-grisHeading">
+                <div className="col-span-5 flex items-center text-sm font-normal text-grisHeading">
                   {p.article}
                 </div>
-                <div className="col-span-1 flex justify-center text-sm font-normal text-grisHeading">
+                <div
+                  className="col-span-1 flex items-center justify-center text-sm font-normal text-grisHeading hover:cursor-pointer px-2"
+                  onClick={(event) =>
+                    openModalGranel(event, index, p?.isGranel, p?.isSelected)
+                  }
+                >
                   {p.quantity}
                 </div>
-                <div className="col-span-3 text-sm font-normal text-grisHeading">
+                <div className="col-span-3 flex items-center text-sm font-normal text-grisHeading">
                   ${p.price.toFixed(2)}
                 </div>
-                <div className="col-span-3 flex items-center justify-center rounded-3xl border border-[#44444F] text-sm font-medium text-grisHeading">
-                  $
-                  {(
-                    (Number(p.price) + Number(p.price) * 0.16) *
-                    Number(p.quantity)
-                  ).toFixed(2)}
+                <div className="col-span-3 flex justify-between">
+                  <div className="flex items-center justify-center rounded-3xl border border-[#44444F] px-2 py-1 text-sm font-medium text-grisHeading">
+                    $
+                    {(
+                      (Number(p.price) + Number(p.price) * 0.16) *
+                      Number(p.quantity)
+                    ).toFixed(2)}
+                  </div>
+                  {p?.isSelected && (
+                    <button
+                      type="button"
+                      onClick={(event) => deleteProduct(event, index)}
+                      className="flex items-center"
+                    >
+                      <IonIcon
+                        icon={closeCircle}
+                        className="h-5 w-5 cursor-pointer text-[#8F8F8F]"
+                      ></IonIcon>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

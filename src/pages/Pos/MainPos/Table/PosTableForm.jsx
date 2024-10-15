@@ -21,6 +21,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   const [modalItemGranel, setModalItemGranel] = useState(false);
   const [productSelect, setProductSelect] = useState({});
   const [indexProductSelect, setIndexProductSelec] = useState(null);
+  const [ultimateLengthtableData, setUltimateLengthtableData] = useState(tableData.length);
 
   const tablePosRef = useRef(null);
   const { id } = useParams();
@@ -39,9 +40,10 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   }, [tableData]);
 
   useEffect(() => {
-    if (!!tablePosRef.current) {
+    if (!!tablePosRef.current && tableData.length > ultimateLengthtableData) {
       tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
     }
+    setUltimateLengthtableData(tableData.length)
   }, [tableData]);
 
   const deleteProduct = (event, index) => {
