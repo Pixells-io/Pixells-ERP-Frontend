@@ -201,7 +201,6 @@ function NewFormula() {
   const [sectionName, setSectionName] = useState("PRODUCTOS");
 
   function setSectionTotal(table) {
-    console.log(table);
     switch (table) {
       case "productos":
         setSectionName(table.toUpperCase());
@@ -348,13 +347,13 @@ function NewFormula() {
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
-                  <div className="flex h-20 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
+                  <div className="flex h-24 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
                     <div className="flex w-1/3">
                       <SelectRouter
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
                         value={newFormula}
-                        placeholder="Articulo"
+                        placeholder="Selecciona el artículo"
                       />
                     </div>
 
@@ -598,6 +597,7 @@ function NewFormula() {
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
                         value={newFormula}
+                        placeholder="Selecciona el artículo"
                       />
                     </div>
 
@@ -669,6 +669,7 @@ function NewFormula() {
                         options={productCraft}
                         onChange={(e) => fillFormulaProduct(e)}
                         value={newFormula}
+                        placeholder="Selecciona el artículo"
                       />
                     </div>
 
@@ -742,7 +743,7 @@ function NewFormula() {
 
             <div className="">|</div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {sectionName == "PRODUCTOS" && (
                 <>
                   <div className="flex items-center gap-2">

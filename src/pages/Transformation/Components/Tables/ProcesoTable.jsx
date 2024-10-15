@@ -143,7 +143,7 @@ const ProcesoTable = ({
           className="border-gris2-transparent w-52 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
           name={`operation`}
           value={row.operation}
-          placeholder="ingrese"
+          placeholder="Operación"
           type="text"
           // disabled={!row.component}
           onChange={(e) => handleInputChange(rowIndex, e.target)}
@@ -152,13 +152,13 @@ const ProcesoTable = ({
     },
     {
       accessorKey: "process_operation",
-      header: "Proceso de Operación ",
+      header: "Proceso de Operación",
       cell: ({ row, rowIndex }) => (
         <Input
           className="border-gris2-transparent w-52 rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
           name={`process_operation`}
           value={row.process_operation}
-          placeholder="ingrese"
+          placeholder="Proceso de Operación"
           type="text"
           // disabled={!row.component}
           onChange={(e) => handleInputChange(rowIndex, e.target)}
