@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward, closeCircle } from "ionicons/icons";
-import InputsGroup from "../Components/DataGroup";
+import PrincipalFormCustomer from "../Components/Tabs/PrincipalForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Form, Link, redirect } from "react-router-dom";
 
@@ -224,11 +224,11 @@ const CustomerProfile = () => {
           <TabsContent value="principal" className="w-full overflow-auto">
             <Form
               id="form-customer"
-              action="/sales/customer/new"
+              action=""
               method="post"
               className="h-full overflow-auto"
             >
-              <InputsGroup
+              <PrincipalFormCustomer
                 fields={customerFields}
                 initialValues={customerValues}
               />
