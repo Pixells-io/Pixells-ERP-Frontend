@@ -5,7 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { add, chevronBack, chevronForward, trashOutline } from "ionicons/icons";
 import { useParams } from "react-router-dom";
 
-function ProductsPosGrid({
+function PosGridMenuInfo({
   clientSelect,
   setClientSelect,
   products,
@@ -23,6 +23,8 @@ function ProductsPosGrid({
   const [ultimateLengthtableData, setUltimateLengthtableData] = useState(
     products.length,
   );
+  const [ultimateProductAdd, setUltimateProductAdd] = useState({index: null, isShow: false});
+
 
   const tablePosRef = useRef(null);
   const { id } = useParams();
@@ -43,9 +45,17 @@ function ProductsPosGrid({
   useEffect(() => {
     if (!!tablePosRef.current && products.length > ultimateLengthtableData) {
       tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
+      showUltimateProductAdd(products.length - 1);
     }
     setUltimateLengthtableData(products.length);
   }, [products]);
+
+  const showUltimateProductAdd = (index) => {
+    setUltimateProductAdd({index: index, isShow: true});
+    setTimeout(() => {
+        setUltimateProductAdd({index: null, isShow: false});
+    }, 500);
+  };
 
   const deleteAllProductSelects = (event) => {
     event.stopPropagation();
@@ -191,7 +201,8 @@ function ProductsPosGrid({
           {products.map((p, index) => (
             <div
               key={index}
-              className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-1.5 hover:bg-primario/20") : "py-1.5"}`}
+              className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-1.5 hover:bg-primario/20") : "py-1.5"}
+              ${(index == ultimateProductAdd.index && ultimateProductAdd.isShow) && "bg-primario/10"}`}
               onClick={() => selectedRow(index)}
             >
               <div className="col-span-5 flex items-center text-sm font-normal text-grisHeading">
@@ -321,4 +332,4 @@ function ProductsPosGrid({
   );
 }
 
-export default ProductsPosGrid;
+export default PosGridMenuInfo;
