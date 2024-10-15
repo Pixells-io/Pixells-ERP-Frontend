@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+
 import { IonIcon } from "@ionic/react";
 import {
   addCircle,
@@ -15,14 +15,9 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Input } from "@/components/ui/input";
 
 const EnergyTable = ({
   tableData,
@@ -42,17 +37,17 @@ const EnergyTable = ({
     }
   }, []);
 
-  // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const initialRow = {
-    type: "electricity",
-    product_master_id: 456,
-    product_variable_id: 3,
-    quantity: 200,
-    unit: "kWh",
-    price: "",
+    idAux: 1,
+    amount: 0,
+    unit: "",
+    price: 0,
+    subTotal: 0,
+    label: "Selecciona",
+    value: "selecciona",
   };
 
   useEffect(() => {
@@ -72,7 +67,7 @@ const EnergyTable = ({
     ]);
   };
 
-  const handleInputChange = useCallback((rowIndex, value) => {
+  const handleInputChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -84,9 +79,9 @@ const EnergyTable = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleCostChange = useCallback((rowIndex, value) => {
+  const handleCostChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -98,47 +93,31 @@ const EnergyTable = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleDataInRow = useCallback((data, rowIndex) => {
-    console.log(data);
+  const handleDataInRow = (data, rowIndex) => {
     if (data.id) {
       setTableData((prevData) =>
         prevData.map((item, index) =>
           index === rowIndex
             ? {
                 ...item,
+                id: data.id,
                 component: data.id,
                 unit: data.unit,
                 price: data.price,
                 amount: 1,
                 label: data.name,
                 value: data.id,
-                subTotal: data.price.toFixed(2),
+                subTotal: Number(data.price).toFixed(2),
               }
             : item,
         ),
       );
     } else {
-      const comp = getComponentId(data);
-      setTableData((prevData) =>
-        prevData.map((item, index) =>
-          index === rowIndex
-            ? {
-                ...item,
-                component: comp.id,
-                unit: comp.unit,
-                price: comp.price,
-                amount: 1,
-                label: comp.name,
-                value: comp.id,
-                subTotal: Number(comp.price).toFixed(2),
-              }
-            : item,
-        ),
-      );
+      return;
     }
-  }, []);
+  };
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
@@ -151,10 +130,6 @@ const EnergyTable = ({
       return tableData[tableData.length - 1].idAux;
     }
     return 0;
-  };
-
-  const getComponentId = (id) => {
-    return components.find((component) => component.id == id);
   };
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
@@ -176,31 +151,12 @@ const EnergyTable = ({
       accessorKey: "component",
       header: "Componente",
       cell: ({ row, rowIndex }) => (
-        <>
-          {/* <SelectRouter
-            name={"selectComponent-" + rowIndex}
-            options={components}
-            value={row.component}
-            onChange={(value) => handleDataInRow(value, rowIndex)}
-          /> */}
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px] p-2"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </>
+        <SelectRouter
+          name={"selectComponent-" + rowIndex}
+          value={tableData[rowIndex]}
+          options={components}
+          onChange={(value) => handleDataInRow(value, rowIndex)}
+        />
       ),
     },
     {

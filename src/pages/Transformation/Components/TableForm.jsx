@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Table,
@@ -8,13 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
@@ -32,8 +25,6 @@ const TableForm = ({
   setTotalProducts,
   productNeed: components,
 }) => {
-  const [inventoryArray, setInventoryArray] = useState(components);
-
   useEffect(() => {
     if (tableData.length == 0) {
       setTableData([initialRow]);
@@ -46,7 +37,6 @@ const TableForm = ({
     }
   }, []);
 
-  // const [tableData, setTableData] = useState([initialRow]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -57,6 +47,8 @@ const TableForm = ({
     unit: "",
     price: 0,
     subTotal: 0,
+    label: "Selecciona",
+    value: "selecciona",
   };
 
   useEffect(() => {
@@ -76,7 +68,7 @@ const TableForm = ({
     ]);
   };
 
-  const handleInputChange = useCallback((rowIndex, value) => {
+  const handleInputChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -88,9 +80,9 @@ const TableForm = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleCostChange = useCallback((rowIndex, value) => {
+  const handleCostChange = (rowIndex, value) => {
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
@@ -102,10 +94,9 @@ const TableForm = ({
           : item,
       ),
     );
-  }, []);
+  };
 
-  const handleDataInRow = useCallback((data, rowIndex) => {
-    console.log(data);
+  const handleDataInRow = (data, rowIndex) => {
     if (data.id) {
       setTableData((prevData) =>
         prevData.map((item, index) =>
@@ -118,31 +109,16 @@ const TableForm = ({
                 amount: 1,
                 label: data.name,
                 value: data.id,
-                subTotal: data.price.toFixed(2),
+                id: data.id,
+                subTotal: Number(data.price),
               }
             : item,
         ),
       );
     } else {
-      const comp = getComponentId(data);
-      setTableData((prevData) =>
-        prevData.map((item, index) =>
-          index === rowIndex
-            ? {
-                ...item,
-                component: comp.id,
-                unit: comp.unit,
-                price: comp.price,
-                amount: 1,
-                label: comp.name,
-                value: comp.id,
-                subTotal: Number(comp.price).toFixed(2),
-              }
-            : item,
-        ),
-      );
+      return;
     }
-  }, []);
+  };
 
   const deleteRowId = (id) => {
     if (tableData.length == 1) return;
@@ -155,10 +131,6 @@ const TableForm = ({
       return tableData[tableData.length - 1].idAux;
     }
     return 0;
-  };
-
-  const getComponentId = (id) => {
-    return components.find((component) => component.id == id);
   };
 
   const totalPages = Math.ceil(tableData.length / itemsPerPage);
@@ -180,31 +152,12 @@ const TableForm = ({
       accessorKey: "component",
       header: "Componente",
       cell: ({ row, rowIndex }) => (
-        <>
-          {/* <SelectRouter
-            name={"selectComponent-" + rowIndex}
-            options={components}
-            value={row.component}
-            onChange={(value) => handleDataInRow(value, rowIndex)}
-          /> */}
-          <Select
-            name={"selectComponent-" + rowIndex}
-            className="h-10 w-[100px] p-2"
-            onValueChange={(value) => handleDataInRow(value, rowIndex)}
-            value={row?.component}
-          >
-            <SelectTrigger className="border-gris2-transparent rounded-xl border text-[14px] font-light text-[#696974] placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-              <SelectValue placeholder="Selecciona el componente" />
-            </SelectTrigger>
-            <SelectContent>
-              {components.map((component, index) => (
-                <SelectItem key={"component-" + index} value={component.id}>
-                  {component.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </>
+        <SelectRouter
+          name={"selectComponent-" + rowIndex}
+          value={tableData[rowIndex]}
+          options={components}
+          onChange={(value) => handleDataInRow(value, rowIndex)}
+        />
       ),
     },
     {
@@ -250,34 +203,13 @@ const TableForm = ({
         />
       ),
     },
-    // {
-    //   accessorKey: "amountTax",
-    //   header: "Impuesto",
-    //   cell: ({ row, rowIndex }) => (
-    //     <div className="flex w-[150px] items-center gap-x-2 p-1">
-    //       (IVA
-    //       {
-    //         <Input
-    //           className="border-gris2-transparent w-[36px] border p-0 font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //           name={`tax-${rowIndex}`}
-    //           value={row.amountTax}
-    //           placeholder="tax"
-    //           type="number"
-    //           disabled={!row.component}
-    //           onChange={(e) => handleTaxChange(rowIndex, e.target.value)}
-    //         />
-    //       }
-    //       %) {!!row.tax && " - $" + row.tax}
-    //     </div>
-    //   ),
-    // },
     {
       accessorKey: "merma",
       header: "Merma",
       cell: ({ row, rowIndex }) => (
         <div className="flex items-center gap-x-2 p-1">
           <input type="checkbox" name="" id="" />
-          5%
+          0%
         </div>
       ),
     },
