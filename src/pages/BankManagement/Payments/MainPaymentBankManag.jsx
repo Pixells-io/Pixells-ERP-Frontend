@@ -8,6 +8,7 @@ import { add } from "ionicons/icons";
 import DataTable from "@/components/table/DataTable";
 import { PaymentsColumns } from "./Table/PaymentsColumns";
 import NavigationHeader from "@/components/navigation-header";
+import PaymentSummary from "./Tabs/PaymentSummary";
 
 function MainPaymentBankManag() {
   //datos de prueba --------------------------
@@ -188,7 +189,7 @@ function MainPaymentBankManag() {
             </Tabs>
           </TabsContent>
           <TabsContent value="summary" className="h-full overflow-hidden">
-            
+            <PaymentSummary/>
           </TabsContent>
         </Tabs>
         
