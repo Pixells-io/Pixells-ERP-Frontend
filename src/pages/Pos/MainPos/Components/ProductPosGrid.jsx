@@ -254,7 +254,7 @@ function ProductsPosGrid({
         </div>
       </div>
       {/* menu right */}
-      <div className="flex w-fit min-w-[413px] flex-col border-l border-[#D7D7D7] p-4">
+      <div className="flex w-fit min-w-[413px] flex-col border-l border-[#D7D7D7] px-4 pt-1">
         {/* info clients and tickets */}
         <div className="">
           <div className="flex w-full flex-row justify-between gap-x-8">
@@ -310,14 +310,14 @@ function ProductsPosGrid({
             {products.map((p, index) => (
               <div
                 key={index}
-                className={`grid grid-cols-12 gap-x-2 px-2 py-2.5 hover:bg-primario/10 ${p.isSelected && "bg-primario/25 hover:bg-primario/20"}`}
+                className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 hover:bg-primario/20 py-2") : ("py-2")}`}
                 onClick={() => selectedRow(index)}
               >
                 <div className="col-span-5 flex items-center text-sm font-normal text-grisHeading">
                   {p.article}
                 </div>
                 <div
-                  className="gap col-span-1 flex cursor-pointer flex-col items-center justify-center px-2 text-sm font-normal text-grisHeading"
+                  className="gap col-span-1 flex cursor-pointer flex-col items-center justify-center gap-y-1 px-2 text-sm font-normal text-grisHeading"
                   onClick={(event) =>
                     openModalGranel(event, index, p?.isGranel, p?.isSelected)
                   }
@@ -325,7 +325,7 @@ function ProductsPosGrid({
                   {p?.isSelected && !p?.isGranel && (
                     <IonIcon
                       icon={chevronBack}
-                      className="h-5 w-5 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
+                      className="h-7 w-7 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
                       onClick={(event) => incrementProduct(event, index)}
                     ></IonIcon>
                   )}
@@ -333,7 +333,7 @@ function ProductsPosGrid({
                   {p?.isSelected && !p?.isGranel && (
                     <IonIcon
                       icon={chevronForward}
-                      className="h-5 w-5 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
+                      className="h-7 w-7 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
                       onClick={(event) => decrementProduct(event, index)}
                     ></IonIcon>
                   )}
@@ -342,7 +342,7 @@ function ProductsPosGrid({
                   ${p.price.toFixed(2)}
                 </div>
                 <div className="col-span-3 flex items-center justify-between">
-                  <div className="flex h-fit items-center justify-center rounded-3xl border border-[#44444F] px-2 py-1 text-sm font-medium text-grisHeading">
+                  <div className="flex h-fit items-center justify-center rounded-3xl border border-[#44444F] px-2 py-0.5 text-sm font-medium text-grisHeading">
                     $
                     {(
                       (Number(p.price) + Number(p.price) * 0.16) *
@@ -367,7 +367,7 @@ function ProductsPosGrid({
           </div>
         </div>
         {/* info */}
-        <div className="grid grid-cols-12 gap-y-4 border-t border-[#D7D7D7] py-4">
+        <div className="grid grid-cols-12 gap-y-4 border-t border-[#D7D7D7] pt-2">
           <div className="col-span-7 text-sm font-medium text-grisHeading">
             ITEMS
           </div>
@@ -412,7 +412,7 @@ function ProductsPosGrid({
               ${totalProducts}
             </div>
           </div>
-          <div className="col-span-12 mt-6 flex w-full justify-between">
+          <div className="col-span-12 flex w-full justify-between">
             <Button
               type="button"
               className="h-[54px] w-[138px] rounded-3xl bg-[#D7586B] p-0 text-xl font-semibold text-white"
