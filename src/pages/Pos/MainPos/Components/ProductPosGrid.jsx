@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
-import {
-  add,
-  chevronBack,
-  chevronForward,
-  closeCircle,
-} from "ionicons/icons";
+import { add, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { useParams } from "react-router-dom";
 import ModalItemGranel from "../Modal/ModalItemGranel";
 
@@ -199,15 +194,36 @@ function ProductsPosGrid({
         {/* categorias */}
         <div className="flex flex-wrap gap-4 overflow-auto">
           {/* all categories */}
-          {categories.map((c, index) => (
-            <div
-              key={index}
-              className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
-              onClick={() => getProductsCategory(c)}
-            >
-              {c.name}
-            </div>
-          ))}
+
+          {!categorySelect?.name ? (
+            categories.map((c, index) => (
+              <div
+                key={index}
+                className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+                onClick={() => getProductsCategory(c)}
+              >
+                {c.name}
+              </div>
+            ))
+          ) : (
+            <>
+              {/* category select and categories more populater */}
+              <div className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-[#44444F] text-xl font-semibold text-white">
+                {categorySelect.name}
+              </div>
+              {categories
+                .filter((c) => c.id != categorySelect.id)
+                .map((c, index) => (
+                  <div
+                    key={index}
+                    className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+                    onClick={() => getProductsCategory(c)}
+                  >
+                    {c.name}
+                  </div>
+                ))}
+            </>
+          )}
         </div>
         {/* products filter by category */}
         <div className="flex flex-wrap gap-8 overflow-auto">
