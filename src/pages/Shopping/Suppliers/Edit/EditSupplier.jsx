@@ -123,136 +123,83 @@ const EditSupplier = () => {
 
   return (
     <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <NavigationHeader/>
-
-        {/* top content */}
-
-        <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-base font-bold text-[#44444F]">
-            COMPRAS
-          </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
+    <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      {/* navigation inside */}
+      <div className="flex items-center gap-4">
+        <div className="flex gap-2 text-gris2">
+          <div className="h-12 w-12">
+            <IonIcon
+              icon={chevronBack}
+              size="large"
+              className="rounded-3xl bg-blancoBox p-1"
+            ></IonIcon>
+          </div>
+          <div className="h-12 w-12">
+            <IonIcon
+              icon={chevronForward}
+              size="large"
+              className="rounded-3xl bg-blancoBox p-1"
+            ></IonIcon>
           </div>
         </div>
 
-        <Tabs
-          defaultValue="information"
-          className="h-full overflow-auto rounded-lg pt-2"
-        >
-          <div className="flex justify-between">
-            <p className="text-xl mt-1 font-poppins font-bold text-grisHeading">
-              Proveedor: {supplier.fiscal_name}
-            </p>
-            <div className="flex justify-end gap-6">
-              <TabsList className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
-              <TabsTrigger
-                  value="information"
-                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-                >
-                  Información
-                </TabsTrigger>
-                <TabsTrigger
-                  value="summary"
-                  className="text-grisSubTextdata-[state=active]:bg-white h-[24px] rounded-md py-0 font-roboto text-sm font-normal leading-4 data-[state=active]:text-grisHeading data-[state=active]:shadow-none"
-                >
-                  Resumen
-                </TabsTrigger>
-              </TabsList>
-              <Link to="/shopping">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full bg-transparent p-2 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-                >
-                  <IonIcon
-                    icon={closeCircle}
-                    size="small"
-                    className="cursor-pointer text-grisDisabled"
-                  />
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <TabsContent value="information" className="rounded-md  p-2">
-            <div className="w-full space-y-4 overflow-auto">
-              <Form
-                id="form-supplier"
-                action={"/shopping/supplier/edit/" + supplier.id}
-                method="post"
-              >
-                <input
-                  type="hidden"
-                  hidden
-                  name="supplier_id"
-                  value={supplier.id}
-                />
-                <input
-                  type="hidden"
-                  hidden
-                  name="type"
-                  value={"supplierPrincipal"}
-                />
-
-                <InputsGroup
-                  fields={supplierFields}
-                  initialValues={supplierValues}
-                  id={supplier.id}
-                />
-              </Form>
-              <FormGroup data={supplier} isDisabled={false} />
-            </div>
-            <Form
-              id="form-supplier"
-              action={"/shopping/supplier/edit/" + supplier.id}
-              method="post"
-            >
-              <input
-                type="hidden"
-                hidden
-                name="supplier_id"
-                value={supplier.id}
-              />
-              <input
-                type="hidden"
-                hidden
-                name="type"
-                value={"destroy_supplier"}
-              />
-
-              <Button
-                type="submit"
-                className="w-[150px] rounded-full border-[0.5px] border-[#D7586B] bg-transparent hover:bg-transparent"
-                disabled={navigation.state === "submitting"}
-              >
-                <span className="font-roboto text-[14px] text-[#D7586B]">
-                  {navigation.state === "submitting"
-                    ? "Submitting..."
-                    : "Eliminar Proveedor"}
-                </span>
-              </Button>
-            </Form>
-          </TabsContent>
-          <TabsContent
-            value="summary"
-            className=" rounded-md p-2"
-          >
-            <Summary/>
-            
-          </TabsContent>
-        </Tabs>
+        <div className="font-roboto text-sm text-grisText">
+          <div>Sales - General</div>
+        </div>
       </div>
+
+      {/* top content */}
+      <div className="flex items-center gap-4">
+        <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          Ventas
+        </h2>
+        <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
+          <div className="text-sm">&bull; 4 objective </div>
+          <div className="text-sm">&bull; 25 SFC </div>
+          <div className="text-sm">&bull; 43 Activities</div>
+        </div>
+      </div>
+
+      <div className="flex justify-between">
+        <p className="font-poppins text-xl font-bold text-[#44444F]">
+          Proveedor: {customer?.name}
+        </p>
+
+        <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+          <NavLink
+            to={`/sales/customer/edit/${customer.id}`}
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
+                : "flex h-[24px] items-center rounded-md px-2 py-0 font-roboto text-sm font-normal leading-4 text-grisSubText"
+            }
+          >
+            <span>Información</span>
+          </NavLink>
+          <NavLink
+            to={`/sales/customer/edit/${customer.id}/resumen`}
+            className={({ isActive }) =>
+              isActive
+                ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
+                : "flex h-[24px] items-center rounded-md px-2 py-0 font-roboto text-sm font-normal leading-4 text-grisSubText"
+            }
+          >
+            <span>Resumen</span>
+          </NavLink>
+        </div>
+      </div>
+
+      <Outlet context={[customer]}/>
     </div>
+  </div>
   );
 };
 
 export default EditSupplier;
 
-export async function Action({ request }) {
+export async function Action({ request }) {//                action={"/shopping/supplier/edit/" + supplier.id}
+
   const data = await request.formData();
 
   switch (data.get("type")) {

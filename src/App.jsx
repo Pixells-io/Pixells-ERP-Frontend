@@ -1569,6 +1569,16 @@ const router = createBrowserRouter([
             element: <EditRequests />,
             loader: multiloadesGetRequestOrder,
             action: RequestOrderEditAction,
+            children: [
+              {
+                index: true,
+                element:"",
+              },
+              {
+                path: "/shopping/request-orders/edit/:id/resumen",
+                element: "",
+              },
+            ],
           },
           {
             path: "/shopping/purchase/",
