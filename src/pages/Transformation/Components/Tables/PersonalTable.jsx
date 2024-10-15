@@ -47,6 +47,7 @@ const PersonalTable = ({
     position: "",
     cost_hour: 0,
     hours: 0,
+    subTotal: 0,
   };
 
   useEffect(() => {
