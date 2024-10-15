@@ -23,7 +23,7 @@ function PosGridMenuInfo({
   const [ultimateLengthtableData, setUltimateLengthtableData] = useState(
     products.length,
   );
-  const [ultimateProductAdd, setUltimateProductAdd] = useState({index: null, isShow: false});
+  const [ultimateProductAdd, setUltimateProductAdd] = useState(null);
 
 
   const tablePosRef = useRef(null);
@@ -51,9 +51,9 @@ function PosGridMenuInfo({
   }, [products]);
 
   const showUltimateProductAdd = (index) => {
-    setUltimateProductAdd({index: index, isShow: true});
+    setUltimateProductAdd(index);
     setTimeout(() => {
-        setUltimateProductAdd({index: null, isShow: false});
+        setUltimateProductAdd(null);
     }, 500);
   };
 
@@ -202,7 +202,7 @@ function PosGridMenuInfo({
             <div
               key={index}
               className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-1.5 hover:bg-primario/20") : "py-1.5"}
-              ${(index == ultimateProductAdd.index && ultimateProductAdd.isShow) && "bg-primario/10"}`}
+              ${(index == ultimateProductAdd) && "bg-primario/10"}`}
               onClick={() => selectedRow(index)}
             >
               <div className="col-span-5 flex items-center text-sm font-normal text-grisHeading">

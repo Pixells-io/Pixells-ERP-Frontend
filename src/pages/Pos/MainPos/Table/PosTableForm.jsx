@@ -22,6 +22,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   const [productSelect, setProductSelect] = useState({});
   const [indexProductSelect, setIndexProductSelec] = useState(null);
   const [ultimateLengthtableData, setUltimateLengthtableData] = useState(tableData.length);
+  const [ultimateProductAdd, setUltimateProductAdd] = useState(null);
 
   const tablePosRef = useRef(null);
   const { id } = useParams();
@@ -42,9 +43,17 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
   useEffect(() => {
     if (!!tablePosRef.current && tableData.length > ultimateLengthtableData) {
       tablePosRef.current.scrollTop = tablePosRef.current.scrollHeight;
+      showUltimateProductAdd(tableData.length - 1);
     }
-    setUltimateLengthtableData(tableData.length)
+    setUltimateLengthtableData(tableData.length);
   }, [tableData]);
+
+  const showUltimateProductAdd = (index) => {
+    setUltimateProductAdd(index);
+    setTimeout(() => {
+        setUltimateProductAdd(null);
+    }, 500);
+  };
 
   const deleteProduct = (event, index) => {
     event.stopPropagation();
@@ -309,7 +318,7 @@ const PosTableForm = ({ tableData, setTotalProducts, setProducts }) => {
           {tableData.map((row, rowIndex) => (
             <TableRow
               key={rowIndex}
-              className={`text-sm font-normal text-[#44444F] ${row.isSelected && "bg-primario/25 hover:bg-primario/20"}`}
+              className={`text-sm font-normal text-[#44444F] ${row.isSelected && "bg-primario/25 hover:bg-primario/20"} ${rowIndex == ultimateProductAdd && "bg-primario/10"}`}
               onClick={() => selectedRow(rowIndex)}
             >
               {columns.map((column) => (
