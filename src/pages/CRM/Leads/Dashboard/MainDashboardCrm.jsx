@@ -241,12 +241,6 @@ function MainDashboardCrm() {
                         >
                           Editar
                         </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                        >
-                          Programar mensaje de chat
-                        </button>
                       </DropdownMenuContent>
                     </DropdownMenu>
                     <DropdownMenu>
