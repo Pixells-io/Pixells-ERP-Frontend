@@ -97,15 +97,6 @@ function NewFormula() {
         unit: "kg",
       },
     ],
-    wastes: [
-      {
-        type: "scrap",
-        product_master_id: 321,
-        product_variable_id: 7,
-        quantity: 5,
-        unit: "kg",
-      },
-    ],
   });
 
   const [products, setProducts] = useState([]);
@@ -360,14 +351,18 @@ function NewFormula() {
                     <div className="flex w-28">
                       <InputRouter
                         type="number"
-                        name="formula_tam"
+                        name="quantity"
                         placeholder="Cantidad"
+                        value={newFormula.quantity}
+                        onChange={(e) =>
+                          setNewFormula({
+                            ...newFormula,
+                            quantity: e.target.value,
+                          })
+                        }
                       />
                     </div>
                     <div className="flex w-28">
-                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
-                      {newFormula.unit}
-                      </div> */}
                       <InputRouter
                         type="text"
                         name="unidad"
@@ -604,14 +599,18 @@ function NewFormula() {
                     <div className="flex w-28">
                       <InputRouter
                         type="number"
-                        name="formula_tam"
+                        name="quantity"
                         placeholder="Cantidad"
+                        value={newFormula.quantity}
+                        onChange={(e) =>
+                          setNewFormula({
+                            ...newFormula,
+                            quantity: e.target.value,
+                          })
+                        }
                       />
                     </div>
                     <div className="flex w-28">
-                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
-                  {newFormula.unit}
-                </div> */}
                       <InputRouter
                         type="text"
                         name="unidad"
@@ -676,14 +675,18 @@ function NewFormula() {
                     <div className="flex w-28">
                       <InputRouter
                         type="number"
-                        name="formula_tam"
+                        name="quantity"
                         placeholder="Cantidad"
+                        value={newFormula.quantity}
+                        onChange={(e) =>
+                          setNewFormula({
+                            ...newFormula,
+                            quantity: e.target.value,
+                          })
+                        }
                       />
                     </div>
                     <div className="flex w-28">
-                      {/* <div className="w-full border-none bg-grisBg font-roboto text-xs font-light text-grisHeading placeholder:text-grisHeading focus-visible:ring-primarioBotones">
-                  {newFormula.unit}
-                </div> */}
                       <InputRouter
                         type="text"
                         name="unidad"
