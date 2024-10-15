@@ -91,8 +91,20 @@ const clientsOptions = [
 ];
 
 const saveProducts = (products, product, ticket) => {
-  let newId = (products[products.length - 1]?.id || 0) + 1;
-  let auxProducts = [...products, { ...product, id: newId, isSelected: false }];
+  // let newId = (products[products.length - 1]?.id || 0) + 1;
+  const findProduct = products.find((p) => p.id == product.id);
+  let auxProducts = [];
+  if (!!findProduct && findProduct?.isGranel == false) {
+    auxProducts = products.map((p) => {
+      if (p.id == product.id) {
+        return { ...p, quantity: Number(p.quantity) + 1 };
+      } else {
+        return { ...p };
+      }
+    });
+  } else {
+    auxProducts = [...products, { ...product, isSelected: false }];
+  }
   localStorage.setItem("products-" + ticket, JSON.stringify(auxProducts));
   return auxProducts;
 };
