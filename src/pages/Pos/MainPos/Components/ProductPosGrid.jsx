@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
-import { add, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
+import {
+  add,
+  chevronBack,
+  chevronForward,
+  trashOutline,
+} from "ionicons/icons";
 import { useParams } from "react-router-dom";
 import ModalItemGranel from "../Modal/ModalItemGranel";
 
@@ -70,9 +75,9 @@ function ProductsPosGrid({
     setUltimateLengthtableData(products.length);
   }, [products]);
 
-  const deleteProduct = (event, index) => {
+  const deleteAllProductSelects = (event) => {
     event.stopPropagation();
-    const updateProducts = products.filter((_, index_p) => index_p !== index);
+    const updateProducts = products.filter((p) => p?.isSelected !== true);
     localStorage.setItem("products-" + id, JSON.stringify(updateProducts));
     setProducts(updateProducts);
   };
@@ -254,7 +259,7 @@ function ProductsPosGrid({
         </div>
       </div>
       {/* menu right */}
-      <div className="flex w-fit min-w-[413px] flex-col border-l border-[#D7D7D7] px-4 pt-1">
+      <div className="flex w-fit min-w-[413px] flex-col border-l border-[#D7D7D7] px-4 pb-0.5 pt-1">
         {/* info clients and tickets */}
         <div className="">
           <div className="flex w-full flex-row justify-between gap-x-8">
@@ -271,7 +276,7 @@ function ProductsPosGrid({
                 />
               </div>
             </div>
-            <div className="flex w-fit items-center">
+            <div className="flex w-fit items-end">
               <Button
                 type="button"
                 className="flex h-[24px] w-fit cursor-pointer items-center justify-center gap-x-2 rounded-xl bg-primarioBotones px-2 py-0 text-[11px] font-medium"
@@ -281,18 +286,41 @@ function ProductsPosGrid({
               </Button>
             </div>
           </div>
-          <div className="mt-2 flex gap-x-7">
-            <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
-              Ticket
+          <div className="mt-2 grid grid-cols-12">
+            <div className="col-span-6 flex min-h-[34px] gap-x-7">
+              <div className="w-fit font-poppins text-lg font-normal text-grisHeading">
+                Ticket
+              </div>
+              <div className="w-fit font-poppins text-base font-medium text-grisText">
+                {ticketSelect}
+              </div>
             </div>
-            <div className="w-fit font-poppins text-base font-medium text-grisText">
-              {ticketSelect}
-            </div>
+
+            {products.filter((p) => p.isSelected).length > 0 && (
+              <div className="col-span-6 grid h-[32px] grid-cols-12 rounded-xl bg-grisBg py-0.5">
+                <div className="col-span-7 flex items-center justify-center">
+                  <h4 className="text-xs font-normal text-[#44444F]">
+                    {products.filter((p) => p.isSelected).length}{" "}
+                    {products.filter((p) => p.isSelected).length > 1
+                      ? "Seleccionados"
+                      : "Seleccionado"}
+                  </h4>
+                </div>
+                <div className="col-span-5 flex justify-center">
+                  <div
+                    className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-xl hover:bg-blancoBox"
+                    onClick={(e) => deleteAllProductSelects(e)}
+                  >
+                    <IonIcon icon={trashOutline} className="h-5 w-5"></IonIcon>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {/* products */}
         <div className="flex w-full flex-1 flex-col overflow-auto">
-          <div className="mt-4 grid grid-cols-12 gap-x-2 border-b border-[#D7D7D7] p-2">
+          <div className="mt-3 grid grid-cols-12 gap-x-2 border-b border-[#D7D7D7] p-2">
             <div className="col-span-5 text-xs font-medium text-grisText">
               Producto
             </div>
@@ -310,7 +338,7 @@ function ProductsPosGrid({
             {products.map((p, index) => (
               <div
                 key={index}
-                className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 hover:bg-primario/20 py-2") : ("py-2")}`}
+                className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-1.5 hover:bg-primario/20") : "py-1.5"}`}
                 onClick={() => selectedRow(index)}
               >
                 <div className="col-span-5 flex items-center text-sm font-normal text-grisHeading">
@@ -342,32 +370,20 @@ function ProductsPosGrid({
                   ${p.price.toFixed(2)}
                 </div>
                 <div className="col-span-3 flex items-center justify-between">
-                  <div className="flex h-fit items-center justify-center rounded-3xl border border-[#44444F] px-2 py-0.5 text-sm font-medium text-grisHeading">
+                  <div className="flex h-fit items-center justify-center rounded-3xl border border-[#44444F] px-2 py-0 text-sm font-medium text-grisHeading">
                     $
                     {(
                       (Number(p.price) + Number(p.price) * 0.16) *
                       Number(p.quantity)
                     ).toFixed(2)}
                   </div>
-                  {p?.isSelected && (
-                    <button
-                      type="button"
-                      onClick={(event) => deleteProduct(event, index)}
-                      className="flex items-center"
-                    >
-                      <IonIcon
-                        icon={closeCircle}
-                        className="h-5 w-5 cursor-pointer text-[#8F8F8F]"
-                      ></IonIcon>
-                    </button>
-                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
         {/* info */}
-        <div className="grid grid-cols-12 gap-y-4 border-t border-[#D7D7D7] pt-2">
+        <div className="grid grid-cols-12 gap-y-2.5 border-t border-[#D7D7D7] pt-2">
           <div className="col-span-7 text-sm font-medium text-grisHeading">
             ITEMS
           </div>
