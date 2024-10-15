@@ -16,9 +16,13 @@ function InputForm({
 }) {
   return (
     <div className="w-full">
-      <p className="mb-1 text-[10px] font-normal text-grisText">
-        {placeholder} {required == true ? "*" : false}
-      </p>
+      {
+        (placeholder != null || !!placeholder) && (
+          <p className="mb-1 text-[10px] font-normal text-grisText">
+            {placeholder} {required == true ? "*" : false}
+          </p>
+        )
+      }
       <Input
         id={id}
         type={type}
