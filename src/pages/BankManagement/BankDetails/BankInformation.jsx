@@ -41,17 +41,17 @@ const MainBankDetailsGeneral = () => {
           </div>
         </div>
 
-        <div>
-          <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
+        <div className="flex justify-start">
+          <p className="font-poppins text-xl font-bold text-grisHeading">
             Nuevo Servicio
           </p>
         </div>
 
-        <div className="flex h-full w-full flex-col overflow-auto rounded-md bg-blancoBg">
-          <div className="border-b">
-            <h2 className="mb-4 ml-4 mt-4 font-poppins text-xl font-semibold text-[#44444F]">
+        <div className="flex h-full flex-col rounded-[10px] bg-white">
+          <div className="flex items-center justify-between gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+            <span className="font-poppins text-lg font-medium text-[#44444F]">
               INFORMACION BANAMEX 86968{id}
-            </h2>
+            </span>
           </div>
           <div className="flex flex-grow flex-col overflow-auto p-4">
             <div className="mb-4 flex h-[50px] w-[200px] flex-col rounded-[10px] border border-[#44444F] p-2">
@@ -70,7 +70,7 @@ const MainBankDetailsGeneral = () => {
             </label>
             <Link to="/bank-management">
               <Button
-                className="w-[98px] h-[31px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
+                className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
                 variant="outline"
               >
                 Listo

@@ -1,69 +1,127 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { Card, CardContent } from "@/components/ui/card"; // Asegúrate de que esta importación es correcta
+import React from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
-const CustomBar = (props) => {
-  const { x, y, width, height, fill, stroke, strokeWidth, radius } = props;
 
-  return (
-    <g>
-      <path
-        d={`M${x},${y + height} L${x},${y + radius} Q${x},${y} ${x + radius},${y} L${x + width - radius},${y} Q${x + width},${y} ${x + width},${y + radius} L${x + width},${y + height} Z`} // Dibujo de la barra con bordes redondeados
-        fill={fill}
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-      />
-    </g>
-  );
+
+const chartConfig = {
+  desktop: {
+    label: "Ventas",
+    color: "#dc1c3b",
+  },
 };
 
-export default function SimpleBarChart({ data }) {
-  const currentMonth = new Date().getMonth(); // Obtener el mes actual (0-11)
+const getCurrentMonth = () => {
+  const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  return months[new Date().getMonth()];
+};
 
-  const modifiedData = data.map((item, index) => ({
-    ...item,
-    fill: index < currentMonth ? "#DC1C3B" : "transparent", // Meses pasados con color
-    stroke: index === currentMonth ? "#DC1C3B" : "#D7D7D7", // Color del borde
-    strokeWidth: index === currentMonth ? 0.5 : 0.5, // Borde de 0.5px
-    radius: 4, // Cabeza redondeada de 4px
-  }));
+export function Component({chartData}) {
+  const currentMonth = getCurrentMonth();
+  const currentMonthIndex = chartData.findIndex(data => data.month === currentMonth);
+
+
+  //Grafica Personalizada
+  const CustomBar = (props) => {
+    const { x, y, width, height, fill, payload } = props;
+    const isCurrentMonth = payload.month === currentMonth;
+    const isFutureMonth = chartData.indexOf(payload) > currentMonthIndex;
+
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          fill={isCurrentMonth || isFutureMonth ? "transparent" : fill}
+          stroke={isCurrentMonth ? "#DC1C3B" : (isFutureMonth ? "#D7D7D7" : "none")}
+          strokeWidth={isCurrentMonth ? 1 : (isFutureMonth ? 1 : 0)}
+          rx={4}
+          ry={4}
+        />
+      </g>
+    );
+  };
+
+  const CustomXAxisTick = (props) => {
+    const { x, y, payload } = props;
+    const isCurrentMonth = payload.value === currentMonth;
+
+    if (isCurrentMonth) {
+      return (
+        <g transform={`translate(${x},${y})`}>
+          <rect
+            x="-20"
+            y="0"
+            width="40"
+            height="20"
+            fill="#44444F"
+            rx="10"
+            ry="10"
+          />
+          <text
+            x="0"
+            y="14"
+            textAnchor="middle"
+            fill="#FFFFFF"
+            fontSize="12"
+            fontWeight="bold"
+            style={{ fill: '#FFFFFF' }}
+          >
+            {payload.value.slice(0, 3)}
+          </text>
+        </g>
+      );
+    }
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x="0"
+          y="14"
+          textAnchor="middle"
+          fill="#666"
+          fontSize="12"
+        >
+          {payload.value.slice(0, 3)}
+        </text>
+      </g>
+    );
+  };
+
+  const formatYAxis = (tickItem) => {
+    return `${tickItem / 1000}k`;
+  };
 
   return (
-    <Card className="w-full h-[221px] bg-white border-none">
-      <CardContent>
-        <div className="flex flex-col pt-4">
-          <h3 className="text-lg text-[#44444F] font-poppins font-semibold">Cobrado</h3>
-          <div className="flex items-center justify-start mb-2">
-            <span className="text-[#696974] font-poppins text-lg">$175,000.00</span>
-            <h3 className="text-lg text-[#44444F] font-poppins font-semibold ml-2">este mes</h3>
-          </div>
-        </div>
-        <BarChart
-          width={600}
-          height={221}
-          data={modifiedData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="value" shape={<CustomBar />} />
-          <Bar
-            dataKey="value"
-            fill="#44444F"
-            radius={[10, 10, 0, 0]} // Bordes redondeados de 10px en la parte superior
-            isAnimationActive={false}
-            strokeWidth={0} // Sin borde para esta barra
-            opacity={0.3} // Hacerla un poco transparente
-            // Asegurarse de que la barra del mes actual esté encima
-            shape={(props) => (
-              <CustomBar {...props} fill="transparent" stroke="#DC1C3B" />
-            )}
-            data={modifiedData.filter((_, index) => index === currentMonth)} // Solo para el mes actual
-          />
-        </BarChart>
-      </CardContent>
-    </Card>
+    <ChartContainer config={chartConfig} className="flex h-[184px] w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tick={<CustomXAxisTick />}
+        />
+        <YAxis
+          tickFormatter={formatYAxis}
+          axisLine={false}
+          tickLine={false}
+          ticks={[100000, 150000, 200000, 250000, 300000]}
+        />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <Bar
+          dataKey="desktop"
+          fill="var(--color-desktop)"
+          shape={<CustomBar />}
+        />
+      </BarChart>
+    </ChartContainer>
   );
 }

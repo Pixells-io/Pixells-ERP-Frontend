@@ -123,7 +123,7 @@ function MainCollectionBankManag() {
         </div>
         <Tabs
           defaultValue="collections"
-          className="h-full w-full overflow-hidden rounded-lg pt-2"
+          className="flex h-full flex-col overflow-hidden"
         >
           <div className="flex justify-between">
             <div className="flex justify-start">
