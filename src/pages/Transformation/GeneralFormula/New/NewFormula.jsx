@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -32,7 +32,9 @@ import ProcesoTable from "../../Components/Tables/ProcesoTable";
 import PersonalTable from "../../Components/Tables/PersonalTable";
 
 function NewFormula() {
-  const { data } = useLoaderData();
+  const { catalogTransformation, positions } = useLoaderData();
+  const data = catalogTransformation.data;
+  const submit = useSubmit();
 
   const [newFormula, setNewFormula] = useState({
     product_id: "",
@@ -43,60 +45,60 @@ function NewFormula() {
     label: "Selecciona un Articulo",
     value: "default",
     merma: 0,
-    vars: [
-      {
-        product_variable_id: 1,
-        quantity: 10,
-        unit: "kg",
-      },
-    ],
-    slots: [
-      {
-        type: "primary",
-        product_master_id: 123,
-        product_variable_id: 2,
-        quantity: 50,
-        unit: "kg",
-      },
-    ],
-    energetics: [
-      {
-        type: "electricity",
-        product_master_id: 456,
-        product_variable_id: 3,
-        quantity: 200,
-        unit: "kWh",
-      },
-    ],
-    packaging: [
-      {
-        type: "box",
-        product_master_id: 789,
-        product_variable_id: 4,
-        quantity: 30,
-        quantity_per_unity: 5,
-        unit: "pieces",
-      },
-    ],
-    packaging_package: [
-      {
-        type: "pallet",
-        product_master_id: 987,
-        product_variable_id: 5,
-        quantity: 10,
-        quantity_per_unity: 2,
-        unit: "pallets",
-      },
-    ],
-    sub_products: [
-      {
-        type: "byproduct",
-        product_master_id: 654,
-        product_variable_id: 6,
-        quantity: 20,
-        unit: "kg",
-      },
-    ],
+    // vars: [
+    //   {
+    //     product_variable_id: 1,
+    //     quantity: 10,
+    //     unit: "kg",
+    //   },
+    // ],
+    // slots: [
+    //   {
+    //     type: "primary",
+    //     product_master_id: 123,
+    //     product_variable_id: 2,
+    //     quantity: 50,
+    //     unit: "kg",
+    //   },
+    // ],
+    // energetics: [
+    //   {
+    //     type: "electricity",
+    //     product_master_id: 456,
+    //     product_variable_id: 3,
+    //     quantity: 200,
+    //     unit: "kWh",
+    //   },
+    // ],
+    // packaging: [
+    //   {
+    //     type: "box",
+    //     product_master_id: 789,
+    //     product_variable_id: 4,
+    //     quantity: 30,
+    //     quantity_per_unity: 5,
+    //     unit: "pieces",
+    //   },
+    // ],
+    // packaging_package: [
+    //   {
+    //     type: "pallet",
+    //     product_master_id: 987,
+    //     product_variable_id: 5,
+    //     quantity: 10,
+    //     quantity_per_unity: 2,
+    //     unit: "pallets",
+    //   },
+    // ],
+    // sub_products: [
+    //   {
+    //     type: "byproduct",
+    //     product_master_id: 654,
+    //     product_variable_id: 6,
+    //     quantity: 20,
+    //     unit: "kg",
+    //   },
+    // ],
   });
 
   const [products, setProducts] = useState([]);
@@ -126,6 +128,8 @@ function NewFormula() {
 
   const [totalTableSection, setTotalTableSection] = useState(totalProducts);
   const [tableName, setTableName] = useState("FABRICACION");
+
+  const [totalFormula, setTotalFormula] = useState(0);
 
   useEffect(() => {
     switch (tableName.toLowerCase()) {
@@ -256,6 +260,12 @@ function NewFormula() {
     totalSubProducts,
   ]);
 
+  useEffect(() => {
+    setTotalFormula(
+      Number(Number(totalProductsSection) + Number(totalPersonal)).toFixed(2),
+    );
+  }, [totalProductsSection, totalPersonal]);
+
   function fillFormulaProduct(e) {
     console.log(e);
     if (e.variables) {
@@ -273,6 +283,21 @@ function NewFormula() {
       value: e.id,
     });
   }
+
+  const [allSelected, setAllSelected] = useState([]);
+
+  useEffect(() => {
+    const newArray = products.concat(
+      energetics,
+      packages,
+      crate,
+      subProducts,
+      newFormula,
+    );
+    setAllSelected(newArray);
+  }, [products, energetics, packages, crate, subProducts, newFormula]);
+
+  function handleSubmit() {}
 
   return (
     <div className="flex h-full w-full">
@@ -650,7 +675,7 @@ function NewFormula() {
                         tableData={proceso}
                         setTableData={setProceso}
                         setTotalProducts={setTotalProceso}
-                        productNeed={productNeed}
+                        productNeed={allSelected}
                       />
                     </div>
                   </div>
@@ -726,7 +751,8 @@ function NewFormula() {
                         tableData={personal}
                         setTableData={setPersonal}
                         setTotalProducts={setTotalPersonal}
-                        productNeed={productNeed}
+                        productNeed={proceso}
+                        positions={positions?.data}
                       />
                     </div>
                   </div>
@@ -775,7 +801,7 @@ function NewFormula() {
               <div className="flex items-center gap-2">
                 <div className="text-xs text-grisSubText">TOTAL “FÓRMULA”</div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  $765.99
+                  ${totalFormula}
                 </div>
               </div>
             </div>

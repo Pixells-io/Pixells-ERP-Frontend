@@ -46,6 +46,8 @@ const ProcesoTable = ({
     process_operation: "",
     product: { label: "Selecciona", value: "selecciona" },
     durartion: "00:00",
+    hours: null,
+    minutes: null,
   };
 
   useEffect(() => {
@@ -131,8 +133,8 @@ const ProcesoTable = ({
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
-  const [hours, setHours] = useState(null);
-  const [minutes, setMinutes] = useState(null);
+  // const [hours, setHours] = useState(null);
+  // const [minutes, setMinutes] = useState(null);
 
   const columns = [
     {
@@ -172,7 +174,7 @@ const ProcesoTable = ({
         <div className="w-60">
           <SelectRouter
             name={"selectComponent-" + rowIndex}
-            value={tableData[rowIndex]}
+            value={tableData[rowIndex].product}
             options={components}
             onChange={(value) => handleDataInRow(value, rowIndex)}
           />
@@ -183,19 +185,12 @@ const ProcesoTable = ({
       accessorKey: "duration",
       header: "Duración Estimada",
       cell: ({ row, rowIndex }) => (
-        // <Input
-        //   type="time"
-        //   className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-        //   name={`duration`}
-        //   // value={row.durartion}
-        //   // disabled={!row.component}
-        //   // onChange={(e) => handleInputChange(rowIndex, e.target)}
-        // />
         <div className="flex items-center space-x-1">
           <input
             type="number"
-            value={hours}
-            onChange={(e) => setHours(e.target.value)}
+            value={tableData[rowIndex].hours}
+            name="hours"
+            onChange={(e) => handleInputChange(e.target)}
             min="0"
             placeholder="Hrs"
             className="w-12 rounded-md border p-2 text-center [appearance:textfield] focus:outline-none focus:ring-2 focus:ring-blue-500 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -203,8 +198,9 @@ const ProcesoTable = ({
           <span className="text-gray-600">:</span>
           <input
             type="number"
-            value={minutes}
-            onChange={(e) => setMinutes(e.target.value)}
+            value={tableData[rowIndex].minutes}
+            name="minutes"
+            onChange={(e) => handleInputChange(e.target)}
             min="0"
             max="59"
             placeholder="Min"
