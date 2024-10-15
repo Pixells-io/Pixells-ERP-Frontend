@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { IonIcon } from "@ionic/react";
-import { add, chevronForward, closeCircle } from "ionicons/icons";
+import { add, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 import { useParams } from "react-router-dom";
 import ModalItemGranel from "../Modal/ModalItemGranel";
 
@@ -194,15 +194,36 @@ function ProductsPosGrid({
         {/* categorias */}
         <div className="flex flex-wrap gap-4 overflow-auto">
           {/* all categories */}
-          {categories.map((c, index) => (
-            <div
-              key={index}
-              className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
-              onClick={() => getProductsCategory(c)}
-            >
-              {c.name}
-            </div>
-          ))}
+
+          {!categorySelect?.name ? (
+            categories.map((c, index) => (
+              <div
+                key={index}
+                className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+                onClick={() => getProductsCategory(c)}
+              >
+                {c.name}
+              </div>
+            ))
+          ) : (
+            <>
+              {/* category select and categories more populater */}
+              <div className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-[#44444F] text-xl font-semibold text-white">
+                {categorySelect.name}
+              </div>
+              {categories
+                .filter((c) => c.id != categorySelect.id)
+                .map((c, index) => (
+                  <div
+                    key={index}
+                    className="text-roboto flex h-[100px] w-[169px] cursor-pointer items-center justify-center rounded-xl bg-primarioBotones text-xl font-semibold text-white"
+                    onClick={() => getProductsCategory(c)}
+                  >
+                    {c.name}
+                  </div>
+                ))}
+            </>
+          )}
         </div>
         {/* products filter by category */}
         <div className="flex flex-wrap gap-8 overflow-auto">
@@ -296,18 +317,32 @@ function ProductsPosGrid({
                   {p.article}
                 </div>
                 <div
-                  className="col-span-1 flex items-center justify-center text-sm font-normal text-grisHeading hover:cursor-pointer px-2"
+                  className="gap col-span-1 flex cursor-pointer flex-col items-center justify-center px-2 text-sm font-normal text-grisHeading"
                   onClick={(event) =>
                     openModalGranel(event, index, p?.isGranel, p?.isSelected)
                   }
                 >
+                  {p?.isSelected && !p?.isGranel && (
+                    <IonIcon
+                      icon={chevronBack}
+                      className="h-5 w-5 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
+                      onClick={(event) => incrementProduct(event, index)}
+                    ></IonIcon>
+                  )}
                   {p.quantity}
+                  {p?.isSelected && !p?.isGranel && (
+                    <IonIcon
+                      icon={chevronForward}
+                      className="h-5 w-5 rotate-90 cursor-pointer rounded-full text-primarioBotones hover:bg-primarioBotones/10"
+                      onClick={(event) => decrementProduct(event, index)}
+                    ></IonIcon>
+                  )}
                 </div>
                 <div className="col-span-3 flex items-center text-sm font-normal text-grisHeading">
                   ${p.price.toFixed(2)}
                 </div>
-                <div className="col-span-3 flex justify-between">
-                  <div className="flex items-center justify-center rounded-3xl border border-[#44444F] px-2 py-1 text-sm font-medium text-grisHeading">
+                <div className="col-span-3 flex items-center justify-between">
+                  <div className="flex h-fit items-center justify-center rounded-3xl border border-[#44444F] px-2 py-1 text-sm font-medium text-grisHeading">
                     $
                     {(
                       (Number(p.price) + Number(p.price) * 0.16) *
