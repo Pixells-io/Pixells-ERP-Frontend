@@ -9,7 +9,7 @@ import {
 } from "ionicons/icons";
 
 const ClientPipelineTable = ({ data }) => {
-  const headers = ["Clientes", "Cantidad", "Fecha", "Estatus"];
+  const headers = ["Proveedores", "Cantidad", "Fecha", "Estatus"];
 
   // Estado para la paginación
   const [currentPage, setCurrentPage] = useState(1);

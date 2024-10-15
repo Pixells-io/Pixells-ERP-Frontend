@@ -19,6 +19,7 @@ const PaymentSummary = () => {
       estatus: "Programado",
     },
   ];
+
   const banks = [
     {
       cliente: "Banamex",
@@ -35,10 +36,14 @@ const PaymentSummary = () => {
   ];
 
   const banksData = [
-    { title: "Banamex", year: 2024 },
-    { title: "Bancomer", year: 2024 },
-    { title: "Santander", year: 2024 },
-    { title: "BanRegio", year: 2024 },
+    { title: "Banamex" },
+    { title: "Bancomer" },
+    { title: "Santander" },
+    { title: "BanRegio" },
+    { title: "Banamex" },
+    { title: "Bancomer" },
+    { title: "Santander" },
+    { title: "BanRegio" },
   ];
 
   const months = [
@@ -55,6 +60,23 @@ const PaymentSummary = () => {
     { month: "Noviembre", desktop: 254000 },
     { month: "Diciembre", desktop: 254000 },
   ];
+
+  // Función para obtener los meses anteriores hasta enero
+  const getPreviousMonths = () => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const previousMonths = [];
+    for (let i = currentMonth - 1; i >= 0; i--) {
+      const date = new Date(currentDate.getFullYear(), i, 1);
+      previousMonths.push(date.toLocaleString("es-ES", { month: "long" }));
+    }
+    return previousMonths;
+  };
+
+  const previousMonths = getPreviousMonths();
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="flex h-full flex-col rounded-[10px] bg-white">
       {/* Header */}
@@ -68,7 +90,7 @@ const PaymentSummary = () => {
       <div className="mx-2 flex-1 overflow-auto p-6">
         <div className="flex flex-col">
           <h3 className="font-poppins text-lg font-semibold text-[#44444F]">
-            Cobrado
+            Pagado
           </h3>
           <div className="mb-2 flex items-center justify-start">
             <span className="font-poppins text-lg text-[#696974]">
@@ -80,7 +102,7 @@ const PaymentSummary = () => {
           </div>
 
           <div className="mt-6">
-          <Component chartData={months} />
+            <Component chartData={months} />
           </div>
           <h2 className="pt-12 text-left font-poppins text-sm font-medium">
             PROXIMOS
@@ -88,30 +110,20 @@ const PaymentSummary = () => {
           <ClientPipelineTable data={data} />
           <h2 className="text-left font-poppins text-sm font-medium">BANCOS</h2>
           <BankDataTable data={banks} />
-
-          <div className="mb-6 overflow-x-auto">
-            <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {banksData.map(({ title, year }) => (
-                <StatusCard key={title} title={title} years={year} />
+          <div className="flex h-[30px] w-[70px] items-center justify-center rounded-[20px] border border-[#D7D7D7] text-center font-roboto text-xs text-[#8F8F8F]">
+            {currentYear}
+          </div>
+          <div className="mx-2 flex w-[400px] overflow-x-auto">
+            <div className="flex space-x-4 p-4">
+              {previousMonths.map((month, index) => (
+                <div key={`${month}-${index}`} className="w-64 flex-shrink-0">
+                  <StatusCard month={month} years={currentYear} />
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      {/* <div className="flex h-[54px] w-full items-center justify-between border-t p-4">
-        <label className="text-xs font-light text-[#8F8F8F]">
-          Actualizado 07 septiembre 2024
-        </label>
-
-        <Button
-          className="h-[31px] w-[98px] rounded-xl bg-[#E0E0E0] px-6 py-4 text-xs font-semibold text-[#44444F] hover:bg-[#E0E0E0]"
-          variant="outline"
-        >
-          Listo
-        </Button>
-      </div> */}
     </div>
   );
 };

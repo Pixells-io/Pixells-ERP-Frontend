@@ -9,7 +9,7 @@ import {
 } from "ionicons/icons";
 
 const BankDataTable = ({ data }) => {
-  const headers = ["Clientes", "Cantidad", "Ultima Act.", " "];
+  const headers = ["Nombres", "Cantidad", "Ultima Act.", " "];
 
   // Estado para la paginación
   const [currentPage, setCurrentPage] = useState(1);
