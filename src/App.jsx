@@ -566,7 +566,10 @@ import { getSupplier } from "./pages/Shopping/Suppliers/utils";
 import MainIntegrations from "./layouts/MyProfile/MainIntegrations";
 import { multiloaderGoogleIntegrations } from "./layouts/MyProfile/utils";
 import { getMails } from "./pages/CRM/Email/utils";
-import { getCatalogsTransformation } from "./pages/Transformation/utils";
+import {
+  getCatalogsTransformation,
+  multiloaderNewFormula,
+} from "./pages/Transformation/utils";
 import {
   getInventoryStock,
   getProductStock,
@@ -1625,7 +1628,7 @@ const router = createBrowserRouter([
           {
             path: "/transformation/create",
             element: <NewFormula />,
-            loader: getCatalogsTransformation,
+            loader: multiloaderNewFormula,
           },
           {
             path: "/transformation/record/:id",
