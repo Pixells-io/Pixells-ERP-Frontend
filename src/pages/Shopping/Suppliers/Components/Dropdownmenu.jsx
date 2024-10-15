@@ -8,21 +8,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
+import { add } from "ionicons/icons";
 
 const MenuSuppliers = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
       <Button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
-            </Button>
+                  type={"button"}
+                  className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+                >
+                  <IonIcon icon={add} className="h-4 w-4" />
+                  <span className="text-xs font-medium">Nuevo</span>
+                </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="rounded-xl">
         <DropdownMenuItem asChild>

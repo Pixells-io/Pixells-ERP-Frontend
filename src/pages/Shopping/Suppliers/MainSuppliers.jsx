@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, informationCircle } from "ionicons/icons";
+import { chevronBack, chevronForward,  informationCircleOutline, } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -78,10 +78,15 @@ const MainSupplier = () => {
             to={"/shopping/supplier/edit/" + row?.original?.id}
             className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
           >
-            <IonIcon
-              icon={informationCircle}
-              className="h-5 w-5 text-[#696974]"
-            />
+            <Button
+              type="button"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
+            >
+              <IonIcon
+                icon={informationCircleOutline}
+                className="h-5 w-5 text-[#696974]"
+              />
+            </Button>
           </Link>
         </div>
       ),
@@ -121,27 +126,33 @@ const MainSupplier = () => {
           </h2>
         </div>
 
-        <div>
+        <div className="flex justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Proveedores
           </p>
+
+          <div className="flex justify-end gap-6">
           <MenuSuppliers />
+          </div>
+          
         </div>
         {/*content */}
+
+        
         <div className="w-full overflow-auto">
           <Tabs
             defaultValue="PROVEEDOR"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
           >
-            <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+            <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
               <TabsTrigger
-                className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
                 value="PROVEEDOR"
               >
                 PROVEEDOR
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="PROVEEDOR" className="mt-[-60px] p-2">
+            <TabsContent value="PROVEEDOR" className="mt-[-70px] w-full pt-2">
               <DataTable
                 data={suppliersInfo}
                 columns={columns}
