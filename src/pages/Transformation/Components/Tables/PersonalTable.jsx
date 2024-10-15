@@ -57,7 +57,7 @@ const PersonalTable = ({
     process_operation: "",
     position: "",
     cost_hour: 0,
-    hours: 0,
+    hours: 1,
     subTotal: 0,
   };
 
@@ -79,27 +79,15 @@ const PersonalTable = ({
   };
 
   const handleInputChange = (rowIndex, value) => {
+    // console.log(value.name);
+    // console.log(value.value);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
               [value.name]: value.value,
-              subTotal: (item.price * value).toFixed(2),
-            }
-          : item,
-      ),
-    );
-  };
-
-  const handleCostChange = (rowIndex, value) => {
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              price: value,
-              subTotal: (value * item.amount).toFixed(2),
+              subTotal: item.cost_hour * item.hours,
             }
           : item,
       ),
@@ -214,24 +202,27 @@ const PersonalTable = ({
       accessorKey: "cost_hour",
       header: "Costo x Hora",
       cell: ({ row, rowIndex }) => (
-        <Input
-          className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`cost_hour-${rowIndex}`}
-          value={row.cost_hour}
-          type="number"
-          onChange={(e) => handleInputChange(rowIndex, e.target)}
-        />
+        <div className="flex items-center gap-1">
+          $
+          <Input
+            className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+            name={`cost_hour`}
+            value={row.cost_hour}
+            type="number"
+            onChange={(e) => handleInputChange(rowIndex, e.target)}
+          />
+        </div>
       ),
     },
     {
       accessorKey: "hours",
-      header: "Cantidad",
+      header: "Cantidad de Horas",
       cell: ({ row, rowIndex }) => (
         <Input
           type="number"
           className="border-gris2-transparent w-[100px] rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-          name={`hours-${rowIndex}`}
-          value={row.price}
+          name={`hours`}
+          value={row.hours}
           min="0"
           placeholder="ingrese"
           // disabled={!row.component}
@@ -245,12 +236,6 @@ const PersonalTable = ({
       cell: ({ row, rowIndex }) => (
         <div className="flex w-[100px] justify-between">
           {row.subTotal}
-          <input
-            type="hidden"
-            hidden
-            value={row.subTotal}
-            name={"subTotal-" + rowIndex}
-          />
           <button type="button" onClick={() => deleteRowId(row.idAux)}>
             <IonIcon
               icon={closeCircle}
