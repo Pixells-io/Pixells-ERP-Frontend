@@ -1542,6 +1542,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element:<EditSupplierInfo/>,
+                loader: getSupplier,
               },
               {
                 path: "/shopping/supplier/edit/:id/resumen",

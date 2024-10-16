@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
-import InputsGroup from "../../Components/DataGroup";
-import { Form, useOutletContext,useParams,useLocation } from "react-router-dom";
+import { Form, useOutletContext,useParams,useLocation, useLoaderData} from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -13,8 +12,8 @@ import { getSupplierById } from "../../utils";
 
 const EditSupplierInfo = () => {
   const [customerContext] = useOutletContext();
-
-  const [supplier, setSupplier] = useState(customerContext);
+  const { data } = useLoaderData();
+  const [supplier, setSupplier] = useState(data);
   const { id } = useParams();
   const location = useLocation();
   const [supplierId, setSupplierId] = useState(0);
