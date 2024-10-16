@@ -4,24 +4,21 @@ import { Form, useOutletContext } from "react-router-dom";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import GeneralTabs from "../Tabs/GeneralTabs";
-import PaymentTabs from "../Tabs/PaymentTabs";
-import ContactTabs from "../Tabs/ContactTabs/ContactTabs";
-import BillingTabs from "../Tabs/BillingTabs/BillingTabs";
-
-const EditCustomer = () => {
+import PrincipalFormSupplier from "../../Components/Tabs/PrincipalForm";
+import GeneralTabs from "../../Components/Tabs/GeneralTabs";
+import ContactTabs from "../../Components/Tabs/ContactTabs/ContactTabs";
+const EditSupplierInfo = () => {
   const [customerContext] = useOutletContext();
 
-  const [customer, setCustomer] = useState(customerContext);
+  const [supplier, setSupplier] = useState(customerContext);
 
-  const [customerValues, setCustomerValues] = useState({
-    client_code: customer.client_code,
-    client_type: customer.client_type,
-    rfc: customer.rfc,
-    client_group: customer.client_group,
-    currency: customer.currency,
-    fiscal_name: customer.name,
-    cfdi: customer.cfdi,
+  const [supplierValues, setSupplierValues] = useState({
+    type_supplier: supplier.type_supplier,
+    fiscal_name: supplier.fiscal_name,
+    rfc: supplier.rfc,
+    group_supplier: supplier.group_supplier,
+    currency: supplier.currency,
+    cfdi_use: supplier.cfdi_use,
   });
 
   const customerFields = [
@@ -123,7 +120,7 @@ const EditCustomer = () => {
     <div className="flex flex-1 flex-col overflow-auto rounded-xl bg-white">
       <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
         <span className="font-poppins text-lg font-medium text-[#44444F]">
-          INFORMACIÓN DEL CLIENTE
+          INFORMACIÓN DEL PROVEEDOR
         </span>
       </div>
       <Tabs
@@ -168,21 +165,21 @@ const EditCustomer = () => {
           ))}
           <div className="flex w-full flex-1 items-end">
             <Form
-              id="form-customer"
-              action={"/sales/customer/edit/" + customer.id}
+              id="form-supplier"
+              action={"/shopping/supplier/edit/" + supplier.id}
               method="post"
             >
               <input
                 type="hidden"
                 hidden
-                name="customer_id"
-                value={customer.id}
+                name="supplier_id"
+                value={ supplier.id}
               />
               <input
                 type="hidden"
                 hidden
                 name="type"
-                value={"destroy_customer"}
+                value={"destroy_supplier"}
               />
 
               <Button
@@ -193,7 +190,7 @@ const EditCustomer = () => {
                 <span className="font-roboto text-[14px] text-[#D7586B]">
                   {navigation.state === "submitting"
                     ? "Submitting..."
-                    : "Eliminar Cliente"}
+                    : "Eliminar Proveedor"}
                 </span>
               </Button>
             </Form>
@@ -201,46 +198,41 @@ const EditCustomer = () => {
         </TabsList>
         <TabsContent value="principal" className="w-full overflow-auto">
           <Form
-            id="form-customer"
-            action={"/sales/customer/edit/" + customer.id}
+             id="form-supplier"
+            action={"/shopping/supplier/edit/" + supplier.id}
             method="post"
             className="h-full overflow-auto"
           >
             <input
               type="hidden"
               hidden
-              name="customer_id"
-              value={customer.id}
+               name="supplier_id"
+              value={supplier.id}
             />
-            <input type="hidden" hidden name="type" value={"customer_edit"} />
-            <input
-              type="hidden"
-              hidden
-              name="client_transactional_id"
-              value={customer.id}
-            />
-            <InputsGroup
+            <input type="hidden" hidden name="type" value={"supplierPrincipal"} />
+            <PrincipalFormSupplier
               fields={customerFields}
-              initialValues={customerValues}
+              initialValues={supplierValues}
             />
           </Form>
         </TabsContent>
 
-        <TabsContent value="general" className="w-full overflow-auto">
-          <GeneralTabs data={customer} />
+         <TabsContent value="general" className="w-full overflow-auto">
+          <GeneralTabs data={supplier} />
         </TabsContent>
         <TabsContent value="contacts" className="w-full overflow-auto">
-          <ContactTabs data={customer} />
+          <ContactTabs data={supplier} />
         </TabsContent>
+         {/*
         <TabsContent value="Invoices" className="w-full overflow-auto">
           <BillingTabs data={customer} />
         </TabsContent>
         <TabsContent value="payment" className="w-full overflow-auto">
           <PaymentTabs data={customer} />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );
 };
 
-export default EditCustomer;
+export default EditSupplierInfo;

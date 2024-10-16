@@ -169,7 +169,7 @@ const EditSupplier = () => {
 
         <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
           <NavLink
-            to={`/shopping/request-orders/edit/${id}`}
+            to={`/shopping/supplier/edit/${id}`}
             end
             className={({ isActive }) =>
               isActive
@@ -180,7 +180,7 @@ const EditSupplier = () => {
             <span>Información</span>
           </NavLink>
           <NavLink
-            to={`/shopping/request-orders/edit/${id}/resumen`}
+            to={`/shopping/supplier/edit/${id}/resumen`}
             className={({ isActive }) =>
               isActive
                 ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
@@ -200,7 +200,7 @@ const EditSupplier = () => {
 
 export default EditSupplier;
 
-export async function Action({ request }) {//                action={"/shopping/supplier/edit/" + supplier.id}
+export async function Action({ request }) {              
 
   const data = await request.formData();
 

@@ -8,7 +8,7 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
   const navigation = useNavigation();
   // Estado para mantener los valores de los campos
   const [values, setValues] = useState(initialValues);
-
+  console.log(values)
   // Maneja los cambios en los campos de entrada
   const handleInputChange = (value, name) => {
     setValues({ ...values, [name]: value });
@@ -19,167 +19,11 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
     setValues({ ...values, [name]: value });
   };
 
-  // const [values, setValues] = useState(initialValues);
-
-  // const handleInputChange = (e) => {
-  //   setValues({ ...values, [e.target.name]: e.target.value });
-  // };
-
-  // const handleSelectChange = (value, name) => {
-  //   setValues({ ...values, [name]: value });
-  // };
-
-  // const commonStyle =
-  //   "w-full rounded-xl border border-gris2-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
-
   const selectStyle =
     "w-full rounded-xl border border-grisText-transparent font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:ring-2 focus:ring-primarioBotones focus:border-transparent";
 
   return (
-    // <div className="grid grid-cols-3 gap-4 bg-white p-4">
-    //   <div>
-    //     <Input
-    //       type="text"
-    //       name="client_code"
-    //       placeholder="Código de Cliente"
-    //       value={values?.clientNumber}
-    //       onChange={handleInputChange}
-    //       className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //     />
-    //   </div>
-    //   <div>
-    //     <Select
-    //       name="client_type"
-    //       value={values.clientType}
-    //       onValueChange={(value) => handleSelectChange(value, "clientType")}
-    //     >
-    //       <SelectTrigger className={commonStyle}>
-    //         <SelectValue placeholder="Tipo de cliente" />
-    //       </SelectTrigger>
-    //       <SelectContent>
-    //         <SelectItem value="local">Local</SelectItem>
-    //         <SelectItem value="international">Internacional</SelectItem>
-    //       </SelectContent>
-    //     </Select>
-    //   </div>
-    //   <div>
-    //     <Input
-    //       type="text"
-    //       name="name"
-    //       placeholder="Nombre o razón social"
-    //       value={values.socialNumber}
-    //       onChange={handleInputChange}
-    //       className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //     />
-    //   </div>
-    //   <div>
-    //     <Input
-    //       type="text"
-    //       name="rfc"
-    //       placeholder="RFC"
-    //       value={values.rfc}
-    //       onChange={handleInputChange}
-    //       className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //     />
-    //   </div>
-    //   <div>
-    //     <Select
-    //       name="client_group"
-    //       value={values.clientGroup}
-    //       onValueChange={(value) => handleSelectChange(value, "clientGroup")}
-    //     >
-    //       <SelectTrigger className={commonStyle}>
-    //         <SelectValue placeholder="Grupo de Clientes" />
-    //       </SelectTrigger>
-    //       <SelectContent>
-    //         <SelectItem value="group1">Grupo 1</SelectItem>
-    //         <SelectItem value="group2">Grupo 2</SelectItem>
-    //       </SelectContent>
-    //     </Select>
-    //   </div>
-    //   <div>
-    //     <Select
-    //       name="currency"
-    //       value={values.currency}
-    //       onValueChange={(value) => handleSelectChange(value, "currency")}
-    //     >
-    //       <SelectTrigger className={commonStyle}>
-    //         <SelectValue placeholder="Moneda" />
-    //       </SelectTrigger>
-    //       <SelectContent>
-    //         <SelectItem value="usd">USD</SelectItem>
-    //         <SelectItem value="eur">EUR</SelectItem>
-    //       </SelectContent>
-    //     </Select>
-    //   </div>
-    //   <div>
-    //     <Select
-    //       value={values.CFDI}
-    //       onValueChange={(value) => handleSelectChange(value, "CFDI")}
-    //     >
-    //       <SelectTrigger className={commonStyle}>
-    //         <SelectValue placeholder="Uso de CFDI" />
-    //       </SelectTrigger>
-    //       <SelectContent>
-    //         <SelectItem value="cfdi1">CFDI 1</SelectItem>
-    //         <SelectItem value="cfdi2">CFDI 2</SelectItem>
-    //       </SelectContent>
-    //     </Select>
-    //   </div>
-    // </div>
-    // <div className="w-full rounded-xl bg-white p-4">
-    //   <div className="grid grid-cols-12">
-    //     <div className="col-span-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-    //       {fields.map((field) => {
-    //         if (field.type === "input") {
-    //           return (
-    //             <div key={field.name}>
-    //               <Input
-    //                 name={field.name}
-    //                 className="border-gris2-transparent w-full rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
-    //                 placeholder={field.placeholder}
-    //                 value={values[field.name]}
-    //                 onChange={handleInputChange}
-    //               />
-    //             </div>
-    //           );
-    //         } else if (field.type === "select") {
-    //           return (
-    //             <div key={field.name}>
-    //               <Select
-    //                 value={values[field.name]}
-    //                 name={field.name}
-    //                 onValueChange={(value) =>
-    //                   handleSelectChange(value, field.name)
-    //                 }
-    //               >
-    //                 <SelectTrigger className={selectStyle}>
-    //                   <SelectValue placeholder={field.placeholder} />
-    //                 </SelectTrigger>
-    //                 <SelectContent>
-    //                   {field.options.map((option) => (
-    //                     <SelectItem key={option.value} value={option.value}>
-    //                       {option.label}
-    //                     </SelectItem>
-    //                   ))}
-    //                 </SelectContent>
-    //               </Select>
-    //             </div>
-    //           );
-    //         }
-    //         return null;
-    //       })}
-    //     </div>
-    //     <div className="col-span-2 flex items-end justify-center">
-    //       <Button
-    //         className="rounded-3xl bg-primarioBotones"
-    //         disabled={navigation.state === "submitting"}
-    //       >
-    //         {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
-    //       </Button>
-    //     </div>
-    //   </div>
-    // </div>
+ 
     <div className="flex h-full w-full flex-col overflow-auto py-4">
       <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">
@@ -221,20 +65,20 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
           </div>
           <div className="col-span-12">
             <SelectRouter
-              name={"cfdi_use"}
+              name="cfdi_use"
               options={[
-                { value: 1, label: "CFDI 1" },
-                { value: 2, label: "CFDI 2" },
+                { value: "cfdi1", label: "CFDI 1" },
+                { value: "cfdi2", label: "CFDI 2" },
               ]}
               placeholder="CFDI"
               required={false}
               value={
                 [
-                  { value: 1, label: "CFDI 1" },
-                  { value: 2, label: "CFDI 2" },
-                ].find((cfdiFind) => cfdiFind.value == values["cfdi"]) || null
+                  { value: "cfdi1", label: "CFDI 1" },
+                { value: "cfdi2", label: "CFDI 2" },
+                ].find((cfdiFind) => cfdiFind.value == values["cfdi_use"]) || null
               }
-              onChange={(e) => handleInputChange(e.value, "cfdi")}
+              onChange={(e) => handleInputChange(e.value, "cfdi_use")}
             />
           </div>
           <div className="col-span-12">
@@ -260,42 +104,42 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
             <SelectRouter
               name={"type_supplier"}
               options={[
-                { value: 1, label: "Local" },
-                { value: 2, label: "Internacional" },
+                { value: "local", label: "Local" },
+                { value: "international", label: "Internacional" },
               ]}
               placeholder="Tipó"
               required={false}
               value={
                 [
-                  { value: 1, label: "Local" },
-                  { value: 2, label: "Internacional" },
+                  { value: "local", label: "Local" },
+                  { value: "international", label: "Internacional" },
                 ].find(
                   (clientTypeFind) =>
-                    clientTypeFind.value == values["client_type"],
+                    clientTypeFind.value == values["type_supplier"],
                 ) || null
               }
-              onChange={(e) => handleInputChange(e.value, "client_type")}
+              onChange={(e) => handleInputChange(e.value, "type_supplier")}
             />
           </div>
           <div className="col-span-12">
             <SelectRouter
               name={"group_supplier"}
               options={[
-                { value: 1, label: "Grupo 1" },
-                { value: 2, label: "Grupo 2" },
+                { value: "group1", label: "Grupo 1" },
+                { value: "group2", label: "Grupo 2" },
               ]}
               placeholder="Grupo de Proveedor"
               required={false}
               value={
                 [
-                  { value: 1, label: "Grupo 1" },
-                  { value: 2, label: "Grupo 2" },
+                  { value: "group1", label: "Grupo 1" },
+                  { value: "group2", label: "Grupo 2" },
                 ].find(
                   (clientGroupFind) =>
-                    clientGroupFind.value == values["client_group"],
+                    clientGroupFind.value == values["group_supplier"],
                 ) || null
               }
-              onChange={(e) => handleInputChange(e.value, "client_group")}
+              onChange={(e) => handleInputChange(e.value, "group_supplier")}
             />
           </div>
         </div>

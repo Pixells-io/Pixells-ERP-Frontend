@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function getSuppliers() {
   try {
@@ -121,7 +122,7 @@ export async function destroySupplier(data) {
 
 export async function createGeneralInfo(data) {
   const info = {
-    supplier_id: data.get("supplier_id"),
+    supplier_id: parseInt(data.get("supplier_id")),
     street: data.get("street"),
     ext: data.get("ext"),
     int: data.get("int"),
@@ -132,8 +133,12 @@ export async function createGeneralInfo(data) {
     country: data.get("country"),
     shopping_person: data.get("shopping_person"),
     comment: data.get("comment"),
-    start: data.get("start"),
-    end: data.get("end"),
+    start: !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "",
+    end: !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "",
     status: data.get("status") == "true" ? "1" : "0",
   };
 
@@ -164,8 +169,12 @@ export async function editGeneralInfo(data) {
     country: data.get("country"),
     shopping_person: data.get("shopping_person"),
     comment: data.get("comment"),
-    start: data.get("start"),
-    end: data.get("end"),
+    start: !!data.get("start")
+    ? format(data.get("start"), "yyyy-MM-dd")
+    : "",
+    end: !!data.get("end")
+    ? format(data.get("end"), "yyyy-MM-dd")
+    : "",
     info_id: data.get("info_id"),
     status: data.get("status") == "true" ? "1" : "0",
   };

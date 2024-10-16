@@ -510,6 +510,7 @@ import EditQuotes, {
 import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
+import EditSupplierInfo from "./pages/Shopping/Suppliers/Edit/Information/Information";
 import {
   getProducts,
   getPurchase,
@@ -1536,6 +1537,16 @@ const router = createBrowserRouter([
             element: <EditSupplier />,
             action: editSupllier,
             loader: getSupplier,
+            children: [
+              {
+                index: true,
+                element:<EditSupplierInfo/>,
+              },
+              {
+                path: "/shopping/supplier/edit/:id/resumen",
+                element: "",
+              },
+            ],
           },
           {
             path: "/shopping/customer/create",
@@ -1570,16 +1581,7 @@ const router = createBrowserRouter([
             element: <EditRequests />,
             loader: multiloadesGetRequestOrder,
             action: RequestOrderEditAction,
-            children: [
-              {
-                index: true,
-                element:"",
-              },
-              {
-                path: "/shopping/request-orders/edit/:id/resumen",
-                element: "",
-              },
-            ],
+           
           },
           {
             path: "/shopping/purchase/",
