@@ -6,13 +6,12 @@ import { checkmark, trashOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
 import { format } from "date-fns";
-import ModalPeriod from "../../../Modals/ModalPeriod";
-import ModalDeleteBilling from "../../../Modals/ModalDeleteBilling";
+import ModalPeriod from "../../Modals/ModalPeriod";
+import ModalDeleteBilling from "../../Modals/ModalDeleteBilling";
 
 const FormUpdateBilling = ({ billings, client_id }) => {
   const navigation = useNavigation();
   const [billingsSelect, setBillingsSelect] = useState(billings);
-
   const [selectEditBilling, setSelectEditBilling] = useState(null);
 
   const addDate = (dateI, dateF, i) => {
@@ -83,11 +82,12 @@ const FormUpdateBilling = ({ billings, client_id }) => {
         <Form
           key={index}
           className="mt-4"
-          action={`/sales/customer/edit/${client_id}`}
+          action={`/shopping/supplier/edit/${client_id}`}
           method="post"
         >
-          <input type="hidden" hidden name="billing_id" value={billing?.id} />
-          <input type="hidden" hidden name="type" value={"editBilling"} />
+           <input type="hidden" hidden name="supplier_id" value={client_id} />
+          <input type="hidden" hidden name="billing_id" value={billing.id} />
+          <input type="hidden" hidden name="type" value={"edit_invoice"} />
           <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
             Registro {index + 1}
           </p>

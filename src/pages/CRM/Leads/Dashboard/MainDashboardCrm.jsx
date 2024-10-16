@@ -21,6 +21,8 @@ import {
   changeLeadStage,
   functionCreateSaleProcessStage,
   getProcessInfoId,
+  modalConvertClient,
+  saveLeadActivity,
   saveLeadComments,
 } from "../../utils";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -28,13 +30,15 @@ import { Progress } from "@/components/ui/progress";
 import { createPusherClient } from "@/lib/pusher";
 import CommentsLead from "../components/CommentsLead";
 import ModalCreateActivity from "./Modal/ModalCreateActivity";
+import ModalConvertClient from "./Modal/ModalConvertClient";
+import ModalEditLead from "./Modal/ModalEditLead";
 
 function MainDashboardCrm() {
   const { id } = useParams();
   const { data } = useLoaderData();
 
   const [processId, setProcessId] = useState(id);
-  const [infoStages, setInfoStages] = useState(data);
+  const [infoStages, setInfoStages] = useState(data.process);
   const [dragLeadId, setDragLeadId] = useState(0);
   const [dragLeadColumn, setDragLeadColumn] = useState(0);
 
@@ -44,7 +48,10 @@ function MainDashboardCrm() {
 
   const [modalActivity, setModalActivity] = useState(false);
   const [modalConvertClient, setModalConvertClient] = useState(false);
+  const [modalEditLead, setModalEditLead] = useState(false);
+  const [lead, setLead] = useState(false);
   const [leadId, setLeadId] = useState(false);
+  const [leadName, setLeadName] = useState(false);
   const [typeActivity, setTypeActivity] = useState(false);
   const [activityName, setActivityName] = useState(false);
 
@@ -76,7 +83,7 @@ function MainDashboardCrm() {
     setProcessId(id);
     async function getSteps() {
       let newData = await getProcessInfoId(id);
-      setInfoStages(newData.data);
+      setInfoStages(newData.data.process);
     }
 
     getSteps();
@@ -91,7 +98,7 @@ function MainDashboardCrm() {
     //Function Sync Info
     async function getProcessFill(process) {
       let newData = await getProcessInfoId(process);
-      setInfoStages(newData.data);
+      setInfoStages(newData.data.process);
     }
 
     return () => {
@@ -100,7 +107,7 @@ function MainDashboardCrm() {
   }, [id]);
 
   //Function open modal action
-  function openModalAction(id, type) {
+  function openModalAction(id, type, name) {
     switch (type) {
       case 1:
         setModalActivity(true);
@@ -153,10 +160,15 @@ function MainDashboardCrm() {
       case 9:
         setModalConvertClient(true);
         setLeadId(id);
-        setTypeActivity(type);
+        setLeadName(name);
         setActivityName("Convertir a Cliente");
         break;
     }
+  }
+
+  function openModalEdit(lead) {
+    setModalEditLead(true);
+    setLead(lead);
   }
 
   return (
@@ -168,6 +180,19 @@ function MainDashboardCrm() {
         lead_id={leadId}
         type={typeActivity}
         activity_name={activityName}
+        services={data.services}
+        products={data.products}
+      />
+      <ModalConvertClient
+        modal={modalConvertClient}
+        setModal={setModalConvertClient}
+        lead_id={leadId}
+        lead_name={leadName}
+      />
+      <ModalEditLead
+        modal={modalEditLead}
+        setModal={setModalEditLead}
+        lead={lead}
       />
       <div className="flex gap-x-2">
         <DropdownMenu>
@@ -310,6 +335,7 @@ function MainDashboardCrm() {
                         <button
                           type="button"
                           className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalEdit(lead)}
                         >
                           Editar
                         </button>
@@ -382,7 +408,7 @@ function MainDashboardCrm() {
                         <button
                           type="button"
                           className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 9)}
+                          onClick={() => openModalAction(lead.id, 9, lead.name)}
                         >
                           Convertir a Cliente
                         </button>
@@ -526,6 +552,14 @@ export async function Action({ request }) {
       break;
     case "add-comment-lead":
       await saveLeadComments(data);
+      return "201";
+      break;
+    case "action-lead":
+      await saveLeadActivity(data);
+      return "201";
+      break;
+    case "convert-client":
+      await modalConvertClient(data);
       return "201";
       break;
   }

@@ -50,7 +50,7 @@ function ModalDeleteBilling({ client_id, billing_id, regimen_fiscal }) {
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <Form
-          action={`/sales/customer/edit/${client_id}`}
+          action={`/shopping/supplier/edit/${client_id}`}
           method="post"
           className="flex flex-col gap-4"
         >
@@ -65,7 +65,7 @@ function ModalDeleteBilling({ client_id, billing_id, regimen_fiscal }) {
             type="hidden"
             hidden
             name="type"
-            value={"destroyBilling"}
+            value={"destroy_invoice"}
             readOnly
           />
           <span className="my-4 font-roboto text-xs font-light text-grisDisabled">

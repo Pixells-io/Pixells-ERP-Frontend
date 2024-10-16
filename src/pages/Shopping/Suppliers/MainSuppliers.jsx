@@ -139,7 +139,7 @@ const MainSupplier = () => {
         {/*content */}
 
         
-        <div className="w-full overflow-auto">
+        <div className="w-full h-full overflow-auto">
           <Tabs
             defaultValue="PROVEEDOR"
             className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"

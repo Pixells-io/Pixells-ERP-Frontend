@@ -342,6 +342,59 @@ export async function saveLeadComments(data) {
   return response;
 }
 
+export async function saveLeadActivity(data) {
+  const info = {
+    type: data.get("type"),
+    lead_id: data.get("lead_id"),
+    title: data.get("title"),
+    comment: data.get("comment"),
+    mail: data.get("mail"),
+    date: data.get("date"),
+    hour: data.get("hour"),
+    select: data.get("select"),
+    size: data.get("size"),
+    products: data.getAll("products"),
+    services: data.getAll("services"),
+  };
+
+  const formData = new FormData();
+
+  formData.append("document", data.get("document"));
+  formData.append("info", JSON.stringify(info));
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/save-lead-activity`,
+    {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function modalConvertClient(data) {
+  const info = {
+    lead_id: data.get("lead_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/convert-to-client`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 //Multiloaders
 export async function multiLoaderCrmTables() {
   const [leads, process, permissions] = await Promise.all([

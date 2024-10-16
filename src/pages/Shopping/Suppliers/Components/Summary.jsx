@@ -5,7 +5,7 @@ import PaymentTable from "./Tables/PaymentTable";
 import ReturnTable from "./Tables/ReturnTable";
 import BalanceTable from "./Tables/BalancesTable";
 import { Button } from "@/components/ui/button";
-const Summary = () => {
+const SummaryShopping = () => {
   return (
     <div className="h-full w-full flex flex flex-col rounded-xl bg-white">
       <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
@@ -72,4 +72,4 @@ const Summary = () => {
     </div>
   );
 };
-export default Summary;
+export default SummaryShopping;

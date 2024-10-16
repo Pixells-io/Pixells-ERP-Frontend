@@ -11,7 +11,7 @@ const BalanceTabContent = ({ banksData, balanceData }) => {
       </div>
       <div className="flex-grow flex flex-col">
         <div className="mb-6 overflow-x-auto">
-          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="mx-2 flex p-4 space-x-6 min-w-[300px] max-w-[500px]">
             {banksData.map(({ title, balance }) => (
               <BankCard key={title} title={title} balances={balance} />
             ))}
@@ -27,5 +27,6 @@ const BalanceTabContent = ({ banksData, balanceData }) => {
     </div>
   );
 };
+
 
 export default BalanceTabContent;
