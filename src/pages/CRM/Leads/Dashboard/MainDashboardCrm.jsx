@@ -27,6 +27,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { createPusherClient } from "@/lib/pusher";
 import CommentsLead from "../components/CommentsLead";
+import ModalCreateActivity from "./Modal/ModalCreateActivity";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -40,6 +41,12 @@ function MainDashboardCrm() {
   const [selectTypeFilter, setSelectTypeFilter] = useState("all");
   const [businessNameFilter, setBusinessNameFilter] = useState([]);
   const [inputNameFilter, setInputNameFilter] = useState("");
+
+  const [modalActivity, setModalActivity] = useState(false);
+  const [modalConvertClient, setModalConvertClient] = useState(false);
+  const [leadId, setLeadId] = useState(false);
+  const [typeActivity, setTypeActivity] = useState(false);
+  const [activityName, setActivityName] = useState(false);
 
   //FUNCTIONS DRAG AND DROP
 
@@ -92,11 +99,76 @@ function MainDashboardCrm() {
     };
   }, [id]);
 
-  useEffect(() => {});
+  //Function open modal action
+  function openModalAction(id, type) {
+    switch (type) {
+      case 1:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Dimensionar Oportunidad");
+        break;
+      case 2:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Enviar Correo");
+        break;
+      case 3:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Programar Correo");
+        break;
+      case 4:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Programar Mensaje");
+        break;
+      case 5:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Agendar Actividad");
+        break;
+      case 6:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Crear Cotizacion");
+        break;
+      case 7:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Asociar Producto / Servicio");
+        break;
+      case 8:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Recordatorio para Mover al Lead");
+        break;
+      case 9:
+        setModalConvertClient(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Convertir a Cliente");
+        break;
+    }
+  }
 
   return (
     <div className="flex w-full flex-col gap-y-2 overflow-auto">
       {/* filtrado */}
+      <ModalCreateActivity
+        modal={modalActivity}
+        setModal={setModalActivity}
+        lead_id={leadId}
+        type={typeActivity}
+        activity_name={activityName}
+      />
       <div className="flex gap-x-2">
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -250,24 +322,69 @@ function MainDashboardCrm() {
                           className="px-1.5"
                         ></IonIcon>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
+                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pt-4 text-start">
                         <button
                           type="button"
                           className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 1)}
                         >
-                          Editar Nombre
+                          Dimensionar Oportunidad
                         </button>
                         <button
                           type="button"
                           className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 2)}
                         >
-                          Editar Color
+                          Enviar Correo
                         </button>
                         <button
                           type="button"
                           className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 3)}
                         >
-                          Eliminar
+                          Programar Correo
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 4)}
+                        >
+                          Programar Mensaje
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 5)}
+                        >
+                          Agendar Actividad
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 6)}
+                        >
+                          Crear Cotizacion
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 7)}
+                        >
+                          Asociar Producto / Servicio
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 8)}
+                        >
+                          Recordatorio Para Mover al Lead
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalAction(lead.id, 9)}
+                        >
+                          Convertir a Cliente
                         </button>
                       </DropdownMenuContent>
                     </DropdownMenu>

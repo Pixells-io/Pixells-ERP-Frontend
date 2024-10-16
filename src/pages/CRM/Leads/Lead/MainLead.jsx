@@ -44,46 +44,52 @@ function MainLead() {
           </div> */}
         </div>
         {/* icons line */}
-        <div className="flex h-20 overflow-auto">
-          {lead.steps?.map((step, i) => (
-            <>
-              {step.id > lead.process_sale_step ? (
-                <div className="flex items-start justify-center gap-4">
-                  <div className="items-start text-center">
-                    <IonIcon
-                      icon={ellipseSharp}
-                      className="h-2 w-2 text-grisDisabled"
-                    ></IonIcon>
-                    <br />
-                    <span
-                      className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
-                      title={step.name}
-                    >
-                      {step.name}
-                    </span>
+        <div className="flex h-20 justify-center overflow-auto align-middle">
+          <div className="flex w-10/12 overflow-auto">
+            {lead.steps?.map((step, i) => (
+              <div className="flex-shrink-0">
+                {step.id > lead.process_sale_step ? (
+                  <div className="flex flex-shrink-0 items-start justify-center gap-4">
+                    <div className="items-start text-center">
+                      <IonIcon
+                        icon={ellipseSharp}
+                        className="h-2 w-2 text-grisDisabled"
+                      ></IonIcon>
+                      <br />
+                      <span
+                        className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
+                        title={step.name}
+                      >
+                        {step.name}
+                      </span>
+                    </div>
+                    {i === lead.steps.length - 1 ? null : (
+                      <div className="mt-3 w-[70px] border-t border-grisDisabled"></div>
+                    )}
                   </div>
-                  <div className="mt-3 w-[70px] border-t border-grisDisabled"></div>
-                </div>
-              ) : (
-                <div className="flex items-start justify-center gap-4">
-                  <div className="items-start text-center">
-                    <IonIcon
-                      icon={ellipseSharp}
-                      className="h-2 w-2 text-grisHeading"
-                    ></IonIcon>
-                    <br />
-                    <span
-                      className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
-                      title={step.name}
-                    >
-                      {step.name}
-                    </span>
+                ) : (
+                  <div className="flex items-start justify-center gap-4">
+                    <div className="items-start text-center">
+                      <IonIcon
+                        icon={ellipseSharp}
+                        className="h-2 w-2 text-grisHeading"
+                      ></IonIcon>
+                      <br />
+                      <span
+                        className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading"
+                        title={step.name}
+                      >
+                        {step.name}
+                      </span>
+                    </div>
+                    {i === lead.steps.length - 1 ? null : (
+                      <div className="mt-3 w-[70px] border-t border-grisHeading"></div>
+                    )}
                   </div>
-                  <div className="mt-3 w-[70px] border-t border-grisHeading"></div>
-                </div>
-              )}
-            </>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
         </div>
         {/* cards */}
         <div className="flex h-full w-full flex-col items-center overflow-auto bg-blancoBg">
