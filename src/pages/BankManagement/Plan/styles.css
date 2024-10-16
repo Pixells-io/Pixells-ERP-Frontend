@@ -1,4 +1,4 @@
-/* CSS STYLES OF CALENDAR */
+start/* CSS STYLES OF CALENDAR */
 .fc .fc-button-group > .fc-button {
     background-color: transparent;
     color: #696974 !important;
@@ -44,8 +44,9 @@
   
   .fc-daygrid-day-top {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     margin-top: 4px;
+    margin-left: 4px;
     margin-bottom: 4px;
   }
   
