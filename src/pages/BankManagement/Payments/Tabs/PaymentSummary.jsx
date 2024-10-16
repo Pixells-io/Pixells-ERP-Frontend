@@ -114,9 +114,12 @@ const PaymentSummary = () => {
             {currentYear}
           </div>
           <div className="overflow-x-auto">
-          <div className="flex p-4 space-x-6 min-w-[300px] max-w-[500px]">
+            <div className="flex space-x-6 p-4 max-w-[500px]">
               {previousMonths.map((month, index) => (
-                <div key={`${month}-${index}`} className="p-4" >
+                <div
+                  key={`${month}-${index}`}
+                  className="min-w-[150px]  flex-shrink-0"
+                >
                   <StatusCard month={month} years={currentYear} />
                 </div>
               ))}
