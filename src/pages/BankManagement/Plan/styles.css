@@ -103,13 +103,7 @@
   height: 100% !important;
 }
 
-.fc-col-header-cell-cushion {
-  font-weight: 600 !important;
-  font-size: 12px !important;
-  font: "poppins" !important;
-  line-height: 18px !important;
-  color: #44444f !important;
-}
+
 
 .fc-daygrid-day-number {
   font-weight: 400 !important;
@@ -140,7 +134,7 @@
   font-size: 12px !important;
   font: "poppins" !important;
   line-height: 18px !important;
-  color: #44444f !important;
+  color: #8f8f8f !important;
 }
 
 .fc-toolbar-title {
