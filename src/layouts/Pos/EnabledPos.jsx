@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 import CashInflow from "./Modals/CashInflow/CashInflow";
 import CashOutflow from "./Modals/CashOutflow/CashOutflow";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
   const [openConsultArticle, setOpenConsultArticle] = useState(false);
@@ -98,37 +104,29 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                 }
               >
                 <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">CORTE</p>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    REIMPRIMIR TICKET
-                  </p>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
                   <p className="font-roboto text-xs font-medium">DEVOLUCIÓN</p>
                 </div>
               </NavLink>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  asChild
+                  className="w-full cursor-pointer whitespace-nowrap rounded-3xl bg-[#F0F0F0] p-3 font-roboto text-xs font-medium text-[#44444F] hover:bg-blancoBox2"
+                >
+                  <label>MÁS OPCIONES</label>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="rounded-2xl px-0 py-5">
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    CORTE
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    REIMPRIMIR TICKET
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    MERCANCÍAS
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
           <div className="overflow-y-none col-span-4 flex h-full w-full justify-center">
