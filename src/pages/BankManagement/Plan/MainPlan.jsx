@@ -47,6 +47,8 @@ function MainPlan() {
     );
   }
 
+  
+  
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -99,6 +101,7 @@ function MainPlan() {
           <div className="flex w-full overflow-auto">
             <div className="w-full">
               <FullCalendar
+            
                 ref={calendarRef}
                 plugins={[multiMonthPlugin, dayGridPlugin]}
                 locale="es"
