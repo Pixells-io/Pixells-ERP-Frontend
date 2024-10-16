@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import PrincipalFormSupplier from "../../Components/Tabs/PrincipalForm";
 import GeneralTabs from "../../Components/Tabs/GeneralTabs";
 import ContactTabs from "../../Components/Tabs/ContactTabs/ContactTabs";
+import BillingTabs from "../../Components/Tabs/BillingTabs/BillingTabs";
+
 const EditSupplierInfo = () => {
   const [customerContext] = useOutletContext();
 
@@ -223,11 +225,11 @@ const EditSupplierInfo = () => {
         <TabsContent value="contacts" className="w-full overflow-auto">
           <ContactTabs data={supplier} />
         </TabsContent>
-         {/*
+         
         <TabsContent value="Invoices" className="w-full overflow-auto">
-          <BillingTabs data={customer} />
+          <BillingTabs data={supplier} />
         </TabsContent>
-        <TabsContent value="payment" className="w-full overflow-auto">
+       {/* <TabsContent value="payment" className="w-full overflow-auto">
           <PaymentTabs data={customer} />
         </TabsContent> */}
       </Tabs>

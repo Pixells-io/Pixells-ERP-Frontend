@@ -6,12 +6,13 @@ import { IonIcon } from "@ionic/react";
 import { add, trashOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-import ModalPeriod from "../../../Modals/ModalPeriod";
+import ModalPeriod from "../../Modals/ModalPeriod";
 import { format } from "date-fns";
 import FormUpdateBilling from "./FormUpdateBilling";
 
 const BillingTabs = ({ data }) => {
   const navigation = useNavigation();
+
   const [billingNew, setBillingNew] = useState({
     regimen_fiscal: "",
     uso_cfdi: "",
@@ -78,17 +79,17 @@ const BillingTabs = ({ data }) => {
         {isAddBilling && (
           <Form
             className="mt-4"
-            action={`/sales/customer/edit/${data?.id}`}
+            action={`/shopping/supplier/edit/${data?.id}`}
             method="post"
             id="create-form-billing"
           >
             <input
               type="hidden"
               hidden
-              name="client_transactional_id"
+              name="supplier_id"
               value={data?.id}
             />
-            <input type="hidden" hidden name="type" value={"createBilling"} />
+            <input type="hidden" hidden name="type" value={"invoceInformation"} />
             <p className="py-2 text-[10px] font-normal text-[#8F8F8F]">
               Registro NUEVO
             </p>

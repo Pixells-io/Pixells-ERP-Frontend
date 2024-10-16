@@ -12,7 +12,6 @@ import ModalDeleteContact from "../../Modals/ModalDeleteContacts";
 const FormUpdateContact = ({ contacts, client_id }) => {
   const navigation = useNavigation();
   const [contactsSelect, setContactsSelect] = useState(contacts);
-
   const [selectEditContact, setSelectEditContact] = useState(null);
 
   const addDate = (dateI, dateF, i) => {

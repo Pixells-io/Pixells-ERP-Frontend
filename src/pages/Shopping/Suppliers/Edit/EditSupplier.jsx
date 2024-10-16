@@ -229,11 +229,10 @@ export async function Action({ request }) {
       await destroyContact(data);
       break;
     case "invoceInformation":
-      if (!!data.get("billing_id")) {
-        await editBillingInfo(data);
-      } else {
         await createBillingInfo(data);
-      }
+      break;
+    case "edit_invoice":
+      await editBillingInfo(data);
       break;
     case "destroy_invoice":
       destroyBillingInfo(data);
