@@ -32,12 +32,13 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
           <div className="col-span-3">
             <InputForm
               className="border-[#D7586B]"
-              name="client_code"
+              name="code"
               type="text"
               placeholder={"Código"}
-              required={true}
-              value={values["client_code"]}
-              onChange={(e) => handleInputChange(e.target.value, "client_code")}
+              required={false}
+              value={values["code"]}
+              onChange={(e) => handleInputChange(e.target.value, "code")}
+              readOnly
             />
           </div>
           <div className="col-span-9">

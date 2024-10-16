@@ -152,7 +152,7 @@ const EditSupplier = () => {
       {/* top content */}
       <div className="flex items-center gap-4">
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-          Ventas
+          Compras
         </h2>
         <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
           <div className="text-sm">&bull; 4 objective </div>

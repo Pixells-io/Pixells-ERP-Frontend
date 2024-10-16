@@ -511,6 +511,7 @@ import EditSupplier, {
   Action as editSupllier,
 } from "./pages/Shopping/Suppliers/Edit/EditSupplier";
 import EditSupplierInfo from "./pages/Shopping/Suppliers/Edit/Information/Information";
+import SummaryShopping from "./pages/Shopping/Suppliers/Components/Summary";
 import {
   getProducts,
   getPurchase,
@@ -1544,7 +1545,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "/shopping/supplier/edit/:id/resumen",
-                element: "",
+                element: <SummaryShopping/>,
               },
             ],
           },
