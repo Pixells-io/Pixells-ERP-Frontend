@@ -7,6 +7,8 @@ import FormGroup from "../Components/FormGroup";
 import {
   Form,
   Link,
+  NavLink,
+  Outlet,
   redirect,
   useLoaderData,
   useLocation,
@@ -162,12 +164,12 @@ const EditSupplier = () => {
 
       <div className="flex justify-between">
         <p className="font-poppins text-xl font-bold text-[#44444F]">
-          Proveedor: {customer?.name}
+          Proveedor: {supplier?.name}
         </p>
 
         <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
           <NavLink
-            to={`/sales/customer/edit/${customer.id}`}
+            to={`/shopping/request-orders/edit/${id}`}
             end
             className={({ isActive }) =>
               isActive
@@ -178,7 +180,7 @@ const EditSupplier = () => {
             <span>Información</span>
           </NavLink>
           <NavLink
-            to={`/sales/customer/edit/${customer.id}/resumen`}
+            to={`/shopping/request-orders/edit/${id}/resumen`}
             className={({ isActive }) =>
               isActive
                 ? "flex h-[24px] items-center rounded-md bg-white px-2 py-0 font-roboto text-sm font-normal text-grisHeading shadow-none"
@@ -190,7 +192,7 @@ const EditSupplier = () => {
         </div>
       </div>
 
-      <Outlet context={[customer]}/>
+      <Outlet context={[supplier]}/>
     </div>
   </div>
   );
