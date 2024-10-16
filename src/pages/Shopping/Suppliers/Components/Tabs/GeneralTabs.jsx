@@ -10,7 +10,6 @@ import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 const GeneralTabs = ({ data, isDisabled }) => {
   const navigation = useNavigation();
-  console.log(data.general)
   const [generalData, setGeneralData] = useState({
     street: data?.general?.street || "",
     int: data?.general?.int || "",

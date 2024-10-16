@@ -122,7 +122,6 @@ const EditSupplier = () => {
       ],
     },
   ];
-
   return (
     <div className="flex w-full">
     <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -164,7 +163,7 @@ const EditSupplier = () => {
 
       <div className="flex justify-between">
         <p className="font-poppins text-xl font-bold text-[#44444F]">
-          Proveedor: {supplier?.name}
+          Proveedor: {supplier?.fiscal_name}
         </p>
 
         <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">

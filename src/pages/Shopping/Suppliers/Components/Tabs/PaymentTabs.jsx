@@ -22,7 +22,7 @@ const PaymentTabs = ({ data }) => {
     <Form
       className="flex h-full w-full flex-col py-4"
       id="form-supplier-general"
-      action={"/sales/customer/edit/" + data?.id}
+      action={"/shopping/supplier/edit/" + data?.id}
       method="post"
     >
       <div className="overflow-auto px-6">
@@ -32,7 +32,7 @@ const PaymentTabs = ({ data }) => {
         <input
           type="hidden"
           hidden
-          name="client_transactional_id"
+          name="supplier_id"
           value={data?.id}
         />
         <input type="hidden" hidden name="payment_id" value={generalData?.id} />

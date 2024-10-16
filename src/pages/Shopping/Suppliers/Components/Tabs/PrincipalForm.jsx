@@ -8,7 +8,6 @@ const PrincipalFormSupplier = ({ fields, initialValues }) => {
   const navigation = useNavigation();
   // Estado para mantener los valores de los campos
   const [values, setValues] = useState(initialValues);
-  console.log(values)
   // Maneja los cambios en los campos de entrada
   const handleInputChange = (value, name) => {
     setValues({ ...values, [name]: value });
