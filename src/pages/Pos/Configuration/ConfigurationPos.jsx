@@ -81,7 +81,7 @@ const ConfigurationPos = () => {
             defaultValue="general"
             className="flex w-full flex-1 overflow-auto"
           >
-            <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 overflow-auto bg-transparent p-6">
+            <TabsList className="flex h-full w-full max-w-[365px] rounded-none flex-col justify-start gap-y-5 overflow-auto bg-transparent p-6 border-r">
               {tabOptions.map(
                 ({ value, label, subLabel, disabled, update }) => (
                   <TabsTrigger
