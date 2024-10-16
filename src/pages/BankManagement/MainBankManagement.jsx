@@ -158,7 +158,7 @@ function MainBankManagement() {
           </TabsContent>
           <TabsContent
             value="balances"
-            className="h-full overflow-auto"
+            className="h-full overflow-hidden"
           >
           <BalanceTabContent banksData={banksData} balanceData={datos}/>
           </TabsContent>
