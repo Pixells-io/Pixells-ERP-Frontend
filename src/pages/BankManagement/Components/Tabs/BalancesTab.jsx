@@ -5,7 +5,7 @@ import BalanceDataTable from '../Table/BalanceTable';
 
 const BalanceTabContent = ({ banksData, balanceData }) => {
   return (
-    <div className="h-full w-full rounded-md bg-blancoBg p-4 md:p-7 flex flex-col">
+    <div className="h-full w-full overflow-auto rounded-md bg-blancoBg p-4 md:p-7 flex flex-col">
       <div className="mb-6">
         <CardBalanceTotal total="$2,275,077.13" />
       </div>
