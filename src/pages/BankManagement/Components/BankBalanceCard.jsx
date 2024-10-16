@@ -5,7 +5,7 @@ const BankCard = ({ title, balances }) => {
   return (
     <Link to={"/bank-management/detail-balances/bank/" + 1}>
     <div
-      className="flex w-full h-[188px] hover:bg-[#F4F4F4] p-4 rounded-lg bg-white shadow-lg"
+      className="flex w-full mr-4 h-[188px] hover:bg-[#F4F4F4] p-4 rounded-lg bg-white shadow-lg"
       style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex flex-col justify-between w-full">
