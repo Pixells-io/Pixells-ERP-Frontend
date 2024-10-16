@@ -38,91 +38,7 @@ const EditSupplier = () => {
   const { data } = useLoaderData();
   const navigation = useNavigation();
   const [supplier, setSupplier] = useState(data);
-  const [supplierId, setSupplierId] = useState(0);
-
   const { id } = useParams();
-  const location = useLocation();
-
-  //WEBSOCKET
-  const pusherClient = createPusherClient();
-
-  async function getSupplierFunction(id) {
-    const newData = await getSupplierById(id);
-    setSupplier(newData.data);
-  }
-
-  useEffect(() => {
-    setSupplierId(id);
-    let channel = pusherClient.subscribe(`private-get-supplier.${supplierId}`);
-
-    channel.bind("fill-supplier-data", ({ supplier }) => {
-      getSupplierFunction(supplier);
-    });
-
-    return () => {
-      pusherClient.unsubscribe(`private-get-supplier.${supplierId}`);
-    };
-  }, [location, supplierId]);
-
-  const [supplierValues, setSupplierValues] = useState({
-    type_supplier: supplier.type_supplier,
-    fiscal_name: supplier.fiscal_name,
-    rfc: supplier.rfc,
-    group_supplier: supplier.group_supplier,
-    currency: supplier.currency,
-    cfdi_use: supplier.cfdi_use,
-  });
-
-  // Configuración de los campos del formulario
-  const supplierFields = [
-    {
-      name: "type_supplier",
-      type: "select",
-      placeholder: "Tipo de Proveedor",
-      options: [
-        { value: "local", label: "Local" },
-        { value: "international", label: "Internacional" },
-      ],
-    },
-    {
-      name: "fiscal_name",
-      type: "input",
-      placeholder: "Nombre o razon social",
-    },
-    {
-      name: "rfc",
-      type: "input",
-      placeholder: "RFC",
-    },
-    {
-      name: "group_supplier",
-      type: "select",
-      placeholder: "Grupo de Proveedor",
-      options: [
-        { value: "group1", label: "Grupo 1" },
-        { value: "group2", label: "Grupo 2" },
-      ],
-    },
-    {
-      name: "currency",
-      type: "select",
-      placeholder: "Moneda",
-      options: [
-        { value: "usd", label: "USD" },
-        { value: "eur", label: "EUR" },
-      ],
-    },
-    {
-      name: "cfdi_use",
-      type: "select",
-      placeholder: "Uso de CFDI",
-      options: [
-        { value: "cfdi1", label: "CFDI 1" },
-        { value: "cfdi2", label: "CFDI 2" },
-      ],
-    },
-  ];
-
   return (
     <div className="flex w-full">
     <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
@@ -153,7 +69,7 @@ const EditSupplier = () => {
       {/* top content */}
       <div className="flex items-center gap-4">
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-          Ventas
+          Compras
         </h2>
         <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
           <div className="text-sm">&bull; 4 objective </div>
@@ -164,7 +80,7 @@ const EditSupplier = () => {
 
       <div className="flex justify-between">
         <p className="font-poppins text-xl font-bold text-[#44444F]">
-          Proveedor: {supplier?.name}
+          Proveedor: {supplier?.fiscal_name}
         </p>
 
         <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">

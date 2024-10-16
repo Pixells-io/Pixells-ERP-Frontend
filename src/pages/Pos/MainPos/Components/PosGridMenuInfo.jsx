@@ -201,7 +201,7 @@ function PosGridMenuInfo({
           {products.map((p, index) => (
             <div
               key={index}
-              className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-1.5 hover:bg-primario/20") : "py-1.5"}
+              className={`grid grid-cols-12 gap-x-2 px-2 hover:bg-primario/10 ${p.isSelected ? (p?.isGranel == false ? "bg-primario/25 py-0.5 hover:bg-primario/20" : "bg-primario/25 py-2 hover:bg-primario/20") : "py-2"}
               ${(index == ultimateProductAdd) && "bg-primario/10"}`}
               onClick={() => selectedRow(index)}
             >

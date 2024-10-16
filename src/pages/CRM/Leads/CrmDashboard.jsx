@@ -31,6 +31,8 @@ function CrmDashboard() {
   const params = useParams();
   const { process, selected, user } = useLoaderData();
 
+  console.log(selected);
+
   //INFO STATES
   const [processAll, setProcessAll] = useState(process.data);
   const [selectedProcess, setSelectedProcess] = useState(selected.data);
@@ -99,14 +101,12 @@ function CrmDashboard() {
                 to={`/crm/dashboard/${process.process_id}`}
                 className={
                   params.id == process.process_id
-                    ? "w-fit rounded-lg bg-grisHeading px-6 py-2 text-white font-semibold"
-                    : "w-fit rounded-lg bg-blancoBox px-6 py-2 text-black font-normal"
+                    ? "w-fit rounded-lg bg-grisHeading px-6 py-2 font-semibold text-white"
+                    : "w-fit rounded-lg bg-blancoBox px-6 py-2 font-normal text-black"
                 }
                 key={i}
               >
-                <p className="font-roboto text-xs">
-                  {process.name}
-                </p>
+                <p className="font-roboto text-xs">{process.name}</p>
               </Link>
             ))}
           </div>

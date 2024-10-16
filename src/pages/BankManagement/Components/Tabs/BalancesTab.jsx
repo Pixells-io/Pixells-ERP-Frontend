@@ -5,13 +5,13 @@ import BalanceDataTable from '../Table/BalanceTable';
 
 const BalanceTabContent = ({ banksData, balanceData }) => {
   return (
-    <div className="h-full w-full rounded-md bg-blancoBg p-4 md:p-7 flex flex-col">
+    <div className="h-full w-full overflow-auto rounded-md bg-blancoBg p-4 md:p-7 flex flex-col">
       <div className="mb-6">
         <CardBalanceTotal total="$2,275,077.13" />
       </div>
       <div className="flex-grow flex flex-col">
         <div className="mb-6 overflow-x-auto">
-          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="mx-2 flex p-4 space-x-6 min-w-[300px] max-w-[500px]">
             {banksData.map(({ title, balance }) => (
               <BankCard key={title} title={title} balances={balance} />
             ))}
@@ -27,5 +27,6 @@ const BalanceTabContent = ({ banksData, balanceData }) => {
     </div>
   );
 };
+
 
 export default BalanceTabContent;

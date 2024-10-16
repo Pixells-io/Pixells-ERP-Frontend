@@ -36,7 +36,7 @@ const BalanceDataTable = ({data}) =>{
       };
     
       return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto h-full">
           <Table>
             {/* Cabecera */}
             <TableHeader>

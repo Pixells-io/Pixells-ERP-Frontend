@@ -1,56 +1,48 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import {
-  bagCheck,
-  cube,
-} from "ionicons/icons";
+import { bagCheck, cube } from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { 
-    path: "/shopping", 
-    name: "Proveedores", 
-    subname: "General", 
+  {
+    path: "/shopping",
+    name: "Proveedores",
+    subname: "General",
     icon: bagCheck,
     subRoutes: [
       "/shopping/supplier/create",
-      "/shopping/customer/create"]
+      "/shopping/customer/create",
+      "/shopping/supplier/edit/",
+    ],
   },
-  { 
-    path: "/shopping/invoices-orders", 
-    name: "Facturas", 
-    subname: "de Compras", 
+  {
+    path: "/shopping/invoices-orders",
+    name: "Facturas",
+    subname: "de Compras",
     icon: cube,
-    subRoutes: [
-      "/shopping/invoices-orders/"
-    ]
+    subRoutes: ["/shopping/invoices-orders/"],
   },
-  { 
-    path: "/shopping/request-orders", 
-    name: "Pedidos", 
-    subname: "General", 
+  {
+    path: "/shopping/request-orders",
+    name: "Pedidos",
+    subname: "General",
     icon: cube,
-    subRoutes: [
-      "/shopping/request-orders/"
-    ]
+    subRoutes: ["/shopping/request-orders/"],
   },
-  { 
-    path: "/shopping/purchase", 
-    name: "Ordenes", 
-    subname: "De Compra", 
+  {
+    path: "/shopping/purchase",
+    name: "Ordenes",
+    subname: "De Compra",
     icon: cube,
-    subRoutes: ["/shopping/purchase/"
-    ]
+    subRoutes: ["/shopping/purchase/"],
   },
-  { 
-    path: "/shopping/quotes-orders", 
-    name: "Cotizaciones", 
-    subname: "De Compra", 
+  {
+    path: "/shopping/quotes-orders",
+    name: "Cotizaciones",
+    subname: "De Compra",
     icon: cube,
-    subRoutes: ["/shopping/quotes-orders/"
-    ]
+    subRoutes: ["/shopping/quotes-orders/"],
   },
-  
 ];
 
 const MenuShopping = () => {
@@ -58,7 +50,8 @@ const MenuShopping = () => {
 
   const isActive = (item) => {
     if (location.pathname === item.path) return true;
-    if (item.subRoutes.some(route => location.pathname.startsWith(route))) return true;
+    if (item.subRoutes.some((route) => location.pathname.startsWith(route)))
+      return true;
     return false;
   };
 

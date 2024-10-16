@@ -1,18 +1,42 @@
-import React, { useState } from "react";
-import InputsGroup from "../../Components/DataGroup";
-import { Form, useOutletContext } from "react-router-dom";
-
+import React, { useState,useEffect } from "react";
+import { Form, useOutletContext,useParams,useLocation, useLoaderData} from "react-router-dom";
+import { createPusherClient } from "@/lib/pusher";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import PrincipalFormSupplier from "../../Components/Tabs/PrincipalForm";
 import GeneralTabs from "../../Components/Tabs/GeneralTabs";
 import ContactTabs from "../../Components/Tabs/ContactTabs/ContactTabs";
 import BillingTabs from "../../Components/Tabs/BillingTabs/BillingTabs";
+import PaymentTabs from "../../Components/Tabs/PaymentTabs";
+import { getSupplierById } from "../../utils";
 
 const EditSupplierInfo = () => {
   const [customerContext] = useOutletContext();
+  const { data } = useLoaderData();
+  const [supplier, setSupplier] = useState(data);
+  const { id } = useParams();
+  const location = useLocation();
+  const [supplierId, setSupplierId] = useState(0);
+  //WEBSOCKET
+  const pusherClient = createPusherClient();
 
-  const [supplier, setSupplier] = useState(customerContext);
+  async function getSupplierFunction(id) {
+    const newData = await getSupplierById(id);
+    setSupplier(newData.data);
+  }
+
+  useEffect(() => {
+    setSupplierId(id);
+    let channel = pusherClient.subscribe(`private-get-supplier.${supplierId}`);
+
+    channel.bind("fill-supplier-data", ({ supplier }) => {
+      getSupplierFunction(supplier);
+    });
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-supplier.${supplierId}`);
+    };
+  }, [location, supplierId]);
 
   const [supplierValues, setSupplierValues] = useState({
     type_supplier: supplier.type_supplier,
@@ -229,9 +253,9 @@ const EditSupplierInfo = () => {
         <TabsContent value="Invoices" className="w-full overflow-auto">
           <BillingTabs data={supplier} />
         </TabsContent>
-       {/* <TabsContent value="payment" className="w-full overflow-auto">
-          <PaymentTabs data={customer} />
-        </TabsContent> */}
+        <TabsContent value="payment" className="w-full overflow-auto">
+          <PaymentTabs data={supplier} />
+        </TabsContent> 
       </Tabs>
     </div>
   );

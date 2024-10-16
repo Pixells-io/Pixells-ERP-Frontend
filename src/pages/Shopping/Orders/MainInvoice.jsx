@@ -1,6 +1,6 @@
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward, addCircleOutline } from "ionicons/icons";
+import { chevronBack, chevronForward, add } from "ionicons/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DataTable from "@/components/table/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -164,45 +164,44 @@ const MainInvoices = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <p className="font-poppins text-xl font-bold text-[#44444F]">
             Facturas de compra
           </p>
-          <div className="flex items-start justify-start">
+          <div className="flex items-start justify-end">
             <Link to="/shopping/invoices-orders/create">
             <Button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent p-0 transition-all duration-300 hover:bg-primarioBotones hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-primarioBotones focus:ring-opacity-50 active:bg-primarioBotones active:bg-opacity-20"
-            >
-              <IonIcon
-                icon={addCircleOutline}
-                className="h-7 w-7 text-primarioBotones"
-              />
+              className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+              <IonIcon icon={add} className="h-4 w-4" />
+              <span className="text-xs font-medium">Nuevo</span>
             </Button>
             </Link>
           </div>
         </div>
         {/*content */}
-          <div className="w-full">
+          <div className="w-full h-full">
             <Tabs
               defaultValue="invoices"
-              className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-            >
-              <TabsList className="ml-4 flex w-fit rounded-none bg-blancoBg">
+              className="h-full overflow-hidden rounded-lg bg-blancoBg pt-2"
+              >
+              <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
                 <TabsTrigger
                   value="invoices"
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
-                >
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+                  >
                   FACTURAS
                 </TabsTrigger>
                 <TabsTrigger
                   value="OTRO"
-                  className="rounded-none border-b-2 px-4 font-roboto text-sm text-grisSubText data-[state=active]:border-primarioBotones data-[state=active]:bg-blancoBg data-[state=active]:font-semibold data-[state=active]:text-primarioBotones data-[state=active]:shadow-none"
+                  className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+
                 >
                   OTROS
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="invoices" className="mt-[-60px] p-2">
+              <TabsContent value="invoices" className="mt-[-70px] h-full w-full pt-2">
                 <DataTable
                   data={data}
                   columns={columns}

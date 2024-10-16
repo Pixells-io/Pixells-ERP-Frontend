@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { gridOutline, list, lockClosed, settingsOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
+import CashInflow from "./Modals/CashInflow/CashInflow";
+import CashOutflow from "./Modals/CashOutflow/CashOutflow";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
   const [openConsultArticle, setOpenConsultArticle] = useState(false);
+  const location = useLocation();
 
   const getDate = () => {
     const today = new Date();
@@ -44,10 +53,16 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
           <NavLink
             to="/pos"
-            className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading"
+            className={`col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl ${/^\/pos(\/[0-9]+)?$/.test(location.pathname) ? "bg-grisHeading" : "bg-inherit"}`}
           >
-            <h2 className="font-poppins text-xl font-bold text-white">Home</h2>
-            <span className="text-sm font-medium text-[#D7D7D7]">
+            <h2
+              className={`font-poppins text-xl font-bold ${/^\/pos(\/[0-9]+)?$/.test(location.pathname) ? "text-white" : "text-grisHeading"}`}
+            >
+              Home
+            </h2>
+            <span
+              className={`text-sm font-medium ${/^\/pos(\/[0-9]+)?$/.test(location.pathname) ? "text-grisDisabled" : "text-grisText"}`}
+            >
               {getDate()}
             </span>
           </NavLink>
@@ -76,63 +91,9 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                 </div>
               </NavLink>
 
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    ENTRADA EFECTIVO
-                  </p>
-                </div>
-              </NavLink>
+              <CashInflow />
 
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    SALIDA EFECTIVO
-                  </p>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">CORTE</p>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    REIMPRIMIR TICKET
-                  </p>
-                </div>
-              </NavLink>
+              <CashOutflow />
 
               <NavLink
                 to="/pos"
@@ -146,6 +107,26 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                   <p className="font-roboto text-xs font-medium">DEVOLUCIÓN</p>
                 </div>
               </NavLink>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  asChild
+                  className="w-full cursor-pointer whitespace-nowrap rounded-3xl bg-[#F0F0F0] p-3 font-roboto text-xs font-medium text-[#44444F] hover:bg-blancoBox2"
+                >
+                  <label>MÁS OPCIONES</label>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="rounded-2xl px-0 py-5">
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    CORTE
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    REIMPRIMIR TICKET
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="w-full px-4 text-sm font-normal text-grisHeading hover:cursor-pointer focus:bg-hoverModal">
+                    MERCANCÍAS
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
           <div className="overflow-y-none col-span-4 flex h-full w-full justify-center">
