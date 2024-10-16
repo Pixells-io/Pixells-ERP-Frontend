@@ -42,13 +42,16 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
       />
       <div className="w-full pb-4 font-roboto">
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
-          <div className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading">
+          <NavLink
+            to="/pos"
+            className="col-span-1 flex h-[64px] w-full flex-col items-center justify-center rounded-2xl bg-grisHeading"
+          >
             <h2 className="font-poppins text-xl font-bold text-white">Home</h2>
-            <label className="text-sm font-medium text-[#D7D7D7]">
+            <span className="text-sm font-medium text-[#D7D7D7]">
               {getDate()}
-            </label>
-          </div>
-          <div className="col-span-8 flex w-full items-center justify-center">
+            </span>
+          </NavLink>
+          <div className="col-span-7 flex w-full items-center justify-center">
             <div className="flex w-fit gap-6 overflow-x-auto">
               <Button
                 type="button"
@@ -145,7 +148,7 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
               </NavLink>
             </div>
           </div>
-          <div className="overflow-y-none col-span-3 flex h-full w-full justify-center">
+          <div className="overflow-y-none col-span-4 flex h-full w-full justify-center">
             <div className="flex h-full w-fit gap-x-3 overflow-x-auto">
               <div className="flex flex-col gap-y-1">
                 <div>
@@ -168,6 +171,18 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                 <div>
                   <label className="rounded-3xl border border-primario px-5 py-2 text-xs font-medium text-[#44444F]">
                     Catalina
+                  </label>
+                </div>
+              </div>
+              <div className="flex flex-col gap-y-1">
+                <div>
+                  <label className="text-xs font-semibold text-grisText">
+                    Caja
+                  </label>
+                </div>
+                <div>
+                  <label className="whitespace-nowrap rounded-3xl border border-primario px-5 py-2 text-xs font-medium text-[#44444F]">
+                    Caja 1
                   </label>
                 </div>
               </div>
@@ -195,7 +210,9 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
                 </button>
                 <NavLink
                   to="/pos/configuration"
-                  className="flex h-[28px] w-[30px] items-center justify-center rounded-lg bg-blancoBox p-1 text-[#44444F]"
+                  className={({ isActive }) =>
+                    `flex h-[28px] w-[30px] items-center justify-center rounded-lg p-1 ${location.pathname == "/pos/configuration" ? "bg-primarioBotones text-white" : "bg-blancoBox"} text-[#44444F]`
+                  }
                 >
                   <IonIcon icon={settingsOutline}></IonIcon>
                 </NavLink>
