@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
-function NewObjectiveModal({ workspace_id }) {
+function NewObjectiveModal({ workspace_id, type }) {
   const navigation = useNavigation();
   const [modal, setModal] = useState(false);
 
@@ -33,7 +33,7 @@ function NewObjectiveModal({ workspace_id }) {
       <DialogContent className="flex w-[400px] flex-col gap-6 px-0 py-3 sm:rounded-3xl">
         <DialogHeader className="border-b px-10 py-1 pb-3">
           <DialogTitle className="font-poppins text-lg text-grisHeading">
-            Crear Nuevo Objetivo Individual
+            Crear Nuevo Objetivo {type === 1 ? "Individual" : "Grupal"}
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
@@ -58,7 +58,7 @@ function NewObjectiveModal({ workspace_id }) {
           <input
             type="hidden"
             name="type"
-            value={1}
+            value={type}
             hidden
             className="hidden"
           />
