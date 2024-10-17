@@ -592,8 +592,13 @@ import MainDashboardCrm, {
   Action as FuncionsDashboardCrm,
 } from "./pages/CRM/Leads/Dashboard/MainDashboardCrm";
 import ConfigurationPos from "./pages/Pos/Configuration/ConfigurationPos";
-import SideLayoutPM from "./layouts/PManager/SideLayoutPM";
+
+//PM 2.0
+import SideLayoutPM, {
+  Action as multiActionsPM,
+} from "./layouts/PManager/SideLayoutPM";
 import MainPM from "./pages/PManager/MainPM";
+import { multiloaderPM } from "./layouts/PManager/utils";
 
 const router = createBrowserRouter([
   {
@@ -733,10 +738,12 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // project manager
+      // project manager 2.0
       {
         path: "/project-manager2",
         element: <SideLayoutPM />,
+        loader: multiloaderPM,
+        action: multiActionsPM,
         children: [
           {
             index: true,
