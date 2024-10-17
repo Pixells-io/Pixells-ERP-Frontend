@@ -755,6 +755,10 @@ const router = createBrowserRouter([
             path: "/project-manager2/:id",
             element: <MainPM />,
           },
+          {
+            path: "/project-manager2/test",
+            element: <AllProjects />,
+          },
         ],
       },
       {
@@ -817,10 +821,6 @@ const router = createBrowserRouter([
             action: CompletedAction,
           },
         ],
-      },
-      {
-        path: "/project-manager/test/all-projects",
-        element: <AllProjects />,
       },
       //Chat
       {

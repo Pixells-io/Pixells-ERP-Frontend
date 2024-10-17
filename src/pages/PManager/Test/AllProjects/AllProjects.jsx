@@ -9,7 +9,7 @@ import StatusTab from "./Tabs/StatusTab";
 
 function AllProjects() {
   return (
-    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+    <div className="overflow-auto rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
       <NavigationHeader />
       {/* top content */}
@@ -28,7 +28,8 @@ function AllProjects() {
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
         OBJETIVO
       </h2>
-      <Tabs defaultValue="list" className="w-full rounded-lg bg-blancoBg pt-2 overflow-auto">
+      
+      <Tabs defaultValue="list" className="rounded-lg bg-blancoBg pt-2   flex flex-col overflow-auto">
         <div className="flex justify-between">
           <TabsList className="flex w-fit gap-x-2 rounded-none bg-blancoBg px-0">
             <TabsTrigger
@@ -73,10 +74,10 @@ function AllProjects() {
             </Button>
           </div>
         </div>
-        <TabsContent value="list" className="w-full">
+        <TabsContent value="list" className="">
           <ListTab />
         </TabsContent>
-        <TabsContent value="status" className="w-full overflow-auto">
+        <TabsContent value="status" className="overflow-auto">
           <StatusTab />
         </TabsContent>
       </Tabs>
