@@ -120,6 +120,7 @@ const FinancialCalendar = () => {
               $450,000.00
             </span>
           </div>
+          
         ))}
         {/* MONTHS */}
         <CardContent className="flex-grow overflow-auto p-4">
