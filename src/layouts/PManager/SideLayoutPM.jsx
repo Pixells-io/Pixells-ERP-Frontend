@@ -13,6 +13,7 @@ import { addCircleOutline, chevronDown, flag } from "ionicons/icons";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 import SelectRouter from "../Masters/FormComponents/select";
+import NewWorkspaceModal from "@/pages/PManager/components2/Modals/NewWorkspaceModal";
 
 function SideLayoutPM() {
   return (
@@ -27,10 +28,7 @@ function SideLayoutPM() {
             <p className="font-poppins text-lg font-semibold text-grisHeading">
               Espacio de Trabajo
             </p>
-            <IonIcon
-              icon={addCircleOutline}
-              className="size-5 align-middle text-primarioBotones"
-            />
+            <NewWorkspaceModal />
           </div>
 
           <div className="flex flex-col gap-2">

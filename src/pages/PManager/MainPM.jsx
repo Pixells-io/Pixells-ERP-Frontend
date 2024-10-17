@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   DropdownMenu,
@@ -83,6 +83,11 @@ const OPTIONS = [
 ];
 
 function MainPM() {
+  const [workspaces, setWorkspaces] = useState([]);
+  const [objectivesYears, setBbjectivesYears] = useState([]);
+  const [objectivesIndividual, setObjectivesIndividual] = useState([]);
+  const [objectivesTeam, setObjectivesTeam] = useState([]);
+
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
@@ -93,11 +98,11 @@ function MainPM() {
           PROJECT MANAGER
         </h2>
         <div className="flex items-center gap-3 text-[#8F8F8F]">
-          <div className="text-xs">{0} objetivos</div>
+          <div className="text-xs">3 Objetivos</div>
           <div className="text-2xl">&bull;</div>
-          <div className="text-xs">25 SCF</div>
+          <div className="text-xs">27 Activities</div>
           <div className="text-2xl">&bull;</div>
-          <div className="text-xs">43 Activities</div>
+          <div className="text-xs">8 Proyectos</div>
         </div>
       </div>
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
@@ -124,8 +129,12 @@ function MainPM() {
             </div>
           ))}
         </div>
-        {OPTIONS.map((opt) => (
-          <div className="grid h-12 w-full grid-cols-9 items-center border-b">
+
+        {OPTIONS.map((opt, i) => (
+          <div
+            key={i}
+            className="grid h-12 w-full grid-cols-9 items-center border-b"
+          >
             <div
               className={
                 opt.tipo == "Proyecto"
@@ -137,13 +146,17 @@ function MainPM() {
             </div>
             <div className="col-span-2 text-xs">{opt.nombre}</div>
             <div className="col-span-1 flex flex-col items-center px-3">
-              <p className="w-full px-1 text-right text-[10px] font-normal text-grisHeading">
-                {opt.progreso.toFixed(2)}%
-              </p>
-              <Progress
-                value={opt.progreso}
-                className="h-[4px] bg-grisDisabled fill-primario"
-              />
+              {opt.tipo == "Proyecto" && (
+                <>
+                  <p className="w-full px-1 text-right text-[10px] font-normal text-grisHeading">
+                    {opt.progreso.toFixed(2)}%
+                  </p>
+                  <Progress
+                    value={opt.progreso}
+                    className="h-[4px] bg-grisDisabled fill-primario"
+                  />
+                </>
+              )}
             </div>
             <div className="col-span-1 text-center text-xs">
               {opt.vencimiento}
@@ -174,22 +187,26 @@ function MainPM() {
               </Avatar>
             </div>
             <div className="col-span-1 flex w-full items-center justify-between gap-1 text-xs">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
-                  <span className="pl-1 text-grisHeading">{opt.estado}</span>
+              {opt.tipo == "Actividad" ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
+                    <span className="pl-1 text-grisHeading">{opt.estado}</span>
 
-                  <IonIcon
-                    icon={chevronDown}
-                    className="size-3 text-grisSubText"
-                  />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>Completado</DropdownMenuItem>
-                  <DropdownMenuItem>Pendiente</DropdownMenuItem>
-                  <DropdownMenuItem>En proceso</DropdownMenuItem>
-                  <DropdownMenuItem>Cancelado</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    <IonIcon
+                      icon={chevronDown}
+                      className="size-3 text-grisSubText"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Completado</DropdownMenuItem>
+                    <DropdownMenuItem>Pendiente</DropdownMenuItem>
+                    <DropdownMenuItem>En proceso</DropdownMenuItem>
+                    <DropdownMenuItem>Cancelado</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <span>{opt.estado}</span>
+              )}
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <IonIcon
