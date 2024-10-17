@@ -599,6 +599,7 @@ import SideLayoutPM, {
 } from "./layouts/PManager/SideLayoutPM";
 import MainPM from "./pages/PManager/MainPM";
 import { getWorkspace, multiloaderPM } from "./layouts/PManager/utils";
+import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 
 const router = createBrowserRouter([
   {
@@ -811,6 +812,10 @@ const router = createBrowserRouter([
             action: CompletedAction,
           },
         ],
+      },
+      {
+        path: "/project-manager/test/all-projects",
+        element: <AllProjects />,
       },
       //Chat
       {
