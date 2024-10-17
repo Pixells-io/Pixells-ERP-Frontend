@@ -13,6 +13,7 @@ function InputForm({
   onChange,
   required,
   className,
+  checked,
 }) {
   return (
     <div className="w-full">
@@ -35,6 +36,7 @@ function InputForm({
         value={value}
         onChange={onChange}
         required={required}
+        checked={checked}
       />
     </div>
   );

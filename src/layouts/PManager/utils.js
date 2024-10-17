@@ -119,3 +119,29 @@ export async function multiloaderPM() {
 
   return json({ workspaces });
 }
+
+export async function newObjective(data) {
+  try {
+    const info = {
+      id_workspace: data.get("id_workspace"),
+      name: data.get("name"),
+      type: data.get("type"),
+      year_date: new Date().toISOString(),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/create-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}

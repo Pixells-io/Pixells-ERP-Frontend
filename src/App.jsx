@@ -742,7 +742,7 @@ const router = createBrowserRouter([
       {
         path: "/project-manager2",
         element: <SideLayoutPM />,
-        loader: getWorkspace,
+        loader: multiloaderPM,
         action: multiActionsPM,
         children: [
           {

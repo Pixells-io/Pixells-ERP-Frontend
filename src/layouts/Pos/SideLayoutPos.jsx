@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EnabledPos from "./EnabledPos";
 import DisabledPos from "./DisabledPos";
-import ShareSettins from "./Component/ShareSettings";
+import ShareSettins from "./Component/ShareSettings/ShareSettings";
 
 //bd prueba localstorage
 const getIsDisabledBD = () => {
