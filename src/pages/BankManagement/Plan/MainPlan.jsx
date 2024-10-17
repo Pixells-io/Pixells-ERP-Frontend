@@ -7,6 +7,7 @@ import multiMonthPlugin from "@fullcalendar/multimonth";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import CalendarioFinanciero from "./Components/Calendar";
 
 function MainPlan() {
   const [selectCollection, setSelectCollection] = useState(null);
@@ -94,12 +95,16 @@ function MainPlan() {
           </p>
         </div>
 
-        <div className="flex w-full flex-col overflow-auto rounded-xl bg-blancoBg px-4 py-2">
+        <div className="flex w-full flex-col overflow-hidden rounded-xl bg-blancoBg px-4 py-2">
           <h2 className="font-poppins text-lg font-medium text-grisHeading my-2">
             RESUMEN DE CUENTAS
           </h2>
-          <div className="flex w-full overflow-auto">
+          <div className="w-full overflow-hidden">
+          <CalendarioFinanciero/>
             <div className="w-full">
+             
+            </div>
+            {/* <div className="w-full">
               <FullCalendar
             
                 ref={calendarRef}
@@ -248,7 +253,7 @@ function MainPlan() {
                   </TabsContent>
                 </Tabs>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
