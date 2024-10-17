@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
 
 import {
   Accordion,
@@ -14,8 +14,11 @@ import { addCircleOutline, chevronDown, flag } from "ionicons/icons";
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 import SelectRouter from "../Masters/FormComponents/select";
 import NewWorkspaceModal from "@/pages/PManager/components2/Modals/NewWorkspaceModal";
+import { destroyWorkspace, editWorkspace, newWorkspace } from "./utils";
 
 function SideLayoutPM() {
+  const data = useLoaderData();
+  console.log(data);
   return (
     <div className="flex h-full w-full">
       <div className="flex h-full w-[280px] shrink-0 flex-col rounded-tl-xl border-r border-[#D7D7D7] bg-[#FBFBFB] p-4">
@@ -63,7 +66,7 @@ function SideLayoutPM() {
                     size="size-6"
                     className="text-grisSubText"
                   />
-                  <p className="text-sm text-grisSubText"> En Equipo</p>
+                  <p className="text-sm text-grisSubText">En Equipo</p>
                 </AccordionTrigger>
                 <AccordionContent>
                   Yes. It adheres to the WAI-ARIA design pattern.
@@ -97,3 +100,25 @@ function SideLayoutPM() {
 }
 
 export default SideLayoutPM;
+
+export async function Action({ request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+  console.log(action);
+  switch (action) {
+    case "create-workspace":
+      await newWorkspace(data);
+      return redirect("/project-manager2");
+
+    case "edit-workspace":
+      await editWorkspace(data);
+      return redirect("/project-manager2");
+
+    case "delete-workspace":
+      await destroyWorkspace(data);
+      return redirect("/project-manager2");
+
+    default:
+      return redirect("/project-manager2");
+  }
+}

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigation } from "react-router-dom";
 
 import {
   Dialog,
@@ -9,15 +10,24 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { IonIcon } from "@ionic/react";
-import { addCircleOutline } from "ionicons/icons";
-import { Form } from "react-router-dom";
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 
+import { IonIcon } from "@ionic/react";
+import { addCircleOutline } from "ionicons/icons";
+
 function NewWorkspaceModal() {
+  const navigation = useNavigation();
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModal(false);
+    }
+  }, [navigation.state]);
+
   return (
-    <Dialog>
+    <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>
         <IonIcon
           icon={addCircleOutline}
@@ -31,16 +41,33 @@ function NewWorkspaceModal() {
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <Form className="px-10">
+        <Form
+          id="newWorkspace"
+          method="POST"
+          action="/project-manager2"
+          className="px-10"
+        >
           <InputForm
             name="name"
             type="text"
             placeholder="Nombre del Espacio de Trabajo"
           />
+          <input
+            type="hidden"
+            name="action"
+            value="create-workspace"
+            hidden
+            className="hidden"
+          />
         </Form>
         <div className="flex w-full justify-end gap-3 px-10">
-          <Button type="button" className="bg-primarioBotones">
-            Guardar
+          <Button
+            form="newWorkspace"
+            type="submit"
+            className="bg-primarioBotones"
+            disabled={navigation.state === "submitting"}
+          >
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </div>
       </DialogContent>

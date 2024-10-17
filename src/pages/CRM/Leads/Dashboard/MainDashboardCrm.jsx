@@ -19,19 +19,24 @@ import InputForm from "@/components/InputForm/InputForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   changeLeadStage,
+  editLead,
   functionCreateSaleProcessStage,
+  functionDestroySaleProcessStage,
+  functionEditSaleProcessStage,
   getProcessInfoId,
   modalConvertClient,
   saveLeadActivity,
   saveLeadComments,
 } from "../../utils";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Progress } from "@/components/ui/progress";
 import { createPusherClient } from "@/lib/pusher";
 import CommentsLead from "../components/CommentsLead";
 import ModalCreateActivity from "./Modal/ModalCreateActivity";
 import ModalConvertClient from "./Modal/ModalConvertClient";
 import ModalEditLead from "./Modal/ModalEditLead";
+import ModalChangeAssignedLead from "./Modal/ModalChangeAssignedLead";
+import ModalEditStage from "./Modal/ModalEditStage";
+import ModalDestroyStage from "./Modal/ModalDestroyStage";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -49,11 +54,17 @@ function MainDashboardCrm() {
   const [modalActivity, setModalActivity] = useState(false);
   const [modalConvertClient, setModalConvertClient] = useState(false);
   const [modalEditLead, setModalEditLead] = useState(false);
+  const [modalChangeAssigned, setModalChangeAssigned] = useState(false);
   const [lead, setLead] = useState(false);
   const [leadId, setLeadId] = useState(false);
   const [leadName, setLeadName] = useState(false);
   const [typeActivity, setTypeActivity] = useState(false);
   const [activityName, setActivityName] = useState(false);
+
+  //Stages Status
+  const [stageInfo, setStageInfo] = useState(false);
+  const [stageModalEdit, setStageModalEdit] = useState(false);
+  const [stageModalDestroy, setStageModalDestroy] = useState(false);
 
   //FUNCTIONS DRAG AND DROP
 
@@ -167,8 +178,23 @@ function MainDashboardCrm() {
   }
 
   function openModalEdit(lead) {
-    setModalEditLead(true);
     setLead(lead);
+    setModalEditLead(true);
+  }
+
+  function openModalChangeAssigned(lead) {
+    setLead(lead);
+    setModalChangeAssigned(true);
+  }
+
+  function openModalEditStage(stage) {
+    setStageInfo(stage);
+    setStageModalEdit(true);
+  }
+
+  function openModalDestroyStage(stage) {
+    setStageInfo(stage);
+    setStageModalDestroy(true);
   }
 
   return (
@@ -193,6 +219,22 @@ function MainDashboardCrm() {
         modal={modalEditLead}
         setModal={setModalEditLead}
         lead={lead}
+      />
+      <ModalChangeAssignedLead
+        modal={modalChangeAssigned}
+        setModal={setModalChangeAssigned}
+        lead={lead}
+        users={data.users}
+      />
+      <ModalEditStage
+        modal={stageModalEdit}
+        setModal={setStageModalEdit}
+        stage={stageInfo}
+      />
+      <ModalDestroyStage
+        modal={stageModalDestroy}
+        setModal={setStageModalDestroy}
+        stage={stageInfo}
       />
       <div className="flex gap-x-2">
         <DropdownMenu>
@@ -284,18 +326,14 @@ function MainDashboardCrm() {
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalEditStage(stage)}
                   >
-                    Editar Nombre
+                    Editar
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                  >
-                    Editar Color
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalDestroyStage(stage)}
                   >
                     Eliminar
                   </button>
@@ -329,6 +367,7 @@ function MainDashboardCrm() {
                         <button
                           type="button"
                           className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                          onClick={() => openModalChangeAssigned(lead)}
                         >
                           Asignar a otro usuario
                         </button>
@@ -550,6 +589,14 @@ export async function Action({ request }) {
       await functionCreateSaleProcessStage(data);
       return "201";
       break;
+    case "edit-stage":
+      await functionEditSaleProcessStage(data);
+      return "201";
+      break;
+    case "destroy-stage":
+      await functionDestroySaleProcessStage(data);
+      return "201";
+      break;
     case "add-comment-lead":
       await saveLeadComments(data);
       return "201";
@@ -560,6 +607,10 @@ export async function Action({ request }) {
       break;
     case "convert-client":
       await modalConvertClient(data);
+      return "201";
+      break;
+    case "edit-lead":
+      await editLead(data);
       return "201";
       break;
   }
