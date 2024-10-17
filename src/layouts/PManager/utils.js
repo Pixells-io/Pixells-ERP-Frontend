@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
 
@@ -126,7 +127,7 @@ export async function newObjective(data) {
       id_workspace: data.get("workspace_id"),
       name: data.get("name"),
       type: data.get("type"),
-      year_date: new Date().getFullYear(),
+      year_date: format(new Date(), "yyyy-MM-dd"),
     };
 
     const response = await fetch(

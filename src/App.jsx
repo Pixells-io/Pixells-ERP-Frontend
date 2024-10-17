@@ -600,6 +600,7 @@ import SideLayoutPM, {
 import MainPM from "./pages/PManager/MainPM";
 import { getWorkspace, multiloaderPM } from "./layouts/PManager/utils";
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
+import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
 
 const router = createBrowserRouter([
   {
@@ -748,6 +749,10 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <PlaceholderPM />,
+          },
+          {
+            path: "/project-manager2/:id",
             element: <MainPM />,
           },
         ],
