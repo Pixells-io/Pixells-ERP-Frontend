@@ -14,7 +14,8 @@ import { Progress } from "@/components/ui/progress";
 import NavigationHeader from "@/components/navigation-header";
 
 import { IonIcon } from "@ionic/react";
-import { chevronDown, ellipsisVertical } from "ionicons/icons";
+import { add, chevronDown, ellipsisVertical } from "ionicons/icons";
+import ShareSettins from "./components2/ShareSettings/ShareSettings";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -105,9 +106,18 @@ function MainPM() {
           <div className="text-xs">8 Proyectos</div>
         </div>
       </div>
-      <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-        OBJETIVO
-      </h2>
+      <div className="flex w-full items-center justify-between">
+        <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          OBJETIVO
+        </h2>
+        <div className="flex items-center gap-4">
+          <ShareSettins />
+          <div className="flex h-8 w-20 items-center justify-center gap-1 rounded-lg bg-primarioBotones text-xs text-white">
+            <IonIcon icon={add} className="size-4 shrink-0" />
+            Nuevo
+          </div>
+        </div>
+      </div>
 
       {/* contenido */}
       <div className="flex flex-col">

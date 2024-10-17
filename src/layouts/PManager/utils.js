@@ -146,3 +146,19 @@ export async function newObjective(data) {
     return new Response("Error", { status: 500 });
   }
 }
+
+export async function getObjectivesByWorkspaceId(workspace) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive/${workspace}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}

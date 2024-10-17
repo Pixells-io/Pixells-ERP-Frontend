@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, redirect, useLoaderData } from "react-router-dom";
 
 import {
   Accordion,
@@ -17,6 +17,7 @@ import NewWorkspaceModal from "@/pages/PManager/components2/Modals/NewWorkspaceM
 import {
   destroyWorkspace,
   editWorkspace,
+  getObjectivesByWorkspaceId,
   newObjective,
   newWorkspace,
 } from "./utils";
@@ -26,6 +27,7 @@ function SideLayoutPM() {
   const data = useLoaderData();
   const [workspaces, setWorkspaces] = useState(data.workspaces.data);
   const [objectivesYears, setBbjectivesYears] = useState([]);
+  const [objectives, setObjectives] = useState([]);
   const [objectivesIndividual, setObjectivesIndividual] = useState([]);
   const [objectivesTeam, setObjectivesTeam] = useState([]);
 
@@ -35,6 +37,16 @@ function SideLayoutPM() {
     label: workspace.name,
     value: workspace.id,
   }));
+
+  useEffect(() => {
+    if (selectedWorkspace) {
+      getObjectivesByWorkspaceId(selectedWorkspace.id).then(({ data }) => {
+        console.log(data);
+        setObjectivesIndividual(data?.objetives_individual);
+        setObjectivesTeam(data?.objetives_team);
+      });
+    }
+  }, [selectedWorkspace]);
 
   return (
     <div className="flex h-full w-full">
@@ -79,8 +91,21 @@ function SideLayoutPM() {
                         type={1}
                       />
                     </div>
-                    <AccordionContent>
-                      Yes. It adheres to the WAI-ARIA design pattern.
+                    <AccordionContent className="flex flex-col gap-2">
+                      {objectivesIndividual?.map((objective) => (
+                        <NavLink
+                          key={objective.id}
+                          to={`${objective.id}`}
+                          className={({ isActive }) =>
+                            isActive
+                              ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                              : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                          }
+                        >
+                          <IonIcon icon={flag} className="size-4 shrink-0" />
+                          {objective.name}
+                        </NavLink>
+                      ))}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -103,8 +128,21 @@ function SideLayoutPM() {
                         type={2}
                       />
                     </div>
-                    <AccordionContent>
-                      Yes. It adheres to the WAI-ARIA design pattern.
+                    <AccordionContent className="flex flex-col gap-2">
+                      {objectivesTeam?.map((objective) => (
+                        <NavLink
+                          key={objective.id}
+                          to={`${objective.id}`}
+                          className={({ isActive }) =>
+                            isActive
+                              ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                              : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                          }
+                        >
+                          <IonIcon icon={flag} className="size-4 shrink-0" />
+                          {objective.name}
+                        </NavLink>
+                      ))}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -123,8 +161,51 @@ function SideLayoutPM() {
                         Espacio “{selectedWorkspace.name}”
                       </p>
                     </AccordionTrigger>
-                    <AccordionContent>
-                      Yes. It adheres to the WAI-ARIA design pattern.
+                    <AccordionContent className="flex flex-col gap-2">
+                      <NavLink
+                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                        }
+                      >
+                        <IonIcon icon={flag} className="size-4 shrink-0" />
+                        Todos los Proyectos
+                      </NavLink>
+                      <NavLink
+                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                        }
+                      >
+                        <IonIcon icon={flag} className="size-4 shrink-0" />
+                        Todas las Actividades
+                      </NavLink>
+                      <NavLink
+                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                        }
+                      >
+                        <IonIcon icon={flag} className="size-4 shrink-0" />
+                        Todos las Reuniones
+                      </NavLink>
+                      <NavLink
+                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                        }
+                      >
+                        <IonIcon icon={flag} className="size-4 shrink-0" />
+                        Todos los Archivos
+                      </NavLink>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
