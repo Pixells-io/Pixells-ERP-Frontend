@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EnabledPos from "./EnabledPos";
 import DisabledPos from "./DisabledPos";
+import ShareSettins from "./Component/ShareSettings";
 
 //bd prueba localstorage
 const getIsDisabledBD = () => {
@@ -51,6 +52,7 @@ const SideLayoutPos = () => {
   }, [isDisabled]);
   return (
     <>
+      <ShareSettins />
       {isDisabled ? (
         <DisabledPos setIsDisabled={setIsDisabled} />
       ) : (
