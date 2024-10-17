@@ -4,17 +4,13 @@ import { Form, useNavigation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
-import { IonIcon } from "@ionic/react";
-import { addCircle, addCircleOutline } from "ionicons/icons";
 
 const yearsOption = [
   {
@@ -87,12 +83,6 @@ function NewObjectiveForm({ open, setOpen, areas }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* <DialogTrigger className="flex items-center justify-center rounded-full border-2 !outline-none !ring-0">
-          <IonIcon
-            icon={addCircleOutline}
-            className="h-6 w-6 text-primarioBotones"
-          />
-        </DialogTrigger> */}
       <DialogContent className="p-0">
         <DialogHeader className="flex border-b px-8 py-6">
           <DialogTitle className="">Agregar Objetivo Estratégico</DialogTitle>
