@@ -1,4 +1,6 @@
 /* CSS STYLES OF CALENDAR */
+
+
 .fc-multimonth-title {
   display: flex;
   justify-content: start; 
@@ -106,11 +108,11 @@
 
 
 .fc-daygrid-day-number {
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   font-size: 12px !important;
   font: "poppins" !important;
   line-height: 18px !important;
-  color: #696974 !important;
+  color: #44444f !important;
 }
 
 .fc-timegrid-slot-label-cushion {
