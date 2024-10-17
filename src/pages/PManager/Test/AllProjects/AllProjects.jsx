@@ -5,6 +5,7 @@ import { IonIcon } from "@ionic/react";
 import { add, searchOutline } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ListTab from "./Tabs/ListTab";
+import StatusTab from "./Tabs/StatusTab";
 
 function AllProjects() {
   return (
@@ -27,7 +28,7 @@ function AllProjects() {
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
         OBJETIVO
       </h2>
-      <Tabs defaultValue="list" className="w-full rounded-lg bg-blancoBg pt-2">
+      <Tabs defaultValue="list" className="w-full rounded-lg bg-blancoBg pt-2 overflow-auto">
         <div className="flex justify-between">
           <TabsList className="flex w-fit gap-x-2 rounded-none bg-blancoBg px-0">
             <TabsTrigger
@@ -72,8 +73,11 @@ function AllProjects() {
             </Button>
           </div>
         </div>
-        <TabsContent value="list" className="h-full w-full">
+        <TabsContent value="list" className="w-full">
           <ListTab />
+        </TabsContent>
+        <TabsContent value="status" className="w-full overflow-auto">
+          <StatusTab />
         </TabsContent>
       </Tabs>
     </div>
