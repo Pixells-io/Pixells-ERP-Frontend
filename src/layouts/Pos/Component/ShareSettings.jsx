@@ -13,7 +13,11 @@ import SelectShareSettings from "@/layouts/Masters/FormComponents/selectShareSet
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
-import { chevronForwardOutline, lockClosedOutline } from "ionicons/icons";
+import {
+  chevronForwardOutline,
+  globeOutline,
+  lockClosedOutline,
+} from "ionicons/icons";
 
 import {
   Select,
@@ -26,6 +30,7 @@ import {
 function ShareSettins({}) {
   const navigation = useNavigation();
   const [modal, setModal] = useState(false);
+  const [step, setStep] = useState(1);
 
   const users = [
     {
@@ -81,7 +86,13 @@ function ShareSettins({}) {
   }, [navigation.state]);
 
   return (
-    <Dialog open={true} onOpenChange={setModal}>
+    <Dialog
+      open={modal}
+      onOpenChange={(e) => {
+        setModal(e);
+        setStep(1);
+      }}
+    >
       <DialogTrigger
         className={
           "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
@@ -94,11 +105,16 @@ function ShareSettins({}) {
       <DialogContent className="max-h-[80vh] overflow-auto rounded-[0px] px-0 pb-[50px] pt-0 sm:max-w-[450px]">
         <DialogHeader className="border-b">
           <DialogTitle className="px-4 py-3 font-poppins text-xs font-semibold text-grisHeading">
-            Compartir este objetivo
+            {step == 1
+              ? "Compartir este objetivo"
+              : "Configuración para Compartir"}
           </DialogTitle>
         </DialogHeader>
         <DialogDescription className="hidden"></DialogDescription>
-        <div className="flex flex-col gap-y-4">
+
+        <div
+          className={`flex flex-col gap-y-4 ${step == 1 ? "block" : "hidden"}`}
+        >
           {/* add */}
           <Form method="post" className="px-4">
             <Select defaultValue="users" name="actions" required>
@@ -139,7 +155,7 @@ function ShareSettins({}) {
                     <Avatar className="size-6">
                       <AvatarImage src={option?.img} />
                     </Avatar>
-                    <p className="text-roboto text-xs font-normal text-grisHeading">
+                    <p className="font-roboto text-xs font-normal text-grisHeading">
                       {option?.name}
                     </p>
                   </div>
@@ -153,14 +169,14 @@ function ShareSettins({}) {
                     .includes(value.toLowerCase());
                 }}
               />
-              <Button className="text-roboto h-[32px] w-[58px] rounded-xl bg-primarioBotones text-[11px] font-medium text-white">
+              <Button className="h-[32px] w-[58px] rounded-xl bg-primarioBotones font-roboto text-[11px] font-medium text-white">
                 Invitar
               </Button>
             </div>
           </Form>
           {/* steps */}
           <div className="flex flex-col gap-y-4">
-            <h2 className="text-roboto px-4 text-xs font-medium text-[#ABABAB]">
+            <h2 className="px-4 font-roboto text-xs font-medium text-[#ABABAB]">
               Usuarios con acceso
             </h2>
             <div className="flex cursor-pointer items-center justify-between px-4 py-1 hover:bg-hoverModal">
@@ -177,7 +193,8 @@ function ShareSettins({}) {
               <IonIcon
                 icon={chevronForwardOutline}
                 size="small"
-                className="text-grisHeading"
+                className="rounded-full px-2 text-grisHeading hover:bg-[#CCCCCC]"
+                onClick={() => setStep(2)}
               />
             </div>
           </div>
@@ -189,7 +206,7 @@ function ShareSettins({}) {
                 <Avatar className="size-6">
                   <AvatarImage src={creator?.img} />
                 </Avatar>
-                <p className="text-roboto text-xs font-normal text-grisHeading">
+                <p className="font-roboto text-xs font-normal text-grisHeading">
                   {creator?.name}
                 </p>
                 <span className="font-roboto text-xs font-normal tracking-widest text-grisDisabled">
@@ -207,7 +224,7 @@ function ShareSettins({}) {
                   <Avatar className="size-6">
                     <AvatarImage src={u?.img} />
                   </Avatar>
-                  <p className="text-roboto text-xs font-normal text-grisHeading">
+                  <p className="font-roboto text-xs font-normal text-grisHeading">
                     {u?.name}
                   </p>
                 </div>
@@ -246,6 +263,44 @@ function ShareSettins({}) {
                 </Form>
               </div>
             ))}
+          </div>
+        </div>
+        <div
+          className={`flex flex-col gap-y-4 ${step == 2 ? "block" : "hidden"}`}
+        >
+          {/* add */}
+          <div className="flex flex-col gap-y-4 px-4">
+            <h2 className="font-roboto text-xs font-medium text-grisHeading">
+              Acceso Permitido
+            </h2>
+            <Select defaultValue="invited" name="actions" required>
+              <SelectTrigger className="h-[32px] w-full rounded-xl border border-[#5B89FF] bg-inherit p-0 px-3 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue></SelectValue>
+              </SelectTrigger>
+              <SelectContent className="px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
+                <SelectItem
+                  value="invited"
+                  className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
+                >
+                  <div className="flex items-center gap-x-2">
+                    <IonIcon src={lockClosedOutline} />
+                    <span>Solo los invitados</span>
+                  </div>
+                </SelectItem>
+                <SelectItem
+                  value="puesto"
+                  className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
+                >
+                  <div className="flex items-center gap-x-2">
+                    <IonIcon src={globeOutline} />
+                    <span>Todos</span>
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <h3 className="px-4 font-roboto text-xs font-normal text-[#CCCCCC]">
+              Solo la gente seleccionada tiene acceso{" "}
+            </h3>
           </div>
         </div>
       </DialogContent>
