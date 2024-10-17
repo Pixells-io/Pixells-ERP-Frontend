@@ -126,6 +126,7 @@ function MainPlan() {
                   },
                 ]}
                 eventContent={renderEventContent}
+              
               />
             </div>
             {!!selectCollection && (
