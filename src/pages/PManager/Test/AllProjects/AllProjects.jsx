@@ -6,6 +6,7 @@ import { add, searchOutline } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ListTab from "./Tabs/ListTab";
 import StatusTab from "./Tabs/StatusTab";
+import BoardTab from "./Tabs/BoardTab";
 
 function AllProjects() {
   return (
@@ -79,6 +80,9 @@ function AllProjects() {
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
+        </TabsContent>
+        <TabsContent value="board" className="overflow-auto">
+          <BoardTab />
         </TabsContent>
       </Tabs>
     </div>

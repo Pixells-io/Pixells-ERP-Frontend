@@ -2331,9 +2331,9 @@ function StatusTab() {
         onDragOver={(evt) => draggingOver(evt)}
         onDrop={(evt) => onDrop(evt, stage.id)}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span
-            className={`rounded-lg bg-[#44444F4D] px-2 py-1 font-roboto text-xs font-normal`}
+            className={`rounded-lg bg-[#44444F4D] px-2 py-1 font-roboto text-xs font-normal max-w-[113px] w-full`}
           >
             Pendiente
           </span>
@@ -2344,7 +2344,7 @@ function StatusTab() {
         <div className="overflow-auto">
           {pending?.map((p, index) => (
             <div
-              className="group relative my-4 rounded-lg bg-white px-2 py-2"
+              className="group relative mb-4 rounded-lg bg-white px-2 py-2"
               key={index}
               onDragStart={(evt) => startDrag(evt, p, pending.id)}
               draggable="true"
@@ -2445,9 +2445,9 @@ function StatusTab() {
         onDragOver={(evt) => draggingOver(evt)}
         onDrop={(evt) => onDrop(evt, stage.id)}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span
-            className={`rounded-lg bg-[#FAA3644D] px-2 py-1 font-roboto text-xs font-normal`}
+            className={`rounded-lg bg-[#FAA3644D] px-2 py-1 font-roboto text-xs font-normal max-w-[113px] w-full`}
           >
             En Progreso
           </span>
@@ -2458,7 +2458,7 @@ function StatusTab() {
         <div className="overflow-auto">
           {inProgress?.map((iP, index) => (
             <div
-              className="group relative my-4 rounded-lg bg-white px-2 py-2"
+              className="group relative mb-4 rounded-lg bg-white px-2 py-2"
               key={index}
               onDragStart={(evt) => startDrag(evt, iP, inProgress.id)}
               draggable="true"
@@ -2566,9 +2566,9 @@ function StatusTab() {
         onDragOver={(evt) => draggingOver(evt)}
         onDrop={(evt) => onDrop(evt, stage.id)}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span
-            className={`rounded-lg bg-[#00BE4C4D] px-2 py-1 font-roboto text-xs font-normal`}
+            className={`rounded-lg bg-[#00BE4C4D] px-2 py-1 font-roboto text-xs font-normal max-w-[113px] w-full`}
           >
             Completado
           </span>
@@ -2579,7 +2579,7 @@ function StatusTab() {
         <div className="overflow-auto">
           {completed?.map((c, index) => (
             <div
-              className="group relative my-4 rounded-lg bg-white px-2 py-2"
+              className="group relative mb-4 rounded-lg bg-white px-2 py-2"
               key={index}
               onDragStart={(evt) => startDrag(evt, c, completed.id)}
               draggable="true"
@@ -2680,9 +2680,9 @@ function StatusTab() {
         onDragOver={(evt) => draggingOver(evt)}
         onDrop={(evt) => onDrop(evt, stage.id)}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span
-            className={`rounded-lg bg-[#D7586B4D] px-2 py-1 font-roboto text-xs font-normal`}
+            className={`rounded-lg bg-[#D7586B4D] px-2 py-1 font-roboto text-xs font-normal max-w-[113px] w-full`}
           >
             Cancelado
           </span>
@@ -2693,7 +2693,7 @@ function StatusTab() {
         <div className="overflow-auto">
           {canceled?.map((c, index) => (
             <div
-              className="group relative my-4 rounded-lg bg-white px-2 py-2"
+              className="group relative mb-4 rounded-lg bg-white px-2 py-2"
               key={index}
               onDragStart={(evt) => startDrag(evt, c, completed.id)}
               draggable="true"
