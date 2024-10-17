@@ -42,6 +42,8 @@ function SidelayoutLead() {
     );
   }
 
+  console.log(lead);
+
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
       <EditLeadInformation
@@ -114,6 +116,36 @@ function SidelayoutLead() {
 
           <div className="flex flex-col gap-6 px-[10px]">
             <div className="flex flex-col gap-2">
+              <span className="font-roboto text-base font-medium text-grisText">
+                Servicios de Interes
+              </span>
+              <div className="mb-4 grid-cols-3 gap-4">
+                {lead?.services.map((service, i) => (
+                  <button
+                    key={i}
+                    className="line-clamp-1 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
+                    title={service.name}
+                    type="button"
+                  >
+                    {service.name}
+                  </button>
+                ))}
+              </div>
+              <span className="font-roboto text-base font-medium text-grisText">
+                Productos de Interes
+              </span>
+              <div className="mb-4 grid-cols-3 gap-4">
+                {lead?.products.map((product, i) => (
+                  <button
+                    key={i}
+                    className="line-clamp-1 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
+                    title={product.name}
+                    type="button"
+                  >
+                    {product.name}
+                  </button>
+                ))}
+              </div>
               <div className="flex gap-2">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox">
                   <img src={lead?.assigned?.img} className="rounded-md" />
@@ -127,23 +159,7 @@ function SidelayoutLead() {
                   </span>
                 </div>
               </div>
-              {/* 
-              <div className="flex gap-2">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blancoBox text-grisText">
-                  <div className="flex">
-                    <IonIcon icon={person} className="h-8 w-8"></IonIcon>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[15px] font-medium text-grisText">
-                    {follow_ups[0]?.way_of_contact}
-                  </p>
-                  <span className="text-xs text-grisSubText">
-                    Contact Method
-                  </span>
-                </div>
-              </div> 
-              */}
+
               <div className="flex flex-col gap-2 pt-2">
                 <p className="font-poppins text-lg font-semibold text-grisHeading">
                   Estado
