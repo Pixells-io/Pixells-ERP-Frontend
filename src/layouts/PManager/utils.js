@@ -123,10 +123,10 @@ export async function multiloaderPM() {
 export async function newObjective(data) {
   try {
     const info = {
-      id_workspace: data.get("id_workspace"),
+      id_workspace: data.get("workspace_id"),
       name: data.get("name"),
       type: data.get("type"),
-      year_date: new Date().toISOString(),
+      year_date: new Date().getFullYear(),
     };
 
     const response = await fetch(

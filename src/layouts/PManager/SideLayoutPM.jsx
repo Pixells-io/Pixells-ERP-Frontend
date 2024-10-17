@@ -74,7 +74,10 @@ function SideLayoutPM() {
                         />
                         <p className="text-sm text-grisSubText">Individual</p>
                       </AccordionTrigger>
-                      <NewObjectiveModal workspace_id={selectedWorkspace.id} />
+                      <NewObjectiveModal
+                        workspace_id={selectedWorkspace?.id}
+                        type={1}
+                      />
                     </div>
                     <AccordionContent>
                       Yes. It adheres to the WAI-ARIA design pattern.
@@ -83,17 +86,23 @@ function SideLayoutPM() {
                 </Accordion>
               </div>
 
-              <div>
-                <Accordion type="single" collapsible>
+              <div className="flex w-full items-center justify-between">
+                <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1" className="border-none">
-                    <AccordionTrigger className="flex items-center justify-normal gap-4 py-2">
-                      <IonIcon
-                        icon={chevronDown}
-                        size="size-6"
-                        className="text-grisSubText"
+                    <div className="flex w-full items-center justify-between">
+                      <AccordionTrigger className="flex w-full items-center justify-normal gap-4 py-2">
+                        <IonIcon
+                          icon={chevronDown}
+                          size="size-6"
+                          className="text-grisSubText"
+                        />
+                        <p className="text-sm text-grisSubText">En Equipo</p>
+                      </AccordionTrigger>
+                      <NewObjectiveModal
+                        workspace_id={selectedWorkspace?.id}
+                        type={2}
                       />
-                      <p className="text-sm text-grisSubText">En Equipo</p>
-                    </AccordionTrigger>
+                    </div>
                     <AccordionContent>
                       Yes. It adheres to the WAI-ARIA design pattern.
                     </AccordionContent>
