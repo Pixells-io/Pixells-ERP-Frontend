@@ -1,129 +1,154 @@
 /* CSS STYLES OF CALENDAR */
+.fc-multimonth-title {
+  display: flex;
+  justify-content: start; 
+  margin: 10px; 
+  font-family: 'Poppins', sans-serif; 
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #44444F;
+}
+
+
+.fc-multimonth-header-table .fc-col-header-cell {
+  border-left: none; 
+  border-right: none; 
+  border-bottom: 1px solid #E8E8E8; 
+}
+
+.fc-multimonth-header-table .fc-col-header-cell:first-child {
+  border-left: none;
+}
+
+.fc-multimonth-header-table .fc-col-header-cell:last-child {
+  border-right: none; 
+}
+
+
 .fc .fc-button-group > .fc-button {
-    background-color: transparent;
-    color: #696974 !important;
-    border: 0px !important;
-  }
-  
-  .fc-button-active {
-    color: #696974 !important;
-    background-color: #e8e8e8 !important;
-  }
-  
-  .fc-button-group {
-    /* border: 1px solid #e8e8e8 !important; */
-    border-radius: 8px;
-  }
-  
-  .fc-today-button {
-    color: #696974 !important;
-    background-color: #e8e8e8 !important;
-    border-radius: 8px;
-  }
-  
-  .fc-view-harness {
-    border-radius: 10px !important;
-    border: 1px solid #e8e8e8;
-  }
-  
-  .fc-theme-standard {
-    border: 0px !important;
-  }
-  
-  .fc-theme-standard {
-    border: 0px;
-  }
-  
-  .fc-theme-standard .fc-scrollgrid {
-    border: 0px !important;
-  }
-  
-  .fc-day {
-    border: 1px solid #e8e8e8;
-  }
-  
-  .fc-daygrid-day-top {
-    display: flex;
-    justify-content: center;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-  
-  .fc-day-today
-    > .fc-daygrid-day-frame
-    > .fc-daygrid-day-top
-    > .fc-daygrid-day-number {
-    color: white !important;
-    background: #5b89ff;
-    border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .fc .fc-daygrid-day.fc-day-today {
-    background-color: transparent !important;
-  }
-  
-  .fc {
-    height: 100% !important;
-  }
-  
-  .fc-col-header-cell-cushion {
-    font-weight: 600 !important;
-    font-size: 12px !important;
-    font: "poppins" !important;
-    line-height: 18px !important;
-    color: #44444f !important;
-  }
-  
-  .fc-daygrid-day-number {
-    font-weight: 400 !important;
-    font-size: 12px !important;
-    font: "poppins" !important;
-    line-height: 18px !important;
-    color: #696974 !important;
-  }
-  
-  .fc-timegrid-slot-label-cushion {
-    font-weight: 400 !important;
-    font-size: 12px !important;
-    font: "poppins" !important;
-    line-height: 18px !important;
-    color: #696974 !important;
-  }
-  
-  .fc-timegrid-axis-cushion {
-    font-weight: 400 !important;
-    font-size: 12px !important;
-    font: "poppins" !important;
-    line-height: 18px !important;
-    color: #696974 !important;
-  }
-  
-  .fc-col-header-cell-cushion {
-    font-weight: 600 !important;
-    font-size: 12px !important;
-    font: "poppins" !important;
-    line-height: 18px !important;
-    color: #44444f !important;
-  }
-  
-  .fc-toolbar-title {
-    font-size: 20px !important;
-    line-height: 23.44px;
-    font: "roboto" !important;
-    font-weight: 500;
-  }
-  
-  .fc-h-event {
-    background-color: transparent;
-    border: transparent;
-  }
-  
-  .fc .fc-daygrid-day-events{
-    overflow: auto!important;
-  }
-  
+  background-color: transparent;
+  color: #696974 !important;
+  border: 0px !important;
+}
+
+.fc-button-active {
+  color: #696974 !important;
+  background-color: #e8e8e8 !important;
+}
+
+.fc-button-group {
+  /* border: 1px solid #e8e8e8 !important; */
+  border-radius: 8px;
+}
+
+.fc-today-button {
+  color: #696974 !important;
+  background-color: #e8e8e8 !important;
+  border-radius: 8px;
+}
+
+.fc-view-harness {
+  border-radius: 10px !important;
+  border: 1px solid #e8e8e8;
+}
+
+.fc-theme-standard {
+  border: 0px !important;
+}
+
+.fc-theme-standard {
+  border: 0px;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: 0px !important;
+}
+
+.fc-day {
+  border: 1px solid #e8e8e8;
+  font-family: 'Poppins', sans-serif !important; /* Fuerza la aplicación */
+  font-size: 12px !important; 
+  text-transform: uppercase !important; 
+  color: #8F8F8F !important; 
+}
+
+.fc-daygrid-day-top {
+  display: flex;
+  justify-content: start;
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+}
+
+.fc-day-today
+  > .fc-daygrid-day-frame
+  > .fc-daygrid-day-top
+  > .fc-daygrid-day-number {
+  color: white !important;
+  background: #5b89ff;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: transparent !important;
+}
+
+.fc {
+  height: 100% !important;
+}
+
+
+
+.fc-daygrid-day-number {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-timegrid-slot-label-cushion {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-timegrid-axis-cushion {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #696974 !important;
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  font: "poppins" !important;
+  line-height: 18px !important;
+  color: #8f8f8f !important;
+}
+
+.fc-toolbar-title {
+  font-size: 20px !important;
+  line-height: 23.44px;
+  font: "roboto" !important;
+  font-weight: 500;
+}
+
+.fc-h-event {
+  background-color: transparent;
+  border: transparent;
+}
+
+.fc .fc-daygrid-day-events {
+  overflow: auto !important;
+}

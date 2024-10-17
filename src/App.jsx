@@ -592,6 +592,8 @@ import MainDashboardCrm, {
   Action as FuncionsDashboardCrm,
 } from "./pages/CRM/Leads/Dashboard/MainDashboardCrm";
 import ConfigurationPos from "./pages/Pos/Configuration/ConfigurationPos";
+import SideLayoutPM from "./layouts/PManager/SideLayoutPM";
+import MainPM from "./pages/PManager/MainPM";
 
 const router = createBrowserRouter([
   {
@@ -732,6 +734,16 @@ const router = createBrowserRouter([
         ],
       },
       // project manager
+      {
+        path: "/project-manager2",
+        element: <SideLayoutPM />,
+        children: [
+          {
+            index: true,
+            element: <MainPM />,
+          },
+        ],
+      },
       {
         path: "/project-manager",
         element: <SideLayoutPManager />,
@@ -1541,12 +1553,12 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element:<EditSupplierInfo/>,
+                element: <EditSupplierInfo />,
                 loader: getSupplier,
               },
               {
                 path: "/shopping/supplier/edit/:id/resumen",
-                element: <SummaryShopping/>,
+                element: <SummaryShopping />,
               },
             ],
           },
@@ -1583,7 +1595,6 @@ const router = createBrowserRouter([
             element: <EditRequests />,
             loader: multiloadesGetRequestOrder,
             action: RequestOrderEditAction,
-           
           },
           {
             path: "/shopping/purchase/",

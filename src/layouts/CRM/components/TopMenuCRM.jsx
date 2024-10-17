@@ -8,8 +8,8 @@ function TopMenuCRM() {
   return (
     <div className="flex flex-col gap-4">
       <NavLink to="/crm">
-        <div className="flex items-center gap-6 text-grisText">
-          <IonIcon icon={grid} size="large"></IonIcon>
+        <div className="flex items-center gap-4 text-grisText">
+          <IonIcon icon={grid} className="size-6"></IonIcon>
           <div>
             <p className="font-roboto text-base font-medium text-grisText">
               Inicio
@@ -18,8 +18,8 @@ function TopMenuCRM() {
         </div>
       </NavLink>
       <NavLink to="/">
-        <div className="flex items-center gap-6 text-grisText">
-          <IonIcon icon={searchOutline} size="large"></IonIcon>
+        <div className="flex items-center gap-4 text-grisText">
+          <IonIcon icon={searchOutline} className="size-6"></IonIcon>
           <div>
             <p className="font-roboto text-base font-medium text-grisText">
               Búsqueda
