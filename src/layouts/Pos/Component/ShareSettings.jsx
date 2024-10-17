@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import SelectShareSettings from "@/layouts/Masters/FormComponents/selectShareSettings";
+import SelectShareSettings from "@/layouts/Masters/FormComponents/SelectShareSettings";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
