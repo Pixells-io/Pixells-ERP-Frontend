@@ -598,7 +598,7 @@ import SideLayoutPM, {
   Action as multiActionsPM,
 } from "./layouts/PManager/SideLayoutPM";
 import MainPM from "./pages/PManager/MainPM";
-import { multiloaderPM } from "./layouts/PManager/utils";
+import { getWorkspace, multiloaderPM } from "./layouts/PManager/utils";
 
 const router = createBrowserRouter([
   {
@@ -742,7 +742,7 @@ const router = createBrowserRouter([
       {
         path: "/project-manager2",
         element: <SideLayoutPM />,
-        loader: multiloaderPM,
+        loader: getWorkspace,
         action: multiActionsPM,
         children: [
           {

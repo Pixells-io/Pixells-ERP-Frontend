@@ -21,7 +21,7 @@ export async function saveNewObjective(data) {
       },
     );
 
-    return response;
+    return response.json();
   } catch (error) {
     return new Response("Error", { status: 500 });
   }
@@ -30,7 +30,7 @@ export async function saveNewObjective(data) {
 export async function getWorkspace() {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspace`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspaces`,
       {
         body: JSON.stringify(info),
         headers: {
