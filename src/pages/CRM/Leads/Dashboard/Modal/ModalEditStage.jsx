@@ -13,7 +13,7 @@ import {
 import InputForm from "@/components/InputForm/InputForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
+function ModalEditStage({ modal, setModal, stage }) {
   const navigation = useNavigation();
   const params = useParams();
 
@@ -27,9 +27,7 @@ function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogContent className="overflow-auto p-0 sm:max-w-[425px]">
         <DialogHeader className="border-b px-8 py-6">
-          <DialogTitle className="font-poppins">
-            Asignar a Otro Usuario
-          </DialogTitle>
+          <DialogTitle className="font-poppins">Editar Etapa</DialogTitle>
         </DialogHeader>
         <Form
           id="lead-form-edit"
@@ -42,18 +40,24 @@ function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
             }
           }}
         >
-          <input type="hidden" name="lead_id" value={lead.id} />
+          <input type="hidden" name="stage_id" value={stage.id} />
           <input
             type="hidden"
             hidden
             readOnly
             name="action"
-            value="edit-lead"
+            value="edit-stage"
           />
-          <SelectRouter
-            options={users}
-            name={"assigned_id"}
-            placeholder={"Agente"}
+          <InputForm
+            placeholder={"Nombre"}
+            name={"name"}
+            defaultValue={stage.name}
+          />
+          <InputForm
+            placeholder={"Color"}
+            name={"color"}
+            type={"color"}
+            defaultValue={stage.color}
           />
           <DialogFooter className="px-8 py-4">
             <Button
@@ -61,7 +65,7 @@ function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
               disabled={navigation.state === "submitting"}
               className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
             >
-              {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
+              {navigation.state === "submitting" ? "Submitting..." : "Editar"}
             </Button>
           </DialogFooter>
         </Form>
@@ -70,4 +74,4 @@ function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
   );
 }
 
-export default ModalChangeAssignedLead;
+export default ModalEditStage;

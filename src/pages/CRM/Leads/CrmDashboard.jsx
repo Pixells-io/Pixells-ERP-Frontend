@@ -31,8 +31,6 @@ function CrmDashboard() {
   const params = useParams();
   const { process, selected, user } = useLoaderData();
 
-  console.log(selected);
-
   //INFO STATES
   const [processAll, setProcessAll] = useState(process.data);
   const [selectedProcess, setSelectedProcess] = useState(selected.data);

@@ -36,6 +36,22 @@ export async function getOneLead({ params }) {
   }
 }
 
+export async function getOneLeadId(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}crm/get-lead/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Ups", { status: 500 });
+  }
+}
+
 export async function functionSaveNewLead(data) {
   const info = {
     type: data.get("register_type"),
@@ -241,6 +257,46 @@ export async function functionCreateSaleProcessStage(data) {
 
   const response = await fetch(
     `${import.meta.env.VITE_SERVER_URL}crm/store-sale-process-stage`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function functionEditSaleProcessStage(data) {
+  const info = {
+    stage_id: data.get("stage_id"),
+    color: data.get("color"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/edit-sale-process-stage`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function functionDestroySaleProcessStage(data) {
+  const info = {
+    stage_id: data.get("stage_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}crm/destroy-sale-process-stage`,
     {
       method: "POST",
       body: JSON.stringify(info),

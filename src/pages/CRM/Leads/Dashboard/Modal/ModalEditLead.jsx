@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,11 +10,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import InputForm from "@/components/InputForm/InputForm";
 
 function ModalEditLead({ modal, setModal, lead }) {
   const navigation = useNavigation();
+  const params = useParams();
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -41,7 +41,7 @@ function ModalEditLead({ modal, setModal, lead }) {
         <Form
           id="lead-form-edit"
           className="flex flex-col gap-8 px-6"
-          action={`/crm/leads/${lead.id}`}
+          action={`/crm/dashboard/${params.id}`}
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -59,57 +59,57 @@ function ModalEditLead({ modal, setModal, lead }) {
           />
           <div className="flex flex-col gap-4 rounded-lg px-4 py-2 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
-              Business Information
+              Informacion del Negocio
             </div>
             <div className="flex flex-col gap-4 font-light">
-              <InputRouter
+              <InputForm
                 name="bussines_name"
                 type="text"
                 placeholder={placeholders[0]}
-                defaultVal={lead.business_name}
+                defaultValue={lead.name}
               />
-              <InputRouter
+              <InputForm
                 name="bussines_phone"
                 type="text"
                 placeholder={placeholders[1]}
-                defaultVal={lead.business_phone}
+                defaultValue={lead.phone}
               />
             </div>
           </div>
           <div className="flex flex-col gap-4 rounded-lg px-4 py-2 font-roboto">
             <div className="text-lg font-normal text-[#696974]">
-              Contact Information
+              Informacion de Contacto
             </div>
             <div className="flex flex-col gap-4 font-light">
-              <InputRouter
+              <InputForm
                 name="contact_name"
                 type="text"
                 placeholder={placeholders[2]}
-                defaultVal={lead.contact_name}
+                defaultValue={lead.contact_name}
               />
-              <InputRouter
+              <InputForm
                 name="contact_middle_name"
                 type="text"
                 placeholder={placeholders[3]}
-                defaultVal={lead.contact_middle_name}
+                defaultValue={lead.contact_middle_name}
               />
-              <InputRouter
+              <InputForm
                 name="contact_last_name"
                 type="text"
                 placeholder={placeholders[4]}
-                defaultVal={lead.contact_last_name}
+                defaultValue={lead.contact_last_name}
               />
-              <InputRouter
+              <InputForm
                 name="contact_phone"
                 type="text"
                 placeholder={placeholders[5]}
-                defaultVal={lead.contact_phone}
+                defaultValue={lead.contact_phone}
               />
-              <InputRouter
+              <InputForm
                 name="contact_email"
                 type="email"
                 placeholder={placeholders[6]}
-                defaultVal={lead.contact_email}
+                defaultValue={lead.contact_email}
               />
             </div>
           </div>
@@ -120,7 +120,7 @@ function ModalEditLead({ modal, setModal, lead }) {
             disabled={navigation.state === "submitting"}
             className="justify-normal rounded-lg bg-primarioBotones pl-6 pr-6 font-roboto text-xs font-semibold"
           >
-            {navigation.state === "submitting" ? "Submitting..." : "Save"}
+            {navigation.state === "submitting" ? "Submitting..." : "Guardar"}
           </Button>
         </DialogFooter>
       </DialogContent>
