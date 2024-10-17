@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const FinancialCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 8, 1)); // September 2024
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [months, setMonths] = useState([new Date()]);
   const [selectedDay, setSelectedDay] = useState(null);
+  const observerRef = useRef(null);
   const weekDays = ["LUN", "MAR", "MIE", "JUE", "VIE", "SAB", "DOM"];
 
   const getDaysInMonth = (date) => {
@@ -41,12 +41,19 @@ const FinancialCalendar = () => {
     });
   };
 
-  const daysInMonth = getDaysInMonth(currentDate);
-
-  const changeMonth = (increment) => {
-    setCurrentDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + increment, 1),
-    );
+  const loadNextMonth = () => {
+    setMonths((prevMonths) => {
+      const lastMonth = prevMonths[prevMonths.length - 1];
+      const nextMonth = new Date(
+        lastMonth.getFullYear(),
+        lastMonth.getMonth() + 1,
+        1
+      );
+      const isMonthLoaded = prevMonths.some(
+        (month) => month.getMonth() === nextMonth.getMonth() && month.getFullYear() === nextMonth.getFullYear()
+      );
+      return isMonthLoaded ? prevMonths : [...prevMonths, nextMonth];
+    });
   };
 
   const formatMonthYear = (date) => {
@@ -59,35 +66,37 @@ const FinancialCalendar = () => {
     setSelectedDay(day);
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadNextMonth();
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (months.length > 0) {
+      setCurrentDate(months[months.length - 1]);
+    }
+  }, [months]);
+
   return (
     <div className="flex h-full w-full overflow-hidden">
       <Card className="flex h-full w-full flex-col overflow-hidden border-none bg-white">
         <CardHeader className="flex-shrink-0 items-center justify-between border-b pb-2">
-          <div className="flex space-x-4">
-            <Button
-              onClick={() => changeMonth(-1)}
-              type="button"
-              className="bg-transparent hover:bg-transparent"
-            >
-              <IonIcon
-                icon={chevronBack}
-                size="small"
-                className="h-7 w-7 rounded-[20px] bg-blancoBox p-1 text-[#8F8F8F]"
-              />
-            </Button>
-            <Button
-              onClick={() => changeMonth(1)}
-              type="button"
-              className="bg-transparent hover:bg-transparent"
-            >
-              <IonIcon
-                icon={chevronForward}
-                size="small"
-                className="h-7 w-7 rounded-[20px] bg-blancoBox p-1 text-[#8F8F8F]"
-              />
-            </Button>
-          </div>
-
           {/* WEEK */}
           <div className="grid w-full grid-cols-7 gap-4">
             {weekDays.map((day) => (
@@ -100,49 +109,74 @@ const FinancialCalendar = () => {
             ))}
           </div>
         </CardHeader>
-        {/* TITLE */}
-        <div className="ml-4 mt-2 flex flex-shrink-0 justify-start gap-6">
-          <span className="font-poppins text-sm font-semibold text-[#44444F]">
-            {formatMonthYear(currentDate)}
-          </span>
-          <span className="font-poppins text-sm font-light text-[#44444F]">
-            $450,000.00
-          </span>
-        </div>
-        {/* MONTH */}
+
+        {/*PAST MONTHS */}
+        {months.map((month, index) => (
+          <div key={index} className="ml-4 mt-2 flex flex-shrink-0 justify-start gap-6">
+            <span className="font-poppins text-sm font-semibold text-[#44444F]">
+              {formatMonthYear(month)}
+            </span>
+            <span className="font-poppins text-sm font-light text-[#44444F]">
+              $450,000.00
+            </span>
+          </div>
+        ))}
+        {/* MONTHS */}
         <CardContent className="flex-grow overflow-auto p-4">
-          <div className="grid grid-cols-7 gap-1">
-            {daysInMonth.map(
-              ({ day, positive, negative, documents }, index) => (
-                <div
-                  key={index}
-                  className={`h-[110px] cursor-pointer border p-1 ${selectedDay && selectedDay.day === day ? "bg-gray-100" : ""}`}
-                  onClick={() =>
-                    handleDayClick({ day, positive, negative, documents })
-                  }
-                >
-                  {day && (
-                    <div className="p-2 font-poppins text-sm font-light text-[#44444F]">
-                      {day}
-                    </div>
-                  )}
-                  {positive && (
-                    <div className="mt-1 h-[33px] text-center font-poppins text-xs font-light text-[#00A259]">
-                      +${positive.toFixed(2)}
-                    </div>
-                  )}
-                  {negative && (
-                    <div className="mb-2 h-[33px] text-center font-poppins text-xs font-light text-[#D7586B]">
-                      -${negative.toFixed(2)}
-                    </div>
+          {months.map((month, index) => {
+            const daysInMonth = getDaysInMonth(month);
+            return (
+              <div key={index} className="mb-4">
+                {/* Month Title */}
+                <div className="ml-4 mt-2 flex flex-shrink-0 justify-start gap-6">
+                  <span className="font-poppins text-sm font-semibold text-[#44444F]">
+                    {formatMonthYear(month)}
+                  </span>
+                  <span className="font-poppins text-sm font-light text-[#44444F]">
+                    $450,000.00
+                  </span>
+                </div>
+                {/* Days Grid */}
+                <div className="grid grid-cols-7 gap-[2px]">
+                  {daysInMonth.map(
+                    ({ day, positive, negative, documents }, dayIndex) => (
+                      <div
+                        key={dayIndex}
+                        className={`h-[110px] cursor-pointer border p-1 ${
+                          selectedDay && selectedDay.day === day
+                            ? "bg-gray-100"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          handleDayClick({ day, positive, negative, documents })
+                        }
+                      >
+                        {day && (
+                          <div className="p-2 font-poppins text-sm font-light text-[#44444F]">
+                            {day}
+                          </div>
+                        )}
+                        {positive && (
+                          <div className="mt-1 h-[33px] text-center font-poppins text-xs font-light text-[#00A259]">
+                            +${positive.toFixed(2)}
+                          </div>
+                        )}
+                        {negative && (
+                          <div className="mb-2 h-[33px] text-center font-poppins text-xs font-light text-[#D7586B]">
+                            -${negative.toFixed(2)}
+                          </div>
+                        )}
+                      </div>
+                    )
                   )}
                 </div>
-              ),
-            )}
-          </div>
+              </div>
+            );
+          })}
+          {/* Scroll observer target */}
+          <div ref={observerRef} className="h-10"></div>
         </CardContent>
       </Card>
-
       {selectedDay && (
         <div className="flex h-full w-full max-w-[450px] flex-col overflow-hidden border-l">
           <Tabs

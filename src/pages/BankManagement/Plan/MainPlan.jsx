@@ -7,7 +7,7 @@ import multiMonthPlugin from "@fullcalendar/multimonth";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import CalendarioFinanciero from "./Components/Calendar";
+import FinancialCalendar from "./Components/Calendar";
 
 function MainPlan() {
   const [selectCollection, setSelectCollection] = useState(null);
@@ -100,7 +100,7 @@ function MainPlan() {
             RESUMEN DE CUENTAS
           </h2>
           <div className="w-full overflow-hidden">
-          <CalendarioFinanciero/>
+          <FinancialCalendar/>
             <div className="w-full">
              
             </div>
