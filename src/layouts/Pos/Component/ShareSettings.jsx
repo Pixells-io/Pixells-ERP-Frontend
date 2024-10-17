@@ -81,7 +81,7 @@ function ShareSettins({}) {
   }, [navigation.state]);
 
   return (
-    <Dialog open={modal} onOpenChange={setModal}>
+    <Dialog open={true} onOpenChange={setModal}>
       <DialogTrigger
         className={
           "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
@@ -100,6 +100,34 @@ function ShareSettins({}) {
         <DialogDescription className="hidden"></DialogDescription>
         <div className="flex flex-col gap-y-4">
           {/* add */}
+          <Form method="post" className="px-4">
+            <Select defaultValue="users" name="actions" required>
+              <SelectTrigger className="h-[32px] w-full rounded-xl border border-[#5B89FF] bg-inherit p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
+                <SelectItem
+                  value="users"
+                  className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
+                >
+                  Usuario
+                </SelectItem>
+                <SelectItem
+                  value="puesto"
+                  className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
+                >
+                  Puesto
+                </SelectItem>
+                <SelectItem
+                  value="area"
+                  className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
+                >
+                  Area
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </Form>
+
           <Form className="flex h-full w-full flex-col px-4" method="post">
             <div className="flex items-center gap-x-4">
               <SelectShareSettings
