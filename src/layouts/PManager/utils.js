@@ -32,7 +32,6 @@ export async function getWorkspace() {
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspaces`,
       {
-        body: JSON.stringify(info),
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
