@@ -37,8 +37,7 @@ const InputWithDropzone = ({
   });
   return (
     <div className="mb-2 flex flex-col rounded-[20px] border p-0">
-      <div className={`border-b ${input.value ? "" : "rounded-[20px]"}`}
-      >
+      <div className={`${input.value ? "border-b" : ""}`}>
         <input
           type="text"
           value={input.value}
@@ -47,34 +46,35 @@ const InputWithDropzone = ({
           placeholder="Agregar titulo"
         />
       </div>
-      {input.value && (
-        <div 
-        className={`p-2 ${input.value ? "" : "mt-[-48px]"}`}
->
-          {input.files.length > 0 && (
-            <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
-              {input.files.map((file, index) => (
-                <div key={index} className="group relative">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
-                    className="h-[48px] w-[46px] rounded-[8px] object-cover"
+      <div className={`${input.value ? "p-2" : ""}`}
+      >
+        {input.files.length > 0 && (
+          <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
+            {input.files.map((file, index) => (
+              <div key={index} className="group relative">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                />
+                <button
+                  onClick={() => onRemoveFile(input.id, index)}
+                  className="absolute right-0 top-0 hidden group-hover:block"
+                >
+                  <IonIcon
+                    icon={closeCircle}
+                    className="size-5 text-[#44444F]"
                   />
-                  <button
-                    onClick={() => onRemoveFile(input.id, index)}
-                    className="absolute right-0 top-0 hidden group-hover:block"
-                  >
-                    <IonIcon
-                      icon={closeCircle}
-                      className="size-5 text-[#44444F]"
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="flex justify-between space-x-4">
-            {input.value && ( <div
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <div
+          className={` ${!input.value ? "mt-[1px] flex justify-end" : "flex justify-between space-x-4"}`}
+        >
+          {input.value && (
+            <div
               {...getRootProps()}
               className="flex cursor-pointer items-center"
             >
@@ -83,15 +83,15 @@ const InputWithDropzone = ({
                 icon={imageOutline}
                 className="h-[16px] w-[16px] text-[#44444F]"
               />
-            </div>)}
-            <IonIcon
-              icon={chevronForwardOutline}
-              className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${input.value ? "" : "right-0 mt-[-48px]"}`}
-              onClick={() => onSubmit(input)}
-            />
-          </div>
+            </div>
+          )}
+          <IonIcon
+            icon={chevronForwardOutline}
+            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mt-[-40px] flex justify-end mr-2" : ""}`}
+            onClick={() => onSubmit(input)}
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 };
