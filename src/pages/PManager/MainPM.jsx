@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { redirect, useLoaderData } from "react-router-dom";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,11 +12,13 @@ import { Progress } from "@/components/ui/progress";
 
 import NavigationHeader from "@/components/navigation-header";
 
-import { IonIcon } from "@ionic/react";
-import { add, chevronDown, ellipsisVertical } from "ionicons/icons";
 import ShareSettins from "./components2/ShareSettings/ShareSettings";
-import { useLoaderData } from "react-router-dom";
 import NewTaskModal from "./components2/Modals/NewTaskModal";
+
+import { IonIcon } from "@ionic/react";
+import { chevronDown, ellipsisVertical } from "ionicons/icons";
+
+import { saveNewTaskPM } from "@/layouts/PManager/utils";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -86,11 +87,12 @@ const OPTIONS = [
 ];
 
 function MainPM() {
-  const { data } = useLoaderData();
-  const [workspaces, setWorkspaces] = useState([]);
-  const [objectivesYears, setBbjectivesYears] = useState([]);
-  const [objectivesIndividual, setObjectivesIndividual] = useState([]);
-  const [objectivesTeam, setObjectivesTeam] = useState([]);
+  const { objective, users } = useLoaderData();
+  const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
+  const [task, setTasks] = useState(
+    objectiveInfo?.project?.concat(objectiveInfo?.tasks),
+  );
+  console.log(task);
 
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
@@ -111,11 +113,11 @@ function MainPM() {
       </div>
       <div className="flex w-full items-center justify-between">
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-          {data?.name || "Objetivo No Cargo Correctamente"}
+          {objectiveInfo?.name || "Objetivo No Cargo Correctamente"}
         </h2>
         <div className="flex items-center gap-4">
           <ShareSettins />
-          <NewTaskModal />
+          <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
       </div>
 
@@ -140,29 +142,29 @@ function MainPM() {
           ))}
         </div>
 
-        {OPTIONS.map((opt, i) => (
+        {task.map((opt, i) => (
           <div
             key={i}
             className="grid h-12 w-full grid-cols-9 items-center border-b"
           >
             <div
               className={
-                opt.tipo == "Proyecto"
+                opt.type == "Proyecto"
                   ? "col-span-1 text-xs text-primarioBotones"
                   : "col-span-1 text-xs"
               }
             >
-              {opt.tipo}
+              {opt.type}
             </div>
-            <div className="col-span-2 text-xs">{opt.nombre}</div>
+            <div className="col-span-2 text-xs">{opt.name}</div>
             <div className="col-span-1 flex flex-col items-center px-3">
-              {opt.tipo == "Proyecto" && (
+              {opt.type == "Proyecto" && (
                 <>
                   <p className="w-full px-1 text-right text-[10px] font-normal text-grisHeading">
-                    {opt.progreso.toFixed(2)}%
+                    {opt.progress.toFixed(2)}%
                   </p>
                   <Progress
-                    value={opt.progreso}
+                    value={opt.progress}
                     className="h-[4px] bg-grisDisabled fill-primario"
                   />
                 </>
@@ -180,19 +182,19 @@ function MainPM() {
             <div className="col-span-1 text-center">
               <div
                 className={
-                  opt.prioridad == "Baja"
+                  opt.prioridad == "1"
                     ? "text-xs text-[#DC9100]"
-                    : opt.prioridad == "Media"
+                    : opt.prioridad == "2"
                       ? "text-xs text-[#D75B00]"
                       : "text-xs text-[#B7021F]"
                 }
               >
-                {opt.prioridad}
+                {opt.priority}
               </div>
             </div>
             <div className="col-span-1 flex justify-center">
               <Avatar className="size-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src={opt.creator.img} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
@@ -238,3 +240,17 @@ function MainPM() {
 }
 
 export default MainPM;
+
+export async function Action({ params, request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+  console.log(action);
+  switch (action) {
+    case "create-task":
+      await saveNewTaskPM(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    default:
+      return redirect(`/project-manager2/${params.id}`);
+  }
+}

@@ -25,11 +25,11 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 import DatePicker from "@/components/date-picker";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function NewTaskModal() {
+function NewTaskModal({ users, objective_id }) {
   const params = useParams();
   const [modal, setModal] = useState(false);
   const [responsable, setResponsable] = useState("");
-  const [selectTaskType, setSelectTaskType] = useState("tarea");
+  const [selectTaskType, setSelectTaskType] = useState("activity");
   const [repeticion, setRepeticion] = useState("1");
 
   const navigation = useNavigation();
@@ -42,16 +42,17 @@ function NewTaskModal() {
     }
   }, [navigation.state]);
 
-  // arrayFillUsers(users, arrayUsers);
+  arrayFillUsers(users.data, arrayUsers);
 
-  // function arrayFillUsers(data, array) {
-  //   data.forEach((element) => {
-  //     array.push({
-  //       label: `${element.name} ${element.last_name} ${element.second_last_name}`,
-  //       value: element.id,
-  //     });
-  //   });
-  // }
+  function arrayFillUsers(data, array) {
+    data.forEach((element) => {
+      array.push({
+        label: `${element.name} ${element.last_name} ${element.second_last_name}`,
+        value: element.id,
+      });
+    });
+  }
+
   return (
     <div>
       <Dialog open={modal} onOpenChange={setModal}>
@@ -61,7 +62,7 @@ function NewTaskModal() {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="flex flex-col gap-6">
-            <DialogTitle>Agregar Tarea</DialogTitle>
+            <DialogTitle>Agregar Actividad/Proyecto</DialogTitle>
           </DialogHeader>
 
           <Form
@@ -73,14 +74,14 @@ function NewTaskModal() {
             {/* selector de task */}
             <div className="flex gap-2">
               <div
-                onClick={() => setSelectTaskType("tarea")}
+                onClick={() => setSelectTaskType("activity")}
                 className={
-                  selectTaskType === "tarea"
+                  selectTaskType === "activity"
                     ? "cursor-pointer rounded-lg bg-[#5B89FF1F] px-3 py-2 text-[10px] text-primarioBotones"
                     : "cursor-pointer rounded-lg bg-gris px-3 py-2 text-[10px] font-light text-grisSubText"
                 }
               >
-                Tarea
+                Actividad
               </div>
               <div
                 onClick={() => setSelectTaskType("proyecto")}
@@ -96,7 +97,7 @@ function NewTaskModal() {
                 className="hidden"
                 name="type"
                 type="text"
-                value={selectTaskType == "tarea" ? 0 : 1}
+                value={selectTaskType == "activity" ? 1 : 2}
                 readOnly
               />
             </div>
@@ -127,14 +128,9 @@ function NewTaskModal() {
             </div>
 
             {/* form parte 2 */}
-            {selectTaskType && selectTaskType === "proyecto" ? (
+            {selectTaskType && selectTaskType == "proyecto" ? (
               <div className="grid grid-cols-6 gap-4 rounded-lg px-4">
                 <div className="col-span-4">
-                  {/* <Textarea
-                  name="description"
-                  placeholder="Descripción"
-                  className="bg-blancoBox"
-                /> */}
                   <InputRouter
                     type="textarea"
                     name="description"
@@ -148,7 +144,7 @@ function NewTaskModal() {
                   <SelectRouter
                     name="userId"
                     placeholder={"Responsable"}
-                    //   options={arrayUsers}
+                    options={arrayUsers}
                   />
                 </div>
 
@@ -174,15 +170,9 @@ function NewTaskModal() {
                 {repeticion && repeticion === "0" ? (
                   <>
                     <div className="col-span-2">
-                      {/* <input type="date" name="star_date" /> */}
                       <DatePicker name="star_date" />
                     </div>
                     <div className="col-span-4">
-                      {/* <Textarea
-                      name="description"
-                      placeholder="Descripción"
-                      className="bg-blancoBox"
-                    /> */}
                       <InputRouter
                         type="textarea"
                         name="description"
@@ -193,11 +183,9 @@ function NewTaskModal() {
                 ) : (
                   <>
                     <div className="col-span-2">
-                      {/* <input type="date" name="star_date" /> */}
                       <DatePicker name="star_date" />
                     </div>
                     <div className="col-span-2">
-                      {/* <input type="date" name="end_date" /> */}
                       <DatePicker name="end_date" />
                     </div>
 
@@ -224,18 +212,26 @@ function NewTaskModal() {
                         name="description"
                         placeholder="Descripción"
                       />
-                      {/* <Textarea
-                      name="description"
-                      placeholder="Descripción"
-                      className="bg-blancoBox"
-                    /> */}
                     </div>
                   </>
                 )}
               </div>
             )}
 
-            <Input className="hidden" name="action" value="task" readOnly />
+            <Input
+              type="hidden"
+              className="hidden"
+              name="action"
+              value="create-task"
+              hidden
+            />
+            <Input
+              type="hidden"
+              className="hidden"
+              name="objective_id"
+              value={objective_id}
+              hidden
+            />
 
             <DialogFooter>
               <Button
