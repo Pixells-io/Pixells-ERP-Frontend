@@ -71,13 +71,11 @@ const InputWithDropzone = ({
               <input {...getInputProps()} />
               <IonIcon icon={imageOutline} className="h-[16px] w-[16px] text-[#44444F]" />
             </div>
-           
-              <IonIcon
-                icon={chevronForwardOutline}
-                className="h-[30px] w-[30px] rounded-full text-xs text-white bg-[#5B89FF]"
-                onClick={() => onSubmit(input)}
-              />
-           
+            <IonIcon
+              icon={chevronForwardOutline}
+              className="h-[30px] w-[30px] rounded-full text-xs text-white bg-[#5B89FF]"
+              onClick={() => onSubmit(input)}
+            />
           </div>
         </>
       )}
@@ -90,6 +88,7 @@ const DynamicForm = () => {
   const [inputs, setInputs] = useState([]);
   const [showButton, setShowButton] = useState(true);
   const [submittedInputs, setSubmittedInputs] = useState([]);
+
   const handleAddInput = () => {
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
@@ -127,13 +126,25 @@ const DynamicForm = () => {
     );
   };
 
+  const handleRemoveSubmittedFile = (inputId, fileIndex) => {
+    setSubmittedInputs((prevSubmitted) =>
+      prevSubmitted.map((input) =>
+        input.id === inputId
+          ? {
+              ...input,
+              files: input.files.filter((_, index) => index !== fileIndex),
+            }
+          : input
+      )
+    );
+  };
+
   const handleSubmit = (input) => {
-    setSubmittedInputs((prevSubmitted) => [...prevSubmitted, input]);
+    setSubmittedInputs((prevSubmitted) => [...prevSubmitted, { ...input, id: Date.now() }]);
     setIsOpen(true);
     setInputs([]);
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
-   
   };
 
   return (
@@ -178,12 +189,22 @@ const DynamicForm = () => {
                   <span className="font-light text-[11px] font-roboto text-[#44444F]">{input.value}</span>
                   <div className="flex space-x-2">
                     {input.files.map((file, fileIndex) => (
-                      <img
-                        key={fileIndex}
-                        src={URL.createObjectURL(file)}
-                        alt={file.name}
-                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                      />
+                      <div key={fileIndex} className="group relative">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                        />
+                        <button
+                          onClick={() => handleRemoveSubmittedFile(input.id, fileIndex)}
+                          className="absolute right-0 top-0 hidden group-hover:block"
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            className="size-5 text-[#44444F]"
+                          />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -197,7 +218,7 @@ const DynamicForm = () => {
                 Nuevo
               </Button>
             )}
-            { inputs.map((input) => (
+            {inputs.map((input) => (
               <InputWithDropzone
                 key={input.id}
                 input={input}
