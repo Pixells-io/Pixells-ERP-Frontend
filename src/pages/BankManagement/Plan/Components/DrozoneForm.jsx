@@ -40,7 +40,7 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className="mb-2 mt-[6px] flex h-[31px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0"
+          className="mb-2 mt-[6px] flex h-[31px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0"
           placeholder="Agregar titulo"
         />
       </div>
