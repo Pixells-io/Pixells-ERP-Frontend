@@ -598,7 +598,11 @@ import SideLayoutPM, {
   Action as multiActionsPM,
 } from "./layouts/PManager/SideLayoutPM";
 import MainPM from "./pages/PManager/MainPM";
-import { getWorkspace, multiloaderPM } from "./layouts/PManager/utils";
+import {
+  getObjectiveById,
+  getWorkspace,
+  multiloaderPM,
+} from "./layouts/PManager/utils";
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
 import AllActivities from "./pages/PManager/Test/AllActivities/AllActivities";
@@ -754,14 +758,15 @@ const router = createBrowserRouter([
           },
           {
             path: "/project-manager2/:id",
+            loader: getObjectiveById,
             element: <MainPM />,
           },
           {
-            path: "/project-manager2/test",
+            path: "/project-manager2/proyects/:id",
             element: <AllProjects />,
           },
           {
-            path: "/project-manager2/testt",
+            path: "/project-manager2/activities/:id",
             element: <AllActivities />,
           },
         ],

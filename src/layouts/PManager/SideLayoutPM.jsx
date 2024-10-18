@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Outlet, redirect, useLoaderData } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 
 import {
   Accordion,
@@ -25,6 +31,7 @@ import NewObjectiveModal from "@/pages/PManager/components2/Modals/NewObjectiveM
 
 function SideLayoutPM() {
   const data = useLoaderData();
+  const navigate = useNavigate();
   const [workspaces, setWorkspaces] = useState(data.workspaces.data);
   const [objectivesYears, setBbjectivesYears] = useState([]);
   const [objectives, setObjectives] = useState([]);
@@ -41,12 +48,23 @@ function SideLayoutPM() {
   useEffect(() => {
     if (selectedWorkspace) {
       getObjectivesByWorkspaceId(selectedWorkspace.id).then(({ data }) => {
-        console.log(data);
-        setObjectivesIndividual(data?.objetives_individual);
-        setObjectivesTeam(data?.objetives_team);
+        setObjectivesIndividual(data?.individual);
+        setObjectivesTeam(data?.team);
       });
     }
   }, [selectedWorkspace]);
+
+  useEffect(() => {
+    if (objectivesIndividual.length > 0) {
+      navigate(`/project-manager2/${objectivesIndividual[0].id}`);
+    }
+  }, [objectivesIndividual]);
+
+  useEffect(() => {
+    if (objectivesIndividual.length == 0 && objectivesTeam.length > 0) {
+      navigate(`/project-manager2/${objectivesTeam[0].id}`);
+    }
+  }, [objectivesTeam]);
 
   return (
     <div className="flex h-full w-full">
@@ -163,7 +181,7 @@ function SideLayoutPM() {
                     </AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-2">
                       <NavLink
-                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        to={`/project-manager2/proyects/${selectedWorkspace.id}`}
                         className={({ isActive }) =>
                           isActive
                             ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
@@ -174,7 +192,7 @@ function SideLayoutPM() {
                         Todos los Proyectos
                       </NavLink>
                       <NavLink
-                        to={`/project-manager2/all/${selectedWorkspace.id}`}
+                        to={`/project-manager2/activities/${selectedWorkspace.id}`}
                         className={({ isActive }) =>
                           isActive
                             ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
@@ -184,7 +202,7 @@ function SideLayoutPM() {
                         <IonIcon icon={flag} className="size-4 shrink-0" />
                         Todas las Actividades
                       </NavLink>
-                      <NavLink
+                      {/* <NavLink
                         to={`/project-manager2/all/${selectedWorkspace.id}`}
                         className={({ isActive }) =>
                           isActive
@@ -205,7 +223,7 @@ function SideLayoutPM() {
                       >
                         <IonIcon icon={flag} className="size-4 shrink-0" />
                         Todos los Archivos
-                      </NavLink>
+                      </NavLink> */}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>

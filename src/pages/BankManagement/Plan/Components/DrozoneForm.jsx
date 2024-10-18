@@ -20,6 +20,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Input } from "@/components/ui/input";
 
 const InputWithDropzone = ({
   input,
@@ -35,18 +36,23 @@ const InputWithDropzone = ({
     },
   });
   return (
-    <div className="mb-2 flex flex-col rounded-[12px]">
-      <InputForm
-        type="text"
-        value={input.value}
-        onChange={(e) => onInputChange(input.id, e.target.value)}
-        className="mb-2 h-[31px] flex-grow rounded-[12px] bg-[#F6F6F6]"
-        placeholder="Agregar titulo"
-      />
+    <div className="mb-2 flex flex-col rounded-[20px] border p-0">
+      <div className={`border-b ${input.value ? "" : "rounded-[20px]"}`}
+      >
+        <input
+          type="text"
+          value={input.value}
+          onChange={(e) => onInputChange(input.id, e.target.value)}
+          className="mb-2 mt-[6px] flex h-[31px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0"
+          placeholder="Agregar titulo"
+        />
+      </div>
       {input.value && (
-        <>
+        <div 
+        className={`p-2 ${input.value ? "" : "mt-[-48px]"}`}
+>
           {input.files.length > 0 && (
-            <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-[#F6F6F6]">
+            <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
               {input.files.map((file, index) => (
                 <div key={index} className="group relative">
                   <img
@@ -67,8 +73,8 @@ const InputWithDropzone = ({
               ))}
             </div>
           )}
-          <div className="flex justify-between space-x-2">
-            <div
+          <div className="flex justify-between space-x-4">
+            {input.value && ( <div
               {...getRootProps()}
               className="flex cursor-pointer items-center"
             >
@@ -77,14 +83,14 @@ const InputWithDropzone = ({
                 icon={imageOutline}
                 className="h-[16px] w-[16px] text-[#44444F]"
               />
-            </div>
+            </div>)}
             <IonIcon
               icon={chevronForwardOutline}
-              className="h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white"
+              className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${input.value ? "" : "right-0 mt-[-48px]"}`}
               onClick={() => onSubmit(input)}
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -96,8 +102,6 @@ const DynamicForm = () => {
   const [showButton, setShowButton] = useState(true);
   const [showContent, setShowContent] = useState(true);
   const [submittedInputs, setSubmittedInputs] = useState([]);
-
-  console.log(submittedInputs[submittedInputs.length - 1]);
   {
     /*Add New input */
   }
@@ -172,12 +176,7 @@ const DynamicForm = () => {
     <HoverCard>
       <HoverCardTrigger>
         <div>
-          <DropdownMenu
-            open={isOpen}
-            onOpenChange={setIsOpen}
-            className={"rounded-[20px]"}
-            style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.25)" }}
-          >
+          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button
                 onClick={() => setIsOpen(true)}
@@ -186,11 +185,12 @@ const DynamicForm = () => {
                 <IonIcon icon={add} className="size-12 text-[#44444F]" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex max-h-[400px] w-[450px] flex-col gap-2 overflow-scroll rounded-[10px]">
+            <DropdownMenuContent
+              className={`flex max-h-[400px] w-[450px] flex-col gap-2 overflow-hidden rounded-[10px] p-2 ${!showContent ? "bg-none" : ""}`}
+              style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+            >
               {!showContent ? (
-                <div
-                  style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.25)" }}
-                >
+                <div>
                   {inputs.map((input) => (
                     <InputWithDropzone
                       key={input.id}
@@ -204,7 +204,7 @@ const DynamicForm = () => {
                 </div>
               ) : (
                 <>
-                  <div className="mb-4 flex w-full justify-start border-b pb-2">
+                  <div className="mb-4 flex h-[40px] w-full justify-start border-b pb-2">
                     <span className="ml-2 mt-2 h-[19px] font-poppins text-[11px] font-medium">
                       Documentos
                     </span>
@@ -215,23 +215,23 @@ const DynamicForm = () => {
                         key={index}
                         className="mb-4 flex flex-col items-start border-b pb-3 pl-2 pr-2 pt-1"
                       >
-                        <div className="flex items-center gap-2">
-                          <Avatar className="flex h-6 w-6">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="flex h-[22px] w-[22px]">
                             <AvatarImage
                               src="https://github.com/shadcn.png"
                               alt="@shadcn"
                             />
                             <AvatarFallback>??</AvatarFallback>
                           </Avatar>
-                          <p className="text-[12px] text-grisText">
-                            "Don Formulario" &bull;{" "}
-                            <span className="text-[10px] text-[#ABABAB]">
+                          <p className="text-[12px] font-medium text-[#696974]">
+                            Don Formulario &bull;
+                            <span className="text-[12px] font-normal text-[#ABABAB]">
                               Hace 3 días
                             </span>
                           </p>
                         </div>
-                        <div className="flex flex-col max-w-[300px]">
-                          <span className="font-roboto text-[11px] truncate font-light text-[#44444F]">
+                        <div className="flex max-w-[300px] flex-col">
+                          <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
                             {input.value}
                           </span>
                           <div className="flex space-x-2">
@@ -288,33 +288,33 @@ const DynamicForm = () => {
         </div>
       </HoverCardTrigger>
       {open != true ? (
-      <HoverCardContent
-      className="w-80 h-[99px] h-full overflow-auto rounded-[20px]"
-      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-    >
-      <div className="flex flex-col">
-        {submittedInputs.length > 0 && (
-          <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-            <div className="flex items-center gap-2">
-              <Avatar className="flex h-6 w-6">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>??</AvatarFallback>
-              </Avatar>
-              <p className="text-[12px] text-grisText">
-                "Don Formulario" &bull;{" "}
-                <span className="text-[10px] text-[#ABABAB]">
-                  Hace 3 días
-                </span>
-              </p>
-            </div>
-            <div className="flex flex-col max-w-[250px]">
-            <span className="font-roboto text-[11px] font-light text-[#44444F] break-words">
-                {submittedInputs[submittedInputs.length - 1].value}
-              </span>
-              {/* <div className="flex space-x-2">
+        <HoverCardContent
+          className="h-[99px] h-full w-80 overflow-auto rounded-[20px]"
+          style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+        >
+          <div className="mx-2 flex flex-col">
+            {submittedInputs.length > 0 && (
+              <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
+                <div className="flex items-center gap-2">
+                  <Avatar className="flex h-6 w-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>??</AvatarFallback>
+                  </Avatar>
+                  <p className="text-[12px] font-medium text-[#696974]">
+                    Don Formulario &bull;
+                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                      Hace 3 días
+                    </span>
+                  </p>
+                </div>
+                <div className="flex max-w-[250px] flex-col">
+                  <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
+                    {submittedInputs[submittedInputs.length - 1].value}
+                  </span>
+                  {/* <div className="flex space-x-2">
                 {submittedInputs[submittedInputs.length - 1].files.map(
                   (file, fileIndex) => (
                     <div key={fileIndex} className="group relative">
@@ -327,11 +327,11 @@ const DynamicForm = () => {
                   ),
                 )}
               </div> */}
-            </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </HoverCardContent>
+        </HoverCardContent>
       ) : (
         false
       )}
