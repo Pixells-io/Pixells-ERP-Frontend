@@ -1,30 +1,120 @@
 import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import {
-  addCircle,
-  card,
-  checkmarkCircle,
-  chevronBack,
-  chevronForward,
-  cloud,
-  document,
-  ellipseSharp,
-  mail,
-  person,
-  syncCircle,
-  time,
-} from "ionicons/icons";
-import CardFollowUp from "./CardFollowUp";
-
-import { format } from "date-fns";
+import { ellipseSharp, ellipsisHorizontalSharp } from "ionicons/icons";
 import NavigationHeader from "@/components/navigation-header";
+import CardFollowUp from "./CardFollowUp";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import ModalConvertClient from "../Dashboard/Modal/ModalConvertClient";
+import ModalEditLead from "../Dashboard/Modal/ModalEditLead";
+import ModalChangeAssignedLead from "../Dashboard/Modal/ModalChangeAssignedLead";
+import ModalCreateActivity from "../Dashboard/Modal/ModalCreateActivity";
 
 function MainLead() {
   const [lead] = useOutletContext();
 
+  const [modalActivity, setModalActivity] = useState(false);
+  const [modalConvertClient, setModalConvertClient] = useState(false);
+  const [modalEditLead, setModalEditLead] = useState(false);
+  const [modalChangeAssigned, setModalChangeAssigned] = useState(false);
+  const [leadInfo, setLead] = useState(false);
+  const [leadId, setLeadId] = useState(false);
+  const [leadName, setLeadName] = useState(false);
+  const [typeActivity, setTypeActivity] = useState(false);
+  const [activityName, setActivityName] = useState(false);
+
+  //Function open modal action
+  function openModalAction(id, type, name) {
+    switch (type) {
+      case 1:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Dimensionar Oportunidad");
+        break;
+      case 2:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Enviar Correo");
+        break;
+      case 3:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Programar Correo");
+        break;
+      case 4:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Programar Mensaje");
+        break;
+      case 5:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Agendar Actividad");
+        break;
+      case 6:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Crear Cotizacion");
+        break;
+      case 7:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Asociar Producto / Servicio");
+        break;
+      case 8:
+        setModalActivity(true);
+        setLeadId(id);
+        setTypeActivity(type);
+        setActivityName("Recordatorio para Mover al Lead");
+        break;
+      case 9:
+        setModalConvertClient(true);
+        setLeadId(id);
+        setLeadName(name);
+        setActivityName("Convertir a Cliente");
+        break;
+    }
+  }
+
   return (
     <div className="flex w-full">
+      <ModalCreateActivity
+        modal={modalActivity}
+        setModal={setModalActivity}
+        lead_id={leadId}
+        type={typeActivity}
+        activity_name={activityName}
+        //services={data.services}
+        //products={data.products}
+      />
+      <ModalConvertClient
+        modal={modalConvertClient}
+        setModal={setModalConvertClient}
+        lead_id={leadId}
+        lead_name={leadName}
+      />
+      <ModalEditLead
+        modal={modalEditLead}
+        setModal={setModalEditLead}
+        lead={leadInfo}
+      />
+      <ModalChangeAssignedLead
+        modal={modalChangeAssigned}
+        setModal={setModalChangeAssigned}
+        lead={leadInfo}
+        //users={data.users}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
@@ -35,13 +125,6 @@ function MainLead() {
               LEADS INFORMACION
             </h2>
           </div>
-          {/* <div className="flex items-center gap-3 text-[#8F8F8F]">
-            <div>4 services</div>
-            <div className="text-2xl">&bull;</div>
-            <div>9 Leads</div>
-            <div className="text-2xl">&bull;</div>
-            <div>43 activities</div>
-          </div> */}
         </div>
         {/* icons line */}
         <div className="flex h-20 justify-center overflow-auto align-middle">
@@ -92,38 +175,90 @@ function MainLead() {
           </div>
         </div>
         {/* cards */}
-        <div className="flex h-full w-full flex-col items-center overflow-auto bg-blancoBg">
-          <div className="my-6 flex w-[510px] shrink-0 flex-col rounded-lg bg-gris pb-2 shadow-sm drop-shadow-sm">
-            {/* card header */}
-            <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-              <div className="flex items-center gap-2 p-1">
-                <IonIcon
-                  icon={addCircle}
-                  size="large"
-                  className="text-primario"
-                ></IonIcon>
-
-                <p className="text-[15px] font-medium text-gris2">Registro</p>
-              </div>
-              <div className="flex items-center gap-2 p-1 text-grisSubText">
-                <div className="flex items-center gap-1">
-                  <IonIcon icon={time} className=""></IonIcon>
-                  <span className="text-[10px]">Fecha</span>
-                </div>
-              </div>
+        <div className="flex h-full justify-center gap-1 overflow-hidden align-middle">
+          <div className="group relative h-full w-9/12 overflow-auto rounded-2xl bg-white px-10">
+            <div className="absolute sticky top-4 z-10 float-end w-fit rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <IonIcon
+                    icon={ellipsisHorizontalSharp}
+                    className="px-1.5"
+                  ></IonIcon>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pt-4 text-start">
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 1)}
+                  >
+                    Dimensionar Oportunidad
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 2)}
+                  >
+                    Enviar Correo
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 3)}
+                  >
+                    Programar Correo
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 4)}
+                  >
+                    Programar Mensaje
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 5)}
+                  >
+                    Agendar Actividad
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 6)}
+                  >
+                    Crear Cotizacion
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 7)}
+                  >
+                    Asociar Producto / Servicio
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 8)}
+                  >
+                    Recordatorio Para Mover al Lead
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
+                    onClick={() => openModalAction(lead.id, 9, lead.name)}
+                  >
+                    Convertir a Cliente
+                  </button>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
-            {/* card content */}
-            <div className="flex justify-between px-3">
-              <div className="mt-2 flex gap-6">
-                <div className="gap-1"></div>
-              </div>
-            </div>
+            {lead.action?.map((action, i) => (
+              <CardFollowUp info={action} key={i} />
+            ))}
           </div>
-          {/*
-          {follow_ups?.map((follow, i) => (
-            <CardFollowUp info={follow} key={i} />
-          ))}*/}
-          {/* Here is the cards */}
+          <div className="w-3/12 rounded-2xl bg-white px-6 py-4">
+            <span>Hola</span>
+          </div>
         </div>
       </div>
     </div>

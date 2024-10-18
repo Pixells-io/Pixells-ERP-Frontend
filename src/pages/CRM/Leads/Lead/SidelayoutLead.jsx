@@ -117,13 +117,13 @@ function SidelayoutLead() {
           <div className="flex flex-col gap-6 px-[10px]">
             <div className="flex flex-col gap-2">
               <span className="font-roboto text-base font-medium text-grisText">
-                Servicios de Interes
+                Servicios
               </span>
-              <div className="mb-4 grid-cols-3 gap-4">
+              <div className="mb-4 flex gap-4 overflow-scroll">
                 {lead?.services.map((service, i) => (
                   <button
                     key={i}
-                    className="line-clamp-1 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
+                    className="my-4 line-clamp-1 flex-shrink-0 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
                     title={service.name}
                     type="button"
                   >
@@ -132,13 +132,13 @@ function SidelayoutLead() {
                 ))}
               </div>
               <span className="font-roboto text-base font-medium text-grisText">
-                Productos de Interes
+                Productos
               </span>
-              <div className="mb-4 grid-cols-3 gap-4">
+              <div className="mb-4 flex gap-4 overflow-scroll">
                 {lead?.products.map((product, i) => (
                   <button
                     key={i}
-                    className="line-clamp-1 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
+                    className="my-4 line-clamp-1 flex-shrink-0 rounded-3xl bg-primario px-2 py-1 text-xs text-white"
                     title={product.name}
                     type="button"
                   >

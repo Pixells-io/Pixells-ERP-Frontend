@@ -1,52 +1,116 @@
 import React from "react";
 
-import { syncCircle, time } from "ionicons/icons";
+import { star, starOutline, syncCircle, time } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 import "react-circular-progressbar/dist/styles.css";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 function CardFollowUp({ info }) {
+  console.log(info);
   return (
-    <div className="my-6 flex h-[112px] w-[510px] shrink-0 flex-col rounded-lg bg-gris shadow-sm drop-shadow-sm">
-      {/* card header */}
-      <div className="flex justify-between border-b-[0.5px] border-[#D7D7D7]">
-        <div className="flex items-center gap-2 p-1">
-          <IonIcon
-            icon={syncCircle}
-            size="large"
-            className="text-primario"
-          ></IonIcon>
-
-          <p className="text-[15px] font-medium text-gris2">
-            {info.way_of_contact}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 p-1 text-grisSubText">
-          <div className="flex items-center gap-1">
-            <IonIcon icon={time} className=""></IonIcon>
-            <span className="text-[10px]">{info.date_of_contact} </span>
-          </div>
-        </div>
+    <div className="flex w-full border-b-[1px] border-[#D7D7D7] py-4">
+      <div className="w-1/12 font-roboto text-xs text-[#8F8F8F]">
+        <Avatar className="size-11">
+          <AvatarImage src={info.creator?.img} title={info.creator?.name} />
+        </Avatar>
       </div>
-      {/* card content */}
-      <div className="flex justify-between px-3">
-        <div className="mt-2 flex gap-6">
-          <div className="flex flex-col gap-1">
-            <p className="text-xs font-medium text-grisSubText">
-              Way of contact
-            </p>
-            <p className="text-xs font-medium text-grisSubText">Comment</p>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-xs text-grisHeading">
-              {info.way_of_contact}{" "}
+      <div className="line-clamp-1 w-9/12 rounded-xl bg-white">
+        <span className="font-poppins text-sm font-semibold text-grisHeading">
+          {info.stage}
+        </span>
+        <br />
+        {info.type == 1 ? (
+          <div className="flex gap-2">
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+              Se dimensiono el Lead
             </span>
-            <span className="text-xs text-grisHeading">{info.comments} </span>
+            &nbsp;
+            {[1, 2, 3, 4, 5].map((value) => (
+              <div
+                key={value}
+                className="cursor-pointer"
+                onClick={() => handleClick(value)}
+              >
+                <input type="hidden" name="size" value={info.size} />
+                {info.size >= value ? (
+                  <IonIcon
+                    icon={star}
+                    className="text-xl text-grisHeading"
+                  ></IonIcon>
+                ) : (
+                  <IonIcon
+                    icon={starOutline}
+                    className="text-xl text-grisHeading"
+                  ></IonIcon>
+                )}
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="flex h-4 w-4 items-center justify-center self-end rounded-full border-[1px] border-grisSubText text-grisSubText">
-          <span className="text-[10px] font-medium">1</span>
-        </div>
+        ) : info.type == 2 ? (
+          <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+            Se envio un correo
+          </span>
+        ) : info.type == 3 ? (
+          <div className="flex">
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+              Se programo un correo para
+            </span>
+            &nbsp;
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-primario">
+              {info.date} &nbsp; {info.hour}
+            </span>
+          </div>
+        ) : info.type == 4 ? (
+          <div className="flex">
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+              Se programo un mensaje para
+            </span>
+            &nbsp;
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-primario">
+              {info.date} &nbsp; {info.hour}
+            </span>
+          </div>
+        ) : info.type == 5 ? (
+          <div className="flex">
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+              Se agendo una actividad -
+            </span>
+            &nbsp;
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-primario">
+              {info.select}
+            </span>
+          </div>
+        ) : info.type == 6 ? (
+          <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+            Se creo una cotizacion
+          </span>
+        ) : info.type == 7 ? (
+          <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+            Se asocio un producto o servicio
+          </span>
+        ) : info.type == 8 ? (
+          <div className="flex">
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-grisHeading">
+              Se programo un recordatorio para mover al Lead para
+            </span>
+            &nbsp;
+            <span className="line-clamp-1 font-roboto text-sm font-normal text-primario">
+              {info.date} &nbsp; {info.hour}
+            </span>
+          </div>
+        ) : (
+          false
+        )}
+      </div>
+      <div className="w-2/12 font-roboto text-xs text-[#8F8F8F]">
+        {info.date != false ? (
+          <span>{info.date}</span>
+        ) : (
+          <span>{info.created}</span>
+        )}
+        <br />
+        <span> {info.hour} </span>
       </div>
     </div>
   );
