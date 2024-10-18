@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 import { IonIcon } from "@ionic/react";
 import {
@@ -18,6 +17,7 @@ import {
   chevronForward,
   closeCircle,
 } from "ionicons/icons";
+import SelectRouterT from "@/components/SelectTransform/SelectRouterT";
 
 const TableForm = ({
   tableData,
@@ -152,7 +152,7 @@ const TableForm = ({
       accessorKey: "component",
       header: "Componente",
       cell: ({ row, rowIndex }) => (
-        <SelectRouter
+        <SelectRouterT
           name={"selectComponent-" + rowIndex}
           value={tableData[rowIndex]}
           options={components}
