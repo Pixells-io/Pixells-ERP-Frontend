@@ -17,6 +17,7 @@ import { IonIcon } from "@ionic/react";
 import { add, chevronDown, ellipsisVertical } from "ionicons/icons";
 import ShareSettins from "./components2/ShareSettings/ShareSettings";
 import { useLoaderData } from "react-router-dom";
+import NewTaskModal from "./components2/Modals/NewTaskModal";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -114,10 +115,7 @@ function MainPM() {
         </h2>
         <div className="flex items-center gap-4">
           <ShareSettins />
-          <div className="flex h-8 w-20 items-center justify-center gap-1 rounded-lg bg-primarioBotones text-xs text-white">
-            <IonIcon icon={add} className="size-4 shrink-0" />
-            Nuevo
-          </div>
+          <NewTaskModal />
         </div>
       </div>
 
