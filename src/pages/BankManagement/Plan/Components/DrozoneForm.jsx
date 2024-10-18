@@ -285,17 +285,15 @@ const DynamicForm = () => {
         </div>
       </HoverCardTrigger>
       {open != true && submittedInputs.length > 0 ? (
-        <div className="relative left-0">
-          {" "}
           <HoverCardContent
-            className="left-0 h-[99px] w-80 rounded-[20px]"
+            className="h-[99px] w-80 rounded-[20px]"
             style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
           >
             <div className="mx-2 flex flex-col">
               {submittedInputs.length > 0 && (
                 <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
                   <div className="flex items-center gap-2">
-                    <Avatar className="flex h-6 w-6">
+                    <Avatar className="flex h-[22px] w-[22px]">
                       <AvatarImage
                         src="https://github.com/shadcn.png"
                         alt="@shadcn"
@@ -303,11 +301,11 @@ const DynamicForm = () => {
                       <AvatarFallback>??</AvatarFallback>
                     </Avatar>
                     <p className="text-[12px] font-medium text-[#696974]">
-                      Don Formulario &bull;
-                      <span className="text-[12px] font-normal text-[#ABABAB]">
-                        Hace 3 días
-                      </span>
-                    </p>
+                            Don Formulario &bull;
+                            <span className="text-[12px] font-normal text-[#ABABAB]">
+                              Hace 3 días
+                            </span>
+                          </p>
                   </div>
                   <div className="flex max-w-[250px] flex-col">
                     <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
@@ -331,7 +329,6 @@ const DynamicForm = () => {
               )}
             </div>
           </HoverCardContent>
-        </div>
       ) : (
         false
       )}
