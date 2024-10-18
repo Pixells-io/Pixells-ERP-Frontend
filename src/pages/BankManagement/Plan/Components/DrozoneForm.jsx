@@ -172,146 +172,141 @@ const DynamicForm = () => {
   return (
     <HoverCard>
       <HoverCardTrigger>
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenuTrigger asChild>
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="bg-transparent hover:bg-transparent"
+      >
+        <IonIcon icon={add} className="size-12 text-[#44444F]" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : ""}`}
+      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+    >
+      {!showContent ? (
         <div>
-          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                onClick={() => setIsOpen(true)}
-                className="bg-transparent hover:bg-transparent"
+          {inputs.map((input) => (
+            <InputWithDropzone
+              key={input.id}
+              input={input}
+              onInputChange={handleInputChange}
+              onFilesChange={handleFilesChange}
+              onRemoveFile={handleRemoveFile}
+              onSubmit={handleSubmit}
+            />
+          ))}
+        </div>
+      ) : (
+        <>
+          <div className="flex h-[40px] w-full items-center border-b">
+            <span className="w-full px-2 font-poppins text-[11px] font-medium">
+              Documentos
+            </span>
+          </div>
+          <div className="flex w-full flex-col overflow-auto p-2">
+            {submittedInputs.map((input, index) => (
+              <div
+                key={index}
+                className="mb-4 flex flex-col items-start border-b pb-3"
               >
-                <IonIcon icon={add} className="size-12 text-[#44444F]" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className={`flex max-h-[400px] w-[450px] flex-col gap-2 overflow-hidden rounded-[10px] p-2 ${!showContent ? "bg-none" : ""}`}
-              style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-            >
-              {!showContent ? (
-                <div>
-                  {inputs.map((input) => (
-                    <InputWithDropzone
-                      key={input.id}
-                      input={input}
-                      onInputChange={handleInputChange}
-                      onFilesChange={handleFilesChange}
-                      onRemoveFile={handleRemoveFile}
-                      onSubmit={handleSubmit}
+                <div className="flex items-center gap-3">
+                  <Avatar className="flex h-[22px] w-[22px]">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
                     />
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <div className="mb-4 flex h-[40px] w-full justify-start border-b pb-2">
-                    <span className="ml-2 mt-2 h-[19px] font-poppins text-[11px] font-medium">
-                      Documentos
+                    <AvatarFallback>??</AvatarFallback>
+                  </Avatar>
+                  <p className="text-[12px] font-medium text-[#696974]">
+                    Don Formulario &bull;
+                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                      Hace 3 días
                     </span>
-                  </div>
-                  <div className="flex w-full flex-col overflow-auto">
-                    {submittedInputs.map((input, index) => (
-                      <div
-                        key={index}
-                        className="mb-4 flex flex-col items-start border-b pb-3 pl-2 pr-2 pt-1"
-                      >
-                        <div className="flex items-center gap-3">
-                          <Avatar className="flex h-[22px] w-[22px]">
-                            <AvatarImage
-                              src="https://github.com/shadcn.png"
-                              alt="@shadcn"
-                            />
-                            <AvatarFallback>??</AvatarFallback>
-                          </Avatar>
-                          <p className="text-[12px] font-medium text-[#696974]">
-                            Don Formulario &bull;
-                            <span className="text-[12px] font-normal text-[#ABABAB]">
-                              Hace 3 días
-                            </span>
-                          </p>
-                        </div>
-                        <div className="flex max-w-[300px] flex-col">
-                          <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
-                            {input.value}
-                          </span>
-                          <div className="flex space-x-2">
-                            {input.files.map((file, fileIndex) => (
-                              <div key={fileIndex} className="group relative">
-                                <img
-                                  src={URL.createObjectURL(file)}
-                                  alt={file.name}
-                                  className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                                />
-                                <button
-                                  onClick={() =>
-                                    handleRemoveSubmittedFile(
-                                      input.id,
-                                      fileIndex,
-                                    )
-                                  }
-                                  className="absolute right-0 top-0 hidden group-hover:block"
-                                >
-                                  <IonIcon
-                                    icon={closeCircle}
-                                    className="size-5 text-[#44444F]"
-                                  />
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                  </p>
+                </div>
+                <div className="flex max-w-[300px] flex-col">
+                  <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
+                    {input.value}
+                  </span>
+                  <div className="flex space-x-2">
+                    {input.files.map((file, fileIndex) => (
+                      <div key={fileIndex} className="group relative">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                        />
+                        <button
+                          onClick={() =>
+                            handleRemoveSubmittedFile(input.id, fileIndex)
+                          }
+                          className="absolute right-0 top-0 hidden group-hover:block"
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            className="size-5 text-[#44444F]"
+                          />
+                        </button>
                       </div>
                     ))}
-                    {showButton && submittedInputs.length === 0 && (
-                      <Button
-                        onClick={handleAddInput}
-                        className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
-                      >
-                        Nuevo
-                      </Button>
-                    )}
-                    {inputs.map((input) => (
-                      <InputWithDropzone
-                        key={input.id}
-                        input={input}
-                        onInputChange={handleInputChange}
-                        onFilesChange={handleFilesChange}
-                        onRemoveFile={handleRemoveFile}
-                        onSubmit={handleSubmit}
-                      />
-                    ))}
                   </div>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+                </div>
+              </div>
+            ))}
+            {showButton && submittedInputs.length === 0 && (
+              <Button
+                onClick={handleAddInput}
+                className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
+              >
+                Nuevo
+              </Button>
+            )}
+            {inputs.map((input) => (
+              <InputWithDropzone
+                key={input.id}
+                input={input}
+                onInputChange={handleInputChange}
+                onFilesChange={handleFilesChange}
+                onRemoveFile={handleRemoveFile}
+                onSubmit={handleSubmit}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </DropdownMenuContent>
+  </DropdownMenu>
       </HoverCardTrigger>
       {open != true && submittedInputs.length > 0 ? (
-          <HoverCardContent
-            className="h-[99px] w-80 rounded-[20px]"
-            style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-          >
-            <div className="mx-2 flex flex-col">
-              {submittedInputs.length > 0 && (
-                <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                  <div className="flex items-center gap-2">
-                    <Avatar className="flex h-[22px] w-[22px]">
-                      <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="@shadcn"
-                      />
-                      <AvatarFallback>??</AvatarFallback>
-                    </Avatar>
-                    <p className="text-[12px] font-medium text-[#696974]">
-                            Don Formulario &bull;
-                            <span className="text-[12px] font-normal text-[#ABABAB]">
-                              Hace 3 días
-                            </span>
-                          </p>
-                  </div>
-                  <div className="flex max-w-[250px] flex-col">
-                    <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
-                      {submittedInputs[submittedInputs.length - 1].value}
+        <HoverCardContent
+          className="h-[99px] w-80 rounded-[20px]"
+          style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+        >
+          <div className="mx-2 flex flex-col">
+            {submittedInputs.length > 0 && (
+              <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
+                <div className="flex items-center gap-2">
+                  <Avatar className="flex h-[22px] w-[22px]">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>??</AvatarFallback>
+                  </Avatar>
+                  <p className="text-[12px] font-medium text-[#696974]">
+                    Don Formulario &bull;
+                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                      Hace 3 días
                     </span>
-                    {/* <div className="flex space-x-2">
+                  </p>
+                </div>
+                <div className="flex max-w-[250px] flex-col">
+                  <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
+                    {submittedInputs[submittedInputs.length - 1].value}
+                  </span>
+                  {/* <div className="flex space-x-2">
               {submittedInputs[submittedInputs.length - 1].files.map(
                 (file, fileIndex) => (
                   <div key={fileIndex} className="group relative">
@@ -324,11 +319,11 @@ const DynamicForm = () => {
                 ),
               )}
             </div> */}
-                  </div>
                 </div>
-              )}
-            </div>
-          </HoverCardContent>
+              </div>
+            )}
+          </div>
+        </HoverCardContent>
       ) : (
         false
       )}
