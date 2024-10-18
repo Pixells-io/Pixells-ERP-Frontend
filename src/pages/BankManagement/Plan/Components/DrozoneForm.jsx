@@ -182,8 +182,8 @@ const DynamicForm = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none" : "rounded-[20px]"}`}
-      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none border-none" : "rounded-[20px]"}`}
+     
     >
       {!showContent ? (
         <div>
