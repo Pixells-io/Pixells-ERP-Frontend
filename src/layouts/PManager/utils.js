@@ -1,6 +1,6 @@
-import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { json } from "react-router-dom";
+import { format } from "date-fns";
 
 export async function saveNewObjective(data) {
   try {
@@ -178,4 +178,68 @@ export async function getObjectiveById({ params }) {
   } catch (error) {
     return new Response("Error", { status: 500 });
   }
+}
+
+export async function saveNewTaskPM(data) {
+  try {
+    const start =
+      data.get("star_date") == null ? "" : format(data.get("star_date"), "PP");
+    const end =
+      data.get("end_date") == null ? "" : format(data.get("end_date"), "PP");
+
+    const task = {
+      name: data.get("name"),
+      description: data.get("description"),
+      type: Number(data.get("type")),
+      user_id: data.get("userId"),
+      priority: Number(data.get("priority")),
+      repeat: Number(data.get("repeat")),
+      objective_id: Number(data.get("objective_id")),
+      sequence: data.get("sequence"),
+      start: start,
+      end: end,
+    };
+
+    // validaciones?
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/create-task`,
+      {
+        method: "POST",
+        body: JSON.stringify(task),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response, json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function getUsers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-users`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderMainPM({ params }) {
+  const [objective, users] = await Promise.all([
+    getObjectiveById({ params }),
+    getUsers(),
+  ]);
+
+  return json({ objective, users });
 }
