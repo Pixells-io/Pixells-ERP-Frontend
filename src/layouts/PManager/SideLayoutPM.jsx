@@ -42,8 +42,8 @@ function SideLayoutPM() {
     if (selectedWorkspace) {
       getObjectivesByWorkspaceId(selectedWorkspace.id).then(({ data }) => {
         console.log(data);
-        setObjectivesIndividual(data?.objetives_individual);
-        setObjectivesTeam(data?.objetives_team);
+        setObjectivesIndividual(data?.individual);
+        setObjectivesTeam(data?.team);
       });
     }
   }, [selectedWorkspace]);
