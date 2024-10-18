@@ -17,11 +17,13 @@ const OPTIONS = [
     project: "Sin Proyecto",
     objective: "",
     expiration: "15 feb 2024",
-    responsible: {
-      id: 1,
-      name: "Agustin",
-      img: "https://github.com/shadcn.png",
-    },
+    responsible: [
+      {
+        id: 1,
+        name: "Agustin",
+        img: "https://github.com/shadcn.png",
+      },
+    ],
     priority: "1",
     created: { id: 1, name: "Juan", img: "https://github.com/shadcn.png" },
     status: "1",
@@ -31,7 +33,12 @@ const OPTIONS = [
     project: "Nuevo Sistema de Gestión",
     objective: "",
     expiration: "16 feb 2024",
-    responsible: { id: 2, name: "Pepe", img: "https://github.com/shadcn.png" },
+    responsible: [
+      { id: 2, name: "Pepe", img: "https://github.com/shadcn.png" },
+      { id: 2, name: "Pepe", img: "https://github.com/shadcn.png" },
+      { id: 2, name: "Pepe", img: "https://github.com/shadcn.png" },
+      { id: 2, name: "Pepe", img: "https://github.com/shadcn.png" },
+    ],
     priority: "1",
     created: { id: 2, name: "Raul", img: "https://github.com/shadcn.png" },
     status: "1",
@@ -47,9 +54,7 @@ function ListTab() {
             key={i}
             className={`col-span-${header?.cols || "1"} text-${header.text}`}
           >
-            <p className="text-sm font-semibold text-gris2">
-              {header.name}
-            </p>
+            <p className="text-sm font-semibold text-gris2">{header.name}</p>
           </div>
         ))}
       </div>
@@ -70,13 +75,21 @@ function ListTab() {
           </div>
 
           <div className="col-span-1 flex justify-start">
-            <Avatar className="size-6">
-              <AvatarImage
-                src={opt.responsible?.img}
-                title={opt?.responsible?.name}
-              />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <div className="flex">
+              {opt.responsible.slice(0, 3).map((r, index) => (
+                <Avatar className="size-6" key={index}>
+                  <AvatarImage src={r?.img} title={r?.name} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              ))}
+            </div>
+            {opt.responsible.length > 3 && (
+              <div className="ml-1 flex items-center">
+                <span className="text-xs font-normal text-grisHeading">
+                  +{opt.responsible.length - 3}
+                </span>
+              </div>
+            )}
           </div>
           <div className={"col-span-1 flex justify-center text-xs font-normal"}>
             {opt.priority == "1" && (

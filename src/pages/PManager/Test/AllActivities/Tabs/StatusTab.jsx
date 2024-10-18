@@ -383,30 +383,16 @@ function StatusTab() {
     ],
   };
 
-  const [dragLeadId, setDragLeadId] = useState(0);
-  const [dragLeadColumn, setDragLeadColumn] = useState(0);
-
   const [pending, setPending] = useState(data?.pending);
   const [inProgress, setInProgress] = useState(data?.inProgress);
   const [completed, setCompleted] = useState(data?.completed);
   const [canceled, setCanceled] = useState(data?.canceled);
-
-  const startDrag = (evt, item, column) => {
-    setDragLeadId(item.id);
-    setDragLeadColumn(column);
-  };
-
-  const draggingOver = (evt) => {
-    evt.preventDefault();
-  };
 
   return (
     <div className="flex h-full w-full gap-4 overflow-auto">
       {/* pending */}
       <div
         className={`flex w-64 flex-shrink-0 flex-col rounded-xl bg-[#44444F0D] px-2 py-4`}
-        onDragOver={(evt) => draggingOver(evt)}
-        onDrop={(evt) => onDrop(evt, stage.id)}
       >
         <div className="mb-4 flex items-center justify-between">
           <span
@@ -423,10 +409,8 @@ function StatusTab() {
             <div
               className="group relative mb-4 rounded-lg bg-white hover:bg-[#D7D7D780]"
               key={index}
-              onDragStart={(evt) => startDrag(evt, p, pending.id)}
-              draggable="true"
             >
-              <div className="flex flex-col gap-y-0.5 border-b border-grisDisabled px-2 py-3">
+              <div className="flex flex-col gap-y-1 border-b border-grisDisabled px-2 pt-3 pb-2.5">
                 <div className="flex items-center justify-between">
                   <Link
                     to={`/crm/leads/${p.id}`}
@@ -516,8 +500,6 @@ function StatusTab() {
       {/* inProgress */}
       <div
         className={`flex w-64 flex-shrink-0 flex-col rounded-xl bg-[#FAA3640D] px-2 py-4`}
-        onDragOver={(evt) => draggingOver(evt)}
-        onDrop={(evt) => onDrop(evt, stage.id)}
       >
         <div className="mb-4 flex items-center justify-between">
           <span
@@ -534,8 +516,6 @@ function StatusTab() {
             <div
               className="group relative mb-4 rounded-lg bg-white hover:bg-[#D7D7D780]"
               key={index}
-              onDragStart={(evt) => startDrag(evt, iP, inProgress.id)}
-              draggable="true"
             >
               <div className="flex flex-col gap-y-0.5 border-b border-grisDisabled px-2 py-3">
                 <div className="flex items-center justify-between">
@@ -627,8 +607,6 @@ function StatusTab() {
       {/* completed */}
       <div
         className={`flex w-64 flex-shrink-0 flex-col rounded-xl bg-[#00BE4C0D] px-2 py-4`}
-        onDragOver={(evt) => draggingOver(evt)}
-        onDrop={(evt) => onDrop(evt, stage.id)}
       >
         <div className="mb-4 flex items-center justify-between">
           <span
@@ -645,8 +623,6 @@ function StatusTab() {
             <div
               className="group relative mb-4 rounded-lg bg-white hover:bg-[#D7D7D780]"
               key={index}
-              onDragStart={(evt) => startDrag(evt, c, completed.id)}
-              draggable="true"
             >
               <div className="flex flex-col gap-y-0.5 border-b border-grisDisabled px-2 py-3">
                 <div className="flex items-center justify-between">
@@ -738,8 +714,6 @@ function StatusTab() {
       {/* canceled */}
       <div
         className={`flex w-64 flex-shrink-0 flex-col rounded-xl bg-[#D7586B0D] px-2 py-4`}
-        onDragOver={(evt) => draggingOver(evt)}
-        onDrop={(evt) => onDrop(evt, stage.id)}
       >
         <div className="mb-4 flex items-center justify-between">
           <span
@@ -756,8 +730,6 @@ function StatusTab() {
             <div
               className="group relative mb-4 rounded-lg bg-white hover:bg-[#D7D7D780]"
               key={index}
-              onDragStart={(evt) => startDrag(evt, c, completed.id)}
-              draggable="true"
             >
               <div className="flex flex-col gap-y-0.5 border-b border-grisDisabled px-2 py-3">
                 <div className="flex items-center justify-between">
