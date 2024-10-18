@@ -86,6 +86,7 @@ const DynamicForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputs, setInputs] = useState([]);
   const [showButton, setShowButton] = useState(true);
+  const [showContent, setShowContent] = useState(true);
   const [submittedInputs, setSubmittedInputs] = useState([]);
 
 
@@ -94,6 +95,7 @@ const DynamicForm = () => {
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
     setShowButton(false);
+    setShowContent(false);
   };
 
   const handleInputChange = (id, value) => {
@@ -146,6 +148,7 @@ const DynamicForm = () => {
     setInputs([]);
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
+    setShowContent(true);
   };
 
   return (
@@ -165,7 +168,18 @@ const DynamicForm = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="flex max-h-[400px] w-[450px] flex-col gap-2 overflow-scroll rounded-[10px]">
-          <div className="mb-4 flex w-full justify-start border-b pb-2">
+          {!showContent  ? (<>
+            {inputs.map((input) => (
+              <InputWithDropzone
+                key={input.id}
+                input={input}
+                onInputChange={handleInputChange}
+                onFilesChange={handleFilesChange}
+                onRemoveFile={handleRemoveFile}
+                onSubmit={handleSubmit}
+              />
+            ))}</>):(<>
+             <div className="mb-4 flex w-full justify-start border-b pb-2">
             <span className="ml-2 mt-2 font-poppins font-medium h-[19px] text-[11px]">Documentos</span>
           </div>
           <div className="flex w-full flex-col overflow-auto">
@@ -230,6 +244,9 @@ const DynamicForm = () => {
               />
             ))}
           </div>
+            </>)}
+          
+         
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
