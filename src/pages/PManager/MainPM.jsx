@@ -16,6 +16,7 @@ import NavigationHeader from "@/components/navigation-header";
 import { IonIcon } from "@ionic/react";
 import { add, chevronDown, ellipsisVertical } from "ionicons/icons";
 import ShareSettins from "./components2/ShareSettings/ShareSettings";
+import { useLoaderData } from "react-router-dom";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -84,6 +85,7 @@ const OPTIONS = [
 ];
 
 function MainPM() {
+  const { data } = useLoaderData();
   const [workspaces, setWorkspaces] = useState([]);
   const [objectivesYears, setBbjectivesYears] = useState([]);
   const [objectivesIndividual, setObjectivesIndividual] = useState([]);
@@ -108,7 +110,7 @@ function MainPM() {
       </div>
       <div className="flex w-full items-center justify-between">
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-          OBJETIVO
+          {data?.name || "Objetivo No Cargo Correctamente"}
         </h2>
         <div className="flex items-center gap-4">
           <ShareSettins />
