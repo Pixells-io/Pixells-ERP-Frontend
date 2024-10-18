@@ -24,12 +24,11 @@ const InputWithDropzone = ({
   onSubmit,
 }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*,application/pdf",
+    accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
     onDrop: (acceptedFiles) => {
       onFilesChange(input.id, acceptedFiles);
     },
   });
-
   return (
     <div className="mb-2 flex flex-col rounded-[12px]">
       <InputForm
