@@ -34,7 +34,7 @@ const InputWithDropzone = ({
     },
   });
   return (
-    <div className="mb-2 flex flex-col rounded-[20px] border p-0">
+    <div className="flex flex-col rounded-[20px] border p-0">
       <div className={`${input.value ? "border-b" : ""}`}>
         <input
           type="text"
@@ -182,7 +182,7 @@ const DynamicForm = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : "rounded-[20px]"}`}
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none" : "rounded-[20px]"}`}
       style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
     >
       {!showContent ? (
