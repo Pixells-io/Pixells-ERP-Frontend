@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useLoaderData,
   Outlet,
@@ -20,7 +20,17 @@ import { create } from "ionicons/icons";
 
 import TopMenuCRM from "@/layouts/CRM/components/TopMenuCRM";
 import EditLeadInformation from "./Modals/EditLeadInformation";
-import { editLead } from "../../utils";
+import {
+  editLead,
+  functionCreateSaleProcessStage,
+  functionDestroySaleProcessStage,
+  functionEditSaleProcessStage,
+  getOneLeadId,
+  modalConvertClient,
+  saveLeadActivity,
+  saveLeadComments,
+} from "../../utils";
+import { createPusherClient } from "@/lib/pusher";
 
 function SidelayoutLead() {
   const params = useParams();
@@ -30,11 +40,6 @@ function SidelayoutLead() {
   const [lead, setLead] = useState(data);
   const [modalEdit, setModalEdit] = useState(false);
 
-  function Capitalize(string) {
-    if (string == undefined) return "";
-    return (string = string[0]?.toUpperCase() + string?.slice(1));
-  }
-
   function changeLeadStatus(e, type) {
     submit(
       { status: type, lead_id: params.id, action: "edit-status" },
@@ -42,7 +47,27 @@ function SidelayoutLead() {
     );
   }
 
-  console.log(lead);
+  //WEBSOCKETS
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    //Socket fot table leads and clients
+    pusherClient.subscribe(`private-get-lead.${lead.id}`);
+
+    pusherClient.bind("fill-lead", ({ lead }) => {
+      getLeadData();
+    });
+
+    //Function Sync Info
+    async function getLeadData(process) {
+      let newData = await getOneLeadId(lead.id);
+      setLead(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-lead.${lead.id}`);
+    };
+  }, []);
 
   return (
     <div className="flex h-full px-4 pb-4 font-roboto">
@@ -225,6 +250,41 @@ export async function Action({ params, request }) {
     case "edit-status":
       await editLead(data);
       return redirect(`/crm/leads/${params.id}`);
+      break;
+
+    case "create-process-stage":
+      await functionCreateSaleProcessStage(data);
+      return "201";
+      break;
+
+    case "edit-stage":
+      await functionEditSaleProcessStage(data);
+      return "201";
+      break;
+
+    case "destroy-stage":
+      await functionDestroySaleProcessStage(data);
+      return "201";
+      break;
+
+    case "add-comment-lead":
+      await saveLeadComments(data);
+      return "201";
+      break;
+
+    case "action-lead":
+      await saveLeadActivity(data);
+      return "201";
+      break;
+
+    case "convert-client":
+      await modalConvertClient(data);
+      return "201";
+      break;
+
+    case "create-comment":
+      await saveLeadComments(data);
+      return "201";
       break;
   }
 }

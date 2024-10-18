@@ -24,14 +24,13 @@ const InputWithDropzone = ({
   onSubmit,
 }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*,application/pdf",
+    accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
     onDrop: (acceptedFiles) => {
       onFilesChange(input.id, acceptedFiles);
     },
   });
-
   return (
-    <div className="mb-2 flex flex-col rounded-[12px] bg-[#F6F6F6] p-2">
+    <div className="mb-2 flex flex-col rounded-[12px]">
       <InputForm
         type="text"
         value={input.value}
@@ -42,7 +41,7 @@ const InputWithDropzone = ({
       {input.value && (
         <>
           {input.files.length > 0 && (
-            <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto">
+            <div className="mb-2 flex h-[54px] bg-[#F6F6F6] items-center space-x-2 overflow-x-auto">
               {input.files.map((file, index) => (
                 <div key={index} className="group relative">
                   <img
@@ -69,17 +68,13 @@ const InputWithDropzone = ({
               className="flex cursor-pointer items-center"
             >
               <input {...getInputProps()} />
-              <IonIcon icon={imageOutline} className="text-[#44444F]" />
+              <IonIcon icon={imageOutline} className="h-[16px] w-[16px] text-[#44444F]" />
             </div>
-            <Button
-              className="flex items-center justify-center rounded-full bg-[#5B89FF]"
+            <IonIcon
+              icon={chevronForwardOutline}
+              className="h-[30px] w-[30px] rounded-full text-xs text-white bg-[#5B89FF]"
               onClick={() => onSubmit(input)}
-            >
-              <IonIcon
-                icon={chevronForwardOutline}
-                className="size-6 text-white"
-              />
-            </Button>
+            />
           </div>
         </>
       )}
@@ -90,11 +85,15 @@ const InputWithDropzone = ({
 const DynamicForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputs, setInputs] = useState([]);
+  const [showButton, setShowButton] = useState(true);
   const [submittedInputs, setSubmittedInputs] = useState([]);
-console.log(inputs.length)
+
+
+  {/*Add New input */}
   const handleAddInput = () => {
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
+    setShowButton(false);
   };
 
   const handleInputChange = (id, value) => {
@@ -114,7 +113,7 @@ console.log(inputs.length)
       )
     );
   };
-
+ {/*Remove to files in new row */}
   const handleRemoveFile = (inputId, fileIndex) => {
     setInputs((prevInputs) =>
       prevInputs.map((input) =>
@@ -127,9 +126,22 @@ console.log(inputs.length)
       )
     );
   };
+{/*Remove to files in submittedInputs */}
+  const handleRemoveSubmittedFile = (inputId, fileIndex) => {
+    setSubmittedInputs((prevSubmitted) =>
+      prevSubmitted.map((input) =>
+        input.id === inputId
+          ? {
+              ...input,
+              files: input.files.filter((_, index) => index !== fileIndex),
+            }
+          : input
+      )
+    );
+  };
 
   const handleSubmit = (input) => {
-    setSubmittedInputs((prevSubmitted) => [...prevSubmitted, input]);
+    setSubmittedInputs((prevSubmitted) => [...prevSubmitted, { ...input, id: Date.now() }]);
     setIsOpen(true);
     setInputs([]);
     const newInput = { id: Date.now(), value: "", files: [] };
@@ -154,11 +166,11 @@ console.log(inputs.length)
         </DropdownMenuTrigger>
         <DropdownMenuContent className="flex max-h-[400px] w-[450px] flex-col gap-2 overflow-scroll rounded-[10px]">
           <div className="mb-4 flex w-full justify-start border-b pb-2">
-            <span className="font-poppins text-sm">Documentos</span>
+            <span className="ml-2 mt-2 font-poppins font-medium h-[19px] text-[11px]">Documentos</span>
           </div>
-          <div className="flex w-full flex-col">
+          <div className="flex w-full flex-col overflow-auto">
             {submittedInputs.map((input, index) => (
-              <div key={index} className="mb-4 flex flex-col pb-3 items-start border-t">
+              <div key={index} className="mb-4 flex flex-col pl-2 pr-2 pt-1 pb-3  border-b items-start">
                 <div className="flex items-center gap-2">
                   <Avatar className="flex h-6 w-6">
                     <AvatarImage
@@ -170,26 +182,36 @@ console.log(inputs.length)
                   <p className="text-[12px] text-grisText">
                     "Don Formulario" &bull;{" "}
                     <span className="text-[10px] text-[#ABABAB]">
-                      Hace 3 días &bull; 2hr
+                      Hace 3 días
                     </span>
                   </p>
                 </div>
-                <div className="flex justify-between gap-3">
-                  <span className="font-semibold">{input.value}</span>
+                <div className="flex flex-col">
+                  <span className="font-light text-[11px] font-roboto text-[#44444F]">{input.value}</span>
                   <div className="flex space-x-2">
                     {input.files.map((file, fileIndex) => (
-                      <img
-                        key={fileIndex}
-                        src={URL.createObjectURL(file)}
-                        alt={file.name}
-                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                      />
+                      <div key={fileIndex} className="group relative">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                        />
+                        <button
+                          onClick={() => handleRemoveSubmittedFile(input.id, fileIndex)}
+                          className="absolute right-0 top-0 hidden group-hover:block"
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            className="size-5 text-[#44444F]"
+                          />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             ))}
-            {submittedInputs.length === 0 && (
+            {showButton && submittedInputs.length === 0 && (
               <Button
                 onClick={handleAddInput}
                 className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
@@ -197,7 +219,7 @@ console.log(inputs.length)
                 Nuevo
               </Button>
             )}
-            { inputs.map((input) => (
+            {inputs.map((input) => (
               <InputWithDropzone
                 key={input.id}
                 input={input}

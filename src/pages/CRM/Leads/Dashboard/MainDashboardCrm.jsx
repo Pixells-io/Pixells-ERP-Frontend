@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { useLoaderData, Form, useParams, Link } from "react-router-dom";
+import {
+  useLoaderData,
+  Form,
+  useParams,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
 import { add, ellipsisHorizontalSharp, settingsOutline } from "ionicons/icons";
@@ -41,6 +47,7 @@ import ModalDestroyStage from "./Modal/ModalDestroyStage";
 function MainDashboardCrm() {
   const { id } = useParams();
   const { data } = useLoaderData();
+  const navigate = useNavigate();
 
   const [processId, setProcessId] = useState(id);
   const [infoStages, setInfoStages] = useState(data.process);
@@ -151,6 +158,7 @@ function MainDashboardCrm() {
         setActivityName("Agendar Actividad");
         break;
       case 6:
+        navigate("/sales/quotes");
         setModalActivity(true);
         setLeadId(id);
         setTypeActivity(type);
@@ -208,12 +216,14 @@ function MainDashboardCrm() {
         activity_name={activityName}
         services={data.services}
         products={data.products}
+        url={"/crm/dashboard/"}
       />
       <ModalConvertClient
         modal={modalConvertClient}
         setModal={setModalConvertClient}
         lead_id={leadId}
         lead_name={leadName}
+        url={"/crm/dashboard/"}
       />
       <ModalEditLead
         modal={modalEditLead}
@@ -225,6 +235,7 @@ function MainDashboardCrm() {
         setModal={setModalChangeAssigned}
         lead={lead}
         users={data.users}
+        url={"/crm/dashboard/"}
       />
       <ModalEditStage
         modal={stageModalEdit}
