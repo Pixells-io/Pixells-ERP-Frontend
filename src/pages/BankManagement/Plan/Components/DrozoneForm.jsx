@@ -209,7 +209,8 @@ const DynamicForm = () => {
             {submittedInputs.map((input, index) => (
               <div
                 key={index}
-                className="mb-4 flex flex-col items-start border-b pb-3"
+                className={`mb-4 flex flex-col items-start  pb-3 ${index === submittedInputs.length-1 || submittedInputs.length ===1 ? "" : " border-b"}`}
+
               >
                 <div className="flex items-center gap-3">
                   <Avatar className="flex h-[22px] w-[22px]">
@@ -227,12 +228,12 @@ const DynamicForm = () => {
                   </p>
                 </div>
                 <div className="flex max-w-[300px] flex-col">
-                  <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
+                  <span className="truncate font-roboto pt-[6px] text-[10px] font-normal text-[#44444F]">
                     {input.value}
                   </span>
                   <div className="flex space-x-2">
                     {input.files.map((file, fileIndex) => (
-                      <div key={fileIndex} className="group relative">
+                      <div key={fileIndex} className="group relative pt-[6px]">
                         <img
                           src={URL.createObjectURL(file)}
                           alt={file.name}
