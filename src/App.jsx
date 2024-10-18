@@ -601,6 +601,7 @@ import MainPM from "./pages/PManager/MainPM";
 import { getWorkspace, multiloaderPM } from "./layouts/PManager/utils";
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
+import AllActivities from "./pages/PManager/Test/AllActivities/AllActivities";
 
 const router = createBrowserRouter([
   {
@@ -758,6 +759,10 @@ const router = createBrowserRouter([
           {
             path: "/project-manager2/test",
             element: <AllProjects />,
+          },
+          {
+            path: "/project-manager2/testt",
+            element: <AllActivities />,
           },
         ],
       },
