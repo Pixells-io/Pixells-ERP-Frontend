@@ -84,7 +84,7 @@ const InputWithDropzone = ({
           )}
           <IonIcon
             icon={chevronForwardOutline}
-            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mr-2 mt-[-40px] flex justify-end" : ""}`}
+            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mr-2 mt-[-35px] flex justify-end" : ""}`}
             onClick={() => onSubmit(input)}
           />
         </div>
@@ -182,7 +182,7 @@ const DynamicForm = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : ""}`}
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : "rounded-[20px]"}`}
       style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
     >
       {!showContent ? (
