@@ -12,10 +12,17 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import InputForm from "@/components/InputForm/InputForm";
 
-const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, onSubmit }) => {
+const InputWithDropzone = ({
+  input,
+  onInputChange,
+  onFilesChange,
+  onRemoveFile,
+  onSubmit,
+}) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*,application/pdf",
     onDrop: (acceptedFiles) => {
@@ -24,12 +31,12 @@ const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, 
   });
 
   return (
-    <div className="mb-2 flex flex-col">
+    <div className="mb-2 flex flex-col rounded-[12px] bg-[#F6F6F6] p-2">
       <InputForm
         type="text"
         value={input.value}
         onChange={(e) => onInputChange(input.id, e.target.value)}
-        className="mb-2 h-[54px] flex-grow rounded-[20px]"
+        className="mb-2 h-[31px] flex-grow rounded-[12px] bg-[#F6F6F6]"
         placeholder="Agregar titulo"
       />
       {input.value && (
@@ -37,7 +44,7 @@ const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, 
           {input.files.length > 0 && (
             <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto">
               {input.files.map((file, index) => (
-                <div key={index} className="relative group">
+                <div key={index} className="group relative">
                   <img
                     src={URL.createObjectURL(file)}
                     alt={file.name}
@@ -45,7 +52,7 @@ const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, 
                   />
                   <button
                     onClick={() => onRemoveFile(input.id, index)}
-                    className="absolute top-0 right-0 hidden group-hover:block"
+                    className="absolute right-0 top-0 hidden group-hover:block"
                   >
                     <IonIcon
                       icon={closeCircle}
@@ -62,15 +69,15 @@ const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, 
               className="flex cursor-pointer items-center"
             >
               <input {...getInputProps()} />
-              <IonIcon
-                icon={imageOutline}
-                className="h-[20px] w-[20px] text-[#44444F]"
-              />
+              <IonIcon icon={imageOutline} className="text-[#44444F]" />
             </div>
-            <Button className="flex bg-[#5B89FF] rounded-full" onClick={() => onSubmit(input)}>
+            <Button
+              className="flex items-center justify-center rounded-full bg-[#5B89FF]"
+              onClick={() => onSubmit(input)}
+            >
               <IonIcon
                 icon={chevronForwardOutline}
-                className="h-[20px] w-[20px] text-white"
+                className="size-6 text-white"
               />
             </Button>
           </div>
@@ -82,25 +89,25 @@ const InputWithDropzone = ({ input, onInputChange, onFilesChange, onRemoveFile, 
 
 const DynamicForm = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showNewButton, setShowNewButton] = useState(true);
   const [inputs, setInputs] = useState([]);
   const [submittedInputs, setSubmittedInputs] = useState([]);
-
+console.log(inputs.length)
   const handleAddInput = () => {
-    setShowNewButton(false);
     const newInput = { id: Date.now(), value: "", files: [] };
-    setInputs([newInput]);
+    setInputs((prevInputs) => [...prevInputs, newInput]);
   };
 
   const handleInputChange = (id, value) => {
-    setInputs(
-      inputs.map((input) => (input.id === id ? { ...input, value } : input))
+    setInputs((prevInputs) =>
+      prevInputs.map((input) =>
+        input.id === id ? { ...input, value } : input
+      )
     );
   };
 
   const handleFilesChange = (id, files) => {
-    setInputs(
-      inputs.map((input) =>
+    setInputs((prevInputs) =>
+      prevInputs.map((input) =>
         input.id === id
           ? { ...input, files: [...input.files, ...files] }
           : input
@@ -109,8 +116,8 @@ const DynamicForm = () => {
   };
 
   const handleRemoveFile = (inputId, fileIndex) => {
-    setInputs(
-      inputs.map((input) =>
+    setInputs((prevInputs) =>
+      prevInputs.map((input) =>
         input.id === inputId
           ? {
               ...input,
@@ -122,17 +129,26 @@ const DynamicForm = () => {
   };
 
   const handleSubmit = (input) => {
-    setSubmittedInputs([...submittedInputs, input]);
-    setInputs([]);
-    setShowNewButton(true);
+    setSubmittedInputs((prevSubmitted) => [...prevSubmitted, input]);
     setIsOpen(true);
+    setInputs([]);
+    const newInput = { id: Date.now(), value: "", files: [] };
+    setInputs((prevInputs) => [...prevInputs, newInput]);
   };
 
   return (
     <div>
-      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+      <DropdownMenu
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        className={"rounded-[20px]"}
+        style={{ boxShadow: "0px 0px 8px 0px rgba(0, 0, 0, 0.25)" }}
+      >
         <DropdownMenuTrigger asChild>
-          <Button onClick={() => setIsOpen(true)} className="bg-transparent hover:bg-transparent">
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="bg-transparent hover:bg-transparent"
+          >
             <IonIcon icon={add} className="size-12 text-[#44444F]" />
           </Button>
         </DropdownMenuTrigger>
@@ -142,39 +158,55 @@ const DynamicForm = () => {
           </div>
           <div className="flex w-full flex-col">
             {submittedInputs.map((input, index) => (
-              <div key={index} className="mb-4 flex flex-col items-start">
-                <span className="font-semibold">{input.value}</span>
-                <div className="flex space-x-2">
-                  {input.files.map((file, fileIndex) => (
-                    <img
-                      key={fileIndex}
-                      src={URL.createObjectURL(file)}
-                      alt={file.name}
-                      className="h-[48px] w-[46px] rounded-[8px] object-cover"
+              <div key={index} className="mb-4 flex flex-col pb-3 items-start border-t">
+                <div className="flex items-center gap-2">
+                  <Avatar className="flex h-6 w-6">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
                     />
-                  ))}
+                    <AvatarFallback>??</AvatarFallback>
+                  </Avatar>
+                  <p className="text-[12px] text-grisText">
+                    "Don Formulario" &bull;{" "}
+                    <span className="text-[10px] text-[#ABABAB]">
+                      Hace 3 días &bull; 2hr
+                    </span>
+                  </p>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <span className="font-semibold">{input.value}</span>
+                  <div className="flex space-x-2">
+                    {input.files.map((file, fileIndex) => (
+                      <img
+                        key={fileIndex}
+                        src={URL.createObjectURL(file)}
+                        alt={file.name}
+                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
-            {showNewButton  ? (
+            {submittedInputs.length === 0 && (
               <Button
                 onClick={handleAddInput}
-                className="mb-4 flex h-[32px] w-[58px] rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF] self-end"
+                className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
               >
                 Nuevo
               </Button>
-            ) : (
-              inputs.map((input) => (
-                <InputWithDropzone
-                  key={input.id}
-                  input={input}
-                  onInputChange={handleInputChange}
-                  onFilesChange={handleFilesChange}
-                  onRemoveFile={handleRemoveFile}
-                  onSubmit={handleSubmit}
-                />
-              ))
             )}
+            { inputs.map((input) => (
+              <InputWithDropzone
+                key={input.id}
+                input={input}
+                onInputChange={handleInputChange}
+                onFilesChange={handleFilesChange}
+                onRemoveFile={handleRemoveFile}
+                onSubmit={handleSubmit}
+              />
+            ))}
           </div>
         </DropdownMenuContent>
       </DropdownMenu>

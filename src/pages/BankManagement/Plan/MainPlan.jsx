@@ -94,16 +94,18 @@ function MainPlan() {
           <p className="font-poppins text-xl font-bold text-grisHeading">
             Cobros General
           </p>
+         
         </div>
-
+       
         <div className="flex w-full flex-col overflow-hidden rounded-xl bg-blancoBg px-4 py-2">
           <h2 className="font-poppins text-lg font-medium text-grisHeading my-2">
             RESUMEN DE CUENTAS
           </h2>
+        
           <div className="w-full overflow-hidden">
 
-            <DynamicForm/>
-           <FinancialCalendar/> 
+          <DynamicForm/>
+           {/* <FinancialCalendar/>  */}
             <div className="w-full">
              
             </div>
