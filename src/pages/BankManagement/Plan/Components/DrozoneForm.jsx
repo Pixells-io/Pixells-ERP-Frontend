@@ -34,13 +34,13 @@ const InputWithDropzone = ({
     },
   });
   return (
-    <div className="mb-2 flex flex-col rounded-[20px] border p-0">
+    <div className="flex flex-col rounded-[20px] border p-0">
       <div className={`${input.value ? "border-b" : ""}`}>
         <input
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex  w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
@@ -182,8 +182,8 @@ const DynamicForm = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : "rounded-[20px]"}`}
-      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none border-none" : "rounded-[20px]"}`}
+     
     >
       {!showContent ? (
         <div>
@@ -209,7 +209,8 @@ const DynamicForm = () => {
             {submittedInputs.map((input, index) => (
               <div
                 key={index}
-                className="mb-4 flex flex-col items-start border-b pb-3"
+                className={`mb-4 flex flex-col items-start  pb-3 ${index === submittedInputs.length-1 || submittedInputs.length ===1 ? "" : " border-b"}`}
+
               >
                 <div className="flex items-center gap-3">
                   <Avatar className="flex h-[22px] w-[22px]">
@@ -219,20 +220,20 @@ const DynamicForm = () => {
                     />
                     <AvatarFallback>??</AvatarFallback>
                   </Avatar>
-                  <p className="text-[12px] font-medium text-[#696974]">
+                  <p className="text-[13px] font-medium text-[#696974]">
                     Don Formulario &bull;
-                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                    <span className="text-[13px] font-normal text-[#ABABAB]">
                       Hace 3 días
                     </span>
                   </p>
                 </div>
-                <div className="flex max-w-[300px] flex-col">
-                  <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
+                <div className="flex max-w-[250px] flex-col">
+                <span className="break-words font-roboto text-[12px] font-light text-[#44444F]">
                     {input.value}
                   </span>
                   <div className="flex space-x-2">
                     {input.files.map((file, fileIndex) => (
-                      <div key={fileIndex} className="group relative">
+                      <div key={fileIndex} className="group relative pt-[6px]">
                         <img
                           src={URL.createObjectURL(file)}
                           alt={file.name}
@@ -287,7 +288,7 @@ const DynamicForm = () => {
           <div className="mx-2 flex flex-col">
             {submittedInputs.length > 0 && (
               <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <Avatar className="flex h-[22px] w-[22px]">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
@@ -295,9 +296,9 @@ const DynamicForm = () => {
                     />
                     <AvatarFallback>??</AvatarFallback>
                   </Avatar>
-                  <p className="text-[12px] font-medium text-[#696974]">
+                  <p className="text-[13px] font-medium text-[#696974]">
                     Don Formulario &bull;
-                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                    <span className="text-[13px] font-normal text-[#ABABAB]">
                       Hace 3 días
                     </span>
                   </p>
