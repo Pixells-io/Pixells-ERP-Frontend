@@ -88,6 +88,8 @@ const DynamicForm = () => {
   const [showButton, setShowButton] = useState(true);
   const [submittedInputs, setSubmittedInputs] = useState([]);
 
+
+  {/*Add New input */}
   const handleAddInput = () => {
     const newInput = { id: Date.now(), value: "", files: [] };
     setInputs((prevInputs) => [...prevInputs, newInput]);
@@ -111,7 +113,7 @@ const DynamicForm = () => {
       )
     );
   };
-
+ {/*Remove to files in new row */}
   const handleRemoveFile = (inputId, fileIndex) => {
     setInputs((prevInputs) =>
       prevInputs.map((input) =>
@@ -124,7 +126,7 @@ const DynamicForm = () => {
       )
     );
   };
-
+{/*Remove to files in submittedInputs */}
   const handleRemoveSubmittedFile = (inputId, fileIndex) => {
     setSubmittedInputs((prevSubmitted) =>
       prevSubmitted.map((input) =>
