@@ -26,7 +26,7 @@ function InputForm({
         id={id}
         type={type}
         className={cn(
-          "h-[32px] rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f] focus:outline-none focus:ring-0",
+          "h-[32px] rounded-[10px] border border-[#D7D7D7] text-sm text-[#44444f] ring-0 focus:outline-none",
           className,
         )}
         name={name}

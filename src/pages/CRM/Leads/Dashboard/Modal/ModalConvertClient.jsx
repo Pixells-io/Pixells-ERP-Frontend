@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-function ModalConvertClient({ modal, setModal, lead_id, lead_name }) {
+function ModalConvertClient({ modal, setModal, lead_id, lead_name, url }) {
   const params = useParams();
 
   return (
@@ -24,7 +24,7 @@ function ModalConvertClient({ modal, setModal, lead_id, lead_name }) {
         <Form
           id="area-edit-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/dashboard/${params.id}`}
+          action={`${url} ${params.id}`}
           method="POST"
           encType="multipart/form-data"
         >
