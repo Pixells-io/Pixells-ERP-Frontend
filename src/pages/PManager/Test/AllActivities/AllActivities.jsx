@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { add, searchOutline } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProjectTab from "./ProjectTab";
+import ProjectTab from "./Tabs/ProjectTab";
+import StatusTab from "./Tabs/StatusTab";
 
 
 function AllActivities() {
@@ -78,6 +79,7 @@ function AllActivities() {
             <ProjectTab />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
+          <StatusTab />
         </TabsContent>
         <TabsContent value="finish" className="overflow-auto">
         </TabsContent>
