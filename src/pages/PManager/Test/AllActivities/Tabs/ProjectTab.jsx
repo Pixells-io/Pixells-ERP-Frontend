@@ -47,6 +47,41 @@ const OPTIONS = {
             },
             {
               id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
               name: "Pablo",
               img: "https://github.com/shadcn.png",
             },
@@ -71,6 +106,31 @@ const OPTIONS = {
           repeat: 1,
           expiration: "16 feb 2024",
           responsible: [
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
+            {
+              id: 2,
+              name: "Pepe",
+              img: "https://github.com/shadcn.png",
+            },
             {
               id: 2,
               name: "Pepe",
@@ -286,12 +346,21 @@ function ProjectTab() {
                   </div>
 
                   <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
-                    {d.responsible.map((r, i) => (
-                      <Avatar className="size-6" key={i}>
-                        <AvatarImage src={r?.img} title={r?.name} />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                    ))}
+                    <div className="flex">
+                      {d.responsible.slice(0, 3).map((r, index) => (
+                        <Avatar className="size-6" key={index}>
+                          <AvatarImage src={r?.img} title={r?.name} />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                      ))}
+                    </div>
+                    {d.responsible.length > 3 && (
+                      <div className="ml-1 flex items-center">
+                        <span className="text-xs font-normal text-grisHeading">
+                          +{d.responsible.length - 3}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div
                     className={
