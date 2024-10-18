@@ -150,7 +150,7 @@ export async function newObjective(data) {
 export async function getObjectivesByWorkspaceId(workspace) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive/${workspace}`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspace/${workspace}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
