@@ -14,13 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import InputForm from "@/components/InputForm/InputForm";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Input } from "@/components/ui/input";
 
 const InputWithDropzone = ({
   input,
@@ -46,8 +44,7 @@ const InputWithDropzone = ({
           placeholder="Agregar titulo"
         />
       </div>
-      <div className={`${input.value ? "p-2" : ""}`}
-      >
+      <div className={`${input.value ? "p-2" : ""}`}>
         {input.files.length > 0 && (
           <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
             {input.files.map((file, index) => (
@@ -87,7 +84,7 @@ const InputWithDropzone = ({
           )}
           <IonIcon
             icon={chevronForwardOutline}
-            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mt-[-40px] flex justify-end mr-2" : ""}`}
+            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mr-2 mt-[-40px] flex justify-end" : ""}`}
             onClick={() => onSubmit(input)}
           />
         </div>
@@ -287,51 +284,54 @@ const DynamicForm = () => {
           </DropdownMenu>
         </div>
       </HoverCardTrigger>
-      {open != true ? (
-        <HoverCardContent
-          className="h-[99px] h-full w-80 overflow-auto rounded-[20px]"
-          style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-        >
-          <div className="mx-2 flex flex-col">
-            {submittedInputs.length > 0 && (
-              <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                <div className="flex items-center gap-2">
-                  <Avatar className="flex h-6 w-6">
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
-                    <AvatarFallback>??</AvatarFallback>
-                  </Avatar>
-                  <p className="text-[12px] font-medium text-[#696974]">
-                    Don Formulario &bull;
-                    <span className="text-[12px] font-normal text-[#ABABAB]">
-                      Hace 3 días
-                    </span>
-                  </p>
-                </div>
-                <div className="flex max-w-[250px] flex-col">
-                  <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
-                    {submittedInputs[submittedInputs.length - 1].value}
-                  </span>
-                  {/* <div className="flex space-x-2">
-                {submittedInputs[submittedInputs.length - 1].files.map(
-                  (file, fileIndex) => (
-                    <div key={fileIndex} className="group relative">
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt={file.name}
-                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
+      {open != true && submittedInputs.length > 0 ? (
+        <div className="relative left-0">
+          {" "}
+          <HoverCardContent
+            className="left-0 h-[99px] w-80 rounded-[20px]"
+            style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+          >
+            <div className="mx-2 flex flex-col">
+              {submittedInputs.length > 0 && (
+                <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
+                  <div className="flex items-center gap-2">
+                    <Avatar className="flex h-6 w-6">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
                       />
-                    </div>
-                  ),
-                )}
-              </div> */}
+                      <AvatarFallback>??</AvatarFallback>
+                    </Avatar>
+                    <p className="text-[12px] font-medium text-[#696974]">
+                      Don Formulario &bull;
+                      <span className="text-[12px] font-normal text-[#ABABAB]">
+                        Hace 3 días
+                      </span>
+                    </p>
+                  </div>
+                  <div className="flex max-w-[250px] flex-col">
+                    <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
+                      {submittedInputs[submittedInputs.length - 1].value}
+                    </span>
+                    {/* <div className="flex space-x-2">
+              {submittedInputs[submittedInputs.length - 1].files.map(
+                (file, fileIndex) => (
+                  <div key={fileIndex} className="group relative">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                    />
+                  </div>
+                ),
+              )}
+            </div> */}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </HoverCardContent>
+              )}
+            </div>
+          </HoverCardContent>
+        </div>
       ) : (
         false
       )}
