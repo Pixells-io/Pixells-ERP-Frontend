@@ -219,9 +219,9 @@ const DynamicForm = () => {
                     />
                     <AvatarFallback>??</AvatarFallback>
                   </Avatar>
-                  <p className="text-[12px] font-medium text-[#696974]">
+                  <p className="text-[13px] font-medium text-[#696974]">
                     Don Formulario &bull;
-                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                    <span className="text-[13px] font-normal text-[#ABABAB]">
                       Hace 3 días
                     </span>
                   </p>
@@ -287,7 +287,7 @@ const DynamicForm = () => {
           <div className="mx-2 flex flex-col">
             {submittedInputs.length > 0 && (
               <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <Avatar className="flex h-[22px] w-[22px]">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
@@ -295,9 +295,9 @@ const DynamicForm = () => {
                     />
                     <AvatarFallback>??</AvatarFallback>
                   </Avatar>
-                  <p className="text-[12px] font-medium text-[#696974]">
+                  <p className="text-[13px] font-medium text-[#696974]">
                     Don Formulario &bull;
-                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                    <span className="text-[13px] font-normal text-[#ABABAB]">
                       Hace 3 días
                     </span>
                   </p>
