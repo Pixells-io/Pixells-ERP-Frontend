@@ -40,7 +40,7 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex  w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
@@ -227,8 +227,8 @@ const DynamicForm = () => {
                     </span>
                   </p>
                 </div>
-                <div className="flex max-w-[300px] flex-col">
-                  <span className="truncate font-roboto pt-[6px] text-[10px] font-normal text-[#44444F]">
+                <div className="flex max-w-[250px] flex-col">
+                <span className="break-words font-roboto text-[12px] font-light text-[#44444F]">
                     {input.value}
                   </span>
                   <div className="flex space-x-2">
