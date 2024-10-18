@@ -24,6 +24,7 @@ function ModalCreateActivity({
   activity_name,
   services,
   products,
+  url,
 }) {
   //Inputs
   const [inputTitle, setInputTitle] = useState(false);
@@ -213,7 +214,7 @@ function ModalCreateActivity({
         <Form
           id="area-edit-form"
           className="flex h-full w-full flex-col gap-3 px-6"
-          action={`/crm/dashboard/${params.id}`}
+          action={`${url}${params.id}`}
           method="POST"
           encType="multipart/form-data"
         >

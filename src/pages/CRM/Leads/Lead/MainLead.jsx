@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, useNavigate, useOutletContext } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { ellipseSharp, ellipsisHorizontalSharp } from "ionicons/icons";
 import NavigationHeader from "@/components/navigation-header";
@@ -13,19 +13,46 @@ import ModalConvertClient from "../Dashboard/Modal/ModalConvertClient";
 import ModalEditLead from "../Dashboard/Modal/ModalEditLead";
 import ModalChangeAssignedLead from "../Dashboard/Modal/ModalChangeAssignedLead";
 import ModalCreateActivity from "../Dashboard/Modal/ModalCreateActivity";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { createPusherClient } from "@/lib/pusher";
+import { getOneLeadId } from "../../utils";
 
 function MainLead() {
   const [lead] = useOutletContext();
+  const [mainLeadData, setMainLeadData] = useState(lead);
 
   const [modalActivity, setModalActivity] = useState(false);
   const [modalConvertClient, setModalConvertClient] = useState(false);
-  const [modalEditLead, setModalEditLead] = useState(false);
   const [modalChangeAssigned, setModalChangeAssigned] = useState(false);
   const [leadInfo, setLead] = useState(false);
   const [leadId, setLeadId] = useState(false);
   const [leadName, setLeadName] = useState(false);
   const [typeActivity, setTypeActivity] = useState(false);
   const [activityName, setActivityName] = useState(false);
+
+  const navigate = useNavigate();
+
+  //WEBSOCKET
+  const pusherClient = createPusherClient();
+
+  useEffect(() => {
+    //Socket fot table leads and clients
+    pusherClient.subscribe(`private-get-lead.${mainLeadData.id}`);
+
+    pusherClient.bind("fill-lead", ({ lead }) => {
+      getLeadData();
+    });
+
+    //Function Sync Info
+    async function getLeadData(process) {
+      let newData = await getOneLeadId(mainLeadData.id);
+      setMainLeadData(newData.data);
+    }
+
+    return () => {
+      pusherClient.unsubscribe(`private-get-lead.${mainLeadData.id}`);
+    };
+  }, []);
 
   //Function open modal action
   function openModalAction(id, type, name) {
@@ -61,6 +88,7 @@ function MainLead() {
         setActivityName("Agendar Actividad");
         break;
       case 6:
+        navigate("/sales/quotes");
         setModalActivity(true);
         setLeadId(id);
         setTypeActivity(type);
@@ -95,25 +123,23 @@ function MainLead() {
         lead_id={leadId}
         type={typeActivity}
         activity_name={activityName}
-        //services={data.services}
-        //products={data.products}
+        services={mainLeadData.services_bulk}
+        products={mainLeadData.products_bulk}
+        url={"/crm/leads/"}
       />
       <ModalConvertClient
         modal={modalConvertClient}
         setModal={setModalConvertClient}
         lead_id={leadId}
         lead_name={leadName}
-      />
-      <ModalEditLead
-        modal={modalEditLead}
-        setModal={setModalEditLead}
-        lead={leadInfo}
+        url={"/crm/leads/"}
       />
       <ModalChangeAssignedLead
         modal={modalChangeAssigned}
         setModal={setModalChangeAssigned}
         lead={leadInfo}
-        //users={data.users}
+        users={mainLeadData.users_bulk}
+        url={"/crm/leads/"}
       />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
@@ -129,9 +155,9 @@ function MainLead() {
         {/* icons line */}
         <div className="flex h-20 justify-center overflow-auto align-middle">
           <div className="flex w-10/12 overflow-auto">
-            {lead.steps?.map((step, i) => (
+            {mainLeadData.steps?.map((step, i) => (
               <div className="flex-shrink-0">
-                {step.id > lead.process_sale_step ? (
+                {step.id > mainLeadData.process_sale_step ? (
                   <div className="flex flex-shrink-0 items-start justify-center gap-4">
                     <div className="items-start text-center">
                       <IonIcon
@@ -146,7 +172,7 @@ function MainLead() {
                         {step.name}
                       </span>
                     </div>
-                    {i === lead.steps.length - 1 ? null : (
+                    {i === mainLeadData.steps.length - 1 ? null : (
                       <div className="mt-3 w-[70px] border-t border-grisDisabled"></div>
                     )}
                   </div>
@@ -165,7 +191,7 @@ function MainLead() {
                         {step.name}
                       </span>
                     </div>
-                    {i === lead.steps.length - 1 ? null : (
+                    {i === mainLeadData.steps.length - 1 ? null : (
                       <div className="mt-3 w-[70px] border-t border-grisHeading"></div>
                     )}
                   </div>
@@ -189,63 +215,69 @@ function MainLead() {
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 1)}
+                    onClick={() => openModalAction(mainLeadData.id, 1)}
                   >
                     Dimensionar Oportunidad
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 2)}
+                    onClick={() => openModalAction(mainLeadData.id, 2)}
                   >
                     Enviar Correo
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 3)}
+                    onClick={() => openModalAction(mainLeadData.id, 3)}
                   >
                     Programar Correo
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 4)}
+                    onClick={() => openModalAction(mainLeadData.id, 4)}
                   >
                     Programar Mensaje
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 5)}
+                    onClick={() => openModalAction(mainLeadData.id, 5)}
                   >
                     Agendar Actividad
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 6)}
+                    onClick={() => openModalAction(mainLeadData.id, 6)}
                   >
                     Crear Cotizacion
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 7)}
+                    onClick={() => openModalAction(mainLeadData.id, 7)}
                   >
                     Asociar Producto / Servicio
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 8)}
+                    onClick={() => openModalAction(mainLeadData.id, 8)}
                   >
                     Recordatorio Para Mover al Lead
                   </button>
                   <button
                     type="button"
                     className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
-                    onClick={() => openModalAction(lead.id, 9, lead.name)}
+                    onClick={() =>
+                      openModalAction(
+                        mainLeadData.id,
+                        9,
+                        mainLeadData.business_name,
+                      )
+                    }
                   >
                     Convertir a Cliente
                   </button>
@@ -257,7 +289,53 @@ function MainLead() {
             ))}
           </div>
           <div className="w-3/12 rounded-2xl bg-white px-6 py-4">
-            <span>Hola</span>
+            {/*Comments Card */}
+            <div className="h-5/6 overflow-auto">
+              {mainLeadData.comments?.map((comment, i) => (
+                <div className="border-b-[1px] border-[#D7D7D7] py-2">
+                  <div className="line-clamp-1 flex items-center gap-2">
+                    <Avatar className="size-6">
+                      <AvatarImage src={comment?.img} title={comment?.name} />
+                    </Avatar>
+                    <span
+                      className="font-roboto text-xs font-medium text-grisText"
+                      title={comment.name}
+                    >
+                      {comment.name}&nbsp;&bull;
+                    </span>
+                    <span
+                      className="font-roboto text-xs font-normal text-[#ABABAB]"
+                      title={comment.diff}
+                    >
+                      Hace {comment.diff} días
+                    </span>
+                  </div>
+                  <span className="font-roboto text-xs font-normal text-grisHeading">
+                    {comment.comment}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="grid h-1/6 place-items-center px-2">
+              <Form method="POST" action={`/crm/leads/${mainLeadData.id}`}>
+                <input type="hidden" name="action" value="create-comment" />
+                <input type="hidden" name="lead_id" value={mainLeadData.id} />
+                <div className="flex rounded-3xl bg-grisBg px-2 py-2">
+                  <input
+                    type="text"
+                    name="comment"
+                    className="w-10/12 bg-transparent font-roboto text-xs text-[#8F8F8F] ring-0 focus:outline-none"
+                    placeholder="Comentario"
+                  />
+                  <button
+                    className="rounded-3xl bg-primarioBotones px-2 py-1 font-roboto text-xs text-white"
+                    type="submit"
+                  >
+                    Enviar
+                  </button>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>

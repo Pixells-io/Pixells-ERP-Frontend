@@ -13,7 +13,7 @@ import {
 import InputForm from "@/components/InputForm/InputForm";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
+function ModalChangeAssignedLead({ modal, setModal, lead, users, url }) {
   const navigation = useNavigation();
   const params = useParams();
 
@@ -34,7 +34,7 @@ function ModalChangeAssignedLead({ modal, setModal, lead, users }) {
         <Form
           id="lead-form-edit"
           className="flex flex-col gap-8 px-6"
-          action={`/crm/dashboard/${params.id}`}
+          action={`${url}${params.id}`}
           method="post"
           onKeyDown={(e) => {
             if (e.key === "Enter") {

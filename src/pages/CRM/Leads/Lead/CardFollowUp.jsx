@@ -7,7 +7,6 @@ import "react-circular-progressbar/dist/styles.css";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 function CardFollowUp({ info }) {
-  console.log(info);
   return (
     <div className="flex w-full border-b-[1px] border-[#D7D7D7] py-4">
       <div className="w-1/12 font-roboto text-xs text-[#8F8F8F]">
