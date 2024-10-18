@@ -230,8 +230,8 @@ const DynamicForm = () => {
                             </span>
                           </p>
                         </div>
-                        <div className="flex flex-col">
-                          <span className="font-roboto text-[11px] font-light text-[#44444F]">
+                        <div className="flex flex-col max-w-[300px]">
+                          <span className="font-roboto text-[11px] truncate font-light text-[#44444F]">
                             {input.value}
                           </span>
                           <div className="flex space-x-2">
@@ -288,50 +288,50 @@ const DynamicForm = () => {
         </div>
       </HoverCardTrigger>
       {open != true ? (
-        <HoverCardContent
-          className="w-80 h-[99px] rounded-[20px]"
-          style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-        >
-          <div className="flex flex-col">
-            {submittedInputs.length > 0 && (
-              <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                <div className="flex items-center gap-2">
-                  <Avatar className="flex h-6 w-6">
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
-                    <AvatarFallback>??</AvatarFallback>
-                  </Avatar>
-                  <p className="text-[12px] text-grisText">
-                    "Don Formulario" &bull;{" "}
-                    <span className="text-[10px] text-[#ABABAB]">
-                      Hace 3 días
-                    </span>
-                  </p>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-roboto text-[11px] font-light text-[#44444F]">
-                    {submittedInputs[submittedInputs.length - 1].value}
-                  </span>
-                  {/* <div className="flex space-x-2">
-                    {submittedInputs[submittedInputs.length - 1].files.map(
-                      (file, fileIndex) => (
-                        <div key={fileIndex} className="group relative">
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={file.name}
-                            className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                          />
-                        </div>
-                      ),
-                    )}
-                  </div> */}
-                </div>
-              </div>
-            )}
+      <HoverCardContent
+      className="w-80 h-[99px] h-full overflow-auto rounded-[20px]"
+      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+    >
+      <div className="flex flex-col">
+        {submittedInputs.length > 0 && (
+          <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
+            <div className="flex items-center gap-2">
+              <Avatar className="flex h-6 w-6">
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>??</AvatarFallback>
+              </Avatar>
+              <p className="text-[12px] text-grisText">
+                "Don Formulario" &bull;{" "}
+                <span className="text-[10px] text-[#ABABAB]">
+                  Hace 3 días
+                </span>
+              </p>
+            </div>
+            <div className="flex flex-col max-w-[250px]">
+            <span className="font-roboto text-[11px] font-light text-[#44444F] break-words">
+                {submittedInputs[submittedInputs.length - 1].value}
+              </span>
+              {/* <div className="flex space-x-2">
+                {submittedInputs[submittedInputs.length - 1].files.map(
+                  (file, fileIndex) => (
+                    <div key={fileIndex} className="group relative">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={file.name}
+                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                      />
+                    </div>
+                  ),
+                )}
+              </div> */}
+            </div>
           </div>
-        </HoverCardContent>
+        )}
+      </div>
+    </HoverCardContent>
       ) : (
         false
       )}
