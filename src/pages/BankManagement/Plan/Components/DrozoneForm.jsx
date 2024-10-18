@@ -14,13 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import InputForm from "@/components/InputForm/InputForm";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Input } from "@/components/ui/input";
 
 const InputWithDropzone = ({
   input,
@@ -37,44 +35,43 @@ const InputWithDropzone = ({
   });
   return (
     <div className="mb-2 flex flex-col rounded-[20px] border p-0">
-      <div className={`border-b ${input.value ? "" : "rounded-[20px]"}`}
-      >
+      <div className={`${input.value ? "border-b" : ""}`}>
         <input
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className="mb-2 mt-[6px] flex h-[31px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0"
+          className={`mb-2 mt-[6px] flex  w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:font-normal placeholder:text-[#D7D7D7] placeholder:text-[#CCCCCC] placeholder:text-[11px] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
-      {input.value && (
-        <div 
-        className={`p-2 ${input.value ? "" : "mt-[-48px]"}`}
->
-          {input.files.length > 0 && (
-            <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
-              {input.files.map((file, index) => (
-                <div key={index} className="group relative">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
-                    className="h-[48px] w-[46px] rounded-[8px] object-cover"
+      <div className={`${input.value ? "p-2" : ""}`}>
+        {input.files.length > 0 && (
+          <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
+            {input.files.map((file, index) => (
+              <div key={index} className="group relative">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                />
+                <button
+                  onClick={() => onRemoveFile(input.id, index)}
+                  className="absolute right-0 top-0 hidden group-hover:block"
+                >
+                  <IonIcon
+                    icon={closeCircle}
+                    className="size-5 text-[#44444F]"
                   />
-                  <button
-                    onClick={() => onRemoveFile(input.id, index)}
-                    className="absolute right-0 top-0 hidden group-hover:block"
-                  >
-                    <IonIcon
-                      icon={closeCircle}
-                      className="size-5 text-[#44444F]"
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          <div className="flex justify-between space-x-4">
-            {input.value && ( <div
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <div
+          className={` ${!input.value ? "mt-[1px] flex justify-end" : "flex justify-between h-[40px] space-x-4"}`}
+        >
+          {input.value && (
+            <div
               {...getRootProps()}
               className="flex cursor-pointer items-center"
             >
@@ -83,15 +80,15 @@ const InputWithDropzone = ({
                 icon={imageOutline}
                 className="h-[16px] w-[16px] text-[#44444F]"
               />
-            </div>)}
-            <IonIcon
-              icon={chevronForwardOutline}
-              className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${input.value ? "" : "right-0 mt-[-48px]"}`}
-              onClick={() => onSubmit(input)}
-            />
-          </div>
+            </div>
+          )}
+          <IonIcon
+            icon={chevronForwardOutline}
+            className={`h-[30px] w-[30px] rounded-full bg-[#5B89FF] text-xs text-white ${!input.value ? "mr-2 mt-[-35px] flex justify-end" : ""}`}
+            onClick={() => onSubmit(input)}
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -175,128 +172,123 @@ const DynamicForm = () => {
   return (
     <HoverCard>
       <HoverCardTrigger>
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenuTrigger asChild>
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="bg-transparent hover:bg-transparent"
+      >
+        <IonIcon icon={add} className="size-12 text-[#44444F]" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[10px] ${!showContent ? "bg-none" : "rounded-[20px]"}`}
+      style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
+    >
+      {!showContent ? (
         <div>
-          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                onClick={() => setIsOpen(true)}
-                className="bg-transparent hover:bg-transparent"
+          {inputs.map((input) => (
+            <InputWithDropzone
+              key={input.id}
+              input={input}
+              onInputChange={handleInputChange}
+              onFilesChange={handleFilesChange}
+              onRemoveFile={handleRemoveFile}
+              onSubmit={handleSubmit}
+            />
+          ))}
+        </div>
+      ) : (
+        <>
+          <div className="flex h-[40px] w-full items-center border-b">
+            <span className="w-full px-2 font-poppins text-[11px] font-medium">
+              Documentos
+            </span>
+          </div>
+          <div className="flex w-full flex-col overflow-auto p-2">
+            {submittedInputs.map((input, index) => (
+              <div
+                key={index}
+                className="mb-4 flex flex-col items-start border-b pb-3"
               >
-                <IonIcon icon={add} className="size-12 text-[#44444F]" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className={`flex max-h-[400px] w-[450px] flex-col gap-2 overflow-hidden rounded-[10px] p-2 ${!showContent ? "bg-none" : ""}`}
-              style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
-            >
-              {!showContent ? (
-                <div>
-                  {inputs.map((input) => (
-                    <InputWithDropzone
-                      key={input.id}
-                      input={input}
-                      onInputChange={handleInputChange}
-                      onFilesChange={handleFilesChange}
-                      onRemoveFile={handleRemoveFile}
-                      onSubmit={handleSubmit}
+                <div className="flex items-center gap-3">
+                  <Avatar className="flex h-[22px] w-[22px]">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
                     />
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <div className="mb-4 flex h-[40px] w-full justify-start border-b pb-2">
-                    <span className="ml-2 mt-2 h-[19px] font-poppins text-[11px] font-medium">
-                      Documentos
+                    <AvatarFallback>??</AvatarFallback>
+                  </Avatar>
+                  <p className="text-[12px] font-medium text-[#696974]">
+                    Don Formulario &bull;
+                    <span className="text-[12px] font-normal text-[#ABABAB]">
+                      Hace 3 días
                     </span>
-                  </div>
-                  <div className="flex w-full flex-col overflow-auto">
-                    {submittedInputs.map((input, index) => (
-                      <div
-                        key={index}
-                        className="mb-4 flex flex-col items-start border-b pb-3 pl-2 pr-2 pt-1"
-                      >
-                        <div className="flex items-center gap-3">
-                          <Avatar className="flex h-[22px] w-[22px]">
-                            <AvatarImage
-                              src="https://github.com/shadcn.png"
-                              alt="@shadcn"
-                            />
-                            <AvatarFallback>??</AvatarFallback>
-                          </Avatar>
-                          <p className="text-[12px] font-medium text-[#696974]">
-                            Don Formulario &bull;
-                            <span className="text-[12px] font-normal text-[#ABABAB]">
-                              Hace 3 días
-                            </span>
-                          </p>
-                        </div>
-                        <div className="flex max-w-[300px] flex-col">
-                          <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
-                            {input.value}
-                          </span>
-                          <div className="flex space-x-2">
-                            {input.files.map((file, fileIndex) => (
-                              <div key={fileIndex} className="group relative">
-                                <img
-                                  src={URL.createObjectURL(file)}
-                                  alt={file.name}
-                                  className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                                />
-                                <button
-                                  onClick={() =>
-                                    handleRemoveSubmittedFile(
-                                      input.id,
-                                      fileIndex,
-                                    )
-                                  }
-                                  className="absolute right-0 top-0 hidden group-hover:block"
-                                >
-                                  <IonIcon
-                                    icon={closeCircle}
-                                    className="size-5 text-[#44444F]"
-                                  />
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                  </p>
+                </div>
+                <div className="flex max-w-[300px] flex-col">
+                  <span className="truncate font-roboto text-[10px] font-normal text-[#44444F]">
+                    {input.value}
+                  </span>
+                  <div className="flex space-x-2">
+                    {input.files.map((file, fileIndex) => (
+                      <div key={fileIndex} className="group relative">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={file.name}
+                          className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                        />
+                        <button
+                          onClick={() =>
+                            handleRemoveSubmittedFile(input.id, fileIndex)
+                          }
+                          className="absolute right-0 top-0 hidden group-hover:block"
+                        >
+                          <IonIcon
+                            icon={closeCircle}
+                            className="size-5 text-[#44444F]"
+                          />
+                        </button>
                       </div>
                     ))}
-                    {showButton && submittedInputs.length === 0 && (
-                      <Button
-                        onClick={handleAddInput}
-                        className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
-                      >
-                        Nuevo
-                      </Button>
-                    )}
-                    {inputs.map((input) => (
-                      <InputWithDropzone
-                        key={input.id}
-                        input={input}
-                        onInputChange={handleInputChange}
-                        onFilesChange={handleFilesChange}
-                        onRemoveFile={handleRemoveFile}
-                        onSubmit={handleSubmit}
-                      />
-                    ))}
                   </div>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+                </div>
+              </div>
+            ))}
+            {showButton && submittedInputs.length === 0 && (
+              <Button
+                onClick={handleAddInput}
+                className="mb-4 flex h-[32px] w-[58px] self-end rounded-[10px] bg-[#5B89FF] text-xs text-[#FFFFFF]"
+              >
+                Nuevo
+              </Button>
+            )}
+            {inputs.map((input) => (
+              <InputWithDropzone
+                key={input.id}
+                input={input}
+                onInputChange={handleInputChange}
+                onFilesChange={handleFilesChange}
+                onRemoveFile={handleRemoveFile}
+                onSubmit={handleSubmit}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </DropdownMenuContent>
+  </DropdownMenu>
       </HoverCardTrigger>
-      {open != true ? (
+      {open != true && submittedInputs.length > 0 ? (
         <HoverCardContent
-          className="h-[99px] h-full w-80 overflow-auto rounded-[20px]"
+          className="h-[99px] w-80 rounded-[20px]"
           style={{ boxShadow: "0px 0px 8px 0px #00000033" }}
         >
           <div className="mx-2 flex flex-col">
             {submittedInputs.length > 0 && (
               <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
                 <div className="flex items-center gap-2">
-                  <Avatar className="flex h-6 w-6">
+                  <Avatar className="flex h-[22px] w-[22px]">
                     <AvatarImage
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
@@ -315,18 +307,18 @@ const DynamicForm = () => {
                     {submittedInputs[submittedInputs.length - 1].value}
                   </span>
                   {/* <div className="flex space-x-2">
-                {submittedInputs[submittedInputs.length - 1].files.map(
-                  (file, fileIndex) => (
-                    <div key={fileIndex} className="group relative">
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt={file.name}
-                        className="h-[48px] w-[46px] rounded-[8px] object-cover"
-                      />
-                    </div>
-                  ),
-                )}
-              </div> */}
+              {submittedInputs[submittedInputs.length - 1].files.map(
+                (file, fileIndex) => (
+                  <div key={fileIndex} className="group relative">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      className="h-[48px] w-[46px] rounded-[8px] object-cover"
+                    />
+                  </div>
+                ),
+              )}
+            </div> */}
                 </div>
               </div>
             )}
