@@ -314,7 +314,7 @@ const DynamicForm = () => {
                   <span className="font-roboto text-[11px] font-light text-[#44444F]">
                     {submittedInputs[submittedInputs.length - 1].value}
                   </span>
-                  <div className="flex space-x-2">
+                  {/* <div className="flex space-x-2">
                     {submittedInputs[submittedInputs.length - 1].files.map(
                       (file, fileIndex) => (
                         <div key={fileIndex} className="group relative">
@@ -326,7 +326,7 @@ const DynamicForm = () => {
                         </div>
                       ),
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}
