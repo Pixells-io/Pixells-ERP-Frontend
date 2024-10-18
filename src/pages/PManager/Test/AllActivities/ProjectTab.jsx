@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Accordion,
@@ -36,12 +36,8 @@ const OPTIONS = {
         {
           id: 1,
           objective: "",
-          name: [
-            "Immigration",
-            "Tax Preparation",
-            "Immigration",
-            "Tax Preparation",
-          ],
+          name: "Immigration, Tax Preparation, Immigration",
+          repeat: 4,
           expiration: "15 feb 2024",
           responsible: [
             {
@@ -71,12 +67,8 @@ const OPTIONS = {
         {
           id: 2,
           objective: "",
-          name: [
-            "Immigration",
-            "Tax Preparation",
-            "Immigration",
-            "Tax Preparation",
-          ],
+          name: "Immigration, Tax Preparation, Immigration",
+          repeat: 1,
           expiration: "16 feb 2024",
           responsible: [
             {
@@ -102,12 +94,8 @@ const OPTIONS = {
         {
           id: 1,
           objective: "",
-          name: [
-            "Immigration",
-            "Tax Preparation",
-            "Immigration",
-            "Tax Preparation",
-          ],
+          name: "Immigration, Tax Preparation, Immigration",
+          repeat: 2,
           expiration: "15 feb 2024",
           responsible: [
             {
@@ -132,12 +120,8 @@ const OPTIONS = {
         {
           id: 2,
           objective: "",
-          name: [
-            "Immigration",
-            "Tax Preparation",
-            "Immigration",
-            "Tax Preparation",
-          ],
+          name: "Immigration, Tax Preparation, Immigration",
+          repeat: 8,
           expiration: "16 feb 2024",
           responsible: [
             {
@@ -168,8 +152,9 @@ const OPTIONS = {
         {
           id: 1,
           objective: "",
-          name: ["Immigration", "Tax Preparation"],
+          name: "Immigration, Tax Preparation, Immigration",
           expiration: "15 feb 2024",
+          repeat: 2,
           responsible: [
             {
               id: 2,
@@ -188,12 +173,8 @@ const OPTIONS = {
         {
           id: 2,
           objective: "",
-          name: [
-            "Immigration",
-            "Tax Preparation",
-            "Immigration",
-            "Tax Preparation",
-          ],
+          name: "Immigration, Tax Preparation, Immigration",
+          repeat: 1,
           expiration: "16 feb 2024",
           responsible: [
             {
@@ -221,6 +202,15 @@ const OPTIONS = {
 };
 
 function ProjectTab() {
+  const [openItems, setOpenItems] = useState([]);
+
+  useEffect(() => {
+    const allItemValues = OPTIONS?.projects?.map(
+      (project, index) => `item-${project.id}`,
+    );
+    setOpenItems(allItemValues);
+  }, [OPTIONS]);
+
   return (
     <div className="mt-8 flex flex-col px-8">
       <div className="grid h-12 grid-cols-12 items-center border-b">
@@ -233,9 +223,18 @@ function ProjectTab() {
           </div>
         ))}
       </div>
-      <Accordion type="multiple" className="w-full">
+      <Accordion
+        type="multiple"
+        className="w-full"
+        value={openItems}
+        onValueChange={(e) => setOpenItems(e)}
+      >
         {OPTIONS?.projects.map((project, i) => (
-          <AccordionItem value={"item" + project?.id} key={"item-" + i} className="border-none">
+          <AccordionItem
+            value={"item-" + project?.id}
+            key={"item-" + i}
+            className="border-none"
+          >
             <AccordionTrigger className="h-12 w-full items-center border-b border-grisHeading text-xs font-normal text-grisHeading">
               <div className="flex items-center gap-x-2">
                 <IonIcon
@@ -264,16 +263,10 @@ function ProjectTab() {
                   >
                     <div className="flex items-center gap-x-2">
                       <div>
-                        {d.name.map((n, i) => (
-                          <span key={i}>
-                            {n}
-                            {d.name.length > 1 && i != d.name.length - 1 && ","}
-                            &nbsp;
-                          </span>
-                        ))}
+                        <span>{d.name}</span>
                       </div>
                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blancoBox font-roboto text-sm font-medium text-grisHeading">
-                        {d?.name?.length}
+                        {d?.repeat}
                       </div>
                     </div>
                   </div>
@@ -292,7 +285,7 @@ function ProjectTab() {
                     {d.expiration}
                   </div>
 
-                  <div className="col-span-1 flex justify-start gap-x-1">
+                  <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
                     {d.responsible.map((r, i) => (
                       <Avatar className="size-6" key={i}>
                         <AvatarImage src={r?.img} title={r?.name} />
