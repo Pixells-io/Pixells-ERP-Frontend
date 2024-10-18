@@ -41,9 +41,9 @@ function SelectRouter({
         }}
         maxMenuHeight={150}
         // menuPosition="fixed"
-        menuPortalTarget={document.body}
+        menuPortalTarget={document.body} //esta
         styles={{
-          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }), //esta
           control: (baseStyles, state) => ({
             ...baseStyles,
             borderRadius: "10px",
