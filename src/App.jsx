@@ -606,6 +606,8 @@ import {
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
 import AllActivities from "./pages/PManager/Test/AllActivities/AllActivities";
+import MainObjetives from "./pages/PManager/Test/Objectives/MainObjetives";
+import ObjectiveAll from "./pages/PManager/Test/Objectives/ObjectiveAll";
 
 const router = createBrowserRouter([
   {
@@ -768,6 +770,16 @@ const router = createBrowserRouter([
           {
             path: "/project-manager2/activities/:id",
             element: <AllActivities />,
+          },
+          {
+            path: "/project-manager2/objectives",
+            element: <MainObjetives />,
+            children: [
+              {
+                path: "/project-manager2/objectives/:id",
+                element: <ObjectiveAll />,
+              },
+            ]
           },
         ],
       },
