@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { redirect, useLoaderData, useParams } from "react-router-dom";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,10 +12,13 @@ import { Progress } from "@/components/ui/progress";
 
 import NavigationHeader from "@/components/navigation-header";
 
-import { IonIcon } from "@ionic/react";
-import { add, chevronDown, ellipsisVertical } from "ionicons/icons";
 import ShareSettins from "./components2/ShareSettings/ShareSettings";
-import { useLoaderData } from "react-router-dom";
+import NewTaskModal from "./components2/Modals/NewTaskModal";
+
+import { IonIcon } from "@ionic/react";
+import { chevronDown, ellipsisVertical } from "ionicons/icons";
+
+import { saveNewTaskPM } from "@/layouts/PManager/utils";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -85,11 +87,20 @@ const OPTIONS = [
 ];
 
 function MainPM() {
-  const { data } = useLoaderData();
-  const [workspaces, setWorkspaces] = useState([]);
-  const [objectivesYears, setBbjectivesYears] = useState([]);
-  const [objectivesIndividual, setObjectivesIndividual] = useState([]);
-  const [objectivesTeam, setObjectivesTeam] = useState([]);
+  const { objective, users } = useLoaderData();
+  const params = useParams();
+  const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
+  const [task, setTasks] = useState(
+    objectiveInfo?.project?.concat(objectiveInfo?.tasks),
+  );
+
+  useEffect(() => {
+    const newObjectiveInfo = objective?.data;
+    setObjectiveInfo(newObjectiveInfo);
+    if (newObjectiveInfo) {
+      setTasks(newObjectiveInfo?.project?.concat(newObjectiveInfo?.tasks));
+    }
+  }, [objective, params.id]);
 
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
@@ -110,14 +121,11 @@ function MainPM() {
       </div>
       <div className="flex w-full items-center justify-between">
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-          {data?.name || "Objetivo No Cargo Correctamente"}
+          {objectiveInfo?.name || "Objetivo No Cargo Correctamente"}
         </h2>
         <div className="flex items-center gap-4">
           <ShareSettins />
-          <div className="flex h-8 w-20 items-center justify-center gap-1 rounded-lg bg-primarioBotones text-xs text-white">
-            <IonIcon icon={add} className="size-4 shrink-0" />
-            Nuevo
-          </div>
+          <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
       </div>
 
@@ -142,37 +150,35 @@ function MainPM() {
           ))}
         </div>
 
-        {OPTIONS.map((opt, i) => (
+        {task.map((opt, i) => (
           <div
             key={i}
             className="grid h-12 w-full grid-cols-9 items-center border-b"
           >
             <div
               className={
-                opt.tipo == "Proyecto"
+                opt.type == "Proyecto"
                   ? "col-span-1 text-xs text-primarioBotones"
                   : "col-span-1 text-xs"
               }
             >
-              {opt.tipo}
+              {opt.type}
             </div>
-            <div className="col-span-2 text-xs">{opt.nombre}</div>
+            <div className="col-span-2 text-xs">{opt.name}</div>
             <div className="col-span-1 flex flex-col items-center px-3">
-              {opt.tipo == "Proyecto" && (
+              {opt.type == "Proyecto" && (
                 <>
                   <p className="w-full px-1 text-right text-[10px] font-normal text-grisHeading">
-                    {opt.progreso.toFixed(2)}%
+                    {opt.progress.toFixed(2)}%
                   </p>
                   <Progress
-                    value={opt.progreso}
+                    value={opt.progress}
                     className="h-[4px] bg-grisDisabled fill-primario"
                   />
                 </>
               )}
             </div>
-            <div className="col-span-1 text-center text-xs">
-              {opt.vencimiento}
-            </div>
+            <div className="col-span-1 text-center text-xs">{opt.end}</div>
             <div className="col-span-1 flex justify-center">
               <Avatar className="size-6">
                 <AvatarImage src="https://github.com/shadcn.png" />
@@ -182,27 +188,27 @@ function MainPM() {
             <div className="col-span-1 text-center">
               <div
                 className={
-                  opt.prioridad == "Baja"
+                  opt.priority == "1"
                     ? "text-xs text-[#DC9100]"
-                    : opt.prioridad == "Media"
+                    : opt.priority == "2"
                       ? "text-xs text-[#D75B00]"
                       : "text-xs text-[#B7021F]"
                 }
               >
-                {opt.prioridad}
+                {opt.priority}
               </div>
             </div>
             <div className="col-span-1 flex justify-center">
               <Avatar className="size-6">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src={opt.creator.img} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
             <div className="col-span-1 flex w-full items-center justify-between gap-1 text-xs">
-              {opt.tipo == "Actividad" ? (
+              {opt.type == "Tarea" ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
-                    <span className="pl-1 text-grisHeading">{opt.estado}</span>
+                    <span className="pl-1 text-grisHeading">{opt.status}</span>
 
                     <IonIcon
                       icon={chevronDown}
@@ -217,7 +223,7 @@ function MainPM() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <span>{opt.estado}</span>
+                <span>{opt.status}</span>
               )}
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -240,3 +246,17 @@ function MainPM() {
 }
 
 export default MainPM;
+
+export async function Action({ params, request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+  console.log(action);
+  switch (action) {
+    case "create-task":
+      await saveNewTaskPM(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    default:
+      return redirect(`/project-manager2/${params.id}`);
+  }
+}

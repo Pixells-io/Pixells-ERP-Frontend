@@ -94,18 +94,15 @@ function MainDashboardCrm() {
     await changeLeadStage(process, lead);
   }
 
+  //REASIGN THE INFO
+  useEffect(() => {
+    setInfoStages(data.process);
+  }, [data]);
+
   //WEBSOCKETS
   const pusherClient = createPusherClient();
 
   useEffect(() => {
-    setProcessId(id);
-    async function getSteps() {
-      let newData = await getProcessInfoId(id);
-      setInfoStages(newData.data.process);
-    }
-
-    getSteps();
-
     //Socket fot table leads and clients
     pusherClient.subscribe(`private-get-sales-process-stages.${id}`);
 
