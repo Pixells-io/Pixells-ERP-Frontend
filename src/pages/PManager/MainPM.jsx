@@ -170,9 +170,7 @@ function MainPM() {
                 </>
               )}
             </div>
-            <div className="col-span-1 text-center text-xs">
-              {opt.vencimiento}
-            </div>
+            <div className="col-span-1 text-center text-xs">{opt.end}</div>
             <div className="col-span-1 flex justify-center">
               <Avatar className="size-6">
                 <AvatarImage src="https://github.com/shadcn.png" />
@@ -182,9 +180,9 @@ function MainPM() {
             <div className="col-span-1 text-center">
               <div
                 className={
-                  opt.prioridad == "1"
+                  opt.priority == "1"
                     ? "text-xs text-[#DC9100]"
-                    : opt.prioridad == "2"
+                    : opt.priority == "2"
                       ? "text-xs text-[#D75B00]"
                       : "text-xs text-[#B7021F]"
                 }
@@ -199,10 +197,10 @@ function MainPM() {
               </Avatar>
             </div>
             <div className="col-span-1 flex w-full items-center justify-between gap-1 text-xs">
-              {opt.tipo == "Actividad" ? (
+              {opt.type == "Tarea" ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
-                    <span className="pl-1 text-grisHeading">{opt.estado}</span>
+                    <span className="pl-1 text-grisHeading">{opt.status}</span>
 
                     <IonIcon
                       icon={chevronDown}
@@ -217,7 +215,7 @@ function MainPM() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <span>{opt.estado}</span>
+                <span>{opt.status}</span>
               )}
               <DropdownMenu>
                 <DropdownMenuTrigger>

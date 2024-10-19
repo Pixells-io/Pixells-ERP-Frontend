@@ -97,7 +97,7 @@ function NewTaskModal({ users, objective_id }) {
                 className="hidden"
                 name="type"
                 type="text"
-                value={selectTaskType == "activity" ? 1 : 2}
+                value={selectTaskType == "activity" ? 0 : 1}
                 readOnly
               />
             </div>
