@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { IonIcon } from "@ionic/react";
 import {
   add,
-  imageOutline,
+  imagesOutline,
   chevronForwardOutline,
   closeCircle,
 } from "ionicons/icons";
@@ -76,10 +76,11 @@ const InputWithDropzone = ({
               className="flex cursor-pointer items-center"
             >
               <input {...getInputProps()} />
-              <IonIcon
-                icon={imageOutline}
-                className="h-[16px] w-[16px] text-[#44444F]"
-              />
+              <div className="flex items-center rounded-[6px] hover:bg-[#F2F2F2] h-[26px] p-1"><IonIcon
+                icon={imagesOutline}
+                className="h-[16px] w-[16px] text-[#44444F] "
+              /></div>
+              
             </div>
           )}
           <IonIcon
@@ -182,7 +183,7 @@ const DynamicForm = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none border-none" : "rounded-[20px]"}`}
+      className={`flex max-h-[400px] w-[450px] flex-col overflow-hidden rounded-[20px] p-0 ${!showContent ? "bg-none border-none" : ""}`}
      
     >
       {!showContent ? (
