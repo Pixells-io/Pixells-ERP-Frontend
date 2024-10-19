@@ -19,9 +19,11 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const MainRequestOrder = () => {
   const { data } = useLoaderData();
-  const orderByDate = (data) => { 
-    return [...data].sort((a, b) => new Date(b.delivery_date) - new Date(a.delivery_date))
-  }
+  const orderByDate = (data) => {
+    return [...data].sort(
+      (a, b) => new Date(b.delivery_date) - new Date(a.delivery_date),
+    );
+  };
   const [requestOrdersInfo, setRequestOrdersInfo] = useState(orderByDate(data));
   const [modalDeleteRequestOrder, setModalDeleteRequestOrder] = useState(false);
   const [selectRequestOrder, setSelectRequestOrder] = useState({
@@ -118,12 +120,12 @@ const MainRequestOrder = () => {
               <label className="rounded-xl bg-[#FAA364] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#FAA364]">
                 Pendiente
               </label>
-            ) : row?.original?.status == 2 ? (
+            ) : row?.original?.status == 3 ? (
               <label className="rounded-xl bg-[#00A259] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#00A259]">
-                Aceptado
+                Completado
               </label>
             ) : (
-              row?.original?.status == 3 && (
+              row?.original?.status == 2 && (
                 <label className="rounded-xl bg-[#DC1C3B] bg-opacity-25 p-2 px-2 py-1 text-center text-xs font-semibold text-[#DC1C3B]">
                   Cancelado
                 </label>
