@@ -86,13 +86,8 @@ function MainChat() {
   }, [location, urlId]);
 
   useEffect(() => {
-    async function getMensajes() {
-      let newData = await getChatWithId(id);
-      setChatMessagesPusher(newData.data.msg);
-    }
-
-    getMensajes();
-  }, [id]);
+    setChatMessagesPusher(chat.data.msg);
+  }, [chat.data.msg]);
 
   function onInputEnter(e) {
     if (e.code == "Enter") {
