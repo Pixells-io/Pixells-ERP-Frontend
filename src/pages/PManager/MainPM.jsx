@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { redirect, useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { redirect, useLoaderData, useParams } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -88,11 +88,19 @@ const OPTIONS = [
 
 function MainPM() {
   const { objective, users } = useLoaderData();
+  const params = useParams();
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
   );
-  console.log(task);
+
+  useEffect(() => {
+    const newObjectiveInfo = objective?.data;
+    setObjectiveInfo(newObjectiveInfo);
+    if (newObjectiveInfo) {
+      setTasks(newObjectiveInfo?.project?.concat(newObjectiveInfo?.tasks));
+    }
+  }, [objective, params.id]);
 
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
