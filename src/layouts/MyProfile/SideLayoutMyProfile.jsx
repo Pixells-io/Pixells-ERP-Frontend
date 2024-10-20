@@ -120,6 +120,7 @@ export async function Action({ request }) {
       return redirect("/my-profile");
       break;
     case "2":
+      //GOOGLE LOGIN URL
       const responseUrl = await loginGoogleToken();
       if (responseUrl.code != 400) {
         return redirect(responseUrl.data.url);

@@ -453,8 +453,8 @@ function MainIntegrations() {
                   type="submit"
                   className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
                 >
-                  <IonIcon icon={logoWhatsapp} className="text-lg"></IonIcon>
-                  Configura Whatsapp
+                  <IonIcon icon={logoFacebook} className="text-lg"></IonIcon>
+                  Configura Meta
                 </Button>
               </Form>
             </TabsContent>
