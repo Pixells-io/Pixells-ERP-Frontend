@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import FinancialCalendar from "./Components/Calendar";
 import DynamicForm from "./Components/DrozoneForm";
+import DropZoneForm from "@/components/DropZoneForm/DropZoneForm";
 
 function MainPlan() {
   const [selectCollection, setSelectCollection] = useState(null);
@@ -104,7 +105,7 @@ function MainPlan() {
         
           <div className="w-full overflow-hidden">
 
-          <DynamicForm/>
+          <DropZoneForm />
            {/* <FinancialCalendar/>  */}
             <div className="w-full">
              
