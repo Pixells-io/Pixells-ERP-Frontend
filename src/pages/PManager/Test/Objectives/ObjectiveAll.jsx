@@ -606,19 +606,15 @@ function ObjectiveAll() {
                         placeholder={"Agrega una nueva actividad"}
                       />
                     </div>
-                    <div
-                      className={
-                        "col-span-1 text-xs font-normal text-[#CCCCCC]"
-                      }
-                    >
-                      <span>DD/MM/AAAA</span>
+                    <div className={"col-span-1"}>
+                      <span className="rounded-lg bg-gris px-3 py-1.5 text-[10px] font-normal text-[#CCCCCC]">
+                        DD/MM/AA
+                      </span>
                     </div>
-                    <div
-                      className={
-                        "col-span-1 text-xs font-normal text-[#CCCCCC]"
-                      }
-                    >
-                      <span>DD/MM/AAAA</span>
+                    <div className={"col-span-1"}>
+                      <span className="rounded-lg bg-gris px-3 py-1.5 text-[10px] font-normal text-[#CCCCCC]">
+                        DD/MM/AA
+                      </span>
                     </div>
 
                     <div
@@ -634,7 +630,7 @@ function ObjectiveAll() {
                       <span className="text-[#CCCCCC]">Por Definir</span>
                     </div>
 
-                    <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
+                    <div className="col-span-1 flex items-center px-1">
                       <IonIcon
                         icon={add}
                         className="h-5 w-5 cursor-pointer text-[#CCCCCC]"
