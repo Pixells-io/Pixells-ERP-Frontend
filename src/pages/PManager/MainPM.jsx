@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useLoaderData, useParams } from "react-router-dom";
+import { Link, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -233,6 +233,14 @@ function MainPM() {
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <Link
+                      className="flex w-full"
+                      to={`/project-manager2/project/${opt.id}`}
+                    >
+                      Ver
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>Editar</DropdownMenuItem>
                   <DropdownMenuItem>Eliminar</DropdownMenuItem>
                 </DropdownMenuContent>
