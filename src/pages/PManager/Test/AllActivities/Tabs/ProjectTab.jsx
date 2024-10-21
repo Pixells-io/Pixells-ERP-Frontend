@@ -261,7 +261,8 @@ const OPTIONS = {
   ],
 };
 
-function ProjectTab() {
+function ProjectTab({ tasks }) {
+  console.log(tasks);
   const [openItems, setOpenItems] = useState([]);
 
   useEffect(() => {
@@ -271,8 +272,33 @@ function ProjectTab() {
     setOpenItems(allItemValues);
   }, [OPTIONS]);
 
+  const [groupedTasks, setGroupedTasks] = useState([]);
+
+  useEffect(() => {
+    const grouped = tasks.reduce((acc, task) => {
+      const { objective_id, objetive } = task;
+      const existingObjective = acc.find((item) => item.id === objective_id);
+
+      if (existingObjective) {
+        existingObjective.tasks.push(task);
+      } else {
+        acc.push({
+          id: objective_id,
+          name: objetive,
+          tasks: [task],
+        });
+      }
+
+      return acc;
+    }, []);
+
+    setGroupedTasks(grouped);
+  }, [tasks]);
+
+  console.log(groupedTasks);
+
   return (
-    <div className="mt-8 flex flex-col px-8">
+    <div className="flex flex-col">
       <div className="grid h-12 grid-cols-12 items-center border-b">
         {HEADERS?.map((header, i) => (
           <div

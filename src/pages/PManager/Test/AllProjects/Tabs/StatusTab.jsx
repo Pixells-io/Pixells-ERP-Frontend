@@ -402,8 +402,6 @@ function StatusTab({ proyects }) {
     ],
   };
 
-  console.log(proyects);
-
   const [pending, setPending] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [completed, setCompleted] = useState([]);

@@ -46,7 +46,6 @@ const OPTIONS = [
 ];
 
 function ListTab({ proyects }) {
-  console.log(proyects);
   return (
     <div className="flex flex-col">
       <div className="grid h-12 grid-cols-10 items-center border-b">

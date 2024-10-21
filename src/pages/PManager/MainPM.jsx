@@ -250,7 +250,6 @@ export default MainPM;
 export async function Action({ params, request }) {
   const data = await request.formData();
   const action = data.get("action");
-  console.log(action);
   switch (action) {
     case "create-task":
       await saveNewTaskPM(data);

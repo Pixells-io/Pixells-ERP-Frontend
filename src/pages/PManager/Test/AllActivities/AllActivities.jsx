@@ -16,7 +16,7 @@ function AllActivities() {
       <NavigationHeader />
       {/* top content */}
       <div className="flex items-center gap-8">
-        <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+        <h2 className="font-poppins font-bold text-[#44444F]">
           PROJECT MANAGER
         </h2>
         <div className="flex items-center gap-3 text-[#8F8F8F]">
@@ -28,7 +28,8 @@ function AllActivities() {
         </div>
       </div>
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-        OBJETIVO
+        {"Todas las Actividades " + tasks.data.workspace ||
+          "Las Actividades No Cargaron Correctamente"}
       </h2>
 
       <Tabs
@@ -80,7 +81,7 @@ function AllActivities() {
           </div>
         </div>
         <TabsContent value="project" className="">
-          <ProjectTab tasks={tasks.data} />
+          <ProjectTab tasks={tasks.data.info} />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
