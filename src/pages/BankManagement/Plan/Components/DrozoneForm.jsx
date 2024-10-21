@@ -252,7 +252,7 @@ const DynamicForm = () => {
                                 onClick={() =>
                                   handleRemoveSubmittedFile(input.id, fileIndex)
                                 }
-                                className="absolute right-0 top-0 hidden group-hover:block"
+                                className="absolute right-0 top-0 pt-4 hidden group-hover:block"
                               >
                                 <IonIcon
                                   icon={closeCircle}
