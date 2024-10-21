@@ -35,18 +35,19 @@ const InputWithDropzone = ({
   });
   return (
     <div className="flex flex-col rounded-[20px] border p-0">
-      <div className={`${input.value ? "border-b h-[54px] " : ""}`}>
+      <div className={`${input.value ? "h-[54px] border-b" : "h-[40px]"}`}>
         <input
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex w-full h-[40px] flex-grow rounded-[12px] border-none bg-transparent pl-2 text-[11px] text-[#44444F] placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0`}
+          className={`mb-2 mt-[6px] flex w-full text-[11px] h-[20px] text-[#44444F] flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
-      <div className={`${input.value ? "p-2 h-[40px]" : ""}`}>
+      <div className={`${input.value && !input.files.length>0? "mx-2 mt-1" : "mx-2"}`}>
         {input.files.length > 0 && (
-          <div className="mb-4 flex items-center space-x-2 overflow-x-auto bg-transparent">
+          <div
+           className="ml-3 mt-2 mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
             {input.files.map((file, index) => (
               <div key={index} className="group relative">
                 <img
@@ -68,7 +69,7 @@ const InputWithDropzone = ({
           </div>
         )}
         <div
-          className={` ${!input.value ? "mt-[1px] flex justify-end" : "flex h-[40px] justify-between space-x-4"}`}
+          className={` ${!input.value ? "mt-[1px] flex justify-end" : "flex h-[40px] mt-1 justify-between space-x-4"}`}
         >
           {input.value && (
             <div
@@ -76,7 +77,7 @@ const InputWithDropzone = ({
               className="flex cursor-pointer items-center"
             >
               <input {...getInputProps()} />
-              <div className="flex h-[26px] items-center rounded-[6px] p-1 hover:bg-[#F2F2F2]">
+              <div className="flex h-[26px] items-center rounded-[6px] p-1 mb-2 hover:bg-[#F2F2F2]">
                 <IonIcon
                   icon={imagesOutline}
                   className="h-[16px] w-[16px] text-[#44444F]"
@@ -86,7 +87,7 @@ const InputWithDropzone = ({
           )}
           <IonIcon
             icon={chevronForwardOutline}
-            className={`h-[26px] w-[26px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-40px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
+            className={`h-[26px] w-[26px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-35px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
             onClick={() => {
               if (input.value) {
                 onSubmit(input);
