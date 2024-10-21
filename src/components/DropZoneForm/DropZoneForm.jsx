@@ -113,7 +113,7 @@ const IconWithDropzone = ({ input, onFilesChange }) => {
   });
   return (
     <div
-      className={` ${!input.value ? "mt-[1px] flex justify-end" : "mt-1 flex h-[40px] justify-between space-x-4"}`}
+      className={`h-fit ${!input.value ? "mt-[1px] flex justify-end" : "flex h-[40px] justify-between space-x-4"}`}
     >
       {input.value && (
         <div {...getRootProps()} className="flex cursor-pointer items-center">
@@ -345,7 +345,7 @@ const DropZoneForm = ({ comments }) => {
                             ))}
                           </div>
 
-                          <div className="flex items-center justify-between mt-2">
+                          <div className="flex items-center justify-between mt-4">
                             <div>
                               <IconWithDropzone
                                 input={input}
