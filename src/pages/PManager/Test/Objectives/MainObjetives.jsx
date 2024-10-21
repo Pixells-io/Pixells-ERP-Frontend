@@ -3,9 +3,7 @@ import NavigationHeader from "@/components/navigation-header";
 import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
-import { NavLink, Outlet } from "react-router-dom";
-
-
+import { NavLink, Outlet, useLoaderData } from "react-router-dom";
 
 const OptionsNavLink = [
   { id: 1, name: "Actualización del Sistema POS" },
@@ -14,6 +12,8 @@ const OptionsNavLink = [
 ];
 
 function MainObjetives() {
+  const data = useLoaderData();
+  console.log(data);
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] py-3 font-roboto">
       <div className="px-14">
@@ -22,7 +22,7 @@ function MainObjetives() {
         {/* top content */}
       </div>
       <div className="flex items-center gap-8 px-14">
-        <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+        <h2 className="font-poppins font-bold text-[#44444F]">
           PROJECT MANAGER
         </h2>
         <div className="flex items-center gap-3 text-[#8F8F8F]">
@@ -33,7 +33,7 @@ function MainObjetives() {
           <div className="text-xs">8 Proyectos</div>
         </div>
       </div>
-      <h2 className="font-poppins text-xl font-bold text-[#44444F] px-14">
+      <h2 className="px-14 font-poppins text-xl font-bold text-[#44444F]">
         OBJETIVO
       </h2>
 

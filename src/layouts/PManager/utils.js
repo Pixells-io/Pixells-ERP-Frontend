@@ -289,3 +289,28 @@ export async function multiloaderTasksPM({ params }) {
 
   return json({ tasks });
 }
+
+export async function getProjectById({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/show-project/${params.id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderProjectById({ params }) {
+  const [project, users] = await Promise.all([
+    getProjectById({ params }),
+    getUsers(),
+  ]);
+
+  return json({ project, users });
+}

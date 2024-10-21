@@ -603,6 +603,7 @@ import {
   getWorkspace,
   multiloaderMainPM,
   multiloaderPM,
+  multiloaderProjectById,
   multiloaderProyectsPM,
   multiloaderTasksPM,
 } from "./layouts/PManager/utils";
@@ -778,11 +779,12 @@ const router = createBrowserRouter([
             element: <AllActivities />,
           },
           {
-            path: "/project-manager2/objectives",
+            path: "/project-manager2/project/:id",
             element: <MainObjetives />,
+            loader: multiloaderProjectById,
             children: [
               {
-                path: "/project-manager2/objectives/:id",
+                index: true,
                 element: <ObjectiveAll />,
               },
             ],
