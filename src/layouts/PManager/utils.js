@@ -314,3 +314,25 @@ export async function multiloaderProjectById({ params }) {
 
   return json({ project, users });
 }
+
+// ACTIONS
+
+export async function newPhase(data) {
+  const info = {
+    name: data.get("name"),
+    project_id: data.get("project_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/create-phase`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

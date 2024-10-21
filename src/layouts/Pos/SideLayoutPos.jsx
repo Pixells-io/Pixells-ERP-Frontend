@@ -52,7 +52,6 @@ const SideLayoutPos = () => {
   }, [isDisabled]);
   return (
     <>
-      <ShareSettins />
       {isDisabled ? (
         <DisabledPos setIsDisabled={setIsDisabled} />
       ) : (
