@@ -610,7 +610,9 @@ import {
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
 import AllActivities from "./pages/PManager/Test/AllActivities/AllActivities";
-import MainObjetives from "./pages/PManager/Test/Objectives/MainObjetives";
+import MainObjetives, {
+  Action as multiloaderMO,
+} from "./pages/PManager/Test/Objectives/MainObjetives";
 import ObjectiveAll from "./pages/PManager/Test/Objectives/ObjectiveAll";
 
 const router = createBrowserRouter([
@@ -782,12 +784,7 @@ const router = createBrowserRouter([
             path: "/project-manager2/project/:id",
             element: <MainObjetives />,
             loader: multiloaderProjectById,
-            children: [
-              {
-                index: true,
-                element: <ObjectiveAll />,
-              },
-            ],
+            action: multiloaderMO,
           },
         ],
       },

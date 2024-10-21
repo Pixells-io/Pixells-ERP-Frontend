@@ -14,7 +14,7 @@ import {
   ellipsisVertical,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { Form } from "react-router-dom";
+import { Form, useParams, useSubmit } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import CommentsObjective from "../Components/CommentsObjective";
 import AddUserActivity from "../Components/AddUserActivity";
@@ -355,17 +355,26 @@ const OPTIONS = {
   ],
 };
 
-function ObjectiveAll() {
+function ObjectiveAll({ project }) {
+  const { projectInfo, phases } = project;
+  const params = useParams();
+  const submit = useSubmit();
+  const [faseInput, setFaseInput] = useState("");
   const [openItems, setOpenItems] = useState([]);
   const [addNewStage, setAddNewStage] = useState(false);
   const [indexSubStage, setIndexNewSubStage] = useState(null);
 
+  // useEffect(() => {
+  //   const allItemValues = OPTIONS?.projects?.map(
+  //     (project, index) => `item-${project.id}`,
+  //   );
+  //   setOpenItems(allItemValues);
+  // }, [OPTIONS]);
+
   useEffect(() => {
-    const allItemValues = OPTIONS?.projects?.map(
-      (project, index) => `item-${project.id}`,
-    );
+    const allItemValues = phases?.map(({ phase }, index) => `item-${phase.id}`);
     setOpenItems(allItemValues);
-  }, [OPTIONS]);
+  }, [phases]);
 
   const calculateDays = (dateStart, dateEnd) => {
     const date1 = new Date(dateStart);
@@ -385,6 +394,14 @@ function ObjectiveAll() {
     return differenceInDays;
   };
 
+  function onInputEnter(e) {
+    if (e.code == "Enter") {
+      submit(e.currentTarget);
+      setFaseInput("");
+    }
+  }
+
+  console.log(project);
   return (
     <div className="flex flex-row">
       {/* buttons */}
@@ -396,6 +413,7 @@ function ObjectiveAll() {
           <IonIcon icon={add} className="h-7 w-7 text-grisHeading" />
         </div>
       </div>
+      {/* table */}
       <div className="w-full pr-14">
         <div className="grid h-12 grid-cols-12 items-center border-b">
           {HEADERS?.map((header, i) => (
@@ -409,11 +427,34 @@ function ObjectiveAll() {
         </div>
         {/* add */}
         {addNewStage && (
-          <Form className="flex h-12 items-center pl-7">
+          <Form
+            onKeyDown={onInputEnter}
+            action={`/project-manager2/project/${params.id}`}
+            method="post"
+            id="phase-form"
+            name="phase"
+            className="flex h-12 items-center pl-7"
+          >
             <Input
               className="border-none bg-inherit text-xs font-normal text-grisHeading placeholder:text-xs placeholder:font-normal placeholder:text-grisDisabled"
               placeholder={"Agregar una etapa nueva"}
-              onChange={() => {}}
+              name="name"
+              value={faseInput}
+              onChange={(e) => setFaseInput(e.target.value)}
+            />
+            <input
+              name="project_id"
+              className="hidden"
+              value={params.id}
+              hidden
+              readOnly
+            />
+            <input
+              name="action"
+              className="hidden"
+              value="phase"
+              hidden
+              readOnly
             />
           </Form>
         )}
@@ -423,9 +464,9 @@ function ObjectiveAll() {
           value={openItems}
           onValueChange={(e) => setOpenItems(e)}
         >
-          {OPTIONS?.projects.map((project, indexOption) => (
+          {phases.map(({ phase, activities }, indexOption) => (
             <AccordionItem
-              value={"item-" + project?.id}
+              value={"item-" + phase?.id}
               key={"item-" + indexOption}
               className="border-none"
             >
@@ -436,11 +477,11 @@ function ObjectiveAll() {
                     size="large"
                     className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
                   />
-                  {project?.name}
+                  {phase?.name}
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                {project.data.map((d, i) => (
+                {activities.map((d, i) => (
                   <div
                     key={i}
                     className="group grid h-12 w-full grid-cols-12 items-center border-b"
@@ -450,7 +491,7 @@ function ObjectiveAll() {
                         "col-span-1 flex justify-end gap-x-2 px-4 text-xs font-normal text-grisHeading"
                       }
                     >
-                      {project.data.length - 1 == i && (
+                      {activities.length - 1 == i && (
                         <IonIcon
                           icon={add}
                           className="h-5 w-5 cursor-pointer text-grisHeading opacity-0 transition-all group-hover:opacity-100"
@@ -546,19 +587,19 @@ function ObjectiveAll() {
 
                     <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
                       <div className="flex items-center">
-                        {d.responsible.slice(0, 3).map((r, index) => (
+                        {/* {d.responsible.slice(0, 3).map((r, index) => (
                           <Avatar className="size-6" key={index}>
                             <AvatarImage src={r?.img} title={r?.name} />
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
-                        ))}
+                        ))} */}
                       </div>
                       <div className="flex items-center">
-                        {d.responsible.length > 3 ? (
+                        {/* {d.responsible.length > 3 ? (
                           <AssignedMenu users={d.responsible} />
                         ) : (
                           <AddUserActivity activity_id={0} users={[]} />
-                        )}
+                        )} */}
                       </div>
                     </div>
                     <div className="col-span-1 flex justify-center">
