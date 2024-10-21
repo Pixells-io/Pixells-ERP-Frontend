@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { IonIcon } from "@ionic/react";
+import { eye } from "ionicons/icons";
 
-function StatusTab() {
+function StatusTab({ proyects }) {
   const data = {
     pending: [
       {
@@ -400,10 +402,32 @@ function StatusTab() {
     ],
   };
 
-  const [pending, setPending] = useState(data?.pending);
-  const [inProgress, setInProgress] = useState(data?.inProgress);
-  const [completed, setCompleted] = useState(data?.completed);
-  const [canceled, setCanceled] = useState(data?.canceled);
+  console.log(proyects);
+
+  const [pending, setPending] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  const [canceled, setCanceled] = useState([]);
+
+  useEffect(() => {
+    const pendingProjects = proyects?.filter(
+      (project) => project.status == "0",
+    );
+    const inProgressProjects = proyects?.filter(
+      (project) => project.status == "1",
+    );
+    const canceledProjects = proyects?.filter(
+      (project) => project.status == "2",
+    );
+    const completedProjects = proyects?.filter(
+      (project) => project.status == "3",
+    );
+
+    setPending(pendingProjects);
+    setInProgress(inProgressProjects);
+    setCompleted(completedProjects);
+    setCanceled(canceledProjects);
+  }, [proyects]);
 
   return (
     <div className="flex h-full w-full gap-4 overflow-auto">
@@ -439,8 +463,8 @@ function StatusTab() {
 
                   <Avatar className="size-6">
                     <AvatarImage
-                      src={p.assigned?.img}
-                      title={p.assigned?.name}
+                      src={p.creator?.img}
+                      title={p?.creator?.name}
                     />
                   </Avatar>
                 </div>
@@ -450,56 +474,56 @@ function StatusTab() {
                     O
                   </div>
                   <span className="text-[10px] font-normal text-grisHeading">
-                    {p?.objective?.name}
+                    {p?.objetive}
                   </span>
                 </div>
 
                 <div className="flex justify-between gap-x-2 pt-2">
                   <div className="flex w-1/2 flex-row items-center gap-x-2">
                     <Progress
-                      value={p.advance}
+                      value={p.progress}
                       className="h-[4px] bg-[#D7D7D7]"
-                      color={`"${p.advance == 100 ? "bg-[#A7FFBC]" : "bg-[#5B84FF]"}`}
+                      color={`"${p.progress == 100 ? "bg-[#A7FFBC]" : "bg-[#5B84FF]"}`}
                     />
                     <p className="text-[10px] font-medium text-[#696974B2]">
-                      {p.advance}%
+                      {p.progress}%
                     </p>
                   </div>
                   <div className="flex w-1/2 justify-end">
-                    {p.peopleObjectives.slice(0, 3).map((pObjective, index) => (
+                    {/* {p.peopleObjectives.slice(0, 3).map((pObjective, index) => (
                       <Avatar className="size-5" key={index}>
                         <AvatarImage
                           src={pObjective?.img}
                           title={pObjective?.name}
                         />
                       </Avatar>
-                    ))}
-                    {p.peopleObjectives.length > 3 && (
+                    ))} */}
+                    {/* {p.peopleObjectives.length > 3 && (
                       <div className="ml-1 flex items-center">
                         <span className="text-xs font-normal text-grisHeading">
                           +{p.peopleObjectives.length - 3}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
 
               <div className="flex justify-between p-2">
                 <span className="text-[11px] font-normal text-grisHeading">
-                  Fecha Límite {p.dateLimit}
+                  Fecha Límite {p.end}
                 </span>
-                {p.status == "1" ? (
-                  <div className="flex h-5 w-5 justify-center rounded bg-[#B7021F] text-sm font-semibold text-white">
+                {p.priority == "2" ? (
+                  <div className="flex h-5 w-5 justify-center rounded bg-[#FF274A] text-sm font-semibold text-white">
                     U
                   </div>
-                ) : p.status == "2" ? (
-                  <div className="flex h-5 w-5 justify-center rounded bg-[#D75B00] text-sm font-semibold text-white">
+                ) : p.status == "1" ? (
+                  <div className="flex h-5 w-5 justify-center rounded bg-[#FFA15E] text-sm font-semibold text-white">
                     M
                   </div>
                 ) : (
-                  p.status == "3" && (
-                    <div className="flex h-5 w-5 justify-center rounded bg-[#DC9100] text-sm font-semibold text-white">
+                  p.status == "0" && (
+                    <div className="flex h-5 w-5 justify-center rounded bg-[#FFCF71] text-sm font-semibold text-white">
                       B
                     </div>
                   )
@@ -577,7 +601,7 @@ function StatusTab() {
                     </p>
                   </div>
                   <div className="flex w-1/2 justify-end">
-                    {iP.peopleObjectives
+                    {/* {iP.peopleObjectives
                       .slice(0, 3)
                       .map((pObjective, index) => (
                         <Avatar className="size-5" key={index}>
@@ -593,7 +617,7 @@ function StatusTab() {
                           +{iP.peopleObjectives.length - 3}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -690,7 +714,7 @@ function StatusTab() {
                     </p>
                   </div>
                   <div className="flex w-1/2 justify-end">
-                    {c.peopleObjectives.slice(0, 3).map((pObjective, index) => (
+                    {/* {c.peopleObjectives.slice(0, 3).map((pObjective, index) => (
                       <Avatar className="size-5" key={index}>
                         <AvatarImage
                           src={pObjective?.img}
@@ -704,7 +728,7 @@ function StatusTab() {
                           +{c.peopleObjectives.length - 3}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -801,7 +825,7 @@ function StatusTab() {
                     </p>
                   </div>
                   <div className="flex w-1/2 justify-end">
-                    {c.peopleObjectives.slice(0, 3).map((pObjective, index) => (
+                    {/* {c.peopleObjectives.slice(0, 3).map((pObjective, index) => (
                       <Avatar className="size-5" key={index}>
                         <AvatarImage
                           src={pObjective?.img}
@@ -815,7 +839,7 @@ function StatusTab() {
                           +{c.peopleObjectives.length - 3}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
