@@ -40,7 +40,7 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] pt-2 flex w-full text-[11px] h-[20px] text-[#44444F] flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:mt-4 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[7px] flex w-full text-[11px] h-[25px] text-[#44444F] flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:mt-4 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
@@ -212,7 +212,7 @@ const DynamicForm = () => {
                   </span>
                 </div>
 
-                <div className="flex max-h-[400px] w-full flex-col overflow-auto p-4">
+                <div className="flex max-h-[400px] w-full flex-col overflow-auto p-6">
                   {submittedInputs.map((input, index) => (
                     <div
                       key={index}
@@ -228,12 +228,12 @@ const DynamicForm = () => {
                         </Avatar>
                         <p className="text-[13px] font-medium text-[#696974]">
                           Don Formulario &bull;
-                          <span className="ml-1 text-[13px] font-normal text-[#ABABAB]">
+                          <span className="ml-1 text-[12px] font-normal text-[#ABABAB]">
                             Hace 3 días
                           </span>
                         </p>
                       </div>
-                      <div className="flex max-w-[250px] flex-col pt-[6px]">
+                      <div className="flex max-w-[250px] flex-col pt-[8px]">
                         <span className="break-words font-roboto text-[12px] font-normal text-[#44444F]">
                           {input.value}
                         </span>
