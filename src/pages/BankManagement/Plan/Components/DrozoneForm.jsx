@@ -40,7 +40,7 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex w-full text-[11px] text-[#44444F] flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
@@ -206,7 +206,7 @@ const DynamicForm = () => {
             ) : (
               <>
                 <div className="flex h-[40px] w-full items-center border-b">
-                  <span className="w-full px-4 font-poppins text-[11px] font-medium">
+                  <span className="w-full px-4 font-poppins text-[12px] text-[#44444F] font-medium">
                     Documentos
                   </span>
                 </div>
@@ -232,7 +232,7 @@ const DynamicForm = () => {
                         </p>
                       </div>
                       <div className="flex max-w-[250px] flex-col pt-[6px]">
-                        <span className="break-words font-roboto text-[12px] font-light text-[#44444F]">
+                        <span className="break-words font-roboto text-[12px] font-medium text-[#44444F]">
                           {input.value}
                         </span>
                         <div className="flex space-x-2">
