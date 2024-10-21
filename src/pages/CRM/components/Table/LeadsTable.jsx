@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle, searchOutline, trash } from "ionicons/icons";
+import { informationCircle, informationCircleOutline, searchOutline, trash, trashOutline } from "ionicons/icons";
 import DeleteLeadsModal from "../Modals/DeleteLeadsModal";
 import { Link } from "react-router-dom";
 import { createPusherClient } from "@/lib/pusher";
@@ -103,19 +103,19 @@ function LeadsTable({ leads, edit, destroy }) {
         return (
           <div className="gap-2">
             {row.original?.status == "Activo" ? (
-              <span className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario hover:bg-blue-200">
+              <span className="rounded-2xl bg-[#cbf4c9] px-2 py-1 text-xs text-[#0e6245] hover:bg-[#cbf4c9]">
                 Activo
               </span>
             ) : row.original?.status == "Suspendido" ? (
-              <span className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600 hover:bg-yellow-300">
+              <span className="rounded-2xl bg-[#ffedc7] px-2 py-1 text-xs text-[#624e0e] hover:bg-[#ffedc7]">
                 Suspendido
               </span>
             ) : row.original?.status == "Cancelado" ? (
-              <span className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600 hover:bg-red-300">
+              <span className="rounded-2xl bg-[#ffc7c7] px-2 py-1 text-xs text-[#620e0e] hover:bg-[#ffc7c7]">
                 Cancelado
               </span>
             ) : row.original?.status == "Completado" ? (
-              <span className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600 hover:bg-green-300">
+              <span className="rounded-2xl bg-[#c7cbff] px-2 py-1 text-xs text-[#1c0e62] hover:bg-[#c7cbff]">
                 Completado
               </span>
             ) : (
@@ -151,7 +151,7 @@ function LeadsTable({ leads, edit, destroy }) {
           <div className="text- flex gap-2">
             {edit == true ? (
               <Link to={`/crm/leads/${row.original?.id}`}>
-                <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={informationCircleOutline} className="h-5 w-5 text-grisHeading"></IonIcon>
               </Link>
             ) : (
               false
@@ -162,7 +162,7 @@ function LeadsTable({ leads, edit, destroy }) {
                   openDestroyModal(row.original.id, row.original.company)
                 }
               >
-                <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={trashOutline} className="h-5 w-5 text-grisHeading"></IonIcon>
               </button>
             ) : (
               false
@@ -188,7 +188,7 @@ function LeadsTable({ leads, edit, destroy }) {
         lead_id={leadId}
         lead_name={leadName}
       />
-      <div className="float-end flex h-9 w-44 items-center rounded-3xl border-[1px] border-[#D7D7D7] py-2 text-[10px]">
+      <div className="float-end flex h-9 w-44 items-center mb-3 rounded-3xl border-[1px] border-[#D7D7D7] py-2 text-[10px]">
         <Label htmlFor="search">
           <IonIcon
             icon={searchOutline}
