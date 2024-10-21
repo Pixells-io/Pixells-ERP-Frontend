@@ -603,6 +603,8 @@ import {
   getWorkspace,
   multiloaderMainPM,
   multiloaderPM,
+  multiloaderProyectsPM,
+  multiloaderTasksPM,
 } from "./layouts/PManager/utils";
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
@@ -767,10 +769,12 @@ const router = createBrowserRouter([
           },
           {
             path: "/project-manager2/proyects/:id",
+            loader: multiloaderProyectsPM,
             element: <AllProjects />,
           },
           {
             path: "/project-manager2/activities/:id",
+            loader: multiloaderTasksPM,
             element: <AllActivities />,
           },
           {
@@ -781,7 +785,7 @@ const router = createBrowserRouter([
                 path: "/project-manager2/objectives/:id",
                 element: <ObjectiveAll />,
               },
-            ]
+            ],
           },
         ],
       },

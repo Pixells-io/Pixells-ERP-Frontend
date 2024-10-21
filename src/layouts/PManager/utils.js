@@ -243,3 +243,49 @@ export async function multiloaderMainPM({ params }) {
 
   return json({ objective, users });
 }
+
+export async function getProyectsByWorkspace({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspace-project/${params.id}
+`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function getTasksByWorkspace({ params }) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-workspace-task/${params.id}
+`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function multiloaderProyectsPM({ params }) {
+  const [proyects] = await Promise.all([getProyectsByWorkspace({ params })]);
+
+  return json({ proyects });
+}
+
+export async function multiloaderTasksPM({ params }) {
+  const [tasks] = await Promise.all([getTasksByWorkspace({ params })]);
+
+  return json({ tasks });
+}

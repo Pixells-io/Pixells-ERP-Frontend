@@ -45,7 +45,8 @@ const OPTIONS = [
   },
 ];
 
-function ListTab() {
+function ListTab({ proyects }) {
+  console.log(proyects);
   return (
     <div className="mt-8 flex flex-col px-8">
       <div className="grid h-12 grid-cols-12 items-center border-b">
@@ -59,51 +60,51 @@ function ListTab() {
         ))}
       </div>
 
-      {OPTIONS.map((opt, i) => (
+      {proyects.map((opt, i) => (
         <div
           key={i}
           className="grid h-12 w-full grid-cols-12 items-center border-b"
         >
           <div className={"col-span-6 text-xs font-normal text-grisHeading"}>
-            {opt.project}
+            {opt?.name}
           </div>
           <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
-            {opt.objective}
+            {opt?.objective}
           </div>
           <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
-            {opt.expiration}
+            {opt?.end}
           </div>
 
           <div className="col-span-1 flex justify-start">
             <div className="flex">
-              {opt.responsible.slice(0, 3).map((r, index) => (
+              {opt?.responsible?.slice(0, 3).map((r, index) => (
                 <Avatar className="size-6" key={index}>
                   <AvatarImage src={r?.img} title={r?.name} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               ))}
             </div>
-            {opt.responsible.length > 3 && (
+            {opt?.responsible?.length > 3 && (
               <div className="ml-1 flex items-center">
                 <span className="text-xs font-normal text-grisHeading">
-                  +{opt.responsible.length - 3}
+                  +{opt?.responsible?.length - 3}
                 </span>
               </div>
             )}
           </div>
           <div className={"col-span-1 flex justify-center text-xs font-normal"}>
-            {opt.priority == "1" && (
+            {opt?.priority == "1" && (
               <span className="text-[#B7021F]">Urgente</span>
             )}
           </div>
           <div className="col-span-1 flex justify-center">
             <Avatar className="size-6">
-              <AvatarImage src={opt.created?.img} title={opt?.created?.name} />
+              <AvatarImage src={opt?.creator?.img} title={opt?.creator?.name} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
           <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
-            {opt.status == "1" && <span>Pendiente</span>}
+            {opt?.status == "0" && <span>Pendiente</span>}
           </div>
         </div>
       ))}

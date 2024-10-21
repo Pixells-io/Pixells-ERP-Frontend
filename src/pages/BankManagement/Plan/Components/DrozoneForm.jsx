@@ -35,18 +35,18 @@ const InputWithDropzone = ({
   });
   return (
     <div className="flex flex-col rounded-[20px] border p-0">
-      <div className={`${input.value ? "border-b" : ""}`}>
+      <div className={`${input.value ? "border-b h-[54px] " : ""}`}>
         <input
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex w-full h-[40px] flex-grow rounded-[12px] border-none bg-transparent pl-2 text-[11px] text-[#44444F] placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0`}
           placeholder="Agregar titulo"
         />
       </div>
-      <div className={`${input.value ? "p-2" : ""}`}>
+      <div className={`${input.value ? "p-2 h-[40px]" : ""}`}>
         {input.files.length > 0 && (
-          <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
+          <div className="mb-4 flex items-center space-x-2 overflow-x-auto bg-transparent">
             {input.files.map((file, index) => (
               <div key={index} className="group relative">
                 <img
@@ -86,7 +86,7 @@ const InputWithDropzone = ({
           )}
           <IonIcon
             icon={chevronForwardOutline}
-            className={`h-[30px] w-[30px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-35px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
+            className={`h-[26px] w-[26px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-40px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
             onClick={() => {
               if (input.value) {
                 onSubmit(input);
@@ -205,12 +205,13 @@ const DynamicForm = () => {
               </div>
             ) : (
               <>
-                <div className="flex h-[40px] w-full items-center border-b">
-                  <span className="w-full px-2 font-poppins text-[11px] font-medium">
+                <div className="flex h-[40px] items-center border-b">
+                  <span className="w-full p-4 font-poppins text-[12px] font-medium text-[#44444F]">
                     Documentos
                   </span>
                 </div>
-                <div className="flex w-full flex-col overflow-auto p-2">
+
+                <div className="flex max-h-[400px] w-full flex-col overflow-auto p-4">
                   {submittedInputs.map((input, index) => (
                     <div
                       key={index}
@@ -231,15 +232,15 @@ const DynamicForm = () => {
                           </span>
                         </p>
                       </div>
-                      <div className="flex max-w-[250px] flex-col">
-                        <span className="break-words font-roboto text-[12px] font-light text-[#44444F]">
+                      <div className="flex max-w-[250px] flex-col pt-[6px]">
+                        <span className="break-words font-roboto text-[12px] font-normal text-[#44444F]">
                           {input.value}
                         </span>
                         <div className="flex space-x-2">
                           {input.files.map((file, fileIndex) => (
                             <div
                               key={fileIndex}
-                              className="group relative pt-[6px]"
+                              className="group relative pt-[17px]"
                             >
                               <img
                                 src={URL.createObjectURL(file)}
