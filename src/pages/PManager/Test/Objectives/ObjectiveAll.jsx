@@ -21,6 +21,7 @@ import AddUserActivity from "../Components/AddUserActivity";
 import AssignedMenu from "../Components/AssignedMenu";
 import DatePickerPM from "../Components/DatePickerPM";
 import ActivityNameInPut from "../Components/ActivityNameInput";
+import DropZoneForm from "@/components/DropZoneForm/DropZoneForm";
 
 const HEADERS = [
   { name: "ETAPA", cols: "1", text: "start" },
@@ -574,11 +575,9 @@ function ObjectiveAll() {
                       }
                     >
                       <div className="flex w-full justify-center">
-                        <CommentsObjective
-                          activity_id={1}
-                          comments={d.comments}
-                        />
-                      </div>
+
+                        <DropZoneForm comments={d?.comments} />
+                        </div>
                       <IonIcon
                         icon={ellipsisVertical}
                         size="large"
