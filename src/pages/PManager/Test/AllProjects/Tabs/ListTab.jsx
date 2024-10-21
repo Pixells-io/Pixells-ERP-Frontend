@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const HEADERS = [
-  { name: "PROYECTO", cols: "6", text: "start" },
-  { name: "OBJETIVO", cols: "1", text: "start" },
+  { name: "PROYECTO", cols: "3", text: "start" },
+  { name: "OBJETIVO", cols: "2", text: "start" },
   { name: "EXPIRATION", cols: "1", text: "start" },
   { name: "RESPONSABLE", cols: "1", text: "start" },
   { name: "PRIORIDAD", cols: "1", text: "center" },
@@ -49,7 +49,7 @@ function ListTab({ proyects }) {
   console.log(proyects);
   return (
     <div className="mt-8 flex flex-col px-8">
-      <div className="grid h-12 grid-cols-12 items-center border-b">
+      <div className="grid h-12 grid-cols-10 items-center border-b">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -60,49 +60,46 @@ function ListTab({ proyects }) {
         ))}
       </div>
 
-      {proyects.map((opt, i) => (
+      {proyects?.info?.map((opt, i) => (
         <div
           key={i}
-          className="grid h-12 w-full grid-cols-12 items-center border-b"
+          className="grid h-12 w-full grid-cols-10 items-center border-b"
         >
-          <div className={"col-span-6 text-xs font-normal text-grisHeading"}>
+          <div className={"col-span-3 text-xs font-normal text-grisHeading"}>
             {opt?.name}
           </div>
-          <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
-            {opt?.objective}
+
+          <div className={"col-span-2 text-xs font-normal text-grisHeading"}>
+            {opt?.objetive}
           </div>
+
           <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
             {opt?.end}
           </div>
 
-          <div className="col-span-1 flex justify-start">
-            <div className="flex">
-              {opt?.responsible?.slice(0, 3).map((r, index) => (
-                <Avatar className="size-6" key={index}>
-                  <AvatarImage src={r?.img} title={r?.name} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              ))}
-            </div>
-            {opt?.responsible?.length > 3 && (
-              <div className="ml-1 flex items-center">
-                <span className="text-xs font-normal text-grisHeading">
-                  +{opt?.responsible?.length - 3}
-                </span>
-              </div>
-            )}
+          <div className="col-span-1 flex justify-center">
+            <Avatar className="size-6">
+              <AvatarImage
+                src={opt?.assigned?.img}
+                title={opt?.assigned?.name}
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
           </div>
+
           <div className={"col-span-1 flex justify-center text-xs font-normal"}>
             {opt?.priority == "1" && (
               <span className="text-[#B7021F]">Urgente</span>
             )}
           </div>
+
           <div className="col-span-1 flex justify-center">
             <Avatar className="size-6">
               <AvatarImage src={opt?.creator?.img} title={opt?.creator?.name} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
+
           <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
             {opt?.status == "0" && <span>Pendiente</span>}
           </div>
