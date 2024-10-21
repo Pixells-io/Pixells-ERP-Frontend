@@ -16,16 +16,9 @@ import {
 import { IonIcon } from "@ionic/react";
 import { Form } from "react-router-dom";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
 import CommentsObjective from "../Components/CommentsObjective";
+import AddUserActivity from "../Components/AddUserActivity";
+import AssignedMenu from "../Components/AssignedMenu";
 
 const HEADERS = [
   { name: "ETAPA", cols: "1", text: "start" },
@@ -54,52 +47,12 @@ const OPTIONS = {
           responsible: [
             {
               id: 2,
-              name: "Pepe",
+              name: "Pepe jose",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pablo",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pedro",
+              name: "Pepe Pepe",
               img: "https://github.com/shadcn.png",
             },
           ],
@@ -163,52 +116,52 @@ const OPTIONS = {
           responsible: [
             {
               id: 2,
-              name: "Pepe",
+              name: "Pepe perez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Agustin Hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Raul Jimenez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "David Luiz",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Neymar Jr.",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Cone brizuela",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Rafa marquez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Chicharito hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pablo",
+              name: "Guillermo Ochoa",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pedro",
+              name: "Cristiano Ronaldo CR7",
               img: "https://github.com/shadcn.png",
             },
           ],
@@ -278,52 +231,52 @@ const OPTIONS = {
           responsible: [
             {
               id: 2,
-              name: "Pepe",
+              name: "Pepe perez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Agustin Hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Raul Jimenez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "David Luiz",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Neymar Jr.",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Cone brizuela",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Rafa marquez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Chicharito hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pablo",
+              name: "Guillermo Ochoa",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pedro",
+              name: "Cristiano Ronaldo CR7",
               img: "https://github.com/shadcn.png",
             },
           ],
@@ -387,52 +340,52 @@ const OPTIONS = {
           responsible: [
             {
               id: 2,
-              name: "Pepe",
+              name: "Pepe perez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Agustin Hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Raul Jimenez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "David Luiz",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Neymar Jr.",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Cone brizuela",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Rafa marquez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pepe",
+              name: "Chicharito hernandez",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pablo",
+              name: "Guillermo Ochoa",
               img: "https://github.com/shadcn.png",
             },
             {
               id: 2,
-              name: "Pedro",
+              name: "Cristiano Ronaldo CR7",
               img: "https://github.com/shadcn.png",
             },
           ],
@@ -496,11 +449,7 @@ function ObjectiveAll() {
   const [openItems, setOpenItems] = useState([]);
   const [addNewStage, setAddNewStage] = useState(false);
   const [indexSubStage, setIndexNewSubStage] = useState(null);
-  const [openStart, setOpenStart] = useState(null);
-  const [openEnd, setOpenEnd] = useState(null);
-  const [dateStartInput, setDateStartInput] = useState("");
-  const [dateEndInput, setDateEndInput] = useState("");
-
+  
   useEffect(() => {
     const allItemValues = OPTIONS?.projects?.map(
       (project, index) => `item-${project.id}`,
@@ -528,15 +477,6 @@ function ObjectiveAll() {
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
     return differenceInDays;
-  };
-
-  useEffect(() => {
-    clearDate();
-  }, [indexSubStage]);
-
-  const clearDate = () => {
-    setDateStartInput("");
-    setDateEndInput("");
   };
 
   return (
@@ -664,7 +604,7 @@ function ObjectiveAll() {
                     </div>
 
                     <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
-                      <div className="flex">
+                      <div className="flex items-center">
                         {d.responsible.slice(0, 3).map((r, index) => (
                           <Avatar className="size-6" key={index}>
                             <AvatarImage src={r?.img} title={r?.name} />
@@ -672,13 +612,13 @@ function ObjectiveAll() {
                           </Avatar>
                         ))}
                       </div>
-                      {d.responsible.length > 3 && (
-                        <div className="ml-1 flex items-center">
-                          <span className="text-xs font-normal text-grisHeading">
-                            +{d.responsible.length - 3}
-                          </span>
-                        </div>
-                      )}
+                      <div className="flex items-center">
+                        {d.responsible.length > 3 ? (
+                          <AssignedMenu users={d.responsible} />
+                        ) : (
+                          <AddUserActivity activity_id={0} users={[]} />
+                        )}
+                      </div>
                     </div>
                     <div className="col-span-1 flex justify-center">
                       <Avatar className="size-6">
@@ -696,9 +636,8 @@ function ObjectiveAll() {
                     >
                       <div className="flex w-full justify-center">
                         <CommentsObjective
-                          leadId={1}
+                          activity_id={1}
                           comments={d.comments}
-                          process={1}
                         />
                       </div>
                       <IonIcon
@@ -730,118 +669,36 @@ function ObjectiveAll() {
                     </div>
                     <div
                       className={
-                        "col-span-1 text-xs font-normal text-grisHeading"
+                        "col-span-1 text-xs font-normal text-[#CCCCCC]"
                       }
                     >
-                      <Popover open={openStart} onOpenChange={setOpenStart}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "h-[23px] w-fit min-w-fit justify-between rounded-[8px] border-none bg-gris px-0.5 font-roboto text-xs font-normal text-grisHeading focus-visible:ring-primarioBotones",
-                              !dateStartInput && "text-[#CCCCCC]",
-                            )}
-                          >
-                            <div className="w-full">
-                              {dateStartInput ? (
-                                format(dateStartInput, "PP")
-                              ) : (
-                                <span>DD/MM/AAAA</span>
-                              )}
-                            </div>
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                          <Calendar
-                            mode="single"
-                            selected={dateStartInput}
-                            onSelect={(e) => {
-                              setDateStartInput(e);
-                              setOpenStart(false);
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <span>DD/MM/AAAA</span>
                     </div>
                     <div
                       className={
-                        "col-span-1 text-xs font-normal text-grisHeading"
+                        "col-span-1 text-xs font-normal text-[#CCCCCC]"
                       }
                     >
-                      <Popover open={openEnd} onOpenChange={setOpenEnd}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "h-[23px] w-fit min-w-fit justify-between rounded-[8px] border-none bg-gris px-0.5 font-roboto text-xs font-normal text-grisHeading focus-visible:ring-primarioBotones",
-                              !dateEndInput && "text-[#CCCCCC]",
-                            )}
-                          >
-                            <div className="w-full">
-                              {dateEndInput ? (
-                                format(dateEndInput, "PP")
-                              ) : (
-                                <span>DD/MM/AAAA</span>
-                              )}
-                            </div>
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                          <Calendar
-                            mode="single"
-                            selected={dateEndInput}
-                            onSelect={(e) => {
-                              setDateEndInput(e);
-                              setOpenEnd(false);
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <span>DD/MM/AAAA</span>
                     </div>
 
                     <div
                       className={"col-span-1 text-center text-xs font-normal"}
                     >
-                      {!!dateStartInput && !!dateEndInput ? (
-                        <span className="text-grisHeading">
-                          {calculateDays(dateStartInput, dateEndInput).toFixed(
-                            0,
-                          )}
-                          &nbsp;
-                          {calculateDays(dateStartInput, dateEndInput).toFixed(
-                            0,
-                          ) > 1
-                            ? "días"
-                            : "día"}
-                        </span>
-                      ) : (
-                        <span className="text-[#CCCCCC]">Por Definir</span>
-                      )}
+                      <span className="text-[#CCCCCC]">Por Definir</span>
                     </div>
                     <div
                       className={
                         "col-span-1 text-xs font-normal text-grisHeading"
                       }
                     >
-                      {!!dateStartInput && !!dateEndInput ? (
-                        <span className="text-grisHeading">
-                          {calculateDaysRestant(dateEndInput).toFixed(0)}
-                          &nbsp;
-                          {calculateDaysRestant(dateEndInput).toFixed(0) > 1
-                            ? "días"
-                            : "día"}
-                        </span>
-                      ) : (
-                        <span className="text-[#CCCCCC]">Por Definir</span>
-                      )}{" "}
+                      <span className="text-[#CCCCCC]">Por Definir</span>
                     </div>
 
                     <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
                       <IonIcon
                         icon={add}
-                        className="h-5 w-5 cursor-pointer text-grisHeading"
+                        className="h-5 w-5 cursor-pointer text-[#CCCCCC]"
                       />
                     </div>
                     <div className="col-span-1 flex justify-center"></div>
