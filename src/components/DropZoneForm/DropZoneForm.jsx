@@ -104,6 +104,32 @@ const InputWithDropzone = ({
   );
 };
 
+const IconWithDropzone = ({ input, onFilesChange }) => {
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [".pdf", ".doc", ".docx", ".jpeg", ".jpg", ".png"] },
+    onDrop: (acceptedFiles) => {
+      onFilesChange(input.id, acceptedFiles);
+    },
+  });
+  return (
+    <div
+      className={` ${!input.value ? "mt-[1px] flex justify-end" : "mt-1 flex h-[40px] justify-between space-x-4"}`}
+    >
+      {input.value && (
+        <div {...getRootProps()} className="flex cursor-pointer items-center">
+          <input {...getInputProps()} />
+          <div className="flex h-[26px] items-center rounded-[6px] hover:bg-[#F2F2F2]">
+            <IonIcon
+              icon={imagesOutline}
+              className="h-[16px] w-[16px] text-[#44444F]"
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const DropZoneForm = ({ comments }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputs, setInputs] = useState([]);
@@ -164,6 +190,16 @@ const DropZoneForm = ({ comments }) => {
               ...input,
               files: input.files.filter((_, index) => index !== fileIndex),
             }
+          : input,
+      ),
+    );
+  };
+
+  const handleFilesChangeSubmit = (id, files) => {
+    setSubmittedInputs((prevInputs) =>
+      prevInputs.map((input) =>
+        input.id === id
+          ? { ...input, files: [...input.files, ...files] }
           : input,
       ),
     );
@@ -298,7 +334,7 @@ const DropZoneForm = ({ comments }) => {
                                       fileIndex,
                                     )
                                   }
-                                  className="absolute right-[-3px] top-[-3px] rounded-full w-4 h-4 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[#44444F]"
+                                  className="absolute right-[-3px] top-[-3px] flex h-4 w-4 items-center justify-center rounded-full bg-[#44444F] opacity-0 group-hover:opacity-100"
                                 >
                                   <IonIcon
                                     icon={close}
@@ -309,9 +345,12 @@ const DropZoneForm = ({ comments }) => {
                             ))}
                           </div>
 
-                          <div className="flex justify-between">
+                          <div className="flex items-center justify-between mt-2">
                             <div>
-                           
+                              <IconWithDropzone
+                                input={input}
+                                onFilesChange={handleFilesChangeSubmit}
+                              />
                             </div>
                             <div className="flex justify-end gap-x-3">
                               <Button
