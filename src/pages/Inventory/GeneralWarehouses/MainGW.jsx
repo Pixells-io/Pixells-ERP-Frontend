@@ -54,28 +54,13 @@ const MainGW = () => {
       },
       meta: { filterButton: true },
     },
-    {
-      accessorKey: "categoria",
-      header: "Categoría",
-      meta: { filterButton: true },
-    },
+  
     {
       accessorKey: "name",
       header: "Nombre",
       meta: { filterButton: true },
     },
-    {
-      accessorKey: "unidadMedida",
-      header: "Unidad Medida",
-    },
-    {
-      accessorKey: "cuentaContable",
-      header: "Cuenta Contable",
-    },
-    {
-      accessorKey: "tipo",
-      header: "Tipo",
-    },
+    
     {
       accessorKey: "creator",
       header: "Creado Por",

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
 import {
-  Form,
   redirect,
   useLoaderData,
   useLocation,
   useParams,
 } from "react-router-dom";
-import Inputs from "../Components/SelectGroup";
-import FormGroup from "../Components/FormGroup";
+import NavigationHeader from "@/components/navigation-header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import PrincipalFormWarehouse from "../Components/Tabs/PrincipalForm";
 import { destroyWarehouse, editWarehouse, getWarehouseById } from "../utils";
 import { createPusherClient } from "@/lib/pusher";
 const EditWH = () => {
@@ -33,7 +31,7 @@ const EditWH = () => {
     setWarehouseId(id);
     let channel = pusherClient.subscribe(`private-get-inventories`);
 
-    channel.bind("fill-inventories-data", ({warehouse}) => {
+    channel.bind("fill-inventories-data", ({ warehouse }) => {
       getWarehouseFunction(warehouse);
     });
 
@@ -43,7 +41,8 @@ const EditWH = () => {
   }, [location, warehouseId]);
 
   const [formData, setFormData] = useState({
-    code: warehouse?.inventory_code || "",
+    inventory_id: warehouse?.id || "",
+    inventory_code: warehouse?.inventory_code || "",
     name: warehouse?.name || "",
     street: warehouse?.street || "",
     ext: warehouse?.ext || "",
@@ -55,48 +54,54 @@ const EditWH = () => {
     state: warehouse?.state || "",
     country: warehouse?.country || "",
   });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const tabOptions = [
+    {
+      value: "principal",
+      label: "Principal",
+      subLabel: "Información inicial del servicio",
+      disabled: false,
+      update: {
+        day: "Hoy",
+        date: "14:36",
+      },
+    },
+    {
+      value: "general",
+      label: "General",
+      subLabel: "Ajusta los parámetros básicos",
+      disabled: true,
+      update: null,
+    },
+    {
+      value: "users",
+      label: "Usuarios",
+      subLabel: "Determina el responsable y los participantes",
+      disabled: true,
+      update: null,
+    },
+    {
+      value: "process",
+      label: "Proceso",
+      subLabel: "Establece los pasos a seguir por el equipo",
+      disabled: true,
+      update: null,
+    },
+    {
+      value: "shopping",
+      label: "Compras",
+      subLabel: "Configura parametros para compras",
+      disabled: true,
+      update: null,
+    },
+  ];
 
-  const [hiddenValue, setHiddenValue] = useState("edit");
-
-  const handleDeleteClick = () => {
-    setHiddenValue("destroy_inventory");
-  };
   return (
     <div className="flex w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Inventory - General</div>
-          </div>
-        </div>
-        {/* top content */}
+        <NavigationHeader />
 
         <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          <h2 className="font-poppins text-base font-bold text-[#44444F]">
             INVENTARIO
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -107,47 +112,67 @@ const EditWH = () => {
         </div>
 
         <div>
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Consultando Almacén: {id}
+          <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
+            Nuevo Almacén
           </p>
         </div>
-        {/*content */}
 
-        <Form action={"/inventory/general-warehouses/edit/" +id} method="post">
-          <div className="space-y-4">
-            <Inputs formData={formData} handleInputChange={handleInputChange} />
-            <FormGroup
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
+        <div className="flex flex-1 flex-col overflow-hidden rounded-xl bg-[#FBFBFB]">
+          <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
+            <span className="font-poppins text-lg font-medium text-[#44444F]">
+              INFORMACIÓN DEL ALMACÉN
+            </span>
           </div>
-          {/* Campos ocultos para enviar todos los datos del formulario */}
-          <input
-            type="hidden"
-            hidden
-            name="inventory_id"
-            value={warehouse.id}
-          />
-          <input type="hidden" hidden name="type" value={hiddenValue} />
-          {Object.entries(formData).map(([key, value]) => (
-            <input key={key} type="hidden" name={key} value={value} />
-          ))}
-          <div className="mt-6 flex justify-end space-x-6">
-            <button
-              type="submit"
-              className="border-red text-red rounded-lg bg-transparent px-4 py-2 font-semibold shadow-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-              onClick={handleDeleteClick}
-            >
-              Eliminar
-            </button>
-            <button
-              type="submit"
-              className="rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-            >
-              Enviar
-            </button>
-          </div>
-        </Form>
+          <Tabs
+            defaultValue="principal"
+            className="flex h-full w-full flex-1 overflow-hidden"
+          >
+            <TabsList className="flex h-full w-full max-w-[365px] flex-col justify-start gap-y-5 overflow-auto border-r bg-transparent p-6">
+              {tabOptions.map(
+                ({ value, label, subLabel, disabled, update }) => (
+                  <TabsTrigger
+                    key={value}
+                    value={value}
+                    disabled={disabled}
+                    className={`flex w-full items-center justify-center rounded-[14px] bg-[#F1F1F1] px-6 py-2.5 transition-colors hover:bg-gray-300 data-[state=active]:border data-[state=active]:border-[#44444F] data-[state=active]:bg-[#F1F1F1] ${
+                      value === "variables"
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex w-full flex-col justify-start">
+                      <p className="text-start font-roboto text-sm font-medium leading-tight text-[#44444F]">
+                        {label}
+                      </p>
+                      <p className="text-start font-roboto text-[11px] font-normal leading-tight text-[#8F8F8F]">
+                        {subLabel}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                      {!!update ? (
+                        <>
+                          <label className="text-xs font-light text-[#8F8F8F]">
+                            {update?.day}
+                          </label>
+                          <label className="text-xs font-light text-[#8F8F8F]">
+                            {update?.date}
+                          </label>
+                        </>
+                      ) : (
+                        <label className="text-xs font-light text-[#8F8F8F]">
+                          New
+                        </label>
+                      )}
+                    </div>
+                  </TabsTrigger>
+                ),
+              )}
+            </TabsList>
+            <TabsContent value="principal" className="w-full">
+              <PrincipalFormWarehouse initialValues={formData} />
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
@@ -159,11 +184,13 @@ export async function Action({ request }) {
   const formData = await request.formData();
 
   switch (formData.get("type")) {
-    case "edit":
-      await editWarehouse(formData);
-      return redirect("/inventory/general-warehouses");
-      break;
-
+    case "edit_principal":
+      if (!!data.get("inventory_id")) {
+        await editWarehouse(formData);
+        return redirect("/inventory/general-warehouses");
+      } else {
+        break;
+      }
     case "destroy_inventory":
       await destroyWarehouse(formData);
       return redirect("/inventory/general-warehouses");

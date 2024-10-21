@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Form, useNavigation,useLocation } from "react-router-dom";
+import { Form, useNavigation,useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import InputForm from "@/components/InputForm/InputForm";
 import { Switch } from "@/components/ui/switch";
 
 const PrincipalFormWarehouse = ({ initialValues }) => {
   const navigation = useNavigation();
-  const location =useLocation();
+  const {id} = useParams();
   const [values, setValues] = useState(initialValues || {
     code: '',
     name: '',
@@ -23,12 +23,13 @@ const PrincipalFormWarehouse = ({ initialValues }) => {
 
 
   // Determine action based on url
-  const actionUrl = location.pathname.includes("/inventory/general-warehouses/create") ? "/inventory/general-warehouses/create" : "/inventory/general-warehouses/create";
-
+  const actionUrl = !id ? "/inventory/general-warehouses/create" : "/inventory/general-warehouses/edit/"+id;
   return (
     <Form action={actionUrl} method={"post"} id="form-warehouse" className="flex h-full w-full flex-col overflow-auto py-4">
       <div className="overflow-auto px-6">
         <h2 className="font-poppins text-sm font-medium text-[#44444F]">PRINCIPAL</h2>
+        <input type="hidden" name="inventory_id" value={values.inventory_id}/>
+        <input type="hidden" name="type" value="edit_principal"/>
         <div className="mt-8 grid w-full grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-3">
             <InputForm
