@@ -89,7 +89,7 @@ function MainCRM() {
           className="relative h-full overflow-auto rounded-lg bg-blancoBg pt-2"
         >
           {/*  z-index para colocar los TabsTrigger encima */}
-          <TabsList className="relative z-10 mx-4 flex w-1/3 justify-start rounded-none border-b bg-transparent py-6">
+          <TabsList className="relative z-10 mx-4 flex justify-start rounded-none border-b bg-transparent py-6">
             <TabsTrigger
               value="leads"
               className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
