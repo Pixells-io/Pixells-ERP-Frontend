@@ -206,11 +206,11 @@ const DynamicForm = () => {
             ) : (
               <>
                 <div className="flex h-[40px] w-full items-center border-b">
-                  <span className="w-full px-2 font-poppins text-[11px] font-medium">
+                  <span className="w-full px-4 font-poppins text-[11px] font-medium">
                     Documentos
                   </span>
                 </div>
-                <div className="flex w-full flex-col overflow-auto p-2">
+                <div className="flex w-full flex-col overflow-auto p-4">
                   {submittedInputs.map((input, index) => (
                     <div
                       key={index}
@@ -231,7 +231,7 @@ const DynamicForm = () => {
                           </span>
                         </p>
                       </div>
-                      <div className="flex max-w-[250px] flex-col">
+                      <div className="flex max-w-[250px] flex-col pt-[6px]">
                         <span className="break-words font-roboto text-[12px] font-light text-[#44444F]">
                           {input.value}
                         </span>
@@ -239,7 +239,7 @@ const DynamicForm = () => {
                           {input.files.map((file, fileIndex) => (
                             <div
                               key={fileIndex}
-                              className="group relative pt-[6px]"
+                              className="group relative pt-[17px]"
                             >
                               <img
                                 src={URL.createObjectURL(file)}
