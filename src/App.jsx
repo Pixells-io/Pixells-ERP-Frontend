@@ -354,7 +354,7 @@ import MainWL, {
 } from "./pages/Inventory/WarehouseLocations/MainWL";
 import { multiLoaderUbication } from "./pages/Inventory/WarehouseLocations/utils";
 import { multiLoaderData } from "./pages/Inventory/WarehouseLocations/utils";
-import MainGW from "./pages/Inventory/GeneralWarehouses/MainGW";
+import MainGW,{Action as deleteWarehouse} from "./pages/Inventory/GeneralWarehouses/MainGW";
 import WLSlots, {
   Action as createNewConfigure,
 } from "./pages/Inventory/WarehouseLocations/CreateConfig/WLSlots";
@@ -1272,6 +1272,7 @@ const router = createBrowserRouter([
             path: "/inventory/general-warehouses",
             element: <MainGW />,
             loader: getWarehouses,
+            action:deleteWarehouse
           },
           {
             path: "/inventory/general-warehouses/create",

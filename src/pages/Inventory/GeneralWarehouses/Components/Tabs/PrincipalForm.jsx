@@ -136,17 +136,23 @@ const PrincipalFormWarehouse = ({ initialValues }) => {
             />
           </div>
           <div className="col-span-12">
-            <h2 className="text-xs font-normal text-grisSubText">ESTATUS</h2>
-            <div className="mt-1 flex w-full justify-between border-b border-t border-[#D7D7D7] py-3 pl-4">
-              <div className="flex items-center gap-x-3">
-                <Switch
-                  className="data-[state=checked]:bg-primarioBotones data-[state=unchecked]:bg-grisDisabled"
-                  name="active"
-                  checked={values.active}
-                  onCheckedChange={(e) => handleInputChange(e, "active")}
-                />
-                <label className="font-roboto text-xs font-normal text-grisText">Activo</label>
-              </div>
+            <h2 className="text-xs font-normal text-grisSubText mb-2">ESTATUS</h2>
+            <div className="flex items-center gap-x-3 border-b border-t border-[#D7D7D7] py-3 px-4">
+              <label htmlFor="active-switch" className="flex items-center cursor-pointer">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    id="active-switch"
+                    name="active"
+                    className="sr-only"
+                    checked={values.active}
+                    onChange={(e) => handleInputChange(e.target.checked, "active")}
+                  />
+                  <div className={`block w-10 h-6 rounded-full ${values.active ? 'bg-primarioBotones' : 'bg-grisDisabled'}`}></div>
+                  <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${values.active ? 'transform translate-x-4' : ''}`}></div>
+                </div>
+                <span className="ml-3 font-roboto text-xs font-normal text-grisText">Activo</span>
+              </label>
             </div>
           </div>
         </div>

@@ -185,16 +185,12 @@ export async function Action({ request }) {
 
   switch (formData.get("type")) {
     case "edit_principal":
-      if (!!data.get("inventory_id")) {
+      if (!!formData.get("inventory_id")) {
         await editWarehouse(formData);
         return redirect("/inventory/general-warehouses");
       } else {
         break;
       }
-    case "destroy_inventory":
-      await destroyWarehouse(formData);
-      return redirect("/inventory/general-warehouses");
-      break;
   }
   return "0";
 }
