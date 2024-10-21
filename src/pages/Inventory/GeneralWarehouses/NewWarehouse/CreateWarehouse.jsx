@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import { IonIcon } from "@ionic/react";
 import { chevronBack, chevronForward } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { Form, redirect } from "react-router-dom";
 import NavigationHeader from "@/components/navigation-header";
 import { saveNewWarehouse } from "../utils";
-import PrincipalFormWarehouse from "../Components/Tabs/PrincipalForm";
-//          action="/inventory/general-warehouses/create"
+import PrincipalFormWarehouse from "../Components/Tabs/PrincipalForm";     
 
 const CreateWH = () => {
+  const [formData, setFormData] = useState({
+    code: "",
+    name: "",
+    street: "",
+    active:true,
+    ext: "",
+    int: "",
+    cp: "",
+    city: "",
+    colony: "",
+    state: "",
+    country: "",
+  });
   const tabOptions = [
     {
       value: "principal",
@@ -124,7 +135,7 @@ const CreateWH = () => {
               )}
             </TabsList>
             <TabsContent value="principal" className="w-full">
-            <PrincipalFormWarehouse/>
+            <PrincipalFormWarehouse initialValues={formData}/>
             </TabsContent>
           </Tabs>
         </div>

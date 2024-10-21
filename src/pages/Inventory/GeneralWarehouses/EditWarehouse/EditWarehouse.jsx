@@ -31,14 +31,14 @@ const EditWH = () => {
 
   useEffect(() => {
     setWarehouseId(id);
-    let channel = pusherClient.subscribe(`private-get-inventories.${warehouseId}`);
+    let channel = pusherClient.subscribe(`private-get-inventories`);
 
     channel.bind("fill-inventories-data", ({warehouse}) => {
       getWarehouseFunction(warehouse);
     });
 
     return () => {
-      pusherClient.unsubscribe(`private-get-inventories.${warehouseId}`);
+      pusherClient.unsubscribe(`private-get-inventories`);
     };
   }, [location, warehouseId]);
 
