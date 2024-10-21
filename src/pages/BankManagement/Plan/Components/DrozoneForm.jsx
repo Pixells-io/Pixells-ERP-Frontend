@@ -86,7 +86,7 @@ const InputWithDropzone = ({
           )}
           <IonIcon
             icon={chevronForwardOutline}
-            className={`h-[26px] w-[26px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-35px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
+            className={`h-[26px] w-[26px] rounded-full text-xs ${!input.value ? "mr-2 mt-[-30px] flex justify-end bg-[#E8E8E8] text-white" : "bg-[#5B89FF] text-white"}`}
             onClick={() => {
               if (input.value) {
                 onSubmit(input);
