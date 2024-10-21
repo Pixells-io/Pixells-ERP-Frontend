@@ -9,8 +9,7 @@ import StatusTab from "./Tabs/StatusTab";
 import { useLoaderData } from "react-router-dom";
 
 function AllActivities() {
-  const data = useLoaderData();
-  console.log(data);
+  const { tasks } = useLoaderData();
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
@@ -81,7 +80,7 @@ function AllActivities() {
           </div>
         </div>
         <TabsContent value="project" className="">
-          <ProjectTab />
+          <ProjectTab tasks={tasks.data} />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
