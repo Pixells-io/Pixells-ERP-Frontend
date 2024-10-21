@@ -297,8 +297,8 @@ const DynamicForm = () => {
           <div className="mx-2 flex flex-col">
             {submittedInputs.length > 0 && (
               <div className="mb-4 flex flex-col items-start pb-3 pl-2 pr-2 pt-1">
-                <div className="flex items-center gap-3">
-                <Avatar className="flex h-[22px] w-[22px]">
+               <div className="flex items-center gap-3">
+                        <Avatar className="flex h-[22px] w-[22px]">
                           <AvatarImage
                             src="https://github.com/shadcn.png"
                             alt="@shadcn"
@@ -307,13 +307,13 @@ const DynamicForm = () => {
                         </Avatar>
                         <p className="text-[13px] font-medium text-[#696974]">
                           Don Formulario &bull;
-                          <span className="ml-1 text-[13px] font-normal text-[#ABABAB]">
+                          <span className="ml-1 text-[12px] font-normal text-[#ABABAB]">
                             Hace 3 días
                           </span>
                         </p>
-                </div>
-                <div className="flex max-w-[250px] flex-col">
-                  <span className="break-words font-roboto text-[11px] font-light text-[#44444F]">
+                      </div>
+                      <div className="flex max-w-[250px] flex-col pt-[8px]">
+                        <span className="break-words font-roboto text-[12px] font-normal text-[#44444F]">
                     {submittedInputs[submittedInputs.length - 1].value}
                   </span>
                   {/* <div className="flex space-x-2">
