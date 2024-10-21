@@ -40,13 +40,13 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] flex h-[40px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 text-[11px] text-[#44444F] placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 text-[11px] text-[#44444F] placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
       <div className={`${input.value ? "p-2" : ""}`}>
         {input.files.length > 0 && (
-          <div className="mb-2 flex h-[54px] items-center space-x-2 overflow-x-auto bg-transparent">
+          <div className="mb-2 flex h-[40px] items-center space-x-2 overflow-x-auto bg-transparent">
             {input.files.map((file, index) => (
               <div key={index} className="group relative">
                 <img
