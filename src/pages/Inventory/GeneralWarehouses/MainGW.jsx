@@ -18,17 +18,17 @@ const MainGW = () => {
   const [warehouseDestroyModal, setWarehouseDestroyModal] = useState(false);
   const [warehouseInfo, setwarehouseInfo] = useState(data);
   const pusherClient = createPusherClient();
-
+  async function getWarehousesFunction() {
+    let newData = await getWarehouses();
+    setwarehouseInfo(newData.data);
+  }
   
 
   useEffect(() => {
     pusherClient.subscribe("private-get-inventories");
 
-    pusherClient.bind("fill-inventories-list", ({ message }) => {
-      async function getWarehousesFunction() {
-        let newData = await getWarehouses();
-        setwarehouseInfo(newData.data);
-      }
+    pusherClient.bind("fill-inventories", ({ message }) => {
+    getWarehousesFunction();
     });
 
     return () => {
