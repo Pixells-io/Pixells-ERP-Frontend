@@ -22,6 +22,7 @@ import AssignedMenu from "../Components/AssignedMenu";
 import DatePickerPM from "../Components/DatePickerPM";
 import ActivityNameInPut from "../Components/ActivityNameInput";
 import DropZoneForm from "@/components/DropZoneForm/DropZoneForm";
+import { Button } from "@/components/ui/button";
 
 const HEADERS = [
   { name: "ETAPA", cols: "1", text: "start" },
@@ -575,9 +576,8 @@ function ObjectiveAll() {
                       }
                     >
                       <div className="flex w-full justify-center">
-
                         <DropZoneForm comments={d?.comments} />
-                        </div>
+                      </div>
                       <IonIcon
                         icon={ellipsisVertical}
                         size="large"
@@ -638,9 +638,17 @@ function ObjectiveAll() {
                     <div className="col-span-1 flex justify-center"></div>
                     <div
                       className={
-                        "col-span-1 flex items-center justify-between gap-x-2 text-xs font-normal text-grisHeading"
+                        "col-span-1 flex items-center justify-end pr-4"
                       }
-                    ></div>
+                    >
+                      <Button
+                        type="button"
+                        className="h-[23px] rounded-lg bg-gris text-[10px] font-normal text-[#CCCCCC] hover:bg-gris"
+                        onClick={() => setIndexNewSubStage(null)}
+                      >
+                        Cancelar
+                      </Button>
+                    </div>
                   </Form>
                 )}
               </AccordionContent>
