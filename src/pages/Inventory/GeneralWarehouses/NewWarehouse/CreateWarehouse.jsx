@@ -9,7 +9,7 @@ import PrincipalFormWarehouse from "../Components/Tabs/PrincipalForm";
 
 const CreateWH = () => {
   const [formData, setFormData] = useState({
-    code: "",
+    inventory_code: "",
     name: "",
     street: "",
     active:true,
