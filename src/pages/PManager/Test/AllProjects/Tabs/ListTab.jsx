@@ -63,7 +63,7 @@ function ListTab({ proyects }) {
       {proyects?.info?.map((opt, i) => (
         <div
           key={i}
-          className="grid h-12 w-full grid-cols-10 items-center border-b"
+          className="grid h-12 w-full grid-cols-10 items-center border-b hover:bg-[#F6F6F6]"
         >
           <div className={"col-span-3 text-xs font-normal text-grisHeading"}>
             {opt?.name}
