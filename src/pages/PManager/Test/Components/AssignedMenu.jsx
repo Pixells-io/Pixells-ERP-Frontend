@@ -47,7 +47,7 @@ function AssignedMenu({ users }) {
           <Form
             id="form-remove-assigned-activity"
             className="flex h-full w-full flex-col gap-3 px-8"
-            action={`/project-manager/${params.id}/projects/${params.projectId}`}
+            // action={`/project-manager/${params.id}/projects/${params.projectId}`}
             method="post"
           >
             <input type="hidden" value={assigned.id_reg} name="assigned_id" />

@@ -15,7 +15,7 @@ const OptionsNavLink = [
 
 function MainObjetives() {
   return (
-    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] py-3">
+    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] py-3 font-roboto">
       <div className="px-14">
         {/* navigation inside */}
         <NavigationHeader />

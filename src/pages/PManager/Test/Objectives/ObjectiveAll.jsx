@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import CommentsObjective from "../Components/CommentsObjective";
 import AddUserActivity from "../Components/AddUserActivity";
 import AssignedMenu from "../Components/AssignedMenu";
+import DatePickerPM from "../Components/DatePickerPM";
+import ActivityNameInPut from "../Components/ActivityNameInput";
 
 const HEADERS = [
   { name: "ETAPA", cols: "1", text: "start" },
@@ -43,7 +45,7 @@ const OPTIONS = {
           name: "Immigration, Tax Preparation, Immigration",
           start: "15 feb 2024",
           end: "1 Oct 2024",
-          isDone: "1",
+          status: "1",
           responsible: [
             {
               id: 2,
@@ -53,7 +55,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Pepe Pepe",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
           ],
           repeat: 1,
@@ -110,111 +112,17 @@ const OPTIONS = {
         {
           id: 1,
           name: "Immigration, Tax Preparation, Immigration",
-          start: "15 Oct 2024",
-          end: "31 Oct 2024",
-          isDone: "0",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe perez",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Agustin Hernandez",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Raul Jimenez",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "David Luiz",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Neymar Jr.",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Cone brizuela",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Rafa marquez",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Chicharito hernandez",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Guillermo Ochoa",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Cristiano Ronaldo CR7",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
+          start: "",
+          end: "",
+          status: "0",
+          responsible: [],
           repeat: 9,
           created: {
             id: 1,
             name: "Juan",
             img: "https://github.com/shadcn.png",
           },
-          comments: [
-            {
-              comment: "dvdf",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 1:54 PM",
-            },
-            {
-              comment: "dhsfbdsufbdhus",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 1:54 PM",
-            },
-            {
-              comment: "csvcv",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 1:54 PM",
-            },
-            {
-              comment: "csv",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 1:54 PM",
-            },
-            {
-              comment: "bnvchxjzc",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 11:43 AM",
-            },
-            {
-              comment: "bnvchxjzc",
-              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
-              name: "Developer Pixells",
-              diff: 2,
-              hour: "18-10-2024 11:43 AM",
-            },
-          ],
+          comments: [],
         },
       ],
     },
@@ -227,7 +135,7 @@ const OPTIONS = {
           name: "Immigration, Tax Preparation, Immigration",
           start: "15 feb 2024",
           end: "1 Oct 2024",
-          isDone: "1",
+          status: "1",
           responsible: [
             {
               id: 2,
@@ -237,7 +145,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Agustin Hernandez",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -247,7 +155,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "David Luiz",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -257,7 +165,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Cone brizuela",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -267,7 +175,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Chicharito hernandez",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -336,12 +244,12 @@ const OPTIONS = {
           name: "Immigration, Tax Preparation, Immigration",
           start: "15 Oct 2024",
           end: "31 Oct 2024",
-          isDone: "0",
+          status: "0",
           responsible: [
             {
               id: 2,
               name: "Pepe perez",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -351,7 +259,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Raul Jimenez",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -361,7 +269,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Neymar Jr.",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -371,7 +279,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Rafa marquez",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
             {
               id: 2,
@@ -386,7 +294,7 @@ const OPTIONS = {
             {
               id: 2,
               name: "Cristiano Ronaldo CR7",
-              img: "https://github.com/shadcn.png",
+              img: "http://demoback.pixells.io/storage/CempzMlF8xYPvxqDeHFN3JJh7t0ZAC5KX1asO9w3.jpg",
             },
           ],
           created: {
@@ -449,7 +357,7 @@ function ObjectiveAll() {
   const [openItems, setOpenItems] = useState([]);
   const [addNewStage, setAddNewStage] = useState(false);
   const [indexSubStage, setIndexNewSubStage] = useState(null);
-  
+
   useEffect(() => {
     const allItemValues = OPTIONS?.projects?.map(
       (project, index) => `item-${project.id}`,
@@ -462,9 +370,7 @@ function ObjectiveAll() {
     const date2 = new Date(dateEnd);
 
     const differenceInTime = date2.getTime() - date1.getTime();
-
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
     return differenceInDays;
   };
 
@@ -473,9 +379,7 @@ function ObjectiveAll() {
     const date2 = new Date(dateEnd);
 
     const differenceInTime = date2.getTime() - date1.getTime();
-
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
     return differenceInDays;
   };
 
@@ -507,6 +411,7 @@ function ObjectiveAll() {
             <Input
               className="border-none bg-inherit text-xs font-normal text-grisHeading placeholder:text-xs placeholder:font-normal placeholder:text-grisDisabled"
               placeholder={"Agregar una etapa nueva"}
+              onChange={() => {}}
             />
           </Form>
         )}
@@ -550,7 +455,7 @@ function ObjectiveAll() {
                           onClick={() => setIndexNewSubStage(indexOption)}
                         />
                       )}
-                      {d.isDone == "1" ? (
+                      {d.status == "1" ? (
                         <IonIcon
                           icon={checkmarkCircleSharp}
                           className="h-5 w-5 text-[#1CC71E]"
@@ -567,7 +472,13 @@ function ObjectiveAll() {
                         "col-span-4 flex gap-x-2 text-xs font-normal text-grisHeading"
                       }
                     >
-                      <span>{d.name}</span>
+                      <div className="flex w-2/3 items-center">
+                        <ActivityNameInPut
+                          activity_id={0}
+                          defaultName={d?.name}
+                          status={d?.status}
+                        />
+                      </div>
                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blancoBox font-roboto text-sm font-medium text-grisHeading">
                         {d?.repeat}
                       </div>
@@ -577,30 +488,58 @@ function ObjectiveAll() {
                         "col-span-1 text-xs font-normal text-grisHeading"
                       }
                     >
-                      {d.start}
+                      <DatePickerPM
+                        activity_id={0}
+                        dataDate={d?.start}
+                        name="start"
+                      />
                     </div>
                     <div
                       className={
                         "col-span-1 text-xs font-normal text-grisHeading"
                       }
                     >
-                      {d.end}
+                      <DatePickerPM
+                        activity_id={0}
+                        dataDate={d?.end}
+                        name="end"
+                      />
                     </div>
                     <div
                       className={
                         "col-span-1 text-center text-xs font-normal text-grisHeading"
                       }
                     >
-                      {calculateDays(d.start, d.end).toFixed(0)}{" "}
-                      {calculateDays(d.start, d.end) > 1 ? "días" : "día"}
+                      {!!d?.start || !!d?.end ? (
+                        (() => {
+                          const days = calculateDays(d.start, d.end).toFixed(0);
+                          return (
+                            <div>
+                              {days} {days > 1 ? "días" : "día"}
+                            </div>
+                          );
+                        })()
+                      ) : (
+                        <span className="text-[#CCCCCC]">Por Definir</span>
+                      )}
                     </div>
                     <div
                       className={
                         "col-span-1 text-xs font-normal text-grisHeading"
                       }
                     >
-                      {calculateDaysRestant(d.end).toFixed(0)}{" "}
-                      {calculateDaysRestant(d.end) > 1 ? "días" : "día"}
+                      {!!d?.start || !!d?.end ? (
+                        (() => {
+                          const days = calculateDaysRestant(d.end).toFixed(0);
+                          return (
+                            <div>
+                              {days} {days > 1 ? "días" : "día"}
+                            </div>
+                          );
+                        })()
+                      ) : (
+                        <span className="text-[#CCCCCC]">Por Definir</span>
+                      )}
                     </div>
 
                     <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">

@@ -54,7 +54,7 @@ function AddUserActivity({ activity_id, users }) {
 
     submit(formData, {
       method: "post",
-      action: `/project-manager/${id}/projects/${projectId}`,
+      // action: `/project-manager/${id}/projects/${projectId}`,
     });
   }
 
