@@ -6,11 +6,13 @@ import { add, searchOutline } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProjectTab from "./Tabs/ProjectTab";
 import StatusTab from "./Tabs/StatusTab";
-
+import { useLoaderData } from "react-router-dom";
 
 function AllActivities() {
+  const data = useLoaderData();
+  console.log(data);
   return (
-    <div className="overflow-auto rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
       <NavigationHeader />
       {/* top content */}
@@ -29,8 +31,11 @@ function AllActivities() {
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
         OBJETIVO
       </h2>
-      
-      <Tabs defaultValue="project" className="rounded-lg bg-blancoBg pt-2   flex flex-col overflow-auto">
+
+      <Tabs
+        defaultValue="project"
+        className="flex flex-col overflow-auto rounded-lg bg-blancoBg pt-2"
+      >
         <div className="flex justify-between">
           <TabsList className="flex w-fit gap-x-2 rounded-none bg-blancoBg px-0">
             <TabsTrigger
@@ -76,13 +81,12 @@ function AllActivities() {
           </div>
         </div>
         <TabsContent value="project" className="">
-            <ProjectTab />
+          <ProjectTab />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
         </TabsContent>
-        <TabsContent value="finish" className="overflow-auto">
-        </TabsContent>
+        <TabsContent value="finish" className="overflow-auto"></TabsContent>
       </Tabs>
     </div>
   );

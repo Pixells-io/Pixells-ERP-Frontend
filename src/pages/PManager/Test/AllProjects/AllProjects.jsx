@@ -7,10 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ListTab from "./Tabs/ListTab";
 import StatusTab from "./Tabs/StatusTab";
 import BoardTab from "./Tabs/BoardTab";
+import { useLoaderData } from "react-router-dom";
 
 function AllProjects() {
+  const { proyects } = useLoaderData();
   return (
-    <div className="overflow-auto rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
       <NavigationHeader />
       {/* top content */}
@@ -29,8 +31,11 @@ function AllProjects() {
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
         OBJETIVO
       </h2>
-      
-      <Tabs defaultValue="list" className="rounded-lg bg-blancoBg pt-2   flex flex-col overflow-auto">
+
+      <Tabs
+        defaultValue="list"
+        className="flex flex-col overflow-auto rounded-lg bg-blancoBg pt-2"
+      >
         <div className="flex justify-between">
           <TabsList className="flex w-fit gap-x-2 rounded-none bg-blancoBg px-0">
             <TabsTrigger
@@ -76,7 +81,7 @@ function AllProjects() {
           </div>
         </div>
         <TabsContent value="list" className="">
-          <ListTab />
+          <ListTab proyects={proyects.data} />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
