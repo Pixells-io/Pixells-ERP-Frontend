@@ -84,10 +84,10 @@ function AllProjects() {
           <ListTab proyects={proyects.data} />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
-          <StatusTab />
+          <StatusTab proyects={proyects.data.info} />
         </TabsContent>
         <TabsContent value="board" className="overflow-auto">
-          <BoardTab />
+          <BoardTab proyects={proyects.data.info} />
         </TabsContent>
       </Tabs>
     </div>

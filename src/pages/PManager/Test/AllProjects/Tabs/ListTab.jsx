@@ -48,7 +48,7 @@ const OPTIONS = [
 function ListTab({ proyects }) {
   console.log(proyects);
   return (
-    <div className="mt-8 flex flex-col">
+    <div className="flex flex-col">
       <div className="grid h-12 grid-cols-10 items-center border-b">
         {HEADERS?.map((header, i) => (
           <div
