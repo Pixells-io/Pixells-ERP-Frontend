@@ -8,6 +8,7 @@ import {
   closeCircle,
   chatbubbleEllipsesOutline,
   ellipsisHorizontal,
+  close,
 } from "ionicons/icons";
 import {
   DropdownMenu,
@@ -269,16 +270,21 @@ const DropZoneForm = ({ comments }) => {
                       </div>
                       {index == indexEdit ? (
                         <div
-                          className={`flex max-w-[250px] flex-col pt-[8px] ${index == indexEdit && "mt-1 w-full max-w-full rounded-[14px] border border-black p-2"}`}
+                          className={`flex max-w-[250px] flex-col pt-[8px] ${index == indexEdit && "mt-1 w-full max-w-full rounded-[14px] border-[1px] border-grisDisabled p-2"}`}
                         >
-                          <span className="break-words font-roboto text-[12px] font-normal text-[#44444F]">
+                          <input
+                            type="text"
+                            defaultValue={input.value}
+                            className={`break-words font-roboto text-[12px] font-normal text-[#44444F] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0`}
+                          />
+                          {/* <span className="break-words font-roboto text-[12px] font-normal text-[#44444F]">
                             {input.value}
-                          </span>
+                          </span> */}
                           <div className="flex space-x-2">
                             {input.files.map((file, fileIndex) => (
                               <div
                                 key={fileIndex}
-                                className="group relative pt-[17px]"
+                                className="group relative mt-[17px]"
                               >
                                 <img
                                   src={URL.createObjectURL(file)}
@@ -292,11 +298,11 @@ const DropZoneForm = ({ comments }) => {
                                       fileIndex,
                                     )
                                   }
-                                  className="absolute right-0 top-0 hidden pt-4 group-hover:block"
+                                  className="absolute right-[-3px] top-[-3px] rounded-full w-4 h-4 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[#44444F]"
                                 >
                                   <IonIcon
-                                    icon={closeCircle}
-                                    className="size-5 text-[#44444F]"
+                                    icon={close}
+                                    className="size-3 text-white"
                                   />
                                 </button>
                               </div>
@@ -304,7 +310,9 @@ const DropZoneForm = ({ comments }) => {
                           </div>
 
                           <div className="flex justify-between">
-                            <div></div>
+                            <div>
+                           
+                            </div>
                             <div className="flex justify-end gap-x-3">
                               <Button
                                 type="button"
@@ -338,20 +346,6 @@ const DropZoneForm = ({ comments }) => {
                                   alt={file.name}
                                   className="h-[48px] w-[46px] rounded-[8px] object-cover"
                                 />
-                                <button
-                                  onClick={() =>
-                                    handleRemoveSubmittedFile(
-                                      input.id,
-                                      fileIndex,
-                                    )
-                                  }
-                                  className="absolute right-0 top-0 hidden pt-4 group-hover:block"
-                                >
-                                  <IonIcon
-                                    icon={closeCircle}
-                                    className="size-5 text-[#44444F]"
-                                  />
-                                </button>
                               </div>
                             ))}
                           </div>
