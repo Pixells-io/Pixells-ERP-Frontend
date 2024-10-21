@@ -40,7 +40,7 @@ const InputWithDropzone = ({
           type="text"
           value={input.value}
           onChange={(e) => onInputChange(input.id, e.target.value)}
-          className={`mb-2 mt-[6px] h-[40px] flex w-full text-[11px] text-[#44444F] flex-grow rounded-[12px] border-none bg-transparent pl-2 placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
+          className={`mb-2 mt-[6px] flex h-[40px] w-full flex-grow rounded-[12px] border-none bg-transparent pl-2 text-[11px] text-[#44444F] placeholder:font-poppins placeholder:text-[11px] placeholder:font-normal placeholder:text-[#CCCCCC] placeholder:text-[#D7D7D7] focus:outline-none focus:ring-0${!input.value ? "h-[50px]" : "h-[54px]"}`}
           placeholder="Agregar titulo"
         />
       </div>
@@ -205,13 +205,13 @@ const DynamicForm = () => {
               </div>
             ) : (
               <>
-                <div className="flex h-[40px] w-full items-center border-b">
-  <span className="w-full px-4 font-poppins text-[12px] text-[#44444F] font-medium">
-    Documentos
-  </span>
-</div>
+                <div className="flex h-[40px] items-center border-b">
+                  <span className="w-full p-4 font-poppins text-[12px] font-medium text-[#44444F]">
+                    Documentos
+                  </span>
+                </div>
 
-                <div className="flex w-full flex-col overflow-auto p-4 max-h-[400px]">
+                <div className="flex max-h-[400px] w-full flex-col overflow-auto p-4">
                   {submittedInputs.map((input, index) => (
                     <div
                       key={index}
