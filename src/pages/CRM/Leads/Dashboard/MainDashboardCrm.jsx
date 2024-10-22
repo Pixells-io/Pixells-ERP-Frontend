@@ -43,6 +43,7 @@ import ModalEditLead from "./Modal/ModalEditLead";
 import ModalChangeAssignedLead from "./Modal/ModalChangeAssignedLead";
 import ModalEditStage from "./Modal/ModalEditStage";
 import ModalDestroyStage from "./Modal/ModalDestroyStage";
+import DropZoneForm from "@/components/DropZoneForm/DropZoneForm";
 
 function MainDashboardCrm() {
   const { id } = useParams();
@@ -348,186 +349,195 @@ function MainDashboardCrm() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            {stage.data?.map((lead, index) => (
-              <div
-                className="group relative my-4 rounded-lg bg-white px-2 py-2"
-                key={index}
-                onDragStart={(evt) => startDrag(evt, lead, stage.id)}
-                draggable="true"
-              >
-                <Link
-                  to={`/crm/leads/${lead.id}`}
-                  className="line-clamp-1 font-poppins text-sm font-medium text-grisHeading"
-                  title={"Nombre"}
+              {stage.data?.map((lead, index) => (
+                <div
+                  className="group relative my-4 rounded-lg bg-white px-2 py-2"
+                  key={index}
+                  onDragStart={(evt) => startDrag(evt, lead, stage.id)}
+                  draggable="true"
                 >
-                  {lead.name}
-                </Link>
-                <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
-                  <div className="flex h-[22px] items-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <IonIcon
-                          icon={settingsOutline}
-                          className="px-1.5"
-                        ></IonIcon>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalChangeAssigned(lead)}
-                        >
-                          Asignar a otro usuario
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalEdit(lead)}
-                        >
-                          Editar
-                        </button>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <IonIcon
-                          icon={ellipsisHorizontalSharp}
-                          className="px-1.5"
-                        ></IonIcon>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pt-4 text-start">
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 1)}
-                        >
-                          Dimensionar Oportunidad
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 2)}
-                        >
-                          Enviar Correo
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 3)}
-                        >
-                          Programar Correo
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 4)}
-                        >
-                          Programar Mensaje
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 5)}
-                        >
-                          Agendar Actividad
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 6)}
-                        >
-                          Crear Cotizacion
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 7)}
-                        >
-                          Asociar Producto / Servicio
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 8)}
-                        >
-                          Recordatorio Para Mover al Lead
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
-                          onClick={() => openModalAction(lead.id, 9, lead.name)}
-                        >
-                          Convertir a Cliente
-                        </button>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                  <Link
+                    to={`/crm/leads/${lead.id}`}
+                    className="line-clamp-1 font-poppins text-sm font-medium text-grisHeading"
+                    title={"Nombre"}
+                  >
+                    {lead.name}
+                  </Link>
+                  <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+                    <div className="flex h-[22px] items-center">
+                      <div className="flex justify-center items-center">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger>
+                            <div className="flex justify-center items-center">
+                              <IonIcon
+                                icon={settingsOutline}
+                                className="px-1.5"
+                              ></IonIcon>
+                            </div>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pb-4 pt-4 text-start">
+                            <button
+                              type="button"
+                              className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                              onClick={() => openModalChangeAssigned(lead)}
+                            >
+                              Asignar a otro usuario
+                            </button>
+                            <button
+                              type="button"
+                              className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                              onClick={() => openModalEdit(lead)}
+                            >
+                              Editar
+                            </button>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                      <div className="flex justify-center items-center border-l h-full">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <div className="flex justify-center items-center">
+                            <IonIcon
+                              icon={ellipsisHorizontalSharp}
+                              className="px-1.5"
+                            ></IonIcon>
+                          </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-52 overflow-auto rounded-3xl px-0 pt-4 text-start">
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 1)}
+                          >
+                            Dimensionar Oportunidad
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 2)}
+                          >
+                            Enviar Correo
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 3)}
+                          >
+                            Programar Correo
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 4)}
+                          >
+                            Programar Mensaje
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 5)}
+                          >
+                            Agendar Actividad
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 6)}
+                          >
+                            Crear Cotizacion
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 7)}
+                          >
+                            Asociar Producto / Servicio
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none py-2 pl-6 text-start font-roboto text-xs font-normal text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 8)}
+                          >
+                            Recordatorio Para Mover al Lead
+                          </button>
+                          <button
+                            type="button"
+                            className="w-full rounded-none border-t border-grisDisabled px-4 py-4 pl-6 text-start font-roboto text-xs font-semibold text-grisText hover:bg-[#F0F0F0]"
+                            onClick={() => openModalAction(lead.id, 9, lead.name)}
+                          >
+                            Convertir a Cliente
+                          </button>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mb-2 mt-2 flex gap-2">
-                  {lead.status == 1 ? (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#CBF4C9] px-2 text-[10px] font-normal text-[#0E6245]">
-                      Activo
-                    </span>
-                  ) : lead.stages == 2 ? (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#FFEDC7] px-2 text-[10px] font-normal text-[#624E0E]">
-                      Suspendido
-                    </span>
-                  ) : lead.status == 3 ? (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#FFC7C7] px-2 text-[10px] font-normal text-[#620E0E]">
-                      Cancelado
-                    </span>
-                  ) : lead.status == 4 ? (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#C7CBFF] px-2 text-[10px] font-normal text-[#1C0E62]">
-                      Completado
-                    </span>
-                  ) : (
-                    false
-                  )}
-                  {lead.type == 1 ? (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#3EC5FF4D] px-2 text-[10px] font-normal text-[#0D4381]">
-                      Persona Fisica
-                    </span>
-                  ) : (
-                    <span className="flex h-[18px] items-center rounded-lg bg-[#3EFF9B4D] px-2 text-[10px] font-normal text-[#0C624B]">
-                      Persona Moral
-                    </span>
-                  )}
-                </div>
-                <span className="font-normal- font-roboto text-xs text-grisHeading">
-                  Informacion de Actividades Prueba de largo lo
-                </span>
-                <div className="grid grid-cols-12">
-                  <div className="col-span-5 flex items-end gap-x-2">
-                    <span
-                      className="flex h-[18px] items-center rounded-full bg-[#FFC7C7] px-2 py-2 text-[10px] font-normal text-[#620E0E]"
-                      title="Dias desde la creacion"
-                    >
-                      {lead?.created}
-                    </span>
-                    <span
-                      className="flex h-[18px] items-center rounded-full bg-[#FFEDC7] px-2 py-2 text-[10px] font-normal text-[#624E0E]"
-                      title="Dias desde la ultima edicion"
-                    >
-                      {lead?.edited}
-                    </span>
+                  <div className="mb-2 mt-2 flex gap-2">
+                    {lead.status == 1 ? (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#CBF4C9] px-2 text-[10px] font-normal text-[#0E6245]">
+                        Activo
+                      </span>
+                    ) : lead.stages == 2 ? (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#FFEDC7] px-2 text-[10px] font-normal text-[#624E0E]">
+                        Suspendido
+                      </span>
+                    ) : lead.status == 3 ? (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#FFC7C7] px-2 text-[10px] font-normal text-[#620E0E]">
+                        Cancelado
+                      </span>
+                    ) : lead.status == 4 ? (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#C7CBFF] px-2 text-[10px] font-normal text-[#1C0E62]">
+                        Completado
+                      </span>
+                    ) : (
+                      false
+                    )}
+                    {lead.type == 1 ? (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#3EC5FF4D] px-2 text-[10px] font-normal text-[#0D4381]">
+                        Persona Fisica
+                      </span>
+                    ) : (
+                      <span className="flex h-[18px] items-center rounded-lg bg-[#3EFF9B4D] px-2 text-[10px] font-normal text-[#0C624B]">
+                        Persona Moral
+                      </span>
+                    )}
                   </div>
-                  <div className="col-span-7 flex justify-end gap-3">
-                    <CommentsLead
-                      leadId={lead?.id}
-                      comments={lead?.comments}
-                      process={id}
-                    />
-                    <Avatar className="size-6">
-                      <AvatarImage
-                        src={lead.assigned?.img}
-                        title={lead.assigned?.name}
-                      />
-                    </Avatar>
+                  <p className="font-normal font-roboto text-xs text-grisHeading mt-4">
+                    Informacion de Actividades Prueba de largo lo
+                  </p>
+                  <div className="grid grid-cols-12">
+                    <div className="col-span-5 flex items-end gap-x-2">
+                      <span
+                        className="flex h-[18px] items-center rounded-full bg-[#FFC7C7] px-2 py-2 text-[10px] font-normal text-[#620E0E]"
+                        title="Dias desde la creacion"
+                      >
+                        {lead?.created}
+                      </span>
+                      <span
+                        className="flex h-[18px] items-center rounded-full bg-[#FFEDC7] px-2 py-2 text-[10px] font-normal text-[#624E0E]"
+                        title="Dias desde la ultima edicion"
+                      >
+                        {lead?.edited}
+                      </span>
+                    </div>
+                    <div className="col-span-7 flex justify-end items-center gap-3">
+                      {/* <CommentsLead
+                        leadId={lead?.id}
+                        comments={lead?.comments}
+                        process={id}
+                      /> */}
+                      <DropZoneForm />
+                      <Avatar className="size-6">
+                        <AvatarImage
+                          src={lead.assigned?.img}
+                          title={lead.assigned?.name}
+                        />
+                      </Avatar>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         ))}
         <div>
