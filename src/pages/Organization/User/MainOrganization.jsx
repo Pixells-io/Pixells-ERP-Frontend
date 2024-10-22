@@ -6,7 +6,8 @@ import {
   useOutletContext,
 } from "react-router-dom";
 
-import { addCircleOutline, searchOutline } from "ionicons/icons";
+import { add, searchOutline } from "ionicons/icons";
+import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 
 import {
@@ -86,131 +87,140 @@ function MainOrganization() {
     }
   });
 
+  function WrappedMain({ children }) {
+    return (
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex w-full">
+    <WrappedMain>
       <FormCreateArea modal={modal} setModal={setModal} />
       <FormImport modal={modalImport} setModal={setModalImport} />
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <NavigationHeader />
+      {/* navigation inside */}
+      <NavigationHeader />
 
-        {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-              GESTIÓN DE USUARIOS
-            </h2>
-          </div>
-          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div className="text-xs">{counter.data["users"]} usuarios</div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">
-              {counter.data["positions"]} posiciones
-            </div>
-            <div className="text-2xl">&bull;</div>
-            <div className="text-xs">{counter.data["areas"]} areas</div>
-          </div>
-        </div>
-        {/*button create reg*/}
-        {create == true ? (
-          <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <IonIcon
-                  icon={addCircleOutline}
-                  size="large"
-                  className="text-blue-500"
-                ></IonIcon>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem
-                  className="w-full hover:cursor-pointer"
-                  onClick={() => setModal(true)}
-                >
-                  Areas
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink
-                    className="w-full"
-                    to={"/organization/create-position"}
-                  >
-                    Posiciones
-                  </NavLink>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink className="w-full" to={"/organization/create-user"}>
-                    Usuarios
-                  </NavLink>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="w-full hover:cursor-pointer"
-                  onClick={() => setModalImport(true)}
-                >
-                  Importar
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) : (
-          false
-        )}
-        {/*component accion*/}
-        <div className="h-full overflow-auto rounded-xl bg-white p-7">
-          <div className="flex">
-            <Tabs defaultValue="users" className="h-full w-full overflow-auto">
-              <TabsList className="mb-3 w-full bg-transparent">
-                <div className="flex w-full">
-                  <div className="w-4/5">
-                    <TabsTrigger
-                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                      value="users"
-                    >
-                      USUARIOS
-                    </TabsTrigger>
-                    <TabsTrigger
-                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                      value="positions"
-                    >
-                      POSICIONES
-                    </TabsTrigger>
-                    <TabsTrigger
-                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                      value="areas"
-                    >
-                      AREAS
-                    </TabsTrigger>
-                  </div>
-                  <div className="flex w-1/5 pt-1">
-                    <div className="flex h-10 items-center rounded-3xl border-[1px] border-[#44444F] px-4 text-[10px]">
-                      <Label htmlFor="search">
-                        <IonIcon
-                          icon={searchOutline}
-                          className="h-6 w-6 stroke-1 text-[#696974]"
-                        ></IonIcon>
-                      </Label>
-                      <Input
-                        id="search"
-                        className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
-                        placeholder="BUSCAR EMAILS"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </TabsList>
-              <TabsContent value="users">
-                <UsersTable users={users?.data} edit={edit} />
-              </TabsContent>
-              <TabsContent value="positions">
-                <PositionsTable positions={positions?.data} edit={edit} />
-              </TabsContent>
-              <TabsContent value="areas">
-                <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
-              </TabsContent>
-            </Tabs>
-          </div>
+      {/* top content */}
+      <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">
+         ORGANIZACIÓN
+        </h2>
+        <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">{counter.data["users"]} usuarios</div>
+          <div className="text-2xl">&bull;</div>
+          <div className="text-xs">{counter.data["positions"]} posiciones</div>
+          <div className="text-2xl">&bull;</div>
+          <div className="text-xs">{counter.data["areas"]} areas</div>
         </div>
       </div>
-    </div>
+      <div>
+      <span className="font-poppins font-bold text-[20px] text-[#44444F]">
+          Gestión de Usuarios
+        </span>
+      </div>
+      {/*button create reg*/}
+      {create == true ? (
+        <div className="flex justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                type={"button"}
+                className="flex h-[30px] items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+              >
+                <IonIcon icon={add} className="h-4 w-4" />
+                <span className="text-xs font-medium">Nuevo</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="w-full hover:cursor-pointer"
+                onClick={() => setModal(true)}
+              >
+                Areas
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <NavLink
+                  className="w-full"
+                  to={"/organization/create-position"}
+                >
+                  Posiciones
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <NavLink className="w-full" to={"/organization/create-user"}>
+                  Usuarios
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="w-full hover:cursor-pointer"
+                onClick={() => setModalImport(true)}
+              >
+                Importar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ) : (
+        false
+      )}
+      {/*component accion*/}
+      <div className="h-full overflow-auto rounded-xl bg-[#FBFBFB] p-7">
+        <div className="flex">
+          <Tabs defaultValue="users" className="bg-[#FBFBFB] h-full w-full overflow-auto">
+            <TabsList className="mb-3 w-full bg-[#FBFBFB] ">
+              <div className="flex w-full">
+                <div className="w-4/5">
+                  <TabsTrigger
+                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                    value="users"
+                  >
+                    USUARIOS
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                    value="positions"
+                  >
+                    POSICIONES
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
+                    value="areas"
+                  >
+                    AREAS
+                  </TabsTrigger>
+                </div>
+                <div className="flex w-1/5 pt-1">
+                  <div className="flex h-10 items-center rounded-3xl border-[1px] border-[#44444F] px-4 text-[10px]">
+                    <Label htmlFor="search">
+                      <IonIcon
+                        icon={searchOutline}
+                        className="h-6 w-6 stroke-1 text-[#696974]"
+                      ></IonIcon>
+                    </Label>
+                    <Input
+                      id="search"
+                      className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
+                      placeholder="BUSCAR EMAILS"
+                    />
+                  </div>
+                </div>
+              </div>
+            </TabsList>
+            <TabsContent value="users">
+              <UsersTable users={users?.data} edit={edit} />
+            </TabsContent>
+            <TabsContent value="positions">
+              <PositionsTable positions={positions?.data} edit={edit} />
+            </TabsContent>
+            <TabsContent value="areas">
+              <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
+    </WrappedMain>
   );
 }
 export default MainOrganization;

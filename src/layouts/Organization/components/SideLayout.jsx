@@ -83,7 +83,7 @@ function SideLayoutOrganization() {
               <IonIcon icon={lockOpen} size="large"></IonIcon>
               <div className="flex flex-col">
               <p className="text-[16px] font-medium">Control</p>
-                <p className="text-[10px] font-medium">De Usuarios</p>
+              <p className="text-[10px] font-medium">De Usuarios</p>
               </div>
                 
             </div>
