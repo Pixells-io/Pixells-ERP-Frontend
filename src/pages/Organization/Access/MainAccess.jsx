@@ -126,7 +126,7 @@ console.log(areas.data)
         </span>
       </div>
         {/*component accion*/}
-        <div className="rounded-xl bg-white p-7">
+      
           {/* <div className="flex">
             <Tabs className="w-full">
               <TabsList className="mb-3 w-full overflow-auto bg-transparent pb-7">
@@ -199,7 +199,7 @@ console.log(areas.data)
                 </TabsContent>
       </Tabs>
         
-        </div>
+       
       
     </WrappedMain>
   );

@@ -6,15 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { chevronForwardOutline, ellipsisVertical } from "ionicons/icons";
+import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const HEADERS = [
   { name: "PUESTO", cols: "2", text: "start" },
