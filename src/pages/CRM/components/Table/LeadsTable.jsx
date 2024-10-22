@@ -180,7 +180,7 @@ function LeadsTable({ leads, edit, destroy }) {
   });
 
   return (
-    <div className="relative w-full overflow-auto">
+    <div className="w-full overflow-auto">
       {/*Forms*/}
       <DeleteLeadsModal
         modal={modalDestroy}
@@ -188,7 +188,7 @@ function LeadsTable({ leads, edit, destroy }) {
         lead_id={leadId}
         lead_name={leadName}
       />
-      <div className="float-end flex h-9 w-44 items-center mb-3 rounded-3xl border-[1px] border-[#D7D7D7] py-2 text-[10px]">
+      <div className="float-end flex h-9 w-44 items-center mb-2 rounded-3xl border-[1px] border-[#D7D7D7] py-2 text-[10px]">
         <Label htmlFor="search">
           <IonIcon
             icon={searchOutline}
