@@ -359,17 +359,13 @@ function ObjectiveAll({ project }) {
   const { projectInfo, phases } = project;
   const params = useParams();
   const submit = useSubmit();
-  const [faseInput, setFaseInput] = useState("");
+
   const [openItems, setOpenItems] = useState([]);
   const [addNewStage, setAddNewStage] = useState(false);
   const [indexSubStage, setIndexNewSubStage] = useState(null);
 
-  // useEffect(() => {
-  //   const allItemValues = OPTIONS?.projects?.map(
-  //     (project, index) => `item-${project.id}`,
-  //   );
-  //   setOpenItems(allItemValues);
-  // }, [OPTIONS]);
+  const [faseInput, setFaseInput] = useState("");
+  const [isRequestInProgress, setIsRequestInProgress] = useState(false);
 
   useEffect(() => {
     const allItemValues = phases?.map(({ phase }, index) => `item-${phase.id}`);
@@ -395,10 +391,22 @@ function ObjectiveAll({ project }) {
   };
 
   function onInputEnter(e) {
-    if (e.code == "Enter") {
+    if (e.key === "Enter" && !isRequestInProgress) {
+      setIsRequestInProgress(true);
       submit(e.currentTarget);
       setFaseInput("");
     }
+    setIsRequestInProgress(false);
+  }
+
+  function onInputEnter2(e) {
+    if (e.key === "Enter" && !isRequestInProgress) {
+      e.preventDefault();
+      setIsRequestInProgress(true);
+      submit(e.currentTarget);
+      setIndexNewSubStage(null);
+    }
+    setIsRequestInProgress(false);
   }
 
   console.log(project);
@@ -629,8 +637,15 @@ function ObjectiveAll({ project }) {
                 ))}
 
                 {/* new sub */}
-                {indexSubStage == indexOption && (
-                  <Form className="grid h-12 w-full grid-cols-12 items-center border-b">
+                {(indexSubStage == indexOption || activities.length == 0) && (
+                  <Form
+                    onKeyDown={onInputEnter2}
+                    method="post"
+                    action={`/project-manager2/project/${params.id}`}
+                    id="activity-form"
+                    name="activity"
+                    className="grid h-12 w-full grid-cols-12 items-center border-b"
+                  >
                     <div
                       className={
                         "col-span-1 flex justify-end gap-x-2 px-4 text-xs font-normal text-grisHeading"
@@ -644,6 +659,21 @@ function ObjectiveAll({ project }) {
                       <Input
                         className="border-none bg-inherit text-xs font-normal text-grisHeading placeholder:text-xs placeholder:font-normal placeholder:text-[#CCCCCC]"
                         placeholder={"Agrega una nueva actividad"}
+                        name="name"
+                      />
+                      <input
+                        name="phase_id"
+                        className="hidden"
+                        value={phase.id}
+                        hidden
+                        type="hidden"
+                      />
+                      <input
+                        name="action"
+                        className="hidden"
+                        value="activity"
+                        hidden
+                        type="hidden"
                       />
                     </div>
                     <div className={"col-span-1"}>

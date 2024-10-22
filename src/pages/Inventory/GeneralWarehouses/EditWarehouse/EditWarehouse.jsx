@@ -113,7 +113,7 @@ const EditWH = () => {
 
         <div>
           <p className="mb-4 font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Almacén
+            Consultando Almacén: {formData.name}
           </p>
         </div>
 

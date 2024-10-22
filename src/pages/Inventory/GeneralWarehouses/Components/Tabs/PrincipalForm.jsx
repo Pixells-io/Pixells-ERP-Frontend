@@ -108,7 +108,7 @@ const PrincipalFormWarehouse = ({ initialValues }) => {
           <div className="col-span-12">
             <InputForm
               name="ext"
-              type="text"
+              type="number"
               placeholder={"Número Exterior"}
               required={true}
               value={values.ext}
@@ -118,7 +118,7 @@ const PrincipalFormWarehouse = ({ initialValues }) => {
           <div className="col-span-12">
             <InputForm
               name="int"
-              type="text"
+              type="number"
               placeholder={"Número Interior"}
               required={true}
               value={values.int}
@@ -128,7 +128,7 @@ const PrincipalFormWarehouse = ({ initialValues }) => {
           <div className="col-span-12">
             <InputForm
               name="cp"
-              type="text"
+              type="number"
               placeholder={"Código Postal"}
               required={true}
               value={values.cp}
