@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle, searchOutline, trash } from "ionicons/icons";
+import { informationCircle, informationCircleOutline, searchOutline, trash, trashOutline } from "ionicons/icons";
 import DeleteProcessSaleModal from "../Modals/DeleteProcessSaleModal";
 import EditProcessSaleModal from "../Modals/EditProcessSaleModal";
 import { createPusherClient } from "@/lib/pusher";
@@ -115,7 +115,7 @@ function SalesProcessTable({ process, edit, destroy }) {
                   )
                 }
               >
-                <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={informationCircleOutline} className="h-5 w-5"></IonIcon>
               </button>
             ) : (
               false
@@ -126,7 +126,7 @@ function SalesProcessTable({ process, edit, destroy }) {
                   openDestroyModal(row?.original?.id, row?.original?.name)
                 }
               >
-                <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={trashOutline} className="h-5 w-5"></IonIcon>
               </button>
             ) : (
               false
@@ -144,7 +144,7 @@ function SalesProcessTable({ process, edit, destroy }) {
   });
 
   return (
-    <div className="relative w-full overflow-auto">
+    <div className="w-full overflow-auto">
       {/*Forms*/}
       <DeleteProcessSaleModal
         modal={modalDestroy}
@@ -159,7 +159,7 @@ function SalesProcessTable({ process, edit, destroy }) {
         process_name={processName}
         process_description={processDescription}
       />
-      <div className="float-end flex h-9 w-44 items-center rounded-3xl border-[1px] border-[#D7D7D7] py-2 text-[10px]">
+      <div className="float-end flex h-9 w-44 items-center rounded-3xl mb-2 border-[1px] border-[#D7D7D7] py-2 text-[10px]">
         <Label htmlFor="search">
           <IonIcon
             icon={searchOutline}
