@@ -16,6 +16,7 @@ import ModalCreateActivity from "../Dashboard/Modal/ModalCreateActivity";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { createPusherClient } from "@/lib/pusher";
 import { getOneLeadId } from "../../utils";
+import CommentsForm from "./CommentsForm";
 
 function MainLead() {
   const [lead] = useOutletContext();
@@ -319,11 +320,11 @@ function MainLead() {
                 </div>
               ))}
             </div>
-            <div className="grid h-1/6 place-items-end px-2">
+            <div className="grid h-1/6 place-items-end px-2 overflow-auto">
               <Form method="POST" action={`/crm/leads/${mainLeadData.id}`} className="w-full">
                 <input type="hidden" name="action" value="create-comment" />
                 <input type="hidden" name="lead_id" value={mainLeadData.id} />
-                <div className="flex gap-x-1 items-center rounded-lg bg-grisBg px-2 h-10">
+                {/* <div className="flex gap-x-1 items-center rounded-lg bg-grisBg px-2 h-10">
                   <div className="w-10/12 h-10 flex items-start py-1">
                     <textarea
                       type="text"
@@ -338,7 +339,8 @@ function MainLead() {
                   >
                     Enviar
                   </button>
-                </div>
+                </div> */}
+                  <CommentsForm />
               </Form>
             </div>
           </div>
