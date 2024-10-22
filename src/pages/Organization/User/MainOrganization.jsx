@@ -104,9 +104,7 @@ function MainOrganization() {
 
       {/* top content */}
       <div className="flex items-center gap-16">
-        <h2 className="font-poppins font-bold text-[#44444F]">
-         ORGANIZACIÓN
-        </h2>
+        <h2 className="font-poppins font-bold text-[#44444F]">ORGANIZACIÓN</h2>
         <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
           <div className="text-xs">{counter.data["users"]} usuarios</div>
           <div className="text-2xl">&bull;</div>
@@ -116,7 +114,7 @@ function MainOrganization() {
         </div>
       </div>
       <div>
-      <span className="font-poppins font-bold text-[20px] text-[#44444F]">
+        <span className="font-poppins text-[20px] font-bold text-[#44444F]">
           Gestión de Usuarios
         </span>
       </div>
@@ -166,60 +164,42 @@ function MainOrganization() {
         false
       )}
       {/*component accion*/}
-      <div className="h-full overflow-auto rounded-xl bg-[#FBFBFB] p-7">
-        <div className="flex">
-          <Tabs defaultValue="users" className="bg-[#FBFBFB] h-full w-full overflow-auto">
-            <TabsList className="mb-3 w-full bg-[#FBFBFB] ">
-              <div className="flex w-full">
-                <div className="w-4/5">
-                  <TabsTrigger
-                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                    value="users"
-                  >
-                    USUARIOS
-                  </TabsTrigger>
-                  <TabsTrigger
-                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                    value="positions"
-                  >
-                    POSICIONES
-                  </TabsTrigger>
-                  <TabsTrigger
-                    className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                    value="areas"
-                  >
-                    AREAS
-                  </TabsTrigger>
-                </div>
-                <div className="flex w-1/5 pt-1">
-                  <div className="flex h-10 items-center rounded-3xl border-[1px] border-[#44444F] px-4 text-[10px]">
-                    <Label htmlFor="search">
-                      <IonIcon
-                        icon={searchOutline}
-                        className="h-6 w-6 stroke-1 text-[#696974]"
-                      ></IonIcon>
-                    </Label>
-                    <Input
-                      id="search"
-                      className="h-full w-full border-0 bg-transparent !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#696974] focus:rounded-none focus:border-b-2 focus:border-slate-400"
-                      placeholder="BUSCAR EMAILS"
-                    />
-                  </div>
-                </div>
-              </div>
-            </TabsList>
-            <TabsContent value="users">
-              <UsersTable users={users?.data} edit={edit} />
-            </TabsContent>
-            <TabsContent value="positions">
-              <PositionsTable positions={positions?.data} edit={edit} />
-            </TabsContent>
-            <TabsContent value="areas">
-              <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
-            </TabsContent>
-          </Tabs>
-        </div>
-      </div>
+     
+        <Tabs
+          defaultValue="users"
+          className="h-full overflow-auto bg-[#FBFBFB] pt-2"
+        >
+          <TabsList className="ml-6 flex justify-start rounded-none gap-6 border-b bg-blancoBox bg-inherit p-0 py-6">
+            <TabsTrigger
+              className="mb-[-12px] rounded-none border-[#44444F] border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="users"
+            >
+              USUARIOS
+            </TabsTrigger>
+            <TabsTrigger
+              className="mb-[-12px] rounded-none border-[#44444F] border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="positions"
+            >
+              POSICIONES
+            </TabsTrigger>
+            <TabsTrigger
+              className="mb-[-12px] rounded-none border-[#44444F] border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+              value="areas"
+            >
+              AREAS
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="users" className="mx-3">
+            <UsersTable users={users?.data} edit={edit} />
+          </TabsContent>
+          <TabsContent value="positions" className="mx-3">
+            <PositionsTable positions={positions?.data} edit={edit} />
+          </TabsContent>
+          <TabsContent value="areas" className="mx-3">
+            <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
+          </TabsContent>
+        </Tabs>
+    
     </WrappedMain>
   );
 }
