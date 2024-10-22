@@ -8,26 +8,35 @@ import NavigationHeader from "@/components/navigation-header";
 
 function MainAccess() {
   const { users, areas } = useLoaderData();
+  function WrappedMain({ children }) {
+    return (
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+        {children}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col gap-4 space-y-4 overflow-x-auto rounded-lg bg-gris p-8">
+    <WrappedMain>
         {/* navigation inside */}
         <NavigationHeader />
 
-        {/* top content */}
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
-              ACCESS CONTROL
-            </h2>
-          </div>
-          <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-            <div>4 service</div>
-            <div className="text-2xl">&bull;</div>
-            <div>9 costumers</div>
-          </div>
-        </div>
+         {/* top content */}
+      <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">ORGANIZACIÓN</h2>
+        {/* <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">{counter.data["users"]} usuarios</div>
+          <div className="text-2xl">&bull;</div>
+          <div className="text-xs">{counter.data["positions"]} posiciones</div>
+          <div className="text-2xl">&bull;</div>
+          <div className="text-xs">{counter.data["areas"]} areas</div>
+        </div> */}
+      </div>
+      <div>
+        <span className="font-poppins text-[20px] font-bold text-[#44444F]">
+          Control de Acceso
+        </span>
+      </div>
         {/*component accion*/}
         <div className="rounded-xl bg-white p-7">
           <div className="flex">
@@ -54,8 +63,8 @@ function MainAccess() {
             </Tabs>
           </div>
         </div>
-      </div>
-    </div>
+      
+    </WrappedMain>
   );
 }
 export default MainAccess;

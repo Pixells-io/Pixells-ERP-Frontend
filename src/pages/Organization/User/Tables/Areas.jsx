@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle, trash } from "ionicons/icons";
+import { informationCircleOutline, trashOutline } from "ionicons/icons";
 import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
@@ -82,14 +82,14 @@ function AreasTable({ areas, edit, destroy }) {
           <div className="flex gap-2 text-[#696974]">
             {edit == true ? (
               <button onClick={() => setModalAreas(row.original.id)}>
-                <IonIcon icon={informationCircle} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={informationCircleOutline} className="h-5 w-5"></IonIcon>
               </button>
             ) : (
               false
             )}
             {destroy == true ? (
               <button onClick={() => openDestroyModal(row.original.id)}>
-                <IonIcon icon={trash} className="h-5 w-5"></IonIcon>
+                <IonIcon icon={trashOutline} className="h-5 w-5"></IonIcon>
               </button>
             ) : (
               false

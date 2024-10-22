@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-table";
 
 import { IonIcon } from "@ionic/react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircleOutline } from "ionicons/icons";
 
 import { createPusherClient } from "@/lib/pusher";
 import { getUsers } from "@/lib/actions";
@@ -121,7 +121,7 @@ function UsersTable({ users, edit }) {
               <>
                 <NavLink to={`/organization/user/${row.original.id}`}>
                   <IonIcon
-                    icon={informationCircle}
+                    icon={informationCircleOutline}
                     className="h-5 w-5"
                   ></IonIcon>
                 </NavLink>

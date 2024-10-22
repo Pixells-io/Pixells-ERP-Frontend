@@ -11,7 +11,7 @@ import {
 import { Form, useNavigation } from "react-router-dom";
 
 import { IonIcon } from "@ionic/react";
-import { trash } from "ionicons/icons";
+import { trashOutline } from "ionicons/icons";
 import { Button } from "./ui/button";
 
 function ModalDelete({ id, name, action }) {
@@ -26,7 +26,7 @@ function ModalDelete({ id, name, action }) {
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>
-        <IonIcon icon={trash} className="size-5" />
+        <IonIcon icon={trashOutline} className="size-5" />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
