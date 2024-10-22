@@ -11,9 +11,12 @@ import {
 } from "ionicons/icons";
 import {
   destroyGoogleKeys,
+  DestroyMetaTokens,
   loginAzureToken,
   loginGoogleToken,
   loginMetaToken,
+  saveMetaBusiness,
+  saveMetaNumber,
   savePermissionAzure,
   savePermissionGoogle,
   storeChangeNewPassword,
@@ -156,6 +159,18 @@ export async function Action({ request }) {
       } else {
         return "Token already Exist";
       }
+      break;
+    case "8":
+      await DestroyMetaTokens();
+      return redirect("/my-profile/integrations");
+      break;
+    case "9":
+      await saveMetaBusiness(data);
+      return redirect("/my-profile/integrations");
+      break;
+    case "10":
+      await saveMetaNumber(data);
+      return redirect("/my-profile/integrations");
       break;
   }
 }

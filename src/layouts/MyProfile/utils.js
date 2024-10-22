@@ -102,15 +102,81 @@ export async function getPermissionsAzure() {
   }
 }
 
-export async function multiloaderGoogleIntegrations() {
-  const [profile, permission, azureUser, permissionAzure] = await Promise.all([
-    getProfileGoogle(),
-    getPermission(),
-    getProfileAzure(),
-    getPermissionsAzure(),
-  ]);
+export async function getProfileMeta() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}meta/get-info-login`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
 
-  return json({ profile, permission, azureUser, permissionAzure });
+export async function DestroyMetaTokens() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}meta/destroy-tokens`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getBusiness() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}meta/get-business`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getWhatsappNumbers() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}meta/get-whatsapp-numbers`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function multiloaderGoogleIntegrations() {
+  const [profile, permission, azureUser, permissionAzure, meta] =
+    await Promise.all([
+      getProfileGoogle(),
+      getPermission(),
+      getProfileAzure(),
+      getPermissionsAzure(),
+      getProfileMeta(),
+    ]);
+
+  return json({ profile, permission, azureUser, permissionAzure, meta });
 }
 
 export async function savePermissionGoogle(data) {
@@ -206,4 +272,44 @@ export async function loginMetaToken() {
   } catch (error) {
     return new Response("Something went wrong...", { status: 500 });
   }
+}
+
+export async function saveMetaBusiness(data) {
+  const info = {
+    id: data.get("id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}meta/save-business`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function saveMetaNumber(data) {
+  const info = {
+    id: data.get("id"),
+    name: data.get("name"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}meta/save-number`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
 }
