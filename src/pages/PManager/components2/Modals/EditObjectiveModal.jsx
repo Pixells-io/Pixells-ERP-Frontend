@@ -7,39 +7,30 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 import InputForm from "@/components/InputForm/InputForm";
 import { Button } from "@/components/ui/button";
 
-import { IonIcon } from "@ionic/react";
-import { add } from "ionicons/icons";
-
-function NewObjectiveModal({ workspace_id, type }) {
+function EditObjectiveModal({ objective, modal, setModal }) {
   const navigation = useNavigation();
-  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);
     }
   }, [navigation.state]);
-
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger>
-        <IonIcon icon={add} className="size-4 align-middle text-grisSubText" />
-      </DialogTrigger>
       <DialogContent className="flex w-[400px] flex-col gap-6 px-0 py-3 sm:rounded-3xl">
         <DialogHeader className="border-b px-10 py-1 pb-3">
           <DialogTitle className="font-poppins text-lg text-grisHeading">
-            Crear Nuevo Objetivo {type === 1 ? "Individual" : "Grupal"}
+            Editar {objective?.name}
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <Form
-          id="newObjective"
+          id="editObjective"
           method="POST"
           action="/project-manager2"
           className="px-10"
@@ -48,32 +39,26 @@ function NewObjectiveModal({ workspace_id, type }) {
             name="name"
             type="text"
             placeholder="Nombre del Objetivo"
+            defaultValue={objective?.name}
           />
           <input
             type="hidden"
-            name="workspace_id"
-            value={workspace_id}
-            hidden
-            className="hidden"
-          />
-          <input
-            type="hidden"
-            name="type"
-            value={type}
+            name="objective_id"
+            value={objective?.id}
             hidden
             className="hidden"
           />
           <input
             type="hidden"
             name="action"
-            value="create-objective"
+            value="edit-objective"
             hidden
             className="hidden"
           />
         </Form>
         <div className="flex w-full justify-end gap-3 px-10">
           <Button
-            form="newObjective"
+            form="editObjective"
             type="submit"
             className="bg-primarioBotones"
             disabled={navigation.state === "submitting"}
@@ -86,4 +71,4 @@ function NewObjectiveModal({ workspace_id, type }) {
   );
 }
 
-export default NewObjectiveModal;
+export default EditObjectiveModal;

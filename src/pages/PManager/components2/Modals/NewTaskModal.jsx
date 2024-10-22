@@ -117,10 +117,9 @@ function NewTaskModal({ users, objective_id }) {
                       <SelectValue placeholder="Prioridad" />
                     </SelectTrigger>
                     <SelectContent className="text-grisText">
-                      <SelectItem value="1">Baja</SelectItem>
-                      <SelectItem value="2">Media</SelectItem>
-                      <SelectItem value="3">Importante</SelectItem>
-                      <SelectItem value="4">Urgente</SelectItem>
+                      <SelectItem value="0">Baja</SelectItem>
+                      <SelectItem value="1">Media</SelectItem>
+                      <SelectItem value="2">Urgente</SelectItem>
                     </SelectContent>
                   </Select>
                 </label>

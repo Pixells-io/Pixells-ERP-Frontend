@@ -1,34 +1,52 @@
 import React, { useState } from "react";
-import { NavLink, redirect, useLoaderData } from "react-router-dom";
+import {
+  NavLink,
+  redirect,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 import { IonIcon } from "@ionic/react";
-import { searchOutline } from "ionicons/icons";
+import { ellipsisVertical, searchOutline } from "ionicons/icons";
 
 import NavigationHeader from "@/components/navigation-header";
 import ObjectiveAll from "./ObjectiveAll";
+
+import EditProjectModal from "../../components2/Modals/EditProjectModal";
 
 import {
   completeActivity,
   deleteActivity,
   deletePhase,
+  deleteProject,
   editActivityUser,
+  editProject,
   newActivity,
   newPhase,
 } from "@/layouts/PManager/utils";
 
-const OptionsNavLink = [
-  { id: 1, name: "Actualización del Sistema POS" },
-  { id: 2, name: "Lombriz 1" },
-  { id: 3, name: "APERTURA DE SUCURSAL" },
-];
-
 function MainObjetives() {
   const { project, users } = useLoaderData();
-  console.log(project.data);
+  const params = useParams();
+  const submit = useSubmit();
+  const [editModal, setEditModal] = useState(false);
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] py-3 font-roboto">
+      <EditProjectModal
+        modal={editModal}
+        setModal={setEditModal}
+        objective={project?.data?.project}
+      />
+
       <div className="px-14">
         {/* navigation inside */}
         <NavigationHeader />
@@ -47,7 +65,7 @@ function MainObjetives() {
         </div>
       </div>
       <h2 className="px-14 font-poppins text-xl font-bold text-[#44444F]">
-        {project?.data?.project?.name || "Proyecto No Cargo Correctamente"}
+        {project?.data?.objective_name || "Proyecto No Cargo Correctamente"}
       </h2>
 
       <div className="flex overflow-auto px-14">
@@ -66,7 +84,37 @@ function MainObjetives() {
             </NavLink>
           ))}
         </div>
-        <div className="flex w-2/5 justify-end gap-x-4">
+        <div className="flex w-2/5 items-center justify-end gap-x-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex">
+              <IonIcon
+                icon={ellipsisVertical}
+                className={`h-6 w-6 text-grisSubText`}
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => setEditModal(true)}>
+                Editar
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  submit(
+                    {
+                      action: "delete-project",
+                      project_id: project?.data?.project?.id,
+                    },
+                    {
+                      method: "post",
+                      action: `/project-manager2/project/${params.id}`,
+                    },
+                  )
+                }
+              >
+                Eliminar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <div className="flex items-center justify-center">
             <IonIcon icon={searchOutline} className="h-6 w-6 text-[#CCCCCC]" />
           </div>
@@ -80,8 +128,6 @@ function MainObjetives() {
         </div>
       </div>
       <ObjectiveAll project={project.data} users={users.data} />
-
-      {/* <Outlet /> */}
     </div>
   );
 }
@@ -129,15 +175,13 @@ export async function Action({ params, request }) {
       await deleteActivity(formData);
       return redirect(`/project-manager2/project/${params.id}`);
 
-    // case "edit-project":
-    //   await editProject(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "edit-project":
+      await editProject(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
-    // case "delete-project":
-    //   await deleteProject(formData);
-    //   return redirect(`/project-manager/${params.id}`);
+    case "delete-project":
+      const { data } = await deleteProject(formData);
+      return redirect(`/project-manager2/${data?.objective_id}`);
 
     // case "delete-document":
     //   await deleteDocument(formData);
@@ -150,6 +194,7 @@ export async function Action({ params, request }) {
     //   return redirect(
     //     `/project-manager/${params.id}/projects/${params.projectId}`,
     //   );
+
     default:
       return redirect(`/project-manager2/project/${params.id}`);
   }

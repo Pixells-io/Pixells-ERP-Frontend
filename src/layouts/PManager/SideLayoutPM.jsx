@@ -5,6 +5,7 @@ import {
   redirect,
   useLoaderData,
   useNavigate,
+  useSubmit,
 } from "react-router-dom";
 
 import {
@@ -13,32 +14,50 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { IonIcon } from "@ionic/react";
-import { add, addCircleOutline, chevronDown, flag } from "ionicons/icons";
+import { chevronDown, flag } from "ionicons/icons";
 
 import TopMenuCRM from "../CRM/components/TopMenuCRM";
 import SelectRouter from "../Masters/FormComponents/select";
+
 import NewWorkspaceModal from "@/pages/PManager/components2/Modals/NewWorkspaceModal";
+import NewObjectiveModal from "@/pages/PManager/components2/Modals/NewObjectiveModal";
+
 import {
+  deleteObjective,
   destroyWorkspace,
+  editObjective,
   editWorkspace,
   getObjectivesByWorkspaceId,
   newObjective,
   newWorkspace,
 } from "./utils";
-import NewObjectiveModal from "@/pages/PManager/components2/Modals/NewObjectiveModal";
 
 function SideLayoutPM() {
   const data = useLoaderData();
   const navigate = useNavigate();
   const [workspaces, setWorkspaces] = useState(data.workspaces.data);
-  const [objectivesYears, setBbjectivesYears] = useState([]);
-  const [objectives, setObjectives] = useState([]);
   const [objectivesIndividual, setObjectivesIndividual] = useState([]);
   const [objectivesTeam, setObjectivesTeam] = useState([]);
 
   const [selectedWorkspace, setSelectedWorkspace] = useState(null);
+
+  const [editingObjectiveId, setEditingObjectiveId] = useState(null);
+  const [newObjectiveName, setNewObjectiveName] = useState("");
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    objectiveId: null,
+  });
+  const submit = useSubmit();
 
   const optionsWorkspace = workspaces.map((workspace) => ({
     label: workspace.name,
@@ -65,6 +84,56 @@ function SideLayoutPM() {
       navigate(`/project-manager2/${objectivesTeam[0].id}`);
     }
   }, [objectivesTeam]);
+
+  const handleDoubleClick = (objective) => {
+    setEditingObjectiveId(objective.id);
+    setNewObjectiveName(objective.name);
+  };
+
+  const handleInputChange = (e) => {
+    setNewObjectiveName(e.target.value);
+  };
+
+  const handleInputBlur = (objective) => {
+    // submit(
+    //   { id: objective.id, name: newObjectiveName },
+    //   { method: "post", action: "/update-objective" },
+    // );
+    setEditingObjectiveId(null);
+  };
+
+  const handleInputKeyPress = (e, objective) => {
+    if (e.key === "Enter") {
+      handleInputBlur(objective);
+    }
+  };
+
+  const handleRightClick = (e, objective) => {
+    console.log(objective);
+    e.preventDefault();
+    setNewObjectiveName(objective.name);
+    setContextMenu({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      objectiveId: objective.id,
+    });
+  };
+
+  const handleDelete = (objectiveId) => {
+    submit(
+      { id: objectiveId },
+      { method: "post", action: "/delete-objective" },
+    );
+    setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null });
+  };
+
+  const handleRename = (objective) => {
+    console.log(objective);
+    setEditingObjectiveId(objective.id);
+    setNewObjectiveName(objective.name);
+    setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null });
+  };
 
   return (
     <div className="flex h-full w-full">
@@ -111,18 +180,39 @@ function SideLayoutPM() {
                     </div>
                     <AccordionContent className="flex flex-col gap-2">
                       {objectivesIndividual?.map((objective) => (
-                        <NavLink
-                          key={objective.id}
-                          to={`${objective.id}`}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
-                              : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
-                          }
-                        >
-                          <IonIcon icon={flag} className="size-4 shrink-0" />
-                          {objective.name}
-                        </NavLink>
+                        <div key={objective.id}>
+                          {editingObjectiveId === objective.id ? (
+                            <input
+                              type="text"
+                              value={newObjectiveName}
+                              onChange={handleInputChange}
+                              onBlur={() => handleInputBlur(objective)}
+                              onKeyDown={(e) =>
+                                handleInputKeyPress(e, objective)
+                              }
+                              className="flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            />
+                          ) : (
+                            <NavLink
+                              to={`${objective.id}`}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                                  : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                              }
+                              onDoubleClick={() => handleDoubleClick(objective)}
+                              onContextMenu={(e) =>
+                                handleRightClick(e, objective)
+                              }
+                            >
+                              <IonIcon
+                                icon={flag}
+                                className="size-4 shrink-0"
+                              />
+                              {objective.name}
+                            </NavLink>
+                          )}
+                        </div>
                       ))}
                     </AccordionContent>
                   </AccordionItem>
@@ -169,7 +259,7 @@ function SideLayoutPM() {
               <div>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1" className="border-none">
-                    <AccordionTrigger className="flex items-center justify-normal gap-4 py-2">
+                    <AccordionTrigger className="py-2</AccordionItem> flex items-center justify-normal gap-4">
                       <IonIcon
                         icon={chevronDown}
                         size="size-6"
@@ -202,28 +292,6 @@ function SideLayoutPM() {
                         <IonIcon icon={flag} className="size-4 shrink-0" />
                         Todas las Actividades
                       </NavLink>
-                      {/* <NavLink
-                        to={`/project-manager2/all/${selectedWorkspace.id}`}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
-                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
-                        }
-                      >
-                        <IonIcon icon={flag} className="size-4 shrink-0" />
-                        Todos las Reuniones
-                      </NavLink>
-                      <NavLink
-                        to={`/project-manager2/all/${selectedWorkspace.id}`}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
-                            : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
-                        }
-                      >
-                        <IonIcon icon={flag} className="size-4 shrink-0" />
-                        Todos los Archivos
-                      </NavLink> */}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -231,7 +299,35 @@ function SideLayoutPM() {
             </div>
           )}
         </div>
+        {contextMenu?.visible && (
+          <div
+            style={{ top: contextMenu.y, left: contextMenu.x }}
+            className="fixed z-50"
+            onMouseLeave={() =>
+              setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null })
+            }
+          >
+            <div className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-md">
+              <div
+              //  onClick={() => handleDelete(contextMenu?.objectiveId)}
+              >
+                Delete
+              </div>
+              <div
+                onClick={() =>
+                  handleRename({
+                    id: contextMenu?.objectiveId,
+                    name: newObjectiveName,
+                  })
+                }
+              >
+                Rename
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
       <Outlet />
     </div>
   );
@@ -239,10 +335,9 @@ function SideLayoutPM() {
 
 export default SideLayoutPM;
 
-export async function Action({ request }) {
+export async function Action({ params, request }) {
   const data = await request.formData();
   const action = data.get("action");
-  console.log(action);
   switch (action) {
     case "create-workspace":
       await newWorkspace(data);
@@ -261,11 +356,11 @@ export async function Action({ request }) {
       return redirect("/project-manager2");
 
     case "edit-objective":
-      await editWorkspace(data);
-      return redirect("/project-manager2");
+      const info = await editObjective(data);
+      return redirect(`/project-manager2/${info.data}`);
 
     case "delete-objective":
-      await destroyWorkspace(data);
+      await deleteObjective(data);
       return redirect("/project-manager2");
 
     default:

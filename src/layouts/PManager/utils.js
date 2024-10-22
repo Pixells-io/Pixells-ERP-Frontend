@@ -147,6 +147,52 @@ export async function newObjective(data) {
   }
 }
 
+export async function editObjective(data) {
+  try {
+    const info = {
+      objective_id: data.get("objective_id"),
+      name: data.get("name"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/edit-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+export async function deleteObjective(data) {
+  try {
+    const info = {
+      objective_id: data.get("objective_id"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
 export async function getObjectivesByWorkspaceId(workspace) {
   try {
     const response = await fetch(
@@ -316,6 +362,43 @@ export async function multiloaderProjectById({ params }) {
 }
 
 // ACTIONS
+
+export async function editProject(data) {
+  const project = {
+    project_id: data.get("project_id"),
+    name: data.get("name"),
+    priority: data.get("priority"),
+    description: data.get("description"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-project`,
+    {
+      method: "POST",
+      body: JSON.stringify(project),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function deleteProject(data) {
+  const id = data.get("project_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-project/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response.json();
+}
 
 export async function newPhase(data) {
   const info = {

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, redirect, useLoaderData, useParams } from "react-router-dom";
+import {
+  Link,
+  redirect,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -19,6 +25,7 @@ import { IonIcon } from "@ionic/react";
 import { chevronDown, ellipsisVertical } from "ionicons/icons";
 
 import { saveNewTaskPM } from "@/layouts/PManager/utils";
+import EditObjectiveModal from "./components2/Modals/EditObjectiveModal";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -87,8 +94,10 @@ const OPTIONS = [
 ];
 
 function MainPM() {
-  const { objective, users } = useLoaderData();
   const params = useParams();
+  const submit = useSubmit();
+  const { objective, users } = useLoaderData();
+  const [editModal, setEditModal] = useState(false);
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
@@ -123,7 +132,41 @@ function MainPM() {
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
           {objectiveInfo?.name || "Objetivo No Cargo Correctamente"}
         </h2>
+        <EditObjectiveModal
+          objective={objectiveInfo}
+          modal={editModal}
+          setModal={setEditModal}
+        />
         <div className="flex items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex">
+              <IonIcon
+                icon={ellipsisVertical}
+                className="size-6 text-grisSubText"
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => setEditModal(true)}>
+                Editar
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  submit(
+                    {
+                      action: "delete-objective",
+                      objective_id: objectiveInfo?.id,
+                    },
+                    {
+                      method: "post",
+                      action: `/project-manager2`,
+                    },
+                  )
+                }
+              >
+                Eliminar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <ShareSettins />
           <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
