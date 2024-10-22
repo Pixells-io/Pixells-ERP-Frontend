@@ -18,263 +18,32 @@ const HEADERS = [
   { name: "PORCENTAJE DE ACCESO", cols: "4", text: "end" },
 ];
 
-const OPTIONS = {
-  projects: [
-    {
-      id: 1,
-      name: "Sin Proyecto",
-      data: [
-        {
-          id: 1,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          repeat: 4,
-          expiration: "15 feb 2024",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pablo",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pedro",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "1",
-          created: {
-            id: 1,
-            name: "Juan",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "1",
-        },
-        {
-          id: 2,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          repeat: 1,
-          expiration: "16 feb 2024",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "2",
-          created: {
-            id: 2,
-            name: "Raul",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "2",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Proyecto Z",
-      data: [
-        {
-          id: 1,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          repeat: 2,
-          expiration: "15 feb 2024",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pablo",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "3",
-          created: {
-            id: 1,
-            name: "Juan",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "1",
-        },
-        {
-          id: 2,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          repeat: 8,
-          expiration: "16 feb 2024",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "1",
-          created: {
-            id: 2,
-            name: "Raul",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "1",
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Plan Z",
-      data: [
-        {
-          id: 1,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          expiration: "15 feb 2024",
-          repeat: 2,
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "3",
-          created: {
-            id: 1,
-            name: "Juan",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "1",
-        },
-        {
-          id: 2,
-          objective: "",
-          name: "Immigration, Tax Preparation, Immigration",
-          repeat: 1,
-          expiration: "16 feb 2024",
-          responsible: [
-            {
-              id: 2,
-              name: "Pepe",
-              img: "https://github.com/shadcn.png",
-            },
-            {
-              id: 2,
-              name: "Pablo",
-              img: "https://github.com/shadcn.png",
-            },
-          ],
-          priority: "1",
-          created: {
-            id: 2,
-            name: "Raul",
-            img: "https://github.com/shadcn.png",
-          },
-          status: "1",
-        },
-      ],
-    },
-  ],
-};
 const permision = [
-  {
-    name: "Read",
-    value: 1,
-  },
-  {
-    name: "Edit",
-    value: 2,
-  },
-  {
-    name: "Create",
-    value: 3,
-  },
-  {
-    name: "Delete",
-    value: 4,
-  },
+  { name: "Read", value: 1 },
+  { name: "Edit", value: 2 },
+  { name: "Create", value: 3 },
+  { name: "Delete", value: 4 },
 ];
+
 function ProjectTab({ tasks, module_id }) {
   const [openItems, setOpenItems] = useState([]);
+  const [permissionCounts, setPermissionCounts] = useState({});
+
   useEffect(() => {
     const allItemValues = tasks?.map((area) => `item-${area.id}`);
     setOpenItems(allItemValues);
   }, [tasks]);
+
+  // Función para actualizar el conteo de permisos para una posición específica
+  const updatePermissionCount = (positionId, isChecked) => {
+    setPermissionCounts(prev => {
+      const currentCount = prev[positionId] || 0;
+      return {
+        ...prev,
+        [positionId]: isChecked ? currentCount + 1 : currentCount - 1
+      };
+    });
+  };
 
   return (
     <div className="flex h-full flex-col">
@@ -316,11 +85,7 @@ function ProjectTab({ tasks, module_id }) {
                   key={i}
                   className="grid h-12 w-full grid-cols-12 items-center border-b"
                 >
-                  <div
-                    className={
-                      "col-span-2 pl-6 text-xs font-normal text-grisHeading"
-                    }
-                  >
+                  <div className="col-span-2 pl-6 text-xs font-normal text-grisHeading">
                     <div className="flex items-center gap-x-2">
                       <div>
                         <span>{position.position_name}</span>
@@ -337,9 +102,15 @@ function ProjectTab({ tasks, module_id }) {
                         position={position.id}
                         permision={permiso.value}
                         module={module_id}
+                        onPermissionChange={(isChecked) => 
+                          updatePermissionCount(position.id, isChecked)
+                        }
                       />
                     </div>
                   ))}
+                  <div className="col-span-4 text-end pr-12 text-xs text-gris2">
+                    {permissionCounts[position.id]/4*100}%
+                  </div>
                 </div>
               ))}
             </AccordionContent>
