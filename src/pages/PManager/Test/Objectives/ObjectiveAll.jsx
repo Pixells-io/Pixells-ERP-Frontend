@@ -599,7 +599,7 @@ function ObjectiveAll({ project, users }) {
                       }
                     >
                       <DatePickerPM
-                        activity_id={0}
+                        activity_id={d?.id}
                         dataDate={d?.start}
                         name="start"
                       />
@@ -610,7 +610,7 @@ function ObjectiveAll({ project, users }) {
                       }
                     >
                       <DatePickerPM
-                        activity_id={0}
+                        activity_id={d?.id}
                         dataDate={d?.end}
                         name="end"
                       />
