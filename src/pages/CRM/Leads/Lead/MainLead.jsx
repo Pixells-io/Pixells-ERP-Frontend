@@ -301,8 +301,9 @@ function MainLead() {
                       className="font-roboto text-xs font-medium text-grisText"
                       title={comment.name}
                     >
-                      {comment.name}&nbsp;&bull;
+                      {comment.name}
                     </span>
+                    <div className="text-xs font-medium text-grisText flex items-center">&bull;</div>
                     <span
                       className="font-roboto text-xs font-normal text-[#ABABAB]"
                       title={comment.diff}
@@ -320,13 +321,15 @@ function MainLead() {
               <Form method="POST" action={`/crm/leads/${mainLeadData.id}`} className="w-full">
                 <input type="hidden" name="action" value="create-comment" />
                 <input type="hidden" name="lead_id" value={mainLeadData.id} />
-                <div className="flex rounded-lg bg-grisBg px-2 py-2">
-                  <input
-                    type="text"
-                    name="comment"
-                    className="w-10/12 bg-transparent font-roboto text-xs text-[#8F8F8F] ring-0 focus:outline-none"
-                    placeholder="Comentario"
-                  />
+                <div className="flex gap-x-1 items-center rounded-lg bg-grisBg px-2 h-10">
+                  <div className="w-10/12 h-10 flex items-start py-1">
+                    <textarea
+                      type="text"
+                      name="comment"
+                      className="bg-transparent py-0 px-0 font-roboto text-xs text-[#8F8F8F] ring-0 focus:outline-none resize-none"
+                      placeholder="Comentario"
+                    />
+                  </div>
                   <button
                     className="rounded-md bg-primarioBotones px-2 h-4 font-roboto text-[10px] text-white font-normal"
                     type="submit"
