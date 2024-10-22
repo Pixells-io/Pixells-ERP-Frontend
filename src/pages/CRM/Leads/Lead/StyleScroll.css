@@ -1,0 +1,25 @@
+  /* Para Chrome, Safari y Opera */
+  .scroll-container::-webkit-scrollbar-track {
+    background: inherit; 
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: #F5F5F9;       
+  }
+
+ 
+  /* Para Firefox */
+  .scroll-container {
+    scrollbar-width: thin; /* Opcional: cambia el grosor de la barra de desplazamiento */
+    scrollbar-color: #F5F5F9 transparent; /* Color del pulgar y fondo */
+  }
+  
+  /* Para Edge y otros navegadores basados en WebKit */
+  .scroll-container::-ms-scrollbar {
+    background: inherit;
+  }
+  
+  .scroll-container:hover::-ms-scrollbar-thumb {
+    background: #F5F5F9;
+  }
+  

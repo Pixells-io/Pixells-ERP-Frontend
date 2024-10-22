@@ -157,7 +157,7 @@ function MainLead() {
         </div>
         {/* icons line */}
         <div className="flex h-20 justify-center overflow-auto align-middle border-b border-[#D7D7D7] mt-2.5 px-8">
-          <div className="flex w-10/12 overflow-auto">
+          <div className="flex w-10/12 overflow-auto scroll-container">
             {mainLeadData.steps?.map((step, i) => (
               <div className="flex-shrink-0" key={i}>
                 {step.id > mainLeadData.process_sale_step ? (

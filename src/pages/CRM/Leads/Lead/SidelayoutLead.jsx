@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import './StyleScroll.css';
+
 import {
   useLoaderData,
   Outlet,
@@ -83,7 +85,7 @@ function SidelayoutLead() {
         </div>
 
         {/* Bottom block */}
-        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-inherit px-[14px] py-4">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-inherit px-[14px] py-4 scroll-container">
           <p className="font-poppins text-lg font-semibold text-grisHeading">
             Menu
           </p>
@@ -144,7 +146,7 @@ function SidelayoutLead() {
               <span className="font-roboto text-base font-medium text-grisText">
                 Servicios
               </span>
-              <div className="mb-4 flex gap-4 overflow-auto">
+              <div className="mb-4 flex gap-4 overflow-auto scroll-container  ">
                 {lead?.services.map((service, i) => (
                   <button
                     key={i}
