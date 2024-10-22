@@ -337,6 +337,21 @@ export async function newPhase(data) {
   return response;
 }
 
+export async function deletePhase(data) {
+  const id = data.get("phase_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-phase/${id}`,
+    {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function newActivity(data) {
   const info = {
     name: data.get("name"),
@@ -348,6 +363,68 @@ export async function newActivity(data) {
     {
       method: "POST",
       body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function editActivityUser(data) {
+  const start =
+    data.get("start") == null ? "" : format(data.get("start"), "yyyy-MM-dd");
+  const end =
+    data.get("end") == null ? "" : format(data.get("end"), "yyyy-MM-dd");
+
+  const info = Object.fromEntries(data.entries());
+  delete info.action;
+  if (start !== "") {
+    info.start = start;
+  }
+  if (end !== "") {
+    info.end = end;
+  }
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-activity`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
+export async function completeActivity(data) {
+  const idActivity = data.get("activity_id");
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/update-activity-status/${idActivity}`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function deleteActivity(data) {
+  const id = data.get("activity_id");
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-activitie/${id}`,
+    {
+      method: "get",
       headers: {
         Authorization: "Bearer " + Cookies.get("token"),
       },

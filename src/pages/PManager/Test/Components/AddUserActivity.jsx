@@ -23,7 +23,7 @@ import { add } from "ionicons/icons";
 import { useParams, useSubmit } from "react-router-dom";
 
 function AddUserActivity({ activity_id, users }) {
-  const { id, projectId } = useParams();
+  const params = useParams();
   const submit = useSubmit();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -54,7 +54,7 @@ function AddUserActivity({ activity_id, users }) {
 
     submit(formData, {
       method: "post",
-      // action: `/project-manager/${id}/projects/${projectId}`,
+      action: `/project-manager2/project/${params.id}`,
     });
   }
 

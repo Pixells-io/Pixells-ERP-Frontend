@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import NavigationHeader from "@/components/navigation-header";
+import { NavLink, redirect, useLoaderData } from "react-router-dom";
+
+import { Button } from "@/components/ui/button";
+
 import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import { Button } from "@/components/ui/button";
-import { NavLink, Outlet, redirect, useLoaderData } from "react-router-dom";
+
+import NavigationHeader from "@/components/navigation-header";
 import ObjectiveAll from "./ObjectiveAll";
-import { newActivity, newPhase } from "@/layouts/PManager/utils";
+
+import {
+  completeActivity,
+  deleteActivity,
+  deletePhase,
+  editActivityUser,
+  newActivity,
+  newPhase,
+} from "@/layouts/PManager/utils";
 
 const OptionsNavLink = [
   { id: 1, name: "Actualización del Sistema POS" },
@@ -67,7 +78,7 @@ function MainObjetives() {
           </Button>
         </div>
       </div>
-      <ObjectiveAll project={project.data} />
+      <ObjectiveAll project={project.data} users={users.data} />
 
       {/* <Outlet /> */}
     </div>
@@ -91,21 +102,17 @@ export async function Action({ params, request }) {
     //     `/project-manager/${params.id}/projects/${params.projectId}`,
     //   );
 
-    // case "delete-phase":
-    //   await deletePhase(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "delete-phase":
+      await deletePhase(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
     case "activity":
       await newActivity(formData);
       return redirect(`/project-manager2/project/${params.id}`);
 
-    // case "edit":
-    //   await editActivityUser(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "edit":
+      await editActivityUser(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
     // case "file":
     //   await editActivityFile(formData);
@@ -113,17 +120,13 @@ export async function Action({ params, request }) {
     //     `/project-manager/${params.id}/projects/${params.projectId}`,
     //   );
 
-    // case "activity_check":
-    //   await completeActivity(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "activity_check":
+      await completeActivity(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
-    // case "delete-activity":
-    //   await deleteActivity(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "delete-activity":
+      await deleteActivity(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
     // case "edit-project":
     //   await editProject(formData);

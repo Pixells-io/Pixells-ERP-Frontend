@@ -7,6 +7,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   add,
   checkmarkCircleOutline,
   checkmarkCircleSharp,
@@ -26,7 +34,7 @@ import { Button } from "@/components/ui/button";
 
 const HEADERS = [
   { name: "ETAPA", cols: "1", text: "start" },
-  { name: "NOMBRE", cols: "4", text: "start" },
+  { name: "NOMBRE", cols: "3", text: "start" },
   { name: "INICIO", cols: "1", text: "start" },
   { name: "FIN", cols: "1", text: "start" },
   { name: "DURACIÓN", cols: "1", text: "center" },
@@ -355,7 +363,7 @@ const OPTIONS = {
   ],
 };
 
-function ObjectiveAll({ project }) {
+function ObjectiveAll({ project, users }) {
   const { projectInfo, phases } = project;
   const params = useParams();
   const submit = useSubmit();
@@ -409,7 +417,6 @@ function ObjectiveAll({ project }) {
     setIsRequestInProgress(false);
   }
 
-  console.log(project);
   return (
     <div className="flex flex-row">
       {/* buttons */}
@@ -423,7 +430,7 @@ function ObjectiveAll({ project }) {
       </div>
       {/* table */}
       <div className="w-full pr-14">
-        <div className="grid h-12 grid-cols-12 items-center border-b">
+        <div className="grid h-12 grid-cols-11 items-center border-b">
           {HEADERS?.map((header, i) => (
             <div
               key={i}
@@ -476,23 +483,59 @@ function ObjectiveAll({ project }) {
             <AccordionItem
               value={"item-" + phase?.id}
               key={"item-" + indexOption}
-              className="border-none"
+              className="w-full border-none"
             >
-              <AccordionTrigger className="h-12 w-full items-center border-b border-grisHeading text-xs font-normal text-grisHeading">
-                <div className="flex items-center gap-x-2">
-                  <IonIcon
-                    icon={chevronForwardOutline}
-                    size="large"
-                    className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
-                  />
-                  {phase?.name}
+              <div className="group flex w-full items-center">
+                <div className="relative w-full">
+                  <div className="absolute -left-8 top-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="flex">
+                        <IonIcon
+                          icon={ellipsisVertical}
+                          className={`h-6 w-6 text-grisSubText`}
+                        />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>Editar</DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() =>
+                            submit(
+                              {
+                                action: "delete-phase",
+                                phase_id: phase.id,
+                              },
+                              {
+                                method: "post",
+                                action: `/project-manager2/project/${params.id}`,
+                              },
+                            )
+                          }
+                        >
+                          Eliminar
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+
+                  <div className="w-full">
+                    <AccordionTrigger className="h-12 w-full items-center border-b border-grisHeading text-xs font-normal text-grisHeading">
+                      <div className="flex w-full items-center gap-x-2">
+                        <IonIcon
+                          icon={chevronForwardOutline}
+                          size="large"
+                          className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
+                        />
+                        {phase?.name}
+                      </div>
+                    </AccordionTrigger>
+                  </div>
                 </div>
-              </AccordionTrigger>
+              </div>
               <AccordionContent>
                 {activities.map((d, i) => (
                   <div
                     key={i}
-                    className="group grid h-12 w-full grid-cols-12 items-center border-b"
+                    className="group grid h-12 w-full grid-cols-11 items-center border-b"
                   >
                     <div
                       className={
@@ -506,21 +549,40 @@ function ObjectiveAll({ project }) {
                           onClick={() => setIndexNewSubStage(indexOption)}
                         />
                       )}
-                      {d.status == "1" ? (
-                        <IonIcon
-                          icon={checkmarkCircleSharp}
-                          className="h-5 w-5 text-[#1CC71E]"
-                        />
-                      ) : (
-                        <IonIcon
-                          icon={checkmarkCircleOutline}
-                          className="h-5 w-5 text-grisHeading"
-                        />
-                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          console.log(d);
+                          submit(
+                            {
+                              action: "activity_check",
+                              activity_id: d.id,
+                            },
+                            {
+                              method: "post",
+                              action: `/project-manager2/project/${params.id}`,
+                            },
+                          );
+                        }}
+                      >
+                        {d.status == "1" ? (
+                          <IonIcon
+                            icon={checkmarkCircleSharp}
+                            className="h-5 w-5 text-[#1CC71E]"
+                          />
+                        ) : (
+                          <IonIcon
+                            icon={checkmarkCircleOutline}
+                            className="h-5 w-5 text-grisHeading"
+                          />
+                        )}
+                      </button>
                     </div>
+
                     <div
                       className={
-                        "col-span-4 flex gap-x-2 text-xs font-normal text-grisHeading"
+                        "col-span-3 flex gap-x-2 text-xs font-normal text-grisHeading"
                       }
                     >
                       <div className="flex w-2/3 items-center">
@@ -529,9 +591,6 @@ function ObjectiveAll({ project }) {
                           defaultName={d?.name}
                           status={d?.status}
                         />
-                      </div>
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blancoBox font-roboto text-sm font-medium text-grisHeading">
-                        {d?.repeat}
                       </div>
                     </div>
                     <div
@@ -595,26 +654,26 @@ function ObjectiveAll({ project }) {
 
                     <div className="col-span-1 flex justify-start gap-x-1 overflow-auto">
                       <div className="flex items-center">
-                        {/* {d.responsible.slice(0, 3).map((r, index) => (
+                        {d.users.slice(0, 3).map((r, index) => (
                           <Avatar className="size-6" key={index}>
                             <AvatarImage src={r?.img} title={r?.name} />
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
-                        ))} */}
+                        ))}
                       </div>
                       <div className="flex items-center">
-                        {/* {d.responsible.length > 3 ? (
-                          <AssignedMenu users={d.responsible} />
+                        {d.users.length > 3 ? (
+                          <AssignedMenu users={d.users} />
                         ) : (
-                          <AddUserActivity activity_id={0} users={[]} />
-                        )} */}
+                          <AddUserActivity activity_id={d.id} users={users} />
+                        )}
                       </div>
                     </div>
                     <div className="col-span-1 flex justify-center">
                       <Avatar className="size-6">
                         <AvatarImage
-                          src={d.created?.img}
-                          title={d?.created?.name}
+                          src={d.creator?.img}
+                          title={d?.creator?.name}
                         />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
@@ -627,11 +686,34 @@ function ObjectiveAll({ project }) {
                       <div className="flex w-full justify-center">
                         <DropZoneForm comments={d?.comments} />
                       </div>
-                      <IonIcon
-                        icon={ellipsisVertical}
-                        size="large"
-                        className={`h-9 w-6 text-grisSubText`}
-                      />
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <IonIcon
+                            icon={ellipsisVertical}
+                            size="large"
+                            className={`h-9 w-6 text-grisSubText`}
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              submit(
+                                {
+                                  action: "delete-activity",
+                                  activity_id: d.id,
+                                },
+                                {
+                                  method: "post",
+                                  action: `/project-manager2/project/${params.id}`,
+                                },
+                              )
+                            }
+                          >
+                            Eliminar
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </div>
                 ))}
@@ -644,7 +726,7 @@ function ObjectiveAll({ project }) {
                     action={`/project-manager2/project/${params.id}`}
                     id="activity-form"
                     name="activity"
-                    className="grid h-12 w-full grid-cols-12 items-center border-b"
+                    className="grid h-12 w-full grid-cols-11 items-center border-b"
                   >
                     <div
                       className={
@@ -653,7 +735,7 @@ function ObjectiveAll({ project }) {
                     ></div>
                     <div
                       className={
-                        "col-span-4 pr-1 text-xs font-normal text-grisHeading"
+                        "col-span-3 pr-1 text-xs font-normal text-grisHeading"
                       }
                     >
                       <Input
