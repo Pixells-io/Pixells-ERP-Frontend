@@ -27,59 +27,70 @@ function SideLayoutOrganization() {
     }
   }, [actionData]);
 
-  return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex flex-col gap-4">
-        {/* top block */}
-        <div className="flex w-[280px] flex-col gap-4 rounded-lg bg-gris px-8 py-4">
-          <TopMenuOrganization />
+  /*Style to options */
+  function WrappedSidebar({ children }) {
+    return (
+      <div className="flex h-full w-full">
+        <div className="flex h-full w-[280px] shrink-0 flex-col rounded-tl-xl border-r border-[#D7D7D7] bg-[#FBFBFB] p-4">
+          {children}
         </div>
+        <Outlet context={{ actionInfo }} />
+      </div>
+    );
+  }
 
-        {/*bottom block */}
-        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
-          <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
-            Menu
-          </p>
+  return (
+    <WrappedSidebar>
+      {/* top block */}
+      <div className="px-4">
+        <TopMenuOrganization />
+      </div>
 
-          {/*menu top */}
-          <div className="flex flex-col gap-4">
-            <NavLink
-              to="/organization"
-              className={({ isActive }) =>
-                isActive && location.pathname === "/organization"
-                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
-                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
-              }
-            >
-              <div className="flex items-center gap-6">
-                <IonIcon icon={person} size="large"></IonIcon>
-                <div>
-                  <p className="text-base font-medium">Usuarios</p>
-                  <p className="text-[10px] font-medium">Gestión</p>
+      {/*bottom block */}
+      <div className="flex flex-col gap-2 px-4 pt-16">
+      <p className="font-poppins text-[18px] font-semibold text-[#44444F]">
+          Menu
+        </p>
+      </div>
+      <div className="flex items-center pt-20">
+        {/*menu top */}
+        <div className="flex flex-col gap-4">
+          <NavLink
+            to="/organization"
+            className={({ isActive }) =>
+              isActive && location.pathname === "/organization"
+                ? "w-[219px] rounded-[6px] bg-[#E8E8E8] px-4 text-primario"
+                : "w-full px-4 text-[#696974] hover:rounded-[6px] hover:w-[219px] hover:h-[43px] hover:bg-[#EAEAEA]"
+            }
+          >
+            <div className="flex justify-start items-center gap-8">
+              <IonIcon icon={person} size="large"></IonIcon>
+             <div className="flex flex-col">
+                <p className="text-[16px] font-medium">Gestión</p>
+                <p className="text-[10px] font-medium">De Usuarios</p>
                 </div>
+            </div>
+          </NavLink>
+          <NavLink
+            to="/organization/access"
+            className={({ isActive }) =>
+              isActive
+                ? "w-[219px] rounded-[6px] bg-[#E8E8E8] px-4 text-primario"
+                : "px-4 text-[#696974] hover:rounded-[6px] hover:w-[219px] hover:h-[43px] hover:bg-[#EAEAEA]"
+            }
+          >
+           <div className="flex justify-start items-center gap-8">
+              <IonIcon icon={lockOpen} size="large"></IonIcon>
+              <div className="flex flex-col">
+              <p className="text-[16px] font-medium">Control</p>
+                <p className="text-[10px] font-medium">De Usuarios</p>
               </div>
-            </NavLink>
-            <NavLink
-              to="/organization/access"
-              className={({ isActive }) =>
-                isActive
-                  ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
-                  : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
-              }
-            >
-              <div className="flex items-center gap-6">
-                <IonIcon icon={lockOpen} size="large"></IonIcon>
-                <div>
-                  <p className="text-base font-medium">Acceso</p>
-                  <p className="text-[10px] font-medium">Control</p>
-                </div>
-              </div>
-            </NavLink>
-          </div>
+                
+            </div>
+          </NavLink>
         </div>
       </div>
-      <Outlet context={{ actionInfo }} />
-    </div>
+    </WrappedSidebar>
   );
 }
 

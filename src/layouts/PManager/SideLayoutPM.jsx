@@ -14,12 +14,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { IonIcon } from "@ionic/react";
 import { chevronDown, flag } from "ionicons/icons";
@@ -95,10 +89,15 @@ function SideLayoutPM() {
   };
 
   const handleInputBlur = (objective) => {
-    // submit(
-    //   { id: objective.id, name: newObjectiveName },
-    //   { method: "post", action: "/update-objective" },
-    // );
+    console.log(objective);
+    submit(
+      {
+        objective_id: objective.id,
+        name: newObjectiveName,
+        action: "edit-objective",
+      },
+      { method: "post", action: "/project-manager2" },
+    );
     setEditingObjectiveId(null);
   };
 
@@ -122,8 +121,8 @@ function SideLayoutPM() {
 
   const handleDelete = (objectiveId) => {
     submit(
-      { id: objectiveId },
-      { method: "post", action: "/delete-objective" },
+      { objective_id: objectiveId, action: "delete-objective" },
+      { method: "post", action: "/project-manager2" },
     );
     setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null });
   };
@@ -238,18 +237,39 @@ function SideLayoutPM() {
                     </div>
                     <AccordionContent className="flex flex-col gap-2">
                       {objectivesTeam?.map((objective) => (
-                        <NavLink
-                          key={objective.id}
-                          to={`${objective.id}`}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
-                              : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
-                          }
-                        >
-                          <IonIcon icon={flag} className="size-4 shrink-0" />
-                          {objective.name}
-                        </NavLink>
+                        <div key={objective.id}>
+                          {editingObjectiveId === objective.id ? (
+                            <input
+                              type="text"
+                              value={newObjectiveName}
+                              onChange={handleInputChange}
+                              onBlur={() => handleInputBlur(objective)}
+                              onKeyDown={(e) =>
+                                handleInputKeyPress(e, objective)
+                              }
+                              className="flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                            />
+                          ) : (
+                            <NavLink
+                              to={`${objective.id}`}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "flex items-center gap-3 rounded-md bg-blancoBox px-4 py-1 text-sm text-gris2"
+                                  : "flex items-center gap-3 px-4 py-1 text-sm text-gris2 hover:rounded-md hover:bg-blancoBox"
+                              }
+                              onDoubleClick={() => handleDoubleClick(objective)}
+                              onContextMenu={(e) =>
+                                handleRightClick(e, objective)
+                              }
+                            >
+                              <IonIcon
+                                icon={flag}
+                                className="size-4 shrink-0"
+                              />
+                              {objective.name}
+                            </NavLink>
+                          )}
+                        </div>
                       ))}
                     </AccordionContent>
                   </AccordionItem>
@@ -307,13 +327,17 @@ function SideLayoutPM() {
               setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null })
             }
           >
-            <div className="flex flex-col gap-2 rounded-md bg-white p-2 shadow-md">
-              <div
-              //  onClick={() => handleDelete(contextMenu?.objectiveId)}
+            <div className="flex min-w-[8rem] flex-col gap-2 overflow-hidden rounded-md border bg-popover bg-white p-2 text-popover-foreground shadow-md">
+              <button
+                type="button"
+                className="px-2 py-1 text-left text-sm hover:rounded-lg hover:bg-grisDisabled"
+                onClick={() => handleDelete(contextMenu?.objectiveId)}
               >
                 Delete
-              </div>
-              <div
+              </button>
+              <button
+                type="button"
+                className="px-2 py-1 text-left text-sm hover:rounded-lg hover:bg-grisDisabled"
                 onClick={() =>
                   handleRename({
                     id: contextMenu?.objectiveId,
@@ -322,7 +346,7 @@ function SideLayoutPM() {
                 }
               >
                 Rename
-              </div>
+              </button>
             </div>
           </div>
         )}
