@@ -88,7 +88,7 @@ function SidelayoutLead() {
             Menu
           </p>
 
-          <div className="flex justify-between bg-inherit px-7 py-4 border-t border-[#D7D7D7]">
+          <div className="flex justify-between bg-inherit px-7 py-4 border-y border-[#D7D7D7]">
             <div className="flex flex-col gap-y-3 gap-x-2">
               <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">
