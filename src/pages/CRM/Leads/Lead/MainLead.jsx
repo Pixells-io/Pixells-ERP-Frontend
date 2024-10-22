@@ -159,7 +159,7 @@ function MainLead() {
         <div className="flex h-20 justify-center overflow-auto align-middle border-b border-[#D7D7D7] mt-2.5 px-8">
           <div className="flex w-10/12 overflow-auto">
             {mainLeadData.steps?.map((step, i) => (
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0" key={i}>
                 {step.id > mainLeadData.process_sale_step ? (
                   <div className="flex flex-shrink-0 items-start justify-center gap-4">
                     <div className="items-start text-center">
@@ -295,7 +295,7 @@ function MainLead() {
             {/*Comments Card */}
             <div className="h-5/6 overflow-auto">
               {mainLeadData.comments?.map((comment, i) => (
-                <div className="border-b-[1px] border-[#D7D7D7] py-2">
+                <div className="border-b-[1px] border-[#D7D7D7] py-2" key={i}>
                   <div className="line-clamp-1 flex items-center gap-2">
                     <Avatar className="size-6">
                       <AvatarImage src={comment?.img} title={comment?.name} />
