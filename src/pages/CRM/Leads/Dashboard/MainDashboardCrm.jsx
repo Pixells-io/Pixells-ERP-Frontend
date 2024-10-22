@@ -300,10 +300,10 @@ function MainDashboardCrm() {
         </div>
       </div>
       {/*  */}
-      <div className="flex h-screen w-full gap-4 overflow-auto">
+      <div className="flex w-full gap-4 overflow-auto">
         {infoStages.map((stage, i) => (
           <div
-            className={`h-full w-60 flex-shrink-0 rounded-xl px-2 py-4`}
+            className={`h-full w-60 flex-shrink-0 rounded-xl px-2 py-4 overflow-auto`}
             key={i}
             style={
               stage.color != null
