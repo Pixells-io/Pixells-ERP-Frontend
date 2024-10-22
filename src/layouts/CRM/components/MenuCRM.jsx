@@ -5,11 +5,11 @@ import { IonIcon } from "@ionic/react";
 import { apps, disc } from "ionicons/icons";
 
 const MENU_ITEMS = [
-  { path: "/crm", name: "CRM", subname: "Inicio", icon: disc },
+  { path: "/crm", name: "CRM", subname: "General", icon: disc },
   {
     path: "/crm/dashboard",
-    name: "Dashboard",
-    subname: "Procesos Comerciales",
+    name: "Leads",
+    subname: "Dashboard",
     icon: apps,
   },
 

@@ -70,7 +70,7 @@ function SidelayoutLead() {
   }, []);
 
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
+    <div className="flex h-full px-4 pb-4 font-roboto bg-blancoBg">
       <EditLeadInformation
         modal={modalEdit}
         setModal={setModalEdit}
@@ -78,27 +78,27 @@ function SidelayoutLead() {
       />
       <div className="flex w-[280px] shrink-0 flex-col gap-4">
         {/* Top block */}
-        <div className="flex flex-col gap-4 rounded-lg bg-gris px-[14px] py-4">
+        <div className="flex flex-col gap-4 rounded-lg bg-inherit px-[14px] py-4">
           <TopMenuCRM />
         </div>
 
         {/* Bottom block */}
-        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-gris px-[14px] py-4">
+        <div className="flex h-full flex-col gap-4 overflow-auto rounded-md bg-inherit px-[14px] py-4">
           <p className="font-poppins text-lg font-semibold text-grisHeading">
-            Informacion General
+            Menu
           </p>
 
-          <div className="flex justify-between rounded-lg bg-blancoBox2 px-7 py-4">
-            <div className="flex flex-col gap-2">
-              <div className="">
+          <div className="flex justify-between bg-inherit px-7 py-4 border-t border-[#D7D7D7]">
+            <div className="flex flex-col gap-y-3 gap-x-2">
+              <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">
                   Nombre del Negocio
                 </p>
-                <span className="text-xs text-grisSubText">
+                <span className="text-xs text-grisSubText font-normal">
                   {lead?.business_name}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">
                   Nombre del Contacto
                 </p>
@@ -107,7 +107,7 @@ function SidelayoutLead() {
                   {lead?.contact_last_name}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">
                   Telefono del Contacto
                 </p>
@@ -115,7 +115,7 @@ function SidelayoutLead() {
                   {lead?.contact_phone} <br />
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">
                   Telefono del Negocio
                 </p>
@@ -123,7 +123,7 @@ function SidelayoutLead() {
                   {lead?.business_phone} <br />
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <p className="text-[15px] font-medium text-grisText">Email</p>
                 <span className="text-xs text-grisSubText">
                   {lead?.contact_email}
@@ -144,7 +144,7 @@ function SidelayoutLead() {
               <span className="font-roboto text-base font-medium text-grisText">
                 Servicios
               </span>
-              <div className="mb-4 flex gap-4 overflow-scroll">
+              <div className="mb-4 flex gap-4 overflow-auto">
                 {lead?.services.map((service, i) => (
                   <button
                     key={i}
@@ -159,7 +159,7 @@ function SidelayoutLead() {
               <span className="font-roboto text-base font-medium text-grisText">
                 Productos
               </span>
-              <div className="mb-4 flex gap-4 overflow-scroll">
+              <div className="mb-4 flex gap-4 overflow-auto">
                 {lead?.products.map((product, i) => (
                   <button
                     key={i}

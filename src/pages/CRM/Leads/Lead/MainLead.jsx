@@ -141,7 +141,7 @@ function MainLead() {
         users={mainLeadData.users_bulk}
         url={"/crm/leads/"}
       />
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className="ml-4y flex w-full flex-col space-y-4 bg-inherit border-l border-[#D7D7D7] px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
         {/* top content */}
@@ -153,7 +153,7 @@ function MainLead() {
           </div>
         </div>
         {/* icons line */}
-        <div className="flex h-20 justify-center overflow-auto align-middle">
+        <div className="flex h-20 justify-center overflow-auto align-middle border-b border-[#D7D7D7]">
           <div className="flex w-10/12 overflow-auto">
             {mainLeadData.steps?.map((step, i) => (
               <div className="flex-shrink-0">
@@ -202,10 +202,10 @@ function MainLead() {
         </div>
         {/* cards */}
         <div className="flex h-full justify-center gap-1 overflow-hidden align-middle">
-          <div className="group relative h-full w-9/12 overflow-auto rounded-2xl bg-white px-10">
+          <div className="group relative h-full w-9/12 overflow-auto bg-inherit px-10">
             <div className="absolute sticky top-4 z-10 float-end w-fit rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
               <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger className="flex items-center">
                   <IonIcon
                     icon={ellipsisHorizontalSharp}
                     className="px-1.5"
@@ -288,7 +288,7 @@ function MainLead() {
               <CardFollowUp info={action} key={i} />
             ))}
           </div>
-          <div className="w-3/12 rounded-2xl bg-white px-6 py-4">
+          <div className="w-3/12 bg-inherit border-l border-[#E8E8E8] px-6 py-4">
             {/*Comments Card */}
             <div className="h-5/6 overflow-auto">
               {mainLeadData.comments?.map((comment, i) => (
@@ -316,11 +316,11 @@ function MainLead() {
                 </div>
               ))}
             </div>
-            <div className="grid h-1/6 place-items-center px-2">
-              <Form method="POST" action={`/crm/leads/${mainLeadData.id}`}>
+            <div className="grid h-1/6 place-items-end px-2">
+              <Form method="POST" action={`/crm/leads/${mainLeadData.id}`} className="w-full">
                 <input type="hidden" name="action" value="create-comment" />
                 <input type="hidden" name="lead_id" value={mainLeadData.id} />
-                <div className="flex rounded-3xl bg-grisBg px-2 py-2">
+                <div className="flex rounded-lg bg-grisBg px-2 py-2">
                   <input
                     type="text"
                     name="comment"
@@ -328,7 +328,7 @@ function MainLead() {
                     placeholder="Comentario"
                   />
                   <button
-                    className="rounded-3xl bg-primarioBotones px-2 py-1 font-roboto text-xs text-white"
+                    className="rounded-md bg-primarioBotones px-2 h-4 font-roboto text-[10px] text-white font-normal"
                     type="submit"
                   >
                     Enviar

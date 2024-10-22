@@ -8,13 +8,13 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 function CardFollowUp({ info }) {
   return (
-    <div className="flex w-full border-b-[1px] border-[#D7D7D7] py-4">
+    <div className="flex w-full border-b-[1px] border-[#E8E8E8] py-4">
       <div className="w-1/12 font-roboto text-xs text-[#8F8F8F]">
         <Avatar className="size-11">
           <AvatarImage src={info.creator?.img} title={info.creator?.name} />
         </Avatar>
       </div>
-      <div className="line-clamp-1 w-9/12 rounded-xl bg-white">
+      <div className="line-clamp-1 w-9/12 rounded-xl bg-inherit">
         <span className="font-poppins text-sm font-semibold text-grisHeading">
           {info.stage}
         </span>
@@ -102,14 +102,17 @@ function CardFollowUp({ info }) {
           false
         )}
       </div>
-      <div className="w-2/12 font-roboto text-xs text-[#8F8F8F]">
-        {info.date != false ? (
-          <span>{info.date}</span>
-        ) : (
-          <span>{info.created}</span>
-        )}
-        <br />
-        <span> {info.hour} </span>
+      <div className="w-2/12 flex justify-center items-center">
+        <div className="font-roboto font-normal text-[10px] text-[#BDBDBD]">
+          {info.date != false ? (
+            <span>{info.date}</span>
+          ) : (
+            <span>{info.created}</span>
+          )}
+          <br />
+          <span> {info.hour} </span>
+        </div>
+
       </div>
     </div>
   );
