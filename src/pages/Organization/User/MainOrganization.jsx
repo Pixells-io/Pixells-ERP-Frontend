@@ -164,7 +164,7 @@ function MainOrganization() {
         false
       )}
       {/*component accion*/}
-      <div className="h-full overflow-auto rounded-xl p-7">
+     
         <Tabs
           defaultValue="users"
           className="h-full overflow-auto bg-[#FBFBFB] pt-2"
@@ -199,7 +199,7 @@ function MainOrganization() {
             <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
           </TabsContent>
         </Tabs>
-      </div>
+    
     </WrappedMain>
   );
 }

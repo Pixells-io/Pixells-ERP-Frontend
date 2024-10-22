@@ -10,7 +10,7 @@ import {
 
 import { IonIcon } from "@ionic/react";
 import {
-  informationCircle,
+  informationCircleOutline,
   chatbubbleEllipses,
   bookmark,
   document,
@@ -87,7 +87,7 @@ function PositionsTable({ positions, edit }) {
                   to={`/organization/position/${row.original.id}`}
                 >
                   <IonIcon
-                    icon={informationCircle}
+                    icon={ informationCircleOutline}
                     className="h-5 w-5"
                   ></IonIcon>
                 </NavLink>
