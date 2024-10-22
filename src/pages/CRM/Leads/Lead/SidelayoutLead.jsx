@@ -193,19 +193,19 @@ function SidelayoutLead() {
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-fit">
                     {lead?.status == "1" ? (
-                      <Badge className="rounded-2xl bg-blue-100 px-2 py-1 text-xs text-primario hover:bg-blue-200">
+                      <Badge className="rounded-2xl bg-[#cbf4c9] font-normal px-2 py-1 text-xs text-[#0e6245] hover:bg-[#cbf4c9]">
                         Activo
                       </Badge>
                     ) : lead?.status == "2" ? (
-                      <Badge className="rounded-2xl bg-yellow-200 px-2 py-1 text-xs text-yellow-600 hover:bg-yellow-300">
+                      <Badge className="rounded-2xl bg-[#ffedc7] px-2 py-1 font-normal text-xs text-[#624e0e] hover:bg-[#ffedc7]">
                         Suspendido
                       </Badge>
                     ) : lead?.status == "3" ? (
-                      <Badge className="rounded-2xl bg-red-200 px-2 py-1 text-xs text-red-600 hover:bg-red-300">
+                      <Badge className="rounded-2xl bg-[#ffc7c7] px-2 py-1 font-normal text-xs text-[#620e0e] hover:bg-[#ffc7c7]">
                         Cancelado
                       </Badge>
                     ) : (
-                      <Badge className="rounded-2xl bg-green-200 px-2 py-1 text-xs text-green-600 hover:bg-green-300">
+                      <Badge className="rounded-2xl bg-[#c7cbff] px-2 py-1 font-normal text-xs text-[#1c0e62] hover:bg-[#c7cbff]">
                         Completo
                       </Badge>
                     )}

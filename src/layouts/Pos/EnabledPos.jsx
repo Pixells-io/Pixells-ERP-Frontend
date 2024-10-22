@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { gridOutline, list, lockClosed, settingsOutline } from "ionicons/icons";
-import { Button } from "@/components/ui/button";
-import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 import CashInflow from "./Modals/CashInflow/CashInflow";
 import CashOutflow from "./Modals/CashOutflow/CashOutflow";
 import {
@@ -12,9 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
+import PriceChecker from "./Modals/PriceChecker/PriceChecker";
 
 const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
-  const [openConsultArticle, setOpenConsultArticle] = useState(false);
   const location = useLocation();
 
   const getDate = () => {
@@ -45,10 +44,6 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
 
   return (
     <div className="flex h-full flex-col px-4 pb-4 font-roboto">
-      <ConsultArticle
-        modal={openConsultArticle}
-        setModal={setOpenConsultArticle}
-      />
       <div className="w-full pb-4 font-roboto">
         <div className="grid w-full grid-cols-12 gap-x-2 rounded-lg bg-[#F9F9F9] px-4 py-1.5">
           <NavLink
@@ -68,28 +63,9 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
           </NavLink>
           <div className="col-span-7 flex w-full items-center justify-center">
             <div className="flex w-fit gap-6 overflow-x-auto">
-              <Button
-                type="button"
-                className="w-full whitespace-nowrap rounded-3xl bg-[#F0F0F0] p-3 font-roboto text-xs font-medium text-[#44444F] hover:bg-blancoBox2"
-                onClick={() => setOpenConsultArticle(true)}
-              >
-                CONSULTAR ARTICULO
-              </Button>
+              <ConsultArticle />
 
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">
-                    VERIFICADOR DE PRECIO
-                  </p>
-                </div>
-              </NavLink>
+              <PriceChecker />
 
               <CashInflow />
 

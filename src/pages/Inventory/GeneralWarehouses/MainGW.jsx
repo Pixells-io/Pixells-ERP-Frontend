@@ -18,17 +18,17 @@ const MainGW = () => {
   const [warehouseDestroyModal, setWarehouseDestroyModal] = useState(false);
   const [warehouseInfo, setwarehouseInfo] = useState(data);
   const pusherClient = createPusherClient();
-
+  async function getWarehousesFunction() {
+    let newData = await getWarehouses();
+    setwarehouseInfo(newData.data);
+  }
   
 
   useEffect(() => {
     pusherClient.subscribe("private-get-inventories");
 
-    pusherClient.bind("fill-inventories-list", ({ message }) => {
-      async function getWarehousesFunction() {
-        let newData = await getWarehouses();
-        setwarehouseInfo(newData.data);
-      }
+    pusherClient.bind("fill-inventories", ({ message }) => {
+    getWarehousesFunction();
     });
 
     return () => {
@@ -117,7 +117,7 @@ const MainGW = () => {
         {/* top content */}
 
         <div className="flex items-center gap-4">
-          <h2 className="text-md font-poppins font-bold text-[#44444F]">
+          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
             INVENTARIO
           </h2>
           <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
@@ -128,7 +128,7 @@ const MainGW = () => {
         </div>
 
         <div className="flex justify-between">
-          <p className="mt-1 font-poppins text-xl font-bold text-grisHeading">
+        <p className="font-poppins text-xl font-bold text-[#44444F]">
             Almacenes Generales
           </p>
           <div className="flex justify-end gap-6">
