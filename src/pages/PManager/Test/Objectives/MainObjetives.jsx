@@ -26,6 +26,7 @@ const OptionsNavLink = [
 
 function MainObjetives() {
   const { project, users } = useLoaderData();
+  console.log(project.data);
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] py-3 font-roboto">
       <div className="px-14">
@@ -46,15 +47,15 @@ function MainObjetives() {
         </div>
       </div>
       <h2 className="px-14 font-poppins text-xl font-bold text-[#44444F]">
-        {}
+        {project?.data?.project?.name || "Proyecto No Cargo Correctamente"}
       </h2>
 
       <div className="flex overflow-auto px-14">
         <div className="flex w-3/5 flex-row gap-x-2 overflow-auto py-1">
-          {OptionsNavLink.map((nav, index) => (
+          {project?.data?.all_projects?.map((nav, index) => (
             <NavLink
               key={index}
-              to={"/project-manager2/objectives/" + nav.id}
+              to={`/project-manager2/project/${nav.id}`}
               className={({ isActive }) =>
                 isActive
                   ? "min-w-fit rounded-[10px] bg-[#F1F1F1] px-3 py-1.5 text-xs font-normal text-grisHeading"
