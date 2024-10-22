@@ -96,6 +96,7 @@ function MainAccess() {
       tran_m: "1",
     },
   ];
+
   function WrappedMain({ children }) {
     return (
       <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
@@ -103,13 +104,12 @@ function MainAccess() {
       </div>
     );
   }
-console.log(areas.data)
   return (
     <WrappedMain>
-        {/* navigation inside */}
-        <NavigationHeader />
+      {/* navigation inside */}
+      <NavigationHeader />
 
-         {/* top content */}
+      {/* top content */}
       <div className="flex items-center gap-16">
         <h2 className="font-poppins font-bold text-[#44444F]">ORGANIZACIÓN</h2>
         {/* <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
@@ -125,46 +125,22 @@ console.log(areas.data)
           Control de Acceso
         </span>
       </div>
-        {/*component accion*/}
-      
-          {/* <div className="flex">
-            <Tabs className="w-full">
-              <TabsList className="mb-3 w-full overflow-auto bg-transparent pb-7">
-                <div className="flex h-[25px] w-full">
-                  {areas.data?.map((area, i) => (
-                    <TabsTrigger
-                      key={"tt" + i}
-                      className="rounded-none border-b-2 border-slate-300 p-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:font-medium data-[state=active]:text-primarioBotones"
-                      value={area.id}
-                    >
-                      {" "}
-                      {area.nombre}
-                    </TabsTrigger>
-                  ))}
-                </div>
-              </TabsList>
-              {areas.data?.map((area, i) => (
-                <TabsContent key={"tc" + i} value={area.id}>
-                  <AccordionModule area={area} />
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div> */}
-            <Tabs
+      {/*component accion*/}
+      <Tabs
         defaultValue="Organization"
-        className="flex flex-col overflow-auto rounded-lg bg-blancoBg pt-2"
+        className="flex flex-col overflow-auto rounded-lg bg-blancoBg p-7"
       >
         <div className="flex justify-between">
-          <TabsList className="flex w-fit gap-x-2 rounded-none bg-blancoBg px-0">
-          {modulos.map((area, i) => (
-            <TabsTrigger
-            key={"tt" + i}
-              className="h-[30px] rounded-xl px-2 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
-              value={area.name}
-            >
-               {area.name}
-            </TabsTrigger>
-             ))}
+          <TabsList className="mx-3 flex w-fit gap-x-2 overflow-y-auto rounded-none bg-blancoBg px-0">
+            {modulos.map((area, i) => (
+              <TabsTrigger
+                key={"tt" + i}
+                className="h-[30px] rounded-xl px-2 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
+                value={area.name}
+              >
+                {area.name}
+              </TabsTrigger>
+            ))}
           </TabsList>
           <div className="flex gap-x-4">
             <div className="flex items-center justify-center">
@@ -189,18 +165,15 @@ console.log(areas.data)
             </Button>
           </div>
         </div>
-        {/* {areas.data?.map((area, i) => (
-                <TabsContent key={"tc" + i} value={area.id}>
-                   <ProjectTab  tasks={areas}/>
-                </TabsContent>
-              ))} */}
-               <TabsContent value="Organization">
-                   <ProjectTab  tasks={areas.data}/>
-                </TabsContent>
+        {modulos.map((area, i) => (
+          <TabsContent
+            key={"tc" + i}
+            value={area.name}
+          >
+            <ProjectTab tasks={areas.data} module_id={area.id} />
+          </TabsContent>
+        ))}
       </Tabs>
-        
-       
-      
     </WrappedMain>
   );
 }

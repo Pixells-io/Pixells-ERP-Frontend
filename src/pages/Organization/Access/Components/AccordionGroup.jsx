@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Accordion,
   AccordionContent,
@@ -8,15 +7,15 @@ import {
 } from "@/components/ui/accordion";
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import CheckboxAccordion from "./CheckboxAccordion";
 
 const HEADERS = [
-  { name: "PUESTO", cols: "2", text: "start" },
+  { name: "PUESTO", cols: "3", text: "start" },
   { name: "VER", cols: "1", text: "start" },
   { name: "EDITAR", cols: "1", text: "start" },
   { name: "CREAR", cols: "1", text: "start" },
   { name: "ELIMINAR", cols: "1", text: "start" },
   { name: "PORCENTAJE DE ACCESO", cols: "4", text: "end" },
-  
 ];
 
 const OPTIONS = {
@@ -252,21 +251,33 @@ const OPTIONS = {
     },
   ],
 };
-
-function ProjectTab({ tasks }) {
+const permision = [
+  {
+    name: "Read",
+    value: 1,
+  },
+  {
+    name: "Edit",
+    value: 2,
+  },
+  {
+    name: "Create",
+    value: 3,
+  },
+  {
+    name: "Delete",
+    value: 4,
+  },
+];
+function ProjectTab({ tasks, module_id }) {
   const [openItems, setOpenItems] = useState([]);
-
   useEffect(() => {
-    const allItemValues = OPTIONS?.projects?.map(
-      (project, index) => `item-${project.id}`,
-    );
+    const allItemValues = tasks?.map((area) => `item-${area.id}`);
     setOpenItems(allItemValues);
-  }, [OPTIONS]);
-
-
+  }, [tasks]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <div className="grid h-12 grid-cols-12 items-center border-b">
         {HEADERS?.map((header, i) => (
           <div
@@ -279,7 +290,7 @@ function ProjectTab({ tasks }) {
       </div>
       <Accordion
         type="multiple"
-        className="w-full"
+        className="flex w-full flex-col"
         value={openItems}
         onValueChange={(e) => setOpenItems(e)}
       >
@@ -307,18 +318,28 @@ function ProjectTab({ tasks }) {
                 >
                   <div
                     className={
-                      "pl-6 col-span-2 text-xs font-normal text-grisHeading"
+                      "col-span-2 pl-6 text-xs font-normal text-grisHeading"
                     }
                   >
                     <div className="flex items-center gap-x-2">
                       <div>
                         <span>{position.position_name}</span>
                       </div>
-                      
                     </div>
                   </div>
-                  
-                
+                  <div></div>
+                  {permision?.map((permiso, i) => (
+                    <div
+                      key={"tc" + i}
+                      className="flex items-start justify-start"
+                    >
+                      <CheckboxAccordion
+                        position={position.id}
+                        permision={permiso.value}
+                        module={module_id}
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
             </AccordionContent>
