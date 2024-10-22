@@ -289,10 +289,11 @@ function ProjectTab({ tasks }) {
       </div>
 
       <Accordion
-        type="multiple"
+        type="single"
         className="w-full"
         // value={openItems}
-        onValueChange={(e) => setOpenItems(e)}
+        // onValueChange={(e) => setOpenItems(e)}
+        collapsible
         defaultValue={"item-noprojects"}
       >
         <AccordionItem value={"item-noprojects"} className="border-none">
