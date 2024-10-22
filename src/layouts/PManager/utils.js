@@ -336,3 +336,23 @@ export async function newPhase(data) {
 
   return response;
 }
+
+export async function newActivity(data) {
+  const info = {
+    name: data.get("name"),
+    phase_id: data.get("phase_id"),
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/create-activity`,
+    {
+      method: "POST",
+      body: JSON.stringify(info),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}

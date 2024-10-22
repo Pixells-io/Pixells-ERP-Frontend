@@ -5,7 +5,7 @@ import { searchOutline } from "ionicons/icons";
 import { Button } from "@/components/ui/button";
 import { NavLink, Outlet, redirect, useLoaderData } from "react-router-dom";
 import ObjectiveAll from "./ObjectiveAll";
-import { newPhase } from "@/layouts/PManager/utils";
+import { newActivity, newPhase } from "@/layouts/PManager/utils";
 
 const OptionsNavLink = [
   { id: 1, name: "Actualización del Sistema POS" },
@@ -97,11 +97,9 @@ export async function Action({ params, request }) {
     //     `/project-manager/${params.id}/projects/${params.projectId}`,
     //   );
 
-    // case "activity":
-    //   await saveNewActivitty(formData);
-    //   return redirect(
-    //     `/project-manager/${params.id}/projects/${params.projectId}`,
-    //   );
+    case "activity":
+      await newActivity(formData);
+      return redirect(`/project-manager2/project/${params.id}`);
 
     // case "edit":
     //   await editActivityUser(formData);
