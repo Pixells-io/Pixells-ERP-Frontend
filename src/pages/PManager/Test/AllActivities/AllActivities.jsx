@@ -10,6 +10,7 @@ import { useLoaderData } from "react-router-dom";
 
 function AllActivities() {
   const { tasks } = useLoaderData();
+  console.log(tasks);
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
@@ -81,7 +82,7 @@ function AllActivities() {
           </div>
         </div>
         <TabsContent value="project" className="">
-          <ProjectTab tasks={tasks.data.info} />
+          <ProjectTab tasks={tasks.data} />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />

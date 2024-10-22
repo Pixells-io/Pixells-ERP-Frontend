@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Link,
-  redirect,
-  useLoaderData,
-  useParams,
-  useSubmit,
-} from "react-router-dom";
+import { Link, redirect, useLoaderData, useParams } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -25,7 +19,6 @@ import { IonIcon } from "@ionic/react";
 import { chevronDown, ellipsisVertical } from "ionicons/icons";
 
 import { saveNewTaskPM } from "@/layouts/PManager/utils";
-import EditObjectiveModal from "./components2/Modals/EditObjectiveModal";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -39,65 +32,9 @@ const HEADERS = [
   { name: "", cols: "1" },
 ];
 
-const OPTIONS = [
-  {
-    id: 1,
-    tipo: "Actividad",
-    nombre: "Implementar sistema de inventario",
-    progreso: 50,
-    vencimiento: "15 feb 2024",
-    responsable: {
-      nombre: "Juan Pérez",
-      email: "juan.perez@example.com",
-    },
-    estado: "En progreso",
-    creador: {
-      nombre: "Ana Gómez",
-      email: "ana.gomez@example.com",
-    },
-    prioridad: "Baja",
-  },
-  {
-    id: 2,
-    tipo: "Proyecto",
-    nombre: "Actualización del sistema POS",
-    progreso: 30,
-    vencimiento: "16 feb 2024",
-    responsable: {
-      nombre: "María López",
-      email: "maria.lopez@example.com",
-    },
-    estado: "En espera",
-    creador: {
-      nombre: "Luis Fernández",
-      email: "luis.fernandez@example.com",
-    },
-    prioridad: "Media",
-  },
-  {
-    id: 3,
-    tipo: "Actividad",
-    nombre: "Revisión de equipos físicos",
-    progreso: 80,
-    vencimiento: "17 feb 2024",
-    responsable: {
-      nombre: "Carlos Ramírez",
-      email: "carlos.ramirez@example.com",
-    },
-    estado: "En progreso",
-    creador: {
-      nombre: "Sara Torres",
-      email: "sara.torres@example.com",
-    },
-    prioridad: "Urgente",
-  },
-];
-
 function MainPM() {
   const params = useParams();
-  const submit = useSubmit();
   const { objective, users } = useLoaderData();
-  const [editModal, setEditModal] = useState(false);
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
@@ -132,41 +69,8 @@ function MainPM() {
         <h2 className="font-poppins text-xl font-bold text-[#44444F]">
           {objectiveInfo?.name || "Objetivo No Cargo Correctamente"}
         </h2>
-        <EditObjectiveModal
-          objective={objectiveInfo}
-          modal={editModal}
-          setModal={setEditModal}
-        />
+
         <div className="flex items-center gap-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex">
-              <IonIcon
-                icon={ellipsisVertical}
-                className="size-6 text-grisSubText"
-              />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setEditModal(true)}>
-                Editar
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() =>
-                  submit(
-                    {
-                      action: "delete-objective",
-                      objective_id: objectiveInfo?.id,
-                    },
-                    {
-                      method: "post",
-                      action: `/project-manager2`,
-                    },
-                  )
-                }
-              >
-                Eliminar
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
           <ShareSettins />
           <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
