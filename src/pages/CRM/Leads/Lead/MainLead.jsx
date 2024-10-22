@@ -141,11 +141,13 @@ function MainLead() {
         users={mainLeadData.users_bulk}
         url={"/crm/leads/"}
       />
-      <div className="ml-4y flex w-full flex-col space-y-4 bg-inherit border-l border-[#D7D7D7] px-8 py-4">
+      <div className="ml-4y flex w-full flex-col bg-inherit border-l border-[#D7D7D7] px-0 py-4">
         {/* navigation inside */}
-        <NavigationHeader />
+        <div className="px-8">
+          <NavigationHeader />
+        </div>
         {/* top content */}
-        <div className="flex items-center gap-16">
+        <div className="flex items-center gap-16 mt-4 px-8">
           <div>
             <h2 className="font-poppins text-2xl font-bold text-[#44444F]">
               LEADS INFORMACION
@@ -153,7 +155,7 @@ function MainLead() {
           </div>
         </div>
         {/* icons line */}
-        <div className="flex h-20 justify-center overflow-auto align-middle border-b border-[#D7D7D7]">
+        <div className="flex h-20 justify-center overflow-auto align-middle border-b border-[#D7D7D7] mt-2.5 px-8">
           <div className="flex w-10/12 overflow-auto">
             {mainLeadData.steps?.map((step, i) => (
               <div className="flex-shrink-0">
@@ -201,7 +203,7 @@ function MainLead() {
           </div>
         </div>
         {/* cards */}
-        <div className="flex h-full justify-center gap-1 overflow-hidden align-middle">
+        <div className="flex h-full justify-center gap-1 overflow-hidden align-middle px-8">
           <div className="group relative h-full w-9/12 overflow-auto bg-inherit px-10">
             <div className="absolute sticky top-4 z-10 float-end w-fit rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
               <DropdownMenu>
