@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
   accessibilityOutline,
+  add,
   cogOutline,
+  flag,
+  flagOutline,
   keyOutline,
   logoFacebook,
   logoGoogle,
@@ -21,6 +24,7 @@ import ModalAddNumbersWhatsapp from "./ModalAddNumbersWhatsapp";
 import { getBusiness, getWhatsappNumbers } from "./utils";
 import ModalDestroyMetaKeys from "./ModalDestroyMetaKeys";
 import ModalAddBusiness from "./ModalAddBusiness";
+import { Switch } from "@/components/ui/switch";
 
 function MainIntegrations() {
   const location = useLocation();
@@ -501,52 +505,175 @@ function MainIntegrations() {
                 </Form>
               ) : (
                 <div>
-                  <span>Usuario que realizo la configuracion:</span>
-                  <br />
-                  <div className="flex gap-2">
-                    <Avatar className="size-6">
-                      <AvatarImage
-                        src={meta?.data?.user?.img}
-                        title={meta?.data?.user?.name}
-                      />
-                    </Avatar>
-                    <span> {meta?.data?.user?.name} </span>
-                  </div>
-                  <br />
-                  {meta?.data?.business != false ? (
-                    <div>
-                      <span>Negocio: </span>
-                      <br />
-                      <span>{meta?.data?.business}</span>
+                  <Tabs
+                    defaultValue="general"
+                    className="flex h-full w-full overflow-auto"
+                  >
+                    <div className="h-full w-2/12 border-r border-grisDisabled pr-2">
+                      <TabsList className="mb-3 w-full bg-transparent">
+                        <TabsTrigger
+                          className="flex w-full gap-2 rounded-lg bg-transparent px-2 py-2 text-left font-roboto text-sm font-medium text-grisText data-[state=active]:bg-blancoBox2"
+                          value="general"
+                        >
+                          <IonIcon className="text-lg" icon={flag} />
+                          <span>General</span>
+                        </TabsTrigger>
+                        <TabsTrigger
+                          className="mt-2 flex w-full gap-2 rounded-lg bg-transparent px-2 py-2 text-left font-roboto text-sm font-medium text-grisText data-[state=active]:bg-blancoBox2"
+                          value="business"
+                        >
+                          <IonIcon className="text-lg" icon={flag} />
+                          <span>Negocios</span>
+                        </TabsTrigger>
+                        <TabsTrigger
+                          className="mt-2 flex w-full gap-2 rounded-lg bg-transparent px-2 py-2 text-left font-roboto text-sm font-medium text-grisText data-[state=active]:bg-blancoBox2"
+                          value="numbers"
+                        >
+                          <IonIcon className="text-lg" icon={flag} />
+                          <span>Numeros</span>
+                        </TabsTrigger>
+                      </TabsList>
                     </div>
-                  ) : (
-                    false
-                  )}
-                  <button
-                    className="bg-blue-500"
-                    type="button"
-                    onClick={() => selectWhatsappNumbersModal()}
-                  >
-                    Seleccionar Numeros de Whatsapp
-                  </button>
-                  <button
-                    className="bg-red-500"
-                    type="button"
-                    onClick={() => setModalDestroyTokensWhatsapp(true)}
-                  >
-                    Desvincular de Meta
-                  </button>
-                  {meta?.data?.business == false ? (
-                    <button
-                      className="bg-blue-500"
-                      type="button"
-                      onClick={() => selectBusinessModal()}
-                    >
-                      Seleccionar Negocio
-                    </button>
-                  ) : (
-                    false
-                  )}
+                    <div className="h-full w-10/12">
+                      <TabsContent value="general" className="px-6">
+                        <span className="font-roboto text-sm text-grisHeading">
+                          Usuario que realizó la configuración
+                        </span>
+                        <div className="mt-4 flex gap-2 border-b border-grisDisabled pb-6">
+                          <Avatar className="size-8">
+                            <AvatarImage
+                              src={meta?.data?.user?.img}
+                              title={meta?.data?.user?.name}
+                            />
+                          </Avatar>
+                          <span className="font-roboto text-sm text-grisHeading">
+                            {meta?.data?.user?.name}{" "}
+                          </span>
+                        </div>
+                        <div className="mt-4">
+                          <span className="font-roboto text-sm font-normal text-grisHeading">
+                            Cuenta Vinculada
+                          </span>
+                          <br />
+                          <span className="font-roboto text-sm font-normal text-[#CCCCCC]">
+                            {meta?.data?.user?.created}
+                          </span>
+                        </div>
+                        <button
+                          className="mt-4 rounded-xl border border-[#D7586B] bg-transparent px-4 py-2 text-sm text-[#D7586B] hover:bg-[#D7586B] hover:text-white"
+                          type="button"
+                          onClick={() => setModalDestroyTokensWhatsapp(true)}
+                        >
+                          Desvincular
+                        </button>
+                      </TabsContent>
+                      <TabsContent value="business" className="px-6">
+                        <div className="flex justify-between">
+                          <span className="font-poppins text-sm font-medium text-grisHeading">
+                            Negocios Asociados
+                          </span>
+                          <button
+                            className="flex gap-2 rounded-xl bg-primarioBotones px-3 py-2 hover:bg-primario"
+                            type="button"
+                            onClick={() => selectBusinessModal()}
+                          >
+                            <IonIcon
+                              icon={add}
+                              className="text-lg text-white"
+                            />
+                            <span className="text-xs font-medium text-white">
+                              Agregar
+                            </span>
+                          </button>
+                        </div>
+                        {meta?.data?.business != false ? (
+                          <div>
+                            <div className="flex border-b border-grisDisabled py-2">
+                              <div className="w-4/12">
+                                <span className="font-poppins text-xs font-medium text-grisHeading">
+                                  NEGOCIO
+                                </span>
+                              </div>
+                              <div className="w-4/12">
+                                <span className="font-poppins text-xs font-medium text-grisHeading">
+                                  META ID
+                                </span>
+                              </div>
+                              <div className="w-4/12">
+                                <span className="font-poppins text-xs font-medium text-grisHeading">
+                                  ESTADO
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex border-b border-grisDisabled py-2">
+                              <div className="w-4/12">
+                                <span className="font-poppins text-xs font-medium text-grisHeading">
+                                  {meta?.data?.business}
+                                </span>
+                              </div>
+                              <div className="w-4/12">
+                                <span className="font-poppins text-xs font-medium text-grisHeading">
+                                  {meta?.data?.business_id}
+                                </span>
+                              </div>
+                              <div className="w-4/12">
+                                <Switch
+                                  name="activo"
+                                  className="border-primarioBotones data-[state=checked]:bg-primarioBotones data-[state=checked]:text-white"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          false
+                        )}
+                      </TabsContent>
+                      <TabsContent value="numbers" className="px-6">
+                        <div className="flex justify-between">
+                          <span className="font-poppins text-sm font-medium text-grisHeading">
+                            Números Telefónicos
+                          </span>
+                          <button
+                            className="flex gap-2 rounded-xl bg-primarioBotones px-3 py-2 hover:bg-primario"
+                            type="button"
+                            onClick={() => selectWhatsappNumbersModal()}
+                          >
+                            <IonIcon
+                              icon={add}
+                              className="text-lg text-white"
+                            />
+                            <span className="text-xs font-medium text-white">
+                              Agregar
+                            </span>
+                          </button>
+                        </div>
+                        <div>
+                          <div className="flex border-b border-grisDisabled py-2">
+                            <div className="w-3/12">
+                              <span className="font-poppins text-xs font-medium text-grisHeading">
+                                NOMBRE
+                              </span>
+                            </div>
+                            <div className="w-3/12">
+                              <span className="font-poppins text-xs font-medium text-grisHeading">
+                                NUMERO
+                              </span>
+                            </div>
+                            <div className="w-3/12">
+                              <span className="font-poppins text-xs font-medium text-grisHeading">
+                                META ID
+                              </span>
+                            </div>
+                            <div className="w-3/12">
+                              <span className="font-poppins text-xs font-medium text-grisHeading">
+                                ESTADO
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </TabsContent>
+                    </div>
+                  </Tabs>
                 </div>
               )}
             </TabsContent>
