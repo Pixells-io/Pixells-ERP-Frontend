@@ -16,11 +16,17 @@ import NavigationHeader from "@/components/navigation-header";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import ModalDestroyGoogleKeys from "./ModalDestroyGoogleKeys";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import ModalAddNumbersWhatsapp from "./ModalAddNumbersWhatsapp";
+import { getBusiness, getWhatsappNumbers } from "./utils";
+import ModalDestroyMetaKeys from "./ModalDestroyMetaKeys";
+import ModalAddBusiness from "./ModalAddBusiness";
 
 function MainIntegrations() {
   const location = useLocation();
 
-  const { profile, permission, azureUser, permissionAzure } = useLoaderData();
+  const { profile, permission, azureUser, permissionAzure, meta } =
+    useLoaderData();
   const [one, setOne] = useState(false);
   const [two, setTwo] = useState(false);
   const [three, setThree] = useState(false);
@@ -35,6 +41,15 @@ function MainIntegrations() {
 
   const [modalDestroy, setModalDestroy] = useState(false);
   const [modalDestroyA, setModalDestroyA] = useState(false);
+
+  const [modalSelectWhatsapp, setModalSelectWhatsapp] = useState(false);
+  const [whatsappQuery, setWhatsappQuery] = useState(false);
+
+  const [modalSelectBusiness, setModalSelectBusiness] = useState(false);
+  const [businessQuery, setBusinessQuery] = useState(false);
+
+  const [modalDestroyTokensWhatsapp, setModalDestroyTokensWhatsapp] =
+    useState(false);
 
   function changeCheked(number) {
     switch (number) {
@@ -120,9 +135,35 @@ function MainIntegrations() {
     }
   }, []);
 
+  async function selectWhatsappNumbersModal() {
+    let info = await getWhatsappNumbers();
+    setModalSelectWhatsapp(true);
+    setWhatsappQuery(info);
+  }
+
+  async function selectBusinessModal() {
+    let info = await getBusiness();
+    setBusinessQuery(info);
+    setModalSelectBusiness(true);
+  }
+
   return (
     <div className="flex w-full">
       <ModalDestroyGoogleKeys modal={modalDestroy} setModal={setModalDestroy} />
+      <ModalAddNumbersWhatsapp
+        modal={modalSelectWhatsapp}
+        setModal={setModalSelectWhatsapp}
+        numbers={whatsappQuery}
+      />
+      <ModalDestroyMetaKeys
+        modal={modalDestroyTokensWhatsapp}
+        setModal={setModalDestroyTokensWhatsapp}
+      />
+      <ModalAddBusiness
+        modal={modalSelectBusiness}
+        setModal={setModalSelectBusiness}
+        business={businessQuery}
+      />
       <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
@@ -442,21 +483,72 @@ function MainIntegrations() {
               )}
             </TabsContent>
             <TabsContent value="meta">
-              <Form
-                className="flex h-full w-full flex-col gap-3 px-6 pt-2"
-                action="/my-profile"
-                method="post"
-              >
-                {/* NOT AUTENTICATED */}
-                <input type="hidden" name="type_function" value={7} />
-                <Button
-                  type="submit"
-                  className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+              {meta.data?.token == false ? (
+                <Form
+                  className="flex h-full w-full flex-col gap-3 px-6 pt-2"
+                  action="/my-profile"
+                  method="post"
                 >
-                  <IonIcon icon={logoFacebook} className="text-lg"></IonIcon>
-                  Configura Meta
-                </Button>
-              </Form>
+                  {/* NOT AUTENTICATED */}
+                  <input type="hidden" name="type_function" value={7} />
+                  <Button
+                    type="submit"
+                    className="mt-2 w-48 justify-normal gap-4 rounded-lg border border-primarioBotones bg-transparent px-6 py-2 text-center font-roboto text-xs font-semibold text-primarioBotones hover:bg-primarioBotones hover:text-white"
+                  >
+                    <IonIcon icon={logoFacebook} className="text-lg"></IonIcon>
+                    Configura Meta
+                  </Button>
+                </Form>
+              ) : (
+                <div>
+                  <span>Usuario que realizo la configuracion:</span>
+                  <br />
+                  <div className="flex gap-2">
+                    <Avatar className="size-6">
+                      <AvatarImage
+                        src={meta?.data?.user?.img}
+                        title={meta?.data?.user?.name}
+                      />
+                    </Avatar>
+                    <span> {meta?.data?.user?.name} </span>
+                  </div>
+                  <br />
+                  {meta?.data?.business != false ? (
+                    <div>
+                      <span>Negocio: </span>
+                      <br />
+                      <span>{meta?.data?.business}</span>
+                    </div>
+                  ) : (
+                    false
+                  )}
+                  <button
+                    className="bg-blue-500"
+                    type="button"
+                    onClick={() => selectWhatsappNumbersModal()}
+                  >
+                    Seleccionar Numeros de Whatsapp
+                  </button>
+                  <button
+                    className="bg-red-500"
+                    type="button"
+                    onClick={() => setModalDestroyTokensWhatsapp(true)}
+                  >
+                    Desvincular de Meta
+                  </button>
+                  {meta?.data?.business == false ? (
+                    <button
+                      className="bg-blue-500"
+                      type="button"
+                      onClick={() => selectBusinessModal()}
+                    >
+                      Seleccionar Negocio
+                    </button>
+                  ) : (
+                    false
+                  )}
+                </div>
+              )}
             </TabsContent>
             <TabsContent value="outlook">
               {azureUser.data != null ? (
