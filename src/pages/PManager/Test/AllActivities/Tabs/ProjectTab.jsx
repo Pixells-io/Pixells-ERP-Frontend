@@ -267,11 +267,11 @@ function ProjectTab({ tasks }) {
   const [openItems, setOpenItems] = useState([]);
 
   useEffect(() => {
-    const allItemValues = tasksNoProject?.map(
+    const allItemValues = tasksProjects?.map(
       (project, index) => `item-${project.id}`,
     );
     setOpenItems(allItemValues);
-  }, [tasksNoProject]);
+  }, [tasksProjects]);
 
   console.log(tasks.tasks);
   console.log(tasks.projects);
@@ -291,8 +291,9 @@ function ProjectTab({ tasks }) {
       <Accordion
         type="multiple"
         className="w-full"
-        value={openItems}
+        // value={openItems}
         onValueChange={(e) => setOpenItems(e)}
+        defaultValue={"item-noprojects"}
       >
         <AccordionItem value={"item-noprojects"} className="border-none">
           <AccordionTrigger className="h-12 w-full items-center border-b border-grisHeading text-xs font-normal text-grisHeading">
