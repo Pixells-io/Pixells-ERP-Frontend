@@ -6,25 +6,34 @@ import {
 import MenuSales from "./components/MenuSales";
 import TopMenu from "../Masters/Menus/TopMenu";
 
+
+ /*Style to options */
+ function WrappedSidebar({ children }) {
+  return (
+    <div className="flex h-full w-full">
+      <div className="flex h-full w-[280px] shrink-0 flex-col rounded-tl-xl border-r border-[#D7D7D7] bg-[#FBFBFB] p-4">
+        {children}
+      </div>
+      <Outlet />
+    </div>
+  );
+}
 const SideLayoutSale = () => {
   return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex w-[280px] shrink-0 flex-col gap-4">
+    <WrappedSidebar>
         {/* top block */}
-        <div className="flex w-[280px] flex-col gap-4 rounded-lg bg-gris px-8 py-4">
+        <div className="px-4">
         <TopMenu main={"/sales"} />
         </div>
 
         {/*bottom block */}
-        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
-          <p className="px-4 font-poppins text-lg font-semibold text-grisHeading">
-            Menu
-          </p>
-          <MenuSales />
-        </div>
+        <div className="flex flex-col gap-2 px-4 pt-16">
+      <p className="font-poppins text-[18px] font-semibold text-[#44444F]">
+          Menu
+        </p>
       </div>
-      <Outlet/>
-    </div>
+          <MenuSales />
+      </WrappedSidebar>
   );
 };
 

@@ -76,22 +76,22 @@ const MenuSales = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-4 pt-6">
       {MENU_ITEMS?.map((item, i) => (
         <NavLink
           key={i}
           to={`${item.path}`}
           className={
             isActive(item)
-              ? "w-full rounded-lg bg-[#E8E8E8] px-4 text-primario"
-              : "w-full px-4 text-gris2 hover:rounded-lg hover:bg-[#EAEAEA]"
+              ? "w-[219px] rounded-[6px] bg-[#E8E8E8] px-4 text-primario"
+              : "w-full hover:w-[219px] hover:h-[43px] px-4 text-[#696974] hover:rounded-[6px] hover:bg-[#EAEAEA]"
           }
         >
           <div className="flex items-center gap-6">
             <IonIcon icon={item.icon} size="large"></IonIcon>
             <div>
-              <p className="text-base font-medium">{item.name}</p>
-              <p className="text-[10px] font-medium text-grisSubText">
+              <p className="text-[16px] font-medium">{item.name}</p>
+              <p className="text-[10px] font-medium text-[#44444F]">
                 {item.subname}
               </p>
             </div>
