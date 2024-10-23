@@ -10,7 +10,7 @@ import { IonIcon } from "@ionic/react";
 import CheckboxAccordion from "./CheckboxAccordion";
 
 const HEADERS = [
-  { name: "PUESTO", cols: "3", text: "start" },
+  { name: "PUESTO", cols: "2", text: "start" },
   { name: "VER", cols: "1", text: "start" },
   { name: "EDITAR", cols: "1", text: "start" },
   { name: "CREAR", cols: "1", text: "start" },
