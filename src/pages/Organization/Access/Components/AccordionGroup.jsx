@@ -67,7 +67,7 @@ function ProjectTab({ tasks, module_id }) {
       </div>
       <Accordion
         type="multiple"
-        className="flex w-full flex-col"
+        className="w-full"
         value={openItems}
         onValueChange={setOpenItems}
       >
@@ -83,7 +83,7 @@ function ProjectTab({ tasks, module_id }) {
                   icon={chevronForwardOutline}
                   size="large"
                   className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
-                />
+                  />
                 {areas.nombre}
               </div>
             </AccordionTrigger>

@@ -99,7 +99,7 @@ function MainAccess() {
 
   function WrappedMain({ children }) {
     return (
-      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
         {children}
       </div>
     );
@@ -128,10 +128,10 @@ function MainAccess() {
       {/*component accion*/}
       <Tabs
         defaultValue="Organization"
-        className="flex flex-col overflow-auto rounded-lg bg-blancoBg p-7"
+        className="flex  flex-col overflow-auto rounded-lg"
       >
         <div className="flex justify-between">
-          <TabsList className="mx-3 flex w-fit gap-x-2 overflow-y-auto rounded-none bg-blancoBg px-0">
+        <TabsList className="flex w-fit overflow-auto space-x-2 rounded-none bg-blancoBg px-0">
             {modulos.map((area, i) => (
               <TabsTrigger
                 key={"tt" + i}
