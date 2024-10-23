@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useSubmit } from "react-router-dom";
 import SelectShareSettings from "@/layouts/Masters/FormComponents/SelectShareSettings";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function StepOne({ step, setStep, users, positions, areas, creator, id }) {
+function StepOne({
+  step,
+  setStep,
+  users,
+  positions,
+  areas,
+  creator,
+  id,
+  shared,
+  SaveShared,
+  editShared,
+}) {
+  const submit = useSubmit();
   const [selectedValue, setSelectedValue] = useState(1);
   const [optionsSelected, setOptionsSelected] = useState(users);
 
@@ -35,6 +47,21 @@ function StepOne({ step, setStep, users, positions, areas, creator, id }) {
   const handleSelectChange = (value) => {
     setSelectedValue(Number(value));
   };
+
+  const handleSubmitPermissions = (e, unique_id) => {
+    submit(
+      {
+        action: editShared.action,
+        id: unique_id,
+        type_access: e.target.value,
+      },
+      {
+        method: "POST",
+        action: editShared.route,
+      },
+    );
+  };
+
   return (
     <div className={`flex flex-col gap-y-4 ${step == 1 ? "block" : "hidden"}`}>
       {/* add */}
@@ -42,7 +69,7 @@ function StepOne({ step, setStep, users, positions, areas, creator, id }) {
         <Form
           id="shareSettings"
           className="flex"
-          action={`/project-manager2/${id}`}
+          action={SaveShared.route}
           method="post"
         >
           <input
@@ -50,13 +77,13 @@ function StepOne({ step, setStep, users, positions, areas, creator, id }) {
             hidden
             className="hidden"
             name="action"
-            value="share-objective"
+            value={SaveShared.action}
           />
           <input
             type="hidden"
             hidden
             className="hidden"
-            name="objetive_id"
+            name={SaveShared.name}
             value={id}
           />
           <Select
@@ -174,51 +201,51 @@ function StepOne({ step, setStep, users, positions, areas, creator, id }) {
             <p className="font-roboto text-xs font-normal text-grisHeading">
               {creator?.name}
             </p>
-            <span className="font-roboto text-xs font-normal tracking-widest text-grisDisabled">
+            {/* <span className="font-roboto text-xs font-normal tracking-widest text-grisDisabled">
               (tú)
-            </span>
+            </span> */}
           </div>
           <p className="font-roboto text-xs font-normal text-grisHeading">
             Creador
           </p>
         </div>
         {/* another users */}
-        {/* {anotherUsers.map((u, index) => (
+        {shared?.map((u, index) => (
           <div className="flex justify-between" key={index}>
             <div className="flex items-center gap-x-2">
               <Avatar className="size-6">
-                <AvatarImage src={u?.img} />
+                <AvatarImage src={u?.rel_img} />
               </Avatar>
               <p className="font-roboto text-xs font-normal text-grisHeading">
-                {u?.name}
+                {u?.rel_name}
               </p>
             </div>
-            <Form method="post">
-              <Select defaultValue="view" name="actions" required>
+            <Form onChange={(e) => handleSubmitPermissions(e, u.id)}>
+              <Select defaultValue={u?.type_access} name="type_access" required>
                 <SelectTrigger className="h-[26px] w-full min-w-[92px] rounded-md border-none bg-hoverModal p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
                   <SelectValue placeholder={"Acción"} className="" />
                 </SelectTrigger>
                 <SelectContent className="w-[167px] rounded-3xl px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
                   <SelectItem
-                    value="view"
+                    value="1"
                     className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
                   >
                     Puede ver
                   </SelectItem>
                   <SelectItem
-                    value="edit"
+                    value="2"
                     className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
                   >
                     Puede editar
                   </SelectItem>
                   <SelectItem
-                    value="total"
+                    value="3"
                     className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
                   >
                     Acceso Total
                   </SelectItem>
                   <SelectItem
-                    value="delete"
+                    value="4"
                     className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
                   >
                     Eliminar
@@ -227,7 +254,7 @@ function StepOne({ step, setStep, users, positions, areas, creator, id }) {
               </Select>
             </Form>
           </div>
-        ))} */}
+        ))}
       </div>
     </div>
   );

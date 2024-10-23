@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, redirect, useLoaderData, useParams } from "react-router-dom";
+import {
+  Link,
+  redirect,
+  useLoaderData,
+  useNavigation,
+  useParams,
+} from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -18,7 +24,13 @@ import NewTaskModal from "./components2/Modals/NewTaskModal";
 import { IonIcon } from "@ionic/react";
 import { chevronDown, ellipsisVertical } from "ionicons/icons";
 
-import { saveNewTaskPM, saveSharedObject } from "@/layouts/PManager/utils";
+import {
+  editSharedObject,
+  editSharedTask,
+  saveNewTaskPM,
+  saveSharedObject,
+  saveSharedTask,
+} from "@/layouts/PManager/utils";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -34,11 +46,17 @@ const HEADERS = [
 
 function MainPM() {
   const params = useParams();
+  const navigation = useNavigation();
   const { objective, users, positions, areas } = useLoaderData();
+  console.log(objective);
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
   );
+
+  const [modalSettingsObjective, setModalSettingsObjective] = useState(false);
+  const [modalSettingsTasks, setModalSettingsTasks] = useState(false);
+  const [taskInfo, setTaskInfo] = useState([]);
 
   useEffect(() => {
     const newObjectiveInfo = objective?.data;
@@ -47,6 +65,13 @@ function MainPM() {
       setTasks(newObjectiveInfo?.project?.concat(newObjectiveInfo?.tasks));
     }
   }, [objective, params.id]);
+
+  useEffect(() => {
+    if (navigation.state === "idle") {
+      setModalSettingsObjective(false);
+      setModalSettingsTasks(false);
+    }
+  }, [navigation.state]);
 
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
@@ -73,9 +98,43 @@ function MainPM() {
         <div className="flex items-center gap-4">
           <ShareSettins
             id={objectiveInfo.id}
+            creator={objectiveInfo.creator}
             users={users.data}
             positions={positions.data}
             areas={areas.data}
+            shared={objectiveInfo.shared}
+            modal={modalSettingsObjective}
+            setModal={setModalSettingsObjective}
+            SaveShared={{
+              route: `/project-manager2/${objectiveInfo.id}`,
+              action: "share-objective",
+              name: "objetive_id",
+            }}
+            editShared={{
+              route: `/project-manager2/${objectiveInfo.id}`,
+              action: "edit-shared-objective",
+            }}
+          />
+
+          <ShareSettins
+            id={taskInfo.id}
+            creator={taskInfo.creator}
+            shared={taskInfo.shared}
+            users={users.data}
+            positions={positions.data}
+            areas={areas.data}
+            modal={modalSettingsTasks}
+            setModal={setModalSettingsTasks}
+            hasButton={false}
+            SaveShared={{
+              route: `/project-manager2/${objectiveInfo.id}`,
+              action: "share-task",
+              name: "task_id",
+            }}
+            editShared={{
+              route: `/project-manager2/${objectiveInfo.id}`,
+              action: "edit-shared-task",
+            }}
           />
           <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
@@ -160,7 +219,15 @@ function MainPM() {
               {opt.type == "Tarea" ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
-                    <span className="pl-1 text-grisHeading">{opt.status}</span>
+                    <span className="pl-1 text-grisHeading">
+                      {opt.status == "1"
+                        ? "Completado"
+                        : opt.status == "2"
+                          ? "Pendiente"
+                          : opt.status == "3"
+                            ? "En proceso"
+                            : "Cancelado"}
+                    </span>
 
                     <IonIcon
                       icon={chevronDown}
@@ -175,7 +242,15 @@ function MainPM() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <span>{opt.status}</span>
+                <span className="pl-1 text-grisHeading">
+                  {opt.status == "1"
+                    ? "Completado"
+                    : opt.status == "2"
+                      ? "Pendiente"
+                      : opt.status == "3"
+                        ? "En proceso"
+                        : "Cancelado"}
+                </span>
               )}
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -185,13 +260,23 @@ function MainPM() {
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <Link
-                      className="flex w-full"
-                      to={`/project-manager2/project/${opt.id}`}
-                    >
-                      Ver
-                    </Link>
+                  {opt.type == "Proyecto" && (
+                    <DropdownMenuItem>
+                      <Link
+                        className="flex w-full"
+                        to={`/project-manager2/project/${opt.id}`}
+                      >
+                        Ver
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setModalSettingsTasks(true);
+                      setTaskInfo(opt);
+                    }}
+                  >
+                    Compartir
                   </DropdownMenuItem>
                   <DropdownMenuItem>Editar</DropdownMenuItem>
                   <DropdownMenuItem>Eliminar</DropdownMenuItem>
@@ -218,6 +303,18 @@ export async function Action({ params, request }) {
 
     case "share-objective":
       await saveSharedObject(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "edit-shared-objective":
+      await editSharedObject(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "share-task":
+      await saveSharedTask(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "edit-shared-task":
+      await editSharedTask(data);
       return redirect(`/project-manager2/${params.id}`);
 
     default:

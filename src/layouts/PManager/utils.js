@@ -212,8 +212,7 @@ export async function getObjectivesByWorkspaceId(workspace) {
 export async function getObjectiveById({ params }) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive/${params.id}
-`,
+      `${import.meta.env.VITE_SERVER_URL}project-manager/get-objetive/${params.id}`,
       {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
@@ -276,6 +275,80 @@ export async function saveSharedObject(data) {
 
     const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}project-manager/save-shared-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function editSharedObject(data) {
+  try {
+    const info = {
+      id: data.get("id"),
+      type_access: data.get("type_access"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/edit-shared-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function saveSharedTask(data) {
+  try {
+    const info = {
+      task_id: data.get("task_id"),
+      type_share: data.get("type_share"),
+      rel_id: data.getAll("rel_id"),
+      type_access: data.get("type_access"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/save-shared-task`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function editSharedTask(data) {
+  try {
+    const info = {
+      id: data.get("id"),
+      type_access: data.get("type_access"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/edit-shared-task`,
       {
         method: "POST",
         body: JSON.stringify(info),
