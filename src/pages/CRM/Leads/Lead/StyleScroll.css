@@ -4,14 +4,18 @@
   }
   
   .scroll-container::-webkit-scrollbar-thumb {
-    background: #F5F5F9;       
+    background: #F6F6F6;       
   }
 
  
   /* Para Firefox */
   .scroll-container {
     scrollbar-width: thin; /* Opcional: cambia el grosor de la barra de desplazamiento */
-    scrollbar-color: #F5F5F9 transparent; /* Color del pulgar y fondo */
+    scrollbar-color: transparent transparent; /* Color del pulgar y fondo */
+  }
+  .scroll-container:hover {
+    scrollbar-width: thin; /* Opcional: cambia el grosor de la barra de desplazamiento */
+    scrollbar-color: #F6F6F6 transparent; /* Color del pulgar y fondo */
   }
   
   /* Para Edge y otros navegadores basados en WebKit */
@@ -20,6 +24,6 @@
   }
   
   .scroll-container:hover::-ms-scrollbar-thumb {
-    background: #F5F5F9;
+    background: #F6F6F6;
   }
   

@@ -291,9 +291,9 @@ function MainLead() {
               <CardFollowUp info={action} key={i} />
             ))}
           </div>
-          <div className="w-3/12 bg-inherit border-l border-[#E8E8E8] px-6 py-4">
+          <div className="w-3/12 bg-inherit border-l border-[#E8E8E8] pt-4 h-full">
             {/*Comments Card */}
-            <div className="h-5/6 overflow-auto">
+            {/* <div className="h-5/6 overflow-auto">
               {mainLeadData.comments?.map((comment, i) => (
                 <div className="border-b-[1px] border-[#D7D7D7] py-2" key={i}>
                   <div className="line-clamp-1 flex items-center gap-2">
@@ -319,30 +319,12 @@ function MainLead() {
                   </span>
                 </div>
               ))}
-            </div>
-            <div className="grid h-1/6 place-items-end px-2 overflow-auto">
-              <Form method="POST" action={`/crm/leads/${mainLeadData.id}`} className="w-full">
+            </div> */}
+              <Form method="POST" action={`/crm/leads/${mainLeadData.id}`} className="w-full overflow-auto h-full scroll-container">
                 <input type="hidden" name="action" value="create-comment" />
                 <input type="hidden" name="lead_id" value={mainLeadData.id} />
-                {/* <div className="flex gap-x-1 items-center rounded-lg bg-grisBg px-2 h-10">
-                  <div className="w-10/12 h-10 flex items-start py-1">
-                    <textarea
-                      type="text"
-                      name="comment"
-                      className="bg-transparent py-0 px-0 font-roboto text-xs text-[#8F8F8F] ring-0 focus:outline-none resize-none"
-                      placeholder="Comentario"
-                    />
-                  </div>
-                  <button
-                    className="rounded-md bg-primarioBotones px-2 h-4 font-roboto text-[10px] text-white font-normal"
-                    type="submit"
-                  >
-                    Enviar
-                  </button>
-                </div> */}
-                  <CommentsForm />
+                  <CommentsForm comments={mainLeadData?.comments} />
               </Form>
-            </div>
           </div>
         </div>
       </div>
