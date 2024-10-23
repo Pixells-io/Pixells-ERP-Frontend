@@ -204,7 +204,7 @@ function MainLead() {
           </div>
         </div>
         {/* cards */}
-        <div className="flex h-full justify-center gap-1 overflow-hidden align-middle px-8">
+        <div className="flex h-full justify-center gap-1 overflow-hidden align-middle pl-8 pr-2">
           <div className="group relative h-full w-9/12 overflow-auto bg-inherit px-10">
             <div className="absolute sticky top-4 z-10 float-end w-fit rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
               <DropdownMenu>

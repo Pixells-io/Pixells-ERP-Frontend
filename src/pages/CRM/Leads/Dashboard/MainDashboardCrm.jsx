@@ -204,7 +204,7 @@ function MainDashboardCrm() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-y-2 overflow-auto">
+    <div className="flex w-full flex-1 flex-col gap-y-2 overflow-auto">
       {/* filtrado */}
       <ModalCreateActivity
         modal={modalActivity}
@@ -300,7 +300,7 @@ function MainDashboardCrm() {
         </div>
       </div>
       {/*  */}
-      <div className="flex w-full gap-4 overflow-auto">
+      <div className="flex w-full h-full gap-4 overflow-auto">
         {infoStages.map((stage, i) => (
           <div
             className={`h-full w-60 flex-shrink-0 rounded-xl px-2 py-4 overflow-auto`}
