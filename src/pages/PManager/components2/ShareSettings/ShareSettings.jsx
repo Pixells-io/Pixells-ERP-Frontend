@@ -75,7 +75,7 @@ function ShareSettins({ id, users, positions, areas }) {
 
   return (
     <Dialog
-      open={true}
+      open={modal}
       onOpenChange={(e) => {
         setModal(e);
         setStep(1);
@@ -105,6 +105,7 @@ function ShareSettins({ id, users, positions, areas }) {
           areas={areas}
           creator={creator}
           anotherUsers={anotherUsers}
+          id={id}
         />
 
         {/* step 2 */}

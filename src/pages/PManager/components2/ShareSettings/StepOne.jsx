@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function StepOne({ step, setStep, users, positions, areas, creator }) {
+function StepOne({ step, setStep, users, positions, areas, creator, id }) {
   const [selectedValue, setSelectedValue] = useState(1);
   const [optionsSelected, setOptionsSelected] = useState(users);
 
@@ -39,7 +39,26 @@ function StepOne({ step, setStep, users, positions, areas, creator }) {
     <div className={`flex flex-col gap-y-4 ${step == 1 ? "block" : "hidden"}`}>
       {/* add */}
       <div className="flex h-full w-full flex-col px-4">
-        <Form className="flex">
+        <Form
+          id="shareSettings"
+          className="flex"
+          action={`/project-manager2/${id}`}
+          method="post"
+        >
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            name="action"
+            value="share-objective"
+          />
+          <input
+            type="hidden"
+            hidden
+            className="hidden"
+            name="objetive_id"
+            value={id}
+          />
           <Select
             defaultValue="1"
             name="type_share"
@@ -109,7 +128,10 @@ function StepOne({ step, setStep, users, positions, areas, creator }) {
                 }
               }}
             />
-            <Button className="h-[32px] w-[58px] rounded-xl bg-primarioBotones font-roboto text-[11px] font-medium text-white">
+            <Button
+              type="submit"
+              className="h-[32px] w-[58px] rounded-xl bg-primarioBotones font-roboto text-[11px] font-medium text-white"
+            >
               Invitar
             </Button>
           </div>

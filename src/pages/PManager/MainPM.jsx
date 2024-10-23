@@ -18,7 +18,7 @@ import NewTaskModal from "./components2/Modals/NewTaskModal";
 import { IonIcon } from "@ionic/react";
 import { chevronDown, ellipsisVertical } from "ionicons/icons";
 
-import { saveNewTaskPM } from "@/layouts/PManager/utils";
+import { saveNewTaskPM, saveSharedObject } from "@/layouts/PManager/utils";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -209,10 +209,15 @@ export default MainPM;
 
 export async function Action({ params, request }) {
   const data = await request.formData();
+  console.log(data);
   const action = data.get("action");
   switch (action) {
     case "create-task":
       await saveNewTaskPM(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "share-objective":
+      await saveSharedObject(data);
       return redirect(`/project-manager2/${params.id}`);
 
     default:

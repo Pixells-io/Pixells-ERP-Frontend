@@ -259,7 +259,33 @@ export async function saveNewTaskPM(data) {
       },
     );
 
-    return response, json();
+    return response.json();
+  } catch (error) {
+    return new Response("Error", { status: 500 });
+  }
+}
+
+export async function saveSharedObject(data) {
+  try {
+    const info = {
+      objetive_id: data.get("objetive_id"),
+      type_share: data.get("type_share"),
+      rel_id: data.getAll("rel_id"),
+      type_access: data.get("type_access"),
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}project-manager/save-shared-objetive`,
+      {
+        method: "POST",
+        body: JSON.stringify(info),
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+
+    return response.json();
   } catch (error) {
     return new Response("Error", { status: 500 });
   }
