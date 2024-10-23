@@ -53,7 +53,7 @@ const QuoteTableShow = ({ tableData }) => {
         header: "Precio x Unidad",
         type: "text",
         disabled: false,
-        prefix: "$",
+        prefix: "",
         subfix: "",
       },
       {
