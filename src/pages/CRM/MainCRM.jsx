@@ -51,12 +51,12 @@ function MainCRM() {
   });
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex w-full overflow-auto px-6">
       <CreateProcessSaleModal
         modal={modalCreateProcess}
         setModal={setModalCreateProcess}
       />
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+      <div className=" flex w-full flex-col space-y-4 rounded-lg px-8 py-4">
         <NavigationHeader />
 
         <div className="flex justify-between gap-4">

@@ -35,38 +35,47 @@ function SideLayout() {
     }
   });
 
-  return (
-    <div className="flex h-full px-4 pb-4 font-roboto">
-      <div className="flex w-[280px] shrink-0 flex-col gap-4">
-        {/* top block */}
-        <div className="flex flex-col gap-4 rounded-lg bg-gris px-4 py-4">
-          <TopMenuCRM />
+  function WrappedSidebar({ children }) {
+    return (
+      <div className="flex h-full w-full bg-blancoBg">
+        <div className="flex h-full w-[280px] shrink-0 flex-col rounded-tl-xl border-r border-[#D7D7D7] p-4">
+          {children}
         </div>
+        <Outlet />
+      </div>
+    );
+  }
 
-        {/*bottom block */}
-        <div className="flex h-full flex-col gap-4 rounded-md bg-gris p-4">
-          <p className="font-poppins text-lg font-semibold text-grisHeading">
-            Menu
-          </p>
+  return (
+    <WrappedSidebar>
+      {/* top block */}
+      <div className="px-4">
+        <TopMenuCRM />
+      </div>
 
-          {/*menu top */}
+      {/*bottom block */}
+      <div className="flex h-full flex-col gap-4 rounded-md p-4">
+        <p className="font-poppins text-lg font-semibold text-grisHeading pb-20">
+          Menu
+        </p>
 
-          {create == true ? (
-            <div className="flex flex-col gap-4">
-              <FormNewLead navigation={navigation} process={processInfo} />
-            </div>
-          ) : null}
+        {/*menu top */}
 
-          <div className="my-4 border-b border-gris2"></div>
-
-          {/* menu bottom */}
-          <div className="">
-            <MenuCRM />
+        {create == true ? (
+          <div className="flex flex-col gap-4">
+            <FormNewLead navigation={navigation} process={processInfo} />
           </div>
+        ) : null}
+
+        <div className="my-4 border-b border-gris2"></div>
+
+        {/* menu bottom */}
+        <div className="">
+          <MenuCRM />
         </div>
       </div>
-      <Outlet />
-    </div>
+
+    </WrappedSidebar>
   );
 }
 

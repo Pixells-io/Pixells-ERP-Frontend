@@ -78,8 +78,8 @@ function CrmDashboard() {
   }
 
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+    <div className="flex w-full overflow-auto px-6">
+      <div className="flex w-full flex-col space-y-4 overflow-hidden rounded-lg px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
 
