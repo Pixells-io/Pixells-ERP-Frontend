@@ -16,52 +16,35 @@ import {
   editGeneralInfo,
   editPaymentConditions,
 } from "../utils";
+import NavigationHeader from "@/components/navigation-header";
 
 const EditCustomer = () => {
   const { data } = useLoaderData();
   const [customer, setCustomer] = useState(data);
-
+  function WrappedMain({ children }) {
+    return (
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+        {children}
+      </div>
+    );
+  }
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
+   <WrappedMain>
         {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-
-          <div className="font-roboto text-sm text-grisText">
-            <div>Sales - General</div>
-          </div>
-        </div>
+        <NavigationHeader/>
 
         {/* top content */}
-        <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            Ventas
-          </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
+        <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">VENTAS</h2>
+        <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">&bull; 4 objective </div>
+          <div className="text-xs">&bull; 25 SFC </div>
+          <div className="text-xs">&bull; 43 Activities</div>
         </div>
+      </div>
 
         <div className="flex justify-between">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
+          <p className="font-poppins text-[20px] font-bold text-[#44444F]">
             Cliente: {customer?.name}
           </p>
 
@@ -91,8 +74,7 @@ const EditCustomer = () => {
         </div>
 
         <Outlet context={[customer]}/>
-      </div>
-    </div>
+        </WrappedMain>
   );
 };
 
