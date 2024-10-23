@@ -131,7 +131,7 @@ function MainAccess() {
         className="flex  flex-col overflow-auto rounded-lg"
       >
         <div className="flex justify-between">
-        <TabsList className="flex w-fit overflow-y-auto gap-x-2 rounded-none bg-blancoBg px-0">
+        <TabsList className="flex w-fit overflow-auto space-x-2 rounded-none bg-blancoBg px-0">
             {modulos.map((area, i) => (
               <TabsTrigger
                 key={"tt" + i}
