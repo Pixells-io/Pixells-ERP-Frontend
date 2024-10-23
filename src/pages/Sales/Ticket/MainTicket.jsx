@@ -124,7 +124,7 @@ const MainSalesTicket = () => {
 
   return (
     <WrappedMain>
-      <NavigationHeader/>
+      <NavigationHeader />
       {/* navigation inside */}
       <div className="flex items-center gap-16">
         <h2 className="font-poppins font-bold text-[#44444F]">VENTAS</h2>
@@ -134,7 +134,6 @@ const MainSalesTicket = () => {
           <div className="text-xs">&bull; 43 Activities</div>
         </div>
       </div>
-     
 
       <div className="flex justify-between">
         <span className="font-poppins text-[20px] font-bold text-[#44444F]">
@@ -155,11 +154,11 @@ const MainSalesTicket = () => {
       {/*content */}
       <Tabs
         defaultValue="tickets"
-        className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+        className="h-full overflow-auto bg-[#FBFBFB] pt-2"
       >
-        <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+        <TabsList className="ml-6 flex justify-start gap-6 rounded-none border-b bg-blancoBox bg-inherit p-0 py-6">
           <TabsTrigger
-            className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            className="mb-[-12px] rounded-none border-[#44444F] border-transparent pl-0 pr-0 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
             value="tickets"
           >
             TICKETS/REMISIONES
