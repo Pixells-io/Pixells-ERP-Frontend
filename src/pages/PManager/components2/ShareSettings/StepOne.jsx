@@ -15,25 +15,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function StepOne({
-  step,
-  setStep,
-  users,
-  positions,
-  areas,
-  creator,
-  anotherUsers,
-}) {
-  const [selectedValue, setSelectedValue] = useState("users");
+function StepOne({ step, setStep, users, positions, areas, creator }) {
+  const [selectedValue, setSelectedValue] = useState(1);
   const [optionsSelected, setOptionsSelected] = useState(users);
 
   useEffect(() => {
-    switch (selectedValue) {
-      case "users":
+    switch (Number(selectedValue)) {
+      case 1:
         return setOptionsSelected(users);
-      case "positions":
+      case 2:
         return setOptionsSelected(positions);
-      case "areas":
+      case 3:
         return setOptionsSelected(areas);
       default:
         return [];
@@ -41,17 +33,16 @@ function StepOne({
   }, [selectedValue]);
 
   const handleSelectChange = (value) => {
-    setSelectedValue(value);
+    setSelectedValue(Number(value));
   };
-
   return (
     <div className={`flex flex-col gap-y-4 ${step == 1 ? "block" : "hidden"}`}>
       {/* add */}
       <div className="flex h-full w-full flex-col px-4">
-        <div className="flex">
+        <Form className="flex">
           <Select
-            defaultValue="users"
-            name="actions"
+            defaultValue="1"
+            name="type_share"
             required
             onValueChange={handleSelectChange}
           >
@@ -60,29 +51,29 @@ function StepOne({
             </SelectTrigger>
             <SelectContent className="px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
               <SelectItem
-                value="users"
+                value="1"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
                 Usuarios
               </SelectItem>
               <SelectItem
-                value="positions"
+                value="2"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
                 Puestos
               </SelectItem>
               <SelectItem
-                value="areas"
+                value="3"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
                 Areas
               </SelectItem>
             </SelectContent>
           </Select>
-          <Form className="ml-2 flex w-full gap-x-4">
+          <div className="ml-2 flex w-full gap-x-4">
             <SelectShareSettings
               className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
-              name={selectedValue}
+              name="rel_id"
               options={optionsSelected}
               getOptionLabel={(option) => (
                 <div className="flex items-center gap-x-2">
@@ -100,16 +91,16 @@ function StepOne({
               isClearable={false}
               getOptionValue={(option) => option.id}
               filterOption={(option, value) => {
-                switch (selectedValue) {
-                  case "users":
+                switch (Number(selectedValue)) {
+                  case 1:
                     return option.data.name
                       .toLowerCase()
                       .includes(value.toLowerCase());
-                  case "positions":
+                  case 2:
                     return option.data.position_name
                       .toLowerCase()
                       .includes(value.toLowerCase());
-                  case "areas":
+                  case 3:
                     return option.data.nombre
                       .toLowerCase()
                       .includes(value.toLowerCase());
@@ -121,8 +112,8 @@ function StepOne({
             <Button className="h-[32px] w-[58px] rounded-xl bg-primarioBotones font-roboto text-[11px] font-medium text-white">
               Invitar
             </Button>
-          </Form>
-        </div>
+          </div>
+        </Form>
       </div>
       {/* steps */}
       <div className="flex flex-col gap-y-4">

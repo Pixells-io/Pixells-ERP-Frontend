@@ -30,7 +30,7 @@ function CheckboxAccordion({ position, permision, module, onPermissionChange }) 
       <Checkbox
         checked={permission}
         onCheckedChange={changeStatus}
-        className="data-[state=checked]:bg-primario data-[state=checked]:border-primario"
+        className="data-[state=checked]:bg-primario data-[state=checked]:border-primario border-primario"
       />
     </div>
   );
