@@ -129,7 +129,7 @@ const QuoteTableShow = ({ tableData }) => {
                 </TableCell> */}
                 <TableCell>
                   <div className="flex items-center justify-between gap-x-2">
-                    ${row?.total}
+                    {row?.total}
                   </div>
                 </TableCell>
               </TableRow>
