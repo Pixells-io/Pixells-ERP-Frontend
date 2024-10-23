@@ -10,6 +10,7 @@ import { add, chevronBack, chevronForward, closeCircle } from "ionicons/icons";
 
 import { saveNewCustomer } from "../utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import NavigationHeader from "@/components/navigation-header";
 
 const CreateCustomer = () => {
   const [customerValues, setCustomerValues] = useState({
@@ -21,7 +22,6 @@ const CreateCustomer = () => {
     name: "",
     cfdi: "",
   });
-
   const customerFields = [
     {
       name: "client_code",
@@ -75,49 +75,6 @@ const CreateCustomer = () => {
       ],
     },
   ];
-
-  const initialValues = {
-    clientNumber: "",
-    clientType: "",
-    socialNumber: "",
-    rfc: "",
-    clientGroup: "",
-    currency: "",
-    CFDI: "",
-  };
-
-  const contactForm = {
-    comentarios: "",
-    activo: false,
-    inactivo: false,
-    desde: "",
-    hasta: "",
-    calle: "",
-    colonia: "",
-    estado: "",
-    encargadoCompras: "",
-    numeroInterno: "",
-    codigoPostal: "",
-    pais: "",
-    numeroExterior: "",
-    ciudad: "",
-  };
-
-  const facturacion = {
-    regimenFiscal: "",
-    metodoPago: "",
-    formaPago: "",
-    usoCFDI: "",
-    email: "",
-  };
-
-  const condiciones = {
-    condiciones: "",
-    interesesPorRetraso: "",
-    diasDeCredito: "",
-    limiteDeCredito: "",
-  };
-
   const tabOptions = [
     {
       value: "principal",
@@ -158,51 +115,33 @@ const CreateCustomer = () => {
       update: null,
     },
   ];
-
+  function WrappedMain({ children }) {
+    return (
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+        {children}
+      </div>
+    );
+  }
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-
-          <div className="font-roboto text-sm text-grisText">
-            <div>Shopping - General</div>
-          </div>
-        </div>
+   <WrappedMain
+>      {/* navigation inside */}
+       <NavigationHeader/>
 
         {/* top content */}
 
-        <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            VENTAS
-          </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
+        <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">VENTAS</h2>
+        <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">&bull; 4 objective </div>
+          <div className="text-xs">&bull; 25 SFC </div>
+          <div className="text-xs">&bull; 43 Activities</div>
         </div>
+      </div>
 
         <div className="flex justify-between">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
-            Nuevo Cliente
-          </p>
+        <span className="font-poppins text-[20px] font-bold text-[#44444F]">
+          Nuevo Cliente
+        </span>
           {/* <div className="flex items-center gap-x-1 rounded-md bg-[#E8E8E8] px-1 py-0.5">
             <NavLink to={`/sales/customer/edit/${customer.id}`}>
               <p className="rounded-md bg-white px-1 py-0.5 font-roboto text-xs font-normal text-[#44444F]">
@@ -283,8 +222,7 @@ const CreateCustomer = () => {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
-    </div>
+        </WrappedMain>  
   );
 };
 
