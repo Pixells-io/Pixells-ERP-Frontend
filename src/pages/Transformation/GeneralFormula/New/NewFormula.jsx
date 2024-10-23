@@ -199,15 +199,15 @@ function NewFormula() {
     switch (table) {
       case "productos":
         setSectionName(table.toUpperCase());
-        setTotalProductsSection(totalProductsSection);
+        // setTotalProductsSection(totalProductsSection);
         break;
       case "proceso":
         setSectionName(table.toUpperCase());
-        setTotalProductsSection(totalProceso);
+        // setTotalProductsSection(totalProceso);
         break;
       case "personal":
         setSectionName(table.toUpperCase());
-        setTotalProductsSection(totalPersonal);
+        // setTotalProductsSection(totalPersonal);
         break;
 
       default:
@@ -294,7 +294,9 @@ function NewFormula() {
       subProducts,
       newFormula,
     );
-    setAllSelected(newArray);
+    // delete "selecciona" options
+    const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
+    setAllSelected([...newArrayDeleteSelecciona]);
   }, [products, energetics, packages, crate, subProducts, newFormula]);
 
   function handleSubmit() {}
@@ -794,7 +796,19 @@ function NewFormula() {
                   TOTAL “{sectionName}”
                 </div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  ${totalProductsSection}
+                  ${
+                    sectionName == "PRODUCTOS" ? (
+                      totalProductsSection
+                    ): (
+                    sectionName == "PROCESO" ? (
+                      totalProceso
+                    ) : (
+                    sectionName == "PERSONAL" && (
+                      totalPersonal
+                      )
+                    )
+                    )
+                  }
                 </div>
               </div>
               <IonIcon icon={chevronForward} className="size-4 text-black" />
