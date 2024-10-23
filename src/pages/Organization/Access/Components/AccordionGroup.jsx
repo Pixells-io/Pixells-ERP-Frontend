@@ -108,7 +108,7 @@ function ProjectTab({ tasks, module_id }) {
                       />
                     </div>
                   ))}
-                  <div className="col-span-4 text-end pr-12 text-xs text-gris2">
+                  <div className="col-span-4 text-end pr-12 text-[14px] text-[#44444F]">
                     {permissionCounts[position.id] ? (permissionCounts[position.id] / 4) * 100 : 0}%
                   </div>
                 </div>
