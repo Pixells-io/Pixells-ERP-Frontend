@@ -50,39 +50,49 @@ function MainCRM() {
     }
   });
 
+  function WrappedMain({ children }) {
+    return (
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 bg-[#FBFBFB] px-14 py-3">
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex w-full overflow-auto px-6">
+    <WrappedMain>
       <CreateProcessSaleModal
         modal={modalCreateProcess}
         setModal={setModalCreateProcess}
       />
-      <div className=" flex w-full flex-col space-y-4 rounded-lg px-8 py-4">
         <NavigationHeader />
 
-        <div className="flex justify-between gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            CRM HOMEPAGE
-          </h2>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                className="flex h-[30px] w-24 items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
-              >
-                <IonIcon icon={add} className="h-4 w-4" />
-                <span className="text-xs font-medium">Nuevo</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="rounded-2xl">
-              <DropdownMenuItem
-                className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
-                onClick={() => setModalCreateProcess(true)}
-              >
-                Proceso de Venta
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">CRM</h2>
+      </div>
+      <div className="flex justify-between gap-4">
+        <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+          CRM HOMEPAGE
+        </h2>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              type="button"
+              className="flex h-[30px] w-24 items-center justify-center gap-1 rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+            >
+              <IonIcon icon={add} className="h-4 w-4" />
+              <span className="text-xs font-medium">Nuevo</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="rounded-2xl">
+            <DropdownMenuItem
+              className="w-full px-3 hover:cursor-pointer focus:bg-hoverModal"
+              onClick={() => setModalCreateProcess(true)}
+            >
+              Proceso de Venta
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
         <Tabs
           defaultValue="leads"
@@ -116,8 +126,7 @@ function MainCRM() {
               />
             </TabsContent>
         </Tabs>
-      </div>
-    </div>
+    </WrappedMain>
   );
 }
 
