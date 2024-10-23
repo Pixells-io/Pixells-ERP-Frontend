@@ -294,7 +294,9 @@ function NewFormula() {
       subProducts,
       newFormula,
     );
-    setAllSelected(newArray);
+    // delete "selecciona" options
+    const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
+    setAllSelected([...newArrayDeleteSelecciona]);
   }, [products, energetics, packages, crate, subProducts, newFormula]);
 
   function handleSubmit() {}
