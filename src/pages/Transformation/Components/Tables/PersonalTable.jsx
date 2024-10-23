@@ -178,7 +178,7 @@ const PersonalTable = ({
         <div className="w-[200px]">
           <SelectRouterT
             name={"selectComponent-" + rowIndex}
-            options={components}
+            options={components.filter(c => c.label != "")}
             // value={row.position}
             // onChange={(value) => handleDataInRow(value, rowIndex)}
           />
