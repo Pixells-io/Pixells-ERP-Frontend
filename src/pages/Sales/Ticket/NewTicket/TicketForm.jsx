@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import StatusInformation from "@/components/StatusInformation/status-information";
 import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
-import { IonIcon } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import QuoteTable from "../Table/QuoteTable";
 import { getProductsByWharehouse, saveNewTicketSale } from "../utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import Total from "../TotalSection/TotalSection";
 import SelectsQuote from "../SelectGroup/SelectGroup";
+import NavigationHeader from "@/components/navigation-header";
+import { WrappedMain } from "@/layouts/Masters/WrappedMain/WrappedMain";
 
 const TicketForm = () => {
   const navigation = useNavigation();
@@ -41,45 +41,22 @@ const TicketForm = () => {
     }
   }, [wharehouseSelect]);
 
+ 
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              />
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Invoice - General</div>
-          </div>
+    <WrappedMain>
+     <NavigationHeader/>
+       {/* navigation inside */}
+       <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">VENTAS</h2>
+        <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">&bull; 4 objective </div>
+          <div className="text-xs">&bull; 25 SFC </div>
+          <div className="text-xs">&bull; 43 Activities</div>
         </div>
-        {/* top content */}
-        <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            VENTAS
-          </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
-        </div>
+      </div>
 
         <div className="flex items-center justify-between">
-          <p className="font-poppins text-xl font-bold text-[#44444F]">
+          <p className="font-poppins text-[20px] font-bold text-[#44444F]">
             Nueva Venta Ticket/Remisión
           </p>
         </div>
@@ -202,8 +179,7 @@ const TicketForm = () => {
             </StatusInformation>
           </div>
         </Form>
-      </div>
-    </div>
+     </WrappedMain>
   );
 };
 

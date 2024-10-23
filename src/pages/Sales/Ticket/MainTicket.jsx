@@ -14,6 +14,8 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createPusherClient } from "@/lib/pusher";
 import { getSalesTicket } from "./utils";
+import NavigationHeader from "@/components/navigation-header";
+import { WrappedMain } from "@/layouts/Masters/WrappedMain/WrappedMain";
 const MainSalesTicket = () => {
   const { data } = useLoaderData();
 
@@ -121,84 +123,59 @@ const MainSalesTicket = () => {
   ];
 
   return (
-    <div className="flex w-full">
-      <div className="ml-4 flex w-full flex-col space-y-4 rounded-lg bg-gris px-8 py-4">
-        {/* navigation inside */}
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 text-gris2">
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronBack}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-            <div className="h-12 w-12">
-              <IonIcon
-                icon={chevronForward}
-                size="large"
-                className="rounded-3xl bg-blancoBox p-1"
-              ></IonIcon>
-            </div>
-          </div>
-          <div className="font-roboto text-sm text-grisText">
-            <div>Invoice - General</div>
-          </div>
+    <WrappedMain>
+      <NavigationHeader/>
+      {/* navigation inside */}
+      <div className="flex items-center gap-16">
+        <h2 className="font-poppins font-bold text-[#44444F]">VENTAS</h2>
+        <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
+          <div className="text-xs">&bull; 4 objective </div>
+          <div className="text-xs">&bull; 25 SFC </div>
+          <div className="text-xs">&bull; 43 Activities</div>
         </div>
-        {/* top content */}
-
-        <div className="flex items-center gap-4">
-          <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-            VENTAS
-          </h2>
-          <div className="ml-16 flex items-end space-x-4 font-roboto text-[#8F8F8F]">
-            <div className="text-sm">&bull; 4 objective </div>
-            <div className="text-sm">&bull; 25 SFC </div>
-            <div className="text-sm">&bull; 43 Activities</div>
-          </div>
-        </div>
-
-        <div className="flex justify-between">
-          <p className="font-poppins text-xl font-bold text-grisHeading">
-            Ticket/Remisíon de ventas
-          </p>
-          <div className="flex justify-end gap-6">
-            <Link to="/sales/tickets/new">
-              <Button
-                type={"button"}
-                className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
-              >
-                <IonIcon icon={add} className="h-4 w-4" />
-                <span className="text-xs font-medium">Nuevo</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-        {/*content */}
-        <Tabs
-          defaultValue="tickets"
-          className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
-        >
-          <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
-            <TabsTrigger
-              className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
-              value="tickets"
-            >
-              TICKETS/REMISIONES
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
-            <DataTable
-              data={saleTicketsList}
-              columns={columns}
-              searchFilter="id"
-              searchNameFilter="Buscar por folio"
-              isCheckAll={true}
-            />
-          </TabsContent>
-        </Tabs>
       </div>
-    </div>
+     
+
+      <div className="flex justify-between">
+        <span className="font-poppins text-[20px] font-bold text-[#44444F]">
+          Ticket/Remisíon de ventas
+        </span>
+        <div className="flex justify-end gap-6">
+          <Link to="/sales/tickets/new">
+            <Button
+              type={"button"}
+              className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
+            >
+              <IonIcon icon={add} className="h-4 w-4" />
+              <span className="text-xs font-medium">Nuevo</span>
+            </Button>
+          </Link>
+        </div>
+      </div>
+      {/*content */}
+      <Tabs
+        defaultValue="tickets"
+        className="h-full overflow-auto rounded-lg bg-blancoBg pt-2"
+      >
+        <TabsList className="mx-4 flex justify-start rounded-none border-b bg-inherit py-6">
+          <TabsTrigger
+            className="rounded-none border-b-2 border-slate-300 px-4 py-3 font-roboto text-sm font-normal text-grisSubText data-[state=active]:border-b-2 data-[state=active]:border-b-[#44444F] data-[state=active]:bg-inherit data-[state=active]:font-medium data-[state=active]:text-[#44444F] data-[state=active]:shadow-none"
+            value="tickets"
+          >
+            TICKETS/REMISIONES
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="tickets" className="mt-[-70px] w-full pt-2">
+          <DataTable
+            data={saleTicketsList}
+            columns={columns}
+            searchFilter="id"
+            searchNameFilter="Buscar por folio"
+            isCheckAll={true}
+          />
+        </TabsContent>
+      </Tabs>
+    </WrappedMain>
   );
 };
 
