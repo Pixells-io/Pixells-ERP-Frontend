@@ -27,8 +27,8 @@ function SelectShareSettings({
     <components.Control {...props} className="flex flex-row items-center">
       {children}
       <div className="mr-1 flex h-full items-center">
-        <SelectInter defaultValue="view" name="actions" required >
-          <SelectTrigger className="h-[26px] w-full rounded-[6px] border border-[#D7D7D7] bg-inherit font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones p-0 min-w-[86px] px-1">
+        <SelectInter defaultValue="view" name="actions" required>
+          <SelectTrigger className="h-[26px] w-full min-w-[86px] rounded-[6px] border border-[#D7D7D7] bg-inherit p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
             <SelectValue placeholder="" />
           </SelectTrigger>
           <SelectContent>
@@ -60,9 +60,9 @@ function SelectShareSettings({
       isDisabled={disabled}
       defaultValue={defaultValue}
       isMulti={isMulti}
-      menuPortalTarget={document.body}
+      // menuPortalTarget={document.body}
       styles={{
-        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        // menuPortal: (base) => ({ ...base, zIndex: 9999 }),
         control: (baseStyles, state) => ({
           ...baseStyles,
           background: "white",
