@@ -34,7 +34,7 @@ const HEADERS = [
 
 function MainPM() {
   const params = useParams();
-  const { objective, users } = useLoaderData();
+  const { objective, users, positions, areas } = useLoaderData();
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
@@ -71,7 +71,12 @@ function MainPM() {
         </h2>
 
         <div className="flex items-center gap-4">
-          <ShareSettins />
+          <ShareSettins
+            id={objectiveInfo.id}
+            users={users.data}
+            positions={positions.data}
+            areas={areas.data}
+          />
           <NewTaskModal users={users} objective_id={objectiveInfo?.id} />
         </div>
       </div>

@@ -281,13 +281,47 @@ export async function getUsers() {
   }
 }
 
+export async function getAreas() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-areas`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
+export async function getPosition() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}organization/get-puestos`,
+      {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      },
+    );
+    return response.json();
+  } catch (error) {
+    return new Response("Something went wrong...", { status: 500 });
+  }
+}
+
 export async function multiloaderMainPM({ params }) {
-  const [objective, users] = await Promise.all([
+  const [objective, users, positions, areas] = await Promise.all([
     getObjectiveById({ params }),
     getUsers(),
+    getPosition(),
+    getAreas(),
   ]);
 
-  return json({ objective, users });
+  return json({ objective, users, positions, areas });
 }
 
 export async function getProyectsByWorkspace({ params }) {

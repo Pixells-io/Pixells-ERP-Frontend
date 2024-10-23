@@ -15,14 +15,46 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function StepOne({step, setStep, users, creator, anotherUsers}) {
+function StepOne({
+  step,
+  setStep,
+  users,
+  positions,
+  areas,
+  creator,
+  anotherUsers,
+}) {
+  const [selectedValue, setSelectedValue] = useState("users");
+  const [optionsSelected, setOptionsSelected] = useState(users);
+
+  useEffect(() => {
+    switch (selectedValue) {
+      case "users":
+        return setOptionsSelected(users);
+      case "positions":
+        return setOptionsSelected(positions);
+      case "areas":
+        return setOptionsSelected(areas);
+      default:
+        return [];
+    }
+  }, [selectedValue]);
+
+  const handleSelectChange = (value) => {
+    setSelectedValue(value);
+  };
 
   return (
     <div className={`flex flex-col gap-y-4 ${step == 1 ? "block" : "hidden"}`}>
       {/* add */}
       <div className="flex h-full w-full flex-col px-4">
         <div className="flex">
-          <Select defaultValue="users" name="actions" required>
+          <Select
+            defaultValue="users"
+            name="actions"
+            required
+            onValueChange={handleSelectChange}
+          >
             <SelectTrigger className="h-[32px] max-w-[78px] rounded-[10px] border border-[#5B89FF] bg-inherit p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
               <SelectValue />
             </SelectTrigger>
@@ -31,34 +63,36 @@ function StepOne({step, setStep, users, creator, anotherUsers}) {
                 value="users"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
-                Usuario
+                Usuarios
               </SelectItem>
               <SelectItem
-                value="puesto"
+                value="positions"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
-                Puesto
+                Puestos
               </SelectItem>
               <SelectItem
-                value="area"
+                value="areas"
                 className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
               >
-                Area
+                Areas
               </SelectItem>
             </SelectContent>
           </Select>
           <Form className="ml-2 flex w-full gap-x-4">
             <SelectShareSettings
               className="w-full rounded-3xl border-0 bg-[#FBFBFB] font-roboto text-xs font-light text-grisText shadow-[0px_0px_8px_1px_rgba(0,0,0,0.2)] !ring-0 !ring-offset-0 focus:border-primarioBotones"
-              name={"users"}
-              options={users}
+              name={selectedValue}
+              options={optionsSelected}
               getOptionLabel={(option) => (
                 <div className="flex items-center gap-x-2">
                   <Avatar className="size-6">
-                    <AvatarImage src={option?.img} />
+                    <AvatarImage src={option?.user_image} />
                   </Avatar>
                   <p className="font-roboto text-xs font-normal text-grisHeading">
-                    {option?.name}
+                    {option?.name && option?.name}
+                    {option?.position_name && option?.position_name}
+                    {option?.nombre && option?.nombre}
                   </p>
                 </div>
               )}
@@ -66,9 +100,22 @@ function StepOne({step, setStep, users, creator, anotherUsers}) {
               isClearable={false}
               getOptionValue={(option) => option.id}
               filterOption={(option, value) => {
-                return option.data.name
-                  .toLowerCase()
-                  .includes(value.toLowerCase());
+                switch (selectedValue) {
+                  case "users":
+                    return option.data.name
+                      .toLowerCase()
+                      .includes(value.toLowerCase());
+                  case "positions":
+                    return option.data.position_name
+                      .toLowerCase()
+                      .includes(value.toLowerCase());
+                  case "areas":
+                    return option.data.nombre
+                      .toLowerCase()
+                      .includes(value.toLowerCase());
+                  default:
+                    return;
+                }
               }}
             />
             <Button className="h-[32px] w-[58px] rounded-xl bg-primarioBotones font-roboto text-[11px] font-medium text-white">
@@ -123,7 +170,7 @@ function StepOne({step, setStep, users, creator, anotherUsers}) {
           </p>
         </div>
         {/* another users */}
-        {anotherUsers.map((u, index) => (
+        {/* {anotherUsers.map((u, index) => (
           <div className="flex justify-between" key={index}>
             <div className="flex items-center gap-x-2">
               <Avatar className="size-6">
@@ -167,7 +214,7 @@ function StepOne({step, setStep, users, creator, anotherUsers}) {
               </Select>
             </Form>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
