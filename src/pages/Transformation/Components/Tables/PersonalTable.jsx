@@ -18,6 +18,7 @@ import {
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Input } from "@/components/ui/input";
+import SelectRouterT from "@/components/SelectTransform/SelectRouterT";
 
 const PersonalTable = ({
   tableData,
@@ -175,7 +176,7 @@ const PersonalTable = ({
       header: "Proceso de Operación ",
       cell: ({ row, rowIndex }) => (
         <div className="w-[200px]">
-          <SelectRouter
+          <SelectRouterT
             name={"selectComponent-" + rowIndex}
             options={components}
             // value={row.position}
@@ -189,7 +190,7 @@ const PersonalTable = ({
       header: "Posición",
       cell: ({ row, rowIndex }) => (
         <div className="w-[200px]">
-          <SelectRouter
+          <SelectRouterT
             name={"selectComponent-" + rowIndex}
             options={positionsArray}
             // value={row.position}

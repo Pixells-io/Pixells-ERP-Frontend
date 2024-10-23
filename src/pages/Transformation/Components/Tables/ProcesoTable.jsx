@@ -18,6 +18,7 @@ import {
 
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Input } from "@/components/ui/input";
+import SelectRouterT from "@/components/SelectTransform/SelectRouterT";
 
 const ProcesoTable = ({
   tableData,
@@ -172,7 +173,7 @@ const ProcesoTable = ({
       header: "Producto",
       cell: ({ row, rowIndex }) => (
         <div className="w-60">
-          <SelectRouter
+          <SelectRouterT
             name={"selectComponent-" + rowIndex}
             value={tableData[rowIndex].product}
             options={components}
