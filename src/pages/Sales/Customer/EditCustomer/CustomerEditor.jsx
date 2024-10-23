@@ -48,7 +48,7 @@ const EditCustomer = () => {
             Cliente: {customer?.name}
           </p>
 
-          <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-blancoBox px-1">
+          <div className="ml-4 flex h-[30px] w-fit items-center rounded-lg bg-[#FBFBFB] px-1">
             <NavLink
               to={`/sales/customer/edit/${customer.id}`}
               end

@@ -7,7 +7,7 @@ import BalanceTable from "./Tables/BalancesTable";
 import { Button } from "@/components/ui/button";
 const Summary = () => {
   return (
-    <div className="flex h-full w-full flex-col rounded-xl bg-white overflow-auto">
+    <div className="flex h-full w-full flex-col rounded-xl bg-transparent overflow-auto">
       <div className="flex items-center gap-x-10 border-b border-[#E8E8E8] px-6 py-3">
         <span className="font-poppins text-lg font-medium text-[#44444F]">
           RESUMEN DE ACTIVIDADES

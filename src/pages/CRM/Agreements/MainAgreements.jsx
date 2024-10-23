@@ -7,6 +7,7 @@ import { Link, redirect, useLoaderData } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AgreementsConsoleContracts from "./components/AgreementsConsoleContracts";
 import NavigationHeader from "@/components/navigation-header";
+import { WrappedMain } from "@/layouts/Masters/WrappedMain/WrappedMain";
 
 function MainAgreements() {
   const { services, customers, contracts, permissions } = useLoaderData();
@@ -35,15 +36,14 @@ function MainAgreements() {
   });
 
   return (
-    <div className="flex w-full overflow-auto">
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
+    <WrappedMain>
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-[20px] font-bold text-[#44444F]">
               CONTRATOS
             </h2>
           </div>
@@ -95,8 +95,7 @@ function MainAgreements() {
             <AgreementsConsoleContracts info={contracts_data} />
           </TabsContent>
         </Tabs>
-      </div>
-    </div>
+        </WrappedMain>
   );
 }
 

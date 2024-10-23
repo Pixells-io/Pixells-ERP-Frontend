@@ -10,6 +10,7 @@ import { Form, redirect, useLoaderData } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { saveNewAgreementTemplate } from "./utils";
 import NavigationHeader from "@/components/navigation-header";
+import { WrappedMain } from "@/layouts/Masters/WrappedMain/WrappedMain";
 
 function NewAgreements() {
   let [value, setValue] = useState("");
@@ -83,21 +84,20 @@ function NewAgreements() {
   }
 
   return (
-    <div className="flex w-full overflow-auto">
-      <Form
+   <WrappedMain>
+        <Form
         id="new-agreement-template"
         action="/sales/agreements/create"
         method="post"
         className="mr-3 w-full overflow-hidden"
       >
-        <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
           {/* navigation inside */}
           <NavigationHeader />
 
           {/* top content */}
           <div className="flex items-center gap-4">
             <div>
-              <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+              <h2 className="font-poppins text-[20px] font-bold text-[#44444F]">
                 CREAR PLANTILLA
               </h2>
             </div>
@@ -196,9 +196,8 @@ function NewAgreements() {
               </div>
             </div>
           </div>
-        </div>
-      </Form>
-    </div>
+          </Form>
+        </WrappedMain>
   );
 }
 

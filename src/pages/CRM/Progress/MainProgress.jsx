@@ -40,6 +40,7 @@ import {
 import ServiceSelectAdd from "./components/Forms/ServiceSelectAdd";
 import RemoveSelectedService from "./components/RemoveSelectedService";
 import NavigationHeader from "@/components/navigation-header";
+import { WrappedMain } from "@/layouts/Masters/WrappedMain/WrappedMain";
 
 const FILTERS = [
   { name: "Date" },
@@ -63,7 +64,7 @@ function Main() {
   }, [navigation.state]);
 
   return (
-    <div className="flex w-full overflow-auto">
+    <WrappedMain>
       <Dialog open={modalRemove} onOpenChange={setModalRemove}>
         <DialogContent className="overflow-auto border-none bg-black p-0 sm:max-w-[425px]">
           <DialogHeader className="pt-2">
@@ -102,15 +103,13 @@ function Main() {
           </Form>
         </DialogContent>
       </Dialog>
-
-      <div className="ml-4 flex w-full flex-col space-y-4 overflow-hidden rounded-lg bg-gris px-8 py-4">
         {/* navigation inside */}
         <NavigationHeader />
 
         {/* top content */}
         <div className="flex items-center gap-4">
           <div>
-            <h2 className="font-poppins text-xl font-bold text-[#44444F]">
+            <h2 className="font-poppins text-[20px] font-bold text-[#44444F]">
               PROCESS DASHBOARD
             </h2>
           </div>
@@ -186,8 +185,7 @@ function Main() {
         </div>
 
         <Outlet />
-      </div>
-    </div>
+      </WrappedMain>
   );
 }
 
