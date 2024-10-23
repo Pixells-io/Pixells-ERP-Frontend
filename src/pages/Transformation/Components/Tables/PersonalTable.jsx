@@ -82,17 +82,42 @@ const PersonalTable = ({
   const handleInputChange = (rowIndex, value) => {
     // console.log(value.name);
     // console.log(value.value);
-    setTableData((prevData) =>
-      prevData.map((item, index) =>
-        index === rowIndex
-          ? {
-              ...item,
-              [value.name]: value.value,
-              subTotal: item.cost_hour * item.hours,
-            }
-          : item,
-      ),
-    );
+    // setTableData((prevData) =>
+    //   prevData.map((item, index) =>
+    //     index === rowIndex
+    //       ? {
+    //           ...item,
+    //           [value.name]: value.value,
+    //           subTotal: item.cost_hour * item.hours,
+    //         }
+    //       : item,
+    //   ),
+    // );
+    if(value.name == "cost_hour") {
+      setTableData((prevData) =>
+       prevData.map((item, index) =>
+         index === rowIndex
+           ? {
+               ...item,
+               [value.name]: value.value,
+               subTotal: value.value * item.hours,
+             }
+           : item,
+       ),
+     );
+    } else if (value.name == "hours"){
+      setTableData((prevData) =>
+        prevData.map((item, index) =>
+          index === rowIndex
+            ? {
+                ...item,
+                [value.name]: value.value,
+                subTotal: item.cost_hour * value.value,
+              }
+            : item,
+        ),
+      );
+    }
   };
 
   const handleDataInRow = (data, rowIndex) => {
