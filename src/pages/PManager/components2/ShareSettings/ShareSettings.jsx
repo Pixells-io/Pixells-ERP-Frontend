@@ -14,33 +14,34 @@ import StepOne from "./StepOne";
 import { IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 
-function ShareSettins({}) {
+function ShareSettins({ id, users, positions, areas }) {
   const navigation = useNavigation();
+  // const [users, setUsers] = useState(users);
   const [modal, setModal] = useState(false);
   const [step, setStep] = useState(1);
 
-  const users = [
-    {
-      id: 1,
-      name: "Antonio Castro",
-      img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    {
-      id: 2,
-      name: "Agustin Hdez",
-      img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    {
-      id: 3,
-      name: "Diego Guzmán",
-      img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    {
-      id: 4,
-      name: "Luis",
-      img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  ];
+  // const users = [
+  //   {
+  //     id: 1,
+  //     name: "Antonio Castro",
+  //     img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Agustin Hdez",
+  //     img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Diego Guzmán",
+  //     img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Luis",
+  //     img: "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  //   },
+  // ];
 
   const creator = {
     id: 1,
@@ -74,7 +75,7 @@ function ShareSettins({}) {
 
   return (
     <Dialog
-      open={modal}
+      open={true}
       onOpenChange={(e) => {
         setModal(e);
         setStep(1);
@@ -100,6 +101,8 @@ function ShareSettins({}) {
           step={step}
           setStep={setStep}
           users={users}
+          positions={positions}
+          areas={areas}
           creator={creator}
           anotherUsers={anotherUsers}
         />
