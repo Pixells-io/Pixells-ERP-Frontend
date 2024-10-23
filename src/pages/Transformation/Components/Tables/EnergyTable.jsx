@@ -16,8 +16,8 @@ import {
   closeCircle,
 } from "ionicons/icons";
 
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 import { Input } from "@/components/ui/input";
+import SelectRouterT from "@/components/SelectTransform/SelectRouterT";
 
 const EnergyTable = ({
   tableData,
@@ -151,7 +151,7 @@ const EnergyTable = ({
       accessorKey: "component",
       header: "Componente",
       cell: ({ row, rowIndex }) => (
-        <SelectRouter
+        <SelectRouterT
           name={"selectComponent-" + rowIndex}
           value={tableData[rowIndex]}
           options={components}
