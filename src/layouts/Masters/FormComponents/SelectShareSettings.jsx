@@ -27,13 +27,13 @@ function SelectShareSettings({
     <components.Control {...props} className="flex flex-row items-center">
       {children}
       <div className="mr-1 flex h-full items-center">
-        <SelectInter defaultValue="view" name="actions" required>
+        <SelectInter defaultValue="1" name="type_access" required>
           <SelectTrigger className="h-[26px] w-full min-w-[86px] rounded-[6px] border border-[#D7D7D7] bg-inherit p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
             <SelectValue placeholder="" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="view">Can View</SelectItem>
-            <SelectItem value="edit">Can Edit</SelectItem>
+            <SelectItem value="1">Can View</SelectItem>
+            <SelectItem value="2">Can Edit</SelectItem>
           </SelectContent>
         </SelectInter>
       </div>
