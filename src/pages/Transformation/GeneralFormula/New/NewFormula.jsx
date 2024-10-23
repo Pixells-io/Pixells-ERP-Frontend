@@ -238,8 +238,16 @@ function NewFormula() {
     const uniqueFromCombined = combinedArrays.filter(
       (item) => !productNeed.some((masterItem) => masterItem.id === item.id),
     );
-    const result = [...uniqueFromMaster, ...uniqueFromCombined];
-    setProductsSelected(result);
+    const result = [...uniqueFromMaster, ...uniqueFromCombined].filter(r => r.label != "Selecciona");
+    setProductsSelected([...result, {
+      idAux: 1,
+      amount: 0,
+      unit: "",
+      price: 0,
+      subTotal: 0,
+      label: "Selecciona",
+      value: "selecciona",
+    }]);
   }, [products, energetics, packages, crate]);
 
   useEffect(() => {
@@ -296,10 +304,35 @@ function NewFormula() {
     );
     // delete "selecciona" options
     const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
-    setAllSelected([...newArrayDeleteSelecciona]);
-  }, [products, energetics, packages, crate, subProducts, newFormula]);
+    const getVariablesSelect = variables.filter(v => v.checked);
+    let result = [];
+
+    if(getVariablesSelect.length > 0) {
+      newArrayDeleteSelecciona.forEach(product => {
+        getVariablesSelect.forEach(v => {
+          result.push({
+            ...product,
+            label:product.label +  " / " + (v.name.map(n=> n.name).join(' - ')),
+            variable: v
+          });
+        });
+      });
+    } else {
+      result = [...newArrayDeleteSelecciona];
+    }
+
+    setAllSelected([...result]);
+  }, [products, energetics, packages, crate, subProducts, newFormula, variables]);
 
   function handleSubmit() {}
+
+  const changeValueCheckedVariable = (index) => {
+    setVariables((prevData) =>
+      prevData.map((row, i) => 
+        i === index ? { ...row, checked: !row.checked } : row
+      )
+    );
+  };
 
   return (
     <div className="flex h-full w-full">
@@ -395,6 +428,7 @@ function NewFormula() {
                         name="unidad"
                         placeholder="Unidad"
                         value={newFormula.unit}
+                        onChange={() => {}}
                       />
                     </div>
                     <div className="flex w-20">
@@ -402,6 +436,8 @@ function NewFormula() {
                         type="number"
                         name="merma"
                         placeholder="Merma"
+                        onChange={() => {}}
+
                       />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -452,11 +488,14 @@ function NewFormula() {
                               key={variable.id}
                             >
                               <div className="flex items-center gap-4">
-                                <input type="checkbox" name="" id="" />
-                                <span>V{i + 1}</span>
+                              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                                checked={variable.checked}
+                                onCheckedChange={(e) => changeValueCheckedVariable(i)}
+                              />
+                              <span>V{i + 1}</span>
                                 <div className="flex items-center gap-2">
                                   {variable.name.map(({ name }, i) => (
-                                    <div className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText">
+                                    <div className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText" key={i}>
                                       {name}
                                     </div>
                                   ))}
