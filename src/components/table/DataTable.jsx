@@ -47,18 +47,19 @@ function DataTable({
   searchNameFilter,
   isCheckAll,
 }) {
-  //data: datos que mostrara en la tabla
-  //columns: las columnas headers tabla
-  //searchFilter: el campo columna por la cual filtrara el input
-  //searchNameFilter: muestra en el placeHolder el name con la cual filtrara
-  //isCheckAll: true muestra el check donde selecciona todos
-
   const [columnFilters, setColumnFilters] = useState([]);
   const [filter, setFilter] = useState("");
   const [filterKey, setFilterKey] = useState("");
+  const [datatable, setDatatable] = useState(data);
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  // Reset datatable when data prop changes
+  useEffect(() => {
+    setDatatable(data);
+  }, [data]);
 
   const table = useReactTable({
-    data: data,
+    data: datatable,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -70,6 +71,25 @@ function DataTable({
       columnFilters,
     },
   });
+
+  function filterData(searchValue) {
+    if (!searchValue) {
+      setDatatable(data);
+      return;
+    }
+
+    const searchLower = searchValue.toLowerCase();
+    const filtered = data.filter((row) => {
+      // Buscar en todas las columnas visibles
+      return table.getAllColumns().some((column) => {
+        const value = column.accessorFn?.(row);
+        if (value == null) return false;
+        return String(value).toLowerCase().includes(searchLower);
+      });
+    });
+
+    setDatatable(filtered);
+  }
 
   return (
     <div className="rounded-xl px-4">
@@ -168,12 +188,13 @@ function DataTable({
           </Label>
           <Input
             id="search"
+            value={globalFilter}
             className="h-full w-full border-0 bg-transparent text-sm font-normal text-[#8F8F8F] !ring-0 !ring-offset-0 placeholder:text-sm placeholder:text-[#8F8F8F]"
             placeholder={searchNameFilter}
-            value={table.getColumn(searchFilter)?.getFilterValue() ?? ""}
-            onChange={(event) =>
-              table.getColumn(searchFilter)?.setFilterValue(event.target.value)
-            }
+            onChange={(e) => {
+              setGlobalFilter(e.target.value);
+              filterData(e.target.value);
+            }}
           />
         </div>
       </div>
