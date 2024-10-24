@@ -88,7 +88,7 @@ const SubProductsTable = ({
                 item.price * value +
                 (item.price * item.amountTax * value) / 100
               ).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ((item.price * value) * (item.merma / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? ( value * (item.merma / 100)) : item.totalNeto
             }
           : item,
       ),
@@ -102,7 +102,7 @@ const SubProductsTable = ({
           ? {
               ...item,
               merma: value,
-              totalNeto: item.isMerma == "1" ? ((item.price * item.amount) * (value / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? ( item.amount * (value / 100)) : item.totalNeto
 
             }
           : item,
@@ -117,7 +117,7 @@ const SubProductsTable = ({
           ? {
               ...item,
               isMerma: value == "1" ? "1" : "0",
-              totalNeto: value == "1" ? ((item.price * item.amount) * (item.merma / 100)) : 0
+              totalNeto: value == "1" ? ( item.amount * (item.merma / 100)) : 0
             }
           : item,
       ),
@@ -136,7 +136,7 @@ const SubProductsTable = ({
                 value * item.amount +
                 (value * item.amountTax * item.amount) / 100
               ).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ((value * item.amount) * (item.merma / 100)) : item.totalNeto,
+              totalNeto: item.isMerma == "1" ? ( item.amount * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -160,7 +160,7 @@ const SubProductsTable = ({
                 value: data.id,
                 tax: (data.price * 16) / 100,
                 subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
-                totalNeto: item.isMerma == "1" ? Number(data.price) * ( item.merma / 100) : item.totalNeto,
+                totalNeto: item.isMerma == "1" ? 1 * ( item.merma / 100) : item.totalNeto,
               }
             : item,
         ),
@@ -341,7 +341,7 @@ const SubProductsTable = ({
       header: "Total Neto",
       cell: ({ row, rowIndex }) => (
         <div className="flex items-center gap-x-2 p-1">
-          {row.totalNeto}
+          {row.totalNeto} {row.unit}
         </div>
       ),
     },

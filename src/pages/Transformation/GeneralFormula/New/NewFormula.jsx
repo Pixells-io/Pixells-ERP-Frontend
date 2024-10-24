@@ -365,7 +365,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -379,7 +378,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -393,7 +391,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -407,7 +404,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -421,7 +417,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -452,7 +447,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -466,7 +460,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -480,7 +473,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -494,7 +486,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -508,7 +499,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -524,7 +514,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -537,7 +526,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -550,7 +538,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -563,7 +550,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -576,7 +562,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
