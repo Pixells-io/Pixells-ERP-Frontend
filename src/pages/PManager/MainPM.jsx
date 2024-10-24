@@ -5,6 +5,7 @@ import {
   useLoaderData,
   useNavigation,
   useParams,
+  useSubmit,
 } from "react-router-dom";
 
 import {
@@ -25,6 +26,9 @@ import { IonIcon } from "@ionic/react";
 import { chevronDown, ellipsisVertical } from "ionicons/icons";
 
 import {
+  deleteProject,
+  destroyTask,
+  editProject,
   editSharedObject,
   editSharedTask,
   saveNewTaskPM,
@@ -47,8 +51,8 @@ const HEADERS = [
 function MainPM() {
   const params = useParams();
   const navigation = useNavigation();
+  const submit = useSubmit();
   const { objective, users, positions, areas } = useLoaderData();
-  console.log(objective);
   const [objectiveInfo, setObjectiveInfo] = useState(objective?.data);
   const [task, setTasks] = useState(
     objectiveInfo?.project?.concat(objectiveInfo?.tasks),
@@ -206,7 +210,13 @@ function MainPM() {
                       : "text-xs text-[#B7021F]"
                 }
               >
-                {opt.priority}
+                {opt.priority == "1"
+                  ? "Baja"
+                  : opt.priority == "2"
+                    ? "Media"
+                    : opt.priority == "3"
+                      ? "Urgente"
+                      : ""}
               </div>
             </div>
             <div className="col-span-1 flex justify-center">
@@ -278,8 +288,48 @@ function MainPM() {
                   >
                     Compartir
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Editar</DropdownMenuItem>
-                  <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                  {opt.type == "Tarea" && (
+                    <>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          submit(
+                            {
+                              action: "delete-task",
+                              task_id: opt.id,
+                            },
+                            {
+                              method: "post",
+                              action: `/project-manager2/${params.id}`,
+                            },
+                          )
+                        }
+                      >
+                        Eliminar
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  {opt.type == "Proyecto" && (
+                    <>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          submit(
+                            {
+                              action: "delete-project",
+                              project_id: opt.id,
+                            },
+                            {
+                              method: "post",
+                              action: `/project-manager2/${params.id}`,
+                            },
+                          )
+                        }
+                      >
+                        Eliminar
+                      </DropdownMenuItem>
+                    </>
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -299,6 +349,18 @@ export async function Action({ params, request }) {
   switch (action) {
     case "create-task":
       await saveNewTaskPM(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "edit-project":
+      await editProject(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "delete-project":
+      await deleteProject(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "delete-task":
+      await destroyTask(data);
       return redirect(`/project-manager2/${params.id}`);
 
     case "share-objective":
