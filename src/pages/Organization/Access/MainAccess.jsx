@@ -104,45 +104,41 @@ function MainAccess() {
       </div>
     );
   }
+
   return (
     <WrappedMain>
-      {/* navigation inside */}
       <NavigationHeader />
 
-      {/* top content */}
       <div className="flex items-center gap-16">
         <h2 className="font-poppins font-bold text-[#44444F]">ORGANIZACIÓN</h2>
-        {/* <div className="flex items-center gap-3 font-roboto text-[#8F8F8F]">
-          <div className="text-xs">{counter.data["users"]} usuarios</div>
-          <div className="text-2xl">&bull;</div>
-          <div className="text-xs">{counter.data["positions"]} posiciones</div>
-          <div className="text-2xl">&bull;</div>
-          <div className="text-xs">{counter.data["areas"]} areas</div>
-        </div> */}
       </div>
+      
       <div>
         <span className="font-poppins text-[20px] font-bold text-[#44444F]">
           Control de Acceso
         </span>
       </div>
-      {/*component accion*/}
+
       <Tabs
         defaultValue="Organization"
-        className="flex  flex-col overflow-auto rounded-lg"
+        className="flex flex-col rounded-lg"
       >
-        <div className="flex justify-between">
-        <TabsList className="pl-4 flex w-fit overflow-auto space-x-2 rounded-none bg-blancoBg px-0">
-            {modulos.map((area, i) => (
-              <TabsTrigger
-                key={"tt" + i}
-                className="h-[30px] rounded-xl px-2 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
-                value={area.name}
-              >
-                {area.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <div className="flex gap-x-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+          <div className="relative w-full max-w-[950px] overflow-x-auto">
+            <TabsList className="inline-flex w-full min-w-max space-x-2 rounded-none bg-transparent px-0">
+              {modulos.map((area, i) => (
+                <TabsTrigger
+                  key={"tt" + i}
+                  className="h-[30px] shrink-0 rounded-xl px-4 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
+                  value={area.name}
+                >
+                  {area.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+          
+          <div className="flex items-center gap-x-4 shrink-0">
             <div className="flex items-center justify-center">
               <IonIcon
                 icon={searchOutline}
@@ -151,23 +147,28 @@ function MainAccess() {
             </div>
 
             <Button
-              type={"button"}
+              type="button"
               className="flex h-[30px] items-center justify-center rounded-xl bg-[#44444F] px-3 hover:bg-[#44444F]"
             >
               <span className="text-xs font-medium">Restablecer</span>
             </Button>
           </div>
         </div>
-        {modulos.map((area, i) => (
-          <TabsContent
-            key={"tc" + i}
-            value={area.name}
-          >
-            <ProjectTab tasks={areas.data} module_id={area.id} />
-          </TabsContent>
-        ))}
+
+        <div className="mt-4">
+          {modulos.map((area, i) => (
+            <TabsContent
+              key={"tc" + i}
+              value={area.name}
+              className="mt-0"
+            >
+              <ProjectTab tasks={areas.data} module_id={area.id} />
+            </TabsContent>
+          ))}
+        </div>
       </Tabs>
     </WrappedMain>
   );
 }
+
 export default MainAccess;
