@@ -34,6 +34,18 @@ function NewFormula() {
   const data = catalogTransformation.data;
   const submit = useSubmit();
 
+
+  const [optionGlobalMerma, setOptionGlobalMerma] = useState({ 
+      merma: 0,
+      percentegeCheck: "1",
+      unitCheck: "0",
+    });
+    const [optionGInditOrGlobalMerma, setOptionGIndiOrGlobalMerma] = useState({
+      globalCheck: "0",
+      individualCheck: "1",
+
+    });
+
   const [newFormula, setNewFormula] = useState({
     product_id: "",
     quantity: "",
@@ -42,7 +54,6 @@ function NewFormula() {
     type: "",
     label: "Selecciona un Articulo",
     value: "default",
-    merma: 0,
     // vars: [
     //   {
     //     product_variable_id: 1,
@@ -330,6 +341,36 @@ function NewFormula() {
     );
   };
 
+  useEffect(() => {
+    if(optionGlobalMerma.merma == "" || optionGlobalMerma.merma == null) return;
+    
+    const newProductsMerma = products.map(p =>  
+      p.isMerma == "1"  
+      ? { ...p, merma: optionGlobalMerma.merma } 
+      : { ...p }
+    );
+
+    setProducts([...newProductsMerma]);
+  }, [optionGlobalMerma]);
+
+  useEffect(() => { 
+    if(optionGInditOrGlobalMerma.individualCheck == "1"){
+      const newProductsMerma = products.map(p =>  
+        p.isMerma == "1"  
+        ? { ...p, merma: optionGlobalMerma.merma } 
+        : { ...p }
+      );
+      setProducts([...newProductsMerma]);
+    } else if (optionGInditOrGlobalMerma.globalCheck == "1"){
+      const newProductsMerma = products.map(p =>  
+        {return { ...p, merma: optionGlobalMerma.merma, isMerma: "1", }} 
+      );
+      setProducts([...newProductsMerma]);
+    }
+    
+  }, [optionGInditOrGlobalMerma]);
+
+
   return (
     <div className="flex h-full w-full">
       <div className="ml-4 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-gris px-8 py-4">
@@ -399,6 +440,10 @@ function NewFormula() {
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
                   />
 
                   {/* variable section */}
@@ -637,6 +682,10 @@ function NewFormula() {
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
                   />
 
                   {/* materiales fab section */}
@@ -719,6 +768,10 @@ function NewFormula() {
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
                   />
 
                   {/* materiales fab section */}

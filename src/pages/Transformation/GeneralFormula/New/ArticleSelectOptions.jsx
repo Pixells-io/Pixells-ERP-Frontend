@@ -3,7 +3,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
-function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, setNewFormula}) {
+function ArticleSelectOptions({
+  productCraft,
+  fillFormulaProduct,
+  newFormula,
+  setNewFormula,
+  optionGlobalMerma,
+  setOptionGlobalMerma,
+  optionGInditOrGlobalMerma,
+  setOptionGIndiOrGlobalMerma
+}) {
   return (
     <div className="flex w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2.5">
       <div className="flex w-1/3">
@@ -43,11 +52,13 @@ function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, set
           type="number"
           name="merma"
           placeholder="Merma"
-          value={newFormula.merma}
-          onChange={(e) => setNewFormula({
-            ...newFormula,
-            merma: e.target.value,
-          })}
+          value={optionGlobalMerma.merma}
+          onChange={(e) =>
+            setOptionGlobalMerma({
+              ...optionGlobalMerma,
+              merma: e.target.value,
+            })
+          }
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -57,11 +68,12 @@ function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, set
         >
           <Checkbox
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={newFormula.percentegeCheck}
+            checked={optionGlobalMerma.percentegeCheck == "1"}
             onCheckedChange={(e) =>
-              setNewFormula({
-                ...newFormula,
-                percentegeCheck: e,
+              setOptionGlobalMerma({
+                ...optionGlobalMerma,
+                percentegeCheck: e ? "1" : "0",
+                unitCheck: "0",
               })
             }
           />
@@ -73,11 +85,12 @@ function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, set
         >
           <Checkbox
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={newFormula.unitCheck}
+            checked={optionGlobalMerma.unitCheck == "1"}
             onCheckedChange={(e) =>
-              setNewFormula({
-                ...newFormula,
-                unitCheck: e,
+              setOptionGlobalMerma({
+                ...optionGlobalMerma,
+                unitCheck: e ? "1" : "0",
+                percentegeCheck: "0",
               })
             }
           />
@@ -91,11 +104,12 @@ function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, set
         >
           <Checkbox
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={newFormula.globalCheck}
+            checked={optionGInditOrGlobalMerma.globalCheck == "1"}
             onCheckedChange={(e) =>
-              setNewFormula({
-                ...newFormula,
-                globalCheck: e,
+                setOptionGIndiOrGlobalMerma({
+                ...optionGInditOrGlobalMerma,
+                globalCheck: e ? "1" : "0",
+                individualCheck: "0",
               })
             }
           />
@@ -107,11 +121,12 @@ function ArticleSelectOptions({productCraft, fillFormulaProduct, newFormula, set
         >
           <Checkbox
             className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-            checked={newFormula.individualCheck}
+            checked={optionGInditOrGlobalMerma.individualCheck == "1"}
             onCheckedChange={(e) =>
-              setNewFormula({
-                ...newFormula,
-                individualCheck: e,
+                setOptionGIndiOrGlobalMerma({
+                ...optionGInditOrGlobalMerma,
+                individualCheck: e ? "1" : "0",
+                globalCheck: "0",
               })
             }
           />
