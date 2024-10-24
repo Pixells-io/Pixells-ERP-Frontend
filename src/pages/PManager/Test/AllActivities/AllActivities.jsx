@@ -7,9 +7,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProjectTab from "./Tabs/ProjectTab";
 import StatusTab from "./Tabs/StatusTab";
 import { useLoaderData } from "react-router-dom";
+import {
+  destroyTask,
+  editSharedTask,
+  editTask,
+  saveSharedTask,
+} from "@/layouts/PManager/utils";
 
 function AllActivities() {
-  const { tasks } = useLoaderData();
+  const { tasks, users, positions, areas } = useLoaderData();
   return (
     <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
       {/* navigation inside */}
@@ -28,7 +34,7 @@ function AllActivities() {
         </div>
       </div>
       <h2 className="font-poppins text-xl font-bold text-[#44444F]">
-        {"Todas las Actividades " + tasks.data.workspace ||
+        {"Todas las Actividades " + tasks?.data?.workspace ||
           "Las Actividades No Cargaron Correctamente"}
       </h2>
 
@@ -50,12 +56,6 @@ function AllActivities() {
             >
               ESTATUS
             </TabsTrigger>
-            <TabsTrigger
-              className="h-[30px] rounded-xl px-2 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
-              value="finish"
-            >
-              TERMINADO
-            </TabsTrigger>
           </TabsList>
           <div className="flex gap-x-4">
             <div className="flex items-center justify-center">
@@ -64,32 +64,47 @@ function AllActivities() {
                 className="h-6 w-6 text-[#CCCCCC]"
               />
             </div>
-
-            <Button
-              type={"button"}
-              className="flex h-[30px] items-center justify-center rounded-xl bg-[#00A9B3] px-3 hover:bg-[#00A9B3]"
-            >
-              <span className="text-xs font-medium">Compartir</span>
-            </Button>
-            <Button
-              type={"button"}
-              className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
-            >
-              <IonIcon icon={add} className="h-4 w-4" />
-              <span className="text-xs font-medium">Nuevo</span>
-            </Button>
           </div>
         </div>
         <TabsContent value="project" className="">
-          <ProjectTab tasks={tasks.data} />
+          <ProjectTab
+            tasks={tasks.data}
+            users={users.data}
+            positions={positions.data}
+            areas={areas.data}
+          />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
           <StatusTab />
         </TabsContent>
-        <TabsContent value="finish" className="overflow-auto"></TabsContent>
       </Tabs>
     </div>
   );
 }
 
 export default AllActivities;
+
+export async function Action({ params, request }) {
+  const data = await request.formData();
+  const action = data.get("action");
+  switch (action) {
+    case "edit-task":
+      await editTask(data);
+      return redirect(`/project-manager2/activities/${params.id}`);
+
+    case "delete-task":
+      await destroyTask(data);
+      return redirect(`/project-manager2/activities/${params.id}`);
+
+    case "share-task":
+      await saveSharedTask(data);
+      return redirect(`/project-manager2/activities/${params.id}`);
+
+    case "edit-shared-task":
+      await editSharedTask(data);
+      return redirect(`/project-manager2/activities/${params.id}`);
+
+    default:
+      return redirect(`/project-manager2/activities/${params.id}`);
+  }
+}

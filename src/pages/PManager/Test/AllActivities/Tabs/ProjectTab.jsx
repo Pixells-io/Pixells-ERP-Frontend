@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { chevronForwardOutline, ellipsisVertical } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  chevronDown,
+  chevronForwardOutline,
+  ellipsisVertical,
+} from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+import ShareSettins from "@/pages/PManager/components2/ShareSettings/ShareSettings";
+import { useParams } from "react-router-dom";
 
 const HEADERS = [
   { name: "PROYECTO", cols: "2", text: "start" },
-  { name: "NOMBRE", cols: "3", text: "start" },
+  { name: "NOMBRE", cols: "2", text: "start" },
   { name: "OBJETIVO", cols: "2", text: "start" },
   { name: "VENCIMIENTO", cols: "1", text: "start" },
   { name: "RESPONSABLE", cols: "1", text: "start" },
   { name: "PRIORIDAD", cols: "1", text: "center" },
   { name: "CREADOR", cols: "1", text: "center" },
-  { name: "ESTATUS", cols: "1", text: "start" },
+  { name: "ESTATUS", cols: "2", text: "start" },
 ];
 
 const OPTIONS = {
@@ -261,10 +268,14 @@ const OPTIONS = {
   ],
 };
 
-function ProjectTab({ tasks }) {
+function ProjectTab({ tasks, users, positions, areas }) {
+  const params = useParams();
   const [tasksNoProject, setTaskNoProject] = useState(tasks?.tasks);
   const [tasksProjects, setTasksProjects] = useState(tasks?.projects);
   const [openItems, setOpenItems] = useState([]);
+
+  const [modalSettingsTasks, setModalSettingsTasks] = useState(false);
+  const [taskInfo, setTaskInfo] = useState([]);
 
   useEffect(() => {
     const allItemValues = tasksProjects?.map(
@@ -274,10 +285,31 @@ function ProjectTab({ tasks }) {
   }, [tasksProjects]);
 
   console.log(tasks.tasks);
-  console.log(tasks.projects);
+  // console.log(tasks.projects);
   return (
-    <div className="flex flex-col">
-      <div className="grid h-12 grid-cols-12 items-center border-b">
+    <div className="flex h-full w-full flex-col">
+      <ShareSettins
+        id={taskInfo.id}
+        creator={taskInfo.creator}
+        shared={taskInfo.shared}
+        modal={modalSettingsTasks}
+        setModal={setModalSettingsTasks}
+        users={users}
+        positions={positions}
+        areas={areas}
+        hasButton={false}
+        SaveShared={{
+          route: `/project-manager2/activities/${params.id}`,
+          action: "share-task",
+          name: "task_id",
+        }}
+        editShared={{
+          route: `/project-manager2/activities/${params.id}`,
+          action: "edit-shared-task",
+        }}
+      />
+      {/* header */}
+      <div className="grid h-12 w-full grid-cols-12 items-center border-b">
         {HEADERS?.map((header, i) => (
           <div
             key={i}
@@ -288,6 +320,7 @@ function ProjectTab({ tasks }) {
         ))}
       </div>
 
+      {/* accordions */}
       <Accordion
         type="single"
         className="w-full"
@@ -315,7 +348,7 @@ function ProjectTab({ tasks }) {
                   className={"col-span-2 text-xs font-normal text-grisHeading"}
                 ></div>
                 <div
-                  className={"col-span-3 text-xs font-normal text-grisHeading"}
+                  className={"col-span-2 text-xs font-normal text-grisHeading"}
                 >
                   <div className="flex items-center gap-x-2">
                     <div>
@@ -380,33 +413,54 @@ function ProjectTab({ tasks }) {
 
                 <div
                   className={
-                    "col-span-1 flex items-center justify-between gap-x-2 text-xs font-normal text-grisHeading"
+                    "col-span-2 flex items-center justify-between gap-1 text-xs font-normal text-grisHeading"
                   }
                 >
-                  {task?.status == "1" ? (
-                    <>
-                      <Select defaultValue="pending" name="actions" required>
-                        <SelectTrigger className="h-[26px] w-full rounded-md border-none bg-blancoBox p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                          <SelectValue placeholder={"Acción"} className="" />
-                        </SelectTrigger>
-                        <SelectContent className="w-[167px] rounded-xl px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
-                          <SelectItem
-                            value="pending"
-                            className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
-                          >
-                            Pendiente
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
+                      <span className="pl-1 text-grisHeading">
+                        {task.status == "1"
+                          ? "Pendiente"
+                          : task.status == "2"
+                            ? "En proceso"
+                            : task.status == "3"
+                              ? "Completado"
+                              : "Cancelado"}
+                      </span>
+
+                      <IonIcon
+                        icon={chevronDown}
+                        className="size-3 text-grisSubText"
+                      />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem>Pendiente</DropdownMenuItem>
+                      <DropdownMenuItem>En proceso</DropdownMenuItem>
+                      <DropdownMenuItem>Completado</DropdownMenuItem>
+                      <DropdownMenuItem>Cancelado</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
                       <IonIcon
                         icon={ellipsisVertical}
-                        size="large"
-                        className={`h-9 w-6 text-grisSubText`}
+                        className="size-6 text-grisSubText"
                       />
-                    </>
-                  ) : (
-                    "En Proceso"
-                  )}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setModalSettingsTasks(true);
+                          setTaskInfo(task);
+                        }}
+                      >
+                        Compartir
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
             ))}
@@ -518,30 +572,30 @@ function ProjectTab({ tasks }) {
                       "col-span-1 flex items-center justify-between gap-x-2 text-xs font-normal text-grisHeading"
                     }
                   >
-                    {task?.status == "1" ? (
-                      <>
-                        <Select defaultValue="pending" name="actions" required>
-                          <SelectTrigger className="h-[26px] w-full rounded-md border-none bg-blancoBox p-0 px-1 font-roboto text-xs font-normal text-grisHeading placeholder:text-grisHeading focus:border-transparent focus:ring-2 focus:ring-primarioBotones">
-                            <SelectValue placeholder={"Acción"} className="" />
-                          </SelectTrigger>
-                          <SelectContent className="w-[167px] rounded-xl px-0 font-roboto text-xs font-normal text-grisText focus:text-grisText">
-                            <SelectItem
-                              value="pending"
-                              className="text-grisText focus:bg-[#F0F0F0] focus:text-grisText"
-                            >
-                              Pendiente
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
+                        <span className="pl-1 text-grisHeading">
+                          {project.status == "1"
+                            ? "Completado"
+                            : project.status == "2"
+                              ? "Pendiente"
+                              : project.status == "3"
+                                ? "En proceso"
+                                : "Cancelado"}
+                        </span>
+
                         <IonIcon
-                          icon={ellipsisVertical}
-                          size="large"
-                          className={`h-9 w-6 text-grisSubText`}
+                          icon={chevronDown}
+                          className="size-3 text-grisSubText"
                         />
-                      </>
-                    ) : (
-                      "En Proceso"
-                    )}
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>Pendiente</DropdownMenuItem>
+                        <DropdownMenuItem>En proceso</DropdownMenuItem>
+                        <DropdownMenuItem>Completado</DropdownMenuItem>
+                        <DropdownMenuItem>Cancelado</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
               ))}
