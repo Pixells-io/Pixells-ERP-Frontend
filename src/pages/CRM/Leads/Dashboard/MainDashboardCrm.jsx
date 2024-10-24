@@ -300,7 +300,7 @@ function MainDashboardCrm() {
         </div>
       </div>
       {/* contenido */}
-      <div className="flex h-full w-full gap-4">
+      <div className="flex h-full w-full gap-4 overflow-auto">
         <div className="flex flex-col gap-x-4">
           {/* headers */}
           <div className="flex w-full gap-4">
