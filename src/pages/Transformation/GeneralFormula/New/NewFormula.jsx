@@ -18,9 +18,6 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 import TableForm from "../../Components/TableForm";
 import EnergyTable from "../../Components/Tables/EnergyTable";
@@ -30,6 +27,7 @@ import SubProductsTable from "../../Components/Tables/SubProductsTable";
 
 import ProcesoTable from "../../Components/Tables/ProcesoTable";
 import PersonalTable from "../../Components/Tables/PersonalTable";
+import ArticleSelectOptions from "./ArticleSelectOptions";
 
 function NewFormula() {
   const { catalogTransformation, positions } = useLoaderData();
@@ -396,81 +394,12 @@ function NewFormula() {
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
-                  <div className="flex h-24 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions 
+                    productCraft={productCraft} 
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                  />
 
                   {/* variable section */}
                   {newFormula.type == "2" && (
@@ -703,81 +632,12 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <div className="flex w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2.5">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions 
+                    productCraft={productCraft} 
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                  />
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">
@@ -854,81 +714,12 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <div className="flex w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2.5">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions 
+                    productCraft={productCraft} 
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                  />
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">
