@@ -18,6 +18,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import SelectRouterT from "@/components/SelectTransform/SelectRouterT";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const EnergyTable = ({
   tableData,
@@ -48,6 +49,9 @@ const EnergyTable = ({
     subTotal: 0,
     label: "Selecciona",
     value: "selecciona",
+    merma: 0,
+    isMerma: "0",
+    totalNeto: 0,
   };
 
   useEffect(() => {
@@ -75,6 +79,37 @@ const EnergyTable = ({
               ...item,
               amount: value,
               subTotal: (item.price * value).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((item.price * value) * (item.merma / 100)) : item.totalNeto
+            }
+          : item,
+      ),
+    );
+  };
+
+
+  const handleInputChangeMerma = (rowIndex, value) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              merma: value,
+              totalNeto: item.isMerma == "1" ? ((item.price * item.amount) * (value / 100)) : item.totalNeto
+
+            }
+          : item,
+      ),
+    );
+  };
+  
+  const handleInputChangeIsMerma = (rowIndex, value) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              isMerma: value == "1" ? "1" : "0",
+              totalNeto: value == "1" ? ((item.price * item.amount) * (item.merma / 100)) : 0
             }
           : item,
       ),
@@ -89,6 +124,7 @@ const EnergyTable = ({
               ...item,
               price: value,
               subTotal: (value * item.amount).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((value * item.amount) * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -109,6 +145,7 @@ const EnergyTable = ({
                 amount: 1,
                 label: data.name,
                 value: data.id,
+                totalNeto: item.isMerma == "1" ? Number(data.price) * ( item.merma / 100) : item.totalNeto,
                 subTotal: Number(data.price).toFixed(2),
               }
             : item,
@@ -200,6 +237,39 @@ const EnergyTable = ({
           disabled={!row.component}
           onChange={(e) => handleCostChange(rowIndex, e.target.value)}
         />
+      ),
+    },
+    {
+      accessorKey: "merma",
+      header: "Merma",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex items-center gap-x-2 p-1">
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={row.isMerma == "1"}
+            name={`isMerma-${rowIndex}`}
+            disabled={!row.component}
+            onCheckedChange={(e) => handleInputChangeIsMerma(rowIndex, e)
+            }
+          />
+          <Input
+          type="number"
+          className="border-gris2-transparent w-[60px]  px-1 text-center rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`merma-${rowIndex}`}
+          value={row.merma}
+          disabled={!row.component || row.isMerma == "0"}
+          onChange={(e) => handleInputChangeMerma(rowIndex, e.target.value)}
+        />
+        </div>
+      ),
+    },
+    {
+      accessorKey: "totalNeto",
+      header: "Total Neto",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex items-center gap-x-2 p-1">
+          {row.totalNeto}
+        </div>
       ),
     },
     {

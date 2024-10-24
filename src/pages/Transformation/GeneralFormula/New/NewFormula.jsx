@@ -372,13 +372,33 @@ function NewFormula() {
           }
         : { ...p },
     );
+    
+    const newEnergeticsMerma = energetics.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+
+    
 
     setProducts([...newProductsMerma]);
+    setEnergetics([...newEnergeticsMerma]);
   }, [optionGlobalMerma]);
 
   useEffect(() => {
+    let newProductsMerma = [];
+    let newEnergeticsMerma = [];
     if (optionGInditOrGlobalMerma.individualCheck == "1") {
-      const newProductsMerma = products.map((p) =>
+      //if---------------------------------------------------------------------------------------------------
+      newProductsMerma = products.map((p) =>
         p.isMerma == "1"
           ? {
               ...p,
@@ -391,9 +411,24 @@ function NewFormula() {
             }
           : { ...p },
       );
-      setProducts([...newProductsMerma]);
+
+      newEnergeticsMerma = energetics.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      //-------------------------------------------------------------------------------------------------------
     } else if (optionGInditOrGlobalMerma.globalCheck == "1") {
-      const newProductsMerma = products.map((p) => {
+      // second if --------------------------------------------------------------------------------------------
+      newProductsMerma = products.map((p) => {
         return {
           ...p,
           merma: optionGlobalMerma.merma,
@@ -405,8 +440,25 @@ function NewFormula() {
           ).toFixed(2),
         };
       });
-      setProducts([...newProductsMerma]);
+
+      newEnergeticsMerma = energetics.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+
+      //--------------------------------------------------------------------------------------------------------
     }
+
+    setProducts([...newProductsMerma]);
+    setEnergetics([...newEnergeticsMerma]);
   }, [optionGInditOrGlobalMerma]);
 
   return (
