@@ -34,17 +34,15 @@ function NewFormula() {
   const data = catalogTransformation.data;
   const submit = useSubmit();
 
-
-  const [optionGlobalMerma, setOptionGlobalMerma] = useState({ 
-      merma: 0,
-      percentegeCheck: "1",
-      unitCheck: "0",
-    });
-    const [optionGInditOrGlobalMerma, setOptionGIndiOrGlobalMerma] = useState({
-      globalCheck: "0",
-      individualCheck: "1",
-
-    });
+  const [optionGlobalMerma, setOptionGlobalMerma] = useState({
+    merma: 0,
+    percentegeCheck: "1",
+    unitCheck: "0",
+  });
+  const [optionGInditOrGlobalMerma, setOptionGIndiOrGlobalMerma] = useState({
+    globalCheck: "0",
+    individualCheck: "1",
+  });
 
   const [newFormula, setNewFormula] = useState({
     product_id: "",
@@ -247,16 +245,21 @@ function NewFormula() {
     const uniqueFromCombined = combinedArrays.filter(
       (item) => !productNeed.some((masterItem) => masterItem.id === item.id),
     );
-    const result = [...uniqueFromMaster, ...uniqueFromCombined].filter(r => r.label != "Selecciona");
-    setProductsSelected([...result, {
-      idAux: 1,
-      amount: 0,
-      unit: "",
-      price: 0,
-      subTotal: 0,
-      label: "Selecciona",
-      value: "selecciona",
-    }]);
+    const result = [...uniqueFromMaster, ...uniqueFromCombined].filter(
+      (r) => r.label != "Selecciona",
+    );
+    setProductsSelected([
+      ...result,
+      {
+        idAux: 1,
+        amount: 0,
+        unit: "",
+        price: 0,
+        subTotal: 0,
+        label: "Selecciona",
+        value: "selecciona",
+      },
+    ]);
   }, [products, energetics, packages, crate]);
 
   useEffect(() => {
@@ -304,72 +307,107 @@ function NewFormula() {
   const [allSelected, setAllSelected] = useState([]);
 
   useEffect(() => {
-    const getVariablesSelect = variables.filter(v => v.checked);
+    const getVariablesSelect = variables.filter((v) => v.checked);
 
-     let newArray = [];
-     if(getVariablesSelect.length > 0) {
-         getVariablesSelect.forEach(v => {
-          newArray.push({
-             ...newFormula,
-             label: newFormula.label +  " / " + (v.name.map(n=> n.name).join(' - ')),
-             variable: v
-           });
-         });
-     } else {
-       newArray = products.concat(
+    let newArray = [];
+    if (getVariablesSelect.length > 0) {
+      getVariablesSelect.forEach((v) => {
+        newArray.push({
+          ...newFormula,
+          label:
+            newFormula.label + " / " + v.name.map((n) => n.name).join(" - "),
+          variable: v,
+        });
+      });
+    } else {
+      newArray = products.concat(
         energetics,
         packages,
         crate,
         subProducts,
         newFormula,
       );
-     }
+    }
 
     // delete "selecciona" options
-    const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
+    const newArrayDeleteSelecciona = newArray.filter(
+      (e) => e.value != "selecciona",
+    );
 
     setAllSelected([...newArrayDeleteSelecciona]);
-  }, [products, energetics, packages, crate, subProducts, newFormula, variables]);
+  }, [
+    products,
+    energetics,
+    packages,
+    crate,
+    subProducts,
+    newFormula,
+    variables,
+  ]);
 
   function handleSubmit() {}
 
   const changeValueCheckedVariable = (index) => {
     setVariables((prevData) =>
-      prevData.map((row, i) => 
-        i === index ? { ...row, checked: !row.checked } : row
-      )
+      prevData.map((row, i) =>
+        i === index ? { ...row, checked: !row.checked } : row,
+      ),
     );
   };
 
   useEffect(() => {
-    if(optionGlobalMerma.merma == "" || optionGlobalMerma.merma == null) return;
-    
-    const newProductsMerma = products.map(p =>  
-      p.isMerma == "1"  
-      ? { ...p, merma: optionGlobalMerma.merma } 
-      : { ...p }
+    if (optionGlobalMerma.merma == "" || optionGlobalMerma.merma == null)
+      return;
+
+    const newProductsMerma = products.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
     );
 
     setProducts([...newProductsMerma]);
   }, [optionGlobalMerma]);
 
-  useEffect(() => { 
-    if(optionGInditOrGlobalMerma.individualCheck == "1"){
-      const newProductsMerma = products.map(p =>  
-        p.isMerma == "1"  
-        ? { ...p, merma: optionGlobalMerma.merma } 
-        : { ...p }
+  useEffect(() => {
+    if (optionGInditOrGlobalMerma.individualCheck == "1") {
+      const newProductsMerma = products.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
       );
       setProducts([...newProductsMerma]);
-    } else if (optionGInditOrGlobalMerma.globalCheck == "1"){
-      const newProductsMerma = products.map(p =>  
-        {return { ...p, merma: optionGlobalMerma.merma, isMerma: "1", }} 
-      );
+    } else if (optionGInditOrGlobalMerma.globalCheck == "1") {
+      const newProductsMerma = products.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
       setProducts([...newProductsMerma]);
     }
-    
   }, [optionGInditOrGlobalMerma]);
-
 
   return (
     <div className="flex h-full w-full">
@@ -435,8 +473,8 @@ function NewFormula() {
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
-                  <ArticleSelectOptions 
-                    productCraft={productCraft} 
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
@@ -460,14 +498,20 @@ function NewFormula() {
                               key={variable.id}
                             >
                               <div className="flex items-center gap-4">
-                              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-                                checked={variable.checked}
-                                onCheckedChange={(e) => changeValueCheckedVariable(i)}
-                              />
-                              <span>V{i + 1}</span>
+                                <Checkbox
+                                  className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                                  checked={variable.checked}
+                                  onCheckedChange={(e) =>
+                                    changeValueCheckedVariable(i)
+                                  }
+                                />
+                                <span>V{i + 1}</span>
                                 <div className="flex items-center gap-2">
                                   {variable.name.map(({ name }, i) => (
-                                    <div className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText" key={i}>
+                                    <div
+                                      className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText"
+                                      key={i}
+                                    >
                                       {name}
                                     </div>
                                   ))}
@@ -677,8 +721,8 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <ArticleSelectOptions 
-                    productCraft={productCraft} 
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
@@ -763,8 +807,8 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <ArticleSelectOptions 
-                    productCraft={productCraft} 
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
                     fillFormulaProduct={fillFormulaProduct}
                     newFormula={newFormula}
                     setNewFormula={setNewFormula}
@@ -827,19 +871,12 @@ function NewFormula() {
                   TOTAL “{sectionName}”
                 </div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  ${
-                    sectionName == "PRODUCTOS" ? (
-                      totalProductsSection
-                    ): (
-                    sectionName == "PROCESO" ? (
-                      totalProceso
-                    ) : (
-                    sectionName == "PERSONAL" && (
-                      totalPersonal
-                      )
-                    )
-                    )
-                  }
+                  $
+                  {sectionName == "PRODUCTOS"
+                    ? totalProductsSection
+                    : sectionName == "PROCESO"
+                      ? totalProceso
+                      : sectionName == "PERSONAL" && totalPersonal}
                 </div>
               </div>
               <IonIcon icon={chevronForward} className="size-4 text-black" />

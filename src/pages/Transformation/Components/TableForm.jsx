@@ -80,6 +80,7 @@ const TableForm = ({
               ...item,
               amount: value,
               subTotal: (item.price * value).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((item.price * value) * (item.merma / 100)) : item.totalNeto
             }
           : item,
       ),
@@ -93,7 +94,8 @@ const TableForm = ({
           ? {
               ...item,
               merma: value,
-              // subTotal: (item.price * value).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((item.price * item.amount) * (value / 100)) : item.totalNeto
+
             }
           : item,
       ),
@@ -101,13 +103,13 @@ const TableForm = ({
   };
   
   const handleInputChangeIsMerma = (rowIndex, value) => {
-    console.log(value);
     setTableData((prevData) =>
       prevData.map((item, index) =>
         index === rowIndex
           ? {
               ...item,
               isMerma: value == "1" ? "1" : "0",
+              totalNeto: value == "1" ? ((item.price * item.amount) * (item.merma / 100)) : 0
             }
           : item,
       ),
@@ -122,6 +124,7 @@ const TableForm = ({
               ...item,
               price: value,
               subTotal: (value * item.amount).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((value * item.amount) * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -142,6 +145,7 @@ const TableForm = ({
                 label: data.name,
                 value: data.id,
                 id: data.id,
+                totalNeto: item.isMerma == "1" ? Number(data.price) * ( item.merma / 100) : item.totalNeto,
                 subTotal: Number(data.price),
               }
             : item,
