@@ -246,7 +246,6 @@ export async function editTask(data) {
     priority: data.get("priority"),
     user_id: data.get("userId"),
     end: format(data.get("end"), "yyyy-MM-dd"),
-    sequence: data.get("sequence"),
     // start: data.get("start"),
   };
 

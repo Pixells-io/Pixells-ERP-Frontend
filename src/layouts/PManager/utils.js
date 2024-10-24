@@ -572,6 +572,7 @@ export async function editTask(data) {
     start: start,
     status: "",
     repeat: data.get("repeat"),
+    sequence: data.get("sequence"),
   };
 
   // validaciones?
