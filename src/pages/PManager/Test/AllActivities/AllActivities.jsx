@@ -6,7 +6,7 @@ import { add, searchOutline } from "ionicons/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProjectTab from "./Tabs/ProjectTab";
 import StatusTab from "./Tabs/StatusTab";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import {
   destroyTask,
   editSharedTask,
@@ -69,9 +69,9 @@ function AllActivities() {
         <TabsContent value="project" className="">
           <ProjectTab
             tasks={tasks.data}
-            users={users.data}
-            positions={positions.data}
-            areas={areas.data}
+            users={users}
+            positions={positions}
+            areas={areas}
           />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
