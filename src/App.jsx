@@ -75,7 +75,7 @@ import SideLayoutOrganization from "./layouts/Organization/components/SideLayout
 import MainOrganization, {
   action as newArea,
 } from "./pages/Organization/User/MainOrganization";
-import MainAccess from "./pages/Organization/Access/MainAccess";
+import MainAccess,{Action as restorePermission} from "./pages/Organization/Access/MainAccess";
 import FormCreateUser, {
   Action as newUser,
 } from "./pages/Organization/User/FormCreateUser";
@@ -725,6 +725,7 @@ const router = createBrowserRouter([
             path: "/organization/access",
             element: <MainAccess />,
             loader: multiLoaderOrganization,
+            action:restorePermission,
           },
           {
             path: "/organization/create-user",
