@@ -99,7 +99,7 @@ function MainAccess() {
 
   function WrappedMain({ children }) {
     return (
-      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-auto bg-[#FBFBFB] px-14 py-3">
+      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-hidden bg-[#FBFBFB] px-14 py-3">
         {children}
       </div>
     );
@@ -121,7 +121,7 @@ function MainAccess() {
 
       <Tabs
         defaultValue="Organization"
-        className="flex flex-col rounded-lg"
+        className="flex flex-col overflow-auto rounded-lg"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
           <div className="relative w-full max-w-[950px] overflow-x-auto">
