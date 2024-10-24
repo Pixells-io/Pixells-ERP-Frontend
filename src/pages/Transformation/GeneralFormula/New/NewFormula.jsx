@@ -400,18 +400,34 @@ function NewFormula() {
           }
         : { ...p },
     );
+    
+    const newCrateMerma = crate.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
 
     
 
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
     setPackages([...newPackagesMerma]);
+    setCrate([...newCrateMerma]);
   }, [optionGlobalMerma]);
 
   useEffect(() => {
     let newProductsMerma = [];
     let newEnergeticsMerma = [];
     let newPackagesMerma = [];
+    let newCrateMerma = [];
     if (optionGInditOrGlobalMerma.individualCheck == "1") {
       //if---------------------------------------------------------------------------------------------------
       newProductsMerma = products.map((p) =>
@@ -443,6 +459,20 @@ function NewFormula() {
       );
       
       newPackagesMerma = packages.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      
+      newCrateMerma = crate.map((p) =>
         p.isMerma == "1"
           ? {
               ...p,
@@ -496,6 +526,19 @@ function NewFormula() {
           ).toFixed(2),
         };
       });
+      
+      newCrateMerma = crate.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
 
       //--------------------------------------------------------------------------------------------------------
     }
@@ -503,6 +546,7 @@ function NewFormula() {
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
     setPackages([...newPackagesMerma]);
+    setCrate([...newCrateMerma]);
   }, [optionGInditOrGlobalMerma]);
 
   return (
