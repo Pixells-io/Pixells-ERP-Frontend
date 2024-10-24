@@ -136,7 +136,6 @@ const SubProductsTable = ({
                 value * item.amount +
                 (value * item.amountTax * item.amount) / 100
               ).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ( item.amount * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -160,7 +159,6 @@ const SubProductsTable = ({
                 value: data.id,
                 tax: (data.price * 16) / 100,
                 subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
-                totalNeto: item.isMerma == "1" ? 1 * ( item.merma / 100) : item.totalNeto,
               }
             : item,
         ),

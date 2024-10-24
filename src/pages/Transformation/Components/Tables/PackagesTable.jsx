@@ -124,7 +124,6 @@ const PackagesTable = ({
               ...item,
               price: value,
               subTotal: (value * item.amount).toFixed(2),
-              totalNeto: item.isMerma == "1" ? (item.amount * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -146,7 +145,6 @@ const PackagesTable = ({
                 amount: 1,
                 label: data.name,
                 value: data.id,
-                totalNeto: item.isMerma == "1" ? 1 * ( item.merma / 100) : item.totalNeto,
                 subTotal: Number(data.price).toFixed(2),
               }
             : item,
