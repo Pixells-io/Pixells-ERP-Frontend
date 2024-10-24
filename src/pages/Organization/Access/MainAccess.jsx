@@ -152,16 +152,9 @@ function MainAccess() {
 
             <Button
               type={"button"}
-              className="flex h-[30px] items-center justify-center rounded-xl bg-[#00A9B3] px-3 hover:bg-[#00A9B3]"
+              className="flex h-[30px] items-center justify-center rounded-xl bg-[#44444F] px-3 hover:bg-[#44444F]"
             >
-              <span className="text-xs font-medium">Compartir</span>
-            </Button>
-            <Button
-              type={"button"}
-              className="flex h-[30px] items-center justify-center rounded-xl bg-primarioBotones px-3 hover:bg-primarioBotones"
-            >
-              <IonIcon icon={add} className="h-4 w-4" />
-              <span className="text-xs font-medium">Nuevo</span>
+              <span className="text-xs font-medium">Restablecer</span>
             </Button>
           </div>
         </div>
