@@ -264,6 +264,27 @@ export async function saveNewTaskPM(data) {
   }
 }
 
+export async function destroyTask(data) {
+  const task = {
+    task_id: data.get("task_id"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/destroy-task`,
+    {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function saveSharedObject(data) {
   try {
     const info = {

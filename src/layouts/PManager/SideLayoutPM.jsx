@@ -89,7 +89,6 @@ function SideLayoutPM() {
   };
 
   const handleInputBlur = (objective) => {
-    console.log(objective);
     submit(
       {
         objective_id: objective.id,
@@ -108,7 +107,6 @@ function SideLayoutPM() {
   };
 
   const handleRightClick = (e, objective) => {
-    console.log(objective);
     e.preventDefault();
     setNewObjectiveName(objective.name);
     setContextMenu({
@@ -128,7 +126,6 @@ function SideLayoutPM() {
   };
 
   const handleRename = (objective) => {
-    console.log(objective);
     setEditingObjectiveId(objective.id);
     setNewObjectiveName(objective.name);
     setContextMenu({ visible: false, x: 0, y: 0, objectiveId: null });
