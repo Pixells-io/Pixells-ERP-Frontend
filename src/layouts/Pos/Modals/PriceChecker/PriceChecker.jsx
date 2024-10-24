@@ -18,7 +18,7 @@ function PriceChecker({ }) {
     >
       <DialogTrigger>
         <div className="w-full whitespace-nowrap rounded-3xl bg-[#F0F0F0] p-3 font-roboto text-xs font-medium text-[#44444F] hover:bg-blancoBox2">
-          CONSULTAR ARTICULO
+          VERIFICADOR DE PRECIO
         </div>
       </DialogTrigger>
       <DialogContent className="flex h-full max-h-[492px] w-full max-w-[462px] flex-col overflow-auto bg-blancoBg p-0">
