@@ -287,7 +287,7 @@ function ProjectTab({ tasks, users, positions, areas }) {
   }, [tasksProjects]);
 
   console.log(tasks.tasks);
-  // console.log(tasks.projects);
+  console.log(tasks.projects);
   return (
     <div className="flex h-full w-full flex-col">
       <EditTaskModal
@@ -519,7 +519,7 @@ function ProjectTab({ tasks, users, positions, areas }) {
                   ></div>
                   <div
                     className={
-                      "col-span-3 text-xs font-normal text-grisHeading"
+                      "col-span-2 text-xs font-normal text-grisHeading"
                     }
                   >
                     <div className="flex items-center gap-x-2">
@@ -533,6 +533,7 @@ function ProjectTab({ tasks, users, positions, areas }) {
                       )}
                     </div>
                   </div>
+
                   <div
                     className={
                       "col-span-2 text-xs font-normal text-grisHeading"
@@ -540,12 +541,13 @@ function ProjectTab({ tasks, users, positions, areas }) {
                   >
                     {task?.objetive}
                   </div>
+
                   <div
                     className={
                       "col-span-1 text-xs font-normal text-grisHeading"
                     }
                   >
-                    {task?.end}
+                    {task?.start}
                   </div>
 
                   <div className="col-span-1 flex justify-center gap-x-1 overflow-auto">
@@ -559,44 +561,46 @@ function ProjectTab({ tasks, users, positions, areas }) {
                       </Avatar>
                     </div>
                   </div>
+
                   <div
                     className={
                       "col-span-1 flex justify-center text-xs font-normal"
                     }
                   >
-                    {task?.priority == "2" && (
+                    {task?.priority == "1" && (
                       <span className="text-[#B7021F]">Urgente</span>
                     )}
-                    {task?.priority == "1" && (
+                    {task?.priority == "2" && (
                       <span className="text-[#D75B00]">Media</span>
                     )}
-                    {task?.priority == "0" && (
+                    {task?.priority == "3" && (
                       <span className="text-[#DC9100]">Baja</span>
                     )}
                   </div>
                   <div className="col-span-1 flex justify-center">
                     <Avatar className="size-6">
                       <AvatarImage
-                        src={project?.creator?.img}
-                        title={project?.creator?.name}
+                        src={task?.creator?.img}
+                        title={task?.creator?.name}
                       />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback>??</AvatarFallback>
                     </Avatar>
                   </div>
+
                   <div
                     className={
-                      "col-span-1 flex items-center justify-between gap-x-2 text-xs font-normal text-grisHeading"
+                      "col-span-2 flex items-center justify-between gap-1 text-xs font-normal text-grisHeading"
                     }
                   >
                     <DropdownMenu>
                       <DropdownMenuTrigger className="flex w-[100px] shrink-0 items-center justify-between rounded-xl bg-blancoBox px-2 py-1">
                         <span className="pl-1 text-grisHeading">
-                          {project.status == "1"
-                            ? "Completado"
-                            : project.status == "2"
-                              ? "Pendiente"
-                              : project.status == "3"
-                                ? "En proceso"
+                          {task.status == "1"
+                            ? "Pendiente"
+                            : task.status == "2"
+                              ? "En proceso"
+                              : task.status == "3"
+                                ? "Completado"
                                 : "Cancelado"}
                         </span>
 
@@ -610,6 +614,34 @@ function ProjectTab({ tasks, users, positions, areas }) {
                         <DropdownMenuItem>En proceso</DropdownMenuItem>
                         <DropdownMenuItem>Completado</DropdownMenuItem>
                         <DropdownMenuItem>Cancelado</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <IonIcon
+                          icon={ellipsisVertical}
+                          className="size-6 text-grisSubText"
+                        />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setModalSettingsTasks(true);
+                            setTaskInfo(task);
+                          }}
+                        >
+                          Compartir
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setEditTaskModal(true);
+                            setTaskInfo(task);
+                          }}
+                        >
+                          Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>Eliminar</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>

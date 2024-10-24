@@ -26,8 +26,6 @@ import DatePicker from "@/components/date-picker";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 function EditTaskModal({ task, users, modal, setModal, form }) {
-  console.log(task);
-  console.log(task.repeat_task_count == 0 ? "0" : "1");
   const params = useParams();
   const navigation = useNavigation();
   const [repeticion, setRepeticion] = useState(

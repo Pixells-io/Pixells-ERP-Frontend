@@ -75,7 +75,12 @@ function AllActivities() {
           />
         </TabsContent>
         <TabsContent value="status" className="overflow-auto">
-          <StatusTab />
+          <StatusTab
+            tasks={tasks.data}
+            users={users}
+            positions={positions}
+            areas={areas}
+          />
         </TabsContent>
       </Tabs>
     </div>

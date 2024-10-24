@@ -11,7 +11,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import { ellipsisHorizontal } from "ionicons/icons";
 
-function StatusTab() {
+function StatusTab(tasks, users, positions, areas) {
   const data = {
     pending: [
       {
@@ -410,7 +410,7 @@ function StatusTab() {
               className="group relative mb-4 rounded-lg bg-white hover:bg-[#D7D7D780]"
               key={index}
             >
-              <div className="flex flex-col gap-y-1 border-b border-grisDisabled px-2 pt-3 pb-2.5">
+              <div className="flex flex-col gap-y-1 border-b border-grisDisabled px-2 pb-2.5 pt-3">
                 <div className="flex items-center justify-between">
                   <Link
                     to={`/crm/leads/${p.id}`}
@@ -461,7 +461,7 @@ function StatusTab() {
                 )}
               </div>
 
-              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all group-hover:opacity-100">
                 <div className="flex h-[22px] items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex h-5 w-8 items-center justify-center text-grisDisabled">
@@ -568,7 +568,7 @@ function StatusTab() {
                 )}
               </div>
 
-              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all group-hover:opacity-100">
                 <div className="flex h-[22px] items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex h-5 w-8 items-center justify-center text-grisDisabled">
@@ -675,7 +675,7 @@ function StatusTab() {
                 )}
               </div>
 
-              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all group-hover:opacity-100">
                 <div className="flex h-[22px] items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex h-5 w-8 items-center justify-center text-grisDisabled">
@@ -782,7 +782,7 @@ function StatusTab() {
                 )}
               </div>
 
-              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all transition-opacity group-hover:opacity-100">
+              <div className="absolute right-2 top-2 rounded-md border border-blancoBox bg-white text-sm text-grisText opacity-0 drop-shadow-[0px_0px_4px_rgba(0,0,0,0.15)] transition-all group-hover:opacity-100">
                 <div className="flex h-[22px] items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex h-5 w-8 items-center justify-center text-grisDisabled">
