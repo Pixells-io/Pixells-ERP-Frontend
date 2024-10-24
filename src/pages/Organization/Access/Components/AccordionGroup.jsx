@@ -9,6 +9,7 @@ import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import CheckboxAccordion from "./CheckboxAccordion";
 import { Checkbox } from "@/components/ui/checkbox";
+
 const HEADERS = [
   { name: "PUESTO", cols: "2", text: "start" },
   { name: "VER", cols: "1", text: "start" },
@@ -25,7 +26,7 @@ const permissions = [
   { name: "Delete", value: 4 },
 ];
 
-function ProjectTab({ tasks, module_id }) {
+function ProjectTab({ tasks, module_id, onPositionSelect, selectedPositions }) {
   const [openItems, setOpenItems] = useState([]);
   const [permissionStates, setPermissionStates] = useState({});
   const [permissionCounts, setPermissionCounts] = useState({});
@@ -53,6 +54,13 @@ function ProjectTab({ tasks, module_id }) {
     }));
   };
 
+  const handlePositionCheckbox = (position) => (checked, event) => {
+    if (event) {
+      event.stopPropagation();
+    }
+    onPositionSelect(position, checked);
+  };
+
   return (
     <div className="flex h-full flex-col">
       <div className="grid h-12 grid-cols-12 items-center border-b">
@@ -75,62 +83,74 @@ function ProjectTab({ tasks, module_id }) {
         className="w-full"
         value={openItems}
         onValueChange={setOpenItems}
+      
       >
         {tasks.map((areas) => (
           <AccordionItem
             value={`item-${areas.id}`}
             key={`item-${areas.id}`}
+           
             className="border-none"
           >
             <AccordionTrigger className="h-12 w-full items-center border-b border-grisHeading text-xs font-normal text-grisHeading">
-              <div className="flex items-center gap-x-2">
+              <div className="flex items-center gap-x-2 px-4">
                 <IonIcon
                   icon={chevronForwardOutline}
                   size="large"
-                  className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
+                  className="h-5 w-5 shrink-0 text-grisHeading"
                 />
                 {areas.nombre}
               </div>
             </AccordionTrigger>
-            <AccordionContent>
-              {areas.positions.map((position) => (
-                <div
-                  key={position.id}
-                  className="grid h-12 w-full grid-cols-12 items-center border-b"
-                >
-                  <div className="col-span-2 flex items-center text-xs font-normal text-grisHeading">
-                    <Checkbox 
-                    className="mr-4" />
-                    <span className="text-left">{position.position_name}</span>
-                  </div>
-
-                  {permissions.map((permiso) => (
-                    <div
-                      key={permiso.value}
-                      className="flex items-start justify-start"
+            <AccordionContent >
+              <div>
+                {areas.positions.map((position) => (
+                  <div
+                    key={position.id}
+                    className="grid h-12 w-full grid-cols-12 items-center border-b"
+                  >
+                    <div 
+                      className="col-span-2 flex items-center text-xs font-normal text-grisHeading"
+                      onClick={(e) => e.stopPropagation()} // Prevenir propagación en el contenedor del checkbox
                     >
-                      <CheckboxAccordion
-                        position={position.id}
-                        permision={permiso.value}
-                        module={module_id}
-                        onPermissionChange={(isChecked) =>
-                          updatePermissionState(
-                            position.id,
-                            permiso.value,
-                            isChecked,
-                          )
-                        }
-                      />
+                      <div className="ml-4 mr-4">
+                        <Checkbox 
+                          checked={selectedPositions.includes(position.id)}
+                          onCheckedChange={handlePositionCheckbox(position.id)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
+                      <span className="text-left">{position.position_name}</span>
                     </div>
-                  ))}
-                  <div className="col-span-4 pr-12 text-end text-[14px] text-[#44444F]">
-                    {permissionCounts[position.id]
-                      ? (permissionCounts[position.id] / 4) * 100
-                      : 0}
-                    %
+
+                    {permissions.map((permiso) => (
+                      <div
+                        key={permiso.value}
+                        className="flex items-start justify-start"
+                      >
+                        <CheckboxAccordion
+                          position={position.id}
+                          permision={permiso.value}
+                          module={module_id}
+                          onPermissionChange={(isChecked) =>
+                            updatePermissionState(
+                              position.id,
+                              permiso.value,
+                              isChecked,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                    <div className="col-span-4 pr-12 text-end text-[14px] text-[#44444F]">
+                      {permissionCounts[position.id]
+                        ? (permissionCounts[position.id] / 4) * 100
+                        : 0}
+                      %
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </AccordionContent>
           </AccordionItem>
         ))}

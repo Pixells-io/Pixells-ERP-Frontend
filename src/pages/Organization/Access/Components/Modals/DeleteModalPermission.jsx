@@ -13,10 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { IonIcon } from "@ionic/react";
 import { lockOpen } from "ionicons/icons";
-import { permissionValidate } from "@/lib/actions";
-import { savePermission } from "@/pages/Organization/utils";
 
-function DeleteModalPermission({}) {
+function DeleteModalPermission({
+  selectedPositions,
+  currentModule,
+  setSelectedPositions,
+}) {
   const [modal, setModal] = useState(false);
   const navigation = useNavigation();
 
@@ -29,15 +31,22 @@ function DeleteModalPermission({}) {
 
   const clearData = () => {
     if (modal) {
+      setSelectedPositions([]);
     }
   };
 
   return (
     <Dialog open={modal} onOpenChange={setModal}>
-      <DialogTrigger className="flex items-center">
+      <DialogTrigger 
+      disabled={selectedPositions.length===0}
+      className="flex items-center" asChild>
         <Button
           type="button"
-          className="flex h-[30px] items-center justify-center rounded-xl bg-[#44444F] px-3 hover:bg-[#44444F]"
+          className={`flex h-[30px] items-center justify-center rounded-xl px-3 ${
+            selectedPositions.length === 0 
+              ? 'bg-[#E8E8E8] text-black hover:bg-[#E8E8E8]' 
+              : 'bg-[#44444F] text-white hover:bg-[#44444F]'
+          }`}
         >
           <span className="text-xs font-medium">Restablecer</span>
         </Button>
@@ -53,15 +62,36 @@ function DeleteModalPermission({}) {
                 <h2 className="font-poppins text-[13px] font-medium text-grisHeading text-white">
                   Restablecer Permisos
                 </h2>
-                <h3 className="font-poppins text-[13px] font-light text-grisHeading text-white"></h3>
+                <h3 className="font-poppins text-[13px] font-light text-grisHeading text-white">
+                  {currentModule.name}{" "}
+                </h3>
               </div>
             </div>
           </DialogTitle>
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
-
+        <Form
+         action={"/organization/access"}
+          method="post"
+          className="flex flex-col gap-4"
+        >
+          <input
+            type="hidden"
+            hidden
+            name="module_id"
+            value={currentModule.id}
+            readOnly
+          />
+          <input
+            type="hidden"
+            hidden
+            name="positions[]"
+            value={selectedPositions}
+            readOnly
+          />
         <span className="my-4 font-roboto text-xs font-light text-grisDisabled">
-          ¿Estás seguro de restablecer los permisos?
+          Estas intentando restablecer los permisos de los usuarios de "
+          {currentModule.name}", ¿Estás Seguro?{" "}
         </span>
         <DialogFooter>
           <div className="flex w-full justify-between gap-2">
@@ -80,6 +110,7 @@ function DeleteModalPermission({}) {
             </Button>
           </div>
         </DialogFooter>
+        </Form>
       </DialogContent>
     </Dialog>
   );
