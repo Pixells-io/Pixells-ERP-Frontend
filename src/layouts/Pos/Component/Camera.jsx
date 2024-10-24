@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const Camera = ({ setSection }) => {
+const Camera = ({ getCodeProduct }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [photo, setPhoto] = useState(null);
@@ -45,7 +45,7 @@ const Camera = ({ setSection }) => {
     setPhoto(dataUrl);
 
     setTimeout(() => {
-      setSection("infoProduct");
+      getCodeProduct("4444");
     }, 4000);
   };
 

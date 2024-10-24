@@ -8,6 +8,11 @@ function ConsultArticle() {
   const [section, setSection] = useState("menu");
   const [modal, setModal] = useState(false);
 
+  const getCodeProduct = (e) => {
+    console.log(e);
+    setSection("infoProduct");
+  }
+
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger>
@@ -17,7 +22,7 @@ function ConsultArticle() {
       </DialogTrigger>
       <DialogContent className="flex h-full max-h-[701px] w-full max-w-[462px] flex-col bg-blancoBg p-0">
         {section == "menu" ? (
-          <StepMenu setSection={setSection} />
+          <StepMenu getCodeProduct={getCodeProduct} />
         ) : section == "infoProduct" ? (
           <StepInfoProduct setSection={setSection} />
         ) : null}
