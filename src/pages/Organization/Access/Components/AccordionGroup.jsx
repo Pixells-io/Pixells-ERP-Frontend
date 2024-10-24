@@ -99,7 +99,8 @@ function ProjectTab({ tasks, module_id }) {
                   className="grid h-12 w-full grid-cols-12 items-center border-b"
                 >
                   <div className="col-span-2 flex items-center text-xs font-normal text-grisHeading">
-                    <Checkbox className="checkbox mr-4" />
+                    <Checkbox 
+                    className="mr-4" />
                     <span className="text-left">{position.position_name}</span>
                   </div>
 
