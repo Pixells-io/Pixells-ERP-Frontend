@@ -8,7 +8,7 @@ import {
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import CheckboxAccordion from "./CheckboxAccordion";
-
+import { Checkbox } from "@/components/ui/checkbox";
 const HEADERS = [
   { name: "PUESTO", cols: "2", text: "start" },
   { name: "VER", cols: "1", text: "start" },
@@ -44,12 +44,12 @@ function ProjectTab({ tasks, module_id }) {
   }, [permissionStates]);
 
   const updatePermissionState = (positionId, permision, isChecked) => {
-    setPermissionStates(prev => ({
+    setPermissionStates((prev) => ({
       ...prev,
       [positionId]: {
         ...prev[positionId],
-        [permision]: isChecked
-      }
+        [permision]: isChecked,
+      },
     }));
   };
 
@@ -61,7 +61,12 @@ function ProjectTab({ tasks, module_id }) {
             key={i}
             className={`col-span-${header.cols || "1"} ${i === 0 && "pl-7"} text-${header.text}`}
           >
-            <p style={{ color: '#44444F' }} className="text-sm font-medium font-poppins text-[12px]">{header.name}</p>
+            <p
+              style={{ color: "#44444F" }}
+              className="font-poppins text-[12px] text-sm font-medium"
+            >
+              {header.name}
+            </p>
           </div>
         ))}
       </div>
@@ -83,7 +88,7 @@ function ProjectTab({ tasks, module_id }) {
                   icon={chevronForwardOutline}
                   size="large"
                   className={`h-5 w-5 shrink-0 cursor-pointer text-grisHeading transition-transform duration-300 group-data-[state=open]:rotate-90`}
-                  />
+                />
                 {areas.nombre}
               </div>
             </AccordionTrigger>
@@ -93,23 +98,36 @@ function ProjectTab({ tasks, module_id }) {
                   key={position.id}
                   className="grid h-12 w-full grid-cols-12 items-center border-b"
                 >
-                  <div className="col-span-2 pl-6 text-xs font-normal text-grisHeading">
-                    <span>{position.position_name}</span>
+                  <div className="col-span-2 flex items-center text-xs font-normal text-grisHeading">
+                    <Checkbox 
+                    className="mr-4" />
+                    <span className="text-left">{position.position_name}</span>
                   </div>
+
                   {permissions.map((permiso) => (
-                    <div key={permiso.value} className="flex items-start justify-start">
+                    <div
+                      key={permiso.value}
+                      className="flex items-start justify-start"
+                    >
                       <CheckboxAccordion
                         position={position.id}
                         permision={permiso.value}
                         module={module_id}
-                        onPermissionChange={(isChecked) => 
-                          updatePermissionState(position.id, permiso.value, isChecked)
+                        onPermissionChange={(isChecked) =>
+                          updatePermissionState(
+                            position.id,
+                            permiso.value,
+                            isChecked,
+                          )
                         }
                       />
                     </div>
                   ))}
-                  <div className="col-span-4 text-end pr-12 text-[14px] text-[#44444F]">
-                    {permissionCounts[position.id] ? (permissionCounts[position.id] / 4) * 100 : 0}%
+                  <div className="col-span-4 pr-12 text-end text-[14px] text-[#44444F]">
+                    {permissionCounts[position.id]
+                      ? (permissionCounts[position.id] / 4) * 100
+                      : 0}
+                    %
                   </div>
                 </div>
               ))}

@@ -7,6 +7,7 @@ import { useLoaderData } from "react-router-dom";
 import AccordionModule from "./Components/AccordionModule";
 import NavigationHeader from "@/components/navigation-header";
 import ProjectTab from "./Components/AccordionGroup";
+import DeleteModalPermission from "./Components/Modals/DeleteModalPermission";
 
 function MainAccess() {
   const { users, areas } = useLoaderData();
@@ -146,12 +147,7 @@ function MainAccess() {
               />
             </div>
 
-            <Button
-              type="button"
-              className="flex h-[30px] items-center justify-center rounded-xl bg-[#44444F] px-3 hover:bg-[#44444F]"
-            >
-              <span className="text-xs font-medium">Restablecer</span>
-            </Button>
+          <DeleteModalPermission/>
           </div>
         </div>
 

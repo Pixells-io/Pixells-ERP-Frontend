@@ -190,13 +190,13 @@ function MainOrganization() {
               AREAS
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="users" className="mx-3">
+          <TabsContent value="users" className="mx-3 mt-[-60px]">
             <UsersTable users={users?.data} edit={edit} />
           </TabsContent>
-          <TabsContent value="positions" className="mx-3">
+          <TabsContent value="positions" className="mx-3 mt-[-60px]">
             <PositionsTable positions={positions?.data} edit={edit} />
           </TabsContent>
-          <TabsContent value="areas" className="mx-3">
+          <TabsContent value="areas" className="mx-3 mt-[-60px]">
             <AreasTable areas={areas?.data} edit={edit} destroy={destroy} />
           </TabsContent>
         </Tabs>

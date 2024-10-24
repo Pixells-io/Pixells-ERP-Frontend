@@ -18,9 +18,6 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import InputRouter from "@/layouts/Masters/FormComponents/input";
-import SelectRouter from "@/layouts/Masters/FormComponents/select";
 
 import TableForm from "../../Components/TableForm";
 import EnergyTable from "../../Components/Tables/EnergyTable";
@@ -30,11 +27,22 @@ import SubProductsTable from "../../Components/Tables/SubProductsTable";
 
 import ProcesoTable from "../../Components/Tables/ProcesoTable";
 import PersonalTable from "../../Components/Tables/PersonalTable";
+import ArticleSelectOptions from "./ArticleSelectOptions";
 
 function NewFormula() {
   const { catalogTransformation, positions } = useLoaderData();
   const data = catalogTransformation.data;
   const submit = useSubmit();
+
+  const [optionGlobalMerma, setOptionGlobalMerma] = useState({
+    merma: 0,
+    percentegeCheck: "1",
+    unitCheck: "0",
+  });
+  const [optionGInditOrGlobalMerma, setOptionGIndiOrGlobalMerma] = useState({
+    globalCheck: "0",
+    individualCheck: "1",
+  });
 
   const [newFormula, setNewFormula] = useState({
     product_id: "",
@@ -44,7 +52,6 @@ function NewFormula() {
     type: "",
     label: "Selecciona un Articulo",
     value: "default",
-    merma: 0,
     // vars: [
     //   {
     //     product_variable_id: 1,
@@ -238,16 +245,21 @@ function NewFormula() {
     const uniqueFromCombined = combinedArrays.filter(
       (item) => !productNeed.some((masterItem) => masterItem.id === item.id),
     );
-    const result = [...uniqueFromMaster, ...uniqueFromCombined].filter(r => r.label != "Selecciona");
-    setProductsSelected([...result, {
-      idAux: 1,
-      amount: 0,
-      unit: "",
-      price: 0,
-      subTotal: 0,
-      label: "Selecciona",
-      value: "selecciona",
-    }]);
+    const result = [...uniqueFromMaster, ...uniqueFromCombined].filter(
+      (r) => r.label != "Selecciona",
+    );
+    setProductsSelected([
+      ...result,
+      {
+        idAux: 1,
+        amount: 0,
+        unit: "",
+        price: 0,
+        subTotal: 0,
+        label: "Selecciona",
+        value: "selecciona",
+      },
+    ]);
   }, [products, energetics, packages, crate]);
 
   useEffect(() => {
@@ -295,42 +307,159 @@ function NewFormula() {
   const [allSelected, setAllSelected] = useState([]);
 
   useEffect(() => {
-    const getVariablesSelect = variables.filter(v => v.checked);
+    const getVariablesSelect = variables.filter((v) => v.checked);
 
-     let newArray = [];
-     if(getVariablesSelect.length > 0) {
-         getVariablesSelect.forEach(v => {
-          newArray.push({
-             ...newFormula,
-             label: newFormula.label +  " / " + (v.name.map(n=> n.name).join(' - ')),
-             variable: v
-           });
-         });
-     } else {
-       newArray = products.concat(
+    let newArray = [];
+    if (getVariablesSelect.length > 0) {
+      getVariablesSelect.forEach((v) => {
+        newArray.push({
+          ...newFormula,
+          label:
+            newFormula.label + " / " + v.name.map((n) => n.name).join(" - "),
+          variable: v,
+        });
+      });
+    } else {
+      newArray = products.concat(
         energetics,
         packages,
         crate,
         subProducts,
         newFormula,
       );
-     }
+    }
 
     // delete "selecciona" options
-    const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
+    const newArrayDeleteSelecciona = newArray.filter(
+      (e) => e.value != "selecciona",
+    );
 
     setAllSelected([...newArrayDeleteSelecciona]);
-  }, [products, energetics, packages, crate, subProducts, newFormula, variables]);
+  }, [
+    products,
+    energetics,
+    packages,
+    crate,
+    subProducts,
+    newFormula,
+    variables,
+  ]);
 
   function handleSubmit() {}
 
   const changeValueCheckedVariable = (index) => {
     setVariables((prevData) =>
-      prevData.map((row, i) => 
-        i === index ? { ...row, checked: !row.checked } : row
-      )
+      prevData.map((row, i) =>
+        i === index ? { ...row, checked: !row.checked } : row,
+      ),
     );
   };
+
+  useEffect(() => {
+    if (optionGlobalMerma.merma == "" || optionGlobalMerma.merma == null)
+      return;
+
+    const newProductsMerma = products.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+    
+    const newEnergeticsMerma = energetics.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+
+    
+
+    setProducts([...newProductsMerma]);
+    setEnergetics([...newEnergeticsMerma]);
+  }, [optionGlobalMerma]);
+
+  useEffect(() => {
+    let newProductsMerma = [];
+    let newEnergeticsMerma = [];
+    if (optionGInditOrGlobalMerma.individualCheck == "1") {
+      //if---------------------------------------------------------------------------------------------------
+      newProductsMerma = products.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+
+      newEnergeticsMerma = energetics.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      //-------------------------------------------------------------------------------------------------------
+    } else if (optionGInditOrGlobalMerma.globalCheck == "1") {
+      // second if --------------------------------------------------------------------------------------------
+      newProductsMerma = products.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+
+      newEnergeticsMerma = energetics.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+
+      //--------------------------------------------------------------------------------------------------------
+    }
+
+    setProducts([...newProductsMerma]);
+    setEnergetics([...newEnergeticsMerma]);
+  }, [optionGInditOrGlobalMerma]);
 
   return (
     <div className="flex h-full w-full">
@@ -396,81 +525,16 @@ function NewFormula() {
               <div className="flex h-full w-full flex-col justify-between gap-2 overflow-auto bg-blancoBg px-6 py-2">
                 <div className="flex h-full flex-col gap-4 overflow-scroll pt-4">
                   {/* config section */}
-                  <div className="flex h-24 w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
+                  />
 
                   {/* variable section */}
                   {newFormula.type == "2" && (
@@ -486,14 +550,20 @@ function NewFormula() {
                               key={variable.id}
                             >
                               <div className="flex items-center gap-4">
-                              <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
-                                checked={variable.checked}
-                                onCheckedChange={(e) => changeValueCheckedVariable(i)}
-                              />
-                              <span>V{i + 1}</span>
+                                <Checkbox
+                                  className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+                                  checked={variable.checked}
+                                  onCheckedChange={(e) =>
+                                    changeValueCheckedVariable(i)
+                                  }
+                                />
+                                <span>V{i + 1}</span>
                                 <div className="flex items-center gap-2">
                                   {variable.name.map(({ name }, i) => (
-                                    <div className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText" key={i}>
+                                    <div
+                                      className="rounded-xl bg-grisBg px-3 py-1 text-[10px] font-light text-grisText"
+                                      key={i}
+                                    >
                                       {name}
                                     </div>
                                   ))}
@@ -703,81 +773,16 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <div className="flex w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2.5">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
+                  />
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">
@@ -854,81 +859,16 @@ function NewFormula() {
                       />
                     </div>
                   </div> */}
-                  <div className="flex w-full items-center justify-evenly gap-2 rounded-lg border px-6 py-2.5">
-                    <div className="flex w-1/3">
-                      <SelectRouter
-                        options={productCraft}
-                        onChange={(e) => fillFormulaProduct(e)}
-                        value={newFormula}
-                        placeholder="Selecciona el artículo"
-                      />
-                    </div>
-
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="number"
-                        name="quantity"
-                        placeholder="Cantidad"
-                        value={newFormula.quantity}
-                        onChange={(e) =>
-                          setNewFormula({
-                            ...newFormula,
-                            quantity: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex w-28">
-                      <InputRouter
-                        type="text"
-                        name="unidad"
-                        placeholder="Unidad"
-                        value={newFormula.unit}
-                        onChange={() => {}}
-                      />
-                    </div>
-                    <div className="flex w-20">
-                      <InputRouter
-                        type="number"
-                        name="merma"
-                        placeholder="Merma"
-                        onChange={() => {}}
-
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Porcentaje</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Unidad</p>
-                      </label>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Global</p>
-                      </label>
-                      <label
-                        htmlFor="checkBoxMultiProcess"
-                        className="flex items-center gap-2 text-[14px] font-light text-grisText"
-                      >
-                        <Checkbox className="border border-primarioBotones data-[state=checked]:bg-primarioBotones" />
-                        <p className="text-[12px]">Individual</p>
-                      </label>
-                    </div>
-                  </div>
+                  <ArticleSelectOptions
+                    productCraft={productCraft}
+                    fillFormulaProduct={fillFormulaProduct}
+                    newFormula={newFormula}
+                    setNewFormula={setNewFormula}
+                    optionGlobalMerma={optionGlobalMerma}
+                    setOptionGlobalMerma={setOptionGlobalMerma}
+                    optionGInditOrGlobalMerma={optionGInditOrGlobalMerma}
+                    setOptionGIndiOrGlobalMerma={setOptionGIndiOrGlobalMerma}
+                  />
 
                   {/* materiales fab section */}
                   <div className="rounded-xl p-4">
@@ -983,19 +923,12 @@ function NewFormula() {
                   TOTAL “{sectionName}”
                 </div>
                 <div className="flex h-8 w-24 items-center rounded-xl border border-grisSubText pl-2 text-sm text-grisSubText">
-                  ${
-                    sectionName == "PRODUCTOS" ? (
-                      totalProductsSection
-                    ): (
-                    sectionName == "PROCESO" ? (
-                      totalProceso
-                    ) : (
-                    sectionName == "PERSONAL" && (
-                      totalPersonal
-                      )
-                    )
-                    )
-                  }
+                  $
+                  {sectionName == "PRODUCTOS"
+                    ? totalProductsSection
+                    : sectionName == "PROCESO"
+                      ? totalProceso
+                      : sectionName == "PERSONAL" && totalPersonal}
                 </div>
               </div>
               <IonIcon icon={chevronForward} className="size-4 text-black" />
