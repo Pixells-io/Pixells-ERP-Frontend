@@ -31,10 +31,14 @@ import {
   editProject,
   editSharedObject,
   editSharedTask,
+  editTask,
   saveNewTaskPM,
   saveSharedObject,
   saveSharedTask,
 } from "@/layouts/PManager/utils";
+import EditProjectModal from "./components2/Modals/EditProjectModal";
+import EditTaskModal from "./components2/Modals/EditTaskModal";
+import { set } from "date-fns";
 
 const HEADERS = [
   { name: "TIPO", cols: "1" },
@@ -61,6 +65,10 @@ function MainPM() {
   const [modalSettingsObjective, setModalSettingsObjective] = useState(false);
   const [modalSettingsTasks, setModalSettingsTasks] = useState(false);
   const [taskInfo, setTaskInfo] = useState([]);
+
+  const [taskModal, setTaskModal] = useState(false);
+  const [projectModal, setProjectModal] = useState(false);
+  const [projectInfo, setProjectInfo] = useState([]);
 
   useEffect(() => {
     const newObjectiveInfo = objective?.data;
@@ -100,6 +108,19 @@ function MainPM() {
         </h2>
 
         <div className="flex items-center gap-4">
+          <EditProjectModal
+            modal={projectModal}
+            setModal={setProjectModal}
+            objective={projectInfo}
+            form={{ route: `/project-manager2/${params.id}` }}
+          />
+          <EditTaskModal
+            task={taskInfo}
+            users={users}
+            modal={taskModal}
+            setModal={setTaskModal}
+            form={{ route: `/project-manager2/${params.id}` }}
+          />
           <ShareSettins
             id={objectiveInfo.id}
             creator={objectiveInfo.creator}
@@ -179,7 +200,14 @@ function MainPM() {
             >
               {opt.type}
             </div>
-            <div className="col-span-2 text-xs">{opt.name}</div>
+            <div className="col-span-2 flex items-center gap-2 text-xs">
+              {opt.name}
+              {opt.repeat_task_count !== 1 && opt.repeat_task_count !== null ? (
+                <span className="flex size-5 items-center justify-center rounded-full bg-grisSubText">
+                  {opt.repeat_task_count}
+                </span>
+              ) : null}
+            </div>
             <div className="col-span-1 flex flex-col items-center px-3">
               {opt.type == "Proyecto" && (
                 <>
@@ -193,7 +221,7 @@ function MainPM() {
                 </>
               )}
             </div>
-            <div className="col-span-1 text-center text-xs">{opt.end}</div>
+            <div className="col-span-1 text-center text-xs">{opt.start}</div>
             <div className="col-span-1 flex justify-center">
               <Avatar className="size-6">
                 <AvatarImage src="https://github.com/shadcn.png" />
@@ -290,7 +318,14 @@ function MainPM() {
                   </DropdownMenuItem>
                   {opt.type == "Tarea" && (
                     <>
-                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setTaskModal(true);
+                          setTaskInfo(opt);
+                        }}
+                      >
+                        Editar
+                      </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() =>
                           submit(
@@ -311,7 +346,14 @@ function MainPM() {
                   )}
                   {opt.type == "Proyecto" && (
                     <>
-                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setProjectModal(true);
+                          setProjectInfo(opt);
+                        }}
+                      >
+                        Editar
+                      </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() =>
                           submit(
@@ -353,6 +395,10 @@ export async function Action({ params, request }) {
 
     case "edit-project":
       await editProject(data);
+      return redirect(`/project-manager2/${params.id}`);
+
+    case "edit-task":
+      await editTask(data);
       return redirect(`/project-manager2/${params.id}`);
 
     case "delete-project":

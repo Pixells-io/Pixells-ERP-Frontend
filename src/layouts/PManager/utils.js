@@ -539,6 +539,57 @@ export async function editProject(data) {
   return response;
 }
 
+export async function editTask(data) {
+  const start =
+    data.get("star_date") == null
+      ? ""
+      : format(data.get("star_date"), "yyyy-MM-dd");
+  const end =
+    data.get("end_date") == null
+      ? ""
+      : format(data.get("end_date"), "yyyy-MM-dd");
+
+  // const task = {
+  //   name: data.get("name"),
+  //   description: data.get("description"),
+  //   type: Number(data.get("type")),
+  //   user_id: data.get("userId"),
+  //   priority: Number(data.get("priority")),
+  //   repeat: Number(data.get("repeat")),
+  //   objective_id: Number(data.get("objective_id")),
+  //   sequence: data.get("sequence"),
+  //   start: start,
+  //   end: end,
+  // };
+
+  const task = {
+    task_id: data.get("task_id"),
+    name: data.get("name"),
+    description: data.get("description"),
+    user_id: data.get("userId"),
+    priority: data.get("priority"),
+    end: end,
+    start: start,
+    status: "",
+    repeat: data.get("repeat"),
+  };
+
+  // validaciones?
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SERVER_URL}project-manager/edit-task`,
+    {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    },
+  );
+
+  return response;
+}
+
 export async function deleteProject(data) {
   const id = data.get("project_id");
   const response = await fetch(

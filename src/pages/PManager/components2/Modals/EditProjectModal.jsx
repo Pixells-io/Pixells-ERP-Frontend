@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, useNavigation, useParams } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 import {
   Dialog,
@@ -20,9 +20,10 @@ import { Button } from "@/components/ui/button";
 
 import InputRouter from "@/layouts/Masters/FormComponents/input";
 
-function EditProjectModal({ modal, setModal, objective }) {
-  const params = useParams();
+function EditProjectModal({ modal, setModal, objective, form }) {
   const navigation = useNavigation();
+
+  console.log(objective);
 
   useEffect(() => {
     if (navigation.state === "idle") {
@@ -40,7 +41,7 @@ function EditProjectModal({ modal, setModal, objective }) {
         <Form
           className="flex flex-col gap-2"
           id="ed-form"
-          action={`/project-manager2/project/${params.id}`}
+          action={form.route}
           method="post"
         >
           {/* selector de task */}
@@ -71,7 +72,7 @@ function EditProjectModal({ modal, setModal, objective }) {
                 <p className="pb-1 text-[11px] font-light text-grisHeading">
                   Prioridad
                 </p>
-                <Select name="priority" defaultValue={objective?.priority}>
+                <Select name="priority">
                   <SelectTrigger className="rounded-lg border-0 border-b bg-gris text-grisSubText !ring-0 !ring-offset-0 focus:border-primarioBotones">
                     <SelectValue placeholder="Prioridad" />
                   </SelectTrigger>

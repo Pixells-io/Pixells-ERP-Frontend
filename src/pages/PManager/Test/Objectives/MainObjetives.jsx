@@ -45,6 +45,7 @@ function MainObjetives() {
         modal={editModal}
         setModal={setEditModal}
         objective={project?.data?.project}
+        form={{ route: `/project-manager2/project/${params.id}` }}
       />
 
       <div className="px-14">
