@@ -61,7 +61,7 @@ function ProjectTab({ tasks, module_id }) {
             key={i}
             className={`col-span-${header.cols || "1"} ${i === 0 && "pl-7"} text-${header.text}`}
           >
-            <p className="text-sm font-semibold text-gris2">{header.name}</p>
+            <p style={{ color: '#44444F' }} className="text-sm font-medium font-poppins text-[12px]">{header.name}</p>
           </div>
         ))}
       </div>

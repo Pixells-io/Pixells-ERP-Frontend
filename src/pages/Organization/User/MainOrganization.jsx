@@ -113,11 +113,11 @@ function MainOrganization() {
           <div className="text-xs">{counter.data["areas"]} areas</div>
         </div>
       </div>
-      <div>
+      <div className="flex justify-between">
         <span className="font-poppins text-[20px] font-bold text-[#44444F]">
           Gestión de Usuarios
         </span>
-      </div>
+     
       {/*button create reg*/}
       {create == true ? (
         <div className="flex justify-end">
@@ -163,6 +163,7 @@ function MainOrganization() {
       ) : (
         false
       )}
+       </div>
       {/*component accion*/}
      
         <Tabs
