@@ -295,33 +295,31 @@ function NewFormula() {
   const [allSelected, setAllSelected] = useState([]);
 
   useEffect(() => {
-    const newArray = products.concat(
-      energetics,
-      packages,
-      crate,
-      subProducts,
-      newFormula,
-    );
+    const getVariablesSelect = variables.filter(v => v.checked);
+
+     let newArray = [];
+     if(getVariablesSelect.length > 0) {
+         getVariablesSelect.forEach(v => {
+          newArray.push({
+             ...newFormula,
+             label: newFormula.label +  " / " + (v.name.map(n=> n.name).join(' - ')),
+             variable: v
+           });
+         });
+     } else {
+       newArray = products.concat(
+        energetics,
+        packages,
+        crate,
+        subProducts,
+        newFormula,
+      );
+     }
+
     // delete "selecciona" options
     const newArrayDeleteSelecciona = newArray.filter(e => e.value != "selecciona"); 
-    const getVariablesSelect = variables.filter(v => v.checked);
-    let result = [];
 
-    if(getVariablesSelect.length > 0) {
-      newArrayDeleteSelecciona.forEach(product => {
-        getVariablesSelect.forEach(v => {
-          result.push({
-            ...product,
-            label:product.label +  " / " + (v.name.map(n=> n.name).join(' - ')),
-            variable: v
-          });
-        });
-      });
-    } else {
-      result = [...newArrayDeleteSelecciona];
-    }
-
-    setAllSelected([...result]);
+    setAllSelected([...newArrayDeleteSelecciona]);
   }, [products, energetics, packages, crate, subProducts, newFormula, variables]);
 
   function handleSubmit() {}
