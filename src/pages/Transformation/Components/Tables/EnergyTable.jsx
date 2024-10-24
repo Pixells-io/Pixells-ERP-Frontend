@@ -79,7 +79,7 @@ const EnergyTable = ({
               ...item,
               amount: value,
               subTotal: (item.price * value).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ( value * (item.merma / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? ( value * (item.merma / 100)).toFixed(2) : item.totalNeto
             }
           : item,
       ),
@@ -94,7 +94,7 @@ const EnergyTable = ({
           ? {
               ...item,
               merma: value,
-              totalNeto: item.isMerma == "1" ? (item.amount * (value / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? (item.amount * (value / 100)).toFixed(2) : item.totalNeto
 
             }
           : item,
@@ -109,7 +109,7 @@ const EnergyTable = ({
           ? {
               ...item,
               isMerma: value == "1" ? "1" : "0",
-              totalNeto: value == "1" ? (item.amount * (item.merma / 100)) : 0
+              totalNeto: value == "1" ? (item.amount * (item.merma / 100)).toFixed(2) : 0
             }
           : item,
       ),
