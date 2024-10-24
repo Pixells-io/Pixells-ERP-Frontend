@@ -39,6 +39,11 @@ import {
   searchOutline,
 } from "ionicons/icons";
 import { Checkbox } from "@/components/ui/checkbox";
+//data: datos que mostrara en la tabla
+//columns: las columnas headers tabla
+//searchFilter: el campo columna por la cual filtrara el input
+//searchNameFilter: muestra en el placeHolder el name con la cual filtrara
+//isCheckAll: true muestra el check donde selecciona todos
 
 function DataTable({
   data,

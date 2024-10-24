@@ -19,6 +19,7 @@ import ModalShowPDF from "@/layouts/Masters/Modals/ModalShowPDF";
 import { getPosition } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
 import ModalDelete from "@/components/modal-delete";
+import DataTable from "@/components/table/DataTable";
 
 function PositionsTable({ positions, edit }) {
   //Web Socket
@@ -51,22 +52,30 @@ function PositionsTable({ positions, edit }) {
   const columns = [
     columnHelper.accessor((row) => `${row.position_type}`, {
       id: "PositionType",
+      accessorKey: "PositionType",
       header: "TIPO DE POSICIÓN",
+       meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.position_name}`, {
       id: "PositionName",
+      accessorKey: "PositionName",
       header: "NOMBRE DEL PUESTO",
+       meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
+      accessorKey: "Area",
       header: "AREA",
+       meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.boss}`, {
       id: "Boss",
+      accessorKey: "Boss",
       header: "JEFE",
     }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "Created",
+      accessorKey: "Created",
       header: "CREADO",
     }),
     {
@@ -112,15 +121,20 @@ function PositionsTable({ positions, edit }) {
     },
   ];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
 
   return (
-    <div className="relative w-full overflow-auto">
-      <table className="w-full caption-bottom text-sm">
+    <div className="w-full overflow-auto">
+      <DataTable
+      data={data}
+      columns={columns}
+      searchNameFilter={"Search"}
+      />
+      {/* <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {
             return (
@@ -174,7 +188,7 @@ function PositionsTable({ positions, edit }) {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

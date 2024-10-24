@@ -16,6 +16,7 @@ import { getUsers } from "@/lib/actions";
 import { changeUserStatus } from "../../utils";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import ModalDelete from "@/components/modal-delete";
+import DataTable from "@/components/table/DataTable";
 
 function UsersTable({ users, edit }) {
   const columnHelper = createColumnHelper();
@@ -96,14 +97,18 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
+      accessorKey: "Area",
       header: "AREA",
+      meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.position}`, {
       id: "Position",
+      accessorKey: "Position",
       header: "POSICION",
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
       id: "Phone",
+      accessorKey: "Phone",
       header: "TELÉFONO",
     }),
     columnHelper.accessor((row) => `${row.email}`, {
@@ -167,15 +172,20 @@ function UsersTable({ users, edit }) {
     },
   ];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
 
   return (
-    <div className="relative h-full w-full overflow-auto">
-      <table className="w-full caption-bottom text-sm">
+    <div className=" h-full w-full overflow-auto">
+       <DataTable
+      data={data}
+      columns={columns}
+      searchNameFilter={"Search"}
+      />
+      {/* <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table?.getHeaderGroups().map((headerGroup) => {
             return (
@@ -228,7 +238,7 @@ function UsersTable({ users, edit }) {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

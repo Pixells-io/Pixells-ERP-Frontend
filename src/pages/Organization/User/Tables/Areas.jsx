@@ -13,6 +13,7 @@ import ModalShowArea from "../ModalShowArea";
 import { getArea, getAreas } from "@/lib/actions";
 import { createPusherClient } from "@/lib/pusher";
 import FormDestroyArea from "../FormDestroyArea";
+import DataTable from "@/components/table/DataTable";
 
 function AreasTable({ areas, edit, destroy }) {
   //Web Socket
@@ -64,15 +65,21 @@ function AreasTable({ areas, edit, destroy }) {
   const columns = [
     columnHelper.accessor((row) => `${row.nombre}`, {
       id: "name",
+      accessorKey: "name",
       header: "NOMBRE",
+      meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.description}`, {
       id: "description",
+      accessorKey: "description",
       header: "DESCRIPCIÓN",
+      meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.created_at}`, {
       id: "created",
+      accessorKey: "created",
       header: "CREADO",
+      meta: { filterButton: true },
     }),
     {
       accessorKey: "actions",
@@ -100,14 +107,14 @@ function AreasTable({ areas, edit, destroy }) {
     },
   ];
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
 
   return (
-    <div className="relative w-full overflow-auto">
+    <div className="w-full overflow-auto">
       {/*Form Destroy Area */}
       <FormDestroyArea
         modal={modalDestroy}
@@ -116,7 +123,14 @@ function AreasTable({ areas, edit, destroy }) {
       />
       {/* Form Edit and Show Areas */}
       <ModalShowArea modal={modal} setModal={setModal} area={areaId} />
-      <table className="w-full caption-bottom text-sm">
+
+      <DataTable
+      data={data}
+      columns={columns}
+      searchNameFilter={"Search"}
+    
+      />
+      {/* <table className="w-full caption-bottom text-sm">
         <thead className="[&_tr]:border-b">
           {table.getHeaderGroups().map((headerGroup) => {
             return (
@@ -170,7 +184,7 @@ function AreasTable({ areas, edit, destroy }) {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }
