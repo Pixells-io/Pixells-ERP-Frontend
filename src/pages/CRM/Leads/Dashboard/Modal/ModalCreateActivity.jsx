@@ -271,7 +271,7 @@ function ModalCreateActivity({
               ) : null}
               {inputMail == true ? (
                 <InputForm
-                  name={"email"}
+                  name={"mail"}
                   placeholder={"Correo"}
                   type={"email"}
                 />
