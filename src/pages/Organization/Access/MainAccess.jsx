@@ -19,99 +19,21 @@ function MainAccess() {
   });
 
   const modulos = [
-    {
-      name: "Organization",
-      id: 1,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Project Manager",
-      id: 2,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "CRM",
-      id: 3,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Chat",
-      id: 4,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Analitycs",
-      id: 5,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Desarrollo Org.",
-      id: 6,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Tickets",
-      id: 7,
-      org_m: "1",
-      tran_m: "0",
-    },
-    {
-      name: "Bank Management",
-      id: 9,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Accounting",
-      id: 10,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Inventory",
-      id: 11,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Sales",
-      id: 12,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Shopping",
-      id: 13,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Transformation",
-      id: 14,
-      org_m: "0",
-      tran_m: "1",
-    },
-    {
-      name: "Pos",
-      id: 15,
-      org_m: "0",
-      tran_m: "1",
-    },
+    { name: "Organization", id: 1, org_m: "1", tran_m: "0" },
+    { name: "Project Manager", id: 2, org_m: "1", tran_m: "0" },
+    { name: "CRM", id: 3, org_m: "1", tran_m: "0" },
+    { name: "Chat", id: 4, org_m: "1", tran_m: "0" },
+    { name: "Analitycs", id: 5, org_m: "1", tran_m: "0" },
+    { name: "Desarrollo Org.", id: 6, org_m: "1", tran_m: "0" },
+    { name: "Tickets", id: 7, org_m: "1", tran_m: "0" },
+    { name: "Bank Management", id: 9, org_m: "0", tran_m: "1" },
+    { name: "Accounting", id: 10, org_m: "0", tran_m: "1" },
+    { name: "Inventory", id: 11, org_m: "0", tran_m: "1" },
+    { name: "Sales", id: 12, org_m: "0", tran_m: "1" },
+    { name: "Shopping", id: 13, org_m: "0", tran_m: "1" },
+    { name: "Transformation", id: 14, org_m: "0", tran_m: "1" },
+    { name: "Pos", id: 15, org_m: "0", tran_m: "1" },
   ];
-
-  function WrappedMain({ children }) {
-    return (
-      <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-hidden bg-[#FBFBFB] px-14 py-3">
-        {children}
-      </div>
-    );
-  }
 
   const handleTabChange = (moduleName) => {
     const module = modulos.find((m) => m.name === moduleName);
@@ -133,7 +55,7 @@ function MainAccess() {
   };
 
   return (
-    <WrappedMain>
+    <div className="rounded-rl-xl flex h-full w-full flex-col gap-2 overflow-hidden bg-[#FBFBFB] px-14 py-3">
       <NavigationHeader />
 
       <div className="flex items-center gap-16">
@@ -148,16 +70,14 @@ function MainAccess() {
 
       <Tabs
         defaultValue={"Organization"}
-        className="flex flex-col overflow-auto rounded-lg"
         value={currentModule.name}
-        onValueChange={(value) => {
-          handleTabChange(value);
-        }}
+        onValueChange={handleTabChange}
+        className="flex flex-col overflow-auto rounded-lg"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
           <div className="relative w-full max-w-[950px] overflow-x-auto">
             <TabsList className="inline-flex w-full min-w-max space-x-2 rounded-none bg-transparent px-0">
-              {modulos.map((area, i) => (
+              {modulos.map((area) => (
                 <TabsTrigger
                   key={area.id}
                   className="h-[30px] shrink-0 rounded-xl px-4 font-roboto text-xs font-normal text-black data-[state=active]:bg-[#F1F1F1] data-[state=active]:shadow-none"
@@ -191,11 +111,7 @@ function MainAccess() {
 
         <div className="mt-4">
           {modulos.map((area) => (
-            <TabsContent
-              key={area.id}
-              value={area.name}
-              className="mt-0 data-[state=active]:block"
-            >
+            <TabsContent key={area.id} value={area.name}>
               <ProjectTab
                 tasks={areas.data}
                 module_id={area.id}
@@ -206,7 +122,7 @@ function MainAccess() {
           ))}
         </div>
       </Tabs>
-    </WrappedMain>
+    </div>
   );
 }
 

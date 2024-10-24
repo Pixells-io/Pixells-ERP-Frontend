@@ -50,7 +50,7 @@ function UsersTable({ users, edit }) {
 
   const columns = [
     {
-      accessorKey: "Name",
+      accessorKey: "name",
       header: "NOMBRE",
       id: "Name",
       cell: ({ row }) => {
@@ -97,22 +97,23 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
-      accessorKey: "Area",
+      accessorKey: "area",
       header: "AREA",
       meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.position}`, {
       id: "Position",
-      accessorKey: "Position",
+      accessorKey: "position",
       header: "POSICION",
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
       id: "Phone",
-      accessorKey: "Phone",
+      accessorKey: "phone",
       header: "TELÉFONO",
     }),
     columnHelper.accessor((row) => `${row.email}`, {
       id: "Email",
+      accessorKey: "email",
       header: "EMAIL",
     }),
     {

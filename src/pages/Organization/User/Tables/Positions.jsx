@@ -52,19 +52,19 @@ function PositionsTable({ positions, edit }) {
   const columns = [
     columnHelper.accessor((row) => `${row.position_type}`, {
       id: "PositionType",
-      accessorKey: "PositionType",
+      accessorKey: "position_type",
       header: "TIPO DE POSICIÓN",
        meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.position_name}`, {
       id: "PositionName",
-      accessorKey: "PositionName",
+      accessorKey: "position_name",
       header: "NOMBRE DEL PUESTO",
        meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
-      accessorKey: "Area",
+      accessorKey: "area",
       header: "AREA",
        meta: { filterButton: true },
     }),
