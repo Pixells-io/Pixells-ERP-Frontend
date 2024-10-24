@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SelectRouter from "@/layouts/Masters/FormComponents/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const SubProductsTable = ({
   tableData,
@@ -53,6 +54,9 @@ const SubProductsTable = ({
     quantity: 200,
     unit: "kWh",
     price: "",
+    merma: 0,
+    isMerma: "0",
+    totalNeto: 0,
   };
 
   useEffect(() => {
@@ -84,11 +88,41 @@ const SubProductsTable = ({
                 item.price * value +
                 (item.price * item.amountTax * value) / 100
               ).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((item.price * value) * (item.merma / 100)) : item.totalNeto
             }
           : item,
       ),
     );
   }, []);
+
+  const handleInputChangeMerma = (rowIndex, value) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              merma: value,
+              totalNeto: item.isMerma == "1" ? ((item.price * item.amount) * (value / 100)) : item.totalNeto
+
+            }
+          : item,
+      ),
+    );
+  };
+  
+  const handleInputChangeIsMerma = (rowIndex, value) => {
+    setTableData((prevData) =>
+      prevData.map((item, index) =>
+        index === rowIndex
+          ? {
+              ...item,
+              isMerma: value == "1" ? "1" : "0",
+              totalNeto: value == "1" ? ((item.price * item.amount) * (item.merma / 100)) : 0
+            }
+          : item,
+      ),
+    );
+  };
 
   const handleCostChange = useCallback((rowIndex, value) => {
     setTableData((prevData) =>
@@ -102,6 +136,7 @@ const SubProductsTable = ({
                 value * item.amount +
                 (value * item.amountTax * item.amount) / 100
               ).toFixed(2),
+              totalNeto: item.isMerma == "1" ? ((value * item.amount) * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -125,6 +160,7 @@ const SubProductsTable = ({
                 value: data.id,
                 tax: (data.price * 16) / 100,
                 subTotal: (data.price * 1 + (data.price * 16) / 100).toFixed(2),
+                totalNeto: item.isMerma == "1" ? Number(data.price) * ( item.merma / 100) : item.totalNeto,
               }
             : item,
         ),
@@ -274,6 +310,39 @@ const SubProductsTable = ({
           disabled={!row.component}
           onChange={(e) => handleCostChange(rowIndex, e.target.value)}
         />
+      ),
+    },
+    {
+      accessorKey: "merma",
+      header: "Merma",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex items-center gap-x-2 p-1">
+          <Checkbox
+            className="border border-primarioBotones data-[state=checked]:bg-primarioBotones"
+            checked={row.isMerma == "1"}
+            name={`isMerma-${rowIndex}`}
+            disabled={!row.component}
+            onCheckedChange={(e) => handleInputChangeIsMerma(rowIndex, e)
+            }
+          />
+          <Input
+          type="number"
+          className="border-gris2-transparent w-[60px]  px-1 text-center rounded-xl border font-roboto text-[14px] text-[#696974] placeholder:text-[#8F8F8F] focus:border-transparent focus-visible:ring-primarioBotones"
+          name={`merma-${rowIndex}`}
+          value={row.merma}
+          disabled={!row.component || row.isMerma == "0"}
+          onChange={(e) => handleInputChangeMerma(rowIndex, e.target.value)}
+        />
+        </div>
+      ),
+    },
+    {
+      accessorKey: "totalNeto",
+      header: "Total Neto",
+      cell: ({ row, rowIndex }) => (
+        <div className="flex items-center gap-x-2 p-1">
+          {row.totalNeto}
+        </div>
       ),
     },
     {
