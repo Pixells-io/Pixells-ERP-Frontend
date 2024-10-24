@@ -485,9 +485,14 @@ export async function multiloaderProyectsPM({ params }) {
 }
 
 export async function multiloaderTasksPM({ params }) {
-  const [tasks] = await Promise.all([getTasksByWorkspace({ params })]);
+  const [tasks, users, positions, areas] = await Promise.all([
+    getTasksByWorkspace({ params }),
+    getUsers(),
+    getPosition(),
+    getAreas(),
+  ]);
 
-  return json({ tasks });
+  return json({ tasks, users, positions, areas });
 }
 
 export async function getProjectById({ params }) {
