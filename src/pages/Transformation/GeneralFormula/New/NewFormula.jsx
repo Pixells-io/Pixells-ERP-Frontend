@@ -365,7 +365,6 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -379,7 +378,45 @@ function NewFormula() {
             ...p,
             merma: optionGlobalMerma.merma,
             totalNeto: (
-              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+
+    const newPackagesMerma = packages.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+    
+    const newCrateMerma = crate.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+    
+    const newSubProductMerma = subProducts.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
               p.amount *
               (optionGlobalMerma.merma / 100)
             ).toFixed(2),
@@ -391,11 +428,17 @@ function NewFormula() {
 
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
+    setPackages([...newPackagesMerma]);
+    setCrate([...newCrateMerma]);
+    setSubProducts([...newSubProductMerma]);
   }, [optionGlobalMerma]);
 
   useEffect(() => {
     let newProductsMerma = [];
     let newEnergeticsMerma = [];
+    let newPackagesMerma = [];
+    let newCrateMerma = [];
+    let newSubProductMerma = [];
     if (optionGInditOrGlobalMerma.individualCheck == "1") {
       //if---------------------------------------------------------------------------------------------------
       newProductsMerma = products.map((p) =>
@@ -404,7 +447,6 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -418,7 +460,45 @@ function NewFormula() {
               ...p,
               merma: optionGlobalMerma.merma,
               totalNeto: (
-                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      
+      newPackagesMerma = packages.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      
+      newCrateMerma = crate.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      
+      newSubProductMerma = subProducts.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
                 p.amount *
                 (optionGlobalMerma.merma / 100)
               ).toFixed(2),
@@ -434,7 +514,6 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -447,7 +526,42 @@ function NewFormula() {
           merma: optionGlobalMerma.merma,
           isMerma: "1",
           totalNeto: (
-            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+      
+      newPackagesMerma = packages.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+      
+      newCrateMerma = crate.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
+      
+      newSubProductMerma = subProducts.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
             p.amount *
             (optionGlobalMerma.merma / 100)
           ).toFixed(2),
@@ -459,6 +573,9 @@ function NewFormula() {
 
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
+    setPackages([...newPackagesMerma]);
+    setCrate([...newCrateMerma]);
+    setSubProducts([...newSubProductMerma]);
   }, [optionGInditOrGlobalMerma]);
 
   return (

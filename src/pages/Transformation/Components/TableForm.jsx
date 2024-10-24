@@ -80,7 +80,7 @@ const TableForm = ({
               ...item,
               amount: value,
               subTotal: (item.price * value).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ((item.price * value) * (item.merma / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? (value * (item.merma / 100)) : item.totalNeto
             }
           : item,
       ),
@@ -94,7 +94,7 @@ const TableForm = ({
           ? {
               ...item,
               merma: value,
-              totalNeto: item.isMerma == "1" ? ((item.price * item.amount) * (value / 100)) : item.totalNeto
+              totalNeto: item.isMerma == "1" ? (item.amount * (value / 100)) : item.totalNeto
 
             }
           : item,
@@ -109,7 +109,7 @@ const TableForm = ({
           ? {
               ...item,
               isMerma: value == "1" ? "1" : "0",
-              totalNeto: value == "1" ? ((item.price * item.amount) * (item.merma / 100)) : 0
+              totalNeto: value == "1" ? (item.amount * (item.merma / 100)) : 0
             }
           : item,
       ),
@@ -124,7 +124,6 @@ const TableForm = ({
               ...item,
               price: value,
               subTotal: (value * item.amount).toFixed(2),
-              totalNeto: item.isMerma == "1" ? ((value * item.amount) * (item.merma / 100)) : item.totalNeto,
             }
           : item,
       ),
@@ -145,7 +144,6 @@ const TableForm = ({
                 label: data.name,
                 value: data.id,
                 id: data.id,
-                totalNeto: item.isMerma == "1" ? Number(data.price) * ( item.merma / 100) : item.totalNeto,
                 subTotal: Number(data.price),
               }
             : item,
@@ -268,7 +266,7 @@ const TableForm = ({
       header: "Total Neto",
       cell: ({ row, rowIndex }) => (
         <div className="flex items-center gap-x-2 p-1">
-          {row.totalNeto}
+          {row.totalNeto} {row.unit}
         </div>
       ),
     },
