@@ -8,6 +8,11 @@ function PriceChecker({ }) {
   const [modal, setModal] = useState(false);
   const [section, setSection] = useState("menu");
 
+  const getCodeProduct = (e) => {
+    console.log(e);
+    setSection("infoProduct");
+  }
+
   return (
     <Dialog
       open={modal}
@@ -23,7 +28,7 @@ function PriceChecker({ }) {
       </DialogTrigger>
       <DialogContent className="flex h-full max-h-[492px] w-full max-w-[462px] flex-col overflow-auto bg-blancoBg p-0">
         {section == "menu" ? (
-          <StepMenu setSection={setSection} />
+          <StepMenu getCodeProduct={getCodeProduct} />
         ) : (
           <StepInfoProduct setSection={setSection} />
         )}

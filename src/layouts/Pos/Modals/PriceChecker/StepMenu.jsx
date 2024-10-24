@@ -5,16 +5,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Options from "./Options";
-import Camera from "./Camera";
+import Options from "../../Component/Options";
+import Camera from "../../Component/Camera";
 
-function StepMenu({ setSection }) {
+function StepMenu({ getCodeProduct  }) {
   const [option, setOption] = useState("none");
 
   const infoProduct = (e) => {
     if (e.code == "Enter") {
       setTimeout(() => {
-        setSection("infoProduct");
+        getCodeProduct("33444");
       }, 2000);
     }
   }
@@ -31,7 +31,7 @@ function StepMenu({ setSection }) {
       <div className="flex flex-col gap-y-8">
         <Options option={option} setOption={setOption} />
         <div className="flex h-[226px] w-full justify-center">
-          {option == "camera" && <Camera setSection={setSection} />}
+          {option == "camera" && <Camera getCodeProduct={getCodeProduct} />}
           {option == "manual" && (
             <div className="w-3/4 flex flex-col gap-y-1">
               <h2 className="text-center text-xs font-normal font-roboto text-grisText">INGRESA</h2>
