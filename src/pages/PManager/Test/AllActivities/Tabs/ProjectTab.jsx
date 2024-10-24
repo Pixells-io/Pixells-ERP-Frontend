@@ -22,6 +22,7 @@ import {
 import { IonIcon } from "@ionic/react";
 import ShareSettins from "@/pages/PManager/components2/ShareSettings/ShareSettings";
 import { useParams } from "react-router-dom";
+import EditTaskModal from "@/pages/PManager/components2/Modals/EditTaskModal";
 
 const HEADERS = [
   { name: "PROYECTO", cols: "2", text: "start" },
@@ -275,6 +276,7 @@ function ProjectTab({ tasks, users, positions, areas }) {
   const [openItems, setOpenItems] = useState([]);
 
   const [modalSettingsTasks, setModalSettingsTasks] = useState(false);
+  const [editTaskModal, setEditTaskModal] = useState(false);
   const [taskInfo, setTaskInfo] = useState([]);
 
   useEffect(() => {
@@ -288,15 +290,22 @@ function ProjectTab({ tasks, users, positions, areas }) {
   // console.log(tasks.projects);
   return (
     <div className="flex h-full w-full flex-col">
+      <EditTaskModal
+        modal={editTaskModal}
+        setModal={setEditTaskModal}
+        task={taskInfo}
+        users={users}
+        form={{ route: `/project-manager2/activities/${params.id}` }}
+      />
       <ShareSettins
         id={taskInfo.id}
         creator={taskInfo.creator}
         shared={taskInfo.shared}
         modal={modalSettingsTasks}
         setModal={setModalSettingsTasks}
-        users={users}
-        positions={positions}
-        areas={areas}
+        users={users.data}
+        positions={positions.data}
+        areas={areas.data}
         hasButton={false}
         SaveShared={{
           route: `/project-manager2/activities/${params.id}`,
@@ -457,7 +466,14 @@ function ProjectTab({ tasks, users, positions, areas }) {
                       >
                         Compartir
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setEditTaskModal(true);
+                          setTaskInfo(task);
+                        }}
+                      >
+                        Editar
+                      </DropdownMenuItem>
                       <DropdownMenuItem>Eliminar</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

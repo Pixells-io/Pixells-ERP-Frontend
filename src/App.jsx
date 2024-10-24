@@ -354,7 +354,9 @@ import MainWL, {
 } from "./pages/Inventory/WarehouseLocations/MainWL";
 import { multiLoaderUbication } from "./pages/Inventory/WarehouseLocations/utils";
 import { multiLoaderData } from "./pages/Inventory/WarehouseLocations/utils";
-import MainGW,{Action as deleteWarehouse} from "./pages/Inventory/GeneralWarehouses/MainGW";
+import MainGW, {
+  Action as deleteWarehouse,
+} from "./pages/Inventory/GeneralWarehouses/MainGW";
 import WLSlots, {
   Action as createNewConfigure,
 } from "./pages/Inventory/WarehouseLocations/CreateConfig/WLSlots";
@@ -609,7 +611,9 @@ import {
 } from "./layouts/PManager/utils";
 import AllProjects from "./pages/PManager/Test/AllProjects/AllProjects";
 import PlaceholderPM from "./pages/PManager/components2/PlaceholderPM";
-import AllActivities from "./pages/PManager/Test/AllActivities/AllActivities";
+import AllActivities, {
+  Action as multiActionsAllActivitiesPM,
+} from "./pages/PManager/Test/AllActivities/AllActivities";
 import MainObjetives, {
   Action as multiloaderMO,
 } from "./pages/PManager/Test/Objectives/MainObjetives";
@@ -767,19 +771,20 @@ const router = createBrowserRouter([
           },
           {
             path: "/project-manager2/:id",
+            element: <MainPM />,
             loader: multiloaderMainPM,
             action: multiActionsMainPM,
-            element: <MainPM />,
           },
           {
             path: "/project-manager2/proyects/:id",
-            loader: multiloaderProyectsPM,
             element: <AllProjects />,
+            loader: multiloaderProyectsPM,
           },
           {
             path: "/project-manager2/activities/:id",
-            loader: multiloaderTasksPM,
             element: <AllActivities />,
+            loader: multiloaderTasksPM,
+            action: multiActionsAllActivitiesPM,
           },
           {
             path: "/project-manager2/project/:id",
@@ -1270,7 +1275,7 @@ const router = createBrowserRouter([
             path: "/inventory/general-warehouses",
             element: <MainGW />,
             loader: getWarehouses,
-            action:deleteWarehouse
+            action: deleteWarehouse,
           },
           {
             path: "/inventory/general-warehouses/create",
