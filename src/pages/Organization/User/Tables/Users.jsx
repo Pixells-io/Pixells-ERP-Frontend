@@ -186,9 +186,10 @@ function UsersTable({ users, edit }) {
                 {headerGroup?.headers.map((header) => {
                   return (
                     <th
-                      className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+                      className="h-12 px-4 text-left align-middle font-poppins text-xs font-medium text-[#44444F] text-muted-foreground [&:has([role=checkbox])]:pr-0"
                       id={header?.id}
                       key={header?.id}
+                      style={{ color: '#44444F' }}
                     >
                       {header?.isPlaceholder
                         ? null
