@@ -387,15 +387,31 @@ function NewFormula() {
         : { ...p },
     );
 
+    const newPackagesMerma = packages.map((p) =>
+      p.isMerma == "1"
+        ? {
+            ...p,
+            merma: optionGlobalMerma.merma,
+            totalNeto: (
+              p.price *
+              p.amount *
+              (optionGlobalMerma.merma / 100)
+            ).toFixed(2),
+          }
+        : { ...p },
+    );
+
     
 
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
+    setPackages([...newPackagesMerma]);
   }, [optionGlobalMerma]);
 
   useEffect(() => {
     let newProductsMerma = [];
     let newEnergeticsMerma = [];
+    let newPackagesMerma = [];
     if (optionGInditOrGlobalMerma.individualCheck == "1") {
       //if---------------------------------------------------------------------------------------------------
       newProductsMerma = products.map((p) =>
@@ -413,6 +429,20 @@ function NewFormula() {
       );
 
       newEnergeticsMerma = energetics.map((p) =>
+        p.isMerma == "1"
+          ? {
+              ...p,
+              merma: optionGlobalMerma.merma,
+              totalNeto: (
+                p.price *
+                p.amount *
+                (optionGlobalMerma.merma / 100)
+              ).toFixed(2),
+            }
+          : { ...p },
+      );
+      
+      newPackagesMerma = packages.map((p) =>
         p.isMerma == "1"
           ? {
               ...p,
@@ -453,12 +483,26 @@ function NewFormula() {
           ).toFixed(2),
         };
       });
+      
+      newPackagesMerma = packages.map((p) => {
+        return {
+          ...p,
+          merma: optionGlobalMerma.merma,
+          isMerma: "1",
+          totalNeto: (
+            p.price *
+            p.amount *
+            (optionGlobalMerma.merma / 100)
+          ).toFixed(2),
+        };
+      });
 
       //--------------------------------------------------------------------------------------------------------
     }
 
     setProducts([...newProductsMerma]);
     setEnergetics([...newEnergeticsMerma]);
+    setPackages([...newPackagesMerma]);
   }, [optionGInditOrGlobalMerma]);
 
   return (
