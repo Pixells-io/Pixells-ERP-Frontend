@@ -71,7 +71,7 @@ function DeleteModalPermission({
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <Form
-         // action={}
+         action={"/organization/access"}
           method="post"
           className="flex flex-col gap-4"
         >
