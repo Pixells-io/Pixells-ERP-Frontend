@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+import { IonIcon } from "@ionic/react";
+import { ellipsisVertical } from "ionicons/icons";
 
 const HEADERS = [
   { name: "PROYECTO", cols: "3", text: "start" },
@@ -99,8 +108,47 @@ function ListTab({ proyects }) {
             </Avatar>
           </div>
 
-          <div className={"col-span-1 text-xs font-normal text-grisHeading"}>
+          <div
+            className={
+              "col-span-1 flex w-full items-center justify-between text-xs font-normal text-grisHeading"
+            }
+          >
             {opt?.status == "0" && <span>Pendiente</span>}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <IonIcon
+                  icon={ellipsisVertical}
+                  className="size-6 text-grisSubText"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link
+                    className="flex w-full"
+                    to={`/project-manager2/project/${opt.id}`}
+                  >
+                    Ver
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setModalSettingsTasks(true);
+                    setTaskInfo(task);
+                  }}
+                >
+                  Compartir
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setEditTaskModal(true);
+                    setTaskInfo(task);
+                  }}
+                >
+                  Editar
+                </DropdownMenuItem>
+                <DropdownMenuItem>Eliminar</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       ))}

@@ -23,8 +23,6 @@ import InputRouter from "@/layouts/Masters/FormComponents/input";
 function EditProjectModal({ modal, setModal, objective, form }) {
   const navigation = useNavigation();
 
-  console.log(objective);
-
   useEffect(() => {
     if (navigation.state === "idle") {
       setModal(false);

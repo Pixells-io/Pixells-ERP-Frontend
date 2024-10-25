@@ -121,25 +121,27 @@ function MainPM() {
             setModal={setTaskModal}
             form={{ route: `/project-manager2/${params.id}` }}
           />
-          <ShareSettins
-            id={objectiveInfo.id}
-            creator={objectiveInfo.creator}
-            users={users.data}
-            positions={positions.data}
-            areas={areas.data}
-            shared={objectiveInfo.shared}
-            modal={modalSettingsObjective}
-            setModal={setModalSettingsObjective}
-            SaveShared={{
-              route: `/project-manager2/${objectiveInfo.id}`,
-              action: "share-objective",
-              name: "objetive_id",
-            }}
-            editShared={{
-              route: `/project-manager2/${objectiveInfo.id}`,
-              action: "edit-shared-objective",
-            }}
-          />
+          {objectiveInfo.type == "2" && (
+            <ShareSettins
+              id={objectiveInfo.id}
+              creator={objectiveInfo.creator}
+              users={users.data}
+              positions={positions.data}
+              areas={areas.data}
+              shared={objectiveInfo.shared}
+              modal={modalSettingsObjective}
+              setModal={setModalSettingsObjective}
+              SaveShared={{
+                route: `/project-manager2/${objectiveInfo.id}`,
+                action: "share-objective",
+                name: "objetive_id",
+              }}
+              editShared={{
+                route: `/project-manager2/${objectiveInfo.id}`,
+                action: "edit-shared-objective",
+              }}
+            />
+          )}
 
           <ShareSettins
             id={taskInfo.id}
@@ -308,14 +310,16 @@ function MainPM() {
                       </Link>
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setModalSettingsTasks(true);
-                      setTaskInfo(opt);
-                    }}
-                  >
-                    Compartir
-                  </DropdownMenuItem>
+                  {objectiveInfo.type == "2" && (
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setModalSettingsTasks(true);
+                        setTaskInfo(opt);
+                      }}
+                    >
+                      Compartir
+                    </DropdownMenuItem>
+                  )}
                   {opt.type == "Tarea" && (
                     <>
                       <DropdownMenuItem
