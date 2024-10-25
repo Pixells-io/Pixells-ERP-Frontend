@@ -52,7 +52,7 @@ function UsersTable({ users, edit }) {
     {
       accessorKey: "name",
       header: "NOMBRE",
-      id: "Name",
+      id: "name",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
@@ -97,13 +97,13 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.area}`, {
       id: "Area",
-      accessorKey: "area",
+      accessorKey: "Area",
       header: "AREA",
       meta: { filterButton: true },
     }),
     columnHelper.accessor((row) => `${row.position}`, {
       id: "Position",
-      accessorKey: "position",
+      accessorKey: "Position",
       header: "POSICION",
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
