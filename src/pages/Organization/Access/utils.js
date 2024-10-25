@@ -4,7 +4,7 @@ import { json } from "react-router-dom"
 export async function restorePermission(formData) {
     const info = {
     module:parseInt(formData.get("module_id")),
-    positions: parseInt(formData.getAll("positions[]"))
+    positions: JSON.parse(formData.getAll("positions[]"))
     };
   
     const response = await fetch(

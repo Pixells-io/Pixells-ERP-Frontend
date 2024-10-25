@@ -50,9 +50,9 @@ function UsersTable({ users, edit }) {
 
   const columns = [
     {
-      accessorKey: "Name",
+      accessorKey: "name",
       header: "NOMBRE",
-      id: "Name",
+      id: "name",
       cell: ({ row }) => {
         return (
           <div className="flex gap-2 text-[#696974]">
@@ -108,11 +108,12 @@ function UsersTable({ users, edit }) {
     }),
     columnHelper.accessor((row) => `${row.phone}`, {
       id: "Phone",
-      accessorKey: "Phone",
+      accessorKey: "phone",
       header: "TELÉFONO",
     }),
     columnHelper.accessor((row) => `${row.email}`, {
       id: "Email",
+      accessorKey: "email",
       header: "EMAIL",
     }),
     {

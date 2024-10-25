@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ConsultArticle from "./Modals/ConsultArticle/ConsultArticle";
 import PriceChecker from "./Modals/PriceChecker/PriceChecker";
+import Refund from "./Modals/Refund/Refund";
 
 const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
   const location = useLocation();
@@ -71,18 +72,7 @@ const EnabledPos = ({ setIsDisabled, setIsGrid, isGrid }) => {
 
               <CashOutflow />
 
-              <NavLink
-                to="/pos"
-                className={({ isActive }) =>
-                  isActive && location.pathname === "/pos"
-                    ? "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                    : "rounded-3xl bg-[#F0F0F0] p-3 text-[#44444F] hover:bg-blancoBox2"
-                }
-              >
-                <div className="w-full whitespace-nowrap">
-                  <p className="font-roboto text-xs font-medium">DEVOLUCIÓN</p>
-                </div>
-              </NavLink>
+              <Refund />
 
               <DropdownMenu>
                 <DropdownMenuTrigger

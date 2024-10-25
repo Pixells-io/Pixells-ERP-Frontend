@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigation } from "react-router-dom";
-
 import {
   Dialog,
   DialogContent,
@@ -38,8 +37,9 @@ function DeleteModalPermission({
   return (
     <Dialog open={modal} onOpenChange={setModal}>
       <DialogTrigger 
-      disabled={selectedPositions.length===0}
-      className="flex items-center" asChild>
+        disabled={selectedPositions.length === 0}
+        className="flex items-center" asChild
+      >
         <Button
           type="button"
           className={`flex h-[30px] items-center justify-center rounded-xl px-3 ${
@@ -71,45 +71,46 @@ function DeleteModalPermission({
           <DialogDescription className="hidden"></DialogDescription>
         </DialogHeader>
         <Form
-         action={"/organization/access"}
+          action={"/organization/access"}
           method="post"
           className="flex flex-col gap-4"
         >
           <input
             type="hidden"
-            hidden
             name="module_id"
             value={currentModule.id}
             readOnly
           />
           <input
             type="hidden"
-            hidden
             name="positions[]"
-            value={selectedPositions}
+            value={JSON.stringify(selectedPositions)}
             readOnly
           />
-        <span className="my-4 font-roboto text-xs font-light text-grisDisabled">
-          Estas intentando restablecer los permisos de los usuarios de "
-          {currentModule.name}", ¿Estás Seguro?{" "}
-        </span>
-        <DialogFooter>
-          <div className="flex w-full justify-between gap-2">
-            <Button
-              type="button"
-              className="h-fit w-fit rounded-xl bg-inherit px-0 font-roboto text-xs font-light text-white hover:bg-inherit"
-              onClick={() => setModal(false)}
-            >
-              Cancelar
-            </Button>
-            <Button
-              type="submit"
-              className="h-8 w-24 rounded-xl bg-[#DC1C3B] font-roboto text-xs font-normal text-white hover:bg-[#DC1C3B]"
-            >
-              Restablecer
-            </Button>
-          </div>
-        </DialogFooter>
+          <span className="my-4 font-roboto text-xs font-light text-grisDisabled">
+            Estas intentando restablecer los permisos de los usuarios de "
+            {currentModule.name}", ¿Estás Seguro?{" "}
+          </span>
+          <DialogFooter>
+            <div className="flex w-full justify-between gap-2">
+              <Button
+                type="button"
+                className="h-fit w-fit rounded-xl bg-inherit px-0 font-roboto text-xs font-light text-white hover:bg-inherit"
+                onClick={() => {
+                  setSelectedPositions([]); 
+                  setModal(false); 
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                className="h-8 w-24 rounded-xl bg-[#DC1C3B] font-roboto text-xs font-normal text-white hover:bg-[#DC1C3B]"
+              >
+                Restablecer
+              </Button>
+            </div>
+          </DialogFooter>
         </Form>
       </DialogContent>
     </Dialog>

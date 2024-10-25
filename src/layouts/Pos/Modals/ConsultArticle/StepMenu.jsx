@@ -5,11 +5,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Options from "./Options";
-import Camera from "./Camera";
+import Options from "../../Component/Options";
+import Camera from "../../Component/Camera";
 
-function StepMenu({ setSection }) {
+function StepMenu({ getCodeProduct }) {
   const [option, setOption] = useState("none");
+
+  const infoProduct = (e) => {
+    if (e.code == "Enter") {
+      setTimeout(() => {
+        getCodeProduct("123");
+      }, 2000);
+    }
+  }
 
   return (
     <>
@@ -20,10 +28,17 @@ function StepMenu({ setSection }) {
       </DialogHeader>
 
       <DialogDescription className="hidden"></DialogDescription>
-
-      <Options option={option} setOption={setOption} />
-      <div className="flex h-[226px] w-full justify-center">
-        {option == "camera" && <Camera setSection={setSection} />}
+      <div className="flex flex-col gap-y-8">
+        <Options option={option} setOption={setOption} />
+        <div className="flex h-[226px] w-full justify-center">
+          {option == "camera" && <Camera getCodeProduct={getCodeProduct} />}
+          {option == "manual" && (
+            <div className="w-3/4 flex flex-col gap-y-1">
+              <h2 className="text-center text-xs font-normal font-roboto text-grisText">INGRESA</h2>
+              <input type={"text"} className={"bg-inherit rounded-[10px] h-[30px] px-4 border border-grisDisabled text-sm font-medium text-[#44444f]"} onKeyDown={(e) => infoProduct(e)} />
+            </div>
+          )}
+        </div>  
       </div>
     </>
   );

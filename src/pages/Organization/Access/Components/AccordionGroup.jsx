@@ -111,7 +111,6 @@ function ProjectTab({ tasks, module_id, onPositionSelect, selectedPositions }) {
                   >
                     <div 
                       className="col-span-2 flex items-center text-xs font-normal text-grisHeading"
-                      onClick={(e) => e.stopPropagation()} // Prevenir propagación en el contenedor del checkbox
                     >
                       <div className="ml-4 mr-4">
                         <Checkbox 
